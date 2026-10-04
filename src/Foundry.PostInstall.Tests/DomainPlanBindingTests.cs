@@ -10,13 +10,24 @@ namespace Foundry.PostInstall.Tests;
 public sealed class DomainPlanBindingTests
 {
     [Fact]
-    public async Task CapabilityTwo_PreservesLegacyExecution()
+    public void DomainActionsUseContractOneWithExclusiveCredentialOwnership()
+    {
+        using var fixture = new DomainFixture();
+        var plan = fixture.Plan with { RuntimeContractVersion = 1 };
+        PreOobePlanValidator.ValidatePlan(plan);
+        var binding = DomainJoinBinding.Validate(plan);
+        Assert.Equal(fixture.Plan.Actions[0].Id, binding.JoinAction.Id);
+        Assert.Equal(fixture.Plan.Actions[1].Id, binding.VerificationAction.Id);
+    }
+
+    [Fact]
+    public async Task ContractOnePreservesLegacyExecution()
     {
         string root = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
         try
         {
-            var plan = new PreOobeExecutionPlan { OperationId = "operation", AttemptId = "attempt", RuntimeContractVersion = 2 };
+            var plan = new PreOobeExecutionPlan { OperationId = "operation", AttemptId = "attempt", RuntimeContractVersion = 1 };
             var journal = new ExecutionJournal(root);
             journal.Seed(plan, new string('a', 64));
             var outcome = await new PreOobeOrchestrator(root, new string('a', 64), journal, new Executor(), () => "boot")
@@ -26,7 +37,7 @@ public sealed class DomainPlanBindingTests
         finally { Directory.Delete(root, true); }
     }
     [Theory]
-    [InlineData("capability")]
+    [InlineData("contract")]
     [InlineData("consumer")]
     [InlineData("verification")]
     [InlineData("payload")]
@@ -36,7 +47,7 @@ public sealed class DomainPlanBindingTests
         using var f = new DomainFixture();
         var plan = fault switch
         {
-            "capability" => f.Plan with { RuntimeContractVersion = 1 },
+            "contract" => f.Plan with { RuntimeContractVersion = 2 },
             "consumer" => f.Plan with { OwnedPayloads = [f.Plan.OwnedPayloads[0] with { ConsumerActionIds = ["join", "verify"] }] },
             "verification" => f.Plan with { Actions = [f.Plan.Actions[0]] },
             "payload" => f.Plan with { OwnedPayloads = [f.Plan.OwnedPayloads[0] with { RelativePath = "Payloads/wrong.bin" }] },

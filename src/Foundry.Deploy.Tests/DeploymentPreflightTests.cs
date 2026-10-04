@@ -61,7 +61,7 @@ public sealed class DeploymentPreflightTests
     }
 
     [Fact]
-    public async Task DomainCapabilityIsRevalidatedImmediatelyBeforeErasure()
+    public async Task DomainContractOneRuntimeRemainsValidBeforeErasure()
     {
         using var fixture = new PipelineFixture { Mode = DeploymentMode.Iso };
         fixture.DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
@@ -69,13 +69,14 @@ public sealed class DeploymentPreflightTests
         using var context = fixture.CreateContext();
         Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Preflight.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
         context.PostInstallContent!.Dispose();
-        context.PostInstallContent = NativeRuntimeFixture.Create(Path.Combine(fixture.Root, "legacy"));
-        Assert.Equal(DeploymentStepState.Failed, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
-        Assert.DoesNotContain("partition", fixture.Events);
+        context.PostInstallContent = NativeRuntimeFixture.Create(Path.Combine(fixture.Root, "replacement"));
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Equal(1, context.PostInstallContent.RuntimeManifest.ContractVersion);
+        Assert.Contains("partition", fixture.Events);
     }
 
     [Fact]
-    public async Task ActiveDomainLegacyRuntimeFailsBeforeDiskPreparation()
+    public async Task ActiveDomainContractOneRuntimeIsPreparedBeforeDiskPreparation()
     {
         using var fixture = new PipelineFixture();
         fixture.DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
@@ -83,9 +84,8 @@ public sealed class DeploymentPreflightTests
         using var context = fixture.CreateContext();
         var resolver = new PreOobeContentResolver { RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(fixture.Root) };
         var result = await fixture.CreatePostInstallPreflight(resolver).ExecuteAsync(context, TestContext.Current.CancellationToken);
-        Assert.Equal(DeploymentStepState.Failed, result.State);
-        Assert.Equal("postinstall_preflight_failed", result.Failure?.Code);
-        Assert.Equal(DeploymentStepState.Failed, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(1, context.PostInstallContent!.RuntimeManifest.ContractVersion);
         Assert.DoesNotContain("partition", fixture.Events);
     }
 
@@ -799,7 +799,7 @@ public sealed class DeploymentPreflightTests
             {
                 if (fixture.Failure == "missing_postinstall") throw new InvalidDataException("Required package or runtime is unavailable.");
                 if (fixture.Failure == "runtime_unavailable") throw new PostInstallRuntimeUnavailableException(new HttpRequestException("Release unavailable."));
-                return Task.FromResult<PreOobePreparedContent?>(IsRequired(context.Request) ? NativeRuntimeFixture.Create(fixture.Root, RequiredContractVersion(context)) : null);
+                return Task.FromResult<PreOobePreparedContent?>(IsRequired(context.Request) ? NativeRuntimeFixture.Create(fixture.Root) : null);
             }
         }
 

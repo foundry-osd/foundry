@@ -140,7 +140,7 @@ public sealed class StagePreOobeCustomizationStepTests
         }
         byte[] planBytes = File.ReadAllBytes(context.RuntimeState.PreOobeManifestPath!);
         using var plan = JsonDocument.Parse(planBytes);
-        Assert.Equal(2, plan.RootElement.GetProperty("runtimeContractVersion").GetInt32());
+        Assert.Equal(1, plan.RootElement.GetProperty("runtimeContractVersion").GetInt32());
         Assert.DoesNotContain("joiner", Encoding.UTF8.GetString(planBytes));
         Assert.DoesNotContain("secret", File.ReadAllText(Path.Combine(stateRoot, "execution-result.json")));
         Assert.Equal(new[] { "domain-join", "verify-domain-membership", "cleanup" }, plan.RootElement.GetProperty("actions").EnumerateArray().Select(action => action.GetProperty("id").GetString()));
@@ -501,15 +501,6 @@ public sealed class StagePreOobeCustomizationStepTests
         string fixtureRuntime = Path.Combine(tempDirectory.RootPath, "context-runtime");
         Directory.CreateDirectory(fixtureRuntime);
         context.PostInstallContent = NativeRuntimeFixture.Create(fixtureRuntime);
-        if (domain)
-        {
-            context.PostInstallContent.Dispose();
-            string executable = NativeRuntimeFixture.CreateFiles(Path.Combine(fixtureRuntime, "domain"));
-            string directory = Path.GetDirectoryName(executable)!;
-            var manifest = JsonSerializer.Deserialize<PostInstallRuntimeManifest>(File.ReadAllText(Path.Combine(directory, PostInstallRuntimeManifest.FileName)), Foundry.Deploy.Services.Configuration.ConfigurationJsonDefaults.SerializerOptions)!;
-            NativeRuntimeFixture.WriteManifest(directory, manifest with { ContractVersion = 2 });
-            context.PostInstallContent = PostInstallRuntimeSource.AcquireAsync(executable, "win-x64", CancellationToken.None).GetAwaiter().GetResult();
-        }
         return context;
     }
 

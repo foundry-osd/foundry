@@ -13,7 +13,7 @@ internal static class PreOobePlanValidator
 {
     public static void ValidatePlan(PreOobeExecutionPlan plan)
     {
-        if (plan.SchemaVersion != 1 || plan.RuntimeContractVersion is not (1 or 2) ||
+        if (plan.SchemaVersion != 1 || plan.RuntimeContractVersion != 1 ||
             string.IsNullOrWhiteSpace(plan.OperationId) || string.IsNullOrWhiteSpace(plan.AttemptId) ||
             plan.Actions.Count > PreOobeConfigurationValidator.MaximumActions + Enum.GetValues<PreOobeBuiltInKind>().Length ||
             plan.Actions.Count(action => action.CustomAction is not null) > PreOobeConfigurationValidator.MaximumActions ||

@@ -215,7 +215,7 @@ internal sealed class DomainFixture : IDisposable
         {
             OperationId = operation,
             AttemptId = Guid.NewGuid().ToString("N"),
-            RuntimeContractVersion = 2,
+            RuntimeContractVersion = 1,
             Actions = [new() { Id = "join", BuiltInKind = PreOobeBuiltInKind.DomainJoinAndPlacement, Parameters = JsonSerializer.SerializeToElement(Parameters, ExecutionJournal.JsonOptions) },
                 new() { Id = "verify", BuiltInKind = PreOobeBuiltInKind.VerifyDomainMembership, Parameters = JsonSerializer.SerializeToElement(new DomainMembershipVerificationParameters("example.test", "PC-01", "join"), ExecutionJournal.JsonOptions) }],
             OwnedPayloads = [new() { RelativePath = Parameters.CredentialPayloadPath, IsSensitive = true, ConsumerActionIds = ["join"] }]

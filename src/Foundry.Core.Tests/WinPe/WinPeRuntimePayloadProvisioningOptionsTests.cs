@@ -11,11 +11,11 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public void DomainRequirementRetainsExplicitPostInstallSourceWithoutDeployDebug(bool archive)
+    public void DomainMediaRetainsExplicitPostInstallSourceWithoutDeployDebug(bool archive)
     {
         var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(WinPeArchitecture.X64, "work", "mount", "usb", false,
             key => key == (archive ? WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallArchive : WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallProject)
-                ? archive ? "selected.zip" : "selected.csproj" : null).WithDomainJoinRequirement(true);
+                ? archive ? "selected.zip" : "selected.csproj" : null).WithDomainJoinRuntime(true);
         Assert.True(options.PostInstall.IsEnabled);
         Assert.Equal(archive ? "selected.zip" : "", options.PostInstall.ArchivePath);
         Assert.Equal(archive ? "" : "selected.csproj", options.PostInstall.ProjectPath);

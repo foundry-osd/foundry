@@ -153,7 +153,6 @@ public sealed class PreOobeTargetStagingService
             owned.Add(new() { RelativePath = $"Work/PreOobe/{operationId}", IsDirectory = true, ConsumerActionIds = actions.Where(action => action.CustomAction is not null).Select(action => action.Id).ToArray() });
             var plan = new PreOobeExecutionPlan
             {
-                RuntimeContractVersion = PreOobeContentResolver.RequiredContractVersion(context),
                 OperationId = operationId,
                 AttemptId = Guid.NewGuid().ToString("N"),
                 DiagnosticSessionId = Foundry.Utilities.Diagnostics.DiagnosticSessionContext.CurrentSessionId,

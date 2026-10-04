@@ -15,13 +15,15 @@ namespace Foundry.Deploy.Tests;
 public sealed class PostInstallRuntimeRecoveryTests
 {
     [Fact]
-    public async Task AuthenticLegacyCachedRuntimeCannotSatisfyDomainOrReplaceCache()
+    public async Task AuthenticatedContractOneCachedRuntimeRemainsAvailable()
     {
         using var fixture = new Fixture();
         File.WriteAllBytes(fixture.CacheArchive, fixture.Archive);
-        await Assert.ThrowsAsync<PostInstallRuntimeUnavailableException>(() => fixture.Recovery.AcquireAsync("win-x64", fixture.CacheRoot, TestContext.Current.CancellationToken, requiredContractVersion: 2));
+        using var prepared = await fixture.Recovery.AcquireAsync("win-x64", fixture.CacheRoot, TestContext.Current.CancellationToken);
+        Assert.Equal(1, prepared.RuntimeManifest.ContractVersion);
         Assert.Equal(fixture.Archive, File.ReadAllBytes(fixture.CacheArchive));
         Assert.Equal("original", File.ReadAllText(fixture.OriginalArchive));
+        prepared.Dispose();
         Assert.Empty(Directory.GetDirectories(Path.Combine(fixture.WinPeRoot, "Execution")));
     }
 

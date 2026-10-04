@@ -20,7 +20,7 @@ foreach ($rid in $(if ($AllRuntimes) { @('win-x64', 'win-arm64') } else { @($Run
         $path = Join-Path $publish $_
         [ordered]@{ relativePath = $_; length = (Get-Item -LiteralPath $path).Length; sha256 = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
     })
-    $manifest = [ordered]@{ schemaVersion = 1; contractVersion = 2; runtimeIdentifier = $rid; files = $files }
+    $manifest = [ordered]@{ schemaVersion = 1; contractVersion = 1; runtimeIdentifier = $rid; files = $files }
     [IO.File]::WriteAllText((Join-Path $publish 'foundry.postinstall.json'), ($manifest | ConvertTo-Json -Depth 10), [Text.UTF8Encoding]::new($false))
     $archive = Join-Path $OutputRoot "Foundry.PostInstall-$rid.zip"
     Compress-Archive -Path (Join-Path $publish '*') -DestinationPath $archive -CompressionLevel Optimal -Force

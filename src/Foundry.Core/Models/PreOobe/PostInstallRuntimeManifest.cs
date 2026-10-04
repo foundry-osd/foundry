@@ -9,7 +9,6 @@ public sealed record PostInstallRuntimeManifest
 {
     public const string FileName = "foundry.postinstall.json";
     public const string ExecutableEnvironmentVariable = "FOUNDRY_POSTINSTALL_PATH";
-    public const int CurrentContractVersion = 2;
     public int SchemaVersion { get; init; } = 1;
     public int ContractVersion { get; init; } = 1;
     public string RuntimeIdentifier { get; init; } = string.Empty;

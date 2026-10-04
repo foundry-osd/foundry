@@ -15,7 +15,7 @@ internal sealed record DomainJoinBinding(PreOobeExecutionAction JoinAction, Doma
 {
     public static DomainJoinBinding Validate(PreOobeExecutionPlan plan)
     {
-        if (plan.RuntimeContractVersion != 2 || !Guid.TryParseExact(plan.OperationId, "N", out _) ||
+        if (plan.RuntimeContractVersion != 1 || !Guid.TryParseExact(plan.OperationId, "N", out _) ||
             !Guid.TryParseExact(plan.AttemptId, "N", out _)) throw new InvalidDataException("Domain operation identity is invalid.");
         var joins = plan.Actions.Where(a => a.BuiltInKind == PreOobeBuiltInKind.DomainJoinAndPlacement).ToArray();
         var checks = plan.Actions.Where(a => a.BuiltInKind == PreOobeBuiltInKind.VerifyDomainMembership).ToArray();

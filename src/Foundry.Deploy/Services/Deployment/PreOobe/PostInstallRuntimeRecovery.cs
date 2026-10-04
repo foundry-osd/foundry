@@ -30,7 +30,7 @@ internal sealed class PostInstallRuntimeRecovery(string winPeRoot, string deploy
 
     /// <summary>Returns locked, compatible runtime files; publishing the USB cache is best effort and never overwrites original.zip.</summary>
     internal async Task<PreOobePreparedContent> AcquireAsync(string runtimeIdentifier, string? cacheRoot,
-        CancellationToken cancellationToken, IProgress<DownloadProgress>? progress = null, int requiredContractVersion = 1)
+        CancellationToken cancellationToken, IProgress<DownloadProgress>? progress = null)
     {
         cancellationToken.ThrowIfCancellationRequested();
         string workspace = Path.Combine(winPeRoot, "Execution", Guid.NewGuid().ToString("N"));
@@ -67,7 +67,7 @@ internal sealed class PostInstallRuntimeRecovery(string winPeRoot, string deploy
 
             await RuntimeArchive.ExtractAsync(archive, payload, cancellationToken).ConfigureAwait(false);
             prepared = await PostInstallRuntimeSource.AcquireAsync(Path.Combine(payload, ApplicationName + ".exe"),
-                runtimeIdentifier, cancellationToken, requiredContractVersion).ConfigureAwait(false);
+                runtimeIdentifier, cancellationToken).ConfigureAwait(false);
             if (cacheArchive is not null)
             {
                 try { await RuntimeArchiveCache.StoreAsync(archive, cacheArchive, cancellationToken).ConfigureAwait(false); }

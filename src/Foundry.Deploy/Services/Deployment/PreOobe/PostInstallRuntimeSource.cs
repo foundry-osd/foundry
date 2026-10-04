@@ -14,7 +14,7 @@ namespace Foundry.Deploy.Services.Deployment.PreOobe;
 /// <summary>Checks and holds the authenticated runtime prepared by Bootstrap or Deploy until target staging.</summary>
 internal static class PostInstallRuntimeSource
 {
-    internal static async Task<PreOobePreparedContent> AcquireAsync(string? executablePath, string expectedRid, CancellationToken cancellationToken, int requiredContractVersion = 1)
+    internal static async Task<PreOobePreparedContent> AcquireAsync(string? executablePath, string expectedRid, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(executablePath) || !Path.IsPathFullyQualified(executablePath) ||
             !Path.GetFileName(executablePath).Equals("Foundry.PostInstall.exe", StringComparison.OrdinalIgnoreCase))
@@ -36,7 +36,7 @@ internal static class PostInstallRuntimeSource
                     ?? throw new InvalidDataException("PostInstall runtime metadata is missing.");
             }
             catch (JsonException exception) { throw new InvalidDataException("PostInstall runtime metadata is invalid.", exception); }
-            Validate(manifest, expectedRid, requiredContractVersion);
+            Validate(manifest, expectedRid);
             prepared = new() { RuntimeIdentifier = expectedRid, RuntimeDirectory = directory, RuntimeManifest = manifest };
             prepared.Files.Add((manifestPath, manifestStream));
             foreach (var file in manifest.Files)
@@ -54,9 +54,9 @@ internal static class PostInstallRuntimeSource
         }
     }
 
-    internal static void Validate(PostInstallRuntimeManifest manifest, string expectedRid, int requiredContractVersion = 1)
+    internal static void Validate(PostInstallRuntimeManifest manifest, string expectedRid)
     {
-        if (requiredContractVersion is not (1 or 2) || manifest.SchemaVersion != 1 || manifest.ContractVersion is not (1 or 2) || manifest.ContractVersion < requiredContractVersion ||
+        if (manifest.SchemaVersion != 1 || manifest.ContractVersion != 1 ||
             expectedRid is not ("win-x64" or "win-arm64") || manifest.RuntimeIdentifier != expectedRid ||
             manifest.Files is null || manifest.Files.Count is < 2 or > 1024)
             throw new InvalidDataException("PostInstall runtime is incompatible with the selected Windows image or deployment contract.");

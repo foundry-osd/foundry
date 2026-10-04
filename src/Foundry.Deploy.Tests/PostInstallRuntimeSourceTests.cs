@@ -11,32 +11,6 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class PostInstallRuntimeSourceTests
 {
-    [Theory]
-    [InlineData(1, 2, false)]
-    [InlineData(2, 2, true)]
-    [InlineData(2, 1, true)]
-    [InlineData(3, 2, false)]
-    public async Task RuntimeMustMeetEffectiveCapability(int contract, int required, bool accepted)
-    {
-        using var fixture = new Fixture();
-        fixture.Write(fixture.Manifest with { ContractVersion = contract });
-        if (accepted)
-        {
-            using var prepared = await PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", TestContext.Current.CancellationToken, required);
-            Assert.Equal(contract, prepared.RuntimeManifest.ContractVersion);
-        }
-        else await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", TestContext.Current.CancellationToken, required));
-    }
-
-    [Fact]
-    public async Task CurrentRuntimeSupportsLegacyDeployment()
-    {
-        using var fixture = new Fixture();
-        fixture.Write(fixture.Manifest with { ContractVersion = 2 });
-        using var prepared = await PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", TestContext.Current.CancellationToken);
-        Assert.Equal(2, prepared.RuntimeManifest.ContractVersion);
-    }
-
     [Fact]
     public async Task BootstrapHandoff_VerifiesAndLocksFilesUntilDisposedWithoutDeletingRuntime()
     {
@@ -57,6 +31,8 @@ public sealed class PostInstallRuntimeSourceTests
 
     [Theory]
     [InlineData(2, 1, "win-x64")]
+    [InlineData(1, 0, "win-x64")]
+    [InlineData(1, 2, "win-x64")]
     [InlineData(1, 3, "win-x64")]
     [InlineData(1, 1, "win-arm64")]
     public async Task IncompatibleBootstrapRuntime_IsRejected(int schema, int contract, string rid)

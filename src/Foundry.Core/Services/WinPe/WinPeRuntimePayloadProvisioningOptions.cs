@@ -57,13 +57,9 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     /// <summary>Gets Foundry.PostInstall payload options, following the Deploy debug selection.</summary>
     public WinPeRuntimePayloadApplicationOptions PostInstall { get; init; } = new();
 
-    /// <summary>Gets the minimum runtime capability required by the frozen media configuration.</summary>
-    public int RequiredPostInstallContractVersion { get; init; } = 1;
-
     /// <summary>Enables the selected local runtime or paired release source when domain actions require it.</summary>
-    public WinPeRuntimePayloadProvisioningOptions WithDomainJoinRequirement(bool enabled) => !enabled ? this : this with
+    public WinPeRuntimePayloadProvisioningOptions WithDomainJoinRuntime(bool enabled) => !enabled ? this : this with
     {
-        RequiredPostInstallContractVersion = 2,
         PostInstall = PostInstall.IsEnabled || !string.IsNullOrWhiteSpace(PostInstall.ArchivePath) || !string.IsNullOrWhiteSpace(PostInstall.ProjectPath)
             ? PostInstall with { IsEnabled = true }
             : new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }

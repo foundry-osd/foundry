@@ -31,8 +31,6 @@ public class PreOobeContentResolver
     internal static bool HasDomainTasks(DeploymentContext request, DeploymentRuntimeState? state = null) =>
         state is null ? request.DomainJoinIntent is not null : state.DomainJoinStatus is DomainJoinExecutionStatus.Pending or DomainJoinExecutionStatus.Ready;
 
-    internal static int RequiredContractVersion(DeploymentStepExecutionContext context) => HasDomainTasks(context.Request, context.RuntimeState) ? 2 : 1;
-
     internal static bool HasBuiltInTasks(Models.Configuration.DeployAppxRemovalSettings appxRemoval,
         Models.Configuration.DeployAiComponentRemovalSettings aiRemoval, bool deferredDriver, bool network, bool activation) =>
         deferredDriver || network || activation || appxRemoval.IsEnabled && appxRemoval.PackageNames.Any(name => !string.IsNullOrWhiteSpace(name)) ||
@@ -53,7 +51,6 @@ public class PreOobeContentResolver
         Foundry.Core.Services.Configuration.PreOobeConfigurationValidator.ThrowIfInvalid(new PreOobeSettings
         { IsEnabled = context.Request.PreOobe.IsEnabled, Actions = context.Request.PreOobe.Actions });
         if (!IsRequired(context.Request, context.RuntimeState)) return null;
-        int required = RequiredContractVersion(context);
         string rid = ResolveRid(context.Request.OperatingSystem.Architecture);
         PreOobePreparedContent prepared;
         if (string.IsNullOrWhiteSpace(RuntimeExecutablePath))
@@ -63,11 +60,11 @@ public class PreOobeContentResolver
             string? cacheRoot = context.Request.Mode == Models.DeploymentMode.Usb ? context.RuntimeState.ResolvedCache?.RootPath : null;
             if (cacheRoot is not null && !await context.IsExternalStorageAsync(cacheRoot, cancellationToken).ConfigureAwait(false)) cacheRoot = null;
             prepared = await RuntimeRecovery.AcquireAsync(rid, cacheRoot, cancellationToken,
-                context.CreateDownloadProgressReporter("Foundry.PostInstall", DeploymentOperationNames.PreflightDeployment), required).ConfigureAwait(false);
+                context.CreateDownloadProgressReporter("Foundry.PostInstall", DeploymentOperationNames.PreflightDeployment)).ConfigureAwait(false);
         }
         else
         {
-            prepared = await PostInstallRuntimeSource.AcquireAsync(RuntimeExecutablePath, rid, cancellationToken, required).ConfigureAwait(false);
+            prepared = await PostInstallRuntimeSource.AcquireAsync(RuntimeExecutablePath, rid, cancellationToken).ConfigureAwait(false);
         }
         try
         {
@@ -145,7 +142,7 @@ public class PreOobeContentResolver
 
     internal static async Task RevalidateAsync(DeploymentStepExecutionContext context, PreOobePreparedContent content, CancellationToken cancellationToken)
     {
-        PostInstallRuntimeSource.Validate(content.RuntimeManifest, ResolveRid(context.Request.OperatingSystem.Architecture), RequiredContractVersion(context));
+        PostInstallRuntimeSource.Validate(content.RuntimeManifest, ResolveRid(context.Request.OperatingSystem.Architecture));
         await RequireRuntimeSourceAsync(context, content.RuntimeDirectory, cancellationToken).ConfigureAwait(false);
         foreach (var file in content.Files)
         {
