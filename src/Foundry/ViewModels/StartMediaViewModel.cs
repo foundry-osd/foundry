@@ -196,6 +196,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     /// </summary>
     public ObservableCollection<StartConfigurationOverviewItemViewModel> AutopilotOverviewItems { get; } = [];
 
+    /// <summary>Gets both exclusive domain joining mode overview rows.</summary>
+    public ObservableCollection<StartConfigurationOverviewItemViewModel> DomainJoinOverviewItems { get; } = [];
+
     /// <summary>
     /// Gets the customization overview rows.
     /// </summary>
@@ -286,6 +289,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public partial bool IsAutopilotOverviewExpanded { get; set; }
 
     [ObservableProperty]
+    public partial bool IsDomainJoinOverviewExpanded { get; set; }
+
+    [ObservableProperty]
     public partial bool IsCustomizationOverviewExpanded { get; set; }
 
     [ObservableProperty]
@@ -296,6 +302,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     public partial string AutopilotOverviewSummary { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string DomainJoinOverviewSummary { get; set; } = string.Empty;
 
     [ObservableProperty]
     public partial string CustomizationOverviewSummary { get; set; } = string.Empty;
@@ -1993,6 +2002,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IsAutopilotOverviewExpanded = ReplaceOverviewItems(
             AutopilotOverviewItems,
             BuildAutopilotOverview(options, overview));
+        IsDomainJoinOverviewExpanded = ReplaceOverviewItems(DomainJoinOverviewItems,
+        (StartConfigurationOverviewItemViewModel[])[
+            CreateOverviewItem(ConfigurationOverviewItem.DomainJoinInteractive, overview, "Nav_InteractiveDomainJoinKey.Title",
+                localizationService.GetString("Nav_InteractiveDomainJoinKey.Description"), ConfigurationNavigationTarget.DomainJoinInteractive),
+            CreateOverviewItem(ConfigurationOverviewItem.DomainJoinAutomatic, overview, "Nav_ZeroTouchDomainJoinKey.Title",
+                localizationService.GetString("Nav_ZeroTouchDomainJoinKey.Description"), ConfigurationNavigationTarget.DomainJoinAutomatic)
+        ]);
         IsCustomizationOverviewExpanded = ReplaceOverviewItems(
             CustomizationOverviewItems,
             BuildCustomizationOverview(configuration, overview));
@@ -2000,6 +2016,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         GeneralConfigurationOverviewSummary = GetOverviewSummary(GeneralConfigurationOverviewItems);
         NetworkOverviewSummary = GetOverviewSummary(NetworkOverviewItems);
         AutopilotOverviewSummary = GetOverviewSummary(AutopilotOverviewItems);
+        DomainJoinOverviewSummary = GetOverviewSummary(DomainJoinOverviewItems);
         CustomizationOverviewSummary = GetOverviewSummary(CustomizationOverviewItems);
     }
 

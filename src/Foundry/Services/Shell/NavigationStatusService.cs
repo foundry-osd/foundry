@@ -49,12 +49,15 @@ internal sealed class NavigationStatusService : INavigationStatusService
 
         bool isAutopilotTarget = target is ConfigurationNavigationTarget.AutopilotJsonProfile or
             ConfigurationNavigationTarget.AutopilotHardwareHashUpload or
-            ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload;
+            ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload or
+            ConfigurationNavigationTarget.DomainJoinInteractive or ConfigurationNavigationTarget.DomainJoinAutomatic;
         return ToNavigationStatus(state, isAutopilotTarget);
     }
 
     private static ConfigurationNavigationTarget ResolveTarget(Type pageType)
     {
+        if (pageType == typeof(InteractiveDomainJoinPage)) return ConfigurationNavigationTarget.DomainJoinInteractive;
+        if (pageType == typeof(ZeroTouchDomainJoinPage)) return ConfigurationNavigationTarget.DomainJoinAutomatic;
         if (pageType == typeof(GeneralConfigurationPage))
         {
             return ConfigurationNavigationTarget.General;

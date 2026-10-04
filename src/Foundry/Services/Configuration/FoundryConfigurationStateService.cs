@@ -192,6 +192,12 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public bool IsAutopilotConfigurationReady => AutopilotConfigurationValidation.IsReady;
 
     /// <inheritdoc />
+    public bool IsDomainJoinConfigurationReady => DomainJoinConfigurationValidator.EvaluateReadiness(
+        Current.DomainJoin,
+        domainJoinSecretStateService.HasPassword(new(Current.DomainJoin.DomainName ?? string.Empty, Current.DomainJoin.AccountName ?? string.Empty)),
+        Current.General.DeploymentProtection.IsEnabled && deploymentProtectionSecretStateService.IsValid).IsValid;
+
+    /// <inheritdoc />
     public bool IsUnattendConfigurationReady
     {
         get
@@ -368,9 +374,20 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     /// <inheritdoc />
     public void UpdateAutopilot(AutopilotSettings settings)
     {
-        ArgumentNullException.ThrowIfNull(settings);
-        Current = Current with { Autopilot = SanitizeAutopilotForPersistence(settings) };
-        Save();
+        UpdateProvisioningSelection(settings, Current.DomainJoin);
+    }
+
+    /// <inheritdoc />
+    public void UpdateDomainJoin(DomainJoinSettings settings) => UpdateProvisioningSelection(Current.Autopilot, settings);
+
+    /// <inheritdoc />
+    public void UpdateProvisioningSelection(AutopilotSettings autopilot, DomainJoinSettings domainJoin)
+    {
+        DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(autopilot, domainJoin);
+        FoundryConfigurationDocument candidate = Current with { Autopilot = SanitizeAutopilotForPersistence(autopilot), DomainJoin = domainJoin };
+        Save(candidate, throwOnFailure: true);
+        Current = candidate;
+        domainJoinSecretStateService.Update(domainJoin);
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -657,6 +674,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     private static FoundryConfigurationDocument SanitizeForPersistence(FoundryConfigurationDocument document)
     {
+        DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(document.Autopilot, document.DomainJoin);
         return document with
         {
             General = SanitizeGeneralForPersistence(document.General),

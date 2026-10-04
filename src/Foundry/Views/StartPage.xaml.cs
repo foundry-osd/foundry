@@ -36,6 +36,7 @@ public sealed partial class StartPage : Page
         GeneralConfigurationOverviewCard.Header = localizationService.GetString("Nav_GeneralConfigurationKey.Title");
         NetworkOverviewCard.Header = localizationService.GetString("Nav_NetworkSection.Title");
         AutopilotOverviewCard.Header = localizationService.GetString("Nav_WindowsAutopilotSection.Title");
+        DomainJoinOverviewCard.Header = localizationService.GetString("Nav_DomainJoinSection.Title");
         CustomizationOverviewCard.Header = localizationService.GetString("Nav_CustomizationSection.Title");
 
         IsoPathCard.Header = localizationService.GetString("StartMedia.IsoPath.Header");
@@ -95,6 +96,12 @@ public sealed partial class StartPage : Page
                 break;
             case ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload:
                 App.Current.NavigationService.NavigateTo(typeof(AutopilotInteractiveHashUploadPage));
+                break;
+            case ConfigurationNavigationTarget.DomainJoinInteractive:
+                App.Current.NavigationService.NavigateTo(typeof(InteractiveDomainJoinPage));
+                break;
+            case ConfigurationNavigationTarget.DomainJoinAutomatic:
+                App.Current.NavigationService.NavigateTo(typeof(ZeroTouchDomainJoinPage));
                 break;
             case ConfigurationNavigationTarget.OperatingSystemSelection:
                 App.Current.NavigationService.NavigateTo(typeof(OsSelectionPage));

@@ -1828,6 +1828,183 @@ Licensed under the MIT License.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Documentation could not be opened</value>
   </data>
+  <data name="DomainJoin.Activate" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
+    <value>Check the target DNS domain, destination label and distinguished name. Destinations must belong to the catalog domain, with at most 1,024 entries.</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Enter a valid target DNS domain and qualified account before setting a password. Passwords must fit the supported size and contain no NUL characters.</value>
+  </data>
+  <data name="DomainJoin.Deactivate" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>Discovering destinations from this computer's AD domain...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>Discovery was canceled. Manual destination controls remain available.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
+    <value>Discovery completed. Select the destinations to import.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>This preview is incomplete. Directory limits, unreadable entries or referrals may have omitted destinations. Selected visible entries can still be imported.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>Discovery timed out. Manual destination controls remain available.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Discovery is unavailable. Check computer domain membership, connectivity and directory read access, or add destinations manually.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>Import was not applied. The target and catalog domain must match the discovered computer domain, and the resulting catalog must fit the supported bounds.</value>
+  </data>
+  <data name="DomainJoin.Imported" xml:space="preserve">
+    <value>Selected destinations were imported.</value>
+  </data>
+  <data name="DomainJoin.Inactive" xml:space="preserve">
+    <value>This provisioning mode is inactive.</value>
+  </data>
+  <data name="DomainJoin.Ready" xml:space="preserve">
+    <value>Domain joining is ready.</value>
+  </data>
+  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
+    <value>Activating this mode replaces the current Domain Join or Windows Autopilot mode. Inactive nonsecret settings are retained; domain credentials are cleared when their ownership changes.</value>
+  </data>
+  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
+    <value>Replace active provisioning mode?</value>
+  </data>
+  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
+    <value>Select at least one destination from the preview.</value>
+  </data>
+  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
+    <value>Enter the domain account.</value>
+  </data>
+  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
+    <value>The target DNS domain must match the destination catalog domain. Remove old catalog entries before changing domains.</value>
+  </data>
+  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
+    <value>Set a DNS domain for the destination catalog.</value>
+  </data>
+  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
+    <value>Select an existing default destination or clear the default.</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
+    <value>Enter the target DNS domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
+    <value>The catalog contains duplicate destination distinguished names.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>The catalog contains duplicate destination identities.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
+    <value>Enter a valid account within the supported length.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
+    <value>Enter a valid catalog DNS domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
+    <value>A destination distinguished name is invalid.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Enter a valid target DNS domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Each destination needs a label of at most 120 characters.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
+    <value>A destination has an invalid identity. Remove and add it again.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Enable media password protection on the General page and enter a valid media password.</value>
+  </data>
+  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
+    <value>Add destinations before enabling selection, or clear the selection and default.</value>
+  </data>
+  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
+    <value>Every destination must be inside the catalog domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Enter the account password for this domain and account.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>Use DOMAIN\user or user@domain for the account.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>The catalog supports at most 1,024 destinations.</value>
+  </data>
+  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
+    <value>Select a supported domain joining mode.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Account (DOMAIN\user or user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>Add destination</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+    <value>Allow destination selection during deployment</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Cancel discovery</value>
+  </data>
+  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
+    <value>Clear default</value>
+  </data>
+  <data name="DomainJoinCredentials.Description" xml:space="preserve">
+    <value>Use a qualified account with administrator-delegated join and placement permissions. Foundry does not audit permissions. The password is cleared when the domain, account or active mode changes.</value>
+  </data>
+  <data name="DomainJoinCredentials.Header" xml:space="preserve">
+    <value>Domain credentials</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
+    <value>Default destination (optional)</value>
+  </data>
+  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
+    <value>Without a catalog, technicians may type an optional OU. With a catalog, destinations are restricted to its entries. A fixed default has no picker; a picker without a default requires selection. Existing computer accounts move to the selected destination.</value>
+  </data>
+  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
+    <value>Destination selection</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Discover destinations</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Uses this computer's AD domain and your current Windows identity. Preview and select entries explicitly; import preserves manual rows and the default. Discovery does not test join permissions.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>Import from the computer domain</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Import selected destinations</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Enter a label and a valid distinguished name inside the target DNS domain. Manual entries remain available when directory discovery fails.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>Add a destination manually</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>OU distinguished name</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Display label</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Account password</value>
+  </data>
+  <data name="DomainJoinRemove.Content" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
+    <value>Required for Zero Touch and an OU catalog. Optional for interactive deployment without a catalog.</value>
+  </data>
+  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
+    <value>Target DNS domain</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Trusted root CA certificate file</value>
   </data>
@@ -1980,6 +2157,12 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Media readiness status</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Request domain and account credentials during deployment. This mode does not require a media password.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Interactive Domain Join</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabic (Saudi Arabia)</value>
@@ -2191,6 +2374,9 @@ Licensed under the MIT License.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Documentation</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Domain Join</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Configure wired 802.1X authentication.</value>
   </data>
@@ -2211,6 +2397,12 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>Request domain credentials during deployment and optionally select a destination OU.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Interactive Domain Join</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Configure deployed device names.</value>
@@ -2271,6 +2463,12 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Windows Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Join using embedded credentials protected by the General-page media password.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero Touch Domain Join</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Active provisioning mode</value>
@@ -3901,5 +4099,11 @@ Applying the update restarts Foundry OSD.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Embed domain credentials using the existing media password configured on the General page.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Zero Touch Domain Join</value>
   </data>
 </root>

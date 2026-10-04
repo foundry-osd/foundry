@@ -38,6 +38,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private readonly ILogger logger;
     private bool isApplyingState = true;
     private bool isSavingState;
+    private bool isDisposed;
     private AutopilotProvisioningMode provisioningMode = AutopilotProvisioningMode.JsonProfile;
     private AutopilotHardwareHashUploadSettings hardwareHashUploadSettings = new();
     private AutopilotTenantOnboardingStatus? tenantOnboardingStatus;
@@ -447,6 +448,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// </summary>
     public void Dispose()
     {
+        isDisposed = true;
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
         Profiles.CollectionChanged -= OnProfilesCollectionChanged;
@@ -460,17 +462,22 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// <param name="mode">Provisioning mode represented by the current page.</param>
     public async Task ToggleProvisioningModeAsync(AutopilotProvisioningMode mode)
     {
+        FoundryConfigurationDocument baseline = configurationStateService.Current;
         AutopilotProvisioningModeToggleResult result = AutopilotProvisioningModeToggleEvaluator.Evaluate(
-            IsAutopilotEnabled,
-            provisioningMode,
+            baseline.Autopilot.IsEnabled,
+            baseline.Autopilot.ProvisioningMode,
             mode);
 
-        if (result.RequiresConfirmation && !await ConfirmProvisioningModeReplacementAsync(mode))
+        if ((result.RequiresConfirmation || result.IsEnabled && baseline.DomainJoin.IsEnabled) &&
+            !await ConfirmProvisioningModeReplacementAsync(mode))
         {
             return;
         }
 
-        ApplyProvisioningModeState(result.Mode, result.IsEnabled);
+        if (isDisposed || !ReferenceEquals(baseline, configurationStateService.Current)) return;
+        configurationStateService.UpdateProvisioningSelection(
+            baseline.Autopilot with { ProvisioningMode = result.Mode, IsEnabled = result.IsEnabled },
+            baseline.DomainJoin with { IsEnabled = false });
     }
 
     [RelayCommand(CanExecute = nameof(CanImportProfile))]
@@ -1031,26 +1038,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
     }
 
-    private void ApplyProvisioningModeState(AutopilotProvisioningMode mode, bool isEnabled)
-    {
-        isApplyingState = true;
-        try
-        {
-            provisioningMode = mode;
-            IsAutopilotEnabled = isEnabled;
-        }
-        finally
-        {
-            isApplyingState = false;
-        }
-
-        RefreshProvisioningModeState();
-        SaveState();
-    }
-
     private async Task<bool> ConfirmProvisioningModeReplacementAsync(AutopilotProvisioningMode requestedMode)
     {
-        string currentMode = GetProvisioningModeDisplayName(provisioningMode);
+        string currentMode = configurationStateService.Current.DomainJoin.IsEnabled
+            ? localizationService.GetString(configurationStateService.Current.DomainJoin.Mode == DomainJoinMode.Interactive
+                ? "Nav_InteractiveDomainJoinKey.Title" : "Nav_ZeroTouchDomainJoinKey.Title")
+            : GetProvisioningModeDisplayName(provisioningMode);
         string requestedModeName = GetProvisioningModeDisplayName(requestedMode);
         return await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
             localizationService.GetString("Autopilot.ModeSwitchConfirmationTitle"),

@@ -172,6 +172,8 @@ public static class ServiceCollectionExtensions
         services.AddTransient<UnattendConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();
         services.AddTransient<AutopilotConfigurationViewModel>();
+        services.AddSingleton<Foundry.Services.DomainJoin.IAuthoringDomainOuDiscoveryService, Foundry.Services.DomainJoin.AuthoringDomainOuDiscoveryService>();
+        services.AddTransient<DomainJoinConfigurationViewModel>();
         services.AddTransient<CustomizationConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<HomeLandingViewModel>();
