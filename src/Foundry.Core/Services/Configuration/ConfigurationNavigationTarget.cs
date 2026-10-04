@@ -22,5 +22,7 @@ public enum ConfigurationNavigationTarget
     WindowsOptionalFeatures,
     AppxRemoval,
     AiComponentRemoval,
-    PostInstallation
+    PostInstallation,
+    DomainJoinInteractive,
+    DomainJoinAutomatic
 }

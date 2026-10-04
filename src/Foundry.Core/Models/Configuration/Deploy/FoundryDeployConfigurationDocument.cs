@@ -71,6 +71,9 @@ public sealed record FoundryDeployConfigurationDocument
     /// </summary>
     public DeployAutopilotSettings Autopilot { get; init; } = new();
 
+    /// <summary>Gets domain metadata and any protected automatic credentials consumed during deployment.</summary>
+    public DeployDomainJoinSettings DomainJoin { get; init; } = new();
+
     /// <summary>
     /// Gets telemetry policy and runtime settings consumed by Foundry.Deploy.
     /// </summary>

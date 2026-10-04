@@ -1,0 +1,28 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+namespace Foundry.Core.Services.Configuration;
+
+/// <summary>Models a single mutually exclusive provisioning choice.</summary>
+public enum ProvisioningSelection
+{
+    None, AutopilotJsonProfile, AutopilotHardwareHashUpload, AutopilotInteractiveHardwareHashUpload,
+    DomainJoinInteractive, DomainJoinAutomatic
+}
+
+/// <summary>Describes the proposed choice; callers confirm replacement before applying it.</summary>
+public sealed record ProvisioningSelectionDecision(ProvisioningSelection Next, bool RequiresReplacementConfirmation);
+
+/// <summary>Evaluates technician selection without mutating saved settings.</summary>
+public static class ProvisioningModeSelectionEvaluator
+{
+    /// <summary>Toggling the active choice disables it; replacing an active choice requires confirmation.</summary>
+    public static ProvisioningSelectionDecision Evaluate(ProvisioningSelection current, ProvisioningSelection requested)
+    {
+        if (!Enum.IsDefined(current)) throw new ArgumentOutOfRangeException(nameof(current));
+        if (!Enum.IsDefined(requested)) throw new ArgumentOutOfRangeException(nameof(requested));
+        return new(current == requested ? ProvisioningSelection.None : requested,
+            current != ProvisioningSelection.None && requested != ProvisioningSelection.None && current != requested);
+    }
+}

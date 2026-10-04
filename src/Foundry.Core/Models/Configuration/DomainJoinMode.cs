@@ -4,12 +4,9 @@
 
 namespace Foundry.Core.Models.Configuration;
 
-public static class ConfigurationSchemaVersions
+/// <summary>Determines whether technicians supply credentials or media supplies protected credentials.</summary>
+public enum DomainJoinMode
 {
-    public const int FoundryCurrent = 18;
-
-    public const int ConnectCurrent = 5;
-
-    public const int DeployCurrent = 15;
-
+    Interactive,
+    Automatic
 }

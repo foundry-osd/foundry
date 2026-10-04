@@ -11,6 +11,54 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class UnattendFileServiceTests
 {
+    [Fact]
+    public void Inspect_DomainIntentAcceptsExactlyOneApplicableConcreteNameUnchanged()
+    {
+        byte[] content = Xml(Settings("<ComputerName>Custom-PC</ComputerName>", "amd64") +
+            Settings("<ComputerName>Other-PC</ComputerName>", "arm64"));
+        byte[] original = content.ToArray();
+        UnattendInspection result = UnattendFileService.Inspect(content, "x64", requiresDomainJoin: true);
+        Assert.Equal("Custom-PC", result.ConcreteComputerName);
+        Assert.False(result.HasUnattendedJoinComponent);
+        Assert.Equal(original, content);
+    }
+
+    [Theory]
+    [InlineData("<ComputerName/>")]
+    [InlineData("<ComputerName>*</ComputerName>")]
+    [InlineData("<ComputerName>bad name</ComputerName>")]
+    [InlineData("<ComputerName> PC </ComputerName>")]
+    [InlineData("<ComputerName>1234</ComputerName>")]
+    [InlineData("<ComputerName>FIRST</ComputerName><ComputerName>SECOND</ComputerName>")]
+    [InlineData("<RegisteredOwner>Owner</RegisteredOwner>")]
+    public void Inspect_DomainIntentRejectsMissingInvalidOrConflictingNames(string settings)
+    {
+        byte[] content = Xml(Settings(settings));
+        Assert.Throws<InvalidDataException>(() => UnattendFileService.Inspect(content, "x64", requiresDomainJoin: true));
+        UnattendFileService.Inspect(content, "x64");
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("<Identification><JoinWorkgroup>WORKGROUP</JoinWorkgroup></Identification>")]
+    [InlineData("<Identification><JoinDomain>contoso.test</JoinDomain></Identification>")]
+    public void Inspect_DomainIntentRejectsAnyUnattendedJoinComponent(string joinSettings)
+    {
+        byte[] content = Xml(Settings("<ComputerName>PC</ComputerName>") +
+            $"<settings pass='specialize'><component name='Microsoft-Windows-UnattendedJoin' processorArchitecture='amd64'>{joinSettings}</component></settings>");
+        Assert.True(UnattendFileService.Inspect(content, "x64").HasUnattendedJoinComponent);
+        Assert.Throws<InvalidDataException>(() => UnattendFileService.Inspect(content, "x64", requiresDomainJoin: true));
+    }
+
+    [Fact]
+    public void Inspect_DomainIntentRejectsDuplicateSameNamesAndWrongPassName()
+    {
+        Assert.Throws<InvalidDataException>(() => UnattendFileService.Inspect(
+            Xml(Settings("<ComputerName>PC</ComputerName>") + Settings("<ComputerName>PC</ComputerName>")), "x64", requiresDomainJoin: true));
+        Assert.Throws<InvalidDataException>(() => UnattendFileService.Inspect(
+            Xml(Settings("<ComputerName>PC</ComputerName>", pass: "oobeSystem")), "x64", requiresDomainJoin: true));
+    }
+
     [Theory]
     [InlineData("windowsPE")]
     [InlineData("offlineServicing")]

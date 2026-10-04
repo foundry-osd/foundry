@@ -40,6 +40,8 @@ public static class ConfigurationOverviewNavigationEvaluator
             ConfigurationNavigationTarget.AutopilotJsonProfile => evaluation[ConfigurationOverviewItem.AutopilotJsonProfile],
             ConfigurationNavigationTarget.AutopilotHardwareHashUpload => evaluation[ConfigurationOverviewItem.AutopilotZeroTouch],
             ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload => evaluation[ConfigurationOverviewItem.AutopilotInteractive],
+            ConfigurationNavigationTarget.DomainJoinInteractive => evaluation[ConfigurationOverviewItem.DomainJoinInteractive],
+            ConfigurationNavigationTarget.DomainJoinAutomatic => evaluation[ConfigurationOverviewItem.DomainJoinAutomatic],
             ConfigurationNavigationTarget.OperatingSystemSelection => evaluation[ConfigurationOverviewItem.OperatingSystemSelection],
             ConfigurationNavigationTarget.CustomImages => evaluation[ConfigurationOverviewItem.CustomImages],
             ConfigurationNavigationTarget.PostInstallation => evaluation[ConfigurationOverviewItem.PostInstallation],

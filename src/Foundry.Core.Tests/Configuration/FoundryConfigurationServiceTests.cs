@@ -10,6 +10,31 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class FoundryConfigurationServiceTests
 {
+    [Fact]
+    public void OldConfigurationDisablesDomainJoin()
+    {
+        FoundryConfigurationDocument document = new FoundryConfigurationService().Deserialize("{\"schemaVersion\":17}");
+        Assert.Equal(18, document.SchemaVersion);
+        Assert.False(document.DomainJoin.IsEnabled);
+    }
+
+    [Fact]
+    public void Deserialize_RejectsContradictoryProvisioningModesWithoutChoosingWinner()
+    {
+        Assert.Throws<InvalidOperationException>(() => new FoundryConfigurationService().Deserialize(
+            "{\"schemaVersion\":18,\"autopilot\":{\"isEnabled\":true},\"domainJoin\":{\"isEnabled\":true}}"));
+    }
+
+    [Fact]
+    public void Deserialize_AutomaticSecretFreeDraftIsImportable()
+    {
+        FoundryConfigurationDocument document = new FoundryConfigurationService().Deserialize(
+            "{\"schemaVersion\":18,\"domainJoin\":{\"isEnabled\":true,\"mode\":1}}");
+        Assert.True(document.DomainJoin.IsEnabled);
+        Assert.True(DomainJoinConfigurationValidator.ValidateMetadata(document.DomainJoin).IsValid);
+        Assert.False(DomainJoinConfigurationValidator.EvaluateReadiness(document.DomainJoin, false, false).IsValid);
+    }
+
     [Theory]
     [InlineData("[\"99H1\"]", null)]
     [InlineData("[]", null)]
@@ -39,7 +64,7 @@ public sealed class FoundryConfigurationServiceTests
         FoundryConfigurationDocument document = service.Deserialize(json);
         var generated = new DeployConfigurationGenerator().Generate(document);
 
-        Assert.Equal(17, document.SchemaVersion);
+        Assert.Equal(18, document.SchemaVersion);
         Assert.Equal(ConfigurationSchemaVersions.DeployCurrent, generated.SchemaVersion);
         Assert.Equal(expectedDefault is null ? [] : new[] { expectedDefault }, document.OperatingSystemSelection.AllowedReleaseIds);
         Assert.Equal(expectedDefault, document.OperatingSystemSelection.DefaultReleaseId);

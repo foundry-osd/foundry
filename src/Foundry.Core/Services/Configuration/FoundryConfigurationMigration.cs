@@ -40,6 +40,12 @@ public static class FoundryConfigurationMigration
 
         migrated = migrated with { CustomImages = migrated.CustomImages ?? new CustomImagesSettings() };
         migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
+        migrated = migrated with { DomainJoin = migrated.DomainJoin ?? new DomainJoinSettings() };
+        DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(migrated.Autopilot, migrated.DomainJoin);
+        if (!DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin).IsValid)
+        {
+            throw new InvalidOperationException("Domain join metadata is invalid.");
+        }
 
         if (migrated.SchemaVersion < SupportedOperatingSystemReleasesSchemaVersion)
         {

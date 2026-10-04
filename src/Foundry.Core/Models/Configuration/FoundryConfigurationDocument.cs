@@ -62,6 +62,9 @@ public sealed record FoundryConfigurationDocument
     /// </summary>
     public AutopilotSettings Autopilot { get; init; } = new();
 
+    /// <summary>Gets optional online domain joining and its secret-free OU catalog.</summary>
+    public DomainJoinSettings DomainJoin { get; init; } = new();
+
     /// <summary>
     /// Gets telemetry policy and runtime settings propagated into generated media.
     /// </summary>
