@@ -29,7 +29,7 @@ public sealed class DeploymentProfilePackageService : IDeploymentProfilePackageS
     private const int Iterations = 600_000;
     private static ReadOnlySpan<byte> Magic => "FNDRYPRF"u8;
 
-    /// <summary>Creates an encrypted portable export. Only explicitly supplied logical secrets and assets are included.</summary>
+    /// <summary>Creates an encrypted portable export. Domain passwords are always omitted; other explicitly supplied logical secrets and assets are included.</summary>
     public byte[] Export(DeploymentProfileDocument profile, ReadOnlySpan<char> passphrase)
     {
         ValidatePassphrase(passphrase);
@@ -37,7 +37,15 @@ public sealed class DeploymentProfilePackageService : IDeploymentProfilePackageS
         byte[] key = PasswordKeyDerivation.DeriveKey(passphrase, header.AsSpan(14, 16), Iterations, 32);
         try
         {
-            return EncryptPayload(profile, key, header, [], true);
+            DeploymentProfileDocument exported = profile with
+            {
+                Secrets = new()
+                {
+                    Entries = profile.Secrets.Entries.Select(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword
+                        ? secret with { State = ProfileValueState.Omitted, Value = null } : secret).ToArray()
+                }
+            };
+            return EncryptPayload(exported, key, header, [], true);
         }
         finally
         {

@@ -23,6 +23,7 @@ public sealed class DeploymentProfileSessionService : IDisposable
     private readonly INetworkSecretStateService networkSecrets;
     private readonly IDeploymentProtectionSecretStateService deploymentSecrets;
     private readonly IOobeAccountSecretStateService accountSecrets;
+    private readonly IDomainJoinSecretStateService domainSecrets;
     private readonly IAutopilotHardwareHashSessionState autopilotSession;
     private DeploymentProfileDocument? sourceMetadata;
     private FoundryConfigurationDocument? materializedSourceMetadata;
@@ -32,12 +33,14 @@ public sealed class DeploymentProfileSessionService : IDisposable
         INetworkSecretStateService networkSecrets,
         IDeploymentProtectionSecretStateService deploymentSecrets,
         IOobeAccountSecretStateService accountSecrets,
+        IDomainJoinSecretStateService domainSecrets,
         IAutopilotHardwareHashSessionState autopilotSession)
     {
         this.configurationState = configurationState;
         this.networkSecrets = networkSecrets;
         this.deploymentSecrets = deploymentSecrets;
         this.accountSecrets = accountSecrets;
+        this.domainSecrets = domainSecrets;
         this.autopilotSession = autopilotSession;
         configurationState.StateChanged += OnConfigurationChanged;
     }
@@ -74,6 +77,25 @@ public sealed class DeploymentProfileSessionService : IDisposable
                 string.Equals(NetworkConfigurationValidator.NormalizeWifiSecurityType(configuration.Network.Wifi), NetworkConfigurationValidator.WifiSecurityPersonal, StringComparison.Ordinal))
             {
                 Add(ProfileSecretPurpose.WifiPassphrase, configuration.Network.Wifi.Passphrase);
+            }
+
+            if (configuration.DomainJoin.IsEnabled && configuration.DomainJoin.Mode == DomainJoinMode.Automatic)
+            {
+                var context = new DomainJoinCredentialContext(configuration.DomainJoin.DomainName ?? string.Empty, configuration.DomainJoin.AccountName ?? string.Empty);
+                char[]? password = domainSecrets.GetPasswordCopy(context);
+                try
+                {
+                    entries.Add((new DeploymentProfileSecret
+                    {
+                        Purpose = ProfileSecretPurpose.DomainJoinPassword,
+                        State = !includeSecrets ? ProfileValueState.Omitted : password is null ? ProfileValueState.Unavailable : ProfileValueState.Present,
+                        Value = includeSecrets && password is not null ? EncodePassword(password) : null
+                    }, null));
+                }
+                finally
+                {
+                    if (password is not null) CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+                }
             }
 
             OobeSettings oobe = configuration.Customization.Oobe;
@@ -195,6 +217,13 @@ public sealed class DeploymentProfileSessionService : IDisposable
         }
     }
 
+    private static byte[] EncodePassword(ReadOnlySpan<char> password)
+    {
+        byte[] bytes = new byte[Encoding.UTF8.GetByteCount(password)];
+        Encoding.UTF8.GetBytes(password, bytes);
+        return bytes;
+    }
+
     private static FoundryConfigurationDocument FreezeConfiguration(FoundryConfigurationDocument source)
     {
         AutopilotBootMediaCertificateSettings certificate = source.Autopilot.HardwareHashUpload.BootMediaCertificate with { PfxPassword = null };
@@ -224,6 +253,7 @@ public sealed class DeploymentProfileSessionService : IDisposable
         networkSecrets.Update(new NetworkSettings());
         deploymentSecrets.Clear();
         accountSecrets.Update(new OobeSettings());
+        domainSecrets.Clear();
         autopilotSession.ClearTenantConnection();
         autopilotSession.BootMediaCertificate = new();
         Logger.Debug("Profile session credentials cleared.");
@@ -266,22 +296,44 @@ public sealed class DeploymentProfileSessionService : IDisposable
             }
         }
 
-        configurationState.Replace(materialized, () =>
+        char[]? domainPassword = GetDomainPassword();
+        try
         {
-            ClearSensitiveState();
-            deploymentSecrets.SetPassword(deploymentPassword);
-            deploymentSecrets.SetConfirmation(deploymentPassword);
-            accountSecrets.SetAdministratorPassword(administratorPassword);
-            accountSecrets.SetAdministratorConfirmation(administratorPassword);
-            foreach ((string id, string? password) in additionalPasswords)
+            configurationState.Replace(materialized, () =>
             {
-                accountSecrets.SetAdditionalAccountPassword(id, password.AsSpan());
-                accountSecrets.SetAdditionalAccountConfirmation(id, password.AsSpan());
-            }
-            autopilotSession.BootMediaCertificate = boot;
-        });
+                ClearSensitiveState();
+                deploymentSecrets.SetPassword(deploymentPassword);
+                deploymentSecrets.SetConfirmation(deploymentPassword);
+                accountSecrets.SetAdministratorPassword(administratorPassword);
+                accountSecrets.SetAdministratorConfirmation(administratorPassword);
+                foreach ((string id, string? password) in additionalPasswords)
+                {
+                    accountSecrets.SetAdditionalAccountPassword(id, password.AsSpan());
+                    accountSecrets.SetAdditionalAccountConfirmation(id, password.AsSpan());
+                }
+                if (domainPassword is not null)
+                    domainSecrets.SetPassword(new(materialized.DomainJoin.DomainName!, materialized.DomainJoin.AccountName!), domainPassword);
+                autopilotSession.BootMediaCertificate = boot;
+            });
+        }
+        finally
+        {
+            if (domainPassword is not null) CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(domainPassword.AsSpan()));
+        }
         RememberSourceMetadata(profile, materialized);
         Logger.Information("Profile session activation completed. ProfileId={ProfileId}", profile.ProfileId);
+
+        char[]? GetDomainPassword()
+        {
+            DomainJoinSettings settings = materialized.DomainJoin;
+            if (!settings.IsEnabled || settings.Mode != DomainJoinMode.Automatic) return null;
+            var context = new DomainJoinCredentialContext(settings.DomainName ?? string.Empty, settings.AccountName ?? string.Empty);
+            if (!context.Matches(new(profile.Configuration.DomainJoin.DomainName ?? string.Empty, profile.Configuration.DomainJoin.AccountName ?? string.Empty))) return null;
+            string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile);
+            DeploymentProfileSecret? secret = profile.Secrets.Entries.SingleOrDefault(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword && secret.Identity == identity);
+            if (secret?.State != ProfileValueState.Present) return null;
+            return Encoding.UTF8.GetChars(secret.Value!);
+        }
 
         string? Get(ProfileSecretPurpose purpose, string? accountId = null)
         {
@@ -328,6 +380,7 @@ public sealed class DeploymentProfileSessionService : IDisposable
 
     private void OnConfigurationChanged(object? sender, EventArgs e)
     {
+        domainSecrets.Update(configurationState.Current.DomainJoin);
         if (sourceMetadata is null || materializedSourceMetadata is null) return;
         FoundryConfigurationDocument current = configurationState.Current with
         {

@@ -18,6 +18,33 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
     private readonly string root = Path.Combine(Path.GetTempPath(), "FoundrySnapshotTests", Guid.NewGuid().ToString("N"));
 
     [Fact]
+    public async Task FrozenSecretSurvivesAuthoringChange()
+    {
+        using var accounts = new OobeAccountSecretState();
+        using var domain = new DomainJoinSecretState();
+        var context = new DomainJoinCredentialContext("example.com", "EXAMPLE\\joiner");
+        domain.SetPassword(context, " frozen password ");
+        var document = new FoundryConfigurationDocument
+        {
+            General = new() { DeploymentProtection = new() { IsEnabled = true } },
+            DomainJoin = new() { IsEnabled = true, Mode = DomainJoinMode.Automatic, DomainName = context.DomainName, AccountName = context.AccountName }
+        };
+        Task<DeploymentBuildSnapshot> capturing = DeploymentBuildSnapshot.CaptureAsync(document, accounts, domain, "MediaPassword123!", root, null, TestContext.Current.CancellationToken);
+        domain.Clear();
+        using DeploymentBuildSnapshot snapshot = await capturing;
+        using var protection = snapshot.CreateDeploymentProtectionMaterial();
+        string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
+        var deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        byte[] payload = MediaSecretEnvelopeProtector.DecryptBytes(deploy.DomainJoin.EncryptedCredentials!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        try
+        {
+            using var decoded = DomainJoinCredentialPayloadCodec.Decode(payload, context);
+            Assert.Equal(" frozen password ", new string(decoded.Password.Span));
+        }
+        finally { CryptographicOperations.ZeroMemory(payload); }
+    }
+
+    [Fact]
     public async Task CaptureAsync_PreservesOneAuthoringVersionAcrossBothRuntimeOutputs()
     {
         using var secrets = new OobeAccountSecretState();

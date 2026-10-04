@@ -16,6 +16,55 @@ public sealed class DeploymentProfilePackageServiceTests
     private readonly DeploymentProfilePackageService _service = new();
 
     [Fact]
+    public void SharedRevisionRejectsEmbeddedNulDomainPassword()
+    {
+        var profile = CreateProfile() with { Secrets = new() { Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain", State = ProfileValueState.Present, Value = [112, 0, 119] }] } };
+        Assert.Throws<InvalidDataException>(() => _service.Encrypt(profile, new byte[32], ProfilePackagePurpose.SharedRevision));
+    }
+
+    [Fact]
+    public void ExportOmitsDomainPasswordWithoutMutatingSource()
+    {
+        byte[] password = Encoding.UTF8.GetBytes("domain-password");
+        DeploymentProfileDocument profile = CreateProfile() with
+        {
+            Configuration = new() { DomainJoin = new() { IsEnabled = true, Mode = DomainJoinMode.Automatic, DomainName = "example.com", AccountName = "EXAMPLE\\joiner" } },
+            Secrets = new()
+            {
+                Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain", State = ProfileValueState.Present, Value = password },
+                new() { Purpose = ProfileSecretPurpose.WifiPassphrase, Identity = "wifi", State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("wifi-password") }]
+            }
+        };
+        DeploymentProfileDocument imported = _service.Import(_service.Export(profile, "password"), "password");
+        Assert.Equal(ProfileValueState.Omitted, imported.Secrets.Entries[0].State);
+        Assert.Null(imported.Secrets.Entries[0].Value);
+        Assert.Equal("wifi-password", Encoding.UTF8.GetString(imported.Secrets.Entries[1].Value!));
+        Assert.Equal("domain-password", Encoding.UTF8.GetString(password));
+        Assert.Equal(ProfileValueState.Present, profile.Secrets.Entries[0].State);
+        Assert.Equal("example.com", imported.Configuration.DomainJoin.DomainName);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void SharedEncryptedRevisionHonorsIncludeSecrets(bool includeSecrets)
+    {
+        DeploymentProfileDocument profile = CreateProfile() with
+        {
+            Secrets = new()
+            {
+                Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain",
+                State = includeSecrets ? ProfileValueState.Present : ProfileValueState.Omitted,
+                Value = includeSecrets ? Encoding.UTF8.GetBytes("domain-password") : null }]
+            }
+        };
+        byte[] key = new byte[32];
+        DeploymentProfileDocument revision = _service.Decrypt(_service.Encrypt(profile, key, ProfilePackagePurpose.SharedRevision), key, ProfilePackagePurpose.SharedRevision);
+        Assert.Equal(includeSecrets ? ProfileValueState.Present : ProfileValueState.Omitted, Assert.Single(revision.Secrets.Entries).State);
+        Assert.Equal(includeSecrets ? "domain-password" : null, revision.Secrets.Entries[0].Value is { } value ? Encoding.UTF8.GetString(value) : null);
+    }
+
+    [Fact]
     public void ExportImport_PreservesSelectedSecretsAndExactAssetBytes()
     {
         byte[] content = Encoding.UTF8.GetBytes("<?xml version=\"1.0\"?>\r\n<unattend />\r\n");
@@ -383,7 +432,7 @@ public sealed class DeploymentProfilePackageServiceTests
     [Fact]
     public void ExportImport_PreservesSafeUnicodeAutopilotFolderAndInlineJson()
     {
-        AutopilotProfileSettings autopilot = CreateAutopilotProfile() with { FolderName = "Équipe_Paris" };
+        AutopilotProfileSettings autopilot = CreateAutopilotProfile() with { FolderName = "Ã‰quipe_Paris" };
         DeploymentProfileDocument profile = CreateProfile() with { Configuration = new() { Autopilot = new() { Profiles = [autopilot] } } };
         AutopilotProfileSettings imported = Assert.Single(_service.Import(_service.Export(profile, "password"), "password").Configuration.Autopilot.Profiles);
         Assert.Equal(autopilot.FolderName, imported.FolderName);

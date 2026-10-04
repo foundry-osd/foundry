@@ -120,7 +120,8 @@ internal static class DeploymentProfilePayload
         {
             if (secret is null || !Enum.IsDefined(secret.Purpose) || !Enum.IsDefined(secret.State) || !IsIdentity(secret.Identity)
                 || !identities.Add($"{(int)secret.Purpose}:{secret.Identity}")
-                || (secret.State == ProfileValueState.Present ? !IsValidSecret(secret.Value) : secret.Value is not null))
+                || (secret.State == ProfileValueState.Present ? !IsValidSecret(secret.Value) : secret.Value is not null)
+                || (secret.Purpose == ProfileSecretPurpose.DomainJoinPassword && secret.Value?.Contains((byte)0) == true))
             {
                 throw new InvalidDataException("The profile secret record is invalid.");
             }
@@ -199,6 +200,7 @@ internal static class DeploymentProfilePayload
         ValidateList(configuration.OperatingSystemSelection.AllowedEditions);
         ValidateList(configuration.Autopilot.HardwareHashUpload.KnownGroupTags);
         ValidateList(configuration.Autopilot.Profiles);
+        ValidateList(configuration.DomainJoin.OrganizationalUnits);
         ValidateList(configuration.Unattend.Files);
         var ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var folders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);

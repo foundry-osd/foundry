@@ -121,6 +121,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkSecretStateService, NetworkSecretStateService>();
         services.AddSingleton<IDeploymentProtectionSecretStateService, DeploymentProtectionSecretStateService>();
         services.AddSingleton<IOobeAccountSecretStateService, OobeAccountSecretStateService>();
+        services.AddSingleton<IDomainJoinSecretStateService, DomainJoinSecretStateService>();
         services.AddSingleton<IOobeAdditionalAccountDialogService, OobeAdditionalAccountDialogService>();
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
         services.AddSingleton<Foundry.Core.Services.Profiles.IDeploymentProfilePackageService, Foundry.Core.Services.Profiles.DeploymentProfilePackageService>();

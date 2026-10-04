@@ -19,6 +19,8 @@ public static class DeploymentProfileSecretBinding
         FoundryConfigurationDocument configuration = profile.Configuration;
         string[] context = purpose switch
         {
+            ProfileSecretPurpose.DomainJoinPassword => [DomainJoinCredentialContext.CanonicalizeDomainName(configuration.DomainJoin.DomainName),
+                DomainJoinCredentialContext.CanonicalizeAccountName(configuration.DomainJoin.AccountName)],
             ProfileSecretPurpose.DeploymentPassword => ["media-protection"],
             ProfileSecretPurpose.WifiPassphrase => [configuration.Network.Wifi.Ssid ?? string.Empty, configuration.Network.Wifi.SecurityType ?? string.Empty],
             ProfileSecretPurpose.AdministratorPassword => ["builtin-administrator"],

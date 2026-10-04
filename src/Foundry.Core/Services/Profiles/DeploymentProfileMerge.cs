@@ -54,6 +54,20 @@ public static class DeploymentProfileMerge
                 });
             }
         }
+        DomainJoinSettings domain = captured.Configuration.DomainJoin;
+        if (domain.IsEnabled && domain.Mode == DomainJoinMode.Automatic)
+        {
+            string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, captured);
+            DeploymentProfileSecret? omitted = baseline.Secrets.Entries.SingleOrDefault(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword &&
+                secret.Identity == identity && secret.State == ProfileValueState.Omitted);
+            if (omitted is not null)
+            {
+                int index = secrets.FindIndex(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword);
+                if (index < 0) secrets.Add(omitted with { Value = null });
+                else if (secrets[index].State == ProfileValueState.Unavailable)
+                    secrets[index] = secrets[index] with { State = ProfileValueState.Omitted, Value = null };
+            }
+        }
         return result with { Secrets = new() { Entries = secrets } };
     }
 
@@ -106,7 +120,12 @@ public static class DeploymentProfileMerge
                 Entries = incoming.Secrets.Entries.Select(secret =>
                 {
                     DeploymentProfileSecret selected = secret;
-                    if (secret.State == ProfileValueState.Omitted)
+                    bool matchingDomain = secret.Purpose != ProfileSecretPurpose.DomainJoinPassword ||
+                        incoming.Configuration.DomainJoin.IsEnabled && incoming.Configuration.DomainJoin.Mode == DomainJoinMode.Automatic &&
+                        new DomainJoinCredentialContext(incoming.Configuration.DomainJoin.DomainName ?? string.Empty, incoming.Configuration.DomainJoin.AccountName ?? string.Empty)
+                            .Matches(new(local.Configuration.DomainJoin.DomainName ?? string.Empty, local.Configuration.DomainJoin.AccountName ?? string.Empty)) &&
+                        secret.Identity == DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, incoming);
+                    if (secret.State == ProfileValueState.Omitted && matchingDomain)
                     {
                         selected = local.Secrets.Entries.SingleOrDefault(candidate => candidate.Purpose == secret.Purpose &&
                             candidate.Identity == secret.Identity && candidate.State is ProfileValueState.Present or ProfileValueState.Blank) ?? secret;

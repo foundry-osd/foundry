@@ -15,6 +15,55 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class DeployConfigurationGeneratorTests
 {
     [Theory]
+    [InlineData(false, DomainJoinMode.Automatic)]
+    [InlineData(true, DomainJoinMode.Interactive)]
+    public void ManualAndDisabledMediaExcludeAutomaticCredentials(bool enabled, DomainJoinMode mode)
+    {
+        using var secrets = new DomainJoinSecretState();
+        secrets.SetPassword(new("example.com", "EXAMPLE\\joiner"), "password");
+        var document = new FoundryConfigurationDocument { DomainJoin = new() { IsEnabled = enabled, Mode = mode, DomainName = "example.com", AccountName = "EXAMPLE\\joiner" } };
+        var media = new DeployConfigurationGenerator().Generate(document, null, null, null, secrets);
+        Assert.Equal(enabled, media.DomainJoin.IsEnabled);
+        Assert.Null(media.DomainJoin.AccountName);
+        Assert.Null(media.DomainJoin.EncryptedCredentials);
+    }
+
+    [Theory]
+    [InlineData(false, true, true)]
+    [InlineData(true, false, true)]
+    [InlineData(true, true, false)]
+    public void AutomaticRequiresExistingProtection(bool protectedMedia, bool hasKey, bool hasPassword)
+    {
+        using var secrets = new DomainJoinSecretState();
+        if (hasPassword) secrets.SetPassword(new("example.com", "EXAMPLE\\joiner"), "password");
+        var document = new FoundryConfigurationDocument { DomainJoin = new() { IsEnabled = true, Mode = DomainJoinMode.Automatic, DomainName = "example.com", AccountName = "EXAMPLE\\joiner" } };
+        Assert.Throws<InvalidOperationException>(() => new DeployConfigurationGenerator().Generate(document, hasKey ? new byte[32] : null,
+            new() { IsEnabled = protectedMedia }, null, secrets));
+    }
+
+    [Fact]
+    public void EnvelopeAuthenticatesCredentialContext()
+    {
+        using var secrets = new DomainJoinSecretState();
+        var context = new DomainJoinCredentialContext("example.com", "EXAMPLE\\joiner");
+        secrets.SetPassword(context, " exact password ");
+        byte[] key = new byte[32];
+        var document = new FoundryConfigurationDocument { DomainJoin = new() { IsEnabled = true, Mode = DomainJoinMode.Automatic, DomainName = context.DomainName, AccountName = context.AccountName } };
+        var media = new DeployConfigurationGenerator().Generate(document, key, new() { IsEnabled = true }, null, secrets);
+        Assert.NotNull(media.DomainJoin.EncryptedCredentials);
+        byte[] plaintext = MediaSecretEnvelopeProtector.DecryptBytes(media.DomainJoin.EncryptedCredentials, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        try
+        {
+            using var decoded = DomainJoinCredentialPayloadCodec.Decode(plaintext, context);
+            Assert.Equal(" exact password ", new string(decoded.Password.Span));
+            Assert.Throws<System.Security.Cryptography.CryptographicException>(() => DomainJoinCredentialPayloadCodec.Decode(plaintext, new("other.com", context.AccountName)));
+            Assert.Throws<System.Security.Cryptography.CryptographicException>(() => DomainJoinCredentialPayloadCodec.Decode(plaintext, new(context.DomainName, "EXAMPLE\\other")));
+            Assert.DoesNotContain("exact password", new DeployConfigurationGenerator().Serialize(media));
+        }
+        finally { System.Security.Cryptography.CryptographicOperations.ZeroMemory(plaintext); }
+    }
+
+    [Theory]
     [InlineData("26.10.3.1")]
     [InlineData(null)]
     public void Generate_PropagatesOptionalAuthoringVersionToRuntimeJson(string? authoringVersion)

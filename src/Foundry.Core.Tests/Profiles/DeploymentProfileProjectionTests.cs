@@ -11,6 +11,16 @@ namespace Foundry.Core.Tests.Profiles;
 public sealed class DeploymentProfileProjectionTests
 {
     [Fact]
+    public void DomainSecretIdentityUsesCanonicalOwnership()
+    {
+        var first = new DeploymentProfileDocument { Configuration = new() { DomainJoin = new() { DomainName = "example.com", AccountName = "EXAMPLE\\joiner" } } };
+        var second = first with { Configuration = first.Configuration with { DomainJoin = first.Configuration.DomainJoin with { DomainName = " EXAMPLE.COM. ", AccountName = "example\\JOINER" } } };
+        Assert.Equal(DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, first), DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, second));
+        second = second with { Configuration = second.Configuration with { DomainJoin = second.Configuration.DomainJoin with { AccountName = "EXAMPLE\\other" } } };
+        Assert.NotEqual(DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, first), DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, second));
+    }
+
+    [Fact]
     public void PortableContent_IgnoresHostPathsTelemetryAndRecordOrdering()
     {
         DeploymentProfileDocument first = CreateProfile();

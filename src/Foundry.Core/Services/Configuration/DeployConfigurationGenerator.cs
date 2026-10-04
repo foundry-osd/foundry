@@ -57,9 +57,25 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings,
         OobeAccountSecretState? oobeAccountSecretState,
+        string? authoringVersion = null) =>
+        Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, null, authoringVersion);
+
+    /// <inheritdoc />
+    public FoundryDeployConfigurationDocument Generate(
+        FoundryConfigurationDocument document,
+        byte[]? deploymentSecretsKey,
+        DeployProtectionSettings? protectionSettings,
+        OobeAccountSecretState? oobeAccountSecretState,
+        DomainJoinSecretState? domainJoinSecretState,
         string? authoringVersion = null)
     {
         ArgumentNullException.ThrowIfNull(document);
+        DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(document.Autopilot, document.DomainJoin);
+        var domainContext = new DomainJoinCredentialContext(document.DomainJoin.DomainName ?? string.Empty, document.DomainJoin.AccountName ?? string.Empty);
+        if (!DomainJoinConfigurationValidator.EvaluateReadiness(document.DomainJoin,
+            domainJoinSecretState?.HasPassword(domainContext) == true,
+            protectionSettings?.IsEnabled == true && deploymentSecretsKey is { Length: MediaSecretEnvelopeProtector.KeySizeBytes }).IsValid)
+            throw new InvalidOperationException("Domain joining configuration is not ready for deployment media.");
         CustomImageSettingsValidator.ThrowIfInvalid(document.CustomImages);
         PreOobeConfigurationValidator.ThrowIfInvalid(document.PreOobe);
         UnattendFileService.ValidateSettings(document.Unattend, protectionSettings?.IsEnabled == true);
@@ -72,6 +88,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         return new FoundryDeployConfigurationDocument
         {
             AuthoringVersion = authoringVersion,
+            DomainJoin = MapDomainJoinSettings(document.DomainJoin, deploymentSecretsKey, domainJoinSecretState),
             Protection = protectionSettings ?? new DeployProtectionSettings(),
             PreOobe = new DeployPreOobeSettings
             {
@@ -181,6 +198,40 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     deploymentSecretsKey)
             },
             Telemetry = document.Telemetry
+        };
+    }
+
+    private static DeployDomainJoinSettings MapDomainJoinSettings(DomainJoinSettings settings, byte[]? key, DomainJoinSecretState? secrets)
+    {
+        if (!settings.IsEnabled) return new();
+        SecretEnvelope? envelope = null;
+        if (settings.Mode == DomainJoinMode.Automatic)
+        {
+            var context = new DomainJoinCredentialContext(settings.DomainName!, settings.AccountName!);
+            char[] password = secrets!.GetPasswordCopy(context)!;
+            byte[]? payload = null;
+            try
+            {
+                payload = DomainJoinCredentialPayloadCodec.Encode(context, password);
+                envelope = MediaSecretEnvelopeProtector.EncryptBytes(payload, key!, MediaSecretEnvelopeProtector.DeploymentKeyId);
+            }
+            finally
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+                if (payload is not null) CryptographicOperations.ZeroMemory(payload);
+            }
+        }
+        return new()
+        {
+            IsEnabled = true,
+            Mode = settings.Mode,
+            DomainName = settings.DomainName,
+            AccountName = settings.Mode == DomainJoinMode.Automatic ? settings.AccountName : null,
+            OuCatalogDomain = settings.OuCatalogDomain,
+            OrganizationalUnits = settings.OrganizationalUnits.Select(unit => unit with { }).ToArray(),
+            DefaultOuId = settings.DefaultOuId,
+            AllowOuSelectionDuringDeployment = settings.AllowOuSelectionDuringDeployment,
+            EncryptedCredentials = envelope
         };
     }
 

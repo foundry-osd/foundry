@@ -31,6 +31,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
+    private readonly IDomainJoinSecretStateService domainJoinSecretStateService;
     private readonly IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState;
     private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
@@ -47,6 +48,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         INetworkSecretStateService networkSecretStateService,
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         IOobeAccountSecretStateService oobeAccountSecretStateService,
+        IDomainJoinSecretStateService domainJoinSecretStateService,
         IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState,
         AppSettingsService appSettingsService,
         ILogger logger,
@@ -58,6 +60,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.networkSecretStateService = networkSecretStateService;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.oobeAccountSecretStateService = oobeAccountSecretStateService;
+        this.domainJoinSecretStateService = domainJoinSecretStateService;
         this.autopilotHardwareHashSessionState = autopilotHardwareHashSessionState;
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
@@ -89,6 +92,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         restoreSecrets();
         networkSecretStateService.Update(document.Network);
         oobeAccountSecretStateService.Update(document.Customization.Oobe);
+        domainJoinSecretStateService.Update(document.DomainJoin);
         Current = candidate;
         validatedUnattendSettings = null;
         unattendSourceValidations = [];
@@ -434,9 +438,10 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         }
 
         using OobeAccountSecretState oobeAccountSecretState = CreateOobeAccountSecretStateForDeployGeneration(document.Customization.Oobe);
+        using DomainJoinSecretState domainSecrets = CreateDomainJoinSecretState(document.DomainJoin);
 
         return deployConfigurationGenerator.Serialize(
-            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState));
+            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, domainSecrets));
     }
 
     /// <inheritdoc />
@@ -450,17 +455,40 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             Network = networkSecretStateService.ApplyRequiredSecrets(Current.Network)
         };
         using OobeAccountSecretState accountSecrets = CreateOobeAccountSecretStateForDeployGeneration(document.Customization.Oobe);
+        using DomainJoinSecretState domainSecrets = CreateDomainJoinSecretState(document.DomainJoin);
         char[] password = document.General.DeploymentProtection.IsEnabled
             ? deploymentProtectionSecretStateService.GetConfirmedPasswordCopy()
             : [];
         try
         {
             return DeploymentBuildSnapshot.CaptureAsync(
-                document, accountSecrets, password, privateRootDirectory, authoringVersion, cancellationToken);
+                document, accountSecrets, domainSecrets, password, privateRootDirectory, authoringVersion, cancellationToken);
         }
         finally
         {
             CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+        }
+    }
+
+    private DomainJoinSecretState CreateDomainJoinSecretState(DomainJoinSettings settings)
+    {
+        var state = new DomainJoinSecretState();
+        if (!settings.IsEnabled || settings.Mode != DomainJoinMode.Automatic) return state;
+        var context = new DomainJoinCredentialContext(settings.DomainName ?? string.Empty, settings.AccountName ?? string.Empty);
+        char[]? password = domainJoinSecretStateService.GetPasswordCopy(context);
+        try
+        {
+            if (password is not null) state.SetPassword(context, password);
+            return state;
+        }
+        catch
+        {
+            state.Dispose();
+            throw;
+        }
+        finally
+        {
+            if (password is not null) CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
         }
     }
 

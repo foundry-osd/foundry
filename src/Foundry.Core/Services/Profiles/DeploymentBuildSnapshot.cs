@@ -24,6 +24,7 @@ public sealed class DeploymentBuildSnapshot : IDisposable
     private const int MaximumDriverEntries = 10_000;
     private const string LeaseFileName = ".lease";
     private readonly OobeAccountSecretState accountSecrets = new();
+    private readonly DomainJoinSecretState domainSecrets = new();
     private readonly char[] deploymentPassword;
     private readonly char[]? wifiPassphrase;
     private readonly char[]? wiredCertificatePassword;
@@ -66,6 +67,17 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         ReadOnlySpan<char> deploymentPassword,
         string privateRootDirectory,
         string? authoringVersion,
+        CancellationToken cancellationToken = default) =>
+        CaptureAsync(configuration, accountSecrets, null, deploymentPassword, privateRootDirectory, authoringVersion, cancellationToken);
+
+    /// <summary>Copies active domain credentials synchronously before source preparation can await or authoring can change.</summary>
+    public static Task<DeploymentBuildSnapshot> CaptureAsync(
+        FoundryConfigurationDocument configuration,
+        OobeAccountSecretState accountSecrets,
+        DomainJoinSecretState? domainSecrets,
+        ReadOnlySpan<char> deploymentPassword,
+        string privateRootDirectory,
+        string? authoringVersion,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(configuration);
@@ -75,6 +87,12 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         try
         {
             snapshot.CopyAccountSecrets(accountSecrets);
+            if (domainSecrets is not null && configuration.DomainJoin.IsEnabled && configuration.DomainJoin.Mode == DomainJoinMode.Automatic)
+            {
+                var context = new DomainJoinCredentialContext(configuration.DomainJoin.DomainName ?? string.Empty, configuration.DomainJoin.AccountName ?? string.Empty);
+                char[]? password = domainSecrets.GetPasswordCopy(context);
+                if (password is not null) Copy(password, value => snapshot.domainSecrets.SetPassword(context, value));
+            }
             return snapshot.PrepareAsync(cancellationToken);
         }
         catch
@@ -100,7 +118,7 @@ public sealed class DeploymentBuildSnapshot : IDisposable
             throw new InvalidOperationException("OOBE local account password confirmation is invalid.");
         }
         var generator = new DeployConfigurationGenerator();
-        return generator.Serialize(generator.Generate(CreateGenerationDocument(telemetryOverride), deploymentSecretsKey, protectionSettings, accountSecrets, authoringVersion));
+        return generator.Serialize(generator.Generate(CreateGenerationDocument(telemetryOverride), deploymentSecretsKey, protectionSettings, accountSecrets, domainSecrets, authoringVersion));
     }
 
     /// <summary>Creates fresh per-media protection using the confirmed password captured before preparation began.</summary>
@@ -119,6 +137,7 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         {
             isDisposed = true;
             accountSecrets.Dispose();
+            domainSecrets.Dispose();
             Clear(deploymentPassword);
             Clear(wifiPassphrase);
             Clear(wiredCertificatePassword);
