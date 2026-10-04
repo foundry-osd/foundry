@@ -38,6 +38,8 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
     {
         context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing completion logs...", DeploymentOperationNames.WriteLogs);
         await context.AppendLogAsync(DeploymentLogLevel.Info, stepLogMessage, cancellationToken).ConfigureAwait(false);
+        if (context.RuntimeState.DomainJoinSkipCode is { } domainSkip)
+            await context.AppendLogAsync(DeploymentLogLevel.Warning, $"Domain joining skipped. Reason={domainSkip}.", cancellationToken).ConfigureAwait(false);
 
         context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing deployment summary...", DeploymentOperationNames.WriteSummary);
         DeploymentArtifactHandoffResult? handoff = null;
@@ -96,6 +98,9 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
             deferredDriverPackagePath = runtimeState.DeferredDriverPackagePath,
             preOobeRunnerPath = runtimeState.PreOobeRunnerPath,
             preOobeManifestPath = runtimeState.PreOobeManifestPath,
+            domainJoinStatus = runtimeState.DomainJoinStatus,
+            domainJoinSkipCode = runtimeState.DomainJoinSkipCode,
+            actualWindowsEditionId = runtimeState.ActualWindowsEditionId,
             applyFirmwareUpdates = runtimeState.ApplyFirmwareUpdates,
             downloadedFirmwarePath = runtimeState.DownloadedFirmwarePath,
             extractedFirmwarePath = runtimeState.ExtractedFirmwarePath,

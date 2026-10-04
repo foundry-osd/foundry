@@ -10,11 +10,20 @@ using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.Deplo
 
 namespace Foundry.Deploy.Services.Deployment;
 
+/// <summary>Tracks effective domain eligibility without modifying the technician's frozen request.</summary>
+public enum DomainJoinExecutionStatus { Disabled, Pending, Ready, SkippedUnsupportedEdition, SkippedImageComposition }
+
+/// <summary>Allowlisted reasons for a WinPE domain warning retained without a fabricated installed-Windows report.</summary>
+public enum DomainJoinSkipCode { UnsupportedEdition, EmbeddedDomainJoin, AmbiguousComputerName, ComputerNameMismatch }
+
 /// <summary>
 /// Captures mutable deployment state persisted to logs and reused across deployment steps.
 /// </summary>
 public sealed record DeploymentRuntimeState
 {
+    public DomainJoinExecutionStatus DomainJoinStatus { get; set; }
+    public DomainJoinSkipCode? DomainJoinSkipCode { get; set; }
+    public string? ActualWindowsEditionId { get; set; }
     /// <summary>
     /// Gets the UTC time when deployment started.
     /// </summary>

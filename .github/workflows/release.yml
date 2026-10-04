@@ -403,7 +403,7 @@ jobs:
                   $path = Join-Path $postInstallPublishPath $_
                   [ordered]@{ relativePath = $_; length = (Get-Item -LiteralPath $path).Length; sha256 = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
               })
-              $postInstallManifest = [ordered]@{ schemaVersion = 1; contractVersion = 1; runtimeIdentifier = $runtimeIdentifier; files = $postInstallFiles } | ConvertTo-Json -Depth 10
+              $postInstallManifest = [ordered]@{ schemaVersion = 1; contractVersion = 2; runtimeIdentifier = $runtimeIdentifier; files = $postInstallFiles } | ConvertTo-Json -Depth 10
               Set-Content -LiteralPath (Join-Path $postInstallPublishPath 'foundry.postinstall.json') -Value $postInstallManifest -Encoding utf8NoBOM
 
               $postInstallAssetPath = Join-Path $releaseRoot "Foundry.PostInstall-$runtimeIdentifier.zip"

@@ -211,6 +211,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
+            PreOobe.DomainJoinRuntimeEligibility.Initialize(context, runtimeState);
             IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(context, runtimeState);
             runtimeState.DriverPackInstallMode = DeploymentPlan.ResolveDriverMode(context);
             _logger.LogInformation("Deployment workspace root resolved to '{WorkspaceRoot}'.", runtimeState.WorkspaceRoot);

@@ -1132,6 +1132,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Constants.WorkspacesDirectoryPath,
                 Constants.WorkspacesDirectoryPath);
             runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(runtimePayloadProvisioning);
+            runtimePayloadProvisioning = runtimePayloadProvisioning.WithDomainJoinRequirement(snapshot.Configuration.DomainJoin.IsEnabled);
             TelemetrySettings connectTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect) };
             TelemetrySettings deployTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy) };
 

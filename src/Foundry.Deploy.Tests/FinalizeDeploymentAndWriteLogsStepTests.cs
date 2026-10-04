@@ -13,6 +13,23 @@ namespace Foundry.Deploy.Tests;
 [Collection(nameof(SerilogCollection))]
 public sealed class FinalizeDeploymentAndWriteLogsStepTests
 {
+    [Fact]
+    public async Task FinalizeRetainsDomainSkipWithoutPostInstallPlanOrFabricatedHash()
+    {
+        var logs = new RecordingDomainLogService();
+        using var fixture = new Fixture(logs);
+        fixture.Context.RuntimeState.DomainJoinStatus = DomainJoinExecutionStatus.SkippedUnsupportedEdition;
+        fixture.Context.RuntimeState.DomainJoinSkipCode = DomainJoinSkipCode.UnsupportedEdition;
+        var result = await new FinalizeDeploymentAndWriteLogsStep().ExecuteAsync(fixture.Context, TestContext.Current.CancellationToken);
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        using var summary = System.Text.Json.JsonDocument.Parse(File.ReadAllBytes(fixture.Context.RuntimeState.DeploymentSummaryPath!));
+        Assert.Equal((int)DomainJoinExecutionStatus.SkippedUnsupportedEdition, summary.RootElement.GetProperty("domainJoinStatus").GetInt32());
+        Assert.Equal((int)DomainJoinSkipCode.UnsupportedEdition, summary.RootElement.GetProperty("domainJoinSkipCode").GetInt32());
+        Assert.Equal(System.Text.Json.JsonValueKind.Null, summary.RootElement.GetProperty("preOobeManifestPath").ValueKind);
+        Assert.False(summary.RootElement.TryGetProperty("planHash", out _));
+        Assert.Contains(logs.Messages, entry => entry.Level == DeploymentLogLevel.Warning && entry.Message == "Domain joining skipped. Reason=UnsupportedEdition.");
+    }
+
     [Theory]
     [InlineData("initialize")]
     [InlineData("copy")]
@@ -255,6 +272,20 @@ public sealed class FinalizeDeploymentAndWriteLogsStepTests
                 await Release.Task.WaitAsync(cancellationToken);
             }
             await _inner.SaveStateAsync(session, state, cancellationToken);
+        }
+    }
+
+    private sealed class RecordingDomainLogService : IDeploymentLogService
+    {
+        private readonly DeploymentLogService inner = new();
+        public List<(DeploymentLogLevel Level, string Message)> Messages { get; } = [];
+        public DeploymentLogSession Initialize(string rootPath) => inner.Initialize(rootPath);
+        public Task SaveStateAsync<T>(DeploymentLogSession session, T state, CancellationToken cancellationToken = default) =>
+            inner.SaveStateAsync(session, state, cancellationToken);
+        public Task AppendAsync(DeploymentLogSession session, DeploymentLogLevel level, string message, CancellationToken cancellationToken = default)
+        {
+            Messages.Add((level, message));
+            return inner.AppendAsync(session, level, message, cancellationToken);
         }
     }
 

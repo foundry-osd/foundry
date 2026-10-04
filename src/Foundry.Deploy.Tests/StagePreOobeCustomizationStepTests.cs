@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
+using System.Text;
 using System.Security.Cryptography;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Deploy.Models;
@@ -23,6 +24,141 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class StagePreOobeCustomizationStepTests
 {
+    [Fact]
+    public async Task FailedCredentialRollbackRetainsNonRunnableOwnershipAndFailsStaging()
+    {
+        using var temp = new TemporaryDirectory();
+        using var context = CreateContext(temp, domain: true);
+        string answer = Path.Combine(temp.WindowsRoot, "Windows", "Panther", "unattend.xml");
+        Directory.CreateDirectory(Path.GetDirectoryName(answer)!);
+        File.WriteAllText(answer, "<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\"><ComputerName>LAB01</ComputerName></component></settings></unattend>");
+        string root = Path.Combine(temp.WindowsRoot, "Windows", "Temp", "Foundry");
+        string credential = Path.Combine(root, "Payloads", "DomainJoin", context.RuntimeState.OperationId, "credentials.bin");
+        FileStream? held = null;
+        try
+        {
+            var service = new PreOobeTargetStagingService(path => Directory.CreateDirectory(path))
+            {
+                BeforeHookPublication = () =>
+                {
+                    held = new FileStream(credential, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    throw new IOException("injected failure");
+                }
+            };
+            var result = await new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(), service).ExecuteAsync(context, TestContext.Current.CancellationToken);
+            Assert.Equal(DeploymentStepState.Failed, result.State);
+            Assert.True(File.Exists(credential));
+            Assert.Null(context.DomainJoinInput);
+            using var plan = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "State", "PreOobe", "plan.json")));
+            Assert.Contains(plan.RootElement.GetProperty("ownedPayloads").EnumerateArray(), payload => payload.GetProperty("relativePath").GetString() == $"Payloads/DomainJoin/{context.RuntimeState.OperationId}/credentials.bin");
+            using var journal = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "State", "PreOobe", "execution-result.json")));
+            Assert.Equal("Staging", journal.RootElement.GetProperty("status").GetString());
+            Assert.Null(context.RuntimeState.PreOobeManifestPath);
+        }
+        finally { held?.Dispose(); }
+    }
+
+    [Fact]
+    public async Task UnsupportedActualEditionRetainsEvidenceAndFrozenRequestWithoutStaging()
+    {
+        using var temp = new TemporaryDirectory();
+        using var context = CreateContext(temp, domain: true);
+        var input = context.DomainJoinInput!;
+        var request = context.Request.DomainJoinRequest;
+        await DomainJoinRuntimeEligibility.ConfirmEditionAsync(context, "Core", TestContext.Current.CancellationToken);
+        await DomainJoinRuntimeEligibility.ConfirmEditionAsync(context, null, TestContext.Current.CancellationToken);
+        Assert.Equal("Core", context.RuntimeState.ActualWindowsEditionId);
+        Assert.Equal(DomainJoinExecutionStatus.SkippedUnsupportedEdition, context.RuntimeState.DomainJoinStatus);
+        Assert.Equal(DomainJoinSkipCode.UnsupportedEdition, context.RuntimeState.DomainJoinSkipCode);
+        Assert.Same(request, context.Request.DomainJoinRequest);
+        Assert.NotNull(context.Request.DomainJoinIntent);
+        Assert.Null(context.DomainJoinInput);
+        Assert.Throws<ObjectDisposedException>(() => input.Password);
+        Assert.DoesNotContain(DeploymentPlan.Build(context.Request, context.RuntimeState), entry => entry.Name == DeploymentStepNames.StagePreOobeCustomization);
+        var result = await new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver()).ExecuteAsync(context, TestContext.Current.CancellationToken);
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
+        Assert.Null(context.RuntimeState.PreOobeManifestPath);
+    }
+
+    [Fact]
+    public async Task FinalCompositionMismatchSkipsDomainWithoutCredentialOrInventedReport()
+    {
+        using var temp = new TemporaryDirectory();
+        using var context = CreateContext(temp, domain: true);
+        var input = context.DomainJoinInput!;
+        string answer = Path.Combine(temp.WindowsRoot, "Windows", "Panther", "unattend.xml");
+        Directory.CreateDirectory(Path.GetDirectoryName(answer)!);
+        File.WriteAllText(answer, "<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\"><ComputerName>OTHER</ComputerName></component></settings></unattend>");
+        var result = await new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(), new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)))
+            .ExecuteAsync(context, TestContext.Current.CancellationToken);
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
+        Assert.Equal(DomainJoinExecutionStatus.SkippedImageComposition, context.RuntimeState.DomainJoinStatus);
+        Assert.Equal(DomainJoinSkipCode.ComputerNameMismatch, context.RuntimeState.DomainJoinSkipCode);
+        Assert.Null(context.DomainJoinInput);
+        Assert.Throws<ObjectDisposedException>(() => input.Password);
+        Assert.Null(context.RuntimeState.PreOobeManifestPath);
+        Assert.False(Directory.Exists(Path.Combine(temp.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "DomainJoin")));
+        Assert.False(File.Exists(Path.Combine(temp.WindowsRoot, "Windows", "Temp", "Foundry", "State", "PreOobe", "domain-join-result.json")));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DomainStagingPublishesBoundSeedsAndClearsInput(bool failPublication)
+    {
+        using var temp = new TemporaryDirectory();
+        using var context = CreateContext(temp, domain: true);
+        var input = context.DomainJoinInput!;
+        string answer = Path.Combine(temp.WindowsRoot, "Windows", "Panther", "unattend.xml");
+        Directory.CreateDirectory(Path.GetDirectoryName(answer)!);
+        File.WriteAllText(answer, "<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\"><ComputerName>LAB01</ComputerName></component></settings></unattend>");
+        string credential = Path.Combine(temp.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "DomainJoin", context.RuntimeState.OperationId, "credentials.bin");
+        bool protectedBeforeWrite = false;
+        var service = new PreOobeTargetStagingService(path =>
+        {
+            Directory.CreateDirectory(path);
+            if (path == Path.GetDirectoryName(credential))
+            {
+                protectedBeforeWrite = !File.Exists(credential);
+            }
+        })
+        {
+            BeforeHookPublication = () => { if (failPublication) throw new IOException("injected publication failure"); }
+        };
+        var result = await new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(), service).ExecuteAsync(context, TestContext.Current.CancellationToken);
+        Assert.Equal(failPublication ? DeploymentStepState.Failed : DeploymentStepState.Succeeded, result.State);
+        Assert.True(protectedBeforeWrite);
+        Assert.Null(context.DomainJoinInput);
+        Assert.Throws<ObjectDisposedException>(() => input.Password);
+        Assert.Equal(!failPublication, File.Exists(credential));
+        string stateRoot = Path.Combine(temp.WindowsRoot, "Windows", "Temp", "Foundry", "State", "PreOobe");
+        if (failPublication)
+        {
+            Assert.False(File.Exists(Path.Combine(stateRoot, "domain-join-phase.json")));
+            Assert.False(File.Exists(Path.Combine(stateRoot, "domain-join-result.json")));
+            return;
+        }
+        byte[] planBytes = File.ReadAllBytes(context.RuntimeState.PreOobeManifestPath!);
+        using var plan = JsonDocument.Parse(planBytes);
+        Assert.Equal(2, plan.RootElement.GetProperty("runtimeContractVersion").GetInt32());
+        Assert.DoesNotContain("joiner", Encoding.UTF8.GetString(planBytes));
+        Assert.DoesNotContain("secret", File.ReadAllText(Path.Combine(stateRoot, "execution-result.json")));
+        Assert.Equal(new[] { "domain-join", "verify-domain-membership", "cleanup" }, plan.RootElement.GetProperty("actions").EnumerateArray().Select(action => action.GetProperty("id").GetString()));
+        var payload = Assert.Single(plan.RootElement.GetProperty("ownedPayloads").EnumerateArray(), item => item.GetProperty("isSensitive").GetBoolean());
+        Assert.Equal("domain-join", Assert.Single(payload.GetProperty("consumerActionIds").EnumerateArray()).GetString());
+        using var decoded = Foundry.Core.Services.Configuration.DomainJoinCredentialPayloadCodec.Decode(File.ReadAllBytes(credential), new("example.com", "EXAMPLE\\joiner"));
+        Assert.Equal("secret", new string(decoded.Password.Span));
+        string hash = Convert.ToHexStringLower(SHA256.HashData(planBytes));
+        using var phase = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(stateRoot, "domain-join-phase.json")));
+        Assert.Equal(hash, phase.RootElement.GetProperty("planHash").GetString());
+        Assert.Equal(JsonValueKind.Null, phase.RootElement.GetProperty("originatingBootId").ValueKind);
+        Assert.Equal("Prepared", phase.RootElement.GetProperty("phase").GetString());
+        Assert.Equal(JsonValueKind.Null, phase.RootElement.GetProperty("computerObjectGuid").ValueKind);
+        using var report = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(stateRoot, "domain-join-result.json")));
+        Assert.Equal(hash, report.RootElement.GetProperty("planHash").GetString());
+        Assert.Equal("", report.RootElement.GetProperty("originatingBootId").GetString());
+    }
+
     [Fact]
     public async Task MissingBootstrapRuntime_IsRecoveredForBuiltInOemActivation()
     {
@@ -311,11 +447,14 @@ public sealed class StagePreOobeCustomizationStepTests
         string licenseChannel = "",
         bool usesCustomUnattend = false,
         bool isDryRun = false,
-        Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings? postInstall = null)
+        Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings? postInstall = null,
+        bool domain = false)
     {
         var request = new DeploymentContext
         {
             PreOobe = postInstall ?? new(),
+            DomainJoinRequest = domain ? new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, Services.DomainJoin.DomainJoinDeploymentDisposition.Ready) : null,
+            DomainJoinIntent = domain ? new("example.com", "LAB01", null) : null,
             Mode = DeploymentMode.Iso,
             IsDryRun = isDryRun,
             Unattend = usesCustomUnattend
@@ -358,10 +497,19 @@ public sealed class StagePreOobeCustomizationStepTests
             new FakeOperationProgressService(),
             new FakeDeploymentLogService(),
             new FakeTargetDiskService(),
-            _ => { });
+            _ => { }, domainJoinInput: domain ? new(new("example.com", "EXAMPLE\\joiner"), "LAB01", null, "secret") : null);
         string fixtureRuntime = Path.Combine(tempDirectory.RootPath, "context-runtime");
         Directory.CreateDirectory(fixtureRuntime);
         context.PostInstallContent = NativeRuntimeFixture.Create(fixtureRuntime);
+        if (domain)
+        {
+            context.PostInstallContent.Dispose();
+            string executable = NativeRuntimeFixture.CreateFiles(Path.Combine(fixtureRuntime, "domain"));
+            string directory = Path.GetDirectoryName(executable)!;
+            var manifest = JsonSerializer.Deserialize<PostInstallRuntimeManifest>(File.ReadAllText(Path.Combine(directory, PostInstallRuntimeManifest.FileName)), Foundry.Deploy.Services.Configuration.ConfigurationJsonDefaults.SerializerOptions)!;
+            NativeRuntimeFixture.WriteManifest(directory, manifest with { ContractVersion = 2 });
+            context.PostInstallContent = PostInstallRuntimeSource.AcquireAsync(executable, "win-x64", CancellationToken.None).GetAwaiter().GetResult();
+        }
         return context;
     }
 

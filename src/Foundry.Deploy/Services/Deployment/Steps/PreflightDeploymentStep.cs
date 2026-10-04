@@ -37,11 +37,13 @@ public sealed class PreflightDeploymentStep(
             }
             catch (PreOobe.PostInstallRuntimeUnavailableException exception)
             {
+                context.ClearDomainJoinInput();
                 Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Post-installation runtime recovery failed.");
                 return Failed("PostInstall.RuntimeUnavailable", "postinstall_runtime_unavailable");
             }
             catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or HttpRequestException)
             {
+                context.ClearDomainJoinInput();
                 Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Post-installation readiness validation failed.");
                 return Failed("PostInstall.PreflightFailed", "postinstall_preflight_failed");
             }
@@ -154,6 +156,7 @@ public sealed class PreflightDeploymentStep(
             var setupImages = images.Where(image => image.Name.Equals("Windows Setup Media", StringComparison.OrdinalIgnoreCase)).ToArray();
             long? setupSize = setupImages.Length == 1 && setupImages[0].ExpandedSizeBytes > 0 ? setupImages[0].ExpandedSizeBytes : null;
             prepared.Image = new WindowsImageMetadata(selected.Index, selected.EditionId, selected.ExpandedSizeBytes, setupSize, selected.Architecture);
+            await PreOobe.DomainJoinRuntimeEligibility.ConfirmEditionAsync(context, selected.EditionId, cancellationToken).ConfigureAwait(false);
             prepared.SourceSizeBytes = prepared.CustomSourceLease.Length;
             prepared.TargetDriverBytes = ResolveTargetDriverBytes(context, null);
             DeploymentCapacityPolicy.EnsureTargetCapacity(context, prepared.Image, 0, prepared.TargetDriverBytes);

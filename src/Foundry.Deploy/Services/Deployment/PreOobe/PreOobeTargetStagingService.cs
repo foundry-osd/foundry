@@ -8,6 +8,8 @@ using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Packages;
 using Foundry.Deploy.Services.Configuration;
@@ -35,9 +37,23 @@ public sealed class PreOobeTargetStagingService
         string packageRoot = Path.Combine(layout.Root, "Payloads", "PostInstall", operationId);
         var unpublishedNetworkFiles = new List<string>();
         var unpublishedStateFiles = new List<string>();
+        string? domainCredentialPath = null;
         bool hookPublished = false;
         try
         {
+            await DomainJoinRuntimeEligibility.ConfirmEditionAsync(context, context.RuntimeState.ActualWindowsEditionId, cancellationToken).ConfigureAwait(false);
+            if (PreOobeContentResolver.HasDomainTasks(context.Request, context.RuntimeState))
+            {
+                var composition = await PreOobeUnattendPrecedenceService.InspectDomainCompositionAsync(partition,
+                    context.Request.OperatingSystem.Architecture, context.Request.DomainJoinIntent!.ComputerName,
+                    context.Request.UsesCustomUnattend, true, cancellationToken).ConfigureAwait(false);
+                if (!composition.IsCompatible)
+                    await DomainJoinRuntimeEligibility.SkipAsync(context, DomainJoinExecutionStatus.SkippedImageComposition,
+                        composition.SkipCode!.Value, cancellationToken).ConfigureAwait(false);
+                else context.RuntimeState.DomainJoinStatus = DomainJoinExecutionStatus.Ready;
+            }
+            if (!PreOobeContentResolver.IsRequired(context.Request, context.RuntimeState) && driver is null && context.NetworkProfileRoamingPayload?.DataFiles.Count is not > 0)
+                return;
             foreach (string path in new[] { layout.RuntimePreOobe, layout.StatePreOobe, layout.LogsPreOobe, work, packageRoot, Path.Combine(layout.RuntimePreOobe, "Bundle") }) _protectDirectory(path);
             string planPath = Path.Combine(layout.StatePreOobe, "plan.json");
             string journalPath = Path.Combine(layout.StatePreOobe, "execution-result.json");
@@ -87,6 +103,21 @@ public sealed class PreOobeTargetStagingService
                 AddBuiltIn("network-profile-roaming", PreOobeBuiltInKind.Network, new { settingsPath = "Payloads/NetworkProfiles/import-settings.json" });
                 owned.Add(new() { RelativePath = "Payloads/NetworkProfiles", IsDirectory = true, IsSensitive = true, ConsumerActionIds = ["network-profile-roaming"] });
             }
+            if (PreOobeContentResolver.HasDomainTasks(context.Request, context.RuntimeState))
+            {
+                var intent = context.Request.DomainJoinIntent!;
+                var input = context.DomainJoinInput ?? throw new InvalidDataException("Prepared domain credentials are unavailable.");
+                if (!input.Matches(intent)) throw new InvalidDataException("Prepared domain credentials do not match the frozen intent.");
+                string relative = $"Payloads/DomainJoin/{operationId}/credentials.bin";
+                string destination = Path.Combine(layout.Root, relative.Replace('/', Path.DirectorySeparatorChar));
+                _protectDirectory(Path.GetDirectoryName(destination)!);
+                domainCredentialPath = destination;
+                AddBuiltIn("domain-join", PreOobeBuiltInKind.DomainJoinAndPlacement,
+                    new DomainJoinActionParameters(intent.DomainName, intent.ComputerName, intent.TargetOuDn, relative));
+                AddBuiltIn("verify-domain-membership", PreOobeBuiltInKind.VerifyDomainMembership,
+                    new DomainMembershipVerificationParameters(intent.DomainName, intent.ComputerName, "domain-join"));
+                owned.Add(new() { RelativePath = relative, IsSensitive = true, ConsumerActionIds = ["domain-join"] });
+            }
             var ai = context.Request.AiComponentRemoval;
             string[] aiNames = ai.IsEnabled ? new[] { ai.RemoveCopilot ? "Microsoft.Copilot" : null, ai.RemoveAiHub ? "Microsoft.Windows.AIHub" : null }.OfType<string>().ToArray() : [];
             if (aiNames.Length > 0) AddBuiltIn("remove-ai-components", PreOobeBuiltInKind.AiRemoval, new { packageNames = aiNames });
@@ -122,6 +153,7 @@ public sealed class PreOobeTargetStagingService
             owned.Add(new() { RelativePath = $"Work/PreOobe/{operationId}", IsDirectory = true, ConsumerActionIds = actions.Where(action => action.CustomAction is not null).Select(action => action.Id).ToArray() });
             var plan = new PreOobeExecutionPlan
             {
+                RuntimeContractVersion = PreOobeContentResolver.RequiredContractVersion(context),
                 OperationId = operationId,
                 AttemptId = Guid.NewGuid().ToString("N"),
                 DiagnosticSessionId = Foundry.Utilities.Diagnostics.DiagnosticSessionContext.CurrentSessionId,
@@ -153,6 +185,50 @@ public sealed class PreOobeTargetStagingService
             unpublishedStateFiles.Add(journalPath);
             DeploymentFilePublication.WriteAllText(planPath, Encoding.UTF8.GetString(planBytes), new UTF8Encoding(false));
             unpublishedStateFiles.Add(planPath);
+            if (PreOobeContentResolver.HasDomainTasks(context.Request, context.RuntimeState))
+            {
+                var intent = context.Request.DomainJoinIntent!;
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    WriteIndented = true,
+                    Converters = { new JsonStringEnumConverter() }
+                };
+                var phase = new DomainJoinPhaseReceipt { OperationId = operationId, AttemptId = plan.AttemptId, PlanHash = hash, ActionId = "domain-join" };
+                var result = new DomainJoinResult
+                {
+                    OperationId = operationId,
+                    AttemptId = plan.AttemptId,
+                    PlanHash = hash,
+                    ExpectedComputerName = intent.ComputerName,
+                    ExpectedDomainName = intent.DomainName,
+                    TargetOuDn = intent.TargetOuDn,
+                    Cleanup = DomainJoinCleanupState.Pending
+                };
+                foreach (var seed in new[]
+                {
+                    (Name: "domain-join-phase.json", Json: JsonSerializer.Serialize(phase, options)),
+                    (Name: "domain-join-result.json", Json: JsonSerializer.Serialize(result, options))
+                })
+                {
+                    string path = Path.Combine(layout.StatePreOobe, seed.Name);
+                    if (File.Exists(path)) throw new InvalidDataException("An existing domain operation cannot be overwritten.");
+                    DeploymentFilePublication.WriteAllText(path, seed.Json, new UTF8Encoding(false));
+                    unpublishedStateFiles.Add(path);
+                }
+                // Durable Staging ownership must precede plaintext creation, so a failed rollback cannot orphan credentials.
+                var input = context.DomainJoinInput!;
+                byte[] bytes = DomainJoinCredentialPayloadCodec.Encode(input.CredentialContext, input.Password.Span);
+                try
+                {
+                    await using var output = new FileStream(domainCredentialPath!, FileMode.CreateNew, FileAccess.Write, FileShare.None);
+                    unpublishedNetworkFiles.Add(domainCredentialPath!);
+                    await output.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
+                    await output.FlushAsync(cancellationToken).ConfigureAwait(false);
+                    output.Flush(flushToDisk: true);
+                }
+                finally { CryptographicOperations.ZeroMemory(bytes); context.ClearDomainJoinInput(); }
+            }
             cancellationToken.ThrowIfCancellationRequested();
             string setupComplete = Path.Combine(partition, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
             new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY PRE-OOBE");
@@ -170,12 +246,25 @@ public sealed class PreOobeTargetStagingService
         }
         finally
         {
+            context.ClearDomainJoinInput();
             if (!hookPublished)
-                foreach (string path in unpublishedStateFiles.AsEnumerable().Reverse().Concat(unpublishedNetworkFiles))
+            {
+                Exception? domainRollbackFailure = null;
+                if (domainCredentialPath is not null && unpublishedNetworkFiles.Contains(domainCredentialPath))
+                {
+                    try { PreOobePackagePathPolicy.ValidateNoReparsePoints(domainCredentialPath); File.Delete(domainCredentialPath); }
+                    catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
+                    { domainRollbackFailure = exception; }
+                }
+                foreach (string path in unpublishedNetworkFiles.Where(path => path != domainCredentialPath).Concat(
+                    domainRollbackFailure is null ? unpublishedStateFiles.AsEnumerable().Reverse() : []))
                 {
                     try { PreOobePackagePathPolicy.ValidateNoReparsePoints(path); File.Delete(path); }
                     catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException) { }
                 }
+                if (domainRollbackFailure is not null)
+                    throw new InvalidDataException("Sensitive domain payload rollback failed; non-runnable operation ownership was retained.", domainRollbackFailure);
+            }
         }
     }
 

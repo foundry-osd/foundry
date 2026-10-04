@@ -37,7 +37,7 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (PreOobe.PreOobeContentResolver.IsRequired(context.Request))
+            if (PreOobe.PreOobeContentResolver.IsRequired(context.Request, context.RuntimeState))
             {
                 if (context.PostInstallContent is null) throw new InvalidDataException("Post-installation readiness is missing.");
                 await PreOobe.PreOobeContentResolver.RevalidateAsync(context, context.PostInstallContent, cancellationToken).ConfigureAwait(false);

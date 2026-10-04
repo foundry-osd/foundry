@@ -112,7 +112,17 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 applyImageProgress)
             .ConfigureAwait(false);
 
-        if (PreOobe.PreOobeContentResolver.IsRequired(context.Request))
+        await PreOobe.DomainJoinRuntimeEligibility.ConfirmEditionAsync(context, metadata.EditionId, cancellationToken).ConfigureAwait(false);
+        if (PreOobe.PreOobeContentResolver.HasDomainTasks(context.Request, context.RuntimeState))
+        {
+            if (_postInstallPrecedence is null) throw new InvalidOperationException("Post-installation answer-file inspection is unavailable.");
+            var composition = await _postInstallPrecedence.CheckDomainCompositionAsync(context.RuntimeState.TargetWindowsPartitionRoot,
+                context.Request.OperatingSystem.Architecture, context.Request.DomainJoinIntent!.ComputerName, context.Request.UsesCustomUnattend, cancellationToken).ConfigureAwait(false);
+            if (!composition.IsCompatible)
+                await PreOobe.DomainJoinRuntimeEligibility.SkipAsync(context, DomainJoinExecutionStatus.SkippedImageComposition,
+                    composition.SkipCode!.Value, cancellationToken).ConfigureAwait(false);
+        }
+        if (PreOobe.PreOobeContentResolver.IsRequired(context.Request, context.RuntimeState))
         {
             try
             {
@@ -137,6 +147,8 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
             string? appliedEdition = await _windowsDeploymentService
                 .GetAppliedWindowsEditionAsync(context.RuntimeState.TargetWindowsPartitionRoot, workingDirectory, cancellationToken)
                 .ConfigureAwait(false);
+
+            await PreOobe.DomainJoinRuntimeEligibility.ConfirmEditionAsync(context, appliedEdition, cancellationToken).ConfigureAwait(false);
 
             if (!string.IsNullOrWhiteSpace(appliedEdition))
             {

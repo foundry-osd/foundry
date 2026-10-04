@@ -10,6 +10,19 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPlanTests
 {
+    [Fact]
+    public void DomainOnlyDeploymentRequiresPostInstall()
+    {
+        DeploymentContext request = Request() with
+        {
+            DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive,
+                Services.DomainJoin.DomainJoinDeploymentDisposition.Ready),
+            DomainJoinIntent = new("example.com", "LAB01", null)
+        };
+        Assert.Contains(DeploymentPlan.Build(request), step => step.Name == DeploymentStepNames.StagePreOobeCustomization);
+        Assert.True(Services.Deployment.PreOobe.PreOobeContentResolver.IsRequired(request));
+    }
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]

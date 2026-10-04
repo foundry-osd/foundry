@@ -25,6 +25,13 @@ public sealed class DeploymentStepExecutionContext : IDisposable
 {
     /// <summary>Owns prepared domain input only in memory; target staging must dispose and clear it.</summary>
     internal DomainJoin.DomainJoinPreparedInput? DomainJoinInput { get; set; }
+
+    /// <summary>Ends prepared credential ownership on consume, skip or failure.</summary>
+    internal void ClearDomainJoinInput()
+    {
+        DomainJoinInput?.Dispose();
+        DomainJoinInput = null;
+    }
     /// <summary>Holds captured network data only for the active deployment, outside persisted diagnostics.</summary>
     internal PreOobe.PreOobeNetworkProfileRoamingPayload? NetworkProfileRoamingPayload { get; set; }
 
@@ -134,6 +141,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         EnsureWorkspaceFolders();
         LogSession = _deploymentLogService.Initialize(RuntimeState.WorkspaceRoot);
         DomainJoinInput = domainJoinInput;
+        PreOobe.DomainJoinRuntimeEligibility.Initialize(request, RuntimeState);
     }
 
     /// <summary>

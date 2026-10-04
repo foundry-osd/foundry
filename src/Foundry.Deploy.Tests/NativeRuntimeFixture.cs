@@ -12,10 +12,10 @@ namespace Foundry.Deploy.Tests;
 
 internal static class NativeRuntimeFixture
 {
-    public static PreOobePreparedContent Create(string root) =>
-        PostInstallRuntimeSource.AcquireAsync(CreateFiles(root), "win-x64", CancellationToken.None).GetAwaiter().GetResult();
+    public static PreOobePreparedContent Create(string root, int contract = 1) =>
+        PostInstallRuntimeSource.AcquireAsync(CreateFiles(root, contract), "win-x64", CancellationToken.None).GetAwaiter().GetResult();
 
-    public static string CreateFiles(string root)
+    public static string CreateFiles(string root, int contract = 1)
     {
         string directory = Path.Combine(root, "postinstall-runtime");
         Directory.CreateDirectory(directory);
@@ -26,7 +26,7 @@ internal static class NativeRuntimeFixture
             File.WriteAllBytes(Path.Combine(directory, name), bytes);
             files.Add(new() { RelativePath = name, Length = bytes.Length, Sha256 = Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant() });
         }
-        WriteManifest(directory, new() { RuntimeIdentifier = "win-x64", Files = files });
+        WriteManifest(directory, new() { ContractVersion = contract, RuntimeIdentifier = "win-x64", Files = files });
         return Path.Combine(directory, "Foundry.PostInstall.exe");
     }
 

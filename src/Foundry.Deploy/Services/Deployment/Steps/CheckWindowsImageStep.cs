@@ -17,10 +17,13 @@ public sealed class CheckWindowsImageStep(
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
         if (context.Request.OperatingSystem is Models.CustomImageSelection)
+        {
+            await PreOobe.DomainJoinRuntimeEligibility.ConfirmEditionAsync(context, context.Preflight?.Image?.EditionId, cancellationToken).ConfigureAwait(false);
             return context.Preflight?.CustomSourceLease is not null && context.Preflight.Matches(context)
                 ? DeploymentStepResult.Succeeded("Custom image and exact index verified.")
                 : DeploymentStepResult.Failed("Custom image is not ready.", DeploymentFailure.Guard(DeploymentOperationNames.PreflightDeployment,
                     DeploymentFailureReasons.InvalidState, "preflight_not_ready"));
+        }
         try
         {
             DeploymentPreflightState? prepared = context.Preflight;
@@ -57,6 +60,7 @@ public sealed class CheckWindowsImageStep(
             prepared.SourceSizeBytes = sourceBytes;
             prepared.TargetDriverBytes = driverBytes;
             prepared.Image = image;
+            await PreOobe.DomainJoinRuntimeEligibility.ConfirmEditionAsync(context, image.EditionId, cancellationToken).ConfigureAwait(false);
             await context.AppendLogAsync(DeploymentLogLevel.Info,
                 $"Image checked. ImageIndex={image.Index}; ImageExpandedBytes={image.SizeBytes}; SourceBytes={sourceBytes}; TargetDriverArchiveBytes={driverBytes}; OptionalSetupMediaBytes={image.SetupMediaSizeBytes?.ToString() ?? "unknown"}.",
                 cancellationToken).ConfigureAwait(false);
