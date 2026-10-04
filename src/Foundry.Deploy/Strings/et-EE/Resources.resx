@@ -358,52 +358,52 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
     <value>| {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
-    <value>Account (DOMAIN\user or user@domain)</value>
+    <value>Konto (DOMAIN\user või user@domain)</value>
   </data>
   <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Jätka</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Default domain destination</value>
+    <value>Domeeni vaikimisi sihtkoht</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Enter the deployment credentials and destination. Domain joining runs in installed Windows.</value>
+    <value>Sisestage juurutamise identimisteave ja sihtkoht. Domeeniga liitumine toimub installitud Windowsis.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
-    <value>Organizational unit</value>
+    <value>Organisatsiooniüksus</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Enter a valid OU distinguished name in the specified domain, or leave it empty.</value>
+    <value>Sisestage määratud domeenis kehtiv OU eristusnimi või jätke väli tühjaks.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Select an organizational unit from the catalog.</value>
+    <value>Valige kataloogist organisatsiooniüksus.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Domain DNS name</value>
+    <value>Domeeni DNS-nimi</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>The domain join input is invalid or unavailable. Deployment has not started.</value>
+    <value>Domeeniga liitumise sisend on vigane või kättesaamatu. Juurutamine pole alanud.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
-    <value>OU distinguished name (optional)</value>
+    <value>OU eristusnimi (valikuline)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Leave empty to use the default domain destination.</value>
+    <value>Domeeni vaikimisi sihtkoha kasutamiseks jätke väli tühjaks.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
-    <value>Password</value>
+    <value>Parool</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Provided before deployment</value>
+    <value>Esitatud enne juurutamist</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domain: {0}. Destination: {1}.</value>
+    <value>Domeen: {0}. Sihtkoht: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
-    <value>Domain join</value>
+    <value>Domeeniga liitumine</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>This Windows edition does not support domain joining. Windows installation will continue without domain joining.</value>
+    <value>See Windowsi väljaanne ei toeta domeeniga liitumist. Windowsi installimine jätkub domeeniga liitumiseta.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

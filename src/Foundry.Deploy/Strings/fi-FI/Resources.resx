@@ -358,52 +358,52 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
     <value>| {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
-    <value>Account (DOMAIN\user or user@domain)</value>
+    <value>Tili (DOMAIN\user tai user@domain)</value>
   </data>
   <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Jatka</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Default domain destination</value>
+    <value>Toimialueen oletuskohde</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Enter the deployment credentials and destination. Domain joining runs in installed Windows.</value>
+    <value>Anna käyttöönoton tunnistetiedot ja kohde. Toimialueeseen liittyminen suoritetaan asennetussa Windowsissa.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
-    <value>Organizational unit</value>
+    <value>Organisaatioyksikkö</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Enter a valid OU distinguished name in the specified domain, or leave it empty.</value>
+    <value>Anna kelvollinen OU:n yksilöivä nimi määritetystä toimialueesta tai jätä kenttä tyhjäksi.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Select an organizational unit from the catalog.</value>
+    <value>Valitse organisaatioyksikkö luettelosta.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Domain DNS name</value>
+    <value>Toimialueen DNS-nimi</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>The domain join input is invalid or unavailable. Deployment has not started.</value>
+    <value>Toimialueeseen liittymisen tiedot ovat virheellisiä tai eivät ole käytettävissä. Käyttöönotto ei ole alkanut.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
-    <value>OU distinguished name (optional)</value>
+    <value>OU:n yksilöivä nimi (valinnainen)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Leave empty to use the default domain destination.</value>
+    <value>Jätä kenttä tyhjäksi, jos haluat käyttää toimialueen oletuskohdetta.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
-    <value>Password</value>
+    <value>Salasana</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Provided before deployment</value>
+    <value>Annettu ennen käyttöönottoa</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domain: {0}. Destination: {1}.</value>
+    <value>Toimialue: {0}. Kohde: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
-    <value>Domain join</value>
+    <value>Toimialueeseen liittyminen</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>This Windows edition does not support domain joining. Windows installation will continue without domain joining.</value>
+    <value>Tämä Windows-versio ei tue toimialueeseen liittymistä. Windowsin asennus jatkuu ilman toimialueeseen liittymistä.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

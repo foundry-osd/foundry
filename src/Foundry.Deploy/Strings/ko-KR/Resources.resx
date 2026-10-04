@@ -358,52 +358,52 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>| {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
-    <value>Account (DOMAIN\user or user@domain)</value>
+    <value>계정 (DOMAIN\user 또는 user@domain)</value>
   </data>
   <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>계속</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Default domain destination</value>
+    <value>기본 도메인 대상</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Enter the deployment credentials and destination. Domain joining runs in installed Windows.</value>
+    <value>배포 자격 증명과 대상을 입력하세요. 도메인 가입은 설치된 Windows에서 실행됩니다.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
-    <value>Organizational unit</value>
+    <value>조직 구성 단위</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Enter a valid OU distinguished name in the specified domain, or leave it empty.</value>
+    <value>지정된 도메인 내의 유효한 OU 고유 이름을 입력하거나 비워 두세요.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Select an organizational unit from the catalog.</value>
+    <value>카탈로그에서 조직 구성 단위를 선택하세요.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Domain DNS name</value>
+    <value>도메인 DNS 이름</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>The domain join input is invalid or unavailable. Deployment has not started.</value>
+    <value>도메인 가입 입력이 유효하지 않거나 사용할 수 없습니다. 배포가 시작되지 않았습니다.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
-    <value>OU distinguished name (optional)</value>
+    <value>OU 고유 이름 (선택 사항)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Leave empty to use the default domain destination.</value>
+    <value>기본 도메인 대상을 사용하려면 비워 두세요.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
-    <value>Password</value>
+    <value>암호</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Provided before deployment</value>
+    <value>배포 전에 제공됨</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domain: {0}. Destination: {1}.</value>
+    <value>도메인: {0}. 대상: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
-    <value>Domain join</value>
+    <value>도메인 가입</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>This Windows edition does not support domain joining. Windows installation will continue without domain joining.</value>
+    <value>이 Windows 에디션은 도메인 가입을 지원하지 않습니다. 도메인에 가입하지 않고 Windows 설치를 계속합니다.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

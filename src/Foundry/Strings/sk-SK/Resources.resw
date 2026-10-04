@@ -1829,181 +1829,181 @@ Licencované podľa licencie MIT.</value>
     <value>Dokumentáciu nebolo možné otvoriť</value>
   </data>
   <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Activate</value>
+    <value>Aktivovať</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Check the target DNS domain, destination label and distinguished name. Destinations must belong to the catalog domain, with at most 1,024 entries.</value>
+    <value>Skontrolujte cieľovú doménu DNS, označenie a rozlišujúci názov cieľa. Ciele musia patriť do domény katalógu; povolených je najviac 1 024 položiek.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Enter a valid target DNS domain and qualified account before setting a password. Passwords must fit the supported size and contain no NUL characters.</value>
+    <value>Pred nastavením hesla zadajte platnú cieľovú doménu DNS a úplný názov účtu. Heslá musia spĺňať podporovanú veľkosť a nesmú obsahovať znaky NUL.</value>
   </data>
   <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Deactivate</value>
+    <value>Deaktivovať</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Discovering destinations from this computer's AD domain...</value>
+    <value>Vyhľadávajú sa ciele v doméne AD tohto počítača...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Discovery was canceled. Manual destination controls remain available.</value>
+    <value>Vyhľadávanie bolo zrušené. Ovládacie prvky na ručné zadanie cieľov zostávajú dostupné.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Discovery completed. Select the destinations to import.</value>
+    <value>Vyhľadávanie sa dokončilo. Vyberte ciele na import.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>This preview is incomplete. Directory limits, unreadable entries or referrals may have omitted destinations. Selected visible entries can still be imported.</value>
+    <value>Tento náhľad je neúplný. Limity adresára, nečitateľné položky alebo odkazy na iné adresáre mohli spôsobiť vynechanie cieľov. Vybrané viditeľné položky možno naďalej importovať.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Discovery timed out. Manual destination controls remain available.</value>
+    <value>Časový limit vyhľadávania uplynul. Ovládacie prvky na ručné zadanie cieľov zostávajú dostupné.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Discovery is unavailable. Check computer domain membership, connectivity and directory read access, or add destinations manually.</value>
+    <value>Vyhľadávanie nie je dostupné. Skontrolujte členstvo počítača v doméne, pripojenie a prístup na čítanie adresára alebo pridajte ciele ručne.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Import was not applied. The target and catalog domain must match the discovered computer domain, and the resulting catalog must fit the supported bounds.</value>
+    <value>Import sa nepoužil. Cieľová doména a doména katalógu sa musia zhodovať so zistenou doménou počítača a výsledný katalóg musí spĺňať podporované limity.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Selected destinations were imported.</value>
+    <value>Vybrané ciele boli importované.</value>
   </data>
   <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>This provisioning mode is inactive.</value>
+    <value>Tento režim zriaďovania je neaktívny.</value>
   </data>
   <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Domain joining is ready.</value>
+    <value>Pripojenie k doméne je pripravené.</value>
   </data>
   <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Activating this mode replaces the current Domain Join or Windows Autopilot mode. Inactive nonsecret settings are retained; domain credentials are cleared when their ownership changes.</value>
+    <value>Aktivácia tohto režimu nahradí aktuálny režim pripojenia k doméne alebo Windows Autopilot. Neaktívne nastavenia bez tajných údajov sa zachovajú; poverenia domény sa vymažú pri zmene režimu, ktorému patria.</value>
   </data>
   <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Replace active provisioning mode?</value>
+    <value>Nahradiť aktívny režim zriaďovania?</value>
   </data>
   <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Select at least one destination from the preview.</value>
+    <value>Vyberte aspoň jeden cieľ z náhľadu.</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Enter the domain account.</value>
+    <value>Zadajte doménový účet.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>The target DNS domain must match the destination catalog domain. Remove old catalog entries before changing domains.</value>
+    <value>Cieľová doména DNS sa musí zhodovať s doménou katalógu cieľov. Pred zmenou domény odstráňte staré položky katalógu.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Set a DNS domain for the destination catalog.</value>
+    <value>Nastavte doménu DNS pre katalóg cieľov.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Select an existing default destination or clear the default.</value>
+    <value>Vyberte existujúci predvolený cieľ alebo zrušte predvolenú hodnotu.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Enter the target DNS domain.</value>
+    <value>Zadajte cieľovú doménu DNS.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>The catalog contains duplicate destination distinguished names.</value>
+    <value>Katalóg obsahuje duplicitné rozlišujúce názvy cieľov.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>The catalog contains duplicate destination identities.</value>
+    <value>Katalóg obsahuje duplicitné identity cieľov.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Enter a valid account within the supported length.</value>
+    <value>Zadajte platný účet s podporovanou dĺžkou názvu.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Enter a valid catalog DNS domain.</value>
+    <value>Zadajte platnú doménu DNS katalógu.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>A destination distinguished name is invalid.</value>
+    <value>Rozlišujúci názov cieľa je neplatný.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Enter a valid target DNS domain.</value>
+    <value>Zadajte platnú cieľovú doménu DNS.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Each destination needs a label of at most 120 characters.</value>
+    <value>Každý cieľ musí mať označenie s najviac 120 znakmi.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>A destination has an invalid identity. Remove and add it again.</value>
+    <value>Cieľ má neplatnú identitu. Odstráňte ho a pridajte znova.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Enable media password protection on the General page and enter a valid media password.</value>
+    <value>Na stránke všeobecnej konfigurácie „generál“ zapnite ochranu média heslom a zadajte platné heslo média.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Add destinations before enabling selection, or clear the selection and default.</value>
+    <value>Pred povolením výberu pridajte ciele alebo zrušte výber aj predvolenú hodnotu.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Every destination must be inside the catalog domain.</value>
+    <value>Každý cieľ musí byť v doméne katalógu.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Enter the account password for this domain and account.</value>
+    <value>Zadajte heslo účtu pre túto doménu a tento účet.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Use DOMAIN\user or user@domain for the account.</value>
+    <value>Pre účet použite DOMAIN\user alebo user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>The catalog supports at most 1,024 destinations.</value>
+    <value>Katalóg podporuje najviac 1 024 cieľov.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Select a supported domain joining mode.</value>
+    <value>Vyberte podporovaný režim pripojenia k doméne.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
-    <value>Account (DOMAIN\user or user@domain)</value>
+    <value>Účet (DOMAIN\user alebo user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Add destination</value>
+    <value>Pridať cieľ</value>
   </data>
   <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
-    <value>Allow destination selection during deployment</value>
+    <value>Povoliť výber cieľa počas nasadenia</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
-    <value>Cancel discovery</value>
+    <value>Zrušiť vyhľadávanie</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Clear default</value>
+    <value>Zrušiť predvolenú hodnotu</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Use a qualified account with administrator-delegated join and placement permissions. Foundry does not audit permissions. The password is cleared when the domain, account or active mode changes.</value>
+    <value>Použite úplný názov účtu s oprávneniami na pripojenie a umiestnenie delegovanými správcom. Foundry nekontroluje oprávnenia. Heslo sa vymaže pri zmene domény, účtu alebo aktívneho režimu.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Domain credentials</value>
+    <value>Poverenia domény</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Default destination (optional)</value>
+    <value>Predvolený cieľ (voliteľné)</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Without a catalog, technicians may type an optional OU. With a catalog, destinations are restricted to its entries. A fixed default has no picker; a picker without a default requires selection. Existing computer accounts move to the selected destination.</value>
+    <value>Bez katalógu môžu technici zadať voliteľnú OU. S katalógom sú ciele obmedzené na jeho položky. Pevný predvolený cieľ nemá výberový prvok; výberový prvok bez predvolenej hodnoty vyžaduje výber. Existujúce účty počítačov sa presunú do vybraného cieľa.</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Destination selection</value>
+    <value>Výber cieľa</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Discover destinations</value>
+    <value>Vyhľadať ciele</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Uses this computer's AD domain and your current Windows identity. Preview and select entries explicitly; import preserves manual rows and the default. Discovery does not test join permissions.</value>
+    <value>Používa doménu AD tohto počítača a vašu aktuálnu identitu Windows. Prezrite si náhľad a výslovne vyberte položky; import zachová ručne pridané riadky aj predvolenú hodnotu. Vyhľadávanie netestuje oprávnenia na pripojenie.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Import from the computer domain</value>
+    <value>Importovať z domény počítača</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Import selected destinations</value>
+    <value>Importovať vybrané ciele</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Enter a label and a valid distinguished name inside the target DNS domain. Manual entries remain available when directory discovery fails.</value>
+    <value>Zadajte označenie a platný rozlišujúci názov v cieľovej doméne DNS. Ručne pridané položky zostávajú dostupné, ak vyhľadávanie v adresári zlyhá.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Add a destination manually</value>
+    <value>Pridať cieľ ručne</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OU distinguished name</value>
+    <value>Rozlišujúci názov OU</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Display label</value>
+    <value>Zobrazované označenie</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Account password</value>
+    <value>Heslo účtu</value>
   </data>
   <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Remove</value>
+    <value>Odstrániť</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Required for Zero Touch and an OU catalog. Optional for interactive deployment without a catalog.</value>
+    <value>Vyžaduje sa pre režim bez zásahu a katalóg OU. Voliteľné pre interaktívne nasadenie bez katalógu.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Target DNS domain</value>
+    <value>Cieľová doména DNS</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Súbor certifikátu dôveryhodnej koreňovej CA</value>
@@ -2159,10 +2159,10 @@ Licencované podľa licencie MIT.</value>
     <value>Stav pripravenosti média</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Request domain and account credentials during deployment. This mode does not require a media password.</value>
+    <value>Vyžiadajte doménu a poverenia účtu počas nasadenia. Tento režim nevyžaduje heslo média.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Interactive Domain Join</value>
+    <value>Interaktívne pripojenie k doméne</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabčina (Saudská Arábia)</value>
@@ -2375,7 +2375,7 @@ Licencované podľa licencie MIT.</value>
     <value>Dokumentácia</value>
   </data>
   <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
-    <value>Domain Join</value>
+    <value>Pripojenie k doméne</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Štandardne je k dispozícii štandardné pripojenie Ethernet. Túto časť nakonfigurujte len vtedy, ak vaša káblová sieť vyžaduje podnikové overenie 802.1X.</value>
@@ -2399,10 +2399,10 @@ Licencované podľa licencie MIT.</value>
     <value>Domov</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Request domain credentials during deployment and optionally select a destination OU.</value>
+    <value>Vyžiadajte poverenia domény počas nasadenia a voliteľne vyberte cieľovú OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interactive Domain Join</value>
+    <value>Interaktívne pripojenie k doméne</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Nakonfigurujte názvy nasadených zariadení.</value>
@@ -2465,10 +2465,10 @@ Licencované podľa licencie MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Join using embedded credentials protected by the General-page media password.</value>
+    <value>Pripojte sa pomocou vložených poverení chránených heslom média zo stránky všeobecnej konfigurácie „generál“.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>Pripojenie k doméne bez zásahu</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktívny režim poskytovania</value>
@@ -4101,9 +4101,9 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Embed domain credentials using the existing media password configured on the General page.</value>
+    <value>Vložte poverenia domény pomocou existujúceho hesla média nastaveného na stránke všeobecnej konfigurácie „generál“.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>Pripojenie k doméne bez zásahu</value>
   </data>
 </root>

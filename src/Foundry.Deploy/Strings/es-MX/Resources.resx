@@ -358,52 +358,52 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
     <value>| {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
-    <value>Account (DOMAIN\user or user@domain)</value>
+    <value>Cuenta (DOMAIN\user o user@domain)</value>
   </data>
   <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Continuar</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Default domain destination</value>
+    <value>Destino predeterminado del dominio</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Enter the deployment credentials and destination. Domain joining runs in installed Windows.</value>
+    <value>Introduzca las credenciales y el destino de la implementación. La unión al dominio se ejecuta en Windows una vez instalado.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
-    <value>Organizational unit</value>
+    <value>Unidad organizacional</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Enter a valid OU distinguished name in the specified domain, or leave it empty.</value>
+    <value>Introduzca un nombre distintivo de OU válido en el dominio indicado, o deje el campo vacío.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Select an organizational unit from the catalog.</value>
+    <value>Seleccione una unidad organizacional del catálogo.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Domain DNS name</value>
+    <value>Nombre DNS del dominio</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>The domain join input is invalid or unavailable. Deployment has not started.</value>
+    <value>Los datos de unión al dominio no son válidos o no están disponibles. La implementación no ha comenzado.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
-    <value>OU distinguished name (optional)</value>
+    <value>Nombre distintivo de la OU (opcional)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Leave empty to use the default domain destination.</value>
+    <value>Deje el campo vacío para usar el destino predeterminado del dominio.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
-    <value>Password</value>
+    <value>Contraseña</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Provided before deployment</value>
+    <value>Proporcionado antes de la implementación</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domain: {0}. Destination: {1}.</value>
+    <value>Dominio: {0}. Destino: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
-    <value>Domain join</value>
+    <value>Unión al dominio</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>This Windows edition does not support domain joining. Windows installation will continue without domain joining.</value>
+    <value>Esta edición de Windows no admite la unión al dominio. La instalación de Windows continuará sin unirse al dominio.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

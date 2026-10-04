@@ -1832,7 +1832,7 @@ Licensed under the MIT License.</value>
     <value>Activate</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Check the target DNS domain, destination label and distinguished name. Destinations must belong to the catalog domain, with at most 1,024 entries.</value>
+    <value>Check the target DNS domain, destination label and distinguished name. Destinations must belong to the catalogue domain, with at most 1,024 entries.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Enter a valid target DNS domain and qualified account before setting a password. Passwords must fit the supported size and contain no NUL characters.</value>
@@ -1844,7 +1844,7 @@ Licensed under the MIT License.</value>
     <value>Discovering destinations from this computer's AD domain...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Discovery was canceled. Manual destination controls remain available.</value>
+    <value>Discovery was cancelled. Manual destination controls remain available.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
     <value>Discovery completed. Select the destinations to import.</value>
@@ -1859,7 +1859,7 @@ Licensed under the MIT License.</value>
     <value>Discovery is unavailable. Check computer domain membership, connectivity and directory read access, or add destinations manually.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Import was not applied. The target and catalog domain must match the discovered computer domain, and the resulting catalog must fit the supported bounds.</value>
+    <value>Import was not applied. The target and catalogue domain must match the discovered computer domain, and the resulting catalogue must fit the supported bounds.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Selected destinations were imported.</value>
@@ -1871,7 +1871,7 @@ Licensed under the MIT License.</value>
     <value>Domain joining is ready.</value>
   </data>
   <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Activating this mode replaces the current Domain Join or Windows Autopilot mode. Inactive nonsecret settings are retained; domain credentials are cleared when their ownership changes.</value>
+    <value>Activating this mode replaces the current Domain Join or Windows Autopilot mode. Inactive non-secret settings are retained; domain credentials are cleared when their ownership changes.</value>
   </data>
   <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
     <value>Replace active provisioning mode?</value>
@@ -1883,10 +1883,10 @@ Licensed under the MIT License.</value>
     <value>Enter the domain account.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>The target DNS domain must match the destination catalog domain. Remove old catalog entries before changing domains.</value>
+    <value>The target DNS domain must match the destination catalogue domain. Remove old catalogue entries before changing domains.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Set a DNS domain for the destination catalog.</value>
+    <value>Set a DNS domain for the destination catalogue.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
     <value>Select an existing default destination or clear the default.</value>
@@ -1895,16 +1895,16 @@ Licensed under the MIT License.</value>
     <value>Enter the target DNS domain.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>The catalog contains duplicate destination distinguished names.</value>
+    <value>The catalogue contains duplicate destination distinguished names.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>The catalog contains duplicate destination identities.</value>
+    <value>The catalogue contains duplicate destination identities.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>Enter a valid account within the supported length.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Enter a valid catalog DNS domain.</value>
+    <value>Enter a valid catalogue DNS domain.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>A destination distinguished name is invalid.</value>
@@ -1925,7 +1925,7 @@ Licensed under the MIT License.</value>
     <value>Add destinations before enabling selection, or clear the selection and default.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Every destination must be inside the catalog domain.</value>
+    <value>Every destination must be inside the catalogue domain.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Enter the account password for this domain and account.</value>
@@ -1934,7 +1934,7 @@ Licensed under the MIT License.</value>
     <value>Use DOMAIN\user or user@domain for the account.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>The catalog supports at most 1,024 destinations.</value>
+    <value>The catalogue supports at most 1,024 destinations.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
     <value>Select a supported domain joining mode.</value>
@@ -1964,7 +1964,7 @@ Licensed under the MIT License.</value>
     <value>Default destination (optional)</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Without a catalog, technicians may type an optional OU. With a catalog, destinations are restricted to its entries. A fixed default has no picker; a picker without a default requires selection. Existing computer accounts move to the selected destination.</value>
+    <value>Without a catalogue, technicians may type an optional OU. With a catalogue, destinations are restricted to its entries. A fixed default has no picker; a picker without a default requires selection. Existing computer accounts move to the selected destination.</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
     <value>Destination selection</value>
@@ -2000,7 +2000,7 @@ Licensed under the MIT License.</value>
     <value>Remove</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Required for Zero Touch and an OU catalog. Optional for interactive deployment without a catalog.</value>
+    <value>Required for Zero Touch and an OU catalogue. Optional for interactive deployment without a catalogue.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Target DNS domain</value>

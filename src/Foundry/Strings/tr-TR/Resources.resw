@@ -1829,181 +1829,181 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Belgeler açılamadı</value>
   </data>
   <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Activate</value>
+    <value>Etkinleştir</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Check the target DNS domain, destination label and distinguished name. Destinations must belong to the catalog domain, with at most 1,024 entries.</value>
+    <value>Hedef DNS etki alanını, hedef etiketini ve ayırt edici adı kontrol edin. Hedefler katalog etki alanına ait olmalıdır ve en fazla 1.024 giriş olabilir.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Enter a valid target DNS domain and qualified account before setting a password. Passwords must fit the supported size and contain no NUL characters.</value>
+    <value>Parola belirlemeden önce geçerli bir hedef DNS etki alanı ve etki alanıyla birlikte belirtilmiş bir hesap girin. Parolalar desteklenen boyutta olmalı ve NUL karakteri içermemelidir.</value>
   </data>
   <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Deactivate</value>
+    <value>Devre dışı bırak</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Discovering destinations from this computer's AD domain...</value>
+    <value>Bu bilgisayarın AD etki alanındaki hedefler keşfediliyor...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Discovery was canceled. Manual destination controls remain available.</value>
+    <value>Keşif iptal edildi. El ile hedef giriş denetimleri kullanılabilir durumda kalır.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Discovery completed. Select the destinations to import.</value>
+    <value>Keşif tamamlandı. İçe aktarılacak hedefleri seçin.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>This preview is incomplete. Directory limits, unreadable entries or referrals may have omitted destinations. Selected visible entries can still be imported.</value>
+    <value>Bu önizleme eksik. Dizin sınırları, okunamayan girişler veya diğer dizinlere yönlendirmeler bazı hedeflerin atlanmasına neden olmuş olabilir. Seçilen görünür girişler yine de içe aktarılabilir.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Discovery timed out. Manual destination controls remain available.</value>
+    <value>Keşif zaman aşımına uğradı. El ile hedef giriş denetimleri kullanılabilir durumda kalır.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Discovery is unavailable. Check computer domain membership, connectivity and directory read access, or add destinations manually.</value>
+    <value>Keşif kullanılamıyor. Bilgisayarın etki alanı üyeliğini, bağlantıyı ve dizin okuma erişimini kontrol edin veya hedefleri el ile ekleyin.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Import was not applied. The target and catalog domain must match the discovered computer domain, and the resulting catalog must fit the supported bounds.</value>
+    <value>İçe aktarma uygulanmadı. Hedef ve katalog etki alanları, keşfedilen bilgisayar etki alanıyla eşleşmeli ve sonuçtaki katalog desteklenen sınırlar içinde olmalıdır.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Selected destinations were imported.</value>
+    <value>Seçilen hedefler içe aktarıldı.</value>
   </data>
   <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>This provisioning mode is inactive.</value>
+    <value>Bu sağlama modu etkin değil.</value>
   </data>
   <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Domain joining is ready.</value>
+    <value>Etki alanına katılma hazır.</value>
   </data>
   <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Activating this mode replaces the current Domain Join or Windows Autopilot mode. Inactive nonsecret settings are retained; domain credentials are cleared when their ownership changes.</value>
+    <value>Bu modu etkinleştirmek, mevcut etki alanına katılma veya Windows Autopilot modunun yerini alır. Gizli bilgi içermeyen etkin olmayan ayarlar korunur; etki alanı kimlik bilgileri, ait oldukları mod değiştiğinde temizlenir.</value>
   </data>
   <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Replace active provisioning mode?</value>
+    <value>Etkin sağlama modu değiştirilsin mi?</value>
   </data>
   <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Select at least one destination from the preview.</value>
+    <value>Önizlemeden en az bir hedef seçin.</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Enter the domain account.</value>
+    <value>Etki alanı hesabını girin.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>The target DNS domain must match the destination catalog domain. Remove old catalog entries before changing domains.</value>
+    <value>Hedef DNS etki alanı, hedef kataloğunun etki alanıyla eşleşmelidir. Etki alanlarını değiştirmeden önce eski katalog girişlerini kaldırın.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Set a DNS domain for the destination catalog.</value>
+    <value>Hedef kataloğu için bir DNS etki alanı belirleyin.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Select an existing default destination or clear the default.</value>
+    <value>Mevcut bir varsayılan hedef seçin veya varsayılanı temizleyin.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Enter the target DNS domain.</value>
+    <value>Hedef DNS etki alanını girin.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>The catalog contains duplicate destination distinguished names.</value>
+    <value>Katalogda yinelenen hedef ayırt edici adları var.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>The catalog contains duplicate destination identities.</value>
+    <value>Katalogda yinelenen hedef kimlikleri var.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Enter a valid account within the supported length.</value>
+    <value>Desteklenen uzunlukta geçerli bir hesap girin.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Enter a valid catalog DNS domain.</value>
+    <value>Geçerli bir katalog DNS etki alanı girin.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>A destination distinguished name is invalid.</value>
+    <value>Bir hedefin ayırt edici adı geçersiz.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Enter a valid target DNS domain.</value>
+    <value>Geçerli bir hedef DNS etki alanı girin.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Each destination needs a label of at most 120 characters.</value>
+    <value>Her hedefin en fazla 120 karakterlik bir etiketi olmalıdır.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>A destination has an invalid identity. Remove and add it again.</value>
+    <value>Bir hedefin kimliği geçersiz. Hedefi kaldırıp yeniden ekleyin.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Enable media password protection on the General page and enter a valid media password.</value>
+    <value>Genel sayfasında medya parola korumasını etkinleştirin ve geçerli bir medya parolası girin.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Add destinations before enabling selection, or clear the selection and default.</value>
+    <value>Seçimi etkinleştirmeden önce hedef ekleyin veya seçimi ve varsayılanı temizleyin.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Every destination must be inside the catalog domain.</value>
+    <value>Tüm hedefler katalog etki alanında olmalıdır.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Enter the account password for this domain and account.</value>
+    <value>Bu etki alanı ve hesap için hesap parolasını girin.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Use DOMAIN\user or user@domain for the account.</value>
+    <value>Hesap için DOMAIN\user veya user@domain kullanın.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>The catalog supports at most 1,024 destinations.</value>
+    <value>Katalog en fazla 1.024 hedef destekler.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Select a supported domain joining mode.</value>
+    <value>Desteklenen bir etki alanına katılma modu seçin.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
-    <value>Account (DOMAIN\user or user@domain)</value>
+    <value>Hesap (DOMAIN\user veya user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Add destination</value>
+    <value>Hedef ekle</value>
   </data>
   <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
-    <value>Allow destination selection during deployment</value>
+    <value>Dağıtım sırasında hedef seçimine izin ver</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
-    <value>Cancel discovery</value>
+    <value>Keşfi iptal et</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Clear default</value>
+    <value>Varsayılanı temizle</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Use a qualified account with administrator-delegated join and placement permissions. Foundry does not audit permissions. The password is cleared when the domain, account or active mode changes.</value>
+    <value>Yönetici tarafından katılma ve yerleştirme izinleri devredilmiş, etki alanıyla birlikte belirtilen bir hesap kullanın. Foundry izinleri denetlemez. Etki alanı, hesap veya etkin mod değiştiğinde parola temizlenir.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Domain credentials</value>
+    <value>Etki alanı kimlik bilgileri</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Default destination (optional)</value>
+    <value>Varsayılan hedef (isteğe bağlı)</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Without a catalog, technicians may type an optional OU. With a catalog, destinations are restricted to its entries. A fixed default has no picker; a picker without a default requires selection. Existing computer accounts move to the selected destination.</value>
+    <value>Katalog yoksa teknisyenler isteğe bağlı bir OU girebilir. Katalog varsa hedefler katalog girişleriyle sınırlıdır. Sabit bir varsayılanın seçim denetimi yoktur; varsayılanı olmayan bir seçim denetimi seçim gerektirir. Mevcut bilgisayar hesapları seçilen hedefe taşınır.</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Destination selection</value>
+    <value>Hedef seçimi</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Discover destinations</value>
+    <value>Hedefleri keşfet</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Uses this computer's AD domain and your current Windows identity. Preview and select entries explicitly; import preserves manual rows and the default. Discovery does not test join permissions.</value>
+    <value>Bu bilgisayarın AD etki alanını ve geçerli Windows kimliğinizi kullanır. Girişleri önizleyip açıkça seçin; içe aktarma, el ile girilen satırları ve varsayılanı korur. Keşif, katılma izinlerini test etmez.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Import from the computer domain</value>
+    <value>Bilgisayarın etki alanından içe aktar</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Import selected destinations</value>
+    <value>Seçilen hedefleri içe aktar</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Enter a label and a valid distinguished name inside the target DNS domain. Manual entries remain available when directory discovery fails.</value>
+    <value>Hedef DNS etki alanında bir etiket ve geçerli bir ayırt edici ad girin. Dizin keşfi başarısız olduğunda el ile girişler kullanılabilir durumda kalır.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Add a destination manually</value>
+    <value>El ile hedef ekle</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OU distinguished name</value>
+    <value>OU ayırt edici adı</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Display label</value>
+    <value>Görüntüleme etiketi</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Account password</value>
+    <value>Hesap parolası</value>
   </data>
   <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Remove</value>
+    <value>Kaldır</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Required for Zero Touch and an OU catalog. Optional for interactive deployment without a catalog.</value>
+    <value>Müdahalesiz mod ve OU kataloğu için gereklidir. Katalog olmadan etkileşimli dağıtım için isteğe bağlıdır.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Target DNS domain</value>
+    <value>Hedef DNS etki alanı</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Güvenilen kök CA sertifika dosyası</value>
@@ -2159,10 +2159,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Medya hazırlık durumu</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Request domain and account credentials during deployment. This mode does not require a media password.</value>
+    <value>Dağıtım sırasında etki alanını ve hesap kimlik bilgilerini isteyin. Bu mod medya parolası gerektirmez.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Interactive Domain Join</value>
+    <value>Etkileşimli etki alanına katılma</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arapça (Suudi Arabistan)</value>
@@ -2375,7 +2375,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Dokümantasyon</value>
   </data>
   <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
-    <value>Domain Join</value>
+    <value>Etki alanına katılma</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Standart Ethernet bağlantısı varsayılan olarak mevcuttur. Bu bölümü yalnızca kablolu ağınız 802.1X kurumsal kimlik doğrulaması gerektiriyorsa yapılandırın.</value>
@@ -2399,10 +2399,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Ana sayfa</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Request domain credentials during deployment and optionally select a destination OU.</value>
+    <value>Dağıtım sırasında etki alanı kimlik bilgilerini isteyin ve isteğe bağlı olarak hedef OU seçin.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interactive Domain Join</value>
+    <value>Etkileşimli etki alanına katılma</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Dağıtılan cihaz adlarını yapılandırın.</value>
@@ -2465,10 +2465,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Join using embedded credentials protected by the General-page media password.</value>
+    <value>Genel sayfasındaki medya parolasıyla korunan gömülü kimlik bilgilerini kullanarak katılın.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>Müdahalesiz etki alanına katılma</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Etkin temel hazırlık modu</value>
@@ -4101,9 +4101,9 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Embed domain credentials using the existing media password configured on the General page.</value>
+    <value>Genel sayfasında yapılandırılan mevcut medya parolasını kullanarak etki alanı kimlik bilgilerini gömün.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>Müdahalesiz etki alanına katılma</value>
   </data>
 </root>

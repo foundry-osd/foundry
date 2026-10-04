@@ -1829,181 +1829,181 @@ Lisensiert under MIT-lisensen.</value>
     <value>Dokumentasjonen kunne ikke åpnes</value>
   </data>
   <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Activate</value>
+    <value>Aktiver</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Check the target DNS domain, destination label and distinguished name. Destinations must belong to the catalog domain, with at most 1,024 entries.</value>
+    <value>Kontroller DNS-måldomenet, destinasjonsetiketten og det unike navnet. Destinasjoner må tilhøre katalogdomenet, med maksimalt 1 024 oppføringer.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Enter a valid target DNS domain and qualified account before setting a password. Passwords must fit the supported size and contain no NUL characters.</value>
+    <value>Angi et gyldig DNS-måldomene og et kvalifisert kontonavn før du angir et passord. Passord må være innenfor den støttede størrelsen og kan ikke inneholde NUL-tegn.</value>
   </data>
   <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Deactivate</value>
+    <value>Deaktiver</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Discovering destinations from this computer's AD domain...</value>
+    <value>Søker etter destinasjoner i denne datamaskinens AD-domene...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Discovery was canceled. Manual destination controls remain available.</value>
+    <value>Søket ble avbrutt. Kontrollene for manuelle destinasjoner er fortsatt tilgjengelige.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Discovery completed. Select the destinations to import.</value>
+    <value>Søket er fullført. Velg destinasjonene som skal importeres.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>This preview is incomplete. Directory limits, unreadable entries or referrals may have omitted destinations. Selected visible entries can still be imported.</value>
+    <value>Denne forhåndsvisningen er ufullstendig. Katalogtjenestens begrensninger, uleselige oppføringer eller henvisninger kan ha utelatt destinasjoner. Valgte synlige oppføringer kan fortsatt importeres.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Discovery timed out. Manual destination controls remain available.</value>
+    <value>Tidsavbrudd under søket. Kontrollene for manuelle destinasjoner er fortsatt tilgjengelige.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Discovery is unavailable. Check computer domain membership, connectivity and directory read access, or add destinations manually.</value>
+    <value>Søket er ikke tilgjengelig. Kontroller datamaskinens domenemedlemskap, tilkobling og lesetilgang til katalogtjenesten, eller legg til destinasjoner manuelt.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Import was not applied. The target and catalog domain must match the discovered computer domain, and the resulting catalog must fit the supported bounds.</value>
+    <value>Importen ble ikke brukt. Måldomenet og katalogdomenet må samsvare med datamaskindomenet som ble funnet, og den resulterende katalogen må være innenfor de støttede grensene.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Selected destinations were imported.</value>
+    <value>De valgte destinasjonene er importert.</value>
   </data>
   <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>This provisioning mode is inactive.</value>
+    <value>Denne klargjøringsmodusen er inaktiv.</value>
   </data>
   <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Domain joining is ready.</value>
+    <value>Domenetilknytning er klar.</value>
   </data>
   <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Activating this mode replaces the current Domain Join or Windows Autopilot mode. Inactive nonsecret settings are retained; domain credentials are cleared when their ownership changes.</value>
+    <value>Aktivering av denne modusen erstatter gjeldende modus for domenetilknytning eller Windows Autopilot. Innstillinger uten hemmeligheter i inaktive moduser beholdes; domenelegitimasjon slettes når modusen som har ansvar for den, endres.</value>
   </data>
   <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Replace active provisioning mode?</value>
+    <value>Erstatte aktiv klargjøringsmodus?</value>
   </data>
   <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Select at least one destination from the preview.</value>
+    <value>Velg minst én destinasjon i forhåndsvisningen.</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Enter the domain account.</value>
+    <value>Angi domenekontoen.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>The target DNS domain must match the destination catalog domain. Remove old catalog entries before changing domains.</value>
+    <value>DNS-måldomenet må samsvare med domenet til destinasjonskatalogen. Fjern gamle katalogoppføringer før du bytter domene.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Set a DNS domain for the destination catalog.</value>
+    <value>Angi et DNS-domene for destinasjonskatalogen.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Select an existing default destination or clear the default.</value>
+    <value>Velg en eksisterende standarddestinasjon eller fjern standardvalget.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Enter the target DNS domain.</value>
+    <value>Angi DNS-måldomenet.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>The catalog contains duplicate destination distinguished names.</value>
+    <value>Katalogen inneholder dupliserte unike navn for destinasjoner.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>The catalog contains duplicate destination identities.</value>
+    <value>Katalogen inneholder dupliserte destinasjonsidentiteter.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Enter a valid account within the supported length.</value>
+    <value>Angi en gyldig konto innenfor den støttede lengden.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Enter a valid catalog DNS domain.</value>
+    <value>Angi et gyldig DNS-domene for katalogen.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>A destination distinguished name is invalid.</value>
+    <value>Det unike navnet til en destinasjon er ugyldig.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Enter a valid target DNS domain.</value>
+    <value>Angi et gyldig DNS-måldomene.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Each destination needs a label of at most 120 characters.</value>
+    <value>Hver destinasjon trenger en etikett på maksimalt 120 tegn.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>A destination has an invalid identity. Remove and add it again.</value>
+    <value>En destinasjon har en ugyldig identitet. Fjern den og legg den til på nytt.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Enable media password protection on the General page and enter a valid media password.</value>
+    <value>Aktiver passordbeskyttelse for mediet på siden Generelt og angi et gyldig mediepassord.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Add destinations before enabling selection, or clear the selection and default.</value>
+    <value>Legg til destinasjoner før du aktiverer valg, eller deaktiver valg og fjern standardvalget.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Every destination must be inside the catalog domain.</value>
+    <value>Alle destinasjoner må være innenfor katalogdomenet.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Enter the account password for this domain and account.</value>
+    <value>Angi kontopassordet for dette domenet og denne kontoen.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Use DOMAIN\user or user@domain for the account.</value>
+    <value>Bruk DOMAIN\user eller user@domain for kontoen.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>The catalog supports at most 1,024 destinations.</value>
+    <value>Katalogen støtter maksimalt 1 024 destinasjoner.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Select a supported domain joining mode.</value>
+    <value>Velg en støttet modus for domenetilknytning.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
-    <value>Account (DOMAIN\user or user@domain)</value>
+    <value>Konto (DOMAIN\user eller user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Add destination</value>
+    <value>Legg til destinasjon</value>
   </data>
   <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
-    <value>Allow destination selection during deployment</value>
+    <value>Tillat valg av destinasjon under distribusjon</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
-    <value>Cancel discovery</value>
+    <value>Avbryt søk</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Clear default</value>
+    <value>Fjern standardvalg</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Use a qualified account with administrator-delegated join and placement permissions. Foundry does not audit permissions. The password is cleared when the domain, account or active mode changes.</value>
+    <value>Bruk et kvalifisert kontonavn med tillatelser for tilknytning og plassering delegert av administratoren. Foundry kontrollerer ikke tillatelsene. Passordet slettes når domenet, kontoen eller den aktive modusen endres.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Domain credentials</value>
+    <value>Domenelegitimasjon</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Default destination (optional)</value>
+    <value>Standarddestinasjon (valgfri)</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Without a catalog, technicians may type an optional OU. With a catalog, destinations are restricted to its entries. A fixed default has no picker; a picker without a default requires selection. Existing computer accounts move to the selected destination.</value>
+    <value>Uten en katalog kan teknikere angi en valgfri OU. Med en katalog er destinasjonene begrenset til oppføringene i den. En fast standarddestinasjon har ingen velger; en velger uten standarddestinasjon krever et valg. Eksisterende datamaskinkontoer flyttes til den valgte destinasjonen.</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Destination selection</value>
+    <value>Valg av destinasjon</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Discover destinations</value>
+    <value>Søk etter destinasjoner</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Uses this computer's AD domain and your current Windows identity. Preview and select entries explicitly; import preserves manual rows and the default. Discovery does not test join permissions.</value>
+    <value>Bruker denne datamaskinens AD-domene og din gjeldende Windows-identitet. Se forhåndsvisningen og velg oppføringer uttrykkelig; importen beholder manuelle rader og standarddestinasjonen. Søket tester ikke tilknytningstillatelser.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Import from the computer domain</value>
+    <value>Importer fra datamaskinens domene</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Import selected destinations</value>
+    <value>Importer valgte destinasjoner</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Enter a label and a valid distinguished name inside the target DNS domain. Manual entries remain available when directory discovery fails.</value>
+    <value>Angi en etikett og et gyldig unikt navn innenfor DNS-måldomenet. Manuelle oppføringer er fortsatt tilgjengelige hvis søket i katalogtjenesten mislykkes.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Add a destination manually</value>
+    <value>Legg til en destinasjon manuelt</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OU distinguished name</value>
+    <value>Unikt navn for OU</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Display label</value>
+    <value>Visningsetikett</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Account password</value>
+    <value>Kontopassord</value>
   </data>
   <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Remove</value>
+    <value>Fjern</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Required for Zero Touch and an OU catalog. Optional for interactive deployment without a catalog.</value>
+    <value>Påkrevd for Zero Touch og en OU-katalog. Valgfritt for interaktiv distribusjon uten katalog.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Target DNS domain</value>
+    <value>DNS-måldomene</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Klarert rot-CA-sertifikatfil</value>
@@ -2159,10 +2159,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Status for medieberedskap</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Request domain and account credentials during deployment. This mode does not require a media password.</value>
+    <value>Be om domene- og kontolegitimasjon under distribusjon. Denne modusen krever ikke et mediepassord.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Interactive Domain Join</value>
+    <value>Interaktiv domenetilknytning</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabisk (Saudi-Arabia)</value>
@@ -2375,7 +2375,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Dokumentasjon</value>
   </data>
   <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
-    <value>Domain Join</value>
+    <value>Domenetilknytning</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Standard Ethernet-tilkobling er tilgjengelig som standard. Konfigurer denne delen bare hvis det kablede nettverket ditt krever 802.1X enterprise-autentisering.</value>
@@ -2399,10 +2399,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Hjem</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Request domain credentials during deployment and optionally select a destination OU.</value>
+    <value>Be om domenelegitimasjon under distribusjon og velg eventuelt en destinasjons-OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interactive Domain Join</value>
+    <value>Interaktiv domenetilknytning</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurer navn på distribuerte enheter.</value>
@@ -2465,10 +2465,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Join using embedded credentials protected by the General-page media password.</value>
+    <value>Knytt til domenet med innebygd legitimasjon beskyttet av mediepassordet på siden Generelt.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>Zero Touch-domenetilknytning</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktiv klargjøringsmodus</value>
@@ -4101,9 +4101,9 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Embed domain credentials using the existing media password configured on the General page.</value>
+    <value>Bygg inn domenelegitimasjon med det eksisterende mediepassordet som er konfigurert på siden Generelt.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>Zero Touch-domenetilknytning</value>
   </data>
 </root>

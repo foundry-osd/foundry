@@ -1829,181 +1829,181 @@ Licenc az MIT licenc alatt.</value>
     <value>A dokumentációt nem lehetett megnyitni</value>
   </data>
   <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Activate</value>
+    <value>Aktiválás</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Check the target DNS domain, destination label and distinguished name. Destinations must belong to the catalog domain, with at most 1,024 entries.</value>
+    <value>Ellenőrizze a cél DNS-tartományt, a cél címkéjét és megkülönböztető nevét. A céloknak a katalógus tartományához kell tartozniuk, és legfeljebb 1024 bejegyzés lehet.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Enter a valid target DNS domain and qualified account before setting a password. Passwords must fit the supported size and contain no NUL characters.</value>
+    <value>Jelszó beállítása előtt adjon meg érvényes cél DNS-tartományt és minősített fióknevet. A jelszónak a támogatott méreten belül kell lennie, és nem tartalmazhat NUL karaktert.</value>
   </data>
   <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Deactivate</value>
+    <value>Deaktiválás</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Discovering destinations from this computer's AD domain...</value>
+    <value>Célok felderítése a számítógép AD-tartományából...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Discovery was canceled. Manual destination controls remain available.</value>
+    <value>A felderítés megszakadt. A kézi célbeállítások továbbra is elérhetők.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Discovery completed. Select the destinations to import.</value>
+    <value>A felderítés befejeződött. Válassza ki az importálandó célokat.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>This preview is incomplete. Directory limits, unreadable entries or referrals may have omitted destinations. Selected visible entries can still be imported.</value>
+    <value>Ez az előnézet nem teljes. A címtár korlátai, olvashatatlan bejegyzések vagy átirányítások miatt egyes célok kimaradhattak. A kijelölt látható bejegyzések továbbra is importálhatók.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Discovery timed out. Manual destination controls remain available.</value>
+    <value>A felderítés túllépte az időkorlátot. A kézi célbeállítások továbbra is elérhetők.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Discovery is unavailable. Check computer domain membership, connectivity and directory read access, or add destinations manually.</value>
+    <value>A felderítés nem érhető el. Ellenőrizze a számítógép tartománytagságát, a kapcsolatot és a címtár olvasási jogosultságát, vagy adja hozzá a célokat kézzel.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Import was not applied. The target and catalog domain must match the discovered computer domain, and the resulting catalog must fit the supported bounds.</value>
+    <value>Az importálás nem történt meg. A céltartománynak és a katalógus tartományának egyeznie kell a felderített számítógéptartománnyal, és az eredményül kapott katalógusnak a támogatott korlátokon belül kell lennie.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Selected destinations were imported.</value>
+    <value>A kijelölt célok importálása megtörtént.</value>
   </data>
   <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>This provisioning mode is inactive.</value>
+    <value>Ez az üzembe helyezési mód inaktív.</value>
   </data>
   <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Domain joining is ready.</value>
+    <value>A tartományhoz csatlakozás készen áll.</value>
   </data>
   <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Activating this mode replaces the current Domain Join or Windows Autopilot mode. Inactive nonsecret settings are retained; domain credentials are cleared when their ownership changes.</value>
+    <value>A mód aktiválása lecseréli a jelenlegi tartományhoz csatlakozási vagy Windows Autopilot módot. Az inaktív módok nem titkos beállításai megmaradnak; a tartományi hitelesítő adatok törlődnek, ha megváltozik az azokat kezelő mód.</value>
   </data>
   <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Replace active provisioning mode?</value>
+    <value>Lecseréli az aktív üzembe helyezési módot?</value>
   </data>
   <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Select at least one destination from the preview.</value>
+    <value>Válasszon ki legalább egy célt az előnézetből.</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Enter the domain account.</value>
+    <value>Adja meg a tartományi fiókot.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>The target DNS domain must match the destination catalog domain. Remove old catalog entries before changing domains.</value>
+    <value>A cél DNS-tartománynak egyeznie kell a célkatalógus tartományával. Tartományváltás előtt távolítsa el a régi katalógusbejegyzéseket.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Set a DNS domain for the destination catalog.</value>
+    <value>Állítson be DNS-tartományt a célkatalógushoz.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Select an existing default destination or clear the default.</value>
+    <value>Válasszon meglévő alapértelmezett célt, vagy törölje az alapértelmezést.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Enter the target DNS domain.</value>
+    <value>Adja meg a cél DNS-tartományt.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>The catalog contains duplicate destination distinguished names.</value>
+    <value>A katalógus ismétlődő megkülönböztető célneveket tartalmaz.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>The catalog contains duplicate destination identities.</value>
+    <value>A katalógus ismétlődő célazonosítókat tartalmaz.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Enter a valid account within the supported length.</value>
+    <value>Adjon meg érvényes fiókot a támogatott hosszon belül.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Enter a valid catalog DNS domain.</value>
+    <value>Adjon meg érvényes DNS-tartományt a katalógushoz.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>A destination distinguished name is invalid.</value>
+    <value>Az egyik cél megkülönböztető neve érvénytelen.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Enter a valid target DNS domain.</value>
+    <value>Adjon meg érvényes cél DNS-tartományt.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Each destination needs a label of at most 120 characters.</value>
+    <value>Minden célhoz legfeljebb 120 karakteres címke szükséges.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>A destination has an invalid identity. Remove and add it again.</value>
+    <value>Az egyik cél azonosítója érvénytelen. Távolítsa el, majd adja hozzá újra.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Enable media password protection on the General page and enter a valid media password.</value>
+    <value>Engedélyezze az adathordozó jelszavas védelmét az általános beállítások oldalán („tábornok”), és adjon meg érvényes adathordozójelszót.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Add destinations before enabling selection, or clear the selection and default.</value>
+    <value>A választás engedélyezése előtt adjon hozzá célokat, vagy kapcsolja ki a választást és törölje az alapértelmezést.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Every destination must be inside the catalog domain.</value>
+    <value>Minden célnak a katalógus tartományán belül kell lennie.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Enter the account password for this domain and account.</value>
+    <value>Adja meg a fiók jelszavát ehhez a tartományhoz és fiókhoz.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Use DOMAIN\user or user@domain for the account.</value>
+    <value>A fiókot DOMAIN\user vagy user@domain formában adja meg.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>The catalog supports at most 1,024 destinations.</value>
+    <value>A katalógus legfeljebb 1024 célt támogat.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Select a supported domain joining mode.</value>
+    <value>Válasszon támogatott tartományhoz csatlakozási módot.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
-    <value>Account (DOMAIN\user or user@domain)</value>
+    <value>Fiók (DOMAIN\user vagy user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Add destination</value>
+    <value>Cél hozzáadása</value>
   </data>
   <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
-    <value>Allow destination selection during deployment</value>
+    <value>Cél kiválasztásának engedélyezése a telepítés során</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
-    <value>Cancel discovery</value>
+    <value>Felderítés megszakítása</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Clear default</value>
+    <value>Alapértelmezés törlése</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Use a qualified account with administrator-delegated join and placement permissions. Foundry does not audit permissions. The password is cleared when the domain, account or active mode changes.</value>
+    <value>Használjon minősített fiókot, amelyhez a rendszergazda csatlakozási és elhelyezési jogosultságokat delegált. A Foundry nem ellenőrzi a jogosultságokat. A jelszó törlődik, ha a tartomány, a fiók vagy az aktív mód megváltozik.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Domain credentials</value>
+    <value>Tartományi hitelesítő adatok</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Default destination (optional)</value>
+    <value>Alapértelmezett cél (nem kötelező)</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Without a catalog, technicians may type an optional OU. With a catalog, destinations are restricted to its entries. A fixed default has no picker; a picker without a default requires selection. Existing computer accounts move to the selected destination.</value>
+    <value>Katalógus nélkül a technikusok megadhatnak egy nem kötelező OU-t. Katalógussal csak annak bejegyzései használhatók célként. Rögzített alapértelmezett cél esetén nincs választó; alapértelmezés nélküli választó esetén kötelező választani. A meglévő számítógépfiókok a kiválasztott célba kerülnek.</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Destination selection</value>
+    <value>Cél kiválasztása</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Discover destinations</value>
+    <value>Célok felderítése</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Uses this computer's AD domain and your current Windows identity. Preview and select entries explicitly; import preserves manual rows and the default. Discovery does not test join permissions.</value>
+    <value>A számítógép AD-tartományát és az Ön jelenlegi Windows-identitását használja. Tekintse át az előnézetet, és jelölje ki a bejegyzéseket; az importálás megőrzi a kézi sorokat és az alapértelmezést. A felderítés nem teszteli a csatlakozási jogosultságokat.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Import from the computer domain</value>
+    <value>Importálás a számítógép tartományából</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Import selected destinations</value>
+    <value>Kijelölt célok importálása</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Enter a label and a valid distinguished name inside the target DNS domain. Manual entries remain available when directory discovery fails.</value>
+    <value>Adjon meg egy címkét és egy érvényes megkülönböztető nevet a cél DNS-tartományon belül. A kézi bejegyzések a címtárfelderítés sikertelensége esetén is elérhetők maradnak.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Add a destination manually</value>
+    <value>Cél kézi hozzáadása</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OU distinguished name</value>
+    <value>OU megkülönböztető neve</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Display label</value>
+    <value>Megjelenített címke</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Account password</value>
+    <value>Fiók jelszava</value>
   </data>
   <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Remove</value>
+    <value>Eltávolítás</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Required for Zero Touch and an OU catalog. Optional for interactive deployment without a catalog.</value>
+    <value>Zero Touch és OU-katalógus esetén kötelező. Katalógus nélküli interaktív telepítés esetén nem kötelező.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Target DNS domain</value>
+    <value>Cél DNS-tartomány</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Megbízható root CA tanúsítványfájl</value>
@@ -2159,10 +2159,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Az adathordozó készenléti állapota</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Request domain and account credentials during deployment. This mode does not require a media password.</value>
+    <value>A telepítés során kérje be a tartományi és fiókhitelesítő adatokat. Ez a mód nem igényel adathordozójelszót.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Interactive Domain Join</value>
+    <value>Interaktív tartományhoz csatlakozás</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arab (Szaúd-Arábia)</value>
@@ -2375,7 +2375,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Dokumentáció</value>
   </data>
   <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
-    <value>Domain Join</value>
+    <value>Tartományhoz csatlakozás</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>A szabványos Ethernet kapcsolat alapértelmezés szerint elérhető. Ezt a szakaszt csak akkor konfigurálja, ha vezetékes hálózata 802.1X vállalati hitelesítést igényel.</value>
@@ -2399,10 +2399,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Otthon</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Request domain credentials during deployment and optionally select a destination OU.</value>
+    <value>A telepítés során kérje be a tartományi hitelesítő adatokat, és szükség szerint válasszon cél-OU-t.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interactive Domain Join</value>
+    <value>Interaktív tartományhoz csatlakozás</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurálja a telepített eszközök nevét.</value>
@@ -2465,10 +2465,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Join using embedded credentials protected by the General-page media password.</value>
+    <value>Csatlakozás az általános beállítások oldalán („tábornok”) megadott adathordozójelszóval védett, beágyazott hitelesítő adatokkal.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>Zero Touch tartományhoz csatlakozás</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktív kiépítési mód</value>
@@ -4101,9 +4101,9 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Embed domain credentials using the existing media password configured on the General page.</value>
+    <value>Ágyazza be a tartományi hitelesítő adatokat az általános beállítások oldalán („tábornok”) beállított meglévő adathordozójelszó használatával.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>Zero Touch tartományhoz csatlakozás</value>
   </data>
 </root>

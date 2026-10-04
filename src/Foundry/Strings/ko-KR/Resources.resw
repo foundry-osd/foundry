@@ -1829,181 +1829,181 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>문서를 열 수 없습니다.</value>
   </data>
   <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Activate</value>
+    <value>활성화</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Check the target DNS domain, destination label and distinguished name. Destinations must belong to the catalog domain, with at most 1,024 entries.</value>
+    <value>대상 DNS 도메인, 대상 표시 이름 및 고유 이름을 확인하세요. 대상은 카탈로그 도메인에 속해야 하며 항목은 최대 1,024개까지 허용됩니다.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Enter a valid target DNS domain and qualified account before setting a password. Passwords must fit the supported size and contain no NUL characters.</value>
+    <value>암호를 설정하기 전에 유효한 대상 DNS 도메인과 도메인이 포함된 계정 이름을 입력하세요. 암호는 지원되는 길이 범위 내에 있어야 하며 NUL 문자를 포함할 수 없습니다.</value>
   </data>
   <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Deactivate</value>
+    <value>비활성화</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Discovering destinations from this computer's AD domain...</value>
+    <value>이 컴퓨터의 AD 도메인에서 대상을 검색하는 중...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Discovery was canceled. Manual destination controls remain available.</value>
+    <value>검색이 취소되었습니다. 대상 수동 설정은 계속 사용할 수 있습니다.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Discovery completed. Select the destinations to import.</value>
+    <value>검색이 완료되었습니다. 가져올 대상을 선택하세요.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>This preview is incomplete. Directory limits, unreadable entries or referrals may have omitted destinations. Selected visible entries can still be imported.</value>
+    <value>이 미리 보기는 완전하지 않습니다. 디렉터리 제한, 읽을 수 없는 항목 또는 참조로 인해 일부 대상이 누락되었을 수 있습니다. 표시된 항목 중 선택한 항목은 계속 가져올 수 있습니다.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Discovery timed out. Manual destination controls remain available.</value>
+    <value>검색 시간이 초과되었습니다. 대상 수동 설정은 계속 사용할 수 있습니다.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Discovery is unavailable. Check computer domain membership, connectivity and directory read access, or add destinations manually.</value>
+    <value>검색을 사용할 수 없습니다. 컴퓨터의 도메인 가입 상태, 연결 및 디렉터리 읽기 권한을 확인하거나 대상을 수동으로 추가하세요.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Import was not applied. The target and catalog domain must match the discovered computer domain, and the resulting catalog must fit the supported bounds.</value>
+    <value>가져오기가 적용되지 않았습니다. 대상 도메인과 카탈로그 도메인은 검색된 컴퓨터 도메인과 일치해야 하며, 가져오기 후 카탈로그는 지원되는 한도 내에 있어야 합니다.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Selected destinations were imported.</value>
+    <value>선택한 대상을 가져왔습니다.</value>
   </data>
   <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>This provisioning mode is inactive.</value>
+    <value>이 프로비저닝 모드는 비활성 상태입니다.</value>
   </data>
   <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Domain joining is ready.</value>
+    <value>도메인 가입이 준비되었습니다.</value>
   </data>
   <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Activating this mode replaces the current Domain Join or Windows Autopilot mode. Inactive nonsecret settings are retained; domain credentials are cleared when their ownership changes.</value>
+    <value>이 모드를 활성화하면 현재 도메인 가입 또는 Windows Autopilot 모드가 대체됩니다. 비활성 모드의 비밀 정보가 아닌 설정은 유지되며, 도메인 자격 증명은 이를 관리하는 모드가 바뀌면 지워집니다.</value>
   </data>
   <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Replace active provisioning mode?</value>
+    <value>활성 프로비저닝 모드를 대체할까요?</value>
   </data>
   <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Select at least one destination from the preview.</value>
+    <value>미리 보기에서 대상을 하나 이상 선택하세요.</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Enter the domain account.</value>
+    <value>도메인 계정을 입력하세요.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>The target DNS domain must match the destination catalog domain. Remove old catalog entries before changing domains.</value>
+    <value>대상 DNS 도메인은 대상 카탈로그 도메인과 일치해야 합니다. 도메인을 변경하기 전에 기존 카탈로그 항목을 제거하세요.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Set a DNS domain for the destination catalog.</value>
+    <value>대상 카탈로그의 DNS 도메인을 설정하세요.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Select an existing default destination or clear the default.</value>
+    <value>기존 기본 대상을 선택하거나 기본값을 해제하세요.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Enter the target DNS domain.</value>
+    <value>대상 DNS 도메인을 입력하세요.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>The catalog contains duplicate destination distinguished names.</value>
+    <value>카탈로그에 중복된 대상 고유 이름이 있습니다.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>The catalog contains duplicate destination identities.</value>
+    <value>카탈로그에 중복된 대상 식별자가 있습니다.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Enter a valid account within the supported length.</value>
+    <value>지원되는 길이 범위 내의 유효한 계정을 입력하세요.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Enter a valid catalog DNS domain.</value>
+    <value>유효한 카탈로그 DNS 도메인을 입력하세요.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>A destination distinguished name is invalid.</value>
+    <value>대상 고유 이름이 유효하지 않습니다.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Enter a valid target DNS domain.</value>
+    <value>유효한 대상 DNS 도메인을 입력하세요.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Each destination needs a label of at most 120 characters.</value>
+    <value>각 대상에는 최대 120자의 표시 이름이 필요합니다.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>A destination has an invalid identity. Remove and add it again.</value>
+    <value>대상 식별자가 유효하지 않습니다. 제거한 후 다시 추가하세요.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Enable media password protection on the General page and enter a valid media password.</value>
+    <value>일반 페이지에서 미디어 암호 보호를 활성화하고 유효한 미디어 암호를 입력하세요.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Add destinations before enabling selection, or clear the selection and default.</value>
+    <value>선택 기능을 활성화하기 전에 대상을 추가하거나, 선택 기능을 해제하고 기본값을 지우세요.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Every destination must be inside the catalog domain.</value>
+    <value>모든 대상은 카탈로그 도메인 내에 있어야 합니다.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Enter the account password for this domain and account.</value>
+    <value>이 도메인과 계정의 계정 암호를 입력하세요.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Use DOMAIN\user or user@domain for the account.</value>
+    <value>계정에 DOMAIN\user 또는 user@domain을 사용하세요.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>The catalog supports at most 1,024 destinations.</value>
+    <value>카탈로그는 최대 1,024개의 대상을 지원합니다.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Select a supported domain joining mode.</value>
+    <value>지원되는 도메인 가입 모드를 선택하세요.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
-    <value>Account (DOMAIN\user or user@domain)</value>
+    <value>계정 (DOMAIN\user 또는 user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Add destination</value>
+    <value>대상 추가</value>
   </data>
   <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
-    <value>Allow destination selection during deployment</value>
+    <value>배포 중 대상 선택 허용</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
-    <value>Cancel discovery</value>
+    <value>검색 취소</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Clear default</value>
+    <value>기본값 해제</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Use a qualified account with administrator-delegated join and placement permissions. Foundry does not audit permissions. The password is cleared when the domain, account or active mode changes.</value>
+    <value>관리자가 가입 및 배치 권한을 위임한 계정을 도메인이 포함된 이름으로 사용하세요. Foundry는 권한을 감사하지 않습니다. 도메인, 계정 또는 활성 모드가 변경되면 암호가 지워집니다.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Domain credentials</value>
+    <value>도메인 자격 증명</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Default destination (optional)</value>
+    <value>기본 대상 (선택 사항)</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Without a catalog, technicians may type an optional OU. With a catalog, destinations are restricted to its entries. A fixed default has no picker; a picker without a default requires selection. Existing computer accounts move to the selected destination.</value>
+    <value>카탈로그가 없으면 기술자가 필요에 따라 OU를 입력할 수 있습니다. 카탈로그가 있으면 대상은 카탈로그 항목으로 제한됩니다. 기본 대상이 고정되어 있으면 선택기가 표시되지 않습니다. 기본 대상이 없는 선택기는 선택이 필수입니다. 기존 컴퓨터 계정은 선택한 대상으로 이동됩니다.</value>
   </data>
   <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Destination selection</value>
+    <value>대상 선택</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Discover destinations</value>
+    <value>대상 검색</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Uses this computer's AD domain and your current Windows identity. Preview and select entries explicitly; import preserves manual rows and the default. Discovery does not test join permissions.</value>
+    <value>이 컴퓨터의 AD 도메인과 현재 Windows ID를 사용합니다. 미리 보기를 확인하고 항목을 명시적으로 선택하세요. 가져오기는 수동으로 추가한 행과 기본 대상을 유지합니다. 검색은 가입 권한을 테스트하지 않습니다.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Import from the computer domain</value>
+    <value>컴퓨터 도메인에서 가져오기</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Import selected destinations</value>
+    <value>선택한 대상 가져오기</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Enter a label and a valid distinguished name inside the target DNS domain. Manual entries remain available when directory discovery fails.</value>
+    <value>대상 DNS 도메인 내의 유효한 고유 이름과 표시 이름을 입력하세요. 디렉터리 검색에 실패해도 수동 항목은 계속 사용할 수 있습니다.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Add a destination manually</value>
+    <value>대상 수동 추가</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OU distinguished name</value>
+    <value>OU 고유 이름</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Display label</value>
+    <value>표시 이름</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Account password</value>
+    <value>계정 암호</value>
   </data>
   <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Remove</value>
+    <value>제거</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Required for Zero Touch and an OU catalog. Optional for interactive deployment without a catalog.</value>
+    <value>제로 터치 및 OU 카탈로그에 필요합니다. 카탈로그가 없는 대화형 배포에서는 선택 사항입니다.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Target DNS domain</value>
+    <value>대상 DNS 도메인</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>신뢰할 수 있는 루트 CA 인증서 파일</value>
@@ -2159,10 +2159,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>미디어 준비 상태</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Request domain and account credentials during deployment. This mode does not require a media password.</value>
+    <value>배포 중 도메인 및 계정 자격 증명을 요청합니다. 이 모드에는 미디어 암호가 필요하지 않습니다.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Interactive Domain Join</value>
+    <value>대화형 도메인 가입</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>아랍어(사우디아라비아)</value>
@@ -2375,7 +2375,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>문서</value>
   </data>
   <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
-    <value>Domain Join</value>
+    <value>도메인 가입</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>기본적으로 표준 Ethernet 연결을 사용할 수 있습니다. 유선 네트워크에 802.1X 기업 인증이 필요한 경우에만 이 섹션을 구성하십시오.</value>
@@ -2399,10 +2399,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>홈</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Request domain credentials during deployment and optionally select a destination OU.</value>
+    <value>배포 중 도메인 자격 증명을 요청하고 필요에 따라 대상 OU를 선택합니다.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interactive Domain Join</value>
+    <value>대화형 도메인 가입</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>배포된 장치 이름을 구성합니다.</value>
@@ -2465,10 +2465,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Join using embedded credentials protected by the General-page media password.</value>
+    <value>일반 페이지의 미디어 암호로 보호되는 내장 자격 증명을 사용하여 가입합니다.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>제로 터치 도메인 가입</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>활성 프로비저닝 모드</value>
@@ -4101,9 +4101,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Embed domain credentials using the existing media password configured on the General page.</value>
+    <value>일반 페이지에 구성된 기존 미디어 암호를 사용하여 도메인 자격 증명을 포함합니다.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>제로 터치 도메인 가입</value>
   </data>
 </root>

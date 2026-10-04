@@ -370,13 +370,13 @@ Action: Verify disk attributes and retry deployment.</value>
     <value>Enter the deployment credentials and destination. Domain joining runs in installed Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
-    <value>Organizational unit</value>
+    <value>Organisational unit</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Enter a valid OU distinguished name in the specified domain, or leave it empty.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Select an organizational unit from the catalog.</value>
+    <value>Select an organisational unit from the catalogue.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Domain DNS name</value>
