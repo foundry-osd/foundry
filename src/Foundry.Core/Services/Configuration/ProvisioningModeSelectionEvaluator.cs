@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Configuration;
+
 namespace Foundry.Core.Services.Configuration;
 
 /// <summary>Models a single mutually exclusive provisioning choice.</summary>
@@ -17,6 +19,34 @@ public sealed record ProvisioningSelectionDecision(ProvisioningSelection Next, b
 /// <summary>Evaluates technician selection without mutating saved settings.</summary>
 public static class ProvisioningModeSelectionEvaluator
 {
+    /// <summary>Maps the active configuration to the shared policy while ignoring inactive nonsecret drafts.</summary>
+    public static ProvisioningSelectionDecision Evaluate(AutopilotSettings autopilot, DomainJoinSettings domainJoin, ProvisioningSelection requested)
+    {
+        DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(autopilot, domainJoin);
+        ProvisioningSelection current = ProvisioningSelection.None;
+        if (autopilot.IsEnabled)
+        {
+            current = autopilot.ProvisioningMode switch
+            {
+                AutopilotProvisioningMode.JsonProfile => ProvisioningSelection.AutopilotJsonProfile,
+                AutopilotProvisioningMode.HardwareHashUpload => ProvisioningSelection.AutopilotHardwareHashUpload,
+                AutopilotProvisioningMode.InteractiveHardwareHashUpload => ProvisioningSelection.AutopilotInteractiveHardwareHashUpload,
+                _ => throw new ArgumentOutOfRangeException(nameof(autopilot))
+            };
+        }
+        else if (domainJoin.IsEnabled)
+        {
+            current = domainJoin.Mode switch
+            {
+                DomainJoinMode.Interactive => ProvisioningSelection.DomainJoinInteractive,
+                DomainJoinMode.Automatic => ProvisioningSelection.DomainJoinAutomatic,
+                _ => throw new ArgumentOutOfRangeException(nameof(domainJoin))
+            };
+        }
+
+        return Evaluate(current, requested);
+    }
+
     /// <summary>Toggling the active choice disables it; replacing an active choice requires confirmation.</summary>
     public static ProvisioningSelectionDecision Evaluate(ProvisioningSelection current, ProvisioningSelection requested)
     {

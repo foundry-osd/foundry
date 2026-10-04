@@ -103,12 +103,17 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     private async Task ToggleModeAsync()
     {
         FoundryConfigurationDocument baseline = configuration.Current;
-        bool deactivate = baseline.DomainJoin.IsEnabled && baseline.DomainJoin.Mode == pageMode;
-        bool replace = !deactivate && (baseline.Autopilot.IsEnabled || baseline.DomainJoin.IsEnabled);
-        if (replace && !await dialogs.ConfirmAsync(new(Text("ReplacementTitle"), Text("ReplacementMessage"), Text("Activate"), localization.GetString("Common.Cancel"), true))) return;
+        ProvisioningSelection requested = pageMode switch
+        {
+            DomainJoinMode.Interactive => ProvisioningSelection.DomainJoinInteractive,
+            DomainJoinMode.Automatic => ProvisioningSelection.DomainJoinAutomatic,
+            _ => throw new ArgumentOutOfRangeException(nameof(pageMode))
+        };
+        ProvisioningSelectionDecision decision = ProvisioningModeSelectionEvaluator.Evaluate(baseline.Autopilot, baseline.DomainJoin, requested);
+        if (decision.RequiresReplacementConfirmation && !await dialogs.ConfirmAsync(new(Text("ReplacementTitle"), Text("ReplacementMessage"), Text("Activate"), localization.GetString("Common.Cancel"), true))) return;
         if (disposed || !ReferenceEquals(baseline, configuration.Current)) return;
         configuration.UpdateProvisioningSelection(baseline.Autopilot with { IsEnabled = false },
-            baseline.DomainJoin with { IsEnabled = !deactivate, Mode = pageMode });
+            baseline.DomainJoin with { IsEnabled = decision.Next == requested, Mode = pageMode });
     }
 
     /// <summary>Copies matching live credentials for PasswordBox synchronization; the caller clears the buffer.</summary>
@@ -119,7 +124,11 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     {
         if (!IsActive || pageMode != DomainJoinMode.Automatic) return;
         try { secrets.SetPassword(Context(), password); SetStatus(null); }
-        catch (ArgumentException) { secrets.Clear(); SetStatus("CredentialInputInvalid"); }
+        catch (Exception exception) when (exception is ArgumentException or InvalidDataException)
+        {
+            secrets.Clear();
+            SetStatus("CredentialInputInvalid");
+        }
     }
 
     [RelayCommand]

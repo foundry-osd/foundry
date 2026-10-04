@@ -45,8 +45,18 @@
                 Content="{Binding [DomainJoin.Destination]}"
                 Target="{Binding ElementName=DestinationInput}" />
             <ComboBox x:Name="DestinationInput"
-                AutomationProperties.Name="{Binding [DomainJoin.Destination]}"
-                DisplayMemberPath="DisplayName" />
+                AutomationProperties.Name="{Binding [DomainJoin.Destination]}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel MaxWidth="400">
+                            <TextBlock Text="{Binding DisplayName}" />
+                            <TextBlock
+                                Text="{Binding DistinguishedName}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
         <StackPanel x:Name="OptionalDestinationPanel">
             <Label

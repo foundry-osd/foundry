@@ -463,12 +463,16 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public async Task ToggleProvisioningModeAsync(AutopilotProvisioningMode mode)
     {
         FoundryConfigurationDocument baseline = configurationStateService.Current;
-        AutopilotProvisioningModeToggleResult result = AutopilotProvisioningModeToggleEvaluator.Evaluate(
-            baseline.Autopilot.IsEnabled,
-            baseline.Autopilot.ProvisioningMode,
-            mode);
+        ProvisioningSelection requested = mode switch
+        {
+            AutopilotProvisioningMode.JsonProfile => ProvisioningSelection.AutopilotJsonProfile,
+            AutopilotProvisioningMode.HardwareHashUpload => ProvisioningSelection.AutopilotHardwareHashUpload,
+            AutopilotProvisioningMode.InteractiveHardwareHashUpload => ProvisioningSelection.AutopilotInteractiveHardwareHashUpload,
+            _ => throw new ArgumentOutOfRangeException(nameof(mode))
+        };
+        ProvisioningSelectionDecision decision = ProvisioningModeSelectionEvaluator.Evaluate(baseline.Autopilot, baseline.DomainJoin, requested);
 
-        if ((result.RequiresConfirmation || result.IsEnabled && baseline.DomainJoin.IsEnabled) &&
+        if (decision.RequiresReplacementConfirmation &&
             !await ConfirmProvisioningModeReplacementAsync(mode))
         {
             return;
@@ -476,7 +480,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
         if (isDisposed || !ReferenceEquals(baseline, configurationStateService.Current)) return;
         configurationStateService.UpdateProvisioningSelection(
-            baseline.Autopilot with { ProvisioningMode = result.Mode, IsEnabled = result.IsEnabled },
+            baseline.Autopilot with { ProvisioningMode = mode, IsEnabled = decision.Next == requested },
             baseline.DomainJoin with { IsEnabled = false });
     }
 
