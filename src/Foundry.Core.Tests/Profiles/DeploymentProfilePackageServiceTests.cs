@@ -432,7 +432,7 @@ public sealed class DeploymentProfilePackageServiceTests
     [Fact]
     public void ExportImport_PreservesSafeUnicodeAutopilotFolderAndInlineJson()
     {
-        AutopilotProfileSettings autopilot = CreateAutopilotProfile() with { FolderName = "Ã‰quipe_Paris" };
+        AutopilotProfileSettings autopilot = CreateAutopilotProfile() with { FolderName = "Équipe_Paris" };
         DeploymentProfileDocument profile = CreateProfile() with { Configuration = new() { Autopilot = new() { Profiles = [autopilot] } } };
         AutopilotProfileSettings imported = Assert.Single(_service.Import(_service.Export(profile, "password"), "password").Configuration.Autopilot.Profiles);
         Assert.Equal(autopilot.FolderName, imported.FolderName);
