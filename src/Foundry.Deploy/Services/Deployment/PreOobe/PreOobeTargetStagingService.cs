@@ -225,6 +225,12 @@ public sealed class PreOobeTargetStagingService
             string setupComplete = Path.Combine(partition, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
             new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY PRE-OOBE");
             new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY DRIVERPACK");
+            if (context.RuntimeState.DomainJoinStatus == DomainJoinExecutionStatus.Ready && !context.Request.UsesCustomUnattend)
+            {
+                // Runs after the OOBE customization step, which otherwise leaves the account screens visible.
+                DomainJoinOobeAccountScreens.Hide(partition, context.Request.OperatingSystem.Architecture);
+                await context.AppendLogAsync(Foundry.Deploy.Services.Logging.DeploymentLogLevel.Info, "OOBE account screens hidden for the domain-joined computer.", cancellationToken).ConfigureAwait(false);
+            }
             BeforeHookPublication?.Invoke();
             new PreOobeUnattendHookService(_protectDirectory).Publish(partition, context.Request.OperatingSystem.Architecture);
             // An imported answer file may already contain the launch hook; arm its journal only after every publication succeeds.
