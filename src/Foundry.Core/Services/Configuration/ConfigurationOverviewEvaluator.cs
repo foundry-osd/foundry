@@ -212,11 +212,7 @@ public static class ConfigurationOverviewEvaluator
         };
 
         AddAutopilotStates(states, configuration.Autopilot, context.IsAutopilotConfigurationReady);
-        AddDomainJoinStates(states, configuration.DomainJoin, context.IsDomainJoinConfigurationReady && !configuration.Autopilot.IsEnabled);
-        if (configuration.Autopilot.IsEnabled && configuration.DomainJoin.IsEnabled)
-        {
-            AddAutopilotStates(states, configuration.Autopilot, false);
-        }
+        AddDomainJoinStates(states, configuration.DomainJoin, context.IsDomainJoinConfigurationReady);
         return new ConfigurationOverviewEvaluation(states);
     }
 

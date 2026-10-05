@@ -107,7 +107,7 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
                     budget.Token.ThrowIfCancellationRequested();
                     var target = await directory.ReadDestinationAsync(ready.Destination.Guid, budget.Token).ConfigureAwait(false);
                     ValidateObject(target, parameters.DomainName);
-                    if (target.Guid != ready.Destination.Guid) throw new InvalidDataException("The destination identity changed.");
+                    if (target.Guid != ready.Destination.Guid) throw new InvalidDataException("The OU identity changed.");
                     if (ready.Computer is null)
                     {
                         var created = await directory.FindComputerAsync(parameters.ComputerName, budget.Token).ConfigureAwait(false);

@@ -13,14 +13,14 @@ public enum DomainJoinPhaseState { NotStarted, Succeeded, Failed, Skipped, Unkno
 public enum DomainJoinRestartState { NotRequired, Required, Requested, Completed }
 
 /// <summary>Tracks sensitive payload disposal independently from domain mutation outcomes.</summary>
-public enum DomainJoinCleanupState { NotRequired, Pending, Disposed }
+public enum DomainJoinCleanupState { Pending, Disposed }
 
 /// <summary>Allowlisted domain failures; diagnostics never persist account names or exception text.</summary>
 public enum DomainJoinFailureCode
 {
-    InvalidInput, CredentialUnavailable, ContextMismatch, ComputerNameMismatch, DomainUnavailable,
+    CredentialUnavailable, ContextMismatch, ComputerNameMismatch, DomainUnavailable,
     ReadinessTimeout, JoinFailed, PlacementFailed, MembershipMismatch, MembershipUnverified,
-    Interrupted, WorkerTimeout, CleanupFailed, ResultUnavailable, InvalidResult, OrganizationalUnitNotFound
+    Interrupted, WorkerTimeout, OrganizationalUnitNotFound
 }
 
 /// <summary>Reports one independent phase and an optional native or LDAP numeric diagnostic.</summary>
@@ -67,4 +67,17 @@ public sealed record DomainJoinResult
     public DomainJoinCleanupState Cleanup { get; init; }
     [JsonRequired]
     public Guid? ComputerObjectGuid { get; init; }
+
+    /// <summary>Creates the not-started result Deploy stages and PostInstall validates every later result against.</summary>
+    public static DomainJoinResult CreateSeed(string operationId, string attemptId, string planHash,
+        string computerName, string domainName, string? targetOuDn) => new()
+        {
+            OperationId = operationId,
+            AttemptId = attemptId,
+            PlanHash = planHash,
+            ExpectedComputerName = computerName,
+            ExpectedDomainName = domainName,
+            TargetOuDn = targetOuDn,
+            Cleanup = DomainJoinCleanupState.Pending
+        };
 }

@@ -380,7 +380,6 @@ public sealed class DeploymentProfileSessionService : IDisposable
 
     private void OnConfigurationChanged(object? sender, EventArgs e)
     {
-        domainSecrets.Update(configurationState.Current.DomainJoin);
         if (sourceMetadata is null || materializedSourceMetadata is null) return;
         FoundryConfigurationDocument current = configurationState.Current with
         {

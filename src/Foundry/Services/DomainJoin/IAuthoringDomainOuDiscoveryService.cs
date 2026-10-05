@@ -17,6 +17,6 @@ public interface IAuthoringDomainOuDiscoveryService
 public enum DomainOuDiscoveryStatus { Complete, Incomplete, Unavailable, Canceled }
 
 /// <summary>Contains only portable directory metadata and an allowlisted presentation code.</summary>
-public sealed record DomainOuDiscoveryResult(string? ComputerDomain, string? NamingContext,
+public sealed record DomainOuDiscoveryResult(string? ComputerDomain,
     IReadOnlyList<DomainJoinOrganizationalUnitSettings> Candidates, DomainOuDiscoveryStatus Status, string? ErrorCode = null,
     int? NativeErrorCode = null, int? LdapErrorCode = null, int? DirectoryResultCode = null);

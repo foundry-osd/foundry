@@ -43,25 +43,24 @@ public static class DomainJoinConfigurationValidator
         foreach (DomainJoinOrganizationalUnitSettings unit in units.Take(MaximumOrganizationalUnits))
         {
             if (unit is null) { Add(DomainJoinValidationCode.InvalidOuId); continue; }
-            string? issueId = IsRequiredBounded(unit.Id, 128) ? unit.Id : null;
-            if (issueId is null) Add(DomainJoinValidationCode.InvalidOuId);
-            else if (!ids.Add(unit.Id)) Add(DomainJoinValidationCode.DuplicateOuId, issueId);
-            if (!IsRequiredBounded(unit.DisplayName, 120)) Add(DomainJoinValidationCode.InvalidOuDisplayName, issueId);
+            if (!IsRequiredBounded(unit.Id, 128)) Add(DomainJoinValidationCode.InvalidOuId);
+            else if (!ids.Add(unit.Id)) Add(DomainJoinValidationCode.DuplicateOuId);
+            if (!IsRequiredBounded(unit.DisplayName, 120)) Add(DomainJoinValidationCode.InvalidOuDisplayName);
             if (!DistinguishedNameRules.TryParse(unit.DistinguishedName, out ParsedDistinguishedName parsed) ||
                 !DistinguishedNameRules.IsOrganizationalUnit(parsed))
-                Add(DomainJoinValidationCode.InvalidDistinguishedName, issueId);
+                Add(DomainJoinValidationCode.InvalidDistinguishedName);
             else
             {
-                if (!names.Add(DistinguishedNameRules.GetComparisonKey(parsed))) Add(DomainJoinValidationCode.DuplicateDistinguishedName, issueId);
+                if (!names.Add(DistinguishedNameRules.GetComparisonKey(parsed))) Add(DomainJoinValidationCode.DuplicateDistinguishedName);
                 if (!DistinguishedNameRules.IsWithinDomain(unit.DistinguishedName, settings.OuCatalogDomain ?? string.Empty))
-                    Add(DomainJoinValidationCode.OuOutsideDomain, issueId);
+                    Add(DomainJoinValidationCode.OuOutsideDomain);
             }
         }
 
         if (settings.DefaultOuId is not null && !ids.Contains(settings.DefaultOuId)) Add(DomainJoinValidationCode.DefaultOuMissing);
         return new(issues.Count == 0, issues);
 
-        void Add(DomainJoinValidationCode code, string? id = null) => issues.Add(new(code, id));
+        void Add(DomainJoinValidationCode code) => issues.Add(new(code));
     }
 
     /// <summary>Requires automatic credential inputs only when that mode is active; interactive media needs no password.</summary>
@@ -114,8 +113,8 @@ public static class DomainJoinConfigurationValidator
 /// <summary>Contains non-secret validation outcomes.</summary>
 public sealed record DomainJoinValidationResult(bool IsValid, IReadOnlyList<DomainJoinValidationIssue> Issues);
 
-/// <summary>Identifies the rule and optional authored OU that need attention without echoing input.</summary>
-public sealed record DomainJoinValidationIssue(DomainJoinValidationCode Code, string? OuId = null);
+/// <summary>Identifies the rule that needs attention without echoing input.</summary>
+public sealed record DomainJoinValidationIssue(DomainJoinValidationCode Code);
 
 /// <summary>Stable validation codes for authoring and runtime presentation.</summary>
 public enum DomainJoinValidationCode

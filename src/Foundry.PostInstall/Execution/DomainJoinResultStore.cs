@@ -9,23 +9,14 @@ namespace Foundry.PostInstall.Execution;
 internal sealed class DomainJoinResultStore(string root, PreOobeExecutionPlan plan, string planHash)
 {
     private readonly string path = OwnedPaths.Resolve(root, "State/PreOobe/domain-join-result.json");
-    /// <summary>Creates a credential-free report seed with no assumed installed-Windows boot.</summary>
+    /// <summary>Describes the credential-free report Deploy staged, with no assumed installed-Windows boot.</summary>
     public DomainJoinResult CreateSeed()
     {
         PreOobePlanValidator.ValidatePlan(plan);
         var binding = DomainJoinBinding.Validate(plan);
-        return new()
-        {
-            OperationId = plan.OperationId,
-            AttemptId = plan.AttemptId,
-            PlanHash = planHash,
-            ExpectedComputerName = binding.Parameters.ComputerName,
-            ExpectedDomainName = binding.Parameters.DomainName,
-            TargetOuDn = binding.Parameters.TargetOuDn,
-            Cleanup = DomainJoinCleanupState.Pending
-        };
+        return DomainJoinResult.CreateSeed(plan.OperationId, plan.AttemptId, planHash,
+            binding.Parameters.ComputerName, binding.Parameters.DomainName, binding.Parameters.TargetOuDn);
     }
-    public void Seed() { var seed = CreateSeed(); Validate(seed); DomainStateFile.Write(root, path, seed, create: true); }
     public DomainJoinResult Read()
     {
         var value = DomainStateFile.Read<DomainJoinResult>(root, path); Validate(value); return value;

@@ -12,16 +12,9 @@ namespace Foundry.PostInstall.Execution;
 internal sealed class DomainJoinPhaseStore(string root, PreOobeExecutionPlan plan, string planHash)
 {
     private readonly string path = OwnedPaths.Resolve(root, "State/PreOobe/domain-join-phase.json");
-    /// <summary>Creates an unassigned WinPE seed; the installed boot is bound only by the worker.</summary>
-    public DomainJoinPhaseReceipt CreateSeed() => new()
-    {
-        OperationId = plan.OperationId,
-        AttemptId = plan.AttemptId,
-        PlanHash = planHash,
-        ActionId = DomainJoinBinding.Validate(plan).JoinAction.Id
-    };
-    /// <summary>Creates a durable seed exactly once; never replaces an existing receipt.</summary>
-    public void Seed() { var seed = CreateSeed(); Validate(seed); DomainStateFile.Write(root, path, seed, create: true); }
+    /// <summary>Describes the unassigned receipt Deploy staged; the installed boot is bound only by the worker.</summary>
+    public DomainJoinPhaseReceipt CreateSeed() =>
+        DomainJoinPhaseReceipt.CreateSeed(plan.OperationId, plan.AttemptId, planHash, DomainJoinBinding.Validate(plan).JoinAction.Id);
     /// <summary>Serializes domain workers independently of the parent-held runner lease.</summary>
     public IDisposable AcquireWorkerLease() => new FileStream(OwnedPaths.Resolve(root, "State/PreOobe/domain-worker.lease"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
     public DomainJoinPhaseReceipt Read()

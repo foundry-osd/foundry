@@ -265,7 +265,7 @@ internal sealed class DomainFixture : IDisposable
         byte[] planBytes = JsonSerializer.SerializeToUtf8Bytes(Plan, ExecutionJournal.JsonOptions);
         File.WriteAllBytes(Path.Combine(Root, "State", "PreOobe", "plan.json"), planBytes);
         Hash = Convert.ToHexStringLower(SHA256.HashData(planBytes));
-        new DomainJoinPhaseStore(Root, Plan, Hash).Seed();
+        DomainSeeds.WritePhase(Root, Plan, Hash);
         var journal = new ExecutionJournal(Root);
         journal.Seed(Plan, Hash);
         var state = journal.Read(); state.Status = "Running"; state.BootIdentity = "installed-boot";
@@ -278,6 +278,16 @@ internal sealed class DomainFixture : IDisposable
     public Func<TimeSpan, CancellationToken, Task>? Delay;
     public Task<DomainJoinWorkerResult> Run() => new DomainJoinWorker(Root, Plan, Hash, "installed-boot", Native, Directory, Delay).RunAsync(Parameters, CancellationToken.None);
     public void Dispose() => System.IO.Directory.Delete(Root, true);
+}
+
+/// <summary>Writes the two state files as Deploy stages them, so tests start from the production seed shape.</summary>
+internal static class DomainSeeds
+{
+    public static void WriteResult(string root, PreOobeExecutionPlan plan, string hash) => DomainStateFile.Write(root,
+        OwnedPaths.Resolve(root, "State/PreOobe/domain-join-result.json"), new DomainJoinResultStore(root, plan, hash).CreateSeed(), create: true);
+
+    public static void WritePhase(string root, PreOobeExecutionPlan plan, string hash) => DomainStateFile.Write(root,
+        OwnedPaths.Resolve(root, "State/PreOobe/domain-join-phase.json"), new DomainJoinPhaseStore(root, plan, hash).CreateSeed(), create: true);
 }
 
 internal sealed class FakeNative : INativeDomainJoin

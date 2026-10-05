@@ -55,7 +55,7 @@ internal sealed record DomainJoinBinding(PreOobeExecutionAction JoinAction, Doma
             throw new InvalidDataException("Boot identity is invalid.");
     }
 
-    public static JournalState RequireRunning(string root, PreOobeExecutionPlan plan, string hash, string boot, string actionId)
+    public static void RequireRunning(string root, PreOobeExecutionPlan plan, string hash, string boot, string actionId)
     {
         ValidateHash(hash);
         ValidateBoot(boot);
@@ -68,7 +68,6 @@ internal sealed record DomainJoinBinding(PreOobeExecutionAction JoinAction, Doma
             state.UnsafePayloadBootIdentity == boot && !(binding.VerificationAction.Id == actionId &&
                 state.UnsafeActionId == binding.JoinAction.Id))
             throw new InvalidDataException("The worker is not the active action.");
-        return state;
     }
 
     public void RequireAction(PreOobeExecutionAction action, bool verification = false)

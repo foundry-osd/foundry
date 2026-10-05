@@ -43,7 +43,7 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
             }
             catch (OperationCanceledException)
             {
-                return result = new(null, null, [], cancellationToken.IsCancellationRequested ? DomainOuDiscoveryStatus.Canceled : DomainOuDiscoveryStatus.Unavailable,
+                return result = new(null, [], cancellationToken.IsCancellationRequested ? DomainOuDiscoveryStatus.Canceled : DomainOuDiscoveryStatus.Unavailable,
                     cancellationToken.IsCancellationRequested ? "Canceled" : "Timeout");
             }
             finally
@@ -55,8 +55,8 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
             }
         }, CancellationToken.None);
         try { return await work.WaitAsync(TimeSpan.FromSeconds(60), cancellationToken).ConfigureAwait(false); }
-        catch (TimeoutException) { return new(null, null, [], DomainOuDiscoveryStatus.Unavailable, "Timeout"); }
-        catch (OperationCanceledException) { return new(null, null, [], DomainOuDiscoveryStatus.Canceled, "Canceled"); }
+        catch (TimeoutException) { return new(null, [], DomainOuDiscoveryStatus.Unavailable, "Timeout"); }
+        catch (OperationCanceledException) { return new(null, [], DomainOuDiscoveryStatus.Canceled, "Canceled"); }
     }
 
     private static async Task<DomainOuDiscoveryResult> DiscoverOwnedAsync(CancellationToken token)
@@ -96,26 +96,26 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
                 bool valid = AddEntries(response, candidates, domain);
                 PageResultResponseControl[] pages = response.Controls.OfType<PageResultResponseControl>().ToArray();
                 if (!valid || response.References.Count > 0 || pages.Length != 1)
-                    return new(domain, namingContext, candidates, DomainOuDiscoveryStatus.Incomplete, "Incomplete");
+                    return new(domain, candidates, DomainOuDiscoveryStatus.Incomplete, "Incomplete");
                 if (pages[0].Cookie.Length == 0)
-                    return new(domain, namingContext, candidates, DomainOuDiscoveryStatus.Complete);
+                    return new(domain, candidates, DomainOuDiscoveryStatus.Complete);
                 if (candidates.Count >= 4096)
-                    return new(domain, namingContext, candidates, DomainOuDiscoveryStatus.Incomplete, "Limit");
+                    return new(domain, candidates, DomainOuDiscoveryStatus.Incomplete, "Limit");
                 paging.Cookie = pages[0].Cookie;
             }
         }
-        catch (OperationCanceledException) { return new(domain, namingContext, [], DomainOuDiscoveryStatus.Canceled, "Canceled"); }
+        catch (OperationCanceledException) { return new(domain, [], DomainOuDiscoveryStatus.Canceled, "Canceled"); }
         catch (DirectoryOperationException ex)
         {
             if (ex.Response is SearchResponse partial && domain is not null) AddEntries(partial, candidates, domain);
             bool incomplete = candidates.Count > 0 || ex.Response?.ResultCode is ResultCode.TimeLimitExceeded or ResultCode.SizeLimitExceeded or ResultCode.Referral;
-            return new(domain, namingContext, candidates, incomplete ? DomainOuDiscoveryStatus.Incomplete : DomainOuDiscoveryStatus.Unavailable,
+            return new(domain, candidates, incomplete ? DomainOuDiscoveryStatus.Incomplete : DomainOuDiscoveryStatus.Unavailable,
                 "DirectoryRead", DirectoryResultCode: ex.Response is null ? null : (int)ex.Response.ResultCode);
         }
-        catch (Win32Exception ex) { return new(domain, namingContext, [], DomainOuDiscoveryStatus.Unavailable, "ComputerDomainUnavailable", NativeErrorCode: ex.NativeErrorCode); }
+        catch (Win32Exception ex) { return new(domain, [], DomainOuDiscoveryStatus.Unavailable, "ComputerDomainUnavailable", NativeErrorCode: ex.NativeErrorCode); }
         catch (Exception ex) when (ex is LdapException or InvalidDataException or InvalidOperationException or ArgumentException or NotSupportedException)
         {
-            return new(domain, namingContext, candidates, candidates.Count > 0 ? DomainOuDiscoveryStatus.Incomplete : DomainOuDiscoveryStatus.Unavailable,
+            return new(domain, candidates, candidates.Count > 0 ? DomainOuDiscoveryStatus.Incomplete : DomainOuDiscoveryStatus.Unavailable,
                 ex is InvalidOperationException ? "ComputerDomainUnavailable" : "DirectoryRead", LdapErrorCode: (ex as LdapException)?.ErrorCode);
         }
     }

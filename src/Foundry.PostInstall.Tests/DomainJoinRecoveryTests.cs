@@ -444,7 +444,7 @@ public sealed class DomainJoinRecoveryTests
             });
             Journal = fault is null ? new ExecutionJournal(Domain.Root) : new FaultJournal(Domain.Root, fault);
             Journal.Write(ExecutionJournal.CreateSeed(Domain.Plan, Domain.Hash));
-            Report = new(Domain.Root, Domain.Plan, Domain.Hash); Report.Seed();
+            Report = new(Domain.Root, Domain.Plan, Domain.Hash); DomainSeeds.WriteResult(Domain.Root, Domain.Plan, Domain.Hash);
         }
         public async Task<int> Run(string currentBoot = "installed-boot")
         {

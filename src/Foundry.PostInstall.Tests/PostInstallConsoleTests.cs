@@ -14,7 +14,7 @@ public sealed class PostInstallConsoleTests
     public void DomainOutcomes_ShowIndependentPhasesAndPlacementWarning()
     {
         using var f = new DomainFixture();
-        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); report.Seed();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
         report.Write(report.Read() with
         {
             OriginatingBootId = "installed-boot",
@@ -44,7 +44,7 @@ public sealed class PostInstallConsoleTests
     public void DomainOutcomes_ExplainUnconfirmedStates(DomainJoinPhaseState join, DomainJoinPhaseState placement, string expected)
     {
         using var f = new DomainFixture();
-        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); report.Seed();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
         DomainJoinResult result = report.Read() with
         {
             Join = new() { State = join },

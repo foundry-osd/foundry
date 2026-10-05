@@ -38,4 +38,13 @@ public sealed record DomainJoinPhaseReceipt
     public Guid? DestinationObjectGuid { get; init; }
     [JsonRequired]
     public bool RestartRequired { get; init; }
+
+    /// <summary>Creates the untouched receipt Deploy stages; the worker binds the installed boot before any mutation.</summary>
+    public static DomainJoinPhaseReceipt CreateSeed(string operationId, string attemptId, string planHash, string actionId) => new()
+    {
+        OperationId = operationId,
+        AttemptId = attemptId,
+        PlanHash = planHash,
+        ActionId = actionId
+    };
 }

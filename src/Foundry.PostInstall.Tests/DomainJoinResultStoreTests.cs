@@ -28,7 +28,7 @@ public sealed class DomainJoinResultStoreTests
     public void MissingAuthoritativeReportField_RejectsDefaultSubstitution(string field)
     {
         using var f = new DomainFixture(target: false);
-        var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); store.Seed();
+        var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
         string path = Path.Combine(f.Root, "State", "PreOobe", "domain-join-result.json");
         var value = JsonNode.Parse(File.ReadAllText(path))!.AsObject();
         Assert.True(value.Remove(field));
@@ -43,7 +43,7 @@ public sealed class DomainJoinResultStoreTests
     public void OptionalNumericReportDiagnostics_RemainCompatibleWhenOmitted(string field)
     {
         using var f = new DomainFixture();
-        var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); store.Seed();
+        var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
         store.Write(store.Read() with
         {
             OriginatingBootId = "installed-boot",
@@ -101,7 +101,7 @@ public sealed class DomainJoinResultStoreTests
     public void Report_RejectsForeignIdentityAndSuccessfulJoinWithoutRestart()
     {
         using var f = new DomainFixture();
-        var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); store.Seed();
+        var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
         var seed = store.Read();
         Assert.Throws<InvalidDataException>(() => store.Write(seed with { PlanHash = new string('b', 64) }));
         Assert.Throws<InvalidDataException>(() => store.Write(seed with { OriginatingBootId = "installed-boot", Join = new() { State = DomainJoinPhaseState.Succeeded } }));
@@ -109,7 +109,7 @@ public sealed class DomainJoinResultStoreTests
     [Fact]
     public void Report_RejectsConflatedErrorFamilies()
     {
-        using var f = new DomainFixture(); var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); store.Seed();
+        using var f = new DomainFixture(); var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
         Assert.Throws<InvalidDataException>(() => store.Write(store.Read() with
         {
             OriginatingBootId = "installed-boot",
@@ -120,7 +120,7 @@ public sealed class DomainJoinResultStoreTests
     public void Report_AcceptsRecordedOriginAfterRebootButNeverChangesIt()
     {
         using var f = new DomainFixture();
-        var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); store.Seed();
+        var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
         store.Write(store.Read() with { OriginatingBootId = "installed-boot", Join = new() { State = DomainJoinPhaseState.Succeeded }, Restart = DomainJoinRestartState.Required });
         var resumed = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); Assert.Equal("installed-boot", resumed.Read().OriginatingBootId);
         Assert.Throws<InvalidDataException>(() => resumed.Write(resumed.Read() with { OriginatingBootId = "next-boot" }));

@@ -14,7 +14,7 @@ public sealed class DomainJoinActionTests
     {
         using var f = new DomainFixture();
         f.Directory.Existing = f.Directory.Computer; f.Directory.StaleGuid = true;
-        new DomainJoinResultStore(f.Root, f.Plan, f.Hash).Seed();
+        DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
         var processes = new WorkerProcess(f);
         var result = await new DomainJoinAction(f.Root, f.Plan, f.Hash, "installed-boot", processes, "runtime.exe").ExecuteAsync(f.Plan.Actions[0], CancellationToken.None);
         Assert.False(result.Succeeded); Assert.True(result.RestartRequested); Assert.True(result.HasWarnings);
@@ -29,7 +29,7 @@ public sealed class DomainJoinActionTests
     [Fact]
     public async Task TimeoutWithJoinStarted_ReportsUnknownAndCannotReplay()
     {
-        using var f = new DomainFixture(); new DomainJoinResultStore(f.Root, f.Plan, f.Hash).Seed();
+        using var f = new DomainFixture(); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
         var processes = new WorkerProcess(f) { Interrupt = true };
         var action = new DomainJoinAction(f.Root, f.Plan, f.Hash, "installed-boot", processes, "runtime.exe");
         var outcome = await action.ExecuteAsync(f.Plan.Actions[0], CancellationToken.None);
@@ -45,7 +45,7 @@ public sealed class DomainJoinActionTests
     public async Task Verification_RequiresLaterBootAndExpectedActiveName(string boot, string name, bool success)
     {
         using var f = new DomainFixture();
-        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); report.Seed();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
         report.Write(report.Read() with { OriginatingBootId = "installed-boot", Join = new() { State = DomainJoinPhaseState.Succeeded }, Restart = DomainJoinRestartState.Required });
         var journal = new ExecutionJournal(f.Root); var state = journal.Read(); state.Cursor = 1; state.BootIdentity = boot;
         state.Actions["verify"] = new() { Status = "Running" }; journal.Write(state);

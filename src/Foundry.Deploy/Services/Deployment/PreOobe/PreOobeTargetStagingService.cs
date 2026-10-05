@@ -21,6 +21,7 @@ namespace Foundry.Deploy.Services.Deployment.PreOobe;
 /// <summary>Publishes verified local inputs and initial state before enabling the installed-Windows launch hook.</summary>
 public sealed class PreOobeTargetStagingService
 {
+    private const string DomainJoinActionId = "domain-join";
     private readonly Action<string> _protectDirectory;
     internal Action? BeforeHookPublication { get; init; }
     public PreOobeTargetStagingService() : this(ProtectDirectory) { }
@@ -113,11 +114,11 @@ public sealed class PreOobeTargetStagingService
                 string destination = Path.Combine(layout.Root, relative.Replace('/', Path.DirectorySeparatorChar));
                 _protectDirectory(Path.GetDirectoryName(destination)!);
                 domainCredentialPath = destination;
-                AddBuiltIn("domain-join", PreOobeBuiltInKind.DomainJoinAndPlacement,
+                AddBuiltIn(DomainJoinActionId, PreOobeBuiltInKind.DomainJoinAndPlacement,
                     new DomainJoinActionParameters(intent.DomainName, intent.ComputerName, intent.TargetOuDn, relative));
                 AddBuiltIn("verify-domain-membership", PreOobeBuiltInKind.VerifyDomainMembership,
-                    new DomainMembershipVerificationParameters(intent.DomainName, intent.ComputerName, "domain-join"));
-                owned.Add(new() { RelativePath = relative, IsSensitive = true, ConsumerActionIds = ["domain-join"] });
+                    new DomainMembershipVerificationParameters(intent.DomainName, intent.ComputerName, DomainJoinActionId));
+                owned.Add(new() { RelativePath = relative, IsSensitive = true, ConsumerActionIds = [DomainJoinActionId] });
             }
             var ai = context.Request.AiComponentRemoval;
             string[] aiNames = ai.IsEnabled ? new[] { ai.RemoveCopilot ? "Microsoft.Copilot" : null, ai.RemoveAiHub ? "Microsoft.Windows.AIHub" : null }.OfType<string>().ToArray() : [];
@@ -194,17 +195,8 @@ public sealed class PreOobeTargetStagingService
                     WriteIndented = true,
                     Converters = { new JsonStringEnumConverter() }
                 };
-                var phase = new DomainJoinPhaseReceipt { OperationId = operationId, AttemptId = plan.AttemptId, PlanHash = hash, ActionId = "domain-join" };
-                var result = new DomainJoinResult
-                {
-                    OperationId = operationId,
-                    AttemptId = plan.AttemptId,
-                    PlanHash = hash,
-                    ExpectedComputerName = intent.ComputerName,
-                    ExpectedDomainName = intent.DomainName,
-                    TargetOuDn = intent.TargetOuDn,
-                    Cleanup = DomainJoinCleanupState.Pending
-                };
+                var phase = DomainJoinPhaseReceipt.CreateSeed(operationId, plan.AttemptId, hash, DomainJoinActionId);
+                var result = DomainJoinResult.CreateSeed(operationId, plan.AttemptId, hash, intent.ComputerName, intent.DomainName, intent.TargetOuDn);
                 foreach (var seed in new[]
                 {
                     (Name: "domain-join-phase.json", Json: JsonSerializer.Serialize(phase, options)),
