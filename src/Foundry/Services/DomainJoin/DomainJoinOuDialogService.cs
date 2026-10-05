@@ -31,14 +31,7 @@ public sealed class DomainJoinOuDialogService(IApplicationLocalizationService lo
             XamlRoot = App.MainWindow.Content.XamlRoot
         };
 
-        try
-        {
-            ContentDialogResult result = await dialog.ShowAsync();
-            return result == ContentDialogResult.Primary ? viewModel.GetSelected() : null;
-        }
-        finally
-        {
-            viewModel.Dispose();
-        }
+        ContentDialogResult result = await dialog.ShowAsync();
+        return result == ContentDialogResult.Primary ? viewModel.GetSelected() : null;
     }
 }

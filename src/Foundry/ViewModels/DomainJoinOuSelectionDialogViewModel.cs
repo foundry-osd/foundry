@@ -2,17 +2,20 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
-/// <summary>Backs the picker shown after searching the authoring computer's domain for organizational units.</summary>
-public sealed partial class DomainJoinOuSelectionDialogViewModel : ObservableObject, IDisposable
+/// <summary>
+/// Backs the picker shown after searching the authoring computer's domain for organizational units. Nothing is
+/// selected initially because a domain lists OUs, such as Domain Controllers, that must not receive deployed
+/// computers by default.
+/// </summary>
+public sealed partial class DomainJoinOuSelectionDialogViewModel : ObservableObject
 {
     private readonly IApplicationLocalizationService localization;
+    private IReadOnlyList<DomainJoinOrganizationalUnitSettings> selected = [];
 
     public DomainJoinOuSelectionDialogViewModel(IApplicationLocalizationService localization,
         IReadOnlyList<DomainJoinOrganizationalUnitSettings> candidates, bool isIncomplete)
@@ -27,18 +30,17 @@ public sealed partial class DomainJoinOuSelectionDialogViewModel : ObservableObj
         ClearText = localization.GetString("Autopilot.TenantPickerClear");
         AddText = localization.GetString("DomainJoinImportSelected.Content");
         CancelText = localization.GetString("Common.Cancel");
-        foreach (DomainJoinOrganizationalUnitSettings unit in candidates.OrderBy(unit => unit.DistinguishedName, StringComparer.OrdinalIgnoreCase))
-        {
-            var entry = new SelectableDomainJoinOuEntryViewModel(unit);
-            entry.PropertyChanged += OnEntryPropertyChanged;
-            OrganizationalUnits.Add(entry);
-        }
-
-        RefreshSelectionState();
+        DisplayNameColumnHeader = localization.GetString("DomainJoinManualLabel.Header");
+        DistinguishedNameColumnHeader = localization.GetString("DomainJoinManualDn.Header");
+        OrganizationalUnits = candidates
+            .OrderBy(unit => unit.DistinguishedName, StringComparer.OrdinalIgnoreCase)
+            .Select(unit => new DomainJoinOrganizationalUnitEntryViewModel(unit))
+            .ToArray();
+        ReplaceSelection([]);
     }
 
-    /// <summary>Gets the discovered OUs with per-row selection state.</summary>
-    public ObservableCollection<SelectableDomainJoinOuEntryViewModel> OrganizationalUnits { get; } = [];
+    /// <summary>Gets the discovered OUs in distinguished-name order.</summary>
+    public IReadOnlyList<DomainJoinOrganizationalUnitEntryViewModel> OrganizationalUnits { get; }
     public string Title { get; }
     public string Description { get; }
     /// <summary>Gets the notice shown when the directory returned only part of its OUs; empty otherwise.</summary>
@@ -48,6 +50,8 @@ public sealed partial class DomainJoinOuSelectionDialogViewModel : ObservableObj
     public string ClearText { get; }
     public string AddText { get; }
     public string CancelText { get; }
+    public string DisplayNameColumnHeader { get; }
+    public string DistinguishedNameColumnHeader { get; }
 
     [ObservableProperty]
     public partial string SelectedCountDisplay { get; set; } = string.Empty;
@@ -55,59 +59,14 @@ public sealed partial class DomainJoinOuSelectionDialogViewModel : ObservableObj
     [ObservableProperty]
     public partial bool HasSelection { get; set; }
 
-    /// <summary>Gets the OUs checked by the user.</summary>
-    public IReadOnlyList<DomainJoinOrganizationalUnitSettings> GetSelected() =>
-        OrganizationalUnits.Where(entry => entry.IsSelected).Select(entry => entry.Settings).ToArray();
-
-    /// <summary>Releases row selection subscriptions.</summary>
-    public void Dispose()
+    /// <summary>Tracks the rows selected in the table.</summary>
+    public void ReplaceSelection(IEnumerable<DomainJoinOrganizationalUnitEntryViewModel> rows)
     {
-        foreach (SelectableDomainJoinOuEntryViewModel entry in OrganizationalUnits)
-        {
-            entry.PropertyChanged -= OnEntryPropertyChanged;
-        }
+        selected = rows.Select(row => row.Settings).ToArray();
+        HasSelection = selected.Count > 0;
+        SelectedCountDisplay = localization.FormatString("DomainJoin.SelectedCountFormat", selected.Count, OrganizationalUnits.Count);
     }
 
-    [RelayCommand]
-    private void SelectAll() => SetAll(true);
-
-    [RelayCommand]
-    private void Clear() => SetAll(false);
-
-    private void SetAll(bool isSelected)
-    {
-        foreach (SelectableDomainJoinOuEntryViewModel entry in OrganizationalUnits)
-        {
-            entry.IsSelected = isSelected;
-        }
-    }
-
-    private void RefreshSelectionState()
-    {
-        int selectedCount = OrganizationalUnits.Count(entry => entry.IsSelected);
-        HasSelection = selectedCount > 0;
-        SelectedCountDisplay = localization.FormatString("DomainJoin.SelectedCountFormat", selectedCount, OrganizationalUnits.Count);
-    }
-
-    private void OnEntryPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (string.Equals(e.PropertyName, nameof(SelectableDomainJoinOuEntryViewModel.IsSelected), StringComparison.Ordinal))
-        {
-            RefreshSelectionState();
-        }
-    }
-}
-
-/// <summary>
-/// Wraps a discovered OU with dialog selection state. Rows start unchecked because a domain lists OUs, such as
-/// Domain Controllers, that must not receive deployed computers by default.
-/// </summary>
-public sealed partial class SelectableDomainJoinOuEntryViewModel(DomainJoinOrganizationalUnitSettings settings) : ObservableObject
-{
-    public DomainJoinOrganizationalUnitSettings Settings { get; } = settings ?? throw new ArgumentNullException(nameof(settings));
-    public string DisplayName => Settings.DisplayName;
-    public string DistinguishedName => Settings.DistinguishedName;
-
-    [ObservableProperty]
-    public partial bool IsSelected { get; set; }
+    /// <summary>Gets the OUs selected by the user.</summary>
+    public IReadOnlyList<DomainJoinOrganizationalUnitSettings> GetSelected() => selected;
 }
