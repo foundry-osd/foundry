@@ -53,7 +53,7 @@
                     </wct:SettingsCard>
                     <wct:SettingsExpander
                         x:Uid="DomainJoinCatalog"
-                        IsExpanded="{x:Bind ViewModel.HasDestinations}">
+                        IsExpanded="{x:Bind ViewModel.HasOrganizationalUnits}">
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE8B7;" />
                         </wct:SettingsExpander.HeaderIcon>
@@ -64,14 +64,14 @@
                             <TextBlock
                                 HorizontalAlignment="Right"
                                 Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
-                                Text="{x:Bind ViewModel.EmptyCatalogText, Mode=OneWay}"
-                                Visibility="{x:Bind ViewModel.EmptyCatalogVisibility, Mode=OneWay}" />
+                                Text="{x:Bind ViewModel.EmptyListText, Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.EmptyListVisibility, Mode=OneWay}" />
                             <TextBlock
                                 HorizontalAlignment="Right"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                Text="{x:Bind ViewModel.DestinationValidationMessage, Mode=OneWay}"
+                                Text="{x:Bind ViewModel.OrganizationalUnitsValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
-                                Visibility="{x:Bind ViewModel.DestinationValidationVisibility, Mode=OneWay}" />
+                                Visibility="{x:Bind ViewModel.OrganizationalUnitsValidationVisibility, Mode=OneWay}" />
                         </StackPanel>
                         <wct:SettingsExpander.Items>
                             <wct:SettingsCard
@@ -101,9 +101,9 @@
                                         Command="{x:Bind ViewModel.AddOrganizationalUnitCommand}" />
                                     <TextBlock
                                         Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                        Text="{x:Bind ViewModel.CatalogStatusText, Mode=OneWay}"
+                                        Text="{x:Bind ViewModel.ListStatusText, Mode=OneWay}"
                                         TextWrapping="WrapWholeWords"
-                                        Visibility="{x:Bind ViewModel.CatalogStatusVisibility, Mode=OneWay}" />
+                                        Visibility="{x:Bind ViewModel.ListStatusVisibility, Mode=OneWay}" />
                                 </StackPanel>
                             </wct:SettingsCard>
                             <wct:SettingsCard
@@ -174,7 +174,7 @@
                             <wct:SettingsCard
                                 HorizontalContentAlignment="Stretch"
                                 ContentAlignment="Vertical"
-                                Visibility="{x:Bind ViewModel.CatalogVisibility, Mode=OneWay}">
+                                Visibility="{x:Bind ViewModel.ListVisibility, Mode=OneWay}">
                                 <StackPanel Spacing="{ThemeResource FoundrySpace8}">
                                     <tv:TableView
                                         MaxHeight="{ThemeResource FoundryTableMaxHeight}"

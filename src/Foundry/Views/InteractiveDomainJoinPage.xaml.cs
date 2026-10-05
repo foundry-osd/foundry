@@ -6,7 +6,7 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Views;
 
-/// <summary>Authors interactive domain joining with shared destination selection.</summary>
+/// <summary>Authors interactive domain joining with the shared OU list.</summary>
 public sealed partial class InteractiveDomainJoinPage : Page
 {
     public DomainJoinConfigurationViewModel ViewModel { get; }
@@ -23,7 +23,7 @@ public sealed partial class InteractiveDomainJoinPage : Page
     {
         if (sender is WinUI.TableView.TableView tableView)
         {
-            ViewModel.ReplaceSelectedCatalogRows(tableView.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
+            ViewModel.ReplaceSelectedListedRows(tableView.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
         }
     }
 

@@ -12,7 +12,7 @@ using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
-/// <summary>Shares domain metadata, volatile credentials and explicit OU preview/import across both authoring pages.</summary>
+/// <summary>Shares domain metadata, volatile credentials and explicit OU search/import across both authoring pages.</summary>
 public sealed partial class DomainJoinConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IFoundryConfigurationStateService configuration;
@@ -21,18 +21,19 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     private readonly IAuthoringDomainOuDiscoveryService discovery;
     private readonly IDialogService dialogs;
     private readonly IApplicationLocalizationService localization;
-    private readonly List<DomainJoinOrganizationalUnitEntryViewModel> selectedCatalogRows = [];
+    private readonly List<DomainJoinOrganizationalUnitEntryViewModel> selectedListedRows = [];
     private readonly List<DomainJoinOrganizationalUnitEntryViewModel> selectedPreviewRows = [];
     private IReadOnlyList<DomainJoinValidationCode> issues = [];
     private CancellationTokenSource? discoveryCancellation;
-    private FoundryConfigurationDocument? previewBaseline;
+    private DomainJoinSettings? appliedSettings;
+    private DomainJoinSettings? previewBaseline;
     private DomainOuDiscoveryResult? preview;
     private DomainJoinMode pageMode;
     private bool applying;
     private bool disposed;
     private bool credentialInputInvalid;
     private long discoveryRevision;
-    private string? catalogStatusKey;
+    private string? listStatusKey;
     private string? discoveryStatusKey;
 
     public DomainJoinConfigurationViewModel(IFoundryConfigurationStateService configuration,
@@ -52,9 +53,9 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         ApplyState();
     }
 
-    /// <summary>Gets persisted destination rows; discovery does not replace this collection until an explicit import.</summary>
+    /// <summary>Gets the saved OUs; a search does not change this collection until selected results are added.</summary>
     public ObservableCollection<DomainJoinOrganizationalUnitEntryViewModel> OrganizationalUnits { get; } = [];
-    /// <summary>Gets the bounded read-only directory preview; only rows selected in the table are imported.</summary>
+    /// <summary>Gets the bounded read-only search results; only rows selected in the table are added.</summary>
     public ObservableCollection<DomainJoinOrganizationalUnitEntryViewModel> PreviewUnits { get; } = [];
     public bool IsActive => configuration.Current.DomainJoin.IsEnabled && configuration.Current.DomainJoin.Mode == pageMode;
     public string ActionText => localization.GetString(IsActive ? "Common.Disable" : "Common.Enable");
@@ -64,37 +65,38 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public string LabelColumnHeader => localization.GetString("DomainJoinManualLabel.Header");
     public string DistinguishedNameColumnHeader => localization.GetString("DomainJoinManualDn.Header");
     public string RemoveSelectedText => Text("RemoveSelected");
-    public string EmptyCatalogText => Text("EmptyCatalog");
-    /// <summary>Opens the destination section on load only when a catalog already exists.</summary>
-    public bool HasDestinations => OrganizationalUnits.Count > 0;
-    public Visibility CatalogVisibility => ToVisibility(HasDestinations);
-    public Visibility EmptyCatalogVisibility => ToVisibility(!HasDestinations);
+    public string EmptyListText => Text("EmptyCatalog");
+    /// <summary>Opens the organizational units section on load only when OUs are already listed.</summary>
+    public bool HasOrganizationalUnits => OrganizationalUnits.Count > 0;
+    public Visibility ListVisibility => ToVisibility(HasOrganizationalUnits);
+    public Visibility EmptyListVisibility => ToVisibility(!HasOrganizationalUnits);
 
     public string DomainValidationMessage => GetIssueText(IsDomainIssue);
     public Visibility DomainValidationVisibility => ToVisibility(DomainValidationMessage.Length > 0);
     public string CredentialsValidationMessage => credentialInputInvalid ? Text("CredentialInputInvalid") : GetIssueText(IsCredentialIssue);
     public Visibility CredentialsValidationVisibility => ToVisibility(CredentialsValidationMessage.Length > 0);
-    public string DestinationValidationMessage => GetIssueText(code => !IsDomainIssue(code) && !IsCredentialIssue(code));
-    public Visibility DestinationValidationVisibility => ToVisibility(DestinationValidationMessage.Length > 0);
-    public string CatalogStatusText => catalogStatusKey is null ? string.Empty : Text(catalogStatusKey);
-    public Visibility CatalogStatusVisibility => ToVisibility(catalogStatusKey is not null);
+    public string OrganizationalUnitsValidationMessage => GetIssueText(code => !IsDomainIssue(code) && !IsCredentialIssue(code));
+    public Visibility OrganizationalUnitsValidationVisibility => ToVisibility(OrganizationalUnitsValidationMessage.Length > 0);
+    public string ListStatusText => listStatusKey is null ? string.Empty : Text(listStatusKey);
+    public Visibility ListStatusVisibility => ToVisibility(listStatusKey is not null);
 
-    public bool CanDiscover => !IsDiscovering && IsActive;
-    public bool CanImport => preview is not null && selectedPreviewRows.Count > 0 && ReferenceEquals(previewBaseline, configuration.Current);
-    public bool CanRemoveSelected => selectedCatalogRows.Count > 0;
     public string DiscoveryStatusText => discoveryStatusKey is null ? string.Empty : Text(discoveryStatusKey);
     public Visibility DiscoveryStatusVisibility => ToVisibility(discoveryStatusKey is not null);
     public string PreviewDomainText => preview?.ComputerDomain ?? string.Empty;
     public Visibility PreviewVisibility => ToVisibility(PreviewUnits.Count > 0);
 
+    private bool CanDiscover => !IsDiscovering && IsActive;
+    private bool CanImport => preview is not null && selectedPreviewRows.Count > 0 && ReferenceEquals(previewBaseline, configuration.Current.DomainJoin);
+    private bool CanRemoveSelected => selectedListedRows.Count > 0;
+
     [ObservableProperty]
     public partial string DomainName { get; set; } = string.Empty;
     [ObservableProperty]
     public partial string AccountName { get; set; } = string.Empty;
-    /// <summary>Enables a deployment picker restricted to the authored catalog.</summary>
+    /// <summary>Lets the technician pick an OU from the saved list during deployment.</summary>
     [ObservableProperty]
     public partial bool AllowOuSelectionDuringDeployment { get; set; }
-    /// <summary>Gets or sets the optional stable catalog default, independent of discovery row identities.</summary>
+    /// <summary>Gets or sets the optional default OU, identified by its stable saved id rather than a search row.</summary>
     [ObservableProperty]
     public partial DomainJoinOrganizationalUnitEntryViewModel? SelectedDefaultOu { get; set; }
     [ObservableProperty]
@@ -159,43 +161,42 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     [RelayCommand]
     private void AddOrganizationalUnit()
     {
+        DomainJoinSettings current = configuration.Current.DomainJoin;
+        var unit = new DomainJoinOrganizationalUnitSettings
+        { Id = Guid.NewGuid().ToString("D"), DisplayName = ManualDisplayName.Trim(), DistinguishedName = ManualDistinguishedName.Trim() };
+        DomainJoinOrganizationalUnitSettings[] added = [unit];
         try
         {
-            DomainJoinSettings current = configuration.Current.DomainJoin;
-            var unit = new DomainJoinOrganizationalUnitSettings
-            { Id = Guid.NewGuid().ToString("D"), DisplayName = ManualDisplayName.Trim(), DistinguishedName = ManualDistinguishedName.Trim() };
-            Save(DomainJoinOrganizationalUnitCatalog.Merge(current, current.DomainName ?? string.Empty, (DomainJoinOrganizationalUnitSettings[])[unit]));
+            Save(DomainJoinOrganizationalUnitCatalog.Merge(current, current.DomainName ?? string.Empty, added));
             ManualDisplayName = string.Empty;
             ManualDistinguishedName = string.Empty;
-            SetCatalogStatus(null);
+            SetListStatus(null);
         }
-        catch (ArgumentException) { SetCatalogStatus("CatalogInputInvalid"); }
+        catch (ArgumentException) { SetListStatus(GetMergeFailureKey(current, added, "CatalogInputInvalid")); }
     }
 
-    /// <summary>Tracks the destination table selection that <see cref="RemoveSelectedCommand"/> acts on.</summary>
-    public void ReplaceSelectedCatalogRows(IEnumerable<DomainJoinOrganizationalUnitEntryViewModel> rows)
+    /// <summary>Tracks the saved-OU table selection that <see cref="RemoveSelectedCommand"/> acts on.</summary>
+    public void ReplaceSelectedListedRows(IEnumerable<DomainJoinOrganizationalUnitEntryViewModel> rows)
     {
-        selectedCatalogRows.Clear();
-        selectedCatalogRows.AddRange(rows);
-        OnPropertyChanged(nameof(CanRemoveSelected));
+        selectedListedRows.Clear();
+        selectedListedRows.AddRange(rows);
         RemoveSelectedCommand.NotifyCanExecuteChanged();
     }
 
-    /// <summary>Tracks the preview table selection; selection alone never persists a destination.</summary>
+    /// <summary>Tracks the search-result selection; selection alone never saves an OU.</summary>
     public void ReplaceSelectedPreviewRows(IEnumerable<DomainJoinOrganizationalUnitEntryViewModel> rows)
     {
         selectedPreviewRows.Clear();
         selectedPreviewRows.AddRange(rows);
-        OnPropertyChanged(nameof(CanImport));
         ImportSelectedCommand.NotifyCanExecuteChanged();
     }
 
-    /// <summary>Removes the selected authored rows and a default among them, retaining unrelated destinations.</summary>
+    /// <summary>Removes the selected saved OUs and a default among them, keeping the others.</summary>
     [RelayCommand(CanExecute = nameof(CanRemoveSelected))]
     private void RemoveSelected()
     {
         DomainJoinSettings settings = configuration.Current.DomainJoin;
-        foreach (DomainJoinOrganizationalUnitEntryViewModel row in selectedCatalogRows)
+        foreach (DomainJoinOrganizationalUnitEntryViewModel row in selectedListedRows)
         {
             settings = DomainJoinOrganizationalUnitCatalog.Remove(settings, row.Settings.Id);
         }
@@ -209,9 +210,9 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     [RelayCommand(CanExecute = nameof(CanDiscover))]
     private async Task DiscoverAsync()
     {
-        CancelDiscovery();
+        DropPreview();
         long revision = ++discoveryRevision;
-        FoundryConfigurationDocument baseline = configuration.Current;
+        DomainJoinSettings baseline = configuration.Current.DomainJoin;
         var cancellation = new CancellationTokenSource();
         discoveryCancellation = cancellation;
         IsDiscovering = true;
@@ -220,7 +221,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         try
         {
             DomainOuDiscoveryResult result = await discovery.DiscoverAsync(cancellation.Token);
-            if (disposed || revision != discoveryRevision || !ReferenceEquals(baseline, configuration.Current)) return;
+            if (disposed || revision != discoveryRevision || !ReferenceEquals(baseline, configuration.Current.DomainJoin)) return;
             preview = result;
             previewBaseline = baseline;
             foreach (DomainJoinOrganizationalUnitSettings unit in result.Candidates.OrderBy(unit => unit.DistinguishedName, StringComparer.OrdinalIgnoreCase))
@@ -248,7 +249,27 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     [RelayCommand(CanExecute = nameof(IsDiscovering))]
     private void CancelDiscovery()
     {
-        if (IsDiscovering) SetDiscoveryStatus("DiscoveryCanceled");
+        DropPreview();
+        SetDiscoveryStatus("DiscoveryCanceled");
+    }
+
+    [RelayCommand(CanExecute = nameof(CanImport))]
+    private void ImportSelected()
+    {
+        if (preview is null || !ReferenceEquals(previewBaseline, configuration.Current.DomainJoin)) return;
+        DomainJoinSettings current = configuration.Current.DomainJoin;
+        DomainJoinOrganizationalUnitSettings[] selected = selectedPreviewRows.Select(row => row.Settings).ToArray();
+        try
+        {
+            Save(DomainJoinOrganizationalUnitCatalog.Merge(current, preview.ComputerDomain ?? string.Empty, selected));
+            SetDiscoveryStatus("Imported");
+        }
+        catch (ArgumentException) { SetDiscoveryStatus(GetMergeFailureKey(current, selected, "ImportDomainMismatch")); }
+    }
+
+    /// <summary>Stops a running search and discards its results and status, because they describe an earlier state.</summary>
+    private void DropPreview()
+    {
         discoveryRevision++;
         discoveryCancellation?.Cancel();
         discoveryCancellation = null;
@@ -257,23 +278,24 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         previewBaseline = null;
         selectedPreviewRows.Clear();
         PreviewUnits.Clear();
+        SetDiscoveryStatus(null);
         RefreshPresentation();
     }
 
-    [RelayCommand(CanExecute = nameof(CanImport))]
-    private void ImportSelected()
+    /// <summary>Names the specific reason a merge was refused, falling back to the caller's general message.</summary>
+    private static string GetMergeFailureKey(DomainJoinSettings current, IReadOnlyList<DomainJoinOrganizationalUnitSettings> added, string fallbackKey)
     {
-        if (preview is null || !ReferenceEquals(previewBaseline, configuration.Current)) return;
-        DomainJoinOrganizationalUnitSettings[] selected = selectedPreviewRows.Select(row => row.Settings).ToArray();
-        try
-        {
-            Save(DomainJoinOrganizationalUnitCatalog.Merge(configuration.Current.DomainJoin, preview.ComputerDomain ?? string.Empty, selected));
-            SetDiscoveryStatus("Imported");
-        }
-        catch (ArgumentException) { SetDiscoveryStatus("ImportDomainMismatch"); }
+        if (current.OrganizationalUnits.Count + added.Count > DomainJoinConfigurationValidator.MaximumOrganizationalUnits)
+            return "Validation." + DomainJoinValidationCode.TooManyOrganizationalUnits;
+        bool reusesListedId = added.Any(unit => current.OrganizationalUnits.Any(listed =>
+            string.Equals(listed.Id, unit.Id, StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(listed.DistinguishedName, unit.DistinguishedName, StringComparison.OrdinalIgnoreCase)));
+        return reusesListedId ? "Validation." + DomainJoinValidationCode.DuplicateOuId : fallbackKey;
     }
 
     partial void OnIsDiscoveringChanged(bool value) => CancelDiscoveryCommand.NotifyCanExecuteChanged();
+    partial void OnManualDisplayNameChanged(string value) => SetListStatus(null);
+    partial void OnManualDistinguishedNameChanged(string value) => SetListStatus(null);
 
     partial void OnDomainNameChanged(string value)
     {
@@ -325,11 +347,11 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         OnPropertyChanged(nameof(CredentialsValidationVisibility));
     }
 
-    private void SetCatalogStatus(string? key)
+    private void SetListStatus(string? key)
     {
-        catalogStatusKey = key;
-        OnPropertyChanged(nameof(CatalogStatusText));
-        OnPropertyChanged(nameof(CatalogStatusVisibility));
+        listStatusKey = key;
+        OnPropertyChanged(nameof(ListStatusText));
+        OnPropertyChanged(nameof(ListStatusVisibility));
     }
 
     private void SetDiscoveryStatus(string? key)
@@ -339,16 +361,37 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         OnPropertyChanged(nameof(DiscoveryStatusVisibility));
     }
 
-    private void OnStateChanged(object? sender, EventArgs args) { CancelDiscovery(); ApplyState(); }
-    private void OnSecretsChanged(object? sender, EventArgs args) { SecretStateVersion++; RefreshValidation(); }
+    /// <summary>
+    /// Rebuilds the page only when the Domain Join settings themselves changed. Unrelated configuration changes
+    /// reuse the same settings instance and must not discard a running search, its results or table selections.
+    /// </summary>
+    private void OnStateChanged(object? sender, EventArgs args)
+    {
+        if (ReferenceEquals(appliedSettings, configuration.Current.DomainJoin))
+        {
+            RefreshPresentation();
+            return;
+        }
+
+        DropPreview();
+        ApplyState();
+    }
+
+    private void OnSecretsChanged(object? sender, EventArgs args)
+    {
+        credentialInputInvalid = false;
+        SecretStateVersion++;
+        RefreshValidation();
+    }
+
     private void OnProtectionSecretsChanged(object? sender, EventArgs args) => RefreshValidation();
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs args)
     {
         OnPropertyChanged(nameof(LabelColumnHeader));
         OnPropertyChanged(nameof(DistinguishedNameColumnHeader));
         OnPropertyChanged(nameof(RemoveSelectedText));
-        OnPropertyChanged(nameof(EmptyCatalogText));
-        OnPropertyChanged(nameof(CatalogStatusText));
+        OnPropertyChanged(nameof(EmptyListText));
+        OnPropertyChanged(nameof(ListStatusText));
         OnPropertyChanged(nameof(DiscoveryStatusText));
         RefreshPresentation();
     }
@@ -359,10 +402,13 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         try
         {
             DomainJoinSettings settings = configuration.Current.DomainJoin;
+            appliedSettings = settings;
+            // The password box is emptied below, so an earlier rejected entry no longer describes what is shown.
+            credentialInputInvalid = false;
             DomainName = settings.DomainName ?? string.Empty;
             AccountName = settings.AccountName ?? string.Empty;
             AllowOuSelectionDuringDeployment = settings.AllowOuSelectionDuringDeployment;
-            selectedCatalogRows.Clear();
+            selectedListedRows.Clear();
             OrganizationalUnits.Clear();
             foreach (DomainJoinOrganizationalUnitSettings unit in settings.OrganizationalUnits) OrganizationalUnits.Add(new(unit));
             SelectedDefaultOu = OrganizationalUnits.FirstOrDefault(row => string.Equals(row.Settings.Id, settings.DefaultOuId, StringComparison.OrdinalIgnoreCase));
@@ -375,21 +421,16 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     /// <summary>Recomputes readiness issues; an inactive mode reports none because its inputs are disabled.</summary>
     private void RefreshValidation()
     {
-        var codes = new List<DomainJoinValidationCode>();
-        if (IsActive)
-        {
-            codes.AddRange(DomainJoinConfigurationValidator.EvaluateReadiness(configuration.Current.DomainJoin,
-                secrets.HasPassword(Context()), configuration.Current.General.DeploymentProtection.IsEnabled).Issues.Select(issue => issue.Code));
-            if (codes.Count == 0 && !configuration.IsDomainJoinConfigurationReady) codes.Add(DomainJoinValidationCode.MediaProtectionRequired);
-        }
-
-        issues = codes;
+        issues = IsActive
+            ? DomainJoinConfigurationValidator.EvaluateReadiness(configuration.Current.DomainJoin, secrets.HasPassword(Context()),
+                configuration.Current.General.DeploymentProtection.IsEnabled && protectionSecrets.IsValid).Issues.Select(issue => issue.Code).ToArray()
+            : [];
         OnPropertyChanged(nameof(DomainValidationMessage));
         OnPropertyChanged(nameof(DomainValidationVisibility));
         OnPropertyChanged(nameof(CredentialsValidationMessage));
         OnPropertyChanged(nameof(CredentialsValidationVisibility));
-        OnPropertyChanged(nameof(DestinationValidationMessage));
-        OnPropertyChanged(nameof(DestinationValidationVisibility));
+        OnPropertyChanged(nameof(OrganizationalUnitsValidationMessage));
+        OnPropertyChanged(nameof(OrganizationalUnitsValidationVisibility));
     }
 
     private void RefreshPresentation()
@@ -400,11 +441,8 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         OnPropertyChanged(nameof(IsActive));
         OnPropertyChanged(nameof(ActionText));
         OnPropertyChanged(nameof(DocumentationUrl));
-        OnPropertyChanged(nameof(CatalogVisibility));
-        OnPropertyChanged(nameof(EmptyCatalogVisibility));
-        OnPropertyChanged(nameof(CanDiscover));
-        OnPropertyChanged(nameof(CanImport));
-        OnPropertyChanged(nameof(CanRemoveSelected));
+        OnPropertyChanged(nameof(ListVisibility));
+        OnPropertyChanged(nameof(EmptyListVisibility));
         OnPropertyChanged(nameof(PreviewDomainText));
         OnPropertyChanged(nameof(PreviewVisibility));
         DiscoverCommand.NotifyCanExecuteChanged();
@@ -412,11 +450,11 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         RemoveSelectedCommand.NotifyCanExecuteChanged();
     }
 
-    /// <summary>Discards preview work and subscriptions without clearing credentials owned by the active profile session.</summary>
+    /// <summary>Discards search work and subscriptions without clearing credentials owned by the active profile session.</summary>
     public void Dispose()
     {
         disposed = true;
-        CancelDiscovery();
+        DropPreview();
         configuration.StateChanged -= OnStateChanged;
         secrets.Changed -= OnSecretsChanged;
         protectionSecrets.Changed -= OnProtectionSecretsChanged;

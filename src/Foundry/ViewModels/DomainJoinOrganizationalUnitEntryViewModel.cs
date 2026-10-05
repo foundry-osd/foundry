@@ -7,7 +7,7 @@ using Foundry.Core.Services.Configuration;
 
 namespace Foundry.ViewModels;
 
-/// <summary>Displays a portable destination and its decoded hierarchy in an authoring or import preview row.</summary>
+/// <summary>Displays a saved or discovered OU and its decoded hierarchy in a table row.</summary>
 public sealed class DomainJoinOrganizationalUnitEntryViewModel
 {
     public DomainJoinOrganizationalUnitEntryViewModel(DomainJoinOrganizationalUnitSettings settings)

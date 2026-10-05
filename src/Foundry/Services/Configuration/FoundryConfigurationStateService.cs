@@ -385,7 +385,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(autopilot, domainJoin);
         FoundryConfigurationDocument candidate = Current with { Autopilot = SanitizeAutopilotForPersistence(autopilot), DomainJoin = domainJoin };
-        Save(candidate, throwOnFailure: true);
+        Save(candidate);
         Current = candidate;
         domainJoinSecretStateService.Update(domainJoin);
         StateChanged?.Invoke(this, EventArgs.Empty);
@@ -542,7 +542,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             logger.Information("Foundry configuration state loaded from disk.");
             return document;
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException or ArgumentException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException or ArgumentException or InvalidOperationException)
         {
             string backupPath = Constants.FoundryConfigurationStatePath + ".invalid";
             if (sourcePath == Constants.FoundryConfigurationStatePath)
