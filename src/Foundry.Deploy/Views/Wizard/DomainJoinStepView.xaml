@@ -59,10 +59,36 @@
                             Margin="0,16,0,8"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="{Binding DataContext.Strings[DomainJoin.Password], ElementName=ViewRoot}" />
-                        <PasswordBox x:Name="PasswordInput"
-                            AutomationProperties.Name="{Binding DataContext.Strings[DomainJoin.Password], ElementName=ViewRoot}"
-                            MaxLength="2560"
-                            PasswordChanged="PasswordInput_OnPasswordChanged" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <PasswordBox x:Name="PasswordInput"
+                                AutomationProperties.Name="{Binding DataContext.Strings[DomainJoin.Password], ElementName=ViewRoot}"
+                                MaxLength="2560"
+                                PasswordChanged="PasswordInput_OnPasswordChanged" />
+                            <TextBox x:Name="PasswordRevealInput"
+                                AutomationProperties.Name="{Binding DataContext.Strings[DomainJoin.Password], ElementName=ViewRoot}"
+                                MaxLength="2560"
+                                TextChanged="PasswordRevealInput_OnTextChanged"
+                                Visibility="Collapsed" />
+                            <Button x:Name="PasswordRevealButton"
+                                Grid.Column="1"
+                                MinWidth="40"
+                                Margin="8,0,0,0"
+                                Padding="10,0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                AutomationProperties.Name="{Binding DataContext.Strings[DeploymentAccess.TogglePasswordVisibility], ElementName=ViewRoot}"
+                                Click="PasswordRevealButton_OnClick"
+                                ToolTip="{Binding DataContext.Strings[DeploymentAccess.TogglePasswordVisibility], ElementName=ViewRoot}">
+                                <TextBlock
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="14"
+                                    Text="&#xF78D;" />
+                            </Button>
+                        </Grid>
                     </StackPanel>
 
                     <StackPanel Visibility="{Binding IsOuListVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
