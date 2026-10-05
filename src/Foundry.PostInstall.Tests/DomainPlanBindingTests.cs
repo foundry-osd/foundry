@@ -10,24 +10,13 @@ namespace Foundry.PostInstall.Tests;
 public sealed class DomainPlanBindingTests
 {
     [Fact]
-    public void DomainActionsUseContractOneWithExclusiveCredentialOwnership()
-    {
-        using var fixture = new DomainFixture();
-        var plan = fixture.Plan with { RuntimeContractVersion = 1 };
-        PreOobePlanValidator.ValidatePlan(plan);
-        var binding = DomainJoinBinding.Validate(plan);
-        Assert.Equal(fixture.Plan.Actions[0].Id, binding.JoinAction.Id);
-        Assert.Equal(fixture.Plan.Actions[1].Id, binding.VerificationAction.Id);
-    }
-
-    [Fact]
-    public async Task ContractOnePreservesLegacyExecution()
+    public async Task PlanWithoutDomainActionsRunsWithNonGuidIdentity()
     {
         string root = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
         try
         {
-            var plan = new PreOobeExecutionPlan { OperationId = "operation", AttemptId = "attempt", RuntimeContractVersion = 1 };
+            var plan = new PreOobeExecutionPlan { OperationId = "operation", AttemptId = "attempt" };
             var journal = new ExecutionJournal(root);
             journal.Seed(plan, new string('a', 64));
             var outcome = await new PreOobeOrchestrator(root, new string('a', 64), journal, new Executor(), () => "boot")

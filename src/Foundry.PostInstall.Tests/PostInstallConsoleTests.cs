@@ -22,8 +22,6 @@ public sealed class PostInstallConsoleTests
             Placement = new() { State = DomainJoinPhaseState.Failed, FailureCode = DomainJoinFailureCode.PlacementFailed },
             Restart = DomainJoinRestartState.Required
         });
-        var journal = new ExecutionJournal(f.Root); var state = journal.Read(); state.Cursor = 1; state.Status = "CompletedWithErrors";
-        state.Actions["join"] = new() { Status = "Failed" }; journal.Write(state);
         using var output = new StringWriter();
         using var console = new PostInstallConsole(f.Plan, "test.log", output);
         console.Report(new([], "CompletedWithErrors", DomainResult: report.Read(), WarningCount: 1));
@@ -36,6 +34,21 @@ public sealed class PostInstallConsoleTests
         Assert.Contains("Restart: Required", text);
         Assert.Contains("Cleanup: Pending", text);
         Assert.Contains("Warnings: 1", text);
+    }
+
+    [Theory]
+    [InlineData(DomainJoinPhaseState.Succeeded, DomainJoinPhaseState.Unverified, "Domain joined; target OU placement not confirmed")]
+    [InlineData(DomainJoinPhaseState.Succeeded, DomainJoinPhaseState.Unknown, "Domain joined; target OU placement not confirmed")]
+    [InlineData(DomainJoinPhaseState.Unknown, DomainJoinPhaseState.Skipped, "Domain join outcome unknown; membership is checked after restart")]
+    public void DomainOutcomes_ExplainUnconfirmedStates(DomainJoinPhaseState join, DomainJoinPhaseState placement, string expected)
+    {
+        using var f = new DomainFixture();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); report.Seed();
+        DomainJoinResult result = report.Read() with { Join = new() { State = join }, Placement = new() { State = placement } };
+        using var output = new StringWriter();
+        using var console = new PostInstallConsole(f.Plan, "test.log", output);
+        console.Report(new([], "Running", DomainResult: result, WarningCount: 1));
+        Assert.Contains(expected, output.ToString());
     }
 
     [Fact]

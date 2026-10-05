@@ -83,7 +83,8 @@ internal sealed class DomainJoinResultStore(string root, PreOobeExecutionPlan pl
     }
     private static bool CanAdvance(DomainJoinPhaseResult previous, DomainJoinPhaseResult value) => previous == value ||
         previous.State == DomainJoinPhaseState.NotStarted ||
-        previous.State == DomainJoinPhaseState.Unverified && value.State is DomainJoinPhaseState.Succeeded or DomainJoinPhaseState.Failed;
+        previous.State == DomainJoinPhaseState.Unverified &&
+        value.State is DomainJoinPhaseState.Succeeded or DomainJoinPhaseState.Failed or DomainJoinPhaseState.Unverified;
     private void Validate(DomainJoinResult value)
     {
         var expected = CreateSeed(); DomainJoinBinding.ValidateHash(planHash);

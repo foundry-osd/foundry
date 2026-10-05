@@ -5,6 +5,7 @@
 using Foundry.Core.Models.PreOobe;
 using Foundry.PostInstall.Execution;
 using Foundry.PostInstall.Windows;
+using Serilog;
 namespace Foundry.PostInstall.Actions;
 
 /// <summary>Supervises the credential-owning child; the parent retains journal and report ownership.</summary>
@@ -31,6 +32,8 @@ internal sealed class DomainJoinAction(string root, PreOobeExecutionPlan plan, s
         try { process = await processes.RunAsync(new(executablePath, ["--domain-join-worker"], root, SupervisionTimeout), token).ConfigureAwait(false); }
         catch (System.ComponentModel.Win32Exception) { process = new(null, string.Empty); }
         catch (Exception error) when (DomainJoinWorker.Recoverable(error)) { process = new(null, string.Empty, TerminationUncertain: true); }
+        Log.Information("Domain join worker ended; exit code {ExitCode}, timed out {TimedOut}, termination uncertain {TerminationUncertain}",
+            process.ExitCode, process.TimedOut, process.TerminationUncertain);
         var receipt = phases.Read();
         report = reports.Reconcile(receipt, boot, process.TimedOut ? DomainJoinFailureCode.WorkerTimeout : DomainJoinFailureCode.Interrupted,
             workerUnsettled: process.TerminationUncertain);

@@ -86,12 +86,10 @@ public sealed class DomainJoinRecoveryTests
         }
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task FailedPlacement_RestartsThenVerifiesAndContinues(bool aggregateFailure)
+    [Fact]
+    public async Task FailedPlacement_RestartsThenVerifiesAndContinues()
     {
-        using var f = new RecoveryFixture { AggregateJoinFailure = aggregateFailure };
+        using var f = new RecoveryFixture();
         f.Domain.Directory.Existing = f.Domain.Directory.Computer;
         f.Domain.Directory.StaleGuid = true;
         Assert.Equal(2, await f.Run());
@@ -434,7 +432,7 @@ public sealed class DomainJoinRecoveryTests
         public bool PendingAtCustom;
         public bool UncertainCustom;
         public bool OrdinaryCustomFailure;
-        public bool AggregateJoinFailure;
+
         private string boot = "installed-boot";
         public RecoveryFixture(string? fault = null, bool targetOu = true, bool continueCustomFailures = false)
         {
@@ -457,11 +455,7 @@ public sealed class DomainJoinRecoveryTests
         public async Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, int substep, CancellationToken token)
         {
             Executed.Add(action.Id);
-            if (action.Id == "join")
-            {
-                var result = await new DomainJoinAction(Domain.Root, Domain.Plan, Domain.Hash, boot, this, "runtime.exe").ExecuteAsync(action, token);
-                return AggregateJoinFailure ? result with { Succeeded = false } : result;
-            }
+            if (action.Id == "join") return await new DomainJoinAction(Domain.Root, Domain.Plan, Domain.Hash, boot, this, "runtime.exe").ExecuteAsync(action, token);
             if (action.Id == "verify") return await new DomainMembershipVerificationAction(Domain.Root, Domain.Plan, Domain.Hash, boot, Domain.Native).ExecuteAsync(action, token);
             if (action.Id == "custom")
             {

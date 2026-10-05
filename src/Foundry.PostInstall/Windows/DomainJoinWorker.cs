@@ -17,11 +17,15 @@ internal sealed record DomainJoinWorkerResult(DomainJoinPhaseResult Join, Domain
 internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, string planHash, string originatingBoot,
     INativeDomainJoin native, IDomainComputerAccountDirectory directory, Func<TimeSpan, CancellationToken, Task>? delay = null)
 {
-    /// <summary>Bounds the whole worker; the supervising parent waits slightly longer before terminating it.</summary>
+    /// <summary>
+    /// Cooperative budget checked between native calls, which cannot be interrupted; the supervising parent waits
+    /// slightly longer before terminating the worker.
+    /// </summary>
     internal static readonly TimeSpan Budget = TimeSpan.FromSeconds(300);
     private static readonly TimeSpan ReadinessBudget = TimeSpan.FromSeconds(120);
     private static readonly TimeSpan ReadinessRetryInterval = TimeSpan.FromSeconds(5);
     private readonly Func<TimeSpan, CancellationToken, Task> delay = delay ?? Task.Delay;
+    private DomainDirectoryException? lastReadinessFailure;
 
     public async Task<DomainJoinWorkerResult> RunAsync(DomainJoinActionParameters parameters, CancellationToken token)
     {
@@ -60,8 +64,11 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
             catch (Exception error) when (Recoverable(error))
             {
                 credentials?.Dispose();
-                return Finish(Failure(DomainJoinPhaseState.Failed, error is OperationCanceledException ? DomainJoinFailureCode.ReadinessTimeout :
-                    credentials is null ? DomainJoinFailureCode.CredentialUnavailable : DomainJoinFailureCode.DomainUnavailable, error), Skipped());
+                // A timeout keeps the numeric code of the last unreachable attempt, which is the actual cause.
+                bool timedOut = error is OperationCanceledException;
+                return Finish(Failure(DomainJoinPhaseState.Failed, timedOut ? DomainJoinFailureCode.ReadinessTimeout :
+                    credentials is null ? DomainJoinFailureCode.CredentialUnavailable : DomainJoinFailureCode.DomainUnavailable,
+                    timedOut ? lastReadinessFailure ?? error : error), Skipped());
             }
             using (credentials)
             {
@@ -165,6 +172,7 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
             }
             catch (DomainDirectoryException error) when (error.Transient)
             {
+                lastReadinessFailure = error;
                 await delay(ReadinessRetryInterval, token).ConfigureAwait(false);
             }
         }

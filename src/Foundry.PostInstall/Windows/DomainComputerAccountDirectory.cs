@@ -26,7 +26,8 @@ internal sealed record DomainDirectoryObject(Guid Guid, string DistinguishedName
 internal sealed record DomainDirectoryReady(string Domain, string Controller, DomainDirectoryObject? Destination, DomainDirectoryObject? Computer);
 /// <summary>
 /// Sanitized numeric diagnostics; Rejected indicates an acknowledged server rejection of a write, and Transient a
-/// readiness failure caused by an unreachable network or controller rather than by the supplied identity.
+/// readiness failure that happened before the supplied identity was evaluated: the controller could not be located
+/// or connected to. A bind that timed out is not transient, because the controller may have seen the credentials.
 /// </summary>
 internal sealed class DomainDirectoryException(int? nativeError = null, int? ldapError = null, bool rejected = false, int? directoryResult = null,
     bool transient = false) : Exception("Directory operation unavailable.")
@@ -38,12 +39,11 @@ internal sealed class DomainDirectoryException(int? nativeError = null, int? lda
     public int? DirectoryResultCode { get; } = directoryResult;
 }
 
-/// <summary>Authenticates once to a writable DC and preserves GUID, naming-context, and RDN boundaries for relocation.</summary>
+/// <summary>Authenticates to one writable DC per readiness attempt and preserves GUID, naming-context, and RDN boundaries for relocation.</summary>
 internal sealed class DomainComputerAccountDirectory : IDomainComputerAccountDirectory
 {
     private static readonly TimeSpan RequestTimeout = TimeSpan.FromSeconds(10);
     private const int LdapServerDown = 81;
-    private const int LdapTimeout = 85;
     private const int LdapConnectError = 91;
     private const uint ForceRediscovery = 0x1;
     private LdapConnection? connection;
@@ -103,7 +103,7 @@ internal sealed class DomainComputerAccountDirectory : IDomainComputerAccountDir
         catch (LdapException error)
         {
             throw new DomainDirectoryException(ldapError: error.ErrorCode,
-                transient: error.ErrorCode is LdapServerDown or LdapTimeout or LdapConnectError);
+                transient: error.ErrorCode is LdapServerDown or LdapConnectError);
         }
         finally { credential.Password = null; }
         var root = await SearchAsync("", "(objectClass=*)", SearchScope.Base, ["defaultNamingContext", "dnsHostName"], token).ConfigureAwait(false);

@@ -176,8 +176,20 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
     private string DomainText() => current.DomainResult is not { } domain ? string.Empty :
         $"Domain - Join: {domain.Join.State}; Placement: {domain.Placement.State}; Membership: {domain.Membership.State}; " +
         $"Restart: {domain.Restart}; Cleanup: {domain.Cleanup}" +
-        (domain.Join.State == DomainJoinPhaseState.Succeeded && domain.Placement.State == DomainJoinPhaseState.Failed
-            ? ". Domain joined; target OU placement failed" : string.Empty);
+        (DomainWarning(domain) is { } warning ? ". " + warning : string.Empty);
+
+    /// <summary>Explains a domain outcome the technician must follow up, or null when the phase states say enough.</summary>
+    private static string? DomainWarning(DomainJoinResult domain) => domain.Join.State switch
+    {
+        DomainJoinPhaseState.Unknown => "Domain join outcome unknown; membership is checked after restart",
+        DomainJoinPhaseState.Succeeded => domain.Placement.State switch
+        {
+            DomainJoinPhaseState.Failed => "Domain joined; target OU placement failed",
+            DomainJoinPhaseState.Unverified or DomainJoinPhaseState.Unknown => "Domain joined; target OU placement not confirmed",
+            _ => null
+        },
+        _ => null
+    };
 
     private int ActiveActionIndex()
     {
@@ -256,8 +268,7 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
             {
                 Add($"Domain - Join: {domain.Join.State}; Placement: {domain.Placement.State}; Membership: {domain.Membership.State}");
                 Add($"Restart: {domain.Restart}; Cleanup: {domain.Cleanup}");
-                if (domain.Join.State == DomainJoinPhaseState.Succeeded && domain.Placement.State == DomainJoinPhaseState.Failed)
-                    Add("Domain joined; target OU placement failed", ConsoleColor.Yellow);
+                if (DomainWarning(domain) is { } warning) Add(warning, ConsoleColor.Yellow);
             }
             if (result is not null) Add(Summary());
             if (setupSecondsRemaining is not null)

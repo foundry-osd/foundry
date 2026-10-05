@@ -120,6 +120,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                         domainReport = domainResults!.Read();
                         state.DomainReceiptGeneration = new DomainJoinPhaseStore(root, plan, planHash).Read().Generation;
                         state.HasWarnings |= DomainJoinResultStore.HasWarnings(domainReport);
+                        LogDomainReport(domainReport);
                         if (action.BuiltInKind == PreOobeBuiltInKind.DomainJoinAndPlacement)
                             outcome = outcome with { RestartRequested = domainReport.Restart == DomainJoinRestartState.Required };
                     }
@@ -226,6 +227,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
         }
         bool warning = DomainJoinResultStore.HasWarnings(domainReport);
         state.HasWarnings |= warning;
+        LogDomainReport(domainReport);
         int joinIndex = plan.Actions.ToList().FindIndex(action => action.Id == domainBinding.JoinAction.Id);
         if (state.Cursor < joinIndex) throw new InvalidDataException("Domain cursor precedes its recorded execution.");
         if (join.Status == "Running")
@@ -268,6 +270,22 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
         }
         journal.Write(state);
         return resume;
+    }
+
+    /// <summary>Records the password-free phase outcomes; only states, allowlisted codes and numeric errors are written.</summary>
+    private static void LogDomainReport(DomainJoinResult report)
+    {
+        Log.Information(
+            "Domain join report; join {JoinState} ({JoinFailure}), placement {PlacementState} ({PlacementFailure}), " +
+            "membership {MembershipState} ({MembershipFailure}), restart {Restart}, cleanup {Cleanup}",
+            report.Join.State, report.Join.FailureCode, report.Placement.State, report.Placement.FailureCode,
+            report.Membership.State, report.Membership.FailureCode, report.Restart, report.Cleanup);
+        foreach (var (phase, result) in new[] { ("join", report.Join), ("placement", report.Placement), ("membership", report.Membership) })
+        {
+            if (result.NativeErrorCode is null && result.LdapErrorCode is null && result.DirectoryResultCode is null) continue;
+            Log.Warning("Domain {Phase} error codes; native {NativeErrorCode}, LDAP {LdapErrorCode}, directory result {DirectoryResultCode}",
+                phase, result.NativeErrorCode, result.LdapErrorCode, result.DirectoryResultCode);
+        }
     }
 
     private static IDisposable? TryAcquireWorkerLease(DomainJoinPhaseStore phases)
