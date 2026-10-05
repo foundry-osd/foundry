@@ -1852,26 +1852,17 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>검색을 사용할 수 없습니다. 컴퓨터의 도메인 가입 상태, 연결 및 디렉터리 읽기 권한을 확인하거나 대상을 수동으로 추가하세요.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>구성된 대상이 없습니다.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>가져오기가 적용되지 않았습니다. 대상 도메인과 카탈로그 도메인은 검색된 컴퓨터 도메인과 일치해야 하며, 가져오기 후 카탈로그는 지원되는 한도 내에 있어야 합니다.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>선택한 대상을 가져왔습니다.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>이 프로비저닝 모드는 비활성 상태입니다.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>도메인 가입이 준비되었습니다.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>이 모드를 활성화하면 현재 도메인 가입 또는 Windows Autopilot 모드가 대체됩니다. 비활성 모드의 비밀 정보가 아닌 설정은 유지되며, 도메인 자격 증명은 이를 관리하는 모드가 바뀌면 지워집니다.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>활성 프로비저닝 모드를 대체할까요?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>미리 보기에서 대상을 하나 이상 선택하세요.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>선택 항목 제거</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>도메인 계정을 입력하세요.</value>
@@ -1939,11 +1930,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>대상 추가</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>배포 중 대상 선택 허용</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>검색 취소</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>대상</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>기본값 해제</value>
@@ -1989,9 +1983,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>계정 암호</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>제거</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>제로 터치 및 OU 카탈로그에 필요합니다. 카탈로그가 없는 대화형 배포에서는 선택 사항입니다.</value>

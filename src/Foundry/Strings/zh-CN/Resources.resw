@@ -1852,26 +1852,17 @@
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>发现不可用。请检查计算机的域成员身份、连接以及目录读取权限，或手动添加目标。</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>未配置目标。</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>未应用导入。目标域和目录中的域必须与发现的计算机域匹配，且生成的目录必须符合支持的限制。</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>已导入所选目标。</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>此预配模式未启用。</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>域加入已准备就绪。</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>启用此模式将替换当前的域加入或 Windows Autopilot 模式。未启用模式中的非机密设置会保留；域凭据所属的模式发生变化时，这些凭据将被清除。</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>替换当前启用的预配模式？</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>请从预览中至少选择一个目标。</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>删除选定的</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>请输入域账户。</value>
@@ -1939,11 +1930,14 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>添加目标</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>允许在部署期间选择目标</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>取消发现</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>目标</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>清除默认值</value>
@@ -1989,9 +1983,6 @@
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>账户密码</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>删除</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>零接触模式和 OU 目录需要此项。无目录的交互式部署可不填写。</value>

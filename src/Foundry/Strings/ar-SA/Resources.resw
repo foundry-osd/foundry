@@ -1852,26 +1852,17 @@
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>الاكتشاف غير متاح. تحقق من عضوية الكمبيوتر في النطاق والاتصال وصلاحية قراءة الدليل، أو أضف الوجهات يدوياً.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>لم يتم تكوين أي وجهات.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>لم يتم تطبيق الاستيراد. يجب أن يتطابق النطاق المستهدف ونطاق الكتالوج مع نطاق الكمبيوتر المكتشف، وأن يكون الكتالوج الناتج ضمن الحدود المدعومة.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>تم استيراد الوجهات المحددة.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>وضع التزويد هذا غير نشط.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>الانضمام إلى النطاق جاهز.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>يؤدي تفعيل هذا الوضع إلى استبدال وضع الانضمام إلى النطاق أو Windows Autopilot الحالي. يتم الاحتفاظ بالإعدادات غير النشطة التي لا تتضمن أسراراً؛ ويتم مسح بيانات اعتماد النطاق عند تغير الوضع الذي يملكها.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>هل تريد استبدال وضع التزويد النشط؟</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>حدد وجهة واحدة على الأقل من المعاينة.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>إزالة المحدد</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>أدخل حساب النطاق.</value>
@@ -1939,11 +1930,14 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>إضافة وجهة</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>السماح باختيار الوجهة أثناء النشر</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>إلغاء الاكتشاف</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>الوجهات</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>مسح القيمة الافتراضية</value>
@@ -1989,9 +1983,6 @@
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>كلمة مرور الحساب</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>إزالة</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>مطلوب لوضع Zero-touch وكتالوج OU. اختياري للنشر التفاعلي بدون كتالوج.</value>

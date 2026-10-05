@@ -1852,26 +1852,17 @@
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>האיתור אינו זמין. בדוק את החברות של המחשב בתחום, את הקישוריות ואת הרשאת הקריאה בספרייה, או הוסף יעדים ידנית.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>לא הוגדרו יעדים.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>הייבוא לא הוחל. תחום היעד ותחום הקטלוג חייבים להתאים לתחום המחשב שאותר, והקטלוג שנוצר חייב לעמוד במגבלות הנתמכות.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>היעדים שנבחרו יובאו.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>מצב הקצאה זה אינו פעיל.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>הצטרפות לתחום מוכנה.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>הפעלת מצב זה מחליפה את המצב הנוכחי של הצטרפות לתחום או Windows Autopilot. הגדרות שאינן סודיות במצבים לא פעילים נשמרות; פרטי הכניסה לתחום נמחקים כאשר משתנה המצב האחראי להם.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>להחליף את מצב ההקצאה הפעיל?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>בחר לפחות יעד אחד מהתצוגה המקדימה.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>הסר את הבחירה</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>הזן את חשבון התחום.</value>
@@ -1939,11 +1930,14 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>הוספת יעד</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>אפשר בחירת יעד במהלך הפריסה</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>ביטול האיתור</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>יעדים</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>ניקוי ברירת המחדל</value>
@@ -1989,9 +1983,6 @@
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>סיסמת חשבון</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>הסרה</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>נדרש עבור מצב ללא מגע וקטלוג OU. אופציונלי לפריסה אינטראקטיבית ללא קטלוג.</value>

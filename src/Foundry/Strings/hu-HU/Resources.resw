@@ -1852,26 +1852,17 @@ Licenc az MIT licenc alatt.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>A felderítés nem érhető el. Ellenőrizze a számítógép tartománytagságát, a kapcsolatot és a címtár olvasási jogosultságát, vagy adja hozzá a célokat kézzel.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Nincsenek konfigurált célok.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Az importálás nem történt meg. A céltartománynak és a katalógus tartományának egyeznie kell a felderített számítógéptartománnyal, és az eredményül kapott katalógusnak a támogatott korlátokon belül kell lennie.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>A kijelölt célok importálása megtörtént.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Ez az üzembe helyezési mód inaktív.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>A tartományhoz csatlakozás készen áll.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>A mód aktiválása lecseréli a jelenlegi tartományhoz csatlakozási vagy Windows Autopilot módot. Az inaktív módok nem titkos beállításai megmaradnak; a tartományi hitelesítő adatok törlődnek, ha megváltozik az azokat kezelő mód.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Lecseréli az aktív üzembe helyezési módot?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Válasszon ki legalább egy célt az előnézetből.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>A kiválasztott eltávolítása</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Adja meg a tartományi fiókot.</value>
@@ -1939,11 +1930,14 @@ Licenc az MIT licenc alatt.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Cél hozzáadása</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Cél kiválasztásának engedélyezése a telepítés során</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Felderítés megszakítása</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Célok</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Alapértelmezés törlése</value>
@@ -1989,9 +1983,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Fiók jelszava</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Eltávolítás</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Zero-touch és OU-katalógus esetén kötelező. Katalógus nélküli interaktív telepítés esetén nem kötelező.</value>

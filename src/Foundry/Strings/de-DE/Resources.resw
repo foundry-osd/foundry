@@ -1852,26 +1852,17 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Die Ermittlung ist nicht verfügbar. Prüfen Sie die Domänenmitgliedschaft des Computers, die Verbindung und den Lesezugriff auf das Verzeichnis, oder fügen Sie Ziele manuell hinzu.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Keine Ziele konfiguriert.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Der Import wurde nicht angewendet. Ziel- und Katalogdomäne müssen mit der ermittelten Computerdomäne übereinstimmen, und der resultierende Katalog muss die unterstützten Grenzen einhalten.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Die ausgewählten Ziele wurden importiert.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Dieser Bereitstellungsmodus ist inaktiv.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Der Domänenbeitritt ist bereit.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Die Aktivierung dieses Modus ersetzt den aktuellen Modus für Domänenbeitritt oder Windows Autopilot. Inaktive Einstellungen ohne geheime Daten bleiben erhalten; Domänenanmeldeinformationen werden gelöscht, wenn sich der dafür zuständige Modus ändert.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Aktiven Bereitstellungsmodus ersetzen?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Wählen Sie mindestens ein Ziel aus der Vorschau aus.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Ausgewählte entfernen</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Geben Sie das Domänenkonto ein.</value>
@@ -1939,11 +1930,14 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Ziel hinzufügen</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Zielauswahl während der Bereitstellung zulassen</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Ermittlung abbrechen</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Ziele</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Standardwert löschen</value>
@@ -1989,9 +1983,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Kontokennwort</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Entfernen</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Für Zero-Touch und einen OU-Katalog erforderlich. Für interaktive Bereitstellung ohne Katalog optional.</value>

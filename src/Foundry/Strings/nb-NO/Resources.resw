@@ -1852,26 +1852,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Søket er ikke tilgjengelig. Kontroller datamaskinens domenemedlemskap, tilkobling og lesetilgang til katalogtjenesten, eller legg til destinasjoner manuelt.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Ingen destinasjoner konfigurert.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Importen ble ikke brukt. Måldomenet og katalogdomenet må samsvare med datamaskindomenet som ble funnet, og den resulterende katalogen må være innenfor de støttede grensene.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>De valgte destinasjonene er importert.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Denne klargjøringsmodusen er inaktiv.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Domenetilknytning er klar.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Aktivering av denne modusen erstatter gjeldende modus for domenetilknytning eller Windows Autopilot. Innstillinger uten hemmeligheter i inaktive moduser beholdes; domenelegitimasjon slettes når modusen som har ansvar for den, endres.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Erstatte aktiv klargjøringsmodus?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Velg minst én destinasjon i forhåndsvisningen.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Fjern valgte</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Angi domenekontoen.</value>
@@ -1939,11 +1930,14 @@ Lisensiert under MIT-lisensen.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Legg til destinasjon</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Tillat valg av destinasjon under distribusjon</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Avbryt søk</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Destinasjoner</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Fjern standardvalg</value>
@@ -1989,9 +1983,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Kontopassord</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Fjern</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Påkrevd for Zero-touch og en OU-katalog. Valgfritt for interaktiv distribusjon uten katalog.</value>

@@ -1852,26 +1852,17 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Descoperirea nu este disponibilă. Verificați apartenența computerului la domeniu, conectivitatea și accesul de citire la director sau adăugați destinații manual.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Nu sunt configurate destinații.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Importul nu a fost aplicat. Domeniul țintă și cel al catalogului trebuie să corespundă domeniului descoperit al computerului, iar catalogul rezultat trebuie să respecte limitele acceptate.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Destinațiile selectate au fost importate.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Acest mod de configurare este inactiv.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Asocierea la domeniu este pregătită.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Activarea acestui mod înlocuiește modul curent de asociere la domeniu sau Windows Autopilot. Setările inactive care nu conțin secrete sunt păstrate; acreditările domeniului sunt șterse când se schimbă modul căruia îi aparțin.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Înlocuiți modul de configurare activ?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Selectați cel puțin o destinație din previzualizare.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Eliminați selectat</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Introduceți contul de domeniu.</value>
@@ -1939,11 +1930,14 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Adăugare destinație</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Permiteți selectarea destinației în timpul implementării</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Anulare descoperire</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Destinații</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Eliminare destinație implicită</value>
@@ -1989,9 +1983,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parola contului</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Eliminare</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Obligatoriu pentru modul fără intervenție și pentru un catalog de OU. Opțional pentru implementarea interactivă fără catalog.</value>

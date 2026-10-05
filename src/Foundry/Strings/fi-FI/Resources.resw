@@ -1852,26 +1852,17 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Haku ei ole käytettävissä. Tarkista tietokoneen toimialuejäsenyys, yhteydet ja hakemiston lukuoikeudet tai lisää kohteet manuaalisesti.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Kohteita ei ole määritetty.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Tuontia ei tehty. Kohde- ja luettelotoimialueen on vastattava löydettyä tietokoneen toimialuetta, ja tuloksena olevan luettelon on noudatettava tuettuja rajoja.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Valitut kohteet tuotiin.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Tämä valmistelutila ei ole aktiivinen.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Toimialueeseen liittyminen on valmis suoritettavaksi.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Tämän tilan aktivointi korvaa nykyisen toimialueeseen liittymisen tai Windows Autopilotin tilan. Ei-aktiiviset asetukset, jotka eivät sisällä salaisia tietoja, säilytetään; toimialueen tunnistetiedot tyhjennetään, kun niitä hallitseva tila vaihtuu.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Korvataanko aktiivinen valmistelutila?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Valitse esikatselusta vähintään yksi kohde.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Poista valitut</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Anna toimialuetili.</value>
@@ -1939,11 +1930,14 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Lisää kohde</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Salli kohteen valinta käyttöönoton aikana</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Peruuta haku</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Kohteet</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Tyhjennä oletusvalinta</value>
@@ -1989,9 +1983,6 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Tilin salasana</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Poista</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Pakollinen Zero-touch-tilassa ja OU-luettelossa. Valinnainen vuorovaikutteisessa käyttöönotossa ilman luetteloa.</value>

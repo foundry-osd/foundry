@@ -1852,26 +1852,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>検出を利用できません。コンピューターのドメイン参加状態、接続、ディレクトリの読み取り権限を確認するか、配置先を手動で追加してください。</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>配置先は構成されていません。</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>インポートは適用されませんでした。対象ドメインとカタログのドメインは、検出されたコンピューターのドメインと一致する必要があります。また、インポート後のカタログは対応する制限内である必要があります。</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>選択した配置先をインポートしました。</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>このプロビジョニングモードは無効です。</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>ドメイン参加の準備ができました。</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>このモードを有効にすると、現在のドメイン参加またはWindows Autopilotのモードが置き換えられます。無効なモードの秘密情報を含まない設定は保持されます。ドメインの資格情報は、それを管理するモードが変わると消去されます。</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>有効なプロビジョニングモードを置き換えますか？</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>プレビューから少なくとも1つの配置先を選択してください。</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>選択したものを削除</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>ドメインアカウントを入力してください。</value>
@@ -1939,11 +1930,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>配置先を追加</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>展開時の配置先選択を許可</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>検出をキャンセル</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>配置先</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>既定の設定を解除</value>
@@ -1989,9 +1983,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>アカウントパスワード</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>削除</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>ゼロタッチおよびOUカタログでは必須です。カタログのない対話型の展開では省略できます。</value>

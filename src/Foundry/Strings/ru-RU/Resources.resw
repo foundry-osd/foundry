@@ -1852,26 +1852,17 @@
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Поиск недоступен. Проверьте членство компьютера в домене, подключение и доступ на чтение службы каталогов или добавьте назначения вручную.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Назначения не настроены.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Импорт не применен. Целевой домен и домен каталога должны совпадать с обнаруженным доменом компьютера, а итоговый каталог должен соответствовать допустимым ограничениям.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Выбранные назначения импортированы.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Этот режим подготовки неактивен.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Присоединение к домену готово.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Активация этого режима заменяет текущий режим присоединения к домену или Windows Autopilot. Неактивные настройки без секретных данных сохраняются; учетные данные домена очищаются при изменении режима, которому они принадлежат.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Заменить активный режим подготовки?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Выберите хотя бы одно назначение в предварительном списке.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Удалить выбранное</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Укажите учетную запись домена.</value>
@@ -1939,11 +1930,14 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Добавить назначение</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Разрешить выбор назначения во время развертывания</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Отменить поиск</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Назначения</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Очистить значение по умолчанию</value>
@@ -1989,9 +1983,6 @@
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Пароль учетной записи</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Удалить</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Обязательно для режима без вмешательства и каталога OU. Необязательно для интерактивного развертывания без каталога.</value>

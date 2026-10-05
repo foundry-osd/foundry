@@ -16,20 +16,28 @@ public sealed partial class InteractiveDomainJoinPage : Page
         ViewModel = App.GetService<DomainJoinConfigurationViewModel>();
         ViewModel.SetPageMode(DomainJoinMode.Interactive);
         InitializeComponent();
-
         Unloaded += OnUnloaded;
     }
 
-    private void OnRemoveOuClick(object sender, RoutedEventArgs e)
+    private void CatalogTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (sender is Button { Tag: DomainJoinOrganizationalUnitEntryViewModel row }) ViewModel.RemoveOrganizationalUnit(row);
+        if (sender is WinUI.TableView.TableView tableView)
+        {
+            ViewModel.ReplaceSelectedCatalogRows(tableView.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
+        }
+    }
+
+    private void PreviewTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is WinUI.TableView.TableView tableView)
+        {
+            ViewModel.ReplaceSelectedPreviewRows(tableView.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
+        }
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Unloaded -= OnUnloaded;
-
         ViewModel.Dispose();
-
     }
 }

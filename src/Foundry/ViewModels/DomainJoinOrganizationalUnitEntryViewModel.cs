@@ -8,7 +8,7 @@ using Foundry.Core.Services.Configuration;
 namespace Foundry.ViewModels;
 
 /// <summary>Displays a portable destination and its decoded hierarchy in an authoring or import preview row.</summary>
-public sealed partial class DomainJoinOrganizationalUnitEntryViewModel : ObservableObject
+public sealed class DomainJoinOrganizationalUnitEntryViewModel
 {
     public DomainJoinOrganizationalUnitEntryViewModel(DomainJoinOrganizationalUnitSettings settings)
     {
@@ -23,8 +23,4 @@ public sealed partial class DomainJoinOrganizationalUnitEntryViewModel : Observa
     public string DisplayName => Settings.DisplayName;
     public string DistinguishedName => Settings.DistinguishedName;
     public string Hierarchy { get; }
-
-    /// <summary>Marks a discovered row for an explicit import; selection alone never persists it.</summary>
-    [ObservableProperty]
-    public partial bool IsSelected { get; set; }
 }

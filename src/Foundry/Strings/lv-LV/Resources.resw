@@ -1852,26 +1852,17 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Meklēšana nav pieejama. Pārbaudiet datora dalību domēnā, savienojumu un direktorija lasīšanas piekļuvi vai pievienojiet galamērķus manuāli.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Nav konfigurēts neviens galamērķis.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Importēšana netika piemērota. Mērķa un kataloga domēnam jāatbilst atrastajam datora domēnam, un iegūtajam katalogam jāiekļaujas atbalstītajās robežās.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Atlasītie galamērķi tika importēti.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Šis sagatavošanas režīms nav aktīvs.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Pievienošanās domēnam ir gatava.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Aktivizējot šo režīmu, tiek aizstāts pašreizējais pievienošanās domēnam vai Windows Autopilot režīms. Neaktīvo režīmu iestatījumi, kas nav slepeni, tiek saglabāti; domēna akreditācijas dati tiek notīrīti, mainoties par tiem atbildīgajam režīmam.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Aizstāt aktīvo sagatavošanas režīmu?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Priekšskatījumā atlasiet vismaz vienu galamērķi.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Noņemt atlasīto</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Ievadiet domēna kontu.</value>
@@ -1939,11 +1930,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Pievienot galamērķi</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Atļaut galamērķa atlasi izvietošanas laikā</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Atcelt meklēšanu</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Galamērķi</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Notīrīt noklusējuma iestatījumu</value>
@@ -1989,9 +1983,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Konta parole</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Noņemt</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Obligāts Zero-touch režīmam un OU katalogam. Neobligāts interaktīvai izvietošanai bez kataloga.</value>

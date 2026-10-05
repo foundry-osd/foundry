@@ -1852,26 +1852,17 @@ Licenseret under MIT-licensen.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Søgning er ikke tilgængelig. Kontrollér computerens domænemedlemskab, forbindelsen og læseadgangen til katalogtjenesten, eller tilføj destinationer manuelt.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Ingen destinationer konfigureret.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Importen blev ikke anvendt. Mål- og katalogdomænet skal matche det fundne computerdomæne, og det resulterende katalog skal overholde de understøttede grænser.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>De valgte destinationer blev importeret.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Denne klargøringstilstand er inaktiv.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Domænetilslutning er klar.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Aktivering af denne tilstand erstatter den aktuelle tilstand for domænetilslutning eller Windows Autopilot. Inaktive indstillinger uden hemmelige oplysninger bevares; domænelegitimationsoplysninger ryddes, når deres ejerskab ændres.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Erstat den aktive klargøringstilstand?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Vælg mindst én destination i forhåndsvisningen.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Fjern valgte</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Angiv domænekontoen.</value>
@@ -1939,11 +1930,14 @@ Licenseret under MIT-licensen.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Tilføj destination</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Tillad valg af destination under udrulning</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Annuller søgning</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Destinationer</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Ryd standardvalg</value>
@@ -1989,9 +1983,6 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Kontoens adgangskode</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Fjern</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Påkrævet til Zero-touch og et OU-katalog. Valgfrit ved interaktiv udrulning uden et katalog.</value>

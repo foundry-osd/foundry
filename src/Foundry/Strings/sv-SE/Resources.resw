@@ -1852,26 +1852,17 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Sökningen är inte tillgänglig. Kontrollera datorns domänmedlemskap, anslutningen och läsbehörigheten till katalogen, eller lägg till destinationer manuellt.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Inga destinationer konfigurerade.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Importen tillämpades inte. Måldomänen och katalogens domän måste matcha den identifierade datordomänen, och den resulterande katalogen måste hålla sig inom de gränser som stöds.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>De valda destinationerna har importerats.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Det här etableringsläget är inaktivt.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Domänanslutningen är klar att användas.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Om du aktiverar det här läget ersätts det aktuella läget för domänanslutning eller Windows Autopilot. Inaktiva inställningar utan hemliga uppgifter behålls; domänens autentiseringsuppgifter rensas när det läge de tillhör ändras.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Ersätta det aktiva etableringsläget?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Välj minst en destination i förhandsvisningen.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Ta bort markerade</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Ange domänkontot.</value>
@@ -1939,11 +1930,14 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Lägg till destination</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Tillåt destinationsval under distributionen</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Avbryt sökning</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Destinationer</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Rensa standardval</value>
@@ -1989,9 +1983,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Kontolösenord</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Ta bort</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Krävs för läget utan handpåläggning och en OU-katalog. Valfritt vid interaktiv distribution utan katalog.</value>

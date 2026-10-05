@@ -1852,26 +1852,17 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Zoeken is niet beschikbaar. Controleer het domeinlidmaatschap van de computer, de verbinding en de leestoegang tot de directory, of voeg bestemmingen handmatig toe.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Geen bestemmingen geconfigureerd.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>De import is niet toegepast. Het doeldomein en het catalogusdomein moeten overeenkomen met het gevonden computerdomein, en de resulterende catalogus moet binnen de ondersteunde limieten vallen.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>De geselecteerde bestemmingen zijn geïmporteerd.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Deze inrichtingsmodus is inactief.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>De domeintoetreding is gereed.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Als u deze modus activeert, wordt de huidige modus voor domeintoetreding of Windows Autopilot vervangen. Instellingen zonder geheimen van inactieve modi blijven behouden; domeinreferenties worden gewist wanneer de verantwoordelijke modus verandert.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Actieve inrichtingsmodus vervangen?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Selecteer ten minste één bestemming in het voorbeeld.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Geselecteerde verwijderen</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Voer het domeinaccount in.</value>
@@ -1939,11 +1930,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Bestemming toevoegen</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Bestemmingsselectie tijdens de implementatie toestaan</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Zoeken annuleren</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Bestemmingen</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Standaardinstelling wissen</value>
@@ -1989,9 +1983,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Accountwachtwoord</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Verwijderen</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Vereist voor Zero-touch en een OU-catalogus. Optioneel voor interactieve implementatie zonder catalogus.</value>

@@ -1852,26 +1852,17 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>La ricerca non è disponibile. Verifica l'appartenenza del computer al dominio, la connettività e l'accesso in lettura alla directory, oppure aggiungi le destinazioni manualmente.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Nessuna destinazione configurata.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>L'importazione non è stata applicata. Il dominio di destinazione e quello del catalogo devono corrispondere al dominio del computer rilevato e il catalogo risultante deve rispettare i limiti supportati.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Le destinazioni selezionate sono state importate.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Questa modalità di provisioning non è attiva.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>L'aggiunta al dominio è pronta.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>L'attivazione di questa modalità sostituisce la modalità attuale di aggiunta al dominio o Windows Autopilot. Le impostazioni non riservate delle modalità inattive vengono conservate; le credenziali di dominio vengono cancellate quando cambia la modalità che le gestisce.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Sostituire la modalità di provisioning attiva?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Seleziona almeno una destinazione dall'anteprima.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Rimuovi selezionato</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Inserisci l'account di dominio.</value>
@@ -1939,11 +1930,14 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Aggiungi destinazione</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Consenti la selezione della destinazione durante la distribuzione</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Annulla ricerca</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Destinazioni</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Cancella impostazione predefinita</value>
@@ -1989,9 +1983,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Password dell'account</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Rimuovi</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Obbligatorio per zero-touch e per un catalogo di OU. Facoltativo per la distribuzione interattiva senza catalogo.</value>

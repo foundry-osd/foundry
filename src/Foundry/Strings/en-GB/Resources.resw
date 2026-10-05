@@ -1852,26 +1852,17 @@ Licensed under the MIT License.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Discovery is unavailable. Check computer domain membership, connectivity and directory read access, or add destinations manually.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>No destinations configured.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Import was not applied. The target and catalogue domain must match the discovered computer domain, and the resulting catalogue must fit the supported bounds.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Selected destinations were imported.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>This provisioning mode is inactive.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Domain joining is ready.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Activating this mode replaces the current Domain Join or Windows Autopilot mode. Inactive non-secret settings are retained; domain credentials are cleared when their ownership changes.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Replace active provisioning mode?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Select at least one destination from the preview.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Remove selected</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Enter the domain account.</value>
@@ -1939,11 +1930,14 @@ Licensed under the MIT License.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Add destination</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Allow destination selection during deployment</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Cancel discovery</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Destinations</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Clear default</value>
@@ -1989,9 +1983,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Account password</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Remove</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Required for Zero-touch and an OU catalogue. Optional for interactive deployment without a catalogue.</value>

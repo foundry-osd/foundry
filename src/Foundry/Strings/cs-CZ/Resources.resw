@@ -1852,26 +1852,17 @@ Licencováno pod licencí MIT.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Vyhledávání není dostupné. Zkontrolujte členství počítače v doméně, připojení a přístup pro čtení adresáře, nebo přidejte cíle ručně.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Nejsou nakonfigurovány žádné cíle.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Import nebyl použit. Cílová doména i doména katalogu musí odpovídat nalezené doméně počítače a výsledný katalog musí dodržovat podporované limity.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Vybrané cíle byly importovány.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Tento režim zřizování není aktivní.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Připojení k doméně je připraveno.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Aktivací tohoto režimu nahradíte aktuální režim připojení k doméně nebo Windows Autopilot. Neaktivní nastavení bez tajných údajů se zachovají; přihlašovací údaje k doméně se vymažou, když se změní režim, který je vlastní.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Nahradit aktivní režim zřizování?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Vyberte alespoň jeden cíl z náhledu.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Odebrat vybrané</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Zadejte doménový účet.</value>
@@ -1939,11 +1930,14 @@ Licencováno pod licencí MIT.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Přidat cíl</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Povolit výběr cíle během nasazení</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Zrušit vyhledávání</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Cíle</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Vymazat výchozí hodnotu</value>
@@ -1989,9 +1983,6 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Heslo účtu</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Odebrat</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Vyžadováno pro Zero-touch a katalog OU. Volitelné pro interaktivní nasazení bez katalogu.</value>

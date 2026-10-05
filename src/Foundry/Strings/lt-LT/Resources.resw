@@ -1852,26 +1852,17 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Paieška nepasiekiama. Patikrinkite kompiuterio narystę domene, ryšį ir katalogų tarnybos skaitymo prieigą arba pridėkite paskirtis rankiniu būdu.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Nesukonfigūruota jokių paskirčių.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Importavimas nepritaikytas. Paskirties ir katalogo domenai turi sutapti su aptiktu kompiuterio domenu, o gautas katalogas turi neviršyti palaikomų ribų.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Pasirinktos paskirtys importuotos.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Šis parengimo režimas neaktyvus.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Prisijungimas prie domeno paruoštas.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Suaktyvinus šį režimą pakeičiamas dabartinis prisijungimo prie domeno arba Windows Autopilot režimas. Neslaptos neaktyvių režimų nuostatos išsaugomos; domeno prisijungimo duomenys išvalomi pasikeitus už juos atsakingam režimui.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Pakeisti aktyvų parengimo režimą?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Peržiūroje pasirinkite bent vieną paskirtį.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Pašalinti pasirinktą</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Įveskite domeno paskyrą.</value>
@@ -1939,11 +1930,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Pridėti paskirtį</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Leisti pasirinkti paskirtį diegimo metu</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Atšaukti paiešką</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Paskirtys</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Išvalyti numatytąją nuostatą</value>
@@ -1989,9 +1983,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Paskyros slaptažodis</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Pašalinti</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Būtinas režimui be įsikišimo ir OU katalogui. Nebūtinas interaktyviam diegimui be katalogo.</value>

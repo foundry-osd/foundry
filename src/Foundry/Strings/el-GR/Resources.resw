@@ -1852,26 +1852,17 @@
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Ο εντοπισμός δεν είναι διαθέσιμος. Ελέγξτε τη συμμετοχή του υπολογιστή στον τομέα, τη συνδεσιμότητα και την πρόσβαση ανάγνωσης στην υπηρεσία καταλόγου ή προσθέστε προορισμούς χειροκίνητα.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Δεν έχουν ρυθμιστεί προορισμοί.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Η εισαγωγή δεν εφαρμόστηκε. Ο τομέας προορισμού και ο τομέας του καταλόγου πρέπει να συμφωνούν με τον εντοπισμένο τομέα του υπολογιστή, και ο κατάλογος που προκύπτει πρέπει να τηρεί τα υποστηριζόμενα όρια.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Οι επιλεγμένοι προορισμοί εισήχθησαν.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Αυτή η λειτουργία προετοιμασίας είναι ανενεργή.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Η σύνδεση στον τομέα είναι έτοιμη.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Η ενεργοποίηση αυτής της λειτουργίας αντικαθιστά την τρέχουσα λειτουργία σύνδεσης σε τομέα ή Windows Autopilot. Οι ανενεργές ρυθμίσεις χωρίς απόρρητα στοιχεία διατηρούνται· τα διαπιστευτήρια τομέα διαγράφονται όταν αλλάζει η λειτουργία που τα κατέχει.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Αντικατάσταση της ενεργής λειτουργίας προετοιμασίας;</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Επιλέξτε τουλάχιστον έναν προορισμό από την προεπισκόπηση.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Κατάργηση επιλεγμένων</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Εισαγάγετε τον λογαριασμό τομέα.</value>
@@ -1939,11 +1930,14 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Προσθήκη προορισμού</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Να επιτρέπεται η επιλογή προορισμού κατά την ανάπτυξη</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Ακύρωση εντοπισμού</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Προορισμοί</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Διαγραφή προεπιλογής</value>
@@ -1989,9 +1983,6 @@
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Κωδικός πρόσβασης λογαριασμού</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Κατάργηση</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Απαιτείται για το Zero-touch και έναν κατάλογο OU. Προαιρετικό για διαδραστική ανάπτυξη χωρίς κατάλογο.</value>

@@ -1852,26 +1852,17 @@ Licencjonowany na licencji MIT.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Wyszukiwanie jest niedostępne. Sprawdź członkostwo komputera w domenie, połączenie i dostęp do odczytu usługi katalogowej lub dodaj lokalizacje docelowe ręcznie.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Nie skonfigurowano żadnych lokalizacji docelowych.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Import nie został zastosowany. Domena docelowa i domena katalogu muszą odpowiadać wykrytej domenie komputera, a wynikowy katalog musi mieścić się w obsługiwanych limitach.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Wybrane lokalizacje docelowe zostały zaimportowane.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Ten tryb aprowizacji jest nieaktywny.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Dołączanie do domeny jest gotowe.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Aktywowanie tego trybu zastępuje bieżący tryb dołączania do domeny lub Windows Autopilot. Ustawienia nieaktywnych trybów niezawierające informacji tajnych są zachowywane; poświadczenia domeny są usuwane, gdy zmienia się tryb odpowiedzialny za ich obsługę.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Zastąpić aktywny tryb aprowizacji?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Wybierz co najmniej jedną lokalizację docelową z podglądu.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Usuń wybrane</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Wprowadź konto domeny.</value>
@@ -1939,11 +1930,14 @@ Licencjonowany na licencji MIT.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Dodaj lokalizację docelową</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Zezwalaj na wybór lokalizacji docelowej podczas wdrażania</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Anuluj wyszukiwanie</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Lokalizacje docelowe</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Usuń wybór domyślny</value>
@@ -1989,9 +1983,6 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Hasło konta</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Usuń</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Wymagana dla trybu bezobsługowego i katalogu OU. Opcjonalna przy interaktywnym wdrażaniu bez katalogu.</value>

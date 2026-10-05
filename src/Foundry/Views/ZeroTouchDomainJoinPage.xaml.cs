@@ -23,9 +23,20 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
         Unloaded += OnUnloaded;
     }
 
-    private void OnRemoveOuClick(object sender, RoutedEventArgs e)
+    private void CatalogTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (sender is Button { Tag: DomainJoinOrganizationalUnitEntryViewModel row }) ViewModel.RemoveOrganizationalUnit(row);
+        if (sender is WinUI.TableView.TableView tableView)
+        {
+            ViewModel.ReplaceSelectedCatalogRows(tableView.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
+        }
+    }
+
+    private void PreviewTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is WinUI.TableView.TableView tableView)
+        {
+            ViewModel.ReplaceSelectedPreviewRows(tableView.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
+        }
     }
 
     private bool synchronizingPassword;

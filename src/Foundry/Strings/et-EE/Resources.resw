@@ -1852,26 +1852,17 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Otsing pole saadaval. Kontrollige arvuti domeenikuuluvust, ühendust ja kataloogiteenuse lugemisõigust või lisage sihtkohad käsitsi.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Ühtegi sihtkohta pole konfigureeritud.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Importi ei rakendatud. Sihtdomeen ja kataloogi domeen peavad vastama leitud arvutidomeenile ning saadud kataloog peab jääma toetatud piiridesse.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Valitud sihtkohad imporditi.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>See ettevalmistusrežiim pole aktiivne.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Domeeniga liitumine on valmis.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Selle režiimi aktiveerimine asendab praeguse domeeniga liitumise või Windows Autopiloti režiimi. Mitteaktiivsed seaded, mis ei sisalda saladusi, säilitatakse; domeeni identimisteave kustutatakse, kui seda haldav režiim muutub.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Kas asendada aktiivne ettevalmistusrežiim?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Valige eelvaatest vähemalt üks sihtkoht.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Eemalda valitud</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Sisestage domeenikonto.</value>
@@ -1939,11 +1930,14 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Lisa sihtkoht</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Luba juurutamisel sihtkoha valimine</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Tühista otsing</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Sihtkohad</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Tühjenda vaikevalik</value>
@@ -1989,9 +1983,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Konto parool</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Eemalda</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Nõutav Zero-touchi ja OU-kataloogi jaoks. Valikuline interaktiivsel juurutamisel ilma kataloogita.</value>

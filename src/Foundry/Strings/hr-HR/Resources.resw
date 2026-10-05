@@ -1852,26 +1852,17 @@ Licenciran prema MIT licenci.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Otkrivanje nije dostupno. Provjerite pripadnost računala domeni, povezivost i pristup za čitanje imenika ili ručno dodajte odredišta.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Nema konfiguriranih odredišta.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Uvoz nije primijenjen. Ciljna domena i domena kataloga moraju odgovarati otkrivenoj domeni računala, a dobiveni katalog mora biti unutar podržanih ograničenja.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Odabrana odredišta su uvezena.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Ovaj način pripreme nije aktivan.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Pridruživanje domeni je spremno.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Aktiviranje ovog načina zamjenjuje trenutačni način pridruživanja domeni ili način Windows Autopilot. Postavke neaktivnih načina koje nisu tajne zadržavaju se; vjerodajnice domene brišu se kada se promijeni način koji njima upravlja.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Zamijeniti aktivni način pripreme?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Odaberite barem jedno odredište iz pretpregleda.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Ukloni odabrano</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Unesite račun domene.</value>
@@ -1939,11 +1930,14 @@ Licenciran prema MIT licenci.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Dodaj odredište</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Dopusti odabir odredišta tijekom implementacije</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Otkaži otkrivanje</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Odredišta</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Ukloni zadanu vrijednost</value>
@@ -1989,9 +1983,6 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Lozinka računa</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Ukloni</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Obavezno za Zero-touch i katalog OU-a. Neobavezno za interaktivnu implementaciju bez kataloga.</value>

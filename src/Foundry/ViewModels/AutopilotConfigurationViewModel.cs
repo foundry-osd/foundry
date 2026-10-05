@@ -473,7 +473,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ProvisioningSelectionDecision decision = ProvisioningModeSelectionEvaluator.Evaluate(baseline.Autopilot, baseline.DomainJoin, requested);
 
         if (decision.RequiresReplacementConfirmation &&
-            !await ConfirmProvisioningModeReplacementAsync(mode))
+            !await ProvisioningModeReplacementConfirmation.ConfirmAsync(dialogService, localizationService,
+                ProvisioningModeSelectionEvaluator.GetCurrent(baseline.Autopilot, baseline.DomainJoin), requested))
         {
             return;
         }
@@ -1042,36 +1043,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
     }
 
-    private async Task<bool> ConfirmProvisioningModeReplacementAsync(AutopilotProvisioningMode requestedMode)
-    {
-        string currentMode = configurationStateService.Current.DomainJoin.IsEnabled
-            ? localizationService.GetString(configurationStateService.Current.DomainJoin.Mode == DomainJoinMode.Interactive
-                ? "InteractiveDomainJoinPageHeader.Title" : "ZeroTouchDomainJoinPageHeader.Title")
-            : GetProvisioningModeDisplayName(provisioningMode);
-        string requestedModeName = GetProvisioningModeDisplayName(requestedMode);
-        return await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
-            localizationService.GetString("Autopilot.ModeSwitchConfirmationTitle"),
-            localizationService.FormatString(
-                "Autopilot.ModeSwitchConfirmationMessageFormat",
-                currentMode,
-                requestedModeName),
-            localizationService.GetString("Autopilot.ModeSwitchConfirmationPrimaryButton"),
-            localizationService.GetString("Common.Cancel"),
-            IsPrimaryButtonAccent: true));
-    }
-
     private bool IsModeActive(AutopilotProvisioningMode mode) => IsAutopilotEnabled && provisioningMode == mode;
 
     private string GetProvisioningModeActionText(AutopilotProvisioningMode mode) =>
         localizationService.GetString(IsModeActive(mode) ? "Common.Disable" : "Common.Enable");
-
-    private string GetProvisioningModeDisplayName(AutopilotProvisioningMode mode) => mode switch
-    {
-        AutopilotProvisioningMode.JsonProfile => JsonProfileHeader,
-        AutopilotProvisioningMode.HardwareHashUpload => HardwareHashHeader,
-        AutopilotProvisioningMode.InteractiveHardwareHashUpload => InteractiveHardwareHashHeader,
-        _ => mode.ToString()
-    };
 
     private void NotifyProvisioningPageStateChanged()
     {

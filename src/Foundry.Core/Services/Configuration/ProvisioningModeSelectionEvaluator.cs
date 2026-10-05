@@ -20,13 +20,16 @@ public sealed record ProvisioningSelectionDecision(ProvisioningSelection Next, b
 public static class ProvisioningModeSelectionEvaluator
 {
     /// <summary>Maps the active configuration to the shared policy while ignoring inactive nonsecret drafts.</summary>
-    public static ProvisioningSelectionDecision Evaluate(AutopilotSettings autopilot, DomainJoinSettings domainJoin, ProvisioningSelection requested)
+    public static ProvisioningSelectionDecision Evaluate(AutopilotSettings autopilot, DomainJoinSettings domainJoin, ProvisioningSelection requested) =>
+        Evaluate(GetCurrent(autopilot, domainJoin), requested);
+
+    /// <summary>Resolves the single active choice, rejecting documents that enable both families.</summary>
+    public static ProvisioningSelection GetCurrent(AutopilotSettings autopilot, DomainJoinSettings domainJoin)
     {
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(autopilot, domainJoin);
-        ProvisioningSelection current = ProvisioningSelection.None;
         if (autopilot.IsEnabled)
         {
-            current = autopilot.ProvisioningMode switch
+            return autopilot.ProvisioningMode switch
             {
                 AutopilotProvisioningMode.JsonProfile => ProvisioningSelection.AutopilotJsonProfile,
                 AutopilotProvisioningMode.HardwareHashUpload => ProvisioningSelection.AutopilotHardwareHashUpload,
@@ -34,9 +37,10 @@ public static class ProvisioningModeSelectionEvaluator
                 _ => throw new ArgumentOutOfRangeException(nameof(autopilot))
             };
         }
-        else if (domainJoin.IsEnabled)
+
+        if (domainJoin.IsEnabled)
         {
-            current = domainJoin.Mode switch
+            return domainJoin.Mode switch
             {
                 DomainJoinMode.Interactive => ProvisioningSelection.DomainJoinInteractive,
                 DomainJoinMode.Automatic => ProvisioningSelection.DomainJoinAutomatic,
@@ -44,7 +48,7 @@ public static class ProvisioningModeSelectionEvaluator
             };
         }
 
-        return Evaluate(current, requested);
+        return ProvisioningSelection.None;
     }
 
     /// <summary>Toggling the active choice disables it; replacing an active choice requires confirmation.</summary>

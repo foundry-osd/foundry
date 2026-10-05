@@ -1852,26 +1852,17 @@
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>Търсенето е недостъпно. Проверете членството на компютъра в домейна, свързаността и достъпа за четене на директорията или добавете местоназначения ръчно.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>Няма конфигурирани местоназначения.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Импортирането не е приложено. Целевият домейн и домейнът на каталога трябва да съвпадат с открития домейн на компютъра, а полученият каталог трябва да е в поддържаните граници.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Избраните местоназначения са импортирани.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Този режим на осигуряване е неактивен.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>Присъединяването към домейн е готово.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Активирането на този режим заменя текущия режим за присъединяване към домейн или Windows Autopilot. Неактивните настройки без тайни данни се запазват; идентификационните данни за домейна се изчистват, когато режимът, който ги притежава, се промени.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>Замяна на активния режим на осигуряване?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Изберете поне едно местоназначение от прегледа.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Премахване на избраното</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Въведете домейн акаунта.</value>
@@ -1939,11 +1930,14 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Добавяне на местоназначение</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Разрешаване на избор на местоназначение по време на разполагането</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Отмяна на търсенето</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Местоназначения</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Изчистване на стойността по подразбиране</value>
@@ -1989,9 +1983,6 @@
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Парола на акаунта</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Премахване</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Задължително за Zero-touch и каталог с OU. Незадължително за интерактивно разполагане без каталог.</value>

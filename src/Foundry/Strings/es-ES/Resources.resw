@@ -1852,26 +1852,17 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>La búsqueda no está disponible. Compruebe la pertenencia del equipo al dominio, la conectividad y el acceso de lectura al directorio, o añada destinos manualmente.</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>No hay destinos configurados.</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>No se ha aplicado la importación. El dominio de destino y el del catálogo deben coincidir con el dominio del equipo detectado, y el catálogo resultante debe respetar los límites admitidos.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>Se han importado los destinos seleccionados.</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>Este modo de aprovisionamiento está inactivo.</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>La unión al dominio está lista.</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>Al activar este modo se sustituye el modo actual de unión al dominio o Windows Autopilot. Se conservan las opciones inactivas que no son secretas; las credenciales de dominio se borran cuando cambia el modo al que pertenecen.</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>¿Sustituir el modo de aprovisionamiento activo?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>Seleccione al menos un destino en la vista previa.</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>Eliminar seleccionado</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Introduzca la cuenta de dominio.</value>
@@ -1939,11 +1930,14 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Añadir destino</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>Permitir la selección del destino durante la implementación</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Cancelar búsqueda</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>Destinos</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>Borrar valor predeterminado</value>
@@ -1989,9 +1983,6 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Contraseña de la cuenta</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>Quitar</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>Obligatorio para zero-touch y un catálogo de OU. Opcional para la implementación interactiva sin catálogo.</value>

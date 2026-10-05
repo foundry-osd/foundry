@@ -1852,26 +1852,17 @@
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>ไม่สามารถค้นหาได้ ตรวจสอบการเป็นสมาชิกโดเมนของคอมพิวเตอร์ การเชื่อมต่อ และสิทธิ์อ่านไดเรกทอรี หรือเพิ่มปลายทางด้วยตนเอง</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>ไม่มีการกำหนดค่าปลายทาง</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>ยังไม่ได้ใช้ผลการนำเข้า โดเมนเป้าหมายและโดเมนของแค็ตตาล็อกต้องตรงกับโดเมนของคอมพิวเตอร์ที่ค้นพบ และแค็ตตาล็อกที่ได้ต้องอยู่ในขอบเขตที่รองรับ</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>นำเข้าปลายทางที่เลือกแล้ว</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>โหมดการเตรียมใช้งานนี้ไม่ได้เปิดใช้งาน</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>การเข้าร่วมโดเมนพร้อมใช้งานแล้ว</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>การเปิดใช้งานโหมดนี้จะแทนที่โหมดการเข้าร่วมโดเมนหรือ Windows Autopilot ที่ใช้อยู่ การตั้งค่าที่ไม่ได้เปิดใช้งานและไม่มีข้อมูลลับจะยังคงอยู่ ข้อมูลรับรองโดเมนจะถูกล้างเมื่อเปลี่ยนโหมดที่เป็นเจ้าของข้อมูลรับรอง</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>แทนที่โหมดการเตรียมใช้งานที่เปิดใช้งานอยู่หรือไม่?</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>เลือกปลายทางอย่างน้อยหนึ่งแห่งจากตัวอย่าง</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>ลบที่เลือกไว้</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>ป้อนบัญชีโดเมน</value>
@@ -1939,11 +1930,14 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>เพิ่มปลายทาง</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>อนุญาตให้เลือกปลายทางระหว่างการปรับใช้</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>ยกเลิกการค้นหา</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>ปลายทาง</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>ล้างค่าเริ่มต้น</value>
@@ -1989,9 +1983,6 @@
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>รหัสผ่านบัญชี</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>ลบ</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>จำเป็นสำหรับโหมดอัตโนมัติโดยไม่ต้องดำเนินการและแค็ตตาล็อก OU ไม่บังคับสำหรับการปรับใช้แบบโต้ตอบที่ไม่มีแค็ตตาล็อก</value>

@@ -1852,26 +1852,17 @@
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
     <value>無法探索。請檢查電腦的網域成員資格、連線和目錄讀取權限，或手動新增目的地。</value>
   </data>
+  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
+    <value>尚未設定目的地。</value>
+  </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>未套用匯入。目標網域和目錄中的網域必須與探索到的電腦網域相符，且產生的目錄必須符合支援的限制。</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
     <value>已匯入選取的目的地。</value>
   </data>
-  <data name="DomainJoin.Inactive" xml:space="preserve">
-    <value>此佈建模式未啟用。</value>
-  </data>
-  <data name="DomainJoin.Ready" xml:space="preserve">
-    <value>網域加入已就緒。</value>
-  </data>
-  <data name="DomainJoin.ReplacementMessage" xml:space="preserve">
-    <value>啟用此模式將取代目前的網域加入或 Windows Autopilot 模式。未啟用模式中的非機密設定會保留；網域認證所屬的模式變更時，這些認證將被清除。</value>
-  </data>
-  <data name="DomainJoin.ReplacementTitle" xml:space="preserve">
-    <value>取代目前啟用的佈建模式？</value>
-  </data>
-  <data name="DomainJoin.SelectDestinations" xml:space="preserve">
-    <value>請從預覽中至少選取一個目的地。</value>
+  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
+    <value>刪除選定的</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>請輸入網域帳戶。</value>
@@ -1939,11 +1930,14 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>新增目的地</value>
   </data>
-  <data name="DomainJoinAllowSelection.Content" xml:space="preserve">
+  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
     <value>允許在部署期間選取目的地</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>取消探索</value>
+  </data>
+  <data name="DomainJoinCatalog.Header" xml:space="preserve">
+    <value>目的地</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
     <value>清除預設值</value>
@@ -1989,9 +1983,6 @@
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>帳戶密碼</value>
-  </data>
-  <data name="DomainJoinRemove.Content" xml:space="preserve">
-    <value>移除</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
     <value>零接觸模式和 OU 目錄需要此項。無目錄的互動式部署可不填寫。</value>
