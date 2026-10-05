@@ -1904,7 +1904,7 @@
     <value>Ένας προορισμός έχει μη έγκυρο αναγνωριστικό. Καταργήστε τον και προσθέστε τον ξανά.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Ενεργοποιήστε την προστασία του μέσου με κωδικό πρόσβασης στη σελίδα «Στρατηγός» και εισαγάγετε έναν έγκυρο κωδικό πρόσβασης μέσου.</value>
+    <value>Ενεργοποιήστε την προστασία του μέσου με κωδικό πρόσβασης στη σελίδα «Γενικά» και εισαγάγετε έναν έγκυρο κωδικό πρόσβασης μέσου.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
     <value>Προσθέστε προορισμούς πριν ενεργοποιήσετε την επιλογή ή διαγράψτε την επιλογή και την προεπιλογή.</value>
@@ -2060,7 +2060,7 @@
     <value>Δεν εντοπίστηκαν πακέτα γλώσσας WinPE για την επιλεγμένη αρχιτεκτονική.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Στρατηγός</value>
+    <value>Γενικά</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Ελέγξτε και ξεκινήστε</value>
@@ -2369,10 +2369,10 @@
     <value>Τυπική ροή εργασιών διαμόρφωσης.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Στρατηγός</value>
+    <value>Γενικά</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Στρατηγός</value>
+    <value>Γενικά</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD σπίτι</value>
@@ -2447,7 +2447,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Συνδεθείτε με ενσωματωμένα διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης μέσου της σελίδας «Στρατηγός».</value>
+    <value>Συνδεθείτε με ενσωματωμένα διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης μέσου της σελίδας «Γενικά».</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3151,7 +3151,7 @@
     <value>Διαχειριστείτε την εκκίνηση, τη γλώσσα, τα διαγνωστικά και τη συμπεριφορά εφαρμογών.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Στρατηγός</value>
+    <value>Γενικά</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Δημιουργήστε αντίγραφα ασφαλείας των ρυθμίσεών σας, μεταφέρετέ τις σε άλλον υπολογιστή ή διατηρήστε τις συγχρονισμένες.</value>

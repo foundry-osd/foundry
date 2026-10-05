@@ -1904,7 +1904,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Sihtkoha identifikaator on vigane. Eemaldage see ja lisage uuesti.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Lubage lehel „Kindral“ andmekandja paroolikaitse ja sisestage kehtiv andmekandja parool.</value>
+    <value>Lubage lehel „Üldine“ andmekandja paroolikaitse ja sisestage kehtiv andmekandja parool.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
     <value>Enne valimise lubamist lisage sihtkohad või tühjendage valik ja vaikevalik.</value>
@@ -2060,7 +2060,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Valitud arhitektuuri jaoks WinPE keelepakette ei tuvastatud.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Kindral</value>
+    <value>Üldine</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Vaata üle ja alusta</value>
@@ -2369,10 +2369,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Standardse konfiguratsiooni töövoog.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Kindral</value>
+    <value>Üldine</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Kindral</value>
+    <value>Üldine</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD koju</value>
@@ -2447,7 +2447,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Liituge manustatud identimisteabe abil, mida kaitseb lehel „Kindral“ määratud andmekandja parool.</value>
+    <value>Liituge manustatud identimisteabe abil, mida kaitseb lehel „Üldine“ määratud andmekandja parool.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3151,7 +3151,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Käivitamise, keele, diagnostika ja rakenduse käitumise haldamine.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Kindral</value>
+    <value>Üldine</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Varundage oma sätted, teisaldage need teise arvutisse või hoidke neid sünkroonis.</value>

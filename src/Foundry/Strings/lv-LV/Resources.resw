@@ -1904,7 +1904,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Galamērķim ir nederīgs identifikators. Noņemiet to un pievienojiet vēlreiz.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Vispārīgo iestatījumu lapā („Ģenerālis”) iespējojiet datu nesēja aizsardzību ar paroli un ievadiet derīgu datu nesēja paroli.</value>
+    <value>Lapā „Vispārīgi” iespējojiet datu nesēja aizsardzību ar paroli un ievadiet derīgu datu nesēja paroli.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
     <value>Pirms atlases iespējošanas pievienojiet galamērķus vai atspējojiet atlasi un notīriet noklusējuma iestatījumu.</value>
@@ -2060,7 +2060,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atlasītajai arhitektūrai netika konstatētas WinPE valodu pakotnes.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Ģenerālis</value>
+    <value>Vispārīgi</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Pārskatiet un sāciet</value>
@@ -2369,10 +2369,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Standarta konfigurācijas darbplūsma.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Ģenerālis</value>
+    <value>Vispārīgi</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Ģenerālis</value>
+    <value>Vispārīgi</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD mājās</value>
@@ -2447,7 +2447,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Pievienoties, izmantojot iegultus akreditācijas datus, kurus aizsargā vispārīgo iestatījumu lapā („Ģenerālis”) iestatītā datu nesēja parole.</value>
+    <value>Pievienoties, izmantojot iegultus akreditācijas datus, kurus aizsargā lapā „Vispārīgi” iestatītā datu nesēja parole.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3151,7 +3151,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Pārvaldiet startēšanu, valodu, diagnostiku un lietojumprogrammu darbību.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Ģenerālis</value>
+    <value>Vispārīgi</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Dublējiet savus iestatījumus, pārsūtiet tos uz citu datoru vai uzturiet tos sinhronizētus.</value>

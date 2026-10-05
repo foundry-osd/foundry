@@ -1904,7 +1904,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kohteen tunniste on virheellinen. Poista kohde ja lisää se uudelleen.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Ota median salasanasuojaus käyttöön sivulla ”Kenraali” ja anna kelvollinen median salasana.</value>
+    <value>Ota median salasanasuojaus käyttöön sivulla ”Yleiset” ja anna kelvollinen median salasana.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
     <value>Lisää kohteet ennen valinnan käyttöönottoa tai tyhjennä valinta ja oletusvalinta.</value>
@@ -2060,7 +2060,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Valitulle arkkitehtuurille ei havaittu WinPE-kielipaketteja.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Kenraali</value>
+    <value>Yleiset</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Tarkista ja aloita</value>
@@ -2369,10 +2369,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Vakiokonfigurointityönkulku.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Kenraali</value>
+    <value>Yleiset</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Kenraali</value>
+    <value>Yleiset</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD kotiin</value>
@@ -2447,7 +2447,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Liity käyttämällä upotettuja tunnistetietoja, jotka on suojattu sivulla ”Kenraali” määritetyllä median salasanalla.</value>
+    <value>Liity käyttämällä upotettuja tunnistetietoja, jotka on suojattu sivulla ”Yleiset” määritetyllä median salasanalla.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3151,7 +3151,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Hallitse käynnistystä, kieltä, diagnostiikkaa ja sovellusten toimintaa.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Kenraali</value>
+    <value>Yleiset</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Varmuuskopioi asetuksesi, siirrä ne toiselle tietokoneelle tai pidä ne synkronoituina.</value>

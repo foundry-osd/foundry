@@ -1904,7 +1904,7 @@
     <value>Призначення має недійсний ідентифікатор. Видаліть його й додайте знову.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Увімкніть захист носія паролем на сторінці «Загальний» і введіть дійсний пароль носія.</value>
+    <value>Увімкніть захист носія паролем на сторінці «Загальні» і введіть дійсний пароль носія.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
     <value>Додайте призначення перед увімкненням вибору або очистьте вибір і значення за замовчуванням.</value>
@@ -2060,7 +2060,7 @@
     <value>Для вибраної архітектури не виявлено мовних пакетів WinPE.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Загальний</value>
+    <value>Загальні</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Перегляд і початок</value>
@@ -2369,10 +2369,10 @@
     <value>Робочий процес стандартної конфігурації.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Загальний</value>
+    <value>Загальні</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Загальний</value>
+    <value>Загальні</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD додому</value>
@@ -2447,7 +2447,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Приєднувати за допомогою вбудованих облікових даних, захищених паролем носія зі сторінки «Загальний».</value>
+    <value>Приєднувати за допомогою вбудованих облікових даних, захищених паролем носія зі сторінки «Загальні».</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3151,7 +3151,7 @@
     <value>Керуйте запуском, мовою, діагностикою та поведінкою програми.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Загальний</value>
+    <value>Загальні</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Створюйте резервні копії налаштувань, переносьте їх на інший комп’ютер або підтримуйте їх синхронізацію.</value>

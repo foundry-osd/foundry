@@ -1904,7 +1904,7 @@ Licencované podľa licencie MIT.</value>
     <value>Cieľ má neplatnú identitu. Odstráňte ho a pridajte znova.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Na stránke všeobecnej konfigurácie „generál“ zapnite ochranu média heslom a zadajte platné heslo média.</value>
+    <value>Na stránke Všeobecné zapnite ochranu média heslom a zadajte platné heslo média.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
     <value>Pred povolením výberu pridajte ciele alebo zrušte výber aj predvolenú hodnotu.</value>
@@ -2060,7 +2060,7 @@ Licencované podľa licencie MIT.</value>
     <value>Pre zvolenú architektúru neboli zistené žiadne jazykové balíky WinPE.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>generál</value>
+    <value>Všeobecné</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Skontrolujte a začnite</value>
@@ -2369,10 +2369,10 @@ Licencované podľa licencie MIT.</value>
     <value>Štandardný pracovný postup konfigurácie.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>generál</value>
+    <value>Všeobecné</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>generál</value>
+    <value>Všeobecné</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD domov</value>
@@ -2447,7 +2447,7 @@ Licencované podľa licencie MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Pripojte sa pomocou vložených poverení chránených heslom média zo stránky všeobecnej konfigurácie „generál“.</value>
+    <value>Pripojte sa pomocou vložených poverení chránených heslom média zo stránky Všeobecné.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3151,7 +3151,7 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Manage startup, language, diagnostics, and application behavior.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>generál</value>
+    <value>Všeobecné</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Zálohujte svoje nastavenia, preneste ich do iného počítača alebo ich udržiavajte synchronizované.</value>

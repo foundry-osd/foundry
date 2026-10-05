@@ -1904,7 +1904,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Paskirties identifikatorius netinkamas. Pašalinkite ją ir pridėkite iš naujo.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Bendrųjų nuostatų puslapyje („Generolas“) įjunkite laikmenos apsaugą slaptažodžiu ir įveskite tinkamą laikmenos slaptažodį.</value>
+    <value>Puslapyje „Bendra“ įjunkite laikmenos apsaugą slaptažodžiu ir įveskite tinkamą laikmenos slaptažodį.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
     <value>Prieš įjungdami pasirinkimą pridėkite paskirtis arba išjunkite pasirinkimą ir išvalykite numatytąją nuostatą.</value>
@@ -2060,7 +2060,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinktai architektūrai WinPE kalbos paketų neaptikta.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Generolas</value>
+    <value>Bendra</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Peržiūrėkite ir pradėkite</value>
@@ -2369,10 +2369,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Standartinė konfigūravimo darbo eiga.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Generolas</value>
+    <value>Bendra</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Generolas</value>
+    <value>Bendra</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD namuose</value>
@@ -2447,7 +2447,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Prisijungti naudojant įterptus prisijungimo duomenis, apsaugotus bendrųjų nuostatų puslapyje („Generolas“) nustatytu laikmenos slaptažodžiu.</value>
+    <value>Prisijungti naudojant įterptus prisijungimo duomenis, apsaugotus puslapyje „Bendra“ nustatytu laikmenos slaptažodžiu.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3151,7 +3151,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Tvarkykite paleidimą, kalbą, diagnostiką ir programos elgseną.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Generolas</value>
+    <value>Bendra</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Kurkite atsargines parametrų kopijas, perkelkite juos į kitą kompiuterį arba palaikykite jų sinchronizavimą.</value>
