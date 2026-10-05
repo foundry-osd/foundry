@@ -1829,163 +1829,175 @@
     <value>Документацията не можа да бъде отворена</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Проверете целевия DNS домейн, етикета на местоназначението и отличителното име. Местоназначенията трябва да принадлежат към домейна на каталога, с най-много 1024 записа.</value>
+    <value>OU не беше добавена. Проверете името на домейна, показваното име и отличителното име. OU трябва да принадлежи към този домейн.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Въведете валиден целеви DNS домейн и акаунт с указана принадлежност към домейн, преди да зададете парола. Паролите трябва да са в поддържаните граници за размер и да не съдържат знаци NUL.</value>
+    <value>Първо въведете валидни име на домейн и акаунт, след което проверете дължината на паролата.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Търсене на местоназначения в AD домейна на този компютър...</value>
+    <value>Търсене на OU в домейна на този компютър...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Търсенето е отменено. Контролите за ръчно задаване на местоназначения остават достъпни.</value>
+    <value>Търсенето е отменено.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Търсенето завърши. Изберете местоназначенията за импортиране.</value>
+    <value>Търсенето завърши. Изберете кои OU да добавите.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>Този преглед е непълен. Ограничения на директорията, нечетими записи или препратки към други директории може да са довели до пропускане на местоназначения. Избраните видими записи все пак могат да бъдат импортирани.</value>
+    <value>Само част от OU можаха да бъдат изведени. Показаните все пак могат да бъдат добавени.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Времето за търсене изтече. Контролите за ръчно задаване на местоназначения остават достъпни.</value>
+    <value>Времето за търсене изтече. Можете да добавите OU ръчно.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Търсенето е недостъпно. Проверете членството на компютъра в домейна, свързаността и достъпа за четене на директорията или добавете местоназначения ръчно.</value>
+    <value>Търсенето в домейна не беше възможно. Проверете дали този компютър е присъединен към домейн и има връзка с него, или добавете OU ръчно.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Няма конфигурирани местоназначения.</value>
+    <value>Няма добавени OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Импортирането не е приложено. Целевият домейн и домейнът на каталога трябва да съвпадат с открития домейн на компютъра, а полученият каталог трябва да е в поддържаните граници.</value>
+    <value>OU не бяха добавени. Те принадлежат към домейн, различен от името на домейна или от вече изброените OU.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Избраните местоназначения са импортирани.</value>
+    <value>Избраните OU бяха добавени.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Премахване на избраното</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Въведете домейн акаунта.</value>
+    <value>Въведете акаунта.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Целевият DNS домейн трябва да съвпада с домейна на каталога с местоназначения. Премахнете старите записи от каталога, преди да смените домейна.</value>
+    <value>Изброените OU принадлежат към друг домейн. Премахнете ги или възстановете предишното име на домейна.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Задайте DNS домейн за каталога с местоназначения.</value>
+    <value>Въведете името на домейна, преди да добавяте OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Изберете съществуващо местоназначение по подразбиране или изчистете стойността по подразбиране.</value>
+    <value>OU по подразбиране вече не е в списъка. Изберете друга или изчистете избора.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Въведете целевия DNS домейн.</value>
+    <value>Въведете името на домейна.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Каталогът съдържа дублирани отличителни имена на местоназначения.</value>
+    <value>Една и съща OU е изброена повече от веднъж.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>Каталогът съдържа дублирани идентификатори на местоназначения.</value>
+    <value>Две OU имат един и същ вътрешен идентификатор. Премахнете едната и я добавете отново.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Въведете валиден акаунт с поддържана дължина.</value>
+    <value>Акаунтът е твърде дълъг или невалиден.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Въведете валиден DNS домейн на каталога.</value>
+    <value>Домейнът на изброените OU е невалиден. Премахнете OU и ги добавете отново.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Отличителното име на местоназначение е невалидно.</value>
+    <value>Отличителното име на една от OU е невалидно.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Въведете валиден целеви DNS домейн.</value>
+    <value>Въведете валидно име на домейн, например corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Всяко местоназначение изисква етикет с най-много 120 знака.</value>
+    <value>Всяка OU изисква показвано име с най-много 120 знака.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Местоназначение има невалиден идентификатор. Премахнете го и го добавете отново.</value>
+    <value>Запис за OU е повреден. Премахнете го и го добавете отново.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Активирайте защитата на носителя с парола на страницата „Общи“ и въведете валидна парола за носителя.</value>
+    <value>Активирайте защитата на носителя с парола на страницата „Общи“ и задайте парола за носителя.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Добавете местоназначения, преди да разрешите избора, или изчистете избора и стойността по подразбиране.</value>
+    <value>Добавете поне една OU или деактивирайте избора на OU и изчистете OU по подразбиране.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Всяко местоназначение трябва да е в домейна на каталога.</value>
+    <value>Всички изброени OU трябва да принадлежат към един и същ домейн.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Въведете паролата на акаунта за този домейн и този акаунт.</value>
+    <value>Въведете паролата на акаунта.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Използвайте DOMAIN\user или user@domain за акаунта.</value>
+    <value>Въведете акаунта като DOMAIN\user или user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>Каталогът поддържа най-много 1024 местоназначения.</value>
+    <value>Можете да изброите най-много 1024 OU.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Изберете поддържан режим за присъединяване към домейн.</value>
+    <value>Този режим на присъединяване към домейн не се поддържа.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Акаунт (DOMAIN\user или user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Добавяне на местоназначение</value>
+    <value>Добавяне на OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Техниците избират OU от списъка по време на разполагането.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Разрешаване на избор на местоназначение по време на разполагането</value>
+    <value>Техниците да избират OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Отмяна на търсенето</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Без каталог техниците могат да въведат незадължителна OU. С каталог местоназначенията са ограничени до неговите записи. Фиксираната стойност по подразбиране няма контрола за избор; контрола без стойност по подразбиране изисква избор. Съществуващите компютърни акаунти се преместват в избраното местоназначение.</value>
+    <value>Незадължително. Избройте OU, в които могат да се поставят компютри. Съществуващ компютърен акаунт се премества в избраната OU.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Местоназначения</value>
+    <value>Организационни единици</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Изчистване на стойността по подразбиране</value>
+    <value>Изчистване</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Използвайте акаунт с указана принадлежност към домейн и с делегирани от администратор разрешения за присъединяване и разполагане в местоназначението. Foundry не проверява разрешенията. Паролата се изчиства при промяна на домейна, акаунта или активния режим.</value>
+    <value>Акаунт, с който компютрите се присъединяват към домейна. Необходимо му е разрешение да присъединява компютри и да ги премества в избраните от вас OU. Паролата се изчиства при промяна на името на домейна или на акаунта.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Идентификационни данни за домейна</value>
+    <value>Акаунт за присъединяване</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>OU, която се използва при всяко разполагане или е предварително избрана, когато техниците могат да избират. Оставете празно, за да се използва местоположението по подразбиране в домейна.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Местоназначение по подразбиране (незадължително)</value>
+    <value>OU по подразбиране</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Търсене на местоназначения</value>
+    <value>Търсене на OU</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Използва AD домейна на този компютър и текущата ви самоличност в Windows. Прегледайте и изберете записите изрично; импортирането запазва ръчните редове и стойността по подразбиране. Търсенето не проверява разрешенията за присъединяване.</value>
+    <value>Извежда OU от домейна, към който е присъединен този компютър, с вашия акаунт за Windows. Изберете кои да добавите.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Импортиране от домейна на компютъра</value>
+    <value>Импортиране на OU от домейна на този компютър</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Импортиране на избраните местоназначения</value>
+    <value>Добавяне на избраните OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Въведете етикет и валидно отличително име в целевия DNS домейн. Ръчните записи остават достъпни при неуспешно търсене в директорията.</value>
+    <value>Въведете показвано име и отличителното име на OU. OU трябва да принадлежи към домейна по-горе.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Ръчно добавяне на местоназначение</value>
+    <value>Ръчно добавяне на OU</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>Отличително име на OU</value>
+    <value>Отличително име</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Етикет за показване</value>
+    <value>Показвано име</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Парола на акаунта</value>
+    <value>Парола</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Задължително за Zero-touch и каталог с OU. Незадължително за интерактивно разполагане без каталог.</value>
+    <value>DNS име на домейна за присъединяване, например corp.contoso.com. Незадължително в режим „Интерактивно“, освен ако не добавите OU.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Целеви DNS домейн</value>
+    <value>Име на домейна</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Файл със сертификат за доверен основен CA</value>
@@ -2141,7 +2153,7 @@
     <value>Състояние на готовност на носителя</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Изискване на домейн и идентификационни данни за акаунта по време на разполагането.</value>
+    <value>Изискване на идентификационни данни за домейна от техника по време на разполагането.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Интерактивно присъединяване към домейн</value>
@@ -2381,7 +2393,7 @@
     <value>Начало</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Изискване на идентификационни данни за домейна по време на разполагането и незадължителен избор на целева OU.</value>
+    <value>Изискване на идентификационни данни за домейна от техника по време на разполагането.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Интерактивно</value>
@@ -2447,7 +2459,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Присъединяване с вградени идентификационни данни, защитени с паролата за носителя от страницата „Общи“.</value>
+    <value>Автоматично присъединяване към домейна с идентификационни данни, защитени с паролата за носителя.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Вграждане на идентификационни данни за домейна, защитени с паролата за носителя.</value>
+    <value>Автоматично присъединяване към домейна с идентификационни данни, защитени с паролата за носителя.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Присъединяване към домейн Zero-touch</value>

@@ -364,46 +364,46 @@
     <value>继续</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>默认域目标</value>
+    <value>域默认位置</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>请输入部署凭据和目标。域加入将在已安装的 Windows 中执行。</value>
+    <value>请提供此计算机的域加入信息。加入操作将在 Windows 安装完成后执行。</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>组织单位</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>请输入指定域内有效的 OU 可分辨名称，或留空。</value>
+    <value>请输入此域内有效的 OU 可分辨名称，或留空。</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>请从目录中选择一个组织单位。</value>
+    <value>请选择一个组织单位。</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>域 DNS 名称</value>
+    <value>域名</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>域加入输入无效或不可用。部署尚未开始。</value>
+    <value>域加入信息缺失或无效。部署尚未开始。</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OU 可分辨名称（可选）</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>留空以使用默认域目标。</value>
+    <value>留空以使用域的默认位置。</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>密码</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>在部署前提供</value>
+    <value>部署开始前询问</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>域：{0}。目标：{1}。</value>
+    <value>域：{0}。OU：{1}。</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>域加入</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>此 Windows 版本不支持域加入。Windows 安装将继续进行，不会加入域。</value>
+    <value>此 Windows 版本无法加入域。Windows 安装将继续进行，不会加入域。</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

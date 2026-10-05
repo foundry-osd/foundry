@@ -364,46 +364,46 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
     <value>Devam et</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Varsayılan etki alanı hedefi</value>
+    <value>Etki alanının varsayılan konumu</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Dağıtım kimlik bilgilerini ve hedefi girin. Etki alanına katılma, yüklü Windows'ta çalışır.</value>
+    <value>Bu bilgisayar için etki alanına katılma bilgilerini girin. Katılma işlemi Windows yüklendikten sonra gerçekleşir.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Kuruluş birimi</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Belirtilen etki alanında geçerli bir OU ayırt edici adı girin veya boş bırakın.</value>
+    <value>Bu etki alanında geçerli bir OU ayırt edici adı girin veya boş bırakın.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Katalogdan bir kuruluş birimi seçin.</value>
+    <value>Bir kuruluş birimi seçin.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Etki alanı DNS adı</value>
+    <value>Etki alanı adı</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Etki alanına katılma bilgileri geçersiz veya kullanılamıyor. Dağıtım başlamadı.</value>
+    <value>Etki alanına katılma bilgileri eksik veya geçersiz. Dağıtım başlamadı.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OU ayırt edici adı (isteğe bağlı)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Varsayılan etki alanı hedefini kullanmak için boş bırakın.</value>
+    <value>Etki alanının varsayılan konumunu kullanmak için boş bırakın.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parola</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Dağıtımdan önce sağlanır</value>
+    <value>Dağıtım başlamadan önce sorulur</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Etki alanı: {0}. Hedef: {1}.</value>
+    <value>Etki alanı: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Etki alanına katılma</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Bu Windows sürümü etki alanına katılmayı desteklemiyor. Windows kurulumu etki alanına katılmadan devam edecek.</value>
+    <value>Bu Windows sürümü etki alanına katılamaz. Windows kurulumu etki alanına katılmadan devam eder.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

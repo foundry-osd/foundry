@@ -364,46 +364,46 @@
     <value>Συνέχεια</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Προεπιλεγμένος προορισμός τομέα</value>
+    <value>Προεπιλεγμένη θέση τομέα</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Εισαγάγετε τα διαπιστευτήρια και τον προορισμό της ανάπτυξης. Η σύνδεση στον τομέα εκτελείται στα εγκατεστημένα Windows.</value>
+    <value>Εισαγάγετε τα στοιχεία σύνδεσης σε τομέα για αυτόν τον υπολογιστή. Η σύνδεση γίνεται μετά την εγκατάσταση των Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Οργανωτική μονάδα</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Εισαγάγετε ένα έγκυρο διακεκριμένο όνομα OU στον καθορισμένο τομέα ή αφήστε το πεδίο κενό.</value>
+    <value>Εισαγάγετε ένα έγκυρο διακεκριμένο όνομα OU σε αυτόν τον τομέα ή αφήστε το πεδίο κενό.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Επιλέξτε μια οργανωτική μονάδα από τον κατάλογο.</value>
+    <value>Επιλέξτε μια οργανωτική μονάδα.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Όνομα DNS τομέα</value>
+    <value>Όνομα τομέα</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Τα στοιχεία σύνδεσης σε τομέα δεν είναι έγκυρα ή δεν είναι διαθέσιμα. Η ανάπτυξη δεν έχει ξεκινήσει.</value>
+    <value>Τα στοιχεία σύνδεσης σε τομέα λείπουν ή δεν είναι έγκυρα. Η ανάπτυξη δεν έχει ξεκινήσει.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Διακεκριμένο όνομα OU (προαιρετικό)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Αφήστε το πεδίο κενό για να χρησιμοποιήσετε τον προεπιλεγμένο προορισμό του τομέα.</value>
+    <value>Αφήστε το κενό για να χρησιμοποιηθεί η προεπιλεγμένη θέση του τομέα.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Κωδικός πρόσβασης</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Παρέχεται πριν από την ανάπτυξη</value>
+    <value>Ζητείται πριν από την έναρξη της ανάπτυξης</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Τομέας: {0}. Προορισμός: {1}.</value>
+    <value>Τομέας: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Σύνδεση σε τομέα</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Αυτή η έκδοση των Windows δεν υποστηρίζει σύνδεση σε τομέα. Η εγκατάσταση των Windows θα συνεχιστεί χωρίς σύνδεση σε τομέα.</value>
+    <value>Αυτή η έκδοση των Windows δεν μπορεί να συνδεθεί σε τομέα. Η εγκατάσταση των Windows συνεχίζεται χωρίς σύνδεση.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

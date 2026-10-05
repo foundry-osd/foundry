@@ -364,46 +364,46 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
     <value>Weiter</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Standardziel der Domäne</value>
+    <value>Standardspeicherort der Domäne</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Geben Sie die Anmeldeinformationen und das Ziel für die Bereitstellung ein. Der Domänenbeitritt wird im installierten Windows ausgeführt.</value>
+    <value>Geben Sie die Angaben für den Domänenbeitritt dieses Computers ein. Der Beitritt erfolgt nach der Installation von Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organisationseinheit</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Geben Sie einen gültigen Distinguished Name einer OU in der angegebenen Domäne ein oder lassen Sie das Feld leer.</value>
+    <value>Geben Sie einen gültigen Distinguished Name einer OU in dieser Domäne ein oder lassen Sie das Feld leer.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Wählen Sie eine Organisationseinheit aus dem Katalog aus.</value>
+    <value>Wählen Sie eine Organisationseinheit aus.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>DNS-Name der Domäne</value>
+    <value>Domänenname</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Die Eingaben für den Domänenbeitritt sind ungültig oder nicht verfügbar. Die Bereitstellung wurde nicht gestartet.</value>
+    <value>Die Angaben für den Domänenbeitritt fehlen oder sind ungültig. Die Bereitstellung wurde nicht gestartet.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Distinguished Name der OU (optional)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Leer lassen, um das Standardziel der Domäne zu verwenden.</value>
+    <value>Leer lassen, um den Standardspeicherort der Domäne zu verwenden.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Kennwort</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Vor der Bereitstellung angegeben</value>
+    <value>Wird vor Beginn der Bereitstellung abgefragt</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domäne: {0}. Ziel: {1}.</value>
+    <value>Domäne: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domänenbeitritt</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Diese Windows-Edition unterstützt keinen Domänenbeitritt. Die Windows-Installation wird ohne Domänenbeitritt fortgesetzt.</value>
+    <value>Diese Windows-Edition kann keiner Domäne beitreten. Die Windows-Installation wird ohne Domänenbeitritt fortgesetzt.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

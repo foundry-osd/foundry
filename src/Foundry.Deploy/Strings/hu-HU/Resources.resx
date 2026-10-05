@@ -364,46 +364,46 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
     <value>Folytatás</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Alapértelmezett tartományi cél</value>
+    <value>A tartomány alapértelmezett helye</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Adja meg a telepítés hitelesítő adatait és a célt. A tartományhoz csatlakozás a telepített Windows rendszerben fut.</value>
+    <value>Adja meg a számítógép tartományhoz csatlakoztatásának adatait. A csatlakozás a Windows telepítése után történik.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Szervezeti egység</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Adjon meg érvényes OU megkülönböztető nevet a megadott tartományban, vagy hagyja üresen.</value>
+    <value>Adjon meg érvényes OU megkülönböztető nevet ebben a tartományban, vagy hagyja üresen.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Válasszon szervezeti egységet a katalógusból.</value>
+    <value>Válasszon szervezeti egységet.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Tartomány DNS-neve</value>
+    <value>Tartománynév</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>A tartományhoz csatlakozás bemeneti adatai érvénytelenek vagy nem érhetők el. A telepítés nem indult el.</value>
+    <value>A tartományhoz csatlakozás adatai hiányoznak vagy érvénytelenek. A telepítés nem indult el.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OU megkülönböztető neve (nem kötelező)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Hagyja üresen az alapértelmezett tartományi cél használatához.</value>
+    <value>Hagyja üresen a tartomány alapértelmezett helyének használatához.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Jelszó</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>A telepítés előtt megadva</value>
+    <value>A telepítés indítása előtt kérve</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Tartomány: {0}. Cél: {1}.</value>
+    <value>Tartomány: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Tartományhoz csatlakozás</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Ez a Windows-kiadás nem támogatja a tartományhoz csatlakozást. A Windows telepítése tartományhoz csatlakozás nélkül folytatódik.</value>
+    <value>Ez a Windows-kiadás nem csatlakoztatható tartományhoz. A Windows telepítése enélkül folytatódik.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

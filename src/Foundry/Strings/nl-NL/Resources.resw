@@ -1829,163 +1829,175 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Documentatie kon niet worden geopend</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Controleer het DNS-doeldomein, het bestemmingslabel en de DN-naam. Bestemmingen moeten tot het catalogusdomein behoren, met maximaal 1.024 vermeldingen.</value>
+    <value>De OU is niet toegevoegd. Controleer de domeinnaam, de weergavenaam en de DN-naam. De OU moet tot dat domein behoren.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Voer een geldig DNS-doeldomein en een gekwalificeerd account in voordat u een wachtwoord instelt. Wachtwoorden moeten binnen de ondersteunde grootte vallen en mogen geen NUL-tekens bevatten.</value>
+    <value>Voer eerst een geldige domeinnaam en een geldig account in en controleer daarna de lengte van het wachtwoord.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Bestemmingen zoeken in het AD-domein van deze computer...</value>
+    <value>OU's zoeken in het domein van deze computer...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Het zoeken is geannuleerd. De bediening voor handmatige bestemmingen blijft beschikbaar.</value>
+    <value>Zoeken geannuleerd.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Het zoeken is voltooid. Selecteer de bestemmingen die u wilt importeren.</value>
+    <value>Zoeken voltooid. Selecteer de OU's die u wilt toevoegen.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>Dit voorbeeld is onvolledig. Directorylimieten, onleesbare vermeldingen of verwijzingen kunnen bestemmingen hebben weggelaten. Geselecteerde zichtbare vermeldingen kunnen nog steeds worden geïmporteerd.</value>
+    <value>Slechts een deel van de OU's kon worden weergegeven. U kunt de weergegeven OU's nog steeds toevoegen.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>De tijdslimiet voor het zoeken is verstreken. De bediening voor handmatige bestemmingen blijft beschikbaar.</value>
+    <value>De tijdslimiet voor het zoeken is verstreken. U kunt OU's handmatig toevoegen.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Zoeken is niet beschikbaar. Controleer het domeinlidmaatschap van de computer, de verbinding en de leestoegang tot de directory, of voeg bestemmingen handmatig toe.</value>
+    <value>Het domein kon niet worden doorzocht. Controleer of deze computer lid is van een domein en dit kan bereiken, of voeg OU's handmatig toe.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Geen bestemmingen geconfigureerd.</value>
+    <value>Geen OU's toegevoegd.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>De import is niet toegepast. Het doeldomein en het catalogusdomein moeten overeenkomen met het gevonden computerdomein, en de resulterende catalogus moet binnen de ondersteunde limieten vallen.</value>
+    <value>De OU's zijn niet toegevoegd. Ze behoren tot een ander domein dan de domeinnaam of de OU's die al in de lijst staan.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>De geselecteerde bestemmingen zijn geïmporteerd.</value>
+    <value>De geselecteerde OU's zijn toegevoegd.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Geselecteerde verwijderen</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Voer het domeinaccount in.</value>
+    <value>Voer het account in.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Het DNS-doeldomein moet overeenkomen met het domein van de bestemmingscatalogus. Verwijder oude catalogusvermeldingen voordat u van domein wisselt.</value>
+    <value>De OU's in de lijst behoren tot een ander domein. Verwijder ze of herstel de vorige domeinnaam.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Stel een DNS-domein in voor de bestemmingscatalogus.</value>
+    <value>Voer de domeinnaam in voordat u OU's toevoegt.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Selecteer een bestaande standaardbestemming of wis de standaardinstelling.</value>
+    <value>De standaard-OU staat niet meer in de lijst. Kies een andere of wis deze.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Voer het DNS-doeldomein in.</value>
+    <value>Voer de domeinnaam in.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>De catalogus bevat dubbele DN-namen van bestemmingen.</value>
+    <value>Dezelfde OU staat meer dan één keer in de lijst.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>De catalogus bevat dubbele bestemmingsidentiteiten.</value>
+    <value>Twee OU's hebben dezelfde interne id. Verwijder er één en voeg deze opnieuw toe.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Voer een geldig account in binnen de ondersteunde lengte.</value>
+    <value>Het account is te lang of ongeldig.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Voer een geldig DNS-domein voor de catalogus in.</value>
+    <value>Het domein van de OU's in de lijst is ongeldig. Verwijder de OU's en voeg ze opnieuw toe.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>De DN-naam van een bestemming is ongeldig.</value>
+    <value>Een OU heeft een ongeldige DN-naam.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Voer een geldig DNS-doeldomein in.</value>
+    <value>Voer een geldige domeinnaam in, zoals corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Elke bestemming heeft een label van maximaal 120 tekens nodig.</value>
+    <value>Elke OU heeft een weergavenaam van maximaal 120 tekens nodig.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Een bestemming heeft een ongeldige identiteit. Verwijder deze en voeg deze opnieuw toe.</value>
+    <value>Een OU-vermelding is beschadigd. Verwijder deze en voeg deze opnieuw toe.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Schakel wachtwoordbeveiliging voor het medium in op de pagina Algemeen en voer een geldig mediumwachtwoord in.</value>
+    <value>Schakel wachtwoordbeveiliging voor het medium in op de pagina Algemeen en stel een mediumwachtwoord in.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Voeg bestemmingen toe voordat u selectie inschakelt, of schakel selectie uit en wis de standaardinstelling.</value>
+    <value>Voeg ten minste één OU toe, of schakel OU-selectie uit en wis de standaard-OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Elke bestemming moet binnen het catalogusdomein liggen.</value>
+    <value>Alle OU's in de lijst moeten tot hetzelfde domein behoren.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Voer het accountwachtwoord voor dit domein en dit account in.</value>
+    <value>Voer het accountwachtwoord in.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Gebruik DOMAIN\user of user@domain voor het account.</value>
+    <value>Voer het account in als DOMAIN\user of user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>De catalogus ondersteunt maximaal 1.024 bestemmingen.</value>
+    <value>De lijst mag maximaal 1.024 OU's bevatten.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Selecteer een ondersteunde modus voor domeintoetreding.</value>
+    <value>Deze modus voor domeintoetreding wordt niet ondersteund.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Account (DOMAIN\user of user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Bestemming toevoegen</value>
+    <value>OU toevoegen</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Technici kiezen tijdens de implementatie een OU uit de lijst.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Bestemmingsselectie tijdens de implementatie toestaan</value>
+    <value>Technici de OU laten kiezen</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Zoeken annuleren</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Zonder catalogus kunnen technici een optionele OU invoeren. Met een catalogus zijn bestemmingen beperkt tot de vermeldingen daarin. Een vaste standaardbestemming heeft geen keuzelijst; een keuzelijst zonder standaardbestemming vereist een selectie. Bestaande computeraccounts worden naar de geselecteerde bestemming verplaatst.</value>
+    <value>Optioneel. Geef de OU's op waarin computers kunnen worden geplaatst. Een bestaand computeraccount wordt naar de gekozen OU verplaatst.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Bestemmingen</value>
+    <value>Organisatie-eenheden</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Standaardinstelling wissen</value>
+    <value>Wissen</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Gebruik een gekwalificeerd account met door de beheerder gedelegeerde rechten voor toetreding en plaatsing. Foundry controleert de rechten niet. Het wachtwoord wordt gewist wanneer het domein, het account of de actieve modus verandert.</value>
+    <value>Account waarmee computers lid worden gemaakt van het domein. Het heeft rechten nodig om computers toe te voegen en ze te verplaatsen naar de OU's die u kiest. Het wachtwoord wordt gewist wanneer de domeinnaam of het account verandert.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Domeinreferenties</value>
+    <value>Toetredingsaccount</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>OU die voor elke implementatie wordt gebruikt, of die vooraf is geselecteerd wanneer technici kunnen kiezen. Laat leeg om de standaardlocatie van het domein te gebruiken.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Standaardbestemming (optioneel)</value>
+    <value>Standaard-OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Bestemmingen zoeken</value>
+    <value>OU's zoeken</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Gebruikt het AD-domein van deze computer en uw huidige Windows-identiteit. Bekijk het voorbeeld en selecteer vermeldingen expliciet; de import behoudt handmatige rijen en de standaardbestemming. Het zoeken test de toetredingsrechten niet.</value>
+    <value>Geeft met uw Windows-account de OU's weer van het domein waarvan deze computer lid is. Selecteer de OU's die u wilt toevoegen.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Importeren uit het computerdomein</value>
+    <value>OU's importeren uit het domein van deze computer</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Geselecteerde bestemmingen importeren</value>
+    <value>Geselecteerde OU's toevoegen</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Voer een label en een geldige DN-naam binnen het DNS-doeldomein in. Handmatige vermeldingen blijven beschikbaar als het zoeken in de directory mislukt.</value>
+    <value>Voer een weergavenaam en de DN-naam van de OU in. De OU moet tot het bovenstaande domein behoren.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Handmatig een bestemming toevoegen</value>
+    <value>Handmatig een OU toevoegen</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>DN-naam van OU</value>
+    <value>DN-naam</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Weergavelabel</value>
+    <value>Weergavenaam</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Accountwachtwoord</value>
+    <value>Wachtwoord</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Vereist voor Zero-touch en een OU-catalogus. Optioneel voor interactieve implementatie zonder catalogus.</value>
+    <value>DNS-naam van het domein waaraan wordt toegetreden, zoals corp.contoso.com. Optioneel in de modus Interactief, tenzij u OU's toevoegt.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>DNS-doeldomein</value>
+    <value>Domeinnaam</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Vertrouwd root-CA-certificaatbestand</value>
@@ -2141,7 +2153,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Status van mediagereedheid</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Vraag tijdens de implementatie om domein- en accountreferenties.</value>
+    <value>Vraag de technicus tijdens de implementatie om domeinreferenties.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interactieve domeintoetreding</value>
@@ -2381,7 +2393,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Thuis</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Vraag tijdens de implementatie om domeinreferenties en selecteer optioneel een bestemmings-OU.</value>
+    <value>Vraag de technicus tijdens de implementatie om domeinreferenties.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Interactief</value>
@@ -2447,7 +2459,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Treed toe met ingesloten referenties die zijn beveiligd met het mediumwachtwoord op de pagina Algemeen.</value>
+    <value>Treed automatisch toe tot het domein met referenties die zijn beveiligd met het mediumwachtwoord.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Sluit domeinreferenties in die met het mediumwachtwoord zijn beveiligd.</value>
+    <value>Treed automatisch toe tot het domein met referenties die zijn beveiligd met het mediumwachtwoord.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touch-domeintoetreding</value>

@@ -1829,163 +1829,175 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ドキュメントを開けませんでした</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>対象のDNSドメイン、配置先の表示名と識別名を確認してください。配置先はカタログのドメインに属している必要があり、登録件数の上限は1,024件です。</value>
+    <value>OUは追加されませんでした。ドメイン名、表示名、識別名を確認してください。OUはそのドメインに属している必要があります。</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>パスワードを設定する前に、有効な対象DNSドメインとドメインを含むアカウント名を入力してください。パスワードは対応する長さの範囲内で、NUL文字を含まない必要があります。</value>
+    <value>先に有効なドメイン名とアカウントを入力してから、パスワードの長さを確認してください。</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>このコンピューターのADドメインから配置先を検出しています...</value>
+    <value>このコンピューターのドメインでOUを検索しています...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>検出はキャンセルされました。配置先の手動設定は引き続き利用できます。</value>
+    <value>検索をキャンセルしました。</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>検出が完了しました。インポートする配置先を選択してください。</value>
+    <value>検索が完了しました。追加するOUを選択してください。</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>このプレビューは完全ではありません。ディレクトリの制限、読み取れないエントリ、または参照先への転送によって配置先が省略されている可能性があります。表示されているエントリは、選択してインポートできます。</value>
+    <value>一部のOUのみ一覧表示できました。表示されているOUは追加できます。</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>検出がタイムアウトしました。配置先の手動設定は引き続き利用できます。</value>
+    <value>検索がタイムアウトしました。OUは手動で追加できます。</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>検出を利用できません。コンピューターのドメイン参加状態、接続、ディレクトリの読み取り権限を確認するか、配置先を手動で追加してください。</value>
+    <value>ドメインを検索できませんでした。このコンピューターがドメインに参加していて接続できることを確認するか、OUを手動で追加してください。</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>配置先は構成されていません。</value>
+    <value>OUは追加されていません。</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>インポートは適用されませんでした。対象ドメインとカタログのドメインは、検出されたコンピューターのドメインと一致する必要があります。また、インポート後のカタログは対応する制限内である必要があります。</value>
+    <value>OUは追加されませんでした。ドメイン名または既に一覧にあるOUとは異なるドメインに属しています。</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>選択した配置先をインポートしました。</value>
+    <value>選択したOUを追加しました。</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>選択したものを削除</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>ドメインアカウントを入力してください。</value>
+    <value>アカウントを入力してください。</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>対象DNSドメインは配置先カタログのドメインと一致する必要があります。ドメインを変更する前に、古いカタログのエントリを削除してください。</value>
+    <value>一覧のOUは別のドメインに属しています。OUを削除するか、以前のドメイン名に戻してください。</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>配置先カタログのDNSドメインを設定してください。</value>
+    <value>OUを追加する前にドメイン名を入力してください。</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>既存の既定の配置先を選択するか、既定の設定を解除してください。</value>
+    <value>既定のOUは一覧にありません。別のOUを選択するか、クリアしてください。</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>対象DNSドメインを入力してください。</value>
+    <value>ドメイン名を入力してください。</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>カタログに配置先の識別名の重複があります。</value>
+    <value>同じOUが複数回登録されています。</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>カタログに配置先の識別子の重複があります。</value>
+    <value>2つのOUの内部IDが同じです。一方を削除して追加し直してください。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>対応する長さの範囲内で有効なアカウントを入力してください。</value>
+    <value>アカウントが長すぎるか、無効です。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>有効なカタログのDNSドメインを入力してください。</value>
+    <value>一覧のOUのドメインが無効です。OUを削除して追加し直してください。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>配置先の識別名が無効です。</value>
+    <value>識別名が無効なOUがあります。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>有効な対象DNSドメインを入力してください。</value>
+    <value>corp.contoso.comなどの有効なドメイン名を入力してください。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>各配置先には120文字以内の表示名が必要です。</value>
+    <value>各OUには120文字以内の表示名が必要です。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>配置先の識別子が無効です。削除して再度追加してください。</value>
+    <value>OUのエントリが破損しています。削除して追加し直してください。</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>「一般」ページでメディアのパスワード保護を有効にし、有効なメディアパスワードを入力してください。</value>
+    <value>「一般」ページでメディアのパスワード保護を有効にし、メディアパスワードを設定してください。</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>選択を有効にする前に配置先を追加するか、選択を無効にして既定の設定を解除してください。</value>
+    <value>OUを1つ以上追加するか、OUの選択を無効にして既定のOUをクリアしてください。</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>すべての配置先はカタログのドメイン内にある必要があります。</value>
+    <value>一覧のOUはすべて同じドメインに属している必要があります。</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>このドメインとアカウントに対応するアカウントパスワードを入力してください。</value>
+    <value>アカウントのパスワードを入力してください。</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>アカウントにはDOMAIN\userまたはuser@domainを使用してください。</value>
+    <value>アカウントはDOMAIN\userまたはuser@domainの形式で入力してください。</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>カタログに登録できる配置先は最大1,024件です。</value>
+    <value>OUは最大1,024件まで登録できます。</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>対応しているドメイン参加モードを選択してください。</value>
+    <value>このドメイン参加モードはサポートされていません。</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>アカウント (DOMAIN\userまたはuser@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>配置先を追加</value>
+    <value>OUを追加</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>技術者は展開時に一覧からOUを選択します。</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>展開時の配置先選択を許可</value>
+    <value>技術者によるOUの選択を許可</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
-    <value>検出をキャンセル</value>
+    <value>検索をキャンセル</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>カタログがない場合、技術者は必要に応じてOUを入力できます。カタログがある場合、配置先はそのエントリに限定されます。既定の配置先が固定されている場合は選択画面が表示されません。既定の配置先がない選択画面では、選択が必須です。既存のコンピューターアカウントは選択した配置先に移動されます。</value>
+    <value>省略可能です。コンピューターを配置できるOUを登録します。既存のコンピューターアカウントは選択したOUに移動されます。</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>配置先</value>
+    <value>組織単位</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>既定の設定を解除</value>
+    <value>クリア</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>管理者から参加権限と配置権限を委任された、ドメインを含むアカウント名を使用してください。Foundryは権限を監査しません。ドメイン、アカウント、または有効なモードが変わると、パスワードは消去されます。</value>
+    <value>コンピューターをドメインに参加させるためのアカウントです。コンピューターを参加させ、選択したOUに移動する権限が必要です。ドメイン名またはアカウントを変更すると、パスワードは消去されます。</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>ドメインの資格情報</value>
+    <value>参加用アカウント</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>すべての展開で使用されるOUです。技術者が選択できる場合は、あらかじめ選択されます。空欄にするとドメインの既定の場所が使用されます。</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>既定の配置先 (省略可)</value>
+    <value>既定のOU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>配置先を検出</value>
+    <value>OUを検索</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>このコンピューターのADドメインと現在のWindowsユーザーIDを使用します。プレビューを確認し、エントリを明示的に選択してください。インポートでは手動で追加した行と既定の配置先が保持されます。検出では参加権限をテストしません。</value>
+    <value>Windowsアカウントを使用して、このコンピューターが参加しているドメインのOUを一覧表示します。追加するOUを選択してください。</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>コンピューターのドメインからインポート</value>
+    <value>このコンピューターのドメインからOUをインポート</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>選択した配置先をインポート</value>
+    <value>選択したOUを追加</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>対象DNSドメイン内の有効な識別名と表示名を入力してください。ディレクトリの検出に失敗しても、手動のエントリは引き続き利用できます。</value>
+    <value>OUの表示名と識別名を入力してください。OUは上記のドメインに属している必要があります。</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>配置先を手動で追加</value>
+    <value>OUを手動で追加</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OUの識別名</value>
+    <value>識別名</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>表示名</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>アカウントパスワード</value>
+    <value>パスワード</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>ゼロタッチおよびOUカタログでは必須です。カタログのない対話型の展開では省略できます。</value>
+    <value>参加するドメインのDNS名です (例: corp.contoso.com)。対話型モードでは、OUを追加しない限り省略できます。</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>対象DNSドメイン</value>
+    <value>ドメイン名</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>信頼されたルート CA 証明書ファイル</value>
@@ -2141,7 +2153,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>メディアの準備状況</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>展開時にドメインとアカウントの資格情報の入力を求めます。</value>
+    <value>展開時に技術者にドメインの資格情報の入力を求めます。</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>対話型ドメイン参加</value>
@@ -2381,7 +2393,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ホーム</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>展開時にドメインの資格情報の入力を求め、必要に応じて配置先OUを選択します。</value>
+    <value>展開時に技術者にドメインの資格情報の入力を求めます。</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>対話型</value>
@@ -2447,7 +2459,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>「一般」ページのメディアパスワードで保護された、埋め込みの資格情報を使用して参加します。</value>
+    <value>メディアパスワードで保護された資格情報を使用して、ドメインに自動的に参加します。</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>ゼロタッチ</value>
@@ -4083,7 +4095,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>メディアパスワードで保護されたドメインの資格情報を埋め込みます。</value>
+    <value>メディアパスワードで保護された資格情報を使用して、ドメインに自動的に参加します。</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>ゼロタッチドメイン参加</value>

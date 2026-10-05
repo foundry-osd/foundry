@@ -1829,163 +1829,175 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie można otworzyć dokumentacji</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Sprawdź docelową domenę DNS, etykietę lokalizacji docelowej i nazwę wyróżniającą. Lokalizacje docelowe muszą należeć do domeny katalogu, a liczba wpisów nie może przekraczać 1024.</value>
+    <value>Nie dodano jednostki OU. Sprawdź nazwę domeny, nazwę wyświetlaną i nazwę wyróżniającą. Jednostka OU musi należeć do tej domeny.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Przed ustawieniem hasła wprowadź prawidłową docelową domenę DNS i kwalifikowaną nazwę konta. Hasła muszą mieścić się w obsługiwanym limicie rozmiaru i nie mogą zawierać znaków NUL.</value>
+    <value>Najpierw wprowadź prawidłową nazwę domeny i konto, a następnie sprawdź długość hasła.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Wyszukiwanie lokalizacji docelowych w domenie AD tego komputera...</value>
+    <value>Wyszukiwanie jednostek OU w domenie tego komputera...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Wyszukiwanie anulowano. Kontrolki ręcznego wprowadzania lokalizacji docelowych są nadal dostępne.</value>
+    <value>Wyszukiwanie anulowano.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Wyszukiwanie zakończono. Wybierz lokalizacje docelowe do importu.</value>
+    <value>Wyszukiwanie zakończono. Wybierz jednostki OU do dodania.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>Ten podgląd jest niepełny. Ograniczenia usługi katalogowej, nieczytelne wpisy lub odwołania mogły spowodować pominięcie lokalizacji docelowych. Wybrane widoczne wpisy nadal można zaimportować.</value>
+    <value>Udało się wyświetlić tylko część jednostek OU. Wyświetlone jednostki nadal można dodać.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Upłynął limit czasu wyszukiwania. Kontrolki ręcznego wprowadzania lokalizacji docelowych są nadal dostępne.</value>
+    <value>Upłynął limit czasu wyszukiwania. Jednostki OU możesz dodać ręcznie.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Wyszukiwanie jest niedostępne. Sprawdź członkostwo komputera w domenie, połączenie i dostęp do odczytu usługi katalogowej lub dodaj lokalizacje docelowe ręcznie.</value>
+    <value>Nie można przeszukać domeny. Sprawdź, czy ten komputer jest dołączony do domeny i ma z nią połączenie, albo dodaj jednostki OU ręcznie.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Nie skonfigurowano żadnych lokalizacji docelowych.</value>
+    <value>Nie dodano żadnych jednostek OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Import nie został zastosowany. Domena docelowa i domena katalogu muszą odpowiadać wykrytej domenie komputera, a wynikowy katalog musi mieścić się w obsługiwanych limitach.</value>
+    <value>Nie dodano jednostek OU. Należą one do innej domeny niż podana nazwa domeny lub jednostki OU już znajdujące się na liście.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Wybrane lokalizacje docelowe zostały zaimportowane.</value>
+    <value>Dodano wybrane jednostki OU.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Usuń wybrane</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Wprowadź konto domeny.</value>
+    <value>Wprowadź konto.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Docelowa domena DNS musi odpowiadać domenie katalogu lokalizacji docelowych. Przed zmianą domeny usuń stare wpisy katalogu.</value>
+    <value>Jednostki OU na liście należą do innej domeny. Usuń je lub przywróć poprzednią nazwę domeny.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Ustaw domenę DNS dla katalogu lokalizacji docelowych.</value>
+    <value>Wprowadź nazwę domeny przed dodaniem jednostek OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Wybierz istniejącą domyślną lokalizację docelową lub usuń wybór domyślny.</value>
+    <value>Domyślnej jednostki OU nie ma już na liście. Wybierz inną lub wyczyść to ustawienie.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Wprowadź docelową domenę DNS.</value>
+    <value>Wprowadź nazwę domeny.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Katalog zawiera zduplikowane nazwy wyróżniające lokalizacji docelowych.</value>
+    <value>Ta sama jednostka OU występuje na liście więcej niż raz.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>Katalog zawiera zduplikowane identyfikatory lokalizacji docelowych.</value>
+    <value>Dwie jednostki OU mają ten sam wewnętrzny identyfikator. Usuń jedną z nich i dodaj ją ponownie.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Wprowadź prawidłowe konto o obsługiwanej długości.</value>
+    <value>Konto jest za długie lub nieprawidłowe.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Wprowadź prawidłową domenę DNS katalogu.</value>
+    <value>Domena jednostek OU na liście jest nieprawidłowa. Usuń jednostki OU i dodaj je ponownie.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Nazwa wyróżniająca lokalizacji docelowej jest nieprawidłowa.</value>
+    <value>Jedna z jednostek OU ma nieprawidłową nazwę wyróżniającą.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Wprowadź prawidłową docelową domenę DNS.</value>
+    <value>Wprowadź prawidłową nazwę domeny, na przykład corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Każda lokalizacja docelowa wymaga etykiety o długości do 120 znaków.</value>
+    <value>Każda jednostka OU wymaga nazwy wyświetlanej o długości do 120 znaków.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Lokalizacja docelowa ma nieprawidłowy identyfikator. Usuń ją i dodaj ponownie.</value>
+    <value>Wpis jednostki OU jest uszkodzony. Usuń go i dodaj ponownie.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Włącz ochronę nośnika hasłem na stronie Ogólne i wprowadź prawidłowe hasło nośnika.</value>
+    <value>Włącz ochronę nośnika hasłem na stronie Ogólne i ustaw hasło nośnika.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Dodaj lokalizacje docelowe przed włączeniem wyboru lub wyłącz wybór i usuń wybór domyślny.</value>
+    <value>Dodaj co najmniej jedną jednostkę OU albo wyłącz wybór jednostki OU i wyczyść domyślną jednostkę OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Każda lokalizacja docelowa musi znajdować się w domenie katalogu.</value>
+    <value>Wszystkie jednostki OU na liście muszą należeć do tej samej domeny.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Wprowadź hasło konta dla tej domeny i tego konta.</value>
+    <value>Wprowadź hasło konta.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Użyj formatu DOMAIN\user lub user@domain dla konta.</value>
+    <value>Wprowadź konto w formacie DOMAIN\user lub user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>Katalog obsługuje maksymalnie 1024 lokalizacje docelowe.</value>
+    <value>Lista może zawierać maksymalnie 1024 jednostki OU.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Wybierz obsługiwany tryb dołączania do domeny.</value>
+    <value>Ten tryb dołączania do domeny nie jest obsługiwany.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Konto (DOMAIN\user lub user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Dodaj lokalizację docelową</value>
+    <value>Dodaj OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Technicy wybierają jednostkę OU z listy podczas wdrażania.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Zezwalaj na wybór lokalizacji docelowej podczas wdrażania</value>
+    <value>Pozwól technikom wybrać jednostkę OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Anuluj wyszukiwanie</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Bez katalogu technicy mogą wprowadzić opcjonalną OU. Jeśli katalog jest dostępny, lokalizacje docelowe są ograniczone do jego wpisów. Stała lokalizacja domyślna nie pokazuje kontrolki wyboru; kontrolka bez lokalizacji domyślnej wymaga wyboru. Istniejące konta komputerów są przenoszone do wybranej lokalizacji docelowej.</value>
+    <value>Opcjonalne. Podaj jednostki OU, w których można umieszczać komputery. Istniejące konto komputera jest przenoszone do wybranej jednostki OU.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Lokalizacje docelowe</value>
+    <value>Jednostki organizacyjne</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Usuń wybór domyślny</value>
+    <value>Wyczyść</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Użyj kwalifikowanej nazwy konta z uprawnieniami do dołączania i umieszczania kont komputerów delegowanymi przez administratora. Foundry nie przeprowadza audytu uprawnień. Hasło jest usuwane po zmianie domeny, konta lub aktywnego trybu.</value>
+    <value>Konto używane do dołączania komputerów do domeny. Wymaga uprawnień do dołączania komputerów i przenoszenia ich do wybranych jednostek OU. Hasło jest czyszczone po zmianie nazwy domeny lub konta.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Poświadczenia domeny</value>
+    <value>Konto dołączania</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>Jednostka OU używana przy każdym wdrożeniu albo wstępnie wybrana, gdy technicy mogą wybierać. Pozostaw puste, aby użyć domyślnej lokalizacji domeny.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Domyślna lokalizacja docelowa (opcjonalna)</value>
+    <value>Domyślna jednostka OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Wyszukaj lokalizacje docelowe</value>
+    <value>Znajdź jednostki OU</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Używa domeny AD tego komputera i bieżącej tożsamości Windows. Sprawdź podgląd i jawnie wybierz wpisy; import zachowuje ręczne wiersze i lokalizację domyślną. Wyszukiwanie nie sprawdza uprawnień do dołączania.</value>
+    <value>Wyświetla jednostki OU domeny, do której dołączony jest ten komputer, przy użyciu Twojego konta Windows. Wybierz te, które chcesz dodać.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Importuj z domeny komputera</value>
+    <value>Importuj jednostki OU z domeny tego komputera</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Importuj wybrane lokalizacje docelowe</value>
+    <value>Dodaj wybrane jednostki OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Wprowadź etykietę i prawidłową nazwę wyróżniającą w docelowej domenie DNS. Ręczne wpisy pozostają dostępne, gdy wyszukiwanie w usłudze katalogowej się nie powiedzie.</value>
+    <value>Wprowadź nazwę wyświetlaną i nazwę wyróżniającą jednostki OU. Jednostka OU musi należeć do domeny podanej powyżej.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Dodaj lokalizację docelową ręcznie</value>
+    <value>Dodaj jednostkę OU ręcznie</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>Nazwa wyróżniająca OU</value>
+    <value>Nazwa wyróżniająca</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Wyświetlana etykieta</value>
+    <value>Nazwa wyświetlana</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Hasło konta</value>
+    <value>Hasło</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Wymagana dla trybu bezobsługowego i katalogu OU. Opcjonalna przy interaktywnym wdrażaniu bez katalogu.</value>
+    <value>Nazwa DNS domeny, do której ma nastąpić dołączenie, na przykład corp.contoso.com. Opcjonalna w trybie Interaktywnie, chyba że dodajesz jednostki OU.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Docelowa domena DNS</value>
+    <value>Nazwa domeny</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Plik certyfikatu zaufanego głównego urzędu certyfikacji</value>
@@ -2141,7 +2153,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Stan gotowości nośnika</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Żądaj poświadczeń domeny i konta podczas wdrażania.</value>
+    <value>Poproś technika o poświadczenia domeny podczas wdrażania.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktywne dołączanie do domeny</value>
@@ -2381,7 +2393,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Dom</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Żądaj poświadczeń domeny podczas wdrażania i opcjonalnie wybierz docelową OU.</value>
+    <value>Poproś technika o poświadczenia domeny podczas wdrażania.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Interaktywnie</value>
@@ -2447,7 +2459,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Dołączaj przy użyciu osadzonych poświadczeń chronionych hasłem nośnika ze strony Ogólne.</value>
+    <value>Dołączaj do domeny automatycznie przy użyciu poświadczeń chronionych hasłem nośnika.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Osadź poświadczenia domeny chronione hasłem nośnika.</value>
+    <value>Dołączaj do domeny automatycznie przy użyciu poświadczeń chronionych hasłem nośnika.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Bezobsługowe dołączanie do domeny</value>

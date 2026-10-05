@@ -364,46 +364,46 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
     <value>Nastavi</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Zadano odredište domene</value>
+    <value>Zadano mjesto domene</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Unesite vjerodajnice za implementaciju i odredište. Pridruživanje domeni izvršava se u instaliranom sustavu Windows.</value>
+    <value>Unesite podatke za pridruživanje ovog računala domeni. Pridruživanje se izvršava nakon instalacije sustava Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organizacijska jedinica</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Unesite valjan razlikovni naziv OU-a u navedenoj domeni ili ostavite prazno.</value>
+    <value>Unesite valjan razlikovni naziv OU-a u ovoj domeni ili ostavite prazno.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Odaberite organizacijsku jedinicu iz kataloga.</value>
+    <value>Odaberite organizacijsku jedinicu.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>DNS naziv domene</value>
+    <value>Naziv domene</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Podaci za pridruživanje domeni nisu valjani ili nisu dostupni. Implementacija nije započela.</value>
+    <value>Podaci za pridruživanje domeni nedostaju ili nisu valjani. Implementacija nije započela.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Razlikovni naziv OU-a (neobavezno)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Ostavite prazno za zadano odredište domene.</value>
+    <value>Ostavite prazno za zadano mjesto domene.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Lozinka</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Navedeno prije implementacije</value>
+    <value>Traži se prije početka implementacije</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domena: {0}. Odredište: {1}.</value>
+    <value>Domena: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pridruživanje domeni</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Ovo izdanje sustava Windows ne podržava pridruživanje domeni. Instalacija sustava Windows nastavit će se bez pridruživanja domeni.</value>
+    <value>Ovo izdanje sustava Windows ne može se pridružiti domeni. Instalacija sustava Windows nastavlja se bez pridruživanja.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

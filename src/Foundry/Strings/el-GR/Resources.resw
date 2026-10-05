@@ -1829,163 +1829,175 @@
     <value>Δεν ήταν δυνατό το άνοιγμα της τεκμηρίωσης</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Ελέγξτε τον τομέα DNS προορισμού, την ετικέτα προορισμού και το διακεκριμένο όνομα. Οι προορισμοί πρέπει να ανήκουν στον τομέα του καταλόγου, με έως 1.024 καταχωρήσεις.</value>
+    <value>Η OU δεν προστέθηκε. Ελέγξτε το όνομα τομέα, το εμφανιζόμενο όνομα και το διακεκριμένο όνομα. Η OU πρέπει να ανήκει σε αυτόν τον τομέα.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Εισαγάγετε έναν έγκυρο τομέα DNS προορισμού και έναν λογαριασμό με προσδιορισμό τομέα πριν ορίσετε κωδικό πρόσβασης. Οι κωδικοί πρέπει να τηρούν το υποστηριζόμενο μέγεθος και να μην περιέχουν χαρακτήρες NUL.</value>
+    <value>Εισαγάγετε πρώτα έγκυρο όνομα τομέα και λογαριασμό και, στη συνέχεια, ελέγξτε το μήκος του κωδικού πρόσβασης.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Εντοπισμός προορισμών από τον τομέα AD αυτού του υπολογιστή...</value>
+    <value>Αναζήτηση OU στον τομέα αυτού του υπολογιστή...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Ο εντοπισμός ακυρώθηκε. Τα στοιχεία ελέγχου για χειροκίνητη εισαγωγή προορισμών παραμένουν διαθέσιμα.</value>
+    <value>Η αναζήτηση ακυρώθηκε.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Ο εντοπισμός ολοκληρώθηκε. Επιλέξτε τους προορισμούς προς εισαγωγή.</value>
+    <value>Η αναζήτηση ολοκληρώθηκε. Επιλέξτε τις OU που θα προστεθούν.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>Αυτή η προεπισκόπηση είναι ελλιπής. Περιορισμοί της υπηρεσίας καταλόγου, μη αναγνώσιμες καταχωρήσεις ή παραπομπές μπορεί να οδήγησαν σε παράλειψη προορισμών. Οι επιλεγμένες ορατές καταχωρήσεις μπορούν ακόμα να εισαχθούν.</value>
+    <value>Ήταν δυνατή η εμφάνιση μόνο ορισμένων OU. Μπορείτε ωστόσο να προσθέσετε όσες εμφανίζονται.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Έληξε το χρονικό όριο εντοπισμού. Τα στοιχεία ελέγχου για χειροκίνητη εισαγωγή προορισμών παραμένουν διαθέσιμα.</value>
+    <value>Έληξε το χρονικό όριο της αναζήτησης. Μπορείτε να προσθέσετε OU χειροκίνητα.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Ο εντοπισμός δεν είναι διαθέσιμος. Ελέγξτε τη συμμετοχή του υπολογιστή στον τομέα, τη συνδεσιμότητα και την πρόσβαση ανάγνωσης στην υπηρεσία καταλόγου ή προσθέστε προορισμούς χειροκίνητα.</value>
+    <value>Δεν ήταν δυνατή η αναζήτηση στον τομέα. Ελέγξτε ότι αυτός ο υπολογιστής είναι συνδεδεμένος σε τομέα και έχει πρόσβαση σε αυτόν ή προσθέστε OU χειροκίνητα.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Δεν έχουν ρυθμιστεί προορισμοί.</value>
+    <value>Δεν έχουν προστεθεί OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Η εισαγωγή δεν εφαρμόστηκε. Ο τομέας προορισμού και ο τομέας του καταλόγου πρέπει να συμφωνούν με τον εντοπισμένο τομέα του υπολογιστή, και ο κατάλογος που προκύπτει πρέπει να τηρεί τα υποστηριζόμενα όρια.</value>
+    <value>Οι OU δεν προστέθηκαν. Ανήκουν σε διαφορετικό τομέα από το όνομα τομέα ή από τις OU που υπάρχουν ήδη στη λίστα.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Οι επιλεγμένοι προορισμοί εισήχθησαν.</value>
+    <value>Οι επιλεγμένες OU προστέθηκαν.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Κατάργηση επιλεγμένων</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Εισαγάγετε τον λογαριασμό τομέα.</value>
+    <value>Εισαγάγετε τον λογαριασμό.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Ο τομέας DNS προορισμού πρέπει να συμφωνεί με τον τομέα του καταλόγου προορισμών. Καταργήστε τις παλιές καταχωρήσεις του καταλόγου πριν αλλάξετε τομέα.</value>
+    <value>Οι OU της λίστας ανήκουν σε διαφορετικό τομέα. Καταργήστε τις ή επαναφέρετε το προηγούμενο όνομα τομέα.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Ορίστε έναν τομέα DNS για τον κατάλογο προορισμών.</value>
+    <value>Εισαγάγετε το όνομα τομέα πριν προσθέσετε OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Επιλέξτε έναν υπάρχοντα προεπιλεγμένο προορισμό ή διαγράψτε την προεπιλογή.</value>
+    <value>Η προεπιλεγμένη OU δεν υπάρχει πλέον στη λίστα. Επιλέξτε άλλη ή διαγράψτε την επιλογή.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Εισαγάγετε τον τομέα DNS προορισμού.</value>
+    <value>Εισαγάγετε το όνομα τομέα.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Ο κατάλογος περιέχει διπλότυπα διακεκριμένα ονόματα προορισμών.</value>
+    <value>Η ίδια OU εμφανίζεται στη λίστα περισσότερες από μία φορές.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>Ο κατάλογος περιέχει διπλότυπα αναγνωριστικά προορισμών.</value>
+    <value>Δύο OU έχουν το ίδιο εσωτερικό αναγνωριστικό. Καταργήστε τη μία και προσθέστε την ξανά.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Εισαγάγετε έναν έγκυρο λογαριασμό εντός του υποστηριζόμενου μήκους.</value>
+    <value>Ο λογαριασμός είναι πολύ μεγάλος ή δεν είναι έγκυρος.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Εισαγάγετε έναν έγκυρο τομέα DNS καταλόγου.</value>
+    <value>Ο τομέας των OU της λίστας δεν είναι έγκυρος. Καταργήστε τις OU και προσθέστε τις ξανά.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Το διακεκριμένο όνομα ενός προορισμού δεν είναι έγκυρο.</value>
+    <value>Το διακεκριμένο όνομα μιας OU δεν είναι έγκυρο.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Εισαγάγετε έναν έγκυρο τομέα DNS προορισμού.</value>
+    <value>Εισαγάγετε ένα έγκυρο όνομα τομέα, όπως corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Κάθε προορισμός χρειάζεται ετικέτα με έως 120 χαρακτήρες.</value>
+    <value>Κάθε OU χρειάζεται εμφανιζόμενο όνομα με έως 120 χαρακτήρες.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Ένας προορισμός έχει μη έγκυρο αναγνωριστικό. Καταργήστε τον και προσθέστε τον ξανά.</value>
+    <value>Μια καταχώρηση OU είναι κατεστραμμένη. Καταργήστε την και προσθέστε την ξανά.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Ενεργοποιήστε την προστασία του μέσου με κωδικό πρόσβασης στη σελίδα «Γενικά» και εισαγάγετε έναν έγκυρο κωδικό πρόσβασης μέσου.</value>
+    <value>Ενεργοποιήστε την προστασία του μέσου με κωδικό πρόσβασης στη σελίδα «Γενικά» και ορίστε έναν κωδικό πρόσβασης μέσου.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Προσθέστε προορισμούς πριν ενεργοποιήσετε την επιλογή ή διαγράψτε την επιλογή και την προεπιλογή.</value>
+    <value>Προσθέστε τουλάχιστον μία OU ή απενεργοποιήστε την επιλογή OU και διαγράψτε την προεπιλεγμένη OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Κάθε προορισμός πρέπει να βρίσκεται στον τομέα του καταλόγου.</value>
+    <value>Όλες οι OU της λίστας πρέπει να ανήκουν στον ίδιο τομέα.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Εισαγάγετε τον κωδικό πρόσβασης του λογαριασμού για αυτόν τον τομέα και λογαριασμό.</value>
+    <value>Εισαγάγετε τον κωδικό πρόσβασης του λογαριασμού.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Χρησιμοποιήστε DOMAIN\user ή user@domain για τον λογαριασμό.</value>
+    <value>Εισαγάγετε τον λογαριασμό ως DOMAIN\user ή user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>Ο κατάλογος υποστηρίζει έως 1.024 προορισμούς.</value>
+    <value>Η λίστα μπορεί να περιέχει έως 1.024 OU.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Επιλέξτε μια υποστηριζόμενη λειτουργία σύνδεσης σε τομέα.</value>
+    <value>Αυτή η λειτουργία σύνδεσης σε τομέα δεν υποστηρίζεται.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Λογαριασμός (DOMAIN\user ή user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Προσθήκη προορισμού</value>
+    <value>Προσθήκη OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Οι τεχνικοί επιλέγουν μια OU από τη λίστα κατά την ανάπτυξη.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Να επιτρέπεται η επιλογή προορισμού κατά την ανάπτυξη</value>
+    <value>Να επιλέγουν οι τεχνικοί την OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
-    <value>Ακύρωση εντοπισμού</value>
+    <value>Ακύρωση αναζήτησης</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Χωρίς κατάλογο, οι τεχνικοί μπορούν να πληκτρολογήσουν μια προαιρετική OU. Με κατάλογο, οι προορισμοί περιορίζονται στις καταχωρήσεις του. Μια σταθερή προεπιλογή δεν έχει στοιχείο επιλογής· ένα στοιχείο επιλογής χωρίς προεπιλογή απαιτεί επιλογή. Οι υπάρχοντες λογαριασμοί υπολογιστών μετακινούνται στον επιλεγμένο προορισμό.</value>
+    <value>Προαιρετικό. Καταχωρήστε τις OU στις οποίες μπορούν να τοποθετηθούν υπολογιστές. Ένας υπάρχων λογαριασμός υπολογιστή μετακινείται στην επιλεγμένη OU.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Προορισμοί</value>
+    <value>Οργανωτικές μονάδες</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Διαγραφή προεπιλογής</value>
+    <value>Διαγραφή</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Χρησιμοποιήστε λογαριασμό με προσδιορισμό τομέα και δικαιώματα σύνδεσης και τοποθέτησης που έχουν εκχωρηθεί από διαχειριστή. Το Foundry δεν ελέγχει τα δικαιώματα. Ο κωδικός πρόσβασης διαγράφεται όταν αλλάζει ο τομέας, ο λογαριασμός ή η ενεργή λειτουργία.</value>
+    <value>Λογαριασμός που χρησιμοποιείται για τη σύνδεση υπολογιστών στον τομέα. Χρειάζεται δικαίωμα σύνδεσης υπολογιστών και μετακίνησής τους στις OU που επιλέγετε. Ο κωδικός πρόσβασης διαγράφεται όταν αλλάζει το όνομα τομέα ή ο λογαριασμός.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Διαπιστευτήρια τομέα</value>
+    <value>Λογαριασμός σύνδεσης σε τομέα</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>OU που χρησιμοποιείται σε κάθε ανάπτυξη ή είναι προεπιλεγμένη όταν οι τεχνικοί μπορούν να επιλέξουν. Αφήστε το κενό για να χρησιμοποιηθεί η προεπιλεγμένη θέση του τομέα.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Προεπιλεγμένος προορισμός (προαιρετικό)</value>
+    <value>Προεπιλεγμένη OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Εντοπισμός προορισμών</value>
+    <value>Εύρεση OU</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Χρησιμοποιεί τον τομέα AD αυτού του υπολογιστή και την τρέχουσα ταυτότητά σας στα Windows. Ελέγξτε την προεπισκόπηση και επιλέξτε ρητά τις καταχωρήσεις· η εισαγωγή διατηρεί τις χειροκίνητες γραμμές και την προεπιλογή. Ο εντοπισμός δεν δοκιμάζει τα δικαιώματα σύνδεσης.</value>
+    <value>Εμφανίζει τις OU του τομέα στον οποίο είναι συνδεδεμένος αυτός ο υπολογιστής, με χρήση του λογαριασμού σας Windows. Επιλέξτε όσες θέλετε να προσθέσετε.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Εισαγωγή από τον τομέα του υπολογιστή</value>
+    <value>Εισαγωγή OU από τον τομέα αυτού του υπολογιστή</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Εισαγωγή επιλεγμένων προορισμών</value>
+    <value>Προσθήκη επιλεγμένων OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Εισαγάγετε ετικέτα και έγκυρο διακεκριμένο όνομα στον τομέα DNS προορισμού. Οι χειροκίνητες καταχωρήσεις παραμένουν διαθέσιμες αν αποτύχει ο εντοπισμός στην υπηρεσία καταλόγου.</value>
+    <value>Εισαγάγετε ένα εμφανιζόμενο όνομα και το διακεκριμένο όνομα της OU. Η OU πρέπει να ανήκει στον παραπάνω τομέα.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Χειροκίνητη προσθήκη προορισμού</value>
+    <value>Χειροκίνητη προσθήκη OU</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>Διακεκριμένο όνομα OU</value>
+    <value>Διακεκριμένο όνομα</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Ετικέτα εμφάνισης</value>
+    <value>Εμφανιζόμενο όνομα</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Κωδικός πρόσβασης λογαριασμού</value>
+    <value>Κωδικός πρόσβασης</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Απαιτείται για το Zero-touch και έναν κατάλογο OU. Προαιρετικό για διαδραστική ανάπτυξη χωρίς κατάλογο.</value>
+    <value>Όνομα DNS του τομέα στον οποίο θα γίνει η σύνδεση, όπως corp.contoso.com. Προαιρετικό στη λειτουργία «Διαδραστική», εκτός αν προσθέσετε OU.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Τομέας DNS προορισμού</value>
+    <value>Όνομα τομέα</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Αξιόπιστο αρχείο πιστοποιητικού CA root</value>
@@ -2141,7 +2153,7 @@
     <value>Κατάσταση ετοιμότητας μέσου</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Ζητήστε τον τομέα και τα διαπιστευτήρια λογαριασμού κατά την ανάπτυξη.</value>
+    <value>Ζητήστε από τον τεχνικό διαπιστευτήρια τομέα κατά την ανάπτυξη.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Διαδραστική σύνδεση σε τομέα</value>
@@ -2381,7 +2393,7 @@
     <value>Σπίτι</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Ζητήστε διαπιστευτήρια τομέα κατά την ανάπτυξη και επιλέξτε προαιρετικά μια OU προορισμού.</value>
+    <value>Ζητήστε από τον τεχνικό διαπιστευτήρια τομέα κατά την ανάπτυξη.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Διαδραστική</value>
@@ -2447,7 +2459,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Συνδεθείτε με ενσωματωμένα διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης μέσου της σελίδας «Γενικά».</value>
+    <value>Συνδεθείτε στον τομέα αυτόματα με διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης μέσου.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Ενσωματώστε διαπιστευτήρια τομέα που προστατεύονται από τον κωδικό πρόσβασης μέσου.</value>
+    <value>Συνδεθείτε στον τομέα αυτόματα με διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης μέσου.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Σύνδεση σε τομέα Zero-touch</value>

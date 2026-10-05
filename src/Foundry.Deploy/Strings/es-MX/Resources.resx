@@ -364,46 +364,46 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
     <value>Continuar</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Destino predeterminado del dominio</value>
+    <value>Ubicación predeterminada del dominio</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Introduzca las credenciales y el destino de la implementación. La unión al dominio se ejecuta en Windows una vez instalado.</value>
+    <value>Proporcione los datos de unión al dominio de este equipo. La unión se realiza después de instalar Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Unidad organizacional</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Introduzca un nombre distintivo de OU válido en el dominio indicado, o deje el campo vacío.</value>
+    <value>Introduzca un nombre distintivo de OU válido en este dominio, o deje el campo vacío.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Seleccione una unidad organizacional del catálogo.</value>
+    <value>Seleccione una unidad organizacional.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Nombre DNS del dominio</value>
+    <value>Nombre de dominio</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Los datos de unión al dominio no son válidos o no están disponibles. La implementación no ha comenzado.</value>
+    <value>Los datos de unión al dominio faltan o no son válidos. La implementación no ha comenzado.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Nombre distintivo de la OU (opcional)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Deje el campo vacío para usar el destino predeterminado del dominio.</value>
+    <value>Deje el campo vacío para usar la ubicación predeterminada del dominio.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Contraseña</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Proporcionado antes de la implementación</value>
+    <value>Se solicita antes de iniciar la implementación</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Dominio: {0}. Destino: {1}.</value>
+    <value>Dominio: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Unión al dominio</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Esta edición de Windows no admite la unión al dominio. La instalación de Windows continuará sin unirse al dominio.</value>
+    <value>Esta edición de Windows no puede unirse a un dominio. La instalación de Windows continúa sin la unión.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

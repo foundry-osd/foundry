@@ -1829,163 +1829,175 @@
     <value>文件無法開啟</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>請檢查目標 DNS 網域、目的地標籤和辨別名稱。所有目的地都必須屬於目錄中的網域，且最多可有 1,024 個項目。</value>
+    <value>未新增 OU。請檢查網域名稱、顯示名稱和辨別名稱。OU 必須屬於該網域。</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>設定密碼前，請輸入有效的目標 DNS 網域和含網域資訊的帳戶名稱。密碼必須符合支援的長度限制，且不能包含 NUL 字元。</value>
+    <value>請先輸入有效的網域名稱和帳戶，然後檢查密碼長度。</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>正在從此電腦的 AD 網域探索目的地...</value>
+    <value>正在此電腦的網域中搜尋 OU...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>探索已取消。手動目的地控制項仍可使用。</value>
+    <value>搜尋已取消。</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>探索已完成。請選取要匯入的目的地。</value>
+    <value>搜尋完成。請選取要新增的 OU。</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>此預覽不完整。目錄服務限制、無法讀取的項目或指向其他目錄的參照可能導致遺漏目的地。仍可匯入已選取的可見項目。</value>
+    <value>只能列出部分 OU。您仍可新增已顯示的 OU。</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>探索已逾時。手動目的地控制項仍可使用。</value>
+    <value>搜尋已逾時。您可以手動新增 OU。</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>無法探索。請檢查電腦的網域成員資格、連線和目錄讀取權限，或手動新增目的地。</value>
+    <value>無法搜尋網域。請檢查此電腦是否已加入網域並可連線到該網域，或手動新增 OU。</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>尚未設定目的地。</value>
+    <value>尚未新增 OU。</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>未套用匯入。目標網域和目錄中的網域必須與探索到的電腦網域相符，且產生的目錄必須符合支援的限制。</value>
+    <value>未新增這些 OU。它們所屬的網域與網域名稱或已列出的 OU 不一致。</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>已匯入選取的目的地。</value>
+    <value>已新增選取的 OU。</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>刪除選定的</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>請輸入網域帳戶。</value>
+    <value>請輸入帳戶。</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>目標 DNS 網域必須與目的地目錄中的網域相符。變更網域前，請移除舊的目錄項目。</value>
+    <value>列出的 OU 屬於其他網域。請移除這些 OU，或還原先前的網域名稱。</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>請為目的地目錄設定 DNS 網域。</value>
+    <value>請先輸入網域名稱，再新增 OU。</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>請選取現有的預設目的地或清除預設值。</value>
+    <value>預設 OU 已不在清單中。請另選一個或將其清除。</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>請輸入目標 DNS 網域。</value>
+    <value>請輸入網域名稱。</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>目錄中有重複的目的地辨別名稱。</value>
+    <value>同一個 OU 被列出了多次。</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>目錄中有重複的目的地識別碼。</value>
+    <value>兩個 OU 的內部識別碼相同。請移除其中一個，然後重新新增。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>請輸入有效的帳戶，且名稱長度不得超過支援的限制。</value>
+    <value>帳戶過長或無效。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>請輸入有效的目錄 DNS 網域。</value>
+    <value>列出的 OU 所屬的網域無效。請移除這些 OU，然後重新新增。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>某個目的地的辨別名稱無效。</value>
+    <value>某個 OU 的辨別名稱無效。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>請輸入有效的目標 DNS 網域。</value>
+    <value>請輸入有效的網域名稱，例如 corp.contoso.com。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>每個目的地都需要一個不超過 120 個字元的標籤。</value>
+    <value>每個 OU 都需要一個不超過 120 個字元的顯示名稱。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>某個目的地的識別碼無效。請移除後重新新增。</value>
+    <value>某個 OU 項目已損毀。請將其移除，然後重新新增。</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>請在「一般」頁面啟用媒體密碼保護，並輸入有效的媒體密碼。</value>
+    <value>請在「一般」頁面啟用媒體密碼保護，並設定媒體密碼。</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>啟用選取前，請新增目的地，或清除選取項目和預設值。</value>
+    <value>請至少新增一個 OU，或關閉 OU 選取並清除預設 OU。</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>所有目的地都必須位於目錄中的網域內。</value>
+    <value>列出的所有 OU 必須屬於同一個網域。</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>請輸入此網域和此帳戶對應的帳戶密碼。</value>
+    <value>請輸入帳戶密碼。</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>帳戶請使用 DOMAIN\user 或 user@domain 格式。</value>
+    <value>請以 DOMAIN\user 或 user@domain 格式輸入帳戶。</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>目錄最多支援 1,024 個目的地。</value>
+    <value>最多可列出 1,024 個 OU。</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>請選取支援的網域加入模式。</value>
+    <value>不支援此網域加入模式。</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>帳戶（DOMAIN\user 或 user@domain）</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>新增目的地</value>
+    <value>新增 OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>技術人員在部署期間從清單中選取 OU。</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>允許在部署期間選取目的地</value>
+    <value>允許技術人員選取 OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
-    <value>取消探索</value>
+    <value>取消搜尋</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>沒有目錄時，技術人員可以選擇輸入 OU。有目錄時，目的地僅限於目錄中的項目。固定的預設目的地不顯示選取器；沒有預設值的選取器必須進行選取。現有電腦帳戶將移至選取的目的地。</value>
+    <value>選用。列出可放置電腦的 OU。現有電腦帳戶將移至選取的 OU。</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>目的地</value>
+    <value>組織單位</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>清除預設值</value>
+    <value>清除</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>請使用含網域資訊的帳戶，並由系統管理員委派加入和放置權限。Foundry 不會稽核權限。網域、帳戶或目前啟用的模式變更時，密碼將被清除。</value>
+    <value>用於將電腦加入網域的帳戶。該帳戶需要有權將電腦加入網域，並將其移至您選取的 OU。網域名稱或帳戶變更時，密碼將被清除。</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>網域認證</value>
+    <value>加入帳戶</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>用於每次部署的 OU；允許技術人員選取時，則為預先選取的 OU。留空以使用網域的預設位置。</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>預設目的地（選用）</value>
+    <value>預設 OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>探索目的地</value>
+    <value>尋找 OU</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>使用此電腦的 AD 網域和您目前的 Windows 身分識別。請預覽並明確選取項目；匯入將保留手動新增的列和預設值。探索不會測試加入權限。</value>
+    <value>使用您的 Windows 帳戶列出此電腦所加入網域中的 OU。請選取要新增的 OU。</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>從電腦網域匯入</value>
+    <value>從此電腦的網域匯入 OU</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>匯入選取的目的地</value>
+    <value>新增選取的 OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>請輸入標籤，以及目標 DNS 網域內有效的辨別名稱。目錄探索失敗時，手動項目仍可使用。</value>
+    <value>請輸入顯示名稱和 OU 的辨別名稱。OU 必須屬於上方的網域。</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>手動新增目的地</value>
+    <value>手動新增 OU</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OU 辨別名稱</value>
+    <value>辨別名稱</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>顯示標籤</value>
+    <value>顯示名稱</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>帳戶密碼</value>
+    <value>密碼</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>零接觸模式和 OU 目錄需要此項。無目錄的互動式部署可不填寫。</value>
+    <value>要加入的網域的 DNS 名稱，例如 corp.contoso.com。在互動式模式下可不填寫，除非新增了 OU。</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>目標 DNS 網域</value>
+    <value>網域名稱</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>受信任的根 CA 憑證文件</value>
@@ -2141,7 +2153,7 @@
     <value>媒體準備狀態</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>在部署期間要求網域和帳戶認證。</value>
+    <value>在部署期間要求技術人員提供網域認證。</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>互動式網域加入</value>
@@ -2381,7 +2393,7 @@
     <value>首頁</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>在部署期間要求網域認證，並可選取目的地 OU。</value>
+    <value>在部署期間要求技術人員提供網域認證。</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>互動式</value>
@@ -2447,7 +2459,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>使用由「一般」頁面的媒體密碼保護的內嵌認證加入網域。</value>
+    <value>使用受媒體密碼保護的認證自動加入網域。</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>內嵌受媒體密碼保護的網域認證。</value>
+    <value>使用受媒體密碼保護的認證自動加入網域。</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>零接觸網域加入</value>

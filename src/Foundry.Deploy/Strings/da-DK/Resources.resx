@@ -364,46 +364,46 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
     <value>Fortsæt</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Domænets standarddestination</value>
+    <value>Domænets standardplacering</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Angiv legitimationsoplysninger og destination for udrulningen. Domænetilslutning udføres i det installerede Windows.</value>
+    <value>Angiv oplysningerne til domænetilslutning for denne computer. Tilslutningen sker, når Windows er installeret.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organisationsenhed</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Angiv et gyldigt entydigt OU-navn i det angivne domæne, eller lad feltet være tomt.</value>
+    <value>Angiv et gyldigt entydigt OU-navn i dette domæne, eller lad feltet være tomt.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Vælg en organisationsenhed i kataloget.</value>
+    <value>Vælg en organisationsenhed.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Domænets DNS-navn</value>
+    <value>Domænenavn</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Oplysningerne til domænetilslutning er ugyldige eller utilgængelige. Udrulningen er ikke startet.</value>
+    <value>Oplysningerne til domænetilslutning mangler eller er ugyldige. Udrulningen er ikke startet.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Entydigt navn for OU (valgfrit)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Lad feltet være tomt for at bruge domænets standarddestination.</value>
+    <value>Lad feltet være tomt for at bruge domænets standardplacering.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Adgangskode</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Angivet før udrulning</value>
+    <value>Der spørges, før udrulningen starter</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domæne: {0}. Destination: {1}.</value>
+    <value>Domæne: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domænetilslutning</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Denne Windows-udgave understøtter ikke domænetilslutning. Installationen af Windows fortsætter uden domænetilslutning.</value>
+    <value>Denne Windows-udgave kan ikke tilsluttes et domæne. Installationen af Windows fortsætter uden.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

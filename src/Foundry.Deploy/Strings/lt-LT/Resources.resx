@@ -364,46 +364,46 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
     <value>Tęsti</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Numatytoji domeno paskirtis</value>
+    <value>Numatytoji domeno vieta</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Įveskite diegimo prisijungimo duomenis ir paskirtį. Prisijungimas prie domeno vykdomas įdiegtoje Windows sistemoje.</value>
+    <value>Pateikite šio kompiuterio prisijungimo prie domeno duomenis. Prie domeno prisijungiama įdiegus Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organizacinis vienetas</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Įveskite tinkamą OU skiriamąjį vardą nurodytame domene arba palikite tuščią.</value>
+    <value>Įveskite tinkamą šio domeno OU skiriamąjį vardą arba palikite tuščią.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Pasirinkite organizacinį vienetą iš katalogo.</value>
+    <value>Pasirinkite organizacinį vienetą.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Domeno DNS vardas</value>
+    <value>Domeno vardas</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Prisijungimo prie domeno įvestis netinkama arba nepasiekiama. Diegimas nepradėtas.</value>
+    <value>Prisijungimo prie domeno informacijos trūksta arba ji netinkama. Diegimas nepradėtas.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OU skiriamasis vardas (nebūtinas)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Palikite tuščią, kad būtų naudojama numatytoji domeno paskirtis.</value>
+    <value>Palikite tuščią, kad būtų naudojama numatytoji domeno vieta.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Slaptažodis</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Pateikiami prieš diegimą</value>
+    <value>Klausiama prieš pradedant diegimą</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domenas: {0}. Paskirtis: {1}.</value>
+    <value>Domenas: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Prisijungimas prie domeno</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Šis Windows leidimas nepalaiko prisijungimo prie domeno. Windows diegimas bus tęsiamas neprisijungiant prie domeno.</value>
+    <value>Šio Windows leidimo negalima prijungti prie domeno. Windows diegimas tęsiamas be prisijungimo prie domeno.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

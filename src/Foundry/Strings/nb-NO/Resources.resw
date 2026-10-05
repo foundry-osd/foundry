@@ -1829,163 +1829,175 @@ Lisensiert under MIT-lisensen.</value>
     <value>Dokumentasjonen kunne ikke åpnes</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Kontroller DNS-måldomenet, destinasjonsetiketten og det unike navnet. Destinasjoner må tilhøre katalogdomenet, med maksimalt 1 024 oppføringer.</value>
+    <value>OU-en ble ikke lagt til. Kontroller domenenavnet, visningsnavnet og det unike navnet. OU-en må tilhøre dette domenet.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Angi et gyldig DNS-måldomene og et kvalifisert kontonavn før du angir et passord. Passord må være innenfor den støttede størrelsen og kan ikke inneholde NUL-tegn.</value>
+    <value>Angi et gyldig domenenavn og en gyldig konto først, og kontroller deretter passordlengden.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Søker etter destinasjoner i denne datamaskinens AD-domene...</value>
+    <value>Søker etter OU-er i denne datamaskinens domene...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Søket ble avbrutt. Kontrollene for manuelle destinasjoner er fortsatt tilgjengelige.</value>
+    <value>Søket ble avbrutt.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Søket er fullført. Velg destinasjonene som skal importeres.</value>
+    <value>Søket er fullført. Velg OU-ene du vil legge til.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>Denne forhåndsvisningen er ufullstendig. Katalogtjenestens begrensninger, uleselige oppføringer eller henvisninger kan ha utelatt destinasjoner. Valgte synlige oppføringer kan fortsatt importeres.</value>
+    <value>Bare noen av OU-ene kunne vises. Du kan fortsatt legge til de som vises.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Tidsavbrudd under søket. Kontrollene for manuelle destinasjoner er fortsatt tilgjengelige.</value>
+    <value>Tidsavbrudd under søket. Du kan legge til OU-er manuelt.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Søket er ikke tilgjengelig. Kontroller datamaskinens domenemedlemskap, tilkobling og lesetilgang til katalogtjenesten, eller legg til destinasjoner manuelt.</value>
+    <value>Kunne ikke søke i domenet. Kontroller at denne datamaskinen er koblet til et domene og kan nå det, eller legg til OU-er manuelt.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Ingen destinasjoner konfigurert.</value>
+    <value>Ingen OU-er er lagt til.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Importen ble ikke brukt. Måldomenet og katalogdomenet må samsvare med datamaskindomenet som ble funnet, og den resulterende katalogen må være innenfor de støttede grensene.</value>
+    <value>OU-ene ble ikke lagt til. De tilhører et annet domene enn domenenavnet eller OU-ene som allerede står i listen.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>De valgte destinasjonene er importert.</value>
+    <value>De valgte OU-ene ble lagt til.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Fjern valgte</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Angi domenekontoen.</value>
+    <value>Angi kontoen.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>DNS-måldomenet må samsvare med domenet til destinasjonskatalogen. Fjern gamle katalogoppføringer før du bytter domene.</value>
+    <value>OU-ene i listen tilhører et annet domene. Fjern dem eller gå tilbake til det forrige domenenavnet.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Angi et DNS-domene for destinasjonskatalogen.</value>
+    <value>Angi domenenavnet før du legger til OU-er.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Velg en eksisterende standarddestinasjon eller fjern standardvalget.</value>
+    <value>Standard-OU-en finnes ikke lenger i listen. Velg en annen eller fjern den.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Angi DNS-måldomenet.</value>
+    <value>Angi domenenavnet.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Katalogen inneholder dupliserte unike navn for destinasjoner.</value>
+    <value>Samme OU står i listen mer enn én gang.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>Katalogen inneholder dupliserte destinasjonsidentiteter.</value>
+    <value>To OU-er har samme interne ID. Fjern den ene og legg den til på nytt.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Angi en gyldig konto innenfor den støttede lengden.</value>
+    <value>Kontoen er for lang eller ugyldig.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Angi et gyldig DNS-domene for katalogen.</value>
+    <value>Domenet til OU-ene i listen er ugyldig. Fjern OU-ene og legg dem til på nytt.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Det unike navnet til en destinasjon er ugyldig.</value>
+    <value>En OU har et ugyldig unikt navn.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Angi et gyldig DNS-måldomene.</value>
+    <value>Angi et gyldig domenenavn, for eksempel corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Hver destinasjon trenger en etikett på maksimalt 120 tegn.</value>
+    <value>Hver OU trenger et visningsnavn på maksimalt 120 tegn.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>En destinasjon har en ugyldig identitet. Fjern den og legg den til på nytt.</value>
+    <value>En OU-oppføring er skadet. Fjern den og legg den til på nytt.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Aktiver passordbeskyttelse for mediet på siden Generelt og angi et gyldig mediepassord.</value>
+    <value>Slå på passordbeskyttelse for mediet på siden Generelt, og angi et mediepassord.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Legg til destinasjoner før du aktiverer valg, eller deaktiver valg og fjern standardvalget.</value>
+    <value>Legg til minst én OU, eller slå av valg av OU og fjern standard-OU-en.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Alle destinasjoner må være innenfor katalogdomenet.</value>
+    <value>Alle OU-ene i listen må tilhøre samme domene.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Angi kontopassordet for dette domenet og denne kontoen.</value>
+    <value>Angi kontopassordet.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Bruk DOMAIN\user eller user@domain for kontoen.</value>
+    <value>Angi kontoen som DOMAIN\user eller user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>Katalogen støtter maksimalt 1 024 destinasjoner.</value>
+    <value>Listen kan inneholde opptil 1 024 OU-er.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Velg en støttet modus for domenetilknytning.</value>
+    <value>Denne modusen for domenetilknytning støttes ikke.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Konto (DOMAIN\user eller user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Legg til destinasjon</value>
+    <value>Legg til OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Teknikere velger en OU fra listen under distribusjon.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Tillat valg av destinasjon under distribusjon</value>
+    <value>La teknikere velge OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Avbryt søk</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Uten en katalog kan teknikere angi en valgfri OU. Med en katalog er destinasjonene begrenset til oppføringene i den. En fast standarddestinasjon har ingen velger; en velger uten standarddestinasjon krever et valg. Eksisterende datamaskinkontoer flyttes til den valgte destinasjonen.</value>
+    <value>Valgfritt. Før opp OU-ene der datamaskiner kan plasseres. En eksisterende datamaskinkonto flyttes til den valgte OU-en.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Destinasjoner</value>
+    <value>Organisasjonsenheter</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Fjern standardvalg</value>
+    <value>Fjern</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Bruk et kvalifisert kontonavn med tillatelser for tilknytning og plassering delegert av administratoren. Foundry kontrollerer ikke tillatelsene. Passordet slettes når domenet, kontoen eller den aktive modusen endres.</value>
+    <value>Konto som brukes til å knytte datamaskiner til domenet. Den må ha tillatelse til å knytte til datamaskiner og flytte dem til OU-ene du velger. Passordet slettes når domenenavnet eller kontoen endres.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Domenelegitimasjon</value>
+    <value>Tilknytningskonto</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>OU som brukes for alle distribusjoner, eller som er forhåndsvalgt når teknikere kan velge. La stå tomt for å bruke domenets standardplassering.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Standarddestinasjon (valgfri)</value>
+    <value>Standard-OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Søk etter destinasjoner</value>
+    <value>Finn OU-er</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Bruker denne datamaskinens AD-domene og din gjeldende Windows-identitet. Se forhåndsvisningen og velg oppføringer uttrykkelig; importen beholder manuelle rader og standarddestinasjonen. Søket tester ikke tilknytningstillatelser.</value>
+    <value>Viser OU-ene i domenet denne datamaskinen er koblet til, ved hjelp av Windows-kontoen din. Velg de du vil legge til.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Importer fra datamaskinens domene</value>
+    <value>Importer OU-er fra denne datamaskinens domene</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Importer valgte destinasjoner</value>
+    <value>Legg til valgte OU-er</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Angi en etikett og et gyldig unikt navn innenfor DNS-måldomenet. Manuelle oppføringer er fortsatt tilgjengelige hvis søket i katalogtjenesten mislykkes.</value>
+    <value>Angi et visningsnavn og det unike navnet til OU-en. OU-en må tilhøre domenet ovenfor.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Legg til en destinasjon manuelt</value>
+    <value>Legg til en OU manuelt</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>Unikt navn for OU</value>
+    <value>Unikt navn</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Visningsetikett</value>
+    <value>Visningsnavn</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Kontopassord</value>
+    <value>Passord</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Påkrevd for Zero-touch og en OU-katalog. Valgfritt for interaktiv distribusjon uten katalog.</value>
+    <value>DNS-navnet til domenet som skal tilknyttes, for eksempel corp.contoso.com. Valgfritt i modusen Interaktiv, med mindre du legger til OU-er.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>DNS-måldomene</value>
+    <value>Domenenavn</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Klarert rot-CA-sertifikatfil</value>
@@ -2141,7 +2153,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Status for medieberedskap</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Be om domene- og kontolegitimasjon under distribusjon.</value>
+    <value>Be teknikeren om domenelegitimasjon under distribusjon.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktiv domenetilknytning</value>
@@ -2381,7 +2393,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Hjem</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Be om domenelegitimasjon under distribusjon og velg eventuelt en destinasjons-OU.</value>
+    <value>Be teknikeren om domenelegitimasjon under distribusjon.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Interaktiv</value>
@@ -2447,7 +2459,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Knytt til domenet med innebygd legitimasjon beskyttet av mediepassordet på siden Generelt.</value>
+    <value>Knytt til domenet automatisk med legitimasjon beskyttet av mediepassordet.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Bygg inn domenelegitimasjon beskyttet av mediepassordet.</value>
+    <value>Knytt til domenet automatisk med legitimasjon beskyttet av mediepassordet.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touch-domenetilknytning</value>

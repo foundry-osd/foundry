@@ -364,46 +364,46 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
     <value>Doorgaan</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Standaardbestemming van het domein</value>
+    <value>Standaardlocatie van het domein</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Voer de implementatiereferenties en de bestemming in. Domeintoetreding wordt uitgevoerd in de geïnstalleerde Windows-versie.</value>
+    <value>Geef de gegevens voor domeintoetreding van deze computer op. De toetreding vindt plaats nadat Windows is geïnstalleerd.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organisatie-eenheid</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Voer een geldige OU-DN-naam in het opgegeven domein in, of laat het veld leeg.</value>
+    <value>Voer een geldige DN-naam van een OU in dit domein in, of laat het veld leeg.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Selecteer een organisatie-eenheid uit de catalogus.</value>
+    <value>Selecteer een organisatie-eenheid.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>DNS-naam van het domein</value>
+    <value>Domeinnaam</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>De invoer voor domeintoetreding is ongeldig of niet beschikbaar. De implementatie is niet gestart.</value>
+    <value>De gegevens voor domeintoetreding ontbreken of zijn ongeldig. De implementatie is niet gestart.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>DN-naam van OU (optioneel)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Laat leeg om de standaardbestemming van het domein te gebruiken.</value>
+    <value>Laat leeg om de standaardlocatie van het domein te gebruiken.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Wachtwoord</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Opgegeven vóór de implementatie</value>
+    <value>Wordt gevraagd voordat de implementatie start</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domein: {0}. Bestemming: {1}.</value>
+    <value>Domein: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domeintoetreding</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Deze Windows-editie ondersteunt geen domeintoetreding. De Windows-installatie gaat verder zonder domeintoetreding.</value>
+    <value>Deze Windows-editie kan niet toetreden tot een domein. De Windows-installatie gaat verder zonder domeintoetreding.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

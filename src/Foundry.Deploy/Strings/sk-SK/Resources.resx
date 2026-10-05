@@ -364,46 +364,46 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
     <value>Pokračovať</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Predvolený cieľ domény</value>
+    <value>Predvolené umiestnenie domény</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Zadajte poverenia a cieľ nasadenia. Pripojenie k doméne sa vykoná v nainštalovanom systéme Windows.</value>
+    <value>Zadajte údaje na pripojenie tohto počítača k doméne. Pripojenie sa vykoná po inštalácii systému Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organizačná jednotka</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Zadajte platný rozlišujúci názov OU v zadanej doméne alebo nechajte pole prázdne.</value>
+    <value>Zadajte platný rozlišujúci názov OU v tejto doméne alebo nechajte pole prázdne.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Vyberte organizačnú jednotku z katalógu.</value>
+    <value>Vyberte organizačnú jednotku.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Názov domény DNS</value>
+    <value>Názov domény</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Údaje na pripojenie k doméne sú neplatné alebo nedostupné. Nasadenie sa nezačalo.</value>
+    <value>Údaje na pripojenie k doméne chýbajú alebo sú neplatné. Nasadenie sa nezačalo.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Rozlišujúci názov OU (voliteľné)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Nechajte prázdne, ak chcete použiť predvolený cieľ domény.</value>
+    <value>Nechajte prázdne, ak chcete použiť predvolené umiestnenie domény.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Heslo</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Poskytnuté pred nasadením</value>
+    <value>Vyžiada sa pred začatím nasadenia</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Doména: {0}. Cieľ: {1}.</value>
+    <value>Doména: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pripojenie k doméne</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Táto edícia systému Windows nepodporuje pripojenie k doméne. Inštalácia systému Windows bude pokračovať bez pripojenia k doméne.</value>
+    <value>Túto edíciu systému Windows nemožno pripojiť k doméne. Inštalácia systému Windows pokračuje bez pripojenia.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

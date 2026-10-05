@@ -1829,163 +1829,175 @@ Licencováno pod licencí MIT.</value>
     <value>Dokumentaci nelze otevřít</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Zkontrolujte cílovou doménu DNS, popisek cíle a rozlišující název. Cíle musí patřit do domény katalogu, který může mít nejvýše 1 024 položek.</value>
+    <value>Jednotka OU nebyla přidána. Zkontrolujte název domény, zobrazovaný název a rozlišující název. Jednotka OU musí patřit do této domény.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Před nastavením hesla zadejte platnou cílovou doménu DNS a kvalifikovaný účet. Hesla musí dodržovat podporovanou velikost a nesmí obsahovat znaky NUL.</value>
+    <value>Nejprve zadejte platný název domény a účet, potom zkontrolujte délku hesla.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Vyhledávání cílů v doméně AD tohoto počítače...</value>
+    <value>Vyhledávání jednotek OU v doméně tohoto počítače...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Vyhledávání bylo zrušeno. Ovládací prvky pro ruční zadávání cílů jsou nadále dostupné.</value>
+    <value>Vyhledávání bylo zrušeno.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Vyhledávání bylo dokončeno. Vyberte cíle k importu.</value>
+    <value>Vyhledávání je dokončeno. Vyberte jednotky OU, které chcete přidat.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>Tento náhled je neúplný. Omezení adresáře, nečitelné položky nebo odkazy na jiné adresáře mohly způsobit vynechání cílů. Vybrané viditelné položky lze přesto importovat.</value>
+    <value>Podařilo se vypsat jen některé jednotky OU. Zobrazené jednotky můžete přesto přidat.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Vypršel časový limit vyhledávání. Ovládací prvky pro ruční zadávání cílů jsou nadále dostupné.</value>
+    <value>Vypršel časový limit vyhledávání. Jednotky OU můžete přidat ručně.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Vyhledávání není dostupné. Zkontrolujte členství počítače v doméně, připojení a přístup pro čtení adresáře, nebo přidejte cíle ručně.</value>
+    <value>Doménu se nepodařilo prohledat. Zkontrolujte, zda je tento počítač připojen k doméně a má k ní přístup, nebo přidejte jednotky OU ručně.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Nejsou nakonfigurovány žádné cíle.</value>
+    <value>Nebyly přidány žádné jednotky OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Import nebyl použit. Cílová doména i doména katalogu musí odpovídat nalezené doméně počítače a výsledný katalog musí dodržovat podporované limity.</value>
+    <value>Jednotky OU nebyly přidány. Patří do jiné domény, než je název domény nebo než jsou již uvedené jednotky OU.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Vybrané cíle byly importovány.</value>
+    <value>Vybrané jednotky OU byly přidány.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Odebrat vybrané</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Zadejte doménový účet.</value>
+    <value>Zadejte účet.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Cílová doména DNS musí odpovídat doméně katalogu cílů. Před změnou domény odeberte staré položky katalogu.</value>
+    <value>Uvedené jednotky OU patří do jiné domény. Odeberte je, nebo obnovte předchozí název domény.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Nastavte doménu DNS pro katalog cílů.</value>
+    <value>Před přidáním jednotek OU zadejte název domény.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Vyberte existující výchozí cíl nebo vymažte výchozí hodnotu.</value>
+    <value>Výchozí jednotka OU už v seznamu není. Zvolte jinou, nebo výběr vymažte.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Zadejte cílovou doménu DNS.</value>
+    <value>Zadejte název domény.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Katalog obsahuje duplicitní rozlišující názvy cílů.</value>
+    <value>Stejná jednotka OU je uvedena vícekrát.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>Katalog obsahuje duplicitní identifikátory cílů.</value>
+    <value>Dvě jednotky OU mají stejné interní ID. Jednu odeberte a přidejte ji znovu.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Zadejte platný účet s podporovanou délkou.</value>
+    <value>Účet je příliš dlouhý nebo neplatný.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Zadejte platnou doménu DNS katalogu.</value>
+    <value>Doména uvedených jednotek OU není platná. Odeberte jednotky OU a přidejte je znovu.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Rozlišující název jednoho z cílů je neplatný.</value>
+    <value>Některá jednotka OU má neplatný rozlišující název.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Zadejte platnou cílovou doménu DNS.</value>
+    <value>Zadejte platný název domény, například corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Každý cíl musí mít popisek o délce nejvýše 120 znaků.</value>
+    <value>Každá jednotka OU musí mít zobrazovaný název o délce nejvýše 120 znaků.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Jeden z cílů má neplatný identifikátor. Odeberte ho a znovu přidejte.</value>
+    <value>Položka OU je poškozená. Odeberte ji a přidejte ji znovu.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Na stránce „Obecné“ povolte ochranu média heslem a zadejte platné heslo média.</value>
+    <value>Na stránce „Obecné“ povolte ochranu média heslem a nastavte heslo média.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Před povolením výběru přidejte cíle, nebo vymažte výběr a výchozí hodnotu.</value>
+    <value>Přidejte alespoň jednu jednotku OU, nebo zakažte výběr OU a vymažte výchozí jednotku OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Každý cíl musí být v doméně katalogu.</value>
+    <value>Všechny uvedené jednotky OU musí patřit do stejné domény.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Zadejte heslo účtu pro tuto doménu a tento účet.</value>
+    <value>Zadejte heslo účtu.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Pro účet použijte DOMAIN\user nebo user@domain.</value>
+    <value>Zadejte účet ve tvaru DOMAIN\user nebo user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>Katalog podporuje nejvýše 1 024 cílů.</value>
+    <value>Můžete uvést nejvýše 1 024 jednotek OU.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Vyberte podporovaný režim připojení k doméně.</value>
+    <value>Tento režim připojení k doméně není podporován.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Účet (DOMAIN\user nebo user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Přidat cíl</value>
+    <value>Přidat OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Technici během nasazení vyberou jednotku OU ze seznamu.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Povolit výběr cíle během nasazení</value>
+    <value>Umožnit technikům výběr OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Zrušit vyhledávání</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Bez katalogu mohou technici zadat volitelnou OU. S katalogem jsou cíle omezeny na jeho položky. Pevný výchozí cíl nemá ovládací prvek pro výběr; výběr bez výchozího cíle vyžaduje zvolení cíle. Existující účty počítačů se přesunou do vybraného cíle.</value>
+    <value>Volitelné. Uveďte jednotky OU, do kterých lze počítače umístit. Existující účet počítače se přesune do zvolené jednotky OU.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Cíle</value>
+    <value>Organizační jednotky</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Vymazat výchozí hodnotu</value>
+    <value>Vymazat</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Použijte kvalifikovaný účet s oprávněními k připojení a umístění delegovanými správcem. Foundry oprávnění nekontroluje. Heslo se vymaže při změně domény, účtu nebo aktivního režimu.</value>
+    <value>Účet používaný k připojení počítačů k doméně. Potřebuje oprávnění připojovat počítače a přesouvat je do jednotek OU, které zvolíte. Heslo se vymaže při změně názvu domény nebo účtu.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Přihlašovací údaje k doméně</value>
+    <value>Účet pro připojení</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>Jednotka OU použitá při každém nasazení, nebo předvybraná, pokud mohou technici vybírat. Ponechte prázdné, chcete-li použít výchozí umístění domény.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Výchozí cíl (volitelné)</value>
+    <value>Výchozí OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Vyhledat cíle</value>
+    <value>Najít OU</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Používá doménu AD tohoto počítače a vaši aktuální identitu Windows. Prohlédněte si náhled a výslovně vyberte položky; import zachová ručně zadané řádky i výchozí hodnotu. Vyhledávání netestuje oprávnění k připojení.</value>
+    <value>Vypíše jednotky OU domény, ke které je tento počítač připojen, pomocí vašeho účtu Windows. Vyberte ty, které chcete přidat.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Importovat z domény počítače</value>
+    <value>Importovat OU z domény tohoto počítače</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Importovat vybrané cíle</value>
+    <value>Přidat vybrané OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Zadejte popisek a platný rozlišující název v cílové doméně DNS. Ručně zadané položky zůstanou dostupné, pokud vyhledávání v adresáři selže.</value>
+    <value>Zadejte zobrazovaný název a rozlišující název jednotky OU. Jednotka OU musí patřit do výše uvedené domény.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Přidat cíl ručně</value>
+    <value>Přidat OU ručně</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>Rozlišující název OU</value>
+    <value>Rozlišující název</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Zobrazovaný popisek</value>
+    <value>Zobrazovaný název</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Heslo účtu</value>
+    <value>Heslo</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Vyžadováno pro Zero-touch a katalog OU. Volitelné pro interaktivní nasazení bez katalogu.</value>
+    <value>Název DNS domény, ke které se má počítač připojit, například corp.contoso.com. V režimu „Interaktivní“ volitelné, pokud nepřidáte jednotky OU.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Cílová doména DNS</value>
+    <value>Název domény</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Soubor certifikátu důvěryhodného kořenového CA</value>
@@ -2141,7 +2153,7 @@ Licencováno pod licencí MIT.</value>
     <value>Stav připravenosti média</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Vyžádat doménu a přihlašovací údaje účtu během nasazení.</value>
+    <value>Vyžádat od technika přihlašovací údaje k doméně během nasazení.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktivní připojení k doméně</value>
@@ -2381,7 +2393,7 @@ Licencováno pod licencí MIT.</value>
     <value>Domů</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Vyžádat přihlašovací údaje k doméně během nasazení a volitelně vybrat cílovou OU.</value>
+    <value>Vyžádat od technika přihlašovací údaje k doméně během nasazení.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Interaktivní</value>
@@ -2447,7 +2459,7 @@ Licencováno pod licencí MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Připojit pomocí vložených přihlašovacích údajů chráněných heslem média ze stránky „Obecné“.</value>
+    <value>Připojit k doméně automaticky pomocí přihlašovacích údajů chráněných heslem média.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Vložit přihlašovací údaje k doméně chráněné heslem média.</value>
+    <value>Připojit k doméně automaticky pomocí přihlašovacích údajů chráněných heslem média.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Připojení k doméně Zero-touch</value>

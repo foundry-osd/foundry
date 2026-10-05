@@ -364,46 +364,46 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
     <value>Continuare</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Destinație implicită în domeniu</value>
+    <value>Locația implicită a domeniului</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Introduceți acreditările și destinația implementării. Asocierea la domeniu se execută în Windows instalat.</value>
+    <value>Furnizați datele de asociere la domeniu pentru acest computer. Asocierea are loc după instalarea Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Unitate organizațională</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Introduceți un nume distinctiv OU valid din domeniul specificat sau lăsați câmpul gol.</value>
+    <value>Introduceți un nume distinctiv de OU valid din acest domeniu sau lăsați câmpul gol.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Selectați o unitate organizațională din catalog.</value>
+    <value>Selectați o unitate organizațională.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Nume DNS al domeniului</value>
+    <value>Nume de domeniu</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Datele pentru asocierea la domeniu sunt nevalide sau indisponibile. Implementarea nu a început.</value>
+    <value>Informațiile de asociere la domeniu lipsesc sau nu sunt valide. Implementarea nu a început.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Nume distinctiv OU (opțional)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Lăsați câmpul gol pentru a folosi destinația implicită a domeniului.</value>
+    <value>Lăsați gol pentru a folosi locația implicită a domeniului.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parolă</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Furnizat înainte de implementare</value>
+    <value>Solicitat înainte de începerea implementării</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domeniu: {0}. Destinație: {1}.</value>
+    <value>Domeniu: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Asociere la domeniu</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Această ediție Windows nu acceptă asocierea la domeniu. Instalarea Windows va continua fără asociere la domeniu.</value>
+    <value>Această ediție Windows nu se poate asocia la un domeniu. Instalarea Windows continuă fără asociere.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

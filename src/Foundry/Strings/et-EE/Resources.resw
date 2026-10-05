@@ -1829,163 +1829,175 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Dokumentatsiooni ei saanud avada</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Kontrollige siht-DNS-domeeni, sihtkoha silti ja eristusnime. Sihtkohad peavad kuuluma kataloogi domeeni; kirjeid võib olla kuni 1024.</value>
+    <value>OU-d ei lisatud. Kontrollige domeeninime, kuvatavat nime ja eristusnime. OU peab kuuluma sellesse domeeni.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Enne parooli määramist sisestage kehtiv siht-DNS-domeen ja domeeniga kvalifitseeritud konto. Paroolid peavad jääma toetatud suuruse piiridesse ega tohi sisaldada NUL-märke.</value>
+    <value>Sisestage esmalt kehtiv domeeninimi ja konto ning kontrollige seejärel parooli pikkust.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Sihtkohtade otsimine selle arvuti AD-domeenist...</value>
+    <value>OU-de otsimine selle arvuti domeenist...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Otsing tühistati. Sihtkohtade käsitsi sisestamise juhtelemendid on endiselt saadaval.</value>
+    <value>Otsing tühistati.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Otsing on lõpetatud. Valige imporditavad sihtkohad.</value>
+    <value>Otsing on lõpetatud. Valige lisatavad OU-d.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>See eelvaade on mittetäielik. Kataloogiteenuse piirangud, loetamatud kirjed või viited teistele kataloogidele võisid põhjustada sihtkohtade väljajätmise. Valitud nähtavaid kirjeid saab siiski importida.</value>
+    <value>Loetleda õnnestus ainult osa OU-sid. Kuvatud OU-sid saate siiski lisada.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Otsingu ajalimiit ületati. Sihtkohtade käsitsi sisestamise juhtelemendid on endiselt saadaval.</value>
+    <value>Otsingu ajalimiit ületati. Saate OU-sid käsitsi lisada.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Otsing pole saadaval. Kontrollige arvuti domeenikuuluvust, ühendust ja kataloogiteenuse lugemisõigust või lisage sihtkohad käsitsi.</value>
+    <value>Domeenist ei saanud otsida. Kontrollige, kas see arvuti on domeeniga liidetud ja saab sellega ühendust, või lisage OU-d käsitsi.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Ühtegi sihtkohta pole konfigureeritud.</value>
+    <value>OU-sid pole lisatud.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Importi ei rakendatud. Sihtdomeen ja kataloogi domeen peavad vastama leitud arvutidomeenile ning saadud kataloog peab jääma toetatud piiridesse.</value>
+    <value>OU-sid ei lisatud. Need kuuluvad teise domeeni kui domeeninimi või juba loendis olevad OU-d.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Valitud sihtkohad imporditi.</value>
+    <value>Valitud OU-d lisati.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Eemalda valitud</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Sisestage domeenikonto.</value>
+    <value>Sisestage konto.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Siht-DNS-domeen peab vastama sihtkohtade kataloogi domeenile. Enne domeeni muutmist eemaldage vanad kataloogikirjed.</value>
+    <value>Loendis olevad OU-d kuuluvad teise domeeni. Eemaldage need või taastage eelmine domeeninimi.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Määrake sihtkohtade kataloogile DNS-domeen.</value>
+    <value>Sisestage enne OU-de lisamist domeeninimi.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Valige olemasolev vaikimisi sihtkoht või tühjendage vaikevalik.</value>
+    <value>Vaikimisi OU-d pole enam loendis. Valige mõni teine või tühjendage valik.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Sisestage siht-DNS-domeen.</value>
+    <value>Sisestage domeeninimi.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Kataloog sisaldab sihtkohtade korduvaid eristusnimesid.</value>
+    <value>Sama OU on loendis mitu korda.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>Kataloog sisaldab sihtkohtade korduvaid identifikaatoreid.</value>
+    <value>Kahel OU-l on sama sisemine ID. Eemaldage üks neist ja lisage see uuesti.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Sisestage kehtiv konto toetatud pikkuse piires.</value>
+    <value>Konto on liiga pikk või ei kehti.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Sisestage kehtiv kataloogi DNS-domeen.</value>
+    <value>Loendis olevate OU-de domeen ei kehti. Eemaldage OU-d ja lisage need uuesti.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Sihtkoha eristusnimi on vigane.</value>
+    <value>Ühe OU eristusnimi ei kehti.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Sisestage kehtiv siht-DNS-domeen.</value>
+    <value>Sisestage kehtiv domeeninimi, näiteks corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Igal sihtkohal peab olema kuni 120 märgi pikkune silt.</value>
+    <value>Igal OU-l peab olema kuni 120 märgi pikkune kuvatav nimi.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Sihtkoha identifikaator on vigane. Eemaldage see ja lisage uuesti.</value>
+    <value>Üks OU kirje on rikutud. Eemaldage see ja lisage uuesti.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Lubage lehel „Üldine“ andmekandja paroolikaitse ja sisestage kehtiv andmekandja parool.</value>
+    <value>Lubage lehel „Üldine“ andmekandja paroolikaitse ja määrake andmekandja parool.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Enne valimise lubamist lisage sihtkohad või tühjendage valik ja vaikevalik.</value>
+    <value>Lisage vähemalt üks OU või keelake OU valimine ja tühjendage vaikimisi OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Kõik sihtkohad peavad asuma kataloogi domeenis.</value>
+    <value>Kõik loendis olevad OU-d peavad kuuluma samasse domeeni.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Sisestage selle domeeni ja konto parool.</value>
+    <value>Sisestage konto parool.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Kasutage konto jaoks vormingut DOMAIN\user või user@domain.</value>
+    <value>Sisestage konto kujul DOMAIN\user või user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>Kataloog toetab kuni 1024 sihtkohta.</value>
+    <value>Loendisse saab lisada kuni 1024 OU-d.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Valige toetatud domeeniga liitumise režiim.</value>
+    <value>Seda domeeniga liitumise režiimi ei toetata.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Konto (DOMAIN\user või user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Lisa sihtkoht</value>
+    <value>Lisa OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Tehnikud valivad juurutamise ajal loendist OU.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Luba juurutamisel sihtkoha valimine</value>
+    <value>Luba tehnikutel OU valida</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Tühista otsing</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Ilma kataloogita võivad tehnikud sisestada valikulise OU. Kataloogi kasutamisel piirduvad sihtkohad selle kirjetega. Fikseeritud vaikevalikul pole valijat; vaikevalikuta valija nõuab valimist. Olemasolevad arvutikontod teisaldatakse valitud sihtkohta.</value>
+    <value>Valikuline. Loetlege OU-d, kuhu arvuteid saab paigutada. Olemasolev arvutikonto teisaldatakse valitud OU-sse.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Sihtkohad</value>
+    <value>Organisatsiooniüksused</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Tühjenda vaikevalik</value>
+    <value>Tühjenda</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Kasutage domeeniga kvalifitseeritud kontot, millel on administraatori delegeeritud liitumis- ja paigutusõigused. Foundry ei auditeeri õigusi. Parool kustutatakse domeeni, konto või aktiivse režiimi muutumisel.</value>
+    <value>Konto, millega arvutid domeeniga liidetakse. Sellel peab olema õigus arvuteid domeeniga liita ja teie valitud OU-desse teisaldada. Parool kustutatakse domeeninime või konto muutumisel.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Domeeni identimisteave</value>
+    <value>Liitmiskonto</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>OU, mida kasutatakse igal juurutamisel või mis on eelvalitud, kui tehnikud saavad valida. Domeeni vaikeasukoha kasutamiseks jätke tühjaks.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Vaikimisi sihtkoht (valikuline)</value>
+    <value>Vaikimisi OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Otsi sihtkohti</value>
+    <value>Otsi OU-sid</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Kasutab selle arvuti AD-domeeni ja teie praegust Windowsi identiteeti. Vaadake eelvaadet ja valige kirjed selgesõnaliselt; import säilitab käsitsi lisatud read ja vaikevaliku. Otsing ei testi liitumisõigusi.</value>
+    <value>Loetleb teie Windowsi konto abil selle domeeni OU-d, millega see arvuti on liidetud. Valige lisatavad OU-d.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Impordi arvuti domeenist</value>
+    <value>Impordi OU-d selle arvuti domeenist</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Impordi valitud sihtkohad</value>
+    <value>Lisa valitud OU-d</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Sisestage silt ja kehtiv eristusnimi siht-DNS-domeenis. Käsitsi lisatud kirjed jäävad saadavale, kui kataloogiteenuse otsing ebaõnnestub.</value>
+    <value>Sisestage OU kuvatav nimi ja eristusnimi. OU peab kuuluma ülaltoodud domeeni.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Lisa sihtkoht käsitsi</value>
+    <value>Lisa OU käsitsi</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OU eristusnimi</value>
+    <value>Eristusnimi</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Kuvatav silt</value>
+    <value>Kuvatav nimi</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Konto parool</value>
+    <value>Parool</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Nõutav Zero-touchi ja OU-kataloogi jaoks. Valikuline interaktiivsel juurutamisel ilma kataloogita.</value>
+    <value>Selle domeeni DNS-nimi, millega liituda, näiteks corp.contoso.com. Režiimis „Interaktiivne“ valikuline, kui te OU-sid ei lisa.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Siht-DNS-domeen</value>
+    <value>Domeeninimi</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Usaldusväärne juur-CA sertifikaadi fail</value>
@@ -2141,7 +2153,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Andmekandja valmisoleku olek</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Küsige juurutamisel domeeni ja konto identimisteavet.</value>
+    <value>Küsige tehnikult juurutamise ajal domeeni identimisteavet.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktiivne domeeniga liitumine</value>
@@ -2381,7 +2393,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Kodu</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Küsige juurutamisel domeeni identimisteavet ja valige soovi korral siht-OU.</value>
+    <value>Küsige tehnikult juurutamise ajal domeeni identimisteavet.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Interaktiivne</value>
@@ -2447,7 +2459,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Liituge manustatud identimisteabe abil, mida kaitseb lehel „Üldine“ määratud andmekandja parool.</value>
+    <value>Liituge domeeniga automaatselt identimisteabe abil, mida kaitseb andmekandja parool.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Manustage andmekandja parooliga kaitstud domeeni identimisteave.</value>
+    <value>Liituge domeeniga automaatselt identimisteabe abil, mida kaitseb andmekandja parool.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touchi domeeniga liitumine</value>

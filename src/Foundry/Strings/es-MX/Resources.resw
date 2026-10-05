@@ -1829,163 +1829,175 @@ Licenciado bajo la Licencia MIT.</value>
     <value>No se pudo abrir la documentación</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Compruebe el dominio DNS de destino, la etiqueta de destino y el nombre distintivo. Los destinos deben pertenecer al dominio del catálogo, con un máximo de 1024 entradas.</value>
+    <value>No se ha agregado la OU. Compruebe el nombre de dominio, el nombre para mostrar y el nombre distintivo. La OU debe pertenecer a ese dominio.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Introduzca un dominio DNS de destino y una cuenta calificada válidos antes de establecer una contraseña. Las contraseñas deben respetar el tamaño admitido y no contener caracteres NUL.</value>
+    <value>Introduzca primero un nombre de dominio y una cuenta válidos y, después, compruebe la longitud de la contraseña.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Buscando destinos en el dominio AD de este equipo...</value>
+    <value>Buscando OU en el dominio de este equipo...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Se ha cancelado la búsqueda. Los controles de destino manuales siguen disponibles.</value>
+    <value>Búsqueda cancelada.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Búsqueda completada. Seleccione los destinos que desea importar.</value>
+    <value>Búsqueda completada. Seleccione las OU que quiere agregar.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>Esta vista previa está incompleta. Los límites del directorio, las entradas ilegibles o las referencias a otros directorios pueden haber provocado la omisión de destinos. Las entradas visibles seleccionadas se pueden importar igualmente.</value>
+    <value>Solo se han podido mostrar algunas OU. Puede agregar igualmente las que aparecen.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Se ha agotado el tiempo de búsqueda. Los controles de destino manuales siguen disponibles.</value>
+    <value>Se ha agotado el tiempo de búsqueda. Puede agregar OU manualmente.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>La búsqueda no está disponible. Compruebe la pertenencia del equipo al dominio, la conectividad y el acceso de lectura al directorio, o agregue destinos manualmente.</value>
+    <value>No se ha podido buscar en el dominio. Compruebe que este equipo está unido a un dominio y puede conectarse a él, o agregue las OU manualmente.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>No hay destinos configurados.</value>
+    <value>No se ha agregado ninguna OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>No se ha aplicado la importación. El dominio de destino y el del catálogo deben coincidir con el dominio del equipo detectado, y el catálogo resultante debe respetar los límites admitidos.</value>
+    <value>No se han agregado las OU. Pertenecen a un dominio distinto del nombre de dominio o de las OU ya incluidas en la lista.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Se han importado los destinos seleccionados.</value>
+    <value>Se han agregado las OU seleccionadas.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Eliminar seleccionado</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Introduzca la cuenta de dominio.</value>
+    <value>Introduzca la cuenta.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>El dominio DNS de destino debe coincidir con el dominio del catálogo de destinos. Quite las entradas antiguas del catálogo antes de cambiar de dominio.</value>
+    <value>Las OU de la lista pertenecen a otro dominio. Quítelas o restaure el nombre de dominio anterior.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Establezca un dominio DNS para el catálogo de destinos.</value>
+    <value>Introduzca el nombre de dominio antes de agregar OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Seleccione un destino predeterminado existente o borre el valor predeterminado.</value>
+    <value>La OU predeterminada ya no está en la lista. Elija otra o bórrela.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Introduzca el dominio DNS de destino.</value>
+    <value>Introduzca el nombre de dominio.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>El catálogo contiene nombres distintivos de destino duplicados.</value>
+    <value>La misma OU aparece más de una vez en la lista.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>El catálogo contiene identificadores de destino duplicados.</value>
+    <value>Dos OU comparten el mismo id. interno. Quite una y vuelva a agregarla.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Introduzca una cuenta válida que respete la longitud admitida.</value>
+    <value>La cuenta es demasiado larga o no es válida.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Introduzca un dominio DNS de catálogo válido.</value>
+    <value>El dominio de las OU de la lista no es válido. Quite las OU y vuelva a agregarlas.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>El nombre distintivo de un destino no es válido.</value>
+    <value>Una OU tiene un nombre distintivo que no es válido.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Introduzca un dominio DNS de destino válido.</value>
+    <value>Introduzca un nombre de dominio válido, como corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Cada destino necesita una etiqueta de 120 caracteres como máximo.</value>
+    <value>Cada OU necesita un nombre para mostrar de 120 caracteres como máximo.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Un destino tiene un identificador no válido. Quítelo y vuelva a agregarlo.</value>
+    <value>Una entrada de OU está dañada. Quítela y vuelva a agregarla.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Active la protección del medio mediante contraseña en la página General e introduzca una contraseña de medio válida.</value>
+    <value>Active la protección del medio mediante contraseña en la página "General" y establezca una contraseña de medio.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Agregue destinos antes de habilitar la selección, o borre la selección y el valor predeterminado.</value>
+    <value>Agregue al menos una OU, o desactive la selección de OU y borre la OU predeterminada.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Todos los destinos deben estar dentro del dominio del catálogo.</value>
+    <value>Todas las OU de la lista deben pertenecer al mismo dominio.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Introduzca la contraseña de la cuenta para este dominio y esta cuenta.</value>
+    <value>Introduzca la contraseña de la cuenta.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Utilice DOMAIN\user o user@domain para la cuenta.</value>
+    <value>Introduzca la cuenta como DOMAIN\user o user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>El catálogo admite un máximo de 1024 destinos.</value>
+    <value>La lista admite un máximo de 1024 OU.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Seleccione un modo de unión al dominio admitido.</value>
+    <value>Este modo de unión al dominio no es compatible.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Cuenta (DOMAIN\user o user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Agregar destino</value>
+    <value>Agregar OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Los técnicos eligen una OU de la lista durante la implementación.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Permitir la selección del destino durante la implementación</value>
+    <value>Permitir que los técnicos elijan la OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Cancelar búsqueda</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Sin catálogo, los técnicos pueden escribir una OU opcional. Con catálogo, los destinos se limitan a sus entradas. Un valor predeterminado fijo no muestra un selector; un selector sin valor predeterminado requiere una selección. Las cuentas de equipo existentes se mueven al destino seleccionado.</value>
+    <value>Opcional. Indique las OU en las que se pueden colocar los equipos. Una cuenta de equipo existente se mueve a la OU elegida.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Destinos</value>
+    <value>Unidades organizacionales</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Borrar valor predeterminado</value>
+    <value>Borrar</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Utilice una cuenta calificada con permisos de unión y ubicación delegados por un administrador. Foundry no audita los permisos. La contraseña se borra cuando cambia el dominio, la cuenta o el modo activo.</value>
+    <value>Cuenta utilizada para unir equipos al dominio. Necesita permiso para unir equipos y moverlos a las OU que elija. La contraseña se borra cuando cambia el nombre de dominio o la cuenta.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Credenciales de dominio</value>
+    <value>Cuenta de unión</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>OU utilizada en todas las implementaciones, o preseleccionada cuando los técnicos pueden elegir. Déjela vacía para usar la ubicación predeterminada del dominio.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Destino predeterminado (opcional)</value>
+    <value>OU predeterminada</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Buscar destinos</value>
+    <value>Buscar OU</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Utiliza el dominio AD de este equipo y su identidad actual de Windows. Revise la vista previa y seleccione las entradas explícitamente; la importación conserva las filas manuales y el valor predeterminado. La búsqueda no comprueba los permisos de unión.</value>
+    <value>Muestra las OU del dominio al que está unido este equipo, con su cuenta de Windows. Seleccione las que quiere agregar.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Importar desde el dominio del equipo</value>
+    <value>Importar OU del dominio de este equipo</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Importar destinos seleccionados</value>
+    <value>Agregar las OU seleccionadas</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Introduzca una etiqueta y un nombre distintivo válido dentro del dominio DNS de destino. Las entradas manuales siguen disponibles si falla la búsqueda en el directorio.</value>
+    <value>Introduzca un nombre para mostrar y el nombre distintivo de la OU. La OU debe pertenecer al dominio indicado arriba.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Agregar un destino manualmente</value>
+    <value>Agregar una OU manualmente</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>Nombre distintivo de la OU</value>
+    <value>Nombre distintivo</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Etiqueta para mostrar</value>
+    <value>Nombre para mostrar</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Contraseña de la cuenta</value>
+    <value>Contraseña</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Obligatorio para zero-touch y un catálogo de OU. Opcional para la implementación interactiva sin catálogo.</value>
+    <value>Nombre DNS del dominio al que unirse, como corp.contoso.com. Opcional en el modo Interactivo salvo que agregue OU.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Dominio DNS de destino</value>
+    <value>Nombre de dominio</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Archivo de certificado de CA raíz de confianza</value>
@@ -2141,7 +2153,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Estado de preparación del medio</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Solicite el dominio y las credenciales de la cuenta durante la implementación.</value>
+    <value>Solicite al técnico las credenciales de dominio durante la implementación.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Unión interactiva al dominio</value>
@@ -2381,7 +2393,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Hogar</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Solicite credenciales de dominio durante la implementación y seleccione opcionalmente una OU de destino.</value>
+    <value>Solicite al técnico las credenciales de dominio durante la implementación.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Interactivo</value>
@@ -2447,7 +2459,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Una el equipo al dominio con credenciales integradas protegidas por la contraseña del medio de la página General.</value>
+    <value>Una el equipo al dominio automáticamente con credenciales protegidas por la contraseña del medio.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Integre las credenciales de dominio protegidas por la contraseña del medio.</value>
+    <value>Una el equipo al dominio automáticamente con credenciales protegidas por la contraseña del medio.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Unión al dominio zero-touch</value>

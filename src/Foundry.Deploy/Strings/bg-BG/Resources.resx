@@ -364,46 +364,46 @@
     <value>Продължаване</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Местоназначение по подразбиране в домейна</value>
+    <value>Местоположение по подразбиране в домейна</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Въведете идентификационните данни и местоназначението за разполагането. Присъединяването към домейна се изпълнява в инсталирания Windows.</value>
+    <value>Въведете данните за присъединяване на този компютър към домейна. Присъединяването се извършва след инсталирането на Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Организационна единица</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Въведете валидно отличително име на OU в указания домейн или оставете полето празно.</value>
+    <value>Въведете валидно отличително име на OU в този домейн или оставете полето празно.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Изберете организационна единица от каталога.</value>
+    <value>Изберете организационна единица.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>DNS име на домейна</value>
+    <value>Име на домейна</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Входните данни за присъединяване към домейна са невалидни или недостъпни. Разполагането не е започнало.</value>
+    <value>Данните за присъединяване към домейна липсват или са невалидни. Разполагането не е започнало.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Отличително име на OU (незадължително)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Оставете полето празно, за да използвате местоназначението по подразбиране в домейна.</value>
+    <value>Оставете празно, за да се използва местоположението по подразбиране в домейна.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Парола</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Предоставено преди разполагането</value>
+    <value>Изисква се преди началото на разполагането</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Домейн: {0}. Местоназначение: {1}.</value>
+    <value>Домейн: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Присъединяване към домейн</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Това издание на Windows не поддържа присъединяване към домейн. Инсталирането на Windows ще продължи без присъединяване към домейн.</value>
+    <value>Това издание на Windows не може да се присъедини към домейн. Инсталирането на Windows продължава без присъединяване.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

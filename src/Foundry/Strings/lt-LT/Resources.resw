@@ -1829,163 +1829,175 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepavyko atidaryti dokumentų</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Patikrinkite paskirties DNS domeną, paskirties žymą ir skiriamąjį vardą. Paskirtys turi priklausyti katalogo domenui; leidžiama ne daugiau kaip 1 024 įrašai.</value>
+    <value>OU nepridėtas. Patikrinkite domeno vardą, rodomą pavadinimą ir skiriamąjį vardą. OU turi priklausyti šiam domenui.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Prieš nustatydami slaptažodį įveskite tinkamą paskirties DNS domeną ir paskyros vardą su domenu. Slaptažodžiai turi neviršyti palaikomo dydžio ir negali turėti NUL simbolių.</value>
+    <value>Pirmiausia įveskite tinkamą domeno vardą ir paskyrą, tada patikrinkite slaptažodžio ilgį.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Ieškoma paskirčių šio kompiuterio AD domene...</value>
+    <value>Ieškoma OU šio kompiuterio domene...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Paieška atšaukta. Rankinio paskirčių įvedimo valdikliai tebėra pasiekiami.</value>
+    <value>Paieška atšaukta.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Paieška baigta. Pasirinkite importuotinas paskirtis.</value>
+    <value>Paieška baigta. Pasirinkite OU, kuriuos norite pridėti.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>Ši peržiūra neišsami. Dėl katalogų tarnybos apribojimų, neperskaitomų įrašų arba nukreipimų kai kurios paskirtys galėjo būti praleistos. Pasirinktus matomus įrašus vis tiek galima importuoti.</value>
+    <value>Pavyko pateikti tik dalį OU. Rodomus vis tiek galite pridėti.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Baigėsi paieškai skirtas laikas. Rankinio paskirčių įvedimo valdikliai tebėra pasiekiami.</value>
+    <value>Baigėsi paieškai skirtas laikas. OU galite pridėti rankiniu būdu.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Paieška nepasiekiama. Patikrinkite kompiuterio narystę domene, ryšį ir katalogų tarnybos skaitymo prieigą arba pridėkite paskirtis rankiniu būdu.</value>
+    <value>Nepavyko atlikti paieškos domene. Patikrinkite, ar šis kompiuteris prijungtas prie domeno ir gali jį pasiekti, arba pridėkite OU rankiniu būdu.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Nesukonfigūruota jokių paskirčių.</value>
+    <value>OU nepridėta.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Importavimas nepritaikytas. Paskirties ir katalogo domenai turi sutapti su aptiktu kompiuterio domenu, o gautas katalogas turi neviršyti palaikomų ribų.</value>
+    <value>OU nepridėti. Jie priklauso kitam domenui nei nurodytas domeno vardas arba jau sąraše esantys OU.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Pasirinktos paskirtys importuotos.</value>
+    <value>Pasirinkti OU pridėti.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Pašalinti pasirinktą</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Įveskite domeno paskyrą.</value>
+    <value>Įveskite paskyrą.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Paskirties DNS domenas turi sutapti su paskirčių katalogo domenu. Prieš keisdami domeną pašalinkite senus katalogo įrašus.</value>
+    <value>Sąraše esantys OU priklauso kitam domenui. Pašalinkite juos arba grąžinkite ankstesnį domeno vardą.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Nustatykite paskirčių katalogo DNS domeną.</value>
+    <value>Prieš pridėdami OU įveskite domeno vardą.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Pasirinkite esamą numatytąją paskirtį arba išvalykite numatytąją nuostatą.</value>
+    <value>Numatytojo OU sąraše nebėra. Pasirinkite kitą arba išvalykite.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Įveskite paskirties DNS domeną.</value>
+    <value>Įveskite domeno vardą.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Kataloge yra pasikartojančių paskirčių skiriamųjų vardų.</value>
+    <value>Tas pats OU sąraše pateiktas daugiau nei vieną kartą.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>Kataloge yra pasikartojančių paskirčių identifikatorių.</value>
+    <value>Du OU turi tą patį vidinį ID. Pašalinkite vieną ir pridėkite jį iš naujo.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Įveskite tinkamą paskyrą, neviršijančią palaikomo ilgio.</value>
+    <value>Paskyra per ilga arba netinkama.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Įveskite tinkamą katalogo DNS domeną.</value>
+    <value>Sąraše esančių OU domenas netinkamas. Pašalinkite OU ir pridėkite juos iš naujo.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Paskirties skiriamasis vardas netinkamas.</value>
+    <value>Vieno OU skiriamasis vardas netinkamas.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Įveskite tinkamą paskirties DNS domeną.</value>
+    <value>Įveskite tinkamą domeno vardą, pvz., corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Kiekvienai paskirčiai reikia ne ilgesnės kaip 120 simbolių žymos.</value>
+    <value>Kiekvienam OU reikia rodomo pavadinimo, ne ilgesnio kaip 120 simbolių.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Paskirties identifikatorius netinkamas. Pašalinkite ją ir pridėkite iš naujo.</value>
+    <value>OU įrašas sugadintas. Pašalinkite jį ir pridėkite iš naujo.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Puslapyje „Bendra“ įjunkite laikmenos apsaugą slaptažodžiu ir įveskite tinkamą laikmenos slaptažodį.</value>
+    <value>Puslapyje „Bendra“ įjunkite laikmenos apsaugą slaptažodžiu ir nustatykite laikmenos slaptažodį.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Prieš įjungdami pasirinkimą pridėkite paskirtis arba išjunkite pasirinkimą ir išvalykite numatytąją nuostatą.</value>
+    <value>Pridėkite bent vieną OU arba išjunkite OU pasirinkimą ir išvalykite numatytąjį OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Kiekviena paskirtis turi būti katalogo domene.</value>
+    <value>Visi sąraše esantys OU turi priklausyti tam pačiam domenui.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Įveskite šio domeno ir šios paskyros slaptažodį.</value>
+    <value>Įveskite paskyros slaptažodį.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Paskyrai naudokite DOMAIN\user arba user@domain.</value>
+    <value>Įveskite paskyrą formatu DOMAIN\user arba user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>Katalogas palaiko ne daugiau kaip 1 024 paskirtis.</value>
+    <value>Sąraše gali būti ne daugiau kaip 1 024 OU.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Pasirinkite palaikomą prisijungimo prie domeno režimą.</value>
+    <value>Šis prisijungimo prie domeno režimas nepalaikomas.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Paskyra (DOMAIN\user arba user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Pridėti paskirtį</value>
+    <value>Pridėti OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Diegimo metu technikai pasirenka OU iš sąrašo.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Leisti pasirinkti paskirtį diegimo metu</value>
+    <value>Leisti technikams pasirinkti OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Atšaukti paiešką</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Jei katalogo nėra, technikai gali įvesti nebūtiną OU. Jei katalogas yra, paskirtys ribojamos jo įrašais. Fiksuota numatytoji paskirtis nerodo pasirinkimo valdiklio; jei pasirinkimo valdiklis neturi numatytosios paskirties, pasirinkti būtina. Esamos kompiuterių paskyros perkeliamos į pasirinktą paskirtį.</value>
+    <value>Nebūtina. Išvardykite OU, kuriuose galima talpinti kompiuterius. Esama kompiuterio paskyra perkeliama į pasirinktą OU.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Paskirtys</value>
+    <value>Organizaciniai vienetai</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Išvalyti numatytąją nuostatą</value>
+    <value>Išvalyti</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Naudokite paskyros vardą su domenu ir administratoriaus deleguotomis prisijungimo bei patalpinimo teisėmis. Foundry neatlieka teisių audito. Slaptažodis išvalomas pasikeitus domenui, paskyrai arba aktyviam režimui.</value>
+    <value>Paskyra, naudojama kompiuteriams prijungti prie domeno. Jai reikia teisių prijungti kompiuterius ir perkelti juos į jūsų pasirinktus OU. Pasikeitus domeno vardui arba paskyrai, slaptažodis išvalomas.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Domeno prisijungimo duomenys</value>
+    <value>Prijungimo prie domeno paskyra</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>OU, naudojamas kiekvienam diegimui arba parenkamas iš anksto, kai technikai gali rinktis. Palikite tuščią, kad būtų naudojama numatytoji domeno vieta.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Numatytoji paskirtis (nebūtina)</value>
+    <value>Numatytasis OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Ieškoti paskirčių</value>
+    <value>Rasti OU</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Naudojamas šio kompiuterio AD domenas ir dabartinė jūsų Windows tapatybė. Peržiūrėkite ir aiškiai pasirinkite įrašus; importuojant išsaugomos rankinės eilutės ir numatytoji paskirtis. Paieška netikrina prisijungimo teisių.</value>
+    <value>Naudojant jūsų Windows paskyrą pateikiamas domeno, prie kurio prijungtas šis kompiuteris, OU sąrašas. Pasirinkite, kuriuos pridėti.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Importuoti iš kompiuterio domeno</value>
+    <value>Importuoti OU iš šio kompiuterio domeno</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Importuoti pasirinktas paskirtis</value>
+    <value>Pridėti pasirinktus OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Įveskite žymą ir tinkamą skiriamąjį vardą paskirties DNS domene. Rankiniai įrašai lieka pasiekiami nepavykus paieškai katalogų tarnyboje.</value>
+    <value>Įveskite OU rodomą pavadinimą ir skiriamąjį vardą. OU turi priklausyti aukščiau nurodytam domenui.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Pridėti paskirtį rankiniu būdu</value>
+    <value>Pridėti OU rankiniu būdu</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OU skiriamasis vardas</value>
+    <value>Skiriamasis vardas</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Rodoma žyma</value>
+    <value>Rodomas pavadinimas</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Paskyros slaptažodis</value>
+    <value>Slaptažodis</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Būtinas režimui be įsikišimo ir OU katalogui. Nebūtinas interaktyviam diegimui be katalogo.</value>
+    <value>Domeno, prie kurio jungiamasi, DNS vardas, pvz., corp.contoso.com. Režimu „Interaktyvus“ nebūtinas, nebent pridedate OU.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Paskirties DNS domenas</value>
+    <value>Domeno vardas</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Patikimas šakninio CA sertifikato failas</value>
@@ -2141,7 +2153,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Laikmenos parengties būsena</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Diegimo metu prašyti domeno ir paskyros prisijungimo duomenų.</value>
+    <value>Diegimo metu paprašyti techniko domeno prisijungimo duomenų.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktyvus prisijungimas prie domeno</value>
@@ -2381,7 +2393,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pradžia</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Diegimo metu prašyti domeno prisijungimo duomenų ir pasirinktinai pasirinkti paskirties OU.</value>
+    <value>Diegimo metu paprašyti techniko domeno prisijungimo duomenų.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Interaktyvus</value>
@@ -2447,7 +2459,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Prisijungti naudojant įterptus prisijungimo duomenis, apsaugotus puslapyje „Bendra“ nustatytu laikmenos slaptažodžiu.</value>
+    <value>Prisijungti prie domeno automatiškai naudojant prisijungimo duomenis, apsaugotus laikmenos slaptažodžiu.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Įterpkite laikmenos slaptažodžiu apsaugotus domeno prisijungimo duomenis.</value>
+    <value>Prisijungti prie domeno automatiškai naudojant prisijungimo duomenis, apsaugotus laikmenos slaptažodžiu.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Prisijungimas prie domeno be įsikišimo</value>

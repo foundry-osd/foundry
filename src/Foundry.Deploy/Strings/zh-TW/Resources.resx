@@ -364,46 +364,46 @@
     <value>繼續</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>預設網域目的地</value>
+    <value>網域預設位置</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>請輸入部署認證和目的地。網域加入會在已安裝的 Windows 中執行。</value>
+    <value>請提供此電腦的網域加入資訊。加入作業會在 Windows 安裝完成後執行。</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>組織單位</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>請輸入指定網域內有效的 OU 辨別名稱，或留空。</value>
+    <value>請輸入此網域內有效的 OU 辨別名稱，或留空。</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>請從目錄中選取一個組織單位。</value>
+    <value>請選取一個組織單位。</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>網域 DNS 名稱</value>
+    <value>網域名稱</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>網域加入輸入無效或無法使用。部署尚未開始。</value>
+    <value>網域加入資訊遺漏或無效。部署尚未開始。</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OU 辨別名稱（選用）</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>留空以使用預設網域目的地。</value>
+    <value>留空以使用網域的預設位置。</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>密碼</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>在部署前提供</value>
+    <value>部署開始前詢問</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>網域：{0}。目的地：{1}。</value>
+    <value>網域：{0}。OU：{1}。</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>網域加入</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>此 Windows 版本不支援網域加入。Windows 安裝將繼續進行，不會加入網域。</value>
+    <value>此 Windows 版本無法加入網域。Windows 安裝將繼續進行，不會加入網域。</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

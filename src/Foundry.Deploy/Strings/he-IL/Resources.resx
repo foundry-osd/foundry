@@ -364,46 +364,46 @@ ErrorCode=0x80070005
     <value>המשך</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>יעד ברירת המחדל של התחום</value>
+    <value>מיקום ברירת המחדל של התחום</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>הזן את פרטי הכניסה ואת היעד לפריסה. ההצטרפות לתחום מתבצעת ב-Windows המותקן.</value>
+    <value>ספק את פרטי ההצטרפות לתחום עבור מחשב זה. ההצטרפות מתבצעת לאחר התקנת Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>יחידה ארגונית</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>הזן שם מובחן תקין של OU בתחום שצוין, או השאר ריק.</value>
+    <value>הזן שם מובחן תקין של OU בתחום זה, או השאר ריק.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>בחר יחידה ארגונית מהקטלוג.</value>
+    <value>בחר יחידה ארגונית.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>שם DNS של התחום</value>
+    <value>שם התחום</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>הקלט להצטרפות לתחום אינו תקין או אינו זמין. הפריסה לא התחילה.</value>
+    <value>פרטי ההצטרפות לתחום חסרים או אינם תקינים. הפריסה לא התחילה.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>שם מובחן של OU (אופציונלי)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>השאר ריק כדי להשתמש ביעד ברירת המחדל של התחום.</value>
+    <value>השאר ריק כדי להשתמש במיקום ברירת המחדל של התחום.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>סיסמה</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>סופקו לפני הפריסה</value>
+    <value>מתבקש לפני תחילת הפריסה</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>תחום: {0}. יעד: {1}.</value>
+    <value>תחום: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>הצטרפות לתחום</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>מהדורת Windows זו אינה תומכת בהצטרפות לתחום. התקנת Windows תימשך ללא הצטרפות לתחום.</value>
+    <value>מהדורת Windows זו אינה יכולה להצטרף לתחום. התקנת Windows ממשיכה ללא הצטרפות.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

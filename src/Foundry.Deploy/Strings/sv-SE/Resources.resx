@@ -364,46 +364,46 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
     <value>Fortsätt</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Domänens standarddestination</value>
+    <value>Domänens standardplats</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Ange autentiseringsuppgifterna och destinationen för distributionen. Domänanslutningen körs i det installerade Windows.</value>
+    <value>Ange uppgifterna för att ansluta den här datorn till domänen. Anslutningen sker när Windows har installerats.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organisationsenhet</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Ange ett giltigt unikt namn för en OU i den angivna domänen, eller lämna fältet tomt.</value>
+    <value>Ange ett giltigt unikt namn för en OU i den här domänen, eller lämna fältet tomt.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Välj en organisationsenhet i katalogen.</value>
+    <value>Välj en organisationsenhet.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Domänens DNS-namn</value>
+    <value>Domännamn</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Uppgifterna för domänanslutning är ogiltiga eller otillgängliga. Distributionen har inte startat.</value>
+    <value>Uppgifterna för domänanslutning saknas eller är ogiltiga. Distributionen har inte startat.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Unikt namn för OU (valfritt)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Lämna tomt för att använda domänens standarddestination.</value>
+    <value>Lämna tomt för att använda domänens standardplats.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Lösenord</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Anges före distributionen</value>
+    <value>Efterfrågas innan distributionen startar</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domän: {0}. Destination: {1}.</value>
+    <value>Domän: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domänanslutning</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Den här Windows-utgåvan stöder inte domänanslutning. Windows-installationen fortsätter utan domänanslutning.</value>
+    <value>Den här Windows-utgåvan kan inte anslutas till en domän. Windows-installationen fortsätter utan domänanslutning.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

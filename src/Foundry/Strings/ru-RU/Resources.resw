@@ -1829,163 +1829,175 @@
     <value>Документацию невозможно открыть</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Проверьте целевой DNS-домен, подпись и различающееся имя назначения. Назначения должны принадлежать домену каталога; допускается не более 1 024 записей.</value>
+    <value>OU не добавлено. Проверьте имя домена, отображаемое имя и различающееся имя. OU должно принадлежать этому домену.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Укажите допустимый целевой DNS-домен и полное имя учетной записи перед заданием пароля. Пароль должен соответствовать допустимому размеру и не содержать символов NUL.</value>
+    <value>Сначала укажите допустимые имя домена и учетную запись, затем проверьте длину пароля.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Поиск назначений в домене AD этого компьютера...</value>
+    <value>Поиск OU в домене этого компьютера...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Поиск отменен. Элементы управления для ручного добавления назначений остаются доступны.</value>
+    <value>Поиск отменен.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Поиск завершен. Выберите назначения для импорта.</value>
+    <value>Поиск завершен. Выберите OU для добавления.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>Этот предварительный список неполон. Ограничения службы каталогов, недоступные для чтения записи или ссылки на другие каталоги могли привести к пропуску назначений. Выбранные видимые записи по-прежнему можно импортировать.</value>
+    <value>Удалось получить только часть OU. Показанные OU все равно можно добавить.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Время ожидания поиска истекло. Элементы управления для ручного добавления назначений остаются доступны.</value>
+    <value>Время ожидания поиска истекло. OU можно добавить вручную.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Поиск недоступен. Проверьте членство компьютера в домене, подключение и доступ на чтение службы каталогов или добавьте назначения вручную.</value>
+    <value>Не удалось выполнить поиск в домене. Убедитесь, что этот компьютер присоединен к домену и домен доступен, или добавьте OU вручную.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Назначения не настроены.</value>
+    <value>OU не добавлены.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Импорт не применен. Целевой домен и домен каталога должны совпадать с обнаруженным доменом компьютера, а итоговый каталог должен соответствовать допустимым ограничениям.</value>
+    <value>OU не добавлены. Они принадлежат другому домену, отличному от указанного имени домена или от уже добавленных в список OU.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Выбранные назначения импортированы.</value>
+    <value>Выбранные OU добавлены.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Удалить выбранное</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Укажите учетную запись домена.</value>
+    <value>Укажите учетную запись.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Целевой DNS-домен должен совпадать с доменом каталога назначений. Перед сменой домена удалите старые записи каталога.</value>
+    <value>OU в списке принадлежат другому домену. Удалите их или верните прежнее имя домена.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Задайте DNS-домен для каталога назначений.</value>
+    <value>Укажите имя домена, прежде чем добавлять OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Выберите существующее назначение по умолчанию или очистите значение по умолчанию.</value>
+    <value>OU по умолчанию больше нет в списке. Выберите другое или очистите значение.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Укажите целевой DNS-домен.</value>
+    <value>Укажите имя домена.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Каталог содержит повторяющиеся различающиеся имена назначений.</value>
+    <value>Одно и то же OU указано в списке несколько раз.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>Каталог содержит повторяющиеся идентификаторы назначений.</value>
+    <value>У двух OU одинаковый внутренний идентификатор. Удалите одно из них и добавьте снова.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Укажите допустимую учетную запись с поддерживаемой длиной имени.</value>
+    <value>Учетная запись слишком длинная или недопустима.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Укажите допустимый DNS-домен каталога.</value>
+    <value>Домен OU из списка недопустим. Удалите OU и добавьте их снова.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Различающееся имя назначения недопустимо.</value>
+    <value>У одного из OU недопустимое различающееся имя.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Укажите допустимый целевой DNS-домен.</value>
+    <value>Укажите допустимое имя домена, например corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Для каждого назначения требуется подпись длиной не более 120 символов.</value>
+    <value>Каждому OU требуется отображаемое имя длиной не более 120 символов.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>У назначения недопустимый идентификатор. Удалите его и добавьте снова.</value>
+    <value>Запись OU повреждена. Удалите ее и добавьте снова.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Включите защиту носителя паролем на странице «Общие» и укажите допустимый пароль носителя.</value>
+    <value>Включите защиту носителя паролем на странице «Общие» и задайте пароль носителя.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Добавьте назначения перед включением выбора или очистите выбор и значение по умолчанию.</value>
+    <value>Добавьте хотя бы одно OU или отключите выбор OU и очистите OU по умолчанию.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Все назначения должны находиться в домене каталога.</value>
+    <value>Все OU в списке должны принадлежать одному домену.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Укажите пароль учетной записи для этого домена и этой учетной записи.</value>
+    <value>Укажите пароль учетной записи.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Используйте DOMAIN\user или user@domain для учетной записи.</value>
+    <value>Укажите учетную запись в формате DOMAIN\user или user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>Каталог поддерживает не более 1 024 назначений.</value>
+    <value>В список можно добавить не более 1 024 OU.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Выберите поддерживаемый режим присоединения к домену.</value>
+    <value>Этот режим присоединения к домену не поддерживается.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Учетная запись (DOMAIN\user или user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Добавить назначение</value>
+    <value>Добавить OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Технические специалисты выбирают OU из списка во время развертывания.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Разрешить выбор назначения во время развертывания</value>
+    <value>Разрешить техническим специалистам выбирать OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Отменить поиск</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Без каталога специалисты могут указать необязательное OU. При наличии каталога назначения ограничены его записями. Фиксированное назначение по умолчанию не имеет элемента выбора; элемент выбора без значения по умолчанию требует выбора. Существующие учетные записи компьютеров перемещаются в выбранное назначение.</value>
+    <value>Необязательно. Перечислите OU, в которые можно помещать компьютеры. Существующая учетная запись компьютера перемещается в выбранное OU.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Назначения</value>
+    <value>Организационные единицы</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Очистить значение по умолчанию</value>
+    <value>Очистить</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Используйте полное имя учетной записи с делегированными администратором разрешениями на присоединение и размещение. Foundry не проверяет разрешения. Пароль очищается при изменении домена, учетной записи или активного режима.</value>
+    <value>Учетная запись для присоединения компьютеров к домену. Ей нужны разрешения на присоединение компьютеров и их перемещение в выбранные вами OU. Пароль очищается при изменении имени домена или учетной записи.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Учетные данные домена</value>
+    <value>Учетная запись для присоединения</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>OU, которое используется при каждом развертывании или выбрано заранее, если технические специалисты могут выбирать. Оставьте пустым, чтобы использовать расположение домена по умолчанию.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Назначение по умолчанию (необязательно)</value>
+    <value>OU по умолчанию</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Найти назначения</value>
+    <value>Найти OU</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Используется домен AD этого компьютера и ваша текущая учетная запись Windows. Просмотрите и явно выберите записи; импорт сохраняет вручную добавленные строки и значение по умолчанию. Поиск не проверяет разрешения на присоединение.</value>
+    <value>Выводит список OU домена, к которому присоединен этот компьютер, используя вашу учетную запись Windows. Выберите OU для добавления.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Импорт из домена компьютера</value>
+    <value>Импорт OU из домена этого компьютера</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Импортировать выбранные назначения</value>
+    <value>Добавить выбранные OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Укажите подпись и допустимое различающееся имя в целевом DNS-домене. Вручную добавленные записи остаются доступны при сбое поиска в службе каталогов.</value>
+    <value>Укажите отображаемое имя и различающееся имя OU. OU должно принадлежать домену, указанному выше.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Добавить назначение вручную</value>
+    <value>Добавить OU вручную</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>Различающееся имя OU</value>
+    <value>Различающееся имя</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Отображаемая подпись</value>
+    <value>Отображаемое имя</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Пароль учетной записи</value>
+    <value>Пароль</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Обязательно для режима без вмешательства и каталога OU. Необязательно для интерактивного развертывания без каталога.</value>
+    <value>DNS-имя домена, к которому выполняется присоединение, например corp.contoso.com. В режиме «Интерактивно» необязательно, если вы не добавляете OU.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Целевой DNS-домен</value>
+    <value>Имя домена</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Файл сертификата доверенного корневого центра сертификации</value>
@@ -2141,7 +2153,7 @@
     <value>Состояние готовности носителя</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Запрашивать домен и учетные данные во время развертывания.</value>
+    <value>Запрашивать у технического специалиста учетные данные домена во время развертывания.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Интерактивное присоединение к домену</value>
@@ -2381,7 +2393,7 @@
     <value>Главная</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Запрашивать учетные данные домена во время развертывания с возможностью выбора целевого OU.</value>
+    <value>Запрашивать у технического специалиста учетные данные домена во время развертывания.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Интерактивно</value>
@@ -2447,7 +2459,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Присоединять с использованием встроенных учетных данных, защищенных паролем носителя со страницы «Общие».</value>
+    <value>Присоединять к домену автоматически с использованием учетных данных, защищенных паролем носителя.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Встроить учетные данные домена, защищенные паролем носителя.</value>
+    <value>Присоединять к домену автоматически с использованием учетных данных, защищенных паролем носителя.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Присоединение к домену без вмешательства</value>

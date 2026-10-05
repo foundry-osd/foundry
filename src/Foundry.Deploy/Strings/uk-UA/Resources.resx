@@ -364,46 +364,46 @@ ErrorCode=0x80070005
     <value>Продовжити</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Призначення домену за замовчуванням</value>
+    <value>Розташування домену за замовчуванням</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Введіть облікові дані та призначення для розгортання. Приєднання до домену виконується у встановленій Windows.</value>
+    <value>Укажіть дані для приєднання цього комп’ютера до домену. Приєднання виконується після інсталяції Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Організаційна одиниця</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Введіть дійсне розрізнювальне ім’я OU у вказаному домені або залиште поле порожнім.</value>
+    <value>Введіть дійсне розрізнювальне ім’я OU в цьому домені або залиште поле порожнім.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Виберіть організаційну одиницю з каталогу.</value>
+    <value>Виберіть організаційну одиницю.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Ім’я DNS домену</value>
+    <value>Ім’я домену</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Дані для приєднання до домену недійсні або недоступні. Розгортання не розпочато.</value>
+    <value>Дані для приєднання до домену відсутні або недійсні. Розгортання не розпочато.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Розрізнювальне ім’я OU (необов’язково)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Залиште порожнім, щоб використовувати призначення домену за замовчуванням.</value>
+    <value>Залиште порожнім, щоб використовувати розташування домену за замовчуванням.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Пароль</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Надається перед розгортанням</value>
+    <value>Запитується перед початком розгортання</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Домен: {0}. Призначення: {1}.</value>
+    <value>Домен: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Приєднання до домену</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Ця редакція Windows не підтримує приєднання до домену. Інсталяція Windows продовжиться без приєднання до домену.</value>
+    <value>Цю редакцію Windows не можна приєднати до домену. Інсталяція Windows продовжується без приєднання.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

@@ -364,46 +364,46 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
     <value>Turpināt</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Domēna noklusējuma galamērķis</value>
+    <value>Domēna noklusējuma atrašanās vieta</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Ievadiet izvietošanas akreditācijas datus un galamērķi. Pievienošanās domēnam tiek veikta instalētajā Windows sistēmā.</value>
+    <value>Norādiet šī datora pievienošanās domēnam datus. Pievienošanās notiek pēc Windows instalēšanas.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organizatoriskā vienība</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Ievadiet derīgu OU atšķirīgo nosaukumu norādītajā domēnā vai atstājiet tukšu.</value>
+    <value>Ievadiet derīgu OU atšķirīgo nosaukumu šajā domēnā vai atstājiet tukšu.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Atlasiet organizatorisko vienību no kataloga.</value>
+    <value>Atlasiet organizatorisko vienību.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Domēna DNS nosaukums</value>
+    <value>Domēna nosaukums</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Pievienošanās domēnam ievaddati nav derīgi vai nav pieejami. Izvietošana nav sākta.</value>
+    <value>Pievienošanās domēnam informācijas trūkst vai tā nav derīga. Izvietošana nav sākta.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OU atšķirīgais nosaukums (neobligāts)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Atstājiet tukšu, lai izmantotu domēna noklusējuma galamērķi.</value>
+    <value>Atstājiet tukšu, lai izmantotu domēna noklusējuma atrašanās vietu.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parole</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Norādīti pirms izvietošanas</value>
+    <value>Tiek pieprasīts pirms izvietošanas sākuma</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domēns: {0}. Galamērķis: {1}.</value>
+    <value>Domēns: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pievienošanās domēnam</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Šis Windows izdevums neatbalsta pievienošanos domēnam. Windows instalēšana turpināsies bez pievienošanās domēnam.</value>
+    <value>Šo Windows izdevumu nevar pievienot domēnam. Windows instalēšana turpinās bez pievienošanās domēnam.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

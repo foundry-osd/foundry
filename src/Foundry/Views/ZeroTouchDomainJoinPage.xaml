@@ -40,6 +40,7 @@
                             HorizontalAlignment="Right"
                             Spacing="{ThemeResource FoundrySpace4}">
                             <TextBox
+                                x:Uid="DomainJoinDomainName"
                                 Width="{ThemeResource FoundryWideInputMinWidth}"
                                 MaxLength="253"
                                 Text="{x:Bind ViewModel.DomainName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

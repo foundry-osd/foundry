@@ -1829,163 +1829,175 @@
     <value>文档无法打开</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>请检查目标 DNS 域、目标标签和可分辨名称。所有目标都必须属于目录中的域，且最多可有 1,024 个条目。</value>
+    <value>未添加 OU。请检查域名、显示名称和可分辨名称。OU 必须属于该域。</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>设置密码前，请输入有效的目标 DNS 域和带域信息的账户名。密码必须符合支持的长度限制，且不能包含 NUL 字符。</value>
+    <value>请先输入有效的域名和账户，然后检查密码长度。</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>正在从此计算机的 AD 域发现目标...</value>
+    <value>正在此计算机的域中搜索 OU...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>发现已取消。手动目标控件仍然可用。</value>
+    <value>搜索已取消。</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>发现已完成。请选择要导入的目标。</value>
+    <value>搜索完成。请选择要添加的 OU。</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>此预览不完整。目录服务限制、无法读取的条目或对其他目录的引用可能导致遗漏目标。仍可导入已选择的可见条目。</value>
+    <value>只能列出部分 OU。您仍可添加已显示的 OU。</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>发现已超时。手动目标控件仍然可用。</value>
+    <value>搜索已超时。您可以手动添加 OU。</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>发现不可用。请检查计算机的域成员身份、连接以及目录读取权限，或手动添加目标。</value>
+    <value>无法搜索域。请检查此计算机是否已加入域并能访问该域，或手动添加 OU。</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>未配置目标。</value>
+    <value>尚未添加 OU。</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>未应用导入。目标域和目录中的域必须与发现的计算机域匹配，且生成的目录必须符合支持的限制。</value>
+    <value>未添加这些 OU。它们所属的域与域名或已列出的 OU 不一致。</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>已导入所选目标。</value>
+    <value>已添加所选 OU。</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>删除选定的</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>请输入域账户。</value>
+    <value>请输入账户。</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>目标 DNS 域必须与目标目录中的域匹配。更改域前，请删除旧的目录条目。</value>
+    <value>列出的 OU 属于其他域。请删除这些 OU，或恢复之前的域名。</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>请为目标目录设置 DNS 域。</value>
+    <value>请先输入域名，再添加 OU。</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>请选择现有的默认目标或清除默认值。</value>
+    <value>默认 OU 已不在列表中。请另选一个或将其清除。</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>请输入目标 DNS 域。</value>
+    <value>请输入域名。</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>目录中存在重复的目标可分辨名称。</value>
+    <value>同一个 OU 被列出了多次。</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>目录中存在重复的目标标识。</value>
+    <value>两个 OU 的内部 ID 相同。请删除其中一个，然后重新添加。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>请输入有效的账户，且名称长度不得超过支持的限制。</value>
+    <value>账户过长或无效。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>请输入有效的目录 DNS 域。</value>
+    <value>列出的 OU 所属的域无效。请删除这些 OU，然后重新添加。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>某个目标的可分辨名称无效。</value>
+    <value>某个 OU 的可分辨名称无效。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>请输入有效的目标 DNS 域。</value>
+    <value>请输入有效的域名，例如 corp.contoso.com。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>每个目标都需要一个不超过 120 个字符的标签。</value>
+    <value>每个 OU 都需要一个不超过 120 个字符的显示名称。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>某个目标的标识无效。请将其删除并重新添加。</value>
+    <value>某个 OU 条目已损坏。请将其删除，然后重新添加。</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>请在“常规”页面启用介质密码保护，并输入有效的介质密码。</value>
+    <value>请在“常规”页面启用介质密码保护，并设置介质密码。</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>启用选择前，请添加目标，或清除选择和默认值。</value>
+    <value>请至少添加一个 OU，或关闭 OU 选择并清除默认 OU。</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>所有目标都必须位于目录中的域内。</value>
+    <value>列出的所有 OU 必须属于同一个域。</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>请输入此域和此账户对应的账户密码。</value>
+    <value>请输入账户密码。</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>账户请使用 DOMAIN\user 或 user@domain 格式。</value>
+    <value>请以 DOMAIN\user 或 user@domain 格式输入账户。</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>目录最多支持 1,024 个目标。</value>
+    <value>最多可列出 1,024 个 OU。</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>请选择支持的域加入模式。</value>
+    <value>不支持此域加入模式。</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>账户（DOMAIN\user 或 user@domain）</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>添加目标</value>
+    <value>添加 OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>技术人员在部署期间从列表中选择 OU。</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>允许在部署期间选择目标</value>
+    <value>允许技术人员选择 OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
-    <value>取消发现</value>
+    <value>取消搜索</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>没有目录时，技术人员可以选择输入 OU。有目录时，目标仅限于目录中的条目。固定的默认目标不显示选择器；没有默认值的选择器必须进行选择。现有计算机账户将移至所选目标。</value>
+    <value>可选。列出可放置计算机的 OU。现有计算机账户将移至所选 OU。</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>目标</value>
+    <value>组织单位</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>清除默认值</value>
+    <value>清除</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>请使用带域信息的账户，并由管理员委派加入和放置权限。Foundry 不会审核权限。域、账户或当前启用的模式发生变化时，密码将被清除。</value>
+    <value>用于将计算机加入域的账户。该账户需要有权将计算机加入域，并将其移至您选择的 OU。域名或账户发生变化时，密码将被清除。</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>域凭据</value>
+    <value>加入账户</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>用于每次部署的 OU；允许技术人员选择时，则为预选的 OU。留空以使用域的默认位置。</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>默认目标（可选）</value>
+    <value>默认 OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>发现目标</value>
+    <value>查找 OU</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>使用此计算机的 AD 域和您当前的 Windows 身份。请预览并明确选择条目；导入将保留手动添加的行和默认值。发现不会测试加入权限。</value>
+    <value>使用您的 Windows 账户列出此计算机所加入的域中的 OU。请选择要添加的 OU。</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>从计算机域导入</value>
+    <value>从此计算机的域导入 OU</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>导入所选目标</value>
+    <value>添加所选 OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>请输入标签以及目标 DNS 域内有效的可分辨名称。目录发现失败时，手动条目仍然可用。</value>
+    <value>请输入显示名称和 OU 的可分辨名称。OU 必须属于上方的域。</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>手动添加目标</value>
+    <value>手动添加 OU</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OU 可分辨名称</value>
+    <value>可分辨名称</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>显示标签</value>
+    <value>显示名称</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>账户密码</value>
+    <value>密码</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>零接触模式和 OU 目录需要此项。无目录的交互式部署可不填写。</value>
+    <value>要加入的域的 DNS 名称，例如 corp.contoso.com。在交互式模式下可不填写，除非添加了 OU。</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>目标 DNS 域</value>
+    <value>域名</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>受信任的根 CA 证书文件</value>
@@ -2141,7 +2153,7 @@
     <value>媒体准备状态</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>在部署期间请求域和账户凭据。</value>
+    <value>在部署期间要求技术人员提供域凭据。</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>交互式域加入</value>
@@ -2381,7 +2393,7 @@
     <value>首页</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>在部署期间请求域凭据，并可选择目标 OU。</value>
+    <value>在部署期间要求技术人员提供域凭据。</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>交互式</value>
@@ -2447,7 +2459,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>使用由“常规”页面的介质密码保护的嵌入凭据加入域。</value>
+    <value>使用受介质密码保护的凭据自动加入域。</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>嵌入受介质密码保护的域凭据。</value>
+    <value>使用受介质密码保护的凭据自动加入域。</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>零接触域加入</value>

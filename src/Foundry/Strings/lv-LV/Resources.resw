@@ -1829,163 +1829,175 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Dokumentāciju nevarēja atvērt</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Pārbaudiet mērķa DNS domēnu, galamērķa etiķeti un atšķirīgo nosaukumu. Galamērķiem jāatrodas kataloga domēnā; atļauti ne vairāk kā 1024 ieraksti.</value>
+    <value>OU netika pievienota. Pārbaudiet domēna nosaukumu, parādāmo nosaukumu un atšķirīgo nosaukumu. OU jāpieder šim domēnam.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Pirms paroles iestatīšanas ievadiet derīgu mērķa DNS domēnu un konta nosaukumu ar domēnu. Parolēm jāiekļaujas atbalstītajā izmērā, un tajās nedrīkst būt NUL rakstzīmes.</value>
+    <value>Vispirms ievadiet derīgu domēna nosaukumu un kontu, pēc tam pārbaudiet paroles garumu.</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Tiek meklēti galamērķi šī datora AD domēnā...</value>
+    <value>Tiek meklētas OU šī datora domēnā...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
-    <value>Meklēšana tika atcelta. Manuālo galamērķu ievades vadīklas joprojām ir pieejamas.</value>
+    <value>Meklēšana atcelta.</value>
   </data>
   <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Meklēšana pabeigta. Atlasiet importējamos galamērķus.</value>
+    <value>Meklēšana pabeigta. Atlasiet pievienojamās OU.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>Šis priekšskatījums nav pilnīgs. Direktorija ierobežojumu, nenolasāmu ierakstu vai novirzījumu dēļ galamērķi var būt izlaisti. Atlasītos redzamos ierakstus joprojām var importēt.</value>
+    <value>Izdevās parādīt tikai daļu OU. Parādītās joprojām varat pievienot.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Meklēšanai iestājās taimauts. Manuālo galamērķu ievades vadīklas joprojām ir pieejamas.</value>
+    <value>Meklēšanai iestājās taimauts. OU varat pievienot manuāli.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Meklēšana nav pieejama. Pārbaudiet datora dalību domēnā, savienojumu un direktorija lasīšanas piekļuvi vai pievienojiet galamērķus manuāli.</value>
+    <value>Domēnā neizdevās veikt meklēšanu. Pārbaudiet, vai šis dators ir pievienots domēnam un var to sasniegt, vai pievienojiet OU manuāli.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Nav konfigurēts neviens galamērķis.</value>
+    <value>Nav pievienota neviena OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>Importēšana netika piemērota. Mērķa un kataloga domēnam jāatbilst atrastajam datora domēnam, un iegūtajam katalogam jāiekļaujas atbalstītajās robežās.</value>
+    <value>OU netika pievienotas. Tās pieder citam domēnam, nevis norādītajam domēna nosaukumam vai sarakstā jau esošajām OU.</value>
   </data>
   <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Atlasītie galamērķi tika importēti.</value>
+    <value>Atlasītās OU tika pievienotas.</value>
   </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Noņemt atlasīto</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Ievadiet domēna kontu.</value>
+    <value>Ievadiet kontu.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Mērķa DNS domēnam jāatbilst galamērķu kataloga domēnam. Pirms domēna maiņas noņemiet vecos kataloga ierakstus.</value>
+    <value>Sarakstā esošās OU pieder citam domēnam. Noņemiet tās vai atjaunojiet iepriekšējo domēna nosaukumu.</value>
   </data>
   <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Iestatiet DNS domēnu galamērķu katalogam.</value>
+    <value>Pirms OU pievienošanas ievadiet domēna nosaukumu.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Atlasiet esošu noklusējuma galamērķi vai notīriet noklusējuma iestatījumu.</value>
+    <value>Noklusējuma OU vairs nav sarakstā. Izvēlieties citu vai notīriet to.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Ievadiet mērķa DNS domēnu.</value>
+    <value>Ievadiet domēna nosaukumu.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Katalogā ir galamērķu atšķirīgo nosaukumu dublikāti.</value>
+    <value>Viena un tā pati OU sarakstā ir norādīta vairākkārt.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
-    <value>Katalogā ir galamērķu identifikatoru dublikāti.</value>
+    <value>Divām OU ir vienāds iekšējais ID. Noņemiet vienu un pievienojiet to vēlreiz.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Ievadiet derīgu kontu atbalstītā garuma robežās.</value>
+    <value>Konts ir pārāk garš vai nav derīgs.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Ievadiet derīgu kataloga DNS domēnu.</value>
+    <value>Sarakstā esošo OU domēns nav derīgs. Noņemiet OU un pievienojiet tās vēlreiz.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Galamērķa atšķirīgais nosaukums nav derīgs.</value>
+    <value>Kādai OU ir nederīgs atšķirīgais nosaukums.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
-    <value>Ievadiet derīgu mērķa DNS domēnu.</value>
+    <value>Ievadiet derīgu domēna nosaukumu, piemēram, corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Katram galamērķim nepieciešama etiķete, kas nav garāka par 120 rakstzīmēm.</value>
+    <value>Katrai OU nepieciešams parādāmais nosaukums, kas nav garāks par 120 rakstzīmēm.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Galamērķim ir nederīgs identifikators. Noņemiet to un pievienojiet vēlreiz.</value>
+    <value>Kāds OU ieraksts ir bojāts. Noņemiet to un pievienojiet vēlreiz.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Lapā „Vispārīgi” iespējojiet datu nesēja aizsardzību ar paroli un ievadiet derīgu datu nesēja paroli.</value>
+    <value>Lapā „Vispārīgi” ieslēdziet datu nesēja aizsardzību ar paroli un iestatiet datu nesēja paroli.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Pirms atlases iespējošanas pievienojiet galamērķus vai atspējojiet atlasi un notīriet noklusējuma iestatījumu.</value>
+    <value>Pievienojiet vismaz vienu OU vai izslēdziet OU atlasi un notīriet noklusējuma OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Katram galamērķim jāatrodas kataloga domēnā.</value>
+    <value>Visām sarakstā esošajām OU jāpieder vienam domēnam.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
-    <value>Ievadiet konta paroli šim domēnam un šim kontam.</value>
+    <value>Ievadiet konta paroli.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
-    <value>Kontam izmantojiet DOMAIN\user vai user@domain.</value>
+    <value>Ievadiet kontu formātā DOMAIN\user vai user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
-    <value>Katalogs atbalsta ne vairāk kā 1024 galamērķus.</value>
+    <value>Sarakstā var būt ne vairāk kā 1024 OU.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Atlasiet atbalstītu pievienošanās domēnam režīmu.</value>
+    <value>Šis pievienošanās domēnam režīms netiek atbalstīts.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Konts (DOMAIN\user vai user@domain)</value>
   </data>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
-    <value>Pievienot galamērķi</value>
+    <value>Pievienot OU</value>
+  </data>
+  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
+    <value>Izvietošanas laikā tehniķi izvēlas OU no saraksta.</value>
   </data>
   <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Atļaut galamērķa atlasi izvietošanas laikā</value>
+    <value>Ļaut tehniķiem izvēlēties OU</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Atcelt meklēšanu</value>
   </data>
   <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Bez kataloga tehniķi var ievadīt neobligātu OU. Ja ir katalogs, galamērķi ir ierobežoti ar tā ierakstiem. Fiksētam noklusējuma galamērķim nav atlases vadīklas; atlases vadīklai bez noklusējuma galamērķa izvēle ir obligāta. Esošie datoru konti tiek pārvietoti uz atlasīto galamērķi.</value>
+    <value>Neobligāti. Norādiet OU, kurās var ievietot datorus. Esošs datora konts tiek pārvietots uz izvēlēto OU.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Galamērķi</value>
+    <value>Organizatoriskās vienības</value>
   </data>
   <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Notīrīt noklusējuma iestatījumu</value>
+    <value>Notīrīt</value>
   </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Izmantojiet konta nosaukumu ar domēnu un administratora deleģētām pievienošanās un novietošanas atļaujām. Foundry neveic atļauju auditu. Parole tiek notīrīta, mainoties domēnam, kontam vai aktīvajam režīmam.</value>
+    <value>Konts, ar kuru datori tiek pievienoti domēnam. Tam nepieciešamas atļaujas pievienot datorus un pārvietot tos uz jūsu izvēlētajām OU. Parole tiek notīrīta, ja mainās domēna nosaukums vai konts.</value>
   </data>
   <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Domēna akreditācijas dati</value>
+    <value>Pievienošanas konts</value>
+  </data>
+  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
+    <value>OU, kas tiek izmantota katrā izvietošanā vai ir iepriekš atlasīta, ja tehniķi var izvēlēties. Atstājiet tukšu, lai izmantotu domēna noklusējuma atrašanās vietu.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Noklusējuma galamērķis (neobligāts)</value>
+    <value>Noklusējuma OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Meklēt galamērķus</value>
+    <value>Atrast OU</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Izmanto šī datora AD domēnu un jūsu pašreizējo Windows identitāti. Apskatiet priekšskatījumu un skaidri atlasiet ierakstus; importēšana saglabā manuālās rindas un noklusējuma galamērķi. Meklēšana nepārbauda pievienošanās atļaujas.</value>
+    <value>Parāda tā domēna OU, kuram pievienots šis dators, izmantojot jūsu Windows kontu. Atlasiet pievienojamās.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Importēt no datora domēna</value>
+    <value>Importēt OU no šī datora domēna</value>
+  </data>
+  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Importēt atlasītos galamērķus</value>
+    <value>Pievienot atlasītās OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Ievadiet etiķeti un derīgu atšķirīgo nosaukumu mērķa DNS domēnā. Manuālie ieraksti paliek pieejami, ja meklēšana direktorijā neizdodas.</value>
+    <value>Ievadiet OU parādāmo nosaukumu un atšķirīgo nosaukumu. OU jāpieder iepriekš norādītajam domēnam.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
-    <value>Manuāli pievienot galamērķi</value>
+    <value>Pievienot OU manuāli</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>OU atšķirīgais nosaukums</value>
+    <value>Atšķirīgais nosaukums</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
-    <value>Attēlojamā etiķete</value>
+    <value>Parādāmais nosaukums</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
-    <value>Konta parole</value>
+    <value>Parole</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Obligāts Zero-touch režīmam un OU katalogam. Neobligāts interaktīvai izvietošanai bez kataloga.</value>
+    <value>Tā domēna DNS nosaukums, kuram jāpievienojas, piemēram, corp.contoso.com. Režīmā „Interaktīvi” neobligāts, ja vien nepievienojat OU.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Mērķa DNS domēns</value>
+    <value>Domēna nosaukums</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Uzticams saknes CA sertifikāta fails</value>
@@ -2141,7 +2153,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Datu nesēja gatavības statuss</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Izvietošanas laikā pieprasīt domēna un konta akreditācijas datus.</value>
+    <value>Izvietošanas laikā pieprasīt tehniķim domēna akreditācijas datus.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktīva pievienošanās domēnam</value>
@@ -2381,7 +2393,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Sākums</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>Izvietošanas laikā pieprasīt domēna akreditācijas datus un pēc izvēles atlasīt galamērķa OU.</value>
+    <value>Izvietošanas laikā pieprasīt tehniķim domēna akreditācijas datus.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>Interaktīvi</value>
@@ -2447,7 +2459,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Pievienoties, izmantojot iegultus akreditācijas datus, kurus aizsargā lapā „Vispārīgi” iestatītā datu nesēja parole.</value>
+    <value>Automātiski pievienoties domēnam, izmantojot akreditācijas datus, ko aizsargā datu nesēja parole.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4083,7 +4095,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Ieguliet domēna akreditācijas datus, ko aizsargā datu nesēja parole.</value>
+    <value>Automātiski pievienoties domēnam, izmantojot akreditācijas datus, ko aizsargā datu nesēja parole.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Pievienošanās domēnam Zero-touch režīmā</value>

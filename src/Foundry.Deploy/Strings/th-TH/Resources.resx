@@ -364,46 +364,46 @@
     <value>ดำเนินการต่อ</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>ปลายทางเริ่มต้นของโดเมน</value>
+    <value>ตำแหน่งเริ่มต้นของโดเมน</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>ป้อนข้อมูลรับรองและปลายทางสำหรับการปรับใช้ การเข้าร่วมโดเมนจะทำงานใน Windows ที่ติดตั้งแล้ว</value>
+    <value>ระบุรายละเอียดการเข้าร่วมโดเมนสำหรับคอมพิวเตอร์เครื่องนี้ การเข้าร่วมจะเกิดขึ้นหลังจากติดตั้ง Windows แล้ว</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>หน่วยองค์กร</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>ป้อนชื่อเฉพาะของ OU ที่ถูกต้องในโดเมนที่ระบุ หรือปล่อยว่างไว้</value>
+    <value>ป้อนชื่อเฉพาะของ OU ที่ถูกต้องในโดเมนนี้ หรือปล่อยว่างไว้</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>เลือกหน่วยองค์กรจากแค็ตตาล็อก</value>
+    <value>เลือกหน่วยองค์กร</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>ชื่อ DNS ของโดเมน</value>
+    <value>ชื่อโดเมน</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>ข้อมูลการเข้าร่วมโดเมนไม่ถูกต้องหรือไม่พร้อมใช้งาน การปรับใช้ยังไม่เริ่มต้น</value>
+    <value>ข้อมูลการเข้าร่วมโดเมนขาดหายไปหรือไม่ถูกต้อง การปรับใช้ยังไม่เริ่มต้น</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>ชื่อเฉพาะของ OU (ไม่บังคับ)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>ปล่อยว่างไว้เพื่อใช้ปลายทางเริ่มต้นของโดเมน</value>
+    <value>ปล่อยว่างไว้เพื่อใช้ตำแหน่งเริ่มต้นของโดเมน</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>รหัสผ่าน</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>ระบุก่อนการปรับใช้</value>
+    <value>ถามก่อนเริ่มการปรับใช้</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>โดเมน: {0} ปลายทาง: {1}</value>
+    <value>โดเมน: {0} OU: {1}</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>การเข้าร่วมโดเมน</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Windows รุ่นนี้ไม่รองรับการเข้าร่วมโดเมน การติดตั้ง Windows จะดำเนินต่อไปโดยไม่เข้าร่วมโดเมน</value>
+    <value>Windows รุ่นนี้ไม่สามารถเข้าร่วมโดเมนได้ การติดตั้ง Windows จะดำเนินต่อไปโดยไม่เข้าร่วมโดเมน</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

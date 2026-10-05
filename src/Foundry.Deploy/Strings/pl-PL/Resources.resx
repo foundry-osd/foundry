@@ -364,46 +364,46 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>Kontynuuj</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Domyślna lokalizacja docelowa domeny</value>
+    <value>Domyślna lokalizacja domeny</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Wprowadź poświadczenia wdrażania i lokalizację docelową. Dołączanie do domeny odbywa się w zainstalowanym systemie Windows.</value>
+    <value>Podaj dane dołączania tego komputera do domeny. Dołączenie następuje po zainstalowaniu systemu Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Jednostka organizacyjna</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Wprowadź prawidłową nazwę wyróżniającą OU w określonej domenie lub pozostaw pole puste.</value>
+    <value>Wprowadź prawidłową nazwę wyróżniającą jednostki OU w tej domenie lub pozostaw pole puste.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Wybierz jednostkę organizacyjną z katalogu.</value>
+    <value>Wybierz jednostkę organizacyjną.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Nazwa DNS domeny</value>
+    <value>Nazwa domeny</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Dane wejściowe dołączania do domeny są nieprawidłowe lub niedostępne. Wdrażanie nie zostało rozpoczęte.</value>
+    <value>Brak informacji o dołączaniu do domeny lub są one nieprawidłowe. Wdrażanie nie zostało rozpoczęte.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Nazwa wyróżniająca OU (opcjonalna)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Pozostaw puste, aby użyć domyślnej lokalizacji docelowej domeny.</value>
+    <value>Pozostaw puste, aby użyć domyślnej lokalizacji domeny.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Podane przed wdrażaniem</value>
+    <value>Pytanie przed rozpoczęciem wdrażania</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domena: {0}. Lokalizacja docelowa: {1}.</value>
+    <value>Domena: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Dołączanie do domeny</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Ta edycja systemu Windows nie obsługuje dołączania do domeny. Instalacja systemu Windows będzie kontynuowana bez dołączania do domeny.</value>
+    <value>Ta edycja systemu Windows nie może dołączyć do domeny. Instalacja systemu Windows jest kontynuowana bez dołączania.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

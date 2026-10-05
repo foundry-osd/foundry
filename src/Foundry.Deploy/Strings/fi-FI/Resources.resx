@@ -364,46 +364,46 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
     <value>Jatka</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Toimialueen oletuskohde</value>
+    <value>Toimialueen oletussijainti</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Anna käyttöönoton tunnistetiedot ja kohde. Toimialueeseen liittyminen suoritetaan asennetussa Windowsissa.</value>
+    <value>Anna tämän tietokoneen toimialueeseen liittymisen tiedot. Liittyminen tehdään Windowsin asennuksen jälkeen.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organisaatioyksikkö</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Anna kelvollinen OU:n yksilöivä nimi määritetystä toimialueesta tai jätä kenttä tyhjäksi.</value>
+    <value>Anna kelvollinen OU:n yksilöivä nimi tästä toimialueesta tai jätä kenttä tyhjäksi.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Valitse organisaatioyksikkö luettelosta.</value>
+    <value>Valitse organisaatioyksikkö.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Toimialueen DNS-nimi</value>
+    <value>Toimialueen nimi</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Toimialueeseen liittymisen tiedot ovat virheellisiä tai eivät ole käytettävissä. Käyttöönotto ei ole alkanut.</value>
+    <value>Toimialueeseen liittymisen tiedot puuttuvat tai ovat virheellisiä. Käyttöönotto ei ole alkanut.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OU:n yksilöivä nimi (valinnainen)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Jätä kenttä tyhjäksi, jos haluat käyttää toimialueen oletuskohdetta.</value>
+    <value>Jätä tyhjäksi, jos haluat käyttää toimialueen oletussijaintia.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Salasana</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Annettu ennen käyttöönottoa</value>
+    <value>Kysytään ennen käyttöönoton alkua</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Toimialue: {0}. Kohde: {1}.</value>
+    <value>Toimialue: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Toimialueeseen liittyminen</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Tämä Windows-versio ei tue toimialueeseen liittymistä. Windowsin asennus jatkuu ilman toimialueeseen liittymistä.</value>
+    <value>Tätä Windows-versiota ei voi liittää toimialueeseen. Windowsin asennus jatkuu ilman liittämistä.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

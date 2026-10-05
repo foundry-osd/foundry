@@ -364,46 +364,46 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
     <value>Fortsett</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Standarddestinasjon for domenet</value>
+    <value>Domenets standardplassering</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Angi distribusjonslegitimasjon og destinasjon. Domenetilknytning kjøres i det installerte Windows-systemet.</value>
+    <value>Oppgi opplysningene for domenetilknytning for denne datamaskinen. Tilknytningen skjer etter at Windows er installert.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organisasjonsenhet</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Angi et gyldig unikt OU-navn i det angitte domenet, eller la feltet stå tomt.</value>
+    <value>Angi et gyldig unikt navn for en OU i dette domenet, eller la feltet stå tomt.</value>
   </data>
   <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Velg en organisasjonsenhet fra katalogen.</value>
+    <value>Velg en organisasjonsenhet.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Domenets DNS-navn</value>
+    <value>Domenenavn</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Inndata for domenetilknytning er ugyldige eller utilgjengelige. Distribusjonen har ikke startet.</value>
+    <value>Informasjonen for domenetilknytning mangler eller er ugyldig. Distribusjonen har ikke startet.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Unikt navn for OU (valgfritt)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>La stå tomt for å bruke standarddestinasjonen for domenet.</value>
+    <value>La stå tomt for å bruke domenets standardplassering.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Passord</value>
   </data>
   <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Oppgitt før distribusjon</value>
+    <value>Spørres om før distribusjonen starter</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domene: {0}. Destinasjon: {1}.</value>
+    <value>Domene: {0}. OU: {1}.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domenetilknytning</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Denne Windows-utgaven støtter ikke domenetilknytning. Windows-installasjonen fortsetter uten domenetilknytning.</value>
+    <value>Denne Windows-utgaven kan ikke knyttes til et domene. Windows-installasjonen fortsetter uten domenetilknytning.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
