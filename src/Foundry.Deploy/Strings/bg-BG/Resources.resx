@@ -256,6 +256,12 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Страници за внедряване</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Интерактивно</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Страница с грешки</value>
   </data>
@@ -360,8 +366,8 @@
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Акаунт (DOMAIN\user или user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Продължаване</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Въведете акаунта като DOMAIN\user или user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Местоположение по подразбиране в домейна</value>
@@ -375,11 +381,11 @@
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Въведете валидно отличително име на OU в този домейн или оставете полето празно.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Изберете организационна единица.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Име на домейна</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Въведете валидно име на домейн, например corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Данните за присъединяване към домейна липсват или са невалидни. Разполагането не е започнало.</value>
@@ -392,9 +398,6 @@
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Парола</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Изисква се преди началото на разполагането</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Домейн: {0}. OU: {1}.</value>

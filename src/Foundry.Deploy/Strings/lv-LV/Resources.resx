@@ -256,6 +256,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Izvietošanas lapas</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktīvi</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Kļūdas lapa</value>
   </data>
@@ -360,8 +366,8 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konts (DOMAIN\user vai user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Turpināt</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Ievadiet kontu formātā DOMAIN\user vai user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domēna noklusējuma atrašanās vieta</value>
@@ -375,11 +381,11 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Ievadiet derīgu OU atšķirīgo nosaukumu šajā domēnā vai atstājiet tukšu.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Atlasiet organizatorisko vienību.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Domēna nosaukums</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Ievadiet derīgu domēna nosaukumu, piemēram, corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Pievienošanās domēnam informācijas trūkst vai tā nav derīga. Izvietošana nav sākta.</value>
@@ -392,9 +398,6 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parole</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Tiek pieprasīts pirms izvietošanas sākuma</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Domēns: {0}. OU: {1}.</value>

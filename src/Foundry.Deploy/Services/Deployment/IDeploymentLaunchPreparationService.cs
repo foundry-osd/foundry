@@ -7,7 +7,11 @@ namespace Foundry.Deploy.Services.Deployment;
 public interface IDeploymentLaunchPreparationService
 {
     DeploymentLaunchPreparationResult Prepare(DeploymentLaunchRequest request);
-    /// <summary>Consumes domain runtime settings only during pre-confirmation input preparation.</summary>
+    /// <summary>
+    /// Consumes domain runtime settings and the technician's wizard input only during pre-confirmation preparation;
+    /// the caller keeps ownership of <paramref name="domainJoinSubmission"/>.
+    /// </summary>
     DeploymentLaunchPreparationResult Prepare(DeploymentLaunchRequest request,
-        Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings? domainJoin);
+        Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings? domainJoin,
+        Foundry.Deploy.Services.DomainJoin.DomainJoinSubmission? domainJoinSubmission = null);
 }

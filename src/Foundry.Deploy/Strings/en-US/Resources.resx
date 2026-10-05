@@ -256,6 +256,12 @@ Licensed under the MIT License.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Deployment pages</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interactive</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Error page</value>
   </data>
@@ -360,8 +366,8 @@ Action: Verify disk attributes and retry deployment.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Account (DOMAIN\user or user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Continue</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Enter the account as DOMAIN\user or user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domain default location</value>
@@ -375,11 +381,11 @@ Action: Verify disk attributes and retry deployment.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Enter a valid OU distinguished name in this domain, or leave it empty.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Select an organizational unit.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Domain name</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Enter a valid domain name, such as corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>The domain join information is missing or not valid. Deployment has not started.</value>
@@ -392,9 +398,6 @@ Action: Verify disk attributes and retry deployment.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Password</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Asked before deployment starts</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Domain: {0}. OU: {1}.</value>

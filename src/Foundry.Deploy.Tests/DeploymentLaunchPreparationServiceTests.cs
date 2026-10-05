@@ -20,7 +20,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void MissingCatalogSelectionStopsBeforeDestructiveConfirmation(bool automatic)
+    public void MissingOuSelectionStopsBeforeDestructiveConfirmation(bool automatic)
     {
         using var keys = new DeploymentSecretKeySession();
         byte[] key = new byte[32];
@@ -28,10 +28,10 @@ public sealed class DeploymentLaunchPreparationServiceTests
         var shell = new FakeApplicationShellService();
         DeployDomainJoinSettings settings = DomainJoinPreparationServiceTests.WithCatalog(automatic
             ? DomainJoinPreparationServiceTests.Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true });
-        var service = new DeploymentLaunchPreparationService(shell, domainJoinPreparationService: new DomainJoinPreparationService(
-            new DomainJoinPreparationServiceTests.Dialog(new("corp.test", "CORP\\join", null, "secret".AsSpan())), keys));
+        using DomainJoinSubmission submission = Submission();
+        DeploymentLaunchPreparationService service = CreateService(shell, keys);
 
-        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), settings);
+        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), settings, submission);
 
         Assert.False(result.IsReadyToStart);
         Assert.Null(result.Context);
@@ -42,20 +42,20 @@ public sealed class DeploymentLaunchPreparationServiceTests
     [Theory]
     [InlineData("OU=Field,DC=corp,DC=test", true)]
     [InlineData("OU=Field,DC=other,DC=test", false)]
-    public void OptionalDestinationIsValidatedBeforeDestructiveConfirmation(string destinationDn, bool valid)
+    public void TypedOuIsValidatedBeforeDestructiveConfirmation(string typedOu, bool valid)
     {
         using var keys = new DeploymentSecretKeySession();
         var shell = new FakeApplicationShellService();
-        var service = new DeploymentLaunchPreparationService(shell, domainJoinPreparationService: new DomainJoinPreparationService(
-            new DomainJoinPreparationServiceTests.Dialog(new("corp.test", "CORP\\join", null, "secret".AsSpan(), destinationDn)), keys));
+        using DomainJoinSubmission submission = Submission(typedOu: typedOu);
+        DeploymentLaunchPreparationService service = CreateService(shell, keys);
 
-        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), new() { IsEnabled = true });
+        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), new() { IsEnabled = true }, submission);
 
         Assert.Equal(valid, result.IsReadyToStart);
         Assert.Equal(valid ? 1 : 0, shell.ConfirmationCallCount);
         if (valid)
         {
-            Assert.Equal(destinationDn, result.Context!.DomainJoinIntent!.TargetOuDn);
+            Assert.Equal(typedOu, result.Context!.DomainJoinIntent!.TargetOuDn);
             Assert.DoesNotContain("CORP", JsonSerializer.Serialize(result.Context));
             Assert.DoesNotContain("secret", JsonSerializer.Serialize(result.Context));
         }
@@ -67,13 +67,13 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     [Fact]
-    public void InteractivePromptsBeforeDestructiveConfirmation()
+    public void InteractiveInputReachesTheContextWithoutCredentials()
     {
         using var keys = new DeploymentSecretKeySession();
-        var dialog = new DomainJoinPreparationServiceTests.Dialog(new("corp.test", "CORP\\join", null, "secret".AsSpan()));
-        var shell = new FakeApplicationShellService { OnConfirm = () => Assert.True(dialog.WasShown) };
-        var service = new DeploymentLaunchPreparationService(shell, domainJoinPreparationService: new DomainJoinPreparationService(dialog, keys));
-        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), new() { IsEnabled = true });
+        var shell = new FakeApplicationShellService();
+        using DomainJoinSubmission submission = Submission();
+        DeploymentLaunchPreparationService service = CreateService(shell, keys);
+        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), new() { IsEnabled = true }, submission);
         Assert.True(result.IsReadyToStart);
         Assert.Equal(1, shell.ConfirmationCallCount);
         Assert.Equal(new DomainJoinDeploymentIntent("corp.test", "LAB-01", null), result.Context!.DomainJoinIntent);
@@ -88,14 +88,13 @@ public sealed class DeploymentLaunchPreparationServiceTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void CanceledCredentialOrOuDialogNeverErasesDisk(bool automatic)
+    public void MissingWizardInputNeverErasesDisk(bool automatic)
     {
         using var keys = new DeploymentSecretKeySession();
         byte[] key = new byte[32];
         keys.SetKey(key);
         var shell = new FakeApplicationShellService();
-        var service = new DeploymentLaunchPreparationService(shell,
-            domainJoinPreparationService: new DomainJoinPreparationService(new DomainJoinPreparationServiceTests.Dialog(null), keys));
+        DeploymentLaunchPreparationService service = CreateService(shell, keys);
         DeployDomainJoinSettings settings = automatic
             ? DomainJoinPreparationServiceTests.Automatic(new("corp.test", "CORP\\join"), key) with
             {
@@ -104,7 +103,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 OrganizationalUnits = [new() { Id = "sales", DisplayName = "Sales", DistinguishedName = "OU=Sales,DC=corp,DC=test" }]
             }
             : new() { IsEnabled = true };
-        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), settings);
+        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), settings, domainJoinSubmission: null);
         Assert.False(result.IsReadyToStart);
         Assert.Null(result.Context);
         Assert.Equal(0, shell.ConfirmationCallCount);
@@ -127,9 +126,22 @@ public sealed class DeploymentLaunchPreparationServiceTests
 
     private sealed class OwnedInputPreparation(DomainJoinPreparedInput input) : IDomainJoinPreparationService
     {
-        public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName) =>
+        public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission) =>
             DomainJoinPreparationResult.Ready(input);
     }
+
+    /// <summary>Fails the test when credentials are prepared on a path that must not touch them.</summary>
+    private sealed class ForbiddenPreparation : IDomainJoinPreparationService
+    {
+        public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission) =>
+            throw new InvalidOperationException("Credentials must not be prepared.");
+    }
+
+    private static DomainJoinSubmission Submission(string? selectedOuId = null, string? typedOu = null) =>
+        new("corp.test", "CORP\\join", selectedOuId, "secret".AsSpan(), typedOu);
+
+    private static DeploymentLaunchPreparationService CreateService(FakeApplicationShellService shell, DeploymentSecretKeySession keys) =>
+        new(shell, domainJoinPreparationService: new DomainJoinPreparationService(keys));
 
     [Fact]
     public void DisposeClearsUntransferredInput()
@@ -150,33 +162,32 @@ public sealed class DeploymentLaunchPreparationServiceTests
     [InlineData("Core")]
     [InlineData("Home N")]
     [InlineData("CoreSingleLanguage")]
-    public void KnownUnsupportedEditionSkipsCredentialPrompt(string edition)
+    public void KnownUnsupportedEditionNeverPreparesCredentials(string edition)
     {
-        using var keys = new DeploymentSecretKeySession();
-        var dialog = new DomainJoinPreparationServiceTests.Dialog(null);
         var shell = new FakeApplicationShellService();
-        var service = new DeploymentLaunchPreparationService(shell, domainJoinPreparationService: new DomainJoinPreparationService(dialog, keys));
+        var service = new DeploymentLaunchPreparationService(shell, domainJoinPreparationService: new ForbiddenPreparation());
         DeploymentLaunchRequest request = CreateRequest(CreateDisk());
         request = request with { SelectedOperatingSystem = (OperatingSystemCatalogItem)request.SelectedOperatingSystem! with { Edition = edition } };
-        using DeploymentLaunchPreparationResult result = service.Prepare(request, new() { IsEnabled = true });
+        using DomainJoinSubmission submission = Submission();
+        using DeploymentLaunchPreparationResult result = service.Prepare(request, new() { IsEnabled = true }, submission);
         Assert.True(result.IsReadyToStart);
-        Assert.False(dialog.WasShown);
         Assert.Null(result.TakeDomainJoinInput());
         Assert.Null(result.Context!.DomainJoinIntent);
         Assert.Equal(DomainJoinDeploymentDisposition.UnsupportedEdition, result.Context.DomainJoinRequest!.Disposition);
     }
 
-    [Fact]
-    public void DryRunDoesNotCollectCredentials()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void DryRunSimulatesTheJoinTargetWithoutPreparingCredentials(bool hasWizardInput)
     {
-        using var keys = new DeploymentSecretKeySession();
-        var dialog = new DomainJoinPreparationServiceTests.Dialog(null);
-        var service = new DeploymentLaunchPreparationService(new FakeApplicationShellService(), domainJoinPreparationService: new DomainJoinPreparationService(dialog, keys));
-        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(null, isDryRun: true), new() { IsEnabled = true });
+        var service = new DeploymentLaunchPreparationService(new FakeApplicationShellService(), domainJoinPreparationService: new ForbiddenPreparation());
+        using DomainJoinSubmission? submission = hasWizardInput ? Submission(typedOu: "OU=Field,DC=corp,DC=test") : null;
+        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(null, isDryRun: true), new() { IsEnabled = true }, submission);
         Assert.True(result.IsReadyToStart);
-        Assert.False(dialog.WasShown);
         Assert.Null(result.TakeDomainJoinInput());
-        Assert.Null(result.Context!.DomainJoinIntent);
+        Assert.Equal(hasWizardInput ? new DomainJoinDeploymentIntent("corp.test", "LAB-01", "OU=Field,DC=corp,DC=test") : null,
+            result.Context!.DomainJoinIntent);
         Assert.Equal(DomainJoinDeploymentDisposition.DryRun, result.Context.DomainJoinRequest!.Disposition);
     }
 
@@ -184,9 +195,9 @@ public sealed class DeploymentLaunchPreparationServiceTests
     public void TransferredInputSurvivesResultDisposal()
     {
         using var keys = new DeploymentSecretKeySession();
-        var service = new DeploymentLaunchPreparationService(new FakeApplicationShellService(),
-            domainJoinPreparationService: new DomainJoinPreparationService(new DomainJoinPreparationServiceTests.Dialog(new("corp.test", "CORP\\join", null, "secret".AsSpan())), keys));
-        var result = service.Prepare(CreateRequest(CreateDisk()), new() { IsEnabled = true });
+        using DomainJoinSubmission submission = Submission();
+        DeploymentLaunchPreparationService service = CreateService(new FakeApplicationShellService(), keys);
+        var result = service.Prepare(CreateRequest(CreateDisk()), new() { IsEnabled = true }, submission);
         using DomainJoinPreparedInput? input = result.TakeDomainJoinInput();
         ReadOnlyMemory<char> password = input!.Password;
         result.Dispose();

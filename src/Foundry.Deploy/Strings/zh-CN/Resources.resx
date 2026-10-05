@@ -256,6 +256,12 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>部署页面</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>交互式</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>错误页面</value>
   </data>
@@ -360,8 +366,8 @@
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>账户（DOMAIN\user 或 user@domain）</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>继续</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>请以 DOMAIN\user 或 user@domain 格式输入账户。</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>域默认位置</value>
@@ -375,11 +381,11 @@
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>请输入此域内有效的 OU 可分辨名称，或留空。</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>请选择一个组织单位。</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>域名</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>请输入有效的域名，例如 corp.contoso.com。</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>域加入信息缺失或无效。部署尚未开始。</value>
@@ -392,9 +398,6 @@
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>密码</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>部署开始前询问</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>域：{0}。OU：{1}。</value>

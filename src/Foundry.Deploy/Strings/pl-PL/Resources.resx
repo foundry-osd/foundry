@@ -256,6 +256,12 @@ Licencjonowany na licencji MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Strony wdrożeniowe</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktywnie</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Strona błędu</value>
   </data>
@@ -360,8 +366,8 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user lub user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Kontynuuj</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Wprowadź konto w formacie DOMAIN\user lub user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domyślna lokalizacja domeny</value>
@@ -375,11 +381,11 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Wprowadź prawidłową nazwę wyróżniającą jednostki OU w tej domenie lub pozostaw pole puste.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Wybierz jednostkę organizacyjną.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Nazwa domeny</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Wprowadź prawidłową nazwę domeny, na przykład corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Brak informacji o dołączaniu do domeny lub są one nieprawidłowe. Wdrażanie nie zostało rozpoczęte.</value>
@@ -392,9 +398,6 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Hasło</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Pytanie przed rozpoczęciem wdrażania</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Domena: {0}. OU: {1}.</value>

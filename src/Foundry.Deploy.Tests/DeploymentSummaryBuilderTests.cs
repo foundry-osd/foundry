@@ -29,6 +29,28 @@ public sealed class DeploymentSummaryBuilderTests
             categories.Select(category => category.Title));
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Build_ListsDomainJoinAfterAutopilotOnlyWhenTheMediaEnablesIt(bool hasStep)
+    {
+        var builder = new DeploymentSummaryBuilder(key => key);
+        DeploymentSummarySource source = CreateSource() with
+        {
+            IsDomainJoinConfigured = true,
+            DomainJoinSummary = "corp.test",
+            HasDomainJoinStep = hasStep
+        };
+
+        IReadOnlyList<DeploymentSummaryCategoryViewModel> categories = builder.Build(source);
+
+        Assert.Equal(8, categories.Count);
+        Assert.Equal("Summary.Category.Autopilot", categories[3].Title);
+        Assert.Equal("DomainJoin.Title", categories[4].Title);
+        Assert.Equal("corp.test", categories[4].Summary);
+        Assert.Equal(hasStep ? DeploymentWizardStepId.DomainJoin : null, categories[4].EditStepId);
+    }
+
     [Fact]
     public void Build_ShowsAbsentAutopilotAsNeutralWithoutEditAction()
     {

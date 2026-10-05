@@ -256,6 +256,12 @@ Sous licence MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pages de déploiement</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interactif</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Page d'erreur</value>
   </data>
@@ -360,8 +366,8 @@ Action: Vérifiez les attributs du disque et réessayez le déploiement.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Compte (DOMAIN\user ou user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Continuer</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Saisissez le compte au format DOMAIN\user ou user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Emplacement par défaut du domaine</value>
@@ -375,11 +381,11 @@ Action: Vérifiez les attributs du disque et réessayez le déploiement.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Saisissez un nom distinctif d’OU valide dans ce domaine, ou laissez le champ vide.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Sélectionnez une unité d’organisation.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Nom de domaine</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Saisissez un nom de domaine valide, par exemple corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Les informations de jonction au domaine sont manquantes ou non valides. Le déploiement n’a pas commencé.</value>
@@ -392,9 +398,6 @@ Action: Vérifiez les attributs du disque et réessayez le déploiement.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Mot de passe</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Demandé avant le début du déploiement</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Domaine : {0}. OU : {1}.</value>

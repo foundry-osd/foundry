@@ -256,6 +256,12 @@ Licencirano pod licenco MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Strani za uvajanje</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktivno</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Stran z napako</value>
   </data>
@@ -360,8 +366,8 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Račun (DOMAIN\user ali user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Nadaljuj</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Račun vnesite v obliki DOMAIN\user ali user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Privzeto mesto domene</value>
@@ -375,11 +381,11 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Vnesite veljavno razločevalno ime OU v tej domeni ali pustite polje prazno.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Izberite organizacijsko enoto.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Ime domene</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Vnesite veljavno ime domene, na primer corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Podatki za pridružitev domeni manjkajo ali niso veljavni. Uvajanje se ni začelo.</value>
@@ -392,9 +398,6 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Geslo</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Zahtevano pred začetkom uvajanja</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Domena: {0}. OU: {1}.</value>

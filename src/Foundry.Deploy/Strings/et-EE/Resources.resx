@@ -256,6 +256,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Juurutamise lehed</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktiivne</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Vealeht</value>
   </data>
@@ -360,8 +366,8 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user või user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Jätka</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Sisestage konto kujul DOMAIN\user või user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domeeni vaikeasukoht</value>
@@ -375,11 +381,11 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Sisestage selles domeenis kehtiv OU eristusnimi või jätke väli tühjaks.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Valige organisatsiooniüksus.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Domeeninimi</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Sisestage kehtiv domeeninimi, näiteks corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Domeeniga liitumise teave puudub või ei kehti. Juurutamine pole alanud.</value>
@@ -392,9 +398,6 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parool</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Küsitakse enne juurutamise algust</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Domeen: {0}. OU: {1}.</value>

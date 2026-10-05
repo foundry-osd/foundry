@@ -256,6 +256,12 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Сторінки розгортання</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Інтерактивно</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Сторінка помилки</value>
   </data>
@@ -360,8 +366,8 @@ ErrorCode=0x80070005
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Обліковий запис (DOMAIN\user або user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Продовжити</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Введіть обліковий запис у форматі DOMAIN\user або user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Розташування домену за замовчуванням</value>
@@ -375,11 +381,11 @@ ErrorCode=0x80070005
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Введіть дійсне розрізнювальне ім’я OU в цьому домені або залиште поле порожнім.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Виберіть організаційну одиницю.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Ім’я домену</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Введіть дійсне ім’я домену, наприклад corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Дані для приєднання до домену відсутні або недійсні. Розгортання не розпочато.</value>
@@ -392,9 +398,6 @@ ErrorCode=0x80070005
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Пароль</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Запитується перед початком розгортання</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Домен: {0}. OU: {1}.</value>

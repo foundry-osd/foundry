@@ -256,6 +256,12 @@ Licencirano pod MIT licencom.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stranice za primenu</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktivno</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Stranica sa greškom</value>
   </data>
@@ -360,8 +366,8 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Nalog (DOMAIN\user ili user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Nastavi</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Unesite nalog u obliku DOMAIN\user ili user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Podrazumevana lokacija domena</value>
@@ -375,11 +381,11 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Unesite važeće jedinstveno ime OU u ovom domenu ili ostavite polje prazno.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Izaberite organizacionu jedinicu.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Ime domena</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Unesite važeće ime domena, na primer corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Podaci za pridruživanje domenu nedostaju ili nisu važeći. Primena nije započeta.</value>
@@ -392,9 +398,6 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Lozinka</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Traži se pre početka primene</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Domen: {0}. OU: {1}.</value>

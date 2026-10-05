@@ -42,8 +42,9 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
     /// <returns>The normalized launch result, including a deployment context when startup can continue.</returns>
     public DeploymentLaunchPreparationResult Prepare(DeploymentLaunchRequest request) => Prepare(request, null);
 
-    /// <summary>Accepts credential-bearing runtime settings only as preparation-local input.</summary>
-    public DeploymentLaunchPreparationResult Prepare(DeploymentLaunchRequest request, DeployDomainJoinSettings? domainJoin)
+    /// <summary>Accepts credential-bearing runtime settings and wizard input only as preparation-local input.</summary>
+    public DeploymentLaunchPreparationResult Prepare(DeploymentLaunchRequest request, DeployDomainJoinSettings? domainJoin,
+        DomainJoinSubmission? domainJoinSubmission = null)
     {
         ArgumentNullException.ThrowIfNull(request);
 
@@ -123,7 +124,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
         DomainJoinDeploymentRequest? domainRequest = null;
         DomainJoinDeploymentIntent? domainIntent = null;
         using DomainJoinPreparationResult? prepared = requiresDomainJoin && !request.IsDryRun
-            ? _domainJoinPreparationService?.Prepare(domainJoin!, normalizedComputerName) : null;
+            ? _domainJoinPreparationService?.Prepare(domainJoin!, normalizedComputerName, domainJoinSubmission) : null;
         if (requestedDomainJoin)
         {
             DomainJoinDeploymentDisposition disposition = unsupportedDomainJoin ? DomainJoinDeploymentDisposition.UnsupportedEdition :
@@ -131,8 +132,6 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             domainRequest = new(disposition);
             if (disposition == DomainJoinDeploymentDisposition.Ready)
             {
-                if (prepared?.Status == DomainJoinPreparationStatus.Canceled)
-                    return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
                 if (prepared?.Status != DomainJoinPreparationStatus.Ready || prepared.Input is null)
                 {
                     _logger.LogWarning("Domain join preparation failed before deployment start. FailureCode={FailureCode}", prepared?.FailureCode);
@@ -140,11 +139,9 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
                 }
                 domainIntent = new(prepared.Input.CredentialContext.DomainName, prepared.Input.ComputerName, prepared.Input.TargetOuDn);
             }
-            else if (disposition == DomainJoinDeploymentDisposition.DryRun &&
-                Foundry.Core.Models.Configuration.DomainJoinCredentialContext.IsValidDomainName(domainJoin!.DomainName))
+            else if (disposition == DomainJoinDeploymentDisposition.DryRun)
             {
-                domainIntent = new(domainJoin.DomainName!, normalizedComputerName,
-                    DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(domainJoin, domainJoin.DomainName)?.DistinguishedName);
+                domainIntent = CreateDryRunIntent(domainJoin!, domainJoinSubmission, normalizedComputerName);
             }
         }
 
@@ -189,6 +186,22 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             prepared?.TakeInput());
     }
 
+    /// <summary>Simulates the join target from the wizard input without touching credentials; an unusable input yields no intent.</summary>
+    private static DomainJoinDeploymentIntent? CreateDryRunIntent(DeployDomainJoinSettings settings, DomainJoinSubmission? submission, string computerName)
+    {
+        string? domain = submission?.DomainName is { Length: > 0 } entered ? entered : settings.DomainName;
+        if (!Foundry.Core.Models.Configuration.DomainJoinCredentialContext.IsValidDomainName(domain)) return null;
+        try
+        {
+            return new(domain!, computerName, DomainJoinPreparationService.ResolveOrganizationalUnit(
+                settings, domain!, submission?.SelectedOuId, submission?.TypedOuDistinguishedName));
+        }
+        catch (global::System.IO.InvalidDataException)
+        {
+            return null;
+        }
+    }
+
     /// <summary>
     /// Shows the final warning that live deployments erase the selected target disk.
     /// </summary>
@@ -197,7 +210,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
     /// <param name="request">Effective customization and answer-file ownership shown in the confirmation.</param>
     /// <param name="hasCustomCommands">Whether preserved commands require an overlap warning.</param>
     /// <param name="domainRequest">Secret-free disposition, including any intentional edition skip.</param>
-    /// <param name="domainIntent">Frozen domain and destination shown in the final review.</param>
+    /// <param name="domainIntent">Frozen domain and OU shown in the final review.</param>
     /// <returns><see langword="true"/> when the user confirms the destructive operation.</returns>
     private bool ConfirmDestructiveDeployment(TargetDiskInfo targetDisk, OperatingSystemMetadata operatingSystem, DeploymentLaunchRequest request, bool hasCustomCommands,
         DomainJoinDeploymentRequest? domainRequest, DomainJoinDeploymentIntent? domainIntent)

@@ -256,6 +256,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>배포 페이지</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>대화형</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>제로 터치</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>오류 페이지</value>
   </data>
@@ -360,8 +366,8 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>계정 (DOMAIN\user 또는 user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>계속</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>계정을 DOMAIN\user 또는 user@domain 형식으로 입력하세요.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>도메인 기본 위치</value>
@@ -375,11 +381,11 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>이 도메인 내의 유효한 OU 고유 이름을 입력하거나 비워 두세요.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>조직 구성 단위를 선택하세요.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>도메인 이름</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>corp.contoso.com과 같은 유효한 도메인 이름을 입력하세요.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>도메인 가입 정보가 없거나 유효하지 않습니다. 배포가 시작되지 않았습니다.</value>
@@ -392,9 +398,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>암호</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>배포 시작 전에 요청됨</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>도메인: {0}. OU: {1}.</value>

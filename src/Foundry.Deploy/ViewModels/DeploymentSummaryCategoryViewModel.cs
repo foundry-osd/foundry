@@ -100,6 +100,12 @@ public sealed record DeploymentSummarySource
     public required IReadOnlyList<DeploymentSummaryRowViewModel> AutopilotRows { get; init; }
     public bool IsAutopilotConfigured { get; init; }
     public bool HasAutopilotStep { get; init; }
+    /// <summary>Gets the Domain Join rows; the category is listed only when the media enables Domain Join.</summary>
+    public IReadOnlyList<DeploymentSummaryRowViewModel> DomainJoinRows { get; init; } = [];
+    public string DomainJoinSummary { get; init; } = string.Empty;
+    public bool IsDomainJoinConfigured { get; init; }
+    public bool HasDomainJoinWarning { get; init; }
+    public bool HasDomainJoinStep { get; init; }
     public required string WindowsCustomizationSummary { get; init; }
     public required IReadOnlyList<DeploymentSummaryRowViewModel> WindowsCustomizationRows { get; init; }
     public bool IsWindowsCustomizationConfigured { get; init; }
@@ -123,7 +129,7 @@ public sealed class DeploymentSummaryBuilder
     {
         ArgumentNullException.ThrowIfNull(source);
 
-        return
+        List<DeploymentSummaryCategoryViewModel> categories =
         [
             new(
                 _localize("Summary.Category.TargetDevice"),
@@ -172,5 +178,17 @@ public sealed class DeploymentSummaryBuilder
                 source.CompletionRows,
                 null)
         ];
+        if (source.IsDomainJoinConfigured)
+        {
+            // Listed right after Autopilot, the other provisioning category.
+            categories.Insert(4, new(
+                _localize("DomainJoin.Title"),
+                source.DomainJoinSummary,
+                source.HasDomainJoinWarning ? DeploymentSummaryStatus.Caution : DeploymentSummaryStatus.Configured,
+                source.DomainJoinRows,
+                source.HasDomainJoinStep ? DeploymentWizardStepId.DomainJoin : null));
+        }
+
+        return categories;
     }
 }

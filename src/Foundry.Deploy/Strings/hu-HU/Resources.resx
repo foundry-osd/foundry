@@ -256,6 +256,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Bevezetési oldalak</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktív</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Hiba oldal</value>
   </data>
@@ -360,8 +366,8 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Fiók (DOMAIN\user vagy user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Folytatás</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>A fiókot DOMAIN\user vagy user@domain formában adja meg.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>A tartomány alapértelmezett helye</value>
@@ -375,11 +381,11 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Adjon meg érvényes OU megkülönböztető nevet ebben a tartományban, vagy hagyja üresen.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Válasszon szervezeti egységet.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Tartománynév</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Adjon meg érvényes tartománynevet, például: corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>A tartományhoz csatlakozás adatai hiányoznak vagy érvénytelenek. A telepítés nem indult el.</value>
@@ -392,9 +398,6 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Jelszó</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>A telepítés indítása előtt kérve</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Tartomány: {0}. OU: {1}.</value>

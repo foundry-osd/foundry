@@ -256,6 +256,12 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>หน้าการปรับใช้</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>แบบโต้ตอบ</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>หน้าข้อผิดพลาด</value>
   </data>
@@ -360,8 +366,8 @@
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>บัญชี (DOMAIN\user หรือ user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>ดำเนินการต่อ</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>ป้อนบัญชีในรูปแบบ DOMAIN\user หรือ user@domain</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>ตำแหน่งเริ่มต้นของโดเมน</value>
@@ -375,11 +381,11 @@
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>ป้อนชื่อเฉพาะของ OU ที่ถูกต้องในโดเมนนี้ หรือปล่อยว่างไว้</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>เลือกหน่วยองค์กร</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>ชื่อโดเมน</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>ป้อนชื่อโดเมนที่ถูกต้อง เช่น corp.contoso.com</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>ข้อมูลการเข้าร่วมโดเมนขาดหายไปหรือไม่ถูกต้อง การปรับใช้ยังไม่เริ่มต้น</value>
@@ -392,9 +398,6 @@
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>รหัสผ่าน</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>ถามก่อนเริ่มการปรับใช้</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>โดเมน: {0} OU: {1}</value>

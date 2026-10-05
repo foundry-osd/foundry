@@ -94,7 +94,7 @@ public static class ServiceCollectionExtensions
                 logger);
         });
         services.AddSingleton<IDeploymentLaunchPreparationService, DeploymentLaunchPreparationService>();
-        services.AddSingleton<IDomainJoinDialogService, DomainJoinDialogService>();
+
         services.AddSingleton<IDomainJoinPreparationService, DomainJoinPreparationService>();
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
         services.AddSingleton<UtilityProcessRunner>();

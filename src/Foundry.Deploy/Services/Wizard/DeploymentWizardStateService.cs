@@ -32,6 +32,11 @@ public sealed class DeploymentWizardStateService : IDeploymentWizardStateService
             return snapshot.HasValidAutopilotSelection;
         }
 
+        if (snapshot.CurrentStepId == DeploymentWizardStepId.DomainJoin)
+        {
+            return snapshot.HasValidDomainJoinInput;
+        }
+
         if (snapshot.CurrentStepId == DeploymentWizardStepId.OperatingSystem && snapshot.IsCustomImageMode)
             return snapshot.HasSelectedOperatingSystem;
 
@@ -59,7 +64,8 @@ public sealed class DeploymentWizardStateService : IDeploymentWizardStateService
                snapshot.HasSelectedOperatingSystem &&
                hasTargetDisk &&
                snapshot.HasValidDriverPackSelection &&
-               snapshot.HasValidAutopilotSelection;
+               snapshot.HasValidAutopilotSelection &&
+               snapshot.HasValidDomainJoinInput;
     }
 
     private static int GetCurrentStepIndex(DeploymentWizardStateSnapshot snapshot)

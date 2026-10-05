@@ -256,6 +256,12 @@ Licenciado sob a licença MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Páginas de implantação</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interativo</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Página de erro</value>
   </data>
@@ -360,8 +366,8 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Conta (DOMAIN\user ou user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Continuar</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Insira a conta como DOMAIN\user ou user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Local padrão do domínio</value>
@@ -375,11 +381,11 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Insira um nome distinto de OU válido neste domínio ou deixe o campo vazio.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Selecione uma unidade organizacional.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Nome do domínio</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Insira um nome de domínio válido, como corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>As informações de associação ao domínio estão ausentes ou são inválidas. A implantação não foi iniciada.</value>
@@ -392,9 +398,6 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Senha</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Solicitado antes do início da implantação</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Domínio: {0}. OU: {1}.</value>

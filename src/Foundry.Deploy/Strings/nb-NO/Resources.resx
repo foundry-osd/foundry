@@ -256,6 +256,12 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementeringssider</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktiv</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Feilside</value>
   </data>
@@ -360,8 +366,8 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user eller user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Fortsett</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Angi kontoen som DOMAIN\user eller user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domenets standardplassering</value>
@@ -375,11 +381,11 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Angi et gyldig unikt navn for en OU i dette domenet, eller la feltet stå tomt.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Velg en organisasjonsenhet.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Domenenavn</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Angi et gyldig domenenavn, for eksempel corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Informasjonen for domenetilknytning mangler eller er ugyldig. Distribusjonen har ikke startet.</value>
@@ -392,9 +398,6 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Passord</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Spørres om før distribusjonen starter</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Domene: {0}. OU: {1}.</value>

@@ -21,9 +21,10 @@ public sealed class DomainJoinPreparationServiceTests
     public void InteractiveWithoutCatalogAcceptsOptionalDestination(string? destinationDn)
     {
         using var keys = new DeploymentSecretKeySession();
-        var service = new DomainJoinPreparationService(new Dialog(new("corp.test", "CORP\\join", null, "secret".AsSpan(), destinationDn)), keys);
+        using var submission = new DomainJoinSubmission("corp.test", "CORP\\join", null, "secret".AsSpan(), destinationDn);
+        var service = new DomainJoinPreparationService(keys);
 
-        using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01", submission);
 
         Assert.Equal(DomainJoinPreparationStatus.Ready, result.Status);
         Assert.Equal(string.IsNullOrEmpty(destinationDn) ? null : destinationDn, result.Input!.TargetOuDn);
@@ -39,15 +40,13 @@ public sealed class DomainJoinPreparationServiceTests
     public void InteractiveRejectsInvalidOrForeignDestination(string destinationDn)
     {
         using var keys = new DeploymentSecretKeySession();
-        using var submission = new DomainJoinDialogResult("corp.test", "CORP\\join", null, "secret".AsSpan(), destinationDn);
-        ReadOnlyMemory<char> password = submission.Password;
-        var service = new DomainJoinPreparationService(new Dialog(submission), keys);
+        using var submission = new DomainJoinSubmission("corp.test", "CORP\\join", null, "secret".AsSpan(), destinationDn);
+        var service = new DomainJoinPreparationService(keys);
 
-        using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01", submission);
 
         Assert.Equal(DomainJoinPreparationStatus.Invalid, result.Status);
         Assert.Null(result.Input);
-        Assert.All(password.ToArray(), value => Assert.Equal('\0', value));
     }
 
     [Theory]
@@ -61,9 +60,10 @@ public sealed class DomainJoinPreparationServiceTests
         keys.SetKey(key);
         DeployDomainJoinSettings settings = WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }) with
         { AllowOuSelectionDuringDeployment = pickerEnabled, DefaultOuId = "sales" };
-        var service = new DomainJoinPreparationService(new Dialog(new("corp.test", "CORP\\join", "sales", "secret".AsSpan(), "OU=Unlisted,DC=corp,DC=test")), keys);
+        using var submission = new DomainJoinSubmission("corp.test", "CORP\\join", "sales", "secret".AsSpan(), "OU=Unlisted,DC=corp,DC=test");
+        var service = new DomainJoinPreparationService(keys);
 
-        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01", submission);
 
         Assert.Equal(DomainJoinPreparationStatus.Invalid, result.Status);
         Assert.Null(result.Input);
@@ -75,10 +75,11 @@ public sealed class DomainJoinPreparationServiceTests
     public void ChangedDomainSuppressesCatalogAndValidatesSubmittedDestination(string destinationDn, bool valid)
     {
         using var keys = new DeploymentSecretKeySession();
-        var service = new DomainJoinPreparationService(new Dialog(new("other.test", "OTHER\\join", "sales", "secret".AsSpan(), destinationDn)), keys);
+        using var submission = new DomainJoinSubmission("other.test", "OTHER\\join", "sales", "secret".AsSpan(), destinationDn);
+        var service = new DomainJoinPreparationService(keys);
         DeployDomainJoinSettings settings = WithCatalog(new() { IsEnabled = true }) with { DefaultOuId = "sales" };
 
-        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01", submission);
 
         Assert.Equal(valid ? DomainJoinPreparationStatus.Ready : DomainJoinPreparationStatus.Invalid, result.Status);
         if (valid) Assert.Equal(destinationDn, result.Input!.TargetOuDn);
@@ -97,15 +98,13 @@ public sealed class DomainJoinPreparationServiceTests
         keys.SetKey(key);
         DeployDomainJoinSettings settings = WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }) with
         { DefaultOuId = defaultOuId };
-        using var submission = new DomainJoinDialogResult("corp.test", "CORP\\join", null, "secret".AsSpan());
-        ReadOnlyMemory<char> password = submission.Password;
-        var service = new DomainJoinPreparationService(new Dialog(submission), keys);
+        using var submission = new DomainJoinSubmission("corp.test", "CORP\\join", null, "secret".AsSpan());
+        var service = new DomainJoinPreparationService(keys);
 
-        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01", submission);
 
         Assert.Equal(DomainJoinPreparationStatus.Invalid, result.Status);
         Assert.Null(result.Input);
-        Assert.All(password.ToArray(), value => Assert.Equal('\0', value));
     }
 
     [Theory]
@@ -118,9 +117,10 @@ public sealed class DomainJoinPreparationServiceTests
         keys.SetKey(key);
         DeployDomainJoinSettings settings = WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }) with
         { DefaultOuId = "sales" };
-        var service = new DomainJoinPreparationService(new Dialog(new("corp.test", "CORP\\join", "sales", "secret".AsSpan())), keys);
+        using var submission = new DomainJoinSubmission("corp.test", "CORP\\join", "sales", "secret".AsSpan());
+        var service = new DomainJoinPreparationService(keys);
 
-        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01", submission);
 
         Assert.Equal(DomainJoinPreparationStatus.Ready, result.Status);
         Assert.Equal("OU=Sales,DC=corp,DC=test", result.Input!.TargetOuDn);
@@ -138,14 +138,13 @@ public sealed class DomainJoinPreparationServiceTests
         keys.SetKey(key);
         DeployDomainJoinSettings settings = WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }) with
         { AllowOuSelectionDuringDeployment = false, DefaultOuId = defaultOuId };
-        var dialog = new Dialog(new("corp.test", "CORP\\join", null, "secret".AsSpan()));
-        var service = new DomainJoinPreparationService(dialog, keys);
+        using var submission = new DomainJoinSubmission("corp.test", "CORP\\join", null, "secret".AsSpan());
+        var service = new DomainJoinPreparationService(keys);
 
-        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01", submission);
 
         Assert.Equal(DomainJoinPreparationStatus.Ready, result.Status);
         Assert.Equal(expectedDn, result.Input!.TargetOuDn);
-        Assert.Equal(!automatic, dialog.WasShown);
     }
 
     internal static DeployDomainJoinSettings WithCatalog(DeployDomainJoinSettings settings) => settings with
@@ -164,8 +163,9 @@ public sealed class DomainJoinPreparationServiceTests
         keys.SetKey(key);
         DeployDomainJoinSettings settings = Automatic(new("corp.test", "CORP\\join"), key);
         settings = settings with { EncryptedCredentials = settings.EncryptedCredentials! with { Ciphertext = "!invalid!" } };
-        var service = new DomainJoinPreparationService(new Dialog(null), keys);
-        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01");
+        DomainJoinSubmission? submission = null;
+        var service = new DomainJoinPreparationService(keys);
+        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01", submission);
         Assert.Equal(DomainJoinPreparationStatus.Invalid, result.Status);
         Assert.Equal(DomainJoinPreparationFailure.CredentialsInvalid, result.FailureCode);
         Assert.Null(result.Input);
@@ -177,8 +177,9 @@ public sealed class DomainJoinPreparationServiceTests
         var keys = new RecordingKeys();
         DeployDomainJoinSettings settings = Automatic(new("corp.test", "CORP\\join"), new byte[32]);
         settings = settings with { EncryptedCredentials = settings.EncryptedCredentials! with { Ciphertext = new string('A', 50000) } };
-        var service = new DomainJoinPreparationService(new Dialog(null), keys);
-        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01");
+        DomainJoinSubmission? submission = null;
+        var service = new DomainJoinPreparationService(keys);
+        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01", submission);
         Assert.Equal(DomainJoinPreparationStatus.Invalid, result.Status);
         Assert.False(keys.CopyRequested);
     }
@@ -197,28 +198,29 @@ public sealed class DomainJoinPreparationServiceTests
     public void InteractiveCollectsCredentialsWithoutMediaUnlock()
     {
         using var keys = new DeploymentSecretKeySession();
-        var dialog = new Dialog(new("corp.test", "CORP\\join", null, " secret ".AsSpan()));
-        var service = new DomainJoinPreparationService(dialog, keys);
+        using var submission = new DomainJoinSubmission("corp.test", "CORP\\join", null, " secret ".AsSpan());
+        var service = new DomainJoinPreparationService(keys);
 
-        using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01", submission);
 
         Assert.Equal(DomainJoinPreparationStatus.Ready, result.Status);
         Assert.Equal("corp.test", result.Input!.CredentialContext.DomainName);
         Assert.Equal("LAB-01", result.Input.ComputerName);
         Assert.Equal(" secret ", new string(result.Input.Password.Span));
         Assert.False(keys.IsUnlocked);
-        Assert.True(dialog.CredentialsRequested);
     }
 
     [Fact]
-    public void CanceledCredentialOrOuDialogNeverProducesInput()
+    public void InteractiveWithoutWizardInputNeverProducesInput()
     {
         using var keys = new DeploymentSecretKeySession();
-        var service = new DomainJoinPreparationService(new Dialog(null), keys);
+        DomainJoinSubmission? submission = null;
+        var service = new DomainJoinPreparationService(keys);
 
-        using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01", submission);
 
-        Assert.Equal(DomainJoinPreparationStatus.Canceled, result.Status);
+        Assert.Equal(DomainJoinPreparationStatus.Invalid, result.Status);
+        Assert.Equal(DomainJoinPreparationFailure.CredentialsInvalid, result.FailureCode);
         Assert.Null(result.Input);
     }
 
@@ -230,14 +232,13 @@ public sealed class DomainJoinPreparationServiceTests
         keys.SetKey(key);
         var context = new DomainJoinCredentialContext("corp.test", "CORP\\join");
         DeployDomainJoinSettings settings = Automatic(context, key);
-        var dialog = new Dialog(null);
-        var service = new DomainJoinPreparationService(dialog, keys);
+        DomainJoinSubmission? submission = null;
+        var service = new DomainJoinPreparationService(keys);
 
-        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01", submission);
 
         Assert.Equal(DomainJoinPreparationStatus.Ready, result.Status);
         Assert.Equal(" secret ", new string(result.Input!.Password.Span));
-        Assert.False(dialog.WasShown);
         Assert.True(keys.IsUnlocked);
         CryptographicOperations.ZeroMemory(key);
     }
@@ -252,9 +253,10 @@ public sealed class DomainJoinPreparationServiceTests
         keys.SetKey(key);
         DeployDomainJoinSettings settings = Automatic(new("corp.test", "CORP\\join"), key) with
         { DomainName = domain, AccountName = account };
-        var service = new DomainJoinPreparationService(new Dialog(null), keys);
+        DomainJoinSubmission? submission = null;
+        var service = new DomainJoinPreparationService(keys);
 
-        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01");
+        using DomainJoinPreparationResult result = service.Prepare(settings, "LAB-01", submission);
 
         Assert.Equal(DomainJoinPreparationStatus.Invalid, result.Status);
         Assert.Equal(DomainJoinPreparationFailure.CredentialsInvalid, result.FailureCode);
@@ -266,7 +268,8 @@ public sealed class DomainJoinPreparationServiceTests
     public void ChangedDomainClearsCatalogDestination()
     {
         using var keys = new DeploymentSecretKeySession();
-        var service = new DomainJoinPreparationService(new Dialog(new("other.test", "OTHER\\join", "sales", "secret".AsSpan())), keys);
+        using var submission = new DomainJoinSubmission("other.test", "OTHER\\join", "sales", "secret".AsSpan());
+        var service = new DomainJoinPreparationService(keys);
         using DomainJoinPreparationResult result = service.Prepare(new()
         {
             IsEnabled = true,
@@ -275,7 +278,7 @@ public sealed class DomainJoinPreparationServiceTests
             DefaultOuId = "sales",
             AllowOuSelectionDuringDeployment = true,
             OrganizationalUnits = [new() { Id = "sales", DisplayName = "Sales", DistinguishedName = "OU=Sales,DC=corp,DC=test" }]
-        }, "LAB-01");
+        }, "LAB-01", submission);
         Assert.Equal(DomainJoinPreparationStatus.Ready, result.Status);
         Assert.Null(result.Input!.TargetOuDn);
     }
@@ -288,20 +291,20 @@ public sealed class DomainJoinPreparationServiceTests
     public void MissingOrInvalidInteractiveCredentialsFailClosed(string domain, string account, string password)
     {
         using var keys = new DeploymentSecretKeySession();
-        var service = new DomainJoinPreparationService(new Dialog(new(domain, account, null, password.AsSpan())), keys);
-        using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01");
+        using var submission = new DomainJoinSubmission(domain, account, null, password.AsSpan());
+        var service = new DomainJoinPreparationService(keys);
+        using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01", submission);
         Assert.Equal(DomainJoinPreparationStatus.Invalid, result.Status);
         Assert.Null(result.Input);
     }
 
     [Theory]
-    [InlineData("corp.test", "corp.test", "sales", false, "OU=Sales,DC=corp,DC=test", false)]
-    [InlineData("corp.test", "corp.test", "sales", true, "OU=Sales,DC=corp,DC=test", true)]
-    [InlineData("corp.test", "corp.test", null, false, null, false)]
-    [InlineData("corp.test", "other.test", "sales", true, null, false)]
-    [InlineData(null, "corp.test", "sales", false, null, true)]
-    public void DefaultOrganizationalUnitFollowsDomainCatalogAndLaunchChoice(string? domain, string catalogDomain, string? defaultOuId,
-        bool allowSelection, string? expectedDefaultDn, bool chosenAtLaunch)
+    [InlineData("corp.test", "corp.test", "sales", "OU=Sales,DC=corp,DC=test")]
+    [InlineData("corp.test", "corp.test", null, null)]
+    [InlineData("corp.test", "other.test", "sales", null)]
+    [InlineData(null, "corp.test", "sales", null)]
+    public void DefaultOrganizationalUnitAppliesOnlyToTheDomainOfTheSavedList(string? domain, string catalogDomain, string? defaultOuId,
+        string? expectedDefaultDn)
     {
         var settings = new DeployDomainJoinSettings
         {
@@ -309,11 +312,9 @@ public sealed class DomainJoinPreparationServiceTests
             DomainName = domain,
             OuCatalogDomain = catalogDomain,
             DefaultOuId = defaultOuId,
-            AllowOuSelectionDuringDeployment = allowSelection,
             OrganizationalUnits = [new() { Id = "sales", DisplayName = "Sales", DistinguishedName = "OU=Sales,DC=corp,DC=test" }]
         };
         Assert.Equal(expectedDefaultDn, DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(settings, domain)?.DistinguishedName);
-        Assert.Equal(chosenAtLaunch, DomainJoinPreparationService.IsOrganizationalUnitChosenAtLaunch(settings));
     }
 
     internal static DeployDomainJoinSettings Automatic(DomainJoinCredentialContext context, byte[] key)
@@ -331,17 +332,5 @@ public sealed class DomainJoinPreparationServiceTests
             };
         }
         finally { CryptographicOperations.ZeroMemory(payload); }
-    }
-
-    internal sealed class Dialog(DomainJoinDialogResult? result) : IDomainJoinDialogService
-    {
-        public bool WasShown { get; private set; }
-        public bool CredentialsRequested { get; private set; }
-        public DomainJoinDialogResult? Show(DeployDomainJoinSettings settings, bool requiresCredentials)
-        {
-            WasShown = true;
-            CredentialsRequested = requiresCredentials;
-            return result;
-        }
     }
 }

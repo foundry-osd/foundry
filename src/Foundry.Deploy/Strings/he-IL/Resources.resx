@@ -256,6 +256,12 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>דפי פריסה</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>אינטראקטיבי</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>דף שגיאה</value>
   </data>
@@ -360,8 +366,8 @@ ErrorCode=0x80070005
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>חשבון (DOMAIN\user או user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>המשך</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>הזן את החשבון בתבנית DOMAIN\user או user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>מיקום ברירת המחדל של התחום</value>
@@ -375,11 +381,11 @@ ErrorCode=0x80070005
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>הזן שם מובחן תקין של OU בתחום זה, או השאר ריק.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>בחר יחידה ארגונית.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>שם התחום</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>הזן שם תחום תקין, כגון corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>פרטי ההצטרפות לתחום חסרים או אינם תקינים. הפריסה לא התחילה.</value>
@@ -392,9 +398,6 @@ ErrorCode=0x80070005
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>סיסמה</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>מתבקש לפני תחילת הפריסה</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>תחום: {0}. OU: {1}.</value>

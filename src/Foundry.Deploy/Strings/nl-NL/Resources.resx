@@ -256,6 +256,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementatiepagina's</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interactief</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Foutpagina</value>
   </data>
@@ -360,8 +366,8 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Account (DOMAIN\user of user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Doorgaan</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Voer het account in als DOMAIN\user of user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Standaardlocatie van het domein</value>
@@ -375,11 +381,11 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Voer een geldige DN-naam van een OU in dit domein in, of laat het veld leeg.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Selecteer een organisatie-eenheid.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Domeinnaam</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Voer een geldige domeinnaam in, zoals corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>De gegevens voor domeintoetreding ontbreken of zijn ongeldig. De implementatie is niet gestart.</value>
@@ -392,9 +398,6 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Wachtwoord</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Wordt gevraagd voordat de implementatie start</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Domein: {0}. OU: {1}.</value>

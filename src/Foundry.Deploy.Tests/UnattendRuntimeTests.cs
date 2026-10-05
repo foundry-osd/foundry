@@ -47,9 +47,9 @@ public sealed class UnattendRuntimeTests
     public async Task CustomNameIsFrozenWithoutXmlRewrite()
     {
         using var fixture = new Fixture("<ComputerName>custom-Pc</ComputerName>");
-        var service = new DeploymentLaunchPreparationService(new Shell(), fixture.Service,
-            new DomainJoinPreparationService(new DomainJoinPreparationServiceTests.Dialog(new("corp.test", "CORP\\join", null, "domain-password-marker".AsSpan())), fixture.Session));
-        using DeploymentLaunchPreparationResult launch = service.Prepare(fixture.CreateLaunchRequest(), new() { IsEnabled = true });
+        var service = new DeploymentLaunchPreparationService(new Shell(), fixture.Service, new DomainJoinPreparationService(fixture.Session));
+        using var submission = new DomainJoinSubmission("corp.test", "CORP\\join", null, "domain-password-marker".AsSpan());
+        using DeploymentLaunchPreparationResult launch = service.Prepare(fixture.CreateLaunchRequest(), new() { IsEnabled = true }, submission);
         Assert.True(launch.IsReadyToStart);
         Assert.Equal("custom-Pc", launch.Context!.DomainJoinIntent!.ComputerName);
         Assert.Equal("", launch.Context.TargetComputerName);

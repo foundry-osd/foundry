@@ -256,6 +256,12 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>صفحات النشر</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>تفاعلي</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>صفحة الخطأ</value>
   </data>
@@ -360,8 +366,8 @@
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>الحساب (DOMAIN\user أو user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>متابعة</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>أدخل الحساب بالصيغة DOMAIN\user أو user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>الموقع الافتراضي للنطاق</value>
@@ -375,11 +381,11 @@
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>أدخل اسماً مميزاً صالحاً لوحدة OU في هذا النطاق، أو اترك الحقل فارغاً.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>حدد وحدة تنظيمية.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>اسم النطاق</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>أدخل اسم نطاق صالحاً، مثل corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>معلومات الانضمام إلى النطاق مفقودة أو غير صالحة. لم يبدأ النشر.</value>
@@ -392,9 +398,6 @@
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>كلمة المرور</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>يُطلب قبل بدء النشر</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>النطاق: {0}. OU: {1}.</value>

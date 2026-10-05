@@ -256,6 +256,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Dağıtım sayfaları</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Etkileşimli</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Hata sayfası</value>
   </data>
@@ -360,8 +366,8 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Hesap (DOMAIN\user veya user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Devam et</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Hesabı DOMAIN\user veya user@domain biçiminde girin.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Etki alanının varsayılan konumu</value>
@@ -375,11 +381,11 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Bu etki alanında geçerli bir OU ayırt edici adı girin veya boş bırakın.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Bir kuruluş birimi seçin.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Etki alanı adı</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>corp.contoso.com gibi geçerli bir etki alanı adı girin.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Etki alanına katılma bilgileri eksik veya geçersiz. Dağıtım başlamadı.</value>
@@ -392,9 +398,6 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parola</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Dağıtım başlamadan önce sorulur</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Etki alanı: {0}. OU: {1}.</value>

@@ -256,6 +256,12 @@ Licencované podľa licencie MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stránky nasadenia</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktívne</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Chybová stránka</value>
   </data>
@@ -360,8 +366,8 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Účet (DOMAIN\user alebo user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Pokračovať</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Zadajte účet v tvare DOMAIN\user alebo user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Predvolené umiestnenie domény</value>
@@ -375,11 +381,11 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Zadajte platný rozlišujúci názov OU v tejto doméne alebo nechajte pole prázdne.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Vyberte organizačnú jednotku.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Názov domény</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Zadajte platný názov domény, napríklad corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Údaje na pripojenie k doméne chýbajú alebo sú neplatné. Nasadenie sa nezačalo.</value>
@@ -392,9 +398,6 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Heslo</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Vyžiada sa pred začatím nasadenia</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Doména: {0}. OU: {1}.</value>

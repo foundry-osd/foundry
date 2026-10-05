@@ -256,6 +256,12 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pagine di distribuzione</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interattivo</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Pagina di errore</value>
   </data>
@@ -360,8 +366,8 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Account (DOMAIN\user o user@domain)</value>
   </data>
-  <data name="DomainJoin.Continue" xml:space="preserve">
-    <value>Continua</value>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Inserisci l'account come DOMAIN\user o user@domain.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Posizione predefinita del dominio</value>
@@ -375,11 +381,11 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Inserisci un nome distinto di OU valido in questo dominio, oppure lascia il campo vuoto.</value>
   </data>
-  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
-    <value>Seleziona un'unità organizzativa.</value>
-  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Nome di dominio</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Inserisci un nome di dominio valido, ad esempio corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>I dati per l'aggiunta al dominio sono mancanti o non validi. La distribuzione non è iniziata.</value>
@@ -392,9 +398,6 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Password</value>
-  </data>
-  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
-    <value>Richiesto prima dell'avvio della distribuzione</value>
   </data>
   <data name="DomainJoin.ReviewFormat" xml:space="preserve">
     <value>Dominio: {0}. OU: {1}.</value>

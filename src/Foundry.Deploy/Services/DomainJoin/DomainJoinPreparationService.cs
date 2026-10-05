@@ -16,14 +16,15 @@ namespace Foundry.Deploy.Services.DomainJoin;
 /// <summary>Provides owned input to the pre-confirmation launch boundary.</summary>
 public interface IDomainJoinPreparationService
 {
-    DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName);
+    /// <summary>Combines the media configuration with what the technician entered on the Domain Join wizard step.</summary>
+    DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission);
 }
 
 /// <summary>Resolves owned inputs without contacting AD or acquiring another media unlock.</summary>
-public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialogs, IDeploymentSecretKeySession keys) : IDomainJoinPreparationService
+public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession keys) : IDomainJoinPreparationService
 {
-    /// <summary>Requires a concrete final name and validated runtime metadata before collecting credentials.</summary>
-    public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName)
+    /// <summary>Requires a concrete final name and validated runtime metadata before accepting credentials.</summary>
+    public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission)
     {
         if (settings is null || !settings.IsEnabled || settings.OrganizationalUnits is null || !ComputerNameRules.IsValid(computerName) ||
             !DomainJoinConfigurationValidator.ValidateMetadata(ToAuthored(settings)).IsValid)
@@ -31,8 +32,8 @@ public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialog
         try
         {
             return settings.Mode == DomainJoinMode.Automatic
-                ? PrepareAutomatic(settings, computerName)
-                : PrepareInteractive(settings, computerName);
+                ? PrepareAutomatic(settings, computerName, submission)
+                : PrepareInteractive(settings, computerName, submission);
         }
         catch (Exception ex) when (ex is CryptographicException or InvalidDataException or ArgumentException or InvalidOperationException or FormatException)
         {
@@ -40,16 +41,15 @@ public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialog
         }
     }
 
-    private DomainJoinPreparationResult PrepareInteractive(DeployDomainJoinSettings settings, string computerName)
+    private static DomainJoinPreparationResult PrepareInteractive(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission)
     {
-        using DomainJoinDialogResult? submitted = dialogs.Show(settings, requiresCredentials: true);
-        if (submitted is null) return DomainJoinPreparationResult.Canceled();
-        string? destination = ResolveDestination(settings, submitted.DomainName, submitted.SelectedOuId, submitted.DestinationDn);
-        return DomainJoinPreparationResult.Ready(new(new(submitted.DomainName, submitted.AccountName),
-            computerName, destination, submitted.Password.Span));
+        if (submission is null) return DomainJoinPreparationResult.Invalid(DomainJoinPreparationFailure.CredentialsInvalid);
+        string? organizationalUnit = ResolveOrganizationalUnit(settings, submission.DomainName, submission.SelectedOuId, submission.TypedOuDistinguishedName);
+        return DomainJoinPreparationResult.Ready(new(new(submission.DomainName, submission.AccountName),
+            computerName, organizationalUnit, submission.Password.Span));
     }
 
-    private DomainJoinPreparationResult PrepareAutomatic(DeployDomainJoinSettings settings, string computerName)
+    private DomainJoinPreparationResult PrepareAutomatic(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission)
     {
         if (!keys.IsUnlocked || settings.EncryptedCredentials is null)
             return DomainJoinPreparationResult.Invalid(DomainJoinPreparationFailure.UnlockRequired);
@@ -75,21 +75,13 @@ public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialog
         }
         using (payload)
         {
-            string? selectedId = settings.DefaultOuId;
-            string? destinationDn = null;
-            if (settings.AllowOuSelectionDuringDeployment)
-            {
-                using DomainJoinDialogResult? submitted = dialogs.Show(settings, requiresCredentials: false);
-                if (submitted is null) return DomainJoinPreparationResult.Canceled();
-                selectedId = submitted.SelectedOuId;
-                destinationDn = submitted.DestinationDn;
-            }
+            string? selectedId = settings.AllowOuSelectionDuringDeployment ? submission?.SelectedOuId : settings.DefaultOuId;
             return DomainJoinPreparationResult.Ready(new(payload.Context, computerName,
-                ResolveDestination(settings, settings.DomainName!, selectedId, destinationDn), payload.Password.Span));
+                ResolveOrganizationalUnit(settings, settings.DomainName!, selectedId, submission?.TypedOuDistinguishedName), payload.Password.Span));
         }
     }
 
-    /// <summary>Determines whether authored destinations can be offered for the submitted domain.</summary>
+    /// <summary>Determines whether the saved OU list can be offered for the submitted domain.</summary>
     internal static bool HasCompatibleCatalog(DeployDomainJoinSettings settings, string? domain) =>
         settings.OrganizationalUnits.Count > 0 && DomainJoinCredentialContext.IsValidDomainName(domain) &&
         string.Equals(DomainJoinCredentialContext.CanonicalizeDomainName(domain),
@@ -101,10 +93,6 @@ public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialog
             ? settings.OrganizationalUnits.FirstOrDefault(unit => string.Equals(unit.Id, id, StringComparison.OrdinalIgnoreCase))
             : null;
 
-    /// <summary>Determines whether the OU is only known at launch because the domain or the OU itself is asked then.</summary>
-    internal static bool IsOrganizationalUnitChosenAtLaunch(DeployDomainJoinSettings settings) =>
-        !DomainJoinCredentialContext.IsValidDomainName(settings.DomainName) ||
-        settings.AllowOuSelectionDuringDeployment && HasCompatibleCatalog(settings, settings.DomainName);
 
     /// <summary>Determines whether the join applies to the selected image; positively unsupported editions skip it.</summary>
     internal static bool IsRequiredFor(DeployDomainJoinSettings? settings, OperatingSystemMetadata? operatingSystem)
@@ -115,22 +103,26 @@ public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialog
         return DomainJoinEditionRules.Evaluate(editionId) != DomainJoinEditionSupport.Unsupported;
     }
 
-    private static string? ResolveDestination(DeployDomainJoinSettings settings, string domain, string? selectedId, string? destinationDn)
+    /// <summary>
+    /// Resolves the OU the join will use; <see langword="null"/> means the domain's default location. A typed OU is
+    /// accepted only in Interactive mode and only when the saved list does not apply to the domain.
+    /// </summary>
+    internal static string? ResolveOrganizationalUnit(DeployDomainJoinSettings settings, string domain, string? selectedId, string? typedOuDistinguishedName)
     {
-        bool hasTypedDestination = !string.IsNullOrWhiteSpace(destinationDn);
+        bool hasTypedOu = !string.IsNullOrWhiteSpace(typedOuDistinguishedName);
         if (!HasCompatibleCatalog(settings, domain))
         {
-            if (settings.Mode == DomainJoinMode.Automatic && hasTypedDestination)
-                throw new InvalidDataException("An automatic domain destination must come from the catalog.");
-            return hasTypedDestination ? destinationDn : null;
+            if (settings.Mode == DomainJoinMode.Automatic && hasTypedOu)
+                throw new InvalidDataException("A Zero-touch OU must come from the saved OU list.");
+            return hasTypedOu ? typedOuDistinguishedName : null;
         }
-        if (hasTypedDestination)
-            throw new InvalidDataException("The domain destination must come from the compatible catalog.");
+        if (hasTypedOu)
+            throw new InvalidDataException("The OU must come from the saved OU list.");
         string? id = settings.AllowOuSelectionDuringDeployment ? selectedId : settings.DefaultOuId;
         if (id is null && !settings.AllowOuSelectionDuringDeployment) return null;
         return settings.OrganizationalUnits.FirstOrDefault(unit =>
             string.Equals(unit.Id, id, StringComparison.OrdinalIgnoreCase))?.DistinguishedName
-            ?? throw new InvalidDataException("The selected domain destination is invalid.");
+            ?? throw new InvalidDataException("The selected OU is not in the saved OU list.");
     }
 
     internal static DomainJoinSettings ToAuthored(DeployDomainJoinSettings settings) => new()
@@ -148,8 +140,8 @@ public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialog
 
 /// <summary>Defines stable non-secret launch failures; exception text never crosses preparation boundaries.</summary>
 public enum DomainJoinPreparationFailure { MetadataInvalid, CredentialsInvalid, UnlockRequired }
-/// <summary>Cancellation never authorizes continuing to destructive confirmation.</summary>
-public enum DomainJoinPreparationStatus { Ready, Canceled, Invalid }
+/// <summary>Only a ready result authorizes continuing to destructive confirmation.</summary>
+public enum DomainJoinPreparationStatus { Ready, Invalid }
 
 /// <summary>Owns prepared credentials until transferred into the launch result.</summary>
 public sealed class DomainJoinPreparationResult : IDisposable
@@ -162,7 +154,7 @@ public sealed class DomainJoinPreparationResult : IDisposable
     public DomainJoinPreparationFailure? FailureCode { get; }
     internal DomainJoinPreparedInput? TakeInput() => Interlocked.Exchange(ref input, null);
     internal static DomainJoinPreparationResult Ready(DomainJoinPreparedInput input) => new(DomainJoinPreparationStatus.Ready, input, null);
-    internal static DomainJoinPreparationResult Canceled() => new(DomainJoinPreparationStatus.Canceled, null, null);
+
     internal static DomainJoinPreparationResult Invalid(DomainJoinPreparationFailure code) => new(DomainJoinPreparationStatus.Invalid, null, code);
     public void Dispose() => TakeInput()?.Dispose();
 }
