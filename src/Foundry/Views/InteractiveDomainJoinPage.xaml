@@ -32,6 +32,9 @@
                     <wct:SettingsCard
                         x:Uid="DomainJoinTargetDomain"
                         HorizontalContentAlignment="Stretch">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE774;" />
+                        </wct:SettingsCard.HeaderIcon>
                         <StackPanel
                             HorizontalAlignment="Right"
                             Spacing="{ThemeResource FoundrySpace4}">
@@ -49,11 +52,15 @@
                     <wct:SettingsExpander
                         x:Uid="DomainJoinCatalog"
                         IsExpanded="{x:Bind ViewModel.HasDestinations}">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE8B7;" />
+                        </wct:SettingsExpander.HeaderIcon>
                         <StackPanel
                             HorizontalAlignment="Right"
                             Spacing="{ThemeResource FoundrySpace4}">
                             <TextBlock
                                 HorizontalAlignment="Right"
+                                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                                 Text="{x:Bind ViewModel.EmptyCatalogText, Mode=OneWay}"
                                 Visibility="{x:Bind ViewModel.EmptyCatalogVisibility, Mode=OneWay}" />
                             <TextBlock
@@ -67,6 +74,9 @@
                             <wct:SettingsCard
                                 x:Uid="DomainJoinManualDestination"
                                 HorizontalContentAlignment="Stretch">
+                                <wct:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE710;" />
+                                </wct:SettingsCard.HeaderIcon>
                                 <StackPanel
                                     HorizontalAlignment="Right"
                                     Spacing="{ThemeResource FoundrySpace8}">
@@ -96,6 +106,9 @@
                                 x:Uid="DomainJoinDiscovery"
                                 HorizontalContentAlignment="Stretch"
                                 ContentAlignment="Vertical">
+                                <wct:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE8B5;" />
+                                </wct:SettingsCard.HeaderIcon>
                                 <StackPanel Spacing="{ThemeResource FoundrySpace8}">
                                     <StackPanel
                                         Orientation="Horizontal"
@@ -118,11 +131,12 @@
                                             IsActive="{x:Bind ViewModel.IsDiscovering, Mode=OneWay}" />
                                     </StackPanel>
                                     <TextBlock
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                                         Text="{x:Bind ViewModel.DiscoveryStatusText, Mode=OneWay}"
                                         TextWrapping="WrapWholeWords"
                                         Visibility="{x:Bind ViewModel.DiscoveryStatusVisibility, Mode=OneWay}" />
                                     <TextBlock
+                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
                                         Text="{x:Bind ViewModel.PreviewDomainText, Mode=OneWay}"
                                         TextWrapping="Wrap"
                                         Visibility="{x:Bind ViewModel.PreviewVisibility, Mode=OneWay}" />
@@ -192,6 +206,9 @@
                             <wct:SettingsCard
                                 x:Uid="DomainJoinDefaultOu"
                                 HorizontalContentAlignment="Stretch">
+                                <wct:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE734;" />
+                                </wct:SettingsCard.HeaderIcon>
                                 <Grid
                                     HorizontalAlignment="Right"
                                     ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
@@ -212,6 +229,9 @@
                                 </Grid>
                             </wct:SettingsCard>
                             <wct:SettingsCard x:Uid="DomainJoinAllowSelection">
+                                <wct:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE762;" />
+                                </wct:SettingsCard.HeaderIcon>
                                 <ToggleSwitch
                                     behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                                     IsOn="{x:Bind ViewModel.AllowOuSelectionDuringDeployment, Mode=TwoWay}" />
