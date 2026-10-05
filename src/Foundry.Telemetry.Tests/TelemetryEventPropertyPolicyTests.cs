@@ -290,6 +290,11 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["boot_media_deploy_runtime_payload_source"] = "release",
             ["autopilot_enabled"] = true,
             ["autopilot_provisioning_mode"] = "hardware_hash_upload",
+            ["domain_join_enabled"] = true,
+            ["domain_join_mode"] = "zero_touch",
+            ["domain_join_ou_count"] = 3,
+            ["domain_join_default_ou_set"] = true,
+            ["domain_join_ou_selection_allowed"] = false,
             ["network_configured"] = true,
             ["connect_configured"] = true,
             ["deploy_configured"] = true,
@@ -391,6 +396,11 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("release", result["boot_media_deploy_runtime_payload_source"]);
         Assert.True((bool)result["autopilot_enabled"]!);
         Assert.Equal("hardware_hash_upload", result["autopilot_provisioning_mode"]);
+        Assert.True((bool)result["domain_join_enabled"]!);
+        Assert.Equal("zero_touch", result["domain_join_mode"]);
+        Assert.Equal(3, result["domain_join_ou_count"]);
+        Assert.True((bool)result["domain_join_default_ou_set"]!);
+        Assert.False((bool)result["domain_join_ou_selection_allowed"]!);
         Assert.False(result.ContainsKey("network_configured"));
         Assert.False(result.ContainsKey("connect_configured"));
         Assert.False(result.ContainsKey("deploy_configured"));
@@ -506,6 +516,10 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["deploy_autopilot_provisioning_mode"] = "hardware_hash_upload",
             ["deploy_autopilot_hash_upload_state"] = "completed",
             ["deploy_autopilot_hash_group_tag_selected"] = true,
+            ["deploy_domain_join_enabled"] = true,
+            ["deploy_domain_join_mode"] = "interactive",
+            ["deploy_domain_join_ou_source"] = "selected",
+            ["deploy_domain_join_status"] = "staged",
             ["operating_system_url"] = "https://example.invalid/os.wim",
             ["driver_pack_url"] = "https://example.invalid/driver.cab",
             ["target_computer_name"] = "PC-001",
@@ -542,6 +556,10 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("hardware_hash_upload", result["deploy_autopilot_provisioning_mode"]);
         Assert.Equal("completed", result["deploy_autopilot_hash_upload_state"]);
         Assert.True((bool)result["deploy_autopilot_hash_group_tag_selected"]!);
+        Assert.True((bool)result["deploy_domain_join_enabled"]!);
+        Assert.Equal("interactive", result["deploy_domain_join_mode"]);
+        Assert.Equal("selected", result["deploy_domain_join_ou_source"]);
+        Assert.Equal("staged", result["deploy_domain_join_status"]);
         Assert.False(result.ContainsKey("operating_system_url"));
         Assert.False(result.ContainsKey("driver_pack_url"));
         Assert.False(result.ContainsKey("target_computer_name"));

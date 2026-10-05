@@ -521,6 +521,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["deploy_autopilot_provisioning_mode"] = NormalizeTelemetryString(ResolveAutopilotProvisioningMode(context)),
             ["deploy_autopilot_hash_upload_state"] = NormalizeTelemetryString(runtimeState?.AutopilotHardwareHashUploadState.ToString()),
             ["deploy_autopilot_hash_group_tag_selected"] = !string.IsNullOrWhiteSpace(runtimeState?.AutopilotHardwareHashGroupTag),
+            ["deploy_domain_join_enabled"] = context.DomainJoinRequest is not null,
+            ["deploy_domain_join_mode"] = ResolveDomainJoinMode(context.DomainJoinRequest),
+            ["deploy_domain_join_ou_source"] = (context.DomainJoinRequest?.OuSource ?? DomainJoin.DomainJoinOuSource.None).ToString().ToLowerInvariant(),
+            ["deploy_domain_join_status"] = ResolveDomainJoinStatus(runtimeState),
             ["deploy_unattend_mode"] = context.UsesCustomUnattend ? "custom" : "native",
             ["deploy_oobe_enabled"] = !context.UsesCustomUnattend && context.Oobe.IsEnabled,
             ["deploy_oobe_administrator_enabled"] = !context.UsesCustomUnattend && context.Oobe.EnableAdministratorAccount,
@@ -606,6 +610,23 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ? "windows"
             : $"windows_{NormalizeTelemetryString(operatingSystem.WindowsRelease)}";
     }
+
+    private static string ResolveDomainJoinMode(DomainJoin.DomainJoinDeploymentRequest? request) => request switch
+    {
+        null => "disabled",
+        { Mode: Foundry.Core.Models.Configuration.DomainJoinMode.Automatic } => "zero_touch",
+        _ => "interactive"
+    };
+
+    /// <summary>Reports how far Deploy took the join; the join itself runs later in installed Windows and is not reported.</summary>
+    private static string ResolveDomainJoinStatus(DeploymentRuntimeState? runtimeState) => runtimeState?.DomainJoinStatus switch
+    {
+        DomainJoinExecutionStatus.Pending => "pending",
+        DomainJoinExecutionStatus.Ready => "staged",
+        DomainJoinExecutionStatus.SkippedUnsupportedEdition => "skipped_unsupported_edition",
+        DomainJoinExecutionStatus.SkippedImageComposition => "skipped_image_composition",
+        _ => "disabled"
+    };
 
     private static string ResolveAutopilotProvisioningMode(DeploymentContext context)
     {

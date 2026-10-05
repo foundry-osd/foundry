@@ -735,6 +735,50 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(TelemetryBootMediaUsbOperations.None, result["boot_media_usb_operation"]);
     }
 
+    [Theory]
+    [InlineData(false, DomainJoinMode.Automatic, "disabled", 0, false, false)]
+    [InlineData(true, DomainJoinMode.Automatic, "zero_touch", 2, true, true)]
+    [InlineData(true, DomainJoinMode.Interactive, "interactive", 2, true, true)]
+    public void Build_ReportsDomainJoinUsageWithoutDirectoryNames(
+        bool enabled, DomainJoinMode mode, string expectedMode, int expectedCount, bool expectedDefault, bool expectedSelection)
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            DomainJoin = new DomainJoinSettings
+            {
+                IsEnabled = enabled,
+                Mode = mode,
+                DomainName = "private.example.test",
+                AccountName = @"PRIVATE\joiner",
+                OrganizationalUnits =
+                [
+                    new() { Id = "ou-1", DisplayName = "PrivateOne", DistinguishedName = "OU=PrivateOne,DC=private,DC=example,DC=test" },
+                    new() { Id = "ou-2", DisplayName = "PrivateTwo", DistinguishedName = "OU=PrivateTwo,DC=private,DC=example,DC=test" }
+                ],
+                DefaultOuId = "ou-1",
+                AllowOuSelectionDuringDeployment = true
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal(enabled, result["domain_join_enabled"]);
+        Assert.Equal(expectedMode, result["domain_join_mode"]);
+        Assert.Equal(expectedCount, result["domain_join_ou_count"]);
+        Assert.Equal(expectedDefault, result["domain_join_default_ou_set"]);
+        Assert.Equal(expectedSelection, result["domain_join_ou_selection_allowed"]);
+        Assert.DoesNotContain(result.Values, value => value is string text && text.Contains("private", StringComparison.OrdinalIgnoreCase));
+    }
+
     [Fact]
     public void Build_WhenInteractiveHardwareHashUploadIsEnabled_ReportsInteractiveMode()
     {

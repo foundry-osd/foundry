@@ -30,6 +30,31 @@ public sealed class DomainJoinPreparationServiceTests
         Assert.Equal(string.IsNullOrEmpty(destinationDn) ? null : destinationDn, result.Input!.TargetOuDn);
     }
 
+    [Theory]
+    [InlineData(null, DomainJoinOuSource.None)]
+    [InlineData("OU=Sales,DC=corp,DC=test", DomainJoinOuSource.Default)]
+    [InlineData("OU=Field,DC=corp,DC=test", DomainJoinOuSource.Selected)]
+    [InlineData("OU=Typed,DC=other,DC=test", DomainJoinOuSource.Typed)]
+    public void OuSourceTellsDefaultListedAndTypedTargetsApart(string? targetOuDn, DomainJoinOuSource expected)
+    {
+        var settings = new DeployDomainJoinSettings
+        {
+            IsEnabled = true,
+            DomainName = "corp.test",
+            OuCatalogDomain = "corp.test",
+            DefaultOuId = "sales",
+            OrganizationalUnits =
+            [
+                new() { Id = "sales", DisplayName = "Sales", DistinguishedName = "OU=Sales,DC=corp,DC=test" },
+                new() { Id = "field", DisplayName = "Field", DistinguishedName = "OU=Field,DC=corp,DC=test" }
+            ]
+        };
+        // A typed OU is only possible when the saved list does not apply to the joined domain.
+        string domain = expected == DomainJoinOuSource.Typed ? "other.test" : "corp.test";
+
+        Assert.Equal(expected, DomainJoinPreparationService.ResolveOuSource(settings, new(domain, "LAB-01", targetOuDn)));
+    }
+
     public static TheoryData<string> InvalidDestinations => new()
     {
         "not-a-dn", "OU=Field,DC=other,DC=test", "OU=Field\0,DC=corp,DC=test", "OU=" + new string('x', 4096) + ",DC=corp,DC=test"

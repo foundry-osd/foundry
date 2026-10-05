@@ -92,6 +92,11 @@ public static class TelemetryEventPropertyPolicy
                 "boot_media_deploy_runtime_payload_source",
                 "autopilot_enabled",
                 "autopilot_provisioning_mode",
+                "domain_join_enabled",
+                "domain_join_mode",
+                "domain_join_ou_count",
+                "domain_join_default_ou_set",
+                "domain_join_ou_selection_allowed",
                 "deployment_protection_enabled",
                 "unattend_enabled",
                 "unattend_default_mode",
@@ -221,6 +226,10 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_autopilot_provisioning_mode",
                 "deploy_autopilot_hash_upload_state",
                 "deploy_autopilot_hash_group_tag_selected",
+                "deploy_domain_join_enabled",
+                "deploy_domain_join_mode",
+                "deploy_domain_join_ou_source",
+                "deploy_domain_join_status",
                 "deploy_completion_reboot_mode",
                 "deploy_completion_reboot_delay_seconds"
             }

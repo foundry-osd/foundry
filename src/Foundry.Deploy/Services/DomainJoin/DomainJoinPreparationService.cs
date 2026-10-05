@@ -87,6 +87,15 @@ public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession key
         string.Equals(DomainJoinCredentialContext.CanonicalizeDomainName(domain),
             DomainJoinCredentialContext.CanonicalizeDomainName(settings.OuCatalogDomain ?? ""), StringComparison.Ordinal);
 
+    /// <summary>Classifies the frozen target OU as the authored default, another listed OU, a typed OU, or none.</summary>
+    internal static DomainJoinOuSource ResolveOuSource(DeployDomainJoinSettings settings, DomainJoinDeploymentIntent? intent)
+    {
+        if (string.IsNullOrWhiteSpace(intent?.TargetOuDn)) return DomainJoinOuSource.None;
+        if (!HasCompatibleCatalog(settings, intent.DomainName)) return DomainJoinOuSource.Typed;
+        string? defaultDn = ResolveDefaultOrganizationalUnit(settings, intent.DomainName)?.DistinguishedName;
+        return string.Equals(defaultDn, intent.TargetOuDn, StringComparison.OrdinalIgnoreCase) ? DomainJoinOuSource.Default : DomainJoinOuSource.Selected;
+    }
+
     /// <summary>Resolves the authored default OU for the domain; <see langword="null"/> means the domain default location.</summary>
     internal static DomainJoinOrganizationalUnitSettings? ResolveDefaultOrganizationalUnit(DeployDomainJoinSettings settings, string? domain) =>
         settings.DefaultOuId is { } id && HasCompatibleCatalog(settings, domain)

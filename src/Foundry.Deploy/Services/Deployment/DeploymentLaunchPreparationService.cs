@@ -129,7 +129,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
         {
             DomainJoinDeploymentDisposition disposition = unsupportedDomainJoin ? DomainJoinDeploymentDisposition.UnsupportedEdition :
                 request.IsDryRun ? DomainJoinDeploymentDisposition.DryRun : DomainJoinDeploymentDisposition.Ready;
-            domainRequest = new(disposition);
+            domainRequest = new(disposition, domainJoin!.Mode);
             if (disposition == DomainJoinDeploymentDisposition.Ready)
             {
                 if (prepared?.Status != DomainJoinPreparationStatus.Ready || prepared.Input is null)
@@ -143,6 +143,8 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             {
                 domainIntent = CreateDryRunIntent(domainJoin!, domainJoinSubmission, normalizedComputerName);
             }
+
+            domainRequest = domainRequest with { OuSource = DomainJoinPreparationService.ResolveOuSource(domainJoin!, domainIntent) };
         }
 
         if (!request.IsDryRun && !ConfirmDestructiveDeployment(effectiveTargetDisk, request.SelectedOperatingSystem, request, hasCustomCommands, domainRequest, domainIntent))

@@ -610,6 +610,10 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal("hardware_hash_upload", telemetryEvent.Properties["deploy_autopilot_provisioning_mode"]);
         Assert.Equal("planned", telemetryEvent.Properties["deploy_autopilot_hash_upload_state"]);
         Assert.True((bool)telemetryEvent.Properties["deploy_autopilot_hash_group_tag_selected"]!);
+        Assert.False((bool)telemetryEvent.Properties["deploy_domain_join_enabled"]!);
+        Assert.Equal("disabled", telemetryEvent.Properties["deploy_domain_join_mode"]);
+        Assert.Equal("none", telemetryEvent.Properties["deploy_domain_join_ou_source"]);
+        Assert.Equal("disabled", telemetryEvent.Properties["deploy_domain_join_status"]);
         Assert.True((bool)telemetryEvent.Properties["deploy_oobe_enabled"]!);
         Assert.True((bool)telemetryEvent.Properties["deploy_oobe_administrator_enabled"]!);
         Assert.Equal(1, telemetryEvent.Properties["deploy_oobe_additional_account_count"]);
