@@ -1936,6 +1936,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Anuluj wyszukiwanie</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Bez katalogu technicy mogą wprowadzić opcjonalną OU. Jeśli katalog jest dostępny, lokalizacje docelowe są ograniczone do jego wpisów. Stała lokalizacja domyślna nie pokazuje kontrolki wyboru; kontrolka bez lokalizacji domyślnej wymaga wyboru. Istniejące konta komputerów są przenoszone do wybranej lokalizacji docelowej.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Lokalizacje docelowe</value>
   </data>
@@ -1950,12 +1953,6 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Domyślna lokalizacja docelowa (opcjonalna)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Bez katalogu technicy mogą wprowadzić opcjonalną OU. Jeśli katalog jest dostępny, lokalizacje docelowe są ograniczone do jego wpisów. Stała lokalizacja domyślna nie pokazuje kontrolki wyboru; kontrolka bez lokalizacji domyślnej wymaga wyboru. Istniejące konta komputerów są przenoszone do wybranej lokalizacji docelowej.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Wybór lokalizacji docelowej</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Wyszukaj lokalizacje docelowe</value>
@@ -2144,7 +2141,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Stan gotowości nośnika</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Żądaj poświadczeń domeny i konta podczas wdrażania. Ten tryb nie wymaga hasła nośnika.</value>
+    <value>Żądaj poświadczeń domeny i konta podczas wdrażania.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktywne dołączanie do domeny</value>
@@ -4086,7 +4083,7 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Osadź poświadczenia domeny przy użyciu istniejącego hasła nośnika skonfigurowanego na stronie ustawień ogólnych („Generał”).</value>
+    <value>Osadź poświadczenia domeny chronione hasłem nośnika.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Bezobsługowe dołączanie do domeny</value>

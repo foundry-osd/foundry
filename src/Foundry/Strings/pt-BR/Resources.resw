@@ -1936,6 +1936,9 @@ Licenciado sob a licença MIT.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Cancelar busca</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Sem um catálogo, os técnicos podem digitar uma OU opcional. Com um catálogo, os destinos ficam restritos às suas entradas. Um padrão fixo não exibe seletor; um seletor sem padrão exige uma seleção. As contas de computador existentes são movidas para o destino selecionado.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Destinos</value>
   </data>
@@ -1950,12 +1953,6 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Destino padrão (opcional)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Sem um catálogo, os técnicos podem digitar uma OU opcional. Com um catálogo, os destinos ficam restritos às suas entradas. Um padrão fixo não exibe seletor; um seletor sem padrão exige uma seleção. As contas de computador existentes são movidas para o destino selecionado.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Seleção de destino</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Buscar destinos</value>
@@ -2144,7 +2141,7 @@ Licenciado sob a licença MIT.</value>
     <value>Status de preparação da mídia</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Solicite as credenciais de domínio e de conta durante a implantação. Este modo não exige uma senha para a mídia.</value>
+    <value>Solicite as credenciais de domínio e de conta durante a implantação.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Associação interativa ao domínio</value>
@@ -4086,7 +4083,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Incorpore as credenciais de domínio usando a senha existente da mídia configurada na página Geral.</value>
+    <value>Incorpore as credenciais de domínio protegidas pela senha da mídia.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Associação ao domínio zero-touch</value>

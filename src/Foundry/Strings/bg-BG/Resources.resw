@@ -1936,6 +1936,9 @@
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Отмяна на търсенето</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Без каталог техниците могат да въведат незадължителна OU. С каталог местоназначенията са ограничени до неговите записи. Фиксираната стойност по подразбиране няма контрола за избор; контрола без стойност по подразбиране изисква избор. Съществуващите компютърни акаунти се преместват в избраното местоназначение.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Местоназначения</value>
   </data>
@@ -1950,12 +1953,6 @@
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Местоназначение по подразбиране (незадължително)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Без каталог техниците могат да въведат незадължителна OU. С каталог местоназначенията са ограничени до неговите записи. Фиксираната стойност по подразбиране няма контрола за избор; контрола без стойност по подразбиране изисква избор. Съществуващите компютърни акаунти се преместват в избраното местоназначение.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Избор на местоназначение</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Търсене на местоназначения</value>
@@ -2144,7 +2141,7 @@
     <value>Състояние на готовност на носителя</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Изискване на домейн и идентификационни данни за акаунта по време на разполагането. Този режим не изисква парола за носителя.</value>
+    <value>Изискване на домейн и идентификационни данни за акаунта по време на разполагането.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Интерактивно присъединяване към домейн</value>
@@ -4086,7 +4083,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Вграждане на идентификационни данни за домейна чрез съществуващата парола за носителя, зададена на страницата „генерал“.</value>
+    <value>Вграждане на идентификационни данни за домейна, защитени с паролата за носителя.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Присъединяване към домейн Zero-touch</value>

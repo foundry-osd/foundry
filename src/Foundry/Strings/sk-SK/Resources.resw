@@ -1936,6 +1936,9 @@ Licencované podľa licencie MIT.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Zrušiť vyhľadávanie</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Bez katalógu môžu technici zadať voliteľnú OU. S katalógom sú ciele obmedzené na jeho položky. Pevný predvolený cieľ nemá výberový prvok; výberový prvok bez predvolenej hodnoty vyžaduje výber. Existujúce účty počítačov sa presunú do vybraného cieľa.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Ciele</value>
   </data>
@@ -1950,12 +1953,6 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Predvolený cieľ (voliteľné)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Bez katalógu môžu technici zadať voliteľnú OU. S katalógom sú ciele obmedzené na jeho položky. Pevný predvolený cieľ nemá výberový prvok; výberový prvok bez predvolenej hodnoty vyžaduje výber. Existujúce účty počítačov sa presunú do vybraného cieľa.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Výber cieľa</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Vyhľadať ciele</value>
@@ -2144,7 +2141,7 @@ Licencované podľa licencie MIT.</value>
     <value>Stav pripravenosti média</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Vyžiadajte doménu a poverenia účtu počas nasadenia. Tento režim nevyžaduje heslo média.</value>
+    <value>Vyžiadajte doménu a poverenia účtu počas nasadenia.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktívne pripojenie k doméne</value>
@@ -4086,7 +4083,7 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Vložte poverenia domény pomocou existujúceho hesla média nastaveného na stránke všeobecnej konfigurácie „generál“.</value>
+    <value>Vložte poverenia domény chránené heslom média.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Pripojenie k doméne bez zásahu</value>

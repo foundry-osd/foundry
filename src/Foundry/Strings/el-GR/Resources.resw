@@ -1936,6 +1936,9 @@
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Ακύρωση εντοπισμού</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Χωρίς κατάλογο, οι τεχνικοί μπορούν να πληκτρολογήσουν μια προαιρετική OU. Με κατάλογο, οι προορισμοί περιορίζονται στις καταχωρήσεις του. Μια σταθερή προεπιλογή δεν έχει στοιχείο επιλογής· ένα στοιχείο επιλογής χωρίς προεπιλογή απαιτεί επιλογή. Οι υπάρχοντες λογαριασμοί υπολογιστών μετακινούνται στον επιλεγμένο προορισμό.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Προορισμοί</value>
   </data>
@@ -1950,12 +1953,6 @@
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Προεπιλεγμένος προορισμός (προαιρετικό)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Χωρίς κατάλογο, οι τεχνικοί μπορούν να πληκτρολογήσουν μια προαιρετική OU. Με κατάλογο, οι προορισμοί περιορίζονται στις καταχωρήσεις του. Μια σταθερή προεπιλογή δεν έχει στοιχείο επιλογής· ένα στοιχείο επιλογής χωρίς προεπιλογή απαιτεί επιλογή. Οι υπάρχοντες λογαριασμοί υπολογιστών μετακινούνται στον επιλεγμένο προορισμό.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Επιλογή προορισμού</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Εντοπισμός προορισμών</value>
@@ -2144,7 +2141,7 @@
     <value>Κατάσταση ετοιμότητας μέσου</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Ζητήστε τον τομέα και τα διαπιστευτήρια λογαριασμού κατά την ανάπτυξη. Αυτή η λειτουργία δεν απαιτεί κωδικό πρόσβασης μέσου.</value>
+    <value>Ζητήστε τον τομέα και τα διαπιστευτήρια λογαριασμού κατά την ανάπτυξη.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Διαδραστική σύνδεση σε τομέα</value>
@@ -4086,7 +4083,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Ενσωματώστε διαπιστευτήρια τομέα χρησιμοποιώντας τον υπάρχοντα κωδικό πρόσβασης μέσου που έχει οριστεί στη σελίδα «Στρατηγός».</value>
+    <value>Ενσωματώστε διαπιστευτήρια τομέα που προστατεύονται από τον κωδικό πρόσβασης μέσου.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Σύνδεση σε τομέα Zero-touch</value>

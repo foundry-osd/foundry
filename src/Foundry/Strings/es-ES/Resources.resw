@@ -1936,6 +1936,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Cancelar búsqueda</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Sin catálogo, los técnicos pueden escribir una OU opcional. Con catálogo, los destinos se limitan a sus entradas. Un valor predeterminado fijo no muestra un selector; un selector sin valor predeterminado requiere una selección. Las cuentas de equipo existentes se mueven al destino seleccionado.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Destinos</value>
   </data>
@@ -1950,12 +1953,6 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Destino predeterminado (opcional)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Sin catálogo, los técnicos pueden escribir una OU opcional. Con catálogo, los destinos se limitan a sus entradas. Un valor predeterminado fijo no muestra un selector; un selector sin valor predeterminado requiere una selección. Las cuentas de equipo existentes se mueven al destino seleccionado.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Selección del destino</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Buscar destinos</value>
@@ -2144,7 +2141,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Estado de preparación del medio</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Solicite el dominio y las credenciales de la cuenta durante la implementación. Este modo no requiere una contraseña de medio.</value>
+    <value>Solicite el dominio y las credenciales de la cuenta durante la implementación.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Unión interactiva al dominio</value>
@@ -4086,7 +4083,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Integre las credenciales de dominio con la contraseña del medio existente configurada en la página General.</value>
+    <value>Integre las credenciales de dominio protegidas por la contraseña del medio.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Unión al dominio zero-touch</value>

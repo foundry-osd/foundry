@@ -1936,6 +1936,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>검색 취소</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>카탈로그가 없으면 기술자가 필요에 따라 OU를 입력할 수 있습니다. 카탈로그가 있으면 대상은 카탈로그 항목으로 제한됩니다. 기본 대상이 고정되어 있으면 선택기가 표시되지 않습니다. 기본 대상이 없는 선택기는 선택이 필수입니다. 기존 컴퓨터 계정은 선택한 대상으로 이동됩니다.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>대상</value>
   </data>
@@ -1950,12 +1953,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>기본 대상 (선택 사항)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>카탈로그가 없으면 기술자가 필요에 따라 OU를 입력할 수 있습니다. 카탈로그가 있으면 대상은 카탈로그 항목으로 제한됩니다. 기본 대상이 고정되어 있으면 선택기가 표시되지 않습니다. 기본 대상이 없는 선택기는 선택이 필수입니다. 기존 컴퓨터 계정은 선택한 대상으로 이동됩니다.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>대상 선택</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>대상 검색</value>
@@ -2144,7 +2141,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>미디어 준비 상태</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>배포 중 도메인 및 계정 자격 증명을 요청합니다. 이 모드에는 미디어 암호가 필요하지 않습니다.</value>
+    <value>배포 중 도메인 및 계정 자격 증명을 요청합니다.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>대화형 도메인 가입</value>
@@ -4086,7 +4083,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>일반 페이지에 구성된 기존 미디어 암호를 사용하여 도메인 자격 증명을 포함합니다.</value>
+    <value>미디어 암호로 보호되는 도메인 자격 증명을 포함합니다.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>제로 터치 도메인 가입</value>

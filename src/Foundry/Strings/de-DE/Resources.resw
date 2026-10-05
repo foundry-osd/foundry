@@ -1936,6 +1936,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Ermittlung abbrechen</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Ohne Katalog können Techniker optional eine OU eingeben. Mit Katalog sind die Ziele auf dessen Einträge beschränkt. Ein festes Standardziel bietet keine Auswahlliste; eine Auswahlliste ohne Standardziel erfordert eine Auswahl. Vorhandene Computerkonten werden an das ausgewählte Ziel verschoben.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Ziele</value>
   </data>
@@ -1950,12 +1953,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Standardziel (optional)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Ohne Katalog können Techniker optional eine OU eingeben. Mit Katalog sind die Ziele auf dessen Einträge beschränkt. Ein festes Standardziel bietet keine Auswahlliste; eine Auswahlliste ohne Standardziel erfordert eine Auswahl. Vorhandene Computerkonten werden an das ausgewählte Ziel verschoben.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Zielauswahl</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Ziele ermitteln</value>
@@ -2144,7 +2141,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Status der Medienbereitschaft</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Domäne und Kontoanmeldeinformationen während der Bereitstellung abfragen. Dieser Modus erfordert kein Medienkennwort.</value>
+    <value>Domäne und Kontoanmeldeinformationen während der Bereitstellung abfragen.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktiver Domänenbeitritt</value>
@@ -4086,7 +4083,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Domänenanmeldeinformationen mit dem vorhandenen Medienkennwort einbetten, das auf der Seite Allgemein konfiguriert ist.</value>
+    <value>Domänenanmeldeinformationen einbetten, geschützt durch das Medienkennwort.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-Touch-Domänenbeitritt</value>

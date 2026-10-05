@@ -1936,6 +1936,9 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Avbryt sökning</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Utan en katalog kan tekniker ange en valfri OU. Med en katalog är destinationerna begränsade till dess poster. En fast standarddestination har ingen väljare; en väljare utan standardval kräver ett val. Befintliga datorkonton flyttas till den valda destinationen.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Destinationer</value>
   </data>
@@ -1950,12 +1953,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Standarddestination (valfritt)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Utan en katalog kan tekniker ange en valfri OU. Med en katalog är destinationerna begränsade till dess poster. En fast standarddestination har ingen väljare; en väljare utan standardval kräver ett val. Befintliga datorkonton flyttas till den valda destinationen.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Destinationsval</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Sök efter destinationer</value>
@@ -2144,7 +2141,7 @@ Licensierad under MIT-licensen.</value>
     <value>Status för medieberedskap</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Begär domän och kontouppgifter under distributionen. Det här läget kräver inget medielösenord.</value>
+    <value>Begär domän och kontouppgifter under distributionen.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktiv domänanslutning</value>
@@ -4086,7 +4083,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Bädda in domänens autentiseringsuppgifter med det befintliga medielösenordet som konfigurerats på sidan Allmänt.</value>
+    <value>Bädda in domänens autentiseringsuppgifter som skyddas av medielösenordet.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Domänanslutning utan handpåläggning</value>

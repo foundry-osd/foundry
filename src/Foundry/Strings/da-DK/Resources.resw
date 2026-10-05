@@ -1936,6 +1936,9 @@ Licenseret under MIT-licensen.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Annuller søgning</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Uden et katalog kan teknikere angive en valgfri OU. Med et katalog er destinationer begrænset til dets poster. En fast standarddestination har ingen vælger; en vælger uden standarddestination kræver et valg. Eksisterende computerkonti flyttes til den valgte destination.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Destinationer</value>
   </data>
@@ -1950,12 +1953,6 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Standarddestination (valgfri)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Uden et katalog kan teknikere angive en valgfri OU. Med et katalog er destinationer begrænset til dets poster. En fast standarddestination har ingen vælger; en vælger uden standarddestination kræver et valg. Eksisterende computerkonti flyttes til den valgte destination.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Valg af destination</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Find destinationer</value>
@@ -2144,7 +2141,7 @@ Licenseret under MIT-licensen.</value>
     <value>Status for medieberedskab</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Bed om domæne- og kontolegitimationsoplysninger under udrulning. Denne tilstand kræver ikke en medieadgangskode.</value>
+    <value>Bed om domæne- og kontolegitimationsoplysninger under udrulning.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktiv domænetilslutning</value>
@@ -4086,7 +4083,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Integrér domænelegitimationsoplysninger med den eksisterende medieadgangskode, der er konfigureret på siden Generelt.</value>
+    <value>Integrér domænelegitimationsoplysninger beskyttet af medieadgangskoden.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touch-domænetilslutning</value>

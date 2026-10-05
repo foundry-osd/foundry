@@ -1936,6 +1936,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Peruuta haku</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Ilman luetteloa teknikot voivat kirjoittaa valinnaisen OU:n. Kun luettelo on käytössä, kohteet rajoittuvat sen merkintöihin. Kiinteällä oletuskohteella ei ole valitsinta; valitsin ilman oletuskohdetta edellyttää valintaa. Olemassa olevat tietokonetilit siirretään valittuun kohteeseen.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Kohteet</value>
   </data>
@@ -1950,12 +1953,6 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Oletuskohde (valinnainen)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Ilman luetteloa teknikot voivat kirjoittaa valinnaisen OU:n. Kun luettelo on käytössä, kohteet rajoittuvat sen merkintöihin. Kiinteällä oletuskohteella ei ole valitsinta; valitsin ilman oletuskohdetta edellyttää valintaa. Olemassa olevat tietokonetilit siirretään valittuun kohteeseen.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Kohteen valinta</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Etsi kohteita</value>
@@ -2144,7 +2141,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tietovälineen valmiustila</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Pyydä toimialue ja tilin tunnistetiedot käyttöönoton aikana. Tämä tila ei edellytä median salasanaa.</value>
+    <value>Pyydä toimialue ja tilin tunnistetiedot käyttöönoton aikana.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Vuorovaikutteinen toimialueeseen liittyminen</value>
@@ -4086,7 +4083,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Upota toimialueen tunnistetiedot käyttämällä sivulla ”Kenraali” määritettyä olemassa olevaa median salasanaa.</value>
+    <value>Upota median salasanalla suojatut toimialueen tunnistetiedot.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touch-toimialueeseen liittyminen</value>

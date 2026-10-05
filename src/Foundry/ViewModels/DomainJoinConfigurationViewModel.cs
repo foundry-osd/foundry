@@ -65,8 +65,10 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public string DistinguishedNameColumnHeader => localization.GetString("DomainJoinManualDn.Header");
     public string RemoveSelectedText => Text("RemoveSelected");
     public string EmptyCatalogText => Text("EmptyCatalog");
-    public Visibility CatalogVisibility => ToVisibility(OrganizationalUnits.Count > 0);
-    public Visibility EmptyCatalogVisibility => ToVisibility(OrganizationalUnits.Count == 0);
+    /// <summary>Opens the destination section on load only when a catalog already exists.</summary>
+    public bool HasDestinations => OrganizationalUnits.Count > 0;
+    public Visibility CatalogVisibility => ToVisibility(HasDestinations);
+    public Visibility EmptyCatalogVisibility => ToVisibility(!HasDestinations);
 
     public string DomainValidationMessage => GetIssueText(IsDomainIssue);
     public Visibility DomainValidationVisibility => ToVisibility(DomainValidationMessage.Length > 0);

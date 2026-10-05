@@ -1936,6 +1936,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Avbryt søk</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Uten en katalog kan teknikere angi en valgfri OU. Med en katalog er destinasjonene begrenset til oppføringene i den. En fast standarddestinasjon har ingen velger; en velger uten standarddestinasjon krever et valg. Eksisterende datamaskinkontoer flyttes til den valgte destinasjonen.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Destinasjoner</value>
   </data>
@@ -1950,12 +1953,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Standarddestinasjon (valgfri)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Uten en katalog kan teknikere angi en valgfri OU. Med en katalog er destinasjonene begrenset til oppføringene i den. En fast standarddestinasjon har ingen velger; en velger uten standarddestinasjon krever et valg. Eksisterende datamaskinkontoer flyttes til den valgte destinasjonen.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Valg av destinasjon</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Søk etter destinasjoner</value>
@@ -2144,7 +2141,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Status for medieberedskap</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Be om domene- og kontolegitimasjon under distribusjon. Denne modusen krever ikke et mediepassord.</value>
+    <value>Be om domene- og kontolegitimasjon under distribusjon.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktiv domenetilknytning</value>
@@ -4086,7 +4083,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Bygg inn domenelegitimasjon med det eksisterende mediepassordet som er konfigurert på siden Generelt.</value>
+    <value>Bygg inn domenelegitimasjon beskyttet av mediepassordet.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touch-domenetilknytning</value>

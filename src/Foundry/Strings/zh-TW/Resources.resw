@@ -1936,6 +1936,9 @@
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>取消探索</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>沒有目錄時，技術人員可以選擇輸入 OU。有目錄時，目的地僅限於目錄中的項目。固定的預設目的地不顯示選取器；沒有預設值的選取器必須進行選取。現有電腦帳戶將移至選取的目的地。</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>目的地</value>
   </data>
@@ -1950,12 +1953,6 @@
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>預設目的地（選用）</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>沒有目錄時，技術人員可以選擇輸入 OU。有目錄時，目的地僅限於目錄中的項目。固定的預設目的地不顯示選取器；沒有預設值的選取器必須進行選取。現有電腦帳戶將移至選取的目的地。</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>目的地選取</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>探索目的地</value>
@@ -2144,7 +2141,7 @@
     <value>媒體準備狀態</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>在部署期間要求網域和帳戶認證。此模式不需要媒體密碼。</value>
+    <value>在部署期間要求網域和帳戶認證。</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>互動式網域加入</value>
@@ -4086,7 +4083,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>使用「一般」頁面設定的現有媒體密碼內嵌網域認證。</value>
+    <value>內嵌受媒體密碼保護的網域認證。</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>零接觸網域加入</value>

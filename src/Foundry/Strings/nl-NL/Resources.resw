@@ -1936,6 +1936,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Zoeken annuleren</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Zonder catalogus kunnen technici een optionele OU invoeren. Met een catalogus zijn bestemmingen beperkt tot de vermeldingen daarin. Een vaste standaardbestemming heeft geen keuzelijst; een keuzelijst zonder standaardbestemming vereist een selectie. Bestaande computeraccounts worden naar de geselecteerde bestemming verplaatst.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Bestemmingen</value>
   </data>
@@ -1950,12 +1953,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Standaardbestemming (optioneel)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Zonder catalogus kunnen technici een optionele OU invoeren. Met een catalogus zijn bestemmingen beperkt tot de vermeldingen daarin. Een vaste standaardbestemming heeft geen keuzelijst; een keuzelijst zonder standaardbestemming vereist een selectie. Bestaande computeraccounts worden naar de geselecteerde bestemming verplaatst.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Bestemmingsselectie</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Bestemmingen zoeken</value>
@@ -2144,7 +2141,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Status van mediagereedheid</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Vraag tijdens de implementatie om domein- en accountreferenties. Deze modus vereist geen mediumwachtwoord.</value>
+    <value>Vraag tijdens de implementatie om domein- en accountreferenties.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interactieve domeintoetreding</value>
@@ -4086,7 +4083,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Sluit domeinreferenties in met het bestaande mediumwachtwoord dat op de pagina Algemeen is ingesteld.</value>
+    <value>Sluit domeinreferenties in die met het mediumwachtwoord zijn beveiligd.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touch-domeintoetreding</value>

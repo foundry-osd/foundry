@@ -1936,6 +1936,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>検出をキャンセル</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>カタログがない場合、技術者は必要に応じてOUを入力できます。カタログがある場合、配置先はそのエントリに限定されます。既定の配置先が固定されている場合は選択画面が表示されません。既定の配置先がない選択画面では、選択が必須です。既存のコンピューターアカウントは選択した配置先に移動されます。</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>配置先</value>
   </data>
@@ -1950,12 +1953,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>既定の配置先 (省略可)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>カタログがない場合、技術者は必要に応じてOUを入力できます。カタログがある場合、配置先はそのエントリに限定されます。既定の配置先が固定されている場合は選択画面が表示されません。既定の配置先がない選択画面では、選択が必須です。既存のコンピューターアカウントは選択した配置先に移動されます。</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>配置先の選択</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>配置先を検出</value>
@@ -2144,7 +2141,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>メディアの準備状況</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>展開時にドメインとアカウントの資格情報の入力を求めます。このモードにはメディアパスワードは不要です。</value>
+    <value>展開時にドメインとアカウントの資格情報の入力を求めます。</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>対話型ドメイン参加</value>
@@ -4086,7 +4083,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>「一般」ページで設定した既存のメディアパスワードを使用して、ドメインの資格情報を埋め込みます。</value>
+    <value>メディアパスワードで保護されたドメインの資格情報を埋め込みます。</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>ゼロタッチドメイン参加</value>

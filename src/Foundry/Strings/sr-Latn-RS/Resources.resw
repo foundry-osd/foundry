@@ -1936,6 +1936,9 @@ Licencirano pod MIT licencom.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Otkaži otkrivanje</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Bez kataloga, tehničari mogu uneti opcionu OU. Sa katalogom, odredišta su ograničena na njegove stavke. Fiksno podrazumevano odredište nema birač; birač bez podrazumevane vrednosti zahteva izbor. Postojeći nalozi računara premeštaju se na izabrano odredište.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Odredišta</value>
   </data>
@@ -1950,12 +1953,6 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Podrazumevano odredište (opciono)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Bez kataloga, tehničari mogu uneti opcionu OU. Sa katalogom, odredišta su ograničena na njegove stavke. Fiksno podrazumevano odredište nema birač; birač bez podrazumevane vrednosti zahteva izbor. Postojeći nalozi računara premeštaju se na izabrano odredište.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Izbor odredišta</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Otkrij odredišta</value>
@@ -2144,7 +2141,7 @@ Licencirano pod MIT licencom.</value>
     <value>Status spremnosti medijuma</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Zatražite domen i akreditive naloga tokom primene. Ovaj režim ne zahteva lozinku medijuma.</value>
+    <value>Zatražite domen i akreditive naloga tokom primene.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktivno pridruživanje domenu</value>
@@ -4086,7 +4083,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Ugradite akreditive domena pomoću postojeće lozinke medijuma podešene na stranici opštih postavki „general“.</value>
+    <value>Ugradite akreditive domena zaštićene lozinkom medijuma.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Pridruživanje domenu bez intervencije</value>

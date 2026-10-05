@@ -1936,6 +1936,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Keşfi iptal et</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Katalog yoksa teknisyenler isteğe bağlı bir OU girebilir. Katalog varsa hedefler katalog girişleriyle sınırlıdır. Sabit bir varsayılanın seçim denetimi yoktur; varsayılanı olmayan bir seçim denetimi seçim gerektirir. Mevcut bilgisayar hesapları seçilen hedefe taşınır.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Hedefler</value>
   </data>
@@ -1950,12 +1953,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Varsayılan hedef (isteğe bağlı)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Katalog yoksa teknisyenler isteğe bağlı bir OU girebilir. Katalog varsa hedefler katalog girişleriyle sınırlıdır. Sabit bir varsayılanın seçim denetimi yoktur; varsayılanı olmayan bir seçim denetimi seçim gerektirir. Mevcut bilgisayar hesapları seçilen hedefe taşınır.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Hedef seçimi</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Hedefleri keşfet</value>
@@ -2144,7 +2141,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Medya hazırlık durumu</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Dağıtım sırasında etki alanını ve hesap kimlik bilgilerini isteyin. Bu mod medya parolası gerektirmez.</value>
+    <value>Dağıtım sırasında etki alanını ve hesap kimlik bilgilerini isteyin.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Etkileşimli etki alanına katılma</value>
@@ -4086,7 +4083,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Genel sayfasında yapılandırılan mevcut medya parolasını kullanarak etki alanı kimlik bilgilerini gömün.</value>
+    <value>Medya parolasıyla korunan etki alanı kimlik bilgilerini gömün.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Müdahalesiz etki alanına katılma</value>

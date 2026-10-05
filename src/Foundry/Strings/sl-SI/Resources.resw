@@ -1936,6 +1936,9 @@ Licencirano pod licenco MIT.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Prekliči odkrivanje</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Brez kataloga lahko tehniki vnesejo izbirno OU. S katalogom so cilji omejeni na njegove vnose. Fiksni privzeti cilj nima izbirnika; izbirnik brez privzete vrednosti zahteva izbiro. Obstoječi računi računalnikov se premaknejo na izbrani cilj.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Cilji</value>
   </data>
@@ -1950,12 +1953,6 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Privzeti cilj (izbirno)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Brez kataloga lahko tehniki vnesejo izbirno OU. S katalogom so cilji omejeni na njegove vnose. Fiksni privzeti cilj nima izbirnika; izbirnik brez privzete vrednosti zahteva izbiro. Obstoječi računi računalnikov se premaknejo na izbrani cilj.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Izbira cilja</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Odkrij cilje</value>
@@ -2144,7 +2141,7 @@ Licencirano pod licenco MIT.</value>
     <value>Stanje pripravljenosti medija</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Med uvajanjem zahtevajte domeno in poverilnice računa. Ta način ne zahteva gesla medija.</value>
+    <value>Med uvajanjem zahtevajte domeno in poverilnice računa.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktivna pridružitev domeni</value>
@@ -4086,7 +4083,7 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Vdelajte poverilnice domene z obstoječim geslom medija, nastavljenim na strani Splošno.</value>
+    <value>Vdelajte poverilnice domene, zaščitene z geslom medija.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Pridružitev domeni brez posredovanja</value>

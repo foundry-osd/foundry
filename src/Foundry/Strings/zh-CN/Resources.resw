@@ -1936,6 +1936,9 @@
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>取消发现</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>没有目录时，技术人员可以选择输入 OU。有目录时，目标仅限于目录中的条目。固定的默认目标不显示选择器；没有默认值的选择器必须进行选择。现有计算机账户将移至所选目标。</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>目标</value>
   </data>
@@ -1950,12 +1953,6 @@
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>默认目标（可选）</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>没有目录时，技术人员可以选择输入 OU。有目录时，目标仅限于目录中的条目。固定的默认目标不显示选择器；没有默认值的选择器必须进行选择。现有计算机账户将移至所选目标。</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>目标选择</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>发现目标</value>
@@ -2144,7 +2141,7 @@
     <value>媒体准备状态</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>在部署期间请求域和账户凭据。此模式不需要介质密码。</value>
+    <value>在部署期间请求域和账户凭据。</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>交互式域加入</value>
@@ -4086,7 +4083,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>使用“一般”页面配置的现有介质密码嵌入域凭据。</value>
+    <value>嵌入受介质密码保护的域凭据。</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>零接触域加入</value>

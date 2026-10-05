@@ -1936,6 +1936,9 @@
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>ยกเลิกการค้นหา</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>หากไม่มีแค็ตตาล็อก ช่างเทคนิคสามารถป้อน OU ได้ตามต้องการ หากมีแค็ตตาล็อก ปลายทางจะจำกัดอยู่ที่รายการในแค็ตตาล็อก ค่าเริ่มต้นแบบคงที่ไม่มีตัวเลือกปลายทาง ส่วนตัวเลือกที่ไม่มีค่าเริ่มต้นจะต้องมีการเลือก บัญชีคอมพิวเตอร์ที่มีอยู่จะย้ายไปยังปลายทางที่เลือก</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>ปลายทาง</value>
   </data>
@@ -1950,12 +1953,6 @@
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>ปลายทางเริ่มต้น (ไม่บังคับ)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>หากไม่มีแค็ตตาล็อก ช่างเทคนิคสามารถป้อน OU ได้ตามต้องการ หากมีแค็ตตาล็อก ปลายทางจะจำกัดอยู่ที่รายการในแค็ตตาล็อก ค่าเริ่มต้นแบบคงที่ไม่มีตัวเลือกปลายทาง ส่วนตัวเลือกที่ไม่มีค่าเริ่มต้นจะต้องมีการเลือก บัญชีคอมพิวเตอร์ที่มีอยู่จะย้ายไปยังปลายทางที่เลือก</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>การเลือกปลายทาง</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>ค้นหาปลายทาง</value>
@@ -2144,7 +2141,7 @@
     <value>สถานะความพร้อมของสื่อ</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>ขอโดเมนและข้อมูลรับรองบัญชีระหว่างการปรับใช้ โหมดนี้ไม่ต้องใช้รหัสผ่านสื่อ</value>
+    <value>ขอโดเมนและข้อมูลรับรองบัญชีระหว่างการปรับใช้</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>การเข้าร่วมโดเมนแบบโต้ตอบ</value>
@@ -4086,7 +4083,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>ฝังข้อมูลรับรองโดเมนโดยใช้รหัสผ่านสื่อที่มีอยู่ซึ่งกำหนดไว้ในหน้าทั่วไป</value>
+    <value>ฝังข้อมูลรับรองโดเมนที่ป้องกันด้วยรหัสผ่านสื่อ</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>การเข้าร่วมโดเมนแบบอัตโนมัติโดยไม่ต้องดำเนินการ</value>

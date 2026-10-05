@@ -1936,6 +1936,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Atcelt meklēšanu</value>
   </data>
+  <data name="DomainJoinCatalog.Description" xml:space="preserve">
+    <value>Bez kataloga tehniķi var ievadīt neobligātu OU. Ja ir katalogs, galamērķi ir ierobežoti ar tā ierakstiem. Fiksētam noklusējuma galamērķim nav atlases vadīklas; atlases vadīklai bez noklusējuma galamērķa izvēle ir obligāta. Esošie datoru konti tiek pārvietoti uz atlasīto galamērķi.</value>
+  </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Galamērķi</value>
   </data>
@@ -1950,12 +1953,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Noklusējuma galamērķis (neobligāts)</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Description" xml:space="preserve">
-    <value>Bez kataloga tehniķi var ievadīt neobligātu OU. Ja ir katalogs, galamērķi ir ierobežoti ar tā ierakstiem. Fiksētam noklusējuma galamērķim nav atlases vadīklas; atlases vadīklai bez noklusējuma galamērķa izvēle ir obligāta. Esošie datoru konti tiek pārvietoti uz atlasīto galamērķi.</value>
-  </data>
-  <data name="DomainJoinDestinationPolicy.Header" xml:space="preserve">
-    <value>Galamērķa atlase</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Meklēt galamērķus</value>
@@ -2144,7 +2141,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Datu nesēja gatavības statuss</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Izvietošanas laikā pieprasīt domēna un konta akreditācijas datus. Šim režīmam nav nepieciešama datu nesēja parole.</value>
+    <value>Izvietošanas laikā pieprasīt domēna un konta akreditācijas datus.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Interaktīva pievienošanās domēnam</value>
@@ -4086,7 +4083,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Ieguliet domēna akreditācijas datus, izmantojot esošo datu nesēja paroli, kas iestatīta vispārīgo iestatījumu lapā („Ģenerālis”).</value>
+    <value>Ieguliet domēna akreditācijas datus, ko aizsargā datu nesēja parole.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Pievienošanās domēnam Zero-touch režīmā</value>
