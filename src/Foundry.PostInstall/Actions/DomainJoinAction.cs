@@ -11,6 +11,9 @@ namespace Foundry.PostInstall.Actions;
 internal sealed class DomainJoinAction(string root, PreOobeExecutionPlan plan, string planHash, string boot,
     IPreOobeProcessExecutor processes, string executablePath)
 {
+    /// <summary>Outlasts the worker's own budget so a slow worker settles its receipt instead of being terminated mid-phase.</summary>
+    internal static readonly TimeSpan SupervisionTimeout = DomainJoinWorker.Budget + TimeSpan.FromSeconds(30);
+
     public async Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, CancellationToken token)
     {
         PreOobePlanLoader.RequireMatching(await PreOobePlanLoader.LoadAsync(root, token).ConfigureAwait(false), plan, planHash);
@@ -25,7 +28,7 @@ internal sealed class DomainJoinAction(string root, PreOobeExecutionPlan plan, s
         if (report.Join.State != DomainJoinPhaseState.NotStarted || report.OriginatingBootId.Length != 0)
             throw new InvalidDataException("Domain results already exist.");
         ProcessOutcome process;
-        try { process = await processes.RunAsync(new(executablePath, ["--domain-join-worker"], root, TimeSpan.FromSeconds(300)), token).ConfigureAwait(false); }
+        try { process = await processes.RunAsync(new(executablePath, ["--domain-join-worker"], root, SupervisionTimeout), token).ConfigureAwait(false); }
         catch (System.ComponentModel.Win32Exception) { process = new(null, string.Empty); }
         catch (Exception error) when (DomainJoinWorker.Recoverable(error)) { process = new(null, string.Empty, TerminationUncertain: true); }
         var receipt = phases.Read();
@@ -33,7 +36,7 @@ internal sealed class DomainJoinAction(string root, PreOobeExecutionPlan plan, s
             workerUnsettled: process.TerminationUncertain);
         bool uncertain = process.TerminationUncertain;
         bool warning = uncertain || DomainJoinResultStore.HasWarnings(report);
-        return new(true, FailureCode: warning ? "domain_join_warning" : null,
+        return new(!warning, FailureCode: warning ? "domain_join_warning" : null,
             RestartRequested: report.Restart == DomainJoinRestartState.Required, TerminationUncertain: uncertain, HasWarnings: warning);
     }
 }

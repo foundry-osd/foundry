@@ -15,8 +15,14 @@ internal sealed record DomainJoinWorkerResult(DomainJoinPhaseResult Join, Domain
 
 /// <summary>Runs one operation-bound online join; parent process supervision supplies the hard wall-clock bound.</summary>
 internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, string planHash, string originatingBoot,
-    INativeDomainJoin native, IDomainComputerAccountDirectory directory)
+    INativeDomainJoin native, IDomainComputerAccountDirectory directory, Func<TimeSpan, CancellationToken, Task>? delay = null)
 {
+    /// <summary>Bounds the whole worker; the supervising parent waits slightly longer before terminating it.</summary>
+    internal static readonly TimeSpan Budget = TimeSpan.FromSeconds(300);
+    private static readonly TimeSpan ReadinessBudget = TimeSpan.FromSeconds(120);
+    private static readonly TimeSpan ReadinessRetryInterval = TimeSpan.FromSeconds(5);
+    private readonly Func<TimeSpan, CancellationToken, Task> delay = delay ?? Task.Delay;
+
     public async Task<DomainJoinWorkerResult> RunAsync(DomainJoinActionParameters parameters, CancellationToken token)
     {
         var snapshot = await PreOobePlanLoader.LoadAsync(root, token).ConfigureAwait(false);
@@ -31,7 +37,7 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
         using (directory)
         using (var budget = CancellationTokenSource.CreateLinkedTokenSource(token))
         {
-            budget.CancelAfter(TimeSpan.FromSeconds(300));
+            budget.CancelAfter(Budget);
             DomainJoinCredentialPayload? credentials = null;
             DomainDirectoryReady ready;
             try
@@ -46,8 +52,8 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
                     return Finish(Failure(DomainJoinPhaseState.Failed, DomainJoinFailureCode.ContextMismatch), Skipped());
                 }
                 using var readiness = CancellationTokenSource.CreateLinkedTokenSource(budget.Token);
-                readiness.CancelAfter(TimeSpan.FromSeconds(120));
-                ready = await directory.PrepareAsync(credentials.Context, credentials.Password, parameters.ComputerName, parameters.TargetOuDn, readiness.Token).ConfigureAwait(false);
+                readiness.CancelAfter(ReadinessBudget);
+                ready = await WaitForDirectoryAsync(credentials, parameters, readiness.Token).ConfigureAwait(false);
                 readiness.Token.ThrowIfCancellationRequested();
                 ValidateReady(ready, parameters);
             }
@@ -140,6 +146,27 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
             receipt = receipt with { Join = join, Placement = placement };
             Save(DomainJoinReceiptPhase.Finished);
             return new(receipt.Join, receipt.Placement, receipt.ComputerObjectGuid, receipt.RestartRequired);
+        }
+    }
+
+    /// <summary>
+    /// Repeats read-only readiness while the installed network or a domain controller is still becoming reachable.
+    /// Credential and directory rejections are never repeated, so a wrong password cannot lock the account.
+    /// </summary>
+    private async Task<DomainDirectoryReady> WaitForDirectoryAsync(DomainJoinCredentialPayload credentials,
+        DomainJoinActionParameters parameters, CancellationToken token)
+    {
+        while (true)
+        {
+            try
+            {
+                return await directory.PrepareAsync(credentials.Context, credentials.Password, parameters.ComputerName,
+                    parameters.TargetOuDn, token).ConfigureAwait(false);
+            }
+            catch (DomainDirectoryException error) when (error.Transient)
+            {
+                await delay(ReadinessRetryInterval, token).ConfigureAwait(false);
+            }
         }
     }
 

@@ -71,6 +71,32 @@ public sealed class DomainJoinWorkerTests
         var result = await f.Run();
         Assert.Equal(DomainJoinPhaseState.Failed, result.Join.State);
         Assert.Equal(0, f.Native.Joins);
+        Assert.Equal(1, f.Directory.Prepares);
+    }
+    [Fact]
+    public async Task UnreachableDirectory_IsRetriedUntilReadyThenJoins()
+    {
+        using var f = new DomainFixture();
+        f.Directory.TransientFailures = 2;
+        int waits = 0;
+        f.Delay = (_, _) => { waits++; return Task.CompletedTask; };
+        var result = await f.Run();
+        Assert.Equal(DomainJoinPhaseState.Succeeded, result.Join.State);
+        Assert.Equal(3, f.Directory.Prepares);
+        Assert.Equal(2, waits);
+        Assert.Equal(1, f.Native.Joins);
+    }
+    [Fact]
+    public async Task UnreachableDirectoryBeyondReadinessBudget_ReportsTimeoutWithoutJoining()
+    {
+        using var f = new DomainFixture();
+        f.Directory.TransientFailures = int.MaxValue;
+        int waits = 0;
+        f.Delay = (_, token) => ++waits < 3 ? Task.CompletedTask : Task.FromCanceled(new CancellationToken(true));
+        var result = await f.Run();
+        Assert.Equal(DomainJoinPhaseState.Failed, result.Join.State);
+        Assert.Equal(DomainJoinFailureCode.ReadinessTimeout, result.Join.FailureCode);
+        Assert.Equal(0, f.Native.Joins);
     }
     [Fact]
     public async Task FailedJoin_NeverMoves()
@@ -235,7 +261,8 @@ internal sealed class DomainFixture : IDisposable
         byte[] bytes = DomainJoinCredentialPayloadCodec.Encode(new("example.test", "EXAMPLE\\joiner"), "secret".AsSpan());
         File.WriteAllBytes(credentials, bytes); CryptographicOperations.ZeroMemory(bytes);
     }
-    public Task<DomainJoinWorkerResult> Run() => new DomainJoinWorker(Root, Plan, Hash, "installed-boot", Native, Directory).RunAsync(Parameters, CancellationToken.None);
+    public Func<TimeSpan, CancellationToken, Task>? Delay;
+    public Task<DomainJoinWorkerResult> Run() => new DomainJoinWorker(Root, Plan, Hash, "installed-boot", Native, Directory, Delay).RunAsync(Parameters, CancellationToken.None);
     public void Dispose() => System.IO.Directory.Delete(Root, true);
 }
 
@@ -267,6 +294,7 @@ internal sealed class FakeDirectory : IDomainComputerAccountDirectory
     public DomainDirectoryObject? Existing;
     public Guid? NewParent;
     public bool ReadinessFailure;
+    public int TransientFailures;
     public bool DenyReadback;
     public bool LoseMoveResponse;
     public bool StaleGuid;
@@ -279,6 +307,7 @@ internal sealed class FakeDirectory : IDomainComputerAccountDirectory
     public Task<DomainDirectoryReady> PrepareAsync(DomainJoinCredentialContext context, ReadOnlyMemory<char> password, string computerName, string? targetOuDn, CancellationToken token)
     {
         Prepares++; ObservedPassword = password; AfterPrepare?.Invoke();
+        if (Prepares <= TransientFailures) throw new DomainDirectoryException(nativeError: 1355, transient: true);
         if (ReadinessFailure) throw new DomainDirectoryException(ldapError: 50);
         return Task.FromResult(new DomainDirectoryReady("example.test", "dc.example.test", targetOuDn is null ? null : Target, Existing));
     }

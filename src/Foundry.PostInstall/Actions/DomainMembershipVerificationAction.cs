@@ -46,6 +46,6 @@ internal sealed class DomainMembershipVerificationAction(string root, PreOobeExe
             Restart = laterBoot && report.Restart is DomainJoinRestartState.Required or DomainJoinRestartState.Requested ? DomainJoinRestartState.Completed : report.Restart
         });
         bool warning = membership.State is not (DomainJoinPhaseState.Succeeded or DomainJoinPhaseState.Skipped);
-        return new(true, FailureCode: warning ? "domain_membership_warning" : null, HasWarnings: warning);
+        return new(!warning, FailureCode: warning ? "domain_membership_warning" : null, HasWarnings: warning);
     }
 }

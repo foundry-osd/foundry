@@ -24,9 +24,14 @@ internal interface IDomainComputerAccountDirectory : IDisposable
 internal sealed record DomainDirectoryObject(Guid Guid, string DistinguishedName, Guid? ParentGuid = null);
 /// <summary>A completed readiness read; null computer means no visible match, never proof of absolute absence.</summary>
 internal sealed record DomainDirectoryReady(string Domain, string Controller, DomainDirectoryObject? Destination, DomainDirectoryObject? Computer);
-/// <summary>Sanitized numeric diagnostics; Rejected indicates an acknowledged server rejection of a write.</summary>
-internal sealed class DomainDirectoryException(int? nativeError = null, int? ldapError = null, bool rejected = false, int? directoryResult = null) : Exception("Directory operation unavailable.")
+/// <summary>
+/// Sanitized numeric diagnostics; Rejected indicates an acknowledged server rejection of a write, and Transient a
+/// readiness failure caused by an unreachable network or controller rather than by the supplied identity.
+/// </summary>
+internal sealed class DomainDirectoryException(int? nativeError = null, int? ldapError = null, bool rejected = false, int? directoryResult = null,
+    bool transient = false) : Exception("Directory operation unavailable.")
 {
+    public bool Transient { get; } = transient;
     public int? NativeErrorCode { get; } = nativeError;
     public int? LdapErrorCode { get; } = ldapError;
     public bool Rejected { get; } = rejected;
@@ -37,20 +42,45 @@ internal sealed class DomainDirectoryException(int? nativeError = null, int? lda
 internal sealed class DomainComputerAccountDirectory : IDomainComputerAccountDirectory
 {
     private static readonly TimeSpan RequestTimeout = TimeSpan.FromSeconds(10);
+    private const int LdapServerDown = 81;
+    private const int LdapTimeout = 85;
+    private const int LdapConnectError = 91;
+    private const uint ForceRediscovery = 0x1;
     private LdapConnection? connection;
     private string domain = string.Empty;
     private string namingContext = string.Empty;
     private string computerName = string.Empty;
     private bool moveStarted;
+    private bool readinessAttempted;
 
+    /// <summary>Leaves no connection behind on failure, so a transient readiness failure can be attempted again.</summary>
     public async Task<DomainDirectoryReady> PrepareAsync(DomainJoinCredentialContext context, ReadOnlyMemory<char> password,
         string computerName, string? targetOuDn, CancellationToken token)
     {
         if (connection is not null) throw new InvalidOperationException("Directory readiness cannot be repeated.");
+        try
+        {
+            return await ConnectAsync(context, password, computerName, targetOuDn, token).ConfigureAwait(false);
+        }
+        catch
+        {
+            Dispose();
+            throw;
+        }
+        finally
+        {
+            readinessAttempted = true;
+        }
+    }
+
+    private async Task<DomainDirectoryReady> ConnectAsync(DomainJoinCredentialContext context, ReadOnlyMemory<char> password,
+        string computerName, string? targetOuDn, CancellationToken token)
+    {
         token.ThrowIfCancellationRequested();
         domain = DomainJoinCredentialContext.CanonicalizeDomainName(context.DomainName);
         this.computerName = computerName;
-        string controller = LocateController(domain);
+        // A repeated attempt bypasses the locator's cached failure from the previous one.
+        string controller = LocateController(domain, forceRediscovery: readinessAttempted);
         token.ThrowIfCancellationRequested();
         using var secret = new SecureString();
         foreach (char character in password.Span) secret.AppendChar(character);
@@ -70,7 +100,11 @@ internal sealed class DomainComputerAccountDirectory : IDomainComputerAccountDir
             connection.Bind();
             token.ThrowIfCancellationRequested();
         }
-        catch (LdapException error) { throw new DomainDirectoryException(ldapError: error.ErrorCode); }
+        catch (LdapException error)
+        {
+            throw new DomainDirectoryException(ldapError: error.ErrorCode,
+                transient: error.ErrorCode is LdapServerDown or LdapTimeout or LdapConnectError);
+        }
         finally { credential.Password = null; }
         var root = await SearchAsync("", "(objectClass=*)", SearchScope.Base, ["defaultNamingContext", "dnsHostName"], token).ConfigureAwait(false);
         if (root.Count != 1 || !string.Equals(Attribute(root[0], "dnsHostName"), controller, StringComparison.OrdinalIgnoreCase)) throw new DomainDirectoryException();
@@ -218,13 +252,14 @@ internal sealed class DomainComputerAccountDirectory : IDomainComputerAccountDir
         .Replace("(", "\\28", StringComparison.Ordinal).Replace(")", "\\29", StringComparison.Ordinal).Replace("\0", "\\00", StringComparison.Ordinal);
     private static string Attribute(SearchResultEntry entry, string name) => entry.Attributes[name] is { Count: 1 } attribute && attribute[0] is string value ? value : string.Empty;
     public void Dispose() { connection?.Dispose(); connection = null; }
-    private static string LocateController(string domain)
+    private static string LocateController(string domain, bool forceRediscovery)
     {
         nint buffer = 0;
         try
         {
-            uint status = DsGetDcName(null, domain, 0, null, 0x10 | 0x20000 | 0x40000000 | 0x1000, out buffer);
-            if (status != 0) throw new DomainDirectoryException(nativeError: unchecked((int)status));
+            uint status = DsGetDcName(null, domain, 0, null,
+                0x10 | 0x20000 | 0x40000000 | 0x1000 | (forceRediscovery ? ForceRediscovery : 0), out buffer);
+            if (status != 0) throw new DomainDirectoryException(nativeError: unchecked((int)status), transient: true);
             var info = Marshal.PtrToStructure<DomainControllerInfo>(buffer);
             string foundDomain = Marshal.PtrToStringUni(info.DomainName) ?? string.Empty;
             string controller = (Marshal.PtrToStringUni(info.DomainControllerName) ?? string.Empty).TrimStart('\\');

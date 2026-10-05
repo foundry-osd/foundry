@@ -17,13 +17,14 @@ public sealed class DomainJoinActionTests
         new DomainJoinResultStore(f.Root, f.Plan, f.Hash).Seed();
         var processes = new WorkerProcess(f);
         var result = await new DomainJoinAction(f.Root, f.Plan, f.Hash, "installed-boot", processes, "runtime.exe").ExecuteAsync(f.Plan.Actions[0], CancellationToken.None);
-        Assert.True(result.Succeeded); Assert.True(result.RestartRequested); Assert.True(result.HasWarnings);
+        Assert.False(result.Succeeded); Assert.True(result.RestartRequested); Assert.True(result.HasWarnings);
         var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash).Read();
         Assert.Equal(DomainJoinPhaseState.Succeeded, report.Join.State);
         Assert.Equal(DomainJoinPhaseState.Failed, report.Placement.State);
         Assert.Equal(["--domain-join-worker"], processes.Command!.Arguments);
         Assert.Null(processes.Command.OutputPath);
-        Assert.Equal(TimeSpan.FromSeconds(300), processes.Command.Timeout);
+        Assert.Equal(DomainJoinAction.SupervisionTimeout, processes.Command.Timeout);
+        Assert.True(DomainJoinAction.SupervisionTimeout > Foundry.PostInstall.Windows.DomainJoinWorker.Budget);
     }
     [Fact]
     public async Task TimeoutWithJoinStarted_ReportsUnknownAndCannotReplay()
@@ -50,7 +51,7 @@ public sealed class DomainJoinActionTests
         state.Actions["verify"] = new() { Status = "Running" }; journal.Write(state);
         File.Delete(OwnedPaths.Resolve(f.Root, f.Parameters.CredentialPayloadPath)); f.Native.Name = name;
         var outcome = await new DomainMembershipVerificationAction(f.Root, f.Plan, f.Hash, boot, f.Native).ExecuteAsync(f.Plan.Actions[1], CancellationToken.None);
-        Assert.True(outcome.Succeeded); Assert.Equal(!success, outcome.HasWarnings);
+        Assert.Equal(success, outcome.Succeeded); Assert.Equal(!success, outcome.HasWarnings);
         Assert.Equal(success, report.Read().Membership.State == DomainJoinPhaseState.Succeeded);
     }
     private sealed class WorkerProcess(DomainFixture fixture) : IPreOobeProcessExecutor
