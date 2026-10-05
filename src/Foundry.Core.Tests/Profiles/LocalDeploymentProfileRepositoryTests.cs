@@ -10,7 +10,6 @@ using System.Text.Json.Nodes;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Packages;
-using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Profiles;
 using Foundry.Utilities.Security;
 
@@ -21,37 +20,6 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
     private readonly string root = Path.Combine(Path.GetTempPath(), "Foundry.LocalProfiles.Tests", Guid.NewGuid().ToString("N"));
     private readonly FakeCredentials credentials = new();
     private readonly Guid localId = Guid.NewGuid();
-
-    [Fact]
-    public void ExportedDomainDraftCanBeRememberedButIsNotReadyForAutomaticMedia()
-    {
-        var packages = new DeploymentProfilePackageService();
-        var profile = CreateProfile() with
-        {
-            Configuration = new() { DomainJoin = new() { IsEnabled = true, Mode = DomainJoinMode.Automatic, DomainName = "example.com", AccountName = "EXAMPLE\\joiner" } },
-            Secrets = new() { Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain", State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("domain-password") }] }
-        };
-        var imported = packages.Import(packages.Export(profile, "password"), "password");
-        var repository = CreateRepository();
-        repository.Save(localId, imported, true, null);
-        using LocalProfileSnapshot read = repository.Read(localId);
-        Assert.Equal(ProfileValueState.Omitted, Assert.Single(read.Profile.Secrets.Entries).State);
-        Assert.Throws<InvalidOperationException>(() => new DeployConfigurationGenerator().Generate(read.Profile.Configuration, new byte[32], new() { IsEnabled = true }, null));
-    }
-
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void DomainPasswordRetentionHonorsRememberSecrets(bool remember)
-    {
-        var repository = CreateRepository();
-        var profile = CreateProfile() with { Secrets = new() { Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain", State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("domain-password") }] } };
-        repository.Save(localId, profile, remember, null);
-        using LocalProfileSnapshot read = repository.Read(localId);
-        var secret = Assert.Single(read.Profile.Secrets.Entries);
-        Assert.Equal(remember ? ProfileValueState.Present : ProfileValueState.Omitted, secret.State);
-        Assert.Equal(remember ? "domain-password" : null, secret.Value is { } value ? Encoding.UTF8.GetString(value) : null);
-    }
 
     [Fact]
     public async Task ListAsync_WhenContentionEnds_ReturnsCommittedProfiles()

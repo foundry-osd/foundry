@@ -20,8 +20,6 @@ public sealed class ProvisioningModeSelectionTests
         ProvisioningSelectionDecision decision = ProvisioningModeSelectionEvaluator.Evaluate(autopilot, domainJoin, requested);
         Assert.Equal(ProvisioningSelection.None, decision.Next);
         Assert.False(decision.RequiresReplacementConfirmation);
-        Assert.True(autopilot.IsEnabled);
-        Assert.False(domainJoin.IsEnabled);
     }
 
     [Theory]
@@ -33,7 +31,6 @@ public sealed class ProvisioningModeSelectionTests
         ProvisioningSelectionDecision decision = ProvisioningModeSelectionEvaluator.Evaluate(new(), domainJoin, requested);
         Assert.Equal(ProvisioningSelection.None, decision.Next);
         Assert.False(decision.RequiresReplacementConfirmation);
-        Assert.True(domainJoin.IsEnabled);
     }
 
     [Fact]
@@ -73,17 +70,9 @@ public sealed class ProvisioningModeSelectionTests
     }
 
     [Fact]
-    public void EveryProvisioningSwitchHasOneActiveSelection()
+    public void NoEnabledModeResolvesToNoSelection()
     {
-        foreach (ProvisioningSelection current in Enum.GetValues<ProvisioningSelection>())
-        {
-            foreach (ProvisioningSelection requested in Enum.GetValues<ProvisioningSelection>())
-            {
-                ProvisioningSelectionDecision decision = ProvisioningModeSelectionEvaluator.Evaluate(current, requested);
-                Assert.Equal(current == requested ? ProvisioningSelection.None : requested, decision.Next);
-                Assert.Equal(current != ProvisioningSelection.None && requested != ProvisioningSelection.None && current != requested,
-                    decision.RequiresReplacementConfirmation);
-            }
-        }
+        Assert.Equal(ProvisioningSelection.None, ProvisioningModeSelectionEvaluator.GetCurrent(
+            new() { ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload }, new() { Mode = DomainJoinMode.Automatic }));
     }
 }

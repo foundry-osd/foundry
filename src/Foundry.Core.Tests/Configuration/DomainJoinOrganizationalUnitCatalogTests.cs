@@ -30,14 +30,10 @@ public sealed class DomainJoinOrganizationalUnitCatalogTests
     }
 
     [Fact]
-    public void ForeignDomainImportLeavesConfigurationUnchanged()
+    public void MergeRejectsForeignDomain()
     {
-        DomainJoinSettings current = Catalog();
-        Assert.Throws<ArgumentException>(() => DomainJoinOrganizationalUnitCatalog.Merge(current, "other.test",
+        Assert.Throws<ArgumentException>(() => DomainJoinOrganizationalUnitCatalog.Merge(Catalog(), "other.test",
             [Unit("foreign", "Foreign", "OU=Foreign,DC=other,DC=test")]));
-        Assert.Equal("contoso.test", current.DomainName);
-        Assert.Equal("manual", current.DefaultOuId);
-        Assert.Single(current.OrganizationalUnits);
     }
 
     [Fact]

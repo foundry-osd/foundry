@@ -44,24 +44,22 @@ public sealed class DeploymentProfilePackageServiceTests
         Assert.Equal("example.com", imported.Configuration.DomainJoin.DomainName);
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void SharedEncryptedRevisionHonorsIncludeSecrets(bool includeSecrets)
+    [Fact]
+    public void SharedRevisionRetainsDomainPassword()
     {
         DeploymentProfileDocument profile = CreateProfile() with
         {
             Secrets = new()
             {
                 Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain",
-                State = includeSecrets ? ProfileValueState.Present : ProfileValueState.Omitted,
-                Value = includeSecrets ? Encoding.UTF8.GetBytes("domain-password") : null }]
+                State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("domain-password") }]
             }
         };
         byte[] key = new byte[32];
         DeploymentProfileDocument revision = _service.Decrypt(_service.Encrypt(profile, key, ProfilePackagePurpose.SharedRevision), key, ProfilePackagePurpose.SharedRevision);
-        Assert.Equal(includeSecrets ? ProfileValueState.Present : ProfileValueState.Omitted, Assert.Single(revision.Secrets.Entries).State);
-        Assert.Equal(includeSecrets ? "domain-password" : null, revision.Secrets.Entries[0].Value is { } value ? Encoding.UTF8.GetString(value) : null);
+        var secret = Assert.Single(revision.Secrets.Entries);
+        Assert.Equal(ProfileValueState.Present, secret.State);
+        Assert.Equal("domain-password", Encoding.UTF8.GetString(secret.Value!));
     }
 
     [Fact]

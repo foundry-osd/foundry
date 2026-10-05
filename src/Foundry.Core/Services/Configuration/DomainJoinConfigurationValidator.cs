@@ -14,7 +14,7 @@ public static class DomainJoinConfigurationValidator
     public const int MaximumCredentialPayloadBytes = 32 * 1024;
     public const int MaximumResultBytes = 64 * 1024;
 
-    /// <summary>Accepts incomplete secret-free drafts while rejecting unsafe bounds and inconsistent catalogs.</summary>
+    /// <summary>Accepts incomplete secret-free drafts while rejecting unsafe bounds and inconsistent OU lists.</summary>
     public static DomainJoinValidationResult ValidateMetadata(DomainJoinSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);

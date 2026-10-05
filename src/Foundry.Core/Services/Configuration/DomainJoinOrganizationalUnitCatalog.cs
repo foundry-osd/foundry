@@ -6,10 +6,10 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Core.Services.Configuration;
 
-/// <summary>Maintains a bounded portable OU catalog without changing existing destination identities.</summary>
+/// <summary>Maintains the bounded saved OU list without changing the identity of OUs already listed.</summary>
 public static class DomainJoinOrganizationalUnitCatalog
 {
-    /// <summary>Merges selected discovered destinations into a validated copy.</summary>
+    /// <summary>Adds manually entered or discovered OUs of one domain to a validated copy, skipping OUs already listed.</summary>
     public static DomainJoinSettings Merge(DomainJoinSettings current, string discoveredDomain,
         IReadOnlyList<DomainJoinOrganizationalUnitSettings> selected)
     {
@@ -20,12 +20,12 @@ public static class DomainJoinOrganizationalUnitCatalog
             throw new ArgumentException("The discovered domain must be a DNS domain.", nameof(discoveredDomain));
         string domain = DomainJoinCredentialContext.CanonicalizeDomainName(discoveredDomain);
         if (!Matches(current.DomainName) || !Matches(current.OuCatalogDomain))
-            throw new ArgumentException("The target and catalog must match the discovered computer domain.", nameof(discoveredDomain));
+            throw new ArgumentException("The domain name and the listed OUs must match the domain of the added OUs.", nameof(discoveredDomain));
         var units = current.OrganizationalUnits.ToList();
         var names = new HashSet<string>(units.Select(unit => Key(unit.DistinguishedName)), StringComparer.OrdinalIgnoreCase);
         foreach (DomainJoinOrganizationalUnitSettings unit in selected)
         {
-            if (unit is null) throw new ArgumentException("A destination is required.", nameof(selected));
+            if (unit is null) throw new ArgumentException("An OU is required.", nameof(selected));
             if (names.Add(Key(unit.DistinguishedName))) units.Add(unit);
         }
         DomainJoinSettings result = current with
@@ -42,7 +42,7 @@ public static class DomainJoinOrganizationalUnitCatalog
             DomainJoinCredentialContext.CanonicalizeDomainName(value) == domain;
     }
 
-    /// <summary>Removes a destination and clears its default selection, allowing inconsistent drafts to be repaired incrementally.</summary>
+    /// <summary>Removes an OU and clears it as the default, allowing inconsistent drafts to be repaired incrementally.</summary>
     public static DomainJoinSettings Remove(DomainJoinSettings current, string id)
     {
         ArgumentNullException.ThrowIfNull(current);
@@ -60,11 +60,11 @@ public static class DomainJoinOrganizationalUnitCatalog
 
     private static string Key(string dn) => DistinguishedNameRules.TryParse(dn, out ParsedDistinguishedName parsed)
         ? DistinguishedNameRules.GetComparisonKey(parsed)
-        : throw new ArgumentException("The destination distinguished name is invalid.", nameof(dn));
+        : throw new ArgumentException("The OU distinguished name is invalid.", nameof(dn));
 
     private static void Validate(DomainJoinSettings settings)
     {
         if (!DomainJoinConfigurationValidator.ValidateMetadata(settings).IsValid)
-            throw new ArgumentException("The destination catalog is invalid.", nameof(settings));
+            throw new ArgumentException("The OU list is invalid.", nameof(settings));
     }
 }
