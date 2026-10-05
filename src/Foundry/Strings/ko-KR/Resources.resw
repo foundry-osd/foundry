@@ -1945,9 +1945,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>조직 구성 단위</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>지우기</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>컴퓨터를 도메인에 가입시키는 데 사용하는 계정입니다. 컴퓨터를 가입시키고 선택한 OU로 이동할 권한이 필요합니다. 도메인 이름이나 계정이 변경되면 암호가 지워집니다.</value>
   </data>

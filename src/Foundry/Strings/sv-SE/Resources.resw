@@ -1945,9 +1945,6 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organisationsenheter</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Rensa</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Konto som används för att ansluta datorer till domänen. Det behöver behörighet att ansluta datorer och flytta dem till de OU:er du väljer. Lösenordet rensas när domännamnet eller kontot ändras.</value>
   </data>

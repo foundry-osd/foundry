@@ -1945,9 +1945,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organisatie-eenheden</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Wissen</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Account waarmee computers lid worden gemaakt van het domein. Het heeft rechten nodig om computers toe te voegen en ze te verplaatsen naar de OU's die u kiest. Het wachtwoord wordt gewist wanneer de domeinnaam of het account verandert.</value>
   </data>

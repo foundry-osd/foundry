@@ -1945,9 +1945,6 @@
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>الوحدات التنظيمية</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>مسح</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>الحساب المستخدم لضم أجهزة الكمبيوتر إلى النطاق. يحتاج إلى صلاحية ضم أجهزة الكمبيوتر ونقلها إلى وحدات OU التي تختارها. يتم مسح كلمة المرور عند تغيّر اسم النطاق أو الحساب.</value>
   </data>

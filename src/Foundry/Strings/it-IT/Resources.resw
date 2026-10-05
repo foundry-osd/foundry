@@ -1945,9 +1945,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Unità organizzative</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Cancella</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Account usato per aggiungere i computer al dominio. Deve avere l'autorizzazione per aggiungere computer e spostarli nelle OU scelte. La password viene cancellata quando cambia il nome di dominio o l'account.</value>
   </data>

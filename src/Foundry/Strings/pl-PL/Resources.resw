@@ -1945,9 +1945,6 @@ Licencjonowany na licencji MIT.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Jednostki organizacyjne</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Wyczyść</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Konto używane do dołączania komputerów do domeny. Wymaga uprawnień do dołączania komputerów i przenoszenia ich do wybranych jednostek OU. Hasło jest czyszczone po zmianie nazwy domeny lub konta.</value>
   </data>

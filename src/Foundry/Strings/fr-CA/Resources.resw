@@ -1945,9 +1945,6 @@ Sous licence MIT.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Unités d’organisation</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Effacer</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Compte utilisé pour joindre les ordinateurs au domaine. Il doit être autorisé à joindre des ordinateurs et à les déplacer vers les OU que vous choisissez. Le mot de passe est effacé lorsque le nom de domaine ou le compte change.</value>
   </data>

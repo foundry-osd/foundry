@@ -186,8 +186,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         Save(settings);
     }
 
-    [RelayCommand]
-    private void ClearDefault() => SelectedDefaultOu = null;
 
     /// <summary>
     /// Searches the authoring computer's domain, then lets the user pick the OUs to add. Invoked again while the

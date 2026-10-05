@@ -1945,9 +1945,6 @@
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Οργανωτικές μονάδες</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Διαγραφή</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Λογαριασμός που χρησιμοποιείται για τη σύνδεση υπολογιστών στον τομέα. Χρειάζεται δικαίωμα σύνδεσης υπολογιστών και μετακίνησής τους στις OU που επιλέγετε. Ο κωδικός πρόσβασης διαγράφεται όταν αλλάζει το όνομα τομέα ή ο λογαριασμός.</value>
   </data>

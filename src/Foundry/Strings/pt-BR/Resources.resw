@@ -1945,9 +1945,6 @@ Licenciado sob a licença MIT.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Unidades organizacionais</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Limpar</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Conta usada para associar computadores ao domínio. Ela precisa de permissão para associar computadores e movê-los para as OUs que você escolher. A senha é apagada quando o nome do domínio ou a conta muda.</value>
   </data>

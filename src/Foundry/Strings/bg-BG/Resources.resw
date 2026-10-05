@@ -1945,9 +1945,6 @@
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Организационни единици</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Изчистване</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Акаунт, с който компютрите се присъединяват към домейна. Необходимо му е разрешение да присъединява компютри и да ги премества в избраните от вас OU. Паролата се изчиства при промяна на името на домейна или на акаунта.</value>
   </data>

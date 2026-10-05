@@ -1945,9 +1945,6 @@ Licensed under the MIT License.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organisational units</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Clear</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Account used to join computers to the domain. It needs permission to join computers and to move them to the OUs you choose. The password is cleared when the domain name or the account changes.</value>
   </data>

@@ -1945,9 +1945,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organisationseinheiten</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Löschen</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Konto, mit dem Computer der Domäne beitreten. Es benötigt die Berechtigung, Computer der Domäne hinzuzufügen und in die von Ihnen gewählten OUs zu verschieben. Das Kennwort wird gelöscht, wenn sich der Domänenname oder das Konto ändert.</value>
   </data>

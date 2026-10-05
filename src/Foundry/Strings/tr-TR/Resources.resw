@@ -1945,9 +1945,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Kuruluş birimleri</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Temizle</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Bilgisayarları etki alanına katmak için kullanılan hesap. Bilgisayarları etki alanına katma ve seçtiğiniz OU’lara taşıma izni olmalıdır. Etki alanı adı veya hesap değiştiğinde parola temizlenir.</value>
   </data>

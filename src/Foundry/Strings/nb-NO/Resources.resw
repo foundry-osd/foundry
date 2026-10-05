@@ -1945,9 +1945,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organisasjonsenheter</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Fjern</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Konto som brukes til å knytte datamaskiner til domenet. Den må ha tillatelse til å knytte til datamaskiner og flytte dem til OU-ene du velger. Passordet slettes når domenenavnet eller kontoen endres.</value>
   </data>

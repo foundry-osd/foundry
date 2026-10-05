@@ -1945,9 +1945,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organisatsiooniüksused</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Tühjenda</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Konto, millega arvutid domeeniga liidetakse. Sellel peab olema õigus arvuteid domeeniga liita ja teie valitud OU-desse teisaldada. Parool kustutatakse domeeninime või konto muutumisel.</value>
   </data>

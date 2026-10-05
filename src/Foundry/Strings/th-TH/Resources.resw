@@ -1945,9 +1945,6 @@
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>หน่วยองค์กร</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>ล้าง</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>บัญชีที่ใช้นำคอมพิวเตอร์เข้าร่วมโดเมน บัญชีนี้ต้องมีสิทธิ์นำคอมพิวเตอร์เข้าร่วมโดเมนและย้ายไปยัง OU ที่คุณเลือก รหัสผ่านจะถูกล้างเมื่อชื่อโดเมนหรือบัญชีเปลี่ยนแปลง</value>
   </data>

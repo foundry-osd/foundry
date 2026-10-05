@@ -1945,9 +1945,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Szervezeti egységek</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Törlés</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>A számítógépek tartományhoz csatlakoztatására használt fiók. Jogosultnak kell lennie számítógépek csatlakoztatására és a kiválasztott OU-kba való áthelyezésükre. A jelszó törlődik, ha a tartománynév vagy a fiók megváltozik.</value>
   </data>

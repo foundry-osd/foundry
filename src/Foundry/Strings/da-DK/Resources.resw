@@ -1945,9 +1945,6 @@ Licenseret under MIT-licensen.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organisationsenheder</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Ryd</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Konto, der bruges til at tilslutte computere til domænet. Den skal have tilladelse til at tilslutte computere og flytte dem til de OU'er, du vælger. Adgangskoden ryddes, når domænenavnet eller kontoen ændres.</value>
   </data>

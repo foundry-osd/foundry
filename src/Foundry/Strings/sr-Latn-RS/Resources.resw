@@ -1945,9 +1945,6 @@ Licencirano pod MIT licencom.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organizacione jedinice</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Obriši</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Nalog koji se koristi za pridruživanje računara domenu. Potrebna mu je dozvola da pridružuje računare i da ih premešta u OU koje izaberete. Lozinka se briše kada se promeni ime domena ili nalog.</value>
   </data>

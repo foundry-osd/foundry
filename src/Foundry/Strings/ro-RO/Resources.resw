@@ -1945,9 +1945,6 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Unități organizaționale</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Golire</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Contul folosit pentru asocierea computerelor la domeniu. Are nevoie de permisiunea de a asocia computere și de a le muta în OU-urile pe care le alegeți. Parola este ștearsă când se schimbă numele domeniului sau contul.</value>
   </data>

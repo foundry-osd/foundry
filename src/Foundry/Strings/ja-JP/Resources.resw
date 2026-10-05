@@ -1945,9 +1945,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>組織単位</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>クリア</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>コンピューターをドメインに参加させるためのアカウントです。コンピューターを参加させ、選択したOUに移動する権限が必要です。ドメイン名またはアカウントを変更すると、パスワードは消去されます。</value>
   </data>

@@ -1945,9 +1945,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organizatoriskās vienības</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Notīrīt</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Konts, ar kuru datori tiek pievienoti domēnam. Tam nepieciešamas atļaujas pievienot datorus un pārvietot tos uz jūsu izvēlētajām OU. Parole tiek notīrīta, ja mainās domēna nosaukums vai konts.</value>
   </data>

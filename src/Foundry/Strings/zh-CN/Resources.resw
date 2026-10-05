@@ -1945,9 +1945,6 @@
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>组织单位</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>清除</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>用于将计算机加入域的账户。该账户需要有权将计算机加入域，并将其移至您选择的 OU。域名或账户发生变化时，密码将被清除。</value>
   </data>

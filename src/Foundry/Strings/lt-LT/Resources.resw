@@ -1945,9 +1945,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organizaciniai vienetai</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Išvalyti</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Paskyra, naudojama kompiuteriams prijungti prie domeno. Jai reikia teisių prijungti kompiuterius ir perkelti juos į jūsų pasirinktus OU. Pasikeitus domeno vardui arba paskyrai, slaptažodis išvalomas.</value>
   </data>

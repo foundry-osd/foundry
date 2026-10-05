@@ -1945,9 +1945,6 @@
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>יחידות ארגוניות</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>ניקוי</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>החשבון המשמש לצירוף מחשבים לתחום. נדרשת לו הרשאה לצרף מחשבים ולהעביר אותם ליחידות ה-OU שתבחר. הסיסמה נמחקת כאשר שם התחום או החשבון משתנים.</value>
   </data>

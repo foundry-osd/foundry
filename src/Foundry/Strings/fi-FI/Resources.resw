@@ -1945,9 +1945,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organisaatioyksiköt</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Tyhjennä</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Tili, jolla tietokoneet liitetään toimialueeseen. Sillä on oltava oikeus liittää tietokoneita ja siirtää ne valitsemiisi OU:ihin. Salasana tyhjennetään, kun toimialueen nimi tai tili vaihtuu.</value>
   </data>

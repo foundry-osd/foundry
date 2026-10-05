@@ -1945,9 +1945,6 @@ Licencované podľa licencie MIT.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organizačné jednotky</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Zrušiť</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Účet, ktorým sa počítače pripájajú k doméne. Potrebuje oprávnenie pripájať počítače a presúvať ich do vybraných OU. Heslo sa vymaže pri zmene názvu domény alebo účtu.</value>
   </data>

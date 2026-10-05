@@ -109,24 +109,11 @@
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE734;" />
                         </wct:SettingsCard.HeaderIcon>
-                        <Grid
-                            HorizontalAlignment="Right"
-                            ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <ComboBox
-                                Width="{ThemeResource FoundryWideInputMinWidth}"
-                                DisplayMemberPath="Hierarchy"
-                                ItemsSource="{x:Bind ViewModel.OrganizationalUnits}"
-                                SelectedItem="{x:Bind ViewModel.SelectedDefaultOu, Mode=TwoWay}" />
-                            <Button
-                                x:Uid="DomainJoinClearDefault"
-                                Grid.Column="1"
-                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                Command="{x:Bind ViewModel.ClearDefaultCommand}" />
-                        </Grid>
+                        <ComboBox
+                            Width="{ThemeResource FoundryWideInputMinWidth}"
+                            DisplayMemberPath="Hierarchy"
+                            ItemsSource="{x:Bind ViewModel.OrganizationalUnits}"
+                            SelectedItem="{x:Bind ViewModel.SelectedDefaultOu, Mode=TwoWay}" />
                     </wct:SettingsCard>
 
                     <wct:SettingsCard x:Uid="DomainJoinAllowSelection">

@@ -1945,9 +1945,6 @@ Licencirano pod licenco MIT.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organizacijske enote</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Počisti</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Račun, s katerim se računalniki pridružijo domeni. Potrebuje dovoljenje za pridruževanje računalnikov in njihovo premikanje v izbrane OU. Geslo se izbriše ob spremembi imena domene ali računa.</value>
   </data>

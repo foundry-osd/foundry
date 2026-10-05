@@ -1945,9 +1945,6 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Unidades organizativas</value>
   </data>
-  <data name="DomainJoinClearDefault.Content" xml:space="preserve">
-    <value>Borrar</value>
-  </data>
   <data name="DomainJoinCredentials.Description" xml:space="preserve">
     <value>Cuenta utilizada para unir equipos al dominio. Necesita permiso para unir equipos y moverlos a las OU que elija. La contraseña se borra cuando cambia el nombre de dominio o la cuenta.</value>
   </data>
