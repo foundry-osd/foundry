@@ -28,7 +28,7 @@ public sealed class ValidateCustomUnattendStep(UnattendContentService contentSer
             return DeploymentStepResult.Failed("The custom answer-file computer name differs from the computer name confirmed for the domain join.",
                 DeploymentFailure.Guard(DeploymentOperationNames.ValidateTarget, DeploymentFailureReasons.InvalidInput,
                     "domain_custom_name_mismatch"));
-        if (PreOobe.PreOobeContentResolver.IsRequired(context.Request))
+        if (PreOobe.PreOobeContentResolver.IsRequired(context.Request, context.RuntimeState))
             context.UnattendSnapshot.ValidatePostInstallHook(context.Request.OperatingSystem.Architecture);
         if (context.UnattendSnapshot.Inspection.HasCommands)
         {

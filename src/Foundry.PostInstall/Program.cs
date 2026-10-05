@@ -41,25 +41,26 @@ internal static class Program
             var snapshot = await PreOobePlanLoader.LoadAsync(root, CancellationToken.None).ConfigureAwait(false);
             var plan = snapshot.Plan;
             string hash = snapshot.Hash;
+            string logs = OwnedPaths.Resolve(root, "Logs/PreOobe");
+            Directory.CreateDirectory(logs);
+            Log.Logger = FoundryLogConfiguration.CreateFileLogger(Path.Combine(logs, "Foundry.PostInstall.log"), "Foundry.PostInstall",
+                plan.DiagnosticSessionId, LogEventLevel.Verbose, 5);
+            // Read once: every check in this process must compare against the same boot identity.
+            string boot = BootIdentityProvider.Read();
             if (args[0] == "--domain-join-worker")
             {
                 var binding = DomainJoinBinding.Validate(plan);
-                string boot = BootIdentityProvider.Read();
                 DomainJoinBinding.RequireRunning(root, plan, hash, boot, binding.JoinAction.Id);
                 var workerResult = await new DomainJoinWorker(root, plan, hash, boot, new NativeDomainJoin(), new DomainComputerAccountDirectory())
                     .RunAsync(binding.Parameters, CancellationToken.None).ConfigureAwait(false);
                 return workerResult.Join.State == DomainJoinPhaseState.Succeeded ? 0 : 10;
             }
-            string logs = OwnedPaths.Resolve(root, "Logs/PreOobe");
-            Directory.CreateDirectory(logs);
-            Log.Logger = FoundryLogConfiguration.CreateFileLogger(Path.Combine(logs, "Foundry.PostInstall.log"), "Foundry.PostInstall",
-                plan.DiagnosticSessionId, LogEventLevel.Verbose, 5);
             Log.Information("Post-installation started with {ActionCount} actions", plan.Actions.Count);
             using var console = new PostInstallConsole(plan, Path.Combine(logs, "Foundry.PostInstall.log"));
             var executor = new PreOobeActionExecutor(root, windows, plan, new PreOobeProcessExecutor(),
-                new CertificateImporter(), Environment.ProcessPath ?? throw new InvalidDataException("Runtime path is unavailable."), hash);
+                new CertificateImporter(), Environment.ProcessPath ?? throw new InvalidDataException("Runtime path is unavailable."), hash, boot);
             OrchestrationOutcome result = await new PreOobeOrchestrator(root, hash, new ExecutionJournal(root), executor,
-                BootIdentityProvider.Read, console).RunAsync(plan, CancellationToken.None).ConfigureAwait(false);
+                () => boot, console).RunAsync(plan, CancellationToken.None).ConfigureAwait(false);
             Log.Information("Post-installation ended with {Status}; host exit code {HostExitCode}", result.Status, result.ExitCode);
             console.Complete(result);
             await console.WaitForSetupAsync().ConfigureAwait(false);

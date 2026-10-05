@@ -9,7 +9,7 @@ using Foundry.PostInstall.Windows;
 namespace Foundry.PostInstall.Actions;
 
 public sealed class PreOobeActionExecutor(string root, string windowsRoot, PreOobeExecutionPlan plan,
-    IPreOobeProcessExecutor processes, ICertificateImporter certificates, string executablePath, string? planHash = null, Func<string>? bootIdentity = null) : IPreOobeActionExecutor
+    IPreOobeProcessExecutor processes, ICertificateImporter certificates, string executablePath, string planHash, string bootIdentity) : IPreOobeActionExecutor
 {
     public async Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, int substep, CancellationToken cancellationToken)
     {
@@ -21,16 +21,15 @@ public sealed class PreOobeActionExecutor(string root, string windowsRoot, PreOo
             PreOobeBuiltInKind.Network => await new NetworkAction(root, windowsRoot, processes, certificates).ExecuteAsync(action, cancellationToken).ConfigureAwait(false),
             PreOobeBuiltInKind.Appx or PreOobeBuiltInKind.AiRemoval => await new AppxAction(root, windowsRoot, processes).ExecuteAsync(action, substep, cancellationToken).ConfigureAwait(false),
             PreOobeBuiltInKind.Activation => await ActivateAsync(cancellationToken).ConfigureAwait(false),
-            PreOobeBuiltInKind.DomainJoinAndPlacement => await new DomainJoinAction(root, plan, RequireDomainHash(),
-                (bootIdentity ?? BootIdentityProvider.Read)(), processes, executablePath).ExecuteAsync(action, cancellationToken).ConfigureAwait(false),
-            PreOobeBuiltInKind.VerifyDomainMembership => await new DomainMembershipVerificationAction(root, plan, RequireDomainHash(),
-                (bootIdentity ?? BootIdentityProvider.Read)(), new NativeDomainJoin()).ExecuteAsync(action, cancellationToken).ConfigureAwait(false),
+            PreOobeBuiltInKind.DomainJoinAndPlacement => await new DomainJoinAction(root, plan, planHash,
+                bootIdentity, processes, executablePath).ExecuteAsync(action, cancellationToken).ConfigureAwait(false),
+            PreOobeBuiltInKind.VerifyDomainMembership => await new DomainMembershipVerificationAction(root, plan, planHash,
+                bootIdentity, new NativeDomainJoin()).ExecuteAsync(action, cancellationToken).ConfigureAwait(false),
             PreOobeBuiltInKind.Cleanup => await CleanupAsync(cancellationToken).ConfigureAwait(false),
             _ => throw new InvalidDataException("Unsupported built-in action.")
         };
     }
 
-    private string RequireDomainHash() => planHash ?? throw new InvalidDataException("Domain execution requires its fixed plan hash.");
 
     private async Task<ActionStepOutcome> ActivateAsync(CancellationToken cancellationToken)
     {

@@ -34,7 +34,10 @@ internal sealed class DomainJoinAction(string root, PreOobeExecutionPlan plan, s
         catch (Exception error) when (DomainJoinWorker.Recoverable(error)) { process = new(null, string.Empty, TerminationUncertain: true); }
         Log.Information("Domain join worker ended; exit code {ExitCode}, timed out {TimedOut}, termination uncertain {TerminationUncertain}",
             process.ExitCode, process.TimedOut, process.TerminationUncertain);
-        var receipt = phases.Read();
+        DomainJoinPhaseReceipt receipt;
+        try { receipt = phases.Read(); }
+        // A worker that could not be stopped may still be replacing the receipt; its outcome stays unknown.
+        catch (IOException) when (process.TerminationUncertain) { receipt = initial; }
         report = reports.Reconcile(receipt, boot, process.TimedOut ? DomainJoinFailureCode.WorkerTimeout : DomainJoinFailureCode.Interrupted,
             workerUnsettled: process.TerminationUncertain);
         bool uncertain = process.TerminationUncertain;

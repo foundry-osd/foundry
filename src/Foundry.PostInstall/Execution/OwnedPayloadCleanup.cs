@@ -28,17 +28,24 @@ public sealed class OwnedPayloadCleanup(string root, ExecutionJournal journal, A
                 (state.UnsafeActionId is null || payload.ConsumerActionIds.Contains(state.UnsafeActionId));
             state.PayloadDispositions[payload.RelativePath] = "CleanupPending";
             bool disposed = false;
-            // A journal publication failure must propagate even if best-effort deletion succeeds.
-            try { journal.Write(state); }
-            finally { if (!unsafeExecution) disposed = TryDelete(payload); }
-            if (disposed) state.PayloadDispositions[payload.RelativePath] = "Disposed";
-            else
+            try
             {
-                fatal |= payload.IsSensitive && !domain;
-                domainPending |= domain;
+                // For a sensitive payload, a journal publication failure must propagate even if best-effort deletion succeeds.
+                try { journal.Write(state); }
+                finally { if (!unsafeExecution) disposed = TryDelete(payload); }
+                if (disposed) state.PayloadDispositions[payload.RelativePath] = "Disposed";
+                else
+                {
+                    fatal |= payload.IsSensitive && !domain;
+                    domainPending |= domain;
+                    state.HasWarnings = true;
+                }
+                journal.Write(state);
+            }
+            catch (Exception error) when (!payload.IsSensitive && error is IOException or UnauthorizedAccessException)
+            {
                 state.HasWarnings = true;
             }
-            journal.Write(state);
         }
         return new(fatal, domainPending);
     }
