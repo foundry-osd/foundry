@@ -1840,8 +1840,8 @@ Licencované podľa licencie MIT.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Vyhľadávanie bolo zrušené.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Vyhľadávanie sa dokončilo. Vyberte OU, ktoré chcete pridať.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>V doméne tohto počítača sa nenašli žiadne OU.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Podarilo sa načítať len niektoré OU. Zobrazené OU môžete napriek tomu pridať.</value>
@@ -1858,11 +1858,11 @@ Licencované podľa licencie MIT.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU neboli pridané. Patria do inej domény, než je zadaný názov domény alebo doména už uvedených OU.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Vybrané OU boli pridané.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Odstrániť vybraté</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Vybrané OU: {0} z {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Zadajte účet.</value>
@@ -1961,7 +1961,7 @@ Licencované podľa licencie MIT.</value>
     <value>Predvolená OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Vyhľadať OU</value>
+    <value>Importovať z domény</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Zobrazí OU domény, ku ktorej je tento počítač pripojený, pomocou vášho účtu Windows. Vyberte tie, ktoré chcete pridať.</value>
@@ -1976,7 +1976,7 @@ Licencované podľa licencie MIT.</value>
     <value>Pridať vybrané OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Zadajte zobrazovaný názov a rozlišujúci názov OU. OU musí patriť do domény uvedenej vyššie.</value>
+    <value>Zadajte zobrazovaný názov a rozlišujúci názov OU. OU musí patriť do nakonfigurovanej domény.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Pridať OU ručne</value>
@@ -1989,6 +1989,12 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Zobrazovaný názov</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Pridajte OU ručne alebo importujte OU z domény, ku ktorej je tento počítač pripojený.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>Akcie OU</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Heslo</value>

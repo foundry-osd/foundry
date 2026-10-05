@@ -1840,8 +1840,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Paieška atšaukta.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Paieška baigta. Pasirinkite OU, kuriuos norite pridėti.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Šio kompiuterio domene OU nerasta.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Pavyko pateikti tik dalį OU. Rodomus vis tiek galite pridėti.</value>
@@ -1858,11 +1858,11 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU nepridėti. Jie priklauso kitam domenui nei nurodytas domeno vardas arba jau sąraše esantys OU.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Pasirinkti OU pridėti.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Pašalinti pasirinktą</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Pasirinkti OU: {0} iš {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Įveskite paskyrą.</value>
@@ -1961,7 +1961,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Numatytasis OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Rasti OU</value>
+    <value>Importuoti iš domeno</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Naudojant jūsų Windows paskyrą pateikiamas domeno, prie kurio prijungtas šis kompiuteris, OU sąrašas. Pasirinkite, kuriuos pridėti.</value>
@@ -1976,7 +1976,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pridėti pasirinktus OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Įveskite OU rodomą pavadinimą ir skiriamąjį vardą. OU turi priklausyti aukščiau nurodytam domenui.</value>
+    <value>Įveskite OU rodomą pavadinimą ir skiriamąjį vardą. OU turi priklausyti sukonfigūruotam domenui.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Pridėti OU rankiniu būdu</value>
@@ -1989,6 +1989,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Rodomas pavadinimas</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Pridėkite OU rankiniu būdu arba importuokite OU iš domeno, prie kurio prijungtas šis kompiuteris.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU veiksmai</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Slaptažodis</value>

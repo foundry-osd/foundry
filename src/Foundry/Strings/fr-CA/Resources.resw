@@ -1840,8 +1840,8 @@ Sous licence MIT.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Recherche annulée.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Recherche terminée. Sélectionnez les OU à ajouter.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Aucune OU n’a été trouvée dans le domaine de cet ordinateur.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Seule une partie des OU a pu être répertoriée. Vous pouvez tout de même ajouter celles qui sont affichées.</value>
@@ -1858,11 +1858,11 @@ Sous licence MIT.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Les OU n’ont pas été ajoutées. Elles appartiennent à un domaine différent du nom de domaine ou des OU déjà répertoriées.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Les OU sélectionnées ont été ajoutées.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Supprimer la sélection</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>OU sélectionnées: {0} de {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Saisissez le compte.</value>
@@ -1961,7 +1961,7 @@ Sous licence MIT.</value>
     <value>OU par défaut</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Rechercher des OU</value>
+    <value>Importer depuis le domaine</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Répertorie les OU du domaine auquel cet ordinateur est joint, à l’aide de votre compte Windows. Sélectionnez celles à ajouter.</value>
@@ -1976,7 +1976,7 @@ Sous licence MIT.</value>
     <value>Ajouter les OU sélectionnées</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Saisissez un nom d’affichage et le nom distinctif de l’OU. L’OU doit appartenir au domaine ci-dessus.</value>
+    <value>Saisissez un nom d’affichage et le nom distinctif de l’OU. L’OU doit appartenir au domaine configuré.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Ajouter une OU manuellement</value>
@@ -1989,6 +1989,12 @@ Sous licence MIT.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Nom d’affichage</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Ajoutez une OU manuellement ou importez des OU depuis le domaine auquel cet ordinateur est joint.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>Actions sur les OU</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Mot de passe</value>

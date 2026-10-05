@@ -1840,8 +1840,8 @@
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Η αναζήτηση ακυρώθηκε.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Η αναζήτηση ολοκληρώθηκε. Επιλέξτε τις OU που θα προστεθούν.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Δεν βρέθηκαν OU στον τομέα αυτού του υπολογιστή.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Ήταν δυνατή η εμφάνιση μόνο ορισμένων OU. Μπορείτε ωστόσο να προσθέσετε όσες εμφανίζονται.</value>
@@ -1858,11 +1858,11 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Οι OU δεν προστέθηκαν. Ανήκουν σε διαφορετικό τομέα από το όνομα τομέα ή από τις OU που υπάρχουν ήδη στη λίστα.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Οι επιλεγμένες OU προστέθηκαν.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Κατάργηση επιλεγμένων</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Επιλεγμένες OU: {0} από {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Εισαγάγετε τον λογαριασμό.</value>
@@ -1961,7 +1961,7 @@
     <value>Προεπιλεγμένη OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Εύρεση OU</value>
+    <value>Εισαγωγή από τομέα</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Εμφανίζει τις OU του τομέα στον οποίο είναι συνδεδεμένος αυτός ο υπολογιστής, με χρήση του λογαριασμού σας Windows. Επιλέξτε όσες θέλετε να προσθέσετε.</value>
@@ -1976,7 +1976,7 @@
     <value>Προσθήκη επιλεγμένων OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Εισαγάγετε ένα εμφανιζόμενο όνομα και το διακεκριμένο όνομα της OU. Η OU πρέπει να ανήκει στον παραπάνω τομέα.</value>
+    <value>Εισαγάγετε ένα εμφανιζόμενο όνομα και το διακεκριμένο όνομα της OU. Η OU πρέπει να ανήκει στον διαμορφωμένο τομέα.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Χειροκίνητη προσθήκη OU</value>
@@ -1989,6 +1989,12 @@
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Εμφανιζόμενο όνομα</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Προσθέστε μια OU χειροκίνητα ή εισαγάγετε OU από τον τομέα στον οποίο είναι συνδεδεμένος αυτός ο υπολογιστής.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>Ενέργειες OU</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Κωδικός πρόσβασης</value>

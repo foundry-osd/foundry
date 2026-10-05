@@ -1840,8 +1840,8 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Otsing tühistati.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Otsing on lõpetatud. Valige lisatavad OU-d.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Selle arvuti domeenist ei leitud ühtegi OU-d.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Loetleda õnnestus ainult osa OU-sid. Kuvatud OU-sid saate siiski lisada.</value>
@@ -1858,11 +1858,11 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU-sid ei lisatud. Need kuuluvad teise domeeni kui domeeninimi või juba loendis olevad OU-d.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Valitud OU-d lisati.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Eemalda valitud</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Valitud OU-d: {0}/{1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Sisestage konto.</value>
@@ -1961,7 +1961,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Vaikimisi OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Otsi OU-sid</value>
+    <value>Impordi domeenist</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Loetleb teie Windowsi konto abil selle domeeni OU-d, millega see arvuti on liidetud. Valige lisatavad OU-d.</value>
@@ -1976,7 +1976,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Lisa valitud OU-d</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Sisestage OU kuvatav nimi ja eristusnimi. OU peab kuuluma ülaltoodud domeeni.</value>
+    <value>Sisestage OU kuvatav nimi ja eristusnimi. OU peab kuuluma konfigureeritud domeeni.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Lisa OU käsitsi</value>
@@ -1989,6 +1989,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Kuvatav nimi</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Lisage OU käsitsi või importige OU-d domeenist, millega see arvuti on liidetud.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU toimingud</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parool</value>

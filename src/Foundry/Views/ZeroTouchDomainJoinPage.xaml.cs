@@ -31,13 +31,6 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
         }
     }
 
-    private void PreviewTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (sender is WinUI.TableView.TableView tableView)
-        {
-            ViewModel.ReplaceSelectedPreviewRows(tableView.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
-        }
-    }
 
     private bool synchronizingPassword;
 

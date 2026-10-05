@@ -1840,8 +1840,8 @@
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Пошук скасовано.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Пошук завершено. Виберіть OU, які потрібно додати.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>У домені цього комп’ютера не знайдено жодного OU.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Вдалося отримати лише частину OU. Показані OU все одно можна додати.</value>
@@ -1858,11 +1858,11 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU не додано. Вони належать до іншого домену, ніж указане ім’я домену або OU, які вже є в списку.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Вибрані OU додано.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Видалити вибране</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Вибрані OU: {0} з {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Введіть обліковий запис.</value>
@@ -1961,7 +1961,7 @@
     <value>OU за замовчуванням</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Знайти OU</value>
+    <value>Імпорт із домену</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Показує OU домену, до якого приєднано цей комп’ютер, використовуючи ваш обліковий запис Windows. Виберіть ті, які потрібно додати.</value>
@@ -1976,7 +1976,7 @@
     <value>Додати вибрані OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Введіть відображуване ім’я та розрізнювальне ім’я OU. OU має належати до домену, указаного вище.</value>
+    <value>Введіть відображуване ім’я та розрізнювальне ім’я OU. OU має належати до налаштованого домену.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Додати OU вручну</value>
@@ -1989,6 +1989,12 @@
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Відображуване ім’я</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Додайте OU вручну або імпортуйте OU з домену, до якого приєднано цей комп’ютер.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>Дії з OU</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Пароль</value>

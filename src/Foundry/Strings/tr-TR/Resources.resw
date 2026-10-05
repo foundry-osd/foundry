@@ -1840,8 +1840,8 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Arama iptal edildi.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Arama tamamlandı. Eklenecek OU’ları seçin.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Bu bilgisayarın etki alanında OU bulunamadı.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>OU’ların yalnızca bir kısmı listelenebildi. Gösterilenleri yine de ekleyebilirsiniz.</value>
@@ -1858,11 +1858,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU’lar eklenmedi. Etki alanı adından veya listedeki OU’lardan farklı bir etki alanına aitler.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Seçilen OU’lar eklendi.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Seçileni kaldır</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Seçilen OU’lar: {0} / {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Hesabı girin.</value>
@@ -1961,7 +1961,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Varsayılan OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>OU’ları bul</value>
+    <value>Etki alanından içe aktar</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Windows hesabınızı kullanarak bu bilgisayarın katıldığı etki alanındaki OU’ları listeler. Eklenecek olanları seçin.</value>
@@ -1976,7 +1976,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Seçilen OU’ları ekle</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>OU için bir görünen ad ve ayırt edici adı girin. OU yukarıdaki etki alanına ait olmalıdır.</value>
+    <value>OU için bir görünen ad ve ayırt edici adı girin. OU yapılandırılan etki alanına ait olmalıdır.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>El ile OU ekle</value>
@@ -1989,6 +1989,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Görünen ad</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>El ile bir OU ekleyin veya bu bilgisayarın katıldığı etki alanından OU’ları içe aktarın.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU işlemleri</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parola</value>

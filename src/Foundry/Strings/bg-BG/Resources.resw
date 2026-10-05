@@ -1840,8 +1840,8 @@
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Търсенето е отменено.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Търсенето завърши. Изберете кои OU да добавите.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Не бяха намерени OU в домейна на този компютър.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Само част от OU можаха да бъдат изведени. Показаните все пак могат да бъдат добавени.</value>
@@ -1858,11 +1858,11 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU не бяха добавени. Те принадлежат към домейн, различен от името на домейна или от вече изброените OU.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Избраните OU бяха добавени.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Премахване на избраното</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Избрани OU: {0} от {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Въведете акаунта.</value>
@@ -1961,7 +1961,7 @@
     <value>OU по подразбиране</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Търсене на OU</value>
+    <value>Импортиране от домейна</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Извежда OU от домейна, към който е присъединен този компютър, с вашия акаунт за Windows. Изберете кои да добавите.</value>
@@ -1976,7 +1976,7 @@
     <value>Добавяне на избраните OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Въведете показвано име и отличителното име на OU. OU трябва да принадлежи към домейна по-горе.</value>
+    <value>Въведете показвано име и отличителното име на OU. OU трябва да принадлежи към конфигурирания домейн.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Ръчно добавяне на OU</value>
@@ -1989,6 +1989,12 @@
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Показвано име</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Добавете OU ръчно или импортирайте OU от домейна, към който е присъединен този компютър.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>Действия за OU</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Парола</value>

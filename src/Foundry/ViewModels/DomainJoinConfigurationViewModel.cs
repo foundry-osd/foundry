@@ -12,34 +12,32 @@ using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
-/// <summary>Shares domain metadata, volatile credentials and explicit OU search/import across both authoring pages.</summary>
+/// <summary>Shares domain metadata, volatile credentials and the OU list, with its add and import dialogs, across both authoring pages.</summary>
 public sealed partial class DomainJoinConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IFoundryConfigurationStateService configuration;
     private readonly IDomainJoinSecretStateService secrets;
     private readonly IDeploymentProtectionSecretStateService protectionSecrets;
     private readonly IAuthoringDomainOuDiscoveryService discovery;
+    private readonly IDomainJoinOuDialogService ouDialogs;
     private readonly IDialogService dialogs;
     private readonly IApplicationLocalizationService localization;
     private readonly List<DomainJoinOrganizationalUnitEntryViewModel> selectedListedRows = [];
-    private readonly List<DomainJoinOrganizationalUnitEntryViewModel> selectedPreviewRows = [];
     private IReadOnlyList<DomainJoinValidationCode> issues = [];
     private CancellationTokenSource? discoveryCancellation;
     private DomainJoinSettings? appliedSettings;
-    private DomainJoinSettings? previewBaseline;
-    private DomainOuDiscoveryResult? preview;
     private DomainJoinMode pageMode;
     private bool applying;
     private bool disposed;
     private bool credentialInputInvalid;
     private long discoveryRevision;
-    private string? listStatusKey;
-    private string? discoveryStatusKey;
+    private string? statusKey;
 
     public DomainJoinConfigurationViewModel(IFoundryConfigurationStateService configuration,
         IDomainJoinSecretStateService secrets, IDeploymentProtectionSecretStateService protectionSecrets, IAuthoringDomainOuDiscoveryService discovery,
-        IDialogService dialogs, IApplicationLocalizationService localization)
+        IDomainJoinOuDialogService ouDialogs, IDialogService dialogs, IApplicationLocalizationService localization)
     {
+        this.ouDialogs = ouDialogs;
         this.configuration = configuration;
         this.secrets = secrets;
         this.protectionSecrets = protectionSecrets;
@@ -53,10 +51,8 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         ApplyState();
     }
 
-    /// <summary>Gets the saved OUs; a search does not change this collection until selected results are added.</summary>
+    /// <summary>Gets the saved OUs; a domain search changes this collection only through the import dialog.</summary>
     public ObservableCollection<DomainJoinOrganizationalUnitEntryViewModel> OrganizationalUnits { get; } = [];
-    /// <summary>Gets the bounded read-only search results; only rows selected in the table are added.</summary>
-    public ObservableCollection<DomainJoinOrganizationalUnitEntryViewModel> PreviewUnits { get; } = [];
     public bool IsActive => configuration.Current.DomainJoin.IsEnabled && configuration.Current.DomainJoin.Mode == pageMode;
     public string ActionText => localization.GetString(IsActive ? "Common.Disable" : "Common.Enable");
     public string DocumentationUrl => pageMode == DomainJoinMode.Interactive
@@ -66,10 +62,10 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public string DistinguishedNameColumnHeader => localization.GetString("DomainJoinManualDn.Header");
     public string RemoveSelectedText => Text("RemoveSelected");
     public string EmptyListText => Text("EmptyCatalog");
-    /// <summary>Opens the organizational units section on load only when OUs are already listed.</summary>
-    public bool HasOrganizationalUnits => OrganizationalUnits.Count > 0;
-    public Visibility ListVisibility => ToVisibility(HasOrganizationalUnits);
-    public Visibility EmptyListVisibility => ToVisibility(!HasOrganizationalUnits);
+    /// <summary>Gets the import button label; the same button cancels a running domain search.</summary>
+    public string ImportButtonText => localization.GetString(IsDiscovering ? "DomainJoinCancel.Content" : "DomainJoinDiscover.Content");
+    public Visibility ListVisibility => ToVisibility(OrganizationalUnits.Count > 0);
+    public Visibility EmptyListVisibility => ToVisibility(OrganizationalUnits.Count == 0);
 
     public string DomainValidationMessage => GetIssueText(IsDomainIssue);
     public Visibility DomainValidationVisibility => ToVisibility(DomainValidationMessage.Length > 0);
@@ -77,16 +73,11 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public Visibility CredentialsValidationVisibility => ToVisibility(CredentialsValidationMessage.Length > 0);
     public string OrganizationalUnitsValidationMessage => GetIssueText(code => !IsDomainIssue(code) && !IsCredentialIssue(code));
     public Visibility OrganizationalUnitsValidationVisibility => ToVisibility(OrganizationalUnitsValidationMessage.Length > 0);
-    public string ListStatusText => listStatusKey is null ? string.Empty : Text(listStatusKey);
-    public Visibility ListStatusVisibility => ToVisibility(listStatusKey is not null);
+    /// <summary>Gets the progress or outcome of the last domain search, shown beside the OU actions.</summary>
+    public string StatusText => statusKey is null ? string.Empty : Text(statusKey);
+    public Visibility StatusVisibility => ToVisibility(statusKey is not null);
+    public Visibility DiscoveringVisibility => ToVisibility(IsDiscovering);
 
-    public string DiscoveryStatusText => discoveryStatusKey is null ? string.Empty : Text(discoveryStatusKey);
-    public Visibility DiscoveryStatusVisibility => ToVisibility(discoveryStatusKey is not null);
-    public string PreviewDomainText => preview?.ComputerDomain ?? string.Empty;
-    public Visibility PreviewVisibility => ToVisibility(PreviewUnits.Count > 0);
-
-    private bool CanDiscover => !IsDiscovering && IsActive;
-    private bool CanImport => preview is not null && selectedPreviewRows.Count > 0 && ReferenceEquals(previewBaseline, configuration.Current.DomainJoin);
     private bool CanRemoveSelected => selectedListedRows.Count > 0;
 
     [ObservableProperty]
@@ -99,10 +90,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     /// <summary>Gets or sets the optional default OU, identified by its stable saved id rather than a search row.</summary>
     [ObservableProperty]
     public partial DomainJoinOrganizationalUnitEntryViewModel? SelectedDefaultOu { get; set; }
-    [ObservableProperty]
-    public partial string ManualDisplayName { get; set; } = string.Empty;
-    [ObservableProperty]
-    public partial string ManualDistinguishedName { get; set; } = string.Empty;
     [ObservableProperty]
     public partial bool IsDiscovering { get; set; }
     /// <summary>Invalidates PasswordBox content when volatile secret ownership or profile state changes.</summary>
@@ -159,20 +146,22 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     }
 
     [RelayCommand]
-    private void AddOrganizationalUnit()
+    private Task AddOrganizationalUnitAsync() => ouDialogs.ShowAddAsync(TryAddOrganizationalUnit);
+
+    /// <summary>Adds one typed OU; returns the reason shown in the dialog when the entry is refused.</summary>
+    private string? TryAddOrganizationalUnit(string displayName, string distinguishedName)
     {
+        if (disposed) return null;
         DomainJoinSettings current = configuration.Current.DomainJoin;
         var unit = new DomainJoinOrganizationalUnitSettings
-        { Id = Guid.NewGuid().ToString("D"), DisplayName = ManualDisplayName.Trim(), DistinguishedName = ManualDistinguishedName.Trim() };
+        { Id = Guid.NewGuid().ToString("D"), DisplayName = displayName.Trim(), DistinguishedName = distinguishedName.Trim() };
         DomainJoinOrganizationalUnitSettings[] added = [unit];
         try
         {
             Save(DomainJoinOrganizationalUnitCatalog.Merge(current, current.DomainName ?? string.Empty, added));
-            ManualDisplayName = string.Empty;
-            ManualDistinguishedName = string.Empty;
-            SetListStatus(null);
+            return null;
         }
-        catch (ArgumentException) { SetListStatus(GetMergeFailureKey(current, added, "CatalogInputInvalid")); }
+        catch (ArgumentException) { return Text(GetMergeFailureKey(current, added, "CatalogInputInvalid")); }
     }
 
     /// <summary>Tracks the saved-OU table selection that <see cref="RemoveSelectedCommand"/> acts on.</summary>
@@ -183,13 +172,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         RemoveSelectedCommand.NotifyCanExecuteChanged();
     }
 
-    /// <summary>Tracks the search-result selection; selection alone never saves an OU.</summary>
-    public void ReplaceSelectedPreviewRows(IEnumerable<DomainJoinOrganizationalUnitEntryViewModel> rows)
-    {
-        selectedPreviewRows.Clear();
-        selectedPreviewRows.AddRange(rows);
-        ImportSelectedCommand.NotifyCanExecuteChanged();
-    }
 
     /// <summary>Removes the selected saved OUs and a default among them, keeping the others.</summary>
     [RelayCommand(CanExecute = nameof(CanRemoveSelected))]
@@ -207,32 +189,52 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     [RelayCommand]
     private void ClearDefault() => SelectedDefaultOu = null;
 
-    [RelayCommand(CanExecute = nameof(CanDiscover))]
-    private async Task DiscoverAsync()
+    /// <summary>
+    /// Searches the authoring computer's domain, then lets the user pick the OUs to add. Invoked again while the
+    /// search runs, it cancels that search instead.
+    /// </summary>
+    [RelayCommand(AllowConcurrentExecutions = true)]
+    private async Task ImportFromDomainAsync()
     {
-        DropPreview();
-        long revision = ++discoveryRevision;
+        if (IsDiscovering)
+        {
+            StopDiscovery();
+            SetStatus("DiscoveryCanceled");
+            return;
+        }
+
         DomainJoinSettings baseline = configuration.Current.DomainJoin;
+        DomainOuDiscoveryResult? result = await SearchDomainAsync(baseline);
+        if (result is null) return;
+        string? failureKey = result.Status switch
+        {
+            DomainOuDiscoveryStatus.Canceled => "DiscoveryCanceled",
+            DomainOuDiscoveryStatus.Unavailable => result.ErrorCode == "Timeout" ? "DiscoveryTimeout" : "DiscoveryUnavailable",
+            _ => result.Candidates.Count == 0 ? "DiscoveryEmpty" : null
+        };
+        SetStatus(failureKey);
+        if (failureKey is not null) return;
+
+        IReadOnlyList<DomainJoinOrganizationalUnitSettings>? selected =
+            await ouDialogs.PickAsync(result.Candidates, result.Status == DomainOuDiscoveryStatus.Incomplete);
+        // The settings can change while the dialog is open, for example through profile synchronization.
+        if (selected is null || selected.Count == 0 || disposed || !ReferenceEquals(baseline, configuration.Current.DomainJoin)) return;
+        try { Save(DomainJoinOrganizationalUnitCatalog.Merge(baseline, result.ComputerDomain ?? string.Empty, selected)); }
+        catch (ArgumentException) { SetStatus(GetMergeFailureKey(baseline, selected, "ImportDomainMismatch")); }
+    }
+
+    /// <summary>Runs one search; returns null when it was canceled, superseded or made stale by a settings change.</summary>
+    private async Task<DomainOuDiscoveryResult?> SearchDomainAsync(DomainJoinSettings baseline)
+    {
+        long revision = ++discoveryRevision;
         var cancellation = new CancellationTokenSource();
         discoveryCancellation = cancellation;
         IsDiscovering = true;
-        SetDiscoveryStatus("Discovering");
-        RefreshPresentation();
+        SetStatus("Discovering");
         try
         {
             DomainOuDiscoveryResult result = await discovery.DiscoverAsync(cancellation.Token);
-            if (disposed || revision != discoveryRevision || !ReferenceEquals(baseline, configuration.Current.DomainJoin)) return;
-            preview = result;
-            previewBaseline = baseline;
-            foreach (DomainJoinOrganizationalUnitSettings unit in result.Candidates.OrderBy(unit => unit.DistinguishedName, StringComparer.OrdinalIgnoreCase))
-                PreviewUnits.Add(new(unit));
-            SetDiscoveryStatus(result.Status switch
-            {
-                DomainOuDiscoveryStatus.Complete => "DiscoveryComplete",
-                DomainOuDiscoveryStatus.Incomplete => "DiscoveryIncomplete",
-                DomainOuDiscoveryStatus.Canceled => "DiscoveryCanceled",
-                _ => result.ErrorCode == "Timeout" ? "DiscoveryTimeout" : "DiscoveryUnavailable"
-            });
+            return !disposed && revision == discoveryRevision && ReferenceEquals(baseline, configuration.Current.DomainJoin) ? result : null;
         }
         finally
         {
@@ -240,46 +242,19 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             {
                 IsDiscovering = false;
                 discoveryCancellation = null;
-                RefreshPresentation();
             }
             cancellation.Dispose();
         }
     }
 
-    [RelayCommand(CanExecute = nameof(IsDiscovering))]
-    private void CancelDiscovery()
-    {
-        DropPreview();
-        SetDiscoveryStatus("DiscoveryCanceled");
-    }
-
-    [RelayCommand(CanExecute = nameof(CanImport))]
-    private void ImportSelected()
-    {
-        if (preview is null || !ReferenceEquals(previewBaseline, configuration.Current.DomainJoin)) return;
-        DomainJoinSettings current = configuration.Current.DomainJoin;
-        DomainJoinOrganizationalUnitSettings[] selected = selectedPreviewRows.Select(row => row.Settings).ToArray();
-        try
-        {
-            Save(DomainJoinOrganizationalUnitCatalog.Merge(current, preview.ComputerDomain ?? string.Empty, selected));
-            SetDiscoveryStatus("Imported");
-        }
-        catch (ArgumentException) { SetDiscoveryStatus(GetMergeFailureKey(current, selected, "ImportDomainMismatch")); }
-    }
-
-    /// <summary>Stops a running search and discards its results and status, because they describe an earlier state.</summary>
-    private void DropPreview()
+    /// <summary>Stops a running search and clears its status, because both describe an earlier state.</summary>
+    private void StopDiscovery()
     {
         discoveryRevision++;
         discoveryCancellation?.Cancel();
         discoveryCancellation = null;
         IsDiscovering = false;
-        preview = null;
-        previewBaseline = null;
-        selectedPreviewRows.Clear();
-        PreviewUnits.Clear();
-        SetDiscoveryStatus(null);
-        RefreshPresentation();
+        SetStatus(null);
     }
 
     /// <summary>Names the specific reason a merge was refused, falling back to the caller's general message.</summary>
@@ -293,9 +268,11 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         return reusesListedId ? "Validation." + DomainJoinValidationCode.DuplicateOuId : fallbackKey;
     }
 
-    partial void OnIsDiscoveringChanged(bool value) => CancelDiscoveryCommand.NotifyCanExecuteChanged();
-    partial void OnManualDisplayNameChanged(string value) => SetListStatus(null);
-    partial void OnManualDistinguishedNameChanged(string value) => SetListStatus(null);
+    partial void OnIsDiscoveringChanged(bool value)
+    {
+        OnPropertyChanged(nameof(ImportButtonText));
+        OnPropertyChanged(nameof(DiscoveringVisibility));
+    }
 
     partial void OnDomainNameChanged(string value)
     {
@@ -347,23 +324,16 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         OnPropertyChanged(nameof(CredentialsValidationVisibility));
     }
 
-    private void SetListStatus(string? key)
+    private void SetStatus(string? key)
     {
-        listStatusKey = key;
-        OnPropertyChanged(nameof(ListStatusText));
-        OnPropertyChanged(nameof(ListStatusVisibility));
-    }
-
-    private void SetDiscoveryStatus(string? key)
-    {
-        discoveryStatusKey = key;
-        OnPropertyChanged(nameof(DiscoveryStatusText));
-        OnPropertyChanged(nameof(DiscoveryStatusVisibility));
+        statusKey = key;
+        OnPropertyChanged(nameof(StatusText));
+        OnPropertyChanged(nameof(StatusVisibility));
     }
 
     /// <summary>
     /// Rebuilds the page only when the Domain Join settings themselves changed. Unrelated configuration changes
-    /// reuse the same settings instance and must not discard a running search, its results or table selections.
+    /// reuse the same settings instance and must not discard a running search or the table selection.
     /// </summary>
     private void OnStateChanged(object? sender, EventArgs args)
     {
@@ -373,7 +343,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             return;
         }
 
-        DropPreview();
+        StopDiscovery();
         ApplyState();
     }
 
@@ -391,8 +361,8 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         OnPropertyChanged(nameof(DistinguishedNameColumnHeader));
         OnPropertyChanged(nameof(RemoveSelectedText));
         OnPropertyChanged(nameof(EmptyListText));
-        OnPropertyChanged(nameof(ListStatusText));
-        OnPropertyChanged(nameof(DiscoveryStatusText));
+        OnPropertyChanged(nameof(ImportButtonText));
+        OnPropertyChanged(nameof(StatusText));
         RefreshPresentation();
     }
 
@@ -443,10 +413,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         OnPropertyChanged(nameof(DocumentationUrl));
         OnPropertyChanged(nameof(ListVisibility));
         OnPropertyChanged(nameof(EmptyListVisibility));
-        OnPropertyChanged(nameof(PreviewDomainText));
-        OnPropertyChanged(nameof(PreviewVisibility));
-        DiscoverCommand.NotifyCanExecuteChanged();
-        ImportSelectedCommand.NotifyCanExecuteChanged();
         RemoveSelectedCommand.NotifyCanExecuteChanged();
     }
 
@@ -454,7 +420,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public void Dispose()
     {
         disposed = true;
-        DropPreview();
+        StopDiscovery();
         configuration.StateChanged -= OnStateChanged;
         secrets.Changed -= OnSecretsChanged;
         protectionSecrets.Changed -= OnProtectionSecretsChanged;

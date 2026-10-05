@@ -1840,8 +1840,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Meklēšana atcelta.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Meklēšana pabeigta. Atlasiet pievienojamās OU.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Šī datora domēnā netika atrasta neviena OU.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Izdevās parādīt tikai daļu OU. Parādītās joprojām varat pievienot.</value>
@@ -1858,11 +1858,11 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU netika pievienotas. Tās pieder citam domēnam, nevis norādītajam domēna nosaukumam vai sarakstā jau esošajām OU.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Atlasītās OU tika pievienotas.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Noņemt atlasīto</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Atlasītās OU: {0} no {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Ievadiet kontu.</value>
@@ -1961,7 +1961,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Noklusējuma OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Atrast OU</value>
+    <value>Importēt no domēna</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Parāda tā domēna OU, kuram pievienots šis dators, izmantojot jūsu Windows kontu. Atlasiet pievienojamās.</value>
@@ -1976,7 +1976,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pievienot atlasītās OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Ievadiet OU parādāmo nosaukumu un atšķirīgo nosaukumu. OU jāpieder iepriekš norādītajam domēnam.</value>
+    <value>Ievadiet OU parādāmo nosaukumu un atšķirīgo nosaukumu. OU jāpieder konfigurētajam domēnam.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Pievienot OU manuāli</value>
@@ -1989,6 +1989,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Parādāmais nosaukums</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Pievienojiet OU manuāli vai importējiet OU no domēna, kuram pievienots šis dators.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU darbības</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parole</value>

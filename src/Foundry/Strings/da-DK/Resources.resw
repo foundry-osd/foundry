@@ -1840,8 +1840,8 @@ Licenseret under MIT-licensen.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Søgningen blev annulleret.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Søgningen er fuldført. Vælg de OU'er, der skal tilføjes.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Der blev ikke fundet nogen OU'er i denne computers domæne.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Kun nogle af OU'erne kunne vises. Du kan stadig tilføje dem, der vises.</value>
@@ -1858,11 +1858,11 @@ Licenseret under MIT-licensen.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU'erne blev ikke tilføjet. De tilhører et andet domæne end domænenavnet eller de OU'er, der allerede er på listen.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>De valgte OU'er blev tilføjet.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Fjern valgte</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Valgte OU'er: {0} af {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Angiv kontoen.</value>
@@ -1961,7 +1961,7 @@ Licenseret under MIT-licensen.</value>
     <value>Standard-OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Find OU'er</value>
+    <value>Importér fra domæne</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Viser OU'erne i det domæne, som denne computer er tilsluttet, ved hjælp af din Windows-konto. Vælg dem, der skal tilføjes.</value>
@@ -1976,7 +1976,7 @@ Licenseret under MIT-licensen.</value>
     <value>Tilføj valgte OU'er</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Angiv et visningsnavn og OU'ens entydige navn. OU'en skal tilhøre domænet ovenfor.</value>
+    <value>Angiv et visningsnavn og OU'ens entydige navn. OU'en skal tilhøre det konfigurerede domæne.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Tilføj en OU manuelt</value>
@@ -1989,6 +1989,12 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Visningsnavn</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Tilføj en OU manuelt, eller importér OU'er fra det domæne, som denne computer er tilsluttet.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU-handlinger</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Adgangskode</value>

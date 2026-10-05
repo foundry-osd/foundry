@@ -27,13 +27,6 @@ public sealed partial class InteractiveDomainJoinPage : Page
         }
     }
 
-    private void PreviewTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (sender is WinUI.TableView.TableView tableView)
-        {
-            ViewModel.ReplaceSelectedPreviewRows(tableView.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
-        }
-    }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {

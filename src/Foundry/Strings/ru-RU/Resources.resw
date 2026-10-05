@@ -1840,8 +1840,8 @@
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Поиск отменен.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Поиск завершен. Выберите OU для добавления.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>В домене этого компьютера не найдено ни одного OU.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Удалось получить только часть OU. Показанные OU все равно можно добавить.</value>
@@ -1858,11 +1858,11 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU не добавлены. Они принадлежат другому домену, отличному от указанного имени домена или от уже добавленных в список OU.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Выбранные OU добавлены.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Удалить выбранное</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Выбранные OU: {0} из {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Укажите учетную запись.</value>
@@ -1961,7 +1961,7 @@
     <value>OU по умолчанию</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Найти OU</value>
+    <value>Импорт из домена</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Выводит список OU домена, к которому присоединен этот компьютер, используя вашу учетную запись Windows. Выберите OU для добавления.</value>
@@ -1976,7 +1976,7 @@
     <value>Добавить выбранные OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Укажите отображаемое имя и различающееся имя OU. OU должно принадлежать домену, указанному выше.</value>
+    <value>Укажите отображаемое имя и различающееся имя OU. OU должно принадлежать настроенному домену.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Добавить OU вручную</value>
@@ -1989,6 +1989,12 @@
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Отображаемое имя</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Добавьте OU вручную или импортируйте OU из домена, к которому присоединен этот компьютер.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>Действия с OU</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Пароль</value>

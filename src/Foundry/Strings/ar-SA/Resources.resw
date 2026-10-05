@@ -1840,8 +1840,8 @@
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>تم إلغاء البحث.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>اكتمل البحث. حدد وحدات OU المراد إضافتها.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>لم يتم العثور على أي وحدات OU في نطاق هذا الكمبيوتر.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>تعذّر عرض سوى بعض وحدات OU. لا يزال بإمكانك إضافة الوحدات المعروضة.</value>
@@ -1858,11 +1858,11 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>لم تتم إضافة وحدات OU. إنها تنتمي إلى نطاق يختلف عن اسم النطاق أو عن وحدات OU المدرجة مسبقاً.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>تمت إضافة وحدات OU المحددة.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>إزالة المحدد</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>وحدات OU المحددة: {0} من {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>أدخل الحساب.</value>
@@ -1961,7 +1961,7 @@
     <value>وحدة OU الافتراضية</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>البحث عن وحدات OU</value>
+    <value>استيراد من النطاق</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>يعرض وحدات OU في النطاق المنضم إليه هذا الكمبيوتر باستخدام حساب Windows الخاص بك. حدد الوحدات المراد إضافتها.</value>
@@ -1976,7 +1976,7 @@
     <value>إضافة وحدات OU المحددة</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>أدخل اسم عرض والاسم المميز لوحدة OU. يجب أن تنتمي وحدة OU إلى النطاق أعلاه.</value>
+    <value>أدخل اسم عرض والاسم المميز لوحدة OU. يجب أن تنتمي وحدة OU إلى النطاق الذي تم تكوينه.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>إضافة OU يدوياً</value>
@@ -1989,6 +1989,12 @@
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>اسم العرض</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>أضف وحدة OU يدوياً أو استورد وحدات OU من النطاق المنضم إليه هذا الكمبيوتر.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>إجراءات وحدات OU</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>كلمة المرور</value>

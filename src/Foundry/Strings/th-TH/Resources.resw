@@ -1840,8 +1840,8 @@
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>ยกเลิกการค้นหาแล้ว</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>ค้นหาเสร็จสมบูรณ์ เลือก OU ที่จะเพิ่ม</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>ไม่พบ OU ในโดเมนของคอมพิวเตอร์เครื่องนี้</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>แสดงรายการ OU ได้เพียงบางส่วน คุณยังคงเพิ่ม OU ที่แสดงอยู่ได้</value>
@@ -1858,11 +1858,11 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>ไม่ได้เพิ่ม OU เนื่องจาก OU เหล่านี้อยู่ในโดเมนที่ต่างจากชื่อโดเมนหรือ OU ที่อยู่ในรายการแล้ว</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>เพิ่ม OU ที่เลือกแล้ว</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>ลบที่เลือกไว้</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>OU ที่เลือก: {0} จาก {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>ป้อนบัญชี</value>
@@ -1961,7 +1961,7 @@
     <value>OU เริ่มต้น</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>ค้นหา OU</value>
+    <value>นำเข้าจากโดเมน</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>แสดงรายการ OU ของโดเมนที่คอมพิวเตอร์เครื่องนี้เข้าร่วมอยู่ โดยใช้บัญชี Windows ของคุณ เลือกรายการที่จะเพิ่ม</value>
@@ -1976,7 +1976,7 @@
     <value>เพิ่ม OU ที่เลือก</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>ป้อนชื่อที่แสดงและชื่อเฉพาะของ OU โดย OU ต้องอยู่ในโดเมนด้านบน</value>
+    <value>ป้อนชื่อที่แสดงและชื่อเฉพาะของ OU โดย OU ต้องอยู่ในโดเมนที่กำหนดค่าไว้</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>เพิ่ม OU ด้วยตนเอง</value>
@@ -1989,6 +1989,12 @@
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>ชื่อที่แสดง</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>เพิ่ม OU ด้วยตนเองหรือนำเข้า OU จากโดเมนที่คอมพิวเตอร์เครื่องนี้เข้าร่วมอยู่</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>การกระทำของ OU</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>รหัสผ่าน</value>

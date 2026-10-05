@@ -1840,8 +1840,8 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>검색이 취소되었습니다.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>검색이 완료되었습니다. 추가할 OU를 선택하세요.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>이 컴퓨터의 도메인에서 OU를 찾을 수 없습니다.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>일부 OU만 표시할 수 있었습니다. 표시된 OU는 추가할 수 있습니다.</value>
@@ -1858,11 +1858,11 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU가 추가되지 않았습니다. 도메인 이름 또는 이미 목록에 있는 OU와 다른 도메인에 속해 있습니다.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>선택한 OU를 추가했습니다.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>선택 항목 제거</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>선택된 OU: {0}/{1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>계정을 입력하세요.</value>
@@ -1961,7 +1961,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>기본 OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>OU 찾기</value>
+    <value>도메인에서 가져오기</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Windows 계정을 사용하여 이 컴퓨터가 가입된 도메인의 OU를 표시합니다. 추가할 OU를 선택하세요.</value>
@@ -1976,7 +1976,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>선택한 OU 추가</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>OU의 표시 이름과 고유 이름을 입력하세요. OU는 위의 도메인에 속해야 합니다.</value>
+    <value>OU의 표시 이름과 고유 이름을 입력하세요. OU는 구성된 도메인에 속해야 합니다.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>OU 수동 추가</value>
@@ -1989,6 +1989,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>표시 이름</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>OU를 수동으로 추가하거나 이 컴퓨터가 가입된 도메인에서 OU를 가져옵니다.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU 작업</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>암호</value>

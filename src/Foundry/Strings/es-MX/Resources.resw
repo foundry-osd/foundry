@@ -1840,8 +1840,8 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Búsqueda cancelada.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Búsqueda completada. Seleccione las OU que quiere agregar.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>No se ha encontrado ninguna OU en el dominio de este equipo.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Solo se han podido mostrar algunas OU. Puede agregar igualmente las que aparecen.</value>
@@ -1858,11 +1858,11 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>No se han agregado las OU. Pertenecen a un dominio distinto del nombre de dominio o de las OU ya incluidas en la lista.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Se han agregado las OU seleccionadas.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Eliminar seleccionado</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>OU seleccionadas: {0} de {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Introduzca la cuenta.</value>
@@ -1961,7 +1961,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>OU predeterminada</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Buscar OU</value>
+    <value>Importar del dominio</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Muestra las OU del dominio al que está unido este equipo, con su cuenta de Windows. Seleccione las que quiere agregar.</value>
@@ -1976,7 +1976,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Agregar las OU seleccionadas</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Introduzca un nombre para mostrar y el nombre distintivo de la OU. La OU debe pertenecer al dominio indicado arriba.</value>
+    <value>Introduzca un nombre para mostrar y el nombre distintivo de la OU. La OU debe pertenecer al dominio configurado.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Agregar una OU manualmente</value>
@@ -1989,6 +1989,12 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Nombre para mostrar</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Agregue una OU manualmente o importe OU del dominio al que está unido este equipo.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>Acciones de OU</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Contraseña</value>

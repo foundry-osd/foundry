@@ -1840,8 +1840,8 @@ Licenciran prema MIT licenci.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Pretraživanje je otkazano.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Pretraživanje je dovršeno. Odaberite OU-ove koje želite dodati.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>U domeni ovog računala nije pronađen nijedan OU.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Mogao se prikazati samo dio OU-ova. Prikazane i dalje možete dodati.</value>
@@ -1858,11 +1858,11 @@ Licenciran prema MIT licenci.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU-ovi nisu dodani. Pripadaju domeni koja se razlikuje od naziva domene ili od već navedenih OU-ova.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Odabrani OU-ovi su dodani.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Ukloni odabrano</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Odabrani OU-ovi: {0} od {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Unesite račun.</value>
@@ -1961,7 +1961,7 @@ Licenciran prema MIT licenci.</value>
     <value>Zadani OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Pronađi OU-ove</value>
+    <value>Uvoz iz domene</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Navodi OU-ove domene kojoj je ovo računalo pridruženo, koristeći vaš Windows račun. Odaberite one koje želite dodati.</value>
@@ -1976,7 +1976,7 @@ Licenciran prema MIT licenci.</value>
     <value>Dodaj odabrane OU-ove</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Unesite naziv za prikaz i razlikovni naziv OU-a. OU mora pripadati gore navedenoj domeni.</value>
+    <value>Unesite naziv za prikaz i razlikovni naziv OU-a. OU mora pripadati konfiguriranoj domeni.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Ručno dodaj OU</value>
@@ -1989,6 +1989,12 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Naziv za prikaz</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Dodajte OU ručno ili uvezite OU-ove iz domene kojoj je ovo računalo pridruženo.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>Radnje za OU-ove</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Lozinka</value>

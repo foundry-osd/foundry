@@ -51,197 +51,136 @@
                                 Visibility="{x:Bind ViewModel.DomainValidationVisibility, Mode=OneWay}" />
                         </StackPanel>
                     </wct:SettingsCard>
-                    <wct:SettingsExpander
-                        x:Uid="DomainJoinCatalog"
-                        IsExpanded="{x:Bind ViewModel.HasOrganizationalUnits}">
-                        <wct:SettingsExpander.HeaderIcon>
-                            <FontIcon Glyph="&#xE8B7;" />
-                        </wct:SettingsExpander.HeaderIcon>
-                        <StackPanel
-                            MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                    <wct:SettingsCard
+                        x:Uid="DomainJoinOuActions"
+                        HorizontalContentAlignment="Stretch">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE710;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid
+                                VerticalAlignment="Center"
+                                ColumnSpacing="{ThemeResource FoundrySpace8}"
+                                Visibility="{x:Bind ViewModel.StatusVisibility, Mode=OneWay}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ProgressRing
+                                    Width="{ThemeResource FoundryIconSizeDefault}"
+                                    Height="{ThemeResource FoundryIconSizeDefault}"
+                                    IsActive="{x:Bind ViewModel.IsDiscovering, Mode=OneWay}"
+                                    Visibility="{x:Bind ViewModel.DiscoveringVisibility, Mode=OneWay}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Text="{x:Bind ViewModel.StatusText, Mode=OneWay}"
+                                    TextWrapping="WrapWholeWords" />
+                            </Grid>
+
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Button
+                                    x:Uid="DomainJoinAdd"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    Command="{x:Bind ViewModel.AddOrganizationalUnitCommand}" />
+                                <Button
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    Command="{x:Bind ViewModel.ImportFromDomainCommand}"
+                                    Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
+                                <Button
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    Command="{x:Bind ViewModel.RemoveSelectedCommand}"
+                                    Content="{x:Bind ViewModel.RemoveSelectedText, Mode=OneWay}" />
+                            </StackPanel>
+                        </Grid>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        x:Uid="DomainJoinDefaultOu"
+                        HorizontalContentAlignment="Stretch">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE734;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <Grid
                             HorizontalAlignment="Right"
-                            Spacing="{ThemeResource FoundrySpace4}">
+                            ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox
+                                Width="{ThemeResource FoundryWideInputMinWidth}"
+                                DisplayMemberPath="Hierarchy"
+                                ItemsSource="{x:Bind ViewModel.OrganizationalUnits}"
+                                SelectedItem="{x:Bind ViewModel.SelectedDefaultOu, Mode=TwoWay}" />
+                            <Button
+                                x:Uid="DomainJoinClearDefault"
+                                Grid.Column="1"
+                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                Command="{x:Bind ViewModel.ClearDefaultCommand}" />
+                        </Grid>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard x:Uid="DomainJoinAllowSelection">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE762;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch
+                            behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                            IsOn="{x:Bind ViewModel.AllowOuSelectionDuringDeployment, Mode=TwoWay}" />
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        x:Uid="DomainJoinCatalog"
+                        HorizontalContentAlignment="Stretch">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE8B7;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                             <TextBlock
-                                HorizontalAlignment="Right"
-                                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                                 Text="{x:Bind ViewModel.EmptyListText, Mode=OneWay}"
+                                TextWrapping="Wrap"
                                 Visibility="{x:Bind ViewModel.EmptyListVisibility, Mode=OneWay}" />
                             <TextBlock
-                                HorizontalAlignment="Right"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.OrganizationalUnitsValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.OrganizationalUnitsValidationVisibility, Mode=OneWay}" />
-                        </StackPanel>
-                        <wct:SettingsExpander.Items>
-                            <wct:SettingsCard
-                                x:Uid="DomainJoinManualDestination"
-                                HorizontalContentAlignment="Stretch">
-                                <wct:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE710;" />
-                                </wct:SettingsCard.HeaderIcon>
-                                <StackPanel
-                                    Width="{ThemeResource FoundryWideInputMinWidth}"
-                                    HorizontalAlignment="Right"
-                                    Spacing="{ThemeResource FoundrySpace8}">
-                                    <TextBox
-                                        x:Uid="DomainJoinManualLabel"
-                                        Width="{ThemeResource FoundryWideInputMinWidth}"
-                                        MaxLength="120"
-                                        Text="{x:Bind ViewModel.ManualDisplayName, Mode=TwoWay}" />
-                                    <TextBox
-                                        x:Uid="DomainJoinManualDn"
-                                        Width="{ThemeResource FoundryWideInputMinWidth}"
-                                        MaxLength="4096"
-                                        Text="{x:Bind ViewModel.ManualDistinguishedName, Mode=TwoWay}" />
-                                    <Button
-                                        x:Uid="DomainJoinAdd"
-                                        MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                        HorizontalAlignment="Right"
-                                        Command="{x:Bind ViewModel.AddOrganizationalUnitCommand}" />
-                                    <TextBlock
-                                        Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                        Text="{x:Bind ViewModel.ListStatusText, Mode=OneWay}"
-                                        TextWrapping="WrapWholeWords"
-                                        Visibility="{x:Bind ViewModel.ListStatusVisibility, Mode=OneWay}" />
-                                </StackPanel>
-                            </wct:SettingsCard>
-                            <wct:SettingsCard
-                                x:Uid="DomainJoinDiscovery"
-                                HorizontalContentAlignment="Stretch"
-                                ContentAlignment="Vertical">
-                                <wct:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE8B5;" />
-                                </wct:SettingsCard.HeaderIcon>
-                                <StackPanel Spacing="{ThemeResource FoundrySpace8}">
-                                    <StackPanel
-                                        Orientation="Horizontal"
-                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                        <Button
-                                            x:Uid="DomainJoinDiscover"
-                                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                            Command="{x:Bind ViewModel.DiscoverCommand}" />
-                                        <Button
-                                            x:Uid="DomainJoinCancel"
-                                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                            Command="{x:Bind ViewModel.CancelDiscoveryCommand}" />
-                                        <Button
-                                            x:Uid="DomainJoinImportSelected"
-                                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                            Command="{x:Bind ViewModel.ImportSelectedCommand}" />
-                                        <ProgressRing
-                                            Width="{ThemeResource FoundryIconSizeDefault}"
-                                            Height="{ThemeResource FoundryIconSizeDefault}"
-                                            IsActive="{x:Bind ViewModel.IsDiscovering, Mode=OneWay}" />
-                                    </StackPanel>
-                                    <TextBlock
-                                        Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.DiscoveryStatusText, Mode=OneWay}"
-                                        TextWrapping="WrapWholeWords"
-                                        Visibility="{x:Bind ViewModel.DiscoveryStatusVisibility, Mode=OneWay}" />
-                                    <TextBlock
-                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.PreviewDomainText, Mode=OneWay}"
-                                        TextWrapping="Wrap"
-                                        Visibility="{x:Bind ViewModel.PreviewVisibility, Mode=OneWay}" />
-                                    <tv:TableView
-                                        MaxHeight="{ThemeResource FoundryTableMaxHeight}"
-                                        AutoGenerateColumns="False"
-                                        CanFilterColumns="False"
-                                        CanReorderColumns="False"
-                                        CanResizeColumns="False"
-                                        CanSortColumns="False"
-                                        CornerButtonMode="None"
-                                        HeadersVisibility="Columns"
-                                        IsReadOnly="True"
-                                        ItemsSource="{x:Bind ViewModel.PreviewUnits, Mode=OneWay}"
-                                        SelectionChanged="PreviewTable_SelectionChanged"
-                                        SelectionMode="Multiple"
-                                        SelectionUnit="Row"
-                                        ShowExportOptions="False"
-                                        Visibility="{x:Bind ViewModel.PreviewVisibility, Mode=OneWay}">
-                                        <tv:TableView.Columns>
-                                            <tv:TableViewTextColumn
-                                                Binding="{Binding DisplayName}"
-                                                Header="{x:Bind ViewModel.LabelColumnHeader, Mode=OneWay}" />
-                                            <tv:TableViewTextColumn
-                                                Binding="{Binding DistinguishedName}"
-                                                Header="{x:Bind ViewModel.DistinguishedNameColumnHeader, Mode=OneWay}" />
-                                        </tv:TableView.Columns>
-                                    </tv:TableView>
-                                </StackPanel>
-                            </wct:SettingsCard>
-                            <wct:SettingsCard
-                                HorizontalContentAlignment="Stretch"
-                                ContentAlignment="Vertical"
+                            <tv:TableView
+                                MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                AutoGenerateColumns="False"
+                                CanFilterColumns="False"
+                                CanReorderColumns="False"
+                                CanResizeColumns="False"
+                                CanSortColumns="False"
+                                CornerButtonMode="None"
+                                HeadersVisibility="Columns"
+                                IsReadOnly="True"
+                                ItemsSource="{x:Bind ViewModel.OrganizationalUnits, Mode=OneWay}"
+                                SelectionChanged="CatalogTable_SelectionChanged"
+                                SelectionMode="Multiple"
+                                SelectionUnit="Row"
+                                ShowExportOptions="False"
                                 Visibility="{x:Bind ViewModel.ListVisibility, Mode=OneWay}">
-                                <StackPanel Spacing="{ThemeResource FoundrySpace8}">
-                                    <tv:TableView
-                                        MaxHeight="{ThemeResource FoundryTableMaxHeight}"
-                                        AutoGenerateColumns="False"
-                                        CanFilterColumns="False"
-                                        CanReorderColumns="False"
-                                        CanResizeColumns="False"
-                                        CanSortColumns="False"
-                                        CornerButtonMode="None"
-                                        HeadersVisibility="Columns"
-                                        IsReadOnly="True"
-                                        ItemsSource="{x:Bind ViewModel.OrganizationalUnits, Mode=OneWay}"
-                                        SelectionChanged="CatalogTable_SelectionChanged"
-                                        SelectionMode="Multiple"
-                                        SelectionUnit="Row"
-                                        ShowExportOptions="False">
-                                        <tv:TableView.Columns>
-                                            <tv:TableViewTextColumn
-                                                Binding="{Binding DisplayName}"
-                                                Header="{x:Bind ViewModel.LabelColumnHeader, Mode=OneWay}" />
-                                            <tv:TableViewTextColumn
-                                                Binding="{Binding DistinguishedName}"
-                                                Header="{x:Bind ViewModel.DistinguishedNameColumnHeader, Mode=OneWay}" />
-                                        </tv:TableView.Columns>
-                                    </tv:TableView>
-                                    <Button
-                                        MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                        HorizontalAlignment="Right"
-                                        Command="{x:Bind ViewModel.RemoveSelectedCommand}"
-                                        Content="{x:Bind ViewModel.RemoveSelectedText, Mode=OneWay}" />
-                                </StackPanel>
-                            </wct:SettingsCard>
-                            <wct:SettingsCard
-                                x:Uid="DomainJoinDefaultOu"
-                                HorizontalContentAlignment="Stretch">
-                                <wct:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE734;" />
-                                </wct:SettingsCard.HeaderIcon>
-                                <Grid
-                                    HorizontalAlignment="Right"
-                                    ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <ComboBox
-                                        Width="{ThemeResource FoundryWideInputMinWidth}"
-                                        DisplayMemberPath="Hierarchy"
-                                        ItemsSource="{x:Bind ViewModel.OrganizationalUnits}"
-                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultOu, Mode=TwoWay}" />
-                                    <Button
-                                        x:Uid="DomainJoinClearDefault"
-                                        Grid.Column="1"
-                                        MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                        Command="{x:Bind ViewModel.ClearDefaultCommand}" />
-                                </Grid>
-                            </wct:SettingsCard>
-                            <wct:SettingsCard x:Uid="DomainJoinAllowSelection">
-                                <wct:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE762;" />
-                                </wct:SettingsCard.HeaderIcon>
-                                <ToggleSwitch
-                                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                                    IsOn="{x:Bind ViewModel.AllowOuSelectionDuringDeployment, Mode=TwoWay}" />
-                            </wct:SettingsCard>
-                        </wct:SettingsExpander.Items>
-                    </wct:SettingsExpander>
+                                <tv:TableView.Columns>
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding DisplayName}"
+                                        Header="{x:Bind ViewModel.LabelColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding DistinguishedName}"
+                                        Header="{x:Bind ViewModel.DistinguishedNameColumnHeader, Mode=OneWay}" />
+                                </tv:TableView.Columns>
+                            </tv:TableView>
+                        </StackPanel>
+                    </wct:SettingsCard>
                 </StackPanel>
             </ContentControl>
         </StackPanel>

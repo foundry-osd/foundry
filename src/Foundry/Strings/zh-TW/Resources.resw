@@ -1840,8 +1840,8 @@
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>搜尋已取消。</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>搜尋完成。請選取要新增的 OU。</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>在此電腦的網域中找不到任何 OU。</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>只能列出部分 OU。您仍可新增已顯示的 OU。</value>
@@ -1858,11 +1858,11 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>未新增這些 OU。它們所屬的網域與網域名稱或已列出的 OU 不一致。</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>已新增選取的 OU。</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>刪除選定的</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>已選取的 OU：{0} / {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>請輸入帳戶。</value>
@@ -1961,7 +1961,7 @@
     <value>預設 OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>尋找 OU</value>
+    <value>從網域匯入</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>使用您的 Windows 帳戶列出此電腦所加入網域中的 OU。請選取要新增的 OU。</value>
@@ -1976,7 +1976,7 @@
     <value>新增選取的 OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>請輸入顯示名稱和 OU 的辨別名稱。OU 必須屬於上方的網域。</value>
+    <value>請輸入顯示名稱和 OU 的辨別名稱。OU 必須屬於已設定的網域。</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>手動新增 OU</value>
@@ -1989,6 +1989,12 @@
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>顯示名稱</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>手動新增 OU，或從此電腦所加入的網域匯入 OU。</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU 操作</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>密碼</value>

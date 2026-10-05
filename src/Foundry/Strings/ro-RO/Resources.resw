@@ -1840,8 +1840,8 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Căutare anulată.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Căutare încheiată. Selectați OU-urile de adăugat.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Nu s-a găsit niciun OU în domeniul acestui computer.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Doar o parte dintre OU-uri au putut fi listate. Le puteți adăuga în continuare pe cele afișate.</value>
@@ -1858,11 +1858,11 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU-urile nu au fost adăugate. Aparțin altui domeniu decât numele domeniului sau OU-urile deja listate.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>OU-urile selectate au fost adăugate.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Eliminați selectat</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>OU-uri selectate: {0} din {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Introduceți contul.</value>
@@ -1961,7 +1961,7 @@ Licențiat sub licența MIT.</value>
     <value>OU implicit</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Căutare OU-uri</value>
+    <value>Import din domeniu</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Listează OU-urile domeniului la care este asociat acest computer, folosind contul dvs. Windows. Selectați-le pe cele de adăugat.</value>
@@ -1976,7 +1976,7 @@ Licențiat sub licența MIT.</value>
     <value>Adăugare OU-uri selectate</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Introduceți un nume afișat și numele distinctiv al OU-ului. OU-ul trebuie să aparțină domeniului de mai sus.</value>
+    <value>Introduceți un nume afișat și numele distinctiv al OU-ului. OU-ul trebuie să aparțină domeniului configurat.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Adăugarea manuală a unui OU</value>
@@ -1989,6 +1989,12 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Nume afișat</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Adăugați manual un OU sau importați OU-uri din domeniul la care este asociat acest computer.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>Acțiuni pentru OU-uri</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parolă</value>

@@ -1840,8 +1840,8 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Haku peruutettiin.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Haku valmistui. Valitse lisättävät OU:t.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Tämän tietokoneen toimialueesta ei löytynyt OU:ita.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Vain osa OU:ista voitiin luetella. Voit silti lisätä näkyvissä olevat.</value>
@@ -1858,11 +1858,11 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU:ita ei lisätty. Ne kuuluvat eri toimialueeseen kuin toimialueen nimi tai luettelossa jo olevat OU:t.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Valitut OU:t lisättiin.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Poista valitut</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Valitut OU:t: {0} / {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Anna tili.</value>
@@ -1961,7 +1961,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Oletus-OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Etsi OU:ita</value>
+    <value>Tuo toimialueesta</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Luettelee Windows-tilisi avulla sen toimialueen OU:t, johon tämä tietokone on liitetty. Valitse lisättävät.</value>
@@ -1976,7 +1976,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Lisää valitut OU:t</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Anna näyttönimi ja OU:n yksilöivä nimi. OU:n on kuuluttava yllä olevaan toimialueeseen.</value>
+    <value>Anna näyttönimi ja OU:n yksilöivä nimi. OU:n on kuuluttava määritettyyn toimialueeseen.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Lisää OU manuaalisesti</value>
@@ -1989,6 +1989,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Näyttönimi</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Lisää OU manuaalisesti tai tuo OU:t toimialueesta, johon tämä tietokone on liitetty.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU-toiminnot</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Salasana</value>

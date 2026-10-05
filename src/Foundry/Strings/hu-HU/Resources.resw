@@ -1840,8 +1840,8 @@ Licenc az MIT licenc alatt.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>A keresés megszakítva.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>A keresés befejeződött. Jelölje ki a hozzáadni kívánt OU-kat.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Nem található OU a számítógép tartományában.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Csak az OU-k egy részét sikerült listázni. A megjelenítetteket így is hozzáadhatja.</value>
@@ -1858,11 +1858,11 @@ Licenc az MIT licenc alatt.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Az OU-k nem lettek hozzáadva. Más tartományhoz tartoznak, mint a tartománynév vagy a már felsorolt OU-k.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>A kijelölt OU-k hozzáadása megtörtént.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>A kiválasztott eltávolítása</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Kijelölt OU-k: {0}/{1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Adja meg a fiókot.</value>
@@ -1961,7 +1961,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Alapértelmezett OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>OU-k keresése</value>
+    <value>Importálás a tartományból</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Az Ön Windows-fiókjával listázza annak a tartománynak az OU-it, amelyhez ez a számítógép csatlakozik. Jelölje ki a hozzáadni kívántakat.</value>
@@ -1976,7 +1976,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Kijelölt OU-k hozzáadása</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Adja meg az OU megjelenítendő nevét és megkülönböztető nevét. Az OU-nak a fenti tartományhoz kell tartoznia.</value>
+    <value>Adja meg az OU megjelenítendő nevét és megkülönböztető nevét. Az OU-nak a beállított tartományhoz kell tartoznia.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>OU kézi hozzáadása</value>
@@ -1989,6 +1989,12 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Megjelenítendő név</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Adjon hozzá egy OU-t kézzel, vagy importáljon OU-kat abból a tartományból, amelyhez ez a számítógép csatlakozik.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU-műveletek</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Jelszó</value>

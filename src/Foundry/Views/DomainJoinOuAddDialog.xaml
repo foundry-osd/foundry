@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.DomainJoinOuAddDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    CloseButtonStyle="{ThemeResource DefaultButtonStyle}"
+    CornerRadius="{ThemeResource OverlayCornerRadius}"
+    DefaultButton="Primary"
+    PrimaryButtonClick="OnPrimaryButtonClick"
+    PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <StackPanel
+        Width="{ThemeResource FoundryWideInputMinWidth}"
+        Spacing="{ThemeResource FoundryContentGroupSpacing}">
+        <TextBlock x:Name="DescriptionTextBlock"
+            TextWrapping="WrapWholeWords" />
+        <TextBox x:Name="DisplayNameBox"
+            x:Uid="DomainJoinManualLabel"
+            MaxLength="120" />
+        <TextBox x:Name="DistinguishedNameBox"
+            x:Uid="DomainJoinManualDn"
+            MaxLength="4096" />
+        <TextBlock x:Name="ValidationTextBlock"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            TextWrapping="WrapWholeWords"
+            Visibility="Collapsed" />
+    </StackPanel>
+</ContentDialog>

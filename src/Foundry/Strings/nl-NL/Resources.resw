@@ -1840,8 +1840,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Zoeken geannuleerd.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Zoeken voltooid. Selecteer de OU's die u wilt toevoegen.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Er zijn geen OU's gevonden in het domein van deze computer.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Slechts een deel van de OU's kon worden weergegeven. U kunt de weergegeven OU's nog steeds toevoegen.</value>
@@ -1858,11 +1858,11 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>De OU's zijn niet toegevoegd. Ze behoren tot een ander domein dan de domeinnaam of de OU's die al in de lijst staan.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>De geselecteerde OU's zijn toegevoegd.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Geselecteerde verwijderen</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Geselecteerde OU's: {0} van {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Voer het account in.</value>
@@ -1961,7 +1961,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Standaard-OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>OU's zoeken</value>
+    <value>Importeren uit domein</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Geeft met uw Windows-account de OU's weer van het domein waarvan deze computer lid is. Selecteer de OU's die u wilt toevoegen.</value>
@@ -1976,7 +1976,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Geselecteerde OU's toevoegen</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Voer een weergavenaam en de DN-naam van de OU in. De OU moet tot het bovenstaande domein behoren.</value>
+    <value>Voer een weergavenaam en de DN-naam van de OU in. De OU moet tot het geconfigureerde domein behoren.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Handmatig een OU toevoegen</value>
@@ -1989,6 +1989,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Weergavenaam</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Voeg handmatig een OU toe of importeer OU's uit het domein waarvan deze computer lid is.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU-acties</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Wachtwoord</value>

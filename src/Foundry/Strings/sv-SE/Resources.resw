@@ -1840,8 +1840,8 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Sökningen avbröts.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Sökningen är klar. Välj de OU:er som ska läggas till.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Inga OU:er hittades i den här datorns domän.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Endast vissa OU:er kunde visas. Du kan fortfarande lägga till de som visas.</value>
@@ -1858,11 +1858,11 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU:erna lades inte till. De tillhör en annan domän än domännamnet eller de OU:er som redan finns i listan.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>De valda OU:erna har lagts till.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Ta bort markerade</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Valda OU:er: {0} av {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Ange kontot.</value>
@@ -1961,7 +1961,7 @@ Licensierad under MIT-licensen.</value>
     <value>Standard-OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Sök efter OU:er</value>
+    <value>Importera från domän</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Visar OU:erna i den domän som den här datorn är ansluten till, med ditt Windows-konto. Välj de som ska läggas till.</value>
@@ -1976,7 +1976,7 @@ Licensierad under MIT-licensen.</value>
     <value>Lägg till valda OU:er</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Ange ett visningsnamn och OU:ns unika namn. OU:n måste tillhöra domänen ovan.</value>
+    <value>Ange ett visningsnamn och OU:ns unika namn. OU:n måste tillhöra den konfigurerade domänen.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Lägg till en OU manuellt</value>
@@ -1989,6 +1989,12 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Visningsnamn</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Lägg till en OU manuellt eller importera OU:er från den domän som den här datorn är ansluten till.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU-åtgärder</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Lösenord</value>

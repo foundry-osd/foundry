@@ -1840,8 +1840,8 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Suche abgebrochen.</value>
   </data>
-  <data name="DomainJoin.DiscoveryComplete" xml:space="preserve">
-    <value>Suche abgeschlossen. Wählen Sie die OUs aus, die hinzugefügt werden sollen.</value>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>In der Domäne dieses Computers wurden keine OUs gefunden.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Es konnten nur einige OUs aufgelistet werden. Die angezeigten OUs können Sie trotzdem hinzufügen.</value>
@@ -1858,11 +1858,11 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Die OUs wurden nicht hinzugefügt. Sie gehören zu einer anderen Domäne als der Domänenname oder die bereits aufgelisteten OUs.</value>
   </data>
-  <data name="DomainJoin.Imported" xml:space="preserve">
-    <value>Die ausgewählten OUs wurden hinzugefügt.</value>
-  </data>
   <data name="DomainJoin.RemoveSelected" xml:space="preserve">
     <value>Ausgewählte entfernen</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Ausgewählte OUs: {0} von {1}</value>
   </data>
   <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
     <value>Geben Sie das Konto ein.</value>
@@ -1961,7 +1961,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Standard-OU</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>OUs suchen</value>
+    <value>Aus Domäne importieren</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Listet mit Ihrem Windows-Konto die OUs der Domäne auf, der dieser Computer beigetreten ist. Wählen Sie die OUs aus, die hinzugefügt werden sollen.</value>
@@ -1976,7 +1976,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Ausgewählte OUs hinzufügen</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Geben Sie einen Anzeigenamen und den Distinguished Name der OU ein. Die OU muss zur oben angegebenen Domäne gehören.</value>
+    <value>Geben Sie einen Anzeigenamen und den Distinguished Name der OU ein. Die OU muss zur konfigurierten Domäne gehören.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>OU manuell hinzufügen</value>
@@ -1989,6 +1989,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Anzeigename</value>
+  </data>
+  <data name="DomainJoinOuActions.Description" xml:space="preserve">
+    <value>Fügen Sie eine OU manuell hinzu, oder importieren Sie OUs aus der Domäne, der dieser Computer beigetreten ist.</value>
+  </data>
+  <data name="DomainJoinOuActions.Header" xml:space="preserve">
+    <value>OU-Aktionen</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Kennwort</value>
