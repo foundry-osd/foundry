@@ -15,6 +15,34 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class DeployConfigurationGeneratorTests
 {
     [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CatalogDomainMismatchBlocksMediaOnlyWhileDomainJoinIsEnabled(bool enabled)
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            DomainJoin = new()
+            {
+                IsEnabled = enabled,
+                DomainName = "fabrikam.test",
+                OuCatalogDomain = "contoso.test",
+                OrganizationalUnits = [new() { Id = "devices", DisplayName = "Devices", DistinguishedName = "OU=Devices,DC=contoso,DC=test" }]
+            }
+        };
+        var generator = new DeployConfigurationGenerator();
+
+        if (enabled)
+        {
+            Assert.Throws<InvalidOperationException>(() => generator.Generate(document, null, null, null, null));
+            return;
+        }
+
+        var media = generator.Generate(document, null, null, null, null);
+        Assert.False(media.DomainJoin.IsEnabled);
+        Assert.Empty(media.DomainJoin.OrganizationalUnits);
+    }
+
+    [Theory]
     [InlineData(false, DomainJoinMode.Automatic)]
     [InlineData(true, DomainJoinMode.Interactive)]
     public void ManualAndDisabledMediaExcludeAutomaticCredentials(bool enabled, DomainJoinMode mode)

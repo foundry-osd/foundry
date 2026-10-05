@@ -50,7 +50,9 @@ public static class FoundryConfigurationMigration
         migrated = migrated with { DomainJoin = migrated.DomainJoin ?? new DomainJoinSettings() };
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(migrated.Autopilot, migrated.DomainJoin);
         DomainJoinValidationResult metadata = DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin);
-        if (metadata.Issues.Any(issue => !allowCatalogDomainMismatch || issue.Code != DomainJoinValidationCode.CatalogDomainMismatch))
+        // A disabled mode cannot reach media, so its retained catalog may await repair without blocking saves.
+        bool toleratesCatalogDomainMismatch = allowCatalogDomainMismatch || !migrated.DomainJoin.IsEnabled;
+        if (metadata.Issues.Any(issue => !toleratesCatalogDomainMismatch || issue.Code != DomainJoinValidationCode.CatalogDomainMismatch))
         {
             throw new InvalidOperationException("Domain join metadata is invalid.");
         }

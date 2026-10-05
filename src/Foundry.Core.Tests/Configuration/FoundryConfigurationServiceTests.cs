@@ -97,6 +97,20 @@ public sealed class FoundryConfigurationServiceTests
         Assert.Throws<InvalidOperationException>(() => service.DeserializeLocalAuthoringDraft(service.Serialize(draft)));
     }
 
+    [Fact]
+    public void DisabledDomainJoinWithCatalogDomainMismatch_RemainsSavableAndPortable()
+    {
+        var service = new FoundryConfigurationService();
+        FoundryConfigurationDocument draft = DomainChangedDraft();
+        draft = draft with { DomainJoin = draft.DomainJoin with { IsEnabled = false } };
+
+        FoundryConfigurationDocument loaded = service.Deserialize(service.Serialize(draft));
+        FoundryConfigurationDocument portable = Foundry.Core.Services.Profiles.DeploymentProfileProjection.CreatePortable(loaded);
+
+        Assert.False(portable.DomainJoin.IsEnabled);
+        Assert.Equal(["devices", "servers"], portable.DomainJoin.OrganizationalUnits.Select(unit => unit.Id));
+    }
+
     private static FoundryConfigurationDocument DomainChangedDraft() => new()
     {
         General = new() { IsoOutputPath = @"E:\Media\retained.iso", WinPeLanguage = "fr-FR", IncludeDellDrivers = true },

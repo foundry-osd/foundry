@@ -72,7 +72,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         ArgumentNullException.ThrowIfNull(document);
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(document.Autopilot, document.DomainJoin);
         var domainContext = new DomainJoinCredentialContext(document.DomainJoin.DomainName ?? string.Empty, document.DomainJoin.AccountName ?? string.Empty);
-        if (!DomainJoinConfigurationValidator.EvaluateReadiness(document.DomainJoin,
+        if (document.DomainJoin.IsEnabled && !DomainJoinConfigurationValidator.EvaluateReadiness(document.DomainJoin,
             domainJoinSecretState?.HasPassword(domainContext) == true,
             protectionSettings?.IsEnabled == true && deploymentSecretsKey is { Length: MediaSecretEnvelopeProtector.KeySizeBytes }).IsValid)
             throw new InvalidOperationException("Domain joining configuration is not ready for deployment media.");
