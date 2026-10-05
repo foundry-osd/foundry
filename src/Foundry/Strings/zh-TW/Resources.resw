@@ -1874,7 +1874,7 @@
     <value>請先輸入網域名稱，再新增 OU。</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>預設 OU 已不在清單中。請另選一個或將其清除。</value>
+    <value>預設 OU 已不在清單中。請另選一個或關閉預設 OU。</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>請輸入網域名稱。</value>
@@ -1907,7 +1907,7 @@
     <value>請在「一般」頁面啟用媒體密碼保護，並設定媒體密碼。</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>請至少新增一個 OU，或關閉 OU 選取並清除預設 OU。</value>
+    <value>請至少新增一個 OU，或關閉 OU 選取和預設 OU。</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>列出的所有 OU 必須屬於同一個網域。</value>
@@ -1952,7 +1952,7 @@
     <value>加入帳戶</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>用於每次部署的 OU；允許技術人員選取時，則為預先選取的 OU。留空以使用網域的預設位置。</value>
+    <value>用於每次部署的 OU；允許技術人員選取時，則為預先選取的 OU。關閉以使用網域的預設位置。</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>預設 OU</value>

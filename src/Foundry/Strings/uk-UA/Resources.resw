@@ -1874,7 +1874,7 @@
     <value>Введіть ім’я домену, перш ніж додавати OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU за замовчуванням більше немає в списку. Виберіть іншу або очистьте це значення.</value>
+    <value>OU за замовчуванням більше немає в списку. Виберіть іншу або вимкніть OU за замовчуванням.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Введіть ім’я домену.</value>
@@ -1907,7 +1907,7 @@
     <value>Увімкніть захист носія паролем на сторінці «Загальні» і встановіть пароль носія.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Додайте принаймні одну OU або вимкніть вибір OU й очистьте OU за замовчуванням.</value>
+    <value>Додайте принаймні одну OU або вимкніть вибір OU й OU за замовчуванням.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Усі OU в списку мають належати до одного домену.</value>
@@ -1952,7 +1952,7 @@
     <value>Обліковий запис для приєднання</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, яка використовується для кожного розгортання або вибрана заздалегідь, якщо технічні спеціалісти можуть вибирати. Залиште порожнім, щоб використовувати розташування домену за замовчуванням.</value>
+    <value>OU, яка використовується для кожного розгортання або вибрана заздалегідь, якщо технічні спеціалісти можуть вибирати. Вимкніть, щоб використовувати розташування домену за замовчуванням.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>OU за замовчуванням</value>

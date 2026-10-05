@@ -1874,7 +1874,7 @@ Licenciado sob a licença MIT.</value>
     <value>Insira o nome do domínio antes de adicionar OUs.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>A OU padrão não está mais na lista. Escolha outra ou limpe-a.</value>
+    <value>A OU padrão não está mais na lista. Escolha outra ou desative a OU padrão.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Insira o nome do domínio.</value>
@@ -1907,7 +1907,7 @@ Licenciado sob a licença MIT.</value>
     <value>Ative a proteção da mídia por senha na página Geral e defina uma senha da mídia.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Adicione pelo menos uma OU, ou desative a seleção de OU e limpe a OU padrão.</value>
+    <value>Adicione pelo menos uma OU, ou desative a seleção de OU e a OU padrão.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Todas as OUs listadas devem pertencer ao mesmo domínio.</value>
@@ -1952,7 +1952,7 @@ Licenciado sob a licença MIT.</value>
     <value>Conta de associação</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU usada em todas as implantações, ou pré-selecionada quando os técnicos podem escolher. Deixe vazio para usar o local padrão do domínio.</value>
+    <value>OU usada em todas as implantações, ou pré-selecionada quando os técnicos podem escolher. Desative para usar o local padrão do domínio.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>OU padrão</value>

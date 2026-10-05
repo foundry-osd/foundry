@@ -1874,7 +1874,7 @@
     <value>ป้อนชื่อโดเมนก่อนเพิ่ม OU</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU เริ่มต้นไม่อยู่ในรายการแล้ว เลือก OU อื่นหรือล้างค่านี้</value>
+    <value>OU เริ่มต้นไม่อยู่ในรายการแล้ว เลือก OU อื่นหรือปิด OU เริ่มต้น</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>ป้อนชื่อโดเมน</value>
@@ -1907,7 +1907,7 @@
     <value>เปิดการป้องกันสื่อด้วยรหัสผ่านในหน้า "ทั่วไป" และตั้งรหัสผ่านสื่อ</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>เพิ่ม OU อย่างน้อยหนึ่งรายการ หรือปิดการเลือก OU และล้าง OU เริ่มต้น</value>
+    <value>เพิ่ม OU อย่างน้อยหนึ่งรายการ หรือปิดการเลือก OU และ OU เริ่มต้น</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>OU ทั้งหมดในรายการต้องอยู่ในโดเมนเดียวกัน</value>
@@ -1952,7 +1952,7 @@
     <value>บัญชีสำหรับเข้าร่วมโดเมน</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU ที่ใช้กับทุกการปรับใช้ หรือถูกเลือกไว้ล่วงหน้าเมื่อช่างเทคนิคเลือกได้ ปล่อยว่างไว้เพื่อใช้ตำแหน่งเริ่มต้นของโดเมน</value>
+    <value>OU ที่ใช้กับทุกการปรับใช้ หรือถูกเลือกไว้ล่วงหน้าเมื่อช่างเทคนิคเลือกได้ ปิดเพื่อใช้ตำแหน่งเริ่มต้นของโดเมน</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>OU เริ่มต้น</value>

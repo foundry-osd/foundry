@@ -1874,7 +1874,7 @@
     <value>أدخل اسم النطاق قبل إضافة وحدات OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>وحدة OU الافتراضية لم تعد في القائمة. اختر وحدة أخرى أو امسحها.</value>
+    <value>وحدة OU الافتراضية لم تعد في القائمة. اختر وحدة أخرى أو عطّل وحدة OU الافتراضية.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>أدخل اسم النطاق.</value>
@@ -1907,7 +1907,7 @@
     <value>فعّل حماية الوسائط بكلمة مرور في صفحة «عام» وعيّن كلمة مرور للوسائط.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>أضف وحدة OU واحدة على الأقل، أو عطّل اختيار OU وامسح وحدة OU الافتراضية.</value>
+    <value>أضف وحدة OU واحدة على الأقل، أو عطّل اختيار OU ووحدة OU الافتراضية.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>يجب أن تنتمي جميع وحدات OU المدرجة إلى النطاق نفسه.</value>
@@ -1952,7 +1952,7 @@
     <value>حساب الانضمام</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>وحدة OU المستخدمة في كل عملية نشر، أو المحددة مسبقاً عندما يُسمح للفنيين بالاختيار. اتركها فارغة لاستخدام الموقع الافتراضي للنطاق.</value>
+    <value>وحدة OU المستخدمة في كل عملية نشر، أو المحددة مسبقاً عندما يُسمح للفنيين بالاختيار. عطّلها لاستخدام الموقع الافتراضي للنطاق.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>وحدة OU الافتراضية</value>

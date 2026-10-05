@@ -78,6 +78,22 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public Visibility StatusVisibility => ToVisibility(statusKey is not null);
     public Visibility DiscoveringVisibility => ToVisibility(IsDiscovering);
 
+    /// <summary>
+    /// Gets or sets whether a default OU applies. Turning it on preselects the first listed OU so the choice is
+    /// saved immediately; turning it off returns to the domain's default location.
+    /// </summary>
+    public bool UseDefaultOu
+    {
+        get => SelectedDefaultOu is not null;
+        set
+        {
+            if (value != UseDefaultOu) SelectedDefaultOu = value ? OrganizationalUnits.FirstOrDefault() : null;
+            // Also reverts the switch when no OU exists to select.
+            OnPropertyChanged();
+        }
+    }
+    public bool CanUseDefaultOu => OrganizationalUnits.Count > 0;
+
     private bool CanRemoveSelected => selectedListedRows.Count > 0;
 
     [ObservableProperty]
@@ -291,6 +307,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     }
     partial void OnSelectedDefaultOuChanged(DomainJoinOrganizationalUnitEntryViewModel? value)
     {
+        OnPropertyChanged(nameof(UseDefaultOu));
         if (!applying) Save(configuration.Current.DomainJoin with { DefaultOuId = value?.Settings.Id });
     }
     private DomainJoinCredentialContext Context() => new(configuration.Current.DomainJoin.DomainName ?? string.Empty, configuration.Current.DomainJoin.AccountName ?? string.Empty);
@@ -435,6 +452,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         OnPropertyChanged(nameof(DocumentationUrl));
         OnPropertyChanged(nameof(ListVisibility));
         OnPropertyChanged(nameof(EmptyListVisibility));
+        OnPropertyChanged(nameof(CanUseDefaultOu));
         RemoveSelectedCommand.NotifyCanExecuteChanged();
     }
 

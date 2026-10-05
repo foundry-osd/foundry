@@ -1874,7 +1874,7 @@
     <value>Въведете името на домейна, преди да добавяте OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU по подразбиране вече не е в списъка. Изберете друга или изчистете избора.</value>
+    <value>OU по подразбиране вече не е в списъка. Изберете друга или деактивирайте OU по подразбиране.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Въведете името на домейна.</value>
@@ -1907,7 +1907,7 @@
     <value>Активирайте защитата на носителя с парола на страницата „Общи“ и задайте парола за носителя.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Добавете поне една OU или деактивирайте избора на OU и изчистете OU по подразбиране.</value>
+    <value>Добавете поне една OU или деактивирайте избора на OU и OU по подразбиране.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Всички изброени OU трябва да принадлежат към един и същ домейн.</value>
@@ -1952,7 +1952,7 @@
     <value>Акаунт за присъединяване</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, която се използва при всяко разполагане или е предварително избрана, когато техниците могат да избират. Оставете празно, за да се използва местоположението по подразбиране в домейна.</value>
+    <value>OU, която се използва при всяко разполагане или е предварително избрана, когато техниците могат да избират. Деактивирайте, за да се използва местоположението по подразбиране в домейна.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>OU по подразбиране</value>

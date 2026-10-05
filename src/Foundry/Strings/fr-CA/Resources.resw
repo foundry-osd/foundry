@@ -1874,7 +1874,7 @@ Sous licence MIT.</value>
     <value>Saisissez le nom de domaine avant d’ajouter des OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>L’OU par défaut ne figure plus dans la liste. Choisissez-en une autre ou effacez-la.</value>
+    <value>L’OU par défaut ne figure plus dans la liste. Choisissez-en une autre ou désactivez l’OU par défaut.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Saisissez le nom de domaine.</value>
@@ -1907,7 +1907,7 @@ Sous licence MIT.</value>
     <value>Activez la protection du média par mot de passe sur la page « Général » et définissez un mot de passe de média.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Ajoutez au moins une OU, ou désactivez la sélection de l’OU et effacez l’OU par défaut.</value>
+    <value>Ajoutez au moins une OU, ou désactivez la sélection de l’OU et l’OU par défaut.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Toutes les OU répertoriées doivent appartenir au même domaine.</value>
@@ -1952,7 +1952,7 @@ Sous licence MIT.</value>
     <value>Compte de jonction</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU utilisée pour chaque déploiement, ou présélectionnée lorsque les techniciens peuvent choisir. Laissez vide pour utiliser l’emplacement par défaut du domaine.</value>
+    <value>OU utilisée pour chaque déploiement, ou présélectionnée lorsque les techniciens peuvent choisir. Désactivez pour utiliser l’emplacement par défaut du domaine.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>OU par défaut</value>

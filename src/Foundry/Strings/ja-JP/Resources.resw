@@ -1874,7 +1874,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>OUを追加する前にドメイン名を入力してください。</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>既定のOUは一覧にありません。別のOUを選択するか、クリアしてください。</value>
+    <value>既定のOUは一覧にありません。別のOUを選択するか、既定のOUを無効にしてください。</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>ドメイン名を入力してください。</value>
@@ -1907,7 +1907,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>「一般」ページでメディアのパスワード保護を有効にし、メディアパスワードを設定してください。</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>OUを1つ以上追加するか、OUの選択を無効にして既定のOUをクリアしてください。</value>
+    <value>OUを1つ以上追加するか、OUの選択と既定のOUを無効にしてください。</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>一覧のOUはすべて同じドメインに属している必要があります。</value>
@@ -1952,7 +1952,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>参加用アカウント</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>すべての展開で使用されるOUです。技術者が選択できる場合は、あらかじめ選択されます。空欄にするとドメインの既定の場所が使用されます。</value>
+    <value>すべての展開で使用されるOUです。技術者が選択できる場合は、あらかじめ選択されます。無効にするとドメインの既定の場所が使用されます。</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>既定のOU</value>

@@ -1874,7 +1874,7 @@
     <value>הזן את שם התחום לפני הוספת יחידות OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU ברירת המחדל כבר אינה ברשימה. בחר אחרת או נקה אותה.</value>
+    <value>OU ברירת המחדל כבר אינה ברשימה. בחר אחרת או כבה את OU ברירת המחדל.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>הזן את שם התחום.</value>
@@ -1907,7 +1907,7 @@
     <value>הפעל הגנה על המדיה באמצעות סיסמה בעמוד "כללי" והגדר סיסמת מדיה.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>הוסף לפחות OU אחת, או כבה את בחירת ה-OU ונקה את OU ברירת המחדל.</value>
+    <value>הוסף לפחות OU אחת, או כבה את בחירת ה-OU ואת OU ברירת המחדל.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>כל יחידות ה-OU שברשימה חייבות להשתייך לאותו תחום.</value>
@@ -1952,7 +1952,7 @@
     <value>חשבון צירוף</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>ה-OU שמשמשת בכל פריסה, או שנבחרת מראש כאשר הטכנאים יכולים לבחור. השאר ריק כדי להשתמש במיקום ברירת המחדל של התחום.</value>
+    <value>ה-OU שמשמשת בכל פריסה, או שנבחרת מראש כאשר הטכנאים יכולים לבחור. כבה כדי להשתמש במיקום ברירת המחדל של התחום.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>OU ברירת מחדל</value>

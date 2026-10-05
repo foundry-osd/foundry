@@ -1874,7 +1874,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Prieš pridėdami OU įveskite domeno vardą.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Numatytojo OU sąraše nebėra. Pasirinkite kitą arba išvalykite.</value>
+    <value>Numatytojo OU sąraše nebėra. Pasirinkite kitą arba išjunkite numatytąjį OU.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Įveskite domeno vardą.</value>
@@ -1907,7 +1907,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Puslapyje „Bendra“ įjunkite laikmenos apsaugą slaptažodžiu ir nustatykite laikmenos slaptažodį.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Pridėkite bent vieną OU arba išjunkite OU pasirinkimą ir išvalykite numatytąjį OU.</value>
+    <value>Pridėkite bent vieną OU arba išjunkite OU pasirinkimą ir numatytąjį OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Visi sąraše esantys OU turi priklausyti tam pačiam domenui.</value>
@@ -1952,7 +1952,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Prijungimo prie domeno paskyra</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, naudojamas kiekvienam diegimui arba parenkamas iš anksto, kai technikai gali rinktis. Palikite tuščią, kad būtų naudojama numatytoji domeno vieta.</value>
+    <value>OU, naudojamas kiekvienam diegimui arba parenkamas iš anksto, kai technikai gali rinktis. Išjunkite, kad būtų naudojama numatytoji domeno vieta.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Numatytasis OU</value>

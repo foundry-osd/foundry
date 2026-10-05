@@ -1874,7 +1874,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Voer de domeinnaam in voordat u OU's toevoegt.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>De standaard-OU staat niet meer in de lijst. Kies een andere of wis deze.</value>
+    <value>De standaard-OU staat niet meer in de lijst. Kies een andere of schakel de standaard-OU uit.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Voer de domeinnaam in.</value>
@@ -1907,7 +1907,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Schakel wachtwoordbeveiliging voor het medium in op de pagina Algemeen en stel een mediumwachtwoord in.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Voeg ten minste één OU toe, of schakel OU-selectie uit en wis de standaard-OU.</value>
+    <value>Voeg ten minste één OU toe, of schakel OU-selectie en de standaard-OU uit.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Alle OU's in de lijst moeten tot hetzelfde domein behoren.</value>
@@ -1952,7 +1952,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Toetredingsaccount</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU die voor elke implementatie wordt gebruikt, of die vooraf is geselecteerd wanneer technici kunnen kiezen. Laat leeg om de standaardlocatie van het domein te gebruiken.</value>
+    <value>OU die voor elke implementatie wordt gebruikt, of die vooraf is geselecteerd wanneer technici kunnen kiezen. Schakel uit om de standaardlocatie van het domein te gebruiken.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Standaard-OU</value>

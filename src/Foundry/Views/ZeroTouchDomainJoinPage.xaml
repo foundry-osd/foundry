@@ -138,11 +138,22 @@
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE734;" />
                         </wct:SettingsCard.HeaderIcon>
-                        <ComboBox
-                            Width="{ThemeResource FoundryWideInputMinWidth}"
-                            DisplayMemberPath="Hierarchy"
-                            ItemsSource="{x:Bind ViewModel.OrganizationalUnits}"
-                            SelectedItem="{x:Bind ViewModel.SelectedDefaultOu, Mode=TwoWay}" />
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <ComboBox
+                                Width="{ThemeResource FoundryWideInputMinWidth}"
+                                VerticalAlignment="Center"
+                                DisplayMemberPath="Hierarchy"
+                                IsEnabled="{x:Bind ViewModel.UseDefaultOu, Mode=OneWay}"
+                                ItemsSource="{x:Bind ViewModel.OrganizationalUnits}"
+                                SelectedItem="{x:Bind ViewModel.SelectedDefaultOu, Mode=TwoWay}" />
+                            <ToggleSwitch
+                                behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                IsEnabled="{x:Bind ViewModel.CanUseDefaultOu, Mode=OneWay}"
+                                IsOn="{x:Bind ViewModel.UseDefaultOu, Mode=TwoWay}" />
+                        </StackPanel>
                     </wct:SettingsCard>
 
                     <wct:SettingsCard x:Uid="DomainJoinAllowSelection">

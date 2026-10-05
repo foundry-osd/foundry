@@ -1874,7 +1874,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Sisestage enne OU-de lisamist domeeninimi.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Vaikimisi OU-d pole enam loendis. Valige mõni teine või tühjendage valik.</value>
+    <value>Vaikimisi OU-d pole enam loendis. Valige mõni teine või keelake vaikimisi OU.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Sisestage domeeninimi.</value>
@@ -1907,7 +1907,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Lubage lehel „Üldine“ andmekandja paroolikaitse ja määrake andmekandja parool.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Lisage vähemalt üks OU või keelake OU valimine ja tühjendage vaikimisi OU.</value>
+    <value>Lisage vähemalt üks OU või keelake OU valimine ja vaikimisi OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Kõik loendis olevad OU-d peavad kuuluma samasse domeeni.</value>
@@ -1952,7 +1952,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Liitmiskonto</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, mida kasutatakse igal juurutamisel või mis on eelvalitud, kui tehnikud saavad valida. Domeeni vaikeasukoha kasutamiseks jätke tühjaks.</value>
+    <value>OU, mida kasutatakse igal juurutamisel või mis on eelvalitud, kui tehnikud saavad valida. Domeeni vaikeasukoha kasutamiseks keelake see.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Vaikimisi OU</value>

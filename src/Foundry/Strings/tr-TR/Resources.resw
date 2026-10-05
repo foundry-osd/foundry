@@ -1874,7 +1874,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>OU eklemeden önce etki alanı adını girin.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Varsayılan OU artık listede değil. Başka birini seçin veya temizleyin.</value>
+    <value>Varsayılan OU artık listede değil. Başka birini seçin veya varsayılan OU’yu devre dışı bırakın.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Etki alanı adını girin.</value>
@@ -1907,7 +1907,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>"Genel" sayfasında medya parola korumasını etkinleştirin ve bir medya parolası belirleyin.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>En az bir OU ekleyin veya OU seçimini devre dışı bırakıp varsayılan OU’yu temizleyin.</value>
+    <value>En az bir OU ekleyin veya OU seçimini ve varsayılan OU’yu devre dışı bırakın.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Listedeki tüm OU’lar aynı etki alanına ait olmalıdır.</value>
@@ -1952,7 +1952,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Katılma hesabı</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>Her dağıtımda kullanılan veya teknisyenler seçim yapabildiğinde önceden seçili gelen OU. Etki alanının varsayılan konumunu kullanmak için boş bırakın.</value>
+    <value>Her dağıtımda kullanılan veya teknisyenler seçim yapabildiğinde önceden seçili gelen OU. Etki alanının varsayılan konumunu kullanmak için devre dışı bırakın.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Varsayılan OU</value>

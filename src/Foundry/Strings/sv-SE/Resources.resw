@@ -1874,7 +1874,7 @@ Licensierad under MIT-licensen.</value>
     <value>Ange domännamnet innan du lägger till OU:er.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Standard-OU:n finns inte längre i listan. Välj en annan eller rensa den.</value>
+    <value>Standard-OU:n finns inte längre i listan. Välj en annan eller inaktivera standard-OU:n.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Ange domännamnet.</value>
@@ -1907,7 +1907,7 @@ Licensierad under MIT-licensen.</value>
     <value>Aktivera lösenordsskydd för mediet på sidan ”Allmänt” och ange ett medielösenord.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Lägg till minst en OU, eller inaktivera val av OU och rensa standard-OU:n.</value>
+    <value>Lägg till minst en OU, eller inaktivera val av OU och standard-OU:n.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Alla OU:er i listan måste tillhöra samma domän.</value>
@@ -1952,7 +1952,7 @@ Licensierad under MIT-licensen.</value>
     <value>Anslutningskonto</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU som används för varje distribution, eller som är förvald när tekniker får välja. Lämna tomt för att använda domänens standardplats.</value>
+    <value>OU som används för varje distribution, eller som är förvald när tekniker får välja. Inaktivera för att använda domänens standardplats.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Standard-OU</value>

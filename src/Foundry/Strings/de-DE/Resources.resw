@@ -1874,7 +1874,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Geben Sie den Domänennamen ein, bevor Sie OUs hinzufügen.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Die Standard-OU ist nicht mehr in der Liste. Wählen Sie eine andere aus oder löschen Sie die Auswahl.</value>
+    <value>Die Standard-OU ist nicht mehr in der Liste. Wählen Sie eine andere aus oder deaktivieren Sie die Standard-OU.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Geben Sie den Domänennamen ein.</value>
@@ -1907,7 +1907,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Aktivieren Sie auf der Seite „Allgemein“ den Kennwortschutz für das Medium und legen Sie ein Medienkennwort fest.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Fügen Sie mindestens eine OU hinzu, oder deaktivieren Sie die OU-Auswahl und löschen Sie die Standard-OU.</value>
+    <value>Fügen Sie mindestens eine OU hinzu, oder deaktivieren Sie die OU-Auswahl und die Standard-OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Alle aufgelisteten OUs müssen zur selben Domäne gehören.</value>
@@ -1952,7 +1952,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Beitrittskonto</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, die für jede Bereitstellung verwendet wird oder vorausgewählt ist, wenn Techniker wählen können. Leer lassen, um den Standardspeicherort der Domäne zu verwenden.</value>
+    <value>OU, die für jede Bereitstellung verwendet wird oder vorausgewählt ist, wenn Techniker wählen können. Deaktivieren, um den Standardspeicherort der Domäne zu verwenden.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Standard-OU</value>

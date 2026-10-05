@@ -1874,7 +1874,7 @@
     <value>Εισαγάγετε το όνομα τομέα πριν προσθέσετε OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Η προεπιλεγμένη OU δεν υπάρχει πλέον στη λίστα. Επιλέξτε άλλη ή διαγράψτε την επιλογή.</value>
+    <value>Η προεπιλεγμένη OU δεν υπάρχει πλέον στη λίστα. Επιλέξτε άλλη ή απενεργοποιήστε την προεπιλεγμένη OU.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Εισαγάγετε το όνομα τομέα.</value>
@@ -1907,7 +1907,7 @@
     <value>Ενεργοποιήστε την προστασία του μέσου με κωδικό πρόσβασης στη σελίδα «Γενικά» και ορίστε έναν κωδικό πρόσβασης μέσου.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Προσθέστε τουλάχιστον μία OU ή απενεργοποιήστε την επιλογή OU και διαγράψτε την προεπιλεγμένη OU.</value>
+    <value>Προσθέστε τουλάχιστον μία OU ή απενεργοποιήστε την επιλογή OU και την προεπιλεγμένη OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Όλες οι OU της λίστας πρέπει να ανήκουν στον ίδιο τομέα.</value>
@@ -1952,7 +1952,7 @@
     <value>Λογαριασμός σύνδεσης σε τομέα</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU που χρησιμοποιείται σε κάθε ανάπτυξη ή είναι προεπιλεγμένη όταν οι τεχνικοί μπορούν να επιλέξουν. Αφήστε το κενό για να χρησιμοποιηθεί η προεπιλεγμένη θέση του τομέα.</value>
+    <value>OU που χρησιμοποιείται σε κάθε ανάπτυξη ή είναι προεπιλεγμένη όταν οι τεχνικοί μπορούν να επιλέξουν. Απενεργοποιήστε την για να χρησιμοποιηθεί η προεπιλεγμένη θέση του τομέα.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Προεπιλεγμένη OU</value>

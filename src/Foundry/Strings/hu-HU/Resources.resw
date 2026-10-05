@@ -1874,7 +1874,7 @@ Licenc az MIT licenc alatt.</value>
     <value>OU-k hozzáadása előtt adja meg a tartománynevet.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Az alapértelmezett OU már nem szerepel a listában. Válasszon másikat, vagy törölje a beállítást.</value>
+    <value>Az alapértelmezett OU már nem szerepel a listában. Válasszon másikat, vagy kapcsolja ki az alapértelmezett OU-t.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Adja meg a tartománynevet.</value>
@@ -1907,7 +1907,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Engedélyezze az adathordozó jelszavas védelmét az „Általános” oldalon, és állítson be adathordozójelszót.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Adjon hozzá legalább egy OU-t, vagy kapcsolja ki az OU kiválasztását, és törölje az alapértelmezett OU beállítását.</value>
+    <value>Adjon hozzá legalább egy OU-t, vagy kapcsolja ki az OU kiválasztását és az alapértelmezett OU-t.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Minden felsorolt OU-nak ugyanahhoz a tartományhoz kell tartoznia.</value>
@@ -1952,7 +1952,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Csatlakoztatási fiók</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>Minden telepítéshez használt OU, vagy az előre kijelölt OU, ha a technikusok választhatnak. Hagyja üresen a tartomány alapértelmezett helyének használatához.</value>
+    <value>Minden telepítéshez használt OU, vagy az előre kijelölt OU, ha a technikusok választhatnak. Kapcsolja ki a tartomány alapértelmezett helyének használatához.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Alapértelmezett OU</value>

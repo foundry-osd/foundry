@@ -1874,7 +1874,7 @@ Licensed under the MIT License.</value>
     <value>Enter the domain name before adding OUs.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>The default OU is no longer in the list. Choose another one or clear it.</value>
+    <value>The default OU is no longer in the list. Choose another one or turn off the default OU.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Enter the domain name.</value>
@@ -1907,7 +1907,7 @@ Licensed under the MIT License.</value>
     <value>Turn on media password protection on the General page and set a media password.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Add at least one OU, or turn off OU selection and clear the default OU.</value>
+    <value>Add at least one OU, or turn off OU selection and the default OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Every listed OU must belong to the same domain.</value>
@@ -1952,7 +1952,7 @@ Licensed under the MIT License.</value>
     <value>Join account</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU used for every deployment, or preselected when technicians can choose. Leave empty to use the domain's default location.</value>
+    <value>OU used for every deployment, or preselected when technicians can choose. Turn off to use the domain's default location.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Default OU</value>

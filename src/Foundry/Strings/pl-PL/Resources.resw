@@ -1874,7 +1874,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Wprowadź nazwę domeny przed dodaniem jednostek OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Domyślnej jednostki OU nie ma już na liście. Wybierz inną lub wyczyść to ustawienie.</value>
+    <value>Domyślnej jednostki OU nie ma już na liście. Wybierz inną lub wyłącz domyślną jednostkę OU.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Wprowadź nazwę domeny.</value>
@@ -1907,7 +1907,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Włącz ochronę nośnika hasłem na stronie Ogólne i ustaw hasło nośnika.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Dodaj co najmniej jedną jednostkę OU albo wyłącz wybór jednostki OU i wyczyść domyślną jednostkę OU.</value>
+    <value>Dodaj co najmniej jedną jednostkę OU albo wyłącz wybór jednostki OU i domyślną jednostkę OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Wszystkie jednostki OU na liście muszą należeć do tej samej domeny.</value>
@@ -1952,7 +1952,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Konto dołączania</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>Jednostka OU używana przy każdym wdrożeniu albo wstępnie wybrana, gdy technicy mogą wybierać. Pozostaw puste, aby użyć domyślnej lokalizacji domeny.</value>
+    <value>Jednostka OU używana przy każdym wdrożeniu albo wstępnie wybrana, gdy technicy mogą wybierać. Wyłącz, aby użyć domyślnej lokalizacji domeny.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Domyślna jednostka OU</value>

@@ -1874,7 +1874,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Anna toimialueen nimi ennen OU:iden lisäämistä.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Oletus-OU ei ole enää luettelossa. Valitse toinen tai tyhjennä valinta.</value>
+    <value>Oletus-OU ei ole enää luettelossa. Valitse toinen tai poista oletus-OU käytöstä.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Anna toimialueen nimi.</value>
@@ -1907,7 +1907,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Ota median salasanasuojaus käyttöön sivulla ”Yleiset” ja määritä median salasana.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Lisää vähintään yksi OU tai poista OU:n valinta käytöstä ja tyhjennä oletus-OU.</value>
+    <value>Lisää vähintään yksi OU tai poista OU:n valinta ja oletus-OU käytöstä.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Kaikkien luettelon OU:iden on kuuluttava samaan toimialueeseen.</value>
@@ -1952,7 +1952,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Liittämistili</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, jota käytetään jokaisessa käyttöönotossa tai joka on esivalittu, kun teknikot voivat valita. Jätä tyhjäksi, jos haluat käyttää toimialueen oletussijaintia.</value>
+    <value>OU, jota käytetään jokaisessa käyttöönotossa tai joka on esivalittu, kun teknikot voivat valita. Poista käytöstä, jos haluat käyttää toimialueen oletussijaintia.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Oletus-OU</value>

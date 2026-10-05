@@ -1874,7 +1874,7 @@ Licenseret under MIT-licensen.</value>
     <value>Angiv domænenavnet, før du tilføjer OU'er.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Standard-OU'en er ikke længere på listen. Vælg en anden, eller ryd den.</value>
+    <value>Standard-OU'en er ikke længere på listen. Vælg en anden, eller deaktiver standard-OU'en.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Angiv domænenavnet.</value>
@@ -1907,7 +1907,7 @@ Licenseret under MIT-licensen.</value>
     <value>Aktivér adgangskodebeskyttelse af mediet på siden "Generelt", og angiv en medieadgangskode.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Tilføj mindst én OU, eller deaktiver valg af OU, og ryd standard-OU'en.</value>
+    <value>Tilføj mindst én OU, eller deaktiver valg af OU og standard-OU'en.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Alle OU'er på listen skal tilhøre det samme domæne.</value>
@@ -1952,7 +1952,7 @@ Licenseret under MIT-licensen.</value>
     <value>Tilslutningskonto</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, der bruges ved hver udrulning eller er forvalgt, når teknikere kan vælge. Lad feltet være tomt for at bruge domænets standardplacering.</value>
+    <value>OU, der bruges ved hver udrulning eller er forvalgt, når teknikere kan vælge. Deaktiver for at bruge domænets standardplacering.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Standard-OU</value>

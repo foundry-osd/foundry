@@ -1874,7 +1874,7 @@ Licencováno pod licencí MIT.</value>
     <value>Před přidáním jednotek OU zadejte název domény.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Výchozí jednotka OU už v seznamu není. Zvolte jinou, nebo výběr vymažte.</value>
+    <value>Výchozí jednotka OU už v seznamu není. Zvolte jinou, nebo výchozí jednotku OU zakažte.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Zadejte název domény.</value>
@@ -1907,7 +1907,7 @@ Licencováno pod licencí MIT.</value>
     <value>Na stránce „Obecné“ povolte ochranu média heslem a nastavte heslo média.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Přidejte alespoň jednu jednotku OU, nebo zakažte výběr OU a vymažte výchozí jednotku OU.</value>
+    <value>Přidejte alespoň jednu jednotku OU, nebo zakažte výběr OU i výchozí jednotku OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Všechny uvedené jednotky OU musí patřit do stejné domény.</value>
@@ -1952,7 +1952,7 @@ Licencováno pod licencí MIT.</value>
     <value>Účet pro připojení</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>Jednotka OU použitá při každém nasazení, nebo předvybraná, pokud mohou technici vybírat. Ponechte prázdné, chcete-li použít výchozí umístění domény.</value>
+    <value>Jednotka OU použitá při každém nasazení, nebo předvybraná, pokud mohou technici vybírat. Zakažte ji, chcete-li použít výchozí umístění domény.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Výchozí OU</value>

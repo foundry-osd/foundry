@@ -1874,7 +1874,7 @@ Licențiat sub licența MIT.</value>
     <value>Introduceți numele domeniului înainte de a adăuga OU-uri.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU-ul implicit nu mai este în listă. Alegeți altul sau goliți-l.</value>
+    <value>OU-ul implicit nu mai este în listă. Alegeți altul sau dezactivați OU-ul implicit.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Introduceți numele domeniului.</value>
@@ -1907,7 +1907,7 @@ Licențiat sub licența MIT.</value>
     <value>Activați protecția prin parolă a suportului pe pagina General și setați o parolă a suportului.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Adăugați cel puțin un OU sau dezactivați selectarea OU-ului și goliți OU-ul implicit.</value>
+    <value>Adăugați cel puțin un OU sau dezactivați selectarea OU-ului și OU-ul implicit.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Toate OU-urile listate trebuie să aparțină aceluiași domeniu.</value>
@@ -1952,7 +1952,7 @@ Licențiat sub licența MIT.</value>
     <value>Cont de asociere</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU folosit pentru fiecare implementare sau preselectat atunci când tehnicienii pot alege. Lăsați gol pentru a folosi locația implicită a domeniului.</value>
+    <value>OU folosit pentru fiecare implementare sau preselectat atunci când tehnicienii pot alege. Dezactivați pentru a folosi locația implicită a domeniului.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>OU implicit</value>

@@ -1874,7 +1874,7 @@
     <value>请先输入域名，再添加 OU。</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>默认 OU 已不在列表中。请另选一个或将其清除。</value>
+    <value>默认 OU 已不在列表中。请另选一个或关闭默认 OU。</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>请输入域名。</value>
@@ -1907,7 +1907,7 @@
     <value>请在“常规”页面启用介质密码保护，并设置介质密码。</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>请至少添加一个 OU，或关闭 OU 选择并清除默认 OU。</value>
+    <value>请至少添加一个 OU，或关闭 OU 选择和默认 OU。</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>列出的所有 OU 必须属于同一个域。</value>
@@ -1952,7 +1952,7 @@
     <value>加入账户</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>用于每次部署的 OU；允许技术人员选择时，则为预选的 OU。留空以使用域的默认位置。</value>
+    <value>用于每次部署的 OU；允许技术人员选择时，则为预选的 OU。关闭以使用域的默认位置。</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>默认 OU</value>

@@ -1874,7 +1874,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pirms OU pievienošanas ievadiet domēna nosaukumu.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Noklusējuma OU vairs nav sarakstā. Izvēlieties citu vai notīriet to.</value>
+    <value>Noklusējuma OU vairs nav sarakstā. Izvēlieties citu vai izslēdziet noklusējuma OU.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Ievadiet domēna nosaukumu.</value>
@@ -1907,7 +1907,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Lapā „Vispārīgi” ieslēdziet datu nesēja aizsardzību ar paroli un iestatiet datu nesēja paroli.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Pievienojiet vismaz vienu OU vai izslēdziet OU atlasi un notīriet noklusējuma OU.</value>
+    <value>Pievienojiet vismaz vienu OU vai izslēdziet OU atlasi un noklusējuma OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Visām sarakstā esošajām OU jāpieder vienam domēnam.</value>
@@ -1952,7 +1952,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pievienošanas konts</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, kas tiek izmantota katrā izvietošanā vai ir iepriekš atlasīta, ja tehniķi var izvēlēties. Atstājiet tukšu, lai izmantotu domēna noklusējuma atrašanās vietu.</value>
+    <value>OU, kas tiek izmantota katrā izvietošanā vai ir iepriekš atlasīta, ja tehniķi var izvēlēties. Izslēdziet, lai izmantotu domēna noklusējuma atrašanās vietu.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Noklusējuma OU</value>

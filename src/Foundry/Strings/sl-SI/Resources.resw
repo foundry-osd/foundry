@@ -1874,7 +1874,7 @@ Licencirano pod licenco MIT.</value>
     <value>Pred dodajanjem OU vnesite ime domene.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Privzete OU ni več na seznamu. Izberite drugo ali jo počistite.</value>
+    <value>Privzete OU ni več na seznamu. Izberite drugo ali onemogočite privzeto OU.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Vnesite ime domene.</value>
@@ -1907,7 +1907,7 @@ Licencirano pod licenco MIT.</value>
     <value>Na strani »Splošno« omogočite zaščito medija z geslom in nastavite geslo medija.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Dodajte vsaj eno OU ali pa onemogočite izbiro OU in počistite privzeto OU.</value>
+    <value>Dodajte vsaj eno OU ali pa onemogočite izbiro OU in privzeto OU.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Vse navedene OU morajo pripadati isti domeni.</value>
@@ -1952,7 +1952,7 @@ Licencirano pod licenco MIT.</value>
     <value>Račun za pridružitev</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, ki se uporabi pri vsakem uvajanju ali je vnaprej izbrana, kadar lahko izbirajo tehniki. Pustite prazno, da uporabite privzeto mesto domene.</value>
+    <value>OU, ki se uporabi pri vsakem uvajanju ali je vnaprej izbrana, kadar lahko izbirajo tehniki. Onemogočite, da uporabite privzeto mesto domene.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>Privzeta OU</value>

@@ -1874,7 +1874,7 @@ Licenciado sob a licença MIT.</value>
     <value>Introduza o nome do domínio antes de adicionar OU.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>A OU predefinida já não está na lista. Escolha outra ou limpe-a.</value>
+    <value>A OU predefinida já não está na lista. Escolha outra ou desative a OU predefinida.</value>
   </data>
   <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
     <value>Introduza o nome do domínio.</value>
@@ -1907,7 +1907,7 @@ Licenciado sob a licença MIT.</value>
     <value>Ative a proteção do suporte por palavra-passe na página Geral e defina uma palavra-passe do suporte.</value>
   </data>
   <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Adicione pelo menos uma OU, ou desative a seleção de OU e limpe a OU predefinida.</value>
+    <value>Adicione pelo menos uma OU, ou desative a seleção de OU e a OU predefinida.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Todas as OU listadas têm de pertencer ao mesmo domínio.</value>
@@ -1952,7 +1952,7 @@ Licenciado sob a licença MIT.</value>
     <value>Conta de associação</value>
   </data>
   <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU utilizada em todas as implementações, ou pré-selecionada quando os técnicos podem escolher. Deixe vazio para utilizar a localização predefinida do domínio.</value>
+    <value>OU utilizada em todas as implementações, ou pré-selecionada quando os técnicos podem escolher. Desative para utilizar a localização predefinida do domínio.</value>
   </data>
   <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
     <value>OU predefinida</value>
