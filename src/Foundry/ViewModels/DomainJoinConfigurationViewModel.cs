@@ -394,6 +394,8 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
 
     private void RefreshPresentation()
     {
+        // Disposal can follow application shutdown, when the shared secret services are already disposed.
+        if (disposed) return;
         RefreshValidation();
         OnPropertyChanged(nameof(IsActive));
         OnPropertyChanged(nameof(ActionText));
