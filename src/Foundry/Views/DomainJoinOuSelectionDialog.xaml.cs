@@ -9,7 +9,8 @@ namespace Foundry.Views;
 /// <summary>Lists the organizational units found in the authoring computer's domain so the user can choose which to add.</summary>
 public sealed partial class DomainJoinOuSelectionDialog : ContentDialog
 {
-    private const double DialogChromeWidth = 96;
+    // The dialog pads its content by 24 px on each side; a larger allowance leaves the content narrower than the title.
+    private const double DialogChromeWidth = 48;
     private const double FallbackMinimumContentWidth = 560;
     private const double FallbackMaximumContentWidth = 980;
     private const double SelectionColumnWidth = 48;
