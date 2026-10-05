@@ -20,7 +20,7 @@ public enum DomainJoinFailureCode
 {
     InvalidInput, CredentialUnavailable, ContextMismatch, ComputerNameMismatch, DomainUnavailable,
     ReadinessTimeout, JoinFailed, PlacementFailed, MembershipMismatch, MembershipUnverified,
-    Interrupted, WorkerTimeout, CleanupFailed, ResultUnavailable, InvalidResult
+    Interrupted, WorkerTimeout, CleanupFailed, ResultUnavailable, InvalidResult, OrganizationalUnitNotFound
 }
 
 /// <summary>Reports one independent phase and an optional native or LDAP numeric diagnostic.</summary>

@@ -58,7 +58,18 @@ public static class DistinguishedNameRules
         return true;
     }
 
-    /// <summary>Detects duplicate authored destinations only; live directory GUIDs remain authoritative.</summary>
+    /// <summary>
+    /// Determines whether the name designates an organizational unit, which is the only container the join can
+    /// place a computer in. A container such as CN=Computers is rejected here instead of failing at join time.
+    /// </summary>
+    public static bool IsOrganizationalUnit(string distinguishedName) =>
+        TryParse(distinguishedName, out ParsedDistinguishedName parsed) && IsOrganizationalUnit(parsed);
+
+    internal static bool IsOrganizationalUnit(ParsedDistinguishedName parsed) =>
+        parsed.Rdns.Count > 0 && parsed.Rdns[0].Attributes.Count == 1 &&
+        string.Equals(parsed.Rdns[0].Attributes[0].Type, "OU", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>Detects duplicate saved OUs only; live directory GUIDs remain authoritative.</summary>
     internal static string GetComparisonKey(ParsedDistinguishedName parsed) => string.Join("|", parsed.Rdns.Select(rdn =>
         string.Join("+", rdn.Attributes.Select(attribute => $"{attribute.Type.ToUpperInvariant()}:{Convert.ToHexString(Encoding.UTF8.GetBytes(attribute.Value.ToUpperInvariant()))}").Order(StringComparer.Ordinal))));
 

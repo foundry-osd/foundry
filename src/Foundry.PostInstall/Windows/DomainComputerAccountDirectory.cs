@@ -22,8 +22,13 @@ internal interface IDomainComputerAccountDirectory : IDisposable
 }
 /// <summary>Directory identity captured on the chosen DC, including the live parent's identity for computers.</summary>
 internal sealed record DomainDirectoryObject(Guid Guid, string DistinguishedName, Guid? ParentGuid = null);
-/// <summary>A completed readiness read; null computer means no visible match, never proof of absolute absence.</summary>
-internal sealed record DomainDirectoryReady(string Domain, string Controller, DomainDirectoryObject? Destination, DomainDirectoryObject? Computer);
+/// <summary>
+/// A completed readiness read; null computer means no visible match, never proof of absolute absence.
+/// DestinationMissing means the directory answered that the requested OU does not exist or is not an
+/// organizational unit, so the join can still proceed in the domain's default location.
+/// </summary>
+internal sealed record DomainDirectoryReady(string Domain, string Controller, DomainDirectoryObject? Destination, DomainDirectoryObject? Computer,
+    bool DestinationMissing = false);
 /// <summary>
 /// Sanitized numeric diagnostics; Rejected indicates an acknowledged server rejection of a write, and Transient a
 /// readiness failure that happened before the supplied identity was evaluated: the controller could not be located
@@ -45,6 +50,7 @@ internal sealed class DomainComputerAccountDirectory : IDomainComputerAccountDir
     private static readonly TimeSpan RequestTimeout = TimeSpan.FromSeconds(10);
     private const int LdapServerDown = 81;
     private const int LdapConnectError = 91;
+    private const int NoSuchObject = 32;
     private const uint ForceRediscovery = 0x1;
     private LdapConnection? connection;
     private string domain = string.Empty;
@@ -113,8 +119,24 @@ internal sealed class DomainComputerAccountDirectory : IDomainComputerAccountDir
             !DistinguishedNameRules.IsWithinDomain(namingContext, domain)) throw new DomainDirectoryException();
         if (targetOuDn is null) return new(domain, controller, null, null);
         if (!DistinguishedNameRules.IsWithinDomain(targetOuDn, domain)) throw new DomainDirectoryException();
-        var target = await ReadBaseAsync(targetOuDn, "(objectClass=organizationalUnit)", token).ConfigureAwait(false);
+        var target = await FindOrganizationalUnitAsync(targetOuDn, token).ConfigureAwait(false);
+        if (target is null) return new(domain, controller, null, null, DestinationMissing: true);
         return new(domain, controller, target, await FindComputerAsync(computerName, token).ConfigureAwait(false));
+    }
+
+    /// <summary>Returns null only when the directory positively answers that no such organizational unit exists.</summary>
+    private async Task<DomainDirectoryObject?> FindOrganizationalUnitAsync(string dn, CancellationToken token)
+    {
+        try
+        {
+            var results = await SearchAsync(dn, "(objectClass=organizationalUnit)", SearchScope.Base, ["distinguishedName", "objectGUID"], token).ConfigureAwait(false);
+            if (results.Count > 1) throw new DomainDirectoryException();
+            return results.Count == 0 ? null : Parse(results[0]);
+        }
+        catch (DomainDirectoryException error) when (error.DirectoryResultCode == NoSuchObject)
+        {
+            return null;
+        }
     }
 
     public async Task<DomainDirectoryObject?> FindComputerAsync(string name, CancellationToken token)

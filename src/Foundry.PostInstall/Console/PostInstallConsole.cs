@@ -184,6 +184,8 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
         DomainJoinPhaseState.Unknown => "Domain join outcome unknown; membership is checked after restart",
         DomainJoinPhaseState.Succeeded => domain.Placement.State switch
         {
+            DomainJoinPhaseState.Failed when domain.Placement.FailureCode == DomainJoinFailureCode.OrganizationalUnitNotFound =>
+                "Domain joined in the default location; target OU not found",
             DomainJoinPhaseState.Failed => "Domain joined; target OU placement failed",
             DomainJoinPhaseState.Unverified or DomainJoinPhaseState.Unknown => "Domain joined; target OU placement not confirmed",
             _ => null

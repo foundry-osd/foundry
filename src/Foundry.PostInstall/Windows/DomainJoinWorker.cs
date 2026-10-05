@@ -7,6 +7,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Configuration;
 using Foundry.PostInstall.Execution;
+using Serilog;
 
 namespace Foundry.PostInstall.Windows;
 
@@ -38,6 +39,7 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
         var store = new DomainJoinPhaseStore(root, plan, planHash);
         using var lease = store.AcquireWorkerLease();
         var receipt = store.BindOrigin(originatingBoot);
+        Log.Information("Domain join worker started");
         using (directory)
         using (var budget = CancellationTokenSource.CreateLinkedTokenSource(token))
         {
@@ -96,7 +98,9 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
                 receipt = receipt with { Join = join, RestartRequired = join.State == DomainJoinPhaseState.Succeeded };
                 Save(DomainJoinReceiptPhase.JoinReturned);
                 if (join.State != DomainJoinPhaseState.Succeeded) return Finish(join, Skipped());
-                if (ready.Destination is null) return Finish(join, Skipped());
+                // A missing OU does not prevent the join: the account stays in the default location and placement is reported failed.
+                if (ready.Destination is null)
+                    return Finish(join, ready.DestinationMissing ? Failure(DomainJoinPhaseState.Failed, DomainJoinFailureCode.OrganizationalUnitNotFound) : Skipped());
                 DomainJoinPhaseResult placement;
                 try
                 {
@@ -152,6 +156,8 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
         {
             receipt = receipt with { Join = join, Placement = placement };
             Save(DomainJoinReceiptPhase.Finished);
+            Log.Information("Domain join worker finished; join {JoinState} ({JoinFailure}), placement {PlacementState} ({PlacementFailure})",
+                join.State, join.FailureCode, placement.State, placement.FailureCode);
             return new(receipt.Join, receipt.Placement, receipt.ComputerObjectGuid, receipt.RestartRequired);
         }
     }
@@ -163,7 +169,7 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
     private async Task<DomainDirectoryReady> WaitForDirectoryAsync(DomainJoinCredentialPayload credentials,
         DomainJoinActionParameters parameters, CancellationToken token)
     {
-        while (true)
+        for (int attempt = 1; ; attempt++)
         {
             try
             {
@@ -173,6 +179,8 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
             catch (DomainDirectoryException error) when (error.Transient)
             {
                 lastReadinessFailure = error;
+                Log.Warning("Domain controller not reachable yet; attempt {Attempt}, native {NativeErrorCode}, LDAP {LdapErrorCode}",
+                    attempt, error.NativeErrorCode, error.LdapErrorCode);
                 await delay(ReadinessRetryInterval, token).ConfigureAwait(false);
             }
         }
@@ -195,7 +203,9 @@ internal sealed class DomainJoinWorker(string root, PreOobeExecutionPlan plan, s
     private static void ValidateReady(DomainDirectoryReady ready, DomainJoinActionParameters parameters)
     {
         if (DomainJoinCredentialContext.CanonicalizeDomainName(ready.Domain) != DomainJoinCredentialContext.CanonicalizeDomainName(parameters.DomainName) ||
-            !DomainJoinCredentialContext.IsValidDomainName(ready.Controller) || (parameters.TargetOuDn is null) != (ready.Destination is null))
+            !DomainJoinCredentialContext.IsValidDomainName(ready.Controller) ||
+            ready.DestinationMissing && (parameters.TargetOuDn is null || ready.Destination is not null) ||
+            !ready.DestinationMissing && (parameters.TargetOuDn is null) != (ready.Destination is null))
             throw new InvalidDataException("Directory readiness is invalid.");
         if (ready.Destination is not null) ValidateObject(ready.Destination, parameters.DomainName);
         if (ready.Computer is not null) ValidateObject(ready.Computer, parameters.DomainName);

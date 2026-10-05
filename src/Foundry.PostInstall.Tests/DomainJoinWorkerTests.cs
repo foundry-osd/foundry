@@ -74,6 +74,20 @@ public sealed class DomainJoinWorkerTests
         Assert.Equal(1, f.Directory.Prepares);
     }
     [Fact]
+    public async Task MissingTargetOu_JoinsInTheDefaultLocationAndReportsPlacementFailure()
+    {
+        using var f = new DomainFixture();
+        f.Directory.MissingTargetOu = true;
+        var result = await f.Run();
+        Assert.Equal(DomainJoinPhaseState.Succeeded, result.Join.State);
+        Assert.True(result.RestartRequired);
+        Assert.Null(f.Native.CreationOu);
+        Assert.Equal(DomainJoinPhaseState.Failed, result.Placement.State);
+        Assert.Equal(DomainJoinFailureCode.OrganizationalUnitNotFound, result.Placement.FailureCode);
+        Assert.Equal(0, f.Directory.Moves);
+    }
+
+    [Fact]
     public async Task UnreachableDirectory_IsRetriedUntilReadyThenJoins()
     {
         using var f = new DomainFixture();
@@ -294,6 +308,7 @@ internal sealed class FakeDirectory : IDomainComputerAccountDirectory
     public DomainDirectoryObject? Existing;
     public Guid? NewParent;
     public bool ReadinessFailure;
+    public bool MissingTargetOu;
     public int TransientFailures;
     public bool DenyReadback;
     public bool LoseMoveResponse;
@@ -309,6 +324,7 @@ internal sealed class FakeDirectory : IDomainComputerAccountDirectory
         Prepares++; ObservedPassword = password; AfterPrepare?.Invoke();
         if (Prepares <= TransientFailures) throw new DomainDirectoryException(nativeError: 1355, transient: true);
         if (ReadinessFailure) throw new DomainDirectoryException(ldapError: 50);
+        if (MissingTargetOu && targetOuDn is not null) return Task.FromResult(new DomainDirectoryReady("example.test", "dc.example.test", null, null, DestinationMissing: true));
         return Task.FromResult(new DomainDirectoryReady("example.test", "dc.example.test", targetOuDn is null ? null : Target, Existing));
     }
     public Task<DomainDirectoryObject?> FindComputerAsync(string name, CancellationToken token) => Task.FromResult<DomainDirectoryObject?>(Computer with { ParentGuid = NewParent ?? Target.Guid });

@@ -9,6 +9,18 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class DistinguishedNameRulesTests
 {
     [Theory]
+    [InlineData("OU=Workstations,DC=corp,DC=test", true)]
+    [InlineData("ou=Laptops,OU=Workstations,DC=corp,DC=test", true)]
+    [InlineData("CN=Computers,DC=corp,DC=test", false)]
+    [InlineData("DC=corp,DC=test", false)]
+    [InlineData("OU=A+CN=B,DC=corp,DC=test", false)]
+    [InlineData("not-a-dn", false)]
+    public void OnlyAnOrganizationalUnitIsAJoinTarget(string distinguishedName, bool expected)
+    {
+        Assert.Equal(expected, DistinguishedNameRules.IsOrganizationalUnit(distinguishedName));
+    }
+
+    [Theory]
     [InlineData("OU=Sales\\, West,DC=contoso,DC=test", "Sales, West")]
     [InlineData("OU=Sales\\2C West,DC=contoso,DC=test", "Sales, West")]
     [InlineData("OU=\\C3\\89quipe,DC=contoso,DC=test", "Équipe")]

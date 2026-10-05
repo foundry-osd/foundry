@@ -40,11 +40,16 @@ public sealed class PostInstallConsoleTests
     [InlineData(DomainJoinPhaseState.Succeeded, DomainJoinPhaseState.Unverified, "Domain joined; target OU placement not confirmed")]
     [InlineData(DomainJoinPhaseState.Succeeded, DomainJoinPhaseState.Unknown, "Domain joined; target OU placement not confirmed")]
     [InlineData(DomainJoinPhaseState.Unknown, DomainJoinPhaseState.Skipped, "Domain join outcome unknown; membership is checked after restart")]
+    [InlineData(DomainJoinPhaseState.Succeeded, DomainJoinPhaseState.Failed, "Domain joined in the default location; target OU not found")]
     public void DomainOutcomes_ExplainUnconfirmedStates(DomainJoinPhaseState join, DomainJoinPhaseState placement, string expected)
     {
         using var f = new DomainFixture();
         var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); report.Seed();
-        DomainJoinResult result = report.Read() with { Join = new() { State = join }, Placement = new() { State = placement } };
+        DomainJoinResult result = report.Read() with
+        {
+            Join = new() { State = join },
+            Placement = new() { State = placement, FailureCode = placement == DomainJoinPhaseState.Failed ? DomainJoinFailureCode.OrganizationalUnitNotFound : null }
+        };
         using var output = new StringWriter();
         using var console = new PostInstallConsole(f.Plan, "test.log", output);
         console.Report(new([], "Running", DomainResult: result, WarningCount: 1));

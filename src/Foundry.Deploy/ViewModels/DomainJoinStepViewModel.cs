@@ -64,7 +64,8 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     public bool IsAccountInvalid => AccountName.Length > 0 && !DomainJoinConfigurationValidator.IsQualifiedAccount(AccountName);
 
-    public bool IsTypedOuInvalid => IsTypedOuVisible && TypedOu.Length > 0 && !DistinguishedNameRules.IsWithinDomain(TypedOu, DomainName);
+    public bool IsTypedOuInvalid => IsTypedOuVisible && TypedOu.Length > 0 &&
+        !(DistinguishedNameRules.IsOrganizationalUnit(TypedOu) && DistinguishedNameRules.IsWithinDomain(TypedOu, DomainName));
 
     /// <summary>Gets whether the wizard may leave the step and start a deployment with these inputs.</summary>
     public bool IsValid => !HasInput ||

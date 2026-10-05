@@ -21,7 +21,8 @@ public sealed class DomainJoinPreparedInput : IDisposable
         if (!DomainJoinCredentialContext.IsValidDomainName(credentialContext.DomainName) ||
             !DomainJoinConfigurationValidator.IsQualifiedAccount(credentialContext.AccountName) ||
             !ComputerNameRules.IsValid(computerName) ||
-            targetOuDn is not null && !DistinguishedNameRules.IsWithinDomain(targetOuDn, credentialContext.DomainName))
+            targetOuDn is not null && !(DistinguishedNameRules.IsOrganizationalUnit(targetOuDn) &&
+                DistinguishedNameRules.IsWithinDomain(targetOuDn, credentialContext.DomainName)))
             throw new ArgumentException("The prepared domain input is invalid.");
         byte[] validated = DomainJoinCredentialPayloadCodec.Encode(credentialContext, password);
         CryptographicOperations.ZeroMemory(validated);

@@ -85,6 +85,9 @@ public sealed class DomainJoinStepViewModelTests
         step.TypedOuDistinguishedName = "OU=Sales,DC=corp,DC=test";
         Assert.True(step.IsTypedOuInvalid);
 
+        step.TypedOuDistinguishedName = "CN=Computers,DC=other,DC=test";
+        Assert.True(step.IsTypedOuInvalid);
+
         step.TypedOuDistinguishedName = "OU=Field,DC=other,DC=test";
         Assert.False(step.IsTypedOuInvalid);
         Assert.Equal("OU=Field,DC=other,DC=test", step.EffectiveOuDistinguishedName);

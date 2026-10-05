@@ -47,7 +47,8 @@ public static class DomainJoinConfigurationValidator
             if (issueId is null) Add(DomainJoinValidationCode.InvalidOuId);
             else if (!ids.Add(unit.Id)) Add(DomainJoinValidationCode.DuplicateOuId, issueId);
             if (!IsRequiredBounded(unit.DisplayName, 120)) Add(DomainJoinValidationCode.InvalidOuDisplayName, issueId);
-            if (!DistinguishedNameRules.TryParse(unit.DistinguishedName, out ParsedDistinguishedName parsed))
+            if (!DistinguishedNameRules.TryParse(unit.DistinguishedName, out ParsedDistinguishedName parsed) ||
+                !DistinguishedNameRules.IsOrganizationalUnit(parsed))
                 Add(DomainJoinValidationCode.InvalidDistinguishedName, issueId);
             else
             {
