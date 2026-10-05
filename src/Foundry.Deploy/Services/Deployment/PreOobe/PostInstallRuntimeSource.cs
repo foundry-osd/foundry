@@ -54,7 +54,7 @@ internal static class PostInstallRuntimeSource
         }
     }
 
-    internal static void Validate(PostInstallRuntimeManifest manifest, string expectedRid)
+    private static void Validate(PostInstallRuntimeManifest manifest, string expectedRid)
     {
         if (manifest.SchemaVersion != 1 || manifest.ContractVersion != 1 ||
             expectedRid is not ("win-x64" or "win-arm64") || manifest.RuntimeIdentifier != expectedRid ||

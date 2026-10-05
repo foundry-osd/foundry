@@ -224,6 +224,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 _targetDiskService,
                 progress => StepProgressChanged?.Invoke(this, progress), domainJoinInput: domainJoinInput);
             await DeploymentRunContextLogger.AppendRunContextAsync(executionContext, cancellationToken).ConfigureAwait(false);
+            await PreOobe.DomainJoinRuntimeEligibility.ReportLaunchSkipAsync(executionContext, cancellationToken).ConfigureAwait(false);
 
             for (int i = 0; i < plan.Count; i++)
             {

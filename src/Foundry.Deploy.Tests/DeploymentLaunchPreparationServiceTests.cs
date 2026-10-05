@@ -11,7 +11,6 @@ using System.Text.Json;
 using Foundry.Utilities.Storage;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Security;
-using DomainJoinMode = Foundry.Core.Models.Configuration.DomainJoinMode;
 using DeployDomainJoinSettings = Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings;
 
 namespace Foundry.Deploy.Tests;
@@ -68,7 +67,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     [Fact]
-    public void ManualOnUnprotectedMediaPromptsBeforeErase()
+    public void InteractivePromptsBeforeDestructiveConfirmation()
     {
         using var keys = new DeploymentSecretKeySession();
         var dialog = new DomainJoinPreparationServiceTests.Dialog(new("corp.test", "CORP\\join", null, "secret".AsSpan()));
@@ -133,7 +132,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     [Fact]
-    public void UntransferredLaunchResultDisposesInputAfterUiSetupFailure()
+    public void DisposeClearsUntransferredInput()
     {
         var input = new DomainJoinPreparedInput(new("corp.test", "CORP\\join"), "LAB-01", null, "secret".AsSpan());
         ReadOnlyMemory<char> password = input.Password;
@@ -164,12 +163,11 @@ public sealed class DeploymentLaunchPreparationServiceTests
         Assert.False(dialog.WasShown);
         Assert.Null(result.TakeDomainJoinInput());
         Assert.Null(result.Context!.DomainJoinIntent);
-        Assert.Equal(DomainJoinMode.Interactive, result.Context.DomainJoinRequest!.Mode);
-        Assert.Equal(DomainJoinDeploymentDisposition.UnsupportedEdition, result.Context.DomainJoinRequest.Disposition);
+        Assert.Equal(DomainJoinDeploymentDisposition.UnsupportedEdition, result.Context.DomainJoinRequest!.Disposition);
     }
 
     [Fact]
-    public void DryRunPreservesModeWithoutCollectingCredentials()
+    public void DryRunDoesNotCollectCredentials()
     {
         using var keys = new DeploymentSecretKeySession();
         var dialog = new DomainJoinPreparationServiceTests.Dialog(null);
@@ -183,7 +181,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     [Fact]
-    public void LaunchResultTransfersInputOnceAndDisposesUntransferredPassword()
+    public void TransferredInputSurvivesResultDisposal()
     {
         using var keys = new DeploymentSecretKeySession();
         var service = new DeploymentLaunchPreparationService(new FakeApplicationShellService(),

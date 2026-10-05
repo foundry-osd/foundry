@@ -14,7 +14,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class FinalizeDeploymentAndWriteLogsStepTests
 {
     [Fact]
-    public async Task FinalizeRetainsDomainSkipWithoutPostInstallPlanOrFabricatedHash()
+    public async Task FinalizeRecordsDomainSkipInSummary()
     {
         var logs = new RecordingDomainLogService();
         using var fixture = new Fixture(logs);
@@ -26,8 +26,7 @@ public sealed class FinalizeDeploymentAndWriteLogsStepTests
         Assert.Equal((int)DomainJoinExecutionStatus.SkippedUnsupportedEdition, summary.RootElement.GetProperty("domainJoinStatus").GetInt32());
         Assert.Equal((int)DomainJoinSkipCode.UnsupportedEdition, summary.RootElement.GetProperty("domainJoinSkipCode").GetInt32());
         Assert.Equal(System.Text.Json.JsonValueKind.Null, summary.RootElement.GetProperty("preOobeManifestPath").ValueKind);
-        Assert.False(summary.RootElement.TryGetProperty("planHash", out _));
-        Assert.Contains(logs.Messages, entry => entry.Level == DeploymentLogLevel.Warning && entry.Message == "Domain joining skipped. Reason=UnsupportedEdition.");
+        Assert.DoesNotContain(logs.Messages, entry => entry.Message.StartsWith("Domain joining skipped.", StringComparison.Ordinal));
     }
 
     [Theory]

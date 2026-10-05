@@ -15,8 +15,7 @@ public sealed class DeploymentPlanTests
     {
         DeploymentContext request = Request() with
         {
-            DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive,
-                Services.DomainJoin.DomainJoinDeploymentDisposition.Ready),
+            DomainJoinRequest = new(Services.DomainJoin.DomainJoinDeploymentDisposition.Ready),
             DomainJoinIntent = new("example.com", "LAB01", null)
         };
         Assert.Contains(DeploymentPlan.Build(request), step => step.Name == DeploymentStepNames.StagePreOobeCustomization);

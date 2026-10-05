@@ -141,7 +141,6 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         EnsureWorkspaceFolders();
         LogSession = _deploymentLogService.Initialize(RuntimeState.WorkspaceRoot);
         DomainJoinInput = domainJoinInput;
-        PreOobe.DomainJoinRuntimeEligibility.Initialize(request, RuntimeState);
     }
 
     /// <summary>

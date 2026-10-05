@@ -19,6 +19,7 @@ public sealed partial class DeploymentPreparationViewModel
     private readonly UnattendContentService? _unattendContentService;
     private string? _unattendArchitecture;
     private string? _unattendValidationContext;
+    private bool _unattendRequiresDomainJoin;
     private string _unattendCatalogError = string.Empty;
 
     [ObservableProperty]
@@ -68,13 +69,14 @@ public sealed partial class DeploymentPreparationViewModel
         RevalidateUnattend();
     }
 
-    /// <summary>Rechecks file applicability when the target architecture or enrollment mode changes.</summary>
-    public void UpdateUnattendContext(string? architecture)
+    /// <summary>Rechecks file applicability when the target architecture, enrollment mode or domain join requirement changes.</summary>
+    public void UpdateUnattendContext(string? architecture, bool requiresDomainJoin = false)
     {
-        string context = $"{architecture}|{IsAutopilotEnabled}|{AutopilotProvisioningMode}";
+        string context = $"{architecture}|{IsAutopilotEnabled}|{AutopilotProvisioningMode}|{requiresDomainJoin}";
         if (context == _unattendValidationContext) return;
         _unattendValidationContext = context;
         _unattendArchitecture = architecture;
+        _unattendRequiresDomainJoin = requiresDomainJoin;
         RevalidateUnattend();
     }
 
@@ -126,7 +128,7 @@ public sealed partial class DeploymentPreparationViewModel
             {
                 if (_unattendContentService is null) throw new InvalidDataException();
                 using UnattendSnapshot snapshot = _unattendContentService.Read(SelectedUnattend, _unattendArchitecture,
-                    IsAutopilotEnabled, AutopilotProvisioningMode);
+                    IsAutopilotEnabled, AutopilotProvisioningMode, _unattendRequiresDomainJoin);
                 var warnings = new List<string> { GetString("Unattend.HookCompatibility") };
                 if (snapshot.Inspection.HasCommands) warnings.Add(GetString("Unattend.CommandsWarning"));
                 if (IsAutopilotEnabled && IsHardwareHashUploadMode) warnings.Add(GetString("Unattend.HashWarning"));

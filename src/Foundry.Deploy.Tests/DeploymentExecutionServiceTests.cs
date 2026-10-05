@@ -19,7 +19,7 @@ public sealed class DeploymentExecutionServiceTests
     [InlineData("canceled")]
     [InlineData("failed")]
     [InlineData("success")]
-    public async Task BusyDeniedCanceledLaunchDisposesInput(string exit)
+    public async Task ExecuteAsync_DisposesDomainInputOnEveryExit(string exit)
     {
         using var cancellation = new CancellationTokenSource();
         if (exit == "canceled") cancellation.Cancel();
@@ -35,7 +35,7 @@ public sealed class DeploymentExecutionServiceTests
         ReadOnlyMemory<char> password = input.Password;
         DeploymentContext request = CreateContext() with
         {
-            DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, DomainJoinDeploymentDisposition.Ready),
+            DomainJoinRequest = new(DomainJoinDeploymentDisposition.Ready),
             DomainJoinIntent = new("corp.test", "TEST-PC", null)
         };
 

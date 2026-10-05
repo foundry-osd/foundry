@@ -15,6 +15,9 @@ public sealed class DeploymentLaunchPreparationResult : IDisposable
     public DomainJoinPreparedInput? TakeDomainJoinInput() => Interlocked.Exchange(ref domainJoinInput, null);
     public void Dispose() => TakeDomainJoinInput()?.Dispose();
     public string? FailureMessage { get; init; }
+
+    /// <summary>Indicates that <see cref="FailureMessage"/> invalidates the selected answer file rather than the launch attempt.</summary>
+    public bool IsUnattendFailure { get; init; }
     public required bool IsReadyToStart { get; init; }
     public required string NormalizedComputerName { get; init; }
     public TargetDiskInfo? EffectiveTargetDisk { get; init; }
@@ -25,6 +28,17 @@ public sealed class DeploymentLaunchPreparationResult : IDisposable
         return new DeploymentLaunchPreparationResult
         {
             FailureMessage = failureMessage,
+            IsReadyToStart = false,
+            NormalizedComputerName = normalizedComputerName
+        };
+    }
+
+    public static DeploymentLaunchPreparationResult UnattendFailure(string normalizedComputerName, string failureMessage)
+    {
+        return new DeploymentLaunchPreparationResult
+        {
+            FailureMessage = failureMessage,
+            IsUnattendFailure = true,
             IsReadyToStart = false,
             NormalizedComputerName = normalizedComputerName
         };

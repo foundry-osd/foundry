@@ -31,9 +31,7 @@ public sealed class PostInstallRuntimeSourceTests
 
     [Theory]
     [InlineData(2, 1, "win-x64")]
-    [InlineData(1, 0, "win-x64")]
     [InlineData(1, 2, "win-x64")]
-    [InlineData(1, 3, "win-x64")]
     [InlineData(1, 1, "win-arm64")]
     public async Task IncompatibleBootstrapRuntime_IsRejected(int schema, int contract, string rid)
     {

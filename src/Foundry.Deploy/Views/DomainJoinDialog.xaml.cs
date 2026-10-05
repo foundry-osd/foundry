@@ -49,23 +49,28 @@ public partial class DomainJoinDialog : Window
 
     private void RefreshDestinations()
     {
-        if (DestinationInput is null || OptionalDestinationPanel is null || DestinationError is null) return;
+        if (DestinationInput is null || OptionalDestinationPanel is null || InputError is null) return;
         bool compatible = DomainJoinPreparationService.HasCompatibleCatalog(settings, DomainInput.Text);
         DestinationPanel.Visibility = compatible && settings.AllowOuSelectionDuringDeployment ? Visibility.Visible : Visibility.Collapsed;
         OptionalDestinationPanel.Visibility = requiresCredentials && !compatible ? Visibility.Visible : Visibility.Collapsed;
         DestinationInput.IsEnabled = compatible;
-        DestinationInput.SelectedItem = compatible && settings.DefaultOuId is { } id
-            ? settings.OrganizationalUnits.FirstOrDefault(unit => string.Equals(unit.Id, id, StringComparison.OrdinalIgnoreCase))
-            : null;
-        DestinationError.Visibility = Visibility.Collapsed;
+        DestinationInput.SelectedItem = DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(settings, DomainInput.Text);
+        InputError.Visibility = Visibility.Collapsed;
     }
 
     private void ContinueButton_OnClick(object sender, RoutedEventArgs e)
     {
+        if (requiresCredentials && FindInvalidCredentialInput() is { } invalidInput)
+        {
+            InputError.Text = localization.Strings["DomainJoin.Invalid"];
+            InputError.Visibility = Visibility.Visible;
+            invalidInput.Focus();
+            return;
+        }
         if (DestinationPanel.IsVisible && DestinationInput.SelectedItem is not DomainJoinOrganizationalUnitSettings)
         {
-            DestinationError.Text = localization.Strings["DomainJoin.DestinationRequired"];
-            DestinationError.Visibility = Visibility.Visible;
+            InputError.Text = localization.Strings["DomainJoin.DestinationRequired"];
+            InputError.Visibility = Visibility.Visible;
             DestinationInput.Focus();
             return;
         }
@@ -73,8 +78,8 @@ public partial class DomainJoinDialog : Window
             ? OptionalDestinationInput.Text : null;
         if (destinationDn is not null && !DistinguishedNameRules.IsWithinDomain(destinationDn, DomainInput.Text))
         {
-            DestinationError.Text = localization.Strings["DomainJoin.DestinationInvalid"];
-            DestinationError.Visibility = Visibility.Visible;
+            InputError.Text = localization.Strings["DomainJoin.DestinationInvalid"];
+            InputError.Visibility = Visibility.Visible;
             OptionalDestinationInput.Focus();
             return;
         }
@@ -98,5 +103,13 @@ public partial class DomainJoinDialog : Window
             CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(characters.AsSpan()));
             PasswordInput.Clear();
         }
+    }
+
+    private Control? FindInvalidCredentialInput()
+    {
+        if (!DomainJoinCredentialContext.IsValidDomainName(DomainInput.Text)) return DomainInput;
+        if (!DomainJoinConfigurationValidator.IsQualifiedAccount(AccountInput.Text)) return AccountInput;
+        using var password = PasswordInput.SecurePassword;
+        return password.Length == 0 ? PasswordInput : null;
     }
 }

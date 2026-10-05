@@ -29,7 +29,7 @@ public sealed class DeploymentPreflightTests
     public async Task InitialOrchestratedPlanIncludesDomainOnlyStaging()
     {
         using var fixture = new PipelineFixture { Failure = "dead_url" };
-        fixture.DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
+        fixture.DomainJoinRequest = new(Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
         fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
         using var input = new Services.DomainJoin.DomainJoinPreparedInput(new("corp.test", "CORP\\joiner"), "LAB01", null, "secret");
         await fixture.RunOrchestratedAsync(input);
@@ -49,7 +49,7 @@ public sealed class DeploymentPreflightTests
                 ? "<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-UnattendedJoin\" processorArchitecture=\"amd64\"><Identification /></component></settings></unattend>"
                 : "<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\"><ComputerName>LAB01</ComputerName></component></settings></unattend>"
         };
-        fixture.DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
+        fixture.DomainJoinRequest = new(Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
         fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
         var result = await fixture.RunAsync();
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
@@ -61,31 +61,15 @@ public sealed class DeploymentPreflightTests
     }
 
     [Fact]
-    public async Task DomainContractOneRuntimeRemainsValidBeforeErasure()
-    {
-        using var fixture = new PipelineFixture { Mode = DeploymentMode.Iso };
-        fixture.DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
-        fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
-        using var context = fixture.CreateContext();
-        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Preflight.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
-        context.PostInstallContent!.Dispose();
-        context.PostInstallContent = NativeRuntimeFixture.Create(Path.Combine(fixture.Root, "replacement"));
-        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
-        Assert.Equal(1, context.PostInstallContent.RuntimeManifest.ContractVersion);
-        Assert.Contains("partition", fixture.Events);
-    }
-
-    [Fact]
-    public async Task ActiveDomainContractOneRuntimeIsPreparedBeforeDiskPreparation()
+    public async Task DomainOnlyDeploymentPreparesPostInstallRuntimeBeforeDiskPreparation()
     {
         using var fixture = new PipelineFixture();
-        fixture.DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
+        fixture.DomainJoinRequest = new(Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
         fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
         using var context = fixture.CreateContext();
         var resolver = new PreOobeContentResolver { RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(fixture.Root) };
         var result = await fixture.CreatePostInstallPreflight(resolver).ExecuteAsync(context, TestContext.Current.CancellationToken);
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
-        Assert.Equal(1, context.PostInstallContent!.RuntimeManifest.ContractVersion);
         Assert.DoesNotContain("partition", fixture.Events);
     }
 
@@ -93,8 +77,7 @@ public sealed class DeploymentPreflightTests
     public async Task MissingPreparedDomainInputNeverErasesDisk()
     {
         using var fixture = new PipelineFixture();
-        fixture.DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive,
-            Foundry.Deploy.Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
+        fixture.DomainJoinRequest = new(Foundry.Deploy.Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
         fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
         DeploymentResult result = await fixture.RunOrchestratedAsync();
         Assert.False(result.IsSuccess);
@@ -748,13 +731,15 @@ public sealed class DeploymentPreflightTests
 
         public DeploymentStepExecutionContext CreateContext()
         {
-            Context = new DeploymentStepExecutionContext(CreateRequest(),
-                new DeploymentRuntimeState
-                {
-                    WorkspaceRoot = Path.Combine(Root, "Workspace"),
-                    Mode = Mode,
-                    ResolvedCache = new CacheResolution { RootPath = Failure == "ram_cache" ? @"X:\Cache" : CacheRoot, Source = "test" }
-                }, [], new DriverApplicationOperationProgressService(), new DriverApplicationLogService(), new PipelineDisks(this), Progress.Add,
+            DeploymentContext request = CreateRequest();
+            var runtimeState = new DeploymentRuntimeState
+            {
+                WorkspaceRoot = Path.Combine(Root, "Workspace"),
+                Mode = Mode,
+                ResolvedCache = new CacheResolution { RootPath = Failure == "ram_cache" ? @"X:\Cache" : CacheRoot, Source = "test" }
+            };
+            DomainJoinRuntimeEligibility.Initialize(request, runtimeState);
+            Context = new DeploymentStepExecutionContext(request, runtimeState, [], new DriverApplicationOperationProgressService(), new DriverApplicationLogService(), new PipelineDisks(this), Progress.Add,
                 domainJoinInput: DomainJoinRequest?.Disposition == Services.DomainJoin.DomainJoinDeploymentDisposition.Ready
                     ? new(new("corp.test", "CORP\\joiner"), "LAB01", null, "secret") : null);
             return Context;

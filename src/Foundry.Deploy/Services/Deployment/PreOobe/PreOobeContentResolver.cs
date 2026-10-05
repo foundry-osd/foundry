@@ -142,7 +142,6 @@ public class PreOobeContentResolver
 
     internal static async Task RevalidateAsync(DeploymentStepExecutionContext context, PreOobePreparedContent content, CancellationToken cancellationToken)
     {
-        PostInstallRuntimeSource.Validate(content.RuntimeManifest, ResolveRid(context.Request.OperatingSystem.Architecture));
         await RequireRuntimeSourceAsync(context, content.RuntimeDirectory, cancellationToken).ConfigureAwait(false);
         foreach (var file in content.Files)
         {

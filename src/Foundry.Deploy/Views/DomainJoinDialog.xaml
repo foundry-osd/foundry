@@ -72,8 +72,9 @@
                 Text="{Binding [DomainJoin.OptionalDestinationHint]}"
                 TextWrapping="Wrap" />
         </StackPanel>
-        <TextBlock x:Name="DestinationError"
+        <TextBlock x:Name="InputError"
             Margin="0,12,0,0"
+            Foreground="{DynamicResource SystemFillColorCriticalBrush}"
             TextWrapping="Wrap"
             Visibility="Collapsed" />
         <StackPanel

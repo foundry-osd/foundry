@@ -8,6 +8,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
+using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Security;
 
 namespace Foundry.Deploy.Services.DomainJoin;
@@ -89,10 +90,30 @@ public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialog
     }
 
     /// <summary>Determines whether authored destinations can be offered for the submitted domain.</summary>
-    internal static bool HasCompatibleCatalog(DeployDomainJoinSettings settings, string domain) =>
+    internal static bool HasCompatibleCatalog(DeployDomainJoinSettings settings, string? domain) =>
         settings.OrganizationalUnits.Count > 0 && DomainJoinCredentialContext.IsValidDomainName(domain) &&
         string.Equals(DomainJoinCredentialContext.CanonicalizeDomainName(domain),
             DomainJoinCredentialContext.CanonicalizeDomainName(settings.OuCatalogDomain ?? ""), StringComparison.Ordinal);
+
+    /// <summary>Resolves the authored default OU for the domain; <see langword="null"/> means the domain default location.</summary>
+    internal static DomainJoinOrganizationalUnitSettings? ResolveDefaultOrganizationalUnit(DeployDomainJoinSettings settings, string? domain) =>
+        settings.DefaultOuId is { } id && HasCompatibleCatalog(settings, domain)
+            ? settings.OrganizationalUnits.FirstOrDefault(unit => string.Equals(unit.Id, id, StringComparison.OrdinalIgnoreCase))
+            : null;
+
+    /// <summary>Determines whether the OU is only known at launch because the domain or the OU itself is asked then.</summary>
+    internal static bool IsOrganizationalUnitChosenAtLaunch(DeployDomainJoinSettings settings) =>
+        !DomainJoinCredentialContext.IsValidDomainName(settings.DomainName) ||
+        settings.AllowOuSelectionDuringDeployment && HasCompatibleCatalog(settings, settings.DomainName);
+
+    /// <summary>Determines whether the join applies to the selected image; positively unsupported editions skip it.</summary>
+    internal static bool IsRequiredFor(DeployDomainJoinSettings? settings, OperatingSystemMetadata? operatingSystem)
+    {
+        if (settings?.IsEnabled != true) return false;
+        string? edition = operatingSystem?.Edition;
+        string? editionId = operatingSystem is OperatingSystemCatalogItem ? WindowsEditionCatalog.Find(edition)?.EditionId ?? edition : edition;
+        return DomainJoinEditionRules.Evaluate(editionId) != DomainJoinEditionSupport.Unsupported;
+    }
 
     private static string? ResolveDestination(DeployDomainJoinSettings settings, string domain, string? selectedId, string? destinationDn)
     {
@@ -126,7 +147,7 @@ public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialog
 }
 
 /// <summary>Defines stable non-secret launch failures; exception text never crosses preparation boundaries.</summary>
-public enum DomainJoinPreparationFailure { MetadataInvalid, CredentialsInvalid, UnlockRequired, UnsupportedEdition }
+public enum DomainJoinPreparationFailure { MetadataInvalid, CredentialsInvalid, UnlockRequired }
 /// <summary>Cancellation never authorizes continuing to destructive confirmation.</summary>
 public enum DomainJoinPreparationStatus { Ready, Canceled, Invalid }
 

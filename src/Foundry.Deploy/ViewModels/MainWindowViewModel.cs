@@ -15,6 +15,7 @@ using Foundry.Deploy;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Security;
@@ -27,6 +28,7 @@ using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Localization;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
+using DeployDomainJoinSettings = Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings;
 using Microsoft.Extensions.Logging;
 using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
 
@@ -55,6 +57,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private Task? _initializationTask;
     private readonly CancellationTokenSource _startupCancellation = new();
     private CancellationTokenSource? _deploymentCancellation;
+    private string? _launchFailureMessage;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(PreviousWizardStepCommand))]
@@ -371,6 +374,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private async Task StartDeploymentAsync()
     {
         _logger.LogInformation("Start deployment requested.");
+        ReportLaunchFailure(null);
         DriverPackSelectionKind effectiveDriverPackKind = DriverPackSelection.EffectiveSelectionKind;
         DriverPackCatalogItem? effectiveDriverPack = DriverPackSelection.ResolveEffectiveSelection();
         using DeploymentLaunchPreparationResult launchPreparation = _deploymentLaunchPreparationService.Prepare(
@@ -408,8 +412,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         if (!launchPreparation.IsReadyToStart || launchPreparation.Context is null)
         {
-            if (launchPreparation.FailureMessage is not null)
-                Preparation.ReportUnattendFailure(launchPreparation.FailureMessage);
+            if (launchPreparation.IsUnattendFailure)
+                Preparation.ReportUnattendFailure(launchPreparation.FailureMessage!);
+            else
+                ReportLaunchFailure(launchPreparation.FailureMessage);
             return;
         }
 
@@ -440,6 +446,18 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 _deploymentCancellation = null;
             });
         }
+    }
+
+    /// <summary>Shows a launch failure in the review summary without invalidating any wizard selection, so Start stays available.</summary>
+    private void ReportLaunchFailure(string? message)
+    {
+        if (string.Equals(_launchFailureMessage, message, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        _launchFailureMessage = message;
+        RefreshSummaryCategories();
     }
 
     [RelayCommand(CanExecute = nameof(CanCancelDeployment))]
@@ -518,6 +536,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     private void OnWizardContextStateChanged(object? sender, EventArgs e)
     {
+        _launchFailureMessage = null;
         RefreshWizardSteps();
         RefreshSummaryCategories();
         OnPropertyChanged(nameof(EffectiveOsArchitecture));
@@ -708,7 +727,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             TargetSummary = Preparation.EffectiveComputerName,
             IsTargetConfigured = Preparation.IsUnattendSelectionValid && Preparation.IsTargetComputerNameValid &&
                                  (IsDebugSafeMode || Preparation.SelectedTargetDisk?.IsSelectable == true),
-            HasTargetWarning = Preparation.HasUnattendWarning || Preparation.HasUnattendValidationError || Preparation.SelectedTargetDisk is { IsSelectable: false },
+            HasTargetWarning = Preparation.HasUnattendWarning || Preparation.HasUnattendValidationError || _launchFailureMessage is not null ||
+                               Preparation.SelectedTargetDisk is { IsSelectable: false },
             TargetRows = BuildTargetSummaryRows(),
             OperatingSystemSummary = SummaryOperatingSystemText,
             IsOperatingSystemConfigured = operatingSystem is not null,
@@ -789,13 +809,25 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         {
             rows.Add(DeploymentSummaryRowViewModel.Section(GetString("DomainJoin.Title")));
             rows.Add(new(GetString("DomainJoin.Domain"), _wizardContext.DomainJoin.DomainName ?? GetString("DomainJoin.PromptAtLaunch")));
-            string? destination = _wizardContext.DomainJoin.OrganizationalUnits.FirstOrDefault(unit =>
-                string.Equals(unit.Id, _wizardContext.DomainJoin.DefaultOuId, StringComparison.OrdinalIgnoreCase))?.DistinguishedName;
-            rows.Add(new(GetString("DomainJoin.Destination"), destination ?? GetString("DomainJoin.DefaultDestination")));
+            rows.Add(new(GetString("DomainJoin.Destination"), ResolveDomainJoinOrganizationalUnitText()));
         }
         if (Preparation.HasUnattendValidationError)
             rows.Add(new(GetString("Summary.Status"), Preparation.UnattendValidationMessage));
+        else if (_launchFailureMessage is not null)
+            rows.Add(new(GetString("Summary.Status"), _launchFailureMessage));
         return rows;
+    }
+
+    private string ResolveDomainJoinOrganizationalUnitText()
+    {
+        DeployDomainJoinSettings settings = _wizardContext.DomainJoin;
+        if (DomainJoinPreparationService.IsOrganizationalUnitChosenAtLaunch(settings))
+        {
+            return GetString("DomainJoin.PromptAtLaunch");
+        }
+
+        return DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(settings, settings.DomainName)?.DistinguishedName
+            ?? GetString("DomainJoin.DefaultDestination");
     }
 
     private IReadOnlyList<DeploymentSummaryRowViewModel> BuildDriverSummaryRows()

@@ -25,7 +25,7 @@ public sealed class ValidateCustomUnattendStep(UnattendContentService contentSer
             context.Request.DomainJoinRequest?.Disposition is DomainJoin.DomainJoinDeploymentDisposition.Ready or DomainJoin.DomainJoinDeploymentDisposition.DryRun);
         if (context.Request.DomainJoinIntent is { } intent && !string.Equals(
             context.UnattendSnapshot.Inspection.ConcreteComputerName, intent.ComputerName, StringComparison.Ordinal))
-            return DeploymentStepResult.Failed("The custom answer-file computer name differs from the confirmed domain name.",
+            return DeploymentStepResult.Failed("The custom answer-file computer name differs from the computer name confirmed for the domain join.",
                 DeploymentFailure.Guard(DeploymentOperationNames.ValidateTarget, DeploymentFailureReasons.InvalidInput,
                     "domain_custom_name_mismatch"));
         if (PreOobe.PreOobeContentResolver.IsRequired(context.Request))

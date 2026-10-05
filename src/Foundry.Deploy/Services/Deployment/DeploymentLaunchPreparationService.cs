@@ -10,8 +10,9 @@ using Foundry.Utilities.Storage;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Core.Services.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using DeployDomainJoinSettings = Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings;
-using WindowsEditionCatalog = Foundry.Core.Models.Configuration.WindowsEditionCatalog;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -23,13 +24,15 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
     private readonly IApplicationShellService _applicationShellService;
     private readonly Unattend.UnattendContentService? _unattendContentService;
     private readonly IDomainJoinPreparationService? _domainJoinPreparationService;
+    private readonly ILogger<DeploymentLaunchPreparationService> _logger;
 
     public DeploymentLaunchPreparationService(IApplicationShellService applicationShellService, Unattend.UnattendContentService? unattendContentService = null,
-        IDomainJoinPreparationService? domainJoinPreparationService = null)
+        IDomainJoinPreparationService? domainJoinPreparationService = null, ILogger<DeploymentLaunchPreparationService>? logger = null)
     {
         _applicationShellService = applicationShellService;
         _unattendContentService = unattendContentService;
         _domainJoinPreparationService = domainJoinPreparationService;
+        _logger = logger ?? NullLogger<DeploymentLaunchPreparationService>.Instance;
     }
 
     /// <summary>
@@ -53,11 +56,8 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
         if (requestedDomainJoin && (request.IsAutopilotEnabled ||
             !DomainJoinConfigurationValidator.ValidateMetadata(DomainJoinPreparationService.ToAuthored(domainJoin!)).IsValid))
             return DeploymentLaunchPreparationResult.Failure(request.TargetComputerName, LocalizationText.GetString("DomainJoin.Invalid"));
-        string edition = request.SelectedOperatingSystem.Edition;
-        string editionId = request.SelectedOperatingSystem is OperatingSystemCatalogItem
-            ? WindowsEditionCatalog.Find(edition)?.EditionId ?? edition : edition;
-        bool unsupportedDomainJoin = requestedDomainJoin && DomainJoinEditionRules.Evaluate(editionId) == DomainJoinEditionSupport.Unsupported;
-        bool requiresDomainJoin = requestedDomainJoin && !unsupportedDomainJoin;
+        bool requiresDomainJoin = DomainJoinPreparationService.IsRequiredFor(domainJoin, request.SelectedOperatingSystem);
+        bool unsupportedDomainJoin = requestedDomainJoin && !requiresDomainJoin;
 
         string normalizedComputerName = ComputerNameRules.Normalize(request.TargetComputerName);
         if (!request.UsesCustomUnattend && !ComputerNameRules.IsValid(normalizedComputerName))
@@ -78,7 +78,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             }
             catch (Exception ex) when (ex is global::System.IO.InvalidDataException or global::System.IO.IOException or InvalidOperationException)
             {
-                return DeploymentLaunchPreparationResult.Failure(normalizedComputerName, LocalizationText.GetString(
+                return DeploymentLaunchPreparationResult.UnattendFailure(normalizedComputerName, LocalizationText.GetString(
                     ex is InvalidOperationException ? "Unattend.AutopilotConflict" : "Unattend.Invalid"));
             }
         }
@@ -128,21 +128,23 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
         {
             DomainJoinDeploymentDisposition disposition = unsupportedDomainJoin ? DomainJoinDeploymentDisposition.UnsupportedEdition :
                 request.IsDryRun ? DomainJoinDeploymentDisposition.DryRun : DomainJoinDeploymentDisposition.Ready;
-            domainRequest = new(domainJoin!.Mode, disposition,
-                unsupportedDomainJoin ? DomainJoinPreparationFailure.UnsupportedEdition : null);
+            domainRequest = new(disposition);
             if (disposition == DomainJoinDeploymentDisposition.Ready)
             {
+                if (prepared?.Status == DomainJoinPreparationStatus.Canceled)
+                    return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
                 if (prepared?.Status != DomainJoinPreparationStatus.Ready || prepared.Input is null)
-                    return DeploymentLaunchPreparationResult.Failure(normalizedComputerName,
-                        prepared?.Status == DomainJoinPreparationStatus.Canceled ? null : LocalizationText.GetString("DomainJoin.Invalid"));
+                {
+                    _logger.LogWarning("Domain join preparation failed before deployment start. FailureCode={FailureCode}", prepared?.FailureCode);
+                    return DeploymentLaunchPreparationResult.Failure(normalizedComputerName, LocalizationText.GetString("DomainJoin.Invalid"));
+                }
                 domainIntent = new(prepared.Input.CredentialContext.DomainName, prepared.Input.ComputerName, prepared.Input.TargetOuDn);
             }
             else if (disposition == DomainJoinDeploymentDisposition.DryRun &&
-                Foundry.Core.Models.Configuration.DomainJoinCredentialContext.IsValidDomainName(domainJoin.DomainName))
+                Foundry.Core.Models.Configuration.DomainJoinCredentialContext.IsValidDomainName(domainJoin!.DomainName))
             {
-                string? destination = domainJoin.OrganizationalUnits.FirstOrDefault(unit =>
-                    string.Equals(unit.Id, domainJoin.DefaultOuId, StringComparison.OrdinalIgnoreCase))?.DistinguishedName;
-                domainIntent = new(domainJoin.DomainName!, normalizedComputerName, destination);
+                domainIntent = new(domainJoin.DomainName!, normalizedComputerName,
+                    DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(domainJoin, domainJoin.DomainName)?.DistinguishedName);
             }
         }
 
@@ -194,7 +196,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
     /// <param name="operatingSystem">The operating system image that will be applied.</param>
     /// <param name="request">Effective customization and answer-file ownership shown in the confirmation.</param>
     /// <param name="hasCustomCommands">Whether preserved commands require an overlap warning.</param>
-    /// <param name="domainRequest">Secret-free mode and any intentional edition skip.</param>
+    /// <param name="domainRequest">Secret-free disposition, including any intentional edition skip.</param>
     /// <param name="domainIntent">Frozen domain and destination shown in the final review.</param>
     /// <returns><see langword="true"/> when the user confirms the destructive operation.</returns>
     private bool ConfirmDestructiveDeployment(TargetDiskInfo targetDisk, OperatingSystemMetadata operatingSystem, DeploymentLaunchRequest request, bool hasCustomCommands,

@@ -194,7 +194,7 @@ public sealed class DomainJoinPreparationServiceTests
     }
 
     [Fact]
-    public void ManualOnUnprotectedMediaPromptsBeforeErase()
+    public void InteractiveCollectsCredentialsWithoutMediaUnlock()
     {
         using var keys = new DeploymentSecretKeySession();
         var dialog = new Dialog(new("corp.test", "CORP\\join", null, " secret ".AsSpan()));
@@ -285,13 +285,35 @@ public sealed class DomainJoinPreparationServiceTests
     [InlineData("corp.test", "", "secret")]
     [InlineData("corp.test", "join", "secret")]
     [InlineData("corp.test", "CORP\\join", "")]
-    public void MissingOrInvalidManualCredentialsFailClosed(string domain, string account, string password)
+    public void MissingOrInvalidInteractiveCredentialsFailClosed(string domain, string account, string password)
     {
         using var keys = new DeploymentSecretKeySession();
         var service = new DomainJoinPreparationService(new Dialog(new(domain, account, null, password.AsSpan())), keys);
         using DomainJoinPreparationResult result = service.Prepare(new() { IsEnabled = true }, "LAB-01");
         Assert.Equal(DomainJoinPreparationStatus.Invalid, result.Status);
         Assert.Null(result.Input);
+    }
+
+    [Theory]
+    [InlineData("corp.test", "corp.test", "sales", false, "OU=Sales,DC=corp,DC=test", false)]
+    [InlineData("corp.test", "corp.test", "sales", true, "OU=Sales,DC=corp,DC=test", true)]
+    [InlineData("corp.test", "corp.test", null, false, null, false)]
+    [InlineData("corp.test", "other.test", "sales", true, null, false)]
+    [InlineData(null, "corp.test", "sales", false, null, true)]
+    public void DefaultOrganizationalUnitFollowsDomainCatalogAndLaunchChoice(string? domain, string catalogDomain, string? defaultOuId,
+        bool allowSelection, string? expectedDefaultDn, bool chosenAtLaunch)
+    {
+        var settings = new DeployDomainJoinSettings
+        {
+            IsEnabled = true,
+            DomainName = domain,
+            OuCatalogDomain = catalogDomain,
+            DefaultOuId = defaultOuId,
+            AllowOuSelectionDuringDeployment = allowSelection,
+            OrganizationalUnits = [new() { Id = "sales", DisplayName = "Sales", DistinguishedName = "OU=Sales,DC=corp,DC=test" }]
+        };
+        Assert.Equal(expectedDefaultDn, DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(settings, domain)?.DistinguishedName);
+        Assert.Equal(chosenAtLaunch, DomainJoinPreparationService.IsOrganizationalUnitChosenAtLaunch(settings));
     }
 
     internal static DeployDomainJoinSettings Automatic(DomainJoinCredentialContext context, byte[] key)

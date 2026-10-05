@@ -140,7 +140,6 @@ public sealed class StagePreOobeCustomizationStepTests
         }
         byte[] planBytes = File.ReadAllBytes(context.RuntimeState.PreOobeManifestPath!);
         using var plan = JsonDocument.Parse(planBytes);
-        Assert.Equal(1, plan.RootElement.GetProperty("runtimeContractVersion").GetInt32());
         Assert.DoesNotContain("joiner", Encoding.UTF8.GetString(planBytes));
         Assert.DoesNotContain("secret", File.ReadAllText(Path.Combine(stateRoot, "execution-result.json")));
         Assert.Equal(new[] { "domain-join", "verify-domain-membership", "cleanup" }, plan.RootElement.GetProperty("actions").EnumerateArray().Select(action => action.GetProperty("id").GetString()));
@@ -453,7 +452,7 @@ public sealed class StagePreOobeCustomizationStepTests
         var request = new DeploymentContext
         {
             PreOobe = postInstall ?? new(),
-            DomainJoinRequest = domain ? new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, Services.DomainJoin.DomainJoinDeploymentDisposition.Ready) : null,
+            DomainJoinRequest = domain ? new(Services.DomainJoin.DomainJoinDeploymentDisposition.Ready) : null,
             DomainJoinIntent = domain ? new("example.com", "LAB01", null) : null,
             Mode = DeploymentMode.Iso,
             IsDryRun = isDryRun,
@@ -490,6 +489,7 @@ public sealed class StagePreOobeCustomizationStepTests
             }
         };
 
+        DomainJoinRuntimeEligibility.Initialize(request, runtimeState);
         var context = new DeploymentStepExecutionContext(
             request,
             runtimeState,

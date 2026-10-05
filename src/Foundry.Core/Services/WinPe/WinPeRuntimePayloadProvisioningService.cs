@@ -477,7 +477,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                     Sha256 = (await FileHash.ComputeSha256Async(path, cancellationToken).ConfigureAwait(false)).ToLowerInvariant()
                 });
             }
-            var manifest = new Models.PreOobe.PostInstallRuntimeManifest { ContractVersion = 1, RuntimeIdentifier = runtimeIdentifier, Files = files };
+            var manifest = new Models.PreOobe.PostInstallRuntimeManifest { RuntimeIdentifier = runtimeIdentifier, Files = files };
             await File.WriteAllTextAsync(Path.Combine(publishDirectory, Models.PreOobe.PostInstallRuntimeManifest.FileName),
                 JsonSerializer.Serialize(manifest, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }), cancellationToken).ConfigureAwait(false);
         }

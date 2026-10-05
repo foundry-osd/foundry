@@ -115,9 +115,17 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         await PreOobe.DomainJoinRuntimeEligibility.ConfirmEditionAsync(context, metadata.EditionId, cancellationToken).ConfigureAwait(false);
         if (PreOobe.PreOobeContentResolver.HasDomainTasks(context.Request, context.RuntimeState))
         {
-            if (_postInstallPrecedence is null) throw new InvalidOperationException("Post-installation answer-file inspection is unavailable.");
-            var composition = await _postInstallPrecedence.CheckDomainCompositionAsync(context.RuntimeState.TargetWindowsPartitionRoot,
-                context.Request.OperatingSystem.Architecture, context.Request.DomainJoinIntent!.ComputerName, context.Request.UsesCustomUnattend, cancellationToken).ConfigureAwait(false);
+            Unattend.DomainCompositionResult composition;
+            try
+            {
+                if (_postInstallPrecedence is null) throw new InvalidOperationException("Post-installation answer-file inspection is unavailable.");
+                composition = await _postInstallPrecedence.CheckDomainCompositionAsync(context.RuntimeState.TargetWindowsPartitionRoot,
+                    context.Request.OperatingSystem.Architecture, context.Request.DomainJoinIntent!.ComputerName, context.Request.UsesCustomUnattend, cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception exception) when (IsAnswerFileInspectionFailure(exception))
+            {
+                return AnswerFileInspectionFailed("domain_unattend_composition");
+            }
             if (!composition.IsCompatible)
                 await PreOobe.DomainJoinRuntimeEligibility.SkipAsync(context, DomainJoinExecutionStatus.SkippedImageComposition,
                     composition.SkipCode!.Value, cancellationToken).ConfigureAwait(false);
@@ -130,10 +138,9 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 await _postInstallPrecedence.ValidateAsync(context.RuntimeState.TargetWindowsPartitionRoot,
                     context.Request.OperatingSystem.Architecture, cancellationToken).ConfigureAwait(false);
             }
-            catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or DeploymentProcessException or global::System.Xml.XmlException)
+            catch (Exception exception) when (IsAnswerFileInspectionFailure(exception))
             {
-                return DeploymentStepResult.Failed(Services.Localization.LocalizationText.GetString("PostInstall.StagingFailed"),
-                    DeploymentFailure.Guard(DeploymentOperationNames.ApplyOperatingSystemImage, DeploymentFailureReasons.InvalidInput, "postinstall_unattend_precedence"));
+                return AnswerFileInspectionFailed("postinstall_unattend_precedence");
             }
         }
 
@@ -211,4 +218,11 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         return DeploymentStepResult.Succeeded("Operating system image applied (simulation).");
     }
 
+    private static bool IsAnswerFileInspectionFailure(Exception exception) =>
+        exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException
+            or DeploymentProcessException or global::System.Xml.XmlException;
+
+    private static DeploymentStepResult AnswerFileInspectionFailed(string failureCode) =>
+        DeploymentStepResult.Failed(Services.Localization.LocalizationText.GetString("PostInstall.StagingFailed"),
+            DeploymentFailure.Guard(DeploymentOperationNames.ApplyOperatingSystemImage, DeploymentFailureReasons.InvalidInput, failureCode));
 }

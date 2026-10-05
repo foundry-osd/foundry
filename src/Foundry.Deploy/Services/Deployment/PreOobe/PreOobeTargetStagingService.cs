@@ -38,6 +38,7 @@ public sealed class PreOobeTargetStagingService
         var unpublishedNetworkFiles = new List<string>();
         var unpublishedStateFiles = new List<string>();
         string? domainCredentialPath = null;
+        bool domainCredentialCreated = false;
         bool hookPublished = false;
         try
         {
@@ -221,7 +222,7 @@ public sealed class PreOobeTargetStagingService
                 try
                 {
                     await using var output = new FileStream(domainCredentialPath!, FileMode.CreateNew, FileAccess.Write, FileShare.None);
-                    unpublishedNetworkFiles.Add(domainCredentialPath!);
+                    domainCredentialCreated = true;
                     await output.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
                     await output.FlushAsync(cancellationToken).ConfigureAwait(false);
                     output.Flush(flushToDisk: true);
@@ -249,13 +250,13 @@ public sealed class PreOobeTargetStagingService
             if (!hookPublished)
             {
                 Exception? domainRollbackFailure = null;
-                if (domainCredentialPath is not null && unpublishedNetworkFiles.Contains(domainCredentialPath))
+                if (domainCredentialCreated)
                 {
-                    try { PreOobePackagePathPolicy.ValidateNoReparsePoints(domainCredentialPath); File.Delete(domainCredentialPath); }
+                    try { PreOobePackagePathPolicy.ValidateNoReparsePoints(domainCredentialPath!); File.Delete(domainCredentialPath!); }
                     catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
                     { domainRollbackFailure = exception; }
                 }
-                foreach (string path in unpublishedNetworkFiles.Where(path => path != domainCredentialPath).Concat(
+                foreach (string path in unpublishedNetworkFiles.Concat(
                     domainRollbackFailure is null ? unpublishedStateFiles.AsEnumerable().Reverse() : []))
                 {
                     try { PreOobePackagePathPolicy.ValidateNoReparsePoints(path); File.Delete(path); }

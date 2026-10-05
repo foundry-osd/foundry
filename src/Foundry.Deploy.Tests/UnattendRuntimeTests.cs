@@ -78,7 +78,7 @@ public sealed class UnattendRuntimeTests
         DeploymentContext request = template.Request with
         {
             IsAutopilotEnabled = true,
-            DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, DomainJoinDeploymentDisposition.Ready),
+            DomainJoinRequest = new(DomainJoinDeploymentDisposition.Ready),
             DomainJoinIntent = new("corp.test", "CUSTOM-PC", null)
         };
         var input = new DomainJoinPreparedInput(new("corp.test", "CORP\\join"), "CUSTOM-PC", null, "secret".AsSpan());
@@ -101,7 +101,7 @@ public sealed class UnattendRuntimeTests
         using DeploymentStepExecutionContext template = fixture.CreateContext();
         DeploymentContext request = template.Request with
         {
-            DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, DomainJoinDeploymentDisposition.Ready),
+            DomainJoinRequest = new(DomainJoinDeploymentDisposition.Ready),
             DomainJoinIntent = new("corp.test", "DIFFERENT-PC", null)
         };
         using DeploymentStepExecutionContext execution = fixture.CreateContext(requestOverride: request, domainInput: input);
@@ -121,7 +121,7 @@ public sealed class UnattendRuntimeTests
         using DeploymentStepExecutionContext template = fixture.CreateContext();
         DeploymentContext request = template.Request with
         {
-            DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, DomainJoinDeploymentDisposition.Ready),
+            DomainJoinRequest = new(DomainJoinDeploymentDisposition.Ready),
             DomainJoinIntent = new("corp.test", "CUSTOM-PC", null)
         };
         var input = new DomainJoinPreparedInput(new("corp.test", "CORP\\join"), "CUSTOM-PC", null, "secret".AsSpan());
@@ -323,6 +323,20 @@ public sealed class UnattendRuntimeTests
         using var preparation = new DeploymentPreparationViewModel(new LocalizationService(), false, fixture.Service);
         preparation.ApplyUnattendConfiguration(new CoreSettings { IsEnabled = true, DefaultFileId = fixture.Selection.File.Id, Files = [fixture.Selection.File] }, fixture.ConfigurationPath);
         preparation.UpdateUnattendContext("arm64");
+        Assert.False(preparation.IsUnattendSelectionValid);
+        preparation.UpdateUnattendContext("x64");
+        Assert.True(preparation.IsUnattendSelectionValid);
+    }
+
+    [Fact]
+    public void Selection_WhenDomainJoinIsRequired_RejectsIncompatibleAnswerFile()
+    {
+        using var fixture = new Fixture("<ComputerName>CUSTOM-PC</ComputerName><ComputerName>OTHER-PC</ComputerName>");
+        using var preparation = new DeploymentPreparationViewModel(new LocalizationService(), false, fixture.Service);
+        preparation.ApplyUnattendConfiguration(new CoreSettings { IsEnabled = true, DefaultFileId = fixture.Selection.File.Id, Files = [fixture.Selection.File] }, fixture.ConfigurationPath);
+        preparation.UpdateUnattendContext("x64");
+        Assert.True(preparation.IsUnattendSelectionValid);
+        preparation.UpdateUnattendContext("x64", requiresDomainJoin: true);
         Assert.False(preparation.IsUnattendSelectionValid);
         preparation.UpdateUnattendContext("x64");
         Assert.True(preparation.IsUnattendSelectionValid);

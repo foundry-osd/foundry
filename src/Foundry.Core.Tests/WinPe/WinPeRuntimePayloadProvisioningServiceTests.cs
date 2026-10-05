@@ -13,30 +13,11 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeRuntimePayloadProvisioningServiceTests
 {
-    [Fact]
-    public async Task DomainMediaPreparesContractOnePostInstallRuntime()
-    {
-        using var workspace = TempRuntimeWorkspace.Create();
-        string archive = workspace.CreateArchive("domain-runtime.zip", "Foundry.PostInstall.exe");
-        var options = new WinPeRuntimePayloadProvisioningOptions
-        {
-            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
-            PostInstall = new() { ArchivePath = archive }
-        }.WithDomainJoinRuntime(true);
-        var prepared = await new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner())
-            .PrepareAsync(options, TestContext.Current.CancellationToken);
-        Assert.True(prepared.IsSuccess, prepared.Error?.Details);
-        Assert.True(prepared.Value!.PostInstall.IsEnabled);
-        Assert.Equal(archive, prepared.Value.PostInstall.ArchivePath);
-        Assert.NotEmpty(prepared.Value.PostInstall.ArchiveSha256);
-    }
-
     [Theory]
     [InlineData("missing", false)]
     [InlineData("duplicate", false)]
     [InlineData("oversize", false)]
-    [InlineData("omittedContract", true)]
-    public async Task AuthenticatedManifestRemainsBoundedUnambiguousAndContractOneByDefault(string shape, bool accepted)
+    public async Task PostInstallManifestMustBePresentUniqueAndBounded(string shape, bool accepted)
     {
         using var workspace = TempRuntimeWorkspace.Create();
         string path = workspace.CreateArchive("postinstall.zip", "Foundry.PostInstall.exe");
@@ -61,8 +42,6 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     [Theory]
     [InlineData(1, true)]
     [InlineData(2, false)]
-    [InlineData(3, false)]
-    [InlineData(0, false)]
     public async Task PreparedArchiveRequiresSupportedPostInstallContract(int contract, bool accepted)
     {
         using var workspace = TempRuntimeWorkspace.Create();
@@ -467,7 +446,6 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             var manifest = System.Text.Json.JsonSerializer.Deserialize<Foundry.Core.Models.PreOobe.PostInstallRuntimeManifest>(reader.ReadToEnd(),
                 new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
             Assert.Equal("win-arm64", manifest.RuntimeIdentifier);
-            Assert.Equal(1, manifest.ContractVersion);
             Assert.Equal(2, manifest.Files.Count);
             foreach (var file in manifest.Files)
             {

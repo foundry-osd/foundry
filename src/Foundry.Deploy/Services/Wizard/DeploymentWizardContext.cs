@@ -5,6 +5,7 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Catalog;
+using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.ViewModels;
 using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
@@ -151,7 +152,9 @@ public sealed class DeploymentWizardContext : IDisposable
 
     private void RefreshDriverPackSelectionContext()
     {
-        Preparation.UpdateUnattendContext(SelectedOperatingSystem?.Architecture ?? OperatingSystemCatalog.EffectiveOsArchitecture);
+        Preparation.UpdateUnattendContext(
+            SelectedOperatingSystem?.Architecture ?? OperatingSystemCatalog.EffectiveOsArchitecture,
+            DomainJoinPreparationService.IsRequiredFor(DomainJoin, SelectedOperatingSystem));
         DriverPackSelection.UpdateSelectionContext(
             Preparation.DetectedHardware,
             SelectedOperatingSystem,

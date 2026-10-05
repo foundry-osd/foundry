@@ -50,7 +50,7 @@ public sealed class DomainJoinPreparedInput : IDisposable
     internal static bool IsValidFor(DeploymentContext request, DomainJoinPreparedInput? input)
     {
         if (request.DomainJoinRequest is null) return request.DomainJoinIntent is null && input is null;
-        if (request.IsAutopilotEnabled || !Enum.IsDefined(request.DomainJoinRequest.Mode)) return false;
+        if (request.IsAutopilotEnabled) return false;
         return request.DomainJoinRequest.Disposition switch
         {
             DomainJoinDeploymentDisposition.UnsupportedEdition => input is null && request.DomainJoinIntent is null,

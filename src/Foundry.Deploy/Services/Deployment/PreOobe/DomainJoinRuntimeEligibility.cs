@@ -22,6 +22,10 @@ internal static class DomainJoinRuntimeEligibility
             state.DomainJoinSkipCode = DomainJoinSkipCode.UnsupportedEdition;
     }
 
+    /// <summary>Records the skip decided at launch; skips found during execution are recorded by <see cref="SkipAsync"/>.</summary>
+    internal static Task ReportLaunchSkipAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken) =>
+        context.RuntimeState.DomainJoinSkipCode is { } code ? AppendSkipLogAsync(context, code, cancellationToken) : Task.CompletedTask;
+
     internal static async Task ConfirmEditionAsync(DeploymentStepExecutionContext context, string? edition, CancellationToken cancellationToken)
     {
         if (!string.IsNullOrWhiteSpace(edition)) context.RuntimeState.ActualWindowsEditionId = edition;
@@ -35,6 +39,9 @@ internal static class DomainJoinRuntimeEligibility
         context.RuntimeState.DomainJoinStatus = status;
         context.RuntimeState.DomainJoinSkipCode = code;
         context.ClearDomainJoinInput();
-        await context.AppendLogAsync(DeploymentLogLevel.Warning, $"Domain joining skipped. Reason={code}.", cancellationToken).ConfigureAwait(false);
+        await AppendSkipLogAsync(context, code, cancellationToken).ConfigureAwait(false);
     }
+
+    private static Task AppendSkipLogAsync(DeploymentStepExecutionContext context, DomainJoinSkipCode code, CancellationToken cancellationToken) =>
+        context.AppendLogAsync(DeploymentLogLevel.Warning, $"Domain joining skipped. Reason={code}.", cancellationToken);
 }
