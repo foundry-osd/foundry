@@ -378,14 +378,38 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             DomainName = settings.DomainName ?? string.Empty;
             AccountName = settings.AccountName ?? string.Empty;
             AllowOuSelectionDuringDeployment = settings.AllowOuSelectionDuringDeployment;
-            selectedListedRows.Clear();
-            OrganizationalUnits.Clear();
-            foreach (DomainJoinOrganizationalUnitSettings unit in settings.OrganizationalUnits) OrganizationalUnits.Add(new(unit));
+            SynchronizeOrganizationalUnits(settings.OrganizationalUnits);
+            selectedListedRows.RemoveAll(row => !OrganizationalUnits.Contains(row));
             SelectedDefaultOu = OrganizationalUnits.FirstOrDefault(row => string.Equals(row.Settings.Id, settings.DefaultOuId, StringComparison.OrdinalIgnoreCase));
         }
         finally { applying = false; }
         SecretStateVersion++;
         RefreshPresentation();
+    }
+
+    /// <summary>
+    /// Aligns the rows with the saved OUs while keeping the row of every unchanged OU. Rebuilding the collection
+    /// would reset the default OU box, which then shows nothing although a default is still selected.
+    /// </summary>
+    private void SynchronizeOrganizationalUnits(IReadOnlyList<DomainJoinOrganizationalUnitSettings> units)
+    {
+        for (int index = OrganizationalUnits.Count - 1; index >= 0; index--)
+        {
+            if (!units.Contains(OrganizationalUnits[index].Settings)) OrganizationalUnits.RemoveAt(index);
+        }
+
+        for (int index = 0; index < units.Count; index++)
+        {
+            if (index < OrganizationalUnits.Count && Equals(OrganizationalUnits[index].Settings, units[index])) continue;
+            int existing = -1;
+            for (int candidate = index + 1; candidate < OrganizationalUnits.Count && existing < 0; candidate++)
+            {
+                if (Equals(OrganizationalUnits[candidate].Settings, units[index])) existing = candidate;
+            }
+
+            if (existing >= 0) OrganizationalUnits.Move(existing, index);
+            else OrganizationalUnits.Insert(index, new(units[index]));
+        }
     }
 
     /// <summary>Recomputes readiness issues; an inactive mode reports none because its inputs are disabled.</summary>
