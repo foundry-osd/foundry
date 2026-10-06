@@ -3405,6 +3405,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media finalizată.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry nu a putut înlocui fișierul ISO de la {0}. Este posibil ca fișierul să fie montat, atașat la o mașină virtuală, deschis în alt program sau doar în citire. Demontați-l sau închideți-l ori alegeți altă cale de ieșire, apoi încercați din nou.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Media ISO a fost creată cu succes.</value>
   </data>

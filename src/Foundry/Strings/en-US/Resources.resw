@@ -3405,6 +3405,9 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media completed.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry could not replace the ISO file at {0}. The file may be mounted, attached to a virtual machine, open in another program, or read-only. Unmount or close it, or choose another output path, then try again.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>The ISO media was created successfully.</value>
   </data>

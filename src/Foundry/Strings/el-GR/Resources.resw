@@ -3405,6 +3405,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>Τα μέσα ISO ολοκληρώθηκαν.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να αντικαταστήσει το αρχείο ISO στη θέση {0}. Το αρχείο μπορεί να είναι προσαρτημένο, συνδεδεμένο σε εικονική μηχανή, ανοιχτό σε άλλο πρόγραμμα ή μόνο για ανάγνωση. Αποπροσαρτήστε ή κλείστε το, ή επιλέξτε άλλη διαδρομή εξόδου και, στη συνέχεια, δοκιμάστε ξανά.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Το μέσο ISO δημιουργήθηκε με επιτυχία.</value>
   </data>

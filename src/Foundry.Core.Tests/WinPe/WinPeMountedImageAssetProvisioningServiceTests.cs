@@ -771,25 +771,4 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         }
         """;
     }
-
-    private static string CreateDeployConfigurationWithEncryptedSecret()
-    {
-        return """
-        {
-          "schemaVersion": 1,
-          "autopilot": {
-            "hardwareHashUpload": {
-              "pfxSecret": {
-                "kind": "encrypted",
-                "algorithm": "aes-gcm-v1",
-                "keyId": "media",
-                "nonce": "AAAAAAAAAAAAAAAA",
-                "tag": "AAAAAAAAAAAAAAAAAAAAAA",
-                "ciphertext": "AAAAAAAA"
-              }
-            }
-          }
-        }
-        """;
-    }
 }

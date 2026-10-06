@@ -3405,6 +3405,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO laikmena baigta.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry nepavyko pakeisti ISO failo {0}. Failas gali būti prijungtas, susietas su virtualiąja mašina, atidarytas kitoje programoje arba skirtas tik skaityti. Atjunkite arba uždarykite jį arba pasirinkite kitą išvesties kelią ir bandykite dar kartą.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO laikmena sėkmingai sukurta.</value>
   </data>

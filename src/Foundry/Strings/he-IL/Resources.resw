@@ -3405,6 +3405,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>מדיה ISO הושלמה.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry לא הצליח להחליף את קובץ ה-ISO בנתיב {0}. ייתכן שהקובץ טעון, מצורף למחשב וירטואלי, פתוח בתוכנית אחרת או מוגדר לקריאה בלבד. בטל את טעינתו או סגור אותו, או בחר נתיב פלט אחר, ולאחר מכן נסה שוב.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>המדיה ISO נוצרה בהצלחה.</value>
   </data>

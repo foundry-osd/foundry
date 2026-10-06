@@ -216,7 +216,7 @@ public sealed class WinPeIsoMediaServiceTests
         using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
         string outputIsoPath = Path.Combine(temp.RootPath, "réseau", "blocked.iso");
         Directory.CreateDirectory(outputIsoPath);
-        var service = new WinPeIsoMediaService(new FakeIsoRunner());
+        var service = new WinPeIsoMediaService(new FakeIsoRunner(), File.Move, TimeSpan.Zero);
 
         WinPeResult result = await service.CreateAsync(
             new WinPeIsoMediaOptions
@@ -233,6 +233,97 @@ public sealed class WinPeIsoMediaServiceTests
         Assert.True(result.Error?.FailureReason is WinPeFailureReasons.IoError or WinPeFailureReasons.AccessDenied);
         Assert.Null(result.Error?.ToolName);
         Assert.NotNull(result.Error?.Exception);
+    }
+
+    [Fact]
+    public async Task CreateAsync_WhenFinalOutputStaysLocked_ReportsAccessDeniedAfterBoundedRetries()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string output = Path.Combine(temp.RootPath, "previous.iso");
+        await File.WriteAllTextAsync(output, "previous-valid-iso", TestContext.Current.CancellationToken);
+        int moveAttempts = 0;
+        var service = new WinPeIsoMediaService(
+            new FakeIsoRunner(),
+            (_, _, _) =>
+            {
+                moveAttempts++;
+                throw new UnauthorizedAccessException("Access to the path is denied.");
+            },
+            TimeSpan.Zero);
+
+        WinPeResult result = await service.CreateAsync(CreateOverwriteOptions(temp, output), TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(3, moveAttempts);
+        Assert.Equal(WinPeErrorCodes.IsoCreateFailed, result.Error?.Code);
+        Assert.Equal(WinPeIsoMediaService.FinalizeOutputStage, result.Error?.Stage);
+        Assert.Equal(WinPeFailureKinds.FileSystem, result.Error?.FailureKind);
+        Assert.Equal(WinPeFailureReasons.AccessDenied, result.Error?.FailureReason);
+        Assert.Equal(2, result.Error?.RetryCount);
+        Assert.IsType<UnauthorizedAccessException>(result.Error?.Exception);
+        Assert.Equal("previous-valid-iso", await File.ReadAllTextAsync(output, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetFiles(temp.RootPath, "*.pending.iso", SearchOption.AllDirectories));
+    }
+
+    [Fact]
+    public async Task CreateAsync_WhenFinalOutputSharingViolationIsTransient_RetriesAndReplacesIso()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string output = Path.Combine(temp.RootPath, "previous.iso");
+        await File.WriteAllTextAsync(output, "previous-valid-iso", TestContext.Current.CancellationToken);
+        int moveAttempts = 0;
+        var service = new WinPeIsoMediaService(
+            new FakeIsoRunner(),
+            (source, destination, overwrite) =>
+            {
+                if (++moveAttempts == 1)
+                {
+                    throw new IOException("The file is in use.", unchecked((int)0x80070020));
+                }
+
+                File.Move(source, destination, overwrite);
+            },
+            TimeSpan.Zero);
+
+        WinPeResult result = await service.CreateAsync(CreateOverwriteOptions(temp, output), TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(2, moveAttempts);
+        Assert.Equal("iso", await File.ReadAllTextAsync(output, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task CreateAsync_WhenFinalMoveFailsWithOtherIoError_DoesNotRetry()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string output = Path.Combine(temp.RootPath, "previous.iso");
+        int moveAttempts = 0;
+        var service = new WinPeIsoMediaService(
+            new FakeIsoRunner(),
+            (_, _, _) =>
+            {
+                moveAttempts++;
+                throw new IOException("There is not enough space on the disk.", unchecked((int)0x80070070));
+            },
+            TimeSpan.Zero);
+
+        WinPeResult result = await service.CreateAsync(CreateOverwriteOptions(temp, output), TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(1, moveAttempts);
+        Assert.Equal(WinPeFailureReasons.IoError, result.Error?.FailureReason);
+        Assert.Equal("Unexpected failure while creating WinPE ISO media.", result.Error?.Message);
+    }
+
+    private static WinPeIsoMediaOptions CreateOverwriteOptions(TempPreparedWorkspace temp, string outputIsoPath)
+    {
+        return new WinPeIsoMediaOptions
+        {
+            PreparedWorkspace = temp.PreparedWorkspace,
+            OutputIsoPath = outputIsoPath,
+            IsoTempDirectoryPath = Path.Combine(temp.RootPath, "iso-temp"),
+            ForceOverwriteOutput = true
+        };
     }
 
     private sealed class TempPreparedWorkspace : IDisposable

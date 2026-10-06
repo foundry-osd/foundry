@@ -8,7 +8,6 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Images;
@@ -64,7 +63,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IAppDispatcher appDispatcher;
     private readonly ILogger logger;
     private IReadOnlyList<string> availableWinPeLanguages = [];
-    private UsbCandidateDiscoveryState usbCandidateDiscoveryState = UsbCandidateDiscoveryState.NotLoaded;
     private bool isLoadingConfiguration = true;
     private string? lastCustomizationLogStatus;
     private int lastCustomizationLogBucket = -1;
@@ -359,7 +357,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         if (!adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64))
         {
-            usbCandidateDiscoveryState = UsbCandidateDiscoveryState.Blocked;
             UsbCandidateStatus = localizationService.GetString("StartMedia.Usb.AdkBlocked");
             RefreshEvaluation();
             return;
@@ -368,7 +365,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath);
         if (!toolsResult.IsSuccess || toolsResult.Value is null)
         {
-            usbCandidateDiscoveryState = UsbCandidateDiscoveryState.Error;
             UsbCandidateStatus = toolsResult.Error?.Message ?? localizationService.GetString("StartMedia.Usb.QueryFailed");
             logger.Warning("USB target refresh skipped because ADK tools were not resolved. ErrorCode={ErrorCode}", toolsResult.Error?.Code);
             RefreshEvaluation();
@@ -376,7 +372,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         IsRefreshingUsbCandidates = true;
-        usbCandidateDiscoveryState = UsbCandidateDiscoveryState.Loading;
         UsbCandidateStatus = localizationService.GetString("StartMedia.Usb.Loading");
         RefreshEvaluation();
 
@@ -398,9 +393,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
                 WinPeUsbDiskCandidate? selectedCandidate = WinPeUsbDiskCandidateSelector.Reselect(result.Value, previousSelection);
                 SelectedUsbDisk = UsbCandidates.FirstOrDefault(option => ReferenceEquals(option.Value, selectedCandidate));
-                usbCandidateDiscoveryState = UsbCandidates.Count == 0
-                    ? UsbCandidateDiscoveryState.Empty
-                    : UsbCandidateDiscoveryState.Ready;
                 UsbCandidateStatus = UsbCandidates.Count == 0
                     ? localizationService.GetString("StartMedia.Usb.NoCandidatesFound")
                     : string.Format(localizationService.GetString("StartMedia.Usb.CandidatesFound"), UsbCandidates.Count);
@@ -409,7 +401,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             else
             {
                 SelectedUsbDisk = null;
-                usbCandidateDiscoveryState = UsbCandidateDiscoveryState.Error;
                 UsbCandidateStatus = result.Error?.Message ?? localizationService.GetString("StartMedia.Usb.QueryFailed");
                 logger.Warning("USB target refresh failed. ErrorCode={ErrorCode}", result.Error?.Code);
             }
@@ -764,6 +755,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     WinPeErrorCodes.UsbBootCapacityInsufficient => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootCapacityInsufficient", failureDiagnostic),
                     WinPeErrorCodes.UsbBootCapacityUnknown => localizationService.GetString("StartMedia.Operation.UsbBootCapacityUnknown"),
                     WinPeErrorCodes.UsbBootFileTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootFileTooLarge", failureDiagnostic),
+                    WinPeErrorCodes.IsoCreateFailed when IsIsoOutputLocked(failureDiagnostic) => string.Format(
+                        CultureInfo.CurrentCulture,
+                        localizationService.GetString("StartMedia.Operation.IsoOutputLocked"),
+                        options.IsoOutputPath),
                     _ => ex.Message
                 };
             terminalStatus = string.IsNullOrWhiteSpace(failureMessage)
@@ -2685,6 +2680,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return localizationService.GetString($"StartMedia.DriverVendor.{vendor}");
     }
 
+    private static bool IsIsoOutputLocked(WinPeDiagnostic diagnostic)
+    {
+        return diagnostic.Stage == WinPeIsoMediaService.FinalizeOutputStage
+            && diagnostic.FailureReason == WinPeFailureReasons.AccessDenied;
+    }
+
     /// <summary>
     /// Identifies WinPE workspace or image servicing failures where Windows denied access to image files,
     /// usually because security software or another imaging tool holds them.
@@ -2852,12 +2853,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             : $"{diagnostic.Message}{Environment.NewLine}{diagnostic.Details}";
     }
 
-    private static T ParseEnum<T>(string? value, T fallback)
-        where T : struct, Enum
-    {
-        return Enum.TryParse(value, ignoreCase: true, out T result) ? result : fallback;
-    }
-
     private static SelectionOption<T>? SelectOption<T>(IEnumerable<SelectionOption<T>> options, T value)
     {
         return options.FirstOrDefault(option => EqualityComparer<T>.Default.Equals(option.Value, value));
@@ -2868,16 +2863,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         Iso,
         Usb,
         UsbUpdate
-    }
-
-    private enum UsbCandidateDiscoveryState
-    {
-        NotLoaded,
-        Loading,
-        Ready,
-        Empty,
-        Error,
-        Blocked
     }
 
     private sealed record PreparedMediaWorkspace(

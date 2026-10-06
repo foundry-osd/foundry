@@ -3405,6 +3405,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media valmis.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry ei voinut korvata ISO-tiedostoa {0}. Tiedosto saattaa olla liitetty, kytketty virtuaalikoneeseen, auki toisessa ohjelmassa tai vain luku -tilassa. Irrota tai sulje se tai valitse toinen tulostepolku ja yritä sitten uudelleen.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO -median luominen onnistui.</value>
   </data>

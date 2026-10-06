@@ -3405,6 +3405,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO média kész.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>A Foundry nem tudta lecserélni a(z) {0} helyen lévő ISO-fájlt. Lehet, hogy a fájl csatlakoztatva van, virtuális géphez van csatolva, egy másik programban meg van nyitva, vagy írásvédett. Válassza le vagy zárja be, vagy válasszon másik kimeneti útvonalat, majd próbálkozzon újra.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>A ISO adathordozó sikeresen létrejött.</value>
   </data>

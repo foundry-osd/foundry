@@ -3405,6 +3405,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO mídia concluída.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>O Foundry não conseguiu substituir o arquivo ISO em {0}. O arquivo pode estar montado, anexado a uma máquina virtual, aberto em outro programa ou ser somente leitura. Desmonte-o ou feche-o, ou escolha outro caminho de saída, e tente novamente.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>A mídia ISO foi criada com sucesso.</value>
   </data>

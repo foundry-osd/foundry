@@ -3405,6 +3405,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media voltooid.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry kan het ISO-bestand op {0} niet vervangen. Het bestand is mogelijk gekoppeld, aan een virtuele machine toegevoegd, geopend in een ander programma of alleen-lezen. Ontkoppel of sluit het bestand, of kies een ander uitvoerpad, en probeer het opnieuw.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Het ISO medium is succesvol aangemaakt.</value>
   </data>

@@ -3405,6 +3405,9 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO supporto completato.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry non è riuscito a sostituire il file ISO in {0}. Il file potrebbe essere montato, collegato a una macchina virtuale, aperto in un altro programma o di sola lettura. Smontalo o chiudilo, oppure scegli un altro percorso di output, quindi riprova.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Il supporto ISO è stato creato correttamente.</value>
   </data>

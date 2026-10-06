@@ -3405,6 +3405,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO สื่อเสร็จเรียบร้อย</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry ไม่สามารถแทนที่ไฟล์ ISO ที่ {0} ได้ ไฟล์อาจถูกเมาท์อยู่ แนบกับเครื่องเสมือน เปิดอยู่ในโปรแกรมอื่น หรือเป็นแบบอ่านอย่างเดียว ให้ยกเลิกการเมาท์หรือปิดไฟล์ หรือเลือกเส้นทางเอาต์พุตอื่น แล้วลองอีกครั้ง</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>สร้างสื่อ ISO สำเร็จแล้ว</value>
   </data>

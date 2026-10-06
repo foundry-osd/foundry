@@ -3405,6 +3405,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO 미디어가 완료되었습니다.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry에서 {0}의 ISO 파일을 바꿀 수 없습니다. 파일이 탑재되어 있거나, 가상 머신에 연결되어 있거나, 다른 프로그램에서 열려 있거나, 읽기 전용일 수 있습니다. 탑재를 해제하거나 파일을 닫거나 다른 출력 경로를 선택한 다음 다시 시도하세요.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO 미디어가 성공적으로 생성되었습니다.</value>
   </data>

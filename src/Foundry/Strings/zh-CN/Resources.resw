@@ -3405,6 +3405,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO媒体已完成。</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry 无法替换位于 {0} 的 ISO 文件。该文件可能已装载、已附加到虚拟机、在其他程序中打开或为只读。请卸载或关闭该文件，或选择其他输出路径，然后重试。</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO 媒体已成功创建。</value>
   </data>
