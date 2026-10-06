@@ -355,7 +355,7 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
     <value>Onbekende maat</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

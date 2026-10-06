@@ -355,7 +355,7 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
     <value>Okänd storlek</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
