@@ -252,6 +252,7 @@ namespace Foundry.ViewModels
                 ApplicationUpdateStatus.Failed => localizationService.FormatString("Update.Status.FailedFormat", result.Message),
                 ApplicationUpdateStatus.SkippedInDebug => localizationService.GetString("Update.Status.SkippedInDebug"),
                 ApplicationUpdateStatus.NotInstalled => localizationService.GetString("Update.Status.NotInstalled"),
+                ApplicationUpdateStatus.Ready => localizationService.GetString("Update.Status.Ready"),
                 _ => result.Message
             };
         }
