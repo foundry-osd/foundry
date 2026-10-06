@@ -97,6 +97,17 @@ internal sealed class ApplicationUpdateService(
                 generation = operationGeneration;
             }
 
+            // Applying a package force-stops every process under the install directory. A silent apply is therefore
+            // skipped while another instance is running and the update stays prepared; an explicit restart request
+            // stays the user's decision.
+            if (!restart && RunningInstanceProbe.IsAnotherInstanceRunning())
+            {
+                logger.Information(
+                    "Prepared Foundry update not scheduled because another Foundry instance is running. Version={Version}",
+                    target.Version);
+                return false;
+            }
+
             try
             {
                 logger.Information("Scheduling prepared Foundry update. Version={Version}, Restart={Restart}", target.Version, restart);

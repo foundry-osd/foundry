@@ -164,6 +164,32 @@ public sealed class PostHogExceptionTrackerTests
         Assert.Contains("network_timeout", Assert.IsType<string>(captured.Properties["$exception_fingerprint"]), StringComparison.Ordinal);
     }
 
+    [Fact]
+    public void Track_WhenStackIsMissingWithOnlyFailureReason_UsesOperationalFingerprint()
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+        var record = new RemoteDiagnosticRecord(
+            DateTimeOffset.UtcNow,
+            LogEventLevel.Fatal,
+            "Startup failed",
+            new Dictionary<string, object>
+            {
+                ["service.name"] = "foundry.deploy",
+                ["failure.reason"] = "configuration",
+                ["workflow.step"] = "apply_image"
+            },
+            new RemoteDiagnosticException("System.IO.InvalidDataException", "failed", null, []));
+
+        tracker.Track(record);
+
+        // A bare failure reason is not a domain failure, so the workflow step is not appended.
+        CapturedPostHogEvent captured = Assert.Single(client.Events);
+        Assert.Equal(
+            "foundry.deploy:System.IO.InvalidDataException::::configuration::",
+            captured.Properties["$exception_fingerprint"]);
+    }
+
     [Theory]
     [InlineData("failure.operation")]
     [InlineData("operation.name")]
@@ -233,6 +259,28 @@ public sealed class PostHogExceptionTrackerTests
         tracker.Track(CreateDomainFailureRecord(secondCode, secondStep));
 
         Assert.NotEqual(client.Events[0].Properties["$exception_fingerprint"], client.Events[1].Properties["$exception_fingerprint"]);
+    }
+
+    [Fact]
+    public void Track_WhenStackExistsWithOnlyFailureReason_KeepsStackBasedGrouping()
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+        var record = new RemoteDiagnosticRecord(
+            DateTimeOffset.UtcNow,
+            LogEventLevel.Fatal,
+            "Startup failed",
+            new Dictionary<string, object>
+            {
+                ["service.name"] = "foundry.deploy",
+                ["failure.reason"] = "dispatcher"
+            },
+            new RemoteDiagnosticException("System.NullReferenceException", "failed", "   at Foundry.Deploy.Run() in <redacted:path>:line 10", []));
+
+        tracker.Track(record);
+
+        CapturedPostHogEvent captured = Assert.Single(client.Events);
+        Assert.False(captured.Properties.ContainsKey("$exception_fingerprint"));
     }
 
     [Fact]

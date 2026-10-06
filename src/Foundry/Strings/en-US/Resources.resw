@@ -685,6 +685,9 @@ Licensed under the MIT License.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Unavailable</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architecture</value>
   </data>
@@ -3806,6 +3809,9 @@ Applying the update restarts Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Not checked</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>The update could not be applied: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Checking for updates</value>
   </data>
@@ -3838,6 +3844,9 @@ Applying the update restarts Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} is available.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Update could not be applied</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Update check failed</value>

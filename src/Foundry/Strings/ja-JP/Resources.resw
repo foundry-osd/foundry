@@ -685,6 +685,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>リフレッシュ</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>利用不可</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>アーキテクチャ</value>
   </data>
@@ -3806,6 +3809,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未チェック</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>更新を適用できませんでした: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>アップデートをチェックしています</value>
   </data>
@@ -3838,6 +3844,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} が利用可能です。</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>更新を適用できませんでした</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新チェックに失敗しました</value>

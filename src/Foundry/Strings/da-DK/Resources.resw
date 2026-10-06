@@ -685,6 +685,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Opdater</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Ikke tilgængelig</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkitektur</value>
   </data>
@@ -3806,6 +3809,9 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ikke kontrolleret</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Opdateringen kunne ikke anvendes: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Søger efter opdateringer</value>
   </data>
@@ -3838,6 +3844,9 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} er tilgængelig.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Opdateringen kunne ikke anvendes</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Opdateringstjek mislykkedes</value>

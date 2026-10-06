@@ -6,6 +6,7 @@ using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Serilog;
 using System.Runtime.InteropServices;
+using Foundry.Services.Updates;
 using Foundry.Utilities.Diagnostics;
 using Velopack;
 
@@ -42,8 +43,18 @@ public static class Program
             Constants.EnsureDataDirectories();
             logger.Debug("Application data directories are ready. RootDirectoryPath={RootDirectoryPath}", Constants.RootDirectoryPath);
 
+            // Applying a package force-stops every process under the install directory, so startup must not apply
+            // a downloaded update while another instance is running. Update recovery surfaces it as ready instead.
+            bool anotherInstanceRunning = RunningInstanceProbe.IsAnotherInstanceRunning();
+
             logger.Information("Velopack startup flow started.");
+            if (anotherInstanceRunning)
+            {
+                logger.Information("Velopack startup auto-apply disabled because another Foundry instance is running.");
+            }
+
             VelopackApp.Build()
+                .SetAutoApplyOnStartup(!anotherInstanceRunning)
                 .OnFirstRun(version => logger.Information("Velopack first run detected. Version={Version}", version))
                 .OnRestarted(version => logger.Information("Velopack restarted Foundry after update. Version={Version}", version))
                 .OnBeforeUpdateFastCallback(version =>

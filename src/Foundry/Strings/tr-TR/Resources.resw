@@ -685,6 +685,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Yenile</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Kullanılamıyor</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Mimari</value>
   </data>
@@ -3806,6 +3809,9 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>İşaretlenmedi</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Güncelleme uygulanamadı: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Güncellemeler kontrol ediliyor</value>
   </data>
@@ -3838,6 +3844,9 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} kullanılabilir.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Güncelleme uygulanamadı</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Güncelleme kontrolü başarısız oldu</value>

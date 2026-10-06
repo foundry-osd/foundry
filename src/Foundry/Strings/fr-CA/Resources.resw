@@ -685,6 +685,9 @@ Sous licence MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Actualiser</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Indisponible</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architecture</value>
   </data>
@@ -3806,6 +3809,9 @@ L’application de la mise à jour redémarre Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Non vérifié</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>La mise à jour n’a pas pu être appliquée : {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Vérification des mises à jour</value>
   </data>
@@ -3838,6 +3844,9 @@ L’application de la mise à jour redémarre Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} est disponible.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>La mise à jour n’a pas pu être appliquée</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>La vérification de la mise à jour a échoué</value>

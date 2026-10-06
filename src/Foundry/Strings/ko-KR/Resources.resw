@@ -685,6 +685,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>새로고침</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>이용 불가</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>아키텍처</value>
   </data>
@@ -3806,6 +3809,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>체크하지 않음</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>업데이트를 적용하지 못했습니다: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>업데이트 확인 중</value>
   </data>
@@ -3838,6 +3844,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} 가능합니다.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>업데이트를 적용하지 못했습니다</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>업데이트 확인 실패</value>

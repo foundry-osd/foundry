@@ -685,6 +685,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Vernieuwen</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Niet beschikbaar</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architectuur</value>
   </data>
@@ -3806,6 +3809,9 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Niet gecontroleerd</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>De update kon niet worden toegepast: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controleren op updates</value>
   </data>
@@ -3838,6 +3844,9 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} is beschikbaar.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Update kon niet worden toegepast</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Updatecontrole mislukt</value>

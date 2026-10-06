@@ -34,7 +34,10 @@ public interface IApplicationUpdateService
     /// </summary>
     /// <param name="restart">Whether to show update progress and restart after application, rather than apply silently on close.</param>
     /// <returns>Whether a prepared update was scheduled or had already been scheduled.</returns>
-    /// <remarks>Returns false without a prepared target and propagates handoff failures while retaining readiness.</remarks>
+    /// <remarks>
+    /// Returns false without a prepared target and propagates handoff failures while retaining readiness.
+    /// Also returns false for a silent apply while another Foundry instance is running, leaving the update prepared.
+    /// </remarks>
     bool TrySchedulePreparedUpdate(bool restart);
 
     /// <summary>

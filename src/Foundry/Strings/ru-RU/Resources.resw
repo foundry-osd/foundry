@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Обновить</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Недоступно</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Архитектура</value>
   </data>
@@ -3806,6 +3809,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не проверено</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Не удалось применить обновление: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Проверка обновлений</value>
   </data>
@@ -3838,6 +3844,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} доступен.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Не удалось применить обновление</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Проверка обновлений не удалась</value>

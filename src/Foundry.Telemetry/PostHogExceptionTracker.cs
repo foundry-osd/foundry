@@ -42,7 +42,7 @@ internal sealed partial class PostHogExceptionTracker(
     Action<ExceptionDeliveryFailure>? reportFailure = null)
 {
     private static readonly string[] DomainFailureAttributeNames =
-        ["failure.code", "failure.reason", "failure.kind", "failure.operation"];
+        ["failure.code", "failure.kind", "failure.operation"];
 
     public void Track(RemoteDiagnosticRecord record)
     {
@@ -84,6 +84,9 @@ internal sealed partial class PostHogExceptionTracker(
     /// Chooses the PostHog issue grouping key. Domain failures are grouped by their stable failure
     /// classification instead of the shared throw site, so distinct failure codes or steps never
     /// collapse into one issue (and are not dropped when an unrelated failure's issue is suppressed).
+    /// A record is a domain failure when it carries a failure code, kind, or operation. A bare failure
+    /// reason does not make it one: generic crash paths set only a reason (for example the startup
+    /// stage) and must keep their stack-based grouping.
     /// Exceptions without a stack trace use the operational context; other exceptions return
     /// <see langword="null"/> to keep PostHog's default stack-based grouping.
     /// </summary>
