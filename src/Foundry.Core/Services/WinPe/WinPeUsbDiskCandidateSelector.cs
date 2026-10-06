@@ -14,8 +14,9 @@ public static class WinPeUsbDiskCandidateSelector
     /// Finds the refreshed candidate for <paramref name="previous"/> by unique id, then by serial number,
     /// and by disk number only when the previous selection has neither identifier.
     /// An identifier that matches several candidates is ambiguous and is not used.
-    /// When no previous selection exists, or it cannot be found, a candidate is chosen only when it is the sole one,
-    /// so a different disk is never selected silently.
+    /// Without a previous selection the first candidate is selected. When the previous selection cannot be found,
+    /// the sole remaining candidate is selected; with several candidates nothing is selected, so the user must
+    /// choose the target again.
     /// </summary>
     public static WinPeUsbDiskCandidate? Reselect(
         IReadOnlyList<WinPeUsbDiskCandidate> candidates,
