@@ -244,9 +244,9 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         MediaCapabilityStatus = status.CanCreateMedia
             ? localizationService.GetString("Adk.MediaCapability.Ready")
             : localizationService.GetString("Adk.MediaCapability.Blocked");
-        IsUpgradeButtonVisible = status.IsInstalled && !status.IsCompatible;
-        IsInstallButtonVisible = !IsUpgradeButtonVisible && (!status.IsInstalled
-            || (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered));
+        AdkSetupAction setupAction = AdkSetupPlan.Create(status).Action;
+        IsUpgradeButtonVisible = setupAction == AdkSetupAction.Upgrade;
+        IsInstallButtonVisible = setupAction == AdkSetupAction.Install;
         IsSetupActionVisible = IsInstallButtonVisible || IsUpgradeButtonVisible;
         IsActionEnabled = !IsBusy;
     }
@@ -267,7 +267,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
             return localizationService.GetString("Adk.Status.ReadyTitle");
         }
 
-        if (!status.IsInstalled)
+        if (!status.IsInstalled && !IsRegisteredReleaseUnsupported(status))
         {
             return localizationService.GetString("Adk.Status.MissingTitle");
         }
@@ -302,7 +302,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
                 ? "Adk.Status.ReadyDescription" : "Adk.Status.WinPeInvalidDescription");
         }
 
-        if (!status.IsInstalled)
+        if (!status.IsInstalled && !IsRegisteredReleaseUnsupported(status))
         {
             return localizationService.GetString("Adk.Status.MissingDescription");
         }
@@ -315,6 +315,9 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         if (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered) return localizationService.GetString("Adk.Status.WinPeMissingDescription");
         return localizationService.GetString("Adk.Status.WinPeInvalidDescription");
     }
+
+    private static bool IsRegisteredReleaseUnsupported(AdkInstallationStatus status) =>
+        status.VersionRelation is AdkVersionRelation.BelowSupported or AdkVersionRelation.AboveSupported;
 
     private string GetUpgradeButtonText(AdkInstallationStatus status)
     {

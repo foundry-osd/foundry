@@ -155,7 +155,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>ADK kurulum</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Desteklenen Windows ADK 24H2 (10.1.26100.2454) sürümünü yükleyin.</value>
+    <value>Desteklenen Windows ADK 24H2 (10.1.26100.9457) sürümünü yükleyin.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK sürümü desteklenmiyor</value>
@@ -191,7 +191,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sürüm algılanmadı</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100.2454) gerektirir.</value>
+    <value>Windows ADK 24H2 (10.1.26100.9457) gerektirir.</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Gerekli sürüm politikası</value>

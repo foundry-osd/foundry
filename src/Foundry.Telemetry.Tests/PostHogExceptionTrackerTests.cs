@@ -204,6 +204,89 @@ public sealed class PostHogExceptionTrackerTests
     }
 
     [Fact]
+    public void Track_WhenDomainFailureHasStackTrace_FingerprintsFailureClassificationAndStep()
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+
+        tracker.Track(CreateDomainFailureRecord("WINPE_BUILD_FAILED", "build_winpe"));
+
+        CapturedPostHogEvent captured = Assert.Single(client.Events);
+        Assert.Equal(
+            "foundry.osd:Foundry.ViewModels.StartMediaViewModel+WinPeOperationException:::copype:tool_failed:WINPE_BUILD_FAILED:1:build_winpe",
+            captured.Properties["$exception_fingerprint"]);
+    }
+
+    [Theory]
+    [InlineData("WINPE_BUILD_FAILED", "build_winpe", "USB_IDENTITY_MISMATCH", "build_winpe")]
+    [InlineData("WINPE_BUILD_FAILED", "build_winpe", "WINPE_BUILD_FAILED", "write_usb")]
+    public void Track_WhenDomainFailuresShareThrowSite_SeparatesFailureCodesAndSteps(
+        string firstCode,
+        string firstStep,
+        string secondCode,
+        string secondStep)
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+
+        tracker.Track(CreateDomainFailureRecord(firstCode, firstStep));
+        tracker.Track(CreateDomainFailureRecord(secondCode, secondStep));
+
+        Assert.NotEqual(client.Events[0].Properties["$exception_fingerprint"], client.Events[1].Properties["$exception_fingerprint"]);
+    }
+
+    [Fact]
+    public void Track_WhenStackExistsWithoutFailureAttributes_KeepsStackBasedGrouping()
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+        var record = new RemoteDiagnosticRecord(
+            DateTimeOffset.UtcNow,
+            LogEventLevel.Error,
+            "Unexpected failure",
+            new Dictionary<string, object>
+            {
+                ["service.name"] = "foundry.deploy",
+                ["workflow.step"] = "apply_image",
+                ["tool.name"] = "dism"
+            },
+            new RemoteDiagnosticException("System.NullReferenceException", "failed", "   at Foundry.Deploy.Run() in <redacted:path>:line 10", []));
+
+        tracker.Track(record);
+
+        CapturedPostHogEvent captured = Assert.Single(client.Events);
+        Assert.False(captured.Properties.ContainsKey("$exception_fingerprint"));
+    }
+
+    [Fact]
+    public void Track_DomainFailureFingerprintExcludesHighCardinalityValues()
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+        for (int index = 0; index < 2; index++)
+        {
+            LogEvent source = RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error,
+                "Deployment operation finished. OperationId={OperationId}, DurationMs={DurationMs}, FailureSummary={FailureSummary}",
+                CreateThrownException($"message-{index}"),
+                ("OperationId", $"operation-{index}"), ("DurationMs", 1000 + index),
+                ("FailureSummary", $"summary-{index}"), ("CompletedStepCount", 3 + index),
+                ("FailedStepName", "postinstall_preflight"), ("FailedOperationName", "postinstall.preflight"),
+                ("FailureKind", "validation"), ("FailureReason", "postinstall_preflight_failed"),
+                ("FailureCode", "POSTINSTALL_PREFLIGHT_FAILED"));
+            tracker.Track(RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, RemoteDiagnosticsTestData.Context()));
+        }
+
+        string fingerprint = Assert.IsType<string>(client.Events[0].Properties["$exception_fingerprint"]);
+        Assert.Equal(fingerprint, client.Events[1].Properties["$exception_fingerprint"]);
+        Assert.Contains("POSTINSTALL_PREFLIGHT_FAILED", fingerprint, StringComparison.Ordinal);
+        Assert.Contains("postinstall_preflight", fingerprint, StringComparison.Ordinal);
+        foreach (string value in new[] { "operation-", "session-1", "message-", "summary-", "1000", "install-1" })
+        {
+            Assert.DoesNotContain(value, fingerprint, StringComparison.Ordinal);
+        }
+    }
+
+    [Fact]
     public void Track_WhenRecordHasNoException_DoesNotCaptureEvent()
     {
         var client = new RecordingPostHogEventClient();
@@ -250,6 +333,42 @@ public sealed class PostHogExceptionTrackerTests
         public Task FlushAsync() => Task.CompletedTask;
 
         public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+    }
+
+    private static RemoteDiagnosticRecord CreateDomainFailureRecord(string failureCode, string step) => new(
+        DateTimeOffset.UtcNow,
+        LogEventLevel.Error,
+        "Final boot media operation failed",
+        new Dictionary<string, object>
+        {
+            ["service.name"] = "foundry.osd",
+            ["session.id"] = Guid.NewGuid().ToString("N"),
+            ["operation.id"] = Guid.NewGuid().ToString("N"),
+            ["duration.ms"] = 4200,
+            ["failure.kind"] = "tool",
+            ["failure.reason"] = "tool_failed",
+            ["failure.code"] = failureCode,
+            ["failure.summary"] = "copype failed for C:\\Users\\alice",
+            ["workflow.step"] = step,
+            ["tool.name"] = "copype",
+            ["process.exit_code"] = 1
+        },
+        new RemoteDiagnosticException(
+            "Foundry.ViewModels.StartMediaViewModel+WinPeOperationException",
+            "failed",
+            "   at Foundry.ViewModels.StartMediaViewModel.EnsureSuccess() in <redacted:path>:line 10",
+            []));
+
+    private static InvalidOperationException CreateThrownException(string message)
+    {
+        try
+        {
+            throw new InvalidOperationException(message);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return exception;
+        }
     }
 
     private static Dictionary<string, object> GetSingleFrame(Dictionary<string, object> exception)

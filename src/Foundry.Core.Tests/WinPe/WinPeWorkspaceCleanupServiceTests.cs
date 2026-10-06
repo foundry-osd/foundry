@@ -85,6 +85,44 @@ public sealed class WinPeWorkspaceCleanupServiceTests
     }
 
     [Theory]
+    [InlineData("Configuration", false, false, false)]
+    [InlineData("Iso", false, false, false)]
+    [InlineData("WinPe", true, true, false)]
+    [InlineData("guid", false, false, false)]
+    [InlineData("guid", true, false, true)]
+    [InlineData("guid", false, true, true)]
+    public void IsOperationWorkspace_IdentifiesOnlyLeasedOrOwnedGuidDirectories(
+        string name, bool hasLease, bool hasOwnership, bool expected)
+    {
+        using var temp = new TemporaryDirectory();
+        string directory = Path.Combine(temp.Path, name == "guid" ? Guid.NewGuid().ToString("N") : name);
+        Directory.CreateDirectory(directory);
+        if (hasLease) File.WriteAllText(Path.Combine(directory, ".lease"), string.Empty);
+        if (hasOwnership) File.WriteAllText(Path.Combine(directory, "operation.json"), "{}");
+
+        Assert.Equal(expected, WinPeWorkspaceCleanupService.IsOperationWorkspace(directory));
+        Assert.True(Directory.Exists(directory));
+    }
+
+    [Fact]
+    public void IsOperationWorkspace_WhenInactiveOperationRetainsPendingCleanup_KeepsItInRecovery()
+    {
+        using var temp = new TemporaryDirectory();
+        string operation;
+        using (var lease = WinPeWorkspaceLease.Create(temp.Path))
+        {
+            operation = lease.OperationDirectoryPath;
+            Directory.CreateDirectory(lease.WinPeDirectoryPath);
+            File.WriteAllText(Path.Combine(lease.WinPeDirectoryPath, ".foundry-mount-cleanup-test.pending"), "pending");
+        }
+        var service = new WinPeWorkspaceCleanupService(() => []);
+
+        Assert.True(WinPeWorkspaceCleanupService.IsOperationWorkspace(operation));
+        Assert.False(service.DeleteOwnedOperation(temp.Path, operation).IsSuccess);
+        Assert.True(Directory.Exists(operation));
+    }
+
+    [Theory]
     [InlineData(@"\\?\")]
     [InlineData(@"\\.\")]
     [InlineData("//?/")]

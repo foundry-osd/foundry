@@ -1646,9 +1646,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         foreach (string workspacePath in Directory.EnumerateDirectories(workspaceRoot))
         {
+            // Legacy folders such as Configuration or Iso are not media operations and must never be recovered.
+            if (!WinPeWorkspaceCleanupService.IsOperationWorkspace(workspacePath))
+            {
+                logger.Debug("Skipped non-operation directory during WinPE workspace cleanup. WorkspacePath={WorkspacePath}", workspacePath);
+                continue;
+            }
+
             DeleteWorkspaceDirectory(workspacePath, reportProgress: false);
         }
-
     }
 
     private void DeleteWorkspaceDirectory(string workspacePath, bool reportProgress)
