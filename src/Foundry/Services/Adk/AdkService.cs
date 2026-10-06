@@ -19,7 +19,7 @@ internal sealed class AdkService(
     IApplicationLocalizationService localizationService,
     ILogger logger) : IAdkService
 {
-    private const string TargetAdkVersion = "10.1.26100.2454";
+    private const string TargetAdkVersion = "10.1.26100.9457";
     private const string AdkSetupFileName = $"adksetup-{TargetAdkVersion}.exe";
     private const string WinPeSetupFileName = $"adkwinpesetup-{TargetAdkVersion}.exe";
     private const string AdkSetupUrl = "https://go.microsoft.com/fwlink/?linkid=2289980";
@@ -42,7 +42,7 @@ internal sealed class AdkService(
         null,
         AdkVersionRelation.Unknown,
         null,
-        "Windows ADK 24H2 / 10.1.26100.2454");
+        "Windows ADK 24H2 / 10.1.26100.9457");
 
     /// <inheritdoc />
     public Task<AdkInstallationStatus> RefreshStatusAsync(CancellationToken cancellationToken = default)

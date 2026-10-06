@@ -155,7 +155,7 @@
     <value>ADK налаштування</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Інсталюйте підтримуваний випуск Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Інсталюйте підтримуваний випуск Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Версія ADK не підтримується</value>
@@ -191,7 +191,7 @@
     <value>Версія не виявлена</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Потрібен Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Потрібен Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Необхідна політика версії</value>

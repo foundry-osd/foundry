@@ -8,7 +8,7 @@ namespace Foundry.Core.Tests.Adk;
 
 public sealed class AdkSetupPlanTests
 {
-    private const string SupportedVersion = "10.1.26100.2454";
+    private const string SupportedVersion = "10.1.26100.9457";
 
     [Fact]
     public void Create_WhenNothingIsInstalled_InstallsAdkAndWinPeWithoutUninstall()
@@ -63,5 +63,5 @@ public sealed class AdkSetupPlanTests
         bool isCompatible,
         string? installedVersion,
         AdkVersionRelation versionRelation) =>
-        new(isInstalled, isCompatible, false, installedVersion, versionRelation, null, "Windows ADK 24H2 / 10.1.26100.2454");
+        new(isInstalled, isCompatible, false, installedVersion, versionRelation, null, "Windows ADK 24H2 / 10.1.26100.9457");
 }

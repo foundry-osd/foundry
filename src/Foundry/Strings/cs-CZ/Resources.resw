@@ -155,7 +155,7 @@ Licencováno pod licencí MIT.</value>
     <value>Nastavení ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Nainstalujte podporovanou verzi Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Nainstalujte podporovanou verzi Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Verze ADK není podporována</value>
@@ -191,7 +191,7 @@ Licencováno pod licencí MIT.</value>
     <value>Verze nebyla zjištěna</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Vyžaduje Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Vyžaduje Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Zásady požadované verze</value>
