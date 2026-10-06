@@ -1183,7 +1183,6 @@ public sealed class WindowsDeploymentServiceTests
     {
         public List<string> Calls { get; } = [];
         public string? LastFileName { get; private set; }
-        public string? LastArguments { get; private set; }
         public string? LastWorkingDirectory { get; private set; }
         public ProcessExecutionResult Result { get; init; } = new() { ExitCode = 0 };
         public Func<string, ProcessExecutionResult>? ResultFactory { get; init; }
@@ -1196,7 +1195,6 @@ public sealed class WindowsDeploymentServiceTests
         {
             Calls.Add($"{fileName} {arguments}");
             LastFileName = fileName;
-            LastArguments = arguments;
             LastWorkingDirectory = workingDirectory;
             return Task.FromResult(ResultFactory?.Invoke(arguments) ?? Result);
         }
@@ -1210,7 +1208,6 @@ public sealed class WindowsDeploymentServiceTests
             string joinedArguments = string.Join(' ', arguments);
             Calls.Add($"{fileName} {joinedArguments}");
             LastFileName = fileName;
-            LastArguments = joinedArguments;
             LastWorkingDirectory = workingDirectory;
             return Task.FromResult(ResultFactory?.Invoke(joinedArguments) ?? Result);
         }
@@ -1226,7 +1223,6 @@ public sealed class WindowsDeploymentServiceTests
             string joinedArguments = string.Join(' ', arguments);
             Calls.Add($"{fileName} {joinedArguments}");
             LastFileName = fileName;
-            LastArguments = joinedArguments;
             LastWorkingDirectory = workingDirectory;
             ProcessExecutionResult result = ResultFactory?.Invoke(joinedArguments) ?? Result;
             if (!string.IsNullOrEmpty(result.StandardOutput))

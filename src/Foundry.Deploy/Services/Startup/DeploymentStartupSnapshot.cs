@@ -22,8 +22,6 @@ public sealed record DeploymentStartupSnapshot
 
     /// <summary>Gets why rebuilding this boot media is recommended.</summary>
     public BootMediaUpdateReason BootMediaUpdateReason { get; init; }
-
-    public bool IsBootMediaUpdateRecommended => BootMediaUpdateReason != BootMediaUpdateReason.None;
     public required IReadOnlyList<AutopilotProfileCatalogItem> AutopilotProfiles { get; init; }
     public required MachineNamePreparationResult MachineNamePreparation { get; init; }
     public required HardwareProfile? DetectedHardware { get; init; }

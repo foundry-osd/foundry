@@ -27,6 +27,17 @@ public sealed class AdkSetupPlanTests
     }
 
     [Fact]
+    public void Create_WhenCompatibleAdkHasWinPeAddon_RequiresNoSetup()
+    {
+        AdkInstallationStatus status = CreateStatus(true, true, SupportedVersion, AdkVersionRelation.Supported) with
+        {
+            IsWinPeAddonInstalled = true
+        };
+
+        Assert.Equal(new AdkSetupPlan(AdkSetupAction.None, false, false, false), AdkSetupPlan.Create(status));
+    }
+
+    [Fact]
     public void Create_WhenCompatibleAdkHasRegisteredButUnusableWinPeAddon_KeepsManualRepair()
     {
         AdkInstallationStatus status = CreateStatus(true, true, SupportedVersion, AdkVersionRelation.Supported) with
@@ -63,5 +74,5 @@ public sealed class AdkSetupPlanTests
         bool isCompatible,
         string? installedVersion,
         AdkVersionRelation versionRelation) =>
-        new(isInstalled, isCompatible, false, installedVersion, versionRelation, null, "Windows ADK 24H2 / 10.1.26100.9457");
+        new(isInstalled, isCompatible, false, installedVersion, versionRelation, null);
 }

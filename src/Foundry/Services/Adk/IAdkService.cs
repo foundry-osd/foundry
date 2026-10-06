@@ -31,6 +31,12 @@ public interface IAdkService
     /// <summary>
     /// Installs missing ADK components required by Foundry media creation.
     /// </summary>
+    /// <remarks>
+    /// The setup steps come from <see cref="AdkSetupPlan"/> evaluated on a freshly detected status, not from the method
+    /// called. This call may therefore remove registered ADK bundles first, install only the missing WinPE add-on, or
+    /// only re-verify. Choosing it over <see cref="UpgradeAsync"/> only selects the operation kind reported to
+    /// progress, logs and telemetry.
+    /// </remarks>
     /// <param name="cancellationToken">Token that cancels the install operation.</param>
     /// <returns>The installation status after the operation.</returns>
     Task<AdkInstallationStatus> InstallAsync(CancellationToken cancellationToken = default);
@@ -38,6 +44,12 @@ public interface IAdkService
     /// <summary>
     /// Upgrades installed ADK components when the current versions are unsupported.
     /// </summary>
+    /// <remarks>
+    /// The setup steps come from <see cref="AdkSetupPlan"/> evaluated on a freshly detected status, not from the method
+    /// called. This call may therefore remove registered ADK bundles first, install only the missing WinPE add-on, or
+    /// only re-verify. Choosing it over <see cref="InstallAsync"/> only selects the operation kind reported to
+    /// progress, logs and telemetry.
+    /// </remarks>
     /// <param name="cancellationToken">Token that cancels the upgrade operation.</param>
     /// <returns>The installation status after the operation.</returns>
     Task<AdkInstallationStatus> UpgradeAsync(CancellationToken cancellationToken = default);

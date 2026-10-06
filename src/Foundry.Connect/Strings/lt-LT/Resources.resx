@@ -179,9 +179,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>olandų (Nyderlandai)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>anglų kalba</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>anglų (Jungtinė Karalystė)</value>
   </data>
@@ -193,9 +190,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>suomių (Suomija)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>prancūzų</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>prancūzų (Kanada)</value>

@@ -2008,9 +2008,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Ολλανδικά (Ολλανδία)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Αγγλικά</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Αγγλικά (Ηνωμένο Βασίλειο)</value>
   </data>
@@ -2022,9 +2019,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Φινλανδικά (Φινλανδία)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Γαλλικά</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Γαλλικά (Καναδάς)</value>

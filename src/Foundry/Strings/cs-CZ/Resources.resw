@@ -2008,9 +2008,6 @@ Licencováno pod licencí MIT.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>holandština (Nizozemsko)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>anglicky</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angličtina (Spojené království)</value>
   </data>
@@ -2022,9 +2019,6 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finština (Finsko)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>francouzsky</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>francouzština (Kanada)</value>

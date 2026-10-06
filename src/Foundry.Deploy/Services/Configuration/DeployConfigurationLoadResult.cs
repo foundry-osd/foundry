@@ -15,8 +15,6 @@ public sealed record DeployConfigurationLoadResult
 
     /// <summary>Gets why rebuilding this boot media is recommended.</summary>
     public BootMediaUpdateReason BootMediaUpdateReason { get; init; }
-
-    public bool IsBootMediaUpdateRecommended => BootMediaUpdateReason != BootMediaUpdateReason.None;
     public string? FailureMessage { get; init; }
 
     /// <summary>Preserves the original parse or validation exception for protected startup diagnostics.</summary>

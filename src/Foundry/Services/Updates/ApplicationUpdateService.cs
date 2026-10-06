@@ -62,18 +62,15 @@ internal sealed class ApplicationUpdateService(
     }
 
     /// <inheritdoc />
-    public Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(
-        bool isStartupCheck = false,
-        CancellationToken cancellationToken = default)
+    public Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(CancellationToken cancellationToken = default)
     {
-        return RunSerializedAsync(operation => CheckCoreAsync(operation, isStartupCheck), cancellationToken);
+        return RunSerializedAsync(operation => CheckCoreAsync(operation, isStartupCheck: false), cancellationToken);
     }
 
     /// <inheritdoc />
-    public async Task<ApplicationUpdateDownloadResult> DownloadUpdateAsync(CancellationToken cancellationToken = default)
+    public Task DownloadUpdateAsync(CancellationToken cancellationToken = default)
     {
-        ApplicationUpdateCheckResult result = await RunSerializedAsync(DownloadCoreAsync, cancellationToken);
-        return new ApplicationUpdateDownloadResult(result.Status, result.Message);
+        return RunSerializedAsync(DownloadCoreAsync, cancellationToken);
     }
 
     /// <inheritdoc />

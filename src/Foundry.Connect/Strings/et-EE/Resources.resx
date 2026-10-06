@@ -179,9 +179,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>hollandi keel (Holland)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>inglise keel</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>inglise keel (Ühendkuningriik)</value>
   </data>
@@ -193,9 +190,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>soome keel (Soome)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>prantsuse keel</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>prantsuse keel (Kanada)</value>

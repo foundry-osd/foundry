@@ -25,7 +25,6 @@ public sealed class AdkWimMountRecoveryTests
     [Theory]
     [InlineData(Architecture.X64, @"amd64\DISM\WimMountAdkSetupAmd64.exe")]
     [InlineData(Architecture.Arm64, @"arm64\DISM\WimMountAdkSetupArm64.exe")]
-    [InlineData(Architecture.X86, @"x86\DISM\WimMountAdkSetupX86.exe")]
     public void FindDriverSetupPath_SelectsDriverSetupForOperatingSystemArchitecture(Architecture architecture, string relativePath)
     {
         string expected = Path.Combine(KitsRoot, AdkInstallationDetector.DeploymentToolsRelativePath, relativePath);

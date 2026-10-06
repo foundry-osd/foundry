@@ -179,9 +179,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>ดัตช์ (เนเธอร์แลนด์)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>อังกฤษ</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>อังกฤษ (สหราชอาณาจักร)</value>
   </data>
@@ -193,9 +190,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>ฟินแลนด์ (ฟินแลนด์)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>ฝรั่งเศส</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>ฝรั่งเศส (แคนาดา)</value>

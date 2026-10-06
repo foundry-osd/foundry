@@ -14,25 +14,20 @@ public sealed class ConnectConfigurationGeneratorTests
     [Theory]
     [InlineData("26.10.3.1")]
     [InlineData(null)]
-    public void Generate_PropagatesOptionalAuthoringVersionToModelAndBundle(string? authoringVersion)
+    public void CreateProvisioningBundle_PropagatesOptionalAuthoringVersionToModelAndJson(string? authoringVersion)
     {
         using var tempDirectory = new TemporaryDirectory();
         var generator = new ConnectConfigurationGenerator();
-        FoundryConnectConfigurationDocument configuration = generator.Generate(new(), tempDirectory.Path, authoringVersion);
         FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(new(), tempDirectory.Path, authoringVersion);
-        using JsonDocument generatedJson = JsonDocument.Parse(generator.Serialize(configuration));
         using JsonDocument bundleJson = JsonDocument.Parse(bundle.ConfigurationJson);
 
-        Assert.Equal(authoringVersion, configuration.AuthoringVersion);
         Assert.Equal(authoringVersion, bundle.Configuration.AuthoringVersion);
         if (authoringVersion is null)
         {
-            Assert.False(generatedJson.RootElement.TryGetProperty("authoringVersion", out _));
             Assert.False(bundleJson.RootElement.TryGetProperty("authoringVersion", out _));
         }
         else
         {
-            Assert.Equal("26.10.3.1", generatedJson.RootElement.GetProperty("authoringVersion").GetString());
             Assert.Equal("26.10.3.1", bundleJson.RootElement.GetProperty("authoringVersion").GetString());
         }
     }

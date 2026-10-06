@@ -56,7 +56,6 @@ public sealed class AdkWimMountRecovery
         {
             Architecture.X64 => ("amd64", "WimMountAdkSetupAmd64.exe"),
             Architecture.Arm64 => ("arm64", "WimMountAdkSetupArm64.exe"),
-            Architecture.X86 => ("x86", "WimMountAdkSetupX86.exe"),
             _ => null,
         };
         if (string.IsNullOrWhiteSpace(kitsRootPath) || driver is null)

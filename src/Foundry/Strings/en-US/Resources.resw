@@ -2008,9 +2008,6 @@ Licensed under the MIT License.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Dutch (Netherlands)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>English</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>English (United Kingdom)</value>
   </data>
@@ -2022,9 +2019,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finnish (Finland)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>French</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>French (Canada)</value>
