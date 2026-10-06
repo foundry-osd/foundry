@@ -179,9 +179,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>네덜란드어(네덜란드)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>영어</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>영어(영국)</value>
   </data>
@@ -193,9 +190,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>핀란드어(핀란드)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>프랑스어</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>프랑스어(캐나다)</value>

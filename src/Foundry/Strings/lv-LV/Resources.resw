@@ -2005,9 +2005,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>holandiešu (Nīderlande)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>angļu valoda</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angļu (Apvienotā Karaliste)</value>
   </data>
@@ -2019,9 +2016,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>somu (Somija)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>franču valoda</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>franču (Kanāda)</value>

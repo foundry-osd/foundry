@@ -179,9 +179,6 @@ Licenciado sob a licença MIT.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Holandês (Holanda)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Inglês</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglês (Reino Unido)</value>
   </data>
@@ -193,9 +190,6 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finlandês (Finlândia)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Francês</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Francês (Canadá)</value>

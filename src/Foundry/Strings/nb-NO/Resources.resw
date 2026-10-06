@@ -2005,9 +2005,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Nederlandsk (Nederland)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>engelsk</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Engelsk (Storbritannia)</value>
   </data>
@@ -2019,9 +2016,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finsk (Finland)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>fransk</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>fransk (Canada)</value>

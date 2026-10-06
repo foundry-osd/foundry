@@ -179,9 +179,6 @@ Licencirano pod MIT licencom.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>holandski (Holandija)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>engleski</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engleski (Ujedinjeno Kraljevstvo)</value>
   </data>
@@ -193,9 +190,6 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finski (Finska)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>francuski</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>francuski (Kanada)</value>

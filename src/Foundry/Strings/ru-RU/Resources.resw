@@ -2005,9 +2005,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Голландский (Нидерланды)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>английский</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Английский (Великобритания)</value>
   </data>
@@ -2019,9 +2016,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Финский (Финляндия)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>французский</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Французский (Канада)</value>
