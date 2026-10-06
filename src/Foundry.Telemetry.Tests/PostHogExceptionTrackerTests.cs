@@ -279,7 +279,7 @@ public sealed class PostHogExceptionTrackerTests
         string fingerprint = Assert.IsType<string>(client.Events[0].Properties["$exception_fingerprint"]);
         Assert.Equal(fingerprint, client.Events[1].Properties["$exception_fingerprint"]);
         Assert.Contains("POSTINSTALL_PREFLIGHT_FAILED", fingerprint, StringComparison.Ordinal);
-        Assert.Contains("postinstall_preflight", fingerprint, StringComparison.Ordinal);
+        Assert.EndsWith(":postinstall_preflight", fingerprint, StringComparison.Ordinal);
         foreach (string value in new[] { "operation-", "session-1", "message-", "summary-", "1000", "install-1" })
         {
             Assert.DoesNotContain(value, fingerprint, StringComparison.Ordinal);
