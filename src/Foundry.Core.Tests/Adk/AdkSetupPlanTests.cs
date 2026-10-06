@@ -40,7 +40,8 @@ public sealed class AdkSetupPlanTests
     [Theory]
     [InlineData("10.1.28000.1", AdkVersionRelation.AboveSupported)]
     [InlineData("10.1.22621.1", AdkVersionRelation.BelowSupported)]
-    public void Create_WhenOtherReleaseIsRegisteredWithoutDeploymentTools_UninstallsBeforeInstall(
+    [InlineData(SupportedVersion, AdkVersionRelation.Supported)]
+    public void Create_WhenReleaseIsRegisteredWithoutDeploymentTools_UninstallsBeforeInstall(
         string installedVersion,
         AdkVersionRelation versionRelation)
     {

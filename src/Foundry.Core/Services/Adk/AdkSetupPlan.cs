@@ -27,8 +27,8 @@ public sealed record AdkSetupPlan(
     /// </summary>
     /// <remarks>
     /// ADK setup has been observed to refuse running over an existing bundle registration, so a compatible ADK only receives
-    /// the missing WinPE add-on, and any registered ADK release other than the supported one is removed first even
-    /// when its Deployment Tools folder is missing. A registered but unusable WinPE add-on keeps the manual repair path.
+    /// the missing WinPE add-on, and any other registered ADK release, including the supported one without its
+    /// Deployment Tools folder, is removed first. A registered but unusable WinPE add-on keeps the manual repair path.
     /// </remarks>
     /// <param name="status">The detected installation status.</param>
     /// <returns>The setup plan for that status.</returns>
@@ -41,8 +41,7 @@ public sealed record AdkSetupPlan(
             return !status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered ? WinPeAddonInstall : NoAction;
         }
 
-        if (status.IsInstalled
-            || status.VersionRelation is AdkVersionRelation.BelowSupported or AdkVersionRelation.AboveSupported)
+        if (status.IsInstalled || status.VersionRelation != AdkVersionRelation.Unknown)
         {
             return Reinstall;
         }
