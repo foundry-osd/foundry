@@ -3513,6 +3513,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>מאמת את מדיית האתחול USB.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows חסם את הגישה לקובצי תמונת WinPE. ייתכן שתוכנת אבטחה או כלי אחר נועלים אותם. יש להוסיף החרגה עבור {0} בתוכנת האבטחה, לסגור כלים שמעגנים תמונות, להפעיל מחדש את המחשב ולנסות שוב. הפרטים נמצאים ב-{1} וב-{2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>בדוק מוכנות, בחר פלט ISO או USB והתחל ביצירת המדיה.</value>
   </data>

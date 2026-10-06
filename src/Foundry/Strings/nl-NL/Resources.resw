@@ -3513,6 +3513,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB opstartmedia verifiëren.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows heeft de toegang tot de WinPE-installatiekopiebestanden geblokkeerd. Mogelijk worden ze vergrendeld door beveiligingssoftware of een ander hulpprogramma. Voeg in de beveiligingssoftware een uitzondering toe voor {0}, sluit hulpprogramma's die installatiekopieën koppelen, start de computer opnieuw op en probeer het opnieuw. Details staan in {1} en {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Controleer de gereedheid, kies ISO- of USB-uitvoer en start het maken van media.</value>
   </data>

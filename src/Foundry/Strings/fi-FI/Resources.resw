@@ -3513,6 +3513,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB käynnistysmedian tarkistaminen.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows esti pääsyn WinPE-näköistiedostoihin. Suojausohjelmisto tai jokin muu työkalu saattaa lukita ne. Lisää suojausohjelmistoon poikkeus kohteelle {0}, sulje näköistiedostoja liittävät työkalut, käynnistä tietokone uudelleen ja yritä uudelleen. Lisätietoja on tiedostoissa {1} ja {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tarkista valmius, valitse ISO- tai USB-tuloste ja käynnistä median luonti.</value>
   </data>

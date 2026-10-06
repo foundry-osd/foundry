@@ -3513,6 +3513,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Se verifică USB suportul de pornire.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows a blocat accesul la fișierele imaginii WinPE. Este posibil ca un software de securitate sau alt instrument să le blocheze. Adăugați o excludere pentru {0} în software-ul de securitate, închideți instrumentele care montează imagini, reporniți computerul și încercați din nou. Detaliile se află în {1} și {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
   </data>

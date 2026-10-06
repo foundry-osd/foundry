@@ -3513,6 +3513,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>正在验证 USB 启动介质。</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows 阻止了对 WinPE 映像文件的访问。安全软件或其他工具可能正在锁定这些文件。请在安全软件中为 {0} 添加排除项，关闭用于装载映像的工具，重启计算机，然后重试。详细信息位于 {1} 和 {2} 中。</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>检查就绪情况，选择 ISO 或 USB 输出，然后开始创建媒体。</value>
   </data>

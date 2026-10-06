@@ -3513,6 +3513,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB rendszerindító adathordozó ellenőrzése.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>A Windows letiltotta a hozzáférést a WinPE-lemezkép fájljaihoz. Lehet, hogy egy biztonsági szoftver vagy egy másik eszköz zárolja őket. Adjon hozzá kivételt a(z) {0} mappához a biztonsági szoftverben, zárja be a lemezképeket csatlakoztató eszközöket, indítsa újra a számítógépet, és próbálja újra. A részletek a(z) {1} és a(z) {2} fájlban találhatók.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>
   </data>

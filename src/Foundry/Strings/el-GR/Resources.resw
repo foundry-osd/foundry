@@ -3513,6 +3513,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Επαλήθευση μέσων εκκίνησης USB.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Τα Windows απέκλεισαν την πρόσβαση στα αρχεία της εικόνας WinPE. Ενδέχεται να τα κλειδώνει λογισμικό ασφαλείας ή άλλο εργαλείο. Προσθέστε μια εξαίρεση για το {0} στο λογισμικό ασφαλείας, κλείστε τα εργαλεία που προσαρτούν εικόνες, επανεκκινήστε τον υπολογιστή και δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στα {1} και {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
   </data>

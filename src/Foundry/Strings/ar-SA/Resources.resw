@@ -3513,6 +3513,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>التحقق من USB وسائط التمهيد.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>حظر Windows الوصول إلى ملفات صورة WinPE. قد يكون برنامج أمان أو أداة أخرى يقفلها. أضف استثناءً للمسار {0} في برنامج الأمان، وأغلق الأدوات التي تحمّل الصور، وأعد تشغيل الكمبيوتر، ثم حاول مرة أخرى. تتوفر التفاصيل في {1} و{2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>راجع الجاهزية واختر إخراج ISO أو USB ثم ابدأ إنشاء الوسائط.</value>
   </data>

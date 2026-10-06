@@ -3513,6 +3513,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Overenie zavádzacieho média USB.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Systém Windows zablokoval prístup k súborom obrazu WinPE. Môže ich zamykať bezpečnostný softvér alebo iný nástroj. Pridajte v bezpečnostnom softvéri výnimku pre {0}, zatvorte nástroje, ktoré pripájajú obrazy, reštartujte počítač a skúste to znova. Podrobnosti nájdete v {1} a {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Skontrolujte pripravenosť, vyberte výstup ISO alebo USB a spustite vytvorenie média.</value>
   </data>

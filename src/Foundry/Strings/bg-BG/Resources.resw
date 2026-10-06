@@ -3513,6 +3513,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Проверка на USB носител за зареждане.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows блокира достъпа до файловете на WinPE образа. Възможно е софтуер за защита или друг инструмент да ги заключва. Добавете изключение за {0} в софтуера за защита, затворете инструментите, които монтират образи, рестартирайте компютъра и опитайте отново. Подробности има в {1} и {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Прегледайте готовността, изберете ISO или USB изход и стартирайте създаването на носител.</value>
   </data>
