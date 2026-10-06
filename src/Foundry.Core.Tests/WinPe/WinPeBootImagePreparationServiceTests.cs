@@ -115,7 +115,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         var runner = new FakeWinPeProcessRunner
         {
             FailingOperation = stage,
-            ExitCode = 5,
+            ExitCode = 2,
             OnRun = (arguments, _) => { if (arguments.Contains(stage, StringComparison.Ordinal)) caller.Cancel(); }
         };
         using var client = new HttpClient(new StaticCatalogHandler(catalog));
@@ -131,7 +131,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                 BootImageSource = WinPeBootImageSource.WinReWifi
             }, caller.Token);
             Assert.False(result.IsSuccess);
-            Assert.Equal(5, result.Error?.ExitCode);
+            Assert.Equal(2, result.Error?.ExitCode);
             Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
             Assert.Single(runner.Executions, execution => execution.Arguments.Contains(stage, StringComparison.Ordinal));
         }

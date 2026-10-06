@@ -3513,6 +3513,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Provjera USB medija za pokretanje.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows je blokirao pristup datotekama slike sustava WinPE. Možda ih zaključava sigurnosni softver ili neki drugi alat. U sigurnosnom softveru dodajte iznimku za {0}, zatvorite alate koji montiraju slike, ponovno pokrenite računalo i pokušajte ponovno. Pojedinosti se nalaze u {1} i {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pregledajte spremnost, odaberite ISO ili USB izlaz i pokrenite stvaranje medija.</value>
   </data>

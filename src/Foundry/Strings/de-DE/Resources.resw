@@ -3513,6 +3513,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Überprüfen des USB Bootmediums.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows hat den Zugriff auf die WinPE-Abbilddateien blockiert. Möglicherweise sperrt eine Sicherheitssoftware oder ein anderes Tool diese Dateien. Fügen Sie in der Sicherheitssoftware eine Ausnahme für {0} hinzu, schließen Sie Tools, die Abbilder bereitstellen, starten Sie den Computer neu und versuchen Sie es erneut. Details finden Sie in {1} und {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Prüfen Sie die Bereitschaft, wählen Sie eine ISO- oder USB-Ausgabe aus, und starten Sie die Medienerstellung.</value>
   </data>

@@ -3513,6 +3513,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB önyükleme ortamı doğrulanıyor.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows, WinPE görüntü dosyalarına erişimi engelledi. Bir güvenlik yazılımı veya başka bir araç bu dosyaları kilitliyor olabilir. Güvenlik yazılımına {0} için bir dışlama ekleyin, görüntü bağlayan araçları kapatın, bilgisayarı yeniden başlatın ve yeniden deneyin. Ayrıntılar {1} ve {2} dosyalarındadır.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Hazırlığı gözden geçirin, ISO veya USB çıktısını seçin ve medya oluşturmayı başlatın.</value>
   </data>

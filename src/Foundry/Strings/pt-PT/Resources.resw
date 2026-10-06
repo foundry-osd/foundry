@@ -3513,6 +3513,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verificando a mídia de inicialização USB.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>O Windows bloqueou o acesso aos ficheiros da imagem do WinPE. Um software de segurança ou outra ferramenta pode estar a bloqueá-los. Adicione uma exclusão para {0} no software de segurança, feche as ferramentas que montam imagens, reinicie o computador e tente novamente. Os detalhes estão em {1} e {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Reveja a preparação, escolha uma saída ISO ou USB e inicie a criação do suporte.</value>
   </data>

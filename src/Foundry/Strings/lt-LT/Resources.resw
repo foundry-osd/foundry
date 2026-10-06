@@ -3513,6 +3513,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Tikrinama USB įkrovos laikmena.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>„Windows“ užblokavo prieigą prie WinPE vaizdo failų. Gali būti, kad juos užrakino saugos programinė įranga arba kitas įrankis. Saugos programinėje įrangoje pridėkite išimtį aplankui {0}, uždarykite vaizdus prijungiančius įrankius, paleiskite kompiuterį iš naujo ir bandykite dar kartą. Išsami informacija pateikta failuose {1} ir {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Peržiūrėkite parengtį, pasirinkite ISO arba USB išvestį ir pradėkite laikmenos kūrimą.</value>
   </data>

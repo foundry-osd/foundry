@@ -3513,6 +3513,9 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Vérification du support de démarrage USB.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows a bloqué l’accès aux fichiers de l’image WinPE. Un logiciel de sécurité ou un autre outil les verrouille peut-être. Ajoutez une exclusion pour {0} dans votre logiciel de sécurité, fermez les outils qui montent des images, redémarrez l’ordinateur, puis réessayez. Les détails se trouvent dans {1} et {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Vérifiez l’état, choisissez une sortie ISO ou USB, puis lancez la création du support.</value>
   </data>

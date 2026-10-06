@@ -3513,6 +3513,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB alglaadimismeediumi kontrollimine.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows blokeeris juurdepääsu WinPE kujutisefailidele. Võimalik, et turbetarkvara või mõni muu tööriist lukustab need. Lisage turbetarkvarasse erand asukohale {0}, sulgege kujutisi ühendavad tööriistad, taaskäivitage arvuti ja proovige uuesti. Üksikasjad on failides {1} ja {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontrollige valmisolekut, valige ISO või USB väljund ja alustage meediumi loomist.</value>
   </data>

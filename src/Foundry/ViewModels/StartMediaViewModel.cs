@@ -753,6 +753,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             string failedStatus = localizationService.GetString("StartMedia.Operation.Failed");
             string failureMessage = failureDiagnostic.FailureReason == WinPeFailureReasons.Timeout
                 ? localizationService.GetString("StartMedia.Operation.TransferTimedOut")
+                : IsWinPeImageAccessBlocked(failureDiagnostic)
+                ? FormatWinPeImageAccessBlockedFailure()
                 : failureDiagnostic.Code switch
                 {
                     WinPeErrorCodes.UsbIdentityMismatch => localizationService.GetString("StartMedia.Operation.DiskIdentityCannotBeConfirmed"),
@@ -2637,6 +2639,31 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private string FormatDriverVendor(WinPeVendorSelection vendor)
     {
         return localizationService.GetString($"StartMedia.DriverVendor.{vendor}");
+    }
+
+    /// <summary>
+    /// Identifies WinPE workspace or image servicing failures where Windows denied access to image files,
+    /// usually because security software or another imaging tool holds them.
+    /// </summary>
+    private static bool IsWinPeImageAccessBlocked(WinPeDiagnostic diagnostic)
+    {
+        return diagnostic.FailureReason == WinPeFailureReasons.AccessDenied &&
+            diagnostic.Code is WinPeErrorCodes.BuildFailed or WinPeErrorCodes.WimMountFailed;
+    }
+
+    private string FormatWinPeImageAccessBlockedFailure()
+    {
+        string dismLogPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+            "Logs",
+            "DISM",
+            "dism.log");
+        return string.Format(
+            CultureInfo.CurrentCulture,
+            localizationService.GetString("StartMedia.Operation.WinPeImageAccessBlocked"),
+            Constants.RootDirectoryPath,
+            Constants.LogFilePath,
+            dismLogPath);
     }
 
     private string FormatMediaCapacityFailure(string resourceKey, WinPeDiagnostic diagnostic, string? storageVolume = null)
