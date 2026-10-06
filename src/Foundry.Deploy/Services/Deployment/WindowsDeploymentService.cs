@@ -31,6 +31,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
     private const string WinReImageFileName = "winre.wim";
+    private const string WindowsBootManagerPath = @"\EFI\Microsoft\Boot\bootmgfw.efi";
     private const string AdministratorActivationDescription = "Enable built-in Administrator account";
     private const string AdministratorActivationCommand =
         "powershell.exe -NoProfile -NonInteractive -Command \"Get-LocalUser|Where-Object SID -like '*-500'|Enable-LocalUser -ErrorAction Stop\"";
@@ -45,7 +46,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     /// <summary>
     /// Initializes a Windows deployment service.
     /// </summary>
-    /// <param name="processRunner">The process runner used for diskpart, DISM, bcdboot, and winrecfg.</param>
+    /// <param name="processRunner">The process runner used for diskpart, DISM, bcdboot, bcdedit, and winrecfg.</param>
     /// <param name="logger">The logger used for deployment diagnostics.</param>
     /// <param name="imageInfoReader">Reads structured image metadata independently of console formatting.</param>
     /// <param name="deploymentSecretKeyProvider">The provider used to decrypt account passwords at the unattend-writing boundary.</param>
@@ -1415,6 +1416,87 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             cancellationToken).ConfigureAwait(false);
 
         _logger.LogInformation("BCDBoot configuration completed successfully.");
+
+        await PrioritizeWindowsBootManagerAsync(systemPartitionRoot, workingDirectory, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Registers Windows Boot Manager in the UEFI firmware and moves it to the top of the firmware boot order.
+    /// </summary>
+    /// <remarks>
+    /// BCDBoot does not reliably create the firmware entry when <c>/s</c> is used, so the device can return to the
+    /// deployment media or a network boot option after the restart. Firmware may reject these writes; the boot files
+    /// are already in place, so every failure is logged and the deployment continues.
+    /// </remarks>
+    private async Task PrioritizeWindowsBootManagerAsync(
+        string systemPartitionRoot,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        string systemPartition = systemPartitionRoot.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        string[][] commands =
+        [
+            ["/set", "{bootmgr}", "device", $"partition={systemPartition}"],
+            ["/set", "{bootmgr}", "path", WindowsBootManagerPath],
+            ["/set", "{fwbootmgr}", "displayorder", "{bootmgr}", "/addfirst"]
+        ];
+
+        _logger.LogInformation("Prioritizing Windows Boot Manager in the firmware boot order. SystemPartition={SystemPartition}", systemPartition);
+
+        bool succeeded = true;
+        foreach (string[] arguments in commands)
+        {
+            succeeded &= await TryRunFirmwareBootCommandAsync(arguments, workingDirectory, cancellationToken).ConfigureAwait(false);
+        }
+
+        // The resulting firmware entries are the only evidence of what the device will boot after the restart.
+        await TryRunFirmwareBootCommandAsync(["/enum", "firmware"], workingDirectory, cancellationToken, logOutput: true).ConfigureAwait(false);
+
+        if (succeeded)
+        {
+            _logger.LogInformation("Windows Boot Manager is first in the firmware boot order.");
+        }
+        else
+        {
+            _logger.LogWarning("The firmware boot order could not be fully updated. The device may start from another boot device after the restart.");
+        }
+    }
+
+    private async Task<bool> TryRunFirmwareBootCommandAsync(
+        string[] arguments,
+        string workingDirectory,
+        CancellationToken cancellationToken,
+        bool logOutput = false)
+    {
+        string commandLine = string.Join(' ', arguments);
+        try
+        {
+            ProcessExecutionResult execution = await _processRunner
+                .RunAsync("bcdedit.exe", arguments, workingDirectory, cancellationToken)
+                .ConfigureAwait(false);
+
+            if (!execution.IsSuccess)
+            {
+                _logger.LogWarning("Firmware boot command failed. Command={Command}, Diagnostic={Diagnostic}", commandLine, execution.ToDiagnosticText());
+                return false;
+            }
+
+            if (logOutput)
+            {
+                _logger.LogInformation("Firmware boot entries: {FirmwareBootEntries}", execution.StandardOutput);
+            }
+            else
+            {
+                _logger.LogDebug("Firmware boot command completed. Command={Command}", commandLine);
+            }
+
+            return true;
+        }
+        catch (Exception ex) when (ex is not OperationCanceledException)
+        {
+            _logger.LogWarning(ex, "Firmware boot command could not be started. Command={Command}", commandLine);
+            return false;
+        }
     }
 
     private async Task<ProcessExecutionResult> RunRequiredProcessAsync(
