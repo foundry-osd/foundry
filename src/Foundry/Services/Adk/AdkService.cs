@@ -83,6 +83,7 @@ internal sealed class AdkService(
         // ADK setup changes machine-level state and may show UAC, so only one install or upgrade can run at a time.
         await operationLock.WaitAsync(cancellationToken);
         string terminalStatus = string.Empty;
+        OperationOutcome outcome = OperationOutcome.None;
         string operationId = Guid.NewGuid().ToString("N");
         string stage = "detect";
         ILogger operationLogger = logger.ForContext("OperationId", operationId)
@@ -137,6 +138,7 @@ internal sealed class AdkService(
             AdkInstallationStatus status = await RefreshStatusAsync(cancellationToken);
             terminalStatus = localizationService.GetString(status.CanCreateMedia ? "Adk.Operation.Completed" : "Adk.Operation.NeedsAttention");
             operationProgressService.Complete(terminalStatus);
+            outcome = status.CanCreateMedia ? OperationOutcome.Success : OperationOutcome.Error;
             operationLogger.ForContext("Outcome", status.CanCreateMedia ? "succeeded" : "needs_attention").Information(
                 "ADK operation completed. OperationKind={OperationKind}, IsCompatible={IsCompatible}, InstalledVersion={InstalledVersion}",
                 operationKind,
@@ -174,12 +176,13 @@ internal sealed class AdkService(
                 operationKind, setupException?.Reason ?? "operation_failed",
                 setupException?.ExitCode, setupException?.NativeErrorCode);
             terminalStatus = localizationService.GetString("Adk.Operation.Failed");
+            outcome = OperationOutcome.Error;
             operationProgressService.Report(100, terminalStatus);
             throw;
         }
         finally
         {
-            operationProgressService.Reset(terminalStatus);
+            operationProgressService.Reset(terminalStatus, outcome);
             operationLock.Release();
         }
     }
