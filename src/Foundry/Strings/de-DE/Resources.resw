@@ -155,7 +155,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>ADK Einrichtung</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installieren Sie die unterstützte Windows ADK 24H2-Version (10.1.26100.2454).</value>
+    <value>Installieren Sie die unterstützte Windows ADK 24H2-Version (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Die ADK-Version wird nicht unterstützt</value>
@@ -191,7 +191,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Version nicht erkannt</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Erfordert Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Erfordert Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Erforderliche Versionsrichtlinie</value>

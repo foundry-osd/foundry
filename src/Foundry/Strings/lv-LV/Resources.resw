@@ -155,7 +155,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>ADK iestatīšana</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalējiet atbalstīto Windows ADK 24H2 (10.1.26100.2454) laidienu.</value>
+    <value>Instalējiet atbalstīto Windows ADK 24H2 (10.1.26100.9457) laidienu.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK versija netiek atbalstīta</value>
@@ -191,7 +191,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Versija nav noteikta</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nepieciešams Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Nepieciešams Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Nepieciešamā versijas politika</value>

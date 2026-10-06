@@ -155,7 +155,7 @@ Licențiat sub licența MIT.</value>
     <value>ADK configurare</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalați versiunea acceptată Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Instalați versiunea acceptată Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Versiunea ADK nu este acceptată</value>
@@ -191,7 +191,7 @@ Licențiat sub licența MIT.</value>
     <value>Versiunea nu a fost detectată</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Necesită Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Necesită Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Politica de versiune necesară</value>

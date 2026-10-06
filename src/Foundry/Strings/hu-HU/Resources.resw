@@ -155,7 +155,7 @@ Licenc az MIT licenc alatt.</value>
     <value>ADK beállítás</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Telepítse a támogatott Windows ADK 24H2 (10.1.26100.2454) kiadást.</value>
+    <value>Telepítse a támogatott Windows ADK 24H2 (10.1.26100.9457) kiadást.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>A ADK verzió nem támogatott</value>
@@ -191,7 +191,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A verzió nem észlelhető</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100.2454) szükséges.</value>
+    <value>Windows ADK 24H2 (10.1.26100.9457) szükséges.</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Kötelező verzió házirend</value>

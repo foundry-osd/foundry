@@ -6,6 +6,7 @@ using System.Text.Json;
 using Foundry.Utilities.Processes;
 using Foundry.Utilities.Serialization;
 using Foundry.Utilities.Storage;
+using Serilog;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -202,22 +203,14 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         DiskIdentity expectedIdentity = GetExpectedIdentity(options);
-        ReportProgress(options.Progress, 0, "Validating USB target.");
-        WinPeResult<WinPeUsbDiskIdentity> diskResult = await GetDiskIdentityAsync(
-            expectedIdentity,
+        WinPeResult targetValidation = await ConfirmTargetAsync(
+            options,
             tools,
             artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
-        if (!diskResult.IsSuccess)
+        if (!targetValidation.IsSuccess)
         {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(diskResult.Error!);
-        }
-
-        ReportProgress(options.Progress, 10, "Checking USB target safety.");
-        WinPeResult safetyValidation = ValidateDiskSafety(options, diskResult.Value!);
-        if (!safetyValidation.IsSuccess)
-        {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(safetyValidation.Error!);
+            return WinPeResult<WinPeUsbProvisionResult>.Failure(targetValidation.Error!);
         }
 
         WinPeResult capacityValidation = ValidatePreparedMedia(artifact, useBootEx,
@@ -322,22 +315,14 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         DiskIdentity expectedIdentity = GetExpectedIdentity(options);
-        ReportProgress(options.Progress, 0, "Validating USB target.");
-        WinPeResult<WinPeUsbDiskIdentity> diskResult = await GetDiskIdentityAsync(
-            expectedIdentity,
+        WinPeResult targetValidation = await ConfirmTargetAsync(
+            options,
             tools,
             artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
-        if (!diskResult.IsSuccess)
+        if (!targetValidation.IsSuccess)
         {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(diskResult.Error!);
-        }
-
-        ReportProgress(options.Progress, 10, "Checking USB target safety.");
-        WinPeResult safetyValidation = ValidateDiskSafety(options, diskResult.Value!);
-        if (!safetyValidation.IsSuccess)
-        {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(safetyValidation.Error!);
+            return WinPeResult<WinPeUsbProvisionResult>.Failure(targetValidation.Error!);
         }
 
         ReportProgress(options.Progress, 20, "Inspecting USB media layout.");
@@ -427,6 +412,60 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
 
         ReportProgress(options.Progress, 100, "USB boot partition updated.");
         return WinPeResult<WinPeUsbProvisionResult>.Success(layout);
+    }
+
+    /// <inheritdoc />
+    public async Task<WinPeResult> ValidateUsbTargetAsync(
+        UsbOutputOptions options,
+        WinPeToolPaths tools,
+        string workingDirectoryPath,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+        ArgumentNullException.ThrowIfNull(tools);
+
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (!options.TargetDiskNumber.HasValue)
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.ValidationFailed,
+                "USB target disk number is required.",
+                "Set UsbOutputOptions.TargetDiskNumber to the selected physical disk number.");
+        }
+
+        if (string.IsNullOrWhiteSpace(workingDirectoryPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.ValidationFailed,
+                "USB query working directory is required.",
+                "Provide a working directory for the USB disk query.");
+        }
+
+        Directory.CreateDirectory(workingDirectoryPath);
+        return await ConfirmTargetAsync(options, tools, workingDirectoryPath, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>Resolves the live disk by its captured identity, then applies the USB safety rules.</summary>
+    private async Task<WinPeResult> ConfirmTargetAsync(
+        UsbOutputOptions options,
+        WinPeToolPaths tools,
+        string workingDirectoryPath,
+        CancellationToken cancellationToken)
+    {
+        ReportProgress(options.Progress, 0, "Validating USB target.");
+        WinPeResult<WinPeUsbDiskIdentity> diskResult = await GetDiskIdentityAsync(
+            GetExpectedIdentity(options),
+            tools,
+            workingDirectoryPath,
+            cancellationToken).ConfigureAwait(false);
+        if (!diskResult.IsSuccess)
+        {
+            return WinPeResult.Failure(diskResult.Error!);
+        }
+
+        ReportProgress(options.Progress, 10, "Checking USB target safety.");
+        return ValidateDiskSafety(options, diskResult.Value!);
     }
 
     internal static WinPeResult ValidateDiskSafety(UsbOutputOptions options, WinPeUsbDiskIdentity disk)
@@ -1114,10 +1153,18 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                 .Select(element => element.Deserialize<WinPeUsbDiskIdentity>(
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!)
                 .ToArray();
-            DiskIdentity? resolved = expectedIdentity.Resolve(disks.Select(ToDiskIdentity));
-            return resolved is null
-                ? WinPeResult<WinPeUsbDiskIdentity>.Failure(CreateIdentityFailure())
-                : WinPeResult<WinPeUsbDiskIdentity>.Success(disks.Single(disk => disk.Number == resolved.Number));
+            DiskIdentity[] snapshots = disks.Select(ToDiskIdentity).ToArray();
+            DiskIdentity? resolved = expectedIdentity.Resolve(snapshots);
+            if (resolved is null)
+            {
+                // Field names only: serial numbers and unique ids are device identifiers.
+                Log.ForContext<WinPeUsbMediaService>().Warning(
+                    "USB target identity could not be confirmed. MismatchReasons={MismatchReasons}",
+                    string.Join(",", expectedIdentity.DescribeResolutionFailure(snapshots)));
+                return WinPeResult<WinPeUsbDiskIdentity>.Failure(CreateIdentityFailure());
+            }
+
+            return WinPeResult<WinPeUsbDiskIdentity>.Success(disks.Single(disk => disk.Number == resolved.Number));
         }
         catch (Exception ex)
         {
