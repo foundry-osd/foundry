@@ -155,7 +155,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>ADK iestatīšana</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalējiet atbalstīto Windows ADK 24H2 (10.1.26100.2454) laidienu.</value>
+    <value>Instalējiet atbalstīto Windows ADK 24H2 (10.1.26100.9457) laidienu.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK versija netiek atbalstīta</value>
@@ -191,7 +191,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Versija nav noteikta</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nepieciešams Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Nepieciešams Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Nepieciešamā versijas politika</value>
@@ -3515,6 +3515,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB sāknēšanas datu nesēja pārbaude.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows bloķēja piekļuvi WinPE attēla failiem. Iespējams, tos bloķē drošības programmatūra vai cits rīks. Drošības programmatūrā pievienojiet izņēmumu mapei {0}, aizveriet rīkus, kas pievieno attēlus, restartējiet datoru un mēģiniet vēlreiz. Detalizēta informācija ir failos {1} un {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pārskatiet gatavību, izvēlieties ISO vai USB izvadi un sāciet datu nesēja izveidi.</value>

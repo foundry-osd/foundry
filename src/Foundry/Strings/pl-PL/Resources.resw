@@ -155,7 +155,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Konfiguracja ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Zainstaluj obsługiwaną wersję Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Zainstaluj obsługiwaną wersję Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Wersja ADK nie jest obsługiwana</value>
@@ -191,7 +191,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie wykryto wersji</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Wymaga Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Wymaga Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Wymagane zasady dotyczące wersji</value>
@@ -3515,6 +3515,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Sprawdzanie nośnika startowego USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>System Windows zablokował dostęp do plików obrazu WinPE. Mogą być one zablokowane przez oprogramowanie zabezpieczające lub inne narzędzie. Dodaj wykluczenie dla {0} w oprogramowaniu zabezpieczającym, zamknij narzędzia, które instalują obrazy, uruchom ponownie komputer i spróbuj ponownie. Szczegóły znajdują się w {1} i {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Sprawdź gotowość, wybierz wyjście ISO lub USB i rozpocznij tworzenie nośnika.</value>

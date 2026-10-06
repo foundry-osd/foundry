@@ -387,6 +387,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Constants.UsbQueryTempDirectoryPath,
                 CancellationToken.None);
 
+            WinPeUsbDiskCandidate? previousSelection = SelectedUsbDisk?.Value;
             UsbCandidates.Clear();
             if (result.IsSuccess && result.Value is not null)
             {
@@ -395,8 +396,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     UsbCandidates.Add(CreateUsbDiskOption(candidate));
                 }
 
-                SelectedUsbDisk = UsbCandidates.FirstOrDefault(option => option.Value.DiskNumber == SelectedUsbDisk?.Value.DiskNumber)
-                    ?? UsbCandidates.FirstOrDefault();
+                WinPeUsbDiskCandidate? selectedCandidate = WinPeUsbDiskCandidateSelector.Reselect(result.Value, previousSelection);
+                SelectedUsbDisk = UsbCandidates.FirstOrDefault(option => ReferenceEquals(option.Value, selectedCandidate));
                 usbCandidateDiscoveryState = UsbCandidates.Count == 0
                     ? UsbCandidateDiscoveryState.Empty
                     : UsbCandidateDiscoveryState.Ready;
@@ -753,6 +754,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             string failedStatus = localizationService.GetString("StartMedia.Operation.Failed");
             string failureMessage = failureDiagnostic.FailureReason == WinPeFailureReasons.Timeout
                 ? localizationService.GetString("StartMedia.Operation.TransferTimedOut")
+                : IsWinPeImageAccessBlocked(failureDiagnostic)
+                ? FormatWinPeImageAccessBlockedFailure()
                 : failureDiagnostic.Code switch
                 {
                     WinPeErrorCodes.UsbIdentityMismatch => localizationService.GetString("StartMedia.Operation.DiskIdentityCannotBeConfirmed"),
@@ -851,6 +854,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
             finally
             {
+                if (target != FinalMediaTarget.Iso && !isDisposed)
+                {
+                    await RefreshUsbCandidatesAfterMediaOperationAsync();
+                }
 
                 shellNavigationGuardService.SetState(adkService.CurrentStatus.CanCreateMedia
                     ? ShellNavigationState.Ready
@@ -939,6 +946,49 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>
+    /// Re-reads disk identity and Foundry media state after a USB operation, because formatting or
+    /// re-enumeration can change them and the next operation must not reuse the stale selection.
+    /// </summary>
+    private async Task RefreshUsbCandidatesAfterMediaOperationAsync()
+    {
+        try
+        {
+            await RefreshUsbCandidatesAsync();
+        }
+        catch (Exception ex)
+        {
+            // The media outcome is already final; a failed refresh must not replace it or keep the shell locked.
+            logger.Warning(ex, "USB target refresh after the media operation failed.");
+        }
+    }
+
+    /// <summary>
+    /// Confirms the selected disk still has its captured identity before WinPE preparation starts,
+    /// so a stale selection fails immediately instead of after the long build.
+    /// </summary>
+    private async Task ValidateUsbTargetBeforePreparationAsync(
+        WinPeUsbDiskCandidate selectedDisk,
+        CancellationToken cancellationToken)
+    {
+        WinPeResult result = await usbMediaService.ValidateUsbTargetAsync(
+            CreateUsbTargetOptions(selectedDisk),
+            ResolveWinPeToolsOrThrow(),
+            Constants.UsbQueryTempDirectoryPath,
+            cancellationToken);
+        EnsureSuccess(result);
+    }
+
+    private static UsbOutputOptions CreateUsbTargetOptions(WinPeUsbDiskCandidate selectedDisk) => new()
+    {
+        TargetDiskNumber = selectedDisk.DiskNumber,
+        ExpectedDiskFriendlyName = selectedDisk.FriendlyName,
+        ExpectedDiskSerialNumber = selectedDisk.SerialNumber,
+        ExpectedDiskUniqueId = selectedDisk.UniqueId,
+        ExpectedDiskBusType = selectedDisk.BusType,
+        ExpectedDiskSizeBytes = selectedDisk.SizeBytes
+    };
+
     private async Task<WinPeUsbProvisionResult> CreateUsbMediaAsync(
         MediaPreflightOptions options,
         DeploymentBuildSnapshot snapshot,
@@ -957,6 +1007,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         try
         {
+            await ValidateUsbTargetBeforePreparationAsync(selectedDisk, cancellationToken);
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 snapshot,
@@ -976,14 +1027,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 workspace.PreparedWorkspace.UseBootEx);
 
             WinPeResult<WinPeUsbProvisionResult> result = await usbMediaService.ProvisionAndPopulateAsync(
-                new UsbOutputOptions
+                CreateUsbTargetOptions(selectedDisk) with
                 {
-                    TargetDiskNumber = selectedDisk.DiskNumber,
-                    ExpectedDiskFriendlyName = selectedDisk.FriendlyName,
-                    ExpectedDiskSerialNumber = selectedDisk.SerialNumber,
-                    ExpectedDiskUniqueId = selectedDisk.UniqueId,
-                    ExpectedDiskBusType = selectedDisk.BusType,
-                    ExpectedDiskSizeBytes = selectedDisk.SizeBytes,
                     PartitionStyle = options.UsbPartitionStyle,
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
@@ -1034,6 +1079,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         try
         {
+            await ValidateUsbTargetBeforePreparationAsync(selectedDisk, cancellationToken);
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 snapshot,
@@ -1052,14 +1098,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 workspace.PreparedWorkspace.UseBootEx);
 
             WinPeResult<WinPeUsbProvisionResult> result = await usbMediaService.UpdateBootPartitionAsync(
-                new UsbOutputOptions
+                CreateUsbTargetOptions(selectedDisk) with
                 {
-                    TargetDiskNumber = selectedDisk.DiskNumber,
-                    ExpectedDiskFriendlyName = selectedDisk.FriendlyName,
-                    ExpectedDiskSerialNumber = selectedDisk.SerialNumber,
-                    ExpectedDiskUniqueId = selectedDisk.UniqueId,
-                    ExpectedDiskBusType = selectedDisk.BusType,
-                    ExpectedDiskSizeBytes = selectedDisk.SizeBytes,
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
                     CustomImages = workspace.CustomImages,
@@ -1612,9 +1652,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         foreach (string workspacePath in Directory.EnumerateDirectories(workspaceRoot))
         {
+            // Legacy folders such as Configuration or Iso are not media operations and must never be recovered.
+            if (!WinPeWorkspaceCleanupService.IsOperationWorkspace(workspacePath))
+            {
+                logger.Debug("Skipped non-operation directory during WinPE workspace cleanup. WorkspacePath={WorkspacePath}", workspacePath);
+                continue;
+            }
+
             DeleteWorkspaceDirectory(workspacePath, reportProgress: false);
         }
-
     }
 
     private void DeleteWorkspaceDirectory(string workspacePath, bool reportProgress)
@@ -2647,6 +2693,31 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         return diagnostic.Stage == WinPeIsoMediaService.FinalizeOutputStage
             && diagnostic.FailureReason == WinPeFailureReasons.AccessDenied;
+    }
+
+    /// <summary>
+    /// Identifies WinPE workspace or image servicing failures where Windows denied access to image files,
+    /// usually because security software or another imaging tool holds them.
+    /// </summary>
+    private static bool IsWinPeImageAccessBlocked(WinPeDiagnostic diagnostic)
+    {
+        return diagnostic.FailureReason == WinPeFailureReasons.AccessDenied &&
+            diagnostic.Code is WinPeErrorCodes.BuildFailed or WinPeErrorCodes.WimMountFailed;
+    }
+
+    private string FormatWinPeImageAccessBlockedFailure()
+    {
+        string dismLogPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+            "Logs",
+            "DISM",
+            "dism.log");
+        return string.Format(
+            CultureInfo.CurrentCulture,
+            localizationService.GetString("StartMedia.Operation.WinPeImageAccessBlocked"),
+            Constants.RootDirectoryPath,
+            Constants.LogFilePath,
+            dismLogPath);
     }
 
     private string FormatMediaCapacityFailure(string resourceKey, WinPeDiagnostic diagnostic, string? storageVolume = null)

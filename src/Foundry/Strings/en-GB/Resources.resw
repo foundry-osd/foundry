@@ -155,7 +155,7 @@ Licensed under the MIT License.</value>
     <value>ADK setup</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Install the supported Windows ADK 24H2 (10.1.26100.2454) release.</value>
+    <value>Install the supported Windows ADK 24H2 (10.1.26100.9457) release.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK version is unsupported</value>
@@ -191,7 +191,7 @@ Licensed under the MIT License.</value>
     <value>Version not detected</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Requires Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Required version policy</value>
@@ -3515,6 +3515,9 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verifying USB boot media.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows blocked access to the WinPE image files. Security software or another tool may be locking them. Add a security software exclusion for {0}, close tools that mount images, restart the computer, and try again. Details are in {1} and {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Review readiness, choose ISO or USB output, and start media creation.</value>

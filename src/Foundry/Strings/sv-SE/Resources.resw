@@ -155,7 +155,7 @@ Licensierad under MIT-licensen.</value>
     <value>ADK inställning</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100.2454).</value>
+    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versionen stöds inte</value>
@@ -191,7 +191,7 @@ Licensierad under MIT-licensen.</value>
     <value>Version hittades inte</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Kräver Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Kräver Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Obligatorisk versionspolicy</value>
@@ -3515,6 +3515,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verifierar USB startmedia.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows blockerade åtkomsten till WinPE-avbildningsfilerna. Säkerhetsprogramvara eller ett annat verktyg kan låsa dem. Lägg till ett undantag för {0} i säkerhetsprogramvaran, stäng verktyg som monterar avbildningar, starta om datorn och försök igen. Information finns i {1} och {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Granska beredskapen, välj ISO- eller USB-utdata och starta medieskapandet.</value>

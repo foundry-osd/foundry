@@ -155,7 +155,7 @@
     <value>ADK настройка</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Установите поддерживаемый выпуск Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Установите поддерживаемый выпуск Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Версия ADK не поддерживается</value>
@@ -191,7 +191,7 @@
     <value>Версия не обнаружена</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Требуется Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Требуется Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Требуемая политика версий</value>
@@ -3515,6 +3515,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Проверка загрузочного носителя USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows заблокировала доступ к файлам образа WinPE. Возможно, их блокирует программа безопасности или другое средство. Добавьте исключение для {0} в программе безопасности, закройте средства, которые подключают образы, перезагрузите компьютер и повторите попытку. Подробности см. в {1} и {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Проверьте готовность, выберите вывод ISO или USB и запустите создание носителя.</value>

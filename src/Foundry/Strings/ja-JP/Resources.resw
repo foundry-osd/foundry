@@ -155,7 +155,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ADK セットアップ</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>サポートされている Windows ADK 24H2 (10.1.26100.2454) リリースをインストールしてください。</value>
+    <value>サポートされている Windows ADK 24H2 (10.1.26100.9457) リリースをインストールしてください。</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK バージョンはサポートされていません</value>
@@ -191,7 +191,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>バージョンが検出されませんでした</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100.2454) が必要です。</value>
+    <value>Windows ADK 24H2 (10.1.26100.9457) が必要です。</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>必要なバージョンポリシー</value>
@@ -3515,6 +3515,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB ブート メディアを確認しています。</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows によって WinPE イメージ ファイルへのアクセスがブロックされました。セキュリティ ソフトウェアまたは別のツールがファイルをロックしている可能性があります。セキュリティ ソフトウェアで {0} の除外を追加し、イメージをマウントするツールを閉じ、コンピューターを再起動してから、もう一度お試しください。詳細は {1} と {2} にあります。</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>準備状況を確認し、ISO または USB 出力を選択して、メディアの作成を開始します。</value>

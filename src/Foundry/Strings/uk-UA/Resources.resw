@@ -155,7 +155,7 @@
     <value>ADK налаштування</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Інсталюйте підтримуваний випуск Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Інсталюйте підтримуваний випуск Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Версія ADK не підтримується</value>
@@ -191,7 +191,7 @@
     <value>Версія не виявлена</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Потрібен Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Потрібен Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Необхідна політика версії</value>
@@ -3515,6 +3515,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Перевірка завантажувального носія USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows заблокувала доступ до файлів образу WinPE. Можливо, їх блокує програма безпеки або інший засіб. Додайте виняток для {0} у програмі безпеки, закрийте засоби, що підключають образи, перезавантажте комп’ютер і спробуйте ще раз. Докладні відомості див. у {1} та {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Перевірте готовність, виберіть вихід ISO або USB і запустіть створення носія.</value>

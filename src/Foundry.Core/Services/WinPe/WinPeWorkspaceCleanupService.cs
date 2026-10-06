@@ -69,6 +69,30 @@ public sealed class WinPeWorkspaceCleanupService
         }
     }
 
+    /// <summary>
+    /// Identifies directories created by <see cref="WinPeWorkspaceLease"/> so stale-operation recovery can skip
+    /// unrelated or legacy folders under the workspace root without treating them as failed cleanups.
+    /// </summary>
+    /// <remarks>
+    /// Only the GUID name and the presence of a lease or ownership entry are inspected; ownership itself is still
+    /// verified by <see cref="DeleteOwnedOperation"/>. When the probe cannot complete, the directory is reported as an
+    /// operation so recovery surfaces the failure instead of silently ignoring possibly retained state.
+    /// </remarks>
+    public static bool IsOperationWorkspace(string workspacePath)
+    {
+        string name = Path.GetFileName(Path.TrimEndingDirectorySeparator(workspacePath));
+        if (!Guid.TryParseExact(name, "N", out _)) return false;
+        try
+        {
+            return GetExistingAttributes(Path.Combine(workspacePath, WinPeWorkspaceLease.LeaseFileName)) is not null ||
+                GetExistingAttributes(Path.Combine(workspacePath, WinPeWorkspaceLease.OwnershipFileName)) is not null;
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
+        {
+            return true;
+        }
+    }
+
     /// <summary>Recovers only an identified inactive operation directly under the designated root.</summary>
     public WinPeResult DeleteOwnedOperation(string workspaceRoot, string operationPath)
     {

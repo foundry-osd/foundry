@@ -155,7 +155,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>ADK seadistamine</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installige toetatud Windows ADK 24H2 (10.1.26100.2454) väljalase.</value>
+    <value>Installige toetatud Windows ADK 24H2 (10.1.26100.9457) väljalase.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK versiooni ei toetata</value>
@@ -191,7 +191,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Versiooni ei tuvastatud</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nõutav on Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Nõutav on Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Nõutav versioonipoliitika</value>
@@ -3515,6 +3515,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB alglaadimismeediumi kontrollimine.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows blokeeris juurdepääsu WinPE kujutisefailidele. Võimalik, et turbetarkvara või mõni muu tööriist lukustab need. Lisage turbetarkvarasse erand asukohale {0}, sulgege kujutisi ühendavad tööriistad, taaskäivitage arvuti ja proovige uuesti. Üksikasjad on failides {1} ja {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontrollige valmisolekut, valige ISO või USB väljund ja alustage meediumi loomist.</value>

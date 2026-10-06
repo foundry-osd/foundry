@@ -155,7 +155,7 @@ Licencované podľa licencie MIT.</value>
     <value>Nastavenie ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Nainštalujte podporované vydanie Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Nainštalujte podporované vydanie Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Verzia ADK nie je podporovaná</value>
@@ -191,7 +191,7 @@ Licencované podľa licencie MIT.</value>
     <value>Verzia nebola zistená</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Vyžaduje Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Vyžaduje Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Politika požadovanej verzie</value>
@@ -3515,6 +3515,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Overenie zavádzacieho média USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Systém Windows zablokoval prístup k súborom obrazu WinPE. Môže ich zamykať bezpečnostný softvér alebo iný nástroj. Pridajte v bezpečnostnom softvéri výnimku pre {0}, zatvorte nástroje, ktoré pripájajú obrazy, reštartujte počítač a skúste to znova. Podrobnosti nájdete v {1} a {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Skontrolujte pripravenosť, vyberte výstup ISO alebo USB a spustite vytvorenie média.</value>

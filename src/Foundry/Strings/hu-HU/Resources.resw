@@ -155,7 +155,7 @@ Licenc az MIT licenc alatt.</value>
     <value>ADK beállítás</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Telepítse a támogatott Windows ADK 24H2 (10.1.26100.2454) kiadást.</value>
+    <value>Telepítse a támogatott Windows ADK 24H2 (10.1.26100.9457) kiadást.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>A ADK verzió nem támogatott</value>
@@ -191,7 +191,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A verzió nem észlelhető</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100.2454) szükséges.</value>
+    <value>Windows ADK 24H2 (10.1.26100.9457) szükséges.</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Kötelező verzió házirend</value>
@@ -3515,6 +3515,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB rendszerindító adathordozó ellenőrzése.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>A Windows letiltotta a hozzáférést a WinPE-lemezkép fájljaihoz. Lehet, hogy egy biztonsági szoftver vagy egy másik eszköz zárolja őket. Adjon hozzá kivételt a(z) {0} mappához a biztonsági szoftverben, zárja be a lemezképeket csatlakoztató eszközöket, indítsa újra a számítógépet, és próbálja újra. A részletek a(z) {1} és a(z) {2} fájlban találhatók.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>

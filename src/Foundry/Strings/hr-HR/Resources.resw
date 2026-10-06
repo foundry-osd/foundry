@@ -155,7 +155,7 @@ Licenciran prema MIT licenci.</value>
     <value>ADK postavljanje</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalirajte podržano izdanje Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Instalirajte podržano izdanje Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK verzija nije podržana</value>
@@ -191,7 +191,7 @@ Licenciran prema MIT licenci.</value>
     <value>Verzija nije otkrivena</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Zahtijeva Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Zahtijeva Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Pravila obavezne verzije</value>
@@ -3515,6 +3515,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Provjera USB medija za pokretanje.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows je blokirao pristup datotekama slike sustava WinPE. Možda ih zaključava sigurnosni softver ili neki drugi alat. U sigurnosnom softveru dodajte iznimku za {0}, zatvorite alate koji montiraju slike, ponovno pokrenite računalo i pokušajte ponovno. Pojedinosti se nalaze u {1} i {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pregledajte spremnost, odaberite ISO ili USB izlaz i pokrenite stvaranje medija.</value>

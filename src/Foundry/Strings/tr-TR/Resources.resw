@@ -155,7 +155,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>ADK kurulum</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Desteklenen Windows ADK 24H2 (10.1.26100.2454) sürümünü yükleyin.</value>
+    <value>Desteklenen Windows ADK 24H2 (10.1.26100.9457) sürümünü yükleyin.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK sürümü desteklenmiyor</value>
@@ -191,7 +191,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sürüm algılanmadı</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100.2454) gerektirir.</value>
+    <value>Windows ADK 24H2 (10.1.26100.9457) gerektirir.</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Gerekli sürüm politikası</value>
@@ -3515,6 +3515,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB önyükleme ortamı doğrulanıyor.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows, WinPE görüntü dosyalarına erişimi engelledi. Bir güvenlik yazılımı veya başka bir araç bu dosyaları kilitliyor olabilir. Güvenlik yazılımına {0} için bir dışlama ekleyin, görüntü bağlayan araçları kapatın, bilgisayarı yeniden başlatın ve yeniden deneyin. Ayrıntılar {1} ve {2} dosyalarındadır.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Hazırlığı gözden geçirin, ISO veya USB çıktısını seçin ve medya oluşturmayı başlatın.</value>

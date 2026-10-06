@@ -155,7 +155,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>ADK instelling</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installeer de ondersteunde Windows ADK 24H2-release (10.1.26100.2454).</value>
+    <value>Installeer de ondersteunde Windows ADK 24H2-release (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versie wordt niet ondersteund</value>
@@ -191,7 +191,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Versie niet gedetecteerd</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Vereist Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Vereist Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Vereist versiebeleid</value>
@@ -3515,6 +3515,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB opstartmedia verifiëren.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows heeft de toegang tot de WinPE-installatiekopiebestanden geblokkeerd. Mogelijk worden ze vergrendeld door beveiligingssoftware of een ander hulpprogramma. Voeg in de beveiligingssoftware een uitzondering toe voor {0}, sluit hulpprogramma's die installatiekopieën koppelen, start de computer opnieuw op en probeer het opnieuw. Details staan in {1} en {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Controleer de gereedheid, kies ISO- of USB-uitvoer en start het maken van media.</value>

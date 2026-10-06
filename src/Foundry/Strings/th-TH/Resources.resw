@@ -155,7 +155,7 @@
     <value>ADK ตั้งค่า</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>ติดตั้งรุ่น Windows ADK 24H2 (10.1.26100.2454) ที่รองรับ</value>
+    <value>ติดตั้งรุ่น Windows ADK 24H2 (10.1.26100.9457) ที่รองรับ</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ไม่รองรับเวอร์ชัน ADK</value>
@@ -191,7 +191,7 @@
     <value>ตรวจไม่พบเวอร์ชัน</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>ต้องใช้ Windows ADK 24H2 (10.1.26100.2454)</value>
+    <value>ต้องใช้ Windows ADK 24H2 (10.1.26100.9457)</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>นโยบายเวอร์ชันที่ต้องการ</value>
@@ -3515,6 +3515,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>กำลังตรวจสอบสื่อสำหรับบูต USB</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows บล็อกการเข้าถึงไฟล์อิมเมจ WinPE ซอฟต์แวร์ความปลอดภัยหรือเครื่องมืออื่นอาจกำลังล็อกไฟล์เหล่านั้น เพิ่มข้อยกเว้นสำหรับ {0} ในซอฟต์แวร์ความปลอดภัย ปิดเครื่องมือที่เมานต์อิมเมจ รีสตาร์ทคอมพิวเตอร์ แล้วลองอีกครั้ง ดูรายละเอียดได้ใน {1} และ {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>

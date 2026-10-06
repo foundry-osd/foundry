@@ -155,7 +155,7 @@
     <value>ADK设置</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>安装受支持的 Windows ADK 24H2 (10.1.26100.2454) 版本。</value>
+    <value>安装受支持的 Windows ADK 24H2 (10.1.26100.9457) 版本。</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK版本不受支持</value>
@@ -191,7 +191,7 @@
     <value>未检测到版本</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>需要 Windows ADK 24H2 (10.1.26100.2454)。</value>
+    <value>需要 Windows ADK 24H2 (10.1.26100.9457)。</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>所需版本政策</value>
@@ -3515,6 +3515,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>正在验证 USB 启动介质。</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows 阻止了对 WinPE 映像文件的访问。安全软件或其他工具可能正在锁定这些文件。请在安全软件中为 {0} 添加排除项，关闭用于装载映像的工具，重启计算机，然后重试。详细信息位于 {1} 和 {2} 中。</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>检查就绪情况，选择 ISO 或 USB 输出，然后开始创建媒体。</value>

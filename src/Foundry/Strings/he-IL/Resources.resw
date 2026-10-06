@@ -155,7 +155,7 @@
     <value>ADK הגדרה</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>התקן את גרסת Windows ADK 24H2 (10.1.26100.2454) הנתמכת.</value>
+    <value>התקן את גרסת Windows ADK 24H2 (10.1.26100.9457) הנתמכת.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>גרסת ADK אינה נתמכת</value>
@@ -191,7 +191,7 @@
     <value>הגרסה לא זוהתה</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>נדרש Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>נדרש Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>מדיניות גרסה נדרשת</value>
@@ -3515,6 +3515,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>מאמת את מדיית האתחול USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows חסם את הגישה לקובצי תמונת WinPE. ייתכן שתוכנת אבטחה או כלי אחר נועלים אותם. יש להוסיף החרגה עבור {0} בתוכנת האבטחה, לסגור כלים שמעגנים תמונות, להפעיל מחדש את המחשב ולנסות שוב. הפרטים נמצאים ב-{1} וב-{2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>בדוק מוכנות, בחר פלט ISO או USB והתחל ביצירת המדיה.</value>

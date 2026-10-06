@@ -155,7 +155,7 @@
     <value>ADK الإعداد</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>ثبّت إصدار Windows ADK 24H2 (10.1.26100.2454) المدعوم.</value>
+    <value>ثبّت إصدار Windows ADK 24H2 (10.1.26100.9457) المدعوم.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>الإصدار ADK غير مدعوم</value>
@@ -191,7 +191,7 @@
     <value>لم يتم الكشف عن الإصدار</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>يتطلب Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>يتطلب Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>سياسة الإصدار المطلوبة</value>
@@ -3515,6 +3515,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>التحقق من USB وسائط التمهيد.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>حظر Windows الوصول إلى ملفات صورة WinPE. قد يكون برنامج أمان أو أداة أخرى يقفلها. أضف استثناءً للمسار {0} في برنامج الأمان، وأغلق الأدوات التي تحمّل الصور، وأعد تشغيل الكمبيوتر، ثم حاول مرة أخرى. تتوفر التفاصيل في {1} و{2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>راجع الجاهزية واختر إخراج ISO أو USB ثم ابدأ إنشاء الوسائط.</value>

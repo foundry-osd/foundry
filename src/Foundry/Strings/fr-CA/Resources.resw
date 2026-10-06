@@ -155,7 +155,7 @@ Sous licence MIT.</value>
     <value>ADK configuration</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installez la version Windows ADK 24H2 (10.1.26100.2454) prise en charge.</value>
+    <value>Installez la version Windows ADK 24H2 (10.1.26100.9457) prise en charge.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>La version ADK n'est pas prise en charge</value>
@@ -191,7 +191,7 @@ Sous licence MIT.</value>
     <value>Version non détectée</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nécessite Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Nécessite Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Politique de version requise</value>
@@ -3515,6 +3515,9 @@ Mots de passe et clés d’accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Vérification du support de démarrage USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows a bloqué l’accès aux fichiers de l’image WinPE. Un logiciel de sécurité ou un autre outil les verrouille peut-être. Ajoutez une exclusion pour {0} dans votre logiciel de sécurité, fermez les outils qui montent des images, redémarrez l’ordinateur, puis réessayez. Les détails se trouvent dans {1} et {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Vérifiez l’état, choisissez une sortie ISO ou USB, puis lancez la création du support.</value>
