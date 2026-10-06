@@ -266,7 +266,7 @@ namespace Foundry
                 }
 
                 if (restartForUpdate && !scheduled) return false;
-                if (scheduled) coordinator.DeferStagingCleanupUntilNextLaunch();
+                if (scheduled && restartForUpdate) coordinator.DeferStagingCleanupUntilNextLaunch();
                 closeApproved = true;
                 MainWindow.Close();
                 return true;
