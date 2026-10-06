@@ -1485,10 +1485,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             {
                 _logger.LogInformation("Firmware boot entries: {FirmwareBootEntries}", execution.StandardOutput);
             }
-            else
-            {
-                _logger.LogDebug("Firmware boot command completed. Command={Command}", commandLine);
-            }
 
             return true;
         }
