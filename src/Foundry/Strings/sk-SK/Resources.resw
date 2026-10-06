@@ -3815,6 +3815,9 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nekontrolované</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Aktualizáciu sa nepodarilo použiť: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Kontrolujú sa aktualizácie</value>
   </data>
@@ -3847,6 +3850,9 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} je k dispozícii.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Aktualizáciu sa nepodarilo použiť</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Kontrola aktualizácie zlyhala</value>

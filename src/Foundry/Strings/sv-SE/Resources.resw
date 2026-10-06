@@ -3815,6 +3815,9 @@ Uppdateringen startar om Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ej kontrollerat</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Uppdateringen kunde inte installeras: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Söker efter uppdateringar</value>
   </data>
@@ -3847,6 +3850,9 @@ Uppdateringen startar om Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} är tillgängligt.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Uppdateringen kunde inte installeras</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Uppdateringskontrollen misslyckades</value>

@@ -3815,6 +3815,9 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nije provereno</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Ažuriranje nije bilo moguće primeniti: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Proveravam ažuriranja</value>
   </data>
@@ -3847,6 +3850,9 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} je dostupan.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Ažuriranje nije bilo moguće primeniti</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Provera ažuriranja nije uspela</value>

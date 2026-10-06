@@ -3815,6 +3815,9 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nav pārbaudīts</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Atjauninājumu neizdevās lietot: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Notiek atjauninājumu pārbaude</value>
   </data>
@@ -3847,6 +3850,9 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} ir pieejams.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Atjauninājumu neizdevās lietot</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Atjaunināšanas pārbaude neizdevās</value>

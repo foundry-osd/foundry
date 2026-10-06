@@ -300,8 +300,8 @@ namespace Foundry
         {
             IApplicationLocalizationService localization = GetService<IApplicationLocalizationService>();
             return GetService<IDialogService>().ShowMessageAsync(new DialogRequest(
-                localization.GetString("Update.StatusTitle.Failed"),
-                localization.FormatString("Update.Status.FailedFormat", exception.Message),
+                localization.GetString("Update.StatusTitle.ApplyFailed"),
+                localization.FormatString("Update.Status.ApplyFailedFormat", exception.Message),
                 localization.GetString("Common.Close")));
         }
 

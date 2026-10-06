@@ -3815,6 +3815,9 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nicht geprüft</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Das Update konnte nicht angewendet werden: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Suche nach Updates</value>
   </data>
@@ -3847,6 +3850,9 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} ist verfügbar.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Update konnte nicht angewendet werden</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Die Aktualisierungsprüfung ist fehlgeschlagen</value>
