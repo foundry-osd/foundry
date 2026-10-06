@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Оновити</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Недоступний</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Архітектура</value>
   </data>
@@ -3812,6 +3815,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не перевірено</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Не вдалося застосувати оновлення: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Перевірка оновлень</value>
   </data>
@@ -3844,6 +3850,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} доступний.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Не вдалося застосувати оновлення</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Не вдалося перевірити оновлення</value>

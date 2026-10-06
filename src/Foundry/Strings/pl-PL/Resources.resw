@@ -685,6 +685,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Odśwież</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Niedostępne</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektura</value>
   </data>
@@ -3812,6 +3815,9 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Niesprawdzone</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Nie udało się zastosować aktualizacji: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Sprawdzanie aktualizacji</value>
   </data>
@@ -3844,6 +3850,9 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} jest dostępny.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Nie udało się zastosować aktualizacji</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Sprawdzanie aktualizacji nie powiodło się</value>

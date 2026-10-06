@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Ανανέωση</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Μη διαθέσιμο</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Αρχιτεκτονική</value>
   </data>
@@ -3812,6 +3815,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Δεν έχει ελεγχθεί</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εφαρμογή της ενημέρωσης: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Έλεγχος για ενημερώσεις</value>
   </data>
@@ -3844,6 +3850,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Το Foundry OSD {0} είναι διαθέσιμο.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εφαρμογή της ενημέρωσης</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Ο έλεγχος ενημέρωσης απέτυχε</value>

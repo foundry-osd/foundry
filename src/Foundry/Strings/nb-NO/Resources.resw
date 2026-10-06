@@ -685,6 +685,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Oppdater</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Utilgjengelig</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkitektur</value>
   </data>
@@ -3812,6 +3815,9 @@ Oppdateringen starter Foundry OSD på nytt.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ikke sjekket</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Oppdateringen kunne ikke brukes: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Ser etter oppdateringer</value>
   </data>
@@ -3844,6 +3850,9 @@ Oppdateringen starter Foundry OSD på nytt.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} er tilgjengelig.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Oppdateringen kunne ikke brukes</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Oppdateringssjekk mislyktes</value>

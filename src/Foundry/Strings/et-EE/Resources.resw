@@ -685,6 +685,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Värskenda</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Pole saadaval</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektuur</value>
   </data>
@@ -3812,6 +3815,9 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Pole kontrollitud</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Värskendust ei saanud rakendada: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Värskenduste otsimine</value>
   </data>
@@ -3844,6 +3850,9 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} on saadaval.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Värskendust ei saanud rakendada</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Värskenduskontroll ebaõnnestus</value>

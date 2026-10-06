@@ -685,6 +685,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Osveži</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Ni na voljo</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektura</value>
   </data>
@@ -3812,6 +3815,9 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ni preverjeno</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Posodobitve ni bilo mogoče uporabiti: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Preverjanje posodobitev</value>
   </data>
@@ -3844,6 +3850,9 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} je na voljo.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Posodobitve ni bilo mogoče uporabiti</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Preverjanje posodobitve ni uspelo</value>

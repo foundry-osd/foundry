@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>重新整理</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>不可用</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>架構</value>
   </data>
@@ -3812,6 +3815,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未檢查</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>無法套用更新：{0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>檢查更新</value>
   </data>
@@ -3844,6 +3850,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} 可用。</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>無法套用更新</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新檢查失敗</value>

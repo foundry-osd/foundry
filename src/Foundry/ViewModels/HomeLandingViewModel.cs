@@ -409,7 +409,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
 
     private string GetAdkBlockingTitle(AdkInstallationStatus status)
     {
-        if (!status.IsInstalled)
+        if (!status.IsInstalled && status.VersionRelation is not (AdkVersionRelation.BelowSupported or AdkVersionRelation.AboveSupported))
         {
             return localizationService.GetString("Adk.Status.MissingTitle");
         }

@@ -685,6 +685,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Päivitä</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Ei saatavilla</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkkitehtuuri</value>
   </data>
@@ -3812,6 +3815,9 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ei tarkistettu</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Päivitystä ei voitu asentaa: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Tarkistetaan päivityksiä</value>
   </data>
@@ -3844,6 +3850,9 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} on saatavilla.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Päivitystä ei voitu asentaa</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Päivitystarkistus epäonnistui</value>

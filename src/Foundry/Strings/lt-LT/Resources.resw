@@ -685,6 +685,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atnaujinti</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Nepasiekiamas</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektūra</value>
   </data>
@@ -3812,6 +3815,9 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nepatikrintas</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Nepavyko pritaikyti naujinimo: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Tikrinama, ar nėra atnaujinimų</value>
   </data>
@@ -3844,6 +3850,9 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} yra.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Nepavyko pritaikyti naujinimo</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Nepavyko patikrinti atnaujinimo</value>
