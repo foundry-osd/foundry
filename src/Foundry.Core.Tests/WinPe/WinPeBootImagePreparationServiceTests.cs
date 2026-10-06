@@ -587,7 +587,7 @@ public sealed class WinPeBootImagePreparationServiceTests
     [Theory]
     [InlineData(null, 0, true)]
     [InlineData("/Export-Image", 2, true)]
-    [InlineData("/Mount-Image", 5, true)]
+    [InlineData("/Mount-Image", 2, true)]
     [InlineData(null, 0, false)]
     public async Task PrepareAsync_ValidatesProcessResultsAndExportedImage(string? failingOperation, int exitCode, bool createExport)
     {
