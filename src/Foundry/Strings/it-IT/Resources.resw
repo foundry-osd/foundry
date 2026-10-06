@@ -685,6 +685,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Aggiorna</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Non disponibile</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architettura</value>
   </data>

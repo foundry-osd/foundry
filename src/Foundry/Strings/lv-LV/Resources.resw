@@ -685,6 +685,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atsvaidzināt</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Nav pieejams</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektūra</value>
   </data>

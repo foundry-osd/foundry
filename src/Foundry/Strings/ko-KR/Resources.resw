@@ -685,6 +685,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>새로고침</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>이용 불가</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>아키텍처</value>
   </data>

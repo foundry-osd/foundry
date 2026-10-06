@@ -685,6 +685,9 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Reîmprospătați</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Indisponibil</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitectură</value>
   </data>

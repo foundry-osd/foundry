@@ -685,6 +685,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Opdater</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Ikke tilgængelig</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkitektur</value>
   </data>

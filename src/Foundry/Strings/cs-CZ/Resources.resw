@@ -685,6 +685,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Obnovit</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Není k dispozici</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektura</value>
   </data>

@@ -685,6 +685,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atnaujinti</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Nepasiekiamas</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektūra</value>
   </data>

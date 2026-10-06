@@ -685,6 +685,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Värskenda</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Pole saadaval</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektuur</value>
   </data>

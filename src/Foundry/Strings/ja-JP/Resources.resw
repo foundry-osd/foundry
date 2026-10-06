@@ -685,6 +685,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>リフレッシュ</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>利用不可</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>アーキテクチャ</value>
   </data>

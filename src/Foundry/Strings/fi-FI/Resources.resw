@@ -685,6 +685,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Päivitä</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Ei saatavilla</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkkitehtuuri</value>
   </data>
