@@ -19,17 +19,15 @@ public interface IApplicationUpdateService
     /// <summary>
     /// Checks the configured update feed for a newer release and publishes the result to update state.
     /// </summary>
-    /// <param name="isStartupCheck">Whether the check is part of startup and may be skipped by settings.</param>
     /// <param name="cancellationToken">Token that cancels the check.</param>
     /// <returns>The update check result.</returns>
-    Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(bool isStartupCheck = false, CancellationToken cancellationToken = default);
+    Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Downloads the captured update and publishes its progress and readiness to update state.
     /// </summary>
     /// <param name="cancellationToken">Token that cancels the download.</param>
-    /// <returns>The download result.</returns>
-    Task<ApplicationUpdateDownloadResult> DownloadUpdateAsync(CancellationToken cancellationToken = default);
+    Task DownloadUpdateAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Schedules the captured prepared update for application after process exit without exiting the application.

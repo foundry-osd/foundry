@@ -31,9 +31,6 @@ namespace Foundry.ViewModels
         public partial string UpdateFooterToolTip { get; set; }
 
         [ObservableProperty]
-        public partial int UpdateDownloadProgress { get; set; }
-
-        [ObservableProperty]
         public partial bool IsUpdateDownloading { get; set; }
 
         [ObservableProperty]
@@ -121,10 +118,10 @@ namespace Foundry.ViewModels
             bool lifecycleChanged = currentUpdateResult?.Status != result?.Status
                 || currentUpdateResult?.Version != result?.Version;
             currentUpdateResult = result;
-            UpdateDownloadProgress = Math.Clamp(result?.DownloadProgress ?? 0, 0, 100);
+            int downloadProgress = Math.Clamp(result?.DownloadProgress ?? 0, 0, 100);
             IsUpdateDownloading = result?.Status == ApplicationUpdateStatus.Downloading;
             UpdateFooterTitle = IsUpdateDownloading
-                ? localizationService.FormatString("Update.Footer.DownloadingFormat", UpdateDownloadProgress)
+                ? localizationService.FormatString("Update.Footer.DownloadingFormat", downloadProgress)
                 : localizationService.GetString(IsUpdateReadyToApply ? "Update.Action.Apply" : "UpdateFooter.Title");
             UpdateFooterGlyph = IsUpdateReadyToApply ? "\uE8FB" : "\uEBD3";
             UpdateFooterAutomationName = IsUpdateDownloading
