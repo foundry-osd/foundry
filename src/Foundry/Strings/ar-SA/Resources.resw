@@ -3405,6 +3405,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO اكتملت الوسائط.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>تعذر على Foundry استبدال ملف ISO في {0}. قد يكون الملف مُحمّلاً، أو مرفقاً بجهاز ظاهري، أو مفتوحاً في برنامج آخر، أو للقراءة فقط. ألغِ تحميله أو أغلقه، أو اختر مسار إخراج آخر، ثم أعد المحاولة.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>تم إنشاء الوسائط ISO بنجاح.</value>
   </data>

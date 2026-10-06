@@ -3405,6 +3405,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO mediji su završeni.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry nije mogao da zameni ISO datoteku na {0}. Datoteka je možda montirana, priključena virtuelnoj mašini, otvorena u drugom programu ili samo za čitanje. Demontirajte je ili zatvorite ili izaberite drugu izlaznu putanju, a zatim pokušajte ponovo.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Medij ISO je uspešno kreiran.</value>
   </data>

@@ -761,6 +761,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     WinPeErrorCodes.UsbBootCapacityInsufficient => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootCapacityInsufficient", failureDiagnostic),
                     WinPeErrorCodes.UsbBootCapacityUnknown => localizationService.GetString("StartMedia.Operation.UsbBootCapacityUnknown"),
                     WinPeErrorCodes.UsbBootFileTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootFileTooLarge", failureDiagnostic),
+                    WinPeErrorCodes.IsoCreateFailed when IsIsoOutputLocked(failureDiagnostic) => string.Format(
+                        CultureInfo.CurrentCulture,
+                        localizationService.GetString("StartMedia.Operation.IsoOutputLocked"),
+                        options.IsoOutputPath),
                     _ => ex.Message
                 };
             terminalStatus = string.IsNullOrWhiteSpace(failureMessage)
@@ -2637,6 +2641,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private string FormatDriverVendor(WinPeVendorSelection vendor)
     {
         return localizationService.GetString($"StartMedia.DriverVendor.{vendor}");
+    }
+
+    private static bool IsIsoOutputLocked(WinPeDiagnostic diagnostic)
+    {
+        return diagnostic.Stage == WinPeIsoMediaService.FinalizeOutputStage
+            && diagnostic.FailureReason == WinPeFailureReasons.AccessDenied;
     }
 
     private string FormatMediaCapacityFailure(string resourceKey, WinPeDiagnostic diagnostic, string? storageVolume = null)

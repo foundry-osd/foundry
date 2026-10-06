@@ -3405,6 +3405,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO медиите са завършени.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry не можа да замени ISO файла в {0}. Файлът може да е монтиран, прикачен към виртуална машина, отворен в друга програма или само за четене. Демонтирайте го или го затворете, или изберете друг изходен път, след което опитайте отново.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Медията ISO е създадена успешно.</value>
   </data>

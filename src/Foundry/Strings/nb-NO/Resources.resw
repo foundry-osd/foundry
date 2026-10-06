@@ -3405,6 +3405,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media fullført.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry kunne ikke erstatte ISO-filen på {0}. Filen kan være montert, koblet til en virtuell maskin, åpen i et annet program eller skrivebeskyttet. Demonter eller lukk den, eller velg en annen utdatabane, og prøv deretter på nytt.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO-mediet ble opprettet.</value>
   </data>

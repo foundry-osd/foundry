@@ -3405,6 +3405,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>Médium ISO bylo dokončeno.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry nemohl nahradit soubor ISO v umístění {0}. Soubor může být připojený, připojený k virtuálnímu počítači, otevřený v jiném programu nebo jen pro čtení. Odpojte ho nebo zavřete, případně zvolte jinou výstupní cestu, a zkuste to znovu.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Médium ISO bylo úspěšně vytvořeno.</value>
   </data>

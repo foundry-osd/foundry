@@ -3405,6 +3405,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO Medien abgeschlossen.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry konnte die ISO-Datei unter {0} nicht ersetzen. Die Datei ist möglicherweise eingebunden, an einen virtuellen Computer angefügt, in einem anderen Programm geöffnet oder schreibgeschützt. Heben Sie die Einbindung auf oder schließen Sie die Datei, oder wählen Sie einen anderen Ausgabepfad, und versuchen Sie es dann erneut.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Das ISO-Medium wurde erfolgreich erstellt.</value>
   </data>

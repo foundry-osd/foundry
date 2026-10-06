@@ -3405,6 +3405,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO носитель завершен.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry не удалось заменить ISO-файл {0}. Возможно, файл подключен, присоединен к виртуальной машине, открыт в другой программе или доступен только для чтения. Отключите или закройте его либо выберите другой путь вывода, затем повторите попытку.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Носитель ISO успешно создан.</value>
   </data>

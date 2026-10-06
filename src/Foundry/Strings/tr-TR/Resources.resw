@@ -3405,6 +3405,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO medya tamamlandı.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry, {0} konumundaki ISO dosyasını değiştiremedi. Dosya bağlanmış, bir sanal makineye eklenmiş, başka bir programda açık veya salt okunur olabilir. Bağlantısını kaldırın veya kapatın ya da başka bir çıkış yolu seçin, ardından yeniden deneyin.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO ortamı başarıyla oluşturuldu.</value>
   </data>
