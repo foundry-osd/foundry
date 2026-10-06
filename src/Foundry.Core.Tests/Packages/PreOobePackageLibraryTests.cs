@@ -203,7 +203,8 @@ public sealed class PreOobePackageLibraryTests : IDisposable
         await File.WriteAllTextAsync(Path.Combine(outside, "script.ps1"), "exit 0", Cancellation);
         string link = Path.Combine(source, "redirect");
         try { Directory.CreateSymbolicLink(link, outside); }
-        catch (UnauthorizedAccessException) { Assert.Skip("Symbolic link creation requires Windows developer mode or elevation."); }
+        // Windows reports the missing symbolic link privilege as an IOException carrying ERROR_PRIVILEGE_NOT_HELD.
+        catch (Exception ex) when (ex is UnauthorizedAccessException || ex.HResult == unchecked((int)0x80070522)) { Assert.Skip("Symbolic link creation requires Windows developer mode or elevation."); }
         try { await Assert.ThrowsAsync<InvalidDataException>(() => Library().ImportAsync(source, Cancellation)); }
         finally { if (Directory.Exists(link)) Directory.Delete(link); }
         Assert.True(File.Exists(Path.Combine(outside, "script.ps1")));

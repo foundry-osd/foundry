@@ -26,6 +26,18 @@ Each count is an integer capped at 1,000. The event describes the captured confi
 
 Commands, arguments, action or software names and identifiers, hashes, paths, and script content are excluded. Existing telemetry consent and debug controls are unchanged. No PostInstall runtime events are introduced.
 
+## Exception grouping
+
+`PostHogExceptionTracker` sets `$exception_fingerprint` so PostHog Error Tracking groups issues by stable failure context:
+
+| Record | Fingerprint |
+| --- | --- |
+| Carries `failure.code`, `failure.reason`, `failure.kind`, or `failure.operation` | `service.name`, exception type, logical operation, `process.operation`, `tool.name`, `failure.reason`, `failure.code`, `process.exit_code`, and `workflow.step`. |
+| Has no stack trace and no failure attributes | The same values without `workflow.step`. |
+| Has a stack trace and no failure attributes | None; PostHog groups by stack trace. |
+
+The logical operation is the first non-empty value of `failure.operation`, `operation.name`, or `process.operation`. Domain failures are typically thrown from one shared helper, so stack-based grouping would merge unrelated failure codes into one issue; suppressing that issue in PostHog would then drop every new failure thrown from the same site. Fingerprints use only sanitized, bounded, low-cardinality attributes and never include messages, summaries, session or operation identifiers, durations, paths, or process output.
+
 ## Exception delivery diagnostics
 
 Error Tracking uses the PostHog SDK's in-memory queue. A successful `Capture` means the SDK accepted the event, not that PostHog received it. SDK 2.15.5 can discard an older event while accepting a new one when the queue is full.

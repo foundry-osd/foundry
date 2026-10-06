@@ -41,6 +41,9 @@ internal sealed partial class PostHogExceptionTracker(
     string distinctId,
     Action<ExceptionDeliveryFailure>? reportFailure = null)
 {
+    private static readonly string[] DomainFailureAttributeNames =
+        ["failure.code", "failure.reason", "failure.kind", "failure.operation"];
+
     public void Track(RemoteDiagnosticRecord record)
     {
         if (!record.ShouldTrackException || record.Exception is null || record.Level < Serilog.Events.LogEventLevel.Error)
@@ -63,17 +66,10 @@ internal sealed partial class PostHogExceptionTracker(
             properties["$session_id"] = sessionId;
         }
 
-        if (string.IsNullOrWhiteSpace(record.Exception.StackTrace))
+        string? fingerprint = CreateFingerprint(record, record.Exception);
+        if (fingerprint is not null)
         {
-            properties["$exception_fingerprint"] = string.Join(':',
-                GetAttribute(record, "service.name"),
-                record.Exception.Type,
-                GetLogicalOperation(record),
-                GetAttribute(record, "process.operation"),
-                GetAttribute(record, "tool.name"),
-                GetAttribute(record, "failure.reason"),
-                GetAttribute(record, "failure.code"),
-                GetAttribute(record, "process.exit_code"));
+            properties["$exception_fingerprint"] = fingerprint;
         }
 
         if (!client.Capture(distinctId, "$exception", properties, record.Timestamp))
@@ -82,6 +78,39 @@ internal sealed partial class PostHogExceptionTracker(
             if (reportFailure is not null) reportFailure(failure);
             else Serilog.Log.Write(failure.CreateLogEvent());
         }
+    }
+
+    /// <summary>
+    /// Chooses the PostHog issue grouping key. Domain failures are grouped by their stable failure
+    /// classification instead of the shared throw site, so distinct failure codes or steps never
+    /// collapse into one issue (and are not dropped when an unrelated failure's issue is suppressed).
+    /// Exceptions without a stack trace use the operational context; other exceptions return
+    /// <see langword="null"/> to keep PostHog's default stack-based grouping.
+    /// </summary>
+    /// <remarks>
+    /// Only sanitized, low-cardinality attributes are used. Messages, summaries, identifiers, paths,
+    /// durations, and process output are excluded so the key stays deterministic and bounded.
+    /// </remarks>
+    private static string? CreateFingerprint(RemoteDiagnosticRecord record, RemoteDiagnosticException exception)
+    {
+        bool hasDomainFailure = DomainFailureAttributeNames.Any(name => !string.IsNullOrWhiteSpace(GetAttribute(record, name)));
+        if (!hasDomainFailure && !string.IsNullOrWhiteSpace(exception.StackTrace))
+        {
+            return null;
+        }
+
+        string operationalFingerprint = string.Join(':',
+            GetAttribute(record, "service.name"),
+            exception.Type,
+            GetLogicalOperation(record),
+            GetAttribute(record, "process.operation"),
+            GetAttribute(record, "tool.name"),
+            GetAttribute(record, "failure.reason"),
+            GetAttribute(record, "failure.code"),
+            GetAttribute(record, "process.exit_code"));
+        return hasDomainFailure
+            ? string.Join(':', operationalFingerprint, GetAttribute(record, "workflow.step"))
+            : operationalFingerprint;
     }
 
     private static string GetLogicalOperation(RemoteDiagnosticRecord record)
