@@ -108,7 +108,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAdkInstallationProbe, WindowsAdkInstallationProbe>();
         services.AddSingleton<IFoundryConfigurationService, FoundryConfigurationService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
-        services.AddSingleton<IConnectConfigurationGenerator, ConnectConfigurationGenerator>();
         services.AddSingleton<IAutopilotProfileImportService, AutopilotProfileImportService>();
         services.AddSingleton<IAutopilotTenantProfileService, AutopilotTenantProfileService>();
         services.AddSingleton<IAutopilotHardwareHashGraphSessionService, AutopilotHardwareHashGraphSessionService>();

@@ -28,7 +28,6 @@ public sealed class ConnectConfigurationServiceTests
         FoundryConnectConfiguration configuration = service.Load();
 
         Assert.False(service.IsLoadedFromDisk);
-        Assert.Equal(BootMediaUpdateReason.None, service.BootMediaUpdateReason);
         Assert.Null(service.ConfigurationPath);
         Assert.Equal(FoundryConnectConfiguration.CurrentSchemaVersion, configuration.SchemaVersion);
         Assert.Equal(5, configuration.InternetProbe.TimeoutSeconds);
@@ -48,7 +47,6 @@ public sealed class ConnectConfigurationServiceTests
             """
             {
               "schemaVersion": 0,
-              "authoringVersion": "26.10.3.1",
               "internetProbe": {
                 "probeUris": [
                   " https://example.com/health ",
@@ -68,7 +66,6 @@ public sealed class ConnectConfigurationServiceTests
         Assert.True(service.IsLoadedFromDisk);
         Assert.Equal(System.IO.Path.GetFullPath(configurationPath), service.ConfigurationPath);
         Assert.Equal(FoundryConnectConfiguration.CurrentSchemaVersion, configuration.SchemaVersion);
-        Assert.Equal("26.10.3.1", configuration.AuthoringVersion);
         Assert.Equal(30, configuration.InternetProbe.TimeoutSeconds);
         Assert.Equal(
             ["https://example.com/health", "http://contoso.test/connect"],
@@ -80,7 +77,7 @@ public sealed class ConnectConfigurationServiceTests
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var directory = new TemporaryDirectory();
-        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":5,"authoringVersion":"26.10.3.1"}""");
+        string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":{{FoundryConnectConfiguration.CurrentSchemaVersion}},"authoringVersion":"26.10.3.1"}""");
         var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
 
         service.Load();
@@ -213,7 +210,6 @@ public sealed class ConnectConfigurationServiceTests
 
         Assert.False(configuration.Telemetry.IsEnabled);
         Assert.True(configuration.Telemetry.IsRemoteDiagnosticsEnabled);
-        Assert.False(service.IsBootMediaUpdateRecommended);
         Assert.Equal("install-id", configuration.Telemetry.InstallId);
         Assert.Equal(TelemetryDefaults.PostHogEuHost, configuration.Telemetry.HostUrl);
         Assert.Equal("project-token", configuration.Telemetry.ProjectToken);
@@ -500,7 +496,7 @@ public sealed class ConnectConfigurationServiceTests
                         }
                     }
                 },
-                tempDirectory.Path, "26.10.3.1");
+                tempDirectory.Path);
         Assert.NotNull(bundle.MediaSecretsKey);
         Assert.DoesNotContain("wired-password", bundle.ConfigurationJson, StringComparison.Ordinal);
         Assert.DoesNotContain("wifi-password", bundle.ConfigurationJson, StringComparison.Ordinal);
@@ -514,7 +510,6 @@ public sealed class ConnectConfigurationServiceTests
 
         FoundryConnectConfiguration configuration = service.Load();
 
-        Assert.Equal("26.10.3.1", configuration.AuthoringVersion);
         Assert.Equal("wired-password", configuration.Dot1x.CertificatePfxPassword);
         Assert.Equal("wifi-password", configuration.Wifi.CertificatePfxPassword);
         Assert.NotNull(configuration.Dot1x.CertificatePfxPasswordSecret);
@@ -608,7 +603,6 @@ public sealed class ConnectConfigurationServiceTests
             """
             {
               "schemaVersion": 1,
-              "authoringVersion": "26.10.3.1",
               "capabilities": {
                 "wifiProvisioned": true
               },
@@ -625,7 +619,6 @@ public sealed class ConnectConfigurationServiceTests
 
         FoundryConnectConfiguration configuration = service.Load();
 
-        Assert.Equal("26.10.3.1", configuration.AuthoringVersion);
         Assert.Equal("legacy-passphrase", configuration.Wifi.Passphrase);
         Assert.Null(configuration.Wifi.PassphraseSecret);
     }

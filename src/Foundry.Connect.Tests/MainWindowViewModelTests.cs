@@ -12,6 +12,7 @@ using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
 using Foundry.Connect.ViewModels;
+using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Foundry.Telemetry;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
@@ -347,12 +348,28 @@ public sealed class MainWindowViewModelTests
         Assert.Equal("invalid.cer", GetScalarText(localCertificateDiagnostic, "CertificateFileName"));
     }
 
+    [Theory]
+    [InlineData(BootMediaUpdateReason.NewerRelease, "BootMedia.UpdateAvailable", "BootMedia.UpdateRecommendedToolTip")]
+    [InlineData(BootMediaUpdateReason.UnknownAuthoringVersion, "BootMedia.UpdateRecommended", "BootMedia.UnknownAuthoringVersionToolTip")]
+    public void BootMediaBanner_SelectsCaptionAndToolTipForReason(BootMediaUpdateReason reason, string textKey, string toolTipKey)
+    {
+        using MainWindowViewModel viewModel = CreateViewModel(
+            new RecordingTelemetryService(),
+            new QueueNetworkStatusService(CreateReadySnapshot()),
+            bootMediaUpdateReason: reason);
+
+        Assert.True(viewModel.IsBootMediaUpdateRecommended);
+        Assert.Equal(viewModel.Strings[textKey], viewModel.BootMediaUpdateRecommendedText);
+        Assert.Equal(viewModel.Strings[toolTipKey], viewModel.BootMediaUpdateRecommendedToolTip);
+    }
+
     private static MainWindowViewModel CreateViewModel(
         RecordingTelemetryService telemetryService,
         INetworkStatusService networkStatusService,
         RecordingApplicationLifetimeService? lifetimeService = null,
         INetworkBootstrapService? networkBootstrapService = null,
-        ILogger<MainWindowViewModel>? logger = null)
+        ILogger<MainWindowViewModel>? logger = null,
+        BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None)
     {
         lifetimeService ??= new RecordingApplicationLifetimeService(telemetryService);
         var configuration = new FoundryConnectConfiguration
@@ -372,7 +389,7 @@ public sealed class MainWindowViewModelTests
             new LocalizationService(),
             new FakeApplicationShellService(),
             lifetimeService,
-            new FakeConnectConfigurationService(configuration),
+            new FakeConnectConfigurationService(configuration, bootMediaUpdateReason),
             configuration,
             networkBootstrapService ?? new FakeNetworkBootstrapService(),
             networkStatusService,
@@ -528,14 +545,16 @@ public sealed class MainWindowViewModelTests
         public Task CaptureWiredDot1xProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken) => Task.CompletedTask;
     }
 
-    private sealed class FakeConnectConfigurationService(FoundryConnectConfiguration configuration) : IConnectConfigurationService
+    private sealed class FakeConnectConfigurationService(
+        FoundryConnectConfiguration configuration,
+        BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None) : IConnectConfigurationService
     {
         public string? ConfigurationPath => null;
 
         public bool IsLoadedFromDisk => false;
 
-        public bool IsBootMediaUpdateRecommended => false;
-        public Foundry.Core.Models.Configuration.BootMediaUpdateReason BootMediaUpdateReason => Foundry.Core.Models.Configuration.BootMediaUpdateReason.None;
+        public bool IsBootMediaUpdateRecommended => bootMediaUpdateReason != BootMediaUpdateReason.None;
+        public BootMediaUpdateReason BootMediaUpdateReason => bootMediaUpdateReason;
 
         public FoundryConnectConfiguration Load()
         {
