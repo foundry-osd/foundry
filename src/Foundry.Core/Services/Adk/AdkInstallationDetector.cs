@@ -9,8 +9,8 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
     public const string DeploymentToolsRelativePath = @"Assessment and Deployment Kit\Deployment Tools";
     public const string WinPeRelativePath = @"Assessment and Deployment Kit\Windows Preinstallation Environment";
 
-    private const string RequiredVersionPolicyText = "Windows ADK 24H2 / 10.1.26100.2454";
-    private static readonly Version SupportedWindows11AdkBuild = new(10, 1, 26100, 2454);
+    private const string RequiredVersionPolicyText = "Windows ADK 24H2 / 10.1.26100.9457";
+    private static readonly Version SupportedWindows11AdkBuild = new(10, 1, 26100, 9457);
     private static readonly string[] WinPeComponents =
     [
         "Windows PE wims (DesktopEditions)", "Windows PE Optional Packages (DesktopEditions)",

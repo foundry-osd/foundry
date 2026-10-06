@@ -155,7 +155,7 @@
     <value>ADK ตั้งค่า</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>ติดตั้งรุ่น Windows ADK 24H2 (10.1.26100.2454) ที่รองรับ</value>
+    <value>ติดตั้งรุ่น Windows ADK 24H2 (10.1.26100.9457) ที่รองรับ</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ไม่รองรับเวอร์ชัน ADK</value>
@@ -191,7 +191,7 @@
     <value>ตรวจไม่พบเวอร์ชัน</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>ต้องใช้ Windows ADK 24H2 (10.1.26100.2454)</value>
+    <value>ต้องใช้ Windows ADK 24H2 (10.1.26100.9457)</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>นโยบายเวอร์ชันที่ต้องการ</value>

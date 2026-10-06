@@ -155,7 +155,7 @@ Licenseret under MIT-licensen.</value>
     <value>ADK opsætning</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installer den understøttede Windows ADK 24H2-version (10.1.26100.2454).</value>
+    <value>Installer den understøttede Windows ADK 24H2-version (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK version er ikke understøttet</value>
@@ -191,7 +191,7 @@ Licenseret under MIT-licensen.</value>
     <value>Version ikke fundet</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Kræver Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Kræver Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Påkrævet versionspolitik</value>
