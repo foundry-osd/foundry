@@ -67,25 +67,24 @@ internal sealed class AdkService(
     /// <inheritdoc />
     public Task<AdkInstallationStatus> InstallAsync(CancellationToken cancellationToken = default)
     {
-        return RunInstallOperationAsync(OperationKind.AdkInstall, uninstallFirst: false, cancellationToken);
+        return RunInstallOperationAsync(OperationKind.AdkInstall, cancellationToken);
     }
 
     /// <inheritdoc />
     public Task<AdkInstallationStatus> UpgradeAsync(CancellationToken cancellationToken = default)
     {
-        return RunInstallOperationAsync(OperationKind.AdkUpgrade, uninstallFirst: true, cancellationToken);
+        return RunInstallOperationAsync(OperationKind.AdkUpgrade, cancellationToken);
     }
 
     private async Task<AdkInstallationStatus> RunInstallOperationAsync(
         OperationKind operationKind,
-        bool uninstallFirst,
         CancellationToken cancellationToken)
     {
         // ADK setup changes machine-level state and may show UAC, so only one install or upgrade can run at a time.
         await operationLock.WaitAsync(cancellationToken);
         string terminalStatus = string.Empty;
         string operationId = Guid.NewGuid().ToString("N");
-        string stage = "download_adk";
+        string stage = "detect";
         ILogger operationLogger = logger.ForContext("OperationId", operationId)
             .ForContext("OperationKind", operationKind);
 
@@ -93,24 +92,45 @@ internal sealed class AdkService(
         {
             operationProgressService.Start(operationKind, GetOperationStartText(operationKind));
             operationLogger.Information("ADK operation started. OperationKind={OperationKind}", operationKind);
+
+            // Steps follow the freshly detected state so partial installs do not re-run setups that were refused.
+            AdkSetupPlan plan = AdkSetupPlan.Create(await RefreshStatusAsync(cancellationToken));
+            operationLogger.Information(
+                "ADK setup plan selected. SetupAction={SetupAction}, UninstallRegisteredBundles={UninstallRegisteredBundles}, InstallAdk={InstallAdk}, InstallWinPeAddon={InstallWinPeAddon}",
+                plan.Action,
+                plan.UninstallRegisteredBundles,
+                plan.InstallAdk,
+                plan.InstallWinPeAddon);
+            bool uninstallFirst = plan.UninstallRegisteredBundles;
             Directory.CreateDirectory(Constants.InstallerCacheDirectoryPath);
 
-            await using CachedArtifactLease adkSetup = await DownloadInstallerAsync(AdkSetupUrl, AdkSetupFileName, uninstallFirst ? 35 : 20, cancellationToken);
+            stage = "download_adk";
+            await using CachedArtifactLease? adkSetup = plan.InstallAdk
+                ? await DownloadInstallerAsync(AdkSetupUrl, AdkSetupFileName, uninstallFirst ? 35 : 20, cancellationToken)
+                : null;
             stage = "download_winpe";
-            await using CachedArtifactLease winPeSetup = await DownloadInstallerAsync(WinPeSetupUrl, WinPeSetupFileName, uninstallFirst ? 45 : 40, cancellationToken);
+            await using CachedArtifactLease? winPeSetup = plan.InstallWinPeAddon
+                ? await DownloadInstallerAsync(WinPeSetupUrl, WinPeSetupFileName, uninstallFirst ? 45 : 40, cancellationToken)
+                : null;
             if (uninstallFirst)
             {
                 stage = "uninstall";
                 await UninstallExistingBundlesAsync(operationId, operationLogger, cancellationToken);
             }
 
-            stage = "install_adk";
-            operationProgressService.Report(uninstallFirst ? 70 : 55, localizationService.GetString("Adk.Operation.InstallingAdk"));
-            await RunSetupAsync(adkSetup.Path, AdkInstallArguments, operationId, stage, operationLogger, cancellationToken);
+            if (adkSetup is not null)
+            {
+                stage = "install_adk";
+                operationProgressService.Report(uninstallFirst ? 70 : 55, localizationService.GetString("Adk.Operation.InstallingAdk"));
+                await RunSetupAsync(adkSetup.Path, AdkInstallArguments, operationId, stage, operationLogger, cancellationToken);
+            }
 
-            stage = "install_winpe";
-            operationProgressService.Report(uninstallFirst ? 88 : 80, localizationService.GetString("Adk.Operation.InstallingWinPe"));
-            await RunSetupAsync(winPeSetup.Path, WinPeInstallArguments, operationId, stage, operationLogger, cancellationToken);
+            if (winPeSetup is not null)
+            {
+                stage = "install_winpe";
+                operationProgressService.Report(uninstallFirst ? 88 : 80, localizationService.GetString("Adk.Operation.InstallingWinPe"));
+                await RunSetupAsync(winPeSetup.Path, WinPeInstallArguments, operationId, stage, operationLogger, cancellationToken);
+            }
 
             stage = "verify";
             operationProgressService.Report(95, localizationService.GetString("Adk.Operation.Verifying"));
@@ -201,7 +221,11 @@ internal sealed class AdkService(
 
         if (uninstallCommands.Count == 0)
         {
-            throw new InvalidOperationException("Windows ADK uninstall commands were not found in the Windows uninstall registry.");
+            // Unregistered leftovers cannot be removed by setup, so the caller continues with the fresh install.
+            operationLogger.Warning(
+                "No registered Windows ADK uninstall commands were found; continuing with a fresh install. InstalledVersion={InstalledVersion}",
+                CurrentStatus.InstalledVersion);
+            return;
         }
 
         foreach (AdkUninstallCommand command in uninstallCommands)
