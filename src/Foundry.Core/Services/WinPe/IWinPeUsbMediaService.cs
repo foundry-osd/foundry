@@ -11,6 +11,16 @@ public interface IWinPeUsbMediaService
         string workingDirectoryPath,
         CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Confirms the selected disk against its live identity and USB safety facts without modifying storage.
+    /// Callers run this before long media preparation; the destructive operations still revalidate the target.
+    /// </summary>
+    Task<WinPeResult> ValidateUsbTargetAsync(
+        UsbOutputOptions options,
+        WinPeToolPaths tools,
+        string workingDirectoryPath,
+        CancellationToken cancellationToken = default);
+
     Task<WinPeResult<WinPeUsbProvisionResult>> ProvisionAndPopulateAsync(
         UsbOutputOptions options,
         WinPeBuildArtifact artifact,
