@@ -244,7 +244,53 @@ internal sealed class AdkService(
                 command.DisplayName,
                 Path.GetFileName(command.FileName));
             string stage = GetUninstallStage(command.FileName);
-            await RunSetupAsync(command.FileName, command.Arguments, operationId, stage, operationLogger, cancellationToken);
+            try
+            {
+                await RunSetupAsync(command.FileName, command.Arguments, operationId, stage, operationLogger, cancellationToken);
+            }
+            catch (AdkSetupException ex) when (stage == "uninstall_adk" && AdkWimMountRecovery.CanRecover(ex))
+            {
+                if (!await TryReleaseWimMountPackageAsync(ex, operationLogger, cancellationToken))
+                {
+                    throw;
+                }
+
+                await RunSetupAsync(command.FileName, command.Arguments, operationId, "uninstall_adk_retry", operationLogger, cancellationToken);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Releases the ADK WIM mount driver so a retried uninstall no longer needs the payload setup could not verify.
+    /// Returns false when the driver cannot be released, so the caller surfaces the original setup failure.
+    /// </summary>
+    private async Task<bool> TryReleaseWimMountPackageAsync(AdkSetupException failure, ILogger operationLogger, CancellationToken cancellationToken)
+    {
+        ILogger recoveryLogger = operationLogger.ForContext("ExitCodeHex", $"0x{failure.ExitCode:X8}")
+            .ForContext("SetupLogId", Path.GetFileNameWithoutExtension(failure.LogPath));
+        var recovery = new AdkWimMountRecovery(installationProbe);
+        string? driverSetupPath = recovery.FindDriverSetupPath();
+        if (driverSetupPath is null)
+        {
+            recoveryLogger.Warning("ADK uninstall could not verify its WIM mount driver payload and the installed driver setup was not found; recovery skipped.");
+            return false;
+        }
+
+        recoveryLogger.Warning(
+            "ADK uninstall could not verify its WIM mount driver payload; releasing the driver before retrying. DriverSetup={DriverSetup}",
+            Path.GetFileName(driverSetupPath));
+        try
+        {
+            await new AdkSetupRunner().RunToolAsync(driverSetupPath, AdkWimMountRecovery.DriverUninstallArguments, cancellationToken);
+            bool released = recovery.ClearReleasedMarker();
+            recoveryLogger.Information("ADK WIM mount driver release completed. Released={Released}", released);
+            return released;
+        }
+        catch (Exception ex) when (ex is AdkSetupException { Reason: not "elevation_cancelled" }
+            or UnauthorizedAccessException or System.Security.SecurityException or IOException)
+        {
+            recoveryLogger.Warning(ex, "ADK WIM mount driver release failed; reporting the original uninstall failure.");
+            return false;
         }
     }
 
