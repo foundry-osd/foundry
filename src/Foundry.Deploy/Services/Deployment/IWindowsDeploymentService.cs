@@ -220,7 +220,8 @@ public interface IWindowsDeploymentService
         Action? onUnmountStarted = null);
 
     /// <summary>
-    /// Creates UEFI boot files for the applied Windows installation.
+    /// Creates UEFI boot files for the applied Windows installation, then makes a best-effort attempt to place
+    /// Windows Boot Manager first in the firmware boot order.
     /// </summary>
     /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
     /// <param name="systemPartitionRoot">Root path of the EFI system partition.</param>
