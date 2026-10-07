@@ -778,6 +778,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Attēla darbība neizdevās. Pārbaudiet avotu, brīvo vietu un Foundry žurnālus.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Nav pieejams, sāknējot ar PXE. Pielāgotiem attēliem nepieciešams pilns ISO vai USB datu nesējs.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Iekļaujiet šajā profilā vismaz vienu pieejamu Windows attēlu. Pirms datu nesēja izveides vai atjaunināšanas atjaunojiet trūkstošos iekļautos attēlus un labojiet vai notīriet vēlamā attēla vai indeksa atlasi.</value>
   </data>
@@ -2553,6 +2556,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumenti</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Darbības, kas izmanto importētus failus, nav pieejamas, sāknējot ar PXE. Tām nepieciešams pilns ISO vai USB datu nesējs.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Darbību neizdevās noņemt. Mēģiniet vēlreiz.</value>

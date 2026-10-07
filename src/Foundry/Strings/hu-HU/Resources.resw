@@ -778,6 +778,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>A lemezképművelet sikertelen. Ellenőrizze a forrást, a szabad helyet és a Foundry naplóit.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>PXE-rendszerindítással nem érhető el. Az egyéni lemezképekhez a teljes ISO- vagy USB-adathordozó szükséges.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Adjon hozzá legalább egy elérhető Windows-lemezképet ehhez a profilhoz. Az adathordozó létrehozása vagy frissítése előtt állítsa helyre a hiányzó hozzáadott lemezképeket, és javítsa vagy törölje az előnyben részesített lemezkép vagy index kiválasztását.</value>
   </data>
@@ -2553,6 +2556,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumentumok</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Az importált fájlokat használó műveletek PXE-rendszerindítással nem érhetők el. Ezekhez a teljes ISO- vagy USB-adathordozó szükséges.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>A műveletet nem sikerült eltávolítani. Próbálja újra.</value>

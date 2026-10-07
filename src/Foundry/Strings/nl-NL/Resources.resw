@@ -778,6 +778,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>De bewerking is mislukt. Controleer de bron, de beschikbare ruimte en de Foundry-logboeken.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Niet beschikbaar bij opstarten via PXE. Aangepaste installatiekopieën vereisen de volledige ISO- of USB-media.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Neem ten minste één beschikbare Windows-installatiekopie op in dit profiel. Herstel ontbrekende opgenomen installatiekopieën en corrigeer of wis de selectie van de voorkeursinstallatiekopie of -index voordat u media maakt of bijwerkt.</value>
   </data>
@@ -2553,6 +2556,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumenten</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Acties die geïmporteerde bestanden gebruiken, zijn niet beschikbaar bij opstarten via PXE. Ze vereisen de volledige ISO- of USB-media.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>De actie kon niet worden verwijderd. Probeer het opnieuw.</value>

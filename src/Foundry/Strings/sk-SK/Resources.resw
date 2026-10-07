@@ -778,6 +778,9 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operácia s obrazom zlyhala. Skontrolujte zdroj, voľné miesto a denníky Foundry.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Nie je k dispozícii pri spustení cez PXE. Vlastné obrazy vyžadujú úplné médium ISO alebo USB.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Zahrňte do tohto profilu aspoň jeden dostupný obraz systému Windows. Pred vytvorením alebo aktualizáciou média obnovte chýbajúce zahrnuté obrazy a opravte alebo zrušte výber preferovaného obrazu alebo indexu.</value>
   </data>
@@ -2553,6 +2556,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumenty PowerShellu</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Akcie, ktoré používajú importované súbory, nie sú pri spustení cez PXE k dispozícii. Vyžadujú úplné médium ISO alebo USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Akciu sa nepodarilo odstrániť. Skúste to znova.</value>

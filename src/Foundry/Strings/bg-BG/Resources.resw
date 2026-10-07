@@ -778,6 +778,9 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Операцията с образа е неуспешна. Проверете източника, свободното място и регистрационните файлове на Foundry.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Не е налично при стартиране чрез PXE. Персонализираните образи изискват пълния ISO или USB носител.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включете поне един наличен образ на Windows в този профил. Възстановете липсващите включени образи и коригирайте или изчистете избора на предпочитан образ или индекс, преди да създадете или актуализирате носител.</value>
   </data>
@@ -2553,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Аргументи на PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Действията, които използват импортирани файлове, не са налични при стартиране чрез PXE. Те изискват пълния ISO или USB носител.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Действието не можа да бъде премахнато. Опитайте отново.</value>

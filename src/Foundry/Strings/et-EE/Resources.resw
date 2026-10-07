@@ -778,6 +778,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Tõmmisetoiming nurjus. Kontrollige allikat, vaba ruumi ja Foundry logisid.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Pole PXE-käivitusega saadaval. Kohandatud tõmmised nõuavad täielikku ISO- või USB-meediumit.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Kaasake sellesse profiili vähemalt üks saadaolev Windowsi tõmmis. Enne meediumi loomist või värskendamist taastage puuduvad kaasatud tõmmised ning parandage või tühjendage eelistatud tõmmise või indeksi valik.</value>
   </data>
@@ -2553,6 +2556,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShelli argumendid</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Imporditud faile kasutavad toimingud pole PXE-käivitusega saadaval. Need nõuavad täielikku ISO- või USB-meediumit.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Toimingut ei saanud eemaldada. Proovige uuesti.</value>

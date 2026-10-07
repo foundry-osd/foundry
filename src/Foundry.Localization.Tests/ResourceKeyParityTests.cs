@@ -70,7 +70,9 @@ public sealed class ResourceKeyParityTests
             "OptionalFeaturesPageHeader.Description",
             "OsSelectionPageHeader.Description",
             "WifiPageHeader.Description",
-            "StartMedia.PageDescription"
+            "StartMedia.PageDescription",
+            "CustomImages.PxeWarning",
+            "PostInstallation.PxeWarning"
         ];
 
         Assert.Empty(expectedKeys.Except(enUsKeys, StringComparer.Ordinal));

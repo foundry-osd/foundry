@@ -778,6 +778,9 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>הפעולה על התמונה נכשלה. יש לבדוק את המקור, את השטח הפנוי ואת יומני Foundry.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>לא זמין באתחול PXE. תמונות מותאמות אישית דורשות את מדיית ה-ISO או ה-USB המלאה.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>יש לכלול לפחות תמונת Windows זמינה אחת בפרופיל זה. יש לשחזר תמונות כלולות שחסרות ולתקן או לנקות את בחירת התמונה או האינדקס המועדפים לפני יצירה או עדכון של המדיה.</value>
   </data>
@@ -2553,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>ארגומנטים של PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>פעולות שמשתמשות בקבצים מיובאים אינן זמינות באתחול PXE. הן דורשות את מדיית ה-ISO או ה-USB המלאה.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>לא ניתן היה להסיר את הפעולה. נסה שוב.</value>

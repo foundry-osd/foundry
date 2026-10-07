@@ -778,6 +778,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Der Abbildvorgang ist fehlgeschlagen. Prüfen Sie die Quelle, den verfügbaren Speicherplatz und die Foundry-Protokolle.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Nicht verfügbar bei PXE-Start. Benutzerdefinierte Abbilder erfordern das vollständige ISO- oder USB-Medium.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Nehmen Sie mindestens ein verfügbares Windows-Abbild in dieses Profil auf. Stellen Sie fehlende enthaltene Abbilder wieder her und korrigieren oder löschen Sie die Auswahl des bevorzugten Abbilds oder Index, bevor Sie Medien erstellen oder aktualisieren.</value>
   </data>
@@ -2553,6 +2556,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-Argumente</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Aktionen, die importierte Dateien verwenden, sind bei PXE-Start nicht verfügbar. Sie erfordern das vollständige ISO- oder USB-Medium.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Die Aktion konnte nicht entfernt werden. Versuchen Sie es erneut.</value>

@@ -778,6 +778,9 @@ Licensed under the MIT License.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>The image operation failed. Check the source, available space, and Foundry logs.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Not available with PXE boot. Custom images require the full ISO or USB media.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Include at least one available Windows image in this profile. Restore missing included images and fix or clear the preferred image or index before creating or updating media.</value>
   </data>
@@ -2553,6 +2556,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell arguments</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Actions that use imported files are not available with PXE boot. They require the full ISO or USB media.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>The action could not be removed. Try again.</value>
