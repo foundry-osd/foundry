@@ -103,7 +103,7 @@ public sealed class WindowsHardwareInspector : IHardwareInspector
         if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
         {
             throw new InvalidDataException(
-                $"Hardware inspection returned no data. ExitCode={execution.ExitCode}.");
+                PowerShellCommand.DescribeFailure("Hardware inspection returned no data.", execution));
         }
 
         try

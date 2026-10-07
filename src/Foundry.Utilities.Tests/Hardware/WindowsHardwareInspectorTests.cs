@@ -140,8 +140,12 @@ public sealed class WindowsHardwareInspectorTests
         var inspector = new WindowsHardwareInspector((_, _) => Task.FromResult(
             new ProcessExecutionResult { ExitCode = 1, StandardError = "CIM failed" }));
 
-        await Assert.ThrowsAsync<InvalidDataException>(
+        InvalidDataException exception = await Assert.ThrowsAsync<InvalidDataException>(
             () => inspector.GetCurrentAsync(TestContext.Current.CancellationToken));
+
+        Assert.Equal(
+            "Hardware inspection returned no data. ExitCode=1." + Environment.NewLine + "CIM failed",
+            exception.Message);
     }
 
     [Fact]
