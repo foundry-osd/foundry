@@ -15,6 +15,7 @@ using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using CoreConfiguration = Foundry.Core.Models.Configuration;
 using CoreDeployNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkProfileRoamingSettings;
 using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 using NetworkProfileRoamingTransportSettings = Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings;
@@ -29,7 +30,7 @@ public sealed class StagePreOobeCustomizationStepTests
         using var temp = new TemporaryDirectory();
         using var recovery = new PostInstallRuntimeRecoveryTests.Fixture();
         using var context = CreateContext(temp, licenseChannel: "RET");
-        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = null, RuntimeRecovery = recovery.Recovery, MediaRoots = () => [] };
+        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = null, RuntimeRecovery = recovery.Recovery };
         using var prepared = await resolver.PrepareAsync(context, TestContext.Current.CancellationToken);
         Assert.NotNull(prepared);
         Assert.Equal(2, recovery.Requests.Count);
@@ -46,6 +47,59 @@ public sealed class StagePreOobeCustomizationStepTests
         var resolver = new PreOobeContentResolver { RuntimeExecutablePath = null, RuntimeRecovery = recovery.Recovery };
         Assert.Null(await resolver.PrepareAsync(context, TestContext.Current.CancellationToken));
         Assert.Empty(recovery.Requests);
+    }
+
+    [Theory]
+    [InlineData("builtin_task")]
+    [InlineData("inline_command")]
+    [InlineData("disabled_package")]
+    [InlineData("malformed_binding")]
+    public async Task BoundMediaGeneration_IsNotConsultedWithoutPackageActions(string scenario)
+    {
+        using var temp = new TemporaryDirectory();
+        CoreConfiguration.PreOobeActionSettings[] actions = scenario switch
+        {
+            "inline_command" => [CoreConfiguration.PreOobeActionSettings.Create(CoreConfiguration.PreOobeActionKind.Command, "Inline") with { Command = "cmd.exe /c exit 0" }],
+            "disabled_package" => [CreatePackageAction() with { IsEnabled = false }],
+            _ => []
+        };
+        using var context = CreateContext(temp, licenseChannel: scenario == "inline_command" ? "" : "RET", postInstall: new()
+        {
+            IsEnabled = actions.Length != 0,
+            Actions = actions,
+            ManifestId = scenario == "malformed_binding" ? "not-a-guid" : Guid.NewGuid().ToString("N"),
+            ManifestHash = scenario == "malformed_binding" ? "damaged" : new string('a', 64)
+        });
+        var resolver = new PreOobeContentResolver
+        {
+            RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(temp.RootPath),
+            MediaRoots = () => throw new InvalidOperationException("External media must not be enumerated without package actions.")
+        };
+
+        using var prepared = await resolver.PrepareAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.NotNull(prepared);
+        Assert.Empty(prepared.Packages);
+    }
+
+    [Theory]
+    [InlineData(true, "The referenced post-installation media generation is unavailable.")]
+    [InlineData(false, "Package actions require an authenticated external media manifest.")]
+    public async Task MediaGeneration_RemainsRequiredForPackageActions(bool bound, string expectedMessage)
+    {
+        using var temp = new TemporaryDirectory();
+        using var context = CreateContext(temp, postInstall: new()
+        {
+            IsEnabled = true,
+            Actions = [CreatePackageAction()],
+            ManifestId = bound ? Guid.NewGuid().ToString("N") : null,
+            ManifestHash = bound ? new string('a', 64) : null
+        });
+        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(temp.RootPath), MediaRoots = () => [] };
+
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => resolver.PrepareAsync(context, TestContext.Current.CancellationToken));
+
+        Assert.Equal(expectedMessage, exception.Message);
     }
 
     [Fact]
@@ -305,6 +359,15 @@ public sealed class StagePreOobeCustomizationStepTests
             ]
         };
     }
+
+    private static CoreConfiguration.PreOobeActionSettings CreatePackageAction() => new()
+    {
+        Name = "Fixture",
+        Kind = CoreConfiguration.PreOobeActionKind.PowerShell,
+        Package = new() { ContentHash = new string('b', 64), DisplayName = "Fixture", Length = 1, FileCount = 1 },
+        EntryPoint = "script.ps1",
+        Process = new()
+    };
 
     private static DeploymentStepExecutionContext CreateContext(
         TemporaryDirectory tempDirectory,

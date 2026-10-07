@@ -155,7 +155,7 @@ Licencirano pod licenco MIT.</value>
     <value>ADK nastavitev</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Namestite podprto izdajo Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Namestite podprto izdajo Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Različica ADK ni podprta</value>
@@ -191,7 +191,7 @@ Licencirano pod licenco MIT.</value>
     <value>Različica ni zaznana</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Zahteva Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Zahteva Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Politika zahtevane različice</value>
@@ -258,9 +258,6 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Preverite posodobitve</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Posodobite in znova zaženite</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Opombe ob izdaji</value>
@@ -688,6 +685,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Osveži</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Ni na voljo</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektura</value>
   </data>
@@ -777,6 +777,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Opravilo s sliko ni uspelo. Preverite vir, prosti prostor in dnevnike Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Ni na voljo pri zagonu PXE. Prilagojene slike zahtevajo celoten medij ISO ali USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>V ta profil vključite vsaj eno razpoložljivo sliko sistema Windows. Pred ustvarjanjem ali posodabljanjem medija obnovite manjkajoče vključene slike in popravite ali počistite izbiro prednostne slike ali indeksa.</value>
@@ -2008,9 +2011,6 @@ Licencirano pod licenco MIT.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>nizozemščina (Nizozemska)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>angleščina</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angleščina (Združeno kraljestvo)</value>
   </data>
@@ -2022,9 +2022,6 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finščina (Finska)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>francosko</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>francoščina (Kanada)</value>
@@ -2559,6 +2556,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumenti PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Dejanja, ki uporabljajo uvožene datoteke, niso na voljo pri zagonu PXE. Zahtevajo celoten medij ISO ali USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Dejanja ni bilo mogoče odstraniti. Poskusite znova.</value>
@@ -3408,8 +3408,17 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO mediji končani.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry ni mogel zamenjati datoteke ISO na mestu {0}. Datoteka je morda vpeta, priključena navideznemu računalniku, odprta v drugem programu ali samo za branje. Izpnite ali zaprite jo ali izberite drugo izhodno pot in poskusite znova.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Medij ISO je bil uspešno ustvarjen.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Na disku ni dovolj prostora za ustvarjanje zagonske slike. Na mestu {2} je potrebnih vsaj {0} prostega prostora. Na voljo: {1}. Sprostite prostor in poskusite znova.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Razpoložljivega prostora na disku za ustvarjanje zagonske slike na mestu {0} ni bilo mogoče preveriti. Preverite, ali je mesto dostopno, in poskusite znova.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Namestitev zagonske slike.</value>
@@ -3510,6 +3519,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Preverjanje USB zagonskega medija.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows je blokiral dostop do datotek slike WinPE. Morda jih zaklepa varnostna programska oprema ali drugo orodje. V varnostni programski opremi dodajte izjemo za {0}, zaprite orodja, ki vpenjajo slike, znova zaženite računalnik in poskusite znova. Podrobnosti so v {1} in {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Preverite pripravljenost, izberite izhod ISO ali USB in začnite ustvarjanje medija.</value>
   </data>
@@ -3548,6 +3560,23 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Elementi, ki zahtevajo pozornost:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Vseeno ustvari</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Ta medij bo ustvarjen s programom Foundry OSD {0}.
+Na voljo je različica {1}.
+
+Najprej uporabite posodobitev, nato ustvarite ali posodobite zagonski medij.
+
+Uporaba posodobitve znova zažene Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Posodobite Foundry OSD pred ustvarjanjem zagonskega medija</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Ogled posodobitve</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Posodobi USB</value>
@@ -3750,17 +3779,17 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Vir je preverjen.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Uporabi posodobitev</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Prenesi posodobitev</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Poskusi znova</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Novo</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD bo prenesel posodobitev in znova zagnal, da jo uporabi.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Posodobite in znova zaženite</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Posodobi Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Razpoložljiva različica</value>
@@ -3774,26 +3803,29 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Najnovejša različica</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Prenašanje posodobitve. Foundry OSD se bo znova zagnal, ko bo pripravljen.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Prenašanje: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Napredek prenosa</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Posodobitev se prenaša v ozadju. Odprite nastavitve posodobitev za ogled napredka.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Prenašanje posodobitve</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Različica {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Uporabite posodobitev in znova zaženite Foundry OSD. Samodejno se bo namestila tudi, ko zaprete aplikacijo.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ni preverjeno</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>livarna-osd/livarna</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Posodobitve ni bilo mogoče uporabiti: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Preverjanje posodobitev</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Prenos posodobitve ni uspel: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Prenašanje posodobitve</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Preverjanje posodobitve ni uspelo: {0}</value>
@@ -3814,10 +3846,13 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Na voljo je posodobitev Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Posodobite, ko boste pripravljeni. Foundry OSD se bo znova zagnal, da ga dokonča.</value>
+    <value>Prenesite posodobitev, ko boste pripravljeni.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} je na voljo.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Posodobitve ni bilo mogoče uporabiti</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Preverjanje posodobitve ni uspelo</value>

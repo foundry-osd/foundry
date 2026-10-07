@@ -155,7 +155,7 @@ Licensed under the MIT License.</value>
     <value>ADK setup</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Install the supported Windows ADK 24H2 (10.1.26100.2454) release.</value>
+    <value>Install the supported Windows ADK 24H2 (10.1.26100.9457) release.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK version is unsupported</value>
@@ -191,7 +191,7 @@ Licensed under the MIT License.</value>
     <value>Version not detected</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Requires Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Required version policy</value>
@@ -258,9 +258,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Check for updates</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Update and restart</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release notes</value>
@@ -688,6 +685,9 @@ Licensed under the MIT License.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Unavailable</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architecture</value>
   </data>
@@ -777,6 +777,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>The image operation failed. Check the source, available space, and Foundry logs.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Not available with PXE boot. Custom images require the full ISO or USB media.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Include at least one available Windows image in this profile. Restore missing included images and fix or clear the preferred image or index before creating or updating media.</value>
@@ -2008,9 +2011,6 @@ Licensed under the MIT License.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Dutch (Netherlands)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>English</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>English (United Kingdom)</value>
   </data>
@@ -2022,9 +2022,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finnish (Finland)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>French</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>French (Canada)</value>
@@ -2559,6 +2556,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell arguments</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Actions that use imported files are not available with PXE boot. They require the full ISO or USB media.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>The action could not be removed. Try again.</value>
@@ -3408,8 +3408,17 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media completed.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry could not replace the ISO file at {0}. The file may be mounted, attached to a virtual machine, open in another program, or read-only. Unmount or close it, or choose another output path, then try again.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>The ISO media was created successfully.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Not enough disk space to create the boot image. At least {0} of free space is required on {2}. Available: {1}. Free up space and try again.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>The available disk space for boot image creation could not be verified on {0}. Check that the location is accessible and try again.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Mounting boot image.</value>
@@ -3510,6 +3519,9 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verifying USB boot media.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows blocked access to the WinPE image files. Security software or another tool may be locking them. Add a security software exclusion for {0}, close tools that mount images, restart the computer, and try again. Details are in {1} and {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Review readiness, choose ISO or USB output, and start media creation.</value>
   </data>
@@ -3548,6 +3560,23 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Items needing attention:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Create anyway</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>This media will be generated using Foundry OSD {0}.
+Version {1} is available.
+
+Apply the update first, then create or update your boot media.
+
+Applying the update restarts Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Update Foundry OSD before creating boot media</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>View update</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Update USB</value>
@@ -3750,17 +3779,17 @@ Passwords and access keys included: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Source validated.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Apply update</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Download update</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>New</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD will download the update and restart to apply it.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Update and restart</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Update Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Available version</value>
@@ -3774,26 +3803,29 @@ Passwords and access keys included: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Latest version</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Downloading the update. Foundry OSD will restart when it is ready.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Downloading: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Download progress</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>The update is downloading in the background. Open update settings to view progress.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Downloading update</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Version {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Apply the update and restart Foundry OSD. It will also install automatically when you close the application.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Not checked</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>foundry-osd/foundry</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>The update could not be applied: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Checking for updates</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Update download failed: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Downloading update</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Update check failed: {0}</value>
@@ -3814,10 +3846,13 @@ Passwords and access keys included: {2}</value>
     <value>A Foundry OSD update is available.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Update when you are ready. Foundry OSD will restart to finish applying it.</value>
+    <value>Download the update when you are ready.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} is available.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Update could not be applied</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Update check failed</value>

@@ -40,11 +40,17 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Selle alglaadimismeediumi loomiseks kasutatud Foundry OSD versiooni ei saa kindlaks teha. Uuendage esmalt Foundry OSD-d meediumi loomise arvutis, seejärel looge ISO uuesti või uuendage USB-alglaadimismeediumi.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Uus versioon saadaval. Uuendage Foundry OSD-d ja looge alglaadimismeedium uuesti.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Soovitatav on algkandja värskendamine</value>
+    <value>Uuendage Foundry OSD-d ja looge alglaadimismeedium uuesti.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>See algkandja loodi vanema Foundry OSD konfiguratsioonivorminguga. Värskendage algkandjat, et tagada ühilduvus uusimate funktsioonidega.</value>
+    <value>See alglaadimismeedium loodi Foundry OSD vanema versiooniga. Uuendage esmalt Foundry OSD-d meediumi loomise arvutis, seejärel looge ISO uuesti või uuendage USB-alglaadimismeediumi.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Loobu</value>
@@ -173,9 +179,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>hollandi keel (Holland)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>inglise keel</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>inglise keel (Ühendkuningriik)</value>
   </data>
@@ -187,9 +190,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>soome keel (Soome)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>prantsuse keel</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>prantsuse keel (Kanada)</value>

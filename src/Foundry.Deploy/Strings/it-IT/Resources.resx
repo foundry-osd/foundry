@@ -46,11 +46,17 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Non è possibile determinare la versione di Foundry OSD usata per creare questo supporto di avvio. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l’ISO o aggiorna il supporto di avvio USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Nuova versione disponibile. Aggiorna Foundry OSD e ricrea il supporto di avvio.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Rigenerazione dell’immagine di avvio consigliata</value>
+    <value>Aggiorna Foundry OSD e ricrea il supporto di avvio.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Questa immagine di avvio utilizza un formato di configurazione Foundry OSD precedente. Rigenerala per garantire la compatibilità con le funzionalità più recenti.</value>
+    <value>Questo supporto di avvio è stato creato con una versione precedente di Foundry OSD. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l’ISO o aggiorna il supporto di avvio USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Architettura: {0}</value>
@@ -349,7 +355,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Dimensioni sconosciute</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

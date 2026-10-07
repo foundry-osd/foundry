@@ -155,7 +155,7 @@
     <value>ADK налаштування</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Інсталюйте підтримуваний випуск Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Інсталюйте підтримуваний випуск Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Версія ADK не підтримується</value>
@@ -191,7 +191,7 @@
     <value>Версія не виявлена</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Потрібен Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Потрібен Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Необхідна політика версії</value>
@@ -258,9 +258,6 @@
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Перевірте наявність оновлень</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Оновіть і перезапустіть</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Примітки до випуску</value>
@@ -688,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Оновити</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Недоступний</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Архітектура</value>
   </data>
@@ -777,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Не вдалося виконати операцію з образом. Перевірте джерело, вільне місце та журнали Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Недоступно під час завантаження через PXE. Користувацьким образам потрібен повний носій ISO або USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включіть до цього профілю принаймні один доступний образ Windows. Відновіть відсутні включені образи та виправте або скиньте вибір бажаного образу чи індексу перед створенням або оновленням носія.</value>
@@ -2008,9 +2011,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>голландська (Нідерланди)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>англійська</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>англійська (Великобританія)</value>
   </data>
@@ -2022,9 +2022,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>фінська (Фінляндія)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>французька</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>французька (Канада)</value>
@@ -2559,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Аргументи PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Дії, що використовують імпортовані файли, недоступні під час завантаження через PXE. Їм потрібен повний носій ISO або USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Не вдалося видалити дію. Спробуйте ще раз.</value>
@@ -3408,8 +3408,17 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO медіа завершено.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry не вдалося замінити ISO-файл {0}. Можливо, файл підключено, приєднано до віртуальної машини, відкрито в іншій програмі або він доступний лише для читання. Відключіть або закрийте його чи виберіть інший шлях виводу, а потім повторіть спробу.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Носій ISO створено успішно.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Недостатньо місця на диску для створення завантажувального образу. У розташуванні {2} потрібно щонайменше {0} вільного місця. Доступно: {1}. Звільніть місце та спробуйте ще раз.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Не вдалося перевірити доступне місце на диску для створення завантажувального образу в розташуванні {0}. Переконайтеся, що розташування доступне, і спробуйте ще раз.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Монтаж завантажувального образу.</value>
@@ -3510,6 +3519,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Перевірка завантажувального носія USB.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows заблокувала доступ до файлів образу WinPE. Можливо, їх блокує програма безпеки або інший засіб. Додайте виняток для {0} у програмі безпеки, закрийте засоби, що підключають образи, перезавантажте комп’ютер і спробуйте ще раз. Докладні відомості див. у {1} та {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Перевірте готовність, виберіть вихід ISO або USB і запустіть створення носія.</value>
   </data>
@@ -3548,6 +3560,23 @@
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Предмети, які потребують уваги:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Усе одно створити</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Цей носій буде створено за допомогою Foundry OSD {0}.
+Доступна версія {1}.
+
+Спочатку застосуйте оновлення, а потім створіть або оновіть завантажувальний носій.
+
+Застосування оновлення перезапускає Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Оновіть Foundry OSD перед створенням завантажувального носія</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Переглянути оновлення</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Оновити USB</value>
@@ -3750,17 +3779,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Джерело перевірено.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Застосувати оновлення</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Завантажити оновлення</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Повторити</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>новий</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD завантажить оновлення та перезапустить його, щоб застосувати його.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Оновіть і перезапустіть</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Оновити Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Доступна версія</value>
@@ -3774,26 +3803,29 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Остання версія</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Завантаження оновлення. Foundry OSD перезапуститься, коли буде готова.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Завантаження: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Хід завантаження</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Оновлення завантажується у фоновому режимі. Відкрийте налаштування оновлень, щоб переглянути перебіг.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Завантаження оновлення</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Версія {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Застосуйте оновлення та перезапустіть Foundry OSD. Воно також установиться автоматично під час закриття програми.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не перевірено</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>ливарний-осд/ливарний</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Не вдалося застосувати оновлення: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Перевірка оновлень</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Не вдалося завантажити оновлення: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Завантаження оновлення</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Не вдалося перевірити оновлення: {0}</value>
@@ -3814,10 +3846,13 @@
     <value>Доступне оновлення Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Оновіть, коли будете готові. Foundry OSD перезапуститься, щоб завершити його застосування.</value>
+    <value>Завантажте оновлення, коли будете готові.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} доступний.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Не вдалося застосувати оновлення</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Не вдалося перевірити оновлення</value>

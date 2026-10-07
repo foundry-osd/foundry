@@ -7,6 +7,92 @@ namespace Foundry.Core.Services.WinPe;
 /// <summary>Preserves workspaces until mounted-image state permits safe deletion.</summary>
 public sealed class WinPeWorkspaceCleanupService
 {
+    /// <summary>
+    /// Blocks new servicing when an owned operation retains pending cleanup.
+    /// Inspects only operation roots and their WinPe directories, without acquiring leases or walking mounts.
+    /// </summary>
+    public WinPeResult EnsureServicingCanStart(string workspaceRoot)
+    {
+        try
+        {
+            string root = NormalizePath(workspaceRoot);
+            for (string? ancestor = root; ancestor is not null; ancestor = Path.GetDirectoryName(ancestor))
+            {
+                FileAttributes? attributes = GetExistingAttributes(ancestor);
+                if (attributes?.HasFlag(FileAttributes.ReparsePoint) == true)
+                    throw new IOException($"Workspace inspection cannot follow a reparse point: '{ancestor}'.");
+            }
+            if (GetExistingAttributes(root) is null) return WinPeResult.Success();
+
+            foreach (string candidate in Directory.EnumerateDirectories(root))
+            {
+                string path = NormalizePath(candidate);
+                if (!string.Equals(Path.GetDirectoryName(path), root, StringComparison.OrdinalIgnoreCase))
+                    throw new IOException("The operation is not an immediate child of the workspace root.");
+                if (!Guid.TryParseExact(Path.GetFileName(path), "N", out _)) continue;
+                if (File.GetAttributes(path).HasFlag(FileAttributes.ReparsePoint))
+                    throw new IOException($"Operation inspection cannot follow a reparse point: '{path}'.");
+
+                string ownershipPath = Path.Combine(path, WinPeWorkspaceLease.OwnershipFileName);
+                FileAttributes? ownershipAttributes = GetExistingAttributes(ownershipPath);
+                if (ownershipAttributes is null) continue;
+                if (ownershipAttributes.Value.HasFlag(FileAttributes.ReparsePoint))
+                    throw new IOException($"Operation ownership cannot follow a reparse point: '{ownershipPath}'.");
+                if (!WinPeWorkspaceLease.IsOwned(path)) continue;
+
+                foreach (string directory in new[] { path, Path.Combine(path, "WinPe") })
+                {
+                    FileAttributes? attributes = GetExistingAttributes(directory);
+                    if (attributes is null) continue;
+                    if (attributes.Value.HasFlag(FileAttributes.ReparsePoint) || !attributes.Value.HasFlag(FileAttributes.Directory))
+                        throw new IOException($"Owned workspace state cannot be safely inspected: '{directory}'.");
+                    string? marker = Directory.EnumerateFileSystemEntries(directory, WinPeMountSession.CleanupMarkerPattern,
+                        SearchOption.TopDirectoryOnly).FirstOrDefault();
+                    if (marker is not null)
+                    {
+                        return WinPeResult.Failure(new WinPeDiagnostic(WinPeErrorCodes.WimUnmountFailed,
+                            "WinPE servicing is blocked because an earlier image cleanup has no confirmed completion.",
+                            $"Retained operation: '{path}'. Cleanup marker: '{marker}'. Preserve this workspace until cleanup can be verified.",
+                            stage: "Check retained WinPE cleanup") with
+                        { MountCleanupStatus = WinPeMountCleanupStatus.ExitUnconfirmed });
+                    }
+                }
+            }
+            return WinPeResult.Success();
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or System.Text.Json.JsonException or ArgumentException)
+        {
+            return WinPeResult.Failure(new WinPeDiagnostic(WinPeErrorCodes.WimUnmountFailed,
+                "WinPE servicing is blocked because retained operation cleanup could not be safely inspected.",
+                $"Workspace root: '{workspaceRoot}'. {exception.Message}",
+                stage: "Check retained WinPE cleanup", exception: exception));
+        }
+    }
+
+    /// <summary>
+    /// Identifies directories created by <see cref="WinPeWorkspaceLease"/> so stale-operation recovery can skip
+    /// unrelated or legacy folders under the workspace root without treating them as failed cleanups.
+    /// </summary>
+    /// <remarks>
+    /// Only the GUID name and the presence of a lease or ownership entry are inspected; ownership itself is still
+    /// verified by <see cref="DeleteOwnedOperation"/>. When the probe cannot complete, the directory is reported as an
+    /// operation so recovery surfaces the failure instead of silently ignoring possibly retained state.
+    /// </remarks>
+    public static bool IsOperationWorkspace(string workspacePath)
+    {
+        string name = Path.GetFileName(Path.TrimEndingDirectorySeparator(workspacePath));
+        if (!Guid.TryParseExact(name, "N", out _)) return false;
+        try
+        {
+            return GetExistingAttributes(Path.Combine(workspacePath, WinPeWorkspaceLease.LeaseFileName)) is not null ||
+                GetExistingAttributes(Path.Combine(workspacePath, WinPeWorkspaceLease.OwnershipFileName)) is not null;
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
+        {
+            return true;
+        }
+    }
+
     /// <summary>Recovers only an identified inactive operation directly under the designated root.</summary>
     public WinPeResult DeleteOwnedOperation(string workspaceRoot, string operationPath)
     {
@@ -57,14 +143,15 @@ public sealed class WinPeWorkspaceCleanupService
             if (Path.GetDirectoryName(path) is null)
                 throw new IOException("A filesystem root cannot be deleted as a WinPE workspace.");
             bool directory = Directory.Exists(path);
-            if (!directory && !File.Exists(path)) return WinPeResult.Success();
 
+            // New source candidates must honor unresolved cleanup in their existing ancestors.
             for (string? ancestor = directory ? path : Path.GetDirectoryName(path); ancestor is not null;
                 ancestor = Path.GetDirectoryName(ancestor))
             {
-                if (Directory.EnumerateFiles(ancestor, WinPeMountSession.CleanupMarkerPattern).Any())
+                if (Directory.Exists(ancestor) && Directory.EnumerateFiles(ancestor, WinPeMountSession.CleanupMarkerPattern).Any())
                     throw new IOException($"An earlier image cleanup has no confirmed completion. Preserve workspace '{path}' and inspect its cleanup marker in '{ancestor}'.");
             }
+            if (!directory && !File.Exists(path)) return WinPeResult.Success();
 
             foreach (WinPeMountedImage image in _getMountedImages())
             {
@@ -119,6 +206,18 @@ public sealed class WinPeWorkspaceCleanupService
         if (fullPath.StartsWith(@"\\?\", StringComparison.Ordinal) || fullPath.StartsWith(@"\\.\", StringComparison.Ordinal))
             throw new IOException("Mounted-image and workspace paths must use fully qualified standard filesystem paths.");
         return Path.TrimEndingDirectorySeparator(fullPath);
+    }
+
+    private static FileAttributes? GetExistingAttributes(string path)
+    {
+        try
+        {
+            return File.GetAttributes(path);
+        }
+        catch (Exception exception) when (exception is FileNotFoundException or DirectoryNotFoundException)
+        {
+            return null;
+        }
     }
 
     private static bool IsWithin(string path, string parent) =>

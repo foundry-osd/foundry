@@ -155,7 +155,7 @@ Licensierad under MIT-licensen.</value>
     <value>ADK inställning</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100.2454).</value>
+    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versionen stöds inte</value>
@@ -191,7 +191,7 @@ Licensierad under MIT-licensen.</value>
     <value>Version hittades inte</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Kräver Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Kräver Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Obligatorisk versionspolicy</value>
@@ -258,9 +258,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Sök efter uppdateringar</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Uppdatera och starta om</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release notes</value>
@@ -688,6 +685,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Uppdatera</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Ej tillgänglig</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkitektur</value>
   </data>
@@ -777,6 +777,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Avbildningsåtgärden misslyckades. Kontrollera källan, det lediga utrymmet och Foundry-loggarna.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Inte tillgängligt vid PXE-start. Anpassade avbildningar kräver det fullständiga ISO- eller USB-mediet.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Inkludera minst en tillgänglig Windows-avbildning i den här profilen. Återställ saknade inkluderade avbildningar och korrigera eller rensa valet av föredragen avbildning eller index innan du skapar eller uppdaterar medier.</value>
@@ -2008,9 +2011,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Holländska (Nederländerna)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>engelska</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engelska (Storbritannien)</value>
   </data>
@@ -2022,9 +2022,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finska (Finland)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>franska</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>franska (Kanada)</value>
@@ -2559,6 +2556,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argument</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Åtgärder som använder importerade filer är inte tillgängliga vid PXE-start. De kräver det fullständiga ISO- eller USB-mediet.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Åtgärden kunde inte tas bort. Försök igen.</value>
@@ -3408,8 +3408,17 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media slutfört.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry kunde inte ersätta ISO-filen på {0}. Filen kan vara monterad, ansluten till en virtuell dator, öppen i ett annat program eller skrivskyddad. Demontera eller stäng den, eller välj en annan utdatasökväg, och försök sedan igen.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Mediet ISO skapades framgångsrikt.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Det finns inte tillräckligt med diskutrymme för att skapa startavbildningen. Minst {0} ledigt utrymme krävs på {2}. Tillgängligt: {1}. Frigör utrymme och försök igen.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Det tillgängliga diskutrymmet för att skapa startavbildningen kunde inte verifieras på {0}. Kontrollera att platsen är tillgänglig och försök igen.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Monteringsstövelbild.</value>
@@ -3510,6 +3519,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verifierar USB startmedia.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows blockerade åtkomsten till WinPE-avbildningsfilerna. Säkerhetsprogramvara eller ett annat verktyg kan låsa dem. Lägg till ett undantag för {0} i säkerhetsprogramvaran, stäng verktyg som monterar avbildningar, starta om datorn och försök igen. Information finns i {1} och {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Granska beredskapen, välj ISO- eller USB-utdata och starta medieskapandet.</value>
   </data>
@@ -3548,6 +3560,23 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Föremål som behöver uppmärksamhet:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Skapa ändå</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Detta media skapas med Foundry OSD {0}.
+Version {1} är tillgänglig.
+
+Tillämpa uppdateringen först och skapa eller uppdatera sedan dina startmedia.
+
+Uppdateringen startar om Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Uppdatera Foundry OSD innan du skapar startmedia</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Visa uppdatering</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Uppdatera USB</value>
@@ -3750,17 +3779,17 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Källan har validerats.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Installera uppdatering</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Hämta uppdatering</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Försök igen</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Nytt</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD kommer att ladda ner uppdateringen och starta om för att tillämpa den.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Uppdatera och starta om</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Uppdatera Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Tillgänglig version</value>
@@ -3774,26 +3803,29 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Senaste versionen</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Laddar ner uppdateringen. Foundry OSD kommer att starta om när den är klar.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Hämtar: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Nedladdningsförlopp</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Uppdateringen hämtas i bakgrunden. Öppna uppdateringsinställningarna för att se förloppet.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Laddar ner uppdatering</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Version {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Installera uppdateringen och starta om Foundry OSD. Den installeras också automatiskt när du stänger programmet.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ej kontrollerat</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>gjuteri-osd/gjuteri</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Uppdateringen kunde inte installeras: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Söker efter uppdateringar</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Hämtningen av uppdateringen misslyckades: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Hämtar uppdatering</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Uppdateringskontrollen misslyckades: {0}</value>
@@ -3814,10 +3846,13 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>En Foundry OSD-uppdatering är tillgänglig.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Uppdatera när du är redo. Foundry OSD kommer att starta om för att slutföra tillämpningen.</value>
+    <value>Hämta uppdateringen när du är redo.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} är tillgängligt.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Uppdateringen kunde inte installeras</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Uppdateringskontrollen misslyckades</value>

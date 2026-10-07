@@ -10,7 +10,7 @@ internal interface IRuntimeResolver
     /// <summary>Resolves an executable, preserving explicit override failures and permitted offline fallback.</summary>
     Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken);
 
-    /// <summary>Authenticates and caches an online update without retaining an unused execution payload.</summary>
+    /// <summary>Authenticates an online update, using persistent cache when available, without retaining an unused execution payload.</summary>
     Task RefreshAsync(string applicationName, CancellationToken cancellationToken);
 }
 

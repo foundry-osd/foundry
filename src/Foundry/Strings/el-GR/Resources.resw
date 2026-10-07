@@ -155,7 +155,7 @@
     <value>Ρύθμιση ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Εγκαταστήστε την υποστηριζόμενη έκδοση Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Εγκαταστήστε την υποστηριζόμενη έκδοση Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Η έκδοση ADK δεν υποστηρίζεται</value>
@@ -191,7 +191,7 @@
     <value>Η έκδοση δεν εντοπίστηκε</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Απαιτείται Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Απαιτείται Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Πολιτική απαιτούμενης έκδοσης</value>
@@ -258,9 +258,6 @@
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Ελέγξτε για ενημερώσεις</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Ενημέρωση και επανεκκίνηση</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Σημειώσεις έκδοσης</value>
@@ -688,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Ανανέωση</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Μη διαθέσιμο</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Αρχιτεκτονική</value>
   </data>
@@ -777,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Η λειτουργία εικόνας απέτυχε. Ελέγξτε την πηγή, τον διαθέσιμο χώρο και τα αρχεία καταγραφής του Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Δεν διατίθεται με εκκίνηση PXE. Οι προσαρμοσμένες εικόνες απαιτούν το πλήρες μέσο ISO ή USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Συμπεριλάβετε τουλάχιστον μία διαθέσιμη εικόνα Windows σε αυτό το προφίλ. Επαναφέρετε τις συμπεριλαμβανόμενες εικόνες που λείπουν και διορθώστε ή καταργήστε την επιλογή της προτιμώμενης εικόνας ή του δείκτη πριν δημιουργήσετε ή ενημερώσετε το μέσο.</value>
@@ -2008,9 +2011,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Ολλανδικά (Ολλανδία)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Αγγλικά</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Αγγλικά (Ηνωμένο Βασίλειο)</value>
   </data>
@@ -2022,9 +2022,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Φινλανδικά (Φινλανδία)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Γαλλικά</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Γαλλικά (Καναδάς)</value>
@@ -2559,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Ορίσματα PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Οι ενέργειες που χρησιμοποιούν εισαγόμενα αρχεία δεν διατίθενται με εκκίνηση PXE. Απαιτούν το πλήρες μέσο ISO ή USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Δεν ήταν δυνατή η κατάργηση της ενέργειας. Δοκιμάστε ξανά.</value>
@@ -3408,8 +3408,17 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>Τα μέσα ISO ολοκληρώθηκαν.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να αντικαταστήσει το αρχείο ISO στη θέση {0}. Το αρχείο μπορεί να είναι προσαρτημένο, συνδεδεμένο σε εικονική μηχανή, ανοιχτό σε άλλο πρόγραμμα ή μόνο για ανάγνωση. Αποπροσαρτήστε ή κλείστε το, ή επιλέξτε άλλη διαδρομή εξόδου και, στη συνέχεια, δοκιμάστε ξανά.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Το μέσο ISO δημιουργήθηκε με επιτυχία.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Δεν υπάρχει αρκετός χώρος στον δίσκο για τη δημιουργία της εικόνας εκκίνησης. Απαιτούνται τουλάχιστον {0} ελεύθερου χώρου στη θέση {2}. Διαθέσιμος χώρος: {1}. Ελευθερώστε χώρο και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η επαλήθευση του διαθέσιμου χώρου στον δίσκο για τη δημιουργία της εικόνας εκκίνησης στη θέση {0}. Ελέγξτε ότι η θέση είναι προσβάσιμη και δοκιμάστε ξανά.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Εικόνα μπότας τοποθέτησης.</value>
@@ -3510,6 +3519,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Επαλήθευση μέσων εκκίνησης USB.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Τα Windows απέκλεισαν την πρόσβαση στα αρχεία της εικόνας WinPE. Ενδέχεται να τα κλειδώνει λογισμικό ασφαλείας ή άλλο εργαλείο. Προσθέστε μια εξαίρεση για το {0} στο λογισμικό ασφαλείας, κλείστε τα εργαλεία που προσαρτούν εικόνες, επανεκκινήστε τον υπολογιστή και δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στα {1} και {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
   </data>
@@ -3548,6 +3560,23 @@
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Στοιχεία που χρειάζονται προσοχή:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Δημιουργία ούτως ή άλλως</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Αυτό το μέσο θα δημιουργηθεί με το Foundry OSD {0}.
+Η έκδοση {1} είναι διαθέσιμη.
+
+Εφαρμόστε πρώτα την ενημέρωση και, στη συνέχεια, δημιουργήστε ή ενημερώστε το μέσο εκκίνησης.
+
+Η εφαρμογή της ενημέρωσης επανεκκινεί το Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Ενημερώστε το Foundry OSD πριν δημιουργήσετε μέσο εκκίνησης</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Προβολή ενημέρωσης</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Ενημέρωση USB</value>
@@ -3750,17 +3779,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Το αρχείο προέλευσης επικυρώθηκε.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Εφαρμογή ενημέρωσης</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Λήψη ενημέρωσης</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Επανάληψη</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Νέο</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Το Foundry OSD θα κατεβάσει την ενημέρωση και θα κάνει επανεκκίνηση για να την εφαρμόσει.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Ενημέρωση και επανεκκίνηση</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Ενημέρωση Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Διαθέσιμη έκδοση</value>
@@ -3774,26 +3803,29 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Τελευταία έκδοση</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Λήψη της ενημέρωσης. Το Foundry OSD θα επανεκκινήσει όταν είναι έτοιμο.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Λήψη: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Πρόοδος λήψης</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Η ενημέρωση λαμβάνεται στο παρασκήνιο. Ανοίξτε τις ρυθμίσεις ενημερώσεων για να δείτε την πρόοδο.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Λήψη ενημέρωσης</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Έκδοση {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Εφαρμόστε την ενημέρωση και επανεκκινήστε το Foundry OSD. Θα εγκατασταθεί επίσης αυτόματα όταν κλείσετε την εφαρμογή.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Δεν έχει ελεγχθεί</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>χυτήριο-osd/χυτήριο</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εφαρμογή της ενημέρωσης: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Έλεγχος για ενημερώσεις</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Η λήψη της ενημέρωσης απέτυχε: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Λήψη ενημέρωσης</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Ο έλεγχος ενημέρωσης απέτυχε: {0}</value>
@@ -3814,10 +3846,13 @@
     <value>Μια ενημέρωση Foundry OSD είναι διαθέσιμη.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Ενημερώστε όταν είστε έτοιμοι. Το Foundry OSD θα επανεκκινήσει για να ολοκληρωθεί η εφαρμογή του.</value>
+    <value>Κάντε λήψη της ενημέρωσης όταν είστε έτοιμοι.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Το Foundry OSD {0} είναι διαθέσιμο.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εφαρμογή της ενημέρωσης</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Ο έλεγχος ενημέρωσης απέτυχε</value>

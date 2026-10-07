@@ -46,11 +46,17 @@ Licenciran prema MIT licenci.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Nije moguće utvrditi verziju aplikacije Foundry OSD korištenu za izradu ovog medija za pokretanje. Najprije ažurirajte Foundry OSD na računalu za izradu medija, zatim ponovno izradite ISO ili ažurirajte USB medij za pokretanje.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Dostupna nova verzija. Ažurirajte Foundry OSD i ponovno izradite medij za pokretanje.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Preporučuje se ponovno generiranje slike za pokretanje</value>
+    <value>Ažurirajte Foundry OSD i ponovno izradite medij za pokretanje.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ova slika za pokretanje koristi stariji format konfiguracije Foundry OSD. Ponovno je generirajte kako biste osigurali kompatibilnost s najnovijim značajkama.</value>
+    <value>Ovaj medij za pokretanje izrađen je starijom verzijom aplikacije Foundry OSD. Najprije ažurirajte Foundry OSD na računalu za izradu medija, zatim ponovno izradite ISO ili ažurirajte USB medij za pokretanje.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Arhitektura: {0}</value>
@@ -349,7 +355,7 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
     <value>Nepoznata veličina</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

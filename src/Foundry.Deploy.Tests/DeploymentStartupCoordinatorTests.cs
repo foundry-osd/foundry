@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net;
+using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using System.Net.Http;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
@@ -19,6 +20,21 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentStartupCoordinatorTests
 {
+    [Theory]
+    [InlineData(BootMediaUpdateReason.NewerRelease)]
+    [InlineData(BootMediaUpdateReason.UnknownAuthoringVersion)]
+    [InlineData(BootMediaUpdateReason.None)]
+    public async Task InitializeAsync_PropagatesBootMediaUpdateReason(BootMediaUpdateReason reason)
+    {
+        var dependencies = new StartupDependencies(enabled: false, reason);
+        var discovery = new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start."));
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies, discovery, new RecordingLogger());
+
+        DeploymentStartupSnapshot snapshot = await coordinator.InitializeAsync(CreateRequest(), TestContext.Current.CancellationToken);
+
+        Assert.Equal(reason, snapshot.BootMediaUpdateReason);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
@@ -205,11 +221,12 @@ public sealed class DeploymentStartupCoordinatorTests
     }
 
     // Replace machine/tenant I/O; exercise the real startup coordinator and its returned configuration.
-    private sealed class StartupDependencies(bool enabled = true) : IDeployConfigurationService, IAutopilotProfileCatalogService,
+    private sealed class StartupDependencies(bool enabled = true, BootMediaUpdateReason reason = BootMediaUpdateReason.None) : IDeployConfigurationService, IAutopilotProfileCatalogService,
         IHardwareProfileService, IOfflineWindowsComputerNameService, ITargetDiskService, IDeploymentCatalogLoadService
     {
         public DeployConfigurationLoadResult LoadOptional() => new()
         {
+            BootMediaUpdateReason = reason,
             Document = new FoundryDeployConfigurationDocument
             {
                 Autopilot = new DeployAutopilotSettings

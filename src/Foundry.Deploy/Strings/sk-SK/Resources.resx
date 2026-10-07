@@ -46,11 +46,17 @@ Licencované podľa licencie MIT.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Verziu Foundry OSD použitú na vytvorenie tohto zavádzacieho média nemožno určiť. Najprv aktualizujte Foundry OSD na počítači na tvorbu médií a potom znova vytvorte ISO alebo aktualizujte zavádzacie médium USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Nová verzia k dispozícii. Aktualizujte Foundry OSD a znova vytvorte zavádzacie médium.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Odporúča sa znova vygenerovať zavádzací obraz</value>
+    <value>Aktualizujte Foundry OSD a znova vytvorte zavádzacie médium.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Tento zavádzací obraz používa starší formát konfigurácie Foundry OSD. Znova ho vygenerujte, aby ste zabezpečili kompatibilitu s najnovšími funkciami.</value>
+    <value>Toto zavádzacie médium bolo vytvorené staršou verziou Foundry OSD. Najprv aktualizujte Foundry OSD na počítači na tvorbu médií a potom znova vytvorte ISO alebo aktualizujte zavádzacie médium USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Architektúra: {0}</value>
@@ -349,7 +355,7 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
     <value>Neznáma veľkosť</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

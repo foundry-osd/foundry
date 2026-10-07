@@ -40,11 +40,17 @@
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>无法确定制作此启动介质时使用的 Foundry OSD 版本。请先在制作介质的电脑上更新 Foundry OSD，然后重新制作 ISO 或更新 USB 启动介质。</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>有新版本可用。更新 Foundry OSD 并重新制作启动介质。</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>建议更新启动介质</value>
+    <value>更新 Foundry OSD 并重新制作启动介质。</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>此启动介质是使用较旧的 Foundry OSD 配置格式生成的。请更新启动介质，以确保与最新功能兼容。</value>
+    <value>此启动介质是使用较旧版本的 Foundry OSD 制作的。请先在制作介质的电脑上更新 Foundry OSD，然后重新制作 ISO 或更新 USB 启动介质。</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>取消</value>
@@ -173,9 +179,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>荷兰语（荷兰）</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>英语</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>英语（英国）</value>
   </data>
@@ -187,9 +190,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>芬兰语（芬兰）</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>法语</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>法语（加拿大）</value>

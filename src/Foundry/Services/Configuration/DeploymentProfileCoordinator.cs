@@ -26,6 +26,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     private byte[]? sessionSharedKey;
     private bool applying;
     private bool initialized;
+    private bool initializing;
     private bool automaticSynchronizationStarted;
     private long editVersion;
     private long lastSharedEditVersion;
@@ -36,9 +37,13 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     private ShellNavigationState suspendedNavigationState;
     private bool ownsNavigationGuard;
 
+    /// <summary>Gets the effective shell state while accounting for this coordinator's interaction guard.</summary>
+    internal ShellNavigationState ActivationNavigationState => ownsNavigationGuard && navigationGuard.State == ShellNavigationState.InteractionPending
+        ? suspendedNavigationState : navigationGuard.State;
+
     public bool IsSettingsOpen { get; set; }
 
-    /// <summary>Defers automatic activation while the Settings card is collecting an operator decision.</summary>
+    /// <summary>Defers automatic activation and blocks shell navigation while a profile interaction owns an operator decision.</summary>
     public IDisposable SuspendActivation()
     {
         if (activationSuspensions > 0) throw new InvalidOperationException("Another profile interaction is already active.");
@@ -89,14 +94,14 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     /// <summary>Restores only this Windows user's selected local profile, preserving locked or incompatible data.</summary>
     public async Task InitializeAsync()
     {
-        if (initialized) return;
-        initialized = true;
+        if (initialized || initializing) return;
+        initializing = true;
         Logger.Information("Profile initialization started.");
         try
         {
             await Task.Run(CleanupAbandonedStagingDirectories);
-            Profiles = await Task.Run(local.List);
-            Guid? selected = await Task.Run(local.GetActive);
+            Profiles = await Task.Run(() => local.ListAsync(lifetime.Token));
+            Guid? selected = await Task.Run(() => local.GetActiveAsync(lifetime.Token));
             if (selected is Guid id)
             {
                 await ActivateAsync(id);
@@ -105,10 +110,15 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             {
                 await SaveAsCopyAsync("Default");
             }
+            initialized = true;
         }
         catch (Exception ex) when (IsProfileFailure(ex))
         {
             SetFailure(ex);
+        }
+        finally
+        {
+            initializing = false;
         }
 
         Logger.Information("Profile initialization finished. ProfileCount={ProfileCount}, LocalProfileId={LocalProfileId}, StatusKey={StatusKey}", Profiles.Count, Active?.LocalId, StatusKey);
@@ -194,7 +204,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         try
         {
             if (Active is not null && editVersion != persistedEditVersion) await SaveCurrentAsync();
-            LocalProfileSnapshot snapshot = await Task.Run(() => local.Read(localId));
+            LocalProfileSnapshot snapshot = await Task.Run(() => local.ReadAsync(localId, lifetime.Token));
             try
             {
                 await ActivateDocumentAsync(snapshot.Profile, snapshot.Descriptor);
@@ -464,7 +474,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             affectsSharedContent = observedConfiguration is null || HasSharedConfigurationChanges(observedConfiguration, configuration.Current);
             observedConfiguration = configuration.Current;
         }
-        if (applying || Active is null || !initialized) return;
+        if (applying || Active is null) return;
         editVersion++;
         if (affectsSharedContent) lastSharedEditVersion = editVersion;
         SynchronizationStateChanged?.Invoke(this, EventArgs.Empty);
@@ -519,7 +529,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
 
     private async Task RefreshAsync()
     {
-        Profiles = await Task.Run(local.List);
+        Profiles = await Task.Run(() => local.ListAsync(lifetime.Token));
         if (Active is { } current)
         {
             Active = Profiles.FirstOrDefault(profile => profile.LocalId == current.LocalId && profile.Revision == current.Revision) ?? current;
@@ -603,11 +613,20 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
 
     public void Dispose()
     {
+        // A close scope may outlive host disposal; it must not re-enable the destroyed shell.
+        ownsNavigationGuard = false;
         lifetime.Cancel();
         debounce?.Cancel();
         debounce?.Dispose();
         ClearSharedKey();
-        ClearStagingDirectories(releaseFailedLeases: true);
+        if (deferStagingCleanup)
+        {
+            ReleaseStagingLeases();
+        }
+        else
+        {
+            ClearStagingDirectories(releaseFailedLeases: true);
+        }
         lifetime.Dispose();
     }
 
@@ -622,7 +641,10 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             if (owner.activationSuspensions == 0 && owner.ownsNavigationGuard)
             {
                 owner.ownsNavigationGuard = false;
-                owner.navigationGuard.SetState(owner.suspendedNavigationState);
+                if (owner.navigationGuard.State == ShellNavigationState.InteractionPending)
+                {
+                    owner.navigationGuard.SetState(owner.suspendedNavigationState);
+                }
             }
         }
     }

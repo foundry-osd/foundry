@@ -155,7 +155,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>ADK instelling</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installeer de ondersteunde Windows ADK 24H2-release (10.1.26100.2454).</value>
+    <value>Installeer de ondersteunde Windows ADK 24H2-release (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versie wordt niet ondersteund</value>
@@ -191,7 +191,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Versie niet gedetecteerd</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Vereist Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Vereist Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Vereist versiebeleid</value>
@@ -258,9 +258,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Controleer op updates</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Updaten en opnieuw opstarten</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release-opmerkingen</value>
@@ -688,6 +685,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Vernieuwen</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Niet beschikbaar</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architectuur</value>
   </data>
@@ -777,6 +777,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>De bewerking is mislukt. Controleer de bron, de beschikbare ruimte en de Foundry-logboeken.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Niet beschikbaar bij opstarten via PXE. Aangepaste installatiekopieën vereisen de volledige ISO- of USB-media.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Neem ten minste één beschikbare Windows-installatiekopie op in dit profiel. Herstel ontbrekende opgenomen installatiekopieën en corrigeer of wis de selectie van de voorkeursinstallatiekopie of -index voordat u media maakt of bijwerkt.</value>
@@ -2008,9 +2011,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Nederlands (Nederland)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Engels</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Engels (Verenigd Koninkrijk)</value>
   </data>
@@ -2022,9 +2022,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Fins (Finland)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Frans</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Frans (Canada)</value>
@@ -2559,6 +2556,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumenten</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Acties die geïmporteerde bestanden gebruiken, zijn niet beschikbaar bij opstarten via PXE. Ze vereisen de volledige ISO- of USB-media.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>De actie kon niet worden verwijderd. Probeer het opnieuw.</value>
@@ -3408,8 +3408,17 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media voltooid.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry kan het ISO-bestand op {0} niet vervangen. Het bestand is mogelijk gekoppeld, aan een virtuele machine toegevoegd, geopend in een ander programma of alleen-lezen. Ontkoppel of sluit het bestand, of kies een ander uitvoerpad, en probeer het opnieuw.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Het ISO medium is succesvol aangemaakt.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Er is onvoldoende schijfruimte om de opstartimage te maken. Op {2} is minimaal {0} vrije ruimte nodig. Beschikbaar: {1}. Maak ruimte vrij en probeer het opnieuw.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>De beschikbare schijfruimte voor het maken van de opstartimage kon op {0} niet worden gecontroleerd. Controleer of de locatie toegankelijk is en probeer het opnieuw.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Installatie-bootimage.</value>
@@ -3510,6 +3519,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB opstartmedia verifiëren.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows heeft de toegang tot de WinPE-installatiekopiebestanden geblokkeerd. Mogelijk worden ze vergrendeld door beveiligingssoftware of een ander hulpprogramma. Voeg in de beveiligingssoftware een uitzondering toe voor {0}, sluit hulpprogramma's die installatiekopieën koppelen, start de computer opnieuw op en probeer het opnieuw. Details staan in {1} en {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Controleer de gereedheid, kies ISO- of USB-uitvoer en start het maken van media.</value>
   </data>
@@ -3548,6 +3560,23 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Punten die aandacht behoeven:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Toch maken</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Deze media worden gegenereerd met Foundry OSD {0}.
+Versie {1} is beschikbaar.
+
+Pas eerst de update toe en maak daarna uw opstartmedia of werk ze bij.
+
+Het toepassen van de update start Foundry OSD opnieuw.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Werk Foundry OSD bij voordat u opstartmedia maakt</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Update bekijken</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>USB bijwerken</value>
@@ -3750,17 +3779,17 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Bron gevalideerd.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Update toepassen</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Update downloaden</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Opnieuw proberen</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Nieuw</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD zal de update downloaden en opnieuw opstarten om deze toe te passen.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Updaten en opnieuw opstarten</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Update Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Beschikbare versie</value>
@@ -3774,26 +3803,29 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Nieuwste versie</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>De update downloaden. Foundry OSD zal opnieuw opstarten als het klaar is.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Downloaden: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Voortgang downloaden</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>De update wordt op de achtergrond gedownload. Open de update-instellingen om de voortgang te bekijken.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Update downloaden</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Versie {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Pas de update toe en start Foundry OSD opnieuw. De update wordt ook automatisch geïnstalleerd wanneer u de toepassing sluit.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Niet gecontroleerd</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>gieterij-osd/gieterij</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>De update kon niet worden toegepast: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controleren op updates</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Downloaden van update mislukt: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Update downloaden</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Updatecontrole mislukt: {0}</value>
@@ -3814,10 +3846,13 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Er is een Foundry OSD-update beschikbaar.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Update wanneer u klaar bent. Foundry OSD zal opnieuw opstarten om het toepassen ervan te voltooien.</value>
+    <value>Download de update wanneer u klaar bent.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} is beschikbaar.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Update kon niet worden toegepast</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Updatecontrole mislukt</value>

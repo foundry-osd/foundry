@@ -64,6 +64,16 @@ internal sealed class AppNavigationService(
         return frame.Navigate(pageType);
     }
 
+    public bool NavigateToUpdateSettings()
+    {
+        if (frame?.CurrentSourcePageType == typeof(Views.AppUpdateSettingPage))
+        {
+            return NavigateTo(typeof(Views.AppUpdateSettingPage));
+        }
+
+        return NavigateTo(typeof(Views.SettingsPage)) && NavigateTo(typeof(Views.AppUpdateSettingPage));
+    }
+
     private bool GoBack()
     {
         if (!CanGoBack || frame is null)

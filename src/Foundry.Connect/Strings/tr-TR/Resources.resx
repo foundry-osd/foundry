@@ -40,11 +40,17 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Bu önyükleme medyasını oluşturmak için kullanılan Foundry OSD sürümü belirlenemiyor. Önce medya oluşturma bilgisayarınızda Foundry OSD’yi güncelleyin, ardından ISO’yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Yeni sürüm mevcut. Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Önyükleme medyası güncellemesi önerilir</value>
+    <value>Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Bu önyükleme medyası daha eski bir Foundry OSD yapılandırma biçimiyle oluşturuldu. En son özelliklerle uyumluluğu sağlamak için önyükleme medyasını güncelleyin.</value>
+    <value>Bu önyükleme medyası Foundry OSD’nin eski bir sürümüyle oluşturuldu. Önce medya oluşturma bilgisayarınızda Foundry OSD’yi güncelleyin, ardından ISO’yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>İptal</value>
@@ -173,9 +179,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Felemenkçe (Hollanda)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>İngilizce</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>İngilizce (Birleşik Krallık)</value>
   </data>
@@ -187,9 +190,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Fince (Finlandiya)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Fransızca</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Fransızca (Kanada)</value>

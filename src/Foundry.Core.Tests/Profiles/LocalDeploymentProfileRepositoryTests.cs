@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Nodes;
@@ -19,6 +20,152 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
     private readonly string root = Path.Combine(Path.GetTempPath(), "Foundry.LocalProfiles.Tests", Guid.NewGuid().ToString("N"));
     private readonly FakeCredentials credentials = new();
     private readonly Guid localId = Guid.NewGuid();
+
+    [Fact]
+    public async Task ListAsync_WhenContentionEnds_ReturnsCommittedProfiles()
+    {
+        var repository = CreateRepository();
+        repository.Save(localId, CreateProfile(), true, null);
+        using var competingLease = OpenRepositoryLock();
+
+        Task<IReadOnlyList<LocalProfileDescriptor>> pending = repository.ListAsync(CancellationToken.None);
+        Assert.False(pending.IsCompleted);
+        competingLease.Dispose();
+
+        LocalProfileDescriptor listed = Assert.Single(await pending);
+        Assert.Equal(localId, listed.LocalId);
+        Assert.Equal("Synthetic profile", listed.DisplayName);
+        using var availableLease = OpenRepositoryLock();
+    }
+
+    [Fact]
+    public async Task ReadAsync_WhenContentionEnds_ReturnsDecryptedRevision()
+    {
+        var repository = CreateRepository();
+        repository.Save(localId, CreateProfile(), true, null);
+        using var competingLease = OpenRepositoryLock();
+
+        Task<LocalProfileSnapshot> pending = repository.ReadAsync(localId, CancellationToken.None);
+        Assert.False(pending.IsCompleted);
+        competingLease.Dispose();
+
+        using LocalProfileSnapshot snapshot = await pending;
+        Assert.Equal(localId, snapshot.Descriptor.LocalId);
+        Assert.Equal("synthetic-secret-keep-exact", Encoding.UTF8.GetString(Assert.Single(snapshot.Profile.Secrets.Entries).Value!));
+        using var availableLease = OpenRepositoryLock();
+    }
+
+    [Fact]
+    public async Task GetActiveAsync_WhenContentionEnds_RestoresSelectedProfile()
+    {
+        var repository = CreateRepository();
+        repository.Save(localId, CreateProfile(), true, null);
+        repository.SetActive(localId);
+        using var competingLease = OpenRepositoryLock();
+
+        Task<Guid?> pending = repository.GetActiveAsync(CancellationToken.None);
+        Assert.False(pending.IsCompleted);
+        competingLease.Dispose();
+
+        Assert.Equal(localId, await pending);
+        using var availableLease = OpenRepositoryLock();
+    }
+
+    [Fact]
+    public async Task ListAsync_WhenContentionPersists_ThrowsSharingViolationAfterBudget()
+    {
+        var repository = CreateRepository();
+        repository.Save(localId, CreateProfile(), true, null);
+        using var competingLease = OpenRepositoryLock();
+        var elapsed = Stopwatch.StartNew();
+
+        IOException exception = await Assert.ThrowsAsync<IOException>(() => repository.ListAsync(CancellationToken.None));
+
+        Assert.Equal(32, exception.HResult & 0xffff);
+        Assert.InRange(elapsed.Elapsed, TimeSpan.FromSeconds(1.9), TimeSpan.FromSeconds(5));
+        Assert.Throws<IOException>(() => OpenRepositoryLock());
+        competingLease.Dispose();
+        Assert.Single(await repository.ListAsync(CancellationToken.None));
+    }
+
+    [Fact]
+    public async Task ListAsync_WhenCanceledDuringContention_LeavesCompetingLeaseIntact()
+    {
+        var repository = CreateRepository();
+        repository.Save(localId, CreateProfile(), true, null);
+        using var competingLease = OpenRepositoryLock();
+        using var cancellation = new CancellationTokenSource();
+
+        Task<IReadOnlyList<LocalProfileDescriptor>> pending = repository.ListAsync(cancellation.Token);
+        Assert.False(pending.IsCompleted);
+        cancellation.Cancel();
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => pending);
+
+        Assert.Throws<IOException>(() => OpenRepositoryLock());
+        competingLease.Dispose();
+        using var availableLease = OpenRepositoryLock();
+    }
+
+    [Fact]
+    public async Task ListAsync_WhenAlreadyCanceled_DoesNotCreateRepository()
+    {
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => CreateRepository().ListAsync(cancellation.Token));
+
+        Assert.False(Directory.Exists(root));
+    }
+
+    [Fact]
+    public async Task ReadAsync_WhenCanceledAfterAcquiringLease_CompletesAndReleasesLease()
+    {
+        var repository = CreateRepository();
+        repository.Save(localId, CreateProfile(), true, null);
+        using var cancellation = new CancellationTokenSource();
+        credentials.BeforeRead = () =>
+        {
+            cancellation.Cancel();
+            Assert.Throws<IOException>(() => repository.List());
+        };
+
+        using LocalProfileSnapshot snapshot = await repository.ReadAsync(localId, cancellation.Token);
+
+        Assert.Equal("Synthetic profile", snapshot.Profile.DisplayName);
+        using var availableLease = OpenRepositoryLock();
+    }
+
+    [Fact]
+    public async Task ReadAsync_WhenBodyHasSharingViolation_DoesNotRetryAndReleasesLease()
+    {
+        var repository = CreateRepository();
+        repository.Save(localId, CreateProfile(), true, null);
+        var failure = new IOException("Credential read failed", unchecked((int)0x80070020));
+        int reads = 0;
+        credentials.BeforeRead = () => { reads++; throw failure; };
+
+        IOException exception = await Assert.ThrowsAsync<IOException>(() => repository.ReadAsync(localId, CancellationToken.None));
+
+        Assert.Same(failure, exception);
+        Assert.Equal(1, reads);
+        using var availableLease = OpenRepositoryLock();
+    }
+
+    [Fact]
+    public async Task ListAsync_WhenRootIsAFile_FailsWithoutWaitingForContentionBudget()
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(root)!);
+        File.WriteAllText(root, "not a directory");
+        try
+        {
+            Task<IReadOnlyList<LocalProfileDescriptor>> pending = CreateRepository().ListAsync(CancellationToken.None);
+            Assert.True(pending.IsCompleted);
+            await Assert.ThrowsAsync<IOException>(() => pending);
+        }
+        finally { File.Delete(root); }
+    }
+
+    private FileStream OpenRepositoryLock() => new(Path.Combine(root, ".repository.lock"), FileMode.Open, FileAccess.ReadWrite, FileShare.None);
 
     [Fact]
     public void SaveRead_EncryptsOwnedSecretsAndKeepsLocalAndSharedIdentitiesSeparate()
@@ -594,8 +741,10 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
         public bool FailDelete { get; set; }
         public bool FailRead { get; set; }
         public Action? AfterWrite { get; set; }
+        public Action? BeforeRead { get; set; }
         public WindowsCredential? Read(string target)
         {
+            BeforeRead?.Invoke();
             if (FailRead)
             {
                 throw new Win32Exception(5);

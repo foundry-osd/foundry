@@ -40,11 +40,17 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Nevar noteikt Foundry OSD versiju, kas izmantota šī sāknēšanas datu nesēja izveidei. Vispirms atjauniniet Foundry OSD datu nesēju izveides datorā un pēc tam izveidojiet ISO no jauna vai atjauniniet USB sāknēšanas datu nesēju.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Pieejama jauna versija. Atjauniniet Foundry OSD un izveidojiet sāknēšanas datu nesēju no jauna.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Ieteicams atjaunināt sāknēšanas datu nesēju</value>
+    <value>Atjauniniet Foundry OSD un izveidojiet sāknēšanas datu nesēju no jauna.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Šis sāknēšanas datu nesējs tika ģenerēts ar vecāku Foundry OSD konfigurācijas formātu. Atjauniniet sāknēšanas datu nesēju, lai nodrošinātu saderību ar jaunākajiem līdzekļiem.</value>
+    <value>Šis sāknēšanas datu nesējs tika izveidots ar vecāku Foundry OSD versiju. Vispirms atjauniniet Foundry OSD datu nesēju izveides datorā un pēc tam izveidojiet ISO no jauna vai atjauniniet USB sāknēšanas datu nesēju.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Atcelt</value>
@@ -173,9 +179,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>holandiešu (Nīderlande)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>angļu valoda</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angļu (Apvienotā Karaliste)</value>
   </data>
@@ -187,9 +190,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>somu (Somija)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>franču valoda</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>franču (Kanāda)</value>

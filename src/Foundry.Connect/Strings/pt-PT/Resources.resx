@@ -40,11 +40,17 @@ Licenciado sob a licença MIT.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Não é possível determinar a versão do Foundry OSD utilizada para criar este suporte de arranque. Atualize primeiro o Foundry OSD no PC de criação e depois recrie a ISO ou atualize o suporte de arranque USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Nova versão disponível. Atualize o Foundry OSD e recrie o suporte de arranque.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Atualização do suporte de arranque recomendada</value>
+    <value>Atualize o Foundry OSD e recrie o suporte de arranque.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Este suporte de arranque foi gerado com um formato de configuração Foundry OSD mais antigo. Atualize o suporte de arranque para garantir compatibilidade com as funcionalidades mais recentes.</value>
+    <value>Este suporte de arranque foi criado com uma versão anterior do Foundry OSD. Atualize primeiro o Foundry OSD no PC de criação e depois recrie a ISO ou atualize o suporte de arranque USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Cancelar</value>
@@ -173,9 +179,6 @@ Licenciado sob a licença MIT.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Holandês (Holanda)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Inglês</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglês (Reino Unido)</value>
   </data>
@@ -187,9 +190,6 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finlandês (Finlândia)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Francês</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Francês (Canadá)</value>

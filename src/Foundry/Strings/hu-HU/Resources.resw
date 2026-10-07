@@ -155,7 +155,7 @@ Licenc az MIT licenc alatt.</value>
     <value>ADK beállítás</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Telepítse a támogatott Windows ADK 24H2 (10.1.26100.2454) kiadást.</value>
+    <value>Telepítse a támogatott Windows ADK 24H2 (10.1.26100.9457) kiadást.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>A ADK verzió nem támogatott</value>
@@ -191,7 +191,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A verzió nem észlelhető</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100.2454) szükséges.</value>
+    <value>Windows ADK 24H2 (10.1.26100.9457) szükséges.</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Kötelező verzió házirend</value>
@@ -258,9 +258,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Ellenőrizze a frissítéseket</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Frissítés és újraindítás</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Kiadási megjegyzések</value>
@@ -688,6 +685,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Frissítés</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Nem elérhető</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektúra</value>
   </data>
@@ -777,6 +777,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>A lemezképművelet sikertelen. Ellenőrizze a forrást, a szabad helyet és a Foundry naplóit.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>PXE-rendszerindítással nem érhető el. Az egyéni lemezképekhez a teljes ISO- vagy USB-adathordozó szükséges.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Adjon hozzá legalább egy elérhető Windows-lemezképet ehhez a profilhoz. Az adathordozó létrehozása vagy frissítése előtt állítsa helyre a hiányzó hozzáadott lemezképeket, és javítsa vagy törölje az előnyben részesített lemezkép vagy index kiválasztását.</value>
@@ -2008,9 +2011,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>holland (Hollandia)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>angolul</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angol (Egyesült Királyság)</value>
   </data>
@@ -2022,9 +2022,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finn (Finnország)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>francia</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>francia (Kanada)</value>
@@ -2559,6 +2556,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumentumok</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Az importált fájlokat használó műveletek PXE-rendszerindítással nem érhetők el. Ezekhez a teljes ISO- vagy USB-adathordozó szükséges.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>A műveletet nem sikerült eltávolítani. Próbálja újra.</value>
@@ -3408,8 +3408,17 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO média kész.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>A Foundry nem tudta lecserélni a(z) {0} helyen lévő ISO-fájlt. Lehet, hogy a fájl csatlakoztatva van, virtuális géphez van csatolva, egy másik programban meg van nyitva, vagy írásvédett. Válassza le vagy zárja be, vagy válasszon másik kimeneti útvonalat, majd próbálkozzon újra.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>A ISO adathordozó sikeresen létrejött.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Nincs elég lemezterület a rendszerindító lemezkép létrehozásához. A(z) {2} helyen legalább {0} szabad terület szükséges. Elérhető: {1}. Szabadítson fel helyet, és próbálja újra.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Nem sikerült ellenőrizni a rendszerindító lemezkép létrehozásához rendelkezésre álló lemezterületet a(z) {0} helyen. Ellenőrizze, hogy a hely elérhető-e, és próbálja újra.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Szerelési rendszerindító kép.</value>
@@ -3510,6 +3519,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB rendszerindító adathordozó ellenőrzése.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>A Windows letiltotta a hozzáférést a WinPE-lemezkép fájljaihoz. Lehet, hogy egy biztonsági szoftver vagy egy másik eszköz zárolja őket. Adjon hozzá kivételt a(z) {0} mappához a biztonsági szoftverben, zárja be a lemezképeket csatlakoztató eszközöket, indítsa újra a számítógépet, és próbálja újra. A részletek a(z) {1} és a(z) {2} fájlban találhatók.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>
   </data>
@@ -3548,6 +3560,23 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Figyelmet igénylő elemek:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Létrehozás mindenképpen</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Ez az adathordozó a Foundry OSD {0} verziójával készül.
+A(z) {1} verzió elérhető.
+
+Először alkalmazza a frissítést, majd hozza létre vagy frissítse a rendszerindító adathordozót.
+
+A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Frissítse a Foundry OSD-t a rendszerindító adathordozó létrehozása előtt</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Frissítés megtekintése</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>USB frissítése</value>
@@ -3750,17 +3779,17 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>A forrás ellenőrizve.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Frissítés alkalmazása</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Frissítés letöltése</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Újrapróbálkozás</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Új</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>A Foundry OSD letölti a frissítést, és újraindítja az alkalmazáshoz.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Frissítés és újraindítás</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Frissítés Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Elérhető verzió</value>
@@ -3774,26 +3803,29 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Legújabb verzió</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>A frissítés letöltése. A Foundry OSD újraindul, ha készen áll.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Letöltés: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Letöltés folyamata</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>A frissítés letöltése a háttérben történik. A folyamat megtekintéséhez nyissa meg a frissítési beállításokat.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Frissítés letöltése</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Verzió {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Alkalmazza a frissítést, és indítsa újra a Foundry OSD-t. A frissítés az alkalmazás bezárásakor is automatikusan települ.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nincs bejelölve</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>öntöde-osd/öntöde</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>A frissítést nem sikerült alkalmazni: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Frissítések keresése</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>A frissítés letöltése sikertelen: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Frissítés letöltése</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>A frissítés ellenőrzése sikertelen: {0}</value>
@@ -3814,10 +3846,13 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Foundry OSD frissítés elérhető.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Frissítse, ha készen áll. A Foundry OSD újraindul az alkalmazás befejezéséhez.</value>
+    <value>Töltse le a frissítést, amikor készen áll.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} elérhető.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>A frissítést nem sikerült alkalmazni</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>A frissítés ellenőrzése sikertelen</value>

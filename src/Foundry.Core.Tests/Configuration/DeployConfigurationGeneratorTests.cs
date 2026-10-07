@@ -15,6 +15,26 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class DeployConfigurationGeneratorTests
 {
     [Theory]
+    [InlineData("26.10.3.1")]
+    [InlineData(null)]
+    public void Generate_PropagatesOptionalAuthoringVersionToRuntimeJson(string? authoringVersion)
+    {
+        var generator = new DeployConfigurationGenerator();
+        FoundryDeployConfigurationDocument configuration = generator.Generate(new(), null, null, null, authoringVersion);
+        using JsonDocument json = JsonDocument.Parse(generator.Serialize(configuration));
+
+        Assert.Equal(authoringVersion, configuration.AuthoringVersion);
+        if (authoringVersion is null)
+        {
+            Assert.False(json.RootElement.TryGetProperty("authoringVersion", out _));
+        }
+        else
+        {
+            Assert.Equal("26.10.3.1", json.RootElement.GetProperty("authoringVersion").GetString());
+        }
+    }
+
+    [Theory]
     [InlineData(true, true, AutopilotProvisioningMode.HardwareHashUpload, true, true)]
     [InlineData(true, true, AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, true)]
     [InlineData(false, true, AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, false)]

@@ -40,11 +40,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>このブートメディアの作成に使用された Foundry OSD のバージョンを特定できません。まずメディア作成用 PC で Foundry OSD を更新してから、ISO を再作成するか USB ブートメディアを更新してください。</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>新しいバージョンを利用できます。Foundry OSD を更新し、ブートメディアを再作成してください。</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>ブート メディアの更新を推奨</value>
+    <value>Foundry OSD を更新し、ブートメディアを再作成してください。</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>このブート メディアは古い Foundry OSD 構成形式で生成されています。最新機能との互換性を確保するため、ブート メディアを更新してください。</value>
+    <value>このブートメディアは古いバージョンの Foundry OSD で作成されました。まずメディア作成用 PC で Foundry OSD を更新してから、ISO を再作成するか USB ブートメディアを更新してください。</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>キャンセル</value>
@@ -173,9 +179,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>オランダ語 (オランダ)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>英語</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>英語 (イギリス)</value>
   </data>
@@ -187,9 +190,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>フィンランド語 (フィンランド)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>フランス語</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>フランス語 (カナダ)</value>

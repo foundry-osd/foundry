@@ -40,11 +40,17 @@
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>يتعذر تحديد إصدار Foundry OSD المستخدم لإنشاء وسائط التمهيد هذه. حدّث Foundry OSD أولاً على الكمبيوتر المستخدم لإنشاء الوسائط، ثم أعد إنشاء ملف ISO أو حدّث وسائط تمهيد USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>يتوفر إصدار جديد. حدّث Foundry OSD وأعد إنشاء وسائط التمهيد.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>يوصى بتحديث وسيط التمهيد</value>
+    <value>حدّث Foundry OSD وأعد إنشاء وسائط التمهيد.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>تم إنشاء وسيط التمهيد هذا بتنسيق تكوين قديم لـ Foundry OSD. حدّث وسيط التمهيد لضمان التوافق مع أحدث الميزات.</value>
+    <value>تم إنشاء وسائط التمهيد هذه باستخدام إصدار أقدم من Foundry OSD. حدّث Foundry OSD أولاً على الكمبيوتر المستخدم لإنشاء الوسائط، ثم أعد إنشاء ملف ISO أو حدّث وسائط تمهيد USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>إلغاء</value>
@@ -173,9 +179,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>الهولندية (هولندا)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>الإنجليزية</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>الإنجليزية (المملكة المتحدة)</value>
   </data>
@@ -187,9 +190,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>الفنلندية (فنلندا)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>الفرنسية</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>الفرنسية (كندا)</value>

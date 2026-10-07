@@ -41,6 +41,24 @@ public sealed class AdkSetupRunner
             throw new AdkSetupException("log_preparation_failed", setupPath, logPath, innerException: exception);
         }
 
+        return await RunElevatedAsync(setupPath, $"{arguments} /log \"{logPath}\"", logPath, hideWindow: false, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>Runs an elevated ADK helper that has no setup log switch, with the same failure classification as a bundle.</summary>
+    public async Task<int> RunToolAsync(string toolPath, string arguments, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        if (!File.Exists(toolPath))
+        {
+            throw new AdkSetupException("setup_not_found", toolPath, string.Empty);
+        }
+
+        // Helpers are console programs; hiding the window keeps the authoring application in the foreground.
+        return await RunElevatedAsync(toolPath, arguments, string.Empty, hideWindow: true, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<int> RunElevatedAsync(string setupPath, string arguments, string logPath, bool hideWindow, CancellationToken cancellationToken)
+    {
         cancellationToken.ThrowIfCancellationRequested();
         IAdkSetupProcess? started;
         try
@@ -48,9 +66,10 @@ public sealed class AdkSetupRunner
             started = startProcess(new ProcessStartInfo
             {
                 FileName = setupPath,
-                Arguments = $"{arguments} /log \"{logPath}\"",
+                Arguments = arguments,
                 UseShellExecute = true,
                 Verb = "runas",
+                WindowStyle = hideWindow ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal,
             });
         }
         catch (Win32Exception exception)

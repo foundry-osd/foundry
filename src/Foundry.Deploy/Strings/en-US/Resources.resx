@@ -46,11 +46,17 @@ Licensed under the MIT License.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>The Foundry OSD version used to create this boot media cannot be determined. Update Foundry OSD on your authoring PC first, then recreate the ISO or update the USB boot media.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>New version available. Update Foundry OSD and rebuild boot media.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Boot image regeneration recommended</value>
+    <value>Update Foundry OSD and rebuild boot media.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>This boot image uses an older Foundry OSD configuration format. Regenerate it to ensure compatibility with the latest features.</value>
+    <value>This boot media was created with an older version of Foundry OSD. Update Foundry OSD on your authoring PC first, then recreate the ISO or update the USB boot media.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Architecture: {0}</value>

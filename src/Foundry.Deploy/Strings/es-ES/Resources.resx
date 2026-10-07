@@ -46,11 +46,17 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>No se puede determinar la versión de Foundry OSD utilizada para crear este medio de arranque. Primero actualice Foundry OSD en su PC de creación y después vuelva a crear la ISO o actualice el medio de arranque USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Nueva versión disponible. Actualice Foundry OSD y vuelva a crear el medio de arranque.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Se recomienda regenerar la imagen de arranque</value>
+    <value>Actualice Foundry OSD y vuelva a crear el medio de arranque.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Esta imagen de arranque utiliza un formato de configuración anterior de Foundry OSD. Vuelva a generarla para garantizar la compatibilidad con las funciones más recientes.</value>
+    <value>Este medio de arranque se creó con una versión anterior de Foundry OSD. Primero actualice Foundry OSD en su PC de creación y después vuelva a crear la ISO o actualice el medio de arranque USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Arquitectura: {0}</value>
@@ -349,7 +355,7 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
     <value>Tamaño desconocido</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

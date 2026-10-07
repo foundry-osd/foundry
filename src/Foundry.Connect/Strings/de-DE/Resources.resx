@@ -40,11 +40,17 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Die zur Erstellung dieses Startmediums verwendete Foundry OSD-Version kann nicht ermittelt werden. Aktualisieren Sie zuerst Foundry OSD auf Ihrem Erstellungs-PC und erstellen Sie anschließend die ISO-Datei neu oder aktualisieren Sie das USB-Startmedium.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Neue Version verfügbar. Foundry OSD aktualisieren und Startmedium neu erstellen.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Aktualisierung des Startmediums empfohlen</value>
+    <value>Foundry OSD aktualisieren und Startmedium neu erstellen.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Dieses Startmedium wurde mit einem älteren Foundry OSD-Konfigurationsformat erstellt. Aktualisieren Sie das Startmedium, um die Kompatibilität mit den neuesten Funktionen sicherzustellen.</value>
+    <value>Dieses Startmedium wurde mit einer älteren Version von Foundry OSD erstellt. Aktualisieren Sie zuerst Foundry OSD auf Ihrem Erstellungs-PC und erstellen Sie anschließend die ISO-Datei neu oder aktualisieren Sie das USB-Startmedium.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Abbrechen</value>
@@ -173,9 +179,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Niederländisch (Niederlande)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Englisch</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Englisch (Vereinigtes Königreich)</value>
   </data>
@@ -187,9 +190,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finnisch (Finnland)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Französisch</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Französisch (Kanada)</value>

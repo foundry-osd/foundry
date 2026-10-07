@@ -46,11 +46,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Versjonen av Foundry OSD som ble brukt til å opprette dette oppstartsmediet, kan ikke fastslås. Oppdater først Foundry OSD på PC-en der du oppretter medier, og opprett deretter ISO-filen på nytt eller oppdater USB-oppstartsmediet.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Ny versjon tilgjengelig. Oppdater Foundry OSD og opprett oppstartsmediet på nytt.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Regenerering av oppstartsavbildningen anbefales</value>
+    <value>Oppdater Foundry OSD og opprett oppstartsmediet på nytt.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Denne oppstartsavbildningen bruker et eldre Foundry OSD-konfigurasjonsformat. Generer den på nytt for å sikre kompatibilitet med de nyeste funksjonene.</value>
+    <value>Dette oppstartsmediet ble opprettet med en eldre versjon av Foundry OSD. Oppdater først Foundry OSD på PC-en der du oppretter medier, og opprett deretter ISO-filen på nytt eller oppdater USB-oppstartsmediet.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Arkitektur: {0}</value>
@@ -349,7 +355,7 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
     <value>Ukjent størrelse</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

@@ -155,7 +155,7 @@
     <value>ADK ตั้งค่า</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>ติดตั้งรุ่น Windows ADK 24H2 (10.1.26100.2454) ที่รองรับ</value>
+    <value>ติดตั้งรุ่น Windows ADK 24H2 (10.1.26100.9457) ที่รองรับ</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ไม่รองรับเวอร์ชัน ADK</value>
@@ -191,7 +191,7 @@
     <value>ตรวจไม่พบเวอร์ชัน</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>ต้องใช้ Windows ADK 24H2 (10.1.26100.2454)</value>
+    <value>ต้องใช้ Windows ADK 24H2 (10.1.26100.9457)</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>นโยบายเวอร์ชันที่ต้องการ</value>
@@ -258,9 +258,6 @@
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>ตรวจสอบการอัปเดต</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>อัปเดตและรีสตาร์ท</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>บันทึกประจำรุ่น</value>
@@ -688,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>รีเฟรช</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>ไม่พร้อมใช้งาน</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>สถาปัตยกรรม</value>
   </data>
@@ -777,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>การดำเนินการกับอิมเมจล้มเหลว ตรวจสอบแหล่งที่มา พื้นที่ว่าง และบันทึกของ Foundry</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE อิมเมจแบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>รวมอิมเมจ Windows ที่พร้อมใช้งานอย่างน้อยหนึ่งรายการไว้ในโปรไฟล์นี้ กู้คืนอิมเมจที่รวมไว้แต่หายไป และแก้ไขหรือล้างการเลือกอิมเมจหรือดัชนีที่ต้องการก่อนสร้างหรืออัปเดตสื่อ</value>
@@ -2008,9 +2011,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>ดัตช์ (เนเธอร์แลนด์)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>อังกฤษ</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>อังกฤษ (สหราชอาณาจักร)</value>
   </data>
@@ -2022,9 +2022,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>ฟินแลนด์ (ฟินแลนด์)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>ฝรั่งเศส</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>ฝรั่งเศส (แคนาดา)</value>
@@ -2559,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>อาร์กิวเมนต์ PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>การดำเนินการที่ใช้ไฟล์ที่นำเข้าไม่พร้อมใช้งานเมื่อบูตด้วย PXE โดยต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>ไม่สามารถนำการดำเนินการออกได้ ลองอีกครั้ง</value>
@@ -3408,8 +3408,17 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO สื่อเสร็จเรียบร้อย</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry ไม่สามารถแทนที่ไฟล์ ISO ที่ {0} ได้ ไฟล์อาจถูกเมาท์อยู่ แนบกับเครื่องเสมือน เปิดอยู่ในโปรแกรมอื่น หรือเป็นแบบอ่านอย่างเดียว ให้ยกเลิกการเมาท์หรือปิดไฟล์ หรือเลือกเส้นทางเอาต์พุตอื่น แล้วลองอีกครั้ง</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>สร้างสื่อ ISO สำเร็จแล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>พื้นที่ดิสก์ไม่เพียงพอสำหรับสร้างอิมเมจสำหรับบูต. ต้องมีพื้นที่ว่างอย่างน้อย {0} บน {2}. พื้นที่ว่างที่มี: {1}. โปรดเพิ่มพื้นที่ว่างแล้วลองอีกครั้ง.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>ไม่สามารถตรวจสอบพื้นที่ดิสก์ที่พร้อมใช้งานสำหรับสร้างอิมเมจสำหรับบูตใน {0} ได้. โปรดตรวจสอบว่าสามารถเข้าถึงตำแหน่งนั้นได้แล้วลองอีกครั้ง.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>การติดตั้งอิมเมจสำหรับบูต</value>
@@ -3510,6 +3519,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>กำลังตรวจสอบสื่อสำหรับบูต USB</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows บล็อกการเข้าถึงไฟล์อิมเมจ WinPE ซอฟต์แวร์ความปลอดภัยหรือเครื่องมืออื่นอาจกำลังล็อกไฟล์เหล่านั้น เพิ่มข้อยกเว้นสำหรับ {0} ในซอฟต์แวร์ความปลอดภัย ปิดเครื่องมือที่เมานต์อิมเมจ รีสตาร์ทคอมพิวเตอร์ แล้วลองอีกครั้ง ดูรายละเอียดได้ใน {1} และ {2}</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>
   </data>
@@ -3548,6 +3560,23 @@
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>รายการที่ต้องให้ความสนใจ:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>สร้างต่อไป</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>สื่อนี้จะสร้างโดยใช้ Foundry OSD {0}
+มีเวอร์ชัน {1} พร้อมใช้งาน
+
+โปรดใช้การอัปเดตก่อน แล้วจึงสร้างหรืออัปเดตสื่อสำหรับบูต
+
+การใช้การอัปเดตจะเริ่ม Foundry OSD ใหม่</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>อัปเดต Foundry OSD ก่อนสร้างสื่อสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>ดูการอัปเดต</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>อัปเดต USB</value>
@@ -3750,17 +3779,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>ตรวจสอบต้นฉบับแล้ว</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>ใช้การอัปเดต</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>ดาวน์โหลดการอัปเดต</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>ลองอีกครั้ง</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>ใหม่</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD จะดาวน์โหลดอัปเดตและรีสตาร์ทเพื่อใช้งาน</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>อัปเดตและรีสตาร์ท</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>อัพเดท Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>รุ่นที่มีจำหน่าย</value>
@@ -3774,26 +3803,29 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>เวอร์ชันล่าสุด</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>กำลังดาวน์โหลดการอัพเดต Foundry OSD จะรีสตาร์ทเมื่อพร้อม</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>กำลังดาวน์โหลด: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>ดาวน์โหลดความคืบหน้า</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>กำลังดาวน์โหลดการอัปเดตในเบื้องหลัง เปิดการตั้งค่าการอัปเดตเพื่อดูความคืบหน้า</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>กำลังดาวน์โหลดอัปเดต</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>เวอร์ชั่น {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>ใช้การอัปเดตและเริ่ม Foundry OSD ใหม่ การอัปเดตจะติดตั้งโดยอัตโนมัติเมื่อคุณปิดแอปพลิเคชันด้วย</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>ไม่ได้ตรวจสอบ</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>โรงหล่อ-osd/โรงหล่อ</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>ไม่สามารถใช้การอัปเดตได้: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>กำลังตรวจสอบการอัปเดต</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>ดาวน์โหลดการอัปเดตไม่สำเร็จ: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>กำลังดาวน์โหลดการอัปเดต</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>การตรวจสอบการอัปเดตล้มเหลว: {0}</value>
@@ -3814,10 +3846,13 @@
     <value>มีการอัปเดต Foundry OSD แล้ว</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>อัปเดตเมื่อคุณพร้อม Foundry OSD จะรีสตาร์ทเพื่อสิ้นสุดการใช้งาน</value>
+    <value>ดาวน์โหลดการอัปเดตเมื่อคุณพร้อม</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} ว่างแล้ว</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>ไม่สามารถใช้การอัปเดตได้</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>การตรวจสอบการอัปเดตล้มเหลว</value>

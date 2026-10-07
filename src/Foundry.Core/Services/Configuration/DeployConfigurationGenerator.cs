@@ -56,7 +56,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         FoundryConfigurationDocument document,
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings,
-        OobeAccountSecretState? oobeAccountSecretState)
+        OobeAccountSecretState? oobeAccountSecretState,
+        string? authoringVersion = null)
     {
         ArgumentNullException.ThrowIfNull(document);
         CustomImageSettingsValidator.ThrowIfInvalid(document.CustomImages);
@@ -70,6 +71,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
         return new FoundryDeployConfigurationDocument
         {
+            AuthoringVersion = authoringVersion,
             Protection = protectionSettings ?? new DeployProtectionSettings(),
             PreOobe = new DeployPreOobeSettings
             {

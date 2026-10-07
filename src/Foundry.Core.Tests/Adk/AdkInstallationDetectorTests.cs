@@ -28,13 +28,13 @@ public sealed class AdkInstallationDetectorTests
     [Fact]
     public void Detect_WhenDeploymentToolsAndWinPeAddonArePresent_ReturnsInstalled()
     {
-        FakeAdkInstallationProbe probe = CreateInstalledProbe("10.1.26100.2454");
+        FakeAdkInstallationProbe probe = CreateInstalledProbe("10.1.26100.9457");
 
         AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
 
         Assert.True(status.IsInstalled);
         Assert.True(status.IsWinPeAddonInstalled);
-        Assert.Equal("10.1.26100.2454", status.InstalledVersion);
+        Assert.Equal("10.1.26100.9457", status.InstalledVersion);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public sealed class AdkInstallationDetectorTests
             [
                 Path.Combine(kitsRootPath, AdkInstallationDetector.DeploymentToolsRelativePath)
             ],
-            Products = [new("Windows Assessment and Deployment Kit", "10.1.26100.2454")]
+            Products = [new("Windows Assessment and Deployment Kit", "10.1.26100.9457")]
         };
 
         AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
@@ -71,7 +71,7 @@ public sealed class AdkInstallationDetectorTests
                 Path.Combine(kitsRootPath, AdkInstallationDetector.DeploymentToolsRelativePath),
                 Path.Combine(kitsRootPath, AdkInstallationDetector.WinPeRelativePath)
             ],
-            Products = [new("Windows Assessment and Deployment Kit", "10.1.26100.2454")]
+            Products = [new("Windows Assessment and Deployment Kit", "10.1.26100.9457")]
         };
 
         AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
@@ -84,9 +84,10 @@ public sealed class AdkInstallationDetectorTests
 
     [Theory]
     [InlineData("10.1.26100.1", false)]
-    [InlineData("10.1.26100.2453", false)]
-    [InlineData("10.1.26100.2454", true)]
-    [InlineData("10.1.26100.3000", true)]
+    [InlineData("10.1.26100.2454", false)]
+    [InlineData("10.1.26100.9456", false)]
+    [InlineData("10.1.26100.9457", true)]
+    [InlineData("10.1.26100.9999", true)]
     [InlineData("10.1.28000.1", false)]
     [InlineData("10.1.28000.2", false)]
     [InlineData("10.1.22621.1", false)]
@@ -104,7 +105,8 @@ public sealed class AdkInstallationDetectorTests
     [Theory]
     [InlineData("10.1.22621.1", AdkVersionRelation.BelowSupported)]
     [InlineData("10.1.26100.1", AdkVersionRelation.BelowSupported)]
-    [InlineData("10.1.26100.2453", AdkVersionRelation.BelowSupported)]
+    [InlineData("10.1.26100.2454", AdkVersionRelation.BelowSupported)]
+    [InlineData("10.1.26100.9456", AdkVersionRelation.BelowSupported)]
     [InlineData("10.1.28000.1", AdkVersionRelation.AboveSupported)]
     [InlineData("bad-version", AdkVersionRelation.Unknown)]
     public void Detect_ClassifiesInstalledVersionAgainstSupportedBuildLine(
@@ -124,13 +126,13 @@ public sealed class AdkInstallationDetectorTests
         FakeAdkInstallationProbe probe = CreateInstalledProbe(null);
         probe.Products =
         [
-            new("Windows Deployment Tools", "10.1.26100.2454"),
-            new("Windows PE wims (DesktopEditions)", "10.1.26100.2454")
+            new("Windows Deployment Tools", "10.1.26100.9457"),
+            new("Windows PE wims (DesktopEditions)", "10.1.26100.9457")
         ];
 
         AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
 
-        Assert.Equal("10.1.26100.2454", status.InstalledVersion);
+        Assert.Equal("10.1.26100.9457", status.InstalledVersion);
         Assert.True(status.IsCompatible);
     }
 
@@ -138,7 +140,7 @@ public sealed class AdkInstallationDetectorTests
     public void Detect_WhenOnlyWinPeVersionIsKnown_DoesNotInferAdkCompatibility()
     {
         var probe = CreateInstalledProbe(null);
-        probe.Products = [new("Windows PE Deployment Add-ons", "10.1.26100.2454")];
+        probe.Products = [new("Windows PE Deployment Add-ons", "10.1.26100.9457")];
 
         AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
 
@@ -154,7 +156,7 @@ public sealed class AdkInstallationDetectorTests
     [InlineData(null)]
     public void Detect_WhenOneWinPeComponentVersionDoesNotMatch_BlocksMedia(string? version)
     {
-        var probe = CreateInstalledProbe("10.1.26100.2454");
+        var probe = CreateInstalledProbe("10.1.26100.9457");
         probe.Products = probe.Products.Select(p => p.DisplayName == "Windows PE Scripts"
             ? p with { DisplayVersion = version } : p).ToArray();
 
@@ -169,7 +171,7 @@ public sealed class AdkInstallationDetectorTests
     [Fact]
     public void Detect_WhenRegisteredWinPeScriptsAreMissing_RequiresRepairInsteadOfNewInstallation()
     {
-        var probe = CreateInstalledProbe("10.1.26100.2454");
+        var probe = CreateInstalledProbe("10.1.26100.9457");
         probe.ExistingFiles = probe.ExistingFiles.Where(path => !path.EndsWith(".cmd", StringComparison.OrdinalIgnoreCase)).ToArray();
 
         AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
@@ -191,7 +193,7 @@ public sealed class AdkInstallationDetectorTests
     [InlineData("amd64", false, @"Oscdimg\efisys_noprompt_EX.bin")]
     public void Detect_WhenRequiredAssetIsMissing_OnlyBlocksAffectedArchitecture(string architecture, bool winPeAsset, string relativePath)
     {
-        var probe = CreateInstalledProbe("10.1.26100.2454");
+        var probe = CreateInstalledProbe("10.1.26100.9457");
         string missing = Path.Combine(probe.KitsRootPath!, winPeAsset
             ? AdkInstallationDetector.WinPeRelativePath : AdkInstallationDetector.DeploymentToolsRelativePath, architecture, relativePath);
         Assert.Contains(missing, probe.ExistingFiles);

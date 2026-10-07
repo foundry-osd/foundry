@@ -43,11 +43,17 @@ public sealed record WinPeDiagnostic
     public int RetryCount { get; init; }
     public Exception? Exception { get; init; }
 
-    /// <summary>Gets the measured or conservatively estimated bytes needed by a size validation.</summary>
+    /// <summary>Gets final mount cleanup safety independently of the primary failure classification.</summary>
+    public WinPeMountCleanupStatus? MountCleanupStatus { get; init; }
+
+    /// <summary>Gets the measured, estimated, or minimum bytes required by a capacity validation.</summary>
     public ulong? RequiredBytes { get; init; }
 
-    /// <summary>Gets the source limit, partition capacity, or per-file limit for a size validation.</summary>
+    /// <summary>Gets the available free space, source limit, partition capacity, or per-file limit.</summary>
     public ulong? AvailableBytes { get; init; }
+
+    /// <summary>Gets the destination path whose available storage capacity was checked.</summary>
+    public string? StoragePath { get; init; }
 
     private static (string Kind, string Reason) Classify(
         string code,
@@ -85,7 +91,8 @@ public sealed record WinPeDiagnostic
         return code switch
         {
             WinPeErrorCodes.ValidationFailed or WinPeErrorCodes.CustomDriversTooLarge => (WinPeFailureKinds.Validation, WinPeFailureReasons.InvalidInput),
-            WinPeErrorCodes.UsbBootCapacityInsufficient or WinPeErrorCodes.UsbBootCapacityUnknown or WinPeErrorCodes.UsbBootFileTooLarge =>
+            WinPeErrorCodes.UsbBootCapacityInsufficient or WinPeErrorCodes.UsbBootCapacityUnknown or WinPeErrorCodes.UsbBootFileTooLarge
+                or WinPeErrorCodes.LocalSpaceInsufficient or WinPeErrorCodes.LocalSpaceUnknown =>
                 (WinPeFailureKinds.Validation, WinPeFailureReasons.DiskValidation),
             WinPeErrorCodes.OperationCancelled => (WinPeFailureKinds.Cancellation, WinPeFailureReasons.Cancelled),
             WinPeErrorCodes.ToolNotFound => (WinPeFailureKinds.Tooling, WinPeFailureReasons.ToolNotFound),

@@ -18,6 +18,12 @@ public sealed partial class PageHeader : UserControl
         typeof(PageHeader),
         new PropertyMetadata(string.Empty, OnHeaderPropertyChanged));
 
+    public static readonly DependencyProperty WarningProperty = DependencyProperty.Register(
+        nameof(Warning),
+        typeof(string),
+        typeof(PageHeader),
+        new PropertyMetadata(string.Empty, OnHeaderPropertyChanged));
+
     public static readonly DependencyProperty IconGlyphProperty = DependencyProperty.Register(
         nameof(IconGlyph),
         typeof(string),
@@ -39,6 +45,7 @@ public sealed partial class PageHeader : UserControl
     private readonly FontIcon icon = new();
     private readonly TextBlock titleTextBlock = new();
     private readonly TextBlock descriptionTextBlock = new();
+    private readonly TextBlock warningTextBlock = new();
     private readonly ContentPresenter actionPresenter = new();
     private readonly DocumentationButton documentationButton = new();
 
@@ -58,6 +65,13 @@ public sealed partial class PageHeader : UserControl
     {
         get => (string)GetValue(DescriptionProperty);
         set => SetValue(DescriptionProperty, value);
+    }
+
+    /// <summary>Gets or sets a standing limitation of the page, shown under the description in the critical color and hidden when empty.</summary>
+    public string Warning
+    {
+        get => (string)GetValue(WarningProperty);
+        set => SetValue(WarningProperty, value);
     }
 
     public string IconGlyph
@@ -117,8 +131,15 @@ public sealed partial class PageHeader : UserControl
         descriptionTextBlock.TextWrapping = TextWrapping.WrapWholeWords;
         descriptionTextBlock.Style = (Style)Application.Current.Resources["FoundrySecondaryBodyTextBlockStyle"];
 
+        warningTextBlock.MaxWidth = descriptionTextBlock.MaxWidth;
+        warningTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
+        warningTextBlock.TextAlignment = TextAlignment.Left;
+        warningTextBlock.TextWrapping = TextWrapping.WrapWholeWords;
+        warningTextBlock.Style = (Style)Application.Current.Resources["FoundryCriticalBodyTextBlockStyle"];
+
         textPanel.Children.Add(titleTextBlock);
         textPanel.Children.Add(descriptionTextBlock);
+        textPanel.Children.Add(warningTextBlock);
 
         Grid.SetColumn(textPanel, 1);
         Grid.SetColumn(actionPresenter, 2);
@@ -144,6 +165,10 @@ public sealed partial class PageHeader : UserControl
             : Visibility.Visible;
         titleTextBlock.Text = Title;
         descriptionTextBlock.Text = Description;
+        warningTextBlock.Text = Warning;
+        warningTextBlock.Visibility = string.IsNullOrWhiteSpace(Warning)
+            ? Visibility.Collapsed
+            : Visibility.Visible;
         actionPresenter.Content = ActionContent;
         actionPresenter.Visibility = ActionContent is null
             ? Visibility.Collapsed

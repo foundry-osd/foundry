@@ -155,7 +155,7 @@
     <value>ADK настройка</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Инсталирайте поддържаната версия Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Инсталирайте поддържаната версия Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK версията не се поддържа</value>
@@ -191,7 +191,7 @@
     <value>Версията не е открита</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Изисква Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Изисква Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Правила за задължителна версия</value>
@@ -258,9 +258,6 @@
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Проверете за актуализации</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Актуализирайте и рестартирайте</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Бележки по изданието</value>
@@ -688,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Опресняване</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Недостъпен</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Архитектура</value>
   </data>
@@ -777,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Операцията с образа е неуспешна. Проверете източника, свободното място и регистрационните файлове на Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Не е налично при стартиране чрез PXE. Персонализираните образи изискват пълния ISO или USB носител.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включете поне един наличен образ на Windows в този профил. Възстановете липсващите включени образи и коригирайте или изчистете избора на предпочитан образ или индекс, преди да създадете или актуализирате носител.</value>
@@ -2008,9 +2011,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>холандски (Холандия)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>английски</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>английски (Великобритания)</value>
   </data>
@@ -2022,9 +2022,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>фински (Финландия)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>френски</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>френски (Канада)</value>
@@ -2559,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Аргументи на PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Действията, които използват импортирани файлове, не са налични при стартиране чрез PXE. Те изискват пълния ISO или USB носител.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Действието не можа да бъде премахнато. Опитайте отново.</value>
@@ -3408,8 +3408,17 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO медиите са завършени.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry не можа да замени ISO файла в {0}. Файлът може да е монтиран, прикачен към виртуална машина, отворен в друга програма или само за четене. Демонтирайте го или го затворете, или изберете друг изходен път, след което опитайте отново.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Медията ISO е създадена успешно.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Няма достатъчно място на диска за създаване на образа за стартиране. На {2} са необходими поне {0} свободно място. Налично: {1}. Освободете място и опитайте отново.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Не можа да се провери наличното място на диска за създаване на образа за стартиране на {0}. Проверете дали местоположението е достъпно и опитайте отново.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Монтиране на начално изображение.</value>
@@ -3510,6 +3519,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Проверка на USB носител за зареждане.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows блокира достъпа до файловете на WinPE образа. Възможно е софтуер за защита или друг инструмент да ги заключва. Добавете изключение за {0} в софтуера за защита, затворете инструментите, които монтират образи, рестартирайте компютъра и опитайте отново. Подробности има в {1} и {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Прегледайте готовността, изберете ISO или USB изход и стартирайте създаването на носител.</value>
   </data>
@@ -3548,6 +3560,23 @@
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Елементи, изискващи внимание:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Създаване въпреки това</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Този носител ще бъде създаден с Foundry OSD {0}.
+Налична е версия {1}.
+
+Първо приложете актуализацията, след което създайте или актуализирайте носителя за стартиране.
+
+Прилагането на актуализацията рестартира Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Актуализирайте Foundry OSD, преди да създадете носител за стартиране</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Преглед на актуализацията</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Актуализиране на USB</value>
@@ -3750,17 +3779,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Източникът е проверен.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Прилагане на актуализация</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Изтегляне на актуализация</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Повторен опит</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Нов</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD ще изтегли актуализацията и ще рестартира, за да я приложи.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Актуализирайте и рестартирайте</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Актуализиране на Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Налична версия</value>
@@ -3774,26 +3803,29 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Последна версия</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Изтегляне на актуализацията. Foundry OSD ще се рестартира, когато е готов.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Изтегляне: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Напредък на изтеглянето</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Актуализацията се изтегля във фонов режим. Отворете настройките за актуализации, за да видите напредъка.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Изтегля се актуализация</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Версия {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Приложете актуализацията и рестартирайте Foundry OSD. Тя ще се инсталира автоматично и когато затворите приложението.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не е проверено</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>леярна-осд/леярна</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Актуализацията не можа да бъде приложена: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Проверка за актуализации</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Изтеглянето на актуализацията е неуспешно: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Изтегляне на актуализация</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Проверката на актуализацията е неуспешна: {0}</value>
@@ -3814,10 +3846,13 @@
     <value>Налична е актуализация Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Актуализирайте, когато сте готови. Foundry OSD ще се рестартира, за да завърши прилагането му.</value>
+    <value>Изтеглете актуализацията, когато сте готови.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} е наличен.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Актуализацията не можа да бъде приложена</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Проверката на актуализацията е неуспешна</value>

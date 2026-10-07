@@ -46,11 +46,17 @@
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>ไม่สามารถระบุเวอร์ชันของ Foundry OSD ที่ใช้สร้างสื่อบูตนี้ได้ อัปเดต Foundry OSD บนพีซีที่ใช้สร้างสื่อก่อน แล้วสร้าง ISO ใหม่หรืออัปเดตสื่อบูต USB</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>มีเวอร์ชันใหม่พร้อมใช้งาน. อัปเดต Foundry OSD และสร้างสื่อบูตใหม่.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>แนะนำให้สร้างอิมเมจบูตใหม่</value>
+    <value>อัปเดต Foundry OSD และสร้างสื่อบูตใหม่.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>อิมเมจบูตนี้ใช้รูปแบบการกำหนดค่า Foundry OSD รุ่นเก่า สร้างใหม่เพื่อให้เข้ากันได้กับฟีเจอร์ล่าสุด</value>
+    <value>สื่อบูตนี้สร้างขึ้นด้วย Foundry OSD เวอร์ชันเก่า อัปเดต Foundry OSD บนพีซีที่ใช้สร้างสื่อก่อน แล้วสร้าง ISO ใหม่หรืออัปเดตสื่อบูต USB</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>สถาปัตยกรรม: {0}</value>
@@ -349,7 +355,7 @@
     <value>ขนาดที่ไม่รู้จัก</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

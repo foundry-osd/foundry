@@ -6,9 +6,10 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Services.Runtime;
+using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using CoreConfiguration = Foundry.Core.Models.Configuration;
 
@@ -16,6 +17,8 @@ namespace Foundry.Connect.Tests;
 
 public sealed class ConnectConfigurationServiceTests
 {
+    private static readonly BootMediaRuntimeContext ProductionRuntime = new("26.10.3.2", true, false, false);
+
     [Fact]
     public void Load_WhenNoConfigurationFileIsAvailable_ReturnsNormalizedDefaults()
     {
@@ -70,54 +73,113 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
-    public void Load_WhenSchemaIsOlderThanCurrent_RecommendsBootMediaUpdate()
+    public void Load_RecommendsRebuildForOlderAuthoringReleaseWithCurrentSchema()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = CreateJsonFile(
-            tempDirectory.Path,
-            "older-than-current.json",
-            $$"""
-            {
-              "schemaVersion": {{CoreConfiguration.ConfigurationSchemaVersions.ConnectCurrent - 1}}
-            }
-            """);
-
-        var logger = new RecordingLogger<ConnectConfigurationService>();
-        var service = new ConnectConfigurationService(["--config", configurationPath], logger);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":{{FoundryConnectConfiguration.CurrentSchemaVersion}},"authoringVersion":"26.10.3.1"}""");
+        var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
 
         service.Load();
 
+        Assert.Equal(BootMediaUpdateReason.NewerRelease, service.BootMediaUpdateReason);
         Assert.True(service.IsBootMediaUpdateRecommended);
-        Assert.Contains(
-            logger.Entries,
-            entry =>
-                entry.LogLevel == LogLevel.Warning &&
-                entry.Message.Contains("current schema version", StringComparison.Ordinal) &&
-                entry.Message.Contains(CoreConfiguration.ConfigurationSchemaVersions.ConnectCurrent.ToString(), StringComparison.Ordinal));
     }
 
     [Fact]
-    public void Load_WhenSchemaMatchesCurrent_DoesNotRecommendBootMediaUpdate()
+    public void Load_UsesLegacyFallbackWithoutAuthoringMetadata()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = CreateJsonFile(
-            tempDirectory.Path,
-            "current.json",
-            $$"""
-            {
-              "schemaVersion": {{CoreConfiguration.ConfigurationSchemaVersions.ConnectCurrent}}
-            }
-            """);
-
-        var logger = new RecordingLogger<ConnectConfigurationService>();
-        var service = new ConnectConfigurationService(["--config", configurationPath], logger);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":5}""");
+        var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
 
         service.Load();
 
+        Assert.Equal(BootMediaUpdateReason.UnknownAuthoringVersion, service.BootMediaUpdateReason);
+        Assert.True(service.IsBootMediaUpdateRecommended);
+    }
+
+    [Theory]
+    [InlineData("26.10.3.2", false, false, false, "release")]
+    [InlineData("26.10.3.2", true, true, false, "release")]
+    [InlineData("26.10.3.2", true, false, true, "release")]
+    [InlineData("1.0.0.0", true, false, false, "release")]
+    [InlineData("26.10.3.2", true, false, false, " Debug ")]
+    public void Load_SuppressesAdviceOutsideProductionWinPe(string version, bool winPe, bool debugger, bool debugBuild, string source)
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":5,"authoringVersion":"26.10.3.1"}""");
+        File.WriteAllText(System.IO.Path.Combine(directory.Path, "foundry.connect.provisioning-source.txt"), source);
+        var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, new BootMediaRuntimeContext(version, winPe, debugger, debugBuild));
+
+        service.Load();
+
+        Assert.Equal(BootMediaUpdateReason.None, service.BootMediaUpdateReason);
         Assert.False(service.IsBootMediaUpdateRecommended);
-        Assert.DoesNotContain(logger.Entries, entry => entry.LogLevel == LogLevel.Warning);
+    }
+
+    [Theory]
+    [InlineData("debug", BootMediaUpdateReason.None)]
+    [InlineData("unknown", BootMediaUpdateReason.UnknownAuthoringVersion)]
+    public void Load_OnlyExplicitDebugTelemetrySuppressesLegacyAdvice(string source, BootMediaUpdateReason expected)
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", $$$"""{"telemetry":{"runtimePayloadSource":"{{{source}}}"}}""");
+        var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
+
+        service.Load();
+
+        Assert.Equal(expected, service.BootMediaUpdateReason);
+    }
+
+    [Theory]
+    [InlineData("26.10.3.2")]
+    [InlineData("26.10.4.1")]
+    public void Load_DoesNotRecommendRebuildForSameOrNewerAuthor(string author)
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":5,"authoringVersion":"{{author}}"}""");
+        var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
+
+        service.Load();
+
+        Assert.Equal(BootMediaUpdateReason.None, service.BootMediaUpdateReason);
+        Assert.False(service.IsBootMediaUpdateRecommended);
+    }
+
+    [Fact]
+    public void Load_UsesLegacyFallbackWhenProvisioningMarkerIsUnreadable()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":5}""");
+        Directory.CreateDirectory(System.IO.Path.Combine(directory.Path, "foundry.connect.provisioning-source.txt"));
+        var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
+
+        service.Load();
+
+        Assert.Equal(BootMediaUpdateReason.UnknownAuthoringVersion, service.BootMediaUpdateReason);
+    }
+
+    [Fact]
+    public void Load_ClearsPreviousAdviceWhenReloadFails()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":5}""");
+        var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
+        service.Load();
+        Assert.True(service.IsBootMediaUpdateRecommended);
+        File.WriteAllText(path, "{invalid}");
+
+        Assert.Throws<FoundryConnectConfigurationException>(service.Load);
+
+        Assert.Equal(BootMediaUpdateReason.None, service.BootMediaUpdateReason);
+        Assert.False(service.IsBootMediaUpdateRecommended);
     }
 
     [Fact]
@@ -148,7 +210,6 @@ public sealed class ConnectConfigurationServiceTests
 
         Assert.False(configuration.Telemetry.IsEnabled);
         Assert.True(configuration.Telemetry.IsRemoteDiagnosticsEnabled);
-        Assert.False(service.IsBootMediaUpdateRecommended);
         Assert.Equal("install-id", configuration.Telemetry.InstallId);
         Assert.Equal(TelemetryDefaults.PostHogEuHost, configuration.Telemetry.HostUrl);
         Assert.Equal("project-token", configuration.Telemetry.ProjectToken);
@@ -371,7 +432,7 @@ public sealed class ConnectConfigurationServiceTests
                         }
                     }
                 },
-                tempDirectory.Path);
+                tempDirectory.Path, "26.10.3.1");
         Assert.NotNull(bundle.MediaSecretsKey);
         Assert.DoesNotContain("super-secret-passphrase", bundle.ConfigurationJson, StringComparison.Ordinal);
 
@@ -384,6 +445,7 @@ public sealed class ConnectConfigurationServiceTests
 
         FoundryConnectConfiguration configuration = service.Load();
 
+        Assert.Equal("26.10.3.1", configuration.AuthoringVersion);
         Assert.Equal("super-secret-passphrase", configuration.Wifi.Passphrase);
         Assert.Null(configuration.Wifi.PassphraseSecret);
     }
@@ -647,32 +709,4 @@ public sealed class ConnectConfigurationServiceTests
             }
         }
     }
-
-    private sealed class RecordingLogger<T> : ILogger<T>
-    {
-        public List<LogEntry> Entries { get; } = [];
-
-        public IDisposable? BeginScope<TState>(TState state)
-            where TState : notnull
-        {
-            return null;
-        }
-
-        public bool IsEnabled(LogLevel logLevel)
-        {
-            return true;
-        }
-
-        public void Log<TState>(
-            LogLevel logLevel,
-            EventId eventId,
-            TState state,
-            Exception? exception,
-            Func<TState, Exception?, string> formatter)
-        {
-            Entries.Add(new LogEntry(logLevel, formatter(state, exception)));
-        }
-    }
-
-    private sealed record LogEntry(LogLevel LogLevel, string Message);
 }

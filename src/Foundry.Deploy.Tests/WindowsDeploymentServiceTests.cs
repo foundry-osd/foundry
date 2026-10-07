@@ -598,11 +598,43 @@ public sealed class WindowsDeploymentServiceTests
             workingDirectory,
             TestContext.Current.CancellationToken);
 
-        Assert.Equal(bcdBootPath, processRunner.LastFileName);
         Assert.Equal(
-            $"\"{windowsPath}\" /s \"{systemRoot}\" /f UEFI {expectedArguments}",
-            processRunner.LastArguments);
+            [
+                $"{bcdBootPath} \"{windowsPath}\" /s \"{systemRoot}\" /f UEFI {expectedArguments}",
+                "bcdedit.exe /set {bootmgr} device partition=S:",
+                @"bcdedit.exe /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi",
+                "bcdedit.exe /set {fwbootmgr} displayorder {bootmgr} /addfirst",
+                "bcdedit.exe /enum firmware"
+            ],
+            processRunner.Calls);
         Assert.Equal(workingDirectory, processRunner.LastWorkingDirectory);
+    }
+
+    [Fact]
+    public async Task ConfigureBootAsync_WhenFirmwareBootOrderUpdateFails_CompletesAfterAttemptingEveryCommand()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
+        string bcdBootPath = Path.Combine(windowsRoot, "Windows", "System32", "bcdboot.exe");
+        Directory.CreateDirectory(Path.GetDirectoryName(bcdBootPath)!);
+        await File.WriteAllTextAsync(bcdBootPath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            ResultFactory = arguments => new ProcessExecutionResult
+            {
+                ExitCode = arguments.StartsWith("/set", StringComparison.Ordinal) ? 1 : 0
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+
+        await service.ConfigureBootAsync(
+            windowsRoot,
+            @"S:\",
+            26200,
+            Path.Combine(workspace.RootPath, "Work"),
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(5, processRunner.Calls.Count);
     }
 
     [Fact]
@@ -1202,7 +1234,6 @@ public sealed class WindowsDeploymentServiceTests
     {
         public List<string> Calls { get; } = [];
         public string? LastFileName { get; private set; }
-        public string? LastArguments { get; private set; }
         public string? LastWorkingDirectory { get; private set; }
         public ProcessExecutionResult Result { get; init; } = new() { ExitCode = 0 };
         public Func<string, ProcessExecutionResult>? ResultFactory { get; init; }
@@ -1215,7 +1246,6 @@ public sealed class WindowsDeploymentServiceTests
         {
             Calls.Add($"{fileName} {arguments}");
             LastFileName = fileName;
-            LastArguments = arguments;
             LastWorkingDirectory = workingDirectory;
             return Task.FromResult(ResultFactory?.Invoke(arguments) ?? Result);
         }
@@ -1229,7 +1259,6 @@ public sealed class WindowsDeploymentServiceTests
             string joinedArguments = string.Join(' ', arguments);
             Calls.Add($"{fileName} {joinedArguments}");
             LastFileName = fileName;
-            LastArguments = joinedArguments;
             LastWorkingDirectory = workingDirectory;
             return Task.FromResult(ResultFactory?.Invoke(joinedArguments) ?? Result);
         }
@@ -1245,7 +1274,6 @@ public sealed class WindowsDeploymentServiceTests
             string joinedArguments = string.Join(' ', arguments);
             Calls.Add($"{fileName} {joinedArguments}");
             LastFileName = fileName;
-            LastArguments = joinedArguments;
             LastWorkingDirectory = workingDirectory;
             ProcessExecutionResult result = ResultFactory?.Invoke(joinedArguments) ?? Result;
             if (!string.IsNullOrEmpty(result.StandardOutput))

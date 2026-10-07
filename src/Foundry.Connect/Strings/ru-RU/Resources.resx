@@ -40,11 +40,17 @@
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Не удаётся определить версию Foundry OSD, использованную для создания этого загрузочного носителя. Сначала обновите Foundry OSD на компьютере для создания носителей, затем пересоздайте ISO или обновите загрузочный USB-носитель.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Доступна новая версия. Обновите Foundry OSD и пересоздайте загрузочный носитель.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Рекомендуется обновить загрузочный носитель</value>
+    <value>Обновите Foundry OSD и пересоздайте загрузочный носитель.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Этот загрузочный носитель был создан с использованием более старого формата конфигурации Foundry OSD. Обновите загрузочный носитель, чтобы обеспечить совместимость с новейшими функциями.</value>
+    <value>Этот загрузочный носитель создан с помощью более старой версии Foundry OSD. Сначала обновите Foundry OSD на компьютере для создания носителей, затем пересоздайте ISO или обновите загрузочный USB-носитель.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Отмена</value>
@@ -173,9 +179,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Голландский (Нидерланды)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>английский</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Английский (Великобритания)</value>
   </data>
@@ -187,9 +190,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Финский (Финляндия)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>французский</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Французский (Канада)</value>

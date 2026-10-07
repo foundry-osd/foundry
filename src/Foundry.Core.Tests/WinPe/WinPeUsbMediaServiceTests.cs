@@ -536,6 +536,42 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("EncodedCommand", runner.Executions[0].Arguments, StringComparison.Ordinal);
     }
 
+    [Theory]
+    [InlineData(9, "UNIQUE", true, null)]
+    [InlineData(10, "UNIQUE", false, WinPeErrorCodes.UsbIdentityMismatch)]
+    [InlineData(9, "REPLACED", false, WinPeErrorCodes.UsbIdentityMismatch)]
+    public async Task ValidateUsbTargetAsync_ChecksLiveIdentityWithoutModifyingStorage(
+        int liveNumber,
+        string liveUniqueId,
+        bool shouldSucceed,
+        string? expectedCode)
+    {
+        string payload = $$"""
+                           {"Number":{{liveNumber}},"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"{{liveUniqueId}}","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                           """;
+        var runner = new FakeRunner(payload);
+        using TempWorkspace workspace = TempWorkspace.Create();
+        var service = new WinPeUsbMediaService(runner);
+
+        WinPeResult result = await service.ValidateUsbTargetAsync(
+            new UsbOutputOptions
+            {
+                TargetDiskNumber = 9,
+                ExpectedDiskFriendlyName = "Safe USB",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 64000000000
+            },
+            new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
+            workspace.RootPath,
+            CancellationToken.None);
+
+        Assert.Equal(shouldSucceed, result.IsSuccess);
+        Assert.Equal(expectedCode, result.Error?.Code);
+        Assert.Single(runner.Executions);
+    }
+
     [Fact]
     public async Task ProvisionAndPopulateAsync_WhenPartitioningUsb_UsesPowerShellStorageProvisioning()
     {

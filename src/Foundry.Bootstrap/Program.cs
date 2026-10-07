@@ -97,7 +97,7 @@ internal static class Program
                 Log.ForContext<WinPeSystemPreparation>(), presenter.ReportWarning);
             var launcher = new ApplicationLauncher(Log.ForContext<ApplicationLauncher>(),
                 context.PersistenceDirectory ?? Path.Combine(WinPeRoot, "Logs", sessionId),
-                presenter.ReportWarning, telemetry.RecoverChildFailure);
+                presenter.ReportWarning, telemetry.RecoverChildFailure, releasePayload: runtime.Release);
             var coordinator = new BootstrapCoordinator(context, runtime, preparation, launcher, persistence,
                 Log.ForContext<BootstrapCoordinator>(), presenter.Report,
                 () => telemetry.StartDelivery(preparation.IsClockUsable), telemetry.Complete);

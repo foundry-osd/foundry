@@ -628,17 +628,20 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         }
     }
 
-    [Fact]
-    public async Task ProvisionAsync_WhenSevenZipSourceIsProvided_CopiesRuntimeTools()
+    [Theory]
+    [InlineData(WinPeArchitecture.X64, "x64", "arm64", "x64-7za")]
+    [InlineData(WinPeArchitecture.Arm64, "arm64", "x64", "arm64-7za")]
+    public async Task ProvisionAsync_WhenSevenZipSourceIsProvided_CopiesOnlyTargetArchitectureAndNotices(
+        WinPeArchitecture architecture,
+        string runtimeFolder,
+        string otherRuntimeFolder,
+        string expectedExecutableContent)
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
         File.WriteAllText(curlSourcePath, "curl");
         string sevenZipSourcePath = Path.Combine(image.RootPath, "7z");
-        Directory.CreateDirectory(Path.Combine(sevenZipSourcePath, "x64"));
-        File.WriteAllText(Path.Combine(sevenZipSourcePath, "x64", "7za.exe"), "7za");
-        File.WriteAllText(Path.Combine(sevenZipSourcePath, "License.txt"), "license");
-        File.WriteAllText(Path.Combine(sevenZipSourcePath, "readme.txt"), "readme");
+        CreateSevenZipSource(sevenZipSourcePath);
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -646,7 +649,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             new WinPeMountedImageAssetProvisioningOptions
             {
                 MountedImagePath = image.MountedImagePath,
-                Architecture = WinPeArchitecture.X64,
+                Architecture = architecture,
                 CurlExecutableSourcePath = curlSourcePath,
                 SevenZipSourceDirectoryPath = sevenZipSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
@@ -655,9 +658,56 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         string toolsPath = Path.Combine(image.MountedImagePath, "Foundry", "Tools", "7zip");
-        Assert.Equal("7za", await File.ReadAllTextAsync(Path.Combine(toolsPath, "x64", "7za.exe"), TestContext.Current.CancellationToken));
+        Assert.Equal(expectedExecutableContent, await File.ReadAllTextAsync(Path.Combine(toolsPath, runtimeFolder, "7za.exe"), TestContext.Current.CancellationToken));
         Assert.Equal("license", await File.ReadAllTextAsync(Path.Combine(toolsPath, "License.txt"), TestContext.Current.CancellationToken));
         Assert.Equal("readme", await File.ReadAllTextAsync(Path.Combine(toolsPath, "readme.txt"), TestContext.Current.CancellationToken));
+        Assert.False(Directory.Exists(Path.Combine(toolsPath, otherRuntimeFolder)));
+    }
+
+    [Theory]
+    [InlineData(WinPeArchitecture.X64, "x64/7za.exe")]
+    [InlineData(WinPeArchitecture.X64, "License.txt")]
+    [InlineData(WinPeArchitecture.X64, "readme.txt")]
+    [InlineData(WinPeArchitecture.Arm64, "arm64/7za.exe")]
+    [InlineData(WinPeArchitecture.Arm64, "License.txt")]
+    [InlineData(WinPeArchitecture.Arm64, "readme.txt")]
+    public async Task ProvisionAsync_WhenRequiredSevenZipAssetIsMissing_FailsBeforeCopyingTools(
+        WinPeArchitecture architecture,
+        string missingRelativePath)
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+        string sevenZipSourcePath = Path.Combine(image.RootPath, "7z");
+        CreateSevenZipSource(sevenZipSourcePath);
+        File.Delete(Path.Combine(sevenZipSourcePath, missingRelativePath));
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = architecture,
+                CurlExecutableSourcePath = curlSourcePath,
+                SevenZipSourceDirectoryPath = sevenZipSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}"
+            },
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.BuildFailed, result.Error?.Code);
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Tools", "7zip")));
+    }
+
+    private static void CreateSevenZipSource(string sourcePath)
+    {
+        Directory.CreateDirectory(Path.Combine(sourcePath, "x64"));
+        Directory.CreateDirectory(Path.Combine(sourcePath, "arm64"));
+        File.WriteAllText(Path.Combine(sourcePath, "x64", "7za.exe"), "x64-7za");
+        File.WriteAllText(Path.Combine(sourcePath, "arm64", "7za.exe"), "arm64-7za");
+        File.WriteAllText(Path.Combine(sourcePath, "License.txt"), "license");
+        File.WriteAllText(Path.Combine(sourcePath, "readme.txt"), "readme");
     }
 
     private sealed class TempMountedImage : IDisposable
@@ -717,27 +767,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
               "http://www.msftconnecttest.com/connecttest.txt"
             ],
             "timeoutSeconds": 5
-          }
-        }
-        """;
-    }
-
-    private static string CreateDeployConfigurationWithEncryptedSecret()
-    {
-        return """
-        {
-          "schemaVersion": 1,
-          "autopilot": {
-            "hardwareHashUpload": {
-              "pfxSecret": {
-                "kind": "encrypted",
-                "algorithm": "aes-gcm-v1",
-                "keyId": "media",
-                "nonce": "AAAAAAAAAAAAAAAA",
-                "tag": "AAAAAAAAAAAAAAAAAAAAAA",
-                "ciphertext": "AAAAAAAA"
-              }
-            }
           }
         }
         """;

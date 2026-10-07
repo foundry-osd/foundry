@@ -155,7 +155,7 @@
     <value>ADK הגדרה</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>התקן את גרסת Windows ADK 24H2 (10.1.26100.2454) הנתמכת.</value>
+    <value>התקן את גרסת Windows ADK 24H2 (10.1.26100.9457) הנתמכת.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>גרסת ADK אינה נתמכת</value>
@@ -191,7 +191,7 @@
     <value>הגרסה לא זוהתה</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>נדרש Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>נדרש Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>מדיניות גרסה נדרשת</value>
@@ -258,9 +258,6 @@
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>בדוק אם יש עדכונים</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>עדכן והפעל מחדש</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>הערות שחרור</value>
@@ -688,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>רענן</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>לא זמין</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>ארכיטקטורה</value>
   </data>
@@ -777,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>הפעולה על התמונה נכשלה. יש לבדוק את המקור, את השטח הפנוי ואת יומני Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>לא זמין באתחול PXE. תמונות מותאמות אישית דורשות את מדיית ה-ISO או ה-USB המלאה.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>יש לכלול לפחות תמונת Windows זמינה אחת בפרופיל זה. יש לשחזר תמונות כלולות שחסרות ולתקן או לנקות את בחירת התמונה או האינדקס המועדפים לפני יצירה או עדכון של המדיה.</value>
@@ -2008,9 +2011,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>הולנדית (הולנד)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>אנגלית</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>אנגלית (בריטניה)</value>
   </data>
@@ -2022,9 +2022,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>פינית (פינלנד)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>צרפתית</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>צרפתית (קנדה)</value>
@@ -2559,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>ארגומנטים של PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>פעולות שמשתמשות בקבצים מיובאים אינן זמינות באתחול PXE. הן דורשות את מדיית ה-ISO או ה-USB המלאה.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>לא ניתן היה להסיר את הפעולה. נסה שוב.</value>
@@ -3408,8 +3408,17 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>מדיה ISO הושלמה.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry לא הצליח להחליף את קובץ ה-ISO בנתיב {0}. ייתכן שהקובץ טעון, מצורף למחשב וירטואלי, פתוח בתוכנית אחרת או מוגדר לקריאה בלבד. בטל את טעינתו או סגור אותו, או בחר נתיב פלט אחר, ולאחר מכן נסה שוב.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>המדיה ISO נוצרה בהצלחה.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>אין מספיק שטח דיסק ליצירת תמונת האתחול. נדרש שטח פנוי של לפחות {0} ב-{2}. זמין: {1}. פנו מקום ונסו שוב.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>לא ניתן היה לאמת את שטח הדיסק הזמין ליצירת תמונת האתחול ב-{0}. בדקו שהמיקום נגיש ונסו שוב.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>תמונת אתחול הרכבה.</value>
@@ -3510,6 +3519,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>מאמת את מדיית האתחול USB.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows חסם את הגישה לקובצי תמונת WinPE. ייתכן שתוכנת אבטחה או כלי אחר נועלים אותם. יש להוסיף החרגה עבור {0} בתוכנת האבטחה, לסגור כלים שמעגנים תמונות, להפעיל מחדש את המחשב ולנסות שוב. הפרטים נמצאים ב-{1} וב-{2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>בדוק מוכנות, בחר פלט ISO או USB והתחל ביצירת המדיה.</value>
   </data>
@@ -3548,6 +3560,23 @@
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>פריטים הדורשים תשומת לב:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>צור בכל זאת</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>מדיה זו תיווצר באמצעות Foundry OSD {0}.
+גרסה {1} זמינה.
+
+החל תחילה את העדכון, ולאחר מכן צור או עדכן את מדיית האתחול.
+
+החלת העדכון מפעילה מחדש את Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>עדכן את Foundry OSD לפני יצירת מדיית אתחול</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>הצג עדכון</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>עדכן USB</value>
@@ -3750,17 +3779,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>המקור אומת.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>החל עדכון</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>הורד עדכון</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>נסה שוב</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>חדש</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD יוריד את העדכון ויתחיל מחדש כדי להחיל אותו.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>עדכן והפעל מחדש</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>עדכן Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>גרסה זמינה</value>
@@ -3774,26 +3803,29 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>הגרסה האחרונה</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>מוריד את העדכון. Foundry OSD יופעל מחדש כאשר הוא יהיה מוכן.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>מוריד: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>התקדמות ההורדה</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>העדכון יורד ברקע. פתח את הגדרות העדכון כדי להציג את ההתקדמות.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>מוריד עדכון</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>גרסה {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>החל את העדכון והפעל מחדש את Foundry OSD. הוא יותקן גם באופן אוטומטי בעת סגירת היישום.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>לא נבדק</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>יציקה-osd/יציקה</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>לא ניתן היה להחיל את העדכון: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>מחפש עדכונים</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>הורדת העדכון נכשלה: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>מוריד עדכון</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>בדיקת העדכון נכשלה: {0}</value>
@@ -3814,10 +3846,13 @@
     <value>עדכון Foundry OSD זמין.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>עדכן כשתהיה מוכן. Foundry OSD יופעל מחדש כדי לסיים את היישום.</value>
+    <value>הורד את העדכון כשתהיה מוכן.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} זמין.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>לא ניתן היה להחיל את העדכון</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>בדיקת העדכון נכשלה</value>

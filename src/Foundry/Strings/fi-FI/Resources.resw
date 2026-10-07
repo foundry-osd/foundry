@@ -155,7 +155,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>ADK asennus</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Asenna tuettu Windows ADK 24H2 -versio (10.1.26100.2454).</value>
+    <value>Asenna tuettu Windows ADK 24H2 -versio (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versiota ei tueta</value>
@@ -191,7 +191,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Versiota ei havaittu</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Edellyttää Windows ADK 24H2 -versiota (10.1.26100.2454).</value>
+    <value>Edellyttää Windows ADK 24H2 -versiota (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Vaadittu versiokäytäntö</value>
@@ -258,9 +258,6 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Tarkista päivitykset</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Päivitä ja käynnistä uudelleen</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Julkaisutiedot</value>
@@ -688,6 +685,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Päivitä</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Ei saatavilla</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkkitehtuuri</value>
   </data>
@@ -777,6 +777,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Näköistiedostotoiminto epäonnistui. Tarkista lähde, vapaa tila ja Foundry-lokit.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Ei käytettävissä PXE-käynnistyksessä. Mukautetut näköistiedostot edellyttävät täydellistä ISO- tai USB-tietovälinettä.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Sisällytä tähän profiiliin vähintään yksi käytettävissä oleva Windows-näköistiedosto. Palauta puuttuvat sisällytetyt näköistiedostot ja korjaa tai poista ensisijaisen näköistiedoston tai indeksin valinta ennen tietovälineen luomista tai päivittämistä.</value>
@@ -2008,9 +2011,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>hollanti (Alankomaat)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>englanti</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>englanti (Iso-Britannia)</value>
   </data>
@@ -2022,9 +2022,6 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>suomi (Suomi)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>ranskalainen</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>ranska (Kanada)</value>
@@ -2559,6 +2556,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumentit</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Tuotuja tiedostoja käyttävät toiminnot eivät ole käytettävissä PXE-käynnistyksessä. Ne edellyttävät täydellistä ISO- tai USB-tietovälinettä.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Toimintoa ei voitu poistaa. Yritä uudelleen.</value>
@@ -3408,8 +3408,17 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media valmis.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry ei voinut korvata ISO-tiedostoa {0}. Tiedosto saattaa olla liitetty, kytketty virtuaalikoneeseen, auki toisessa ohjelmassa tai vain luku -tilassa. Irrota tai sulje se tai valitse toinen tulostepolku ja yritä sitten uudelleen.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO -median luominen onnistui.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Levytila ei riitä käynnistyskuvan luomiseen. Kohteessa {2} on oltava vähintään {0} vapaata tilaa. Käytettävissä: {1}. Vapauta tilaa ja yritä uudelleen.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Käynnistyskuvan luomiseen käytettävissä olevaa levytilaa ei voitu tarkistaa kohteessa {0}. Tarkista, että sijainti on käytettävissä, ja yritä uudelleen.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Asennus käynnistyskuva.</value>
@@ -3510,6 +3519,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB käynnistysmedian tarkistaminen.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows esti pääsyn WinPE-näköistiedostoihin. Suojausohjelmisto tai jokin muu työkalu saattaa lukita ne. Lisää suojausohjelmistoon poikkeus kohteelle {0}, sulje näköistiedostoja liittävät työkalut, käynnistä tietokone uudelleen ja yritä uudelleen. Lisätietoja on tiedostoissa {1} ja {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tarkista valmius, valitse ISO- tai USB-tuloste ja käynnistä median luonti.</value>
   </data>
@@ -3548,6 +3560,23 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Huomiota vaativat kohteet:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Luo silti</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Tämä media luodaan Foundry OSD -versiolla {0}.
+Versio {1} on saatavilla.
+
+Asenna ensin päivitys ja luo tai päivitä sitten käynnistysmedia.
+
+Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Päivitä Foundry OSD ennen käynnistysmedian luomista</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Näytä päivitys</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Päivitä USB</value>
@@ -3750,17 +3779,17 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Lähde vahvistettu.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Asenna päivitys</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Lataa päivitys</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Yritä uudelleen</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Uusi</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD lataa päivityksen ja käynnistää sen uudelleen.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Päivitä ja käynnistä uudelleen</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Päivitä Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Saatavilla oleva versio</value>
@@ -3774,26 +3803,29 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Uusin versio</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Ladataan päivitystä. Foundry OSD käynnistyy uudelleen, kun se on valmis.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Ladataan: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Latauksen edistyminen</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Päivitystä ladataan taustalla. Avaa päivitysasetukset nähdäksesi edistymisen.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Ladataan päivitystä</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Versio {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Asenna päivitys ja käynnistä Foundry OSD uudelleen. Päivitys asennetaan myös automaattisesti, kun suljet sovelluksen.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ei tarkistettu</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>valimo-osd/valimo</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Päivitystä ei voitu asentaa: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Tarkistetaan päivityksiä</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Päivityksen lataus epäonnistui: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Ladataan päivitystä</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Päivitystarkistus epäonnistui: {0}</value>
@@ -3814,10 +3846,13 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Foundry OSD-päivitys on saatavilla.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Päivitä, kun olet valmis. Foundry OSD käynnistyy uudelleen ja viimeistelee sen käytön.</value>
+    <value>Lataa päivitys, kun olet valmis.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} on saatavilla.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Päivitystä ei voitu asentaa</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Päivitystarkistus epäonnistui</value>

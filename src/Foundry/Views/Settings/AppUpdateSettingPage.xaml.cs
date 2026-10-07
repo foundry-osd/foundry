@@ -32,7 +32,7 @@ namespace Foundry.Views
 
         private async void ReleaseNotesLink_Click(object sender, RoutedEventArgs e)
         {
-            UpdateReleaseNotesDialog dialog = new(ViewModel)
+            AboutDialog dialog = new(App.GetService<AboutUsSettingViewModel>(), showReleaseNotes: true)
             {
                 XamlRoot = XamlRoot,
                 RequestedTheme = ActualTheme
@@ -41,31 +41,5 @@ namespace Foundry.Views
             await dialog.ShowAsync();
         }
 
-        private async void DownloadRestartButton_Click(object sender, RoutedEventArgs e)
-        {
-            bool confirmed = await ViewModel.ConfirmDownloadAndRestartUpdateAsync();
-            if (!confirmed)
-            {
-                return;
-            }
-
-            UpdateInstallProgressDialog dialog = new(ViewModel)
-            {
-                XamlRoot = XamlRoot,
-                RequestedTheme = ActualTheme
-            };
-
-            Task<ContentDialogResult> dialogTask = dialog.ShowAsync().AsTask();
-
-            try
-            {
-                await ViewModel.DownloadAndRestartUpdateAsync();
-            }
-            finally
-            {
-                dialog.Hide();
-                await dialogTask;
-            }
-        }
     }
 }

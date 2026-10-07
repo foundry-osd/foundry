@@ -46,12 +46,14 @@ public interface IDeployConfigurationGenerator
     /// <param name="deploymentSecretsKey">Optional Deploy secret key used for generated boot media secrets.</param>
     /// <param name="protectionSettings">Deployment media protection metadata.</param>
     /// <param name="oobeAccountSecretState">Transient OOBE account password state merged only for generation.</param>
+    /// <param name="authoringVersion">Optional OSD release captured for this media build.</param>
     /// <returns>The deployment runtime configuration.</returns>
     FoundryDeployConfigurationDocument Generate(
         FoundryConfigurationDocument document,
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings,
-        OobeAccountSecretState? oobeAccountSecretState);
+        OobeAccountSecretState? oobeAccountSecretState,
+        string? authoringVersion = null);
 
     /// <summary>
     /// Serializes a deployment runtime configuration document to JSON.

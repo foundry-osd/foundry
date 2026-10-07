@@ -155,7 +155,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>ADK kurulum</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Desteklenen Windows ADK 24H2 (10.1.26100.2454) sürümünü yükleyin.</value>
+    <value>Desteklenen Windows ADK 24H2 (10.1.26100.9457) sürümünü yükleyin.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK sürümü desteklenmiyor</value>
@@ -191,7 +191,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sürüm algılanmadı</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100.2454) gerektirir.</value>
+    <value>Windows ADK 24H2 (10.1.26100.9457) gerektirir.</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Gerekli sürüm politikası</value>
@@ -258,9 +258,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Güncellemeleri kontrol edin</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Güncelle ve yeniden başlat</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Sürüm notları</value>
@@ -688,6 +685,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Yenile</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Kullanılamıyor</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Mimari</value>
   </data>
@@ -777,6 +777,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Görüntü işlemi başarısız oldu. Kaynağı, kullanılabilir alanı ve Foundry günlüklerini kontrol edin.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>PXE önyüklemesiyle kullanılamaz. Özel görüntüler tam ISO veya USB medyasını gerektirir.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Bu profile en az bir kullanılabilir Windows görüntüsü dahil edin. Medya oluşturmadan veya güncellemeden önce dahil edilen eksik görüntüleri geri yükleyin ve tercih edilen görüntü veya dizin seçimini düzeltin ya da temizleyin.</value>
@@ -2008,9 +2011,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Felemenkçe (Hollanda)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>İngilizce</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>İngilizce (Birleşik Krallık)</value>
   </data>
@@ -2022,9 +2022,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Fince (Finlandiya)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Fransızca</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Fransızca (Kanada)</value>
@@ -2559,6 +2556,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell bağımsız değişkenleri</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>İçeri aktarılan dosyaları kullanan eylemler PXE önyüklemesiyle kullanılamaz. Bunlar tam ISO veya USB medyasını gerektirir.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Eylem kaldırılamadı. Yeniden deneyin.</value>
@@ -3408,8 +3408,17 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO medya tamamlandı.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry, {0} konumundaki ISO dosyasını değiştiremedi. Dosya bağlanmış, bir sanal makineye eklenmiş, başka bir programda açık veya salt okunur olabilir. Bağlantısını kaldırın veya kapatın ya da başka bir çıkış yolu seçin, ardından yeniden deneyin.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO ortamı başarıyla oluşturuldu.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Önyükleme görüntüsünü oluşturmak için yeterli disk alanı yok. {2} konumunda en az {0} boş alan gerekiyor. Kullanılabilir: {1}. Yer açıp yeniden deneyin.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Önyükleme görüntüsü oluşturmak için kullanılabilir disk alanı {0} konumunda doğrulanamadı. Konumun erişilebilir olduğunu kontrol edip yeniden deneyin.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Önyükleme görüntüsünün montajı.</value>
@@ -3510,6 +3519,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB önyükleme ortamı doğrulanıyor.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows, WinPE görüntü dosyalarına erişimi engelledi. Bir güvenlik yazılımı veya başka bir araç bu dosyaları kilitliyor olabilir. Güvenlik yazılımına {0} için bir dışlama ekleyin, görüntü bağlayan araçları kapatın, bilgisayarı yeniden başlatın ve yeniden deneyin. Ayrıntılar {1} ve {2} dosyalarındadır.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Hazırlığı gözden geçirin, ISO veya USB çıktısını seçin ve medya oluşturmayı başlatın.</value>
   </data>
@@ -3548,6 +3560,23 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Dikkat edilmesi gereken öğeler:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Yine de oluştur</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Bu medya Foundry OSD {0} kullanılarak oluşturulacak.
+{1} sürümü kullanılabilir.
+
+Önce güncellemeyi uygulayın, ardından önyükleme medyanızı oluşturun veya güncelleyin.
+
+Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Önyükleme medyası oluşturmadan önce Foundry OSD’yi güncelleyin</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Güncellemeyi görüntüle</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>USB güncelle</value>
@@ -3750,17 +3779,17 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Kaynak doğrulandı.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Güncellemeyi uygula</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Güncellemeyi indir</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Yeniden dene</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Yeni</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD güncellemeyi indirecek ve uygulamak için yeniden başlatacaktır.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Güncelle ve yeniden başlat</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Foundry OSD güncelle</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Mevcut sürüm</value>
@@ -3774,26 +3803,29 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>En son sürüm</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Güncelleme indiriliyor. Foundry OSD hazır olduğunda yeniden başlatılacaktır.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>İndiriliyor: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>İndirme ilerlemesi</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Güncelleme arka planda indiriliyor. İlerlemeyi görmek için güncelleme ayarlarını açın.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Güncelleme indiriliyor</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Sürüm {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Güncellemeyi uygulayın ve Foundry OSD’yi yeniden başlatın. Uygulamayı kapattığınızda da otomatik olarak yüklenecektir.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>İşaretlenmedi</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>dökümhane-osd/dökümhane</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Güncelleme uygulanamadı: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Güncellemeler kontrol ediliyor</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Güncelleme indirilemedi: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Güncelleme indiriliyor</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Güncelleme kontrolü başarısız oldu: {0}</value>
@@ -3814,10 +3846,13 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Bir Foundry OSD güncellemesi mevcut.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Hazır olduğunuzda güncelleyin. Foundry OSD uygulamayı tamamlamak için yeniden başlatılacaktır.</value>
+    <value>Hazır olduğunuzda güncellemeyi indirin.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} kullanılabilir.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Güncelleme uygulanamadı</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Güncelleme kontrolü başarısız oldu</value>

@@ -23,6 +23,9 @@ public sealed class FoundryConnectConfiguration
     /// </summary>
     public int SchemaVersion { get; init; } = CurrentSchemaVersion;
 
+    /// <summary>Gets the OSD release that authored this media, when recorded.</summary>
+    public string? AuthoringVersion { get; init; }
+
     /// <summary>
     /// Gets capabilities of the generated media.
     /// </summary>

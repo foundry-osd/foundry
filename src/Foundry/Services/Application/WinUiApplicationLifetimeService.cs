@@ -2,18 +2,15 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Core.Services.Application;
+using Foundry.Services.Updates;
 
 namespace Foundry.Services.Application;
 
 /// <summary>
-/// Bridges application lifetime requests to the WinUI application instance.
+/// Routes update restart requests to the application's protected close flow.
 /// </summary>
-public sealed class WinUiApplicationLifetimeService : IApplicationLifetimeService
+public sealed class WinUiApplicationLifetimeService : IApplicationUpdateRestartService
 {
     /// <inheritdoc />
-    public void Shutdown()
-    {
-        Microsoft.UI.Xaml.Application.Current.Exit();
-    }
+    public Task<bool> ApplyUpdateAsync() => App.Current.RequestCloseAsync(restartForUpdate: true);
 }

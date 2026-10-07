@@ -40,11 +40,17 @@ Licensierad under MIT-licensen.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Versionen av Foundry OSD som användes för att skapa det här startmediet kan inte fastställas. Uppdatera först Foundry OSD på datorn där du skapar medier och skapa sedan ISO-filen på nytt eller uppdatera USB-startmediet.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Ny version tillgänglig. Uppdatera Foundry OSD och skapa startmediet på nytt.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Uppdatering av startmedia rekommenderas</value>
+    <value>Uppdatera Foundry OSD och skapa startmediet på nytt.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Detta startmedia skapades med ett äldre Foundry OSD-konfigurationsformat. Uppdatera startmediet för att säkerställa kompatibilitet med de senaste funktionerna.</value>
+    <value>Det här startmediet skapades med en äldre version av Foundry OSD. Uppdatera först Foundry OSD på datorn där du skapar medier och skapa sedan ISO-filen på nytt eller uppdatera USB-startmediet.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Avbryt</value>
@@ -173,9 +179,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Holländska (Nederländerna)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>engelska</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engelska (Storbritannien)</value>
   </data>
@@ -187,9 +190,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finska (Finland)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>franska</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>franska (Kanada)</value>

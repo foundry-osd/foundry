@@ -10,15 +10,15 @@ namespace Foundry.Bootstrap.Runtime;
 
 /// <summary>Copies and authenticates complete archives before exposing executable bytes in trusted WinPE storage.</summary>
 internal sealed class RuntimePayloadPreparation(string winPeRoot, RuntimeTransfer transfer, ILogger logger,
-    Action<RuntimeDownloadProgress>? progress, Action<string>? activity, bool retainPayload)
+    Action<RuntimeDownloadProgress>? progress, Action<string>? activity, Action<string, string>? retainPayload)
 {
-    /// <summary>Retains successful payloads until WinPE exits; failed preparations remove only their own workspace.</summary>
+    /// <summary>Registers successful execution payloads with their owner; failed and unused preparations remove only their workspace.</summary>
     internal async Task<string> PrepareAsync(string source, string expectedHash, string applicationName,
         CancellationToken cancellationToken, Func<string, Task>? cacheArchive = null)
     {
         expectedHash = RequireHash(expectedHash);
         cancellationToken.ThrowIfCancellationRequested();
-        string workspace = Path.Combine(winPeRoot, "Execution", Guid.NewGuid().ToString("N"));
+        string workspace = Path.Combine(Path.GetFullPath(winPeRoot), "Execution", Guid.NewGuid().ToString("N"));
         string archive = Path.Combine(workspace, "archive.zip");
         string payload = Path.Combine(workspace, "Payload");
         Directory.CreateDirectory(workspace);
@@ -37,12 +37,13 @@ internal sealed class RuntimePayloadPreparation(string winPeRoot, RuntimeTransfe
             cancellationToken.ThrowIfCancellationRequested();
             File.Delete(archive);
             logger.Information("Authenticated runtime payload prepared for {PayloadApplication} in boot-owned storage", applicationName);
+            retainPayload?.Invoke(executable, workspace);
             ready = true;
             return executable;
         }
         finally
         {
-            if (!ready || !retainPayload)
+            if (!ready || retainPayload is null)
             {
                 try { Directory.Delete(workspace, recursive: true); }
                 catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)

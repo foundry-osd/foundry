@@ -155,7 +155,7 @@ Licențiat sub licența MIT.</value>
     <value>ADK configurare</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalați versiunea acceptată Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Instalați versiunea acceptată Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Versiunea ADK nu este acceptată</value>
@@ -191,7 +191,7 @@ Licențiat sub licența MIT.</value>
     <value>Versiunea nu a fost detectată</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Necesită Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Necesită Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Politica de versiune necesară</value>
@@ -258,9 +258,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Verificați actualizările</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Actualizați și reporniți</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Note de lansare</value>
@@ -688,6 +685,9 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Reîmprospătați</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Indisponibil</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitectură</value>
   </data>
@@ -777,6 +777,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operația asupra imaginii a eșuat. Verificați sursa, spațiul disponibil și jurnalele Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Indisponibil la pornirea prin PXE. Imaginile personalizate necesită mediul ISO sau USB complet.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Includeți cel puțin o imagine Windows disponibilă în acest profil. Restabiliți imaginile incluse care lipsesc și corectați sau ștergeți selecția imaginii sau a indexului preferat înainte de a crea sau de a actualiza mediul.</value>
@@ -2008,9 +2011,6 @@ Licențiat sub licența MIT.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>olandeză (Olanda)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>engleză</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engleză (Regatul Unit)</value>
   </data>
@@ -2022,9 +2022,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finlandeză (Finlanda)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>francez</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>franceza (Canada)</value>
@@ -2559,6 +2556,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumente PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Acțiunile care folosesc fișiere importate nu sunt disponibile la pornirea prin PXE. Acestea necesită mediul ISO sau USB complet.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Acțiunea nu a putut fi eliminată. Încercați din nou.</value>
@@ -3408,8 +3408,17 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media finalizată.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry nu a putut înlocui fișierul ISO de la {0}. Este posibil ca fișierul să fie montat, atașat la o mașină virtuală, deschis în alt program sau doar în citire. Demontați-l sau închideți-l ori alegeți altă cale de ieșire, apoi încercați din nou.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Media ISO a fost creată cu succes.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Spațiu insuficient pe disc pentru crearea imaginii de pornire. Sunt necesari cel puțin {0} de spațiu liber în {2}. Disponibil: {1}. Eliberați spațiu și încercați din nou.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Nu s-a putut verifica spațiul disponibil pe disc pentru crearea imaginii de pornire în {0}. Verificați dacă locația este accesibilă și încercați din nou.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Montarea imaginii boot.</value>
@@ -3510,6 +3519,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Se verifică USB suportul de pornire.</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows a blocat accesul la fișierele imaginii WinPE. Este posibil ca un software de securitate sau alt instrument să le blocheze. Adăugați o excludere pentru {0} în software-ul de securitate, închideți instrumentele care montează imagini, reporniți computerul și încercați din nou. Detaliile se află în {1} și {2}.</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
   </data>
@@ -3548,6 +3560,23 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Elemente care necesită atenție:</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Creați oricum</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Acest suport va fi generat folosind Foundry OSD {0}.
+Versiunea {1} este disponibilă.
+
+Aplicați mai întâi actualizarea, apoi creați sau actualizați suportul de pornire.
+
+Aplicarea actualizării repornește Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Actualizați Foundry OSD înainte de a crea suportul de pornire</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Vizualizați actualizarea</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Actualizare USB</value>
@@ -3750,17 +3779,17 @@ Parole și chei de acces incluse: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Sursă validată.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Aplică actualizarea</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Descarcă actualizarea</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Reîncearcă</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Nou</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD va descărca actualizarea și va reporni pentru ao aplica.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Actualizați și reporniți</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Actualizați Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Versiune disponibilă</value>
@@ -3774,26 +3803,29 @@ Parole și chei de acces incluse: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Ultima versiune</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Descărcarea actualizării. Foundry OSD va reporni când este gata.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Se descarcă: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Progresul descărcării</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Actualizarea se descarcă în fundal. Deschideți setările de actualizare pentru a vedea progresul.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Se descarcă actualizarea</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Versiunea {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Aplicați actualizarea și reporniți Foundry OSD. Aceasta se va instala automat și când închideți aplicația.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nu este verificat</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>turnătorie-osd/turnătorie</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Actualizarea nu a putut fi aplicată: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Se verifică actualizări</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Descărcarea actualizării a eșuat: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Se descarcă actualizarea</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Verificarea actualizării a eșuat: {0}</value>
@@ -3814,10 +3846,13 @@ Parole și chei de acces incluse: {2}</value>
     <value>O actualizare Foundry OSD este disponibilă.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Actualizați când sunteți gata. Foundry OSD va reporni pentru a termina aplicarea acestuia.</value>
+    <value>Descărcați actualizarea când sunteți pregătit.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} este disponibil.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Actualizarea nu a putut fi aplicată</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Verificarea actualizării a eșuat</value>

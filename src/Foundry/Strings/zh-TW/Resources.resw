@@ -155,7 +155,7 @@
     <value>ADK設置</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>安裝支援的 Windows ADK 24H2 (10.1.26100.2454) 版本。</value>
+    <value>安裝支援的 Windows ADK 24H2 (10.1.26100.9457) 版本。</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK版本不受支援</value>
@@ -191,7 +191,7 @@
     <value>未偵測到版本</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>需要 Windows ADK 24H2 (10.1.26100.2454)。</value>
+    <value>需要 Windows ADK 24H2 (10.1.26100.9457)。</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>所需版本政策</value>
@@ -258,9 +258,6 @@
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>檢查更新</value>
-  </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>更新並重啟</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>發行說明</value>
@@ -688,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>重新整理</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>不可用</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>架構</value>
   </data>
@@ -777,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>映像作業失敗。請檢查來源、可用空間與 Foundry 記錄。</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>使用 PXE 開機時無法使用。自訂映像需要完整的 ISO 或 USB 媒體。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>請在此設定檔中包含至少一個可用的 Windows 映像。在建立或更新媒體之前，請還原已包含但遺失的映像，並修正或清除慣用映像或索引的選取項目。</value>
@@ -2008,9 +2011,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>荷蘭語（荷蘭）</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>英語</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>英語（英國）</value>
   </data>
@@ -2022,9 +2022,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>芬蘭語（芬蘭）</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>法語</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>法語（加拿大）</value>
@@ -2559,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell 引數</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>使用匯入檔案的動作在 PXE 開機時無法使用。它們需要完整的 ISO 或 USB 媒體。</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>無法移除該動作。請再試一次。</value>
@@ -3408,8 +3408,17 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO媒體完成。</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry 無法取代位於 {0} 的 ISO 檔案。該檔案可能已掛接、已連結至虛擬機器、在其他程式中開啟或為唯讀。請卸載或關閉該檔案，或選擇其他輸出路徑，然後再試一次。</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO 媒體已成功建立。</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>磁碟空間不足，無法建立開機映像。{2} 上至少需要 {0} 可用空間。目前可用：{1}。請釋放空間後再試一次。</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>無法確認位置 {0} 上可供建立開機映像的磁碟空間。請確認可存取該位置，然後再試一次。</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>安裝啟動映像。</value>
@@ -3510,6 +3519,9 @@
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>正在驗證 USB 啟動媒體。</value>
   </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows 已封鎖對 WinPE 映像檔案的存取。安全性軟體或其他工具可能正在鎖定這些檔案。請在安全性軟體中為 {0} 新增排除項目，關閉用於掛接映像的工具，重新啟動電腦，然後再試一次。詳細資料位於 {1} 和 {2} 中。</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>檢閱就緒狀態，選擇 ISO 或 USB 輸出，然後開始建立媒體。</value>
   </data>
@@ -3548,6 +3560,23 @@
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>需要注意的事項：</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>仍然建立</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>此媒體將使用 Foundry OSD {0} 產生。
+版本 {1} 已可用。
+
+請先套用更新，再建立或更新開機媒體。
+
+套用更新將重新啟動 Foundry OSD。</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>建立開機媒體前更新 Foundry OSD</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>檢視更新</value>
   </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>更新 USB</value>
@@ -3750,17 +3779,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>來源已驗證。</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>套用更新</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>下載更新</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>重試</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>新</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD 將下載更新並重新啟動以應用它。</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>更新並重啟</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>更新Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>可用版本</value>
@@ -3774,26 +3803,29 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>最新版本</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>正在下載更新。 Foundry OSD 準備好後將重新啟動。</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>正在下載：{0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>下載進度</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>更新正在背景下載。開啟更新設定以檢視進度。</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>正在下載更新</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>版本{0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>套用更新並重新啟動 Foundry OSD。關閉應用程式時也會自動安裝更新。</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未檢查</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>鑄造廠-osd/鑄造廠</value>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>無法套用更新：{0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>檢查更新</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>更新下載失敗：{0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>正在下載更新</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>更新檢查失敗：{0}</value>
@@ -3814,10 +3846,13 @@
     <value>Foundry OSD 更新可用。</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>準備好後更新。 Foundry OSD 將重新啟動以完成應用。</value>
+    <value>準備好後下載更新。</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} 可用。</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>無法套用更新</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新檢查失敗</value>

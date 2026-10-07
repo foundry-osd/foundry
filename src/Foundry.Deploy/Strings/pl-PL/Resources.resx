@@ -46,11 +46,17 @@ Licencjonowany na licencji MIT.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Nie można ustalić wersji Foundry OSD użytej do utworzenia tego nośnika rozruchowego. Najpierw zaktualizuj Foundry OSD na komputerze używanym do tworzenia nośników, a następnie utwórz ponownie obraz ISO lub zaktualizuj nośnik rozruchowy USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Dostępna nowa wersja. Zaktualizuj Foundry OSD i utwórz ponownie nośnik rozruchowy.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Zalecane ponowne wygenerowanie obrazu rozruchowego</value>
+    <value>Zaktualizuj Foundry OSD i utwórz ponownie nośnik rozruchowy.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ten obraz rozruchowy używa starszego formatu konfiguracji Foundry OSD. Wygeneruj go ponownie, aby zapewnić zgodność z najnowszymi funkcjami.</value>
+    <value>Ten nośnik rozruchowy utworzono za pomocą starszej wersji Foundry OSD. Najpierw zaktualizuj Foundry OSD na komputerze używanym do tworzenia nośników, a następnie utwórz ponownie obraz ISO lub zaktualizuj nośnik rozruchowy USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Architektura: {0}</value>
@@ -349,7 +355,7 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>Nieznany rozmiar</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

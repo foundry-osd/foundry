@@ -3,7 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
+using Foundry.Utilities.Imaging;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -31,7 +33,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         Directory.CreateDirectory(work);
         string bootWim = Path.Combine(work, "boot.wim");
         await File.WriteAllTextAsync(bootWim, "original", TestContext.Current.CancellationToken);
-        var service = new WinPeBootImagePreparationService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
+        var service = CreateService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
 
         var result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
         {
@@ -79,7 +81,7 @@ public sealed class WinPeBootImagePreparationServiceTests
             Directory.CreateDirectory(work);
             string bootWim = Path.Combine(work, "boot.wim");
             await File.WriteAllTextAsync(bootWim, "original", TestContext.Current.CancellationToken);
-            var service = new WinPeBootImagePreparationService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
+            var service = CreateService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
             var result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
             {
                 Artifact = new() { Architecture = WinPeArchitecture.X64, WorkingDirectoryPath = work, BootWimPath = bootWim },
@@ -113,11 +115,11 @@ public sealed class WinPeBootImagePreparationServiceTests
         var runner = new FakeWinPeProcessRunner
         {
             FailingOperation = stage,
-            ExitCode = 5,
+            ExitCode = 2,
             OnRun = (arguments, _) => { if (arguments.Contains(stage, StringComparison.Ordinal)) caller.Cancel(); }
         };
         using var client = new HttpClient(new StaticCatalogHandler(catalog));
-        var service = new WinPeBootImagePreparationService(runner, client, new WinPeWorkspaceCleanupService(() => []));
+        var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
         try
         {
             WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
@@ -129,7 +131,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                 BootImageSource = WinPeBootImageSource.WinReWifi
             }, caller.Token);
             Assert.False(result.IsSuccess);
-            Assert.Equal(5, result.Error?.ExitCode);
+            Assert.Equal(2, result.Error?.ExitCode);
             Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
             Assert.Single(runner.Executions, execution => execution.Arguments.Contains(stage, StringComparison.Ordinal));
         }
@@ -144,7 +146,7 @@ public sealed class WinPeBootImagePreparationServiceTests
     {
         using var cancellation = new CancellationTokenSource();
         using var client = new HttpClient(new CancelledCatalogHandler(cancellation));
-        var service = new WinPeBootImagePreparationService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
+        var service = CreateService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
         {
@@ -183,10 +185,10 @@ public sealed class WinPeBootImagePreparationServiceTests
             }
         };
         using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty)));
-        var service = new WinPeBootImagePreparationService(runner, client, new WinPeWorkspaceCleanupService(() => []));
+        var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
         try
         {
-            await Assert.ThrowsAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
+            OperationCanceledException observed = await Assert.ThrowsAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
             {
                 Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(root, "boot.wim"), WorkingDirectoryPath = root },
                 Tools = new WinPeToolPaths { DismPath = "dism.exe" },
@@ -194,6 +196,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                 CacheDirectoryPath = cache,
                 BootImageSource = WinPeBootImageSource.WinReWifi
             }, cancellation.Token));
+            Assert.Equal(cancellation.Token, observed.CancellationToken);
             Assert.Equal(expectsDiscard, runner.Executions.Any(execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal)));
             Assert.False(File.Exists(Path.Combine(root, "boot.wim")));
         }
@@ -201,6 +204,58 @@ public sealed class WinPeBootImagePreparationServiceTests
         {
             Directory.Delete(root, recursive: true);
         }
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PrepareAsync_WhenCancelledAfterMountAndCleanupFails_ReturnsFinalCleanupFailure(bool exitUnconfirmed)
+    {
+        using var directory = new TestUtilities.TemporaryDirectory();
+        using var cancellation = new CancellationTokenSource();
+        int discards = 0;
+        var runner = new FakeWinPeProcessRunner
+        {
+            FailingOperation = "/Discard",
+            ExitCode = 9,
+            OnRun = (arguments, token) =>
+            {
+                if (arguments.Contains("/Mount-Image", StringComparison.Ordinal)) cancellation.Cancel();
+                if (arguments.Contains("/Discard", StringComparison.Ordinal))
+                {
+                    discards++;
+                    Assert.False(token.IsCancellationRequested);
+                    if (exitUnconfirmed) throw new OperationCanceledException("DISM cleanup exit remains unconfirmed.");
+                }
+            }
+        };
+        using var client = new HttpClient(new StaticCatalogHandler(CreateFallbackCatalogXml(), Encoding.UTF8.GetBytes("source")));
+        var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
+        WinPeResult<WinPeBootImagePreparationResult>? result = null;
+
+        Exception? observed = await Record.ExceptionAsync(async () => result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
+            Tools = new() { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache")
+        }, cancellation.Token));
+
+        Assert.Null(observed);
+        Assert.NotNull(result);
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.WimUnmountFailed, result.Error?.Code);
+        Assert.Equal(exitUnconfirmed ? WinPeMountCleanupStatus.ExitUnconfirmed : WinPeMountCleanupStatus.Failed, result.Error?.MountCleanupStatus);
+        Assert.Contains("cancel", result.Error?.Details, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(1, discards);
+        Assert.Single(runner.Executions, execution => execution.Arguments.Contains("/Mount-Image", StringComparison.Ordinal));
+        if (exitUnconfirmed)
+        {
+            Assert.Null(result.Error?.ExitCode);
+            Assert.Contains("exit remains unconfirmed", result.Error?.Details, StringComparison.Ordinal);
+            Assert.Single(Directory.GetFiles(directory.Path, ".foundry-mount-cleanup-*.pending"));
+        }
+        else Assert.Equal(9, result.Error?.ExitCode);
     }
 
     [Theory]
@@ -240,7 +295,7 @@ public sealed class WinPeBootImagePreparationServiceTests
             WrongGraphicsArchitecture = wrongArchitecture,
             IncludeWirelessSupport = bootImageSource == WinPeBootImageSource.WinReWifi
         };
-        var service = new WinPeBootImagePreparationService(runner, new HttpClient(new StaticCatalogHandler(catalog)), new WinPeWorkspaceCleanupService(() => []));
+        var service = CreateService(runner, new HttpClient(new StaticCatalogHandler(catalog)), new WinPeWorkspaceCleanupService(() => []));
 
         try
         {
@@ -347,29 +402,138 @@ public sealed class WinPeBootImagePreparationServiceTests
             });
     }
 
-    [Fact]
-    public void ResolveImageIndexFromOutput_MatchesEditionId()
+    [Theory]
+    [InlineData("Pro", "professional", "Windows 11 Professionnel", 9)]
+    [InlineData("Enterprise", "Enterprise", "Windows 11 Entreprise", 6)]
+    public void ResolveImageIndexFromMetadata_SelectsExactEditionInsteadOfNVariant(string edition, string editionId, string name, int index)
     {
-        const string dismOutput = """
-                                  Deployment Image Servicing and Management tool
-
-                                  Index : 1
-                                  Name : Windows 11 Home
-                                  Description : Windows 11 Home
-                                  Size : 17,123,456 bytes
-
-                                  Index : 6
-                                  Name : Windows 11 Pro
-                                  Description : Windows 11 Pro
-                                  Edition : Professional
-                                  Edition ID : Professional
-                                  Size : 18,123,456 bytes
-                                  """;
-
-        WinPeResult<int> result = WinPeBootImagePreparationService.ResolveImageIndexFromOutput(dismOutput, "Pro");
+        WindowsImageMetadata[] images =
+        [
+            Image(1, string.Empty, "Windows Setup Media"),
+            Image(2, editionId + "N", "Windows 11 " + edition),
+            Image(index, editionId, name)
+        ];
+        WinPeResult<int> result = WinPeBootImagePreparationService.ResolveImageIndexFromMetadata(images, edition);
 
         Assert.True(result.IsSuccess);
-        Assert.Equal(6, result.Value);
+        Assert.Equal(index, result.Value);
+    }
+
+    [Theory]
+    [InlineData("missing")]
+    [InlineData("n-only")]
+    [InlineData("duplicate")]
+    [InlineData("empty")]
+    [InlineData("invalid-index")]
+    public void ResolveImageIndexFromMetadata_RejectsMissingAmbiguousOrInvalidEdition(string scenario)
+    {
+        WindowsImageMetadata[] images = scenario switch
+        {
+            "missing" => [Image(6, "Core", "Windows 11 Pro")],
+            "n-only" => [Image(6, "ProfessionalN", "Windows 11 Pro")],
+            "duplicate" => [Image(6, "Professional"), Image(9, "Professional")],
+            "invalid-index" => [Image(0, "Professional")],
+            _ => []
+        };
+        WinPeResult<int> result = WinPeBootImagePreparationService.ResolveImageIndexFromMetadata(images, "Pro");
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.WinReIndexResolutionFailed, result.Error?.Code);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("Unknown")]
+    public void ResolveImageIndexFromMetadata_RejectsUnsupportedEdition(string edition)
+    {
+        WinPeResult<int> result = WinPeBootImagePreparationService.ResolveImageIndexFromMetadata([Image(6, "Professional")], edition);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error?.Code);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PrepareAsync_WhenMetadataReadFails_DoesNotExport(bool cancelled)
+    {
+        using var directory = new TestUtilities.TemporaryDirectory();
+        using var caller = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty), Encoding.UTF8.GetBytes("source")));
+        var runner = new FakeWinPeProcessRunner();
+        var failure = new COMException("Native inspection failed.", unchecked((int)0x80070002));
+        var service = CreateService(runner, client, readImageInfo: (_, token) =>
+        {
+            Assert.Equal(caller.Token, token);
+            if (!cancelled) throw failure;
+            caller.Cancel();
+            return Task.FromCanceled<IReadOnlyList<WindowsImageMetadata>>(token);
+        });
+        var options = new WinPeBootImagePreparationOptions
+        {
+            Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
+            Tools = new() { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache")
+        };
+
+        if (cancelled)
+        {
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.PrepareAsync(options, caller.Token));
+        }
+        else
+        {
+            WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(options, caller.Token);
+            Assert.False(result.IsSuccess);
+            Assert.Same(failure, result.Error?.Exception);
+            Assert.Equal("Inspect Windows source image", result.Error?.Stage);
+            Assert.Null(result.Error?.ExitCode);
+            Assert.Null(result.Error?.ToolName);
+        }
+
+        Assert.Empty(runner.Executions);
+        Assert.False(File.Exists(options.Artifact.BootWimPath));
+    }
+
+    [Fact]
+    public async Task PrepareAsync_WhenProExportFails_UsesEnterpriseMetadataIndex()
+    {
+        using var directory = new TestUtilities.TemporaryDirectory();
+        string catalog = CreateCatalogXml(string.Empty);
+        string fallback = catalog.Replace("<Catalog>", "", StringComparison.Ordinal).Replace("</Catalog>", "", StringComparison.Ordinal)
+            .Replace("Professional", "Enterprise", StringComparison.Ordinal).Replace("CLIENTCONSUMER", "CLIENTBUSINESS", StringComparison.Ordinal)
+            .Replace("source.esd", "enterprise.esd", StringComparison.Ordinal);
+        catalog = catalog.Replace("</Catalog>", fallback + "</Catalog>", StringComparison.Ordinal);
+        using var client = new HttpClient(new StaticCatalogHandler(catalog, Encoding.UTF8.GetBytes("source")));
+        var runner = new FakeWinPeProcessRunner { FailingOperation = "/SourceIndex:9", ExitCode = 112 };
+        var inspectedSources = new List<string>();
+        var service = CreateService(runner, client, readImageInfo: (path, token) =>
+        {
+            Assert.Equal(TestContext.Current.CancellationToken, token);
+            Assert.True(File.Exists(path));
+            inspectedSources.Add(Path.GetFileName(path));
+            IReadOnlyList<WindowsImageMetadata> images = Path.GetFileName(path) == "enterprise.esd"
+                ? [Image(7, "EnterpriseN", "Windows 11 Entreprise N"), Image(6, "Enterprise", "Windows 11 Entreprise")]
+                : [Image(10, "ProfessionalN", "Windows 11 Professionnel N"), Image(9, "Professional", "Windows 11 Professionnel")];
+            return Task.FromResult(images);
+        });
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
+            Tools = new() { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache"),
+            BootImageSource = WinPeBootImageSource.WinReWifi
+        }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(new[] { "source.esd", "enterprise.esd" }, inspectedSources);
+        Assert.Collection(runner.Executions.Where(execution => execution.Arguments.Contains("/Export-Image", StringComparison.Ordinal)),
+            execution => Assert.Contains("/SourceIndex:9 ", execution.Arguments, StringComparison.Ordinal),
+            execution => Assert.Contains("/SourceIndex:6 ", execution.Arguments, StringComparison.Ordinal));
+        Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("/Get-ImageInfo", StringComparison.Ordinal));
+        Assert.Equal("winre", await File.ReadAllTextAsync(Path.Combine(directory.Path, "boot.wim"), TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -422,8 +586,8 @@ public sealed class WinPeBootImagePreparationServiceTests
 
     [Theory]
     [InlineData(null, 0, true)]
-    [InlineData("/Get-ImageInfo", 5, true)]
     [InlineData("/Export-Image", 2, true)]
+    [InlineData("/Mount-Image", 2, true)]
     [InlineData(null, 0, false)]
     public async Task PrepareAsync_ValidatesProcessResultsAndExportedImage(string? failingOperation, int exitCode, bool createExport)
     {
@@ -443,7 +607,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         string catalogXml = CreateCatalogXml(cachedSourceHash);
 
         var runner = new FakeWinPeProcessRunner { FailingOperation = failingOperation, ExitCode = exitCode, CreateExport = createExport };
-        var service = new WinPeBootImagePreparationService(
+        var service = CreateService(
             runner,
             new HttpClient(new StaticCatalogHandler(catalogXml)), new WinPeWorkspaceCleanupService(() => []));
 
@@ -474,6 +638,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                 Assert.Equal(exitCode, result.Error?.ExitCode);
                 Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
                 Assert.Equal("dism.exe", result.Error?.ToolName);
+                if (failingOperation == "/Mount-Image") Assert.Equal(WinPeErrorCodes.WimMountFailed, result.Error?.Code);
                 return;
             }
             Assert.True(result.IsSuccess, result.Error?.Details);
@@ -498,7 +663,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         await File.WriteAllTextAsync(Path.Combine(cache, "source.esd"), "cached source", TestContext.Current.CancellationToken);
         var runner = new FakeWinPeProcessRunner { FailingOperation = "/Discard", ExitCode = 9 };
         using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty)));
-        var service = new WinPeBootImagePreparationService(runner, client, new WinPeWorkspaceCleanupService(() => []));
+        var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
 
         WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
         {
@@ -513,6 +678,95 @@ public sealed class WinPeBootImagePreparationServiceTests
         Assert.Equal(9, result.Error?.ExitCode);
         Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
         Assert.Equal(2, runner.Executions.Count(execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal)));
+    }
+
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    public async Task PrepareAsync_WhenFinalSourceCleanupIsUnsafe_StopsCandidateFallback(bool missingWinRe, bool exitUnconfirmed)
+    {
+        using var directory = new TestUtilities.TemporaryDirectory();
+        int discards = 0;
+        var runner = new FakeWinPeProcessRunner
+        {
+            FailingOperation = "/Discard",
+            ExitCode = 9,
+            IncludeWirelessSupport = !missingWinRe,
+            OnRun = (arguments, _) =>
+            {
+                if (arguments.Contains("/Discard", StringComparison.Ordinal) && ++discards == 2 && exitUnconfirmed)
+                    throw new OperationCanceledException("DISM cleanup exit remains unconfirmed.");
+            }
+        };
+        using var client = new HttpClient(new StaticCatalogHandler(CreateFallbackCatalogXml(), Encoding.UTF8.GetBytes("source")));
+        var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
+            Tools = new() { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache"),
+            BootImageSource = WinPeBootImageSource.WinReWifi
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.WimUnmountFailed, result.Error?.Code);
+        Assert.Equal(exitUnconfirmed ? WinPeMountCleanupStatus.ExitUnconfirmed : WinPeMountCleanupStatus.Failed, result.Error?.MountCleanupStatus);
+        Assert.Single(runner.Executions, execution => execution.Arguments.Contains("/Mount-Image", StringComparison.Ordinal));
+        Assert.Equal(2, discards);
+        if (missingWinRe) Assert.Contains("does not contain winre.wim", result.Error?.Details, StringComparison.Ordinal);
+        if (exitUnconfirmed)
+        {
+            Assert.Null(result.Error?.ExitCode);
+            Assert.Contains("exit remains unconfirmed", result.Error?.Details, StringComparison.Ordinal);
+            Assert.Single(Directory.GetFiles(directory.Path, ".foundry-mount-cleanup-*.pending"));
+        }
+        else Assert.Equal(9, result.Error?.ExitCode);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PrepareAsync_WhenSourceContentFailsAndCleanupCompletes_TriesCandidateFallback(bool discardRetry)
+    {
+        using var directory = new TestUtilities.TemporaryDirectory();
+        int mounts = 0;
+        var runner = new FakeWinPeProcessRunner
+        {
+            MissingWinReForFirstMount = true,
+            FailingOperation = discardRetry ? "/Discard" : null,
+            ExitCode = 9,
+            DiscardFailuresBeforeSuccess = 1,
+            OnRun = (arguments, _) =>
+            {
+                if (arguments.Contains("/Mount-Image", StringComparison.Ordinal)) mounts++;
+            }
+        };
+        using var client = new HttpClient(new StaticCatalogHandler(CreateFallbackCatalogXml(), Encoding.UTF8.GetBytes("source")));
+        var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
+            Tools = new() { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache")
+        }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(2, mounts);
+    }
+
+    private static string CreateFallbackCatalogXml()
+    {
+        string catalog = CreateCatalogXml(string.Empty);
+        string fallback = catalog.Replace("<Catalog>", "", StringComparison.Ordinal).Replace("</Catalog>", "", StringComparison.Ordinal)
+            .Replace("Professional", "Enterprise", StringComparison.Ordinal).Replace("CLIENTCONSUMER", "CLIENTBUSINESS", StringComparison.Ordinal)
+            .Replace("source.esd", "enterprise.esd", StringComparison.Ordinal);
+        return catalog.Replace("</Catalog>", fallback + "</Catalog>", StringComparison.Ordinal);
     }
 
     private static string CreateCatalogXml(string hash)
@@ -537,6 +791,16 @@ public sealed class WinPeBootImagePreparationServiceTests
                  """;
     }
 
+    private static WindowsImageMetadata Image(int index, string editionId, string name = "Localized Windows name")
+        => new(index, name, editionId, 18_123_456, "x64", new Version(10, 0, 26100, 2454), "Windows image", "WinNT", ["fr-FR"], 0);
+
+    private static WinPeBootImagePreparationService CreateService(FakeWinPeProcessRunner runner, HttpClient client,
+        WinPeWorkspaceCleanupService? cleanup = null,
+        Func<string, CancellationToken, Task<IReadOnlyList<WindowsImageMetadata>>>? readImageInfo = null)
+        => new(runner, client, cleanup ?? new WinPeWorkspaceCleanupService(() => []),
+            readImageInfo ?? ((path, _) => Task.FromResult<IReadOnlyList<WindowsImageMetadata>>(
+                Path.GetFileName(path) == "enterprise.esd" ? [Image(7, "Enterprise")] : [Image(6, "Professional")])));
+
     [Fact]
     public async Task PrepareAsync_WhenPreviousSourceIsMounted_DoesNotRecreateItsDirectory()
     {
@@ -549,7 +813,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty)));
         var cleanup = new WinPeWorkspaceCleanupService(() =>
             [new WinPeMountedImage(Path.Combine(sourceDirectory, "install-mount"), Path.Combine(sourceDirectory, "export", "install.wim"))]);
-        var service = new WinPeBootImagePreparationService(runner, client, cleanup);
+        var service = CreateService(runner, client, cleanup);
 
         WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
         {
@@ -598,6 +862,8 @@ public sealed class WinPeBootImagePreparationServiceTests
         public string? InvalidGraphicsFile { get; init; }
         public bool WrongGraphicsArchitecture { get; init; }
         public bool IncludeWirelessSupport { get; init; } = true;
+        public bool MissingWinReForFirstMount { get; init; }
+        public int? DiscardFailuresBeforeSuccess { get; init; }
 
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
@@ -607,13 +873,16 @@ public sealed class WinPeBootImagePreparationServiceTests
             IReadOnlyDictionary<string, string>? environmentOverrides = null)
         {
             OnRun?.Invoke(arguments, cancellationToken);
+            bool discardRecovered = arguments.Contains("/Discard", StringComparison.Ordinal) &&
+                DiscardFailuresBeforeSuccess.HasValue && Executions.Count(execution =>
+                    execution.Arguments.Contains("/Discard", StringComparison.Ordinal)) >= DiscardFailuresBeforeSuccess.Value;
             var execution = new WinPeProcessExecution
             {
-                ExitCode = FailingOperation is not null && arguments.Contains(FailingOperation, StringComparison.Ordinal) ? ExitCode : 0,
+                ExitCode = !discardRecovered && FailingOperation is not null && arguments.Contains(FailingOperation, StringComparison.Ordinal) ? ExitCode : 0,
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory,
-                StandardOutput = CreateOutput(arguments)
+                StandardOutput = string.Empty
             };
 
             Executions.Add(execution);
@@ -642,21 +911,6 @@ public sealed class WinPeBootImagePreparationServiceTests
             throw new NotSupportedException();
         }
 
-        private static string CreateOutput(string arguments)
-        {
-            if (!arguments.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase))
-            {
-                return string.Empty;
-            }
-
-            return """
-                   Index : 6
-                   Name : Windows 11 Pro
-                   Edition : Professional
-                   Edition ID : Professional
-                   """;
-        }
-
         private void HandleSideEffects(string arguments)
         {
             if (arguments.Contains("/Export-Image", StringComparison.OrdinalIgnoreCase))
@@ -674,7 +928,8 @@ public sealed class WinPeBootImagePreparationServiceTests
                 string system32Path = Path.Combine(mountDirectory, "Windows", "System32");
                 Directory.CreateDirectory(recoveryPath);
                 Directory.CreateDirectory(system32Path);
-                if (IncludeWirelessSupport)
+                if (IncludeWirelessSupport && (!MissingWinReForFirstMount ||
+                    Executions.Count(execution => execution.Arguments.Contains("/Mount-Image", StringComparison.Ordinal)) > 1))
                 {
                     File.WriteAllText(Path.Combine(recoveryPath, "winre.wim"), "winre");
                     File.WriteAllText(Path.Combine(system32Path, "dmcmnutils.dll"), "dm");
