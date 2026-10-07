@@ -99,8 +99,43 @@ public sealed class NativeWorkerClientTests
             workspace.Path, DeploymentOperationNames.MountRecoveryImage, null, cancellation.Token));
 
         Assert.True(runner.Completed);
+        Assert.True(runner.CancelSignaled);
         Assert.False(runner.Token.CanBeCanceled);
         Assert.False(File.Exists(runner.RequestPath));
+    }
+
+    [Fact]
+    public async Task NativeErrorAfterCancellation_SurfacesCancellationAndKeepsNativeStatus()
+    {
+        using var workspace = new Workspace();
+        using var cancellation = new CancellationTokenSource();
+        var runner = new WorkerRunner(new NativeWorkerMessage
+        {
+            Kind = "complete",
+            Error = new("WIMApplyImage", NativeOperationException.RequestAborted, "WIM application was canceled before completion.", [])
+        })
+        { BeforeCompletion = cancellation.Cancel };
+        var client = new NativeWorkerClient(runner, "Foundry.Deploy.exe");
+
+        OperationCanceledException exception = await Assert.ThrowsAnyAsync<OperationCanceledException>(() => client.ExecuteAsync(
+            new() { Operation = NativeWorkerOperation.ApplyWim }, workspace.Path, DeploymentOperationNames.ApplyOperatingSystemImage, null, cancellation.Token));
+
+        Assert.Equal(cancellation.Token, exception.CancellationToken);
+        Assert.Equal(NativeOperationException.RequestAborted, Assert.IsType<NativeOperationException>(exception.InnerException).ErrorCode);
+        Assert.False(runner.Token.CanBeCanceled);
+    }
+
+    [Fact]
+    public async Task UncancelableCaller_DoesNotRequestACancelEvent()
+    {
+        using var workspace = new Workspace();
+        var runner = new WorkerRunner(new NativeWorkerMessage { Kind = "complete", Result = new() });
+        var client = new NativeWorkerClient(runner, "Foundry.Deploy.exe");
+
+        await client.ExecuteAsync(new() { Operation = NativeWorkerOperation.UnmountImage }, workspace.Path,
+            DeploymentOperationNames.UnmountRecoveryImage, null, CancellationToken.None);
+
+        Assert.Null(runner.Request!.CancelEventName);
     }
 
     private sealed class ThrowingProgress : IProgress<double>
@@ -119,6 +154,8 @@ public sealed class NativeWorkerClientTests
         public bool Completed { get; private set; }
         public CancellationToken Token { get; private set; }
         public string? RequestPath { get; private set; }
+        public NativeWorkerRequest? Request { get; private set; }
+        public bool CancelSignaled { get; private set; }
         public string? ProtocolFailure { get; init; }
         public Action? BeforeCompletion { get; init; }
 
@@ -134,7 +171,8 @@ public sealed class NativeWorkerClientTests
             string[] args = arguments.ToArray();
             Assert.Equal("--native-deployment-worker", args[0]);
             RequestPath = args[1];
-            Assert.NotNull(JsonSerializer.Deserialize<NativeWorkerRequest>(File.ReadAllText(RequestPath)));
+            Request = JsonSerializer.Deserialize<NativeWorkerRequest>(File.ReadAllText(RequestPath));
+            Assert.NotNull(Request);
             foreach (NativeWorkerMessage message in messages) onOutputData?.Invoke(JsonSerializer.Serialize(message));
             if (ProtocolFailure == "duplicate")
             {
@@ -144,6 +182,12 @@ public sealed class NativeWorkerClientTests
             }
             if (ProtocolFailure == "malformed") onOutputData?.Invoke("broken");
             BeforeCompletion?.Invoke();
+            if (!string.IsNullOrEmpty(Request.CancelEventName))
+            {
+                // The worker observes cancellation through the named event, never through process termination.
+                using EventWaitHandle signal = EventWaitHandle.OpenExisting(Request.CancelEventName);
+                CancelSignaled = signal.WaitOne(0);
+            }
             Completed = true;
             return Task.FromResult(new ProcessExecutionResult { ExitCode = messages.Any(message => message.Error is not null) ? 1 : 0 });
         }

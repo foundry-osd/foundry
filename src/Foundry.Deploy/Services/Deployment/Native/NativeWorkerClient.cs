@@ -10,7 +10,10 @@ using Foundry.Utilities.Processes;
 
 namespace Foundry.Deploy.Services.Deployment.Native;
 
-/// <summary>Supervises native mutations without terminating their cleanup when the caller cancels.</summary>
+/// <summary>
+/// Supervises native mutations without terminating their cleanup when the caller cancels. Cancellation is signaled
+/// through a named event so the worker stops at a safe point and still releases its native resources.
+/// </summary>
 internal sealed class NativeWorkerClient(IProcessRunner processRunner, string? executablePath = null)
 {
     public async Task<NativeWorkerResult> ExecuteAsync(NativeWorkerRequest request, string workingDirectory, string operationName,
@@ -21,6 +24,8 @@ internal sealed class NativeWorkerClient(IProcessRunner processRunner, string? e
             ?? throw new InvalidOperationException("The deployment executable path is unavailable.");
         Directory.CreateDirectory(workingDirectory);
         string requestPath = Path.Combine(workingDirectory, $"native-{Guid.NewGuid():N}.json");
+        string? cancelEventName = cancellationToken.CanBeCanceled ? $@"Local\Foundry.Deploy.NativeCancel.{Guid.NewGuid():N}" : null;
+        using EventWaitHandle? cancelEvent = cancelEventName is null ? null : new EventWaitHandle(false, EventResetMode.ManualReset, cancelEventName);
         object sync = new();
         NativeWorkerMessage? terminal = null;
         Exception? protocolFailure = null;
@@ -65,11 +70,16 @@ internal sealed class NativeWorkerClient(IProcessRunner processRunner, string? e
         {
             await using (var stream = new FileStream(requestPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             {
-                await JsonSerializer.SerializeAsync(stream, request, cancellationToken: cancellationToken).ConfigureAwait(false);
+                await JsonSerializer.SerializeAsync(stream, request with { CancelEventName = cancelEventName },
+                    cancellationToken: cancellationToken).ConfigureAwait(false);
             }
             cancellationToken.ThrowIfCancellationRequested();
 
-            // Killing a servicing process can strand mounts or partially applied data. Observe cancellation after it releases native resources.
+            // Killing a servicing process can strand mounts or partially applied data. The event asks the worker to stop
+            // at its next safe point; cancellation is observed only after the worker has released its native resources.
+            using CancellationTokenRegistration cancelSignal = cancelEvent is null
+                ? default
+                : cancellationToken.Register(static state => ((EventWaitHandle)state!).Set(), cancelEvent);
             ProcessExecutionResult process = await processRunner.RunAsync(executable,
                 [NativeDeploymentWorker.Command, requestPath], workingDirectory, Receive, null, CancellationToken.None).ConfigureAwait(false);
             if (receivedLines == 0)
@@ -83,6 +93,13 @@ internal sealed class NativeWorkerClient(IProcessRunner processRunner, string? e
                 if (protocolFailure is not null) native.CleanupErrors.Add(protocolFailure.Message);
                 string detail = $"{error.Function} failed (0x{unchecked((uint)error.ErrorCode):X8}): {error.Message}";
                 if (native.CleanupErrors.Count > 0) detail += Environment.NewLine + string.Join(Environment.NewLine, native.CleanupErrors);
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    // The worker stopped because the caller asked it to; keep its native status as diagnostic context only.
+                    Serilog.Log.ForContext<NativeWorkerClient>().Information(
+                        "Native deployment operation stopped after cancellation. Operation={Operation}, Detail={Detail}", operationName, detail);
+                    throw new OperationCanceledException(detail, native, cancellationToken);
+                }
                 throw new DeploymentOperationException(new(operationName, DeploymentFailureKinds.Process,
                     DeploymentFailureReasons.NonZeroExit, $"0x{unchecked((uint)error.ErrorCode):X8}"), detail, native);
             }

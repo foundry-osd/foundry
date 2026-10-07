@@ -16,7 +16,10 @@ public interface IWindowsNativeDeploymentService
     /// <summary>Disables a feature without removing its payload.</summary>
     Task DisableFeatureAsync(string windowsRoot, string featureName, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default);
 
-    /// <summary>Adds each INF recursively with signed-driver enforcement and completed-file progress.</summary>
+    /// <summary>
+    /// Adds each INF recursively with signed-driver enforcement and completed-file progress. INF files that DISM
+    /// rejects are logged and skipped; the operation fails only when no INF could be added.
+    /// </summary>
     Task AddDriversAsync(string windowsRoot, string driverRoot, string scratchDirectory, string workingDirectory, IProgress<double>? progress, CancellationToken cancellationToken = default);
 
     /// <summary>Mounts image index one writable at an empty, owned mount directory.</summary>
@@ -28,6 +31,9 @@ public interface IWindowsNativeDeploymentService
     /// <summary>Checks registrations before deleting mount contents; inventory failures never imply an absent mount.</summary>
     Task<bool> IsMountedAsync(string mountPath, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default);
 
-    /// <summary>Applies an ordinary WIM with archive and file-data verification. ESD is handled explicitly by the caller.</summary>
+    /// <summary>
+    /// Applies an ordinary WIM with archive integrity checking and stops at the next callback when canceled. Other
+    /// containers are handled explicitly by the caller.
+    /// </summary>
     Task ApplyWimAsync(string imagePath, int imageIndex, string windowsRoot, string scratchDirectory, string workingDirectory, IProgress<double>? progress, CancellationToken cancellationToken = default);
 }

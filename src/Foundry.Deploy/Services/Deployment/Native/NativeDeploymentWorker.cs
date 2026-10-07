@@ -37,9 +37,13 @@ internal static class NativeDeploymentWorker
             NativeWorkerRequest request = JsonSerializer.Deserialize<NativeWorkerRequest>(File.ReadAllText(info.FullName))
                 ?? throw new InvalidDataException("The native worker request is empty.");
             if (!Enum.IsDefined(request.Operation)) throw new InvalidDataException("The native worker operation is unsupported.");
+            // The parent owns the event for the worker's whole lifetime; failing to open it fails before any mutation.
+            using EventWaitHandle? cancellation = string.IsNullOrWhiteSpace(request.CancelEventName)
+                ? null
+                : EventWaitHandle.OpenExisting(request.CancelEventName);
             NativeWorkerResult result = request.Operation is NativeWorkerOperation.ProbeWim or NativeWorkerOperation.ApplyWim
-                ? new NativeWimOperations().Execute(request, Emit)
-                : new NativeDismOperations().Execute(request, Emit);
+                ? new NativeWimOperations().Execute(request, Emit, cancellation)
+                : new NativeDismOperations().Execute(request, Emit, cancellation);
             Emit(new() { Kind = "complete", Result = result });
             return 0;
         }

@@ -349,9 +349,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 scratchDirectory, workingDirectory, progress, cancellationToken), operationName).ConfigureAwait(false);
             return;
         }
-        if (!Path.GetExtension(imagePath).Equals(".esd", StringComparison.OrdinalIgnoreCase))
-            throw new InvalidDataException("Only ordinary WIM and ESD images are supported for deployment.");
 
+        // Every other container keeps the established CLI route, which identifies the format from the file content.
+        // Rejecting by extension here would fail only after the target disk has already been prepared.
         string[] arguments =
         [
             "/Apply-Image",
@@ -1265,7 +1265,12 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 // Never recursively remove a still-registered image, including an invalid mount or an inventory failure.
                 if (await _nativeService.IsMountedAsync(mountPath, scratchDirectory, workingDirectory, CancellationToken.None).ConfigureAwait(false))
                     RetainCleanupFailure(new InvalidOperationException("The Windows RE image remains registered; its mount directory was retained."));
-                else DeleteOwnedMountDirectory(mountPath);
+                else TryDeleteReleasedMountDirectory(mountPath);
+            }
+            catch (Exception exception) when (pendingException is null)
+            {
+                // The image was committed and unmounted; an unreadable inventory only means the empty directory is kept.
+                _logger.LogWarning(exception, "Windows RE was committed, but its mount registration could not be confirmed; the mount directory is retained. MountPath={MountPath}", mountPath);
             }
             catch (Exception exception) { RetainCleanupFailure(exception); }
         }
@@ -1605,6 +1610,22 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         if ((File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0)
             throw new IOException("The owned mount directory cannot be a reparse point.");
         Directory.Delete(path, recursive: true);
+    }
+
+    /// <summary>
+    /// Removes a mount directory whose registration is confirmed absent. A leftover directory cannot affect the
+    /// serviced image, so a failed removal is logged instead of changing the operation's outcome.
+    /// </summary>
+    private void TryDeleteReleasedMountDirectory(string path)
+    {
+        try
+        {
+            DeleteOwnedMountDirectory(path);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            _logger.LogWarning(exception, "The released Windows RE mount directory could not be removed. MountPath={MountPath}", path);
+        }
     }
 
     private static string GetRecoveryDirectoryPath(string recoveryPartitionRoot)

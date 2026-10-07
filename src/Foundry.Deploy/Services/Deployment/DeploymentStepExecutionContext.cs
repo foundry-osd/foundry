@@ -425,8 +425,8 @@ public sealed class DeploymentStepExecutionContext : IDisposable
                     Path.GetFullPath(Path.Combine(RuntimeState.TargetWindowsPartitionRoot, "Foundry")), StringComparison.OrdinalIgnoreCase) &&
                 !Path.GetFullPath(RuntimeState.TargetFoundryRoot).Equals(Path.GetFullPath(previousSession.RootPath), StringComparison.OrdinalIgnoreCase))
             {
-                await CopyDiagnosticTreeAsync(Path.Combine(RuntimeState.TargetFoundryRoot, "Logs", "Native"),
-                    Path.Combine(rebound.RootPath, "Logs", "Native"), persisted, cancellationToken).ConfigureAwait(false);
+                await CopyDiagnosticTreeAsync(Native.NativeLogLayout.GetDirectory(RuntimeState.TargetFoundryRoot),
+                    Native.NativeLogLayout.GetDirectory(rebound.RootPath), persisted, cancellationToken).ConfigureAwait(false);
             }
             await CopyBootstrapDiagnosticsAsync(previousSession, rebound, startupDirectory, persisted, cancellationToken).ConfigureAwait(false);
             if (!string.IsNullOrWhiteSpace(startupDirectory) && Directory.Exists(startupDirectory) &&

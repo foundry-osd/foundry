@@ -11,7 +11,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class NativeWimOperationsTests
 {
     [Fact]
-    public void Apply_VerifiesArchiveAndFilesAndSetsScratchBeforeLoading()
+    public void Apply_ChecksArchiveIntegrityOnOpenAndSetsScratchBeforeLoading()
     {
         var api = new FakeWimApi();
         new NativeWimOperations(api).Execute(Request(), _ => { });
@@ -19,7 +19,7 @@ public sealed class NativeWimOperationsTests
         Assert.Equal(0x80000000u, api.Access);
         Assert.Equal(3u, api.Disposition);
         Assert.Equal(2u, api.OpenFlags);
-        Assert.Equal(2u, api.ApplyFlags);
+        Assert.Equal(0u, api.ApplyFlags);
         Assert.Equal(7u, api.Index);
         Assert.Equal(@"T:\Windows", api.Target);
         Assert.Equal(@"T:\Foundry\Temp\Wim", api.Scratch);
@@ -132,6 +132,47 @@ public sealed class NativeWimOperationsTests
         NativeOperationException error = Assert.Throws<NativeOperationException>(() => new NativeWimOperations(api).Execute(Request(), _ => { }));
         Assert.Equal(13, error.ErrorCode);
         Assert.Contains("5", error.Message);
+    }
+
+    [Fact]
+    public void Apply_NativeCallbackErrorNamesTheFailedPath()
+    {
+        nint failedPath = Marshal.StringToHGlobalUni(@"T:\Windows\System32\broken.dll");
+        try
+        {
+            var api = new FakeWimApi
+            {
+                FailAt = "apply",
+                DuringApply = callback => Assert.Equal(0u, callback(0x947f, (nuint)failedPath, 5, 0))
+            };
+            NativeOperationException error = Assert.Throws<NativeOperationException>(() => new NativeWimOperations(api).Execute(Request(), _ => { }));
+            Assert.Contains(@"T:\Windows\System32\broken.dll", error.Message);
+        }
+        finally { Marshal.FreeHGlobal(failedPath); }
+    }
+
+    [Fact]
+    public void Apply_CancellationAbortsFromTheCallbackAndReleasesResources()
+    {
+        using var cancellation = new ManualResetEvent(false);
+        var messages = new List<NativeWorkerMessage>();
+        var api = new FakeWimApi
+        {
+            FailAt = "apply",
+            DuringApply = callback =>
+            {
+                Assert.Equal(0u, callback(0x9478, 10, 0, 0));
+                cancellation.Set();
+                Assert.Equal(0xFFFFFFFFu, callback(0x9478, 20, 0, 0));
+            }
+        };
+
+        NativeOperationException error = Assert.Throws<NativeOperationException>(() => new NativeWimOperations(api).Execute(Request(), messages.Add, cancellation));
+
+        Assert.Equal("WIMApplyImage", error.Function);
+        Assert.Equal(NativeOperationException.RequestAborted, error.ErrorCode);
+        Assert.Equal(10d, Assert.Single(messages).Percent);
+        Assert.Equal(["close-image", "unregister", "close-wim"], api.Calls.TakeLast(3));
     }
 
     [Theory]

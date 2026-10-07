@@ -11,6 +11,8 @@ namespace Foundry.Deploy.Services.Deployment;
 /// <summary>Adapts deployment operations to the same executable's isolated native worker.</summary>
 public sealed class WindowsNativeDeploymentService(IProcessRunner processRunner) : IWindowsNativeDeploymentService
 {
+    // Every rejected INF is recorded in the native DISM log; the application log lists enough of them to diagnose a pack.
+    private const int MaximumLoggedDriverFailures = 50;
     private readonly NativeWorkerClient _worker = new(processRunner);
 
     /// <inheritdoc />
@@ -57,11 +59,23 @@ public sealed class WindowsNativeDeploymentService(IProcessRunner processRunner)
             DeploymentOperationNames.ConfigureWindowsOptionalFeatures, null, cancellationToken).ConfigureAwait(false);
 
     /// <inheritdoc />
-    public async Task AddDriversAsync(string windowsRoot, string driverRoot, string scratchDirectory, string workingDirectory, IProgress<double>? progress, CancellationToken cancellationToken = default) =>
-        await ExecuteAsync(CreateRequest(NativeWorkerOperation.AddDrivers, scratchDirectory, workingDirectory)
+    public async Task AddDriversAsync(string windowsRoot, string driverRoot, string scratchDirectory, string workingDirectory, IProgress<double>? progress, CancellationToken cancellationToken = default)
+    {
+        NativeWorkerResult result = await ExecuteAsync(CreateRequest(NativeWorkerOperation.AddDrivers, scratchDirectory, workingDirectory)
             with
         { WindowsRoot = windowsRoot, DriverRoot = driverRoot }, workingDirectory,
             DeploymentOperationNames.ApplyDriverPack, progress, cancellationToken).ConfigureAwait(false);
+        if (result.DriverFailures.Length == 0) return;
+
+        Serilog.ILogger logger = Serilog.Log.ForContext<WindowsNativeDeploymentService>();
+        logger.Warning("Driver injection skipped INF files that DISM rejected. Added={AddedCount}, Skipped={SkippedCount}, DriverRoot={DriverRoot}",
+            result.DriversAdded, result.DriverFailures.Length, driverRoot);
+        foreach (NativeDriverFailure failure in result.DriverFailures.Take(MaximumLoggedDriverFailures))
+        {
+            logger.Warning("Driver INF was not added. InfPath={InfPath}, ErrorCode={ErrorCode}, Detail={Detail}",
+                failure.InfPath, $"0x{unchecked((uint)failure.ErrorCode):X8}", failure.Message);
+        }
+    }
 
     /// <inheritdoc />
     public async Task MountImageAsync(string imagePath, string mountPath, string scratchDirectory, string workingDirectory, IProgress<double>? progress, CancellationToken cancellationToken = default) =>
@@ -99,10 +113,15 @@ public sealed class WindowsNativeDeploymentService(IProcessRunner processRunner)
     private static NativeWorkerRequest CreateRequest(NativeWorkerOperation operation, string scratchDirectory, string workingDirectory)
     {
         Directory.CreateDirectory(scratchDirectory);
-        DirectoryInfo? parent = Directory.GetParent(Path.GetFullPath(workingDirectory));
-        string logDirectory = parent?.Name.Equals("Temp", StringComparison.OrdinalIgnoreCase) == true && parent.Parent is not null
-            ? Path.Combine(parent.Parent.FullName, "Logs", "Native")
-            : Path.Combine(workingDirectory, "NativeLogs");
+        string? foundryRoot = NativeLogLayout.TryResolveFoundryRoot(workingDirectory);
+        string logDirectory = foundryRoot is null ? Path.Combine(workingDirectory, "NativeLogs") : NativeLogLayout.GetDirectory(foundryRoot);
+        if (foundryRoot is null)
+        {
+            // The final diagnostic handoff only preserves logs beneath a staging root, so make the exception visible.
+            Serilog.Log.ForContext<WindowsNativeDeploymentService>().Warning(
+                "Native logs are written to a disposable location because the working directory is outside a Foundry staging workspace. LogDirectory={LogDirectory}",
+                logDirectory);
+        }
         Directory.CreateDirectory(logDirectory);
         return new()
         {

@@ -130,16 +130,44 @@ public sealed class NativeDeploymentWorkflowTests
     }
 
     [Fact]
-    public async Task ApplyRecoveryDriversAsync_WhenMountRegistrationCannotBeRead_PreservesDirectory()
+    public async Task ApplyRecoveryDriversAsync_WhenRegistrationCannotBeReadAfterCommit_CompletesAndPreservesDirectory()
     {
         using var fixture = new WorkflowFixture();
         fixture.Native.ReadMountState = () => fixture.Native.Calls.Contains("unmount:commit", StringComparer.Ordinal)
             ? throw Failure("inventory_failure")
             : fixture.Native.Registered;
 
-        await Assert.ThrowsAsync<DeploymentOperationException>(() => fixture.ApplyRecoveryAsync());
+        await fixture.ApplyRecoveryAsync();
 
+        Assert.Contains("unmount:commit", fixture.Native.Calls);
         Assert.True(File.Exists(Path.Combine(fixture.MountPath, "mounted-image.txt")));
+    }
+
+    [Fact]
+    public async Task ApplyRecoveryDriversAsync_WhenReleasedDirectoryCannotBeRemovedAfterCommit_Completes()
+    {
+        using var fixture = new WorkflowFixture();
+        FileStream? heldFile = null;
+        fixture.Native.OnUnmount = () => heldFile = new FileStream(Path.Combine(fixture.MountPath, "mounted-image.txt"), FileMode.Open, FileAccess.Read, FileShare.None);
+        try
+        {
+            await fixture.ApplyRecoveryAsync();
+
+            Assert.Contains("unmount:commit", fixture.Native.Calls);
+            Assert.True(Directory.Exists(fixture.MountPath));
+        }
+        finally { heldFile?.Dispose(); }
+    }
+
+    [Fact]
+    public async Task ApplyImageAsync_WhenExtensionIsUnrecognized_KeepsTheDismRouteInsteadOfRejecting()
+    {
+        using var fixture = new WorkflowFixture();
+
+        await fixture.Service.ApplyImageAsync("artifact-1700000000.bin", 7, fixture.Root, fixture.Scratch, fixture.Working, TestContext.Current.CancellationToken);
+
+        Assert.Empty(fixture.Native.Calls);
+        Assert.Contains("/Apply-Image", Assert.Single(fixture.Process.Calls), StringComparison.Ordinal);
     }
 
     [Fact]
