@@ -71,6 +71,8 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
 
         const string script = """
                               $foundryGptBootPartitionType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'
+                              # Get-Partition reports MbrType as the numeric partition ID, not the name New-Partition accepts: 11 and 12 are FAT32.
+                              $foundryMbrBootPartitionTypes = @(11, 12)
 
                               function Get-FoundryUsbDriveLetter($DriveLetter) {
                                   if ($null -eq $DriveLetter) { return $null }
@@ -121,7 +123,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                   )
                                   $hasBootVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32' }).Count -gt 0
                                   $hasGptBootPartition = @($partitions | Where-Object { [string]$_.GptType -eq $foundryGptBootPartitionType }).Count -gt 0
-                                  $hasMbrBootPartition = @($partitions | Where-Object { [string]$_.MbrType -eq 'FAT32' -and [bool]$_.IsActive }).Count -gt 0
+                                  $hasMbrBootPartition = @($partitions | Where-Object { $_.MbrType -in $foundryMbrBootPartitionTypes -and [bool]$_.IsActive }).Count -gt 0
                                   $hasCacheVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'Foundry Cache' -and $_.FileSystem -eq 'NTFS' }).Count -gt 0
 
                                   [pscustomobject]@{
@@ -809,6 +811,8 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                           {{CreateUsbDiskGuard(expectedIdentity)}}
                           $diskNumber = {{expectedIdentity.Number}}
                           $foundryGptBootPartitionType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'
+                          # Get-Partition reports MbrType as the numeric partition ID, not the name New-Partition accepts: 11 and 12 are FAT32.
+                          $foundryMbrBootPartitionTypes = @(11, 12)
 
                           function Get-FoundryUsbDriveLetter($DriveLetter) {
                               if ($null -eq $DriveLetter) { return $null }
@@ -868,7 +872,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                           else {
                               $bootPartition = @($partitions | Where-Object { [string]$_.GptType -eq $foundryGptBootPartitionType } | Select-Object -First 1)
                               if ($bootPartition.Count -eq 0) {
-                                  $bootPartition = @($partitions | Where-Object { [string]$_.MbrType -eq 'FAT32' -and [bool]$_.IsActive } | Select-Object -First 1)
+                                  $bootPartition = @($partitions | Where-Object { $_.MbrType -in $foundryMbrBootPartitionTypes -and [bool]$_.IsActive } | Select-Object -First 1)
                               }
 
                               if ($bootPartition.Count -eq 0) {
@@ -876,7 +880,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                               }
                           }
 
-                          $hasFoundryBootPartitionType = ([string]$bootPartition[0].GptType -eq $foundryGptBootPartitionType) -or ([string]$bootPartition[0].MbrType -eq 'FAT32' -and [bool]$bootPartition[0].IsActive)
+                          $hasFoundryBootPartitionType = ([string]$bootPartition[0].GptType -eq $foundryGptBootPartitionType) -or ($bootPartition[0].MbrType -in $foundryMbrBootPartitionTypes -and [bool]$bootPartition[0].IsActive)
                           if (-not $hasFoundryBootPartitionType) {
                               throw "Disk $diskNumber is not a Foundry USB media. Expected BOOT FAT32 partition."
                           }
