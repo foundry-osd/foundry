@@ -118,7 +118,7 @@ if ($null -eq $partition) {{
         if (!execution.IsSuccess)
         {
             throw new InvalidDataException(
-                $"Disk number lookup failed. ExitCode={execution.ExitCode}.");
+                PowerShellCommand.DescribeFailure("Disk number lookup failed.", execution));
         }
 
         if (string.IsNullOrWhiteSpace(execution.StandardOutput))
@@ -281,7 +281,8 @@ if ($null -eq $partition) {{
     {
         if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
         {
-            throw new InvalidDataException($"{operation} returned no data. ExitCode={execution.ExitCode}.");
+            throw new InvalidDataException(
+                PowerShellCommand.DescribeFailure($"{operation} returned no data.", execution));
         }
     }
 

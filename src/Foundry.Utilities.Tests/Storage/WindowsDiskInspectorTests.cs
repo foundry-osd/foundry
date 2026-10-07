@@ -132,6 +132,20 @@ public sealed class WindowsDiskInspectorTests
     }
 
     [Fact]
+    public async Task GetDisksAsync_WhenQueryFails_ReportsExitCodeAndErrorText()
+    {
+        var inspector = new WindowsDiskInspector((_, _) => Task.FromResult(
+            new ProcessExecutionResult { ExitCode = 255, StandardError = "Storage provider failed.\r\n" }));
+
+        InvalidDataException exception = await Assert.ThrowsAsync<InvalidDataException>(
+            () => inspector.GetDisksAsync(TestContext.Current.CancellationToken));
+
+        Assert.Equal(
+            "Disk query returned no data. ExitCode=255." + Environment.NewLine + "Storage provider failed.",
+            exception.Message);
+    }
+
+    [Fact]
     public async Task GetDisksAsync_WhenPayloadIsMalformed_ThrowsInvalidDataException()
     {
         var inspector = CreateInspector("{");
@@ -231,10 +245,14 @@ public sealed class WindowsDiskInspectorTests
                 $DriveLetter))
             """);
 
-        await Assert.ThrowsAsync<InvalidDataException>(
+        InvalidDataException exception = await Assert.ThrowsAsync<InvalidDataException>(
             () => inspector.ResolveDiskNumberForPathAsync(
                 "C:\\Foundry",
                 TestContext.Current.CancellationToken));
+
+        Assert.StartsWith("Disk number lookup failed. ExitCode=1.", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("Access denied.", exception.Message, StringComparison.Ordinal);
+        Assert.DoesNotContain("CLIXML", exception.Message, StringComparison.Ordinal);
     }
 
     [Fact]
