@@ -778,6 +778,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>이미지 작업에 실패했습니다. 원본, 사용 가능한 공간 및 Foundry 로그를 확인하세요.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>PXE 부팅에서는 사용할 수 없습니다. 사용자 지정 이미지에는 전체 ISO 또는 USB 미디어가 필요합니다.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>이 프로필에 사용 가능한 Windows 이미지를 하나 이상 포함하세요. 미디어를 만들거나 업데이트하기 전에 포함된 이미지 중 누락된 이미지를 복원하고 선호 이미지 또는 인덱스 선택을 수정하거나 지우세요.</value>
   </data>
@@ -2553,6 +2556,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell 인수</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>가져온 파일을 사용하는 작업은 PXE 부팅에서 사용할 수 없습니다. 전체 ISO 또는 USB 미디어가 필요합니다.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>작업을 제거하지 못했습니다. 다시 시도하세요.</value>

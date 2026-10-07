@@ -65,16 +65,19 @@ public class PreOobeContentResolver
         try
         {
             await RequireRuntimeSourceAsync(context, prepared.RuntimeDirectory, cancellationToken).ConfigureAwait(false);
-            string[] roots = MediaRoots();
             var settings = context.Request.PreOobe;
             var packages = ApplicableActions(context.Request).Where(action => action.Package is not null)
                 .Select(action => action.Package!).GroupBy(package => package.ContentHash, StringComparer.OrdinalIgnoreCase).Select(group => group.First()).ToArray();
-            if (settings.ManifestId is not null || settings.ManifestHash is not null)
+            // Only package actions read the external media generation. Built-in tasks and package-less actions
+            // need nothing from it, so a boot image started without its media must not be blocked.
+            if (packages.Length != 0)
             {
+                if (settings.ManifestId is null && settings.ManifestHash is null)
+                    throw new InvalidDataException("Package actions require an authenticated external media manifest.");
                 if (!Guid.TryParseExact(settings.ManifestId, "N", out _) || !PreOobePackagePathPolicy.IsValidHash(settings.ManifestHash))
                     throw new InvalidDataException("Post-installation media binding is invalid.");
                 (string Root, PreOobeMediaManifest Manifest)? media = null;
-                foreach (string root in roots)
+                foreach (string root in MediaRoots())
                 {
                     string path = Path.Combine(root, "Cache", "PreOobe", "manifests", settings.ManifestId + ".json");
                     if (!File.Exists(path)) continue;
@@ -121,7 +124,6 @@ public class PreOobeContentResolver
                     prepared.Packages.Add(new(package.ContentHash, source, item.Manifest));
                 }
             }
-            else if (packages.Length != 0) throw new InvalidDataException("Package actions require an authenticated external media manifest.");
             byte[] planInputs = JsonSerializer.SerializeToUtf8Bytes(new
             {
                 actions = ApplicableActions(context.Request).ToArray(),

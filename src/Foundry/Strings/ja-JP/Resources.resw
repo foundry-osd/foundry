@@ -778,6 +778,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>イメージの操作に失敗しました。ソース、空き容量、Foundry のログを確認してください。</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>PXE ブートでは使用できません。カスタム イメージには、完全な ISO または USB メディアが必要です。</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>このプロファイルに、利用可能な Windows イメージを少なくとも 1 つ含めてください。メディアを作成または更新する前に、含まれているイメージのうち見つからないものを復元し、優先イメージまたはインデックスの選択を修正または解除してください。</value>
   </data>
@@ -2553,6 +2556,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell の引数</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>インポートしたファイルを使用するアクションは、PXE ブートでは使用できません。完全な ISO または USB メディアが必要です。</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>アクションを削除できませんでした。もう一度お試しください。</value>

@@ -778,6 +778,9 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>การดำเนินการกับอิมเมจล้มเหลว ตรวจสอบแหล่งที่มา พื้นที่ว่าง และบันทึกของ Foundry</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE อิมเมจแบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>รวมอิมเมจ Windows ที่พร้อมใช้งานอย่างน้อยหนึ่งรายการไว้ในโปรไฟล์นี้ กู้คืนอิมเมจที่รวมไว้แต่หายไป และแก้ไขหรือล้างการเลือกอิมเมจหรือดัชนีที่ต้องการก่อนสร้างหรืออัปเดตสื่อ</value>
   </data>
@@ -2553,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>อาร์กิวเมนต์ PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>การดำเนินการที่ใช้ไฟล์ที่นำเข้าไม่พร้อมใช้งานเมื่อบูตด้วย PXE โดยต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>ไม่สามารถนำการดำเนินการออกได้ ลองอีกครั้ง</value>

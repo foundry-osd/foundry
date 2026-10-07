@@ -778,6 +778,9 @@ Licensierad under MIT-licensen.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Avbildningsåtgärden misslyckades. Kontrollera källan, det lediga utrymmet och Foundry-loggarna.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Inte tillgängligt vid PXE-start. Anpassade avbildningar kräver det fullständiga ISO- eller USB-mediet.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Inkludera minst en tillgänglig Windows-avbildning i den här profilen. Återställ saknade inkluderade avbildningar och korrigera eller rensa valet av föredragen avbildning eller index innan du skapar eller uppdaterar medier.</value>
   </data>
@@ -2553,6 +2556,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argument</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Åtgärder som använder importerade filer är inte tillgängliga vid PXE-start. De kräver det fullständiga ISO- eller USB-mediet.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Åtgärden kunde inte tas bort. Försök igen.</value>

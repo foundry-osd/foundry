@@ -778,6 +778,9 @@ Licencirano pod licenco MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Opravilo s sliko ni uspelo. Preverite vir, prosti prostor in dnevnike Foundry.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Ni na voljo pri zagonu PXE. Prilagojene slike zahtevajo celoten medij ISO ali USB.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>V ta profil vključite vsaj eno razpoložljivo sliko sistema Windows. Pred ustvarjanjem ali posodabljanjem medija obnovite manjkajoče vključene slike in popravite ali počistite izbiro prednostne slike ali indeksa.</value>
   </data>
@@ -2553,6 +2556,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumenti PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Dejanja, ki uporabljajo uvožene datoteke, niso na voljo pri zagonu PXE. Zahtevajo celoten medij ISO ali USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Dejanja ni bilo mogoče odstraniti. Poskusite znova.</value>

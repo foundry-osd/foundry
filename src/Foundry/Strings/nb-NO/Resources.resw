@@ -778,6 +778,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Avbildningsoperasjonen mislyktes. Kontroller kilden, ledig plass og Foundry-loggene.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Ikke tilgjengelig ved PXE-oppstart. Tilpassede avbildninger krever det fullstendige ISO- eller USB-mediet.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Inkluder minst én tilgjengelig Windows-avbildning i denne profilen. Gjenopprett manglende inkluderte avbildninger, og rett eller fjern valget av foretrukket avbildning eller indeks før du oppretter eller oppdaterer medier.</value>
   </data>
@@ -2553,6 +2556,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumenter</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Handlinger som bruker importerte filer, er ikke tilgjengelige ved PXE-oppstart. De krever det fullstendige ISO- eller USB-mediet.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Handlingen kunne ikke fjernes. Prøv igjen.</value>

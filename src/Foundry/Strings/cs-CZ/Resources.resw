@@ -778,6 +778,9 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operace s bitovou kopií selhala. Zkontrolujte zdroj, volné místo a protokoly Foundry.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Není k dispozici při spuštění přes PXE. Vlastní bitové kopie vyžadují úplné médium ISO nebo USB.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Zahrňte do tohoto profilu alespoň jednu dostupnou bitovou kopii Windows. Před vytvořením nebo aktualizací média obnovte chybějící zahrnuté bitové kopie a opravte nebo zrušte výběr preferované bitové kopie nebo indexu.</value>
   </data>
@@ -2553,6 +2556,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumenty PowerShellu</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Akce, které používají importované soubory, nejsou při spuštění přes PXE k dispozici. Vyžadují úplné médium ISO nebo USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Akci se nepodařilo odebrat. Zkuste to znovu.</value>

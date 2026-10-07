@@ -778,6 +778,9 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operația asupra imaginii a eșuat. Verificați sursa, spațiul disponibil și jurnalele Foundry.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Indisponibil la pornirea prin PXE. Imaginile personalizate necesită mediul ISO sau USB complet.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Includeți cel puțin o imagine Windows disponibilă în acest profil. Restabiliți imaginile incluse care lipsesc și corectați sau ștergeți selecția imaginii sau a indexului preferat înainte de a crea sau de a actualiza mediul.</value>
   </data>
@@ -2553,6 +2556,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumente PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Acțiunile care folosesc fișiere importate nu sunt disponibile la pornirea prin PXE. Acestea necesită mediul ISO sau USB complet.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Acțiunea nu a putut fi eliminată. Încercați din nou.</value>

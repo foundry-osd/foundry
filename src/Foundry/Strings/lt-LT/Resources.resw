@@ -778,6 +778,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Atvaizdo operacija nepavyko. Patikrinkite šaltinį, laisvą vietą ir Foundry žurnalus.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Nepasiekiama paleidžiant per PXE. Pasirinktiniams atvaizdams reikia visos ISO arba USB laikmenos.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Įtraukite į šį profilį bent vieną pasiekiamą „Windows“ atvaizdą. Prieš kurdami arba atnaujindami laikmeną atkurkite trūkstamus įtrauktus atvaizdus ir pataisykite arba išvalykite pageidaujamo atvaizdo ar indekso pasirinkimą.</value>
   </data>
@@ -2553,6 +2556,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumentai</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Veiksmai, naudojantys importuotus failus, nepasiekiami paleidžiant per PXE. Jiems reikia visos ISO arba USB laikmenos.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Nepavyko pašalinti veiksmo. Bandykite dar kartą.</value>

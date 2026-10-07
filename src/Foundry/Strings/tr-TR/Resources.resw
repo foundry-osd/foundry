@@ -778,6 +778,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Görüntü işlemi başarısız oldu. Kaynağı, kullanılabilir alanı ve Foundry günlüklerini kontrol edin.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>PXE önyüklemesiyle kullanılamaz. Özel görüntüler tam ISO veya USB medyasını gerektirir.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Bu profile en az bir kullanılabilir Windows görüntüsü dahil edin. Medya oluşturmadan veya güncellemeden önce dahil edilen eksik görüntüleri geri yükleyin ve tercih edilen görüntü veya dizin seçimini düzeltin ya da temizleyin.</value>
   </data>
@@ -2553,6 +2556,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell bağımsız değişkenleri</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>İçeri aktarılan dosyaları kullanan eylemler PXE önyüklemesiyle kullanılamaz. Bunlar tam ISO veya USB medyasını gerektirir.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Eylem kaldırılamadı. Yeniden deneyin.</value>

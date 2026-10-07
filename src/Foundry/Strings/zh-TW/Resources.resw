@@ -778,6 +778,9 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>映像作業失敗。請檢查來源、可用空間與 Foundry 記錄。</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>使用 PXE 開機時無法使用。自訂映像需要完整的 ISO 或 USB 媒體。</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>請在此設定檔中包含至少一個可用的 Windows 映像。在建立或更新媒體之前，請還原已包含但遺失的映像，並修正或清除慣用映像或索引的選取項目。</value>
   </data>
@@ -2553,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell 引數</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>使用匯入檔案的動作在 PXE 開機時無法使用。它們需要完整的 ISO 或 USB 媒體。</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>無法移除該動作。請再試一次。</value>

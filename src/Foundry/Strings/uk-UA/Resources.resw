@@ -778,6 +778,9 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Не вдалося виконати операцію з образом. Перевірте джерело, вільне місце та журнали Foundry.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Недоступно під час завантаження через PXE. Користувацьким образам потрібен повний носій ISO або USB.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включіть до цього профілю принаймні один доступний образ Windows. Відновіть відсутні включені образи та виправте або скиньте вибір бажаного образу чи індексу перед створенням або оновленням носія.</value>
   </data>
@@ -2553,6 +2556,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Аргументи PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Дії, що використовують імпортовані файли, недоступні під час завантаження через PXE. Їм потрібен повний носій ISO або USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Не вдалося видалити дію. Спробуйте ще раз.</value>

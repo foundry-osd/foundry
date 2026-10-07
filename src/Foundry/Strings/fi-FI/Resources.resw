@@ -778,6 +778,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Näköistiedostotoiminto epäonnistui. Tarkista lähde, vapaa tila ja Foundry-lokit.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Ei käytettävissä PXE-käynnistyksessä. Mukautetut näköistiedostot edellyttävät täydellistä ISO- tai USB-tietovälinettä.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Sisällytä tähän profiiliin vähintään yksi käytettävissä oleva Windows-näköistiedosto. Palauta puuttuvat sisällytetyt näköistiedostot ja korjaa tai poista ensisijaisen näköistiedoston tai indeksin valinta ennen tietovälineen luomista tai päivittämistä.</value>
   </data>
@@ -2553,6 +2556,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumentit</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Tuotuja tiedostoja käyttävät toiminnot eivät ole käytettävissä PXE-käynnistyksessä. Ne edellyttävät täydellistä ISO- tai USB-tietovälinettä.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Toimintoa ei voitu poistaa. Yritä uudelleen.</value>

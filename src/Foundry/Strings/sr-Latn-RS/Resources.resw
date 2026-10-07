@@ -778,6 +778,9 @@ Licencirano pod MIT licencom.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operacija sa slikom nije uspela. Proverite izvor, slobodan prostor i Foundry evidencije.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Nije dostupno uz PXE pokretanje. Prilagođene slike zahtevaju ceo ISO ili USB medij.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Uključite bar jednu dostupnu Windows sliku u ovaj profil. Vratite uključene slike koje nedostaju i ispravite ili obrišite izbor željene slike ili indeksa pre kreiranja ili ažuriranja medija.</value>
   </data>
@@ -2553,6 +2556,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumenti</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Radnje koje koriste uvezene datoteke nisu dostupne uz PXE pokretanje. Zahtevaju ceo ISO ili USB medij.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Radnju nije moguće ukloniti. Pokušajte ponovo.</value>

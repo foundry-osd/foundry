@@ -778,6 +778,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operazione sull’immagine non riuscita. Controlla l’origine, lo spazio disponibile e i registri di Foundry.</value>
   </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Non disponibile con l’avvio PXE. Le immagini personalizzate richiedono il supporto ISO o USB completo.</value>
+  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Includi almeno un’immagine Windows disponibile in questo profilo. Ripristina le immagini incluse mancanti e correggi o cancella la selezione dell’immagine o dell’indice preferito prima di creare o aggiornare i supporti.</value>
   </data>
@@ -2553,6 +2556,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argomenti PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Le azioni che usano file importati non sono disponibili con l’avvio PXE. Richiedono il supporto ISO o USB completo.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Impossibile rimuovere l'azione. Riprovare.</value>

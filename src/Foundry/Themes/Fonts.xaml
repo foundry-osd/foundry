@@ -21,4 +21,11 @@
             Property="Foreground"
             Value="{ThemeResource TextFillColorSecondaryBrush}" />
     </Style>
+    <Style x:Key="FoundryCriticalBodyTextBlockStyle"
+        BasedOn="{StaticResource FoundryBodyTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="Foreground"
+            Value="{ThemeResource SystemFillColorCriticalBrush}" />
+    </Style>
 </ResourceDictionary>
