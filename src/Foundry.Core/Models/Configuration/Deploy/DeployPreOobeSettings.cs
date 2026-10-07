@@ -4,7 +4,7 @@
 
 namespace Foundry.Core.Models.Configuration.Deploy;
 
-/// <summary>Carries custom actions and binds their packages to an external media generation. The binding is consulted only when an enabled action uses a package; media publication supplies the digest.</summary>
+/// <summary>Carries custom actions and binds their packages to an external media generation. Deploy consults the binding only when an enabled action uses a package; media publication supplies the digest.</summary>
 public sealed record DeployPreOobeSettings
 {
     public bool IsEnabled { get; init; }

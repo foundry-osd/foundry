@@ -68,8 +68,8 @@ public class PreOobeContentResolver
             var settings = context.Request.PreOobe;
             var packages = ApplicableActions(context.Request).Where(action => action.Package is not null)
                 .Select(action => action.Package!).GroupBy(package => package.ContentHash, StringComparer.OrdinalIgnoreCase).Select(group => group.First()).ToArray();
-            // Only package actions consume the external media generation. Built-in tasks and package-less actions
-            // run from the boot configuration alone, so a boot image started without its media must not be blocked.
+            // Only package actions read the external media generation. Built-in tasks and package-less actions
+            // need nothing from it, so a boot image started without its media must not be blocked.
             if (packages.Length != 0)
             {
                 if (settings.ManifestId is null && settings.ManifestHash is null)

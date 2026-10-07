@@ -30,7 +30,7 @@ public sealed class StagePreOobeCustomizationStepTests
         using var temp = new TemporaryDirectory();
         using var recovery = new PostInstallRuntimeRecoveryTests.Fixture();
         using var context = CreateContext(temp, licenseChannel: "RET");
-        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = null, RuntimeRecovery = recovery.Recovery, MediaRoots = () => [] };
+        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = null, RuntimeRecovery = recovery.Recovery };
         using var prepared = await resolver.PrepareAsync(context, TestContext.Current.CancellationToken);
         Assert.NotNull(prepared);
         Assert.Equal(2, recovery.Requests.Count);
@@ -53,7 +53,8 @@ public sealed class StagePreOobeCustomizationStepTests
     [InlineData("builtin_task")]
     [InlineData("inline_command")]
     [InlineData("disabled_package")]
-    public async Task BoundMediaGeneration_IsNotRequiredWithoutPackageActions(string scenario)
+    [InlineData("malformed_binding")]
+    public async Task BoundMediaGeneration_IsNotConsultedWithoutPackageActions(string scenario)
     {
         using var temp = new TemporaryDirectory();
         CoreConfiguration.PreOobeActionSettings[] actions = scenario switch
@@ -63,8 +64,17 @@ public sealed class StagePreOobeCustomizationStepTests
             _ => []
         };
         using var context = CreateContext(temp, licenseChannel: scenario == "inline_command" ? "" : "RET", postInstall: new()
-        { IsEnabled = actions.Length != 0, Actions = actions, ManifestId = Guid.NewGuid().ToString("N"), ManifestHash = new string('a', 64) });
-        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(temp.RootPath), MediaRoots = () => [] };
+        {
+            IsEnabled = actions.Length != 0,
+            Actions = actions,
+            ManifestId = scenario == "malformed_binding" ? "not-a-guid" : Guid.NewGuid().ToString("N"),
+            ManifestHash = scenario == "malformed_binding" ? "damaged" : new string('a', 64)
+        });
+        var resolver = new PreOobeContentResolver
+        {
+            RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(temp.RootPath),
+            MediaRoots = () => throw new InvalidOperationException("External media must not be enumerated without package actions.")
+        };
 
         using var prepared = await resolver.PrepareAsync(context, TestContext.Current.CancellationToken);
 
