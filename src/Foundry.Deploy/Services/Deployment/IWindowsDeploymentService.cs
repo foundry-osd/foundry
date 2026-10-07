@@ -37,15 +37,16 @@ public interface IWindowsDeploymentService
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Applies a Windows image to the target Windows partition.
+    /// Applies a Windows image to the target Windows partition. Ordinary WIM files are applied through WIMGAPI;
+    /// every other container is applied through dism.exe.
     /// </summary>
     /// <param name="imagePath">Path to the WIM or ESD image.</param>
     /// <param name="imageIndex">Image index to apply.</param>
     /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
-    /// <param name="scratchDirectory">DISM scratch directory used during image apply.</param>
+    /// <param name="scratchDirectory">Scratch directory used by the imaging backend during image apply.</param>
     /// <param name="workingDirectory">Directory used for temporary scripts and command output.</param>
     /// <param name="cancellationToken">Token that cancels image application.</param>
-    /// <param name="progress">Optional progress sink for DISM percentage updates.</param>
+    /// <param name="progress">Optional progress sink for percentage updates.</param>
     /// <returns>A task that completes after the image is applied.</returns>
     Task ApplyImageAsync(
         string imagePath,
@@ -125,7 +126,7 @@ public interface IWindowsDeploymentService
     /// <param name="sourceExtractionDirectory">Directory used to extract setup-media sources.</param>
     /// <param name="workingDirectory">Directory used for temporary command output.</param>
     /// <param name="cancellationToken">Token that cancels optional feature servicing.</param>
-    /// <param name="progress">Optional progress sink for DISM percentage updates.</param>
+    /// <param name="progress">Optional progress sink reporting the share of feature changes completed.</param>
     /// <param name="onInspectionStarted">Optional callback invoked before feature-state inspection.</param>
     /// <param name="onSourcePreparationStarted">Optional callback invoked before setup-media extraction.</param>
     /// <param name="onServicingStarted">Optional callback invoked before feature servicing.</param>
@@ -174,14 +175,15 @@ public interface IWindowsDeploymentService
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Injects INF drivers into the offline Windows image.
+    /// Injects INF drivers into the offline Windows image. INF files that DISM rejects are logged and skipped; the
+    /// operation fails only when no INF could be added.
     /// </summary>
     /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
     /// <param name="driverRoot">Root directory containing extracted INF drivers.</param>
     /// <param name="scratchDirectory">DISM scratch directory used during driver injection.</param>
     /// <param name="workingDirectory">Directory used for temporary scripts and command output.</param>
     /// <param name="cancellationToken">Token that cancels driver injection.</param>
-    /// <param name="progress">Optional progress sink for DISM percentage updates.</param>
+    /// <param name="progress">Optional progress sink reporting the share of INF files processed.</param>
     /// <returns>A task that completes after offline drivers are applied.</returns>
     Task ApplyOfflineDriversAsync(
         string windowsPartitionRoot,

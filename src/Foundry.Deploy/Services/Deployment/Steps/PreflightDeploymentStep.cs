@@ -18,7 +18,8 @@ public sealed class PreflightDeploymentStep(
     IDeploymentStorageService storageService,
     IImageSourceProbe sourceProbe,
     Foundry.Core.Services.Images.ICustomImageMetadataReader? customMetadataReader = null,
-    PreOobe.PreOobeContentResolver? postInstallResolver = null) : DeploymentStepBase
+    PreOobe.PreOobeContentResolver? postInstallResolver = null,
+    IWindowsNativeDeploymentService? nativeService = null) : DeploymentStepBase
 {
     public override string Name => DeploymentStepNames.PreflightDeployment;
 
@@ -29,6 +30,15 @@ public sealed class PreflightDeploymentStep(
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
+            if (nativeService is not null)
+            {
+                string sourcePath = context.Request.OperatingSystem is CustomImageSelection customSource
+                    ? customSource.Asset.ImagePath
+                    : DeploymentStepExecutionContext.ResolveFileName(context.Request.OperatingSystem.FileName,
+                        (context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty);
+                await nativeService.EnsureAvailableAsync(Path.GetExtension(sourcePath).Equals(".wim", StringComparison.OrdinalIgnoreCase),
+                    context.ResolveWorkspaceTempPath("NativeReadiness"), cancellationToken).ConfigureAwait(false);
+            }
             context.PostInstallContent?.Dispose();
             try
             {

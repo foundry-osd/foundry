@@ -102,11 +102,12 @@ public sealed class WindowsDeploymentServiceTests
     }
 
     [Fact]
-    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenDisabled_DoesNotRunDism()
+    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenDisabled_DoesNotServiceImage()
     {
         using var workspace = new TemporaryWorkspace();
         var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+        var nativeService = new RecordingNativeDeploymentService();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader(), nativeService: nativeService);
 
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             Path.Combine(workspace.RootPath, "setup.esd"),
@@ -120,26 +121,31 @@ public sealed class WindowsDeploymentServiceTests
 
         Assert.Equal(0, result.RequestedActionCount);
         Assert.Empty(processRunner.Calls);
+        Assert.Empty(nativeService.Calls);
     }
 
     [Fact]
-    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_OrdersChangesAndUsesOfflineArguments()
+    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_OrdersNativeDisablesAfterCliEnables()
     {
         using var workspace = new TemporaryWorkspace();
         int inspectionCount = 0;
+        List<string> servicingCalls = [];
+        var nativeService = new RecordingNativeDeploymentService
+        {
+            ReadFeatures = () => ++inspectionCount == 1
+                ? FeatureStates(("Microsoft-Hyper-V-All", OfflineWindowsFeatureState.Disabled), ("Microsoft-Hyper-V", OfflineWindowsFeatureState.Disabled), ("TelnetClient", OfflineWindowsFeatureState.Enabled))
+                : FeatureStates(("Microsoft-Hyper-V-All", OfflineWindowsFeatureState.Enabled), ("Microsoft-Hyper-V", OfflineWindowsFeatureState.EnablePending), ("TelnetClient", OfflineWindowsFeatureState.DisablePending)),
+            OnDisable = featureName => servicingCalls.Add($"disable:{featureName}")
+        };
         var processRunner = new RecordingProcessRunner
         {
-            ResultFactory = arguments => arguments.Contains("/Get-Features", StringComparison.OrdinalIgnoreCase)
-                ? new ProcessExecutionResult
-                {
-                    ExitCode = 0,
-                    StandardOutput = ++inspectionCount == 1
-                        ? "Microsoft-Hyper-V-All | Disabled\nMicrosoft-Hyper-V | Disabled\nTelnetClient | Enabled"
-                        : "Microsoft-Hyper-V-All | Enabled\nMicrosoft-Hyper-V | Enable Pending\nTelnetClient | Disable Pending"
-                }
-                : new ProcessExecutionResult { ExitCode = 0 }
+            ResultFactory = arguments =>
+            {
+                servicingCalls.Add(arguments);
+                return new ProcessExecutionResult { ExitCode = 0 };
+            }
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader(), nativeService: nativeService);
 
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             Path.Combine(workspace.RootPath, "setup.esd"),
@@ -163,29 +169,29 @@ public sealed class WindowsDeploymentServiceTests
         Assert.Equal(3, result.RequestedActionCount);
         Assert.Equal(3, result.ChangedActionCount);
         Assert.Equal(0, result.AlreadySatisfiedActionCount);
-        string[] servicingCalls = processRunner.Calls
-            .Where(call =>
-                call.Contains("/Enable-Feature", StringComparison.OrdinalIgnoreCase) ||
-                call.Contains("/Disable-Feature", StringComparison.OrdinalIgnoreCase))
-            .ToArray();
+        Assert.Equal(3, servicingCalls.Count);
         Assert.Contains("/FeatureName:Microsoft-Hyper-V-All", servicingCalls[0], StringComparison.Ordinal);
         Assert.Contains("/FeatureName:Microsoft-Hyper-V", servicingCalls[1], StringComparison.Ordinal);
-        Assert.Contains("/FeatureName:TelnetClient", servicingCalls[2], StringComparison.Ordinal);
+        Assert.Equal("disable:TelnetClient", servicingCalls[2]);
         Assert.Contains("/LimitAccess", servicingCalls[0], StringComparison.Ordinal);
         Assert.Contains("/LimitAccess", servicingCalls[1], StringComparison.Ordinal);
-        Assert.DoesNotContain("/LimitAccess", servicingCalls[2], StringComparison.Ordinal);
-        Assert.DoesNotContain("/Remove", servicingCalls[2], StringComparison.Ordinal);
+        Assert.Contains("/All", servicingCalls[0], StringComparison.Ordinal);
+        Assert.Contains("/NoRestart", servicingCalls[0], StringComparison.Ordinal);
+        Assert.Contains($"/Image:{workspace.RootPath}", servicingCalls[0], StringComparison.Ordinal);
+        Assert.DoesNotContain(processRunner.Calls, call => call.Contains("/Disable-Feature", StringComparison.OrdinalIgnoreCase));
+        Assert.Equal(2, inspectionCount);
     }
 
     [Fact]
     public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_TracksAbsentEnableAndMissingDisable()
     {
         using var workspace = new TemporaryWorkspace();
-        var processRunner = new RecordingProcessRunner
+        var processRunner = new RecordingProcessRunner();
+        var nativeService = new RecordingNativeDeploymentService
         {
-            Result = new ProcessExecutionResult { ExitCode = 0, StandardOutput = "NetFx4-AdvSrvs | Enabled" }
+            ReadFeatures = () => FeatureStates(("NetFx4-AdvSrvs", OfflineWindowsFeatureState.Enabled))
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader(), nativeService: nativeService);
 
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             Path.Combine(workspace.RootPath, "setup.esd"),
@@ -209,21 +215,57 @@ public sealed class WindowsDeploymentServiceTests
         Assert.Equal(2, result.AlreadySatisfiedActionCount);
         Assert.Equal(["wf:recall"], result.UnavailableEnableActionIds);
         Assert.Equal(0, result.ChangedActionCount);
+        Assert.Empty(processRunner.Calls);
+        Assert.DoesNotContain(nativeService.Calls, call => call.StartsWith("disable:", StringComparison.Ordinal));
     }
 
     [Fact]
-    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenDismOutputCannotBeParsed_FailsClosed()
+    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenDisablingParentAndChild_DisablesChildFirst()
     {
         using var workspace = new TemporaryWorkspace();
-        var processRunner = new RecordingProcessRunner
+        int inspectionCount = 0;
+        var nativeService = new RecordingNativeDeploymentService
         {
-            Result = new ProcessExecutionResult
-            {
-                ExitCode = 0,
-                StandardOutput = "Feature Name State"
-            }
+            ReadFeatures = () => ++inspectionCount == 1
+                ? FeatureStates(("Microsoft-Hyper-V-All", OfflineWindowsFeatureState.Enabled), ("Microsoft-Hyper-V", OfflineWindowsFeatureState.Enabled))
+                : FeatureStates(("Microsoft-Hyper-V-All", OfflineWindowsFeatureState.DisablePending), ("Microsoft-Hyper-V", OfflineWindowsFeatureState.Disabled))
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader(), nativeService: nativeService);
+
+        WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
+            Path.Combine(workspace.RootPath, "setup.wim"),
+            workspace.RootPath,
+            1,
+            new DeployWindowsOptionalFeatureSettings
+            {
+                IsEnabled = true,
+                Actions =
+                [
+                    new() { Id = "wf:microsoft-hyper-v-all", Enable = false },
+                    new() { Id = "wf:microsoft-hyper-v", Enable = false }
+                ]
+            },
+            Path.Combine(workspace.RootPath, "Temp", "Dism", "OptionalFeatures"),
+            Path.Combine(workspace.RootPath, "Temp", "WindowsSetupMedia"),
+            Path.Combine(workspace.RootPath, "Temp", "Deployment"),
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(2, result.ChangedActionCount);
+        Assert.Equal(["disable:Microsoft-Hyper-V", "disable:Microsoft-Hyper-V-All"], nativeService.Calls.Where(call => call.StartsWith("disable:", StringComparison.Ordinal)));
+        Assert.Empty(processRunner.Calls);
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenFinalStateIsUnsatisfied_FailsVerification()
+    {
+        using var workspace = new TemporaryWorkspace();
+        var processRunner = new RecordingProcessRunner();
+        var nativeService = new RecordingNativeDeploymentService
+        {
+            ReadFeatures = () => FeatureStates(("TelnetClient", OfflineWindowsFeatureState.Disabled))
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader(), nativeService: nativeService);
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
@@ -240,19 +282,17 @@ public sealed class WindowsDeploymentServiceTests
                 Path.Combine(workspace.RootPath, "Temp", "Deployment"),
                 TestContext.Current.CancellationToken));
 
-        Assert.Contains("parse", exception.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain(processRunner.Calls, call => call.Contains("/Enable-Feature", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains("verification", exception.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains(processRunner.Calls, call => call.Contains("/Enable-Feature", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
     public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenCleanupBoundaryIsDriveRoot_RejectsInput()
     {
         using var workspace = new TemporaryWorkspace();
-        var processRunner = new RecordingProcessRunner
-        {
-            Result = new ProcessExecutionResult { ExitCode = 0, StandardOutput = "TelnetClient | Enabled" }
-        };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+        var processRunner = new RecordingProcessRunner();
+        var nativeService = new RecordingNativeDeploymentService();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader(), nativeService: nativeService);
         string windowsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
 
         await Assert.ThrowsAsync<ArgumentException>(() =>
@@ -271,48 +311,50 @@ public sealed class WindowsDeploymentServiceTests
                 TestContext.Current.CancellationToken));
 
         Assert.Empty(processRunner.Calls);
+        Assert.Empty(nativeService.Calls);
     }
 
-    [Fact]
-    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenSourceIsRequired_UsesAppliedImageMetadata()
+    [Theory]
+    [InlineData(".esd")]
+    [InlineData(".wim")]
+    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenSourceIsRequired_UsesAppliedImageMetadata(string extension)
     {
         using var workspace = new TemporaryWorkspace();
-        string imagePath = Path.Combine(workspace.RootPath, "setup.esd");
+        string imagePath = Path.Combine(workspace.RootPath, $"setup{extension}");
         await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
         string scratchDirectory = Path.Combine(workspace.RootPath, "Temp", "Dism", "OptionalFeatures");
         string sourceDirectory = Path.Combine(workspace.RootPath, "Temp", "WindowsSetupMedia");
         int inspectionCount = 0;
         bool applyDirectoryExisted = false;
+        var nativeService = new RecordingNativeDeploymentService
+        {
+            ReadFeatures = () => FeatureStates(("NetFx3", ++inspectionCount == 1 ? OfflineWindowsFeatureState.PayloadRemoved : OfflineWindowsFeatureState.Enabled)),
+            OnApplyWim = (_, _) => PrepareSource()
+        };
+        void PrepareSource()
+        {
+            applyDirectoryExisted = Directory.Exists(sourceDirectory);
+            string sxsDirectory = Path.Combine(sourceDirectory, "sources", "sxs");
+            Directory.CreateDirectory(sxsDirectory);
+            File.WriteAllText(
+                Path.Combine(sxsDirectory, "microsoft-windows-netfx3-ondemand-package~31bf3856ad364e35~amd64~~.cab"),
+                string.Empty);
+        }
+
         var processRunner = new RecordingProcessRunner
         {
             ResultFactory = arguments =>
             {
-                if (arguments.Contains("/Get-Features", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = ++inspectionCount == 1
-                            ? "NetFx3 | Disabled with Payload Removed"
-                            : "NetFx3 | Enabled"
-                    };
-                }
-
                 if (arguments.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase))
                 {
-                    applyDirectoryExisted = Directory.Exists(sourceDirectory);
-                    string sxsDirectory = Path.Combine(sourceDirectory, "sources", "sxs");
-                    Directory.CreateDirectory(sxsDirectory);
-                    File.WriteAllText(
-                        Path.Combine(sxsDirectory, "microsoft-windows-netfx3-ondemand-package~31bf3856ad364e35~amd64~~.cab"),
-                        string.Empty);
+                    PrepareSource();
                 }
 
                 return new ProcessExecutionResult { ExitCode = 0 };
             }
         };
         var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance,
-            new StubWindowsImageInfoReader(Image(3, "", 277641908, "Windows Setup Media", "unknown"), Image(9, "Enterprise")));
+            new StubWindowsImageInfoReader(Image(3, "", 277641908, "Windows Setup Media", "unknown"), Image(9, "Enterprise")), nativeService: nativeService);
 
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             imagePath,
@@ -330,7 +372,15 @@ public sealed class WindowsDeploymentServiceTests
 
         Assert.True(result.MatchingSourceUsed);
         Assert.True(applyDirectoryExisted);
-        Assert.Contains(processRunner.Calls, call => call.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase) && call.Contains("/Index:3", StringComparison.OrdinalIgnoreCase));
+        if (extension == ".esd")
+        {
+            Assert.Contains(processRunner.Calls, call => call.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase) && call.Contains("/Index:3", StringComparison.OrdinalIgnoreCase));
+        }
+        else
+        {
+            Assert.Contains("wim:3", nativeService.Calls);
+            Assert.DoesNotContain(processRunner.Calls, call => call.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase));
+        }
         Assert.Contains(processRunner.Calls, call => call.Contains("/Enable-Feature", StringComparison.OrdinalIgnoreCase) && call.Contains($"/Source:{Path.Combine(sourceDirectory, "sources", "sxs")}", StringComparison.OrdinalIgnoreCase));
         Assert.False(Directory.Exists(scratchDirectory));
         Assert.False(Directory.Exists(sourceDirectory));
@@ -343,19 +393,14 @@ public sealed class WindowsDeploymentServiceTests
         string imagePath = Path.Combine(workspace.RootPath, "setup.esd");
         await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
         string sourceDirectory = Path.Combine(workspace.RootPath, "Temp", "WindowsSetupMedia");
+        var nativeService = new RecordingNativeDeploymentService
+        {
+            ReadFeatures = () => FeatureStates(("NetFx3", OfflineWindowsFeatureState.PayloadRemoved))
+        };
         var processRunner = new RecordingProcessRunner
         {
             ResultFactory = arguments =>
             {
-                if (arguments.Contains("/Get-Features", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = "NetFx3 | Disabled with Payload Removed"
-                    };
-                }
-
                 if (arguments.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase))
                 {
                     string sxsDirectory = Path.Combine(sourceDirectory, "sources", "sxs");
@@ -369,7 +414,7 @@ public sealed class WindowsDeploymentServiceTests
             }
         };
         var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance,
-            new StubWindowsImageInfoReader(Image(3, "", 277641908, "Windows Setup Media", "unknown"), Image(9, "Enterprise", architecture: "arm64")));
+            new StubWindowsImageInfoReader(Image(3, "", 277641908, "Windows Setup Media", "unknown"), Image(9, "Enterprise", architecture: "arm64")), nativeService: nativeService);
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
@@ -394,11 +439,12 @@ public sealed class WindowsDeploymentServiceTests
     public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenNonSourcePayloadIsRemoved_FailsBeforeServicing()
     {
         using var workspace = new TemporaryWorkspace();
-        var processRunner = new RecordingProcessRunner
+        var processRunner = new RecordingProcessRunner();
+        var nativeService = new RecordingNativeDeploymentService
         {
-            Result = new ProcessExecutionResult { ExitCode = 0, StandardOutput = "TelnetClient | Disabled with Payload Removed" }
+            ReadFeatures = () => FeatureStates(("TelnetClient", OfflineWindowsFeatureState.PayloadRemoved))
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader(), nativeService: nativeService);
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
@@ -424,7 +470,8 @@ public sealed class WindowsDeploymentServiceTests
     {
         using var workspace = new TemporaryWorkspace();
         var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+        var nativeService = new RecordingNativeDeploymentService();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader(), nativeService: nativeService);
 
         await Assert.ThrowsAsync<InvalidOperationException>(() =>
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
@@ -446,6 +493,7 @@ public sealed class WindowsDeploymentServiceTests
                 TestContext.Current.CancellationToken));
 
         Assert.Empty(processRunner.Calls);
+        Assert.Empty(nativeService.Calls);
     }
 
     [Theory]
@@ -1052,6 +1100,9 @@ public sealed class WindowsDeploymentServiceTests
 
         Assert.Empty(processRunner.Calls);
     }
+
+    private static IReadOnlyDictionary<string, OfflineWindowsFeatureState> FeatureStates(params (string Name, OfflineWindowsFeatureState State)[] features)
+        => features.ToDictionary(feature => feature.Name, feature => feature.State, StringComparer.OrdinalIgnoreCase);
 
     private static string CreateWindowsRoot(TemporaryWorkspace workspace)
     {

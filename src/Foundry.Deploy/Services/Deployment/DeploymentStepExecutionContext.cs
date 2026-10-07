@@ -418,6 +418,16 @@ public sealed class DeploymentStepExecutionContext : IDisposable
             string? startupDirectory = Path.GetDirectoryName(FoundryDeployLogging.CurrentLogFilePath);
             await CopyDiagnosticTreeAsync(Path.Combine(previousSession.RootPath, "State"), Path.Combine(rebound.RootPath, "State"), persisted, cancellationToken).ConfigureAwait(false);
             await CopyLogTreeAsync(Path.Combine(previousSession.RootPath, "Logs"), rebound, persisted, cancellationToken).ConfigureAwait(false);
+            // Native servicing owns target staging logs even when an earlier log-session handoff failed.
+            if (!string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot) &&
+                !string.IsNullOrWhiteSpace(RuntimeState.TargetWindowsPartitionRoot) &&
+                Path.GetFullPath(RuntimeState.TargetFoundryRoot).Equals(
+                    Path.GetFullPath(Path.Combine(RuntimeState.TargetWindowsPartitionRoot, "Foundry")), StringComparison.OrdinalIgnoreCase) &&
+                !Path.GetFullPath(RuntimeState.TargetFoundryRoot).Equals(Path.GetFullPath(previousSession.RootPath), StringComparison.OrdinalIgnoreCase))
+            {
+                await CopyDiagnosticTreeAsync(Native.NativeLogLayout.GetDirectory(RuntimeState.TargetFoundryRoot),
+                    Native.NativeLogLayout.GetDirectory(rebound.RootPath), persisted, cancellationToken).ConfigureAwait(false);
+            }
             await CopyBootstrapDiagnosticsAsync(previousSession, rebound, startupDirectory, persisted, cancellationToken).ConfigureAwait(false);
             if (!string.IsNullOrWhiteSpace(startupDirectory) && Directory.Exists(startupDirectory) &&
                 !Path.GetFullPath(startupDirectory).Equals(Path.GetFullPath(previousSession.LogsDirectoryPath), StringComparison.OrdinalIgnoreCase))

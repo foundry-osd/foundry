@@ -30,8 +30,7 @@ internal sealed class DismProgressReporter
 
     public void HandleOutput(string line)
     {
-        if (!PercentageProgressParser.TryParse(line, out double percent) &&
-            !OrdinalProgressParser.TryParse(line, out percent))
+        if (!PercentageProgressParser.TryParse(line, out double percent))
         {
             return;
         }
