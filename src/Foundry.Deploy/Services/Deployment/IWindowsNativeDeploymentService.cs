@@ -31,9 +31,6 @@ public interface IWindowsNativeDeploymentService
     /// <summary>Checks registrations before deleting mount contents; inventory failures never imply an absent mount.</summary>
     Task<bool> IsMountedAsync(string mountPath, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default);
 
-    /// <summary>
-    /// Applies an ordinary WIM with archive integrity checking and stops at the next callback when canceled. Other
-    /// containers are handled explicitly by the caller.
-    /// </summary>
+    /// <summary>Applies an ordinary WIM with archive integrity checking. Other containers are handled explicitly by the caller.</summary>
     Task ApplyWimAsync(string imagePath, int imageIndex, string windowsRoot, string scratchDirectory, string workingDirectory, IProgress<double>? progress, CancellationToken cancellationToken = default);
 }

@@ -31,11 +31,6 @@ internal sealed record NativeWorkerRequest
     public int ImageIndex { get; init; } = 1;
     public string? LogFilePath { get; init; }
     public bool Commit { get; init; }
-    /// <summary>
-    /// Names the parent's manual-reset event. When signaled, image application, driver injection and mounting stop at
-    /// their next safe point; inventories, feature changes and unmounts always run to completion.
-    /// </summary>
-    public string? CancelEventName { get; init; }
 }
 
 /// <summary>A feature returned from the typed DISM inventory.</summary>
@@ -70,12 +65,6 @@ internal sealed record NativeWorkerMessage
 internal sealed class NativeOperationException(string function, int errorCode, string message, Exception? innerException = null)
     : Exception(message, innerException)
 {
-    /// <summary>ERROR_REQUEST_ABORTED, the Win32 status WIMGAPI reports after a callback aborts an image.</summary>
-    internal const int RequestAborted = 1235;
-
-    /// <summary>ERROR_REQUEST_ABORTED mapped to an HRESULT for DISM operations stopped by the parent.</summary>
-    internal const int RequestAbortedResult = unchecked((int)0x800704D3);
-
     public string Function { get; } = function;
     public int ErrorCode { get; } = errorCode;
     public List<string> CleanupErrors { get; } = [];

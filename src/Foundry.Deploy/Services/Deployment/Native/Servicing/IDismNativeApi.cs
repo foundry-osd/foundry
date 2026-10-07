@@ -29,11 +29,8 @@ internal interface IDismNativeApi
     int DisableFeature(uint session, string featureName, bool removePayload, DismProgressCallback progress);
     /// <summary>Adds one signed INF synchronously; this API has no callback or cancellation event.</summary>
     int AddDriver(uint session, string driverPath, bool forceUnsigned);
-    /// <summary>
-    /// Mounts the selected local WIM index using explicit SDK flags. A signaled cancel event leaves the image state
-    /// unknown, so the caller must inspect the registration and discard it.
-    /// </summary>
-    int MountImage(string imagePath, uint imageIndex, string mountPath, uint flags, IntPtr cancelEvent, DismProgressCallback progress);
+    /// <summary>Mounts the selected local WIM index using explicit SDK flags.</summary>
+    int MountImage(string imagePath, uint imageIndex, string mountPath, uint flags, DismProgressCallback progress);
     /// <summary>Commits or discards an owned mount after all servicing sessions have closed.</summary>
     int UnmountImage(string mountPath, uint flags, DismProgressCallback progress);
     /// <summary>Returns registrations including invalid or remount-needed images in an owned native array.</summary>

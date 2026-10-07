@@ -151,30 +151,6 @@ public sealed class NativeWimOperationsTests
         finally { Marshal.FreeHGlobal(failedPath); }
     }
 
-    [Fact]
-    public void Apply_CancellationAbortsFromTheCallbackAndReleasesResources()
-    {
-        using var cancellation = new ManualResetEvent(false);
-        var messages = new List<NativeWorkerMessage>();
-        var api = new FakeWimApi
-        {
-            FailAt = "apply",
-            DuringApply = callback =>
-            {
-                Assert.Equal(0u, callback(0x9478, 10, 0, 0));
-                cancellation.Set();
-                Assert.Equal(0xFFFFFFFFu, callback(0x9478, 20, 0, 0));
-            }
-        };
-
-        NativeOperationException error = Assert.Throws<NativeOperationException>(() => new NativeWimOperations(api).Execute(Request(), messages.Add, cancellation));
-
-        Assert.Equal("WIMApplyImage", error.Function);
-        Assert.Equal(NativeOperationException.RequestAborted, error.ErrorCode);
-        Assert.Equal(10d, Assert.Single(messages).Percent);
-        Assert.Equal(["close-image", "unregister", "close-wim"], api.Calls.TakeLast(3));
-    }
-
     [Theory]
     [InlineData("register-log", "WIMRegisterLogFile", "register-log")]
     [InlineData("open", "WIMCreateFile", "register-log,open,unregister-log")]

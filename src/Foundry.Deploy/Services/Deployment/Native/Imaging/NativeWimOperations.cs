@@ -16,17 +16,12 @@ internal sealed class NativeWimOperations(INativeWimApi api)
     // WIMGAPI.H: WIM_FLAG_VERIFY on open checks archive integrity like dism.exe /CheckIntegrity. Passing it to
     // WIMApplyImage would add the per-file verification of /Verify, which this deployment path never requested.
     private const uint Verify = 0x00000002;
-    // WIMGAPI.H: WIM_MSG_ABORT_IMAGE ends the active image operation from any message callback.
-    private const uint AbortImage = 0xFFFFFFFF;
     private static readonly ConcurrentBag<WimMessageCallback> UnreleasedCallbacks = [];
 
     public NativeWimOperations() : this(new NativeWimApi()) { }
 
-    /// <summary>
-    /// Probes capabilities or applies the selected WIM index; other containers stay on the caller's explicit route.
-    /// A signaled <paramref name="cancellation"/> handle aborts the application from the next message callback.
-    /// </summary>
-    public NativeWorkerResult Execute(NativeWorkerRequest request, Action<NativeWorkerMessage> report, WaitHandle? cancellation = null)
+    /// <summary>Probes capabilities or applies the selected WIM index; other containers stay on the caller's explicit route.</summary>
+    public NativeWorkerResult Execute(NativeWorkerRequest request, Action<NativeWorkerMessage> report)
     {
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(report);
@@ -43,17 +38,17 @@ internal sealed class NativeWimOperations(INativeWimApi api)
         ArgumentException.ThrowIfNullOrWhiteSpace(request.WindowsRoot);
         ArgumentException.ThrowIfNullOrWhiteSpace(request.ScratchDirectory);
         ArgumentOutOfRangeException.ThrowIfLessThan(request.ImageIndex, 1);
-        return Apply(request, report, cancellation);
+        return Apply(request, report);
     }
 
-    private NativeWorkerResult Apply(NativeWorkerRequest request, Action<NativeWorkerMessage> report, WaitHandle? cancellation)
+    private NativeWorkerResult Apply(NativeWorkerRequest request, Action<NativeWorkerMessage> report)
     {
         nint wim = 0;
         nint image = 0;
         bool callbackRegistered = false;
         bool logRegistered = false;
         Exception? failure = null;
-        var callbackState = new CallbackState(report, cancellation);
+        var callbackState = new CallbackState(report);
         WimMessageCallback callback = callbackState.HandleMessage;
         nint callbackPointer = Marshal.GetFunctionPointerForDelegate(callback);
         try
@@ -74,9 +69,7 @@ internal sealed class NativeWimOperations(INativeWimApi api)
             if (!api.ApplyImage(image, request.WindowsRoot, 0))
             {
                 int nativeError = api.GetLastError();
-                throw callbackState.Canceled
-                    ? new NativeOperationException("WIMApplyImage", NativeOperationException.RequestAborted, "WIM application was canceled before completion.")
-                    : CreateError("WIMApplyImage", nativeError, callbackState.NativeError, callbackState.NativeErrorPath);
+                throw CreateError("WIMApplyImage", nativeError, callbackState.NativeError, callbackState.NativeErrorPath);
             }
             callbackState.ThrowIfFailed();
         }
@@ -131,11 +124,10 @@ internal sealed class NativeWimOperations(INativeWimApi api)
         return new(function, errorCode, $"{function} failed with Win32 error {errorCode}: {detail}.{callbackDetail}{pathDetail}");
     }
 
-    private sealed class CallbackState(Action<NativeWorkerMessage> report, WaitHandle? cancellation)
+    private sealed class CallbackState(Action<NativeWorkerMessage> report)
     {
         private readonly object gate = new();
         private bool active = true;
-        private bool canceled;
         private int lastPercent = -1;
         private Exception? failure;
         private int? nativeError;
@@ -145,8 +137,6 @@ internal sealed class NativeWimOperations(INativeWimApi api)
 
         public string? NativeErrorPath { get { lock (gate) return nativeErrorPath; } }
 
-        public bool Canceled { get { lock (gate) return canceled; } }
-
         public uint HandleMessage(uint message, nuint wParam, nint lParam, nint userData)
         {
             try
@@ -154,11 +144,6 @@ internal sealed class NativeWimOperations(INativeWimApi api)
                 lock (gate)
                 {
                     if (!active) return 0;
-                    if (canceled || cancellation?.WaitOne(0) == true)
-                    {
-                        canceled = true;
-                        return AbortImage;
-                    }
                     if (message == 0x947f)
                     {
                         if (nativeError is null)
@@ -183,7 +168,7 @@ internal sealed class NativeWimOperations(INativeWimApi api)
             {
                 lock (gate) failure ??= exception;
             }
-            // Never skip a failed file or throw across the native boundary; only a signaled cancellation aborts the image.
+            // Never skip a failed file, abort active application, or throw across the native boundary.
             return 0;
         }
 

@@ -45,8 +45,8 @@ internal sealed class NativeDismApi : IDismNativeApi
     /// <inheritdoc />
     public int AddDriver(uint session, string driverPath, bool forceUnsigned) => DismAddDriver(session, driverPath, forceUnsigned);
     /// <inheritdoc />
-    public int MountImage(string imagePath, uint imageIndex, string mountPath, uint flags, IntPtr cancelEvent, DismProgressCallback progress) =>
-        DismMountImage(imagePath, mountPath, imageIndex, null, 0, flags, cancelEvent, progress, IntPtr.Zero);
+    public int MountImage(string imagePath, uint imageIndex, string mountPath, uint flags, DismProgressCallback progress) =>
+        DismMountImage(imagePath, mountPath, imageIndex, null, 0, flags, IntPtr.Zero, progress, IntPtr.Zero);
     /// <inheritdoc />
     public int UnmountImage(string mountPath, uint flags, DismProgressCallback progress) =>
         DismUnmountImage(mountPath, flags, IntPtr.Zero, progress, IntPtr.Zero);

@@ -217,24 +217,6 @@ public sealed class NativeDismOperationsTests
     }
 
     [Fact]
-    public void AddDrivers_StopsBetweenInfFilesWhenCancellationIsSignaled()
-    {
-        using var directory = new DriverDirectory();
-        directory.Create("a.inf");
-        directory.Create("b.inf");
-        using var cancellation = new ManualResetEvent(false);
-        using var api = new FakeDismApi { AfterDriver = () => cancellation.Set() };
-
-        NativeOperationException failure = Assert.Throws<NativeOperationException>(() => new NativeDismOperations(api).Execute(
-            Request(NativeWorkerOperation.AddDrivers) with { DriverRoot = directory.Path }, _ => { }, cancellation));
-
-        Assert.Equal(NativeOperationException.RequestAbortedResult, failure.ErrorCode);
-        Assert.Single(api.Drivers);
-        Assert.Equal("close", api.Calls[^2]);
-        Assert.Equal("shutdown", api.Calls[^1]);
-    }
-
-    [Fact]
     public void AddDrivers_RejectsEmptyPayloadBeforeOpeningSession()
     {
         using var directory = new DriverDirectory();
@@ -334,20 +316,8 @@ public sealed class NativeDismOperationsTests
         new NativeDismOperations(api).Execute(Request(NativeWorkerOperation.MountImage) with { ImagePath = "winre.wim", MountPath = "owned-mount", ImageIndex = 3 }, messages.Add);
 
         Assert.Equal(("winre.wim", 3u, "owned-mount", 0u), api.MountOptions);
-        Assert.Equal(IntPtr.Zero, api.MountCancelEvent);
         Assert.Equal(25d, Assert.Single(messages).Percent);
         Assert.Equal(["initialize", "mount", "shutdown"], api.Calls);
-    }
-
-    [Fact]
-    public void Mount_PassesTheCancellationEventToDism()
-    {
-        using var cancellation = new ManualResetEvent(false);
-        using var api = new FakeDismApi();
-
-        new NativeDismOperations(api).Execute(Request(NativeWorkerOperation.MountImage) with { ImagePath = "winre.wim", MountPath = "owned-mount" }, _ => { }, cancellation);
-
-        Assert.Equal(cancellation.SafeWaitHandle.DangerousGetHandle(), api.MountCancelEvent);
     }
 
     [Theory]
@@ -435,8 +405,6 @@ public sealed class NativeDismOperationsTests
         internal int FailDriverAt { get; init; }
         internal bool FailEveryDriver { get; init; }
         internal int DriverSuccessResult { get; init; }
-        internal Action? AfterDriver { get; init; }
-        internal IntPtr MountCancelEvent { get; private set; }
         internal bool InvokeProgress { get; init; }
         internal bool CallbackReturned { get; private set; }
         internal int FeatureCallingThread { get; private set; }
@@ -478,10 +446,9 @@ public sealed class NativeDismOperationsTests
             Assert.Equal(27u, session);
             Calls.Add("driver");
             Drivers.Add((path, force));
-            AfterDriver?.Invoke();
             return FailEveryDriver || Drivers.Count == FailDriverAt ? AccessDenied : DriverSuccessResult;
         }
-        public int MountImage(string path, uint index, string mount, uint flags, IntPtr cancelEvent, DismProgressCallback callback) { Calls.Add("mount"); MountOptions = (path, index, mount, flags); MountCancelEvent = cancelEvent; Invoke(callback); return 0; }
+        public int MountImage(string path, uint index, string mount, uint flags, DismProgressCallback callback) { Calls.Add("mount"); MountOptions = (path, index, mount, flags); Invoke(callback); return 0; }
         public int UnmountImage(string mount, uint flags, DismProgressCallback callback) { Calls.Add("unmount"); UnmountOptions = (mount, flags); Invoke(callback); return 0; }
         public int GetMountedImages(out IntPtr buffer, out uint count) { Calls.Add("mounts"); buffer = mounts; count = mounts == IntPtr.Zero ? 0u : 1u; return MountedResult; }
         public int GetLastErrorMessage(out IntPtr message)

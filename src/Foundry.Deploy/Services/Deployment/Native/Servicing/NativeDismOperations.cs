@@ -17,11 +17,8 @@ internal sealed class NativeDismOperations(IDismNativeApi api)
     /// <summary>Uses the worker's System32-only DISM adapter.</summary>
     internal NativeDismOperations() : this(new NativeDismApi()) { }
 
-    /// <summary>
-    /// Executes the requested operation and releases its native resources before returning. A signaled
-    /// <paramref name="cancellation"/> handle stops driver injection between INF files and is handed to DISM for mounts.
-    /// </summary>
-    internal NativeWorkerResult Execute(NativeWorkerRequest request, Action<NativeWorkerMessage> emit, WaitHandle? cancellation = null)
+    /// <summary>Executes the requested operation and releases its native resources before returning.</summary>
+    internal NativeWorkerResult Execute(NativeWorkerRequest request, Action<NativeWorkerMessage> emit)
     {
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(emit);
@@ -38,11 +35,11 @@ internal sealed class NativeDismOperations(IDismNativeApi api)
         }
 
         Check("DismInitialize", api.Initialize(2, request.LogFilePath, request.ScratchDirectory));
-        return WithCleanup(request.Operation.ToString(), () => ExecuteInitialized(request, emit, cancellation),
+        return WithCleanup(request.Operation.ToString(), () => ExecuteInitialized(request, emit),
             () => Check("DismShutdown", api.Shutdown(), captureDetail: false));
     }
 
-    private NativeWorkerResult ExecuteInitialized(NativeWorkerRequest request, Action<NativeWorkerMessage> emit, WaitHandle? cancellation) => request.Operation switch
+    private NativeWorkerResult ExecuteInitialized(NativeWorkerRequest request, Action<NativeWorkerMessage> emit) => request.Operation switch
     {
         NativeWorkerOperation.ReadFeatures => WithSession(request.WindowsRoot, ReadFeatures),
         NativeWorkerOperation.DisableFeature => WithSession(request.WindowsRoot, session =>
@@ -51,8 +48,8 @@ internal sealed class NativeDismOperations(IDismNativeApi api)
                 api.DisableFeature(session, request.FeatureName, false, callback), mutation: true));
             return new NativeWorkerResult();
         }),
-        NativeWorkerOperation.AddDrivers => AddDrivers(request, emit, cancellation),
-        NativeWorkerOperation.MountImage => MountImage(request, emit, cancellation),
+        NativeWorkerOperation.AddDrivers => AddDrivers(request, emit),
+        NativeWorkerOperation.MountImage => MountImage(request, emit),
         NativeWorkerOperation.UnmountImage => UnmountImage(request, emit),
         NativeWorkerOperation.InspectMount => InspectMount(request.MountPath),
         _ => throw new ArgumentOutOfRangeException(nameof(request))
@@ -99,7 +96,7 @@ internal sealed class NativeDismOperations(IDismNativeApi api)
         }, () => Delete(features));
     }
 
-    private NativeWorkerResult AddDrivers(NativeWorkerRequest request, Action<NativeWorkerMessage> emit, WaitHandle? cancellation)
+    private NativeWorkerResult AddDrivers(NativeWorkerRequest request, Action<NativeWorkerMessage> emit)
     {
         if ((File.GetAttributes(request.DriverRoot) & FileAttributes.ReparsePoint) != 0)
         {
@@ -122,12 +119,6 @@ internal sealed class NativeDismOperations(IDismNativeApi api)
             var failures = new List<NativeDriverFailure>();
             for (int index = 0; index < drivers.Length; index++)
             {
-                if (cancellation?.WaitOne(0) == true)
-                {
-                    throw new NativeOperationException("DismAddDriver", NativeOperationException.RequestAbortedResult,
-                        $"Driver injection was canceled after {index} of {drivers.Length} INF files.");
-                }
-
                 // dism.exe /Add-Driver on a folder skips INF files that are not valid driver packages. One rejected INF
                 // must not withhold the remaining drivers, so each rejection is reported instead of ending the operation.
                 try
@@ -152,13 +143,11 @@ internal sealed class NativeDismOperations(IDismNativeApi api)
         });
     }
 
-    private NativeWorkerResult MountImage(NativeWorkerRequest request, Action<NativeWorkerMessage> emit, WaitHandle? cancellation)
+    private NativeWorkerResult MountImage(NativeWorkerRequest request, Action<NativeWorkerMessage> emit)
     {
         if (request.ImageIndex <= 0) throw new ArgumentOutOfRangeException(nameof(request), "An image index must be positive.");
-        IntPtr cancelEvent = cancellation?.SafeWaitHandle.DangerousGetHandle() ?? IntPtr.Zero;
         WithProgress("DismMountImage", emit, callback => Check("DismMountImage",
-            api.MountImage(request.ImagePath, (uint)request.ImageIndex, request.MountPath, 0, cancelEvent, callback), mutation: true));
-        GC.KeepAlive(cancellation);
+            api.MountImage(request.ImagePath, (uint)request.ImageIndex, request.MountPath, 0, callback), mutation: true));
         return new NativeWorkerResult();
     }
 

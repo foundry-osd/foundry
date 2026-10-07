@@ -182,7 +182,7 @@ public interface IWindowsDeploymentService
     /// <param name="driverRoot">Root directory containing extracted INF drivers.</param>
     /// <param name="scratchDirectory">DISM scratch directory used during driver injection.</param>
     /// <param name="workingDirectory">Directory used for temporary scripts and command output.</param>
-    /// <param name="cancellationToken">Token that stops driver injection before the next INF file.</param>
+    /// <param name="cancellationToken">Token that cancels driver injection.</param>
     /// <param name="progress">Optional progress sink reporting the share of INF files processed.</param>
     /// <returns>A task that completes after offline drivers are applied.</returns>
     Task ApplyOfflineDriversAsync(
