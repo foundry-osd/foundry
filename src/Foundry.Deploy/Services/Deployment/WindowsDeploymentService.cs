@@ -388,7 +388,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 progress.Report(100d);
             }
         }
-
     }
 
     /// <inheritdoc />

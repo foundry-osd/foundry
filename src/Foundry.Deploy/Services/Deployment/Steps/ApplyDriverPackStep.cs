@@ -70,7 +70,7 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
         int infCount = Directory.EnumerateFiles(driverRoot, "*.inf", SearchOption.AllDirectories).Count();
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"Driver pack applied offline to Windows: {infCount} INF files from '{driverRoot}'.",
+            $"Driver pack applied offline to Windows: {infCount} INF files processed from '{driverRoot}'; any rejected INF is logged as a warning.",
             cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Driver pack applied.");

@@ -65,7 +65,7 @@ public sealed class ApplyFirmwareUpdateStep : DeploymentStepBase
             : context.RuntimeState.FirmwareUpdateTitle!;
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"{firmwareLabel} applied offline to Windows: {infCount} INF files from '{firmwareRoot}'.",
+            $"{firmwareLabel} applied offline to Windows: {infCount} INF files processed from '{firmwareRoot}'; any rejected INF is logged as a warning.",
             cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Firmware update staged for Windows installation.");
