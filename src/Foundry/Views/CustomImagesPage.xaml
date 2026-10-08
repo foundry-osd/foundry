@@ -118,7 +118,7 @@
                             CanFilterColumns="False"
                             CanReorderColumns="False"
                             CanResizeColumns="False"
-                            CanSortColumns="False"
+                            CanSortColumns="True"
                             CornerButtonMode="None"
                             HeadersVisibility="Columns"
                             IsEnabled="{x:Bind ViewModel.CanAct, Mode=OneWay}"
@@ -131,18 +131,26 @@
                             Visibility="{x:Bind ViewModel.HasImages, Mode=OneWay}">
                             <tv:TableView.Columns>
                                 <tv:TableViewTextColumn
+                                    Width="3*"
                                     Binding="{Binding Name}"
                                     Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}" />
                                 <tv:TableViewTextColumn
+                                    Width="*"
                                     Binding="{Binding Architecture}"
                                     Header="{x:Bind ViewModel.ArchitectureLabel, Mode=OneWay}" />
                                 <tv:TableViewTextColumn
+                                    Width="*"
                                     Binding="{Binding Indexes}"
                                     Header="{x:Bind ViewModel.IndexesLabel, Mode=OneWay}" />
                                 <tv:TableViewTextColumn
+                                    Width="*"
                                     Binding="{Binding Size}"
-                                    Header="{x:Bind ViewModel.SizeLabel, Mode=OneWay}" />
-                                <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.IncludedLabel, Mode=OneWay}">
+                                    Header="{x:Bind ViewModel.SizeLabel, Mode=OneWay}"
+                                    SortMemberPath="Reference.Length" />
+                                <tv:TableViewTemplateColumn
+                                    Width="*"
+                                    Header="{x:Bind ViewModel.IncludedLabel, Mode=OneWay}"
+                                    SortMemberPath="Included">
                                     <tv:TableViewTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
@@ -153,7 +161,10 @@
                                         </DataTemplate>
                                     </tv:TableViewTemplateColumn.CellTemplate>
                                 </tv:TableViewTemplateColumn>
-                                <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.DefaultLabel, Mode=OneWay}">
+                                <tv:TableViewTemplateColumn
+                                    Width="*"
+                                    Header="{x:Bind ViewModel.DefaultLabel, Mode=OneWay}"
+                                    SortMemberPath="Default">
                                     <tv:TableViewTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
@@ -164,7 +175,10 @@
                                         </DataTemplate>
                                     </tv:TableViewTemplateColumn.CellTemplate>
                                 </tv:TableViewTemplateColumn>
-                                <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.StatusLabel, Mode=OneWay}">
+                                <tv:TableViewTemplateColumn
+                                    Width="2*"
+                                    Header="{x:Bind ViewModel.StatusLabel, Mode=OneWay}"
+                                    SortMemberPath="Status">
                                     <tv:TableViewTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
@@ -186,14 +200,14 @@
                         IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.HasSelection, Mode=OneWay}">
                         <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
-                            <tv:TableView
+                            <tv:TableView x:Name="IndexesTable"
                                 MaxHeight="{ThemeResource FoundryTableMaxHeight}"
                                 AutoGenerateColumns="False"
                                 AutomationProperties.Name="{x:Bind ViewModel.IndexesLabel, Mode=OneWay}"
                                 CanFilterColumns="False"
                                 CanReorderColumns="False"
                                 CanResizeColumns="False"
-                                CanSortColumns="False"
+                                CanSortColumns="True"
                                 CornerButtonMode="None"
                                 HeadersVisibility="Columns"
                                 IsReadOnly="True"
@@ -204,24 +218,33 @@
                                 ShowExportOptions="False">
                                 <tv:TableView.Columns>
                                     <tv:TableViewTextColumn
+                                        Width="*"
                                         Binding="{Binding Index.Index}"
                                         Header="{x:Bind ViewModel.IndexNumberLabel, Mode=OneWay}" />
                                     <tv:TableViewTextColumn
+                                        Width="3*"
                                         Binding="{Binding Index.Name}"
                                         Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}" />
                                     <tv:TableViewTextColumn
+                                        Width="*"
                                         Binding="{Binding Index.Architecture}"
                                         Header="{x:Bind ViewModel.ArchitectureLabel, Mode=OneWay}" />
                                     <tv:TableViewTextColumn
+                                        Width="2*"
                                         Binding="{Binding Index.EditionId}"
                                         Header="{x:Bind ViewModel.EditionLabel, Mode=OneWay}" />
                                     <tv:TableViewTextColumn
+                                        Width="2*"
                                         Binding="{Binding Index.Version}"
                                         Header="{x:Bind ViewModel.VersionLabel, Mode=OneWay}" />
                                     <tv:TableViewTextColumn
+                                        Width="2*"
                                         Binding="{Binding Languages}"
                                         Header="{x:Bind ViewModel.LanguagesLabel, Mode=OneWay}" />
-                                    <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.IndexLabel, Mode=OneWay}">
+                                    <tv:TableViewTemplateColumn
+                                        Width="*"
+                                        Header="{x:Bind ViewModel.IndexLabel, Mode=OneWay}"
+                                        SortMemberPath="Preferred">
                                         <tv:TableViewTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock

@@ -21,7 +21,7 @@ public sealed partial class DomainJoinOuSelectionDialog : ContentDialog
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
         InitializeComponent();
-        OrganizationalUnitTableSort.Attach(OrganizationalUnitsTable);
+        TableViewDefaultSort.Attach(OrganizationalUnitsTable, nameof(DomainJoinOrganizationalUnitEntryViewModel.DisplayName));
         Title = ViewModel.Title;
         PrimaryButtonText = ViewModel.AddText;
         CloseButtonText = ViewModel.CancelText;

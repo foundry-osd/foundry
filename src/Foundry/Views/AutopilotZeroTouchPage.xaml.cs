@@ -14,6 +14,8 @@ public sealed partial class AutopilotZeroTouchPage : Page
     {
         ViewModel = App.GetService<AutopilotConfigurationViewModel>();
         InitializeComponent();
+        // Oldest certificate first; the creation date is the second column.
+        TableViewDefaultSort.Attach(CertificatesTable, nameof(AutopilotCertificateEntryViewModel.StartsOnUtc), columnIndex: 1);
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         Unloaded += OnUnloaded;
     }

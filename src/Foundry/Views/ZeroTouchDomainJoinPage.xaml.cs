@@ -19,7 +19,7 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
         ViewModel = App.GetService<DomainJoinConfigurationViewModel>();
         ViewModel.SetPageMode(DomainJoinMode.Automatic);
         InitializeComponent();
-        OrganizationalUnitTableSort.Attach(OrganizationalUnitsTable);
+        TableViewDefaultSort.Attach(OrganizationalUnitsTable, nameof(DomainJoinOrganizationalUnitEntryViewModel.DisplayName));
         ViewModel.OrganizationalUnitRowsRemoving += OnOrganizationalUnitRowsRemoving;
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         Unloaded += OnUnloaded;

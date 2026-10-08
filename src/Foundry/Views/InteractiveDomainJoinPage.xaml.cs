@@ -16,7 +16,7 @@ public sealed partial class InteractiveDomainJoinPage : Page
         ViewModel = App.GetService<DomainJoinConfigurationViewModel>();
         ViewModel.SetPageMode(DomainJoinMode.Interactive);
         InitializeComponent();
-        OrganizationalUnitTableSort.Attach(OrganizationalUnitsTable);
+        TableViewDefaultSort.Attach(OrganizationalUnitsTable, nameof(DomainJoinOrganizationalUnitEntryViewModel.DisplayName));
         ViewModel.OrganizationalUnitRowsRemoving += OnOrganizationalUnitRowsRemoving;
         Unloaded += OnUnloaded;
     }
