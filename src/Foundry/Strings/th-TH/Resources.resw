@@ -1867,9 +1867,6 @@
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>ตั้งเป็นค่าเริ่มต้น</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>ช่างเทคนิคเลือกได้</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>ป้อนบัญชีที่ถูกต้องก่อน แล้วตรวจสอบความยาวของรหัสผ่าน</value>
   </data>
@@ -2042,7 +2039,7 @@
     <value>นำเข้า OU จากโดเมน</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>โดเมนที่สื่อนี้เข้าร่วมได้ ระบบจะใช้โดเมนเริ่มต้น เว้นแต่ช่างเทคนิคเลือกได้</value>
+    <value>โดเมนที่สื่อนี้เข้าร่วมได้ เมื่อระบุไว้หลายโดเมน ช่างเทคนิคจะเลือกหนึ่งโดเมนระหว่างการปรับใช้ โดยโดเมนเริ่มต้นจะถูกเลือกไว้ล่วงหน้า</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>โดเมน</value>
@@ -2066,7 +2063,7 @@
     <value>ชื่อที่แสดง</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>ไม่บังคับ ระบุ OU ที่ใช้จัดวางคอมพิวเตอร์ได้ในโดเมนที่เลือก บัญชีคอมพิวเตอร์ที่มีอยู่จะถูกย้ายไปยัง OU ที่เลือก</value>
+    <value>ไม่บังคับ ระบุ OU ที่ใช้จัดวางคอมพิวเตอร์ได้ในโดเมนที่เลือก หากระบุ OU เดียว ระบบจะใช้ OU นั้นเสมอ เมื่อระบุไว้หลาย OU ช่างเทคนิคจะเลือกหนึ่ง OU ระหว่างการปรับใช้ บัญชีคอมพิวเตอร์ที่มีอยู่จะถูกย้ายไปยัง OU ที่เลือก</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>รหัสผ่าน</value>

@@ -105,18 +105,6 @@ public sealed class DomainJoinConfigurationTests
         Assert.Contains(result.Issues, issue => issue.Code == DomainJoinValidationCode.DuplicateDistinguishedName);
     }
 
-    [Fact]
-    public void ChoiceSettingsNeverInvalidateAConfiguration()
-    {
-        var settings = new DomainJoinSettings
-        {
-            IsEnabled = true,
-            Mode = DomainJoinMode.Interactive,
-            AllowDomainSelectionDuringDeployment = true,
-            AllowOuSelectionDuringDeployment = true
-        };
-        Assert.True(DomainJoinConfigurationValidator.EvaluateReadiness(settings, _ => false, false).IsValid);
-    }
 
     [Fact]
     public void ZeroTouchNeedsAtLeastOneDomain()

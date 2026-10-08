@@ -21,7 +21,7 @@ public sealed class FoundryConfigurationServiceTests
         Assert.Equal("emea", loaded.DomainJoin.DefaultDomainId);
         Assert.Equal("CORP\\join", loaded.DomainJoin.SharedAccountName);
         Assert.Equal("EMEA\\join", loaded.DomainJoin.Domains[1].AccountName);
-        Assert.True(loaded.DomainJoin.AllowDomainSelectionDuringDeployment);
+
         Assert.Equal(["devices", "servers"], loaded.DomainJoin.Domains[0].OrganizationalUnits.Select(unit => unit.Id));
         Assert.Equal("servers", loaded.DomainJoin.Domains[0].DefaultOuId);
         Assert.Empty(loaded.DomainJoin.Domains[1].OrganizationalUnits);
@@ -113,7 +113,6 @@ public sealed class FoundryConfigurationServiceTests
             Mode = DomainJoinMode.Automatic,
             SharedAccountName = "CORP\\join",
             DefaultDomainId = "emea",
-            AllowDomainSelectionDuringDeployment = true,
             Domains =
             [
                 new()

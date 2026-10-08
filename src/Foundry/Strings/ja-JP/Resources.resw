@@ -1867,9 +1867,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>既定に設定</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>技術者が選択可能</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>先に有効なアカウントを入力してから、パスワードの長さを確認してください。</value>
   </data>
@@ -2042,7 +2039,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ドメインからOUをインポート</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>このメディアが参加できるドメインです。技術者が選択できる場合を除き、既定のドメインが使用されます。</value>
+    <value>このメディアが参加できるドメインです。複数登録されている場合は、技術者が展開中に1つを選択します。既定のドメインがあらかじめ選択されています。</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>ドメイン</value>
@@ -2066,7 +2063,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>表示名</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>省略可能です。選択したドメインでコンピューターを配置できるOUを登録します。既存のコンピューターアカウントは選択したOUに移動されます。</value>
+    <value>省略可能です。選択したドメインでコンピューターを配置できるOUを登録します。OUが1つだけの場合は常にそのOUが使用され、複数登録されている場合は技術者が展開中に1つを選択します。既存のコンピューターアカウントは選択したOUに移動されます。</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>パスワード</value>

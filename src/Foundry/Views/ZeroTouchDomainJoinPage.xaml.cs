@@ -37,11 +37,6 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
     private void OrganizationalUnitsTable_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
         ViewModel.ReplaceSelectedOrganizationalUnits(OrganizationalUnitsTable.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
 
-    private void OnDomainChoiceClick(object sender, RoutedEventArgs e) =>
-        ViewModel.AllowDomainSelectionDuringDeployment = sender is AppBarToggleButton { IsChecked: true };
-
-    private void OnOuChoiceClick(object sender, RoutedEventArgs e) =>
-        ViewModel.AllowOuSelectionDuringDeployment = sender is AppBarToggleButton { IsChecked: true };
 
     private void OnPasswordLoaded(object sender, RoutedEventArgs e) => SynchronizePassword();
 

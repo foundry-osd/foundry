@@ -1867,9 +1867,6 @@ Licensed under the MIT License.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Set as default</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Technicians can choose</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Enter a valid account first, then check the password length.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licensed under the MIT License.</value>
     <value>Import OUs from the domain</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domains this media can join. The default domain is used unless technicians can choose.</value>
+    <value>Domains this media can join. When several are listed, technicians choose one during deployment; the default is preselected.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domains</value>
@@ -2066,7 +2063,7 @@ Licensed under the MIT License.</value>
     <value>Display name</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Optional. List the OUs where computers can be placed in the selected domain. An existing computer account is moved to the chosen OU.</value>
+    <value>Optional. List the OUs where computers can be placed in the selected domain. A single OU is always used; when several are listed, technicians choose one during deployment. An existing computer account is moved to the chosen OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Password</value>

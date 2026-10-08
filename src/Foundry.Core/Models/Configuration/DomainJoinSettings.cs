@@ -12,10 +12,11 @@ public sealed record DomainJoinSettings
     /// <summary>Gets the account used by every domain that has no account of its own. Zero-touch only.</summary>
     public string? SharedAccountName { get; init; }
     public IReadOnlyList<DomainJoinDomainSettings> Domains { get; init; } = [];
-    /// <summary>Gets the domain joined when the technician does not choose one.</summary>
+    /// <summary>
+    /// Gets the domain joined when a single domain is listed, and the one preselected when the technician chooses
+    /// among several.
+    /// </summary>
     public string? DefaultDomainId { get; init; }
-    public bool AllowDomainSelectionDuringDeployment { get; init; }
-    public bool AllowOuSelectionDuringDeployment { get; init; }
 
     /// <summary>Returns the account a domain joins with: its own, or the shared one.</summary>
     public string? ResolveAccountName(DomainJoinDomainSettings domain)

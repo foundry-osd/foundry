@@ -293,11 +293,9 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["domain_join_enabled"] = true,
             ["domain_join_mode"] = "zero_touch",
             ["domain_join_domain_count"] = 2,
-            ["domain_join_domain_selection_allowed"] = true,
             ["domain_join_shared_account_used"] = true,
             ["domain_join_ou_count"] = 3,
             ["domain_join_default_ou_set"] = true,
-            ["domain_join_ou_selection_allowed"] = false,
             ["network_configured"] = true,
             ["connect_configured"] = true,
             ["deploy_configured"] = true,
@@ -402,11 +400,11 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True((bool)result["domain_join_enabled"]!);
         Assert.Equal("zero_touch", result["domain_join_mode"]);
         Assert.Equal(2, result["domain_join_domain_count"]);
-        Assert.True((bool)result["domain_join_domain_selection_allowed"]!);
+
         Assert.True((bool)result["domain_join_shared_account_used"]!);
         Assert.Equal(3, result["domain_join_ou_count"]);
         Assert.True((bool)result["domain_join_default_ou_set"]!);
-        Assert.False((bool)result["domain_join_ou_selection_allowed"]!);
+
         Assert.False(result.ContainsKey("network_configured"));
         Assert.False(result.ContainsKey("connect_configured"));
         Assert.False(result.ContainsKey("deploy_configured"));

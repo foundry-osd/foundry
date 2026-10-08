@@ -1867,9 +1867,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Varsayılan olarak ayarla</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Teknisyenler seçebilir</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Önce geçerli bir hesap girin, ardından parola uzunluğunu denetleyin.</value>
   </data>
@@ -2042,7 +2039,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>OU’ları etki alanından içe aktar</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Bu medyanın katılabileceği etki alanları. Teknisyenler seçim yapamıyorsa varsayılan etki alanı kullanılır.</value>
+    <value>Bu medyanın katılabileceği etki alanları. Birden fazla etki alanı listelendiğinde teknisyenler dağıtım sırasında birini seçer; varsayılan etki alanı önceden seçilidir.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Etki alanları</value>
@@ -2066,7 +2063,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Görünen ad</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>İsteğe bağlı. Seçilen etki alanında bilgisayarların yerleştirilebileceği OU’ları listeleyin. Mevcut bir bilgisayar hesabı seçilen OU’ya taşınır.</value>
+    <value>İsteğe bağlı. Seçilen etki alanında bilgisayarların yerleştirilebileceği OU’ları listeleyin. Tek bir OU listelenmişse her zaman o kullanılır; birden fazla listelendiğinde teknisyenler dağıtım sırasında birini seçer. Mevcut bir bilgisayar hesabı seçilen OU’ya taşınır.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parola</value>

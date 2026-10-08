@@ -26,8 +26,9 @@ public sealed class DeploymentLaunchPreparationServiceTests
         byte[] key = new byte[32];
         keys.SetKey(key);
         var shell = new FakeApplicationShellService();
-        DeployDomainJoinSettings settings = DomainJoinPreparationServiceTests.WithCatalog(automatic
-            ? DomainJoinPreparationServiceTests.Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true });
+        // Two listed OUs make the technician choose; a single one would be used without a selection.
+        DeployDomainJoinSettings settings = DomainJoinPreparationServiceTests.WithTwoOus(DomainJoinPreparationServiceTests.WithCatalog(automatic
+            ? DomainJoinPreparationServiceTests.Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }));
         using DomainJoinSubmission submission = Submission();
         DeploymentLaunchPreparationService service = CreateService(shell, keys);
 
@@ -95,8 +96,9 @@ public sealed class DeploymentLaunchPreparationServiceTests
         keys.SetKey(key);
         var shell = new FakeApplicationShellService();
         DeploymentLaunchPreparationService service = CreateService(shell, keys);
+        // Zero-touch only needs wizard input when the technician has to choose, here between two OUs.
         DeployDomainJoinSettings settings = automatic
-            ? DomainJoinPreparationServiceTests.WithCatalog(DomainJoinPreparationServiceTests.Automatic(new("corp.test", "CORP\\join"), key))
+            ? DomainJoinPreparationServiceTests.WithTwoOus(DomainJoinPreparationServiceTests.WithCatalog(DomainJoinPreparationServiceTests.Automatic(new("corp.test", "CORP\\join"), key)))
             : new() { IsEnabled = true };
         using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), settings, domainJoinSubmission: null);
         Assert.False(result.IsReadyToStart);

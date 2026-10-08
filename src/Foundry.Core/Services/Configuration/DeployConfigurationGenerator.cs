@@ -221,9 +221,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     EncryptedCredentials = automatic ? ProtectDomainCredentials(domain.DomainName, account!, key!, secrets!) : null
                 };
             }).ToArray(),
-            DefaultDomainId = settings.DefaultDomainId,
-            AllowDomainSelectionDuringDeployment = settings.AllowDomainSelectionDuringDeployment,
-            AllowOuSelectionDuringDeployment = settings.AllowOuSelectionDuringDeployment
+            DefaultDomainId = settings.DefaultDomainId
         };
     }
 

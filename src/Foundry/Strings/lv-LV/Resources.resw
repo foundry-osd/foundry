@@ -1867,9 +1867,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Iestatīt kā noklusējumu</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Tehniķi var izvēlēties</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Vispirms ievadiet derīgu kontu, pēc tam pārbaudiet paroles garumu.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Importēt OU no domēna</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domēni, kuriem var pievienoties, izmantojot šo datu nesēju. Tiek izmantots noklusējuma domēns, ja vien tehniķi nevar izvēlēties.</value>
+    <value>Domēni, kuriem var pievienoties, izmantojot šo datu nesēju. Ja norādīti vairāki, tehniķi izvietošanas laikā izvēlas vienu; noklusējuma domēns ir atlasīts iepriekš.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domēni</value>
@@ -2066,7 +2063,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Parādāmais nosaukums</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Neobligāti. Norādiet OU, kurās atlasītajā domēnā var ievietot datorus. Esošs datora konts tiek pārvietots uz izvēlēto OU.</value>
+    <value>Neobligāti. Norādiet OU, kurās atlasītajā domēnā var ievietot datorus. Ja norādīta viena OU, tā tiek izmantota vienmēr; ja norādītas vairākas, tehniķi izvietošanas laikā izvēlas vienu. Esošs datora konts tiek pārvietots uz izvēlēto OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parole</value>

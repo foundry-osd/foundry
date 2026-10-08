@@ -1867,9 +1867,6 @@
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Задать по умолчанию</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Технические специалисты могут выбирать</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Сначала укажите допустимую учетную запись, затем проверьте длину пароля.</value>
   </data>
@@ -2042,7 +2039,7 @@
     <value>Импорт OU из домена</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Домены, к которым этот носитель может присоединять компьютеры. Используется домен по умолчанию, кроме случаев, когда технические специалисты могут выбирать.</value>
+    <value>Домены, к которым этот носитель может присоединять компьютеры. Если указано несколько, технические специалисты выбирают один во время развертывания; домен по умолчанию выбран заранее.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Домены</value>
@@ -2066,7 +2063,7 @@
     <value>Отображаемое имя</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Необязательно. Перечислите OU выбранного домена, в которые можно помещать компьютеры. Существующая учетная запись компьютера перемещается в выбранное OU.</value>
+    <value>Необязательно. Перечислите OU выбранного домена, в которые можно помещать компьютеры. Единственное OU используется всегда; если указано несколько, технические специалисты выбирают одно во время развертывания. Существующая учетная запись компьютера перемещается в выбранное OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Пароль</value>

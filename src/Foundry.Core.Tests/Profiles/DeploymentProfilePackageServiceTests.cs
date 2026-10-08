@@ -49,6 +49,23 @@ public sealed class DeploymentProfilePackageServiceTests
     }
 
     [Fact]
+    public void ProfileSavedWithTheRetiredChoiceSettingsKeepsItsDomains()
+    {
+        DeploymentProfileDocument profile = CreateProfile() with
+        {
+            Configuration = new() { DomainJoin = new() { IsEnabled = true, DefaultDomainId = "a", Domains = [new() { Id = "a", DomainName = "example.com" }] } }
+        };
+        JsonNode root = JsonNode.Parse(DeploymentProfilePayload.Serialize(profile, portable: false))!;
+        root["configuration"]!["domainJoin"]!["allowDomainSelectionDuringDeployment"] = true;
+        root["configuration"]!["domainJoin"]!["allowOuSelectionDuringDeployment"] = false;
+
+        DeploymentProfileDocument loaded = DeploymentProfilePayload.Deserialize(Encoding.UTF8.GetBytes(root.ToJsonString()), portable: false);
+
+        Assert.Equal("example.com", Assert.Single(loaded.Configuration.DomainJoin.Domains).DomainName);
+        Assert.Equal("a", loaded.Configuration.DomainJoin.DefaultDomainId);
+    }
+
+    [Fact]
     public void AnUnknownDomainJoinMemberStillInvalidatesTheProfile()
     {
         JsonNode root = JsonNode.Parse(DeploymentProfilePayload.Serialize(CreateProfile(), portable: false))!;

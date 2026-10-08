@@ -1867,9 +1867,6 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Fijar como predeterminado</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Los técnicos pueden elegir</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Introduzca primero una cuenta válida y, después, compruebe la longitud de la contraseña.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Importar OU del dominio</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Dominios a los que puede unirse este medio. Se usa el dominio predeterminado salvo que los técnicos puedan elegir.</value>
+    <value>Dominios a los que puede unirse este medio. Cuando se indican varios, los técnicos eligen uno durante la implementación; el predeterminado aparece preseleccionado.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Dominios</value>
@@ -2066,7 +2063,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Nombre para mostrar</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Opcional. Indique las OU en las que se pueden colocar los equipos en el dominio seleccionado. Una cuenta de equipo existente se mueve a la OU elegida.</value>
+    <value>Opcional. Indique las OU en las que se pueden colocar los equipos en el dominio seleccionado. Si solo se indica una OU, se usa siempre; cuando se indican varias, los técnicos eligen una durante la implementación. Una cuenta de equipo existente se mueve a la OU elegida.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Contraseña</value>

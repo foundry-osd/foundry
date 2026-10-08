@@ -1867,9 +1867,6 @@ Licenciado sob a licença MIT.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Definir como predefinição</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Os técnicos podem escolher</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Introduza primeiro uma conta válida e, em seguida, verifique o comprimento da palavra-passe.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licenciado sob a licença MIT.</value>
     <value>Importar OU do domínio</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domínios aos quais este suporte pode associar computadores. O domínio predefinido é utilizado, exceto se os técnicos puderem escolher.</value>
+    <value>Domínios aos quais este suporte pode associar computadores. Quando são listados vários, os técnicos escolhem um durante a implementação; o predefinido fica pré-selecionado.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domínios</value>
@@ -2066,7 +2063,7 @@ Licenciado sob a licença MIT.</value>
     <value>Nome a apresentar</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Opcional. Liste as OU onde os computadores podem ser colocados no domínio selecionado. Uma conta de computador existente é movida para a OU escolhida.</value>
+    <value>Opcional. Liste as OU onde os computadores podem ser colocados no domínio selecionado. Uma única OU é sempre utilizada; quando são listadas várias, os técnicos escolhem uma durante a implementação. Uma conta de computador existente é movida para a OU escolhida.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Palavra-passe</value>

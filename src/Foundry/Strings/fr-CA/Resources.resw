@@ -1867,9 +1867,6 @@ Sous licence MIT.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Définir par défaut</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Les techniciens peuvent choisir</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Saisissez d’abord un compte valide, puis vérifiez la longueur du mot de passe.</value>
   </data>
@@ -2042,7 +2039,7 @@ Sous licence MIT.</value>
     <value>Importer des OU depuis le domaine</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domaines que ce média peut joindre. Le domaine par défaut est utilisé, sauf si les techniciens peuvent choisir.</value>
+    <value>Domaines que ce média peut joindre. Lorsque plusieurs sont répertoriés, les techniciens en choisissent un pendant le déploiement; le domaine par défaut est présélectionné.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domaines</value>
@@ -2066,7 +2063,7 @@ Sous licence MIT.</value>
     <value>Nom d’affichage</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Facultatif. Répertoriez les OU dans lesquelles les ordinateurs peuvent être placés dans le domaine sélectionné. Un compte d’ordinateur existant est déplacé vers l’OU choisie.</value>
+    <value>Facultatif. Répertoriez les OU dans lesquelles les ordinateurs peuvent être placés dans le domaine sélectionné. Une OU unique est toujours utilisée; lorsque plusieurs sont répertoriées, les techniciens en choisissent une pendant le déploiement. Un compte d’ordinateur existant est déplacé vers l’OU choisie.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Mot de passe</value>

@@ -78,6 +78,20 @@ public sealed class DomainJoinOrganizationalUnitCatalogTests
     }
 
     [Fact]
+    public void TheOnlyOuIsTheDefaultAndSeveralOusNeedAMarkedOne()
+    {
+        DomainJoinOrganizationalUnitSettings devices = Unit("manual", "Devices", "OU=Devices,DC=corp,DC=test");
+        DomainJoinOrganizationalUnitSettings servers = Unit("servers", "Servers", "OU=Servers,DC=corp,DC=test");
+
+        Assert.Null(DomainJoinOrganizationalUnitCatalog.ResolveDefault([], "manual"));
+        Assert.Null(DomainJoinOrganizationalUnitCatalog.ResolveDefault(null, null));
+        Assert.Same(devices, DomainJoinOrganizationalUnitCatalog.ResolveDefault([devices], null));
+        Assert.Null(DomainJoinOrganizationalUnitCatalog.ResolveDefault([devices, servers], null));
+        Assert.Same(servers, DomainJoinOrganizationalUnitCatalog.ResolveDefault([devices, servers], "SERVERS"));
+        Assert.Null(DomainJoinOrganizationalUnitCatalog.ResolveDefault([devices, servers], "missing"));
+    }
+
+    [Fact]
     public void ExcludeListedKeepsOnlyOusAnImportWouldAdd()
     {
         DomainJoinOrganizationalUnitSettings added = Unit("new", "Servers", "OU=Servers,DC=corp,DC=test");

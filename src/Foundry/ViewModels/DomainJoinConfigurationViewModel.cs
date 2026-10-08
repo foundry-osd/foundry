@@ -88,7 +88,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public string RemoveLabel => Text("CommandRemove");
     public string SetDefaultLabel => Text("CommandSetDefault");
     public string ClearDefaultLabel => Text("CommandClearDefault");
-    public string TechniciansChooseLabel => Text("CommandTechniciansChoose");
 
     /// <summary>Gets the import button label; the same button cancels a running domain search.</summary>
     public string ImportButtonText => localization.GetString(IsDiscovering ? "DomainJoinCancel.Content" : "DomainJoinDiscover.Content");
@@ -121,9 +120,10 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         !string.Equals(configuration.Current.DomainJoin.DefaultDomainId, domain.Id, StringComparison.OrdinalIgnoreCase);
     private bool CanEditOrganizationalUnit => SelectedDomain is not null && selectedOuRows.Count == 1;
     private bool CanRemoveSelectedOrganizationalUnits => selectedOuRows.Count > 0;
+    // A domain's only OU is always used, so the default only matters, and can only change, among several.
     private bool CanSetDefaultOrganizationalUnit => SelectedDomain is { } domain && selectedOuRows.Count == 1 &&
-        !string.Equals(domain.Settings.DefaultOuId, selectedOuRows[0].Settings.Id, StringComparison.OrdinalIgnoreCase);
-    private bool CanClearDefaultOrganizationalUnit => SelectedDomain?.Settings.DefaultOuId is not null;
+        !string.Equals(GetDefaultOrganizationalUnitId(domain.Settings), selectedOuRows[0].Settings.Id, StringComparison.OrdinalIgnoreCase);
+    private bool CanClearDefaultOrganizationalUnit => SelectedDomain?.Settings is { DefaultOuId: not null, OrganizationalUnits.Count: > 1 };
 
     [ObservableProperty]
     public partial DomainJoinDomainEntryViewModel? SelectedDomain { get; set; }
@@ -131,12 +131,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     /// <summary>Gets or sets the account used by every domain that has no account of its own.</summary>
     [ObservableProperty]
     public partial string SharedAccountName { get; set; } = string.Empty;
-
-    [ObservableProperty]
-    public partial bool AllowDomainSelectionDuringDeployment { get; set; }
-
-    [ObservableProperty]
-    public partial bool AllowOuSelectionDuringDeployment { get; set; }
 
     [ObservableProperty]
     public partial bool IsDiscovering { get; set; }
@@ -448,15 +442,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         Save(configuration.Current.DomainJoin with { SharedAccountName = trimmed.Length == 0 ? null : trimmed });
     }
 
-    partial void OnAllowDomainSelectionDuringDeploymentChanged(bool value)
-    {
-        if (!applying) Save(configuration.Current.DomainJoin with { AllowDomainSelectionDuringDeployment = value });
-    }
-
-    partial void OnAllowOuSelectionDuringDeploymentChanged(bool value)
-    {
-        if (!applying) Save(configuration.Current.DomainJoin with { AllowOuSelectionDuringDeployment = value });
-    }
 
     private void Save(DomainJoinSettings settings) => configuration.UpdateDomainJoin(settings);
     private string Text(string key) => localization.GetString("DomainJoin." + key);
@@ -546,7 +531,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         {
             nameof(DomainColumnHeader), nameof(AccountColumnHeader), nameof(OuCountColumnHeader), nameof(DefaultColumnHeader), nameof(StatusColumnHeader),
             nameof(LabelColumnHeader), nameof(DistinguishedNameColumnHeader), nameof(EmptyDomainsText), nameof(ImportButtonText), nameof(StatusText),
-            nameof(AddLabel), nameof(EditLabel), nameof(RemoveLabel), nameof(SetDefaultLabel), nameof(ClearDefaultLabel), nameof(TechniciansChooseLabel)
+            nameof(AddLabel), nameof(EditLabel), nameof(RemoveLabel), nameof(SetDefaultLabel), nameof(ClearDefaultLabel)
         })
         {
             OnPropertyChanged(property);
@@ -565,8 +550,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             // The password box is refilled below, so an earlier rejected entry no longer describes what is shown.
             sharedCredentialInputInvalid = false;
             SharedAccountName = settings.SharedAccountName ?? string.Empty;
-            AllowDomainSelectionDuringDeployment = settings.AllowDomainSelectionDuringDeployment;
-            AllowOuSelectionDuringDeployment = settings.AllowOuSelectionDuringDeployment;
             SynchronizeDomains(settings);
             if (SelectedDomain is null || !Domains.Contains(SelectedDomain))
                 SelectedDomain = Domains.FirstOrDefault(row => string.Equals(row.Id, settings.DefaultDomainId, StringComparison.OrdinalIgnoreCase)) ?? Domains.FirstOrDefault();
@@ -658,7 +641,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             row.StatusText = issue is null ? readyText : Text("Validation." + issue.Code);
         }
 
-        string? defaultOuId = SelectedDomain?.Settings.DefaultOuId;
+        string? defaultOuId = SelectedDomain is { } selected ? GetDefaultOrganizationalUnitId(selected.Settings) : null;
         foreach (DomainJoinOrganizationalUnitEntryViewModel row in OrganizationalUnits)
         {
             row.DefaultText = string.Equals(defaultOuId, row.Settings.Id, StringComparison.OrdinalIgnoreCase) ? defaultText : string.Empty;
@@ -688,6 +671,9 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         AddOrganizationalUnitCommand.NotifyCanExecuteChanged();
         NotifyOrganizationalUnitCommands();
     }
+
+    private static string? GetDefaultOrganizationalUnitId(DomainJoinDomainSettings domain) =>
+        DomainJoinOrganizationalUnitCatalog.ResolveDefault(domain.OrganizationalUnits, domain.DefaultOuId)?.Id;
 
     private void NotifyOrganizationalUnitCommands()
     {

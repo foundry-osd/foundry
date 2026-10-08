@@ -1867,9 +1867,6 @@
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Установити за замовчуванням</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Технічні спеціалісти можуть вибирати</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Спочатку введіть дійсний обліковий запис, а потім перевірте довжину пароля.</value>
   </data>
@@ -2042,7 +2039,7 @@
     <value>Імпорт OU з домену</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Домени, до яких може приєднуватися цей носій. Використовується домен за замовчуванням, якщо технічні спеціалісти не можуть вибирати.</value>
+    <value>Домени, до яких може приєднуватися цей носій. Якщо вказано кілька, технічні спеціалісти вибирають один під час розгортання; домен за замовчуванням попередньо вибрано.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Домени</value>
@@ -2066,7 +2063,7 @@
     <value>Відображуване ім’я</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Необов’язково. Укажіть OU, у яких можна розміщувати комп’ютери у вибраному домені. Наявний обліковий запис комп’ютера переміщується до вибраної OU.</value>
+    <value>Необов’язково. Укажіть OU, у яких можна розміщувати комп’ютери у вибраному домені. Якщо вказано одну OU, вона використовується завжди; якщо кілька, технічні спеціалісти вибирають одну під час розгортання. Наявний обліковий запис комп’ютера переміщується до вибраної OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Пароль</value>

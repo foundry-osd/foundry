@@ -31,11 +31,6 @@ public sealed partial class InteractiveDomainJoinPage : Page
     private void OrganizationalUnitsTable_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
         ViewModel.ReplaceSelectedOrganizationalUnits(OrganizationalUnitsTable.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
 
-    private void OnDomainChoiceClick(object sender, RoutedEventArgs e) =>
-        ViewModel.AllowDomainSelectionDuringDeployment = sender is AppBarToggleButton { IsChecked: true };
-
-    private void OnOuChoiceClick(object sender, RoutedEventArgs e) =>
-        ViewModel.AllowOuSelectionDuringDeployment = sender is AppBarToggleButton { IsChecked: true };
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {

@@ -1867,9 +1867,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>기본값으로 설정</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>기술자가 선택 가능</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>먼저 유효한 계정을 입력한 다음 암호 길이를 확인하세요.</value>
   </data>
@@ -2042,7 +2039,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>도메인에서 OU 가져오기</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>이 미디어가 가입할 수 있는 도메인입니다. 기술자가 선택할 수 있는 경우가 아니면 기본 도메인이 사용됩니다.</value>
+    <value>이 미디어가 가입할 수 있는 도메인입니다. 여러 개가 등록된 경우 기술자가 배포 중에 하나를 선택하며, 기본 도메인이 미리 선택되어 있습니다.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>도메인</value>
@@ -2066,7 +2063,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>표시 이름</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>선택 사항입니다. 선택한 도메인에서 컴퓨터를 배치할 수 있는 OU를 등록하세요. 기존 컴퓨터 계정은 선택한 OU로 이동됩니다.</value>
+    <value>선택 사항입니다. 선택한 도메인에서 컴퓨터를 배치할 수 있는 OU를 등록하세요. OU가 하나만 등록된 경우 항상 해당 OU가 사용되며, 여러 개가 등록된 경우 기술자가 배포 중에 하나를 선택합니다. 기존 컴퓨터 계정은 선택한 OU로 이동됩니다.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>암호</value>

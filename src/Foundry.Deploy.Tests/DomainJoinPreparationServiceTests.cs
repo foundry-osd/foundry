@@ -59,7 +59,7 @@ public sealed class DomainJoinPreparationServiceTests
     [Fact]
     public void InteractiveJoinsTheSelectedDomainWithTheTypedCredentials()
     {
-        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Interactive) with { AllowDomainSelectionDuringDeployment = true };
+        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Interactive);
         using var submission = new DomainJoinSubmission("emea", "emea.test", "EMEA\\tech", null, " secret ".AsSpan());
 
         using DomainJoinPreparationResult result = Prepare(settings, submission);
@@ -71,13 +71,12 @@ public sealed class DomainJoinPreparationServiceTests
     }
 
     [Fact]
-    public void ZeroTouchUsesTheDefaultDomainWhenChoiceIsNotAllowed()
+    public void ZeroTouchWithoutASubmissionUsesTheDefaultDomainAndItsOnlyOu()
     {
         using var keys = Unlocked(out byte[] key);
-        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Automatic, key) with { AllowOuSelectionDuringDeployment = false };
-        using var submission = new DomainJoinSubmission("emea", "emea.test", string.Empty, null, default);
+        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Automatic, key);
 
-        using DomainJoinPreparationResult result = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", submission);
+        using DomainJoinPreparationResult result = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", null);
 
         Assert.Equal(DomainJoinPreparationStatus.Ready, result.Status);
         Assert.Equal("corp.test", result.Input!.CredentialContext.DomainName);
@@ -88,7 +87,7 @@ public sealed class DomainJoinPreparationServiceTests
     public void ZeroTouchUsesTheSelectedDomainAndItsOwnPayload()
     {
         using var keys = Unlocked(out byte[] key);
-        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Automatic, key) with { AllowDomainSelectionDuringDeployment = true };
+        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Automatic, key);
         using var submission = new DomainJoinSubmission("emea", "emea.test", string.Empty, null, default);
 
         using DomainJoinPreparationResult result = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", submission);
@@ -102,7 +101,7 @@ public sealed class DomainJoinPreparationServiceTests
     public void ASelectedDomainThatIsNotListedIsRefused()
     {
         using var keys = Unlocked(out byte[] key);
-        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Automatic, key) with { AllowDomainSelectionDuringDeployment = true };
+        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Automatic, key);
         using var submission = new DomainJoinSubmission("missing", "missing.test", string.Empty, null, default);
 
         using DomainJoinPreparationResult result = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", submission);
@@ -114,11 +113,10 @@ public sealed class DomainJoinPreparationServiceTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void OuChoiceOnADomainWithoutOusRequiresNoOu(bool automatic)
+    public void ADomainWithoutListedOusRequiresNoOu(bool automatic)
     {
         using var keys = Unlocked(out byte[] key);
-        DeployDomainJoinSettings settings = TwoDomains(automatic ? DomainJoinMode.Automatic : DomainJoinMode.Interactive, key) with
-        { AllowDomainSelectionDuringDeployment = true };
+        DeployDomainJoinSettings settings = TwoDomains(automatic ? DomainJoinMode.Automatic : DomainJoinMode.Interactive, key);
         using var submission = new DomainJoinSubmission("emea", "emea.test", automatic ? string.Empty : "EMEA\\tech", null,
             automatic ? default : "secret".AsSpan());
 
@@ -132,7 +130,7 @@ public sealed class DomainJoinPreparationServiceTests
     public void AnOuOfAnotherListedDomainIsRefused()
     {
         using var keys = Unlocked(out byte[] key);
-        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Automatic, key) with { AllowDomainSelectionDuringDeployment = true };
+        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Automatic, key);
         settings = settings with
         {
             Domains = [settings.Domains[0], settings.Domains[1] with { OrganizationalUnits = [new() { Id = "kiosk", DisplayName = "Kiosks", DistinguishedName = "OU=Kiosks,DC=emea,DC=test" }] }]
@@ -146,14 +144,12 @@ public sealed class DomainJoinPreparationServiceTests
     }
 
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(false, true)]
-    [InlineData(true, true)]
-    public void ADomainThatListsOusRejectsATypedOu(bool automatic, bool pickerEnabled)
+    [InlineData(false)]
+    [InlineData(true)]
+    public void ADomainThatListsOusRejectsATypedOu(bool automatic)
     {
         using var keys = Unlocked(out byte[] key);
-        DeployDomainJoinSettings settings = WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }) with
-        { AllowOuSelectionDuringDeployment = pickerEnabled };
+        DeployDomainJoinSettings settings = WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true });
         using var submission = new DomainJoinSubmission("corp", "corp.test", "CORP\\join", "sales", "secret".AsSpan(), "OU=Unlisted,DC=corp,DC=test");
 
         using DomainJoinPreparationResult result = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", submission);
@@ -167,10 +163,11 @@ public sealed class DomainJoinPreparationServiceTests
     [InlineData(false, "sales")]
     [InlineData(true, null)]
     [InlineData(true, "sales")]
-    public void OuPickerRequiresASubmittedSelection(bool automatic, string? defaultOuId)
+    public void SeveralListedOusRequireASubmittedSelection(bool automatic, string? defaultOuId)
     {
         using var keys = Unlocked(out byte[] key);
-        DeployDomainJoinSettings settings = WithDefaultOu(WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }), defaultOuId);
+        // Even a marked default is only a preselection: the join uses what the technician confirmed on the step.
+        DeployDomainJoinSettings settings = WithTwoOus(WithDefaultOu(WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }), defaultOuId));
         using var submission = new DomainJoinSubmission("corp", "corp.test", "CORP\\join", null, "secret".AsSpan());
 
         using DomainJoinPreparationResult result = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", submission);
@@ -182,34 +179,36 @@ public sealed class DomainJoinPreparationServiceTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void OuPickerAcceptsTheSubmittedPreselectedDefault(bool automatic)
+    public void SeveralListedOusUseTheSubmittedSelection(bool automatic)
     {
         using var keys = Unlocked(out byte[] key);
-        DeployDomainJoinSettings settings = WithDefaultOu(WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }), "sales");
-        using var submission = new DomainJoinSubmission("corp", "corp.test", "CORP\\join", "sales", "secret".AsSpan());
+        DeployDomainJoinSettings settings = WithTwoOus(WithDefaultOu(WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }), "sales"));
+        using var preselected = new DomainJoinSubmission("corp", "corp.test", "CORP\\join", "sales", "secret".AsSpan());
+        using var other = new DomainJoinSubmission("corp", "corp.test", "CORP\\join", "field", "secret".AsSpan());
 
-        using DomainJoinPreparationResult result = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", submission);
+        using DomainJoinPreparationResult first = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", preselected);
+        using DomainJoinPreparationResult second = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", other);
 
-        Assert.Equal(DomainJoinPreparationStatus.Ready, result.Status);
-        Assert.Equal("OU=Sales,DC=corp,DC=test", result.Input!.TargetOuDn);
+        Assert.Equal(DomainJoinPreparationStatus.Ready, first.Status);
+        Assert.Equal("OU=Sales,DC=corp,DC=test", first.Input!.TargetOuDn);
+        Assert.Equal("OU=Field,DC=corp,DC=test", second.Input!.TargetOuDn);
     }
 
     [Theory]
-    [InlineData(false, null, null)]
-    [InlineData(false, "sales", "OU=Sales,DC=corp,DC=test")]
-    [InlineData(true, null, null)]
-    [InlineData(true, "sales", "OU=Sales,DC=corp,DC=test")]
-    public void WithoutOuPickerTheDomainsDefaultApplies(bool automatic, string? defaultOuId, string? expectedDn)
+    [InlineData(false, null)]
+    [InlineData(false, "sales")]
+    [InlineData(true, null)]
+    [InlineData(true, "sales")]
+    public void ASingleListedOuIsUsedWhetherOrNotItIsMarkedDefault(bool automatic, string? defaultOuId)
     {
         using var keys = Unlocked(out byte[] key);
-        DeployDomainJoinSettings settings = WithDefaultOu(WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }), defaultOuId) with
-        { AllowOuSelectionDuringDeployment = false };
+        DeployDomainJoinSettings settings = WithDefaultOu(WithCatalog(automatic ? Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true }), defaultOuId);
         using var submission = new DomainJoinSubmission("corp", "corp.test", "CORP\\join", null, "secret".AsSpan());
 
         using DomainJoinPreparationResult result = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", submission);
 
         Assert.Equal(DomainJoinPreparationStatus.Ready, result.Status);
-        Assert.Equal(expectedDn, result.Input!.TargetOuDn);
+        Assert.Equal("OU=Sales,DC=corp,DC=test", result.Input!.TargetOuDn);
     }
 
     [Theory]
@@ -413,7 +412,6 @@ public sealed class DomainJoinPreparationServiceTests
         IsEnabled = true,
         Mode = mode,
         DefaultDomainId = "corp",
-        AllowOuSelectionDuringDeployment = true,
         Domains =
         [
             new()
@@ -435,14 +433,26 @@ public sealed class DomainJoinPreparationServiceTests
         ]
     };
 
-    /// <summary>Lists one OU, offered to the technician, on the single domain; adds corp.test when no domain is listed.</summary>
+    /// <summary>Adds a second OU to the first domain, which makes the technician choose between them.</summary>
+    internal static DeployDomainJoinSettings WithTwoOus(DeployDomainJoinSettings settings) => settings with
+    {
+        Domains =
+        [
+            settings.Domains[0] with
+            {
+                OrganizationalUnits = [.. settings.Domains[0].OrganizationalUnits, new() { Id = "field", DisplayName = "Field", DistinguishedName = "OU=Field,DC=corp,DC=test" }]
+            },
+            .. settings.Domains.Skip(1)
+        ]
+    };
+
+    /// <summary>Lists one OU on the single domain; adds corp.test when no domain is listed.</summary>
     internal static DeployDomainJoinSettings WithCatalog(DeployDomainJoinSettings settings)
     {
         DeployDomainJoinDomainSettings domain = settings.Domains.FirstOrDefault() ?? new() { Id = "corp", DomainName = "corp.test" };
         return settings with
         {
             DefaultDomainId = domain.Id,
-            AllowOuSelectionDuringDeployment = true,
             Domains = [domain with { OrganizationalUnits = [new() { Id = "sales", DisplayName = "Sales", DistinguishedName = "OU=Sales,DC=corp,DC=test" }] }]
         };
     }

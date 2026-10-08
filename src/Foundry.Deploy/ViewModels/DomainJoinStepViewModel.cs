@@ -13,8 +13,8 @@ using Foundry.Deploy.Services.DomainJoin;
 namespace Foundry.Deploy.ViewModels;
 
 /// <summary>
-/// Holds what the technician enters on the Domain Join wizard step: the domain when the media lets the technician
-/// choose one, credentials in Interactive mode, and the OU of the retained domain. The password is an owned
+/// Holds what the technician enters on the Domain Join wizard step: the domain when the media lists several,
+/// credentials in Interactive mode, and the OU when the retained domain lists several. The password is an owned
 /// buffer that never enters wizard state, logs or the deployment request.
 /// </summary>
 public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposable
@@ -28,7 +28,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     /// <summary>Raised when the owned password is erased, so the view can empty its password box.</summary>
     public event EventHandler? PasswordCleared;
 
-    /// <summary>Listed domain shown in the domain list; the default applies when the technician cannot choose.</summary>
+    /// <summary>Listed domain shown in the domain list; the default is preselected.</summary>
     [ObservableProperty]
     private DeployDomainJoinDomainSettings? selectedDomain;
 
@@ -53,16 +53,16 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     /// <summary>Gets whether the technician supplies the account and password.</summary>
     public bool RequiresCredentials => settings.IsEnabled && settings.Mode == DomainJoinMode.Interactive;
 
-    /// <summary>Gets whether the technician picks the domain: the media allows it and lists more than one.</summary>
-    public bool IsDomainListVisible => settings.IsEnabled && settings.AllowDomainSelectionDuringDeployment && settings.Domains.Count > 1;
+    /// <summary>Gets whether the technician picks the domain, which is the case when the media lists more than one.</summary>
+    public bool IsDomainListVisible => settings.IsEnabled && settings.Domains.Count > 1;
 
     /// <summary>Gets whether the domain is shown as text: read-only for a listed domain, editable when the media lists none.</summary>
     public bool IsDomainTextVisible => !IsDomainListVisible;
 
     public bool IsDomainReadOnly => HasListedDomains;
 
-    /// <summary>Gets whether the technician picks an OU from the retained domain's list.</summary>
-    public bool IsOuListVisible => settings.AllowOuSelectionDuringDeployment && OrganizationalUnits.Count > 0;
+    /// <summary>Gets whether the technician picks an OU: the retained domain lists more than one. A single listed OU is used as is.</summary>
+    public bool IsOuListVisible => OrganizationalUnits.Count > 1;
 
     /// <summary>Gets whether an OU may be typed, which is only offered in Interactive mode for a domain without listed OUs.</summary>
     public bool IsTypedOuVisible => RequiresCredentials && OrganizationalUnits.Count == 0;
@@ -94,7 +94,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     private bool HasListedDomains => settings.Domains.Count > 0;
 
-    /// <summary>The domain the join will use: the technician's choice when allowed, otherwise the media default.</summary>
+    /// <summary>The domain the join will use: the technician's choice among several, otherwise the media default.</summary>
     private DeployDomainJoinDomainSettings? RetainedDomain => DomainJoinPreparationService.ResolveDomain(settings, SelectedDomain?.Id);
 
     private string TypedOu => TypedOuDistinguishedName.Trim();
@@ -147,7 +147,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     partial void OnDomainNameChanged(string value) => RaiseDerivedStateChanged();
 
     /// <summary>
-    /// Shows the retained domain and resets the OU to that domain's default. The account and password are kept,
+    /// Shows the retained domain and resets the OU to the one that domain uses or preselects. The account and password are kept,
     /// because one account may serve several domains.
     /// </summary>
     private void ApplyRetainedDomain()

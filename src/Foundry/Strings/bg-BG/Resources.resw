@@ -1867,9 +1867,6 @@
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Задаване по подразбиране</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Техниците могат да избират</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Първо въведете валиден акаунт, след което проверете дължината на паролата.</value>
   </data>
@@ -2042,7 +2039,7 @@
     <value>Импортиране на OU от домейна</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Домейни, към които този носител може да присъединява компютри. Домейнът по подразбиране се използва, освен ако техниците могат да избират.</value>
+    <value>Домейни, към които този носител може да присъединява компютри. Когато са изброени няколко, техниците избират един по време на разполагането; домейнът по подразбиране е предварително избран.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Домейни</value>
@@ -2066,7 +2063,7 @@
     <value>Показвано име</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Незадължително. Избройте OU, в които могат да се поставят компютри в избрания домейн. Съществуващ компютърен акаунт се премества в избраната OU.</value>
+    <value>Незадължително. Избройте OU, в които могат да се поставят компютри в избрания домейн. Ако е посочена само една OU, тя се използва винаги; когато са изброени няколко, техниците избират една по време на разполагането. Съществуващ компютърен акаунт се премества в избраната OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Парола</value>

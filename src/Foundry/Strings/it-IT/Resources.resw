@@ -1867,9 +1867,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Imposta come predefinito</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>I tecnici possono scegliere</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Inserisci prima un account valido, quindi controlla la lunghezza della password.</value>
   </data>
@@ -2042,7 +2039,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Importa OU dal dominio</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domini a cui questo supporto può aggiungere i computer. Viene usato il dominio predefinito, a meno che i tecnici non possano scegliere.</value>
+    <value>Domini a cui questo supporto può aggiungere i computer. Se ne sono elencati diversi, i tecnici ne scelgono uno durante la distribuzione; il dominio predefinito è preselezionato.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domini</value>
@@ -2066,7 +2063,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Nome visualizzato</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Facoltativo. Elenca le OU in cui è possibile collocare i computer nel dominio selezionato. Un account computer esistente viene spostato nella OU scelta.</value>
+    <value>Facoltativo. Elenca le OU in cui è possibile collocare i computer nel dominio selezionato. Se è elencata una sola OU, viene sempre usata; se ne sono elencate diverse, i tecnici ne scelgono una durante la distribuzione. Un account computer esistente viene spostato nella OU scelta.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Password</value>

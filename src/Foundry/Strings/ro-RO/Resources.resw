@@ -1867,9 +1867,6 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Setează ca implicit</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Tehnicienii pot alege</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Introduceți mai întâi un cont valid, apoi verificați lungimea parolei.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licențiat sub licența MIT.</value>
     <value>Import de OU-uri din domeniu</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domeniile la care acest suport poate asocia computere. Se folosește domeniul implicit, cu excepția cazului în care tehnicienii pot alege.</value>
+    <value>Domeniile la care acest suport poate asocia computere. Când sunt listate mai multe, tehnicienii aleg unul în timpul implementării; cel implicit este preselectat.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domenii</value>
@@ -2066,7 +2063,7 @@ Licențiat sub licența MIT.</value>
     <value>Nume afișat</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Opțional. Listați OU-urile în care pot fi plasate computerele în domeniul selectat. Un cont de computer existent este mutat în OU-ul ales.</value>
+    <value>Opțional. Listați OU-urile în care pot fi plasate computerele în domeniul selectat. Un singur OU este folosit întotdeauna; când sunt listate mai multe, tehnicienii aleg unul în timpul implementării. Un cont de computer existent este mutat în OU-ul ales.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parolă</value>

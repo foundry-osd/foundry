@@ -96,12 +96,12 @@ public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession key
     }
 
     /// <summary>
-    /// Returns the domain the join will use: the technician's choice when the media allows one, otherwise the
-    /// default. It returns <see langword="null"/> when the media lists no domain or the choice is not listed.
+    /// Returns the domain the join will use: the one the technician chose among several, otherwise the default.
+    /// It returns <see langword="null"/> when the media lists no domain or the choice is not listed.
     /// </summary>
     internal static DeployDomainJoinDomainSettings? ResolveDomain(DeployDomainJoinSettings settings, string? selectedDomainId)
     {
-        string? id = settings.AllowDomainSelectionDuringDeployment && selectedDomainId is not null ? selectedDomainId : settings.DefaultDomainId;
+        string? id = selectedDomainId ?? settings.DefaultDomainId;
         return id is null ? null : settings.Domains.FirstOrDefault(domain => string.Equals(domain.Id, id, StringComparison.OrdinalIgnoreCase));
     }
 
@@ -123,11 +123,12 @@ public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession key
         return string.Equals(defaultDn, intent.TargetOuDn, StringComparison.OrdinalIgnoreCase) ? DomainJoinOuSource.Default : DomainJoinOuSource.Selected;
     }
 
-    /// <summary>Resolves a domain's default OU; <see langword="null"/> means the domain's default location.</summary>
+    /// <summary>
+    /// Resolves the OU a domain uses or preselects: its only OU, or its default among several.
+    /// <see langword="null"/> means the domain's default location, or that the technician must choose.
+    /// </summary>
     internal static DomainJoinOrganizationalUnitSettings? ResolveDefaultOrganizationalUnit(DeployDomainJoinDomainSettings? domain) =>
-        domain?.DefaultOuId is { } id
-            ? domain.OrganizationalUnits.FirstOrDefault(unit => string.Equals(unit.Id, id, StringComparison.OrdinalIgnoreCase))
-            : null;
+        DomainJoinOrganizationalUnitCatalog.ResolveDefault(domain?.OrganizationalUnits, domain?.DefaultOuId);
 
     private static bool SameDomain(string first, string second) => string.Equals(
         DomainJoinCredentialContext.CanonicalizeDomainName(first), DomainJoinCredentialContext.CanonicalizeDomainName(second), StringComparison.Ordinal);
@@ -143,7 +144,8 @@ public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession key
 
     /// <summary>
     /// Resolves the OU the join will use within the retained domain; <see langword="null"/> means the domain's
-    /// default location. A typed OU is accepted only in Interactive mode and only when the domain lists no OU.
+    /// default location. A single listed OU is always used; among several, the technician's choice is required.
+    /// A typed OU is accepted only in Interactive mode and only when the domain lists no OU.
     /// </summary>
     internal static string? ResolveOrganizationalUnit(DeployDomainJoinSettings settings, DeployDomainJoinDomainSettings? domain,
         string? selectedId, string? typedOuDistinguishedName)
@@ -158,8 +160,7 @@ public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession key
         }
         if (hasTypedOu)
             throw new InvalidDataException("The OU must come from the saved OU list.");
-        string? id = settings.AllowOuSelectionDuringDeployment ? selectedId : domain!.DefaultOuId;
-        if (id is null && !settings.AllowOuSelectionDuringDeployment) return null;
+        string? id = selectedId ?? (units.Count == 1 ? units[0].Id : null);
         return units.FirstOrDefault(unit =>
             string.Equals(unit.Id, id, StringComparison.OrdinalIgnoreCase))?.DistinguishedName
             ?? throw new InvalidDataException("The selected OU is not in the saved OU list.");
@@ -178,9 +179,7 @@ public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession key
             OrganizationalUnits = domain.OrganizationalUnits ?? [],
             DefaultOuId = domain.DefaultOuId
         }).ToArray(),
-        DefaultDomainId = settings.DefaultDomainId,
-        AllowDomainSelectionDuringDeployment = settings.AllowDomainSelectionDuringDeployment,
-        AllowOuSelectionDuringDeployment = settings.AllowOuSelectionDuringDeployment
+        DefaultDomainId = settings.DefaultDomainId
     };
 }
 /// <summary>Defines stable non-secret launch failures; exception text never crosses preparation boundaries.</summary>

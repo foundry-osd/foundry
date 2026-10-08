@@ -1867,9 +1867,6 @@
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>設為預設</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>技術人員可選取</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>請先輸入有效的帳戶，然後檢查密碼長度。</value>
   </data>
@@ -2042,7 +2039,7 @@
     <value>從網域匯入 OU</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>此媒體可加入的網域。除非允許技術人員選取，否則使用預設網域。</value>
+    <value>此媒體可加入的網域。列出多個網域時，技術人員會在部署期間選取其中一個；預設網域會預先選取。</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>網域</value>
@@ -2066,7 +2063,7 @@
     <value>顯示名稱</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>選用。列出所選網域中可放置電腦的 OU。現有電腦帳戶將移至選取的 OU。</value>
+    <value>選用。列出所選網域中可放置電腦的 OU。僅列出一個 OU 時一律使用該 OU；列出多個時，技術人員會在部署期間選取其中一個。現有電腦帳戶將移至選取的 OU。</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>密碼</value>

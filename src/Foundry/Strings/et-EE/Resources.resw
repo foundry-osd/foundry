@@ -1867,9 +1867,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Määra vaikevalikuks</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Tehnikud saavad valida</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Sisestage esmalt kehtiv konto ning kontrollige seejärel parooli pikkust.</value>
   </data>
@@ -2042,7 +2039,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Impordi OU-d domeenist</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domeenid, millega see andmekandja saab arvuteid liita. Kasutatakse vaikedomeeni, välja arvatud juhul, kui tehnikud saavad valida.</value>
+    <value>Domeenid, millega see andmekandja saab arvuteid liita. Kui loetletud on mitu, valivad tehnikud juurutamise ajal ühe; vaikedomeen on eelvalitud.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domeenid</value>
@@ -2066,7 +2063,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Kuvatav nimi</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Valikuline. Loetlege OU-d, kuhu arvuteid saab valitud domeenis paigutada. Olemasolev arvutikonto teisaldatakse valitud OU-sse.</value>
+    <value>Valikuline. Loetlege OU-d, kuhu arvuteid saab valitud domeenis paigutada. Kui loetletud on ainult üks OU, kasutatakse alati seda; kui loetletud on mitu, valivad tehnikud juurutamise ajal ühe. Olemasolev arvutikonto teisaldatakse valitud OU-sse.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parool</value>

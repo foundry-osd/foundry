@@ -1867,9 +1867,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Als standaard instellen</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Technici kunnen kiezen</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Voer eerst een geldig account in en controleer daarna de lengte van het wachtwoord.</value>
   </data>
@@ -2042,7 +2039,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>OU's importeren uit het domein</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domeinen waarvan computers met dit medium lid kunnen worden. Het standaarddomein wordt gebruikt, tenzij technici kunnen kiezen.</value>
+    <value>Domeinen waarvan computers met dit medium lid kunnen worden. Als er meerdere zijn opgegeven, kiezen technici er één tijdens de implementatie; het standaarddomein is vooraf geselecteerd.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domeinen</value>
@@ -2066,7 +2063,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Weergavenaam</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Optioneel. Geef de OU's op waarin computers in het geselecteerde domein kunnen worden geplaatst. Een bestaand computeraccount wordt naar de gekozen OU verplaatst.</value>
+    <value>Optioneel. Geef de OU's op waarin computers in het geselecteerde domein kunnen worden geplaatst. Eén enkele OU wordt altijd gebruikt; als er meerdere zijn opgegeven, kiezen technici er één tijdens de implementatie. Een bestaand computeraccount wordt naar de gekozen OU verplaatst.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Wachtwoord</value>

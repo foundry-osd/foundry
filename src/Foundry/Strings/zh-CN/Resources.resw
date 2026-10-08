@@ -1867,9 +1867,6 @@
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>设为默认</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>技术人员可选择</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>请先输入有效的账户，然后检查密码长度。</value>
   </data>
@@ -2042,7 +2039,7 @@
     <value>从域导入 OU</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>此介质可加入的域。除非允许技术人员选择，否则使用默认域。</value>
+    <value>此介质可加入的域。列出多个域时，技术人员在部署期间选择其中一个；默认域已预选。</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>域</value>
@@ -2066,7 +2063,7 @@
     <value>显示名称</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>可选。列出所选域中可放置计算机的 OU。现有计算机账户将移至所选 OU。</value>
+    <value>可选。列出所选域中可放置计算机的 OU。仅列出一个 OU 时始终使用该 OU；列出多个时，技术人员在部署期间选择其中一个。现有计算机账户将移至所选 OU。</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>密码</value>

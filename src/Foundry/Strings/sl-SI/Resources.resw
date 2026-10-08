@@ -1867,9 +1867,6 @@ Licencirano pod licenco MIT.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Nastavi kot privzeto</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Tehniki lahko izbirajo</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Najprej vnesite veljaven račun, nato preverite dolžino gesla.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licencirano pod licenco MIT.</value>
     <value>Uvoz OU iz domene</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domene, ki jim ta medij lahko pridruži računalnike. Uporabi se privzeta domena, razen če lahko izbirajo tehniki.</value>
+    <value>Domene, ki jim ta medij lahko pridruži računalnike. Če jih je navedenih več, tehniki med uvajanjem izberejo eno; privzeta je vnaprej izbrana.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domene</value>
@@ -2066,7 +2063,7 @@ Licencirano pod licenco MIT.</value>
     <value>Prikazno ime</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Izbirno. Navedite OU, v katere je mogoče umestiti računalnike v izbrani domeni. Obstoječi račun računalnika se premakne v izbrano OU.</value>
+    <value>Izbirno. Navedite OU, v katere je mogoče umestiti računalnike v izbrani domeni. Ena sama OU se vedno uporabi; če jih je navedenih več, tehniki med uvajanjem izberejo eno. Obstoječi račun računalnika se premakne v izbrano OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Geslo</value>

@@ -1867,9 +1867,6 @@ Licencjonowany na licencji MIT.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Ustaw jako domyślną</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Technicy mogą wybierać</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Najpierw wprowadź prawidłowe konto, a następnie sprawdź długość hasła.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Importuj jednostki OU z domeny</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domeny, do których ten nośnik może dołączać komputery. Używana jest domena domyślna, chyba że technicy mogą wybierać.</value>
+    <value>Domeny, do których ten nośnik może dołączać komputery. Jeśli podano kilka, technicy wybierają jedną podczas wdrażania; domena domyślna jest wstępnie wybrana.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domeny</value>
@@ -2066,7 +2063,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nazwa wyświetlana</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Opcjonalne. Podaj jednostki OU, w których można umieszczać komputery w wybranej domenie. Istniejące konto komputera jest przenoszone do wybranej jednostki OU.</value>
+    <value>Opcjonalne. Podaj jednostki OU, w których można umieszczać komputery w wybranej domenie. Pojedyncza jednostka OU jest używana zawsze; jeśli podano kilka, technicy wybierają jedną podczas wdrażania. Istniejące konto komputera jest przenoszone do wybranej jednostki OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Hasło</value>

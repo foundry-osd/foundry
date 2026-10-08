@@ -23,7 +23,7 @@ public enum DebugDomainJoinMode
     Interactive,
 
     /// <summary>
-    /// Shows the wizard step as Zero-touch media with technician choice would: the domain list and the OU list.
+    /// Shows the wizard step as Zero-touch media that lists several domains and OUs would: the domain list and the OU list.
     /// </summary>
     ZeroTouch
 }
@@ -47,8 +47,6 @@ public static class DebugDomainJoinScenarios
         IsEnabled = true,
         Mode = mode,
         DefaultDomainId = "corp",
-        AllowDomainSelectionDuringDeployment = true,
-        AllowOuSelectionDuringDeployment = true,
         Domains =
         [
             new()

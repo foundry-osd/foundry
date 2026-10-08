@@ -1867,9 +1867,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Nustatyti kaip numatytąjį</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Technikai gali rinktis</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Pirmiausia įveskite tinkamą paskyrą, tada patikrinkite slaptažodžio ilgį.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Importuoti OU iš domeno</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domenai, prie kurių gali prisijungti ši laikmena. Naudojamas numatytasis domenas, nebent technikai gali rinktis.</value>
+    <value>Domenai, prie kurių gali prisijungti ši laikmena. Jei išvardyti keli, technikai diegimo metu pasirenka vieną; numatytasis domenas būna parinktas iš anksto.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domenai</value>
@@ -2066,7 +2063,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Rodomas pavadinimas</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Nebūtina. Išvardykite OU, kuriuose galima talpinti kompiuterius pasirinktame domene. Esama kompiuterio paskyra perkeliama į pasirinktą OU.</value>
+    <value>Nebūtina. Išvardykite OU, kuriuose galima talpinti kompiuterius pasirinktame domene. Jei išvardytas tik vienas OU, jis naudojamas visada; jei išvardyti keli, technikai diegimo metu pasirenka vieną. Esama kompiuterio paskyra perkeliama į pasirinktą OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Slaptažodis</value>

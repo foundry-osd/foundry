@@ -1867,9 +1867,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Beállítás alapértelmezettként</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>A technikusok választhatnak</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Először adjon meg érvényes fiókot, majd ellenőrizze a jelszó hosszát.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licenc az MIT licenc alatt.</value>
     <value>OU-k importálása a tartományból</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Azok a tartományok, amelyekhez ez az adathordozó csatlakozhat. A rendszer az alapértelmezett tartományt használja, kivéve, ha a technikusok választhatnak.</value>
+    <value>Azok a tartományok, amelyekhez ez az adathordozó csatlakozhat. Ha több is szerepel a listán, a technikusok telepítés közben választanak közülük egyet; az alapértelmezett tartomány előre ki van választva.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Tartományok</value>
@@ -2066,7 +2063,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Megjelenítendő név</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Nem kötelező. Sorolja fel azokat az OU-kat, amelyekbe a számítógépek a kiválasztott tartományban elhelyezhetők. A meglévő számítógépfiók a kiválasztott OU-ba kerül.</value>
+    <value>Nem kötelező. Sorolja fel azokat az OU-kat, amelyekbe a számítógépek a kiválasztott tartományban elhelyezhetők. Ha csak egy OU szerepel a listán, a rendszer mindig azt használja; ha több, a technikusok telepítés közben választanak közülük egyet. A meglévő számítógépfiók a kiválasztott OU-ba kerül.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Jelszó</value>

@@ -1867,9 +1867,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Als Standard festlegen</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Techniker können wählen</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Geben Sie zuerst ein gültiges Konto ein und prüfen Sie dann die Kennwortlänge.</value>
   </data>
@@ -2042,7 +2039,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>OUs aus der Domäne importieren</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domänen, denen dieses Medium beitreten kann. Die Standarddomäne wird verwendet, sofern Techniker nicht wählen können.</value>
+    <value>Domänen, denen dieses Medium beitreten kann. Sind mehrere aufgeführt, wählen Techniker während der Bereitstellung eine aus; die Standarddomäne ist vorausgewählt.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domänen</value>
@@ -2066,7 +2063,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Anzeigename</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Optional. Listen Sie die OUs auf, in denen Computer in der ausgewählten Domäne platziert werden können. Ein vorhandenes Computerkonto wird in die gewählte OU verschoben.</value>
+    <value>Optional. Listen Sie die OUs auf, in denen Computer in der ausgewählten Domäne platziert werden können. Eine einzelne OU wird immer verwendet; sind mehrere aufgeführt, wählen Techniker während der Bereitstellung eine aus. Ein vorhandenes Computerkonto wird in die gewählte OU verschoben.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Kennwort</value>

@@ -1867,9 +1867,6 @@
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>הגדרה כברירת מחדל</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>הטכנאים יכולים לבחור</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>הזן תחילה חשבון תקין, ולאחר מכן בדוק את אורך הסיסמה.</value>
   </data>
@@ -2042,7 +2039,7 @@
     <value>ייבוא יחידות OU מהתחום</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>התחומים שאליהם מדיה זו יכולה להצטרף. נעשה שימוש בתחום ברירת המחדל, אלא אם הטכנאים יכולים לבחור.</value>
+    <value>התחומים שאליהם מדיה זו יכולה להצטרף. כאשר מפורטים כמה תחומים, הטכנאים בוחרים אחד מהם במהלך הפריסה; תחום ברירת המחדל נבחר מראש.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>תחומים</value>
@@ -2066,7 +2063,7 @@
     <value>שם תצוגה</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>אופציונלי. פרט את יחידות ה-OU שבהן ניתן למקם מחשבים בתחום שנבחר. חשבון מחשב קיים מועבר ל-OU שנבחרה.</value>
+    <value>אופציונלי. פרט את יחידות ה-OU שבהן ניתן למקם מחשבים בתחום שנבחר. כאשר מפורטת יחידת OU אחת בלבד, נעשה בה שימוש תמיד; כאשר מפורטות כמה יחידות, הטכנאים בוחרים אחת מהן במהלך הפריסה. חשבון מחשב קיים מועבר ל-OU שנבחרה.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>סיסמה</value>

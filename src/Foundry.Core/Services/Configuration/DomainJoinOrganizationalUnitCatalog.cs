@@ -62,6 +62,17 @@ public static class DomainJoinOrganizationalUnitCatalog
             DomainJoinDomainCatalog.Replace(current, DomainJoinDomainCatalog.Require(current, domainId) with { DefaultOuId = ouId }), nameof(ouId));
 
     /// <summary>
+    /// Returns the OU a domain uses when nobody chooses: its only OU, or the one marked as default among several.
+    /// <see langword="null"/> means the domain's default location when no OU is listed, and that the technician
+    /// must choose when several are listed without a default.
+    /// </summary>
+    public static DomainJoinOrganizationalUnitSettings? ResolveDefault(IReadOnlyList<DomainJoinOrganizationalUnitSettings>? units, string? defaultOuId) =>
+        units is null || units.Count == 0 ? null
+        : units.Count == 1 ? units[0]
+        : defaultOuId is null ? null
+        : units.FirstOrDefault(unit => string.Equals(unit.Id, defaultOuId, StringComparison.OrdinalIgnoreCase));
+
+    /// <summary>
     /// Returns the candidates a domain does not list yet, compared as <see cref="Merge"/> compares them, so an
     /// import offers only what it would add. A candidate with an unreadable name is kept for the merge to reject.
     /// </summary>

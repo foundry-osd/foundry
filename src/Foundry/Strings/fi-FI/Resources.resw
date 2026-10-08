@@ -1867,9 +1867,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Aseta oletukseksi</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Teknikot voivat valita</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Anna ensin kelvollinen tili ja tarkista sitten salasanan pituus.</value>
   </data>
@@ -2042,7 +2039,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tuo OU:t toimialueesta</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Toimialueet, joihin tämä media voi liittyä. Oletustoimialuetta käytetään, elleivät teknikot voi valita.</value>
+    <value>Toimialueet, joihin tämä media voi liittyä. Jos niitä on luettelossa useita, teknikot valitsevat yhden käyttöönoton aikana; oletustoimialue on esivalittuna.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Toimialueet</value>
@@ -2066,7 +2063,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Näyttönimi</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Valinnainen. Luettele OU:t, joihin tietokoneita voidaan sijoittaa valitussa toimialueessa. Olemassa oleva tietokonetili siirretään valittuun OU:hun.</value>
+    <value>Valinnainen. Luettele OU:t, joihin tietokoneita voidaan sijoittaa valitussa toimialueessa. Jos luettelossa on vain yksi OU, sitä käytetään aina; jos niitä on useita, teknikot valitsevat yhden käyttöönoton aikana. Olemassa oleva tietokonetili siirretään valittuun OU:hun.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Salasana</value>

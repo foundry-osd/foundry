@@ -1867,9 +1867,6 @@ Licencováno pod licencí MIT.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Nastavit jako výchozí</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Technici mohou vybírat</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Nejprve zadejte platný účet, potom zkontrolujte délku hesla.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licencováno pod licencí MIT.</value>
     <value>Importovat OU z domény</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domény, ke kterým se toto médium může připojit. Použije se výchozí doména, pokud nemohou vybírat technici.</value>
+    <value>Domény, ke kterým se toto médium může připojit. Pokud je jich uvedeno více, technici jednu vyberou během nasazení; výchozí doména je předvybraná.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domény</value>
@@ -2066,7 +2063,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zobrazovaný název</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Volitelné. Uveďte jednotky OU, do kterých lze počítače ve vybrané doméně umístit. Existující účet počítače se přesune do zvolené jednotky OU.</value>
+    <value>Volitelné. Uveďte jednotky OU, do kterých lze počítače ve vybrané doméně umístit. Jediná uvedená jednotka OU se použije vždy; pokud je jich uvedeno více, technici jednu vyberou během nasazení. Existující účet počítače se přesune do zvolené jednotky OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Heslo</value>

@@ -19,8 +19,13 @@ internal static class DeploymentProfilePayload
     private const int MaximumTotalAssetBytes = 8 * 1024 * 1024;
     private static readonly UTF8Encoding SecretEncoding = new(false, true);
 
-    // Written by builds that preceded the domain list. The strict reader would otherwise reject the whole profile.
-    private static readonly string[] SingleDomainMembers = ["domainName", "accountName", "ouCatalogDomain", "organizationalUnits", "defaultOuId"];
+    // Written by earlier builds: the single-domain shape, then the two technician-choice settings that the number of
+    // listed domains and OUs now replaces. The strict reader would otherwise reject the whole profile.
+    private static readonly string[] RetiredDomainJoinMembers =
+    [
+        "domainName", "accountName", "ouCatalogDomain", "organizationalUnits", "defaultOuId",
+        "allowDomainSelectionDuringDeployment", "allowOuSelectionDuringDeployment"
+    ];
     private static readonly JsonSerializerOptions Options = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -75,7 +80,7 @@ internal static class DeploymentProfilePayload
             {
                 RequireProperties(asset, "id", "kind", "relativePath", "state");
             }
-            current = WithoutSingleDomainMembers(json.RootElement);
+            current = WithoutRetiredDomainJoinMembers(json.RootElement);
             profile = JsonSerializer.Deserialize<DeploymentProfileDocument>(current ?? bytes, Options)
                 ?? throw new InvalidDataException("The profile payload is missing.");
             Validate(profile);
@@ -98,14 +103,15 @@ internal static class DeploymentProfilePayload
     }
 
     /// <summary>
-    /// Rewrites a payload saved with the earlier single-domain Domain Join shape without its retired members, so the
-    /// profile loads with an empty domain list instead of being rejected. Returns <see langword="null"/> when the
-    /// payload carries none of them. The copy holds the profile secrets; the caller clears it.
+    /// Rewrites a payload saved by an earlier build without its retired Domain Join members, so the profile loads
+    /// instead of being rejected: a single-domain profile yields an empty domain list, and a profile that only
+    /// carried the technician-choice settings keeps its domains. Returns <see langword="null"/> when the payload
+    /// carries none of them. The copy holds the profile secrets; the caller clears it.
     /// </summary>
-    private static byte[]? WithoutSingleDomainMembers(JsonElement root)
+    private static byte[]? WithoutRetiredDomainJoinMembers(JsonElement root)
     {
         if (!root.GetProperty("configuration").TryGetProperty("domainJoin", out JsonElement domainJoin)
-            || domainJoin.ValueKind != JsonValueKind.Object || !SingleDomainMembers.Any(name => domainJoin.TryGetProperty(name, out _)))
+            || domainJoin.ValueKind != JsonValueKind.Object || !RetiredDomainJoinMembers.Any(name => domainJoin.TryGetProperty(name, out _)))
         {
             return null;
         }
@@ -131,7 +137,7 @@ internal static class DeploymentProfilePayload
                             continue;
                         }
                         writer.WriteStartObject(section.Name);
-                        foreach (JsonProperty member in section.Value.EnumerateObject().Where(member => !SingleDomainMembers.Contains(member.Name, StringComparer.Ordinal)))
+                        foreach (JsonProperty member in section.Value.EnumerateObject().Where(member => !RetiredDomainJoinMembers.Contains(member.Name, StringComparer.Ordinal)))
                         {
                             member.WriteTo(writer);
                         }

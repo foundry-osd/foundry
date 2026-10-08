@@ -736,11 +736,11 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     }
 
     [Theory]
-    [InlineData(false, DomainJoinMode.Automatic, "disabled", 0, 0, false, false, false)]
-    [InlineData(true, DomainJoinMode.Automatic, "zero_touch", 2, 3, true, true, true)]
-    [InlineData(true, DomainJoinMode.Interactive, "interactive", 2, 3, true, true, false)]
+    [InlineData(false, DomainJoinMode.Automatic, "disabled", 0, 0, false, false)]
+    [InlineData(true, DomainJoinMode.Automatic, "zero_touch", 2, 3, true, true)]
+    [InlineData(true, DomainJoinMode.Interactive, "interactive", 2, 3, true, false)]
     public void Build_ReportsDomainJoinUsageWithoutDirectoryNames(bool enabled, DomainJoinMode mode, string expectedMode,
-        int expectedDomains, int expectedOus, bool expectedDefaultOu, bool expectedChoice, bool expectedSharedAccount)
+        int expectedDomains, int expectedOus, bool expectedDefaultOu, bool expectedSharedAccount)
     {
         var document = new FoundryConfigurationDocument
         {
@@ -750,8 +750,6 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                 Mode = mode,
                 SharedAccountName = @"PRIVATE\joiner",
                 DefaultDomainId = "one",
-                AllowDomainSelectionDuringDeployment = true,
-                AllowOuSelectionDuringDeployment = true,
                 Domains =
                 [
                     new()
@@ -792,8 +790,9 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(expectedDomains, result["domain_join_domain_count"]);
         Assert.Equal(expectedOus, result["domain_join_ou_count"]);
         Assert.Equal(expectedDefaultOu, result["domain_join_default_ou_set"]);
-        Assert.Equal(expectedChoice, result["domain_join_ou_selection_allowed"]);
-        Assert.Equal(expectedChoice, result["domain_join_domain_selection_allowed"]);
+        // The technician's choice follows from the counts above, so it is not reported on its own.
+        Assert.False(result.ContainsKey("domain_join_ou_selection_allowed"));
+        Assert.False(result.ContainsKey("domain_join_domain_selection_allowed"));
         Assert.Equal(expectedSharedAccount, result["domain_join_shared_account_used"]);
         Assert.DoesNotContain(result.Values, value => value is string text && text.Contains("private", StringComparison.OrdinalIgnoreCase));
     }

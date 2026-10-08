@@ -12,14 +12,15 @@ namespace Foundry.Deploy.Tests;
 public sealed class DomainJoinStepViewModelTests
 {
     [Theory]
-    [InlineData(false, DomainJoinMode.Interactive, false, false)]
-    [InlineData(true, DomainJoinMode.Interactive, false, true)]
-    [InlineData(true, DomainJoinMode.Automatic, false, false)]
-    [InlineData(true, DomainJoinMode.Automatic, true, true)]
-    public void StepIsNeededOnlyWhenTheTechnicianHasSomethingToEnter(bool enabled, DomainJoinMode mode, bool technicianChoosesOu, bool expected)
+    [InlineData(false, DomainJoinMode.Interactive, 1, false)]
+    [InlineData(true, DomainJoinMode.Interactive, 1, true)]
+    [InlineData(true, DomainJoinMode.Automatic, 1, false)]
+    [InlineData(true, DomainJoinMode.Automatic, 2, true)]
+    public void StepIsNeededOnlyWhenTheTechnicianHasSomethingToEnter(bool enabled, DomainJoinMode mode, int ouCount, bool expected)
     {
         using var step = new DomainJoinStepViewModel();
-        step.Configure(OneDomain(mode) with { IsEnabled = enabled, AllowOuSelectionDuringDeployment = technicianChoosesOu });
+        DeployDomainJoinSettings settings = OneDomain(mode) with { IsEnabled = enabled };
+        step.Configure(ouCount == 2 ? DomainJoinPreparationServiceTests.WithTwoOus(settings) : settings);
 
         Assert.Equal(expected, step.HasInput);
     }
@@ -28,8 +29,7 @@ public sealed class DomainJoinStepViewModelTests
     public void ZeroTouchStepIsSkippedWhenThereIsNothingToChoose()
     {
         using var step = new DomainJoinStepViewModel();
-        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Automatic) with { AllowOuSelectionDuringDeployment = false };
-        step.Configure(settings);
+        step.Configure(OneDomain(DomainJoinMode.Automatic));
 
         Assert.False(step.HasInput);
         Assert.True(step.IsValid);
@@ -41,24 +41,22 @@ public sealed class DomainJoinStepViewModelTests
     public void ZeroTouchStepIsShownForADomainChoiceAlone()
     {
         using var step = new DomainJoinStepViewModel();
-        step.Configure(TwoDomains(DomainJoinMode.Automatic) with { AllowDomainSelectionDuringDeployment = true, AllowOuSelectionDuringDeployment = false });
+        step.Configure(TwoDomains(DomainJoinMode.Automatic));
 
         Assert.True(step.HasInput);
         Assert.True(step.IsDomainListVisible);
         Assert.False(step.IsDomainTextVisible);
+        Assert.False(step.IsOuListVisible);
         Assert.True(step.IsValid);
     }
 
     [Theory]
-    [InlineData(1, true, false)]
-    [InlineData(2, false, false)]
-    [InlineData(2, true, true)]
-    public void DomainListIsOfferedOnlyWhenChoiceIsAllowedAndSeveralDomainsExist(int domainCount, bool allowChoice, bool expected)
+    [InlineData(1, false)]
+    [InlineData(2, true)]
+    public void DomainListIsOfferedWhenSeveralDomainsAreListed(int domainCount, bool expected)
     {
         using var step = new DomainJoinStepViewModel();
-        DeployDomainJoinSettings settings = (domainCount == 1 ? OneDomain(DomainJoinMode.Interactive) : TwoDomains(DomainJoinMode.Interactive)) with
-        { AllowDomainSelectionDuringDeployment = allowChoice };
-        step.Configure(settings);
+        step.Configure(domainCount == 1 ? OneDomain(DomainJoinMode.Interactive) : TwoDomains(DomainJoinMode.Interactive));
 
         Assert.Equal(expected, step.IsDomainListVisible);
         Assert.True(step.IsDomainReadOnly);
@@ -69,7 +67,7 @@ public sealed class DomainJoinStepViewModelTests
     public void ChangingTheDomainOffersItsOusAndPreselectsItsDefault()
     {
         using var step = new DomainJoinStepViewModel();
-        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Interactive) with { AllowDomainSelectionDuringDeployment = true };
+        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Interactive);
         settings = settings with
         {
             Domains =
@@ -78,15 +76,21 @@ public sealed class DomainJoinStepViewModelTests
                 settings.Domains[1] with
                 {
                     DefaultOuId = "kiosk",
-                    OrganizationalUnits = [new() { Id = "kiosk", DisplayName = "Kiosks", DistinguishedName = "OU=Kiosks,DC=emea,DC=test" }]
+                    OrganizationalUnits =
+                    [
+                        new() { Id = "desk", DisplayName = "Desks", DistinguishedName = "OU=Desks,DC=emea,DC=test" },
+                        new() { Id = "kiosk", DisplayName = "Kiosks", DistinguishedName = "OU=Kiosks,DC=emea,DC=test" }
+                    ]
                 }
             ]
         };
         step.Configure(settings);
         Assert.Equal("sales", step.SelectedOrganizationalUnit?.Id);
+        Assert.False(step.IsOuListVisible);
 
         step.SelectedDomain = step.Domains[1];
 
+        Assert.True(step.IsOuListVisible);
         Assert.Equal("emea.test", step.DomainName);
         Assert.Equal("kiosk", step.SelectedOrganizationalUnit?.Id);
         Assert.All(step.OrganizationalUnits, unit => Assert.EndsWith("DC=emea,DC=test", unit.DistinguishedName));
@@ -97,7 +101,7 @@ public sealed class DomainJoinStepViewModelTests
     public void ChangingTheDomainKeepsTheTypedAccountAndPassword()
     {
         using var step = new DomainJoinStepViewModel();
-        step.Configure(TwoDomains(DomainJoinMode.Interactive) with { AllowDomainSelectionDuringDeployment = true });
+        step.Configure(TwoDomains(DomainJoinMode.Interactive));
         step.AccountName = "CORP\\join";
         step.SetPassword("secret");
 
@@ -110,10 +114,10 @@ public sealed class DomainJoinStepViewModelTests
     [Theory]
     [InlineData(DomainJoinMode.Automatic)]
     [InlineData(DomainJoinMode.Interactive)]
-    public void OuChoiceOnADomainWithoutOusDoesNotBlock(DomainJoinMode mode)
+    public void ADomainWithoutListedOusDoesNotBlock(DomainJoinMode mode)
     {
         using var step = new DomainJoinStepViewModel();
-        step.Configure(TwoDomains(mode) with { AllowDomainSelectionDuringDeployment = true });
+        step.Configure(TwoDomains(mode));
         step.AccountName = "EMEA\\tech";
         step.SetPassword("secret");
 
@@ -177,10 +181,10 @@ public sealed class DomainJoinStepViewModelTests
     }
 
     [Fact]
-    public void TechnicianChoiceRequiresAListedOuAndPreselectsTheDefault()
+    public void SeveralListedOusRequireAChoiceAndPreselectTheDefault()
     {
         using var step = new DomainJoinStepViewModel();
-        step.Configure(OneDomain(DomainJoinMode.Automatic));
+        step.Configure(DomainJoinPreparationServiceTests.WithTwoOus(OneDomain(DomainJoinMode.Automatic)));
 
         Assert.True(step.IsOuListVisible);
         Assert.False(step.IsTypedOuVisible);
@@ -192,10 +196,29 @@ public sealed class DomainJoinStepViewModelTests
     }
 
     [Fact]
-    public void FixedDefaultIsUsedWhenTheTechnicianCannotChoose()
+    public void SeveralListedOusWithoutADefaultStartWithNoneSelected()
     {
         using var step = new DomainJoinStepViewModel();
-        step.Configure(OneDomain(DomainJoinMode.Interactive) with { AllowOuSelectionDuringDeployment = false });
+        DeployDomainJoinSettings settings = DomainJoinPreparationServiceTests.WithTwoOus(OneDomain(DomainJoinMode.Automatic));
+        step.Configure(settings with { Domains = [settings.Domains[0] with { DefaultOuId = null }] });
+
+        Assert.True(step.HasInput);
+        Assert.Null(step.SelectedOrganizationalUnit);
+        Assert.False(step.IsValid);
+
+        step.SelectedOrganizationalUnit = step.OrganizationalUnits[1];
+        Assert.True(step.IsValid);
+        Assert.Equal("OU=Field,DC=corp,DC=test", step.EffectiveOuDistinguishedName);
+    }
+
+    [Theory]
+    [InlineData("sales")]
+    [InlineData(null)]
+    public void ASingleListedOuIsUsedWithoutAChoice(string? defaultOuId)
+    {
+        using var step = new DomainJoinStepViewModel();
+        DeployDomainJoinSettings settings = OneDomain(DomainJoinMode.Interactive);
+        step.Configure(settings with { Domains = [settings.Domains[0] with { DefaultOuId = defaultOuId }] });
 
         Assert.False(step.IsOuListVisible);
         Assert.False(step.IsTypedOuVisible);
@@ -206,7 +229,7 @@ public sealed class DomainJoinStepViewModelTests
     public void SubmissionCarriesTheSelectedDomainTheInputsAndAnIndependentPasswordCopy()
     {
         using var step = new DomainJoinStepViewModel();
-        step.Configure(TwoDomains(DomainJoinMode.Interactive) with { AllowDomainSelectionDuringDeployment = true });
+        step.Configure(TwoDomains(DomainJoinMode.Interactive));
         step.AccountName = "CORP\\join";
         step.SetPassword("secret");
 
@@ -218,7 +241,8 @@ public sealed class DomainJoinStepViewModelTests
         Assert.Equal("corp", first.SelectedDomainId);
         Assert.Equal("corp.test", first.DomainName);
         Assert.Equal("CORP\\join", first.AccountName);
-        Assert.Equal("sales", first.SelectedOuId);
+        // The only OU of corp.test is used as is, so nothing is submitted for it.
+        Assert.Null(first.SelectedOuId);
         Assert.Null(first.TypedOuDistinguishedName);
         Assert.Equal("secret", new string(first.Password.Span));
         Assert.Equal("emea", second.SelectedDomainId);
@@ -244,7 +268,7 @@ public sealed class DomainJoinStepViewModelTests
     public void ZeroTouchSubmissionNeverCarriesAnAccountOrPassword()
     {
         using var step = new DomainJoinStepViewModel();
-        step.Configure(OneDomain(DomainJoinMode.Automatic));
+        step.Configure(DomainJoinPreparationServiceTests.WithTwoOus(OneDomain(DomainJoinMode.Automatic)));
         step.SetPassword("ignored");
 
         using DomainJoinSubmission submission = step.CreateSubmission()!;

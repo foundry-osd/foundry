@@ -1867,9 +1867,6 @@ Licenseret under MIT-licensen.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Angiv som standard</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Teknikere kan vælge</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Angiv først en gyldig konto, og kontrollér derefter adgangskodens længde.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licenseret under MIT-licensen.</value>
     <value>Importér OU'er fra domænet</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domæner, som dette medie kan tilslutte computere til. Standarddomænet bruges, medmindre teknikere kan vælge.</value>
+    <value>Domæner, som dette medie kan tilslutte computere til. Når der er angivet flere, vælger teknikere ét under udrulning; standarddomænet er valgt på forhånd.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domæner</value>
@@ -2066,7 +2063,7 @@ Licenseret under MIT-licensen.</value>
     <value>Visningsnavn</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Valgfrit. Angiv de OU'er i det valgte domæne, som computere kan placeres i. En eksisterende computerkonto flyttes til den valgte OU.</value>
+    <value>Valgfrit. Angiv de OU'er i det valgte domæne, som computere kan placeres i. En enkelt OU bruges altid; når der er angivet flere, vælger teknikere én under udrulning. En eksisterende computerkonto flyttes til den valgte OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Adgangskode</value>

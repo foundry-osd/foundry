@@ -1867,9 +1867,6 @@
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Ορισμός ως προεπιλογής</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Οι τεχνικοί μπορούν να επιλέξουν</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Εισαγάγετε πρώτα έγκυρο λογαριασμό και, στη συνέχεια, ελέγξτε το μήκος του κωδικού πρόσβασης.</value>
   </data>
@@ -2042,7 +2039,7 @@
     <value>Εισαγωγή OU από τον τομέα</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Τομείς στους οποίους μπορεί να γίνει σύνδεση με αυτό το μέσο. Χρησιμοποιείται ο προεπιλεγμένος τομέας, εκτός αν οι τεχνικοί μπορούν να επιλέξουν.</value>
+    <value>Τομείς στους οποίους μπορεί να γίνει σύνδεση με αυτό το μέσο. Όταν έχουν καταχωρηθεί περισσότεροι από ένας, οι τεχνικοί επιλέγουν έναν κατά την ανάπτυξη· ο προεπιλεγμένος τομέας είναι ήδη επιλεγμένος.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Τομείς</value>
@@ -2066,7 +2063,7 @@
     <value>Εμφανιζόμενο όνομα</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Προαιρετικό. Καταχωρήστε τις OU στις οποίες μπορούν να τοποθετηθούν υπολογιστές στον επιλεγμένο τομέα. Ένας υπάρχων λογαριασμός υπολογιστή μετακινείται στην επιλεγμένη OU.</value>
+    <value>Προαιρετικό. Καταχωρήστε τις OU στις οποίες μπορούν να τοποθετηθούν υπολογιστές στον επιλεγμένο τομέα. Αν έχει καταχωρηθεί μόνο μία OU, χρησιμοποιείται πάντα· όταν έχουν καταχωρηθεί περισσότερες, οι τεχνικοί επιλέγουν μία κατά την ανάπτυξη. Ένας υπάρχων λογαριασμός υπολογιστή μετακινείται στην επιλεγμένη OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Κωδικός πρόσβασης</value>

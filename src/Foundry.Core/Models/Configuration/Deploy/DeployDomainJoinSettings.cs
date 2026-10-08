@@ -10,8 +10,6 @@ public sealed record DeployDomainJoinSettings
     public bool IsEnabled { get; init; }
     public DomainJoinMode Mode { get; init; } = DomainJoinMode.Interactive;
     public IReadOnlyList<DeployDomainJoinDomainSettings> Domains { get; init; } = [];
-    /// <summary>Gets the domain joined when the technician does not choose one.</summary>
+    /// <summary>Gets the domain preselected when several are listed; the technician then chooses among them.</summary>
     public string? DefaultDomainId { get; init; }
-    public bool AllowDomainSelectionDuringDeployment { get; init; }
-    public bool AllowOuSelectionDuringDeployment { get; init; }
 }

@@ -51,7 +51,7 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.True(media.DomainJoin.IsEnabled);
         Assert.Equal(2, media.DomainJoin.Domains.Count);
         Assert.Equal("corp", media.DomainJoin.DefaultDomainId);
-        Assert.True(media.DomainJoin.AllowDomainSelectionDuringDeployment);
+
         Assert.All(media.DomainJoin.Domains, domain =>
         {
             Assert.Null(domain.AccountName);
@@ -125,7 +125,6 @@ public sealed class DeployConfigurationGeneratorTests
         Mode = DomainJoinMode.Automatic,
         SharedAccountName = "CORP\\join",
         DefaultDomainId = "corp",
-        AllowDomainSelectionDuringDeployment = true,
         Domains =
         [
             new() { Id = "corp", DomainName = "corp.test", DefaultOuId = "ws", OrganizationalUnits = [new() { Id = "ws", DisplayName = "Workstations", DistinguishedName = "OU=Workstations,DC=corp,DC=test" }] },

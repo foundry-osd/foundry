@@ -68,12 +68,6 @@
                                             Command="{x:Bind ViewModel.SetDefaultDomainCommand}"
                                             Icon="Favorite"
                                             Label="{x:Bind ViewModel.SetDefaultLabel, Mode=OneWay}" />
-                                        <AppBarSeparator />
-                                        <AppBarToggleButton
-                                            Click="OnDomainChoiceClick"
-                                            Icon="People"
-                                            IsChecked="{x:Bind ViewModel.AllowDomainSelectionDuringDeployment, Mode=OneWay}"
-                                            Label="{x:Bind ViewModel.TechniciansChooseLabel, Mode=OneWay}" />
                                     </CommandBar.PrimaryCommands>
                                 </CommandBar>
                             </ScrollViewer>
@@ -172,12 +166,6 @@
                                             Command="{x:Bind ViewModel.ClearDefaultOrganizationalUnitCommand}"
                                             Icon="Clear"
                                             Label="{x:Bind ViewModel.ClearDefaultLabel, Mode=OneWay}" />
-                                        <AppBarSeparator />
-                                        <AppBarToggleButton
-                                            Click="OnOuChoiceClick"
-                                            Icon="People"
-                                            IsChecked="{x:Bind ViewModel.AllowOuSelectionDuringDeployment, Mode=OneWay}"
-                                            Label="{x:Bind ViewModel.TechniciansChooseLabel, Mode=OneWay}" />
                                     </CommandBar.PrimaryCommands>
                                 </CommandBar>
                             </ScrollViewer>

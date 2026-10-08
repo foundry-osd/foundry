@@ -1867,9 +1867,6 @@
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>تعيين كافتراضي</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>يمكن للفنيين الاختيار</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>أدخل أولاً حساباً صالحاً، ثم تحقق من طول كلمة المرور.</value>
   </data>
@@ -2042,7 +2039,7 @@
     <value>استيراد وحدات OU من النطاق</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>النطاقات التي يمكن لهذه الوسائط الانضمام إليها. يُستخدم النطاق الافتراضي ما لم يُسمح للفنيين بالاختيار.</value>
+    <value>النطاقات التي يمكن لهذه الوسائط الانضمام إليها. عند إدراج عدة نطاقات، يختار الفنيون أحدها أثناء النشر، ويكون النطاق الافتراضي محددًا مسبقًا.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>النطاقات</value>
@@ -2066,7 +2063,7 @@
     <value>اسم العرض</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>اختياري. أدرج وحدات OU التي يمكن وضع أجهزة الكمبيوتر فيها ضمن النطاق المحدد. يتم نقل حساب الكمبيوتر الموجود إلى وحدة OU المختارة.</value>
+    <value>اختياري. أدرج وحدات OU التي يمكن وضع أجهزة الكمبيوتر فيها ضمن النطاق المحدد. عند إدراج وحدة OU واحدة فقط، تُستخدم دائمًا؛ وعند إدراج عدة وحدات، يختار الفنيون إحداها أثناء النشر. يتم نقل حساب الكمبيوتر الموجود إلى وحدة OU المختارة.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>كلمة المرور</value>

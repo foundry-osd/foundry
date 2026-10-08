@@ -1867,9 +1867,6 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>Ange som standard</value>
   </data>
-  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
-    <value>Tekniker får välja</value>
-  </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Ange först ett giltigt konto, och kontrollera sedan lösenordets längd.</value>
   </data>
@@ -2042,7 +2039,7 @@ Licensierad under MIT-licensen.</value>
     <value>Importera OU:er från domänen</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domäner som det här mediet kan ansluta till. Standarddomänen används om inte tekniker får välja.</value>
+    <value>Domäner som det här mediet kan ansluta till. När flera anges väljer tekniker en under distributionen; standarddomänen är förvald.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domäner</value>
@@ -2066,7 +2063,7 @@ Licensierad under MIT-licensen.</value>
     <value>Visningsnamn</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>Valfritt. Ange de OU:er där datorer kan placeras i den valda domänen. Ett befintligt datorkonto flyttas till den valda OU:n.</value>
+    <value>Valfritt. Ange de OU:er där datorer kan placeras i den valda domänen. Om bara en OU anges används den alltid; när flera anges väljer tekniker en under distributionen. Ett befintligt datorkonto flyttas till den valda OU:n.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Lösenord</value>
