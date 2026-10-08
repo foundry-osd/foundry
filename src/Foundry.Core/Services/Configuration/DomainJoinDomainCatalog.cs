@@ -41,6 +41,13 @@ public static class DomainJoinDomainCatalog
         return Validated(Replace(current, domain with { DomainName = name, AccountName = NormalizeAccount(accountName) }), nameof(domainName));
     }
 
+    /// <summary>
+    /// Changes only a domain's name and keeps its dedicated account. Interactive authoring edits a domain without
+    /// showing the account that Zero-touch stored on it.
+    /// </summary>
+    public static DomainJoinSettings Rename(DomainJoinSettings current, string domainId, string domainName) =>
+        Update(current, domainId, domainName, Require(current, domainId).AccountName);
+
     /// <summary>Removes a domain with its OUs. A removed default moves to the first remaining domain.</summary>
     public static DomainJoinSettings Remove(DomainJoinSettings current, string domainId)
     {

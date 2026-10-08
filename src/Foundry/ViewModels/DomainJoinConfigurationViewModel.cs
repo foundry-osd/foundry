@@ -226,9 +226,10 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
 
         try
         {
-            Save(domainId is null
-                ? DomainJoinDomainCatalog.Add(current, input.DomainName, account)
-                : DomainJoinDomainCatalog.Update(current, domainId, input.DomainName, account));
+            // Interactive hides the account inputs, so an edit there keeps the account Zero-touch stored on the domain.
+            Save(domainId is null ? DomainJoinDomainCatalog.Add(current, input.DomainName, account)
+                : IsZeroTouch ? DomainJoinDomainCatalog.Update(current, domainId, input.DomainName, account)
+                : DomainJoinDomainCatalog.Rename(current, domainId, input.DomainName));
         }
         catch (ArgumentException) { return Text(GetDomainFailureKey(current, domainId, input.DomainName)); }
 

@@ -66,6 +66,18 @@ public sealed class DomainJoinDomainCatalogTests
     }
 
     [Fact]
+    public void RenamingADomainKeepsItsDedicatedAccount()
+    {
+        DomainJoinSettings current = DomainJoinDomainCatalog.Add(new(), "corp.test", "CORP\\join");
+
+        DomainJoinSettings renamed = DomainJoinDomainCatalog.Rename(current, current.Domains[0].Id, " lab.test ");
+
+        Assert.Equal("lab.test", renamed.Domains[0].DomainName);
+        Assert.Equal("CORP\\join", renamed.Domains[0].AccountName);
+        Assert.Throws<ArgumentException>(() => DomainJoinDomainCatalog.Rename(current, "missing", "lab.test"));
+    }
+
+    [Fact]
     public void ADomainWithoutOusCanBeRenamedButNotToAnotherListedName()
     {
         DomainJoinSettings current = Two();
