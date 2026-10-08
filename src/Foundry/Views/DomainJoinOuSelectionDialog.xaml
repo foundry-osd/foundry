@@ -71,9 +71,11 @@
             ShowExportOptions="False">
             <tv:TableView.Columns>
                 <tv:TableViewTextColumn
+                    Width="*"
                     Binding="{Binding DisplayName}"
                     Header="{x:Bind ViewModel.DisplayNameColumnHeader}" />
                 <tv:TableViewTextColumn
+                    Width="2*"
                     Binding="{Binding DistinguishedName}"
                     Header="{x:Bind ViewModel.DistinguishedNameColumnHeader}" />
             </tv:TableView.Columns>

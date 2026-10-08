@@ -105,7 +105,8 @@
 
                     <wct:SettingsCard
                         x:Uid="DomainJoinCatalog"
-                        HorizontalContentAlignment="Stretch">
+                        HorizontalContentAlignment="Stretch"
+                        ContentAlignment="Vertical">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE8B7;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -135,11 +136,14 @@
                                 SelectionUnit="Row"
                                 ShowExportOptions="False"
                                 Visibility="{x:Bind ViewModel.ListVisibility, Mode=OneWay}">
+                                <!--  Proportional widths keep rows aligned; automatic widths lag when several rows arrive at once.  -->
                                 <tv:TableView.Columns>
                                     <tv:TableViewTextColumn
+                                        Width="*"
                                         Binding="{Binding DisplayName}"
                                         Header="{x:Bind ViewModel.LabelColumnHeader, Mode=OneWay}" />
                                     <tv:TableViewTextColumn
+                                        Width="2*"
                                         Binding="{Binding DistinguishedName}"
                                         Header="{x:Bind ViewModel.DistinguishedNameColumnHeader, Mode=OneWay}" />
                                 </tv:TableView.Columns>
