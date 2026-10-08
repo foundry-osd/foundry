@@ -7,14 +7,14 @@ using System.Xml.Linq;
 namespace Foundry.Deploy.Services.Deployment.Unattend;
 
 /// <summary>
-/// Removes the account questions from OOBE for a computer that Foundry joins to a domain, so setup ends on the
-/// sign-in screen where domain accounts are used. Without it Windows still asks whether the device is personal
-/// or for work and offers to create an account.
+/// Removes the Microsoft account sign-in from OOBE for a computer that Foundry joins to a domain, so Windows no
+/// longer asks whether the device is personal or for work.
 /// </summary>
 /// <remarks>
 /// Applies only to the answer file Foundry generates; an imported answer file keeps ownership of its OOBE section.
-/// Microsoft documents <c>HideLocalAccountScreen</c> for Windows Server only; it is written for parity with the
-/// answer files commonly used for domain-joined client deployments and is ignored where it does not apply.
+/// Microsoft documents <c>HideLocalAccountScreen</c> for Windows Server only: on Windows client it is ignored, and
+/// setup still asks who will use the device unless the answer file creates a local account. The authoring pages
+/// warn about that case. The setting is written for the editions where it applies.
 /// </remarks>
 internal static class DomainJoinOobeAccountScreens
 {

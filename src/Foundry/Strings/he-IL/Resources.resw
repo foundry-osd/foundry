@@ -1924,6 +1924,9 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>יחידות ה-OU לא נוספו. הן שייכות לתחום שונה מהתחום שנבחר.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>לא הוגדר חשבון מקומי בדף OOBE, ולכן Windows יבקש ליצור חשבון בסוף ההתקנה. הפעל את חשבון מנהל המערכת המוכלל או הוסף חשבון מקומי בדף זה כדי להגיע ישירות למסך הכניסה.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>הוסף תחילה תחום, ולאחר מכן פרט את יחידות ה-OU שלו.</value>
   </data>

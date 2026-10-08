@@ -24,6 +24,13 @@
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
 
+            <InfoBar
+                IsClosable="False"
+                IsOpen="{x:Bind ViewModel.IsLocalAccountMissing, Mode=OneWay}"
+                Message="{x:Bind ViewModel.LocalAccountMissingText, Mode=OneWay}"
+                Severity="Warning"
+                Visibility="{x:Bind ViewModel.IsLocalAccountMissing, Mode=OneWay}" />
+
             <ContentControl
                 HorizontalContentAlignment="Stretch"
                 IsEnabled="{x:Bind ViewModel.IsActive, Mode=OneWay}">

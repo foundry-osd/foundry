@@ -1924,6 +1924,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU-sid ei lisatud. Need kuuluvad teise domeeni kui valitud domeen.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>Lehel „OOBE“ pole konfigureeritud ühtegi kohalikku kontot, seega palub Windows häälestuse lõpus selle luua. Otse sisselogimiskuvale jõudmiseks lubage seal sisseehitatud administraatorikonto või lisage kohalik konto.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Lisage esmalt domeen ja loetlege seejärel selle OU-d.</value>
   </data>

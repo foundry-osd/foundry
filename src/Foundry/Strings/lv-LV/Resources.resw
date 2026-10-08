@@ -1924,6 +1924,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU netika pievienotas. Tās pieder citam domēnam, nevis atlasītajam.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>OOBE lapā nav konfigurēts neviens lokālais konts, tāpēc Windows iestatīšanas beigās lūgs to izveidot. Lai uzreiz nonāktu pierakstīšanās ekrānā, iespējojiet tur iebūvēto administratora kontu vai pievienojiet lokālo kontu.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Vispirms pievienojiet domēnu, pēc tam norādiet tā OU.</value>
   </data>

@@ -1924,6 +1924,9 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU не бяха добавени. Те принадлежат към домейн, различен от избрания.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>На страницата „OOBE“ не е конфигуриран локален акаунт, затова Windows ще поиска създаването на такъв в края на инсталацията. Активирайте вградения акаунт Administrator или добавете локален акаунт там, за да стигнете директно до екрана за влизане.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Първо добавете домейн, след което избройте неговите OU.</value>
   </data>

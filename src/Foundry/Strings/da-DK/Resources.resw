@@ -1924,6 +1924,9 @@ Licenseret under MIT-licensen.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU'erne blev ikke tilføjet. De tilhører et andet domæne end det valgte.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>Der er ikke konfigureret en lokal konto på siden "OOBE", så Windows beder om at oprette en i slutningen af installationen. Aktivér den indbyggede Administrator-konto, eller tilføj en lokal konto dér for at komme direkte til logonskærmen.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Tilføj først et domæne, og angiv derefter dets OU'er.</value>
   </data>

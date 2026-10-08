@@ -1924,6 +1924,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OUは追加されませんでした。選択したドメインとは異なるドメインに属しています。</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>OOBE ページでローカル アカウントが構成されていないため、セットアップの最後に Windows でアカウントの作成を求められます。サインイン画面に直接進むには、OOBE ページで組み込み Administrator アカウントを有効にするか、ローカル アカウントを追加してください。</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>先にドメインを追加してから、そのOUを登録してください。</value>
   </data>

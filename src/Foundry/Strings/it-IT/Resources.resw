@@ -1924,6 +1924,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Le OU non sono state aggiunte. Appartengono a un dominio diverso da quello selezionato.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>Nessun account locale è configurato nella pagina OOBE, quindi Windows chiederà di crearne uno al termine dell'installazione. Abilita l'account Administrator predefinito o aggiungi un account locale in quella pagina per arrivare direttamente alla schermata di accesso.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Aggiungi prima un dominio, quindi elenca le sue OU.</value>
   </data>

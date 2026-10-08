@@ -1924,6 +1924,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Nie dodano jednostek OU. Należą one do innej domeny niż wybrana.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>Na stronie OOBE nie skonfigurowano żadnego konta lokalnego, więc system Windows poprosi o jego utworzenie pod koniec instalacji. Włącz tam wbudowane konto Administrator lub dodaj konto lokalne, aby przejść bezpośrednio do ekranu logowania.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Najpierw dodaj domenę, a następnie podaj jej jednostki OU.</value>
   </data>

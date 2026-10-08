@@ -1924,6 +1924,9 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Οι OU δεν προστέθηκαν. Ανήκουν σε διαφορετικό τομέα από τον επιλεγμένο.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>Δεν έχει ρυθμιστεί τοπικός λογαριασμός στη σελίδα «OOBE», επομένως τα Windows θα ζητήσουν τη δημιουργία ενός στο τέλος της εγκατάστασης. Ενεργοποιήστε τον ενσωματωμένο λογαριασμό Διαχειριστή ή προσθέστε έναν τοπικό λογαριασμό εκεί, για να μεταβείτε απευθείας στην οθόνη εισόδου.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Προσθέστε πρώτα έναν τομέα και, στη συνέχεια, καταχωρήστε τις OU του.</value>
   </data>

@@ -1924,6 +1924,9 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU не додано. Вони належать до іншого домену, ніж вибраний.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>На сторінці OOBE не налаштовано жодного локального облікового запису, тому Windows запропонує створити його наприкінці інсталяції. Увімкніть там вбудований обліковий запис Administrator або додайте локальний обліковий запис, щоб одразу перейти до екрана входу.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Спочатку додайте домен, а потім укажіть його OU.</value>
   </data>

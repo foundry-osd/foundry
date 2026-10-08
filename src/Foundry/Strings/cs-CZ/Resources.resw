@@ -1924,6 +1924,9 @@ Licencováno pod licencí MIT.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Jednotky OU nebyly přidány. Patří do jiné domény, než je vybraná doména.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>Na stránce „OOBE“ není nakonfigurován žádný místní účet, takže systém Windows na konci instalace požádá o jeho vytvoření. Povolte tam integrovaný účet Administrator nebo přidejte místní účet, abyste se dostali přímo na přihlašovací obrazovku.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Nejprve přidejte doménu, potom uveďte její jednotky OU.</value>
   </data>

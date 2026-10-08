@@ -1924,6 +1924,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Die OUs wurden nicht hinzugefügt. Sie gehören zu einer anderen Domäne als der ausgewählten.</value>
   </data>
+  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
+    <value>Auf der Seite „OOBE“ ist kein lokales Konto konfiguriert, daher fordert Windows am Ende des Setups zur Erstellung eines Kontos auf. Aktivieren Sie dort das integrierte Administratorkonto oder fügen Sie ein lokales Konto hinzu, um direkt zum Anmeldebildschirm zu gelangen.</value>
+  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Fügen Sie zuerst eine Domäne hinzu und listen Sie dann ihre OUs auf.</value>
   </data>
