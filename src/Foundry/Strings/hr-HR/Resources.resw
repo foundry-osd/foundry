@@ -155,7 +155,7 @@ Licenciran prema MIT licenci.</value>
     <value>ADK postavljanje</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalirajte podržano izdanje Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Instalirajte podržano izdanje Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK verzija nije podržana</value>
@@ -191,7 +191,7 @@ Licenciran prema MIT licenci.</value>
     <value>Verzija nije otkrivena</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Zahtijeva Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Zahtijeva Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Pravila obavezne verzije</value>
@@ -685,6 +685,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Osvježiti</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Nedostupan</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektura</value>
   </data>
@@ -774,6 +777,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operacija sa slikom nije uspjela. Provjerite izvor, slobodan prostor i zapisnike aplikacije Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Nije dostupno uz PXE pokretanje. Prilagođene slike zahtijevaju cijeli ISO ili USB medij.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Uključite barem jednu dostupnu sliku sustava Windows u ovaj profil. Vratite uključene slike koje nedostaju i ispravite ili uklonite odabir preferirane slike ili indeksa prije stvaranja ili ažuriranja medija.</value>
@@ -2185,9 +2191,6 @@ Licenciran prema MIT licenci.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>nizozemski (Nizozemska)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>engleski</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engleski (Ujedinjeno Kraljevstvo)</value>
   </data>
@@ -2199,9 +2202,6 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finski (Finska)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>francuski</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>francuski (Kanada)</value>
@@ -2751,6 +2751,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumenti</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Radnje koje koriste uvezene datoteke nisu dostupne uz PXE pokretanje. Zahtijevaju cijeli ISO ili USB medij.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Radnju nije bilo moguće ukloniti. Pokušajte ponovno.</value>
@@ -3600,6 +3603,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO mediji dovršeni.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry nije mogao zamijeniti ISO datoteku na {0}. Datoteka je možda montirana, priključena virtualnom stroju, otvorena u drugom programu ili samo za čitanje. Demontirajte je ili zatvorite ili odaberite drugi izlazni put, a zatim pokušajte ponovno.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO medij je uspješno kreiran.</value>
   </data>
@@ -3707,6 +3713,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Provjera USB medija za pokretanje.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows je blokirao pristup datotekama slike sustava WinPE. Možda ih zaključava sigurnosni softver ili neki drugi alat. U sigurnosnom softveru dodajte iznimku za {0}, zatvorite alate koji montiraju slike, ponovno pokrenite računalo i pokušajte ponovno. Pojedinosti se nalaze u {1} i {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pregledajte spremnost, odaberite ISO ili USB izlaz i pokrenite stvaranje medija.</value>
@@ -4001,6 +4010,9 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nije provjereno</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Ažuriranje nije bilo moguće primijeniti: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Provjera ažuriranja</value>
   </data>
@@ -4033,6 +4045,9 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} je dostupan.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Ažuriranje nije bilo moguće primijeniti</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Provjera ažuriranja nije uspjela</value>

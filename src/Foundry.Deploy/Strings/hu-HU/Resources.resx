@@ -361,7 +361,7 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
     <value>Ismeretlen méret</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Fiók (DOMAIN\user vagy user@domain)</value>

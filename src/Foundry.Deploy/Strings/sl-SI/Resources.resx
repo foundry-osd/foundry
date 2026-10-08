@@ -361,7 +361,7 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
     <value>Neznana velikost</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Račun (DOMAIN\user ali user@domain)</value>

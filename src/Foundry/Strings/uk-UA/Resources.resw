@@ -155,7 +155,7 @@
     <value>ADK налаштування</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Інсталюйте підтримуваний випуск Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Інсталюйте підтримуваний випуск Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Версія ADK не підтримується</value>
@@ -191,7 +191,7 @@
     <value>Версія не виявлена</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Потрібен Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Потрібен Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Необхідна політика версії</value>
@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Оновити</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Недоступний</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Архітектура</value>
   </data>
@@ -774,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Не вдалося виконати операцію з образом. Перевірте джерело, вільне місце та журнали Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Недоступно під час завантаження через PXE. Користувацьким образам потрібен повний носій ISO або USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включіть до цього профілю принаймні один доступний образ Windows. Відновіть відсутні включені образи та виправте або скиньте вибір бажаного образу чи індексу перед створенням або оновленням носія.</value>
@@ -2185,9 +2191,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>голландська (Нідерланди)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>англійська</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>англійська (Великобританія)</value>
   </data>
@@ -2199,9 +2202,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>фінська (Фінляндія)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>французька</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>французька (Канада)</value>
@@ -2751,6 +2751,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Аргументи PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Дії, що використовують імпортовані файли, недоступні під час завантаження через PXE. Їм потрібен повний носій ISO або USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Не вдалося видалити дію. Спробуйте ще раз.</value>
@@ -3600,6 +3603,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO медіа завершено.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry не вдалося замінити ISO-файл {0}. Можливо, файл підключено, приєднано до віртуальної машини, відкрито в іншій програмі або він доступний лише для читання. Відключіть або закрийте його чи виберіть інший шлях виводу, а потім повторіть спробу.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Носій ISO створено успішно.</value>
   </data>
@@ -3707,6 +3713,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Перевірка завантажувального носія USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows заблокувала доступ до файлів образу WinPE. Можливо, їх блокує програма безпеки або інший засіб. Додайте виняток для {0} у програмі безпеки, закрийте засоби, що підключають образи, перезавантажте комп’ютер і спробуйте ще раз. Докладні відомості див. у {1} та {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Перевірте готовність, виберіть вихід ISO або USB і запустіть створення носія.</value>
@@ -4001,6 +4010,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не перевірено</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Не вдалося застосувати оновлення: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Перевірка оновлень</value>
   </data>
@@ -4033,6 +4045,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} доступний.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Не вдалося застосувати оновлення</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Не вдалося перевірити оновлення</value>

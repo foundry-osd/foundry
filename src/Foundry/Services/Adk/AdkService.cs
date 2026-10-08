@@ -19,7 +19,7 @@ internal sealed class AdkService(
     IApplicationLocalizationService localizationService,
     ILogger logger) : IAdkService
 {
-    private const string TargetAdkVersion = "10.1.26100.2454";
+    private const string TargetAdkVersion = "10.1.26100.9457";
     private const string AdkSetupFileName = $"adksetup-{TargetAdkVersion}.exe";
     private const string WinPeSetupFileName = $"adkwinpesetup-{TargetAdkVersion}.exe";
     private const string AdkSetupUrl = "https://go.microsoft.com/fwlink/?linkid=2289980";
@@ -41,8 +41,7 @@ internal sealed class AdkService(
         false,
         null,
         AdkVersionRelation.Unknown,
-        null,
-        "Windows ADK 24H2 / 10.1.26100.2454");
+        null);
 
     /// <inheritdoc />
     public Task<AdkInstallationStatus> RefreshStatusAsync(CancellationToken cancellationToken = default)
@@ -67,25 +66,25 @@ internal sealed class AdkService(
     /// <inheritdoc />
     public Task<AdkInstallationStatus> InstallAsync(CancellationToken cancellationToken = default)
     {
-        return RunInstallOperationAsync(OperationKind.AdkInstall, uninstallFirst: false, cancellationToken);
+        return RunInstallOperationAsync(OperationKind.AdkInstall, cancellationToken);
     }
 
     /// <inheritdoc />
     public Task<AdkInstallationStatus> UpgradeAsync(CancellationToken cancellationToken = default)
     {
-        return RunInstallOperationAsync(OperationKind.AdkUpgrade, uninstallFirst: true, cancellationToken);
+        return RunInstallOperationAsync(OperationKind.AdkUpgrade, cancellationToken);
     }
 
     private async Task<AdkInstallationStatus> RunInstallOperationAsync(
         OperationKind operationKind,
-        bool uninstallFirst,
         CancellationToken cancellationToken)
     {
         // ADK setup changes machine-level state and may show UAC, so only one install or upgrade can run at a time.
         await operationLock.WaitAsync(cancellationToken);
         string terminalStatus = string.Empty;
+        OperationOutcome outcome = OperationOutcome.None;
         string operationId = Guid.NewGuid().ToString("N");
-        string stage = "download_adk";
+        string stage = "detect";
         ILogger operationLogger = logger.ForContext("OperationId", operationId)
             .ForContext("OperationKind", operationKind);
 
@@ -93,30 +92,52 @@ internal sealed class AdkService(
         {
             operationProgressService.Start(operationKind, GetOperationStartText(operationKind));
             operationLogger.Information("ADK operation started. OperationKind={OperationKind}", operationKind);
+
+            // Steps follow the freshly detected state so partial installs do not re-run setups that were refused.
+            AdkSetupPlan plan = AdkSetupPlan.Create(await RefreshStatusAsync(cancellationToken));
+            operationLogger.Information(
+                "ADK setup plan selected. SetupAction={SetupAction}, UninstallRegisteredBundles={UninstallRegisteredBundles}, InstallAdk={InstallAdk}, InstallWinPeAddon={InstallWinPeAddon}",
+                plan.Action,
+                plan.UninstallRegisteredBundles,
+                plan.InstallAdk,
+                plan.InstallWinPeAddon);
+            bool uninstallFirst = plan.UninstallRegisteredBundles;
             Directory.CreateDirectory(Constants.InstallerCacheDirectoryPath);
 
-            await using CachedArtifactLease adkSetup = await DownloadInstallerAsync(AdkSetupUrl, AdkSetupFileName, uninstallFirst ? 35 : 20, cancellationToken);
+            stage = "download_adk";
+            await using CachedArtifactLease? adkSetup = plan.InstallAdk
+                ? await DownloadInstallerAsync(AdkSetupUrl, AdkSetupFileName, uninstallFirst ? 35 : 20, cancellationToken)
+                : null;
             stage = "download_winpe";
-            await using CachedArtifactLease winPeSetup = await DownloadInstallerAsync(WinPeSetupUrl, WinPeSetupFileName, uninstallFirst ? 45 : 40, cancellationToken);
+            await using CachedArtifactLease? winPeSetup = plan.InstallWinPeAddon
+                ? await DownloadInstallerAsync(WinPeSetupUrl, WinPeSetupFileName, uninstallFirst ? 45 : 40, cancellationToken)
+                : null;
             if (uninstallFirst)
             {
                 stage = "uninstall";
                 await UninstallExistingBundlesAsync(operationId, operationLogger, cancellationToken);
             }
 
-            stage = "install_adk";
-            operationProgressService.Report(uninstallFirst ? 70 : 55, localizationService.GetString("Adk.Operation.InstallingAdk"));
-            await RunSetupAsync(adkSetup.Path, AdkInstallArguments, operationId, stage, operationLogger, cancellationToken);
+            if (adkSetup is not null)
+            {
+                stage = "install_adk";
+                operationProgressService.Report(uninstallFirst ? 70 : 55, localizationService.GetString("Adk.Operation.InstallingAdk"));
+                await RunSetupAsync(adkSetup.Path, AdkInstallArguments, operationId, stage, operationLogger, cancellationToken);
+            }
 
-            stage = "install_winpe";
-            operationProgressService.Report(uninstallFirst ? 88 : 80, localizationService.GetString("Adk.Operation.InstallingWinPe"));
-            await RunSetupAsync(winPeSetup.Path, WinPeInstallArguments, operationId, stage, operationLogger, cancellationToken);
+            if (winPeSetup is not null)
+            {
+                stage = "install_winpe";
+                operationProgressService.Report(uninstallFirst ? 88 : 80, localizationService.GetString("Adk.Operation.InstallingWinPe"));
+                await RunSetupAsync(winPeSetup.Path, WinPeInstallArguments, operationId, stage, operationLogger, cancellationToken);
+            }
 
             stage = "verify";
             operationProgressService.Report(95, localizationService.GetString("Adk.Operation.Verifying"));
             AdkInstallationStatus status = await RefreshStatusAsync(cancellationToken);
             terminalStatus = localizationService.GetString(status.CanCreateMedia ? "Adk.Operation.Completed" : "Adk.Operation.NeedsAttention");
             operationProgressService.Complete(terminalStatus);
+            outcome = status.CanCreateMedia ? OperationOutcome.Success : OperationOutcome.Error;
             operationLogger.ForContext("Outcome", status.CanCreateMedia ? "succeeded" : "needs_attention").Information(
                 "ADK operation completed. OperationKind={OperationKind}, IsCompatible={IsCompatible}, InstalledVersion={InstalledVersion}",
                 operationKind,
@@ -154,12 +175,13 @@ internal sealed class AdkService(
                 operationKind, setupException?.Reason ?? "operation_failed",
                 setupException?.ExitCode, setupException?.NativeErrorCode);
             terminalStatus = localizationService.GetString("Adk.Operation.Failed");
+            outcome = OperationOutcome.Error;
             operationProgressService.Report(100, terminalStatus);
             throw;
         }
         finally
         {
-            operationProgressService.Reset(terminalStatus);
+            operationProgressService.Reset(terminalStatus, outcome);
             operationLock.Release();
         }
     }
@@ -201,7 +223,11 @@ internal sealed class AdkService(
 
         if (uninstallCommands.Count == 0)
         {
-            throw new InvalidOperationException("Windows ADK uninstall commands were not found in the Windows uninstall registry.");
+            // Unregistered leftovers cannot be removed by setup, so the caller continues with the fresh install.
+            operationLogger.Warning(
+                "No registered Windows ADK uninstall commands were found; continuing with a fresh install. InstalledVersion={InstalledVersion}",
+                CurrentStatus.InstalledVersion);
+            return;
         }
 
         foreach (AdkUninstallCommand command in uninstallCommands)
@@ -217,7 +243,53 @@ internal sealed class AdkService(
                 command.DisplayName,
                 Path.GetFileName(command.FileName));
             string stage = GetUninstallStage(command.FileName);
-            await RunSetupAsync(command.FileName, command.Arguments, operationId, stage, operationLogger, cancellationToken);
+            try
+            {
+                await RunSetupAsync(command.FileName, command.Arguments, operationId, stage, operationLogger, cancellationToken);
+            }
+            catch (AdkSetupException ex) when (stage == "uninstall_adk" && AdkWimMountRecovery.CanRecover(ex))
+            {
+                if (!await TryReleaseWimMountPackageAsync(ex, operationLogger, cancellationToken))
+                {
+                    throw;
+                }
+
+                await RunSetupAsync(command.FileName, command.Arguments, operationId, "uninstall_adk_retry", operationLogger, cancellationToken);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Releases the ADK WIM mount driver so a retried uninstall no longer needs the payload setup could not verify.
+    /// Returns false when the driver cannot be released, so the caller surfaces the original setup failure.
+    /// </summary>
+    private async Task<bool> TryReleaseWimMountPackageAsync(AdkSetupException failure, ILogger operationLogger, CancellationToken cancellationToken)
+    {
+        ILogger recoveryLogger = operationLogger.ForContext("ExitCodeHex", $"0x{failure.ExitCode:X8}")
+            .ForContext("SetupLogId", Path.GetFileNameWithoutExtension(failure.LogPath));
+        var recovery = new AdkWimMountRecovery(installationProbe);
+        string? driverSetupPath = recovery.FindDriverSetupPath();
+        if (driverSetupPath is null)
+        {
+            recoveryLogger.Warning("ADK uninstall could not verify its WIM mount driver payload and the installed driver setup was not found; recovery skipped.");
+            return false;
+        }
+
+        recoveryLogger.Warning(
+            "ADK uninstall could not verify its WIM mount driver payload; releasing the driver before retrying. DriverSetup={DriverSetup}",
+            Path.GetFileName(driverSetupPath));
+        try
+        {
+            await new AdkSetupRunner().RunToolAsync(driverSetupPath, AdkWimMountRecovery.DriverUninstallArguments, cancellationToken);
+            bool released = recovery.ClearReleasedMarker();
+            recoveryLogger.Information("ADK WIM mount driver release completed. Released={Released}", released);
+            return released;
+        }
+        catch (Exception ex) when (ex is AdkSetupException { Reason: not "elevation_cancelled" }
+            or UnauthorizedAccessException or System.Security.SecurityException or IOException)
+        {
+            recoveryLogger.Warning(ex, "ADK WIM mount driver release failed; reporting the original uninstall failure.");
+            return false;
         }
     }
 

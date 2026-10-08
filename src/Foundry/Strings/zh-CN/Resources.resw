@@ -155,7 +155,7 @@
     <value>ADK设置</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>安装受支持的 Windows ADK 24H2 (10.1.26100.2454) 版本。</value>
+    <value>安装受支持的 Windows ADK 24H2 (10.1.26100.9457) 版本。</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK版本不受支持</value>
@@ -191,7 +191,7 @@
     <value>未检测到版本</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>需要 Windows ADK 24H2 (10.1.26100.2454)。</value>
+    <value>需要 Windows ADK 24H2 (10.1.26100.9457)。</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>所需版本政策</value>
@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>不可用</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>体系结构</value>
   </data>
@@ -774,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>映像操作失败。请检查来源、可用空间和 Foundry 日志。</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>PXE 启动时不可用。自定义映像需要完整的 ISO 或 USB 介质。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>请在此配置文件中包含至少一个可用的 Windows 映像。在创建或更新介质之前，请恢复已包含但缺失的映像，并修正或清除首选映像或索引的选择。</value>
@@ -2185,9 +2191,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>荷兰语（荷兰）</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>英语</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>英语（英国）</value>
   </data>
@@ -2199,9 +2202,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>芬兰语（芬兰）</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>法语</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>法语（加拿大）</value>
@@ -2751,6 +2751,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell 参数</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>使用导入文件的操作在 PXE 启动时不可用。它们需要完整的 ISO 或 USB 介质。</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>无法移除该操作。请重试。</value>
@@ -3600,6 +3603,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO媒体已完成。</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry 无法替换位于 {0} 的 ISO 文件。该文件可能已装载、已附加到虚拟机、在其他程序中打开或为只读。请卸载或关闭该文件，或选择其他输出路径，然后重试。</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO 媒体已成功创建。</value>
   </data>
@@ -3707,6 +3713,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>正在验证 USB 启动介质。</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows 阻止了对 WinPE 映像文件的访问。安全软件或其他工具可能正在锁定这些文件。请在安全软件中为 {0} 添加排除项，关闭用于装载映像的工具，重启计算机，然后重试。详细信息位于 {1} 和 {2} 中。</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>检查就绪情况，选择 ISO 或 USB 输出，然后开始创建媒体。</value>
@@ -4001,6 +4010,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未检查</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>无法应用更新：{0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>检查更新</value>
   </data>
@@ -4033,6 +4045,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} 可用。</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>无法应用更新</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新检查失败</value>

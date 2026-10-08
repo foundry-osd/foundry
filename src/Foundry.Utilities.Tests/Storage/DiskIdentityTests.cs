@@ -96,6 +96,42 @@ public sealed class DiskIdentityTests
         Assert.Equal(usable, identity.Matches(identity));
     }
 
+    public static TheoryData<string, DiskIdentity, DiskIdentity[], string[]> ResolutionFailureCases
+    {
+        get
+        {
+            var expected = new DiskIdentity(3, "device-3", "serial-3", "Storage device", "USB", 64_000_000_000);
+            DiskIdentity serialOnly = expected with { UniqueId = "" };
+
+            return new()
+            {
+                { "resolved", expected, [expected], [] },
+                { "unusable capture", expected with { UniqueId = "", SerialNumber = "" }, [expected], ["CapturedIdentityUnusable"] },
+                { "unique id not found", expected, [expected with { UniqueId = "device-4" }], ["UniqueIdNotFound"] },
+                { "serial not found", serialOnly, [expected with { SerialNumber = "serial-4" }], ["SerialNumberNotFound"] },
+                { "ambiguous unique id", expected, [expected, expected with { Number = 4 }], ["UniqueIdAmbiguous"] },
+                { "renumbered and resized", expected, [expected with { Number = 4, SizeBytes = 1 }], ["Number", "SizeBytes"] },
+                { "changed serial and name", expected, [expected with { SerialNumber = "serial-4", FriendlyName = "Other" }], ["FriendlyName", "SerialNumber"] }
+            };
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(ResolutionFailureCases))]
+    public void DescribeResolutionFailure_NamesFailedCriteriaWithoutIdentifierValues(
+        string scenario,
+        DiskIdentity expected,
+        DiskIdentity[] snapshots,
+        string[] expectedReasons)
+    {
+        IReadOnlyList<string> reasons = expected.DescribeResolutionFailure(snapshots);
+
+        Assert.True(expectedReasons.SequenceEqual(reasons), $"{scenario}: {string.Join(",", reasons)}");
+        Assert.Equal(expectedReasons.Length == 0, expected.Resolve(snapshots) is not null);
+        Assert.DoesNotContain(reasons, reason => reason.Contains("device-", StringComparison.Ordinal) ||
+                                                 reason.Contains("serial-", StringComparison.Ordinal));
+    }
+
     [Fact]
     public void FromDiskInfo_RetainsRawIdentityAndIgnoresMutablePartitionState()
     {

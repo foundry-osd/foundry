@@ -14,7 +14,8 @@
                 Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                 Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
-                IconGlyph="&#xE90F;">
+                IconGlyph="&#xE90F;"
+                Warning="{x:Bind ViewModel.PxeWarning, Mode=OneWay}">
                 <controls:PageHeader.ActionContent>
                     <ToggleSwitch
                         behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"

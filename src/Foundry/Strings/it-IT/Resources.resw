@@ -155,7 +155,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>ADK impostazione</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installa la versione supportata di Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Installa la versione supportata di Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>La versione ADK non è supportata</value>
@@ -191,7 +191,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Versione non rilevata</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Richiede Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Richiede Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Criteri di versione obbligatori</value>
@@ -685,6 +685,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Aggiorna</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Non disponibile</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architettura</value>
   </data>
@@ -774,6 +777,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operazione sull’immagine non riuscita. Controlla l’origine, lo spazio disponibile e i registri di Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Non disponibile con l’avvio PXE. Le immagini personalizzate richiedono il supporto ISO o USB completo.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Includi almeno un’immagine Windows disponibile in questo profilo. Ripristina le immagini incluse mancanti e correggi o cancella la selezione dell’immagine o dell’indice preferito prima di creare o aggiornare i supporti.</value>
@@ -2185,9 +2191,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Olandese (Paesi Bassi)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Inglese</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglese (Regno Unito)</value>
   </data>
@@ -2199,9 +2202,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finlandese (Finlandia)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>francese</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Francese (Canada)</value>
@@ -2751,6 +2751,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argomenti PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Le azioni che usano file importati non sono disponibili con l’avvio PXE. Richiedono il supporto ISO o USB completo.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Impossibile rimuovere l'azione. Riprovare.</value>
@@ -3600,6 +3603,9 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO supporto completato.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry non è riuscito a sostituire il file ISO in {0}. Il file potrebbe essere montato, collegato a una macchina virtuale, aperto in un altro programma o di sola lettura. Smontalo o chiudilo, oppure scegli un altro percorso di output, quindi riprova.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Il supporto ISO è stato creato correttamente.</value>
   </data>
@@ -3707,6 +3713,9 @@ Password e chiavi di accesso incluse: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verifica del supporto di avvio USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows ha bloccato l’accesso ai file dell’immagine WinPE. È possibile che un software di sicurezza o un altro strumento li stia bloccando. Aggiungere un’esclusione per {0} nel software di sicurezza, chiudere gli strumenti che montano immagini, riavviare il computer e riprovare. I dettagli sono disponibili in {1} e {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Verifica la preparazione, scegli un output ISO o USB e avvia la creazione del supporto.</value>
@@ -4001,6 +4010,9 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Non controllato</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Impossibile applicare l’aggiornamento: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controllo degli aggiornamenti</value>
   </data>
@@ -4033,6 +4045,9 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} è disponibile.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Impossibile applicare l’aggiornamento</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Il controllo dell'aggiornamento non è riuscito</value>

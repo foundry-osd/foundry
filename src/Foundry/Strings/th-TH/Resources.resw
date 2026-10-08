@@ -155,7 +155,7 @@
     <value>ADK ตั้งค่า</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>ติดตั้งรุ่น Windows ADK 24H2 (10.1.26100.2454) ที่รองรับ</value>
+    <value>ติดตั้งรุ่น Windows ADK 24H2 (10.1.26100.9457) ที่รองรับ</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ไม่รองรับเวอร์ชัน ADK</value>
@@ -191,7 +191,7 @@
     <value>ตรวจไม่พบเวอร์ชัน</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>ต้องใช้ Windows ADK 24H2 (10.1.26100.2454)</value>
+    <value>ต้องใช้ Windows ADK 24H2 (10.1.26100.9457)</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>นโยบายเวอร์ชันที่ต้องการ</value>
@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>รีเฟรช</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>ไม่พร้อมใช้งาน</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>สถาปัตยกรรม</value>
   </data>
@@ -774,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>การดำเนินการกับอิมเมจล้มเหลว ตรวจสอบแหล่งที่มา พื้นที่ว่าง และบันทึกของ Foundry</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE อิมเมจแบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>รวมอิมเมจ Windows ที่พร้อมใช้งานอย่างน้อยหนึ่งรายการไว้ในโปรไฟล์นี้ กู้คืนอิมเมจที่รวมไว้แต่หายไป และแก้ไขหรือล้างการเลือกอิมเมจหรือดัชนีที่ต้องการก่อนสร้างหรืออัปเดตสื่อ</value>
@@ -2185,9 +2191,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>ดัตช์ (เนเธอร์แลนด์)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>อังกฤษ</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>อังกฤษ (สหราชอาณาจักร)</value>
   </data>
@@ -2199,9 +2202,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>ฟินแลนด์ (ฟินแลนด์)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>ฝรั่งเศส</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>ฝรั่งเศส (แคนาดา)</value>
@@ -2751,6 +2751,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>อาร์กิวเมนต์ PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>การดำเนินการที่ใช้ไฟล์ที่นำเข้าไม่พร้อมใช้งานเมื่อบูตด้วย PXE โดยต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>ไม่สามารถนำการดำเนินการออกได้ ลองอีกครั้ง</value>
@@ -3600,6 +3603,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO สื่อเสร็จเรียบร้อย</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry ไม่สามารถแทนที่ไฟล์ ISO ที่ {0} ได้ ไฟล์อาจถูกเมาท์อยู่ แนบกับเครื่องเสมือน เปิดอยู่ในโปรแกรมอื่น หรือเป็นแบบอ่านอย่างเดียว ให้ยกเลิกการเมาท์หรือปิดไฟล์ หรือเลือกเส้นทางเอาต์พุตอื่น แล้วลองอีกครั้ง</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>สร้างสื่อ ISO สำเร็จแล้ว</value>
   </data>
@@ -3707,6 +3713,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>กำลังตรวจสอบสื่อสำหรับบูต USB</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows บล็อกการเข้าถึงไฟล์อิมเมจ WinPE ซอฟต์แวร์ความปลอดภัยหรือเครื่องมืออื่นอาจกำลังล็อกไฟล์เหล่านั้น เพิ่มข้อยกเว้นสำหรับ {0} ในซอฟต์แวร์ความปลอดภัย ปิดเครื่องมือที่เมานต์อิมเมจ รีสตาร์ทคอมพิวเตอร์ แล้วลองอีกครั้ง ดูรายละเอียดได้ใน {1} และ {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>
@@ -4001,6 +4010,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>ไม่ได้ตรวจสอบ</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>ไม่สามารถใช้การอัปเดตได้: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>กำลังตรวจสอบการอัปเดต</value>
   </data>
@@ -4033,6 +4045,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} ว่างแล้ว</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>ไม่สามารถใช้การอัปเดตได้</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>การตรวจสอบการอัปเดตล้มเหลว</value>

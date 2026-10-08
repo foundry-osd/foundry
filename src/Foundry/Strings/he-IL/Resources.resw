@@ -155,7 +155,7 @@
     <value>ADK הגדרה</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>התקן את גרסת Windows ADK 24H2 (10.1.26100.2454) הנתמכת.</value>
+    <value>התקן את גרסת Windows ADK 24H2 (10.1.26100.9457) הנתמכת.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>גרסת ADK אינה נתמכת</value>
@@ -191,7 +191,7 @@
     <value>הגרסה לא זוהתה</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>נדרש Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>נדרש Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>מדיניות גרסה נדרשת</value>
@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>רענן</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>לא זמין</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>ארכיטקטורה</value>
   </data>
@@ -774,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>הפעולה על התמונה נכשלה. יש לבדוק את המקור, את השטח הפנוי ואת יומני Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>לא זמין באתחול PXE. תמונות מותאמות אישית דורשות את מדיית ה-ISO או ה-USB המלאה.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>יש לכלול לפחות תמונת Windows זמינה אחת בפרופיל זה. יש לשחזר תמונות כלולות שחסרות ולתקן או לנקות את בחירת התמונה או האינדקס המועדפים לפני יצירה או עדכון של המדיה.</value>
@@ -2185,9 +2191,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>הולנדית (הולנד)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>אנגלית</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>אנגלית (בריטניה)</value>
   </data>
@@ -2199,9 +2202,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>פינית (פינלנד)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>צרפתית</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>צרפתית (קנדה)</value>
@@ -2751,6 +2751,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>ארגומנטים של PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>פעולות שמשתמשות בקבצים מיובאים אינן זמינות באתחול PXE. הן דורשות את מדיית ה-ISO או ה-USB המלאה.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>לא ניתן היה להסיר את הפעולה. נסה שוב.</value>
@@ -3600,6 +3603,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>מדיה ISO הושלמה.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry לא הצליח להחליף את קובץ ה-ISO בנתיב {0}. ייתכן שהקובץ טעון, מצורף למחשב וירטואלי, פתוח בתוכנית אחרת או מוגדר לקריאה בלבד. בטל את טעינתו או סגור אותו, או בחר נתיב פלט אחר, ולאחר מכן נסה שוב.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>המדיה ISO נוצרה בהצלחה.</value>
   </data>
@@ -3707,6 +3713,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>מאמת את מדיית האתחול USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows חסם את הגישה לקובצי תמונת WinPE. ייתכן שתוכנת אבטחה או כלי אחר נועלים אותם. יש להוסיף החרגה עבור {0} בתוכנת האבטחה, לסגור כלים שמעגנים תמונות, להפעיל מחדש את המחשב ולנסות שוב. הפרטים נמצאים ב-{1} וב-{2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>בדוק מוכנות, בחר פלט ISO או USB והתחל ביצירת המדיה.</value>
@@ -4001,6 +4010,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>לא נבדק</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>לא ניתן היה להחיל את העדכון: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>מחפש עדכונים</value>
   </data>
@@ -4033,6 +4045,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} זמין.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>לא ניתן היה להחיל את העדכון</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>בדיקת העדכון נכשלה</value>

@@ -155,7 +155,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>ADK instelling</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installeer de ondersteunde Windows ADK 24H2-release (10.1.26100.2454).</value>
+    <value>Installeer de ondersteunde Windows ADK 24H2-release (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versie wordt niet ondersteund</value>
@@ -191,7 +191,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Versie niet gedetecteerd</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Vereist Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Vereist Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Vereist versiebeleid</value>
@@ -685,6 +685,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Vernieuwen</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Niet beschikbaar</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architectuur</value>
   </data>
@@ -774,6 +777,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>De bewerking is mislukt. Controleer de bron, de beschikbare ruimte en de Foundry-logboeken.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Niet beschikbaar bij opstarten via PXE. Aangepaste installatiekopieën vereisen de volledige ISO- of USB-media.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Neem ten minste één beschikbare Windows-installatiekopie op in dit profiel. Herstel ontbrekende opgenomen installatiekopieën en corrigeer of wis de selectie van de voorkeursinstallatiekopie of -index voordat u media maakt of bijwerkt.</value>
@@ -2185,9 +2191,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Nederlands (Nederland)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Engels</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Engels (Verenigd Koninkrijk)</value>
   </data>
@@ -2199,9 +2202,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Fins (Finland)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Frans</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Frans (Canada)</value>
@@ -2751,6 +2751,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumenten</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Acties die geïmporteerde bestanden gebruiken, zijn niet beschikbaar bij opstarten via PXE. Ze vereisen de volledige ISO- of USB-media.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>De actie kon niet worden verwijderd. Probeer het opnieuw.</value>
@@ -3600,6 +3603,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media voltooid.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry kan het ISO-bestand op {0} niet vervangen. Het bestand is mogelijk gekoppeld, aan een virtuele machine toegevoegd, geopend in een ander programma of alleen-lezen. Ontkoppel of sluit het bestand, of kies een ander uitvoerpad, en probeer het opnieuw.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Het ISO medium is succesvol aangemaakt.</value>
   </data>
@@ -3707,6 +3713,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB opstartmedia verifiëren.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows heeft de toegang tot de WinPE-installatiekopiebestanden geblokkeerd. Mogelijk worden ze vergrendeld door beveiligingssoftware of een ander hulpprogramma. Voeg in de beveiligingssoftware een uitzondering toe voor {0}, sluit hulpprogramma's die installatiekopieën koppelen, start de computer opnieuw op en probeer het opnieuw. Details staan in {1} en {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Controleer de gereedheid, kies ISO- of USB-uitvoer en start het maken van media.</value>
@@ -4001,6 +4010,9 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Niet gecontroleerd</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>De update kon niet worden toegepast: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controleren op updates</value>
   </data>
@@ -4033,6 +4045,9 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} is beschikbaar.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Update kon niet worden toegepast</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Updatecontrole mislukt</value>

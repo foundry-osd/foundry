@@ -56,26 +56,65 @@ public sealed record DiskIdentity(
             return null;
         }
 
-        bool useUniqueId = !string.IsNullOrWhiteSpace(UniqueId);
-        string identifier = useUniqueId ? UniqueId : SerialNumber;
-        DiskIdentity? candidate = null;
-        foreach (DiskIdentity snapshot in snapshots)
+        // A duplicate remains ambiguous even if its number, capacity or other facts are unusable.
+        List<DiskIdentity> candidates = FindByIdentifier(snapshots);
+        return candidates.Count == 1 && Matches(candidates[0]) ? candidates[0] : null;
+    }
+
+    /// <summary>
+    /// Explains why <see cref="Resolve"/> rejects an inventory using criterion and field names only,
+    /// so diagnostics never expose device identifier values. Returns an empty list when the inventory resolves.
+    /// </summary>
+    public IReadOnlyList<string> DescribeResolutionFailure(IEnumerable<DiskIdentity> snapshots)
+    {
+        ArgumentNullException.ThrowIfNull(snapshots);
+        if (!IsUsable)
         {
-            if (!EqualFact(identifier, useUniqueId ? snapshot.UniqueId : snapshot.SerialNumber))
-            {
-                continue;
-            }
-
-            // A duplicate remains ambiguous even if its number, capacity or other facts are unusable.
-            if (candidate is not null)
-            {
-                return null;
-            }
-
-            candidate = snapshot;
+            return ["CapturedIdentityUnusable"];
         }
 
-        return candidate is not null && Matches(candidate) ? candidate : null;
+        List<DiskIdentity> candidates = FindByIdentifier(snapshots);
+        string identifierField = string.IsNullOrWhiteSpace(UniqueId) ? nameof(SerialNumber) : nameof(UniqueId);
+        return candidates.Count switch
+        {
+            0 => [identifierField + "NotFound"],
+            > 1 => [identifierField + "Ambiguous"],
+            _ => GetMismatchedFacts(candidates[0])
+        };
+    }
+
+    /// <summary>
+    /// Names the facts that <see cref="Matches"/> would reject, without including their values.
+    /// Missing identifiers that were not captured are not reported.
+    /// </summary>
+    public IReadOnlyList<string> GetMismatchedFacts(DiskIdentity actual)
+    {
+        ArgumentNullException.ThrowIfNull(actual);
+        var mismatches = new List<string>();
+        AddMismatch(mismatches, nameof(Number), Number == actual.Number);
+        AddMismatch(mismatches, nameof(SizeBytes), SizeBytes == actual.SizeBytes);
+        AddMismatch(mismatches, nameof(FriendlyName), EqualFact(FriendlyName, actual.FriendlyName));
+        AddMismatch(mismatches, nameof(BusType), EqualFact(BusType, actual.BusType));
+        AddMismatch(mismatches, nameof(UniqueId), string.IsNullOrWhiteSpace(UniqueId) || EqualFact(UniqueId, actual.UniqueId));
+        AddMismatch(mismatches, nameof(SerialNumber), string.IsNullOrWhiteSpace(SerialNumber) || EqualFact(SerialNumber, actual.SerialNumber));
+        return mismatches;
+    }
+
+    private List<DiskIdentity> FindByIdentifier(IEnumerable<DiskIdentity> snapshots)
+    {
+        bool useUniqueId = !string.IsNullOrWhiteSpace(UniqueId);
+        string identifier = useUniqueId ? UniqueId : SerialNumber;
+        return snapshots
+            .Where(snapshot => EqualFact(identifier, useUniqueId ? snapshot.UniqueId : snapshot.SerialNumber))
+            .ToList();
+    }
+
+    private static void AddMismatch(List<string> mismatches, string fieldName, bool isEqual)
+    {
+        if (!isEqual)
+        {
+            mismatches.Add(fieldName);
+        }
     }
 
     private static bool EqualFact(string? expected, string? actual)

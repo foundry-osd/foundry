@@ -128,6 +128,28 @@ public sealed class WinPeUsbIdentityContinuityTests
     }
 
     [Theory]
+    [InlineData(11, true)]
+    [InlineData(12, true)]
+    [InlineData(7, false)]
+    public async Task LayoutScript_OnMbrMedia_AcceptsOnlyFat32BootPartitionType(int bootMbrType, bool accepted)
+    {
+        string inventory = SafeDiskJson.Replace("\"PartitionStyle\":\"GPT\"", "\"PartitionStyle\":\"MBR\"", StringComparison.Ordinal);
+
+        HarnessResult result = await ExecuteSafelyAsync(await GetBoundaryScriptAsync("layout"), inventory, "layout", bootMbrType: bootMbrType);
+
+        if (accepted)
+        {
+            Assert.Equal(1, result.Mutations);
+            Assert.Equal("SAFE_TEST_MUTATION_SENTINEL", result.Error);
+        }
+        else
+        {
+            Assert.Equal(0, result.Mutations);
+            Assert.Contains("Expected BOOT FAT32 partition", result.Error, StringComparison.Ordinal);
+        }
+    }
+
+    [Theory]
     [InlineData("layout")]
     [InlineData("format")]
     public async Task GeneratedScript_WhenDiskChangesAfterReadOnlyInspection_RejectsAtMutationBoundary(string boundary)
@@ -341,9 +363,14 @@ public sealed class WinPeUsbIdentityContinuityTests
     }
 
     private static async Task<HarnessResult> ExecuteSafelyAsync(string script, string inventoryJson, string boundary, bool replaceAfterInspection = false,
-        long bootPartitionSize = 2147483648, uint allocationUnitSize = 4096, bool failCapacityRead = false)
+        long bootPartitionSize = 2147483648, uint allocationUnitSize = 4096, bool failCapacityRead = false, int? bootMbrType = null)
     {
         string fixture = Convert.ToBase64String(Encoding.UTF8.GetBytes(inventoryJson));
+        // Get-Partition reports MbrType as the numeric MBR partition ID and leaves it empty on GPT disks.
+        string bootPartitionType = bootMbrType is null
+            ? "GptType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'; MbrType = $null"
+            : $"GptType = $null; MbrType = [uint16]{bootMbrType}";
+        string cachePartitionType = bootMbrType is null ? "GptType = ''; MbrType = $null" : "GptType = $null; MbrType = [uint16]7";
         string harness = $$"""
             $ErrorActionPreference = 'Stop'
             Import-Module Microsoft.PowerShell.Utility
@@ -363,8 +390,8 @@ public sealed class WinPeUsbIdentityContinuityTests
                 }
             }
             function Get-Partition {
-                [pscustomobject]@{ PartitionNumber = 1; Size = {{bootPartitionSize}}; DriveLetter = '{{(boundary == "layout" && !failCapacityRead ? "" : "S")}}'; GptType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'; AccessPaths = @('S:\'); IsActive = $true; MbrType = 'FAT32' }
-                [pscustomobject]@{ PartitionNumber = 2; DriveLetter = 'T'; GptType = ''; AccessPaths = @('T:\'); IsActive = $false; MbrType = 'IFS' }
+                [pscustomobject]@{ PartitionNumber = 1; Size = {{bootPartitionSize}}; DriveLetter = '{{(boundary == "layout" && !failCapacityRead ? "" : "S")}}'; {{bootPartitionType}}; AccessPaths = @('S:\'); IsActive = $true }
+                [pscustomobject]@{ PartitionNumber = 2; DriveLetter = 'T'; {{cachePartitionType}}; AccessPaths = @('T:\'); IsActive = $false }
             }
             function Get-Volume {
                 param($DriveLetter, $Partition)

@@ -155,7 +155,7 @@
     <value>Ρύθμιση ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Εγκαταστήστε την υποστηριζόμενη έκδοση Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Εγκαταστήστε την υποστηριζόμενη έκδοση Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Η έκδοση ADK δεν υποστηρίζεται</value>
@@ -191,7 +191,7 @@
     <value>Η έκδοση δεν εντοπίστηκε</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Απαιτείται Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Απαιτείται Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Πολιτική απαιτούμενης έκδοσης</value>
@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Ανανέωση</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Μη διαθέσιμο</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Αρχιτεκτονική</value>
   </data>
@@ -774,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Η λειτουργία εικόνας απέτυχε. Ελέγξτε την πηγή, τον διαθέσιμο χώρο και τα αρχεία καταγραφής του Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Δεν διατίθεται με εκκίνηση PXE. Οι προσαρμοσμένες εικόνες απαιτούν το πλήρες μέσο ISO ή USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Συμπεριλάβετε τουλάχιστον μία διαθέσιμη εικόνα Windows σε αυτό το προφίλ. Επαναφέρετε τις συμπεριλαμβανόμενες εικόνες που λείπουν και διορθώστε ή καταργήστε την επιλογή της προτιμώμενης εικόνας ή του δείκτη πριν δημιουργήσετε ή ενημερώσετε το μέσο.</value>
@@ -2185,9 +2191,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Ολλανδικά (Ολλανδία)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Αγγλικά</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Αγγλικά (Ηνωμένο Βασίλειο)</value>
   </data>
@@ -2199,9 +2202,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Φινλανδικά (Φινλανδία)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Γαλλικά</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Γαλλικά (Καναδάς)</value>
@@ -2751,6 +2751,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Ορίσματα PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Οι ενέργειες που χρησιμοποιούν εισαγόμενα αρχεία δεν διατίθενται με εκκίνηση PXE. Απαιτούν το πλήρες μέσο ISO ή USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Δεν ήταν δυνατή η κατάργηση της ενέργειας. Δοκιμάστε ξανά.</value>
@@ -3600,6 +3603,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>Τα μέσα ISO ολοκληρώθηκαν.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να αντικαταστήσει το αρχείο ISO στη θέση {0}. Το αρχείο μπορεί να είναι προσαρτημένο, συνδεδεμένο σε εικονική μηχανή, ανοιχτό σε άλλο πρόγραμμα ή μόνο για ανάγνωση. Αποπροσαρτήστε ή κλείστε το, ή επιλέξτε άλλη διαδρομή εξόδου και, στη συνέχεια, δοκιμάστε ξανά.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Το μέσο ISO δημιουργήθηκε με επιτυχία.</value>
   </data>
@@ -3707,6 +3713,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Επαλήθευση μέσων εκκίνησης USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Τα Windows απέκλεισαν την πρόσβαση στα αρχεία της εικόνας WinPE. Ενδέχεται να τα κλειδώνει λογισμικό ασφαλείας ή άλλο εργαλείο. Προσθέστε μια εξαίρεση για το {0} στο λογισμικό ασφαλείας, κλείστε τα εργαλεία που προσαρτούν εικόνες, επανεκκινήστε τον υπολογιστή και δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στα {1} και {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
@@ -4001,6 +4010,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Δεν έχει ελεγχθεί</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εφαρμογή της ενημέρωσης: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Έλεγχος για ενημερώσεις</value>
   </data>
@@ -4033,6 +4045,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Το Foundry OSD {0} είναι διαθέσιμο.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εφαρμογή της ενημέρωσης</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Ο έλεγχος ενημέρωσης απέτυχε</value>

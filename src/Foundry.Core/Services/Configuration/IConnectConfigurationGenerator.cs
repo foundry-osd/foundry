@@ -16,9 +16,8 @@ public interface IConnectConfigurationGenerator
     /// </summary>
     /// <param name="document">The Foundry configuration source document.</param>
     /// <param name="stagingDirectoryPath">The directory whose FoundryConnectAssets child is deleted and recreated for copied assets.</param>
-    /// <param name="authoringVersion">Optional OSD release captured for this media build.</param>
     /// <returns>The generated Foundry.Connect configuration document.</returns>
-    FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, string stagingDirectoryPath, string? authoringVersion = null);
+    FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, string stagingDirectoryPath);
 
     /// <summary>
     /// Creates a complete provisioning bundle for Foundry.Connect media and restages its copied assets.

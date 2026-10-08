@@ -2,11 +2,23 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.CompilerServices;
+
 namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 {
+    /// <summary>
+    /// Gets the diagnostic stage reported when the generated ISO cannot be moved to the requested output path.
+    /// </summary>
+    public const string FinalizeOutputStage = "Finalize ISO output";
+
+    private const int FinalizeMoveAttempts = 3;
+    private static readonly TimeSpan DefaultFinalizeMoveRetryDelay = TimeSpan.FromSeconds(1);
+
     private readonly IWinPeProcessRunner _processRunner;
+    private readonly Action<string, string, bool> _moveFile;
+    private readonly TimeSpan _finalizeMoveRetryDelay;
 
     public WinPeIsoMediaService()
         : this(new WinPeProcessRunner())
@@ -14,8 +26,18 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
     }
 
     internal WinPeIsoMediaService(IWinPeProcessRunner processRunner)
+        : this(processRunner, File.Move, DefaultFinalizeMoveRetryDelay)
+    {
+    }
+
+    internal WinPeIsoMediaService(
+        IWinPeProcessRunner processRunner,
+        Action<string, string, bool> moveFile,
+        TimeSpan finalizeMoveRetryDelay)
     {
         _processRunner = processRunner;
+        _moveFile = moveFile;
+        _finalizeMoveRetryDelay = finalizeMoveRetryDelay;
     }
 
     public async Task<WinPeResult> CreateAsync(
@@ -37,6 +59,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         string currentStage = "Prepare ISO output path";
         bool hasExternalContent = options.CustomImages is not null || options.PostInstallation is not null;
         string isoTool = hasExternalContent ? "Oscdimg" : "MakeWinPEMedia";
+        StrongBox<int> finalizeRetryCount = new(0);
 
         try
         {
@@ -105,12 +128,27 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     toolName: isoTool);
             }
 
-            currentStage = "Finalize ISO output";
+            currentStage = FinalizeOutputStage;
             ReportProgress(options.Progress, 90, "Finalizing ISO output.");
             cancellationToken.ThrowIfCancellationRequested();
-            await FinalizeOutputAsync(preparedOutputPath, requestedOutputPath, options.ForceOverwriteOutput, cancellationToken).ConfigureAwait(false);
+            await FinalizeOutputAsync(preparedOutputPath, requestedOutputPath, options.ForceOverwriteOutput,
+                finalizeRetryCount, cancellationToken).ConfigureAwait(false);
             ReportProgress(options.Progress, 100, "ISO media completed.");
             return WinPeResult.Success();
+        }
+        catch (Exception ex) when (currentStage == FinalizeOutputStage && IsOutputLockedOrDenied(ex))
+        {
+            // Sharing and lock violations are reported as access_denied so this user-actionable
+            // condition stays comparable with existing ISO finalization telemetry.
+            return WinPeResult.Failure(
+                WinPeErrorCodes.IsoCreateFailed,
+                "The ISO output file could not be replaced because it is in use, read-only, or access was denied.",
+                ex.ToString(),
+                stage: FinalizeOutputStage,
+                failureKind: WinPeFailureKinds.FileSystem,
+                failureReason: WinPeFailureReasons.AccessDenied,
+                retryCount: finalizeRetryCount.Value,
+                exception: ex);
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
@@ -222,7 +260,12 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         return Path.Combine(directory, $"foundry-{Guid.NewGuid():N}.pending.iso");
     }
 
-    private static async Task FinalizeOutputAsync(string preparedOutputPath, string requestedOutputPath, bool overwrite, CancellationToken cancellationToken)
+    private async Task FinalizeOutputAsync(
+        string preparedOutputPath,
+        string requestedOutputPath,
+        bool overwrite,
+        StrongBox<int> retryCount,
+        CancellationToken cancellationToken)
     {
         // Always replace from the destination directory: File.Move across volumes is a copy
         // and must never expose a partially copied final ISO or destroy the prior deliverable.
@@ -244,12 +287,46 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
             }
             cancellationToken.ThrowIfCancellationRequested();
-            File.Move(candidate, requestedOutputPath, overwrite);
+            await MoveOutputWithRetryAsync(candidate, requestedOutputPath, overwrite, retryCount, cancellationToken).ConfigureAwait(false);
         }
         finally
         {
             if (copyRequired) CleanupPreparedOutput(requestedOutputPath, candidate);
         }
+    }
+
+    /// <summary>
+    /// Moves the completed ISO over the requested output, retrying briefly because antivirus scanners and
+    /// shell previews can hold the existing ISO for a short time. Persistent locks surface after the last attempt.
+    /// </summary>
+    private async Task MoveOutputWithRetryAsync(
+        string candidatePath,
+        string requestedOutputPath,
+        bool overwrite,
+        StrongBox<int> retryCount,
+        CancellationToken cancellationToken)
+    {
+        for (int attempt = 1; ; attempt++)
+        {
+            try
+            {
+                _moveFile(candidatePath, requestedOutputPath, overwrite);
+                return;
+            }
+            catch (Exception ex) when (attempt < FinalizeMoveAttempts && IsOutputLockedOrDenied(ex))
+            {
+                retryCount.Value = attempt;
+                await Task.Delay(_finalizeMoveRetryDelay, cancellationToken).ConfigureAwait(false);
+            }
+        }
+    }
+
+    private static bool IsOutputLockedOrDenied(Exception exception)
+    {
+        const int ErrorSharingViolation = 32;
+        const int ErrorLockViolation = 33;
+        return exception is UnauthorizedAccessException
+            || (exception is IOException ioException && (ioException.HResult & 0xFFFF) is ErrorSharingViolation or ErrorLockViolation);
     }
 
     private static void CleanupPreparedOutput(string requestedOutputPath, string? preparedOutputPath)

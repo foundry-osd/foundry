@@ -12,7 +12,7 @@ using Serilog;
 namespace Foundry.ViewModels
 {
     /// <summary>
-    /// Coordinates application update checks, release notes, and restart handoff state for the update settings page.
+    /// Coordinates application update checks, downloads, release notes link visibility, and apply handoff state for the update settings page.
     /// </summary>
     public sealed partial class AppUpdateSettingViewModel : ObservableObject, IDisposable
     {
@@ -37,9 +37,6 @@ namespace Foundry.ViewModels
 
         [ObservableProperty]
         public partial bool IsUpdateAvailable { get; set; }
-
-        [ObservableProperty]
-        public partial bool IsLoading { get; set; }
 
         [ObservableProperty]
         public partial bool IsCheckButtonEnabled { get; set; }
@@ -194,11 +191,11 @@ namespace Foundry.ViewModels
 
             currentCheckResult = result;
             LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
-            IsLoading = result?.IsBusy == true;
+            bool isBusy = result?.IsBusy == true;
             IsUpdateDownloading = result?.Status == ApplicationUpdateStatus.Downloading;
-            IsCheckButtonEnabled = !IsLoading && result?.IsReadyToApply != true;
+            IsCheckButtonEnabled = !isBusy && result?.IsReadyToApply != true;
             DownloadProgress = Math.Clamp(result?.DownloadProgress ?? 0, 0, 100);
-            IsDownloadButtonVisible = result?.HasKnownUpdate == true && !IsLoading && !result.IsReadyToApply;
+            IsDownloadButtonVisible = result?.HasKnownUpdate == true && !isBusy && !result.IsReadyToApply;
             IsApplyButtonVisible = result?.IsReadyToApply == true;
             DownloadActionText = localizationService.GetString(result?.Status == ApplicationUpdateStatus.Failed
                 ? "Update.Action.Retry" : "Update.Action.Download");
@@ -252,6 +249,7 @@ namespace Foundry.ViewModels
                 ApplicationUpdateStatus.Failed => localizationService.FormatString("Update.Status.FailedFormat", result.Message),
                 ApplicationUpdateStatus.SkippedInDebug => localizationService.GetString("Update.Status.SkippedInDebug"),
                 ApplicationUpdateStatus.NotInstalled => localizationService.GetString("Update.Status.NotInstalled"),
+                ApplicationUpdateStatus.Ready => localizationService.GetString("Update.Status.Ready"),
                 _ => result.Message
             };
         }

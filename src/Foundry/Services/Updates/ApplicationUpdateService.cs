@@ -62,18 +62,15 @@ internal sealed class ApplicationUpdateService(
     }
 
     /// <inheritdoc />
-    public Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(
-        bool isStartupCheck = false,
-        CancellationToken cancellationToken = default)
+    public Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(CancellationToken cancellationToken = default)
     {
-        return RunSerializedAsync(operation => CheckCoreAsync(operation, isStartupCheck), cancellationToken);
+        return RunSerializedAsync(operation => CheckCoreAsync(operation, isStartupCheck: false), cancellationToken);
     }
 
     /// <inheritdoc />
-    public async Task<ApplicationUpdateDownloadResult> DownloadUpdateAsync(CancellationToken cancellationToken = default)
+    public Task DownloadUpdateAsync(CancellationToken cancellationToken = default)
     {
-        ApplicationUpdateCheckResult result = await RunSerializedAsync(DownloadCoreAsync, cancellationToken);
-        return new ApplicationUpdateDownloadResult(result.Status, result.Message);
+        return RunSerializedAsync(DownloadCoreAsync, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -98,6 +95,17 @@ internal sealed class ApplicationUpdateService(
                 }
 
                 generation = operationGeneration;
+            }
+
+            // Applying a package force-stops every process under the install directory. A silent apply is therefore
+            // skipped while another instance is running and the update stays prepared; an explicit restart request
+            // stays the user's decision.
+            if (!restart && RunningInstanceProbe.IsAnotherInstanceRunning())
+            {
+                logger.Information(
+                    "Prepared Foundry update not scheduled because another Foundry instance is running. Version={Version}",
+                    target.Version);
+                return false;
             }
 
             try

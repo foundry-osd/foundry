@@ -9,7 +9,7 @@
     <Grid x:Name="RootGrid">
         <Grid.Resources>
             <DataTemplate x:Key="UpdateFooterContentTemplate">
-                <Grid x:Name="UpdateFooterContentRoot"
+                <Grid
                     Loaded="OnUpdateFooterContentLoaded"
                     Unloaded="OnUpdateFooterContentUnloaded">
                     <Grid.ColumnDefinitions>

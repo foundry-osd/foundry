@@ -361,7 +361,7 @@
     <value>Неизвестный размер</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Учетная запись (DOMAIN\user или user@domain)</value>

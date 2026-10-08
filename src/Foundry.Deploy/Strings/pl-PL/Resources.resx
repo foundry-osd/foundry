@@ -361,7 +361,7 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>Nieznany rozmiar</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user lub user@domain)</value>

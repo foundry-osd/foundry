@@ -155,7 +155,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>ADK sąranka</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Įdiekite palaikomą Windows ADK 24H2 (10.1.26100.2454) leidimą.</value>
+    <value>Įdiekite palaikomą Windows ADK 24H2 (10.1.26100.9457) leidimą.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK versija nepalaikoma</value>
@@ -191,7 +191,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Versija neaptikta</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Reikia Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Reikia Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Būtina versijos politika</value>
@@ -685,6 +685,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atnaujinti</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Nepasiekiamas</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektūra</value>
   </data>
@@ -774,6 +777,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Atvaizdo operacija nepavyko. Patikrinkite šaltinį, laisvą vietą ir Foundry žurnalus.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Nepasiekiama paleidžiant per PXE. Pasirinktiniams atvaizdams reikia visos ISO arba USB laikmenos.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Įtraukite į šį profilį bent vieną pasiekiamą „Windows“ atvaizdą. Prieš kurdami arba atnaujindami laikmeną atkurkite trūkstamus įtrauktus atvaizdus ir pataisykite arba išvalykite pageidaujamo atvaizdo ar indekso pasirinkimą.</value>
@@ -2185,9 +2191,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>olandų (Nyderlandai)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>anglų kalba</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>anglų (Jungtinė Karalystė)</value>
   </data>
@@ -2199,9 +2202,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>suomių (Suomija)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>prancūzų</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>prancūzų (Kanada)</value>
@@ -2751,6 +2751,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumentai</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Veiksmai, naudojantys importuotus failus, nepasiekiami paleidžiant per PXE. Jiems reikia visos ISO arba USB laikmenos.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Nepavyko pašalinti veiksmo. Bandykite dar kartą.</value>
@@ -3600,6 +3603,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO laikmena baigta.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry nepavyko pakeisti ISO failo {0}. Failas gali būti prijungtas, susietas su virtualiąja mašina, atidarytas kitoje programoje arba skirtas tik skaityti. Atjunkite arba uždarykite jį arba pasirinkite kitą išvesties kelią ir bandykite dar kartą.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO laikmena sėkmingai sukurta.</value>
   </data>
@@ -3707,6 +3713,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Tikrinama USB įkrovos laikmena.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>„Windows“ užblokavo prieigą prie WinPE vaizdo failų. Gali būti, kad juos užrakino saugos programinė įranga arba kitas įrankis. Saugos programinėje įrangoje pridėkite išimtį aplankui {0}, uždarykite vaizdus prijungiančius įrankius, paleiskite kompiuterį iš naujo ir bandykite dar kartą. Išsami informacija pateikta failuose {1} ir {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Peržiūrėkite parengtį, pasirinkite ISO arba USB išvestį ir pradėkite laikmenos kūrimą.</value>
@@ -4001,6 +4010,9 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nepatikrintas</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Nepavyko pritaikyti naujinimo: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Tikrinama, ar nėra atnaujinimų</value>
   </data>
@@ -4033,6 +4045,9 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} yra.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Nepavyko pritaikyti naujinimo</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Nepavyko patikrinti atnaujinimo</value>

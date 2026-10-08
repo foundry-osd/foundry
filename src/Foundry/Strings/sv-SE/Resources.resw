@@ -155,7 +155,7 @@ Licensierad under MIT-licensen.</value>
     <value>ADK inställning</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100.2454).</value>
+    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versionen stöds inte</value>
@@ -191,7 +191,7 @@ Licensierad under MIT-licensen.</value>
     <value>Version hittades inte</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Kräver Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Kräver Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Obligatorisk versionspolicy</value>
@@ -685,6 +685,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Uppdatera</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Ej tillgänglig</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkitektur</value>
   </data>
@@ -774,6 +777,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Avbildningsåtgärden misslyckades. Kontrollera källan, det lediga utrymmet och Foundry-loggarna.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Inte tillgängligt vid PXE-start. Anpassade avbildningar kräver det fullständiga ISO- eller USB-mediet.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Inkludera minst en tillgänglig Windows-avbildning i den här profilen. Återställ saknade inkluderade avbildningar och korrigera eller rensa valet av föredragen avbildning eller index innan du skapar eller uppdaterar medier.</value>
@@ -2185,9 +2191,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Holländska (Nederländerna)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>engelska</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engelska (Storbritannien)</value>
   </data>
@@ -2199,9 +2202,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finska (Finland)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>franska</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>franska (Kanada)</value>
@@ -2751,6 +2751,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argument</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Åtgärder som använder importerade filer är inte tillgängliga vid PXE-start. De kräver det fullständiga ISO- eller USB-mediet.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Åtgärden kunde inte tas bort. Försök igen.</value>
@@ -3600,6 +3603,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO media slutfört.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry kunde inte ersätta ISO-filen på {0}. Filen kan vara monterad, ansluten till en virtuell dator, öppen i ett annat program eller skrivskyddad. Demontera eller stäng den, eller välj en annan utdatasökväg, och försök sedan igen.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Mediet ISO skapades framgångsrikt.</value>
   </data>
@@ -3707,6 +3713,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verifierar USB startmedia.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows blockerade åtkomsten till WinPE-avbildningsfilerna. Säkerhetsprogramvara eller ett annat verktyg kan låsa dem. Lägg till ett undantag för {0} i säkerhetsprogramvaran, stäng verktyg som monterar avbildningar, starta om datorn och försök igen. Information finns i {1} och {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Granska beredskapen, välj ISO- eller USB-utdata och starta medieskapandet.</value>
@@ -4001,6 +4010,9 @@ Uppdateringen startar om Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ej kontrollerat</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Uppdateringen kunde inte installeras: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Söker efter uppdateringar</value>
   </data>
@@ -4033,6 +4045,9 @@ Uppdateringen startar om Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} är tillgängligt.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Uppdateringen kunde inte installeras</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Uppdateringskontrollen misslyckades</value>

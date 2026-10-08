@@ -182,7 +182,8 @@ public sealed class LegacyMediaSettings
 public sealed class UpdateSettings
 {
     /// <summary>
-    /// Gets or sets a value indicating whether update checks run during application startup.
+    /// Gets or sets a value indicating whether application startup checks for updates and automatically downloads a found update.
+    /// A previously prepared update is recovered at startup regardless of this value.
     /// </summary>
     public bool CheckOnStartup { get; set; } = true;
 

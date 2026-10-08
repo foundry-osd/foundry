@@ -361,7 +361,7 @@ ErrorCode=0x80070005
     <value>גודל לא ידוע</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>חשבון (DOMAIN\user או user@domain)</value>

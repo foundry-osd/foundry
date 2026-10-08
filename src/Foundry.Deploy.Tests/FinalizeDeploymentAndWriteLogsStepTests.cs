@@ -30,6 +30,46 @@ public sealed class FinalizeDeploymentAndWriteLogsStepTests
     }
 
     [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Finalize_WhenInitialTargetHandoffFailed_PreservesNativeServicingLogs(bool blockNativeCopy)
+    {
+        using Fixture fixture = new(new FirstRebindFailsLogService(), initialSessionOutsideTarget: true);
+        string initialSessionRoot = fixture.Context.LogSession.RootPath;
+        DeploymentArtifactHandoffResult initialHandoff = await fixture.Context.RebindLogSessionToTargetAsync(
+            fixture.Source, TestContext.Current.CancellationToken);
+        Assert.NotEmpty(initialHandoff.Failures);
+        Assert.Equal(initialSessionRoot, fixture.Context.LogSession.RootPath);
+
+        string nativeDirectory = Path.Combine(fixture.Source, "Logs", "Native", "operation-1");
+        Directory.CreateDirectory(nativeDirectory);
+        File.WriteAllText(Path.Combine(nativeDirectory, "Dism.log"), "native servicing evidence");
+        File.WriteAllText(Path.Combine(nativeDirectory, "Wimgapi.log"), "native imaging evidence");
+        DeploymentStorageLayout layout = DeploymentStorageLayout.FromPartitionRoot(fixture.Root);
+        string finalNativeDirectory = Path.Combine(layout.Root, "Logs", "Native", "operation-1");
+        if (blockNativeCopy) Directory.CreateDirectory(Path.Combine(finalNativeDirectory, "Dism.log"));
+
+        DeploymentStepResult result = await new FinalizeDeploymentAndWriteLogsStep().ExecuteAsync(
+            fixture.Context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        if (blockNativeCopy)
+        {
+            Assert.Contains("Diagnostic handoff incomplete", result.Message, StringComparison.Ordinal);
+            Assert.Equal(initialSessionRoot, fixture.Context.LogSession.RootPath);
+            Assert.Equal("native servicing evidence", File.ReadAllText(Path.Combine(nativeDirectory, "Dism.log")));
+            Assert.Equal("native imaging evidence", File.ReadAllText(Path.Combine(nativeDirectory, "Wimgapi.log")));
+        }
+        else
+        {
+            Assert.Equal(layout.Root, fixture.Context.LogSession.RootPath);
+            Assert.False(Directory.Exists(fixture.Source));
+            Assert.Equal("native servicing evidence", File.ReadAllText(Path.Combine(finalNativeDirectory, "Dism.log")));
+            Assert.Equal("native imaging evidence", File.ReadAllText(Path.Combine(finalNativeDirectory, "Wimgapi.log")));
+        }
+    }
+
+    [Theory]
     [InlineData("initialize")]
     [InlineData("copy")]
     [InlineData("state")]
@@ -233,6 +273,24 @@ public sealed class FinalizeDeploymentAndWriteLogsStepTests
         Assert.Contains(fixture.Context.LogSession.RootPath, result.Message, StringComparison.Ordinal);
     }
 
+    private sealed class FirstRebindFailsLogService : IDeploymentLogService
+    {
+        private readonly DeploymentLogService _inner = new();
+        private int _initializations;
+
+        public DeploymentLogSession Initialize(string root)
+        {
+            if (Interlocked.Increment(ref _initializations) == 2) throw new IOException("Initial target diagnostic handoff is unavailable.");
+            return _inner.Initialize(root);
+        }
+
+        public Task AppendAsync(DeploymentLogSession session, DeploymentLogLevel level, string message, CancellationToken cancellationToken = default) =>
+            _inner.AppendAsync(session, level, message, cancellationToken);
+
+        public Task SaveStateAsync<T>(DeploymentLogSession session, T state, CancellationToken cancellationToken = default) =>
+            _inner.SaveStateAsync(session, state, cancellationToken);
+    }
+
     private sealed class LockedDestinationStateService(int failAtWrite) : IDeploymentLogService
     {
         private readonly DeploymentLogService _inner = new();
@@ -294,9 +352,10 @@ public sealed class FinalizeDeploymentAndWriteLogsStepTests
         public string Source => Path.Combine(Root, "Foundry");
         public string Evidence => Path.Combine(Context.LogSession.RootPath == Source ? Context.LogSession.LogsDirectoryPath : Path.Combine(Source, "Logs", "Deployment"), "Startup", "evidence.json");
         public DeploymentStepExecutionContext Context { get; }
-        public Fixture(IDeploymentLogService? logService = null)
+        public Fixture(IDeploymentLogService? logService = null, bool initialSessionOutsideTarget = false)
         {
-            Context = DeploymentStepExecutionContextTests.CreateExecutionContext(Source, Path.Combine(Source, "Cache"), targetFoundryRoot: Source, logService: logService ?? new DeploymentLogService());
+            string initialSessionRoot = initialSessionOutsideTarget ? Path.Combine(Root, "WinPe") : Source;
+            Context = DeploymentStepExecutionContextTests.CreateExecutionContext(initialSessionRoot, Path.Combine(Source, "Cache"), targetFoundryRoot: Source, logService: logService ?? new DeploymentLogService());
             Context.RuntimeState.TargetWindowsPartitionRoot = Root;
             Directory.CreateDirectory(Path.GetDirectoryName(Evidence)!);
             File.WriteAllText(Evidence, "startup evidence");

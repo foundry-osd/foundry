@@ -85,6 +85,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl + "/foundry-osd/customization/custom-windows-images";
     public string PageTitle => localization.GetString("Nav_CustomImagesKey.Title");
     public string PageDescription => localization.GetString("Nav_CustomImagesKey.Description");
+    public string PxeWarning => localization.GetString("CustomImages.PxeWarning");
     public string EnableLabel => Text("EnableLabel");
     public string ImportLabel => Text("ImportLabel");
     public string RefreshLabel => Text("RefreshLabel");

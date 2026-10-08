@@ -361,7 +361,7 @@ ErrorCode=0x80070005
     <value>Невідомий розмір</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Обліковий запис (DOMAIN\user або user@domain)</value>

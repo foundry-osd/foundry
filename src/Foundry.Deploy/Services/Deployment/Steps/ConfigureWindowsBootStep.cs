@@ -6,7 +6,10 @@ using System.IO;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
-/// <summary>Creates UEFI boot files from the applied image before Windows recovery is configured.</summary>
+/// <summary>
+/// Creates UEFI boot files from the applied image and makes a best-effort attempt to place Windows Boot Manager first
+/// in the firmware boot order, before Windows recovery is configured.
+/// </summary>
 public sealed class ConfigureWindowsBootStep(IWindowsDeploymentService windowsDeploymentService) : DeploymentStepBase
 {
     public override string Name => DeploymentStepNames.ConfigureWindowsBoot;

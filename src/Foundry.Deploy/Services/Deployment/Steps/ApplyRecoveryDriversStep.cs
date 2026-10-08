@@ -79,7 +79,7 @@ public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDe
         int infCount = Directory.EnumerateFiles(driverRoot, "*.inf", SearchOption.AllDirectories).Count();
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"Drivers applied to WinRE: {infCount} INF files from '{driverRoot}'.",
+            $"Drivers applied to WinRE: {infCount} INF files processed from '{driverRoot}'; any rejected INF is logged as a warning.",
             cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Driver pack applied.");

@@ -155,7 +155,7 @@
     <value>ADK الإعداد</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>ثبّت إصدار Windows ADK 24H2 (10.1.26100.2454) المدعوم.</value>
+    <value>ثبّت إصدار Windows ADK 24H2 (10.1.26100.9457) المدعوم.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>الإصدار ADK غير مدعوم</value>
@@ -191,7 +191,7 @@
     <value>لم يتم الكشف عن الإصدار</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>يتطلب Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>يتطلب Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>سياسة الإصدار المطلوبة</value>
@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>تحديث</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>غير متاح</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>البنية</value>
   </data>
@@ -774,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>فشلت عملية الصورة. تحقّق من المصدر والمساحة المتاحة وسجلات Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>غير متاح مع إقلاع PXE. تتطلب الصور المخصصة وسائط ISO أو USB الكاملة.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>ضمّن صورة Windows واحدة متاحة على الأقل في ملف التعريف هذا. استعد الصور المضمّنة المفقودة وصحّح اختيار الصورة أو الفهرس المفضل أو ألغِه قبل إنشاء الوسائط أو تحديثها.</value>
@@ -2185,9 +2191,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>الهولندية (هولندا)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>الإنجليزية</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>الإنجليزية (المملكة المتحدة)</value>
   </data>
@@ -2199,9 +2202,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>الفنلندية (فنلندا)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>الفرنسية</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>الفرنسية (كندا)</value>
@@ -2751,6 +2751,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>وسيطات PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>الإجراءات التي تستخدم ملفات مستوردة غير متاحة مع إقلاع PXE. تتطلب وسائط ISO أو USB الكاملة.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>تعذرت إزالة الإجراء. حاول مرة أخرى.</value>
@@ -3600,6 +3603,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO اكتملت الوسائط.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>تعذر على Foundry استبدال ملف ISO في {0}. قد يكون الملف مُحمّلاً، أو مرفقاً بجهاز ظاهري، أو مفتوحاً في برنامج آخر، أو للقراءة فقط. ألغِ تحميله أو أغلقه، أو اختر مسار إخراج آخر، ثم أعد المحاولة.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>تم إنشاء الوسائط ISO بنجاح.</value>
   </data>
@@ -3707,6 +3713,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>التحقق من USB وسائط التمهيد.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>حظر Windows الوصول إلى ملفات صورة WinPE. قد يكون برنامج أمان أو أداة أخرى يقفلها. أضف استثناءً للمسار {0} في برنامج الأمان، وأغلق الأدوات التي تحمّل الصور، وأعد تشغيل الكمبيوتر، ثم حاول مرة أخرى. تتوفر التفاصيل في {1} و{2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>راجع الجاهزية واختر إخراج ISO أو USB ثم ابدأ إنشاء الوسائط.</value>
@@ -4001,6 +4010,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>لم يتم التحقق منها</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>تعذر تطبيق التحديث: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>التحقق من وجود تحديثات</value>
   </data>
@@ -4033,6 +4045,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} متاح.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>تعذر تطبيق التحديث</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>فشل التحقق من التحديث</value>

@@ -361,7 +361,7 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
     <value>Nepoznata veličina</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Račun (DOMAIN\user ili user@domain)</value>

@@ -155,7 +155,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>ADK kurulum</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Desteklenen Windows ADK 24H2 (10.1.26100.2454) sürümünü yükleyin.</value>
+    <value>Desteklenen Windows ADK 24H2 (10.1.26100.9457) sürümünü yükleyin.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK sürümü desteklenmiyor</value>
@@ -191,7 +191,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sürüm algılanmadı</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100.2454) gerektirir.</value>
+    <value>Windows ADK 24H2 (10.1.26100.9457) gerektirir.</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Gerekli sürüm politikası</value>
@@ -685,6 +685,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Yenile</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Kullanılamıyor</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Mimari</value>
   </data>
@@ -774,6 +777,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Görüntü işlemi başarısız oldu. Kaynağı, kullanılabilir alanı ve Foundry günlüklerini kontrol edin.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>PXE önyüklemesiyle kullanılamaz. Özel görüntüler tam ISO veya USB medyasını gerektirir.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Bu profile en az bir kullanılabilir Windows görüntüsü dahil edin. Medya oluşturmadan veya güncellemeden önce dahil edilen eksik görüntüleri geri yükleyin ve tercih edilen görüntü veya dizin seçimini düzeltin ya da temizleyin.</value>
@@ -2185,9 +2191,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Felemenkçe (Hollanda)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>İngilizce</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>İngilizce (Birleşik Krallık)</value>
   </data>
@@ -2199,9 +2202,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Fince (Finlandiya)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Fransızca</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Fransızca (Kanada)</value>
@@ -2751,6 +2751,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell bağımsız değişkenleri</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>İçeri aktarılan dosyaları kullanan eylemler PXE önyüklemesiyle kullanılamaz. Bunlar tam ISO veya USB medyasını gerektirir.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Eylem kaldırılamadı. Yeniden deneyin.</value>
@@ -3600,6 +3603,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO medya tamamlandı.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry, {0} konumundaki ISO dosyasını değiştiremedi. Dosya bağlanmış, bir sanal makineye eklenmiş, başka bir programda açık veya salt okunur olabilir. Bağlantısını kaldırın veya kapatın ya da başka bir çıkış yolu seçin, ardından yeniden deneyin.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO ortamı başarıyla oluşturuldu.</value>
   </data>
@@ -3707,6 +3713,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB önyükleme ortamı doğrulanıyor.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows, WinPE görüntü dosyalarına erişimi engelledi. Bir güvenlik yazılımı veya başka bir araç bu dosyaları kilitliyor olabilir. Güvenlik yazılımına {0} için bir dışlama ekleyin, görüntü bağlayan araçları kapatın, bilgisayarı yeniden başlatın ve yeniden deneyin. Ayrıntılar {1} ve {2} dosyalarındadır.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Hazırlığı gözden geçirin, ISO veya USB çıktısını seçin ve medya oluşturmayı başlatın.</value>
@@ -4001,6 +4010,9 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>İşaretlenmedi</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Güncelleme uygulanamadı: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Güncellemeler kontrol ediliyor</value>
   </data>
@@ -4033,6 +4045,9 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} kullanılabilir.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Güncelleme uygulanamadı</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Güncelleme kontrolü başarısız oldu</value>

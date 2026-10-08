@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Runtime.ExceptionServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,6 +15,7 @@ using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Deployment.Unattend;
+using Foundry.Deploy.Services.Deployment.Native;
 using Foundry.Deploy.Services.Localization;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Foundry.Utilities.Processes;
@@ -31,6 +33,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
     private const string WinReImageFileName = "winre.wim";
+    private const string WindowsBootManagerPath = @"\EFI\Microsoft\Boot\bootmgfw.efi";
     private const string AdministratorActivationDescription = "Enable built-in Administrator account";
     private const string AdministratorActivationCommand =
         "powershell.exe -NoProfile -NonInteractive -Command \"Get-LocalUser|Where-Object SID -like '*-500'|Enable-LocalUser -ErrorAction Stop\"";
@@ -41,19 +44,22 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private readonly OobePolicyRegistryWriter _oobePolicyRegistryWriter;
     private readonly AiComponentRemovalRegistryWriter _aiComponentRemovalRegistryWriter;
     private readonly IDeploymentSecretKeyProvider? _deploymentSecretKeyProvider;
+    private readonly IWindowsNativeDeploymentService _nativeService;
 
     /// <summary>
     /// Initializes a Windows deployment service.
     /// </summary>
-    /// <param name="processRunner">The process runner used for diskpart, DISM, bcdboot, and winrecfg.</param>
+    /// <param name="processRunner">The process runner used for diskpart, DISM, bcdboot, bcdedit, and winrecfg.</param>
     /// <param name="logger">The logger used for deployment diagnostics.</param>
     /// <param name="imageInfoReader">Reads structured image metadata independently of console formatting.</param>
     /// <param name="deploymentSecretKeyProvider">The provider used to decrypt account passwords at the unattend-writing boundary.</param>
+    /// <param name="nativeService">The isolated native servicing and WIM application boundary.</param>
     public WindowsDeploymentService(
         IProcessRunner processRunner,
         ILogger<WindowsDeploymentService> logger,
         IWindowsImageInfoReader imageInfoReader,
-        IDeploymentSecretKeyProvider? deploymentSecretKeyProvider = null)
+        IDeploymentSecretKeyProvider? deploymentSecretKeyProvider = null,
+        IWindowsNativeDeploymentService? nativeService = null)
     {
         _processRunner = processRunner;
         _imageInfoReader = imageInfoReader;
@@ -62,6 +68,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _oobePolicyRegistryWriter = new OobePolicyRegistryWriter(processRunner);
         _aiComponentRemovalRegistryWriter = new AiComponentRemovalRegistryWriter(processRunner);
         _deploymentSecretKeyProvider = deploymentSecretKeyProvider;
+        _nativeService = nativeService ?? new WindowsNativeDeploymentService(processRunner);
     }
 
     /// <inheritdoc />
@@ -328,12 +335,29 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             windowsPartitionRoot);
         Directory.CreateDirectory(scratchDirectory);
 
+        await ApplyArchiveAsync(imagePath, imageIndex, windowsPartitionRoot, scratchDirectory, workingDirectory,
+            DeploymentOperationNames.ApplyOperatingSystemImage, cancellationToken, progress).ConfigureAwait(false);
+        _logger.LogInformation("OS image apply completed. ImagePath={ImagePath}, Index={ImageIndex}", imagePath, imageIndex);
+    }
+
+    private async Task ApplyArchiveAsync(string imagePath, int imageIndex, string targetDirectory, string scratchDirectory,
+        string workingDirectory, string operationName, CancellationToken cancellationToken, IProgress<double>? progress = null)
+    {
+        if (Path.GetExtension(imagePath).Equals(".wim", StringComparison.OrdinalIgnoreCase))
+        {
+            await RunNativeOperationAsync(() => _nativeService.ApplyWimAsync(imagePath, imageIndex, targetDirectory,
+                scratchDirectory, workingDirectory, progress, cancellationToken), operationName).ConfigureAwait(false);
+            return;
+        }
+
+        // Every other container keeps the established CLI route, which identifies the format from the file content.
+        // Rejecting by extension here would fail only after the target disk has already been prepared.
         string[] arguments =
         [
             "/Apply-Image",
             $"/ImageFile:{imagePath}",
             $"/Index:{imageIndex}",
-            $"/ApplyDir:{windowsPartitionRoot}",
+            $"/ApplyDir:{targetDirectory}",
             "/CheckIntegrity",
             $"/ScratchDir:{scratchDirectory}"
         ];
@@ -364,8 +388,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 progress.Report(100d);
             }
         }
-
-        _logger.LogInformation("OS image apply completed. ImagePath={ImagePath}, Index={ImageIndex}", imagePath, imageIndex);
     }
 
     /// <inheritdoc />
@@ -862,7 +884,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
             onInspectionStarted?.Invoke();
             IReadOnlyDictionary<string, OfflineWindowsFeatureState> initialStates =
-                await GetOfflineWindowsFeatureStatesAsync(windowsPartitionRoot, workingDirectory, cancellationToken)
+                await GetOfflineWindowsFeatureStatesAsync(windowsPartitionRoot, scratchDirectory, workingDirectory, cancellationToken)
                     .ConfigureAwait(false);
 
             List<WindowsOptionalFeatureWorkItem> pendingItems = [];
@@ -925,19 +947,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                         appliedImageIndex,
                         cancellationToken)
                     .ConfigureAwait(false);
-                await RunRequiredProcessAsync(
-                    "dism.exe",
-                    [
-                        "/English",
-                        "/Apply-Image",
-                        $"/ImageFile:{setupMediaImagePath}",
-                        $"/Index:{metadata.SetupMediaIndex}",
-                        $"/ApplyDir:{sourceExtractionDirectory}",
-                        "/CheckIntegrity",
-                        $"/ScratchDir:{scratchDirectory}"
-                    ],
-                    workingDirectory,
-                    $"Failed to extract Windows Setup Media from '{setupMediaImagePath}'",
+                await ApplyArchiveAsync(setupMediaImagePath, metadata.SetupMediaIndex, sourceExtractionDirectory,
+                    scratchDirectory, workingDirectory, DeploymentOperationNames.PrepareWindowsOptionalFeatureSource,
                     cancellationToken).ConfigureAwait(false);
 
                 sourcePath = ValidateMatchingNetFx3Source(
@@ -966,26 +977,28 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             for (int index = 0; index < orderedPendingItems.Length; index++)
             {
                 WindowsOptionalFeatureWorkItem item = orderedPendingItems[index];
+                if (!item.Action.Enable)
+                {
+                    await RunNativeOperationAsync(() => _nativeService.DisableFeatureAsync(windowsPartitionRoot,
+                        item.CatalogEntry.FeatureName, scratchDirectory, workingDirectory, cancellationToken),
+                        DeploymentOperationNames.ConfigureWindowsOptionalFeatures).ConfigureAwait(false);
+                    progress?.Report((index + 1d) / orderedPendingItems.Length * 100d);
+                    continue;
+                }
                 List<string> arguments =
                 [
                     "/English",
                     $"/Image:{windowsPartitionRoot}",
-                    item.Action.Enable ? "/Enable-Feature" : "/Disable-Feature",
+                    "/Enable-Feature",
                     $"/FeatureName:{item.CatalogEntry.FeatureName}"
                 ];
-                if (item.Action.Enable)
-                {
-                    arguments.Add("/All");
-                }
-
+                // Public DISM source/dependency options are documented as ignored on modern Windows; retain their CLI contract.
+                arguments.Add("/All");
                 arguments.Add("/NoRestart");
-                if (item.Action.Enable)
+                arguments.Add("/LimitAccess");
+                if (item.CatalogEntry.RequiresSetupMediaSxs)
                 {
-                    arguments.Add("/LimitAccess");
-                    if (item.CatalogEntry.RequiresSetupMediaSxs)
-                    {
-                        arguments.Add($"/Source:{sourcePath}");
-                    }
+                    arguments.Add($"/Source:{sourcePath}");
                 }
 
                 arguments.Add($"/ScratchDir:{scratchDirectory}");
@@ -993,7 +1006,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                     "dism.exe",
                     arguments,
                     workingDirectory,
-                    $"Failed to {(item.Action.Enable ? "enable" : "disable")} Windows optional feature '{item.CatalogEntry.FeatureName}'",
+                    $"Failed to enable Windows optional feature '{item.CatalogEntry.FeatureName}'",
                     cancellationToken).ConfigureAwait(false);
                 progress?.Report((index + 1d) / orderedPendingItems.Length * 100d);
             }
@@ -1001,7 +1014,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             if (orderedPendingItems.Length > 0)
             {
                 IReadOnlyDictionary<string, OfflineWindowsFeatureState> finalStates =
-                    await GetOfflineWindowsFeatureStatesAsync(windowsPartitionRoot, workingDirectory, cancellationToken)
+                    await GetOfflineWindowsFeatureStatesAsync(windowsPartitionRoot, scratchDirectory, workingDirectory, cancellationToken)
                         .ConfigureAwait(false);
                 foreach (WindowsOptionalFeatureWorkItem item in orderedPendingItems)
                 {
@@ -1143,44 +1156,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             windowsPartitionRoot);
         Directory.CreateDirectory(scratchDirectory);
 
-        if (progress is null)
-        {
-            await RunRequiredProcessAsync(
-                "dism.exe",
-                [
-                    $"/Image:{windowsPartitionRoot}",
-                    "/Add-Driver",
-                    $"/Driver:{driverRoot}",
-                    "/Recurse",
-                    $"/ScratchDir:{scratchDirectory}"
-                ],
-                workingDirectory,
-                $"Offline driver injection failed for '{driverRoot}'",
-                cancellationToken).ConfigureAwait(false);
-        }
-        else
-        {
-            DismProgressReporter progressReporter = new(progress);
-            await RunRequiredProcessAsync(
-                "dism.exe",
-                [
-                    $"/Image:{windowsPartitionRoot}",
-                    "/Add-Driver",
-                    $"/Driver:{driverRoot}",
-                    "/Recurse",
-                    $"/ScratchDir:{scratchDirectory}"
-                ],
-                workingDirectory,
-                $"Offline driver injection failed for '{driverRoot}'",
-                cancellationToken,
-                progressReporter.HandleOutput,
-                progressReporter.HandleOutput).ConfigureAwait(false);
-
-            if (progressReporter.HasReportedProgress)
-            {
-                progress.Report(100d);
-            }
-        }
+        await RunNativeOperationAsync(() => _nativeService.AddDriversAsync(windowsPartitionRoot, driverRoot,
+            scratchDirectory, workingDirectory, progress, cancellationToken), DeploymentOperationNames.ApplyDriverPack).ConfigureAwait(false);
 
         _logger.LogInformation("Offline driver injection completed. DriverRoot={DriverRoot}", driverRoot);
     }
@@ -1218,168 +1195,85 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         Directory.CreateDirectory(scratchDirectory);
         Directory.CreateDirectory(workingDirectory);
 
-        string mountPath = Path.Combine(workingDirectory, "Mount-WindowsRE");
-        ResetWorkingDirectory(mountPath);
+        string mountPath = Path.GetFullPath(Path.Combine(workingDirectory, "Mount-WindowsRE"));
+        cancellationToken.ThrowIfCancellationRequested();
+        if (await _nativeService.IsMountedAsync(mountPath, scratchDirectory, workingDirectory, CancellationToken.None).ConfigureAwait(false))
+            throw new InvalidOperationException("The Windows RE mount directory already has a registered image.");
+        DeleteOwnedMountDirectory(mountPath);
+        Directory.CreateDirectory(mountPath);
 
-        _logger.LogInformation(
-            "Applying recovery drivers. DriverRoot={DriverRoot}, WinReImagePath={WinReImagePath}, MountPath={MountPath}",
-            driverRoot,
-            winReImagePath,
-            mountPath);
-
+        _logger.LogInformation("Applying recovery drivers. DriverRoot={DriverRoot}, WinReImagePath={WinReImagePath}, MountPath={MountPath}",
+            driverRoot, winReImagePath, mountPath);
         Exception? pendingException = null;
+        bool mountAttempted = false;
         bool mounted = false;
         bool shouldCommit = false;
 
-        try
+        void RetainCleanupFailure(Exception exception)
         {
-            string[] mountArguments =
-            [
-                "/Mount-Image",
-                $"/ImageFile:{winReImagePath}",
-                "/Index:1",
-                $"/MountDir:{mountPath}",
-                $"/ScratchDir:{scratchDirectory}"
-            ];
-
-            onMountStarted?.Invoke();
-            DismProgressReporter? mountProgressReporter = null;
-            if (mountProgress is null)
-            {
-                await RunRequiredProcessAsync(
-                    "dism.exe",
-                    mountArguments,
-                    workingDirectory,
-                    "Failed to mount the Windows RE image",
-                    cancellationToken).ConfigureAwait(false);
-            }
+            _logger.LogError(exception, "Windows RE cleanup failed; mount contents are retained until registration is known. MountPath={MountPath}", mountPath);
+            if (pendingException is null) pendingException = exception;
             else
             {
-                mountProgressReporter = new(mountProgress);
-                await RunRequiredProcessAsync(
-                    "dism.exe",
-                    mountArguments,
-                    workingDirectory,
-                    "Failed to mount the Windows RE image",
-                    cancellationToken,
-                    mountProgressReporter.HandleOutput,
-                    mountProgressReporter.HandleOutput).ConfigureAwait(false);
-            }
-
-            mounted = true;
-            if (mountProgressReporter is not null && mountProgressReporter.HasReportedProgress)
-            {
-                mountProgress!.Report(100d);
-            }
-
-            onApplyStarted?.Invoke();
-            DismProgressReporter? progressReporter = null;
-            if (applyProgress is null)
-            {
-                await RunRequiredProcessAsync(
-                    "dism.exe",
-                    [
-                        $"/Image:{mountPath}",
-                        "/Add-Driver",
-                        $"/Driver:{driverRoot}",
-                        "/Recurse",
-                        $"/ScratchDir:{scratchDirectory}"
-                    ],
-                    workingDirectory,
-                    $"Recovery driver injection failed for '{driverRoot}'",
-                    cancellationToken).ConfigureAwait(false);
-            }
-            else
-            {
-                progressReporter = new(applyProgress);
-                await RunRequiredProcessAsync(
-                    "dism.exe",
-                    [
-                        $"/Image:{mountPath}",
-                        "/Add-Driver",
-                        $"/Driver:{driverRoot}",
-                        "/Recurse",
-                        $"/ScratchDir:{scratchDirectory}"
-                    ],
-                    workingDirectory,
-                    $"Recovery driver injection failed for '{driverRoot}'",
-                    cancellationToken,
-                    progressReporter.HandleOutput,
-                    progressReporter.HandleOutput).ConfigureAwait(false);
-            }
-
-            shouldCommit = true;
-            if (progressReporter is not null && progressReporter.HasReportedProgress)
-            {
-                applyProgress!.Report(100d);
+                var errors = pendingException.Data["NativeCleanupErrors"] as List<string> ?? [];
+                errors.Add(exception.Message);
+                pendingException.Data["NativeCleanupErrors"] = errors;
             }
         }
-        catch (Exception ex)
+
+        try
         {
-            pendingException = ex;
+            onMountStarted?.Invoke();
+            mountAttempted = true;
+            await RunNativeOperationAsync(() => _nativeService.MountImageAsync(winReImagePath, mountPath,
+                scratchDirectory, workingDirectory, mountProgress, cancellationToken), DeploymentOperationNames.MountRecoveryImage).ConfigureAwait(false);
+            mounted = true;
+            onApplyStarted?.Invoke();
+            await RunNativeOperationAsync(() => _nativeService.AddDriversAsync(mountPath, driverRoot,
+                scratchDirectory, workingDirectory, applyProgress, cancellationToken), DeploymentOperationNames.ApplyRecoveryDrivers).ConfigureAwait(false);
+            shouldCommit = true;
+        }
+        catch (Exception exception)
+        {
+            pendingException = exception;
         }
         finally
         {
+            if (mountAttempted && !mounted)
+            {
+                try
+                {
+                    // A failed mount call can still create a registration. Only this invocation's previously empty path is eligible for discard.
+                    mounted = await _nativeService.IsMountedAsync(mountPath, scratchDirectory, workingDirectory, CancellationToken.None).ConfigureAwait(false);
+                }
+                catch (Exception exception) { RetainCleanupFailure(exception); }
+            }
             if (mounted)
             {
-                // Always unmount WinRE even after driver injection failure so the image is not left mounted.
-                string[] unmountArguments = shouldCommit
-                    ? ["/Unmount-Image", $"/MountDir:{mountPath}", "/Commit"]
-                    : ["/Unmount-Image", $"/MountDir:{mountPath}", "/Discard"];
-
-                onUnmountStarted?.Invoke();
-                ProcessExecutionResult unmountExecution;
-                DismProgressReporter? unmountProgressReporter = null;
-                if (unmountProgress is null)
+                try { onUnmountStarted?.Invoke(); }
+                catch (Exception exception) { RetainCleanupFailure(exception); }
+                try
                 {
-                    unmountExecution = await _processRunner
-                        .RunAsync("dism.exe", unmountArguments, workingDirectory, cancellationToken)
-                        .ConfigureAwait(false);
+                    await RunNativeOperationAsync(() => _nativeService.UnmountImageAsync(mountPath, shouldCommit,
+                        scratchDirectory, workingDirectory, unmountProgress, CancellationToken.None), DeploymentOperationNames.UnmountRecoveryImage).ConfigureAwait(false);
                 }
-                else
-                {
-                    unmountProgressReporter = new(unmountProgress);
-                    unmountExecution = await _processRunner
-                        .RunAsync(
-                            "dism.exe",
-                            unmountArguments,
-                            workingDirectory,
-                            unmountProgressReporter.HandleOutput,
-                            unmountProgressReporter.HandleOutput,
-                            cancellationToken)
-                        .ConfigureAwait(false);
-                }
-
-                if (!unmountExecution.IsSuccess)
-                {
-                    string diagnostic = unmountExecution.ToDiagnosticText();
-                    _logger.LogError("Failed to unmount the Windows RE image. Diagnostic={Diagnostic}", diagnostic);
-
-                    pendingException = pendingException is null
-                        ? new DeploymentProcessException(
-                            $"Failed to unmount the Windows RE image.{Environment.NewLine}{diagnostic}",
-                            unmountExecution.ExitCode)
-                        : new DeploymentProcessException(
-                            $"Windows RE servicing failed and the image could not be unmounted cleanly.{Environment.NewLine}{diagnostic}",
-                            unmountExecution.ExitCode,
-                            pendingException);
-                }
-                else
-                {
-                    if (unmountProgressReporter is not null && unmountProgressReporter.HasReportedProgress)
-                    {
-                        unmountProgress!.Report(100d);
-                    }
-                }
+                catch (Exception exception) { RetainCleanupFailure(exception); }
             }
-
-            TryDeleteDirectory(mountPath);
+            try
+            {
+                // Never recursively remove a still-registered image, including an invalid mount or an inventory failure.
+                if (await _nativeService.IsMountedAsync(mountPath, scratchDirectory, workingDirectory, CancellationToken.None).ConfigureAwait(false))
+                    RetainCleanupFailure(new InvalidOperationException("The Windows RE image remains registered; its mount directory was retained."));
+                else TryDeleteReleasedMountDirectory(mountPath);
+            }
+            catch (Exception exception) when (pendingException is null)
+            {
+                // The image was committed and unmounted; an unreadable inventory only means the empty directory is kept.
+                _logger.LogWarning(exception, "Windows RE was committed, but its mount registration could not be confirmed; the mount directory is retained. MountPath={MountPath}", mountPath);
+            }
+            catch (Exception exception) { RetainCleanupFailure(exception); }
         }
-
-        if (pendingException is not null)
-        {
-            throw pendingException;
-        }
+        if (pendingException is not null) ExceptionDispatchInfo.Capture(pendingException).Throw();
 
         _logger.LogInformation("Recovery driver injection completed. DriverRoot={DriverRoot}", driverRoot);
     }
@@ -1415,6 +1309,83 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             cancellationToken).ConfigureAwait(false);
 
         _logger.LogInformation("BCDBoot configuration completed successfully.");
+
+        await PrioritizeWindowsBootManagerAsync(systemPartitionRoot, workingDirectory, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Registers Windows Boot Manager in the UEFI firmware and moves it to the top of the firmware boot order.
+    /// </summary>
+    /// <remarks>
+    /// BCDBoot does not reliably create the firmware entry when <c>/s</c> is used, so the device can return to the
+    /// deployment media or a network boot option after the restart. Firmware may reject these writes; the boot files
+    /// are already in place, so every failure is logged and the deployment continues.
+    /// </remarks>
+    private async Task PrioritizeWindowsBootManagerAsync(
+        string systemPartitionRoot,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        string systemPartition = systemPartitionRoot.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        string[][] commands =
+        [
+            ["/set", "{bootmgr}", "device", $"partition={systemPartition}"],
+            ["/set", "{bootmgr}", "path", WindowsBootManagerPath],
+            ["/set", "{fwbootmgr}", "displayorder", "{bootmgr}", "/addfirst"]
+        ];
+
+        _logger.LogInformation("Prioritizing Windows Boot Manager in the firmware boot order. SystemPartition={SystemPartition}", systemPartition);
+
+        bool succeeded = true;
+        foreach (string[] arguments in commands)
+        {
+            succeeded &= await TryRunFirmwareBootCommandAsync(arguments, workingDirectory, cancellationToken).ConfigureAwait(false);
+        }
+
+        // The resulting firmware entries are the only evidence of what the device will boot after the restart.
+        await TryRunFirmwareBootCommandAsync(["/enum", "firmware"], workingDirectory, cancellationToken, logOutput: true).ConfigureAwait(false);
+
+        if (succeeded)
+        {
+            _logger.LogInformation("Windows Boot Manager is first in the firmware boot order.");
+        }
+        else
+        {
+            _logger.LogWarning("The firmware boot order could not be fully updated. The device may start from another boot device after the restart.");
+        }
+    }
+
+    private async Task<bool> TryRunFirmwareBootCommandAsync(
+        string[] arguments,
+        string workingDirectory,
+        CancellationToken cancellationToken,
+        bool logOutput = false)
+    {
+        string commandLine = string.Join(' ', arguments);
+        try
+        {
+            ProcessExecutionResult execution = await _processRunner
+                .RunAsync("bcdedit.exe", arguments, workingDirectory, cancellationToken)
+                .ConfigureAwait(false);
+
+            if (!execution.IsSuccess)
+            {
+                _logger.LogWarning("Firmware boot command failed. Command={Command}, Diagnostic={Diagnostic}", commandLine, execution.ToDiagnosticText());
+                return false;
+            }
+
+            if (logOutput)
+            {
+                _logger.LogInformation("Firmware boot entries: {FirmwareBootEntries}", execution.StandardOutput);
+            }
+
+            return true;
+        }
+        catch (Exception ex) when (ex is not OperationCanceledException)
+        {
+            _logger.LogWarning(ex, "Firmware boot command could not be started. Command={Command}", commandLine);
+            return false;
+        }
     }
 
     private async Task<ProcessExecutionResult> RunRequiredProcessAsync(
@@ -1481,63 +1452,26 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     }
 
     private async Task<IReadOnlyDictionary<string, OfflineWindowsFeatureState>> GetOfflineWindowsFeatureStatesAsync(
-        string windowsPartitionRoot,
-        string workingDirectory,
-        CancellationToken cancellationToken)
+        string windowsPartitionRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken)
     {
-        ProcessExecutionResult result = await RunRequiredProcessAsync(
-            "dism.exe",
-            [
-                "/English",
-                $"/Image:{windowsPartitionRoot}",
-                "/Get-Features",
-                "/Format:Table"
-            ],
-            workingDirectory,
-            $"Failed to inspect Windows optional features in '{windowsPartitionRoot}'",
-            cancellationToken).ConfigureAwait(false);
-        IReadOnlyDictionary<string, OfflineWindowsFeatureState> states = ParseOfflineWindowsFeatureStates(result.StandardOutput);
-        if (states.Count == 0)
-        {
-            throw new InvalidOperationException("Failed to parse Windows optional feature states from DISM output.");
-        }
-
+        IReadOnlyDictionary<string, OfflineWindowsFeatureState>? states = null;
+        await RunNativeOperationAsync(async () => states = await _nativeService.ReadFeatureStatesAsync(windowsPartitionRoot,
+            scratchDirectory, workingDirectory, cancellationToken).ConfigureAwait(false), DeploymentOperationNames.InspectWindowsOptionalFeatures).ConfigureAwait(false);
+        if (states is null || states.Count == 0) throw new InvalidOperationException("The native Windows optional feature inventory is empty.");
         return states;
     }
 
-    private static IReadOnlyDictionary<string, OfflineWindowsFeatureState> ParseOfflineWindowsFeatureStates(string output)
+    private static async Task RunNativeOperationAsync(Func<Task> operation, string operationName)
     {
-        var states = new Dictionary<string, OfflineWindowsFeatureState>(StringComparer.OrdinalIgnoreCase);
-        foreach (string line in (output ?? string.Empty).Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries))
+        try { await operation().ConfigureAwait(false); }
+        catch (DeploymentOperationException exception) when (exception.InnerException is NativeOperationException && exception.Failure.OperationName != operationName)
         {
-            int separatorIndex = line.IndexOf('|');
-            if (separatorIndex < 0)
-            {
-                continue;
-            }
-
-            string name = line[..separatorIndex].Trim();
-            string stateText = line[(separatorIndex + 1)..].Trim();
-            if (name.Equals("Feature Name", StringComparison.OrdinalIgnoreCase) ||
-                name.All(character => character is '-' or ' ') ||
-                stateText.All(character => character is '-' or ' '))
-            {
-                continue;
-            }
-
-            OfflineWindowsFeatureState state = stateText.ToUpperInvariant() switch
-            {
-                "ENABLED" => OfflineWindowsFeatureState.Enabled,
-                "DISABLED" => OfflineWindowsFeatureState.Disabled,
-                "ENABLE PENDING" => OfflineWindowsFeatureState.EnablePending,
-                "DISABLE PENDING" => OfflineWindowsFeatureState.DisablePending,
-                "DISABLED WITH PAYLOAD REMOVED" => OfflineWindowsFeatureState.PayloadRemoved,
-                _ => throw new InvalidOperationException($"Unsupported Windows optional feature state '{stateText}'.")
-            };
-            states[name] = state;
+            throw new DeploymentOperationException(exception.Failure with { OperationName = operationName }, exception.Message, exception.InnerException);
         }
-
-        return states;
+        catch (Exception exception) when (exception is not DeploymentOperationException and not OperationCanceledException)
+        {
+            throw new DeploymentOperationException(DeploymentFailureClassifier.Classify(exception, operationName), exception.Message, exception);
+        }
     }
 
     private static bool IsRequestedStateSatisfied(bool enable, OfflineWindowsFeatureState state)
@@ -1669,26 +1603,27 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         throw new InvalidOperationException("No drive letter is available for deployment partitions.");
     }
 
-    private static void ResetWorkingDirectory(string path)
+    private static void DeleteOwnedMountDirectory(string path)
     {
-        TryDeleteDirectory(path);
-        Directory.CreateDirectory(path);
+        if (!Directory.Exists(path)) return;
+        if ((File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0)
+            throw new IOException("The owned mount directory cannot be a reparse point.");
+        Directory.Delete(path, recursive: true);
     }
 
-    private static void TryDeleteDirectory(string path)
+    /// <summary>
+    /// Removes a mount directory whose registration is confirmed absent. A leftover directory cannot affect the
+    /// serviced image, so a failed removal is logged instead of changing the operation's outcome.
+    /// </summary>
+    private void TryDeleteReleasedMountDirectory(string path)
     {
-        if (!Directory.Exists(path))
-        {
-            return;
-        }
-
         try
         {
-            Directory.Delete(path, recursive: true);
+            DeleteOwnedMountDirectory(path);
         }
-        catch
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            // Best effort cleanup; a later DISM failure will surface if the mount path is unusable.
+            _logger.LogWarning(exception, "The released Windows RE mount directory could not be removed. MountPath={MountPath}", path);
         }
     }
 
@@ -1742,12 +1677,4 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string Architecture,
         string Version);
 
-    private enum OfflineWindowsFeatureState
-    {
-        Enabled,
-        Disabled,
-        EnablePending,
-        DisablePending,
-        PayloadRemoved
-    }
 }

@@ -15,7 +15,6 @@ namespace Foundry.Core.Services.Adk;
 /// <param name="InstalledVersion">The detected ADK version, when available.</param>
 /// <param name="VersionRelation">How the detected ADK version compares to the supported build line.</param>
 /// <param name="KitsRootPath">The detected Windows Kits root path, when available.</param>
-/// <param name="RequiredVersionPolicy">The version policy used to evaluate compatibility.</param>
 /// <param name="IsWinPeAddonCompatible">Whether the installed WinPE components match the ADK release.</param>
 /// <param name="IsX64Available">Whether required x64 image, optional component and boot files exist.</param>
 /// <param name="IsArm64Available">Whether required ARM64 image, optional component and boot files exist.</param>
@@ -27,7 +26,6 @@ public sealed record AdkInstallationStatus(
     string? InstalledVersion,
     AdkVersionRelation VersionRelation,
     string? KitsRootPath,
-    string RequiredVersionPolicy,
     bool IsWinPeAddonCompatible = false,
     bool IsX64Available = false,
     bool IsArm64Available = false,

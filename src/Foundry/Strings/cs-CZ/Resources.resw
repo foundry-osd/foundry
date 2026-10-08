@@ -155,7 +155,7 @@ Licencováno pod licencí MIT.</value>
     <value>Nastavení ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Nainstalujte podporovanou verzi Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Nainstalujte podporovanou verzi Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Verze ADK není podporována</value>
@@ -191,7 +191,7 @@ Licencováno pod licencí MIT.</value>
     <value>Verze nebyla zjištěna</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Vyžaduje Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Vyžaduje Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Zásady požadované verze</value>
@@ -685,6 +685,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Obnovit</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Není k dispozici</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektura</value>
   </data>
@@ -774,6 +777,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operace s bitovou kopií selhala. Zkontrolujte zdroj, volné místo a protokoly Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Není k dispozici při spuštění přes PXE. Vlastní bitové kopie vyžadují úplné médium ISO nebo USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Zahrňte do tohoto profilu alespoň jednu dostupnou bitovou kopii Windows. Před vytvořením nebo aktualizací média obnovte chybějící zahrnuté bitové kopie a opravte nebo zrušte výběr preferované bitové kopie nebo indexu.</value>
@@ -2185,9 +2191,6 @@ Licencováno pod licencí MIT.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>holandština (Nizozemsko)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>anglicky</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angličtina (Spojené království)</value>
   </data>
@@ -2199,9 +2202,6 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finština (Finsko)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>francouzsky</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>francouzština (Kanada)</value>
@@ -2751,6 +2751,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumenty PowerShellu</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Akce, které používají importované soubory, nejsou při spuštění přes PXE k dispozici. Vyžadují úplné médium ISO nebo USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Akci se nepodařilo odebrat. Zkuste to znovu.</value>
@@ -3600,6 +3603,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>Médium ISO bylo dokončeno.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry nemohl nahradit soubor ISO v umístění {0}. Soubor může být připojený, připojený k virtuálnímu počítači, otevřený v jiném programu nebo jen pro čtení. Odpojte ho nebo zavřete, případně zvolte jinou výstupní cestu, a zkuste to znovu.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Médium ISO bylo úspěšně vytvořeno.</value>
   </data>
@@ -3707,6 +3713,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Ověření spouštěcího média USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Systém Windows zablokoval přístup k souborům image WinPE. Může je zamykat software zabezpečení nebo jiný nástroj. Přidejte v softwaru zabezpečení výjimku pro {0}, zavřete nástroje, které připojují image, restartujte počítač a zkuste to znovu. Podrobnosti najdete v {1} a {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Zkontrolujte připravenost, vyberte výstup ISO nebo USB a spusťte vytvoření média.</value>
@@ -4001,6 +4010,9 @@ Použití aktualizace restartuje Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nekontrolováno</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Aktualizaci se nepodařilo použít: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Kontrola aktualizací</value>
   </data>
@@ -4033,6 +4045,9 @@ Použití aktualizace restartuje Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} je k dispozici.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Aktualizaci se nepodařilo použít</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Kontrola aktualizace se nezdařila</value>

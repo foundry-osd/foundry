@@ -361,7 +361,7 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
     <value>Tamanho desconhecido</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Conta (DOMAIN\user ou user@domain)</value>

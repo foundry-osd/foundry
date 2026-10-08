@@ -52,6 +52,7 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     public bool HasReadinessIssue => !state.IsPostInstallationReady;
     public string PageTitle => localization.GetString("Nav_PostInstallationKey.Title");
     public string PageDescription => localization.GetString("Nav_PostInstallationKey.Description");
+    public string PxeWarning => localization.GetString("PostInstallation.PxeWarning");
     public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl + "/foundry-osd/customization/post-installation";
     public string AddLabel => Text("Add");
     public string EditLabel => Text("Edit");

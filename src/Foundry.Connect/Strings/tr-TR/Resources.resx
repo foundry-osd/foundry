@@ -179,9 +179,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Felemenkçe (Hollanda)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>İngilizce</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>İngilizce (Birleşik Krallık)</value>
   </data>
@@ -193,9 +190,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Fince (Finlandiya)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Fransızca</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Fransızca (Kanada)</value>

@@ -155,7 +155,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>ADK Einrichtung</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installieren Sie die unterstützte Windows ADK 24H2-Version (10.1.26100.2454).</value>
+    <value>Installieren Sie die unterstützte Windows ADK 24H2-Version (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Die ADK-Version wird nicht unterstützt</value>
@@ -191,7 +191,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Version nicht erkannt</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Erfordert Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Erfordert Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Erforderliche Versionsrichtlinie</value>
@@ -685,6 +685,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Aktualisieren</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Nicht verfügbar</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektur</value>
   </data>
@@ -774,6 +777,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Der Abbildvorgang ist fehlgeschlagen. Prüfen Sie die Quelle, den verfügbaren Speicherplatz und die Foundry-Protokolle.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Nicht verfügbar bei PXE-Start. Benutzerdefinierte Abbilder erfordern das vollständige ISO- oder USB-Medium.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Nehmen Sie mindestens ein verfügbares Windows-Abbild in dieses Profil auf. Stellen Sie fehlende enthaltene Abbilder wieder her und korrigieren oder löschen Sie die Auswahl des bevorzugten Abbilds oder Index, bevor Sie Medien erstellen oder aktualisieren.</value>
@@ -2185,9 +2191,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Niederländisch (Niederlande)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Englisch</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Englisch (Vereinigtes Königreich)</value>
   </data>
@@ -2199,9 +2202,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finnisch (Finnland)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Französisch</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Französisch (Kanada)</value>
@@ -2751,6 +2751,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-Argumente</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Aktionen, die importierte Dateien verwenden, sind bei PXE-Start nicht verfügbar. Sie erfordern das vollständige ISO- oder USB-Medium.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Die Aktion konnte nicht entfernt werden. Versuchen Sie es erneut.</value>
@@ -3600,6 +3603,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO Medien abgeschlossen.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry konnte die ISO-Datei unter {0} nicht ersetzen. Die Datei ist möglicherweise eingebunden, an einen virtuellen Computer angefügt, in einem anderen Programm geöffnet oder schreibgeschützt. Heben Sie die Einbindung auf oder schließen Sie die Datei, oder wählen Sie einen anderen Ausgabepfad, und versuchen Sie es dann erneut.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Das ISO-Medium wurde erfolgreich erstellt.</value>
   </data>
@@ -3707,6 +3713,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Überprüfen des USB Bootmediums.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows hat den Zugriff auf die WinPE-Abbilddateien blockiert. Möglicherweise sperrt eine Sicherheitssoftware oder ein anderes Tool diese Dateien. Fügen Sie in der Sicherheitssoftware eine Ausnahme für {0} hinzu, schließen Sie Tools, die Abbilder bereitstellen, starten Sie den Computer neu und versuchen Sie es erneut. Details finden Sie in {1} und {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Prüfen Sie die Bereitschaft, wählen Sie eine ISO- oder USB-Ausgabe aus, und starten Sie die Medienerstellung.</value>
@@ -4001,6 +4010,9 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nicht geprüft</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Das Update konnte nicht angewendet werden: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Suche nach Updates</value>
   </data>
@@ -4033,6 +4045,9 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} ist verfügbar.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Update konnte nicht angewendet werden</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Die Aktualisierungsprüfung ist fehlgeschlagen</value>

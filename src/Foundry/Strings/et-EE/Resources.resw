@@ -155,7 +155,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>ADK seadistamine</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installige toetatud Windows ADK 24H2 (10.1.26100.2454) väljalase.</value>
+    <value>Installige toetatud Windows ADK 24H2 (10.1.26100.9457) väljalase.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK versiooni ei toetata</value>
@@ -191,7 +191,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Versiooni ei tuvastatud</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nõutav on Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Nõutav on Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Nõutav versioonipoliitika</value>
@@ -685,6 +685,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Värskenda</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Pole saadaval</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektuur</value>
   </data>
@@ -774,6 +777,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Tõmmisetoiming nurjus. Kontrollige allikat, vaba ruumi ja Foundry logisid.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Pole PXE-käivitusega saadaval. Kohandatud tõmmised nõuavad täielikku ISO- või USB-meediumit.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Kaasake sellesse profiili vähemalt üks saadaolev Windowsi tõmmis. Enne meediumi loomist või värskendamist taastage puuduvad kaasatud tõmmised ning parandage või tühjendage eelistatud tõmmise või indeksi valik.</value>
@@ -2185,9 +2191,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>hollandi keel (Holland)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>inglise keel</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>inglise keel (Ühendkuningriik)</value>
   </data>
@@ -2199,9 +2202,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>soome keel (Soome)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>prantsuse keel</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>prantsuse keel (Kanada)</value>
@@ -2751,6 +2751,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShelli argumendid</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Imporditud faile kasutavad toimingud pole PXE-käivitusega saadaval. Need nõuavad täielikku ISO- või USB-meediumit.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Toimingut ei saanud eemaldada. Proovige uuesti.</value>
@@ -3600,6 +3603,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO meedia valmis.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry ei saanud asendada ISO-faili asukohas {0}. Fail võib olla ühendatud, virtuaalmasinaga seotud, teises programmis avatud või kirjutuskaitstud. Eemaldage ühendus või sulgege fail või valige muu väljunditee ja proovige siis uuesti.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Meediumi ISO loomine õnnestus.</value>
   </data>
@@ -3707,6 +3713,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB alglaadimismeediumi kontrollimine.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows blokeeris juurdepääsu WinPE kujutisefailidele. Võimalik, et turbetarkvara või mõni muu tööriist lukustab need. Lisage turbetarkvarasse erand asukohale {0}, sulgege kujutisi ühendavad tööriistad, taaskäivitage arvuti ja proovige uuesti. Üksikasjad on failides {1} ja {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontrollige valmisolekut, valige ISO või USB väljund ja alustage meediumi loomist.</value>
@@ -4001,6 +4010,9 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Pole kontrollitud</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Värskendust ei saanud rakendada: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Värskenduste otsimine</value>
   </data>
@@ -4033,6 +4045,9 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} on saadaval.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Värskendust ei saanud rakendada</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Värskenduskontroll ebaõnnestus</value>

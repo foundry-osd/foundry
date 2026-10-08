@@ -155,7 +155,7 @@ Licenciado sob a licença MIT.</value>
     <value>Configuração ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instale a versão compatível do Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Instale a versão compatível do Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>A versão ADK não é suportada</value>
@@ -191,7 +191,7 @@ Licenciado sob a licença MIT.</value>
     <value>Versão não detectada</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requer Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Requer Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Política de versão obrigatória</value>
@@ -685,6 +685,9 @@ Licenciado sob a licença MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atualizar</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Indisponível</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arquitetura</value>
   </data>
@@ -774,6 +777,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>A operação de imagem falhou. Verifique a origem, o espaço disponível e os logs do Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Não disponível com inicialização PXE. As imagens personalizadas exigem a mídia ISO ou USB completa.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Inclua pelo menos uma imagem do Windows disponível neste perfil. Restaure as imagens incluídas ausentes e corrija ou limpe a seleção da imagem ou do índice preferido antes de criar ou atualizar a mídia.</value>
@@ -2185,9 +2191,6 @@ Licenciado sob a licença MIT.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Holandês (Holanda)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>Inglês</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglês (Reino Unido)</value>
   </data>
@@ -2199,9 +2202,6 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finlandês (Finlândia)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>Francês</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Francês (Canadá)</value>
@@ -2751,6 +2751,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumentos do PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>As ações que usam arquivos importados não estão disponíveis com inicialização PXE. Elas exigem a mídia ISO ou USB completa.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Não foi possível remover a ação. Tente novamente.</value>
@@ -3600,6 +3603,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO mídia concluída.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>O Foundry não conseguiu substituir o arquivo ISO em {0}. O arquivo pode estar montado, anexado a uma máquina virtual, aberto em outro programa ou ser somente leitura. Desmonte-o ou feche-o, ou escolha outro caminho de saída, e tente novamente.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>A mídia ISO foi criada com sucesso.</value>
   </data>
@@ -3707,6 +3713,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verificando a mídia de inicialização USB.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>O Windows bloqueou o acesso aos arquivos da imagem do WinPE. Um software de segurança ou outra ferramenta pode estar bloqueando-os. Adicione uma exclusão para {0} no software de segurança, feche as ferramentas que montam imagens, reinicie o computador e tente novamente. Os detalhes estão em {1} e {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revise a prontidão, escolha uma saída ISO ou USB e inicie a criação da mídia.</value>
@@ -4001,6 +4010,9 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Não verificado</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Não foi possível aplicar a atualização: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Verificando atualizações</value>
   </data>
@@ -4033,6 +4045,9 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} está disponível.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Não foi possível aplicar a atualização</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Falha na verificação de atualização</value>

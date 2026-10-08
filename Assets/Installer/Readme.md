@@ -4,7 +4,7 @@
 
 Install the Windows ADK Deployment Tools and the matching Windows PE add-on on your workstation. Open Foundry OSD to check that these prerequisites are ready.
 
-Foundry OSD downloads available updates at startup when startup checking is enabled. Once ready, choose **Apply update** in the navigation footer to install and restart. Closing normally also installs a ready update silently and leaves the application closed.
+Foundry OSD downloads available updates at startup when startup checking is enabled. Once ready, choose **Apply update** in the navigation footer to install and restart. Closing normally also installs a ready update silently and leaves the application closed. While another Foundry OSD instance is running, closing does not install the update; it stays ready until no other instance is running.
 
 If an update advisory appears before media creation or a USB update, apply the update first and start media creation again. You can also view the update, choose **Create anyway** with the current version, or cancel.
 

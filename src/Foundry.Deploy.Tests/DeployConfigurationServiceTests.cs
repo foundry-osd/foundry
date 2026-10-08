@@ -61,7 +61,7 @@ public sealed class DeployConfigurationServiceTests
     private static readonly BootMediaRuntimeContext ProductionRuntime = new("26.10.3.2", true, false, false);
 
     [Fact]
-    public void Load_DoesNotRecommendRebuildWithoutConfiguration()
+    public void LoadOptional_DoesNotRecommendRebuildWithoutConfiguration()
     {
         using var directory = new TemporaryDirectory();
         var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance,
@@ -140,20 +140,19 @@ public sealed class DeployConfigurationServiceTests
     }
 
     [Fact]
-    public void Load_RecommendsRebuildForOlderAuthoringReleaseWithCurrentSchema()
+    public void LoadOptional_RecommendsRebuildForOlderAuthoringReleaseWithCurrentSchema()
     {
         using var directory = new TemporaryDirectory();
-        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15,"authoringVersion":"26.10.3.1"}""");
+        string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":{{FoundryDeployConfigurationDocument.CurrentSchemaVersion}},"authoringVersion":"26.10.3.1"}""");
         var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
 
         Assert.Equal(BootMediaUpdateReason.NewerRelease, result.BootMediaUpdateReason);
-        Assert.True(result.IsBootMediaUpdateRecommended);
     }
 
     [Fact]
-    public void Load_UsesLegacyFallbackWithoutAuthoringMetadata()
+    public void LoadOptional_UsesLegacyFallbackWithoutAuthoringMetadata()
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15}""");
@@ -162,7 +161,6 @@ public sealed class DeployConfigurationServiceTests
         DeployConfigurationLoadResult result = service.LoadOptional();
 
         Assert.Equal(BootMediaUpdateReason.UnknownAuthoringVersion, result.BootMediaUpdateReason);
-        Assert.True(result.IsBootMediaUpdateRecommended);
     }
 
     [Theory]
@@ -171,7 +169,7 @@ public sealed class DeployConfigurationServiceTests
     [InlineData("26.10.3.2", true, false, true, "release")]
     [InlineData("1.0.0.0", true, false, false, "release")]
     [InlineData("26.10.3.2", true, false, false, " Debug ")]
-    public void Load_SuppressesAdviceOutsideProductionWinPe(string version, bool winPe, bool debugger, bool debugBuild, string source)
+    public void LoadOptional_SuppressesAdviceOutsideProductionWinPe(string version, bool winPe, bool debugger, bool debugBuild, string source)
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15,"authoringVersion":"26.10.3.1"}""");
@@ -181,13 +179,12 @@ public sealed class DeployConfigurationServiceTests
         DeployConfigurationLoadResult result = service.LoadOptional();
 
         Assert.Equal(BootMediaUpdateReason.None, result.BootMediaUpdateReason);
-        Assert.False(result.IsBootMediaUpdateRecommended);
     }
 
     [Theory]
     [InlineData("debug", BootMediaUpdateReason.None)]
     [InlineData("unknown", BootMediaUpdateReason.UnknownAuthoringVersion)]
-    public void Load_OnlyExplicitDebugTelemetrySuppressesLegacyAdvice(string source, BootMediaUpdateReason expected)
+    public void LoadOptional_OnlyExplicitDebugTelemetrySuppressesLegacyAdvice(string source, BootMediaUpdateReason expected)
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json", $$$"""{"telemetry":{"runtimePayloadSource":"{{{source}}}"}}""");
@@ -201,7 +198,7 @@ public sealed class DeployConfigurationServiceTests
     [Theory]
     [InlineData("26.10.3.2")]
     [InlineData("26.10.4.1")]
-    public void Load_DoesNotRecommendRebuildForSameOrNewerAuthor(string author)
+    public void LoadOptional_DoesNotRecommendRebuildForSameOrNewerAuthor(string author)
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":15,"authoringVersion":"{{author}}"}""");
@@ -210,11 +207,10 @@ public sealed class DeployConfigurationServiceTests
         DeployConfigurationLoadResult result = service.LoadOptional();
 
         Assert.Equal(BootMediaUpdateReason.None, result.BootMediaUpdateReason);
-        Assert.False(result.IsBootMediaUpdateRecommended);
     }
 
     [Fact]
-    public void Load_UsesLegacyFallbackWhenProvisioningMarkerIsUnreadable()
+    public void LoadOptional_UsesLegacyFallbackWhenProvisioningMarkerIsUnreadable()
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15}""");
@@ -260,7 +256,6 @@ public sealed class DeployConfigurationServiceTests
             """
             {
               "schemaVersion": 11,
-              "authoringVersion": "26.10.3.1",
               "customization": {
                 "machineNaming": {
                   "isEnabled": true,
@@ -278,7 +273,6 @@ public sealed class DeployConfigurationServiceTests
 
         DeployConfigurationLoadResult result = service.LoadOptional();
 
-        Assert.Equal("26.10.3.1", result.Document!.AuthoringVersion);
         DeployMachineNamingSettings naming = Assert.IsType<FoundryDeployConfigurationDocument>(result.Document)
             .Customization.MachineNaming;
         Assert.Equal(Foundry.Core.Models.Configuration.MachineNamingMode.Composed, naming.Mode);

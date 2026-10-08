@@ -19,24 +19,25 @@ public interface IApplicationUpdateService
     /// <summary>
     /// Checks the configured update feed for a newer release and publishes the result to update state.
     /// </summary>
-    /// <param name="isStartupCheck">Whether the check is part of startup and may be skipped by settings.</param>
     /// <param name="cancellationToken">Token that cancels the check.</param>
     /// <returns>The update check result.</returns>
-    Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(bool isStartupCheck = false, CancellationToken cancellationToken = default);
+    Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Downloads the captured update and publishes its progress and readiness to update state.
     /// </summary>
     /// <param name="cancellationToken">Token that cancels the download.</param>
-    /// <returns>The download result.</returns>
-    Task<ApplicationUpdateDownloadResult> DownloadUpdateAsync(CancellationToken cancellationToken = default);
+    Task DownloadUpdateAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Schedules the captured prepared update for application after process exit without exiting the application.
     /// </summary>
     /// <param name="restart">Whether to show update progress and restart after application, rather than apply silently on close.</param>
     /// <returns>Whether a prepared update was scheduled or had already been scheduled.</returns>
-    /// <remarks>Returns false without a prepared target and propagates handoff failures while retaining readiness.</remarks>
+    /// <remarks>
+    /// Returns false without a prepared target and propagates handoff failures while retaining readiness.
+    /// Also returns false for a silent apply while another Foundry instance is running, leaving the update prepared.
+    /// </remarks>
     bool TrySchedulePreparedUpdate(bool restart);
 
     /// <summary>

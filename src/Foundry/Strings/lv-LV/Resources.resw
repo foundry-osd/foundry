@@ -155,7 +155,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>ADK iestatīšana</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalējiet atbalstīto Windows ADK 24H2 (10.1.26100.2454) laidienu.</value>
+    <value>Instalējiet atbalstīto Windows ADK 24H2 (10.1.26100.9457) laidienu.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK versija netiek atbalstīta</value>
@@ -191,7 +191,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Versija nav noteikta</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nepieciešams Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Nepieciešams Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Nepieciešamā versijas politika</value>
@@ -685,6 +685,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atsvaidzināt</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Nav pieejams</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektūra</value>
   </data>
@@ -774,6 +777,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Attēla darbība neizdevās. Pārbaudiet avotu, brīvo vietu un Foundry žurnālus.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Nav pieejams, sāknējot ar PXE. Pielāgotiem attēliem nepieciešams pilns ISO vai USB datu nesējs.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Iekļaujiet šajā profilā vismaz vienu pieejamu Windows attēlu. Pirms datu nesēja izveides vai atjaunināšanas atjaunojiet trūkstošos iekļautos attēlus un labojiet vai notīriet vēlamā attēla vai indeksa atlasi.</value>
@@ -2185,9 +2191,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>holandiešu (Nīderlande)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>angļu valoda</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angļu (Apvienotā Karaliste)</value>
   </data>
@@ -2199,9 +2202,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>somu (Somija)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>franču valoda</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>franču (Kanāda)</value>
@@ -2751,6 +2751,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumenti</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Darbības, kas izmanto importētus failus, nav pieejamas, sāknējot ar PXE. Tām nepieciešams pilns ISO vai USB datu nesējs.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Darbību neizdevās noņemt. Mēģiniet vēlreiz.</value>
@@ -3600,6 +3603,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO multivide ir pabeigta.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry nevarēja aizstāt ISO failu ceļā {0}. Fails, iespējams, ir uzstādīts, pievienots virtuālajai mašīnai, atvērts citā programmā vai ir tikai lasāms. Atvienojiet vai aizveriet to vai izvēlieties citu izvades ceļu un pēc tam mēģiniet vēlreiz.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO multivide tika veiksmīgi izveidota.</value>
   </data>
@@ -3707,6 +3713,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB sāknēšanas datu nesēja pārbaude.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows bloķēja piekļuvi WinPE attēla failiem. Iespējams, tos bloķē drošības programmatūra vai cits rīks. Drošības programmatūrā pievienojiet izņēmumu mapei {0}, aizveriet rīkus, kas pievieno attēlus, restartējiet datoru un mēģiniet vēlreiz. Detalizēta informācija ir failos {1} un {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pārskatiet gatavību, izvēlieties ISO vai USB izvadi un sāciet datu nesēja izveidi.</value>
@@ -4001,6 +4010,9 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nav pārbaudīts</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Atjauninājumu neizdevās lietot: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Notiek atjauninājumu pārbaude</value>
   </data>
@@ -4033,6 +4045,9 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} ir pieejams.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Atjauninājumu neizdevās lietot</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Atjaunināšanas pārbaude neizdevās</value>

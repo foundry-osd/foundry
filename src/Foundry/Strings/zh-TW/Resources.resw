@@ -155,7 +155,7 @@
     <value>ADK設置</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>安裝支援的 Windows ADK 24H2 (10.1.26100.2454) 版本。</value>
+    <value>安裝支援的 Windows ADK 24H2 (10.1.26100.9457) 版本。</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK版本不受支援</value>
@@ -191,7 +191,7 @@
     <value>未偵測到版本</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>需要 Windows ADK 24H2 (10.1.26100.2454)。</value>
+    <value>需要 Windows ADK 24H2 (10.1.26100.9457)。</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>所需版本政策</value>
@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>重新整理</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>不可用</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>架構</value>
   </data>
@@ -774,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>映像作業失敗。請檢查來源、可用空間與 Foundry 記錄。</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>使用 PXE 開機時無法使用。自訂映像需要完整的 ISO 或 USB 媒體。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>請在此設定檔中包含至少一個可用的 Windows 映像。在建立或更新媒體之前，請還原已包含但遺失的映像，並修正或清除慣用映像或索引的選取項目。</value>
@@ -2185,9 +2191,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>荷蘭語（荷蘭）</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>英語</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>英語（英國）</value>
   </data>
@@ -2199,9 +2202,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>芬蘭語（芬蘭）</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>法語</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>法語（加拿大）</value>
@@ -2751,6 +2751,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell 引數</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>使用匯入檔案的動作在 PXE 開機時無法使用。它們需要完整的 ISO 或 USB 媒體。</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>無法移除該動作。請再試一次。</value>
@@ -3600,6 +3603,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO媒體完成。</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry 無法取代位於 {0} 的 ISO 檔案。該檔案可能已掛接、已連結至虛擬機器、在其他程式中開啟或為唯讀。請卸載或關閉該檔案，或選擇其他輸出路徑，然後再試一次。</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO 媒體已成功建立。</value>
   </data>
@@ -3707,6 +3713,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>正在驗證 USB 啟動媒體。</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows 已封鎖對 WinPE 映像檔案的存取。安全性軟體或其他工具可能正在鎖定這些檔案。請在安全性軟體中為 {0} 新增排除項目，關閉用於掛接映像的工具，重新啟動電腦，然後再試一次。詳細資料位於 {1} 和 {2} 中。</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>檢閱就緒狀態，選擇 ISO 或 USB 輸出，然後開始建立媒體。</value>
@@ -4001,6 +4010,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未檢查</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>無法套用更新：{0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>檢查更新</value>
   </data>
@@ -4033,6 +4045,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} 可用。</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>無法套用更新</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新檢查失敗</value>

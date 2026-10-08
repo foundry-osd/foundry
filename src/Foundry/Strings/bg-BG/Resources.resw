@@ -155,7 +155,7 @@
     <value>ADK настройка</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Инсталирайте поддържаната версия Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Инсталирайте поддържаната версия Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK версията не се поддържа</value>
@@ -191,7 +191,7 @@
     <value>Версията не е открита</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Изисква Windows ADK 24H2 (10.1.26100.2454).</value>
+    <value>Изисква Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Правила за задължителна версия</value>
@@ -685,6 +685,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Опресняване</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Недостъпен</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Архитектура</value>
   </data>
@@ -774,6 +777,9 @@
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Операцията с образа е неуспешна. Проверете източника, свободното място и регистрационните файлове на Foundry.</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>Не е налично при стартиране чрез PXE. Персонализираните образи изискват пълния ISO или USB носител.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включете поне един наличен образ на Windows в този профил. Възстановете липсващите включени образи и коригирайте или изчистете избора на предпочитан образ или индекс, преди да създадете или актуализирате носител.</value>
@@ -2185,9 +2191,6 @@
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>холандски (Холандия)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>английски</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>английски (Великобритания)</value>
   </data>
@@ -2199,9 +2202,6 @@
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>фински (Финландия)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>френски</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>френски (Канада)</value>
@@ -2751,6 +2751,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Аргументи на PowerShell</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>Действията, които използват импортирани файлове, не са налични при стартиране чрез PXE. Те изискват пълния ISO или USB носител.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Действието не можа да бъде премахнато. Опитайте отново.</value>
@@ -3600,6 +3603,9 @@
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO медиите са завършени.</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry не можа да замени ISO файла в {0}. Файлът може да е монтиран, прикачен към виртуална машина, отворен в друга програма или само за четене. Демонтирайте го или го затворете, или изберете друг изходен път, след което опитайте отново.</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Медията ISO е създадена успешно.</value>
   </data>
@@ -3707,6 +3713,9 @@
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Проверка на USB носител за зареждане.</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows блокира достъпа до файловете на WinPE образа. Възможно е софтуер за защита или друг инструмент да ги заключва. Добавете изключение за {0} в софтуера за защита, затворете инструментите, които монтират образи, рестартирайте компютъра и опитайте отново. Подробности има в {1} и {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Прегледайте готовността, изберете ISO или USB изход и стартирайте създаването на носител.</value>
@@ -4001,6 +4010,9 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не е проверено</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>Актуализацията не можа да бъде приложена: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Проверка за актуализации</value>
   </data>
@@ -4033,6 +4045,9 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} е наличен.</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>Актуализацията не можа да бъде приложена</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Проверката на актуализацията е неуспешна</value>

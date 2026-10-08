@@ -361,7 +361,7 @@ Action: Vérifiez les attributs du disque et réessayez le déploiement.</value>
     <value>Taille inconnue</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Compte (DOMAIN\user ou user@domain)</value>

@@ -24,7 +24,7 @@ public sealed class DeploymentStartupCoordinatorTests
     [InlineData(BootMediaUpdateReason.NewerRelease)]
     [InlineData(BootMediaUpdateReason.UnknownAuthoringVersion)]
     [InlineData(BootMediaUpdateReason.None)]
-    public async Task Prepare_PropagatesBootMediaUpdateReason(BootMediaUpdateReason reason)
+    public async Task InitializeAsync_PropagatesBootMediaUpdateReason(BootMediaUpdateReason reason)
     {
         var dependencies = new StartupDependencies(enabled: false, reason);
         var discovery = new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start."));
@@ -33,7 +33,6 @@ public sealed class DeploymentStartupCoordinatorTests
         DeploymentStartupSnapshot snapshot = await coordinator.InitializeAsync(CreateRequest(), TestContext.Current.CancellationToken);
 
         Assert.Equal(reason, snapshot.BootMediaUpdateReason);
-        Assert.Equal(reason != BootMediaUpdateReason.None, snapshot.IsBootMediaUpdateRecommended);
     }
 
     [Theory]

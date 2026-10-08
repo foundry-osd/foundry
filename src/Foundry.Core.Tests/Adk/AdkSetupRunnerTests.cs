@@ -39,6 +39,30 @@ public sealed class AdkSetupRunnerTests : IDisposable
         Assert.Equal(exitCode, await runner.RunAsync(setupPath, "/quiet", logPath, TestContext.Current.CancellationToken));
     }
 
+    [Fact]
+    public async Task RunToolAsync_RunsHiddenHelperWithoutSetupLogSwitch()
+    {
+        AdkSetupRunner runner = new(info =>
+        {
+            Assert.Equal(setupPath, info.FileName);
+            Assert.Equal("/uninstall", info.Arguments);
+            Assert.Equal("runas", info.Verb);
+            Assert.Equal(System.Diagnostics.ProcessWindowStyle.Hidden, info.WindowStyle);
+            return new SetupProcess(Task.CompletedTask, 0);
+        });
+
+        Assert.Equal(0, await runner.RunToolAsync(setupPath, "/uninstall", TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task RunToolAsync_ClassifiesHelperFailureExit()
+    {
+        AdkSetupRunner runner = new(_ => new SetupProcess(Task.CompletedTask, 1));
+        AdkSetupException error = await Assert.ThrowsAsync<AdkSetupException>(() => runner.RunToolAsync(setupPath, "/uninstall", TestContext.Current.CancellationToken));
+        Assert.Equal("installer_exit_failed", error.Reason);
+        Assert.Equal(1, error.ExitCode);
+    }
+
     [Theory]
     [InlineData(1223, "elevation_cancelled")]
     [InlineData(5, "launch_failed")]

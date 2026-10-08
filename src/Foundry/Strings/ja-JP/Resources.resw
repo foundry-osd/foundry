@@ -155,7 +155,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ADK セットアップ</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>サポートされている Windows ADK 24H2 (10.1.26100.2454) リリースをインストールしてください。</value>
+    <value>サポートされている Windows ADK 24H2 (10.1.26100.9457) リリースをインストールしてください。</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK バージョンはサポートされていません</value>
@@ -191,7 +191,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>バージョンが検出されませんでした</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100.2454) が必要です。</value>
+    <value>Windows ADK 24H2 (10.1.26100.9457) が必要です。</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>必要なバージョンポリシー</value>
@@ -685,6 +685,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>リフレッシュ</value>
   </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>利用不可</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>アーキテクチャ</value>
   </data>
@@ -774,6 +777,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>イメージの操作に失敗しました。ソース、空き容量、Foundry のログを確認してください。</value>
+  </data>
+  <data name="CustomImages.PxeWarning" xml:space="preserve">
+    <value>PXE ブートでは使用できません。カスタム イメージには、完全な ISO または USB メディアが必要です。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>このプロファイルに、利用可能な Windows イメージを少なくとも 1 つ含めてください。メディアを作成または更新する前に、含まれているイメージのうち見つからないものを復元し、優先イメージまたはインデックスの選択を修正または解除してください。</value>
@@ -2185,9 +2191,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>オランダ語 (オランダ)</value>
   </data>
-  <data name="Language.English" xml:space="preserve">
-    <value>英語</value>
-  </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>英語 (イギリス)</value>
   </data>
@@ -2199,9 +2202,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>フィンランド語 (フィンランド)</value>
-  </data>
-  <data name="Language.French" xml:space="preserve">
-    <value>フランス語</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>フランス語 (カナダ)</value>
@@ -2751,6 +2751,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell の引数</value>
+  </data>
+  <data name="PostInstallation.PxeWarning" xml:space="preserve">
+    <value>インポートしたファイルを使用するアクションは、PXE ブートでは使用できません。完全な ISO または USB メディアが必要です。</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>アクションを削除できませんでした。もう一度お試しください。</value>
@@ -3600,6 +3603,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
     <value>ISO メディアが完成しました。</value>
   </data>
+  <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
+    <value>Foundry は {0} の ISO ファイルを置き換えられませんでした。ファイルがマウントされている、仮想マシンに接続されている、別のプログラムで開かれている、または読み取り専用である可能性があります。マウントを解除するかファイルを閉じるか、別の出力パスを選択してから、もう一度お試しください。</value>
+  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO メディアが正常に作成されました。</value>
   </data>
@@ -3707,6 +3713,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB ブート メディアを確認しています。</value>
+  </data>
+  <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
+    <value>Windows によって WinPE イメージ ファイルへのアクセスがブロックされました。セキュリティ ソフトウェアまたは別のツールがファイルをロックしている可能性があります。セキュリティ ソフトウェアで {0} の除外を追加し、イメージをマウントするツールを閉じ、コンピューターを再起動してから、もう一度お試しください。詳細は {1} と {2} にあります。</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>準備状況を確認し、ISO または USB 出力を選択して、メディアの作成を開始します。</value>
@@ -4001,6 +4010,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未チェック</value>
   </data>
+  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
+    <value>更新を適用できませんでした: {0}</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>アップデートをチェックしています</value>
   </data>
@@ -4033,6 +4045,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} が利用可能です。</value>
+  </data>
+  <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
+    <value>更新を適用できませんでした</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新チェックに失敗しました</value>

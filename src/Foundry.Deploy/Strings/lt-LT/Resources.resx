@@ -361,7 +361,7 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
     <value>Nežinomas dydis</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Paskyra (DOMAIN\user arba user@domain)</value>

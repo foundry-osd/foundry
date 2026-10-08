@@ -361,7 +361,7 @@
     <value>尺寸未知</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
-    <value>| {0}</value>
+    <value> | {0}</value>
   </data>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>帳戶（DOMAIN\user 或 user@domain）</value>
