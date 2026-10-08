@@ -262,6 +262,20 @@ public sealed class PostHogExceptionTrackerTests
     }
 
     [Fact]
+    public void Track_WhenDomainFailureCarriesFailureDetail_AppendsDetailToFingerprint()
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+
+        tracker.Track(CreateDomainFailureRecord("WINPE_BUILD_FAILED", "build_winpe", "wim_mount_failed"));
+
+        CapturedPostHogEvent captured = Assert.Single(client.Events);
+        Assert.Equal(
+            "foundry.osd:Foundry.ViewModels.StartMediaViewModel+WinPeOperationException:::copype:tool_failed:WINPE_BUILD_FAILED:1:build_winpe:wim_mount_failed",
+            captured.Properties["$exception_fingerprint"]);
+    }
+
+    [Fact]
     public void Track_WhenStackExistsWithOnlyFailureReason_KeepsStackBasedGrouping()
     {
         var client = new RecordingPostHogEventClient();
@@ -383,7 +397,7 @@ public sealed class PostHogExceptionTrackerTests
         public ValueTask DisposeAsync() => ValueTask.CompletedTask;
     }
 
-    private static RemoteDiagnosticRecord CreateDomainFailureRecord(string failureCode, string step) => new(
+    private static RemoteDiagnosticRecord CreateDomainFailureRecord(string failureCode, string step, string failureDetail = "") => new(
         DateTimeOffset.UtcNow,
         LogEventLevel.Error,
         "Final boot media operation failed",
@@ -396,6 +410,7 @@ public sealed class PostHogExceptionTrackerTests
             ["failure.kind"] = "tool",
             ["failure.reason"] = "tool_failed",
             ["failure.code"] = failureCode,
+            ["failure.detail"] = failureDetail,
             ["failure.summary"] = "copype failed for C:\\Users\\alice",
             ["workflow.step"] = step,
             ["tool.name"] = "copype",
