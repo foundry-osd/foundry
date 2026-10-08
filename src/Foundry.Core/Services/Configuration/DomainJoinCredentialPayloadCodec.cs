@@ -90,7 +90,7 @@ public static class DomainJoinCredentialPayloadCodec
             throw new InvalidDataException("The domain credential context is invalid.");
     }
 
-    internal static void ValidatePassword(ReadOnlySpan<char> password)
+    public static void ValidatePassword(ReadOnlySpan<char> password)
     {
         try
         {

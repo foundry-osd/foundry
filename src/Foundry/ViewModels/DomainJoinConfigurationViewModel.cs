@@ -82,7 +82,13 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public string LabelColumnHeader => localization.GetString("DomainJoinManualLabel.Header");
     public string DistinguishedNameColumnHeader => localization.GetString("DomainJoinManualDn.Header");
     public string EmptyDomainsText => Text("EmptyDomains");
-    public string EmptyOrganizationalUnitsText => Text(HasSelectedDomain ? "EmptyCatalog" : "SelectDomainFirst");
+    public string EmptyOrganizationalUnitsText => Text(HasSelectedDomain ? "EmptyCatalog" : Domains.Count == 0 ? "NoDomainYet" : "SelectDomain");
+    public string AddLabel => Text("CommandAdd");
+    public string EditLabel => Text("CommandEdit");
+    public string RemoveLabel => Text("CommandRemove");
+    public string SetDefaultLabel => Text("CommandSetDefault");
+    public string ClearDefaultLabel => Text("CommandClearDefault");
+    public string TechniciansChooseLabel => Text("CommandTechniciansChoose");
 
     /// <summary>Gets the import button label; the same button cancels a running domain search.</summary>
     public string ImportButtonText => localization.GetString(IsDiscovering ? "DomainJoinCancel.Content" : "DomainJoinDiscover.Content");
@@ -517,7 +523,8 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         foreach (string property in new[]
         {
             nameof(DomainColumnHeader), nameof(AccountColumnHeader), nameof(OuCountColumnHeader), nameof(DefaultColumnHeader), nameof(StatusColumnHeader),
-            nameof(LabelColumnHeader), nameof(DistinguishedNameColumnHeader), nameof(EmptyDomainsText), nameof(ImportButtonText), nameof(StatusText)
+            nameof(LabelColumnHeader), nameof(DistinguishedNameColumnHeader), nameof(EmptyDomainsText), nameof(ImportButtonText), nameof(StatusText),
+            nameof(AddLabel), nameof(EditLabel), nameof(RemoveLabel), nameof(SetDefaultLabel), nameof(ClearDefaultLabel), nameof(TechniciansChooseLabel)
         })
         {
             OnPropertyChanged(property);

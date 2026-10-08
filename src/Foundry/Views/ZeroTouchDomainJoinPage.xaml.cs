@@ -9,9 +9,11 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Views;
 
-/// <summary>Authors automatic domain joining with the shared OU list.</summary>
+/// <summary>Authors automatic domain joining with the shared domain and OU lists.</summary>
 public sealed partial class ZeroTouchDomainJoinPage : Page
 {
+    private bool synchronizingPassword;
+
     public DomainJoinConfigurationViewModel ViewModel { get; }
 
     public ZeroTouchDomainJoinPage()
@@ -19,37 +21,43 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
         ViewModel = App.GetService<DomainJoinConfigurationViewModel>();
         ViewModel.SetPageMode(DomainJoinMode.Automatic);
         InitializeComponent();
+        TableViewDefaultSort.Attach(DomainsTable, nameof(DomainJoinDomainEntryViewModel.DomainName));
         TableViewDefaultSort.Attach(OrganizationalUnitsTable, nameof(DomainJoinOrganizationalUnitEntryViewModel.DisplayName));
+        ViewModel.DomainRowsRemoving += OnDomainRowsRemoving;
         ViewModel.OrganizationalUnitRowsRemoving += OnOrganizationalUnitRowsRemoving;
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         Unloaded += OnUnloaded;
     }
 
+    private void OnDomainRowsRemoving(object? sender, EventArgs e) => DomainsTable.DeselectAll();
+
     private void OnOrganizationalUnitRowsRemoving(object? sender, EventArgs e) => OrganizationalUnitsTable.DeselectAll();
 
-    private void CatalogTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (sender is WinUI.TableView.TableView tableView)
-        {
-            ViewModel.ReplaceSelectedListedRows(tableView.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
-        }
-    }
+    private void OrganizationalUnitsTable_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
+        ViewModel.ReplaceSelectedOrganizationalUnits(OrganizationalUnitsTable.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
 
+    private void OnDomainChoiceClick(object sender, RoutedEventArgs e) =>
+        ViewModel.AllowDomainSelectionDuringDeployment = sender is AppBarToggleButton { IsChecked: true };
 
-    private bool synchronizingPassword;
+    private void OnOuChoiceClick(object sender, RoutedEventArgs e) =>
+        ViewModel.AllowOuSelectionDuringDeployment = sender is AppBarToggleButton { IsChecked: true };
 
     private void OnPasswordLoaded(object sender, RoutedEventArgs e) => SynchronizePassword();
+
     private void OnPasswordChanged(object sender, RoutedEventArgs e)
     {
-        if (!synchronizingPassword) ViewModel.SetPassword(DomainPasswordBox.Password.AsSpan());
+        if (!synchronizingPassword) ViewModel.SetSharedPassword(DomainPasswordBox.Password.AsSpan());
     }
+
     private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(DomainJoinConfigurationViewModel.SecretStateVersion)) SynchronizePassword();
     }
+
+    /// <summary>Shows the password the shared account owns, without reporting that refill as a user edit.</summary>
     private void SynchronizePassword()
     {
-        char[]? password = ViewModel.GetPasswordCopy();
+        char[]? password = ViewModel.GetSharedPasswordCopy();
         try
         {
             synchronizingPassword = true;
@@ -66,9 +74,11 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Unloaded -= OnUnloaded;
+        ViewModel.DomainRowsRemoving -= OnDomainRowsRemoving;
         ViewModel.OrganizationalUnitRowsRemoving -= OnOrganizationalUnitRowsRemoving;
         ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
         ViewModel.Dispose();
-        synchronizingPassword = true; DomainPasswordBox.Password = string.Empty;
+        synchronizingPassword = true;
+        DomainPasswordBox.Password = string.Empty;
     }
 }

@@ -6,7 +6,7 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Views;
 
-/// <summary>Authors interactive domain joining with the shared OU list.</summary>
+/// <summary>Authors interactive domain joining with the shared domain and OU lists.</summary>
 public sealed partial class InteractiveDomainJoinPage : Page
 {
     public DomainJoinConfigurationViewModel ViewModel { get; }
@@ -16,25 +16,30 @@ public sealed partial class InteractiveDomainJoinPage : Page
         ViewModel = App.GetService<DomainJoinConfigurationViewModel>();
         ViewModel.SetPageMode(DomainJoinMode.Interactive);
         InitializeComponent();
+        TableViewDefaultSort.Attach(DomainsTable, nameof(DomainJoinDomainEntryViewModel.DomainName));
         TableViewDefaultSort.Attach(OrganizationalUnitsTable, nameof(DomainJoinOrganizationalUnitEntryViewModel.DisplayName));
+        ViewModel.DomainRowsRemoving += OnDomainRowsRemoving;
         ViewModel.OrganizationalUnitRowsRemoving += OnOrganizationalUnitRowsRemoving;
         Unloaded += OnUnloaded;
     }
 
+    private void OnDomainRowsRemoving(object? sender, EventArgs e) => DomainsTable.DeselectAll();
+
     private void OnOrganizationalUnitRowsRemoving(object? sender, EventArgs e) => OrganizationalUnitsTable.DeselectAll();
 
-    private void CatalogTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (sender is WinUI.TableView.TableView tableView)
-        {
-            ViewModel.ReplaceSelectedListedRows(tableView.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
-        }
-    }
+    private void OrganizationalUnitsTable_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
+        ViewModel.ReplaceSelectedOrganizationalUnits(OrganizationalUnitsTable.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
 
+    private void OnDomainChoiceClick(object sender, RoutedEventArgs e) =>
+        ViewModel.AllowDomainSelectionDuringDeployment = sender is AppBarToggleButton { IsChecked: true };
+
+    private void OnOuChoiceClick(object sender, RoutedEventArgs e) =>
+        ViewModel.AllowOuSelectionDuringDeployment = sender is AppBarToggleButton { IsChecked: true };
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Unloaded -= OnUnloaded;
+        ViewModel.DomainRowsRemoving -= OnDomainRowsRemoving;
         ViewModel.OrganizationalUnitRowsRemoving -= OnOrganizationalUnitRowsRemoving;
         ViewModel.Dispose();
     }
