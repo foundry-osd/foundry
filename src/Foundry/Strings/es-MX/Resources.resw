@@ -1834,9 +1834,6 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>No se pudo abrir la documentación</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>No se ha agregado la OU. Compruebe el nombre para mostrar y el nombre distintivo. La OU debe pertenecer al dominio seleccionado.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Cuenta de unión</value>
   </data>
@@ -1918,17 +1915,23 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Quite las OU de este dominio antes de cambiar su nombre.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>No se ha agregado ninguna OU.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>No se ha agregado ningún dominio.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>No se ha agregado ninguna OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>No se han agregado las OU. Pertenecen a un dominio distinto del seleccionado.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Agregue primero un dominio y, después, indique sus OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>No se ha agregado la OU. Compruebe el nombre para mostrar y el nombre distintivo. La OU debe pertenecer al dominio seleccionado.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Unidades organizacionales</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Unidades organizacionales de {0}</value>
@@ -2013,9 +2016,6 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Cancelar búsqueda</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Unidades organizacionales</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Nombre de dominio</value>

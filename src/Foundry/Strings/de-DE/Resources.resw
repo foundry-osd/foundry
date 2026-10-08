@@ -1834,9 +1834,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentation konnte nicht geöffnet werden</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Die OU wurde nicht hinzugefügt. Prüfen Sie den Anzeigenamen und den Distinguished Name. Die OU muss zur ausgewählten Domäne gehören.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Beitrittskonto</value>
   </data>
@@ -1918,17 +1915,23 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Entfernen Sie die OUs dieser Domäne, bevor Sie ihren Namen ändern.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Keine OUs hinzugefügt.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Keine Domänen hinzugefügt.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Keine OUs hinzugefügt.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Die OUs wurden nicht hinzugefügt. Sie gehören zu einer anderen Domäne als der ausgewählten.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Fügen Sie zuerst eine Domäne hinzu und listen Sie dann ihre OUs auf.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>Die OU wurde nicht hinzugefügt. Prüfen Sie den Anzeigenamen und den Distinguished Name. Die OU muss zur ausgewählten Domäne gehören.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organisationseinheiten</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Organisationseinheiten von {0}</value>
@@ -2013,9 +2016,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Suche abbrechen</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Organisationseinheiten</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Domänenname</value>

@@ -1834,9 +1834,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Asiakirjoja ei voitu avata</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU:ta ei lisätty. Tarkista näyttönimi ja yksilöivä nimi. OU:n on kuuluttava valittuun toimialueeseen.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Liittämistili</value>
   </data>
@@ -1918,17 +1915,23 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Poista tämän toimialueen OU:t ennen sen nimen muuttamista.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>OU:ita ei ole lisätty.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Toimialueita ei ole lisätty.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>OU:ita ei ole lisätty.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU:ita ei lisätty. Ne kuuluvat eri toimialueeseen kuin valittu toimialue.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Lisää ensin toimialue ja luettele sitten sen OU:t.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU:ta ei lisätty. Tarkista näyttönimi ja yksilöivä nimi. OU:n on kuuluttava valittuun toimialueeseen.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organisaatioyksiköt</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Toimialueen {0} organisaatioyksiköt</value>
@@ -2013,9 +2016,6 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Peruuta haku</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Organisaatioyksiköt</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Toimialueen nimi</value>

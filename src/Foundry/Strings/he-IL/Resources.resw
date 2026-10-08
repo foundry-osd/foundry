@@ -1834,9 +1834,6 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>לא ניתן היה לפתוח את התיעוד</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>ה-OU לא נוספה. בדוק את שם התצוגה ואת השם המובחן. ה-OU חייבת להשתייך לתחום שנבחר.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>חשבון צירוף</value>
   </data>
@@ -1918,17 +1915,23 @@
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>הסר את יחידות ה-OU של תחום זה לפני שינוי שמו.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>לא נוספו יחידות OU.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>לא נוספו תחומים.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>לא נוספו יחידות OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>יחידות ה-OU לא נוספו. הן שייכות לתחום שונה מהתחום שנבחר.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>הוסף תחילה תחום, ולאחר מכן פרט את יחידות ה-OU שלו.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>ה-OU לא נוספה. בדוק את שם התצוגה ואת השם המובחן. ה-OU חייבת להשתייך לתחום שנבחר.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>יחידות ארגוניות</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>יחידות ארגוניות של {0}</value>
@@ -2013,9 +2016,6 @@
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>ביטול החיפוש</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>יחידות ארגוניות</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>שם התחום</value>

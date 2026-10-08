@@ -1834,9 +1834,6 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>文件無法開啟</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>未新增 OU。請檢查顯示名稱和辨別名稱。OU 必須屬於選取的網域。</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>加入帳戶</value>
   </data>
@@ -1918,17 +1915,23 @@
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>請先移除此網域的 OU，再變更其名稱。</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>尚未新增 OU。</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>尚未新增網域。</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>尚未新增 OU。</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>未新增這些 OU。它們所屬的網域與選取的網域不一致。</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>請先新增網域，再列出其 OU。</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>未新增 OU。請檢查顯示名稱和辨別名稱。OU 必須屬於選取的網域。</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>組織單位</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>{0} 的組織單位</value>
@@ -2013,9 +2016,6 @@
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>取消搜尋</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>組織單位</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>網域名稱</value>

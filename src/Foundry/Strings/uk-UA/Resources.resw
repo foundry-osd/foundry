@@ -1834,9 +1834,6 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Не вдалося відкрити документацію</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU не додано. Перевірте відображуване ім’я та розрізнювальне ім’я. OU має належати до вибраного домену.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Обліковий запис для приєднання</value>
   </data>
@@ -1918,17 +1915,23 @@
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Видаліть OU цього домену, перш ніж змінювати його ім’я.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>OU не додано.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Домени не додано.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>OU не додано.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU не додано. Вони належать до іншого домену, ніж вибраний.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Спочатку додайте домен, а потім укажіть його OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU не додано. Перевірте відображуване ім’я та розрізнювальне ім’я. OU має належати до вибраного домену.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Організаційні одиниці</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Організаційні одиниці домену {0}</value>
@@ -2013,9 +2016,6 @@
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Скасувати пошук</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Організаційні одиниці</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Ім’я домену</value>

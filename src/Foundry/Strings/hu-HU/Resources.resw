@@ -1834,9 +1834,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>A dokumentációt nem lehetett megnyitni</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Az OU nem lett hozzáadva. Ellenőrizze a megjelenítendő nevet és a megkülönböztető nevet. Az OU-nak a kiválasztott tartományhoz kell tartoznia.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Csatlakoztatási fiók</value>
   </data>
@@ -1918,17 +1915,23 @@ Licenc az MIT licenc alatt.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>A tartomány nevének módosítása előtt távolítsa el a tartomány OU-it.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Nincs hozzáadott OU.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Nincs hozzáadott tartomány.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Nincs hozzáadott OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Az OU-k nem lettek hozzáadva. Más tartományhoz tartoznak, mint a kiválasztott.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Először adjon hozzá egy tartományt, majd sorolja fel az OU-it.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>Az OU nem lett hozzáadva. Ellenőrizze a megjelenítendő nevet és a megkülönböztető nevet. Az OU-nak a kiválasztott tartományhoz kell tartoznia.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Szervezeti egységek</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>A(z) {0} tartomány szervezeti egységei</value>
@@ -2013,9 +2016,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Keresés megszakítása</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Szervezeti egységek</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Tartománynév</value>

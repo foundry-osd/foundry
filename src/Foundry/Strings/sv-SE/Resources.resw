@@ -1834,9 +1834,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentationen kunde inte öppnas</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU:n lades inte till. Kontrollera visningsnamnet och det unika namnet. OU:n måste tillhöra den valda domänen.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Anslutningskonto</value>
   </data>
@@ -1918,17 +1915,23 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Ta bort den här domänens OU:er innan du ändrar dess namn.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Inga OU:er har lagts till.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Inga domäner har lagts till.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Inga OU:er har lagts till.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU:erna lades inte till. De tillhör en annan domän än den valda.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Lägg först till en domän och ange sedan dess OU:er.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU:n lades inte till. Kontrollera visningsnamnet och det unika namnet. OU:n måste tillhöra den valda domänen.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organisationsenheter</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Organisationsenheter i {0}</value>
@@ -2013,9 +2016,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Avbryt sökning</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Organisationsenheter</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Domännamn</value>

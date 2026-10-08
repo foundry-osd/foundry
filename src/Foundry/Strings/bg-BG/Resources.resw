@@ -1834,9 +1834,6 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Документацията не можа да бъде отворена</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU не беше добавена. Проверете показваното име и отличителното име. OU трябва да принадлежи към избрания домейн.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Акаунт за присъединяване</value>
   </data>
@@ -1918,17 +1915,23 @@
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Премахнете OU на този домейн, преди да промените името му.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Няма добавени OU.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Няма добавени домейни.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Няма добавени OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU не бяха добавени. Те принадлежат към домейн, различен от избрания.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Първо добавете домейн, след което избройте неговите OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU не беше добавена. Проверете показваното име и отличителното име. OU трябва да принадлежи към избрания домейн.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Организационни единици</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Организационни единици на {0}</value>
@@ -2013,9 +2016,6 @@
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Отмяна на търсенето</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Организационни единици</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Име на домейна</value>

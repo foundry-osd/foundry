@@ -1834,9 +1834,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>ドキュメントを開けませんでした</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OUは追加されませんでした。表示名と識別名を確認してください。OUは選択したドメインに属している必要があります。</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>参加用アカウント</value>
   </data>
@@ -1918,17 +1915,23 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>ドメイン名を変更する前に、このドメインのOUを削除してください。</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>OUは追加されていません。</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>ドメインは追加されていません。</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>OUは追加されていません。</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OUは追加されませんでした。選択したドメインとは異なるドメインに属しています。</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>先にドメインを追加してから、そのOUを登録してください。</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OUは追加されませんでした。表示名と識別名を確認してください。OUは選択したドメインに属している必要があります。</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>組織単位</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>{0}の組織単位</value>
@@ -2013,9 +2016,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>検索をキャンセル</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>組織単位</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>ドメイン名</value>

@@ -1834,9 +1834,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentāciju nevarēja atvērt</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU netika pievienota. Pārbaudiet parādāmo nosaukumu un atšķirīgo nosaukumu. OU jāpieder atlasītajam domēnam.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Pievienošanas konts</value>
   </data>
@@ -1918,17 +1915,23 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Pirms domēna nosaukuma maiņas noņemiet šī domēna OU.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Nav pievienota neviena OU.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Nav pievienots neviens domēns.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Nav pievienota neviena OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU netika pievienotas. Tās pieder citam domēnam, nevis atlasītajam.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Vispirms pievienojiet domēnu, pēc tam norādiet tā OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU netika pievienota. Pārbaudiet parādāmo nosaukumu un atšķirīgo nosaukumu. OU jāpieder atlasītajam domēnam.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organizatoriskās vienības</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Domēna {0} organizatoriskās vienības</value>
@@ -2013,9 +2016,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Atcelt meklēšanu</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Organizatoriskās vienības</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Domēna nosaukums</value>

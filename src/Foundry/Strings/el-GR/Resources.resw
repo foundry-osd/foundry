@@ -1834,9 +1834,6 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Δεν ήταν δυνατό το άνοιγμα της τεκμηρίωσης</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>Η OU δεν προστέθηκε. Ελέγξτε το εμφανιζόμενο όνομα και το διακεκριμένο όνομα. Η OU πρέπει να ανήκει στον επιλεγμένο τομέα.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Λογαριασμός σύνδεσης σε τομέα</value>
   </data>
@@ -1918,17 +1915,23 @@
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Καταργήστε τις OU αυτού του τομέα πριν αλλάξετε το όνομά του.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Δεν έχουν προστεθεί OU.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Δεν έχουν προστεθεί τομείς.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Δεν έχουν προστεθεί OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>Οι OU δεν προστέθηκαν. Ανήκουν σε διαφορετικό τομέα από τον επιλεγμένο.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Προσθέστε πρώτα έναν τομέα και, στη συνέχεια, καταχωρήστε τις OU του.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>Η OU δεν προστέθηκε. Ελέγξτε το εμφανιζόμενο όνομα και το διακεκριμένο όνομα. Η OU πρέπει να ανήκει στον επιλεγμένο τομέα.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Οργανωτικές μονάδες</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Οργανωτικές μονάδες του τομέα {0}</value>
@@ -2013,9 +2016,6 @@
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Ακύρωση αναζήτησης</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Οργανωτικές μονάδες</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Όνομα τομέα</value>

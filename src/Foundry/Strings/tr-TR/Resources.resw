@@ -1834,9 +1834,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Belgeler açılamadı</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU eklenmedi. Görünen adı ve ayırt edici adı denetleyin. OU seçilen etki alanına ait olmalıdır.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Katılma hesabı</value>
   </data>
@@ -1918,17 +1915,23 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Adını değiştirmeden önce bu etki alanının OU’larını kaldırın.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>OU eklenmedi.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Etki alanı eklenmedi.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>OU eklenmedi.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU’lar eklenmedi. Seçilen etki alanından farklı bir etki alanına aitler.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Önce bir etki alanı ekleyin, ardından OU’larını listeleyin.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU eklenmedi. Görünen adı ve ayırt edici adı denetleyin. OU seçilen etki alanına ait olmalıdır.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Kuruluş birimleri</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>{0} kuruluş birimleri</value>
@@ -2013,9 +2016,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Aramayı iptal et</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Kuruluş birimleri</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Etki alanı adı</value>

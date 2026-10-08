@@ -82,7 +82,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public string LabelColumnHeader => localization.GetString("DomainJoinManualLabel.Header");
     public string DistinguishedNameColumnHeader => localization.GetString("DomainJoinManualDn.Header");
     public string EmptyDomainsText => Text("EmptyDomains");
-    public string EmptyOrganizationalUnitsText => Text(HasSelectedDomain ? "EmptyCatalog" : Domains.Count == 0 ? "NoDomainYet" : "SelectDomain");
+    public string EmptyOrganizationalUnitsText => Text(HasSelectedDomain ? "EmptyOrganizationalUnits" : Domains.Count == 0 ? "NoDomainYet" : "SelectDomain");
     public string AddLabel => Text("CommandAdd");
     public string EditLabel => Text("CommandEdit");
     public string RemoveLabel => Text("CommandRemove");
@@ -95,7 +95,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public bool HasSelectedDomain => SelectedDomain is not null;
     public string OrganizationalUnitsHeader => SelectedDomain is { } domain
         ? localization.FormatString("DomainJoin.OrganizationalUnitsOfFormat", domain.DomainName)
-        : localization.GetString("DomainJoinCatalog.Header");
+        : Text("OrganizationalUnitsHeader");
     public Visibility DomainListVisibility => ToVisibility(Domains.Count > 0);
     public Visibility EmptyDomainsVisibility => ToVisibility(Domains.Count == 0);
     public Visibility OrganizationalUnitListVisibility => ToVisibility(OrganizationalUnits.Count > 0);
@@ -276,7 +276,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             Save(DomainJoinOrganizationalUnitCatalog.Merge(current, row.Id, added));
             return null;
         }
-        catch (ArgumentException) { return Text(GetMergeFailureKey(row.Settings, added, "CatalogInputInvalid")); }
+        catch (ArgumentException) { return Text(GetMergeFailureKey(row.Settings, added, "OrganizationalUnitInputInvalid")); }
     }
 
     [RelayCommand(CanExecute = nameof(CanEditOrganizationalUnit))]

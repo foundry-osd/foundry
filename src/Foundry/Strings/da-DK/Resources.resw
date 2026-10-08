@@ -1834,9 +1834,6 @@ Licenseret under MIT-licensen.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentation kunne ikke åbnes</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU'en blev ikke tilføjet. Kontrollér visningsnavnet og det entydige navn. OU'en skal tilhøre det valgte domæne.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Tilslutningskonto</value>
   </data>
@@ -1918,17 +1915,23 @@ Licenseret under MIT-licensen.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Fjern dette domænes OU'er, før du ændrer dets navn.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Ingen OU'er tilføjet.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Ingen domæner tilføjet.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Ingen OU'er tilføjet.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU'erne blev ikke tilføjet. De tilhører et andet domæne end det valgte.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Tilføj først et domæne, og angiv derefter dets OU'er.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU'en blev ikke tilføjet. Kontrollér visningsnavnet og det entydige navn. OU'en skal tilhøre det valgte domæne.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organisationsenheder</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Organisationsenheder i {0}</value>
@@ -2013,9 +2016,6 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Annuller søgning</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Organisationsenheder</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Domænenavn</value>

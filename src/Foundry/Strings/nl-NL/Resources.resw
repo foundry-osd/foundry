@@ -1834,9 +1834,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Documentatie kon niet worden geopend</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>De OU is niet toegevoegd. Controleer de weergavenaam en de DN-naam. De OU moet tot het geselecteerde domein behoren.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Toetredingsaccount</value>
   </data>
@@ -1918,17 +1915,23 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Verwijder de OU's van dit domein voordat u de naam wijzigt.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Geen OU's toegevoegd.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Geen domeinen toegevoegd.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Geen OU's toegevoegd.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>De OU's zijn niet toegevoegd. Ze behoren tot een ander domein dan het geselecteerde domein.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Voeg eerst een domein toe en geef daarna de OU's ervan op.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>De OU is niet toegevoegd. Controleer de weergavenaam en de DN-naam. De OU moet tot het geselecteerde domein behoren.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organisatie-eenheden</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Organisatie-eenheden van {0}</value>
@@ -2013,9 +2016,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Zoeken annuleren</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Organisatie-eenheden</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Domeinnaam</value>

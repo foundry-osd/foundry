@@ -1834,9 +1834,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>문서를 열 수 없습니다.</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU가 추가되지 않았습니다. 표시 이름과 고유 이름을 확인하세요. OU는 선택한 도메인에 속해야 합니다.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>가입 계정</value>
   </data>
@@ -1918,17 +1915,23 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>이름을 변경하기 전에 이 도메인의 OU를 제거하세요.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>추가된 OU가 없습니다.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>추가된 도메인이 없습니다.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>추가된 OU가 없습니다.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU가 추가되지 않았습니다. 선택한 도메인과 다른 도메인에 속해 있습니다.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>먼저 도메인을 추가한 다음 해당 도메인의 OU를 등록하세요.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU가 추가되지 않았습니다. 표시 이름과 고유 이름을 확인하세요. OU는 선택한 도메인에 속해야 합니다.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>조직 구성 단위</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>{0}의 조직 구성 단위</value>
@@ -2013,9 +2016,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>검색 취소</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>조직 구성 단위</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>도메인 이름</value>

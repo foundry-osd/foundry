@@ -1834,9 +1834,6 @@ Licencirano pod licenco MIT.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentacije ni bilo mogoče odpreti</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU ni bila dodana. Preverite prikazno ime in razločevalno ime. OU mora pripadati izbrani domeni.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Račun za pridružitev</value>
   </data>
@@ -1918,17 +1915,23 @@ Licencirano pod licenco MIT.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Pred spreminjanjem imena te domene odstranite njene OU.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Ni dodanih OU.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Ni dodanih domen.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Ni dodanih OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU niso bile dodane. Pripadajo drugi domeni, ne izbrani.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Najprej dodajte domeno, nato navedite njene OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU ni bila dodana. Preverite prikazno ime in razločevalno ime. OU mora pripadati izbrani domeni.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organizacijske enote</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Organizacijske enote domene {0}</value>
@@ -2013,9 +2016,6 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Prekliči iskanje</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Organizacijske enote</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Ime domene</value>

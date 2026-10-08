@@ -1834,9 +1834,6 @@ Licencované podľa licencie MIT.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentáciu nebolo možné otvoriť</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU nebola pridaná. Skontrolujte zobrazovaný názov a rozlišujúci názov. OU musí patriť do vybranej domény.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Účet na pripojenie</value>
   </data>
@@ -1918,17 +1915,23 @@ Licencované podľa licencie MIT.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Pred zmenou názvu tejto domény odstráňte jej OU.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Neboli pridané žiadne OU.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Neboli pridané žiadne domény.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Neboli pridané žiadne OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU neboli pridané. Patria do inej domény, než je vybraná doména.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Najprv pridajte doménu, potom uveďte jej OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU nebola pridaná. Skontrolujte zobrazovaný názov a rozlišujúci názov. OU musí patriť do vybranej domény.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organizačné jednotky</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Organizačné jednotky domény {0}</value>
@@ -2013,9 +2016,6 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Zrušiť vyhľadávanie</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Organizačné jednotky</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Názov domény</value>

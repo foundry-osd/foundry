@@ -1834,9 +1834,6 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>لا يمكن فتح الوثائق</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>لم تتم إضافة وحدة OU. تحقق من اسم العرض والاسم المميز. يجب أن تنتمي وحدة OU إلى النطاق المحدد.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>حساب الانضمام</value>
   </data>
@@ -1918,17 +1915,23 @@
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>أزل وحدات OU الخاصة بهذا النطاق قبل تغيير اسمه.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>لم تتم إضافة أي وحدات OU.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>لم تتم إضافة أي نطاقات.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>لم تتم إضافة أي وحدات OU.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>لم تتم إضافة وحدات OU. إنها تنتمي إلى نطاق يختلف عن النطاق المحدد.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>أضف نطاقاً أولاً، ثم أدرج وحدات OU الخاصة به.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>لم تتم إضافة وحدة OU. تحقق من اسم العرض والاسم المميز. يجب أن تنتمي وحدة OU إلى النطاق المحدد.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>الوحدات التنظيمية</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>الوحدات التنظيمية في {0}</value>
@@ -2013,9 +2016,6 @@
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>إلغاء البحث</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>الوحدات التنظيمية</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>اسم النطاق</value>

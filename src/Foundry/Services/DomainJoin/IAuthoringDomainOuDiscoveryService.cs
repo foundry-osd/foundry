@@ -16,7 +16,7 @@ public interface IAuthoringDomainOuDiscoveryService
     Task<DomainOuDiscoveryResult> DiscoverAsync(string domainName, CancellationToken cancellationToken);
 }
 
-/// <summary>Distinguishes a complete catalog preview from partial results and unavailable discovery.</summary>
+/// <summary>Distinguishes a complete list of OUs from partial results and unavailable discovery.</summary>
 public enum DomainOuDiscoveryStatus { Complete, Incomplete, Unavailable, Canceled }
 
 /// <summary>Contains only portable directory metadata and an allowlisted presentation code.</summary>

@@ -1834,9 +1834,6 @@ Licențiat sub licența MIT.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Documentația nu a putut fi deschisă</value>
   </data>
-  <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU-ul nu a fost adăugat. Verificați numele afișat și numele distinctiv. OU-ul trebuie să aparțină domeniului selectat.</value>
-  </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>Cont de asociere</value>
   </data>
@@ -1918,17 +1915,23 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
     <value>Eliminați OU-urile acestui domeniu înainte de a-i schimba numele.</value>
   </data>
-  <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
-    <value>Niciun OU adăugat.</value>
-  </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Niciun domeniu adăugat.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Niciun OU adăugat.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU-urile nu au fost adăugate. Aparțin altui domeniu decât cel selectat.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Adăugați mai întâi un domeniu, apoi listați OU-urile acestuia.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU-ul nu a fost adăugat. Verificați numele afișat și numele distinctiv. OU-ul trebuie să aparțină domeniului selectat.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Unități organizaționale</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
     <value>Unități organizaționale din {0}</value>
@@ -2013,9 +2016,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Anulare căutare</value>
-  </data>
-  <data name="DomainJoinCatalog.Header" xml:space="preserve">
-    <value>Unități organizaționale</value>
   </data>
   <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
     <value>Nume de domeniu</value>
