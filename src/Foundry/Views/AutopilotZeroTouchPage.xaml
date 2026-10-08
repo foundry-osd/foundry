@@ -56,7 +56,7 @@
                         Description="{x:Bind ViewModel.TenantReadinessDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.TenantReadinessLabel, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <tv:TableView
+                        <tv:TableView x:Name="TenantReadinessTable"
                             MaxHeight="{ThemeResource FoundryTableMaxHeight}"
                             AutoGenerateColumns="False"
                             CanFilterColumns="False"

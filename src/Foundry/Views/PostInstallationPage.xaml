@@ -126,7 +126,7 @@
                         TextWrapping="WrapWholeWords"
                         Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
                     <!--  Rows are listed in execution order, so this table is not sortable.  -->
-                    <tv:TableView
+                    <tv:TableView x:Name="ActionsTable"
                         MaxHeight="{ThemeResource FoundryTableMaxHeight}"
                         AutoGenerateColumns="False"
                         AutomationProperties.Name="{x:Bind ViewModel.PageTitle, Mode=OneWay}"

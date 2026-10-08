@@ -14,6 +14,8 @@ public sealed partial class CustomImagesPage : Page
         InitializeComponent();
         TableViewDefaultSort.Attach(ImagesTable, nameof(CustomImageRow.Name));
         TableViewDefaultSort.Attach(IndexesTable, "Index.Index");
+        TableViewFullWidth.Attach(ImagesTable);
+        TableViewFullWidth.Attach(IndexesTable);
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;
     }

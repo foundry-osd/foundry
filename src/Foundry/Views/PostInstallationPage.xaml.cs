@@ -15,6 +15,7 @@ public sealed partial class PostInstallationPage : Page
     {
         ViewModel = App.GetService<PostInstallationViewModel>();
         InitializeComponent();
+        TableViewFullWidth.Attach(ActionsTable);
         Unloaded += OnUnloaded;
     }
 
