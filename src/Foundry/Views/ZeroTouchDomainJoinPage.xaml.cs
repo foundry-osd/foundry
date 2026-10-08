@@ -22,6 +22,7 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
         ViewModel.SetPageMode(DomainJoinMode.Automatic);
         InitializeComponent();
         TableViewDefaultSort.Attach(DomainsTable, nameof(DomainJoinDomainEntryViewModel.DomainName));
+        TableViewFullWidth.Attach(DomainsTable);
         TableViewDefaultSort.Attach(OrganizationalUnitsTable, nameof(DomainJoinOrganizationalUnitEntryViewModel.DisplayName));
         ViewModel.DomainRowsRemoving += OnDomainRowsRemoving;
         ViewModel.OrganizationalUnitRowsRemoving += OnOrganizationalUnitRowsRemoving;
