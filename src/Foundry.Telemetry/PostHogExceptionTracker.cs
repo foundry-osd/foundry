@@ -111,9 +111,17 @@ internal sealed partial class PostHogExceptionTracker(
             GetAttribute(record, "failure.reason"),
             GetAttribute(record, "failure.code"),
             GetAttribute(record, "process.exit_code"));
-        return hasDomainFailure
-            ? string.Join(':', operationalFingerprint, GetAttribute(record, "workflow.step"))
-            : operationalFingerprint;
+        if (!hasDomainFailure)
+        {
+            return operationalFingerprint;
+        }
+
+        string domainFingerprint = string.Join(':', operationalFingerprint, GetAttribute(record, "workflow.step"));
+        // Appended only when present so fingerprints of failures without a detail keep their existing issues.
+        string failureDetail = GetAttribute(record, "failure.detail");
+        return string.IsNullOrWhiteSpace(failureDetail)
+            ? domainFingerprint
+            : string.Join(':', domainFingerprint, failureDetail);
     }
 
     private static string GetLogicalOperation(RemoteDiagnosticRecord record)

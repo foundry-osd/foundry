@@ -784,12 +784,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             {
                 logger.Error(
                     ex,
-                    "Final boot media operation failed. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, ToolName={ToolName}, ExitCode={ExitCode}, RetryCount={RetryCount}, FailureSummary={FailureSummary}",
+                    "Final boot media operation failed. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, FailureDetail={FailureDetail}, ToolName={ToolName}, ExitCode={ExitCode}, RetryCount={RetryCount}, FailureSummary={FailureSummary}",
                     failedStepName,
                     stopwatch.ElapsedMilliseconds,
                     failureDiagnostic.FailureKind,
                     failureDiagnostic.FailureReason,
                     failureDiagnostic.Code,
+                    failureDiagnostic.FailureDetail ?? string.Empty,
                     failureDiagnostic.ToolName,
                     failureDiagnostic.ExitCode,
                     failureDiagnostic.RetryCount,

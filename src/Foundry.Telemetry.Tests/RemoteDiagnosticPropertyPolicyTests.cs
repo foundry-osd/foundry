@@ -311,6 +311,18 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
         Assert.DoesNotContain("unrestricted", result.Body);
     }
 
+    [Fact]
+    public void CreateSanitizedRecord_ExportsFailureDetailInBodyAndAttributes()
+    {
+        LogEvent source = CreateLogEvent(LogEventLevel.Error, "Operation failed. FailureDetail={FailureDetail}", null,
+            ("FailureDetail", "wim_mount_failed"));
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        Assert.Equal("wim_mount_failed", result.Attributes["failure.detail"]);
+        Assert.Contains("wim_mount_failed", result.Body);
+    }
+
     private static RemoteDiagnosticsContext CreateContext() => new(
         App: "foundry.deploy",
         AppVersion: "1.2.3",
