@@ -53,13 +53,16 @@ public sealed class DomainJoinSecretState : IDisposable
         return Find(accountName) is not null;
     }
 
-    /// <summary>Erases the passwords of accounts no listed domain joins with any more; returns whether any was erased.</summary>
+    /// <summary>
+    /// Erases the passwords of accounts the configuration no longer stores; returns whether any was erased. The
+    /// mode does not matter: passwords survive a switch to Interactive so that switching back needs no retyping.
+    /// </summary>
     public bool Update(DomainJoinSettings settings)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
         ArgumentNullException.ThrowIfNull(settings);
-        var referenced = new HashSet<string>(settings.GetReferencedAccountNames(), StringComparer.Ordinal);
-        string[] orphaned = passwords.Keys.Where(account => !referenced.Contains(account)).ToArray();
+        var stored = new HashSet<string>(settings.GetStoredAccountNames(), StringComparer.Ordinal);
+        string[] orphaned = passwords.Keys.Where(account => !stored.Contains(account)).ToArray();
         foreach (string account in orphaned) Erase(account);
         return orphaned.Length > 0;
     }

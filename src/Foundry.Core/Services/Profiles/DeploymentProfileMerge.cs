@@ -54,8 +54,8 @@ public static class DeploymentProfileMerge
                 });
             }
         }
-        // One secret per join account still referenced; an account that left the configuration takes its secret with it.
-        foreach (string account in captured.Configuration.DomainJoin.GetReferencedAccountNames())
+        // One secret per join account still stored; an account that left the configuration takes its secret with it.
+        foreach (string account in captured.Configuration.DomainJoin.GetStoredAccountNames())
         {
             string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, captured, account);
             DeploymentProfileSecret? omitted = baseline.Secrets.Entries.SingleOrDefault(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword &&
@@ -111,9 +111,9 @@ public static class DeploymentProfileMerge
     {
         if (incoming.ProfileId != local.ProfileId)
             throw new ArgumentException("Local values belong to a different profile.", nameof(local));
-        // A local domain password is reused only for an account both sides still join with.
-        HashSet<string> sharedDomainIdentities = incoming.Configuration.DomainJoin.GetReferencedAccountNames()
-            .Intersect(local.Configuration.DomainJoin.GetReferencedAccountNames(), StringComparer.Ordinal)
+        // A local domain password is reused only for an account both sides still store.
+        HashSet<string> sharedDomainIdentities = incoming.Configuration.DomainJoin.GetStoredAccountNames()
+            .Intersect(local.Configuration.DomainJoin.GetStoredAccountNames(), StringComparer.Ordinal)
             .Select(account => DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, incoming, account))
             .ToHashSet(StringComparer.Ordinal);
         return incoming with

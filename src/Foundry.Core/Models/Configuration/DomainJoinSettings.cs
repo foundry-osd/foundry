@@ -29,14 +29,17 @@ public sealed record DomainJoinSettings
         : Domains.FirstOrDefault(domain => string.Equals(domain.Id, id, StringComparison.OrdinalIgnoreCase));
 
     /// <summary>
-    /// Returns the distinct canonical accounts that may own a password: the shared account, even before a domain
-    /// uses it, and every dedicated account. Only Zero-touch stores accounts, so every other state references none.
+    /// Returns the distinct canonical accounts the configuration stores, whatever the mode: the shared account,
+    /// even before a domain uses it, and every dedicated account. A password is kept for as long as its account is
+    /// listed here, so switching to Interactive or switching Domain Join off does not erase it.
     /// </summary>
-    public IReadOnlyList<string> GetReferencedAccountNames() => !IsEnabled || Mode != DomainJoinMode.Automatic
-        ? []
-        : Domains.Select(ResolveAccountName).Prepend(SharedAccountName)
-            .Where(account => !string.IsNullOrWhiteSpace(account))
-            .Select(account => DomainJoinCredentialContext.CanonicalizeAccountName(account))
-            .Distinct(StringComparer.Ordinal)
-            .ToArray();
+    public IReadOnlyList<string> GetStoredAccountNames() => Domains.Select(ResolveAccountName).Prepend(SharedAccountName)
+        .Where(account => !string.IsNullOrWhiteSpace(account))
+        .Select(account => DomainJoinCredentialContext.CanonicalizeAccountName(account))
+        .Distinct(StringComparer.Ordinal)
+        .ToArray();
+
+    /// <summary>Returns the accounts generated media joins with: the stored accounts in Zero-touch, none otherwise.</summary>
+    public IReadOnlyList<string> GetReferencedAccountNames() =>
+        IsEnabled && Mode == DomainJoinMode.Automatic ? GetStoredAccountNames() : [];
 }

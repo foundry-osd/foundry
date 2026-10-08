@@ -241,6 +241,10 @@ public sealed class DomainJoinConfigurationTests
         Assert.Equal([DomainJoinCredentialContext.CanonicalizeAccountName("CORP\\join")], (settings with { Domains = [] }).GetReferencedAccountNames());
         Assert.Empty((settings with { Mode = DomainJoinMode.Interactive }).GetReferencedAccountNames());
         Assert.Empty((settings with { IsEnabled = false }).GetReferencedAccountNames());
+        // Passwords follow the accounts the configuration stores, whatever the mode; only Zero-touch media uses them.
+        Assert.Equal(settings.GetReferencedAccountNames(), settings.GetStoredAccountNames());
+        Assert.Equal(settings.GetReferencedAccountNames(), (settings with { Mode = DomainJoinMode.Interactive }).GetStoredAccountNames());
+        Assert.Equal(settings.GetReferencedAccountNames(), (settings with { IsEnabled = false }).GetStoredAccountNames());
         Assert.Equal("LAB\\Join", settings.ResolveAccountName(settings.Domains[2]));
         Assert.Equal("CORP\\join", settings.ResolveAccountName(settings.Domains[0]));
         Assert.Same(settings.Domains[1], settings.FindDomain("B"));

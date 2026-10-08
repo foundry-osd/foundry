@@ -104,13 +104,22 @@ public sealed class DomainJoinSecretStateTests
     [Theory]
     [InlineData(false, DomainJoinMode.Automatic)]
     [InlineData(true, DomainJoinMode.Interactive)]
-    public void InteractiveOrDisabledSettingsEraseEveryPassword(bool enabled, DomainJoinMode mode)
+    public void InteractiveOrDisabledSettingsKeepThePasswordsOfStoredAccounts(bool enabled, DomainJoinMode mode)
     {
         using var state = new DomainJoinSecretState();
         state.SetPassword(Account, "password");
-        Assert.True(state.Update(ZeroTouch(Account, new DomainJoinDomainSettings { Id = "a", DomainName = "example.com" }) with { IsEnabled = enabled, Mode = mode }));
-        Assert.False(state.HasPassword(Account));
-        Assert.Empty(state.AccountNames);
+        state.SetPassword("LAB\\join", "dedicated");
+        var domain = new DomainJoinDomainSettings { Id = "a", DomainName = "example.com", AccountName = "LAB\\join" };
+        DomainJoinSettings settings = ZeroTouch(Account, domain) with { IsEnabled = enabled, Mode = mode };
+
+        Assert.False(state.Update(settings));
+        Assert.True(state.HasPassword(Account));
+        Assert.True(state.HasPassword("LAB\\join"));
+
+        // Removing an account still erases its password, whatever the mode.
+        Assert.True(state.Update(settings with { Domains = [settings.Domains[0] with { AccountName = null }] }));
+        Assert.True(state.HasPassword(Account));
+        Assert.False(state.HasPassword("LAB\\join"));
     }
 
     [Theory]

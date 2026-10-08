@@ -79,11 +79,15 @@ public sealed class DeploymentProfileSessionService : IDisposable
                 Add(ProfileSecretPurpose.WifiPassphrase, configuration.Network.Wifi.Passphrase);
             }
 
-            foreach (string account in configuration.DomainJoin.GetReferencedAccountNames())
+            // An account the media does not use (Interactive, or Domain Join switched off) only records a password
+            // it really has, so such a profile never reports a missing or omitted domain secret.
+            HashSet<string> usedAccounts = configuration.DomainJoin.GetReferencedAccountNames().ToHashSet(StringComparer.Ordinal);
+            foreach (string account in configuration.DomainJoin.GetStoredAccountNames())
             {
                 char[]? password = domainSecrets.GetPasswordCopy(account);
                 try
                 {
+                    if (!usedAccounts.Contains(account) && (!includeSecrets || password is null)) continue;
                     entries.Add((new DeploymentProfileSecret
                     {
                         Purpose = ProfileSecretPurpose.DomainJoinPassword,
@@ -321,11 +325,11 @@ public sealed class DeploymentProfileSessionService : IDisposable
         RememberSourceMetadata(profile, materialized);
         Logger.Information("Profile session activation completed. ProfileId={ProfileId}", profile.ProfileId);
 
-        // Only accounts the materialized configuration still joins with, and only when qualified, can own a password.
+        // Only accounts the materialized configuration still stores, and only when qualified, can own a password.
         (string Account, char[] Password)[] GetDomainPasswords()
         {
             var passwords = new List<(string, char[])>();
-            foreach (string account in materialized.DomainJoin.GetReferencedAccountNames())
+            foreach (string account in materialized.DomainJoin.GetStoredAccountNames())
             {
                 if (!DomainJoinConfigurationValidator.IsQualifiedAccount(account)) continue;
                 string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile, account);

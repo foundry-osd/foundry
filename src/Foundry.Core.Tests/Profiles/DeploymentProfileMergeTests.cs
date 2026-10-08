@@ -50,6 +50,21 @@ public sealed class DeploymentProfileMergeTests
     }
 
     [Fact]
+    public void MergeKeepsOmittedSecretsWhileTheAccountsAreStoredInInteractiveMode()
+    {
+        DeploymentProfileDocument baseline = TwoAccountProfile();
+        baseline = baseline with
+        {
+            Configuration = baseline.Configuration with { DomainJoin = baseline.Configuration.DomainJoin with { Mode = DomainJoinMode.Interactive } }
+        };
+        baseline = baseline with { Secrets = new() { Entries = [Secret(baseline, "CORP\\join", ProfileValueState.Omitted), Secret(baseline, "EMEA\\join", ProfileValueState.Omitted)] } };
+
+        var result = DeploymentProfileMerge.PreserveOmittedSourceMetadata(baseline with { Secrets = new() }, baseline, baseline.Configuration, includeSecrets: false);
+
+        Assert.Equal(2, result.Secrets.Entries.Count);
+    }
+
+    [Fact]
     public void LocalValueIsPreservedOnlyForTheSameAccount()
     {
         DeploymentProfileDocument local = TwoAccountProfile();
@@ -67,8 +82,9 @@ public sealed class DeploymentProfileMergeTests
         DeploymentProfileSecret secret = Assert.Single(retained.Secrets.Entries);
         Assert.Equal(new byte[] { 112, 97, 115, 115 }, secret.Value);
         Assert.NotSame(local.Secrets.Entries[0].Value, secret.Value);
-        var disabled = incoming with { Configuration = incoming.Configuration with { DomainJoin = incoming.Configuration.DomainJoin with { IsEnabled = false } } };
-        Assert.Null(DeploymentProfileMerge.PreserveOmittedLocalValues(disabled, local).Secrets.Entries[0].Value);
+        // Switching Domain Join off or to Interactive keeps the account, so its local password stays with it.
+        var unused = incoming with { Configuration = incoming.Configuration with { DomainJoin = incoming.Configuration.DomainJoin with { IsEnabled = false, Mode = DomainJoinMode.Interactive } } };
+        Assert.Equal(new byte[] { 112, 97, 115, 115 }, DeploymentProfileMerge.PreserveOmittedLocalValues(unused, local).Secrets.Entries[0].Value);
         // Even a stale imported identity must not carry a password to an account the incoming profile no longer uses.
         var changed = incoming with { Configuration = incoming.Configuration with { DomainJoin = incoming.Configuration.DomainJoin with { SharedAccountName = "CORP\\other" } } };
         Assert.Null(DeploymentProfileMerge.PreserveOmittedLocalValues(changed, local).Secrets.Entries[0].Value);
