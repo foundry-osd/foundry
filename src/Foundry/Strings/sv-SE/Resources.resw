@@ -1925,7 +1925,7 @@ Licensierad under MIT-licensen.</value>
     <value>OU:erna lades inte till. De tillhör en annan domän än den valda.</value>
   </data>
   <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>Inget lokalt konto är konfigurerat på OOBE-sidan, så Windows ber dig skapa ett i slutet av installationen. Aktivera det inbyggda administratörskontot eller lägg till ett lokalt konto där för att komma direkt till inloggningsskärmen.</value>
+    <value>Inget lokalt konto är konfigurerat på OOBE-sidan, så Windows ber dig skapa ett i slutet av installationen. Lägg till ett lokalt konto där för att komma direkt till inloggningsskärmen; enbart det inbyggda administratörskontot gör inte att det steget hoppas över.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Lägg först till en domän och ange sedan dess OU:er.</value>

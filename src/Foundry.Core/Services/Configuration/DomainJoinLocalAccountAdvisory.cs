@@ -8,8 +8,9 @@ namespace Foundry.Core.Services.Configuration;
 
 /// <summary>
 /// Tells whether a Domain Join deployment will end on the Windows page that asks who will use the device. Windows
-/// client editions only skip that page when the answer file creates a local account, and membership of a domain
-/// does not replace it. The condition is advisory: the join itself works without a local account.
+/// client editions only skip that page when the answer file creates a local account. Membership of a domain does
+/// not replace it, and neither does enabling the built-in Administrator account, as a lab deployment showed. The
+/// condition is advisory: the join itself works without a local account.
 /// </summary>
 public static class DomainJoinLocalAccountAdvisory
 {
@@ -21,6 +22,6 @@ public static class DomainJoinLocalAccountAdvisory
         // A custom answer file used by default owns its accounts; Foundry then writes none of its OOBE settings.
         if (configuration.Unattend is { IsEnabled: true, DefaultFileId: not null }) return false;
         OobeSettings oobe = configuration.Customization.Oobe;
-        return !oobe.IsEnabled || !(oobe.EnableAdministratorAccount || oobe.AdditionalAccounts.Count > 0);
+        return !oobe.IsEnabled || oobe.AdditionalAccounts.Count == 0;
     }
 }

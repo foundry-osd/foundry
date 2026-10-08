@@ -1925,7 +1925,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>OU’lar eklenmedi. Seçilen etki alanından farklı bir etki alanına aitler.</value>
   </data>
   <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>OOBE sayfasında yapılandırılmış yerel hesap yok, bu nedenle Windows kurulumun sonunda bir hesap oluşturulmasını isteyecek. Doğrudan oturum açma ekranına ulaşmak için orada yerleşik Administrator hesabını etkinleştirin veya bir yerel hesap ekleyin.</value>
+    <value>OOBE sayfasında yapılandırılmış yerel hesap yok, bu nedenle Windows kurulumun sonunda bir hesap oluşturulmasını isteyecek. Doğrudan oturum açma ekranına ulaşmak için orada bir yerel hesap ekleyin; yerleşik Administrator hesabı tek başına bu adımın atlanmasını sağlamaz.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Önce bir etki alanı ekleyin, ardından OU’larını listeleyin.</value>

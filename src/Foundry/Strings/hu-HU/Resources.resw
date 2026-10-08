@@ -1925,7 +1925,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Az OU-k nem lettek hozzáadva. Más tartományhoz tartoznak, mint a kiválasztott.</value>
   </data>
   <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>Az OOBE oldalon nincs helyi fiók konfigurálva, ezért a Windows a telepítés végén kérni fogja egy fiók létrehozását. Engedélyezze ott a beépített rendszergazdai fiókot, vagy adjon hozzá egy helyi fiókot, hogy közvetlenül a bejelentkezési képernyőre jusson.</value>
+    <value>Az OOBE oldalon nincs helyi fiók konfigurálva, ezért a Windows a telepítés végén kérni fogja egy fiók létrehozását. Adjon hozzá ott egy helyi fiókot, hogy közvetlenül a bejelentkezési képernyőre jusson; a beépített rendszergazdai fiók önmagában nem elegendő ennek a lépésnek a kihagyásához.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Először adjon hozzá egy tartományt, majd sorolja fel az OU-it.</value>

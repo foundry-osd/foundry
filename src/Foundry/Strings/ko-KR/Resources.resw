@@ -1925,7 +1925,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>OU가 추가되지 않았습니다. 선택한 도메인과 다른 도메인에 속해 있습니다.</value>
   </data>
   <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>OOBE 페이지에 로컬 계정이 구성되어 있지 않으므로 설치가 끝날 때 Windows에서 계정을 만들라는 메시지를 표시합니다. 로그인 화면으로 바로 이동하려면 해당 페이지에서 기본 제공 Administrator 계정을 사용하도록 설정하거나 로컬 계정을 추가하세요.</value>
+    <value>OOBE 페이지에 로컬 계정이 구성되어 있지 않으므로 설치가 끝날 때 Windows에서 계정을 만들라는 메시지를 표시합니다. 로그인 화면으로 바로 이동하려면 해당 페이지에서 로컬 계정을 추가하세요. 기본 제공 Administrator 계정만으로는 이 단계를 건너뛸 수 없습니다.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>먼저 도메인을 추가한 다음 해당 도메인의 OU를 등록하세요.</value>

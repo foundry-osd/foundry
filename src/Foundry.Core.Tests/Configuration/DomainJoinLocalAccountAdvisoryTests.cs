@@ -10,20 +10,21 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class DomainJoinLocalAccountAdvisoryTests
 {
     [Theory]
-    [InlineData(false, false, false)]
-    [InlineData(true, false, false)]
-    public void AJoinWithoutAnyLocalAccountIsReported(bool oobeEnabled, bool administrator, bool additionalAccount)
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    // Observed in the lab: Windows still asks for an account when only the built-in Administrator is enabled.
+    [InlineData(true, true)]
+    public void AJoinWithoutACreatedLocalAccountIsReported(bool oobeEnabled, bool administrator)
     {
-        Assert.True(DomainJoinLocalAccountAdvisory.IsLocalAccountMissing(Document(true, oobeEnabled, administrator, additionalAccount)));
+        Assert.True(DomainJoinLocalAccountAdvisory.IsLocalAccountMissing(Document(true, oobeEnabled, administrator, additionalAccount: false)));
     }
 
     [Theory]
-    [InlineData(true, false)]
-    [InlineData(false, true)]
-    [InlineData(true, true)]
-    public void AnAdministratorOrAnAdditionalAccountIsEnough(bool administrator, bool additionalAccount)
+    [InlineData(false)]
+    [InlineData(true)]
+    public void AnAdditionalLocalAccountIsEnough(bool administrator)
     {
-        Assert.False(DomainJoinLocalAccountAdvisory.IsLocalAccountMissing(Document(true, true, administrator, additionalAccount)));
+        Assert.False(DomainJoinLocalAccountAdvisory.IsLocalAccountMissing(Document(true, true, administrator, additionalAccount: true)));
     }
 
     [Fact]

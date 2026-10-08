@@ -1925,7 +1925,7 @@ Licenciran prema MIT licenci.</value>
     <value>OU-ovi nisu dodani. Pripadaju domeni koja se razlikuje od odabrane.</value>
   </data>
   <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>Na stranici OOBE nije konfiguriran nijedan lokalni račun, pa će Windows na kraju instalacije zatražiti njegovo stvaranje. Omogućite ugrađeni račun Administrator ili ondje dodajte lokalni račun da biste došli izravno na zaslon za prijavu.</value>
+    <value>Na stranici OOBE nije konfiguriran nijedan lokalni račun, pa će Windows na kraju instalacije zatražiti njegovo stvaranje. Ondje dodajte lokalni račun da biste došli izravno na zaslon za prijavu; sam ugrađeni račun Administrator ne preskače taj korak.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Najprije dodajte domenu, a zatim navedite njezine OU-ove.</value>

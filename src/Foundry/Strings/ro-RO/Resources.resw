@@ -1925,7 +1925,7 @@ Licențiat sub licența MIT.</value>
     <value>OU-urile nu au fost adăugate. Aparțin altui domeniu decât cel selectat.</value>
   </data>
   <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>Niciun cont local nu este configurat pe pagina OOBE, așa că Windows va solicita crearea unuia la sfârșitul instalării. Activați contul Administrator încorporat sau adăugați un cont local acolo pentru a ajunge direct la ecranul de conectare.</value>
+    <value>Niciun cont local nu este configurat pe pagina OOBE, așa că Windows va solicita crearea unuia la sfârșitul instalării. Adăugați un cont local acolo pentru a ajunge direct la ecranul de conectare; contul Administrator încorporat nu este suficient, singur, pentru a omite acest pas.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Adăugați mai întâi un domeniu, apoi listați OU-urile acestuia.</value>
