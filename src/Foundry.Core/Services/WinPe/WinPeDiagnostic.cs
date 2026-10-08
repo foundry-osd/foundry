@@ -43,6 +43,12 @@ public sealed record WinPeDiagnostic
     public int RetryCount { get; init; }
     public Exception? Exception { get; init; }
 
+    /// <summary>
+    /// Gets an optional fixed identifier that narrows the failure within its reason, such as a
+    /// <see cref="WinPeCopypeFailureDetails"/> value. It is exported remotely and must never hold free text.
+    /// </summary>
+    public string? FailureDetail { get; init; }
+
     /// <summary>Gets final mount cleanup safety independently of the primary failure classification.</summary>
     public WinPeMountCleanupStatus? MountCleanupStatus { get; init; }
 

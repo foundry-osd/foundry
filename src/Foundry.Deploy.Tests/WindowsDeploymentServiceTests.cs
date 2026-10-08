@@ -601,6 +601,7 @@ public sealed class WindowsDeploymentServiceTests
         Assert.Equal(
             [
                 $"{bcdBootPath} \"{windowsPath}\" /s \"{systemRoot}\" /f UEFI {expectedArguments}",
+                "bcdedit.exe /sysstore S:",
                 "bcdedit.exe /set {bootmgr} device partition=S:",
                 @"bcdedit.exe /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi",
                 "bcdedit.exe /set {fwbootmgr} displayorder {bootmgr} /addfirst",
@@ -634,7 +635,42 @@ public sealed class WindowsDeploymentServiceTests
             Path.Combine(workspace.RootPath, "Work"),
             TestContext.Current.CancellationToken);
 
-        Assert.Equal(5, processRunner.Calls.Count);
+        Assert.Equal(6, processRunner.Calls.Count);
+    }
+
+    [Fact]
+    public async Task ConfigureBootAsync_WhenSystemStoreSelectionIsRejected_StillUpdatesFirmwareBootOrder()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
+        string bcdBootPath = Path.Combine(windowsRoot, "Windows", "System32", "bcdboot.exe");
+        Directory.CreateDirectory(Path.GetDirectoryName(bcdBootPath)!);
+        await File.WriteAllTextAsync(bcdBootPath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            ResultFactory = arguments => new ProcessExecutionResult
+            {
+                ExitCode = arguments.StartsWith("/sysstore", StringComparison.Ordinal) ? 1 : 0
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+
+        await service.ConfigureBootAsync(
+            windowsRoot,
+            @"S:\",
+            26200,
+            Path.Combine(workspace.RootPath, "Work"),
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(
+            [
+                "bcdedit.exe /sysstore S:",
+                "bcdedit.exe /set {bootmgr} device partition=S:",
+                @"bcdedit.exe /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi",
+                "bcdedit.exe /set {fwbootmgr} displayorder {bootmgr} /addfirst",
+                "bcdedit.exe /enum firmware"
+            ],
+            processRunner.Calls.Skip(1));
     }
 
     [Fact]

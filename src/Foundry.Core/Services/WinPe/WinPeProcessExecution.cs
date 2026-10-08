@@ -52,7 +52,12 @@ public sealed record WinPeProcessExecution
             failureReason: IsFileAccessBlocked(resolvedToolName)
                 ? WinPeFailureReasons.AccessDenied
                 : WinPeFailureReasons.NonZeroExit,
-            toolName: resolvedToolName);
+            toolName: resolvedToolName)
+        {
+            FailureDetail = IsCopype(resolvedToolName)
+                ? WinPeCopypeFailureDetails.Classify(StandardOutput, StandardError)
+                : null
+        };
     }
 
     internal static WinPeProcessExecution FromProcessExecutionResult(ProcessExecutionResult result)
@@ -80,10 +85,15 @@ public sealed record WinPeProcessExecution
             return ExitCode == DismAccessDeniedExitCode;
         }
 
-        return string.Equals(normalizedToolName, "copype", StringComparison.OrdinalIgnoreCase) &&
+        return IsCopype(toolName) &&
             CopypeBlockedFileAccessMarkers.Any(marker =>
                 StandardOutput.Contains(marker, StringComparison.OrdinalIgnoreCase) ||
                 StandardError.Contains(marker, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static bool IsCopype(string toolName)
+    {
+        return string.Equals(Path.GetFileNameWithoutExtension(toolName), "copype", StringComparison.OrdinalIgnoreCase);
     }
 
     private ProcessExecutionResult ToProcessExecutionResult()

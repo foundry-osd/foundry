@@ -32,11 +32,13 @@ Commands, arguments, action or software names and identifiers, hashes, paths, an
 
 | Record | Fingerprint |
 | --- | --- |
-| Carries `failure.code`, `failure.kind`, or `failure.operation` | `service.name`, exception type, logical operation, `process.operation`, `tool.name`, `failure.reason`, `failure.code`, `process.exit_code`, and `workflow.step`. |
+| Carries `failure.code`, `failure.kind`, or `failure.operation` | `service.name`, exception type, logical operation, `process.operation`, `tool.name`, `failure.reason`, `failure.code`, `process.exit_code`, and `workflow.step`, followed by `failure.detail` when it is set. |
 | Has no stack trace and none of those attributes | The same values without `workflow.step`. |
 | Has a stack trace and none of those attributes | None; PostHog groups by stack trace. |
 
 A record that only carries `failure.reason` (for example a startup stage) is not a domain failure, so with a stack trace it keeps PostHog's stack-based grouping.
+
+`failure.detail` is an optional fixed identifier that narrows a failure within its reason, for example the `copype.cmd` step that failed (`wim_mount_failed`, `boot_file_copy_failed`). It is never free text or tool output. Records without it keep the fingerprint they had before the attribute existed.
 
 The logical operation is the first non-empty value of `failure.operation`, `operation.name`, or `process.operation`. Domain failures are typically thrown from one shared helper, so stack-based grouping would merge unrelated failure codes into one issue; suppressing that issue in PostHog would then drop every new failure thrown from the same site. Fingerprints use only sanitized, bounded, low-cardinality attributes and never include messages, summaries, session or operation identifiers, durations, paths, or process output.
 

@@ -92,6 +92,39 @@ public sealed class WinPeProcessExecutionTests
         Assert.Equal(exitCode, diagnostic.ExitCode);
     }
 
+    [Theory]
+    [InlineData("copype", "Mounting \"C:\\Work\\WinPe\\media\\sources\\boot.wim\"\r\nERROR: Failed to mount the WinPE WIM file. Check logs at C:\\WINDOWS\\Logs\\DISM for more details.", "Zugriff verweigert", WinPeCopypeFailureDetails.WimMountFailed)]
+    [InlineData("copype", "ERROR: Unable to copy boot file: \"bootmgfw.efi\" to \"C:\\Work\\WinPe\\bootbins\".", "This file is currently not available for use on this computer.", WinPeCopypeFailureDetails.BootFileCopyFailed)]
+    [InlineData("copype", "ERROR: Unable to copy boot files: \"C:\\ADK\\amd64\\Media\" to \"C:\\Work\\WinPe\\media\".", "", WinPeCopypeFailureDetails.MediaCopyFailed)]
+    [InlineData("copype", "ERROR: Unable to copy boot sector file: \"C:\\ADK\\Oscdimg\\efisys.bin\" to \"C:\\Work\\WinPe\\bootbins\".", "", WinPeCopypeFailureDetails.BootSectorFileCopyFailed)]
+    [InlineData("copype", "ERROR: Destination directory exists: C:\\Work\\WinPe.", "", WinPeCopypeFailureDetails.DestinationExists)]
+    [InlineData("copype", "ERROR: Failed to mount the WinPE WIM file.\r\nERROR: \"C:\\Work\\WinPe\\media\\sources\\boot.wim\" still mounted!", "", WinPeCopypeFailureDetails.WimMountFailed)]
+    [InlineData("copype", "Staging media files...", "", WinPeCopypeFailureDetails.Unrecognized)]
+    [InlineData("copype", "", "", WinPeCopypeFailureDetails.NoOutput)]
+    [InlineData("dism.exe", "ERROR: Failed to mount the WinPE WIM file.", "", null)]
+    public void ToFailureDiagnostic_IdentifiesFailedCopypeStepFromScriptErrorLines(
+        string toolName,
+        string standardOutput,
+        string standardError,
+        string? expectedDetail)
+    {
+        var execution = new WinPeProcessExecution
+        {
+            FileName = "cmd.exe",
+            ExitCode = 1,
+            StandardOutput = standardOutput,
+            StandardError = standardError
+        };
+
+        WinPeDiagnostic diagnostic = execution.ToFailureDiagnostic(
+            WinPeErrorCodes.BuildFailed,
+            "WinPE build step failed.",
+            "Build WinPE workspace",
+            toolName);
+
+        Assert.Equal(expectedDetail, diagnostic.FailureDetail);
+    }
+
     [Fact]
     public void Failure_WithException_PreservesOriginalExceptionAndClassification()
     {
