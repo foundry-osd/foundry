@@ -1835,61 +1835,133 @@ Licencirano pod licenco MIT.</value>
     <value>Dokumentacije ni bilo mogoče odpreti</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU ni bila dodana. Preverite ime domene, prikazno ime in razločevalno ime. OU mora pripadati tej domeni.</value>
+    <value>OU ni bila dodana. Preverite prikazno ime in razločevalno ime. OU mora pripadati izbrani domeni.</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Račun za pridružitev</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Privzeta</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Domena</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Stanje</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Počisti privzeti izbor</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Odstrani</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Nastavi kot privzeto</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>Tehniki lahko izbirajo</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Najprej vnesite veljavno ime domene in račun, nato preverite dolžino gesla.</value>
+    <value>Najprej vnesite veljaven račun, nato preverite dolžino gesla.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Da</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Iskanje OU v domeni tega računalnika...</value>
+    <value>Iskanje OU v domeni...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Iskanje je preklicano.</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>V domeni tega računalnika ni bilo najdenih OU.</value>
+    <value>V tej domeni ni bilo najdenih OU.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Prikazati je bilo mogoče le nekatere OU. Prikazane lahko vseeno dodate.</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>Vse OU v domeni tega računalnika so že na seznamu.</value>
+    <value>Vse OU v tej domeni so že na seznamu.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Časovna omejitev iskanja je potekla. OU lahko dodate ročno.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Domene ni bilo mogoče preiskati. Preverite, ali je ta računalnik pridružen domeni in ali jo lahko doseže, ali pa dodajte OU ročno.</value>
+    <value>Domene ni bilo mogoče preiskati. Preverite, ali jo ta računalnik lahko doseže in ali jo vaš račun Windows lahko bere, ali pa dodajte OU ročno.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Dodaj domeno</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Dodaj domeno</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Uredi domeno</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Geslo pustite prazno, če želite ohraniti trenutno.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Domena ni bila shranjena. Preverite ime domene.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Pripravljeno</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Pred spreminjanjem imena te domene odstranite njene OU.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>Ni dodanih OU.</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>OU niso bile dodane. Pripadajo drugi domeni kot ime domene ali že navedene OU.</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Ni dodanih domen.</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>Odstrani izbrano</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU niso bile dodane. Pripadajo drugi domeni, ne izbrani.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Najprej dodajte domeno, nato navedite njene OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Organizacijske enote domene {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Izberite domeno, da navedete njene OU.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>Izbrane OU: {0} od {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Vnesite račun.</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Skupni</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Navedene OU pripadajo drugi domeni. Odstranite jih ali obnovite prejšnje ime domene.</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Pred dodajanjem OU vnesite ime domene.</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>Izberite privzeto domeno.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Privzete OU ni več na seznamu. Izberite drugo ali onemogočite privzeto OU.</value>
+    <value>Privzete OU ni več na seznamu. Izberite drugo ali počistite privzeti izbor.</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Vnesite ime domene.</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Dodajte vsaj eno domeno.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>Ista OU je navedena večkrat.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>Dve domeni imata enak notranji ID. Eno odstranite in jo znova dodajte.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Ta domena je že na seznamu.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Dve OU imata enak notranji ID. Eno odstranite in jo znova dodajte.</value>
@@ -1897,11 +1969,11 @@ Licencirano pod licenco MIT.</value>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>Račun je predolg ali ni veljaven.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Domena navedenih OU ni veljavna. Odstranite OU in jih znova dodajte.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>Ena od OU ima neveljavno razločevalno ime.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>Vnos domene je poškodovan. Odstranite ga in ga znova dodajte.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Vnesite veljavno ime domene, na primer corp.contoso.com.</value>
@@ -1915,17 +1987,20 @@ Licencirano pod licenco MIT.</value>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Na strani »Splošno« omogočite zaščito medija z geslom in nastavite geslo medija.</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Dodajte vsaj eno OU ali pa onemogočite izbiro OU in privzeto OU.</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Vse navedene OU morajo pripadati isti domeni.</value>
+    <value>Vsaka navedena OU mora pripadati svoji domeni.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Vnesite geslo računa.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>Račun vnesite v obliki DOMAIN\user ali user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Vnesite skupni račun za pridružitev ali pa tej domeni dodelite lasten račun.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Navedete lahko največ 32 domen.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Navedete lahko največ 1.024 OU.</value>
@@ -1939,50 +2014,44 @@ Licencirano pod licenco MIT.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Dodaj OU</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>Tehniki med uvajanjem izberejo OU s seznama.</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Dovoli tehnikom izbiro OU</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Prekliči iskanje</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Izbirno. Navedite OU, v katere je mogoče umestiti računalnike. Obstoječi račun računalnika se premakne v izbrano OU.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organizacijske enote</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Račun, s katerim se računalniki pridružijo domeni. Potrebuje dovoljenje za pridruževanje računalnikov in njihovo premikanje v izbrane OU. Geslo se izbriše ob spremembi imena domene ali računa.</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Ime domene</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Račun za pridružitev</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, ki se uporabi pri vsakem uvajanju ali je vnaprej izbrana, kadar lahko izbirajo tehniki. Onemogočite, da uporabite privzeto mesto domene.</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Uporabi namenski račun</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Privzeta OU</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Uporabi skupni račun za pridružitev</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Uvozi iz domene</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Z vašim računom Windows prikaže OU domene, ki ji je pridružen ta računalnik. Izberite tiste, ki jih želite dodati.</value>
+    <value>Z vašim računom Windows prikaže OU izbrane domene. Izberite tiste, ki jih želite dodati.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Uvoz OU iz domene tega računalnika</value>
+    <value>Uvoz OU iz domene</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domene, ki jim ta medij lahko pridruži računalnike. Uporabi se privzeta domena, razen če lahko izbirajo tehniki.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domene</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>Dodaj izbrane OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Vnesite prikazno ime in razločevalno ime OU. OU mora pripadati konfigurirani domeni.</value>
+    <value>Vnesite prikazno ime in razločevalno ime OU. OU mora pripadati izbrani domeni.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Ročno dodajanje OU</value>
@@ -1996,20 +2065,17 @@ Licencirano pod licenco MIT.</value>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Prikazno ime</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>Ročno dodajte OU ali uvozite OU iz domene, ki ji je pridružen ta računalnik.</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>Dejanja OU</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Izbirno. Navedite OU, v katere je mogoče umestiti računalnike v izbrani domeni. Obstoječi račun računalnika se premakne v izbrano OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Geslo</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Ime DNS domene, ki se ji želite pridružiti, na primer corp.contoso.com. V interaktivnem načinu je izbirno, razen če dodate OU.</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Račun, ki ga uporablja vsaka domena brez lastnega računa. Potrebuje dovoljenje za pridruževanje računalnikov in njihovo premikanje v izbrane OU.</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Ime domene</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Skupni račun za pridružitev</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Datoteka potrdila zaupanja vrednega korenskega CA</value>

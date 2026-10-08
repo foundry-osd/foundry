@@ -1835,61 +1835,133 @@ Licențiat sub licența MIT.</value>
     <value>Documentația nu a putut fi deschisă</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU-ul nu a fost adăugat. Verificați numele domeniului, numele afișat și numele distinctiv. OU-ul trebuie să aparțină acelui domeniu.</value>
+    <value>OU-ul nu a fost adăugat. Verificați numele afișat și numele distinctiv. OU-ul trebuie să aparțină domeniului selectat.</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Cont de asociere</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Implicit</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Domeniu</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU-uri</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Adaugă</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Șterge selecția implicită</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Editează</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Elimină</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Setează ca implicit</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>Tehnicienii pot alege</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Introduceți mai întâi un nume de domeniu și un cont valide, apoi verificați lungimea parolei.</value>
+    <value>Introduceți mai întâi un cont valid, apoi verificați lungimea parolei.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Da</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Se caută OU-uri în domeniul acestui computer...</value>
+    <value>Se caută OU-uri în domeniu...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Căutare anulată.</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>Nu s-a găsit niciun OU în domeniul acestui computer.</value>
+    <value>Nu s-a găsit niciun OU în acest domeniu.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Doar o parte dintre OU-uri au putut fi listate. Le puteți adăuga în continuare pe cele afișate.</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>Toate OU-urile din domeniul acestui computer sunt deja în listă.</value>
+    <value>Toate OU-urile din acest domeniu sunt deja în listă.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Căutarea a depășit timpul alocat. Puteți adăuga OU-uri manual.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Nu s-a putut căuta în domeniu. Verificați dacă acest computer este asociat la un domeniu și îl poate contacta sau adăugați OU-uri manual.</value>
+    <value>Nu s-a putut căuta în domeniu. Verificați dacă acest computer îl poate contacta și dacă contul dvs. Windows îl poate citi sau adăugați OU-uri manual.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Adăugare domeniu</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Adăugarea unui domeniu</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Editare domeniu</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Lăsați parola necompletată pentru a o păstra pe cea actuală.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Domeniul nu a fost salvat. Verificați numele domeniului.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Pregătit</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Eliminați OU-urile acestui domeniu înainte de a-i schimba numele.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>Niciun OU adăugat.</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>OU-urile nu au fost adăugate. Aparțin altui domeniu decât numele domeniului sau OU-urile deja listate.</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Niciun domeniu adăugat.</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>Eliminați selectat</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU-urile nu au fost adăugate. Aparțin altui domeniu decât cel selectat.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Adăugați mai întâi un domeniu, apoi listați OU-urile acestuia.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Unități organizaționale din {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Selectați un domeniu pentru a lista OU-urile acestuia.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>OU-uri selectate: {0} din {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Introduceți contul.</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Partajat</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>OU-urile listate aparțin altui domeniu. Eliminați-le sau reveniți la numele de domeniu anterior.</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Introduceți numele domeniului înainte de a adăuga OU-uri.</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>Alegeți un domeniu implicit.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU-ul implicit nu mai este în listă. Alegeți altul sau dezactivați OU-ul implicit.</value>
+    <value>OU-ul implicit nu mai este în listă. Alegeți altul sau ștergeți selecția implicită.</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Introduceți numele domeniului.</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Adăugați cel puțin un domeniu.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>Același OU apare în listă de mai multe ori.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>Două domenii au același ID intern. Eliminați unul și adăugați-l din nou.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Acest domeniu este deja în listă.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Două OU-uri au același ID intern. Eliminați unul și adăugați-l din nou.</value>
@@ -1897,11 +1969,11 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>Contul este prea lung sau nu este valid.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Domeniul OU-urilor listate nu este valid. Eliminați OU-urile și adăugați-le din nou.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>Un OU are un nume distinctiv care nu este valid.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>O intrare de domeniu este deteriorată. Eliminați-o și adăugați-o din nou.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Introduceți un nume de domeniu valid, de exemplu corp.contoso.com.</value>
@@ -1915,17 +1987,20 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Activați protecția prin parolă a suportului pe pagina General și setați o parolă a suportului.</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Adăugați cel puțin un OU sau dezactivați selectarea OU-ului și OU-ul implicit.</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Toate OU-urile listate trebuie să aparțină aceluiași domeniu.</value>
+    <value>Fiecare OU listat trebuie să aparțină domeniului său.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Introduceți parola contului.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>Introduceți contul ca DOMAIN\user sau user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Introduceți contul de asociere partajat sau atribuiți acestui domeniu un cont propriu.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Puteți lista cel mult 32 de domenii.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Puteți lista cel mult 1.024 de OU-uri.</value>
@@ -1939,50 +2014,44 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Adăugare OU</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>Tehnicienii aleg un OU din listă în timpul implementării.</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Permiteți tehnicienilor să aleagă OU-ul</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Anulare căutare</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Opțional. Listați OU-urile în care pot fi plasate computerele. Un cont de computer existent este mutat în OU-ul ales.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Unități organizaționale</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Contul folosit pentru asocierea computerelor la domeniu. Are nevoie de permisiunea de a asocia computere și de a le muta în OU-urile pe care le alegeți. Parola este ștearsă când se schimbă numele domeniului sau contul.</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Nume de domeniu</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Cont de asociere</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU folosit pentru fiecare implementare sau preselectat atunci când tehnicienii pot alege. Dezactivați pentru a folosi locația implicită a domeniului.</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Folosiți un cont dedicat</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>OU implicit</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Folosiți contul de asociere partajat</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Import din domeniu</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Listează OU-urile domeniului la care este asociat acest computer, folosind contul dvs. Windows. Selectați-le pe cele de adăugat.</value>
+    <value>Listează OU-urile domeniului selectat, folosind contul dvs. Windows. Selectați-le pe cele de adăugat.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Import de OU-uri din domeniul acestui computer</value>
+    <value>Import de OU-uri din domeniu</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domeniile la care acest suport poate asocia computere. Se folosește domeniul implicit, cu excepția cazului în care tehnicienii pot alege.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domenii</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>Adăugare OU-uri selectate</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Introduceți un nume afișat și numele distinctiv al OU-ului. OU-ul trebuie să aparțină domeniului configurat.</value>
+    <value>Introduceți un nume afișat și numele distinctiv al OU-ului. OU-ul trebuie să aparțină domeniului selectat.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Adăugarea manuală a unui OU</value>
@@ -1996,20 +2065,17 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Nume afișat</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>Adăugați manual un OU sau importați OU-uri din domeniul la care este asociat acest computer.</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>Acțiuni pentru OU-uri</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Opțional. Listați OU-urile în care pot fi plasate computerele în domeniul selectat. Un cont de computer existent este mutat în OU-ul ales.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parolă</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Numele DNS al domeniului la care se face asocierea, de exemplu corp.contoso.com. Opțional în modul Interactiv, cu excepția cazului în care adăugați OU-uri.</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Contul folosit de fiecare domeniu care nu are un cont propriu. Are nevoie de permisiunea de a asocia computere și de a le muta în OU-urile pe care le alegeți.</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Nume de domeniu</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Cont de asociere partajat</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Fișier de certificat CA rădăcină de încredere</value>

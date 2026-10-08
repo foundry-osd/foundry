@@ -1835,61 +1835,133 @@
     <value>לא ניתן היה לפתוח את התיעוד</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>ה-OU לא נוספה. בדוק את שם התחום, את שם התצוגה ואת השם המובחן. ה-OU חייבת להשתייך לתחום זה.</value>
+    <value>ה-OU לא נוספה. בדוק את שם התצוגה ואת השם המובחן. ה-OU חייבת להשתייך לתחום שנבחר.</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>חשבון צירוף</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>ברירת מחדל</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>תחום</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>יחידות OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>מצב</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>הוספה</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>ניקוי ברירת המחדל</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>עריכה</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>הסרה</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>הגדרה כברירת מחדל</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>הטכנאים יכולים לבחור</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>הזן תחילה שם תחום וחשבון תקינים, ולאחר מכן בדוק את אורך הסיסמה.</value>
+    <value>הזן תחילה חשבון תקין, ולאחר מכן בדוק את אורך הסיסמה.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>כן</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>מחפש יחידות OU בתחום של מחשב זה...</value>
+    <value>מחפש יחידות OU בתחום...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>החיפוש בוטל.</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>לא נמצאו יחידות OU בתחום של מחשב זה.</value>
+    <value>לא נמצאו יחידות OU בתחום זה.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>ניתן היה להציג רק חלק מיחידות ה-OU. עדיין ניתן להוסיף את אלה שמוצגות.</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>כל יחידות ה-OU בתחום של מחשב זה כבר נמצאות ברשימה.</value>
+    <value>כל יחידות ה-OU בתחום זה כבר נמצאות ברשימה.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>תם הזמן המוקצב לחיפוש. ניתן להוסיף יחידות OU ידנית.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>לא ניתן היה לחפש בתחום. ודא שמחשב זה מצורף לתחום ויכול להגיע אליו, או הוסף יחידות OU ידנית.</value>
+    <value>לא ניתן היה לחפש בתחום. ודא שמחשב זה יכול להגיע אליו ושחשבון ה-Windows שלך יכול לקרוא אותו, או הוסף יחידות OU ידנית.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>הוספת תחום</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>הוספת תחום</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>עריכת תחום</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>השאר את הסיסמה ריקה כדי לשמור על הסיסמה הנוכחית.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>שמירה</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>התחום לא נשמר. בדוק את שם התחום.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>הסר את יחידות ה-OU של תחום זה לפני שינוי שמו.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>לא נוספו יחידות OU.</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>יחידות ה-OU לא נוספו. הן שייכות לתחום שונה משם התחום או מיחידות ה-OU שכבר ברשימה.</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>לא נוספו תחומים.</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>הסר את הבחירה</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>יחידות ה-OU לא נוספו. הן שייכות לתחום שונה מהתחום שנבחר.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>הוסף תחילה תחום, ולאחר מכן פרט את יחידות ה-OU שלו.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>יחידות ארגוניות של {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>בחר תחום כדי להציג את יחידות ה-OU שלו.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>יחידות OU שנבחרו: {0} מתוך {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>הזן את החשבון.</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>משותף</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>יחידות ה-OU שברשימה שייכות לתחום אחר. הסר אותן או שחזר את שם התחום הקודם.</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>הזן את שם התחום לפני הוספת יחידות OU.</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>בחר תחום ברירת מחדל.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU ברירת המחדל כבר אינה ברשימה. בחר אחרת או כבה את OU ברירת המחדל.</value>
+    <value>OU ברירת המחדל כבר אינה ברשימה. בחר אחרת או נקה את ברירת המחדל.</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>הזן את שם התחום.</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>הוסף לפחות תחום אחד.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>אותה OU מופיעה ברשימה יותר מפעם אחת.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>לשני תחומים יש אותו מזהה פנימי. הסר אחד מהם והוסף אותו שוב.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>תחום זה כבר נמצא ברשימה.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>לשתי יחידות OU יש אותו מזהה פנימי. הסר אחת מהן והוסף אותה שוב.</value>
@@ -1897,11 +1969,11 @@
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>החשבון ארוך מדי או אינו תקין.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>התחום של יחידות ה-OU שברשימה אינו תקין. הסר את יחידות ה-OU והוסף אותן שוב.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>ל-OU אחת יש שם מובחן שאינו תקין.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>רשומת תחום פגומה. הסר אותה והוסף אותה שוב.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>הזן שם תחום תקין, כגון corp.contoso.com.</value>
@@ -1915,17 +1987,20 @@
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>הפעל הגנה על המדיה באמצעות סיסמה בעמוד "כללי" והגדר סיסמת מדיה.</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>הוסף לפחות OU אחת, או כבה את בחירת ה-OU ואת OU ברירת המחדל.</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>כל יחידות ה-OU שברשימה חייבות להשתייך לאותו תחום.</value>
+    <value>כל OU שברשימה חייבת להשתייך לתחום שלה.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>הזן את סיסמת החשבון.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>הזן את החשבון בתבנית DOMAIN\user או user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>הזן את חשבון הצירוף המשותף, או הגדר לתחום זה חשבון משלו.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>ניתן לכלול ברשימה עד 32 תחומים.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>ניתן לכלול ברשימה עד 1,024 יחידות OU.</value>
@@ -1939,50 +2014,44 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>הוספת OU</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>הטכנאים בוחרים OU מהרשימה במהלך הפריסה.</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>אפשר לטכנאים לבחור את ה-OU</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>ביטול החיפוש</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>אופציונלי. פרט את יחידות ה-OU שבהן ניתן למקם מחשבים. חשבון מחשב קיים מועבר ל-OU שנבחרה.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>יחידות ארגוניות</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>החשבון המשמש לצירוף מחשבים לתחום. נדרשת לו הרשאה לצרף מחשבים ולהעביר אותם ליחידות ה-OU שתבחר. הסיסמה נמחקת כאשר שם התחום או החשבון משתנים.</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>שם התחום</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>חשבון צירוף</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>ה-OU שמשמשת בכל פריסה, או שנבחרת מראש כאשר הטכנאים יכולים לבחור. כבה כדי להשתמש במיקום ברירת המחדל של התחום.</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>שימוש בחשבון ייעודי</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>OU ברירת מחדל</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>שימוש בחשבון הצירוף המשותף</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>ייבוא מהתחום</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>מציג את יחידות ה-OU של התחום שאליו מחשב זה מצורף, באמצעות חשבון ה-Windows שלך. בחר את אלה שברצונך להוסיף.</value>
+    <value>מציג את יחידות ה-OU של התחום שנבחר, באמצעות חשבון ה-Windows שלך. בחר את אלה שברצונך להוסיף.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>ייבוא יחידות OU מהתחום של מחשב זה</value>
+    <value>ייבוא יחידות OU מהתחום</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>התחומים שאליהם מדיה זו יכולה להצטרף. נעשה שימוש בתחום ברירת המחדל, אלא אם הטכנאים יכולים לבחור.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>תחומים</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>הוספת יחידות ה-OU שנבחרו</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>הזן שם תצוגה ואת השם המובחן של ה-OU. ה-OU חייבת להשתייך לתחום שהוגדר.</value>
+    <value>הזן שם תצוגה ואת השם המובחן של ה-OU. ה-OU חייבת להשתייך לתחום שנבחר.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>הוספת OU ידנית</value>
@@ -1996,20 +2065,17 @@
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>שם תצוגה</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>הוסף OU ידנית או ייבא יחידות OU מהתחום שאליו מחשב זה מצורף.</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>פעולות OU</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>אופציונלי. פרט את יחידות ה-OU שבהן ניתן למקם מחשבים בתחום שנבחר. חשבון מחשב קיים מועבר ל-OU שנבחרה.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>סיסמה</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>שם ה-DNS של התחום שאליו מצטרפים, כגון corp.contoso.com. אופציונלי במצב אינטראקטיבי, אלא אם מוסיפים יחידות OU.</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>החשבון המשמש את כל התחומים שאין להם חשבון משלהם. נדרשת לו הרשאה לצרף מחשבים ולהעביר אותם ליחידות ה-OU שתבחר.</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>שם התחום</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>חשבון צירוף משותף</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>קובץ אישור CA שורש מהימן</value>

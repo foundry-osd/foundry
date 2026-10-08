@@ -1835,61 +1835,133 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Documentatie kon niet worden geopend</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>De OU is niet toegevoegd. Controleer de domeinnaam, de weergavenaam en de DN-naam. De OU moet tot dat domein behoren.</value>
+    <value>De OU is niet toegevoegd. Controleer de weergavenaam en de DN-naam. De OU moet tot het geselecteerde domein behoren.</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Toetredingsaccount</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Standaard</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Domein</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU's</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Standaardselectie wissen</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Als standaard instellen</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>Technici kunnen kiezen</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Voer eerst een geldige domeinnaam en een geldig account in en controleer daarna de lengte van het wachtwoord.</value>
+    <value>Voer eerst een geldig account in en controleer daarna de lengte van het wachtwoord.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Ja</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>OU's zoeken in het domein van deze computer...</value>
+    <value>OU's zoeken in het domein...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Zoeken geannuleerd.</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>Er zijn geen OU's gevonden in het domein van deze computer.</value>
+    <value>Er zijn geen OU's gevonden in dit domein.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Slechts een deel van de OU's kon worden weergegeven. U kunt de weergegeven OU's nog steeds toevoegen.</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>Alle OU's in het domein van deze computer staan al in de lijst.</value>
+    <value>Alle OU's in dit domein staan al in de lijst.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>De tijdslimiet voor het zoeken is verstreken. U kunt OU's handmatig toevoegen.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Het domein kon niet worden doorzocht. Controleer of deze computer lid is van een domein en dit kan bereiken, of voeg OU's handmatig toe.</value>
+    <value>Het domein kon niet worden doorzocht. Controleer of deze computer het domein kan bereiken en of uw Windows-account het kan lezen, of voeg OU's handmatig toe.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Domein toevoegen</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Een domein toevoegen</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Domein bewerken</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Laat het wachtwoord leeg om het huidige wachtwoord te behouden.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Het domein is niet opgeslagen. Controleer de domeinnaam.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Gereed</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Verwijder de OU's van dit domein voordat u de naam wijzigt.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>Geen OU's toegevoegd.</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>De OU's zijn niet toegevoegd. Ze behoren tot een ander domein dan de domeinnaam of de OU's die al in de lijst staan.</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Geen domeinen toegevoegd.</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>Geselecteerde verwijderen</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>De OU's zijn niet toegevoegd. Ze behoren tot een ander domein dan het geselecteerde domein.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Voeg eerst een domein toe en geef daarna de OU's ervan op.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Organisatie-eenheden van {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Selecteer een domein om de OU's ervan op te geven.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>Geselecteerde OU's: {0} van {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Voer het account in.</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Gedeeld</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>De OU's in de lijst behoren tot een ander domein. Verwijder ze of herstel de vorige domeinnaam.</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Voer de domeinnaam in voordat u OU's toevoegt.</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>Kies een standaarddomein.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>De standaard-OU staat niet meer in de lijst. Kies een andere of schakel de standaard-OU uit.</value>
+    <value>De standaard-OU staat niet meer in de lijst. Kies een andere of wis de standaardselectie.</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Voer de domeinnaam in.</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Voeg ten minste één domein toe.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>Dezelfde OU staat meer dan één keer in de lijst.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>Twee domeinen hebben dezelfde interne id. Verwijder er één en voeg het opnieuw toe.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Dit domein staat al in de lijst.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Twee OU's hebben dezelfde interne id. Verwijder er één en voeg deze opnieuw toe.</value>
@@ -1897,11 +1969,11 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>Het account is te lang of ongeldig.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Het domein van de OU's in de lijst is ongeldig. Verwijder de OU's en voeg ze opnieuw toe.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>Een OU heeft een ongeldige DN-naam.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>Een domeinvermelding is beschadigd. Verwijder deze en voeg deze opnieuw toe.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Voer een geldige domeinnaam in, zoals corp.contoso.com.</value>
@@ -1915,17 +1987,20 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Schakel wachtwoordbeveiliging voor het medium in op de pagina Algemeen en stel een mediumwachtwoord in.</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Voeg ten minste één OU toe, of schakel OU-selectie en de standaard-OU uit.</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Alle OU's in de lijst moeten tot hetzelfde domein behoren.</value>
+    <value>Elke OU in de lijst moet tot het bijbehorende domein behoren.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Voer het accountwachtwoord in.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>Voer het account in als DOMAIN\user of user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Voer het gedeelde toetredingsaccount in of geef dit domein een eigen account.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>De lijst mag maximaal 32 domeinen bevatten.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>De lijst mag maximaal 1.024 OU's bevatten.</value>
@@ -1939,50 +2014,44 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>OU toevoegen</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>Technici kiezen tijdens de implementatie een OU uit de lijst.</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Technici de OU laten kiezen</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Zoeken annuleren</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Optioneel. Geef de OU's op waarin computers kunnen worden geplaatst. Een bestaand computeraccount wordt naar de gekozen OU verplaatst.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organisatie-eenheden</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Account waarmee computers lid worden gemaakt van het domein. Het heeft rechten nodig om computers toe te voegen en ze te verplaatsen naar de OU's die u kiest. Het wachtwoord wordt gewist wanneer de domeinnaam of het account verandert.</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Domeinnaam</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Toetredingsaccount</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU die voor elke implementatie wordt gebruikt, of die vooraf is geselecteerd wanneer technici kunnen kiezen. Schakel uit om de standaardlocatie van het domein te gebruiken.</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Een afzonderlijk account gebruiken</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Standaard-OU</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Het gedeelde toetredingsaccount gebruiken</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Importeren uit domein</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Geeft met uw Windows-account de OU's weer van het domein waarvan deze computer lid is. Selecteer de OU's die u wilt toevoegen.</value>
+    <value>Geeft met uw Windows-account de OU's van het geselecteerde domein weer. Selecteer de OU's die u wilt toevoegen.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>OU's importeren uit het domein van deze computer</value>
+    <value>OU's importeren uit het domein</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domeinen waarvan computers met dit medium lid kunnen worden. Het standaarddomein wordt gebruikt, tenzij technici kunnen kiezen.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domeinen</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>Geselecteerde OU's toevoegen</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Voer een weergavenaam en de DN-naam van de OU in. De OU moet tot het geconfigureerde domein behoren.</value>
+    <value>Voer een weergavenaam en de DN-naam van de OU in. De OU moet tot het geselecteerde domein behoren.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Handmatig een OU toevoegen</value>
@@ -1996,20 +2065,17 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Weergavenaam</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>Voeg handmatig een OU toe of importeer OU's uit het domein waarvan deze computer lid is.</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>OU-acties</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Optioneel. Geef de OU's op waarin computers in het geselecteerde domein kunnen worden geplaatst. Een bestaand computeraccount wordt naar de gekozen OU verplaatst.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Wachtwoord</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>DNS-naam van het domein waaraan wordt toegetreden, zoals corp.contoso.com. Optioneel in de modus Interactief, tenzij u OU's toevoegt.</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Account dat wordt gebruikt door elk domein zonder eigen account. Het heeft rechten nodig om computers toe te voegen en ze te verplaatsen naar de OU's die u kiest.</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Domeinnaam</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Gedeeld toetredingsaccount</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Vertrouwd root-CA-certificaatbestand</value>

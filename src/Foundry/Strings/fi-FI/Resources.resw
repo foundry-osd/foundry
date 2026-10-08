@@ -1835,61 +1835,133 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Asiakirjoja ei voitu avata</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU:ta ei lisätty. Tarkista toimialueen nimi, näyttönimi ja yksilöivä nimi. OU:n on kuuluttava kyseiseen toimialueeseen.</value>
+    <value>OU:ta ei lisätty. Tarkista näyttönimi ja yksilöivä nimi. OU:n on kuuluttava valittuun toimialueeseen.</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Liittämistili</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Oletus</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Toimialue</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU:t</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Tyhjennä oletusvalinta</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Aseta oletukseksi</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>Teknikot voivat valita</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Anna ensin kelvollinen toimialueen nimi ja tili ja tarkista sitten salasanan pituus.</value>
+    <value>Anna ensin kelvollinen tili ja tarkista sitten salasanan pituus.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Kyllä</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Etsitään OU:ita tämän tietokoneen toimialueesta...</value>
+    <value>Etsitään OU:ita toimialueesta...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Haku peruutettiin.</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>Tämän tietokoneen toimialueesta ei löytynyt OU:ita.</value>
+    <value>Tästä toimialueesta ei löytynyt OU:ita.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Vain osa OU:ista voitiin luetella. Voit silti lisätä näkyvissä olevat.</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>Kaikki tämän tietokoneen toimialueen OU:t ovat jo luettelossa.</value>
+    <value>Kaikki tämän toimialueen OU:t ovat jo luettelossa.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Haku aikakatkaistiin. Voit lisätä OU:ita manuaalisesti.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Toimialueesta ei voitu hakea. Tarkista, että tämä tietokone on liitetty toimialueeseen ja saa siihen yhteyden, tai lisää OU:t manuaalisesti.</value>
+    <value>Toimialueesta ei voitu hakea. Tarkista, että tämä tietokone saa siihen yhteyden ja että Windows-tililläsi on oikeus lukea sitä, tai lisää OU:t manuaalisesti.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Lisää toimialue</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Lisää toimialue</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Muokkaa toimialuetta</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Jätä salasana tyhjäksi, jos haluat säilyttää nykyisen.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Toimialuetta ei tallennettu. Tarkista toimialueen nimi.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Poista tämän toimialueen OU:t ennen sen nimen muuttamista.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>OU:ita ei ole lisätty.</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>OU:ita ei lisätty. Ne kuuluvat eri toimialueeseen kuin toimialueen nimi tai luettelossa jo olevat OU:t.</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Toimialueita ei ole lisätty.</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>Poista valitut</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU:ita ei lisätty. Ne kuuluvat eri toimialueeseen kuin valittu toimialue.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Lisää ensin toimialue ja luettele sitten sen OU:t.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Toimialueen {0} organisaatioyksiköt</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Valitse toimialue, niin voit luetella sen OU:t.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>Valitut OU:t: {0} / {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Anna tili.</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Jaettu</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Luettelon OU:t kuuluvat eri toimialueeseen. Poista ne tai palauta aiempi toimialueen nimi.</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Anna toimialueen nimi ennen OU:iden lisäämistä.</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>Valitse oletustoimialue.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Oletus-OU ei ole enää luettelossa. Valitse toinen tai poista oletus-OU käytöstä.</value>
+    <value>Oletus-OU ei ole enää luettelossa. Valitse toinen tai tyhjennä oletusvalinta.</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Anna toimialueen nimi.</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Lisää vähintään yksi toimialue.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>Sama OU on luettelossa useammin kuin kerran.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>Kahdella toimialueella on sama sisäinen tunnus. Poista toinen ja lisää se uudelleen.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Tämä toimialue on jo luettelossa.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Kahdella OU:lla on sama sisäinen tunnus. Poista toinen ja lisää se uudelleen.</value>
@@ -1897,11 +1969,11 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>Tili on liian pitkä tai virheellinen.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Luettelon OU:iden toimialue ei kelpaa. Poista OU:t ja lisää ne uudelleen.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>Jonkin OU:n yksilöivä nimi ei kelpaa.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>Toimialuemerkintä on vioittunut. Poista se ja lisää se uudelleen.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Anna kelvollinen toimialueen nimi, esimerkiksi corp.contoso.com.</value>
@@ -1915,17 +1987,20 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Ota median salasanasuojaus käyttöön sivulla ”Yleiset” ja määritä median salasana.</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Lisää vähintään yksi OU tai poista OU:n valinta ja oletus-OU käytöstä.</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Kaikkien luettelon OU:iden on kuuluttava samaan toimialueeseen.</value>
+    <value>Jokaisen luettelon OU:n on kuuluttava omaan toimialueeseensa.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Anna tilin salasana.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>Anna tili muodossa DOMAIN\user tai user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Anna jaettu liittämistili tai määritä tälle toimialueelle oma tili.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Luettelossa voi olla enintään 32 toimialuetta.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Luettelossa voi olla enintään 1 024 OU:ta.</value>
@@ -1939,50 +2014,44 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Lisää OU</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>Teknikot valitsevat OU:n luettelosta käyttöönoton aikana.</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Anna teknikoiden valita OU</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Peruuta haku</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Valinnainen. Luettele OU:t, joihin tietokoneita voidaan sijoittaa. Olemassa oleva tietokonetili siirretään valittuun OU:hun.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Organisaatioyksiköt</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Tili, jolla tietokoneet liitetään toimialueeseen. Sillä on oltava oikeus liittää tietokoneita ja siirtää ne valitsemiisi OU:ihin. Salasana tyhjennetään, kun toimialueen nimi tai tili vaihtuu.</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Toimialueen nimi</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Liittämistili</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, jota käytetään jokaisessa käyttöönotossa tai joka on esivalittu, kun teknikot voivat valita. Poista käytöstä, jos haluat käyttää toimialueen oletussijaintia.</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Käytä erillistä tiliä</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Oletus-OU</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Käytä jaettua liittämistiliä</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Tuo toimialueesta</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Luettelee Windows-tilisi avulla sen toimialueen OU:t, johon tämä tietokone on liitetty. Valitse lisättävät.</value>
+    <value>Luettelee Windows-tilisi avulla valitun toimialueen OU:t. Valitse lisättävät.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Tuo OU:t tämän tietokoneen toimialueesta</value>
+    <value>Tuo OU:t toimialueesta</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Toimialueet, joihin tämä media voi liittyä. Oletustoimialuetta käytetään, elleivät teknikot voi valita.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Toimialueet</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>Lisää valitut OU:t</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Anna näyttönimi ja OU:n yksilöivä nimi. OU:n on kuuluttava määritettyyn toimialueeseen.</value>
+    <value>Anna näyttönimi ja OU:n yksilöivä nimi. OU:n on kuuluttava valittuun toimialueeseen.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Lisää OU manuaalisesti</value>
@@ -1996,20 +2065,17 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Näyttönimi</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>Lisää OU manuaalisesti tai tuo OU:t toimialueesta, johon tämä tietokone on liitetty.</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>OU-toiminnot</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Valinnainen. Luettele OU:t, joihin tietokoneita voidaan sijoittaa valitussa toimialueessa. Olemassa oleva tietokonetili siirretään valittuun OU:hun.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Salasana</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Sen toimialueen DNS-nimi, johon liitytään, esimerkiksi corp.contoso.com. Valinnainen Interaktiivinen-tilassa, ellet lisää OU:ita.</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Tili, jota käyttävät kaikki toimialueet, joilla ei ole omaa tiliä. Sillä on oltava oikeus liittää tietokoneita ja siirtää ne valitsemiisi OU:ihin.</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Toimialueen nimi</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Jaettu liittämistili</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Luotettu juurivarmennetiedosto</value>

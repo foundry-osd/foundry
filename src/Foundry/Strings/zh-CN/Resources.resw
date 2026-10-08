@@ -1835,61 +1835,133 @@
     <value>文档无法打开</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>未添加 OU。请检查域名、显示名称和可分辨名称。OU 必须属于该域。</value>
+    <value>未添加 OU。请检查显示名称和可分辨名称。OU 必须属于所选域。</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>加入账户</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>域</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>清除默认选择</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>设为默认</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>技术人员可选择</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>请先输入有效的域名和账户，然后检查密码长度。</value>
+    <value>请先输入有效的账户，然后检查密码长度。</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>是</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>正在此计算机的域中搜索 OU...</value>
+    <value>正在域中搜索 OU...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>搜索已取消。</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>在此计算机的域中未找到任何 OU。</value>
+    <value>在此域中未找到任何 OU。</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>只能列出部分 OU。您仍可添加已显示的 OU。</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>此计算机的域中的所有 OU 均已在列表中。</value>
+    <value>此域中的所有 OU 均已在列表中。</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>搜索已超时。您可以手动添加 OU。</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>无法搜索域。请检查此计算机是否已加入域并能访问该域，或手动添加 OU。</value>
+    <value>无法搜索域。请检查此计算机是否能访问该域，以及您的 Windows 账户是否能读取该域，或手动添加 OU。</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>添加域</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>添加域</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>编辑域</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>将密码留空可保留当前密码。</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>未保存域。请检查域名。</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>请先删除此域的 OU，再更改其名称。</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>尚未添加 OU。</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>未添加这些 OU。它们所属的域与域名或已列出的 OU 不一致。</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>尚未添加域。</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>删除选定的</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>未添加这些 OU。它们所属的域与所选域不一致。</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>请先添加域，再列出其 OU。</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>{0} 的组织单位</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>选择一个域以列出其 OU。</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>已选择的 OU：{0} / {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>请输入账户。</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>共享</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>列出的 OU 属于其他域。请删除这些 OU，或恢复之前的域名。</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>请先输入域名，再添加 OU。</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>请选择默认域。</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>默认 OU 已不在列表中。请另选一个或关闭默认 OU。</value>
+    <value>默认 OU 已不在列表中。请另选一个或清除默认选择。</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>请输入域名。</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>请至少添加一个域。</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>同一个 OU 被列出了多次。</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>两个域的内部 ID 相同。请删除其中一个，然后重新添加。</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>此域已在列表中。</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>两个 OU 的内部 ID 相同。请删除其中一个，然后重新添加。</value>
@@ -1897,11 +1969,11 @@
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>账户过长或无效。</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>列出的 OU 所属的域无效。请删除这些 OU，然后重新添加。</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>某个 OU 的可分辨名称无效。</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>某个域条目已损坏。请将其删除，然后重新添加。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>请输入有效的域名，例如 corp.contoso.com。</value>
@@ -1915,17 +1987,20 @@
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>请在“常规”页面启用介质密码保护，并设置介质密码。</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>请至少添加一个 OU，或关闭 OU 选择和默认 OU。</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>列出的所有 OU 必须属于同一个域。</value>
+    <value>列出的每个 OU 都必须属于其对应的域。</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>请输入账户密码。</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>请以 DOMAIN\user 或 user@domain 格式输入账户。</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>请输入共享加入账户，或为此域指定自己的账户。</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>最多可列出 32 个域。</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>最多可列出 1,024 个 OU。</value>
@@ -1939,50 +2014,44 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>添加 OU</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>技术人员在部署期间从列表中选择 OU。</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>允许技术人员选择 OU</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>取消搜索</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>可选。列出可放置计算机的 OU。现有计算机账户将移至所选 OU。</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>组织单位</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>用于将计算机加入域的账户。该账户需要有权将计算机加入域，并将其移至您选择的 OU。域名或账户发生变化时，密码将被清除。</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>域名</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>加入账户</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>用于每次部署的 OU；允许技术人员选择时，则为预选的 OU。关闭以使用域的默认位置。</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>使用专用账户</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>默认 OU</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>使用共享加入账户</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>从域导入</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>使用您的 Windows 账户列出此计算机所加入的域中的 OU。请选择要添加的 OU。</value>
+    <value>使用您的 Windows 账户列出所选域中的 OU。请选择要添加的 OU。</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>从此计算机的域导入 OU</value>
+    <value>从域导入 OU</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>此介质可加入的域。除非允许技术人员选择，否则使用默认域。</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>域</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>添加所选 OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>请输入显示名称和 OU 的可分辨名称。OU 必须属于已配置的域。</value>
+    <value>请输入显示名称和 OU 的可分辨名称。OU 必须属于所选域。</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>手动添加 OU</value>
@@ -1996,20 +2065,17 @@
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>显示名称</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>手动添加 OU，或从此计算机所加入的域导入 OU。</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>OU 操作</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>可选。列出所选域中可放置计算机的 OU。现有计算机账户将移至所选 OU。</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>密码</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>要加入的域的 DNS 名称，例如 corp.contoso.com。在交互式模式下可不填写，除非添加了 OU。</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>供所有没有自己账户的域使用的账户。该账户需要有权将计算机加入域，并将其移至您选择的 OU。</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>域名</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>共享加入账户</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>受信任的根 CA 证书文件</value>

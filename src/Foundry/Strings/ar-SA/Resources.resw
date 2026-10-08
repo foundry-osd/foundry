@@ -1835,61 +1835,133 @@
     <value>لا يمكن فتح الوثائق</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>لم تتم إضافة وحدة OU. تحقق من اسم النطاق واسم العرض والاسم المميز. يجب أن تنتمي وحدة OU إلى هذا النطاق.</value>
+    <value>لم تتم إضافة وحدة OU. تحقق من اسم العرض والاسم المميز. يجب أن تنتمي وحدة OU إلى النطاق المحدد.</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>حساب الانضمام</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>الافتراضي</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>النطاق</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>وحدات OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>مسح الافتراضي</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>تعيين كافتراضي</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>يمكن للفنيين الاختيار</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>أدخل أولاً اسم نطاق وحساباً صالحين، ثم تحقق من طول كلمة المرور.</value>
+    <value>أدخل أولاً حساباً صالحاً، ثم تحقق من طول كلمة المرور.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>نعم</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>جارٍ البحث عن وحدات OU في نطاق هذا الكمبيوتر...</value>
+    <value>جارٍ البحث عن وحدات OU في النطاق...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>تم إلغاء البحث.</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>لم يتم العثور على أي وحدات OU في نطاق هذا الكمبيوتر.</value>
+    <value>لم يتم العثور على أي وحدات OU في هذا النطاق.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>تعذّر عرض سوى بعض وحدات OU. لا يزال بإمكانك إضافة الوحدات المعروضة.</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>جميع وحدات OU في نطاق هذا الكمبيوتر موجودة بالفعل في القائمة.</value>
+    <value>جميع وحدات OU في هذا النطاق موجودة بالفعل في القائمة.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>انتهت مهلة البحث. يمكنك إضافة وحدات OU يدوياً.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>تعذّر البحث في النطاق. تحقق من أن هذا الكمبيوتر منضم إلى نطاق ويمكنه الوصول إليه، أو أضف وحدات OU يدوياً.</value>
+    <value>تعذّر البحث في النطاق. تحقق من أن هذا الكمبيوتر يمكنه الوصول إليه وأن حساب Windows الخاص بك يمكنه قراءته، أو أضف وحدات OU يدوياً.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>إضافة نطاق</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>إضافة نطاق</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>تحرير النطاق</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>اترك كلمة المرور فارغة للاحتفاظ بكلمة المرور الحالية.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>لم يتم حفظ النطاق. تحقق من اسم النطاق.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>جاهز</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>أزل وحدات OU الخاصة بهذا النطاق قبل تغيير اسمه.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>لم تتم إضافة أي وحدات OU.</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>لم تتم إضافة وحدات OU. إنها تنتمي إلى نطاق يختلف عن اسم النطاق أو عن وحدات OU المدرجة مسبقاً.</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>لم تتم إضافة أي نطاقات.</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>إزالة المحدد</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>لم تتم إضافة وحدات OU. إنها تنتمي إلى نطاق يختلف عن النطاق المحدد.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>أضف نطاقاً أولاً، ثم أدرج وحدات OU الخاصة به.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>الوحدات التنظيمية في {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>حدد نطاقاً لإدراج وحدات OU الخاصة به.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>وحدات OU المحددة: {0} من {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>أدخل الحساب.</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>مشترك</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>وحدات OU المدرجة تنتمي إلى نطاق مختلف. أزلها أو استعد اسم النطاق السابق.</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>أدخل اسم النطاق قبل إضافة وحدات OU.</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>اختر نطاقاً افتراضياً.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>وحدة OU الافتراضية لم تعد في القائمة. اختر وحدة أخرى أو عطّل وحدة OU الافتراضية.</value>
+    <value>وحدة OU الافتراضية لم تعد في القائمة. اختر وحدة أخرى أو امسح الافتراضي.</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>أدخل اسم النطاق.</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>أضف نطاقاً واحداً على الأقل.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>وحدة OU نفسها مدرجة أكثر من مرة.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>يوجد نطاقان لهما المعرّف الداخلي نفسه. أزل أحدهما ثم أضفه من جديد.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>هذا النطاق مدرج بالفعل.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>توجد وحدتا OU لهما المعرّف الداخلي نفسه. أزل إحداهما ثم أضفها من جديد.</value>
@@ -1897,11 +1969,11 @@
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>الحساب طويل جداً أو غير صالح.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>نطاق وحدات OU المدرجة غير صالح. أزل وحدات OU ثم أضفها من جديد.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>الاسم المميز لإحدى وحدات OU غير صالح.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>أحد إدخالات النطاقات تالف. أزله ثم أضفه من جديد.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>أدخل اسم نطاق صالحاً، مثل corp.contoso.com.</value>
@@ -1915,17 +1987,20 @@
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>فعّل حماية الوسائط بكلمة مرور في صفحة «عام» وعيّن كلمة مرور للوسائط.</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>أضف وحدة OU واحدة على الأقل، أو عطّل اختيار OU ووحدة OU الافتراضية.</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>يجب أن تنتمي جميع وحدات OU المدرجة إلى النطاق نفسه.</value>
+    <value>يجب أن تنتمي كل وحدة OU مدرجة إلى نطاقها.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>أدخل كلمة مرور الحساب.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>أدخل الحساب بالصيغة DOMAIN\user أو user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>أدخل حساب الانضمام المشترك، أو خصّص لهذا النطاق حساباً خاصاً به.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>يمكنك إدراج ما يصل إلى 32 نطاقاً.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>يمكنك إدراج ما يصل إلى 1,024 وحدة OU.</value>
@@ -1939,50 +2014,44 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>إضافة OU</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>يختار الفنيون وحدة OU من القائمة أثناء النشر.</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>السماح للفنيين باختيار OU</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>إلغاء البحث</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>اختياري. أدرج وحدات OU التي يمكن وضع أجهزة الكمبيوتر فيها. يتم نقل حساب الكمبيوتر الموجود إلى وحدة OU المختارة.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>الوحدات التنظيمية</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>الحساب المستخدم لضم أجهزة الكمبيوتر إلى النطاق. يحتاج إلى صلاحية ضم أجهزة الكمبيوتر ونقلها إلى وحدات OU التي تختارها. يتم مسح كلمة المرور عند تغيّر اسم النطاق أو الحساب.</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>اسم النطاق</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>حساب الانضمام</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>وحدة OU المستخدمة في كل عملية نشر، أو المحددة مسبقاً عندما يُسمح للفنيين بالاختيار. عطّلها لاستخدام الموقع الافتراضي للنطاق.</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>استخدام حساب مخصص</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>وحدة OU الافتراضية</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>استخدام حساب الانضمام المشترك</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>استيراد من النطاق</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>يعرض وحدات OU في النطاق المنضم إليه هذا الكمبيوتر باستخدام حساب Windows الخاص بك. حدد الوحدات المراد إضافتها.</value>
+    <value>يعرض وحدات OU في النطاق المحدد باستخدام حساب Windows الخاص بك. حدد الوحدات المراد إضافتها.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>استيراد وحدات OU من نطاق هذا الكمبيوتر</value>
+    <value>استيراد وحدات OU من النطاق</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>النطاقات التي يمكن لهذه الوسائط الانضمام إليها. يُستخدم النطاق الافتراضي ما لم يُسمح للفنيين بالاختيار.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>النطاقات</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>إضافة وحدات OU المحددة</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>أدخل اسم عرض والاسم المميز لوحدة OU. يجب أن تنتمي وحدة OU إلى النطاق الذي تم تكوينه.</value>
+    <value>أدخل اسم عرض والاسم المميز لوحدة OU. يجب أن تنتمي وحدة OU إلى النطاق المحدد.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>إضافة OU يدوياً</value>
@@ -1996,20 +2065,17 @@
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>اسم العرض</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>أضف وحدة OU يدوياً أو استورد وحدات OU من النطاق المنضم إليه هذا الكمبيوتر.</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>إجراءات وحدات OU</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>اختياري. أدرج وحدات OU التي يمكن وضع أجهزة الكمبيوتر فيها ضمن النطاق المحدد. يتم نقل حساب الكمبيوتر الموجود إلى وحدة OU المختارة.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>اسم DNS للنطاق المراد الانضمام إليه، مثل corp.contoso.com. اختياري في الوضع التفاعلي ما لم تُضف وحدات OU.</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>الحساب الذي يستخدمه كل نطاق ليس له حساب خاص به. يحتاج إلى صلاحية ضم أجهزة الكمبيوتر ونقلها إلى وحدات OU التي تختارها.</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>اسم النطاق</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>حساب الانضمام المشترك</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>ملف شهادة CA الجذر الموثوق به</value>

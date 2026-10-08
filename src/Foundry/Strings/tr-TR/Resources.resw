@@ -1835,61 +1835,133 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Belgeler açılamadı</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU eklenmedi. Etki alanı adını, görünen adı ve ayırt edici adı denetleyin. OU bu etki alanına ait olmalıdır.</value>
+    <value>OU eklenmedi. Görünen adı ve ayırt edici adı denetleyin. OU seçilen etki alanına ait olmalıdır.</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Katılma hesabı</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Etki alanı</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU’lar</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Varsayılan seçimi temizle</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Varsayılan olarak ayarla</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>Teknisyenler seçebilir</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Önce geçerli bir etki alanı adı ve hesap girin, ardından parola uzunluğunu denetleyin.</value>
+    <value>Önce geçerli bir hesap girin, ardından parola uzunluğunu denetleyin.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Evet</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Bu bilgisayarın etki alanında OU aranıyor...</value>
+    <value>Etki alanında OU aranıyor...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Arama iptal edildi.</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>Bu bilgisayarın etki alanında OU bulunamadı.</value>
+    <value>Bu etki alanında OU bulunamadı.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>OU’ların yalnızca bir kısmı listelenebildi. Gösterilenleri yine de ekleyebilirsiniz.</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>Bu bilgisayarın etki alanındaki tüm OU’lar zaten listede.</value>
+    <value>Bu etki alanındaki tüm OU’lar zaten listede.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Arama zaman aşımına uğradı. OU’ları el ile ekleyebilirsiniz.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Etki alanında arama yapılamadı. Bu bilgisayarın bir etki alanına katıldığını ve etki alanına erişebildiğini denetleyin veya OU’ları el ile ekleyin.</value>
+    <value>Etki alanında arama yapılamadı. Bu bilgisayarın etki alanına erişebildiğini ve Windows hesabınızın etki alanını okuyabildiğini denetleyin veya OU’ları el ile ekleyin.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Etki alanı ekle</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Etki alanı ekle</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Etki alanını düzenle</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Geçerli parolayı korumak için parolayı boş bırakın.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Etki alanı kaydedilmedi. Etki alanı adını denetleyin.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Hazır</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Adını değiştirmeden önce bu etki alanının OU’larını kaldırın.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>OU eklenmedi.</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>OU’lar eklenmedi. Etki alanı adından veya listedeki OU’lardan farklı bir etki alanına aitler.</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Etki alanı eklenmedi.</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>Seçileni kaldır</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU’lar eklenmedi. Seçilen etki alanından farklı bir etki alanına aitler.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Önce bir etki alanı ekleyin, ardından OU’larını listeleyin.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>{0} kuruluş birimleri</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>OU’larını listelemek için bir etki alanı seçin.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>Seçilen OU’lar: {0} / {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Hesabı girin.</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Paylaşılan</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Listedeki OU’lar farklı bir etki alanına ait. Bunları kaldırın veya önceki etki alanı adını geri yükleyin.</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>OU eklemeden önce etki alanı adını girin.</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>Varsayılan bir etki alanı seçin.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Varsayılan OU artık listede değil. Başka birini seçin veya varsayılan OU’yu devre dışı bırakın.</value>
+    <value>Varsayılan OU artık listede değil. Başka birini seçin veya varsayılan seçimi temizleyin.</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Etki alanı adını girin.</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>En az bir etki alanı ekleyin.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>Aynı OU birden fazla kez listelenmiş.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>İki etki alanı aynı iç kimliği paylaşıyor. Birini kaldırıp yeniden ekleyin.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Bu etki alanı zaten listede.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>İki OU aynı iç kimliği paylaşıyor. Birini kaldırıp yeniden ekleyin.</value>
@@ -1897,11 +1969,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>Hesap çok uzun veya geçersiz.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Listedeki OU’ların etki alanı geçersiz. OU’ları kaldırıp yeniden ekleyin.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>Bir OU’nun ayırt edici adı geçersiz.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>Bir etki alanı girişi bozuk. Kaldırıp yeniden ekleyin.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>corp.contoso.com gibi geçerli bir etki alanı adı girin.</value>
@@ -1915,17 +1987,20 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>"Genel" sayfasında medya parola korumasını etkinleştirin ve bir medya parolası belirleyin.</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>En az bir OU ekleyin veya OU seçimini ve varsayılan OU’yu devre dışı bırakın.</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Listedeki tüm OU’lar aynı etki alanına ait olmalıdır.</value>
+    <value>Listedeki her OU kendi etki alanına ait olmalıdır.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Hesap parolasını girin.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>Hesabı DOMAIN\user veya user@domain biçiminde girin.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Paylaşılan katılma hesabını girin veya bu etki alanına kendi hesabını verin.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>En fazla 32 etki alanı listeleyebilirsiniz.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>En fazla 1.024 OU listeleyebilirsiniz.</value>
@@ -1939,50 +2014,44 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>OU ekle</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>Teknisyenler dağıtım sırasında listeden bir OU seçer.</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Teknisyenlerin OU seçmesine izin ver</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Aramayı iptal et</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>İsteğe bağlı. Bilgisayarların yerleştirilebileceği OU’ları listeleyin. Mevcut bir bilgisayar hesabı seçilen OU’ya taşınır.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Kuruluş birimleri</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Bilgisayarları etki alanına katmak için kullanılan hesap. Bilgisayarları etki alanına katma ve seçtiğiniz OU’lara taşıma izni olmalıdır. Etki alanı adı veya hesap değiştiğinde parola temizlenir.</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Etki alanı adı</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Katılma hesabı</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>Her dağıtımda kullanılan veya teknisyenler seçim yapabildiğinde önceden seçili gelen OU. Etki alanının varsayılan konumunu kullanmak için devre dışı bırakın.</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Ayrılmış bir hesap kullan</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>Varsayılan OU</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Paylaşılan katılma hesabını kullan</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Etki alanından içe aktar</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Windows hesabınızı kullanarak bu bilgisayarın katıldığı etki alanındaki OU’ları listeler. Eklenecek olanları seçin.</value>
+    <value>Windows hesabınızı kullanarak seçilen etki alanındaki OU’ları listeler. Eklenecek olanları seçin.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>OU’ları bu bilgisayarın etki alanından içe aktar</value>
+    <value>OU’ları etki alanından içe aktar</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Bu medyanın katılabileceği etki alanları. Teknisyenler seçim yapamıyorsa varsayılan etki alanı kullanılır.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Etki alanları</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>Seçilen OU’ları ekle</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>OU için bir görünen ad ve ayırt edici adı girin. OU yapılandırılan etki alanına ait olmalıdır.</value>
+    <value>OU için bir görünen ad ve ayırt edici adı girin. OU seçilen etki alanına ait olmalıdır.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>El ile OU ekle</value>
@@ -1996,20 +2065,17 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Görünen ad</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>El ile bir OU ekleyin veya bu bilgisayarın katıldığı etki alanından OU’ları içe aktarın.</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>OU işlemleri</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>İsteğe bağlı. Seçilen etki alanında bilgisayarların yerleştirilebileceği OU’ları listeleyin. Mevcut bir bilgisayar hesabı seçilen OU’ya taşınır.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parola</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Katılınacak etki alanının DNS adı, örneğin corp.contoso.com. OU eklemediğiniz sürece Etkileşimli modda isteğe bağlıdır.</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Kendi hesabı olmayan her etki alanının kullandığı hesap. Bilgisayarları etki alanına katma ve seçtiğiniz OU’lara taşıma izni olmalıdır.</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Etki alanı adı</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Paylaşılan katılma hesabı</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Güvenilen kök CA sertifika dosyası</value>

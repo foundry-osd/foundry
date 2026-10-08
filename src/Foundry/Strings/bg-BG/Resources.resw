@@ -1835,61 +1835,133 @@
     <value>Документацията не можа да бъде отворена</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>OU не беше добавена. Проверете името на домейна, показваното име и отличителното име. OU трябва да принадлежи към този домейн.</value>
+    <value>OU не беше добавена. Проверете показваното име и отличителното име. OU трябва да принадлежи към избрания домейн.</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Акаунт за присъединяване</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>По подразбиране</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Домейн</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Състояние</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Добавяне</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Изчистване на избора по подразбиране</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Премахване</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Задаване по подразбиране</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>Техниците могат да избират</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Първо въведете валидни име на домейн и акаунт, след което проверете дължината на паролата.</value>
+    <value>Първо въведете валиден акаунт, след което проверете дължината на паролата.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Да</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Търсене на OU в домейна на този компютър...</value>
+    <value>Търсене на OU в домейна...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Търсенето е отменено.</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>Не бяха намерени OU в домейна на този компютър.</value>
+    <value>Не бяха намерени OU в този домейн.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Само част от OU можаха да бъдат изведени. Показаните все пак могат да бъдат добавени.</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>Всички OU в домейна на този компютър вече са в списъка.</value>
+    <value>Всички OU в този домейн вече са в списъка.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Времето за търсене изтече. Можете да добавите OU ръчно.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Търсенето в домейна не беше възможно. Проверете дали този компютър е присъединен към домейн и има връзка с него, или добавете OU ръчно.</value>
+    <value>Търсенето в домейна не беше възможно. Проверете дали този компютър има връзка с него и дали вашият акаунт за Windows може да го чете, или добавете OU ръчно.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Добавяне на домейн</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Добавяне на домейн</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Редактиране на домейн</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Оставете паролата празна, за да запазите текущата.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Запазване</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Домейнът не беше запазен. Проверете името на домейна.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Премахнете OU на този домейн, преди да промените името му.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>Няма добавени OU.</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>OU не бяха добавени. Те принадлежат към домейн, различен от името на домейна или от вече изброените OU.</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Няма добавени домейни.</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>Премахване на избраното</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU не бяха добавени. Те принадлежат към домейн, различен от избрания.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Първо добавете домейн, след което избройте неговите OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Организационни единици на {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Изберете домейн, за да изброите неговите OU.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>Избрани OU: {0} от {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Въведете акаунта.</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Споделен</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>Изброените OU принадлежат към друг домейн. Премахнете ги или възстановете предишното име на домейна.</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Въведете името на домейна, преди да добавяте OU.</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>Изберете домейн по подразбиране.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU по подразбиране вече не е в списъка. Изберете друга или деактивирайте OU по подразбиране.</value>
+    <value>OU по подразбиране вече не е в списъка. Изберете друга или изчистете избора по подразбиране.</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Въведете името на домейна.</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Добавете поне един домейн.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>Една и съща OU е изброена повече от веднъж.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>Два домейна имат един и същ вътрешен идентификатор. Премахнете единия и го добавете отново.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Този домейн вече е в списъка.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Две OU имат един и същ вътрешен идентификатор. Премахнете едната и я добавете отново.</value>
@@ -1897,11 +1969,11 @@
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>Акаунтът е твърде дълъг или невалиден.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>Домейнът на изброените OU е невалиден. Премахнете OU и ги добавете отново.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>Отличителното име на една от OU е невалидно.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>Запис за домейн е повреден. Премахнете го и го добавете отново.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Въведете валидно име на домейн, например corp.contoso.com.</value>
@@ -1915,17 +1987,20 @@
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Активирайте защитата на носителя с парола на страницата „Общи“ и задайте парола за носителя.</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Добавете поне една OU или деактивирайте избора на OU и OU по подразбиране.</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Всички изброени OU трябва да принадлежат към един и същ домейн.</value>
+    <value>Всяка изброена OU трябва да принадлежи към своя домейн.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Въведете паролата на акаунта.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>Въведете акаунта като DOMAIN\user или user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Въведете споделения акаунт за присъединяване или задайте на този домейн собствен акаунт.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Можете да изброите най-много 32 домейна.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Можете да изброите най-много 1024 OU.</value>
@@ -1939,50 +2014,44 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Добавяне на OU</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>Техниците избират OU от списъка по време на разполагането.</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Техниците да избират OU</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Отмяна на търсенето</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Незадължително. Избройте OU, в които могат да се поставят компютри. Съществуващ компютърен акаунт се премества в избраната OU.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Организационни единици</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Акаунт, с който компютрите се присъединяват към домейна. Необходимо му е разрешение да присъединява компютри и да ги премества в избраните от вас OU. Паролата се изчиства при промяна на името на домейна или на акаунта.</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Име на домейна</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Акаунт за присъединяване</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU, която се използва при всяко разполагане или е предварително избрана, когато техниците могат да избират. Деактивирайте, за да се използва местоположението по подразбиране в домейна.</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Използване на отделен акаунт</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>OU по подразбиране</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Използване на споделения акаунт за присъединяване</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Импортиране от домейна</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Извежда OU от домейна, към който е присъединен този компютър, с вашия акаунт за Windows. Изберете кои да добавите.</value>
+    <value>Извежда OU от избрания домейн с вашия акаунт за Windows. Изберете кои да добавите.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Импортиране на OU от домейна на този компютър</value>
+    <value>Импортиране на OU от домейна</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Домейни, към които този носител може да присъединява компютри. Домейнът по подразбиране се използва, освен ако техниците могат да избират.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Домейни</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>Добавяне на избраните OU</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Въведете показвано име и отличителното име на OU. OU трябва да принадлежи към конфигурирания домейн.</value>
+    <value>Въведете показвано име и отличителното име на OU. OU трябва да принадлежи към избрания домейн.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Ръчно добавяне на OU</value>
@@ -1996,20 +2065,17 @@
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Показвано име</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>Добавете OU ръчно или импортирайте OU от домейна, към който е присъединен този компютър.</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>Действия за OU</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Незадължително. Избройте OU, в които могат да се поставят компютри в избрания домейн. Съществуващ компютърен акаунт се премества в избраната OU.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Парола</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>DNS име на домейна за присъединяване, например corp.contoso.com. Незадължително в режим „Интерактивно“, освен ако не добавите OU.</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Акаунт, използван от всеки домейн, който няма собствен акаунт. Необходимо му е разрешение да присъединява компютри и да ги премества в избраните от вас OU.</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Име на домейна</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Споделен акаунт за присъединяване</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Файл със сертификат за доверен основен CA</value>

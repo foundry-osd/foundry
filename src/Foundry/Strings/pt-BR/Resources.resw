@@ -1835,61 +1835,133 @@ Licenciado sob a licença MIT.</value>
     <value>Não foi possível abrir a documentação</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>A OU não foi adicionada. Verifique o nome do domínio, o nome de exibição e o nome distinto. A OU deve pertencer a esse domínio.</value>
+    <value>A OU não foi adicionada. Verifique o nome de exibição e o nome distinto. A OU deve pertencer ao domínio selecionado.</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Conta de associação</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Padrão</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Domínio</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OUs</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Limpar padrão</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Remover</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Definir como padrão</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>Os técnicos podem escolher</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>Primeiro insira um nome de domínio e uma conta válidos; depois verifique o tamanho da senha.</value>
+    <value>Primeiro insira uma conta válida; depois verifique o tamanho da senha.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Sim</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Buscando OUs no domínio deste computador...</value>
+    <value>Buscando OUs no domínio...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Busca cancelada.</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>Nenhuma OU foi encontrada no domínio deste computador.</value>
+    <value>Nenhuma OU foi encontrada neste domínio.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Só foi possível listar algumas das OUs. Você ainda pode adicionar as que aparecem.</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>Todas as OUs do domínio deste computador já estão na lista.</value>
+    <value>Todas as OUs deste domínio já estão na lista.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>A busca excedeu o tempo limite. Você pode adicionar OUs manualmente.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Não foi possível buscar no domínio. Verifique se este computador está associado a um domínio e consegue acessá-lo, ou adicione OUs manualmente.</value>
+    <value>Não foi possível buscar no domínio. Verifique se este computador consegue acessá-lo e se sua conta do Windows pode lê-lo, ou adicione OUs manualmente.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Adicionar domínio</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Adicionar um domínio</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Editar domínio</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Deixe a senha em branco para manter a atual.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>O domínio não foi salvo. Verifique o nome do domínio.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Pronto</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Remova as OUs deste domínio antes de alterar o nome dele.</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>Nenhuma OU adicionada.</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>As OUs não foram adicionadas. Elas pertencem a um domínio diferente do nome do domínio ou das OUs já listadas.</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Nenhum domínio adicionado.</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>Remover selecionado</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>As OUs não foram adicionadas. Elas pertencem a um domínio diferente do selecionado.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Primeiro adicione um domínio; depois liste as OUs dele.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Unidades organizacionais de {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Selecione um domínio para listar as OUs dele.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>OUs selecionadas: {0} de {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>Insira a conta.</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Compartilhada</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>As OUs listadas pertencem a um domínio diferente. Remova-as ou restaure o nome de domínio anterior.</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>Insira o nome do domínio antes de adicionar OUs.</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>Escolha um domínio padrão.</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>A OU padrão não está mais na lista. Escolha outra ou desative a OU padrão.</value>
+    <value>A OU padrão não está mais na lista. Escolha outra ou limpe o padrão.</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>Insira o nome do domínio.</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Adicione pelo menos um domínio.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>A mesma OU está listada mais de uma vez.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>Dois domínios têm o mesmo ID interno. Remova um e adicione-o novamente.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Este domínio já está na lista.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Duas OUs têm o mesmo ID interno. Remova uma e adicione-a novamente.</value>
@@ -1897,11 +1969,11 @@ Licenciado sob a licença MIT.</value>
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>A conta é longa demais ou inválida.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>O domínio das OUs listadas é inválido. Remova as OUs e adicione-as novamente.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>Uma OU tem um nome distinto inválido.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>Uma entrada de domínio está corrompida. Remova-a e adicione-a novamente.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Insira um nome de domínio válido, como corp.contoso.com.</value>
@@ -1915,17 +1987,20 @@ Licenciado sob a licença MIT.</value>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Ative a proteção da mídia por senha na página Geral e defina uma senha da mídia.</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>Adicione pelo menos uma OU, ou desative a seleção de OU e a OU padrão.</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Todas as OUs listadas devem pertencer ao mesmo domínio.</value>
+    <value>Cada OU listada deve pertencer ao seu domínio.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Insira a senha da conta.</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>Insira a conta como DOMAIN\user ou user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Insira a conta de associação compartilhada ou atribua a este domínio uma conta própria.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>É possível listar até 32 domínios.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>É possível listar até 1.024 OUs.</value>
@@ -1939,50 +2014,44 @@ Licenciado sob a licença MIT.</value>
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>Adicionar OU</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>Os técnicos escolhem uma OU da lista durante a implantação.</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>Permitir que os técnicos escolham a OU</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>Cancelar busca</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>Opcional. Liste as OUs em que os computadores podem ser colocados. Uma conta de computador existente é movida para a OU escolhida.</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>Unidades organizacionais</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>Conta usada para associar computadores ao domínio. Ela precisa de permissão para associar computadores e movê-los para as OUs que você escolher. A senha é apagada quando o nome do domínio ou a conta muda.</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Nome do domínio</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>Conta de associação</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU usada em todas as implantações, ou pré-selecionada quando os técnicos podem escolher. Desative para usar o local padrão do domínio.</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Usar uma conta dedicada</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>OU padrão</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Usar a conta de associação compartilhada</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Importar do domínio</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Lista as OUs do domínio ao qual este computador está associado, usando sua conta do Windows. Selecione as que deseja adicionar.</value>
+    <value>Lista as OUs do domínio selecionado, usando sua conta do Windows. Selecione as que deseja adicionar.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>Importar OUs do domínio deste computador</value>
+    <value>Importar OUs do domínio</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domínios aos quais esta mídia pode associar computadores. O domínio padrão é usado, a menos que os técnicos possam escolher.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domínios</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>Adicionar OUs selecionadas</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Insira um nome de exibição e o nome distinto da OU. A OU deve pertencer ao domínio configurado.</value>
+    <value>Insira um nome de exibição e o nome distinto da OU. A OU deve pertencer ao domínio selecionado.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Adicionar uma OU manualmente</value>
@@ -1996,20 +2065,17 @@ Licenciado sob a licença MIT.</value>
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>Nome de exibição</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>Adicione uma OU manualmente ou importe OUs do domínio ao qual este computador está associado.</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>Ações de OU</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Opcional. Liste as OUs em que os computadores podem ser colocados no domínio selecionado. Uma conta de computador existente é movida para a OU escolhida.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Senha</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Nome DNS do domínio ao qual associar, como corp.contoso.com. Opcional no modo Interativo, a menos que você adicione OUs.</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Conta usada por todos os domínios que não têm uma conta própria. Ela precisa de permissão para associar computadores e movê-los para as OUs que você escolher.</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>Nome do domínio</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Conta de associação compartilhada</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Arquivo de certificado de CA raiz confiável</value>

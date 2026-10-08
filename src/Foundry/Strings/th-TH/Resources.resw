@@ -1835,61 +1835,133 @@
     <value>ไม่สามารถเปิดเอกสารได้</value>
   </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
-    <value>ไม่ได้เพิ่ม OU ตรวจสอบชื่อโดเมน ชื่อที่แสดง และชื่อเฉพาะ OU ต้องอยู่ในโดเมนนั้น</value>
+    <value>ไม่ได้เพิ่ม OU ตรวจสอบชื่อที่แสดงและชื่อเฉพาะ OU ต้องอยู่ในโดเมนที่เลือก</value>
+  </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>บัญชีสำหรับเข้าร่วมโดเมน</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>ค่าเริ่มต้น</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>โดเมน</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>เพิ่ม</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>ล้างค่าเริ่มต้น</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>นำออก</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>ตั้งเป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="DomainJoin.CommandTechniciansChoose" xml:space="preserve">
+    <value>ช่างเทคนิคเลือกได้</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
-    <value>ป้อนชื่อโดเมนและบัญชีที่ถูกต้องก่อน แล้วตรวจสอบความยาวของรหัสผ่าน</value>
+    <value>ป้อนบัญชีที่ถูกต้องก่อน แล้วตรวจสอบความยาวของรหัสผ่าน</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>ใช่</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>กำลังค้นหา OU ในโดเมนของคอมพิวเตอร์เครื่องนี้...</value>
+    <value>กำลังค้นหา OU ในโดเมน...</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>ยกเลิกการค้นหาแล้ว</value>
   </data>
   <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
-    <value>ไม่พบ OU ในโดเมนของคอมพิวเตอร์เครื่องนี้</value>
+    <value>ไม่พบ OU ในโดเมนนี้</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>แสดงรายการ OU ได้เพียงบางส่วน คุณยังคงเพิ่ม OU ที่แสดงอยู่ได้</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>OU ทั้งหมดในโดเมนของคอมพิวเตอร์เครื่องนี้อยู่ในรายการแล้ว</value>
+    <value>OU ทั้งหมดในโดเมนนี้อยู่ในรายการแล้ว</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>หมดเวลาค้นหาแล้ว คุณสามารถเพิ่ม OU ด้วยตนเองได้</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>ไม่สามารถค้นหาในโดเมนได้ ตรวจสอบว่าคอมพิวเตอร์เครื่องนี้เข้าร่วมโดเมนแล้วและติดต่อโดเมนได้ หรือเพิ่ม OU ด้วยตนเอง</value>
+    <value>ไม่สามารถค้นหาในโดเมนได้ ตรวจสอบว่าคอมพิวเตอร์เครื่องนี้ติดต่อโดเมนได้และบัญชี Windows ของคุณอ่านโดเมนได้ หรือเพิ่ม OU ด้วยตนเอง</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>เพิ่มโดเมน</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>เพิ่มโดเมน</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>แก้ไขโดเมน</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>เว้นรหัสผ่านว่างไว้เพื่อใช้รหัสผ่านปัจจุบันต่อไป</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>ไม่ได้บันทึกโดเมน ตรวจสอบชื่อโดเมน</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>พร้อม</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>ลบ OU ของโดเมนนี้ออกก่อนเปลี่ยนชื่อโดเมน</value>
   </data>
   <data name="DomainJoin.EmptyCatalog" xml:space="preserve">
     <value>ยังไม่ได้เพิ่ม OU</value>
   </data>
-  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>ไม่ได้เพิ่ม OU เนื่องจาก OU เหล่านี้อยู่ในโดเมนที่ต่างจากชื่อโดเมนหรือ OU ที่อยู่ในรายการแล้ว</value>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>ยังไม่ได้เพิ่มโดเมน</value>
   </data>
-  <data name="DomainJoin.RemoveSelected" xml:space="preserve">
-    <value>ลบที่เลือกไว้</value>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>ไม่ได้เพิ่ม OU เนื่องจาก OU เหล่านี้อยู่ในโดเมนที่ต่างจากโดเมนที่เลือก</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>เพิ่มโดเมนก่อน แล้วจึงระบุ OU ของโดเมนนั้น</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>หน่วยองค์กรของ {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>เลือกโดเมนเพื่อแสดงรายการ OU ของโดเมนนั้น</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
     <value>OU ที่เลือก: {0} จาก {1}</value>
   </data>
-  <data name="DomainJoin.Validation.AccountNameRequired" xml:space="preserve">
-    <value>ป้อนบัญชี</value>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>ใช้ร่วมกัน</value>
   </data>
-  <data name="DomainJoin.Validation.CatalogDomainMismatch" xml:space="preserve">
-    <value>OU ในรายการอยู่ในโดเมนอื่น ลบ OU เหล่านั้นออกหรือเปลี่ยนกลับเป็นชื่อโดเมนเดิม</value>
-  </data>
-  <data name="DomainJoin.Validation.CatalogDomainRequired" xml:space="preserve">
-    <value>ป้อนชื่อโดเมนก่อนเพิ่ม OU</value>
+  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
+    <value>เลือกโดเมนเริ่มต้น</value>
   </data>
   <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU เริ่มต้นไม่อยู่ในรายการแล้ว เลือก OU อื่นหรือปิด OU เริ่มต้น</value>
+    <value>OU เริ่มต้นไม่อยู่ในรายการแล้ว เลือก OU อื่นหรือล้างค่าเริ่มต้น</value>
   </data>
-  <data name="DomainJoin.Validation.DomainNameRequired" xml:space="preserve">
-    <value>ป้อนชื่อโดเมน</value>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>เพิ่มโดเมนอย่างน้อยหนึ่งรายการ</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
     <value>มี OU เดียวกันอยู่ในรายการมากกว่าหนึ่งครั้ง</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
+    <value>มีโดเมนสองรายการที่ใช้ ID ภายในเดียวกัน ลบออกหนึ่งรายการแล้วเพิ่มใหม่อีกครั้ง</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>โดเมนนี้อยู่ในรายการแล้ว</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>มี OU สองรายการที่ใช้ ID ภายในเดียวกัน ลบออกหนึ่งรายการแล้วเพิ่มใหม่อีกครั้ง</value>
@@ -1897,11 +1969,11 @@
   <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
     <value>บัญชียาวเกินไปหรือไม่ถูกต้อง</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidCatalogDomain" xml:space="preserve">
-    <value>โดเมนของ OU ในรายการไม่ถูกต้อง ลบ OU ออกแล้วเพิ่มใหม่อีกครั้ง</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
     <value>มี OU ที่ชื่อเฉพาะไม่ถูกต้อง</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
+    <value>รายการโดเมนเสียหาย ลบออกแล้วเพิ่มใหม่อีกครั้ง</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>ป้อนชื่อโดเมนที่ถูกต้อง เช่น corp.contoso.com</value>
@@ -1915,17 +1987,20 @@
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>เปิดการป้องกันสื่อด้วยรหัสผ่านในหน้า "ทั่วไป" และตั้งรหัสผ่านสื่อ</value>
   </data>
-  <data name="DomainJoin.Validation.OrganizationalUnitsRequired" xml:space="preserve">
-    <value>เพิ่ม OU อย่างน้อยหนึ่งรายการ หรือปิดการเลือก OU และ OU เริ่มต้น</value>
-  </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>OU ทั้งหมดในรายการต้องอยู่ในโดเมนเดียวกัน</value>
+    <value>OU ทั้งหมดในรายการต้องอยู่ในโดเมนของตนเอง</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>ป้อนรหัสผ่านของบัญชี</value>
   </data>
   <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
     <value>ป้อนบัญชีในรูปแบบ DOMAIN\user หรือ user@domain</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>ป้อนบัญชีสำหรับเข้าร่วมโดเมนที่ใช้ร่วมกัน หรือกำหนดบัญชีเฉพาะให้โดเมนนี้</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>เพิ่มโดเมนในรายการได้ไม่เกิน 32 รายการ</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>เพิ่ม OU ในรายการได้ไม่เกิน 1,024 รายการ</value>
@@ -1939,50 +2014,44 @@
   <data name="DomainJoinAdd.Content" xml:space="preserve">
     <value>เพิ่ม OU</value>
   </data>
-  <data name="DomainJoinAllowSelection.Description" xml:space="preserve">
-    <value>ช่างเทคนิคเลือก OU จากรายการระหว่างการปรับใช้</value>
-  </data>
-  <data name="DomainJoinAllowSelection.Header" xml:space="preserve">
-    <value>ให้ช่างเทคนิคเลือก OU</value>
-  </data>
   <data name="DomainJoinCancel.Content" xml:space="preserve">
     <value>ยกเลิกการค้นหา</value>
-  </data>
-  <data name="DomainJoinCatalog.Description" xml:space="preserve">
-    <value>ไม่บังคับ ระบุ OU ที่ใช้จัดวางคอมพิวเตอร์ได้ บัญชีคอมพิวเตอร์ที่มีอยู่จะถูกย้ายไปยัง OU ที่เลือก</value>
   </data>
   <data name="DomainJoinCatalog.Header" xml:space="preserve">
     <value>หน่วยองค์กร</value>
   </data>
-  <data name="DomainJoinCredentials.Description" xml:space="preserve">
-    <value>บัญชีที่ใช้นำคอมพิวเตอร์เข้าร่วมโดเมน บัญชีนี้ต้องมีสิทธิ์นำคอมพิวเตอร์เข้าร่วมโดเมนและย้ายไปยัง OU ที่คุณเลือก รหัสผ่านจะถูกล้างเมื่อชื่อโดเมนหรือบัญชีเปลี่ยนแปลง</value>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>ชื่อโดเมน</value>
   </data>
-  <data name="DomainJoinCredentials.Header" xml:space="preserve">
-    <value>บัญชีสำหรับเข้าร่วมโดเมน</value>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
   </data>
-  <data name="DomainJoinDefaultOu.Description" xml:space="preserve">
-    <value>OU ที่ใช้กับทุกการปรับใช้ หรือถูกเลือกไว้ล่วงหน้าเมื่อช่างเทคนิคเลือกได้ ปิดเพื่อใช้ตำแหน่งเริ่มต้นของโดเมน</value>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>ใช้บัญชีเฉพาะ</value>
   </data>
-  <data name="DomainJoinDefaultOu.Header" xml:space="preserve">
-    <value>OU เริ่มต้น</value>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>ใช้บัญชีสำหรับเข้าร่วมโดเมนที่ใช้ร่วมกัน</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>นำเข้าจากโดเมน</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>แสดงรายการ OU ของโดเมนที่คอมพิวเตอร์เครื่องนี้เข้าร่วมอยู่ โดยใช้บัญชี Windows ของคุณ เลือกรายการที่จะเพิ่ม</value>
+    <value>แสดงรายการ OU ของโดเมนที่เลือก โดยใช้บัญชี Windows ของคุณ เลือกรายการที่จะเพิ่ม</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>นำเข้า OU จากโดเมนของคอมพิวเตอร์เครื่องนี้</value>
+    <value>นำเข้า OU จากโดเมน</value>
   </data>
-  <data name="DomainJoinDomainName.PlaceholderText" xml:space="preserve">
-    <value>corp.contoso.com</value>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>โดเมนที่สื่อนี้เข้าร่วมได้ ระบบจะใช้โดเมนเริ่มต้น เว้นแต่ช่างเทคนิคเลือกได้</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>โดเมน</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
     <value>เพิ่ม OU ที่เลือก</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>ป้อนชื่อที่แสดงและชื่อเฉพาะของ OU โดย OU ต้องอยู่ในโดเมนที่กำหนดค่าไว้</value>
+    <value>ป้อนชื่อที่แสดงและชื่อเฉพาะของ OU โดย OU ต้องอยู่ในโดเมนที่เลือก</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>เพิ่ม OU ด้วยตนเอง</value>
@@ -1996,20 +2065,17 @@
   <data name="DomainJoinManualLabel.Header" xml:space="preserve">
     <value>ชื่อที่แสดง</value>
   </data>
-  <data name="DomainJoinOuActions.Description" xml:space="preserve">
-    <value>เพิ่ม OU ด้วยตนเองหรือนำเข้า OU จากโดเมนที่คอมพิวเตอร์เครื่องนี้เข้าร่วมอยู่</value>
-  </data>
-  <data name="DomainJoinOuActions.Header" xml:space="preserve">
-    <value>การกระทำของ OU</value>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>ไม่บังคับ ระบุ OU ที่ใช้จัดวางคอมพิวเตอร์ได้ในโดเมนที่เลือก บัญชีคอมพิวเตอร์ที่มีอยู่จะถูกย้ายไปยัง OU ที่เลือก</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>รหัสผ่าน</value>
   </data>
-  <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>ชื่อ DNS ของโดเมนที่จะเข้าร่วม เช่น corp.contoso.com ไม่บังคับในโหมดแบบโต้ตอบ เว้นแต่คุณจะเพิ่ม OU</value>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>บัญชีที่ใช้กับทุกโดเมนที่ไม่มีบัญชีของตนเอง บัญชีนี้ต้องมีสิทธิ์นำคอมพิวเตอร์เข้าร่วมโดเมนและย้ายไปยัง OU ที่คุณเลือก</value>
   </data>
-  <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
-    <value>ชื่อโดเมน</value>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>บัญชีสำหรับเข้าร่วมโดเมนที่ใช้ร่วมกัน</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>ไฟล์ใบรับรอง root CA ที่เชื่อถือได้</value>
