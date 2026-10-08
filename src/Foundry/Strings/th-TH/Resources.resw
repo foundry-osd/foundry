@@ -1924,9 +1924,6 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>ไม่ได้เพิ่ม OU เนื่องจาก OU เหล่านี้อยู่ในโดเมนที่ต่างจากโดเมนที่เลือก</value>
   </data>
-  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>ไม่ได้กำหนดค่าบัญชีภายในเครื่องในหน้า OOBE ดังนั้น Windows จะขอให้สร้างบัญชีเมื่อสิ้นสุดการติดตั้ง เพิ่มบัญชีภายในเครื่องในหน้านั้นเพื่อไปยังหน้าจอลงชื่อเข้าใช้โดยตรง บัญชี Administrator ที่มีอยู่แล้วเพียงอย่างเดียวจะไม่ข้ามขั้นตอนดังกล่าว</value>
-  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>เพิ่มโดเมนก่อน แล้วจึงระบุ OU ของโดเมนนั้น</value>
   </data>

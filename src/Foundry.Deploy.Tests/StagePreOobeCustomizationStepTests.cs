@@ -137,8 +137,11 @@ public sealed class StagePreOobeCustomizationStepTests
         {
             Assert.False(File.Exists(Path.Combine(stateRoot, "domain-join-phase.json")));
             Assert.False(File.Exists(Path.Combine(stateRoot, "domain-join-result.json")));
+            Assert.False(File.Exists(Path.Combine(stateRoot, DomainJoinStateFiles.SkipAccountCreationRequest)));
             return;
         }
+        // With the answer file Foundry generates, the runtime is asked to skip account creation after a verified join.
+        Assert.True(File.Exists(Path.Combine(stateRoot, DomainJoinStateFiles.SkipAccountCreationRequest)));
         byte[] planBytes = File.ReadAllBytes(context.RuntimeState.PreOobeManifestPath!);
         using var plan = JsonDocument.Parse(planBytes);
         Assert.DoesNotContain("joiner", Encoding.UTF8.GetString(planBytes));
@@ -157,6 +160,27 @@ public sealed class StagePreOobeCustomizationStepTests
         using var report = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(stateRoot, "domain-join-result.json")));
         Assert.Equal(hash, report.RootElement.GetProperty("planHash").GetString());
         Assert.Equal("", report.RootElement.GetProperty("originatingBootId").GetString());
+    }
+
+    [Fact]
+    public async Task DomainStagingWithACustomAnswerFileLeavesAccountCreationToThatFile()
+    {
+        using var temp = new TemporaryDirectory();
+        using var context = CreateContext(temp, usesCustomUnattend: true, domain: true);
+        string answer = Path.Combine(temp.WindowsRoot, "Windows", "Panther", "unattend.xml");
+        Directory.CreateDirectory(Path.GetDirectoryName(answer)!);
+        await File.WriteAllBytesAsync(answer, new Foundry.Deploy.Services.Deployment.Unattend.PreOobeUnattendHookService().Prepare(Encoding.UTF8.GetBytes(
+            "<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\"><ComputerName>LAB01</ComputerName></component></settings></unattend>"), "x64"),
+            TestContext.Current.CancellationToken);
+        var service = new PreOobeTargetStagingService(path => Directory.CreateDirectory(path));
+
+        var result = await new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(), service).ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        string stateRoot = Path.Combine(temp.WindowsRoot, "Windows", "Temp", "Foundry", "State", "PreOobe");
+        Assert.True(File.Exists(Path.Combine(stateRoot, "domain-join-result.json")));
+        Assert.False(File.Exists(Path.Combine(stateRoot, DomainJoinStateFiles.SkipAccountCreationRequest)));
+        Assert.DoesNotContain("HideOnlineAccountScreens", File.ReadAllText(answer));
     }
 
     [Fact]

@@ -1924,9 +1924,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>De OU's zijn niet toegevoegd. Ze behoren tot een ander domein dan het geselecteerde domein.</value>
   </data>
-  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>Er is geen lokaal account geconfigureerd op de OOBE-pagina, dus Windows vraagt aan het einde van de installatie om er een te maken. Voeg daar een lokaal account toe om direct bij het aanmeldingsscherm uit te komen; met alleen het ingebouwde Administrator-account wordt die stap niet overgeslagen.</value>
-  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Voeg eerst een domein toe en geef daarna de OU's ervan op.</value>
   </data>

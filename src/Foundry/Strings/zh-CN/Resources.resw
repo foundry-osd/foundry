@@ -1924,9 +1924,6 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>未添加这些 OU。它们所属的域与所选域不一致。</value>
   </data>
-  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>OOBE 页面上未配置任何本地帐户，因此 Windows 将在安装结束时要求创建一个帐户。请在该页面添加本地帐户，以便直接进入登录屏幕；仅凭内置 Administrator 帐户无法跳过该步骤。</value>
-  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>请先添加域，再列出其 OU。</value>
   </data>

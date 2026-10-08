@@ -227,9 +227,13 @@ public sealed class PreOobeTargetStagingService
             new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY DRIVERPACK");
             if (context.RuntimeState.DomainJoinStatus == DomainJoinExecutionStatus.Ready && !context.Request.UsesCustomUnattend)
             {
-                // Runs after the OOBE customization step, which otherwise leaves the account screens visible.
+                // Runs after the OOBE customization step, which otherwise leaves the Microsoft account sign-in visible.
                 DomainJoinOobeAccountScreens.Hide(partition, context.Request.OperatingSystem.Architecture);
-                await context.AppendLogAsync(Foundry.Deploy.Services.Logging.DeploymentLogLevel.Info, "OOBE account screens hidden for the domain-joined computer.", cancellationToken).ConfigureAwait(false);
+                // The runtime skips the account creation page only once it has verified the membership.
+                string skipRequest = Path.Combine(layout.StatePreOobe, Foundry.Core.Models.PreOobe.DomainJoinStateFiles.SkipAccountCreationRequest);
+                DeploymentFilePublication.WriteAllText(skipRequest, string.Empty, new UTF8Encoding(false));
+                unpublishedStateFiles.Add(skipRequest);
+                await context.AppendLogAsync(Foundry.Deploy.Services.Logging.DeploymentLogLevel.Info, "OOBE Microsoft account sign-in hidden; account creation is skipped after a verified join.", cancellationToken).ConfigureAwait(false);
             }
             BeforeHookPublication?.Invoke();
             new PreOobeUnattendHookService(_protectDirectory).Publish(partition, context.Request.OperatingSystem.Architecture);

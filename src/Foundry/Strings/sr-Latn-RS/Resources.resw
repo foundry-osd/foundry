@@ -1924,9 +1924,6 @@ Licencirano pod MIT licencom.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU nisu dodate. Pripadaju drugom domenu, a ne izabranom.</value>
   </data>
-  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>Na stranici OOBE nije konfigurisan nijedan lokalni nalog, pa će Windows na kraju instalacije zatražiti da se on kreira. Tamo dodajte lokalni nalog da biste direktno došli do ekrana za prijavljivanje; sam ugrađeni nalog Administrator ne preskače taj korak.</value>
-  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Prvo dodajte domen, a zatim navedite njegove OU.</value>
   </data>

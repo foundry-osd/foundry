@@ -6,6 +6,7 @@ using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Models.Configuration;
 using Foundry.PostInstall.Execution;
 using Foundry.PostInstall.Windows;
+using Serilog;
 namespace Foundry.PostInstall.Actions;
 
 /// <summary>Checks only passwordless local DNS membership and the active final name on a later boot.</summary>
@@ -45,7 +46,27 @@ internal sealed class DomainMembershipVerificationAction(string root, PreOobeExe
             Membership = membership,
             Restart = laterBoot && report.Restart is DomainJoinRestartState.Required or DomainJoinRestartState.Requested ? DomainJoinRestartState.Completed : report.Restart
         });
+        if (membership.State == DomainJoinPhaseState.Succeeded) SkipAccountCreationWhenRequested();
         bool warning = membership.State is not (DomainJoinPhaseState.Succeeded or DomainJoinPhaseState.Skipped);
         return new(!warning, FailureCode: warning ? "domain_membership_warning" : null, HasWarnings: warning);
+    }
+
+    /// <summary>
+    /// A verified domain member signs in with domain accounts, so Windows must not ask to create a local one.
+    /// It is done here, not in the answer file, so a failed or unverified join keeps the page and someone can
+    /// still create an account. A refusal is logged and does not change the verified membership.
+    /// </summary>
+    private void SkipAccountCreationWhenRequested()
+    {
+        if (!File.Exists(OwnedPaths.Resolve(root, "State/PreOobe/" + DomainJoinStateFiles.SkipAccountCreationRequest))) return;
+        try
+        {
+            native.SkipAccountCreation();
+            Log.Information("Windows account creation page skipped for the verified domain member");
+        }
+        catch (Exception error) when (error is UnauthorizedAccessException or IOException or System.Security.SecurityException)
+        {
+            Log.Warning("Windows account creation page could not be skipped; failure type {FailureType}", error.GetType().Name);
+        }
     }
 }

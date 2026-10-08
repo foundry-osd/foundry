@@ -54,6 +54,47 @@ public sealed class DomainJoinActionTests
         Assert.Equal(success, outcome.Succeeded); Assert.Equal(!success, outcome.HasWarnings);
         Assert.Equal(success, report.Read().Membership.State == DomainJoinPhaseState.Succeeded);
     }
+    [Theory]
+    [InlineData("next-boot", "PC-01", true, 1)]
+    // Without the request, an imported answer file keeps its own OOBE choices.
+    [InlineData("next-boot", "PC-01", false, 0)]
+    // An unverified or mismatched membership leaves the page, so someone can still create an account.
+    [InlineData("installed-boot", "PC-01", true, 0)]
+    [InlineData("next-boot", "OLD-NAME", true, 0)]
+    public async Task Verification_SkipsAccountCreationOnlyWhenRequestedAndVerified(string boot, string name, bool requested, int expectedSkips)
+    {
+        using var f = new DomainFixture();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
+        report.Write(report.Read() with { OriginatingBootId = "installed-boot", Join = new() { State = DomainJoinPhaseState.Succeeded }, Restart = DomainJoinRestartState.Required });
+        var journal = new ExecutionJournal(f.Root); var state = journal.Read(); state.Cursor = 1; state.BootIdentity = boot;
+        state.Actions["verify"] = new() { Status = "Running" }; journal.Write(state);
+        File.Delete(OwnedPaths.Resolve(f.Root, f.Parameters.CredentialPayloadPath)); f.Native.Name = name;
+        if (requested) File.WriteAllText(OwnedPaths.Resolve(f.Root, "State/PreOobe/" + DomainJoinStateFiles.SkipAccountCreationRequest), string.Empty);
+
+        await new DomainMembershipVerificationAction(f.Root, f.Plan, f.Hash, boot, f.Native).ExecuteAsync(f.Plan.Actions[1], CancellationToken.None);
+
+        Assert.Equal(expectedSkips, f.Native.AccountCreationSkips);
+    }
+
+    [Fact]
+    public async Task Verification_StaysSuccessfulWhenTheAccountPageCannotBeSkipped()
+    {
+        using var f = new DomainFixture();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
+        report.Write(report.Read() with { OriginatingBootId = "installed-boot", Join = new() { State = DomainJoinPhaseState.Succeeded }, Restart = DomainJoinRestartState.Required });
+        var journal = new ExecutionJournal(f.Root); var state = journal.Read(); state.Cursor = 1; state.BootIdentity = "next-boot";
+        state.Actions["verify"] = new() { Status = "Running" }; journal.Write(state);
+        File.Delete(OwnedPaths.Resolve(f.Root, f.Parameters.CredentialPayloadPath));
+        File.WriteAllText(OwnedPaths.Resolve(f.Root, "State/PreOobe/" + DomainJoinStateFiles.SkipAccountCreationRequest), string.Empty);
+        f.Native.ThrowOnAccountCreationSkip = true;
+
+        var outcome = await new DomainMembershipVerificationAction(f.Root, f.Plan, f.Hash, "next-boot", f.Native).ExecuteAsync(f.Plan.Actions[1], CancellationToken.None);
+
+        Assert.True(outcome.Succeeded);
+        Assert.Equal(1, f.Native.AccountCreationSkips);
+        Assert.Equal(DomainJoinPhaseState.Succeeded, report.Read().Membership.State);
+    }
+
     private sealed class WorkerProcess(DomainFixture fixture) : IPreOobeProcessExecutor
     {
         public ProcessCommand? Command;

@@ -301,6 +301,9 @@ internal sealed class FakeNative : INativeDomainJoin
     public bool PendingName;
     public List<string> Calls = [];
     public Action? BeforeJoin;
+    public int AccountCreationSkips;
+    public bool ThrowOnAccountCreationSkip;
+    public void SkipAccountCreation() { AccountCreationSkips++; if (ThrowOnAccountCreationSkip) throw new UnauthorizedAccessException(); }
     public string GetActiveComputerName() => Name;
     public int SetComputerName(string name) { Calls.Add("set"); return 0; }
     public int Join(string domainAndDc, string? creationOu, DomainJoinCredentialContext context, ReadOnlySpan<char> password, bool usePendingName)

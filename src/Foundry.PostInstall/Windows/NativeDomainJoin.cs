@@ -5,6 +5,7 @@
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Foundry.Core.Models.Configuration;
+using Microsoft.Win32;
 namespace Foundry.PostInstall.Windows;
 
 /// <summary>Provides the local native operations; a join is never automatically retried.</summary>
@@ -14,6 +15,12 @@ internal interface INativeDomainJoin
     int SetComputerName(string name);
     int Join(string domainAndDc, string? creationOu, DomainJoinCredentialContext context, ReadOnlySpan<char> password, bool usePendingName);
     DomainMembershipSnapshot GetMembership();
+
+    /// <summary>
+    /// Tells Windows OOBE that no user account has to be created, so setup ends on the sign-in screen. Windows
+    /// sets the same value itself when an answer file creates an account.
+    /// </summary>
+    void SkipAccountCreation();
 }
 /// <summary>Local passwordless membership observation using DNS domain identity and the active startup name.</summary>
 internal sealed record DomainMembershipSnapshot(int JoinStatus, string? DomainName, string ActiveComputerName, int? NativeErrorCode = null);
@@ -71,6 +78,12 @@ internal sealed class NativeDomainJoin : INativeDomainJoin
         catch (Win32Exception error) { return new(0, null, name, error.NativeErrorCode); }
         finally { if (flat != 0) NetApiBufferFree(flat); if (dns != 0) DsRoleFreeMemory(dns); }
     }
+    public void SkipAccountCreation()
+    {
+        using RegistryKey key = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OOBE", writable: true);
+        key.SetValue("UnattendCreatedUser", 1, RegistryValueKind.DWord);
+    }
+
     [StructLayout(LayoutKind.Sequential)]
     private struct PrimaryDomainInfoBasic
     {

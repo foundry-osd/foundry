@@ -1924,9 +1924,6 @@ Licencirano pod licenco MIT.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU niso bile dodane. Pripadajo drugi domeni, ne izbrani.</value>
   </data>
-  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>Na strani OOBE ni konfiguriran noben lokalni račun, zato bo sistem Windows na koncu namestitve zahteval, da ga ustvarite. Tam dodajte lokalni račun, da pridete neposredno na zaslon za vpis; vgrajeni skrbniški račun sam po sebi tega koraka ne preskoči.</value>
-  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Najprej dodajte domeno, nato navedite njene OU.</value>
   </data>

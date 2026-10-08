@@ -1924,9 +1924,6 @@ Licencované podľa licencie MIT.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU neboli pridané. Patria do inej domény, než je vybraná doména.</value>
   </data>
-  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>Na stránke OOBE nie je nakonfigurované žiadne lokálne konto, preto systém Windows na konci inštalácie požiada o jeho vytvorenie. Pridajte tam lokálne konto, aby ste sa dostali priamo na prihlasovaciu obrazovku; samotné vstavané konto Administrator tento krok nepreskočí.</value>
-  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Najprv pridajte doménu, potom uveďte jej OU.</value>
   </data>

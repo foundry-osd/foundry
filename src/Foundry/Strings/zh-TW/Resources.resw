@@ -1924,9 +1924,6 @@
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>未新增這些 OU。它們所屬的網域與選取的網域不一致。</value>
   </data>
-  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>OOBE 頁面上未設定任何本機帳戶，因此 Windows 會在安裝結束時要求建立一個帳戶。請在該頁面新增本機帳戶，以便直接進入登入畫面；僅憑內建 Administrator 帳戶無法略過該步驟。</value>
-  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>請先新增網域，再列出其 OU。</value>
   </data>

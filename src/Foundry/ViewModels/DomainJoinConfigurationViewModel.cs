@@ -89,12 +89,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public string SetDefaultLabel => Text("CommandSetDefault");
     public string ClearDefaultLabel => Text("CommandClearDefault");
 
-    /// <summary>
-    /// Gets whether to warn that Windows will ask to create an account at the end of setup, because the generated
-    /// answer file creates no local account. It never blocks media creation.
-    /// </summary>
-    public bool IsLocalAccountMissing => IsActive && DomainJoinLocalAccountAdvisory.IsLocalAccountMissing(configuration.Current);
-    public string LocalAccountMissingText => Text("LocalAccountMissing");
 
     /// <summary>Gets the import button label; the same button cancels a running domain search.</summary>
     public string ImportButtonText => localization.GetString(IsDiscovering ? "DomainJoinCancel.Content" : "DomainJoinDiscover.Content");
@@ -538,7 +532,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         {
             nameof(DomainColumnHeader), nameof(AccountColumnHeader), nameof(OuCountColumnHeader), nameof(DefaultColumnHeader), nameof(StatusColumnHeader),
             nameof(LabelColumnHeader), nameof(DistinguishedNameColumnHeader), nameof(EmptyDomainsText), nameof(ImportButtonText), nameof(StatusText),
-            nameof(AddLabel), nameof(EditLabel), nameof(RemoveLabel), nameof(SetDefaultLabel), nameof(ClearDefaultLabel), nameof(LocalAccountMissingText)
+            nameof(AddLabel), nameof(EditLabel), nameof(RemoveLabel), nameof(SetDefaultLabel), nameof(ClearDefaultLabel)
         })
         {
             OnPropertyChanged(property);
@@ -666,7 +660,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             nameof(EmptyOrganizationalUnitsText), nameof(DomainListVisibility), nameof(EmptyDomainsVisibility), nameof(OrganizationalUnitListVisibility),
             nameof(EmptyOrganizationalUnitsVisibility), nameof(SharedAccountValidationMessage), nameof(SharedAccountValidationVisibility),
             nameof(DomainsValidationMessage), nameof(DomainsValidationVisibility), nameof(OrganizationalUnitsValidationMessage),
-            nameof(OrganizationalUnitsValidationVisibility), nameof(IsLocalAccountMissing)
+            nameof(OrganizationalUnitsValidationVisibility)
         })
         {
             OnPropertyChanged(property);

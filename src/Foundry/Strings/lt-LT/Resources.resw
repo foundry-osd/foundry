@@ -1924,9 +1924,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU nepridėti. Jie priklauso kitam domenui nei pasirinktasis.</value>
   </data>
-  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>OOBE puslapyje nesukonfigūruota jokia vietinė paskyra, todėl sąrankos pabaigoje „Windows“ paprašys ją sukurti. Pridėkite vietinę paskyrą tame puslapyje, kad iš karto patektumėte į prisijungimo ekraną; vien įtaisytosios administratoriaus paskyros nepakanka šiam veiksmui praleisti.</value>
-  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Pirmiausia pridėkite domeną, tada išvardykite jo OU.</value>
   </data>

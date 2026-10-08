@@ -1924,9 +1924,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
     <value>OU:ita ei lisätty. Ne kuuluvat eri toimialueeseen kuin valittu toimialue.</value>
   </data>
-  <data name="DomainJoin.LocalAccountMissing" xml:space="preserve">
-    <value>OOBE-sivulla ei ole määritetty paikallista tiliä, joten Windows pyytää luomaan sellaisen asennuksen lopussa. Lisää paikallinen tili kyseisellä sivulla, niin pääset suoraan kirjautumisnäyttöön; pelkkä sisäinen järjestelmänvalvojan tili ei ohita tätä vaihetta.</value>
-  </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
     <value>Lisää ensin toimialue ja luettele sitten sen OU:t.</value>
   </data>

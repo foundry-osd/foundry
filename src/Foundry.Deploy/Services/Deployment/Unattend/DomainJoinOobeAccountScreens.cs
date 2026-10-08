@@ -13,8 +13,8 @@ namespace Foundry.Deploy.Services.Deployment.Unattend;
 /// <remarks>
 /// Applies only to the answer file Foundry generates; an imported answer file keeps ownership of its OOBE section.
 /// Microsoft documents <c>HideLocalAccountScreen</c> for Windows Server only: on Windows client it is ignored, and
-/// setup still asks who will use the device unless the answer file creates a local account. The authoring pages
-/// warn about that case. The setting is written for the editions where it applies.
+/// setup still asks who will use the device. That page is skipped by the post-installation runtime instead, and
+/// only after it has verified the domain membership, so a failed join still lets someone create an account.
 /// </remarks>
 internal static class DomainJoinOobeAccountScreens
 {
