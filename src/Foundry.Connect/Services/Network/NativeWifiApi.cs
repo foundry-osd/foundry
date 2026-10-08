@@ -12,6 +12,11 @@ namespace Foundry.Connect.Services.Network;
 /// <summary>
 /// Provides the native WLAN API calls used by Foundry.Connect to discover and inspect Wi-Fi state.
 /// </summary>
+/// <remarks>
+/// Interface identifiers must be declared as <see langword="in"/> <see cref="Guid"/> because wlanapi expects
+/// <c>const GUID*</c>. A by-value <see cref="Guid"/> only works on x64, where the calling convention happens to
+/// pass 16-byte structures by reference; ARM64 passes them in registers and the calls fail.
+/// </remarks>
 internal static class NativeWifiApi
 {
     private const uint ClientVersion = 2;
@@ -404,7 +409,7 @@ internal static class NativeWifiApi
     [DllImport("wlanapi.dll")]
     private static extern uint WlanGetAvailableNetworkList(
         IntPtr clientHandle,
-        Guid interfaceGuid,
+        in Guid interfaceGuid,
         uint flags,
         IntPtr reserved,
         out IntPtr availableNetworkList);
@@ -412,7 +417,7 @@ internal static class NativeWifiApi
     [DllImport("wlanapi.dll")]
     private static extern uint WlanScan(
         IntPtr clientHandle,
-        Guid interfaceGuid,
+        in Guid interfaceGuid,
         IntPtr dot11Ssid,
         IntPtr ieData,
         IntPtr reserved);
@@ -420,7 +425,7 @@ internal static class NativeWifiApi
     [DllImport("wlanapi.dll")]
     private static extern uint WlanQueryInterface(
         IntPtr clientHandle,
-        Guid interfaceGuid,
+        in Guid interfaceGuid,
         WlanIntfOpcode opCode,
         IntPtr reserved,
         out uint dataSize,
