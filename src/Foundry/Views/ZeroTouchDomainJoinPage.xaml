@@ -133,39 +133,6 @@
                     </wct:SettingsCard>
 
                     <wct:SettingsCard
-                        x:Uid="DomainJoinDefaultOu"
-                        HorizontalContentAlignment="Stretch">
-                        <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE734;" />
-                        </wct:SettingsCard.HeaderIcon>
-                        <StackPanel
-                            HorizontalAlignment="Right"
-                            Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <ComboBox
-                                Width="{ThemeResource FoundryWideInputMinWidth}"
-                                VerticalAlignment="Center"
-                                DisplayMemberPath="Hierarchy"
-                                IsEnabled="{x:Bind ViewModel.UseDefaultOu, Mode=OneWay}"
-                                ItemsSource="{x:Bind ViewModel.OrganizationalUnits}"
-                                SelectedItem="{x:Bind ViewModel.SelectedDefaultOu, Mode=TwoWay}" />
-                            <ToggleSwitch
-                                behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                                IsEnabled="{x:Bind ViewModel.CanUseDefaultOu, Mode=OneWay}"
-                                IsOn="{x:Bind ViewModel.UseDefaultOu, Mode=TwoWay}" />
-                        </StackPanel>
-                    </wct:SettingsCard>
-
-                    <wct:SettingsCard x:Uid="DomainJoinAllowSelection">
-                        <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE762;" />
-                        </wct:SettingsCard.HeaderIcon>
-                        <ToggleSwitch
-                            behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                            IsOn="{x:Bind ViewModel.AllowOuSelectionDuringDeployment, Mode=TwoWay}" />
-                    </wct:SettingsCard>
-
-                    <wct:SettingsCard
                         x:Uid="DomainJoinCatalog"
                         HorizontalContentAlignment="Stretch">
                         <wct:SettingsCard.HeaderIcon>
@@ -207,6 +174,39 @@
                                 </tv:TableView.Columns>
                             </tv:TableView>
                         </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        x:Uid="DomainJoinDefaultOu"
+                        HorizontalContentAlignment="Stretch">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE734;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <ComboBox
+                                Width="{ThemeResource FoundryWideInputMinWidth}"
+                                VerticalAlignment="Center"
+                                DisplayMemberPath="Hierarchy"
+                                IsEnabled="{x:Bind ViewModel.UseDefaultOu, Mode=OneWay}"
+                                ItemsSource="{x:Bind ViewModel.OrganizationalUnits}"
+                                SelectedItem="{x:Bind ViewModel.SelectedDefaultOu, Mode=TwoWay}" />
+                            <ToggleSwitch
+                                behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                IsEnabled="{x:Bind ViewModel.CanUseDefaultOu, Mode=OneWay}"
+                                IsOn="{x:Bind ViewModel.UseDefaultOu, Mode=TwoWay}" />
+                        </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard x:Uid="DomainJoinAllowSelection">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE762;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch
+                            behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                            IsOn="{x:Bind ViewModel.AllowOuSelectionDuringDeployment, Mode=TwoWay}" />
                     </wct:SettingsCard>
                 </StackPanel>
             </ContentControl>
