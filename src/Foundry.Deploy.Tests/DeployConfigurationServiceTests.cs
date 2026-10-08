@@ -12,6 +12,77 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeployConfigurationServiceTests
 {
+    [Theory]
+    [InlineData("""{"isEnabled":true,"mode":1,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","accountName":"CORP\\join","encryptedCredentials":{}}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":1,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","accountName":"CORP\\join"}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","encryptedCredentials":{}}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","accountName":"CORP\\join"}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"invalid domain"}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"missing","domains":[{"id":"a","domainName":"corp.test"}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","organizationalUnits":null}]}""")]
+    [InlineData("""{"isEnabled":true,"domains":null}""")]
+    [InlineData("""{"isEnabled":true,"domains":[null]}""")]
+    public void LoadOptional_RejectsUnprotectedAutomaticOrMalformedDomainMetadata(string domain)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", "{\"domainJoin\":" + domain + "}");
+        DeployConfigurationLoadResult result = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+        Assert.Null(result.Document);
+        Assert.NotEmpty(result.FailureMessage!);
+        Assert.DoesNotContain("CORP", result.FailureMessage);
+    }
+
+    [Theory]
+    [InlineData("""{"id":"b","domainName":"emea.test","accountName":"EMEA\\join","encryptedCredentials":{}}""", true)]
+    [InlineData("""{"id":"b","domainName":"emea.test","accountName":"EMEA\\join"}""", false)]
+    [InlineData("""{"id":"b","domainName":"emea.test","encryptedCredentials":{}}""", false)]
+    // The account already has a payload on the first domain, so only the per-domain rule can refuse this one.
+    [InlineData("""{"id":"b","domainName":"emea.test","accountName":"CORP\\join"}""", false)]
+    public void LoadOptional_RequiresCredentialsForEveryZeroTouchDomainOnProtectedMedia(string second, bool loads)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json",
+            """{"protection":{"isEnabled":true},"domainJoin":{"isEnabled":true,"mode":1,"defaultDomainId":"a","domains":[""" +
+            """{"id":"a","domainName":"corp.test","accountName":"CORP\\join","encryptedCredentials":{}},""" + second + "]}}");
+
+        DeployConfigurationLoadResult result = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+
+        Assert.Equal(loads, result.Document is not null);
+    }
+
+    [Fact]
+    public void LoadOptional_PreservesInteractiveSettingsOnUnprotectedMedia()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json",
+            """{"domainJoin":{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test"}]}}""");
+        DeployConfigurationLoadResult result = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+        Assert.NotNull(result.Document);
+        Assert.True(result.Document.DomainJoin.IsEnabled);
+        var domain = Assert.Single(result.Document.DomainJoin.Domains);
+        Assert.Equal("corp.test", domain.DomainName);
+        Assert.Null(domain.AccountName);
+        Assert.Null(domain.EncryptedCredentials);
+        Assert.False(result.Document.Protection.IsEnabled);
+    }
+
+    [Fact]
+    public void LoadOptional_RejectsConflictingDomainAndAutopilotBeforeLaunch()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json",
+            """{"domainJoin":{"isEnabled":true},"autopilot":{"isEnabled":true}}""");
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.Null(result.Document);
+        Assert.NotEmpty(result.FailureMessage!);
+    }
+
     private static readonly BootMediaRuntimeContext ProductionRuntime = new("26.10.3.2", true, false, false);
 
     [Fact]

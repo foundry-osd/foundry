@@ -39,7 +39,7 @@ public static partial class DiagnosticContentSanitizer
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(maximumLength, TruncationMarker.Length);
 
-        string sanitized = value;
+        string sanitized = LogSecretMasker.MaskJsonCredentials(value);
         sanitized = UriPattern().Replace(sanitized, static match => SanitizeUriText(match.Value));
         sanitized = BearerTokenPattern().Replace(sanitized, "Bearer <redacted>");
         sanitized = SensitivePropertyPattern().Replace(sanitized, "$1=<redacted>");

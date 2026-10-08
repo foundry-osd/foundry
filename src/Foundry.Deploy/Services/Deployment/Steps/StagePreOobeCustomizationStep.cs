@@ -30,6 +30,12 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         DeploymentStepExecutionContext context,
         CancellationToken cancellationToken)
     {
+        try { return await ExecuteStagingAsync(context, cancellationToken).ConfigureAwait(false); }
+        finally { context.ClearDomainJoinInput(); }
+    }
+
+    private async Task<DeploymentStepResult> ExecuteStagingAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    {
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
             return CreateMissingTargetPartitionFailure();
@@ -51,6 +57,8 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         try
         {
             await _stagingService.StageAsync(context, driverPackSettings, cancellationToken).ConfigureAwait(false);
+            if (context.RuntimeState.PreOobeManifestPath is null)
+                return DeploymentStepResult.Skipped(LocalizationText.GetString("PostInstall.NoTasks"));
             return DeploymentStepResult.Succeeded(LocalizationText.GetString("PostInstall.Staged"));
         }
         catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or global::System.Xml.XmlException)
@@ -84,7 +92,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         return DeploymentStepResult.Succeeded(LocalizationText.GetString("PostInstall.Simulated"));
     }
 
-    private static bool HasTasks(DeploymentStepExecutionContext context) => PreOobeContentResolver.IsRequired(context.Request) ||
+    private static bool HasTasks(DeploymentStepExecutionContext context) => PreOobeContentResolver.IsRequired(context.Request, context.RuntimeState) ||
         context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete || context.NetworkProfileRoamingPayload?.DataFiles.Count > 0;
 
     private (PreOobeDriverPackScriptSettings? Settings, DeploymentStepResult? Failure) ResolveStagedDriverPackage(

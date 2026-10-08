@@ -10,6 +10,28 @@ namespace Foundry.Utilities.Tests.Diagnostics;
 
 public sealed class LogEventNormalizerTests
 {
+    [Theory]
+    [InlineData("""JSON "DomainJoinPassword":"prefix\"canary-tail","Domain":"corp.example.test" end""")]
+    [InlineData("""JSON \"DomainJoinPassword\":\"prefix\\\"canary-tail\",\"Domain\":\"corp.example.test\" end""")]
+    public void Normalize_QuotedCredentialValuesAreMaskedInEveryTextSurface(string text)
+    {
+        var source = new LogEvent(DateTimeOffset.UtcNow, LogEventLevel.Error,
+            new InvalidOperationException(text), new MessageTemplateParser().Parse(text + " Output: {Output}"),
+            [new("Output", new ScalarValue(text)), new("DomainJoinPassword", new ScalarValue("structured-canary")),
+                new("Domain", new ScalarValue("corp.example.test")), new("Placement", new ScalarValue("Succeeded"))]);
+
+        LogEvent result = LogEventNormalizer.Normalize(source);
+
+        Assert.DoesNotContain("canary-tail", result.RenderMessage(), StringComparison.Ordinal);
+        Assert.DoesNotContain("prefix", result.RenderMessage(), StringComparison.Ordinal);
+        Assert.DoesNotContain("canary-tail", Assert.IsType<string>(((ScalarValue)result.Properties["Output"]).Value), StringComparison.Ordinal);
+        Assert.DoesNotContain("canary-tail", result.Exception!.ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain("prefix", result.Exception.ToString(), StringComparison.Ordinal);
+        Assert.Equal("<redacted>", ((ScalarValue)result.Properties["DomainJoinPassword"]).Value);
+        Assert.Equal("corp.example.test", ((ScalarValue)result.Properties["Domain"]).Value);
+        Assert.Equal("Succeeded", ((ScalarValue)result.Properties["Placement"]).Value);
+    }
+
     [Fact]
     public void Normalize_MasksSignedUrlsUsedAsDictionaryKeysWithoutDroppingCollidingEntries()
     {

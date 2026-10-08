@@ -10,6 +10,38 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class ConfigurationOverviewEvaluatorTests
 {
     [Theory]
+    [InlineData(DomainJoinMode.Interactive, true, ConfigurationOverviewState.Configured)]
+    [InlineData(DomainJoinMode.Interactive, false, ConfigurationOverviewState.NeedsAttention)]
+    [InlineData(DomainJoinMode.Automatic, true, ConfigurationOverviewState.Configured)]
+    [InlineData(DomainJoinMode.Automatic, false, ConfigurationOverviewState.NeedsAttention)]
+    public void Evaluate_DomainJoinOnlyActiveModeUsesReadiness(DomainJoinMode mode, bool ready, ConfigurationOverviewState expected)
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            DomainJoin = new DomainJoinSettings { IsEnabled = true, Mode = mode }
+        };
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { IsDomainJoinConfigurationReady = ready });
+        ConfigurationOverviewItem active = mode == DomainJoinMode.Interactive ? ConfigurationOverviewItem.DomainJoinInteractive : ConfigurationOverviewItem.DomainJoinAutomatic;
+        ConfigurationOverviewItem inactive = mode == DomainJoinMode.Interactive ? ConfigurationOverviewItem.DomainJoinAutomatic : ConfigurationOverviewItem.DomainJoinInteractive;
+        Assert.Equal(expected, evaluation[active]);
+        Assert.Equal(ConfigurationOverviewState.NotSelected, evaluation[inactive]);
+        Assert.Equal(expected, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(evaluation,
+            mode == DomainJoinMode.Interactive ? ConfigurationNavigationTarget.DomainJoinInteractive : ConfigurationNavigationTarget.DomainJoinAutomatic));
+    }
+
+    [Fact]
+    public void Evaluate_AutomaticDomainWithoutProtectionNeedsAttentionOnGeneralPage()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            DomainJoin = new DomainJoinSettings { IsEnabled = true, Mode = DomainJoinMode.Automatic }
+        };
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration));
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.DeploymentProtection]);
+    }
+
+    [Theory]
     [InlineData(false, 0, true, ConfigurationOverviewState.Disabled)]
     [InlineData(true, 0, true, ConfigurationOverviewState.NeedsAttention)]
     [InlineData(true, 1, true, ConfigurationOverviewState.NeedsAttention)]

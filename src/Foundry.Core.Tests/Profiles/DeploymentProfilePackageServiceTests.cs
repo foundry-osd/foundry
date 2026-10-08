@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json.Nodes;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Profiles;
@@ -14,6 +15,119 @@ namespace Foundry.Core.Tests.Profiles;
 public sealed class DeploymentProfilePackageServiceTests
 {
     private readonly DeploymentProfilePackageService _service = new();
+
+    [Fact]
+    public void SharedRevisionRejectsEmbeddedNulDomainPassword()
+    {
+        var profile = CreateProfile() with { Secrets = new() { Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain", State = ProfileValueState.Present, Value = [112, 0, 119] }] } };
+        Assert.Throws<InvalidDataException>(() => _service.Encrypt(profile, new byte[32], ProfilePackagePurpose.SharedRevision));
+    }
+
+    [Fact]
+    public void ProfileSavedWithTheEarlierSingleDomainShapeLoadsWithAnEmptyDomainList()
+    {
+        DeploymentProfileDocument profile = CreateProfile() with
+        {
+            Secrets = new() { Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = new string('A', 64), State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("domain-password") }] }
+        };
+        JsonNode root = JsonNode.Parse(DeploymentProfilePayload.Serialize(profile, portable: false))!;
+        JsonObject domainJoin = root["configuration"]!["domainJoin"]!.AsObject();
+        foreach (string added in new[] { "sharedAccountName", "domains", "defaultDomainId" }) domainJoin.Remove(added);
+        domainJoin["isEnabled"] = true;
+        domainJoin["domainName"] = "corp.test";
+        domainJoin["accountName"] = "CORP\\join";
+        domainJoin["ouCatalogDomain"] = "corp.test";
+        domainJoin["organizationalUnits"] = new JsonArray(new JsonObject { ["id"] = "a", ["displayName"] = "A", ["distinguishedName"] = "OU=A,DC=corp,DC=test" });
+        domainJoin["defaultOuId"] = "a";
+
+        DeploymentProfileDocument loaded = DeploymentProfilePayload.Deserialize(Encoding.UTF8.GetBytes(root.ToJsonString()), portable: false);
+
+        Assert.True(loaded.Configuration.DomainJoin.IsEnabled);
+        Assert.Empty(loaded.Configuration.DomainJoin.Domains);
+        Assert.Null(loaded.Configuration.DomainJoin.DefaultDomainId);
+        Assert.Single(loaded.Secrets.Entries);
+    }
+
+    [Fact]
+    public void ProfileSavedWithTheRetiredChoiceSettingsKeepsItsDomains()
+    {
+        DeploymentProfileDocument profile = CreateProfile() with
+        {
+            Configuration = new() { DomainJoin = new() { IsEnabled = true, DefaultDomainId = "a", Domains = [new() { Id = "a", DomainName = "example.com" }] } }
+        };
+        JsonNode root = JsonNode.Parse(DeploymentProfilePayload.Serialize(profile, portable: false))!;
+        root["configuration"]!["domainJoin"]!["allowDomainSelectionDuringDeployment"] = true;
+        root["configuration"]!["domainJoin"]!["allowOuSelectionDuringDeployment"] = false;
+
+        DeploymentProfileDocument loaded = DeploymentProfilePayload.Deserialize(Encoding.UTF8.GetBytes(root.ToJsonString()), portable: false);
+
+        Assert.Equal("example.com", Assert.Single(loaded.Configuration.DomainJoin.Domains).DomainName);
+        Assert.Equal("a", loaded.Configuration.DomainJoin.DefaultDomainId);
+    }
+
+    [Fact]
+    public void AnUnknownDomainJoinMemberStillInvalidatesTheProfile()
+    {
+        JsonNode root = JsonNode.Parse(DeploymentProfilePayload.Serialize(CreateProfile(), portable: false))!;
+        root["configuration"]!["domainJoin"]!["domainName"] = "corp.test";
+        root["configuration"]!["domainJoin"]!["unknownMember"] = true;
+
+        Assert.Throws<InvalidDataException>(() => DeploymentProfilePayload.Deserialize(Encoding.UTF8.GetBytes(root.ToJsonString()), portable: false));
+    }
+
+    [Fact]
+    public void PortableExportOmitsEveryDomainPasswordWithoutMutatingSource()
+    {
+        byte[] password = Encoding.UTF8.GetBytes("domain-password");
+        DeploymentProfileDocument profile = CreateProfile() with
+        {
+            Configuration = new()
+            {
+                DomainJoin = new()
+                {
+                    IsEnabled = true,
+                    Mode = DomainJoinMode.Automatic,
+                    SharedAccountName = "EXAMPLE\\joiner",
+                    DefaultDomainId = "a",
+                    Domains = [new() { Id = "a", DomainName = "example.com" }, new() { Id = "b", DomainName = "emea.example.com", AccountName = "EMEA\\joiner" }]
+                }
+            },
+            Secrets = new()
+            {
+                Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain", State = ProfileValueState.Present, Value = password },
+                new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain2", State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("second-password") },
+                new() { Purpose = ProfileSecretPurpose.WifiPassphrase, Identity = "wifi", State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("wifi-password") }]
+            }
+        };
+        DeploymentProfileDocument imported = _service.Import(_service.Export(profile, "password"), "password");
+        Assert.All(imported.Secrets.Entries.Take(2), secret =>
+        {
+            Assert.Equal(ProfileValueState.Omitted, secret.State);
+            Assert.Null(secret.Value);
+        });
+        Assert.Equal("wifi-password", Encoding.UTF8.GetString(imported.Secrets.Entries[2].Value!));
+        Assert.Equal("domain-password", Encoding.UTF8.GetString(password));
+        Assert.Equal(ProfileValueState.Present, profile.Secrets.Entries[0].State);
+        Assert.Equal(["example.com", "emea.example.com"], imported.Configuration.DomainJoin.Domains.Select(domain => domain.DomainName));
+    }
+
+    [Fact]
+    public void SharedRevisionRetainsDomainPassword()
+    {
+        DeploymentProfileDocument profile = CreateProfile() with
+        {
+            Secrets = new()
+            {
+                Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain",
+                State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("domain-password") }]
+            }
+        };
+        byte[] key = new byte[32];
+        DeploymentProfileDocument revision = _service.Decrypt(_service.Encrypt(profile, key, ProfilePackagePurpose.SharedRevision), key, ProfilePackagePurpose.SharedRevision);
+        var secret = Assert.Single(revision.Secrets.Entries);
+        Assert.Equal(ProfileValueState.Present, secret.State);
+        Assert.Equal("domain-password", Encoding.UTF8.GetString(secret.Value!));
+    }
 
     [Fact]
     public void ExportImport_PreservesSelectedSecretsAndExactAssetBytes()

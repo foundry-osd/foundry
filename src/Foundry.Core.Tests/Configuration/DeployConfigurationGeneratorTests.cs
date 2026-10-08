@@ -15,6 +15,124 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class DeployConfigurationGeneratorTests
 {
     [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void AnInvalidDomainListBlocksMediaOnlyWhileDomainJoinIsEnabled(bool enabled)
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            DomainJoin = new()
+            {
+                IsEnabled = enabled,
+                DefaultDomainId = "a",
+                Domains = [new() { Id = "a", DomainName = "fabrikam.test", OrganizationalUnits = [new() { Id = "devices", DisplayName = "Devices", DistinguishedName = "OU=Devices,DC=contoso,DC=test" }] }]
+            }
+        };
+        var generator = new DeployConfigurationGenerator();
+
+        if (enabled)
+        {
+            Assert.Throws<InvalidOperationException>(() => generator.Generate(document, null, null, null, null));
+            return;
+        }
+
+        var media = generator.Generate(document, null, null, null, null);
+        Assert.False(media.DomainJoin.IsEnabled);
+        Assert.Empty(media.DomainJoin.Domains);
+    }
+
+    [Fact]
+    public void InteractiveProjectionOmitsAccountsAndPayloads()
+    {
+        using var secrets = new DomainJoinSecretState();
+        secrets.SetPassword("CORP\\join", "password");
+        var document = new FoundryConfigurationDocument { DomainJoin = TwoDomains() with { Mode = DomainJoinMode.Interactive } };
+        var media = new DeployConfigurationGenerator().Generate(document, null, null, null, secrets);
+        Assert.True(media.DomainJoin.IsEnabled);
+        Assert.Equal(2, media.DomainJoin.Domains.Count);
+        Assert.Equal("corp", media.DomainJoin.DefaultDomainId);
+
+        Assert.All(media.DomainJoin.Domains, domain =>
+        {
+            Assert.Null(domain.AccountName);
+            Assert.Null(domain.EncryptedCredentials);
+        });
+        Assert.Equal("ws", media.DomainJoin.Domains[0].DefaultOuId);
+        Assert.Single(media.DomainJoin.Domains[0].OrganizationalUnits);
+    }
+
+    [Theory]
+    [InlineData(false, true, true)]
+    [InlineData(true, false, true)]
+    [InlineData(true, true, false)]
+    public void ZeroTouchRequiresProtectionAndEveryPassword(bool protectedMedia, bool hasKey, bool hasEveryPassword)
+    {
+        using var secrets = new DomainJoinSecretState();
+        secrets.SetPassword("CORP\\join", "p1");
+        if (hasEveryPassword) secrets.SetPassword("EMEA\\join", "p2");
+        var document = new FoundryConfigurationDocument { DomainJoin = TwoDomains() };
+        Assert.Throws<InvalidOperationException>(() => new DeployConfigurationGenerator().Generate(document, hasKey ? new byte[32] : null,
+            new() { IsEnabled = protectedMedia }, null, secrets));
+    }
+
+    [Fact]
+    public void ZeroTouchWritesOnePayloadPerDomainBoundToItsOwnDomain()
+    {
+        using var secrets = new DomainJoinSecretState();
+        secrets.SetPassword("CORP\\join", " exact password ");
+        secrets.SetPassword("EMEA\\join", "p2");
+        byte[] key = new byte[32];
+        var generator = new DeployConfigurationGenerator();
+        var media = generator.Generate(new FoundryConfigurationDocument { DomainJoin = TwoDomains() }, key, new() { IsEnabled = true }, null, secrets);
+        Assert.Equal("CORP\\join", media.DomainJoin.Domains[0].AccountName);
+        Assert.Equal("EMEA\\join", media.DomainJoin.Domains[1].AccountName);
+        byte[][] plaintext = media.DomainJoin.Domains
+            .Select(domain => MediaSecretEnvelopeProtector.DecryptBytes(domain.EncryptedCredentials!, key, MediaSecretEnvelopeProtector.DeploymentKeyId)).ToArray();
+        try
+        {
+            using var corp = DomainJoinCredentialPayloadCodec.Decode(plaintext[0], new("corp.test", "CORP\\join"));
+            using var emea = DomainJoinCredentialPayloadCodec.Decode(plaintext[1], new("emea.test", "EMEA\\join"));
+            Assert.Equal(" exact password ", new string(corp.Password.Span));
+            Assert.Equal("p2", new string(emea.Password.Span));
+            Assert.DoesNotContain("exact password", generator.Serialize(media));
+        }
+        finally { foreach (byte[] bytes in plaintext) System.Security.Cryptography.CryptographicOperations.ZeroMemory(bytes); }
+    }
+
+    [Fact]
+    public void ASharedAccountPayloadCannotBeDecodedForAnotherDomain()
+    {
+        using var secrets = new DomainJoinSecretState();
+        secrets.SetPassword("CORP\\join", "shared");
+        byte[] key = new byte[32];
+        DomainJoinSettings settings = TwoDomains();
+        settings = settings with { Domains = [settings.Domains[0], settings.Domains[1] with { AccountName = null }] };
+        var media = new DeployConfigurationGenerator().Generate(new FoundryConfigurationDocument { DomainJoin = settings }, key, new() { IsEnabled = true }, null, secrets);
+        Assert.All(media.DomainJoin.Domains, domain => Assert.Equal("CORP\\join", domain.AccountName));
+        byte[] corp = MediaSecretEnvelopeProtector.DecryptBytes(media.DomainJoin.Domains[0].EncryptedCredentials!, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        try
+        {
+            Assert.Throws<System.Security.Cryptography.CryptographicException>(() => DomainJoinCredentialPayloadCodec.Decode(corp, new("emea.test", "CORP\\join")));
+            using var decoded = DomainJoinCredentialPayloadCodec.Decode(corp, new("corp.test", "CORP\\join"));
+            Assert.Equal("shared", new string(decoded.Password.Span));
+        }
+        finally { System.Security.Cryptography.CryptographicOperations.ZeroMemory(corp); }
+    }
+
+    private static DomainJoinSettings TwoDomains() => new()
+    {
+        IsEnabled = true,
+        Mode = DomainJoinMode.Automatic,
+        SharedAccountName = "CORP\\join",
+        DefaultDomainId = "corp",
+        Domains =
+        [
+            new() { Id = "corp", DomainName = "corp.test", DefaultOuId = "ws", OrganizationalUnits = [new() { Id = "ws", DisplayName = "Workstations", DistinguishedName = "OU=Workstations,DC=corp,DC=test" }] },
+            new() { Id = "emea", DomainName = "emea.test", AccountName = "EMEA\\join" }
+        ]
+    };
+
+    [Theory]
     [InlineData("26.10.3.1")]
     [InlineData(null)]
     public void Generate_PropagatesOptionalAuthoringVersionToRuntimeJson(string? authoringVersion)

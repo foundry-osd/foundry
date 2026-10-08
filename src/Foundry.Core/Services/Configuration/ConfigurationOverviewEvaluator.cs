@@ -32,7 +32,9 @@ public enum ConfigurationOverviewItem
     OptionalFeatures,
     AppxRemoval,
     AiComponents,
-    PostInstallation
+    PostInstallation,
+    DomainJoinInteractive,
+    DomainJoinAutomatic
 }
 
 /// <summary>
@@ -87,6 +89,9 @@ public sealed record ConfigurationOverviewContext
     /// Gets a value indicating whether the active Autopilot provisioning mode is valid.
     /// </summary>
     public bool IsAutopilotConfigurationReady { get; init; }
+
+    /// <summary>Gets whether the active domain mode has valid metadata and required session inputs.</summary>
+    public bool IsDomainJoinConfigurationReady { get; init; }
 
     /// <summary>
     /// Gets whether enabled answer-file sources, references, and media protection are ready.
@@ -179,7 +184,8 @@ public static class ConfigurationOverviewEvaluator
             [ConfigurationOverviewItem.DeploymentProtection] = EvaluateDeploymentProtection(
                 general.DeploymentProtection.IsEnabled,
                 context.IsDeploymentProtectionSecretReady,
-                OobeAccountConfigurationValidator.RequiresProtectedMedia(customization.Oobe)),
+                OobeAccountConfigurationValidator.RequiresProtectedMedia(customization.Oobe) ||
+                (configuration.DomainJoin.IsEnabled && configuration.DomainJoin.Mode == DomainJoinMode.Automatic)),
             [ConfigurationOverviewItem.DriverOptions] = EvaluateDrivers(general, context.IsCustomDriverConfigurationReady),
             [ConfigurationOverviewItem.EthernetDot1x] = EvaluateNetworkTransport(
                 configuration.Network.Dot1x.IsEnabled,
@@ -206,7 +212,23 @@ public static class ConfigurationOverviewEvaluator
         };
 
         AddAutopilotStates(states, configuration.Autopilot, context.IsAutopilotConfigurationReady);
+        AddDomainJoinStates(states, configuration.DomainJoin, context.IsDomainJoinConfigurationReady);
         return new ConfigurationOverviewEvaluation(states);
+    }
+
+    private static void AddDomainJoinStates(
+        IDictionary<ConfigurationOverviewItem, ConfigurationOverviewState> states,
+        DomainJoinSettings settings,
+        bool isReady)
+    {
+        states[ConfigurationOverviewItem.DomainJoinInteractive] = EvaluateDomainJoinMode(DomainJoinMode.Interactive);
+        states[ConfigurationOverviewItem.DomainJoinAutomatic] = EvaluateDomainJoinMode(DomainJoinMode.Automatic);
+
+        ConfigurationOverviewState EvaluateDomainJoinMode(DomainJoinMode mode) => !settings.IsEnabled || settings.Mode != mode
+            ? ConfigurationOverviewState.NotSelected
+            : isReady
+                ? ConfigurationOverviewState.Configured
+                : ConfigurationOverviewState.NeedsAttention;
     }
 
     private static bool IsDefaultCompletion(GeneralSettings settings) =>

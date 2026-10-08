@@ -3,12 +3,21 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.DomainJoin;
 
 namespace Foundry.Deploy.Services.Deployment;
 
-public sealed record DeploymentLaunchPreparationResult
+public sealed class DeploymentLaunchPreparationResult : IDisposable
 {
+    private DomainJoinPreparedInput? domainJoinInput;
+
+    /// <summary>Transfers credential ownership once; otherwise disposal clears the unconsumed input.</summary>
+    public DomainJoinPreparedInput? TakeDomainJoinInput() => Interlocked.Exchange(ref domainJoinInput, null);
+    public void Dispose() => TakeDomainJoinInput()?.Dispose();
     public string? FailureMessage { get; init; }
+
+    /// <summary>Indicates that <see cref="FailureMessage"/> invalidates the selected answer file rather than the launch attempt.</summary>
+    public bool IsUnattendFailure { get; init; }
     public required bool IsReadyToStart { get; init; }
     public required string NormalizedComputerName { get; init; }
     public TargetDiskInfo? EffectiveTargetDisk { get; init; }
@@ -24,17 +33,30 @@ public sealed record DeploymentLaunchPreparationResult
         };
     }
 
+    public static DeploymentLaunchPreparationResult UnattendFailure(string normalizedComputerName, string failureMessage)
+    {
+        return new DeploymentLaunchPreparationResult
+        {
+            FailureMessage = failureMessage,
+            IsUnattendFailure = true,
+            IsReadyToStart = false,
+            NormalizedComputerName = normalizedComputerName
+        };
+    }
+
     public static DeploymentLaunchPreparationResult Success(
         string normalizedComputerName,
         TargetDiskInfo effectiveTargetDisk,
-        DeploymentContext context)
+        DeploymentContext context,
+        DomainJoinPreparedInput? domainJoinInput = null)
     {
         return new DeploymentLaunchPreparationResult
         {
             IsReadyToStart = true,
             NormalizedComputerName = normalizedComputerName,
             EffectiveTargetDisk = effectiveTargetDisk,
-            Context = context
+            Context = context,
+            domainJoinInput = domainJoinInput
         };
     }
 }

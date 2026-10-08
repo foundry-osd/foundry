@@ -52,18 +52,17 @@
 
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
+                        ContentAlignment="Vertical"
                         Description="{x:Bind ViewModel.TenantReadinessDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.TenantReadinessLabel, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <tv:TableView
-                            MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                        <tv:TableView x:Name="TenantReadinessTable"
                             MaxHeight="{ThemeResource FoundryTableMaxHeight}"
-                            HorizontalAlignment="Right"
                             AutoGenerateColumns="False"
                             CanFilterColumns="False"
                             CanReorderColumns="False"
                             CanResizeColumns="False"
-                            CanSortColumns="False"
+                            CanSortColumns="True"
                             CornerButtonMode="None"
                             HeadersVisibility="Columns"
                             IsReadOnly="True"
@@ -73,9 +72,13 @@
                             ShowExportOptions="False">
                             <tv:TableView.Columns>
                                 <tv:TableViewTextColumn
+                                    Width="*"
                                     Binding="{Binding Name}"
                                     Header="{x:Bind ViewModel.TenantReadinessNameColumnHeader, Mode=OneWay}" />
-                                <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.TenantReadinessValueColumnHeader, Mode=OneWay}">
+                                <tv:TableViewTemplateColumn
+                                    Width="*"
+                                    Header="{x:Bind ViewModel.TenantReadinessValueColumnHeader, Mode=OneWay}"
+                                    SortMemberPath="Value">
                                     <tv:TableViewTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
@@ -119,14 +122,12 @@
 
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
+                        ContentAlignment="Vertical"
                         Description="{x:Bind ViewModel.ProvisionedCertificatesDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.ProvisionedCertificatesLabel, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <StackPanel
-                            HorizontalAlignment="Right"
-                            Spacing="{ThemeResource FoundrySpace8}">
+                        <StackPanel Spacing="{ThemeResource FoundrySpace8}">
                             <TextBlock
-                                HorizontalAlignment="Right"
                                 Text="{x:Bind ViewModel.EmptyCertificatesText, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.EmptyCertificatesVisibility, Mode=OneWay}" />
@@ -136,7 +137,7 @@
                                 CanFilterColumns="False"
                                 CanReorderColumns="False"
                                 CanResizeColumns="False"
-                                CanSortColumns="False"
+                                CanSortColumns="True"
                                 CornerButtonMode="None"
                                 HeadersVisibility="Columns"
                                 IsReadOnly="True"
@@ -148,12 +149,18 @@
                                 Visibility="{x:Bind ViewModel.CertificatesVisibility, Mode=OneWay}">
                                 <tv:TableView.Columns>
                                     <tv:TableViewTextColumn
+                                        Width="2*"
                                         Binding="{Binding Thumbprint}"
                                         Header="{x:Bind ViewModel.CertificateThumbprintColumnHeader, Mode=OneWay}" />
                                     <tv:TableViewTextColumn
+                                        Width="*"
                                         Binding="{Binding StartsOnDisplay}"
-                                        Header="{x:Bind ViewModel.CertificateCreatedColumnHeader, Mode=OneWay}" />
-                                    <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.CertificateExpiresColumnHeader, Mode=OneWay}">
+                                        Header="{x:Bind ViewModel.CertificateCreatedColumnHeader, Mode=OneWay}"
+                                        SortMemberPath="StartsOnUtc" />
+                                    <tv:TableViewTemplateColumn
+                                        Width="*"
+                                        Header="{x:Bind ViewModel.CertificateExpiresColumnHeader, Mode=OneWay}"
+                                        SortMemberPath="ExpiresOnUtc">
                                         <tv:TableViewTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
@@ -165,6 +172,7 @@
                                         </tv:TableViewTemplateColumn.CellTemplate>
                                     </tv:TableViewTemplateColumn>
                                     <tv:TableViewTextColumn
+                                        Width="2*"
                                         Binding="{Binding KeyId}"
                                         Header="{x:Bind ViewModel.CertificateIdColumnHeader, Mode=OneWay}" />
                                 </tv:TableView.Columns>

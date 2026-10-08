@@ -38,6 +38,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private readonly ILogger logger;
     private bool isApplyingState = true;
     private bool isSavingState;
+    private bool isDisposed;
     private AutopilotProvisioningMode provisioningMode = AutopilotProvisioningMode.JsonProfile;
     private AutopilotHardwareHashUploadSettings hardwareHashUploadSettings = new();
     private AutopilotTenantOnboardingStatus? tenantOnboardingStatus;
@@ -447,6 +448,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// </summary>
     public void Dispose()
     {
+        isDisposed = true;
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
         Profiles.CollectionChanged -= OnProfilesCollectionChanged;
@@ -460,17 +462,27 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// <param name="mode">Provisioning mode represented by the current page.</param>
     public async Task ToggleProvisioningModeAsync(AutopilotProvisioningMode mode)
     {
-        AutopilotProvisioningModeToggleResult result = AutopilotProvisioningModeToggleEvaluator.Evaluate(
-            IsAutopilotEnabled,
-            provisioningMode,
-            mode);
+        FoundryConfigurationDocument baseline = configurationStateService.Current;
+        ProvisioningSelection requested = mode switch
+        {
+            AutopilotProvisioningMode.JsonProfile => ProvisioningSelection.AutopilotJsonProfile,
+            AutopilotProvisioningMode.HardwareHashUpload => ProvisioningSelection.AutopilotHardwareHashUpload,
+            AutopilotProvisioningMode.InteractiveHardwareHashUpload => ProvisioningSelection.AutopilotInteractiveHardwareHashUpload,
+            _ => throw new ArgumentOutOfRangeException(nameof(mode))
+        };
+        ProvisioningSelectionDecision decision = ProvisioningModeSelectionEvaluator.Evaluate(baseline.Autopilot, baseline.DomainJoin, requested);
 
-        if (result.RequiresConfirmation && !await ConfirmProvisioningModeReplacementAsync(mode))
+        if (decision.RequiresReplacementConfirmation &&
+            !await ProvisioningModeReplacementConfirmation.ConfirmAsync(dialogService, localizationService,
+                ProvisioningModeSelectionEvaluator.GetCurrent(baseline.Autopilot, baseline.DomainJoin), requested))
         {
             return;
         }
 
-        ApplyProvisioningModeState(result.Mode, result.IsEnabled);
+        if (isDisposed || !ReferenceEquals(baseline, configurationStateService.Current)) return;
+        configurationStateService.UpdateProvisioningSelection(
+            baseline.Autopilot with { ProvisioningMode = mode, IsEnabled = decision.Next == requested },
+            baseline.DomainJoin with { IsEnabled = false });
     }
 
     [RelayCommand(CanExecute = nameof(CanImportProfile))]
@@ -1031,50 +1043,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
     }
 
-    private void ApplyProvisioningModeState(AutopilotProvisioningMode mode, bool isEnabled)
-    {
-        isApplyingState = true;
-        try
-        {
-            provisioningMode = mode;
-            IsAutopilotEnabled = isEnabled;
-        }
-        finally
-        {
-            isApplyingState = false;
-        }
-
-        RefreshProvisioningModeState();
-        SaveState();
-    }
-
-    private async Task<bool> ConfirmProvisioningModeReplacementAsync(AutopilotProvisioningMode requestedMode)
-    {
-        string currentMode = GetProvisioningModeDisplayName(provisioningMode);
-        string requestedModeName = GetProvisioningModeDisplayName(requestedMode);
-        return await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
-            localizationService.GetString("Autopilot.ModeSwitchConfirmationTitle"),
-            localizationService.FormatString(
-                "Autopilot.ModeSwitchConfirmationMessageFormat",
-                currentMode,
-                requestedModeName),
-            localizationService.GetString("Autopilot.ModeSwitchConfirmationPrimaryButton"),
-            localizationService.GetString("Common.Cancel"),
-            IsPrimaryButtonAccent: true));
-    }
-
     private bool IsModeActive(AutopilotProvisioningMode mode) => IsAutopilotEnabled && provisioningMode == mode;
 
     private string GetProvisioningModeActionText(AutopilotProvisioningMode mode) =>
         localizationService.GetString(IsModeActive(mode) ? "Common.Disable" : "Common.Enable");
-
-    private string GetProvisioningModeDisplayName(AutopilotProvisioningMode mode) => mode switch
-    {
-        AutopilotProvisioningMode.JsonProfile => JsonProfileHeader,
-        AutopilotProvisioningMode.HardwareHashUpload => HardwareHashHeader,
-        AutopilotProvisioningMode.InteractiveHardwareHashUpload => InteractiveHardwareHashHeader,
-        _ => mode.ToString()
-    };
 
     private void NotifyProvisioningPageStateChanged()
     {

@@ -256,6 +256,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Izvietošanas lapas</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktīvi</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Kļūdas lapa</value>
   </data>
@@ -356,6 +362,48 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Konts (DOMAIN\user vai user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Ievadiet kontu formātā DOMAIN\user vai user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>Domēna noklusējuma atrašanās vieta</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Norādiet šī datora pievienošanās domēnam datus. Pievienošanās notiek pēc Windows instalēšanas.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Organizatoriskā vienība</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Ievadiet derīgu OU atšķirīgo nosaukumu šajā domēnā vai atstājiet tukšu.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Domēna nosaukums</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Ievadiet derīgu domēna nosaukumu, piemēram, corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>Pievienošanās domēnam informācijas trūkst vai tā nav derīga. Izvietošana nav sākta.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>OU atšķirīgais nosaukums (neobligāts)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>Atstājiet tukšu, lai izmantotu domēna noklusējuma atrašanās vietu.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Parole</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Pievienošanās domēnam</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>Šo Windows izdevumu nevar pievienot domēnam. Windows instalēšana turpinās bez pievienošanās domēnam.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

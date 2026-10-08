@@ -20,5 +20,7 @@ public sealed record DeploymentWizardStateSnapshot
     public required bool IsSelectedTargetDiskSelectable { get; init; }
     public required bool HasValidDriverPackSelection { get; init; }
     public required bool HasValidAutopilotSelection { get; init; }
+    /// <summary>Gets whether the Domain Join step, when present, holds inputs a deployment can start with.</summary>
+    public bool HasValidDomainJoinInput { get; init; } = true;
     public required bool IsOperatingSystemCatalogReadyForNavigation { get; init; }
 }

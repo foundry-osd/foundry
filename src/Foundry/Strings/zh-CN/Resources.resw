@@ -1834,6 +1834,216 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>文档无法打开</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>域加入账户</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>域</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>清除默认选择</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>设为默认</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>请先输入有效的账户，然后检查密码长度。</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>正在域中搜索 OU...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>搜索已取消。</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>在此域中未找到任何 OU。</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>只能列出部分 OU。您仍可添加已显示的 OU。</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>此域中的所有 OU 均已在列表中。</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>搜索已超时。您可以手动添加 OU。</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>无法搜索域。请检查此计算机是否能访问该域，以及您的 Windows 账户是否能读取该域，或手动添加 OU。</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>添加域</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>添加域</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>编辑域</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>将密码留空可保留当前密码。</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>未保存域。请检查域名。</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>请先删除此域的 OU，再更改其名称。</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>尚未添加域。</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>尚未添加 OU。</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>未添加这些 OU。它们所属的域与所选域不一致。</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>请先添加域，再列出其 OU。</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>未添加 OU。请检查显示名称和可分辨名称。OU 必须属于所选域。</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>组织单位</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>{0} 的组织单位</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>选择一个域以列出其 OU。</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>已选择的 OU：{0} / {1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>共享</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>请至少添加一个域。</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>此域已在列表中。</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>两个 OU 的内部 ID 相同。请删除其中一个，然后重新添加。</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>请输入有效的域名，例如 corp.contoso.com。</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>每个 OU 都需要一个不超过 120 个字符的显示名称。</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>请在“常规”页面启用密码保护，并设置部署密码。</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>请输入账户密码。</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>请以 DOMAIN\user 或 user@domain 格式输入账户。</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>请输入共享的域加入账户，或为此域指定自己的账户。</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>最多可列出 32 个域。</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>最多可列出 1,024 个 OU。</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>账户（DOMAIN\user 或 user@domain）</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>添加 OU</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>取消搜索</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>域名</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>使用专用账户</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>使用共享的域加入账户</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>从域导入</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>使用您的 Windows 账户列出所选域中的 OU。请选择要添加的 OU。</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>从域导入 OU</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>此介质可加入的域。列出多个域时，技术人员在部署期间选择其中一个；默认域已预选。</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>域</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>添加所选 OU</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>请输入显示名称和 OU 的可分辨名称。OU 必须属于所选域。</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>手动添加 OU</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>可分辨名称</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>显示名称</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>可选。列出所选域中可放置计算机的 OU。仅列出一个 OU 时始终使用该 OU；列出多个时，技术人员在部署期间选择其中一个。现有计算机账户将移至所选 OU。</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>供所有没有自己账户的域使用的账户。该账户需要有权将计算机加入域，并将其移至您选择的 OU。</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>共享的域加入账户</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>受信任的根 CA 证书文件</value>
   </data>
@@ -1874,7 +2084,7 @@
     <value>密码</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>请妥善保管此密码。它用于保护本地 Windows 帐户密码、Autopilot 凭据和配置文件，以及自定义应答文件。</value>
+    <value>请妥善保管此密码。它用于保护本地 Windows 帐户密码、域加入凭据、Autopilot 凭据和配置文件，以及自定义应答文件。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>部署密码</value>
@@ -1907,7 +2117,7 @@
     <value>未检测到所选架构的 WinPE 语言包。</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>一般</value>
+    <value>常规</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>回顾并开始</value>
@@ -1986,6 +2196,12 @@
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>媒体准备状态</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>在部署期间要求技术人员提供域凭据。</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>交互式域加入</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>阿拉伯语（沙特阿拉伯）</value>
@@ -2191,6 +2407,9 @@
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>文档</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>域加入</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>默认情况下，标准 Ethernet 连接可用。仅当您的有线网络需要 802.1X 企业身份验证时才配置此部分。</value>
   </data>
@@ -2201,16 +2420,22 @@
     <value>标准配置工作流程。</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>一般</value>
+    <value>常规</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>一般</value>
+    <value>常规</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD家</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>首页</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>在部署期间要求技术人员提供域凭据。</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>交互式</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>配置已部署设备的名称。</value>
@@ -2271,6 +2496,12 @@
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>使用受部署密码保护的凭据自动加入域。</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>活动配置模式</value>
@@ -2974,7 +3205,7 @@
     <value>管理启动、语言、诊断和应用程序行为。</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>一般</value>
+    <value>常规</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>备份设置、将其传输到另一台电脑，或让设置保持同步。</value>
@@ -3735,10 +3966,10 @@
     <value>Foundry 会保留原始文件，并将其必需的安装后命令添加到部署副本中。您仍需对自定义设置和命令负责。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>自定义文件要求在“一般”配置中启用部署介质密码保护。XML 可能包含凭据或脚本。目录仅保存源文件引用；启动映像中包含加密副本。</value>
+    <value>自定义文件要求在“常规”配置中启用部署介质密码保护。XML 可能包含凭据或脚本。目录仅保存源文件引用；启动映像中包含加密副本。</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
-    <value>请在“一般”配置中启用部署介质密码保护，以使用自定义应答文件。</value>
+    <value>请在“常规”配置中启用部署介质密码保护，以使用自定义应答文件。</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
     <value>此源文件现在与另一个已导入文件重复。请移除此条目并选择已有文件。</value>
@@ -3916,5 +4147,11 @@
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>使用受部署密码保护的凭据自动加入域。</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch 域加入</value>
   </data>
 </root>

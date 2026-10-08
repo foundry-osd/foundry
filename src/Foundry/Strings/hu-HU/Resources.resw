@@ -1834,6 +1834,216 @@ Licenc az MIT licenc alatt.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>A dokumentációt nem lehetett megnyitni</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Csatlakoztatási fiók</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Alapértelmezett</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Tartomány</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU-k</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Állapot</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Hozzáadás</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Alapértelmezés törlése</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Szerkesztés</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Eltávolítás</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Beállítás alapértelmezettként</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Először adjon meg érvényes fiókot, majd ellenőrizze a jelszó hosszát.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Igen</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>OU-k keresése a tartományban...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>A keresés megszakítva.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Nem található OU ebben a tartományban.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>Csak az OU-k egy részét sikerült listázni. A megjelenítetteket így is hozzáadhatja.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Ennek a tartománynak az összes OU-ja már szerepel a listában.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>A keresés túllépte az időkorlátot. Az OU-kat kézzel is hozzáadhatja.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Nem sikerült keresni a tartományban. Ellenőrizze, hogy a számítógép eléri-e a tartományt, és hogy az Ön Windows-fiókja olvashatja-e, vagy adja hozzá kézzel az OU-kat.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Tartomány hozzáadása</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Tartomány hozzáadása</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Tartomány szerkesztése</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>A jelenlegi jelszó megtartásához hagyja üresen a jelszót.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>A tartomány nem lett mentve. Ellenőrizze a tartománynevet.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Kész</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>A tartomány nevének módosítása előtt távolítsa el a tartomány OU-it.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Nincs hozzáadott tartomány.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Nincs hozzáadott OU.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>Az OU-k nem lettek hozzáadva. Más tartományhoz tartoznak, mint a kiválasztott.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Először adjon hozzá egy tartományt, majd sorolja fel az OU-it.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>Az OU nem lett hozzáadva. Ellenőrizze a megjelenítendő nevet és a megkülönböztető nevet. Az OU-nak a kiválasztott tartományhoz kell tartoznia.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Szervezeti egységek</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>A(z) {0} tartomány szervezeti egységei</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Válasszon ki egy tartományt az OU-i listázásához.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Kijelölt OU-k: {0}/{1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Közös</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Adjon hozzá legalább egy tartományt.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Ez a tartomány már szerepel a listában.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>Két OU belső azonosítója megegyezik. Távolítsa el az egyiket, majd adja hozzá újra.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Adjon meg érvényes tartománynevet, például: corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Minden OU-hoz legfeljebb 120 karakteres megjelenítendő név szükséges.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Engedélyezze a jelszavas védelmet az „Általános” oldalon, és állítsa be a telepítési jelszót.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Adja meg a fiók jelszavát.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>A fiókot DOMAIN\user vagy user@domain formában adja meg.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Adja meg a közös csatlakoztatási fiókot, vagy adjon ennek a tartománynak saját fiókot.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Legfeljebb 32 tartomány sorolható fel.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>Legfeljebb 1024 OU sorolható fel.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Fiók (DOMAIN\user vagy user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>OU hozzáadása</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Keresés megszakítása</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Tartománynév</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Külön fiók használata</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>A közös csatlakoztatási fiók használata</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Importálás a tartományból</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Az Ön Windows-fiókjával listázza a kiválasztott tartomány OU-it. Jelölje ki a hozzáadni kívántakat.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>OU-k importálása a tartományból</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Azok a tartományok, amelyekhez ez az adathordozó csatlakozhat. Ha több is szerepel a listán, a technikusok telepítés közben választanak közülük egyet; az alapértelmezett tartomány előre ki van választva.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Tartományok</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Kijelölt OU-k hozzáadása</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Adja meg az OU megjelenítendő nevét és megkülönböztető nevét. Az OU-nak a kiválasztott tartományhoz kell tartoznia.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>OU kézi hozzáadása</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>Megkülönböztető név</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Megjelenítendő név</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Nem kötelező. Sorolja fel azokat az OU-kat, amelyekbe a számítógépek a kiválasztott tartományban elhelyezhetők. Ha csak egy OU szerepel a listán, a rendszer mindig azt használja; ha több, a technikusok telepítés közben választanak közülük egyet. A meglévő számítógépfiók a kiválasztott OU-ba kerül.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Jelszó</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Minden olyan tartomány által használt fiók, amelynek nincs saját fiókja. Jogosultnak kell lennie számítógépek csatlakoztatására és a kiválasztott OU-kba való áthelyezésükre.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Közös csatlakoztatási fiók</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Megbízható root CA tanúsítványfájl</value>
   </data>
@@ -1874,7 +2084,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Jelszó</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Őrizze biztonságosan ezt a jelszót. Védi a helyi Windows-fiókok jelszavait, az Autopilot hitelesítő adatait és profiljait, valamint az egyéni válaszfájlokat.</value>
+    <value>Őrizze biztonságosan ezt a jelszót. Védi a helyi Windows-fiókok jelszavait, a tartományhoz csatlakozás hitelesítő adatait, az Autopilot hitelesítő adatait és profiljait, valamint az egyéni válaszfájlokat.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Telepítési jelszó</value>
@@ -1907,7 +2117,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Nem észleltünk WinPE nyelvi csomagot a kiválasztott architektúrához.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>tábornok</value>
+    <value>Általános</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Tekintse át és kezdje el</value>
@@ -1986,6 +2196,12 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Az adathordozó készenléti állapota</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>A telepítés során kérje be a technikustól a tartományi hitelesítő adatokat.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Interaktív tartományhoz csatlakozás</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arab (Szaúd-Arábia)</value>
@@ -2191,6 +2407,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentáció</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Tartományhoz csatlakozás</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>A szabványos Ethernet kapcsolat alapértelmezés szerint elérhető. Ezt a szakaszt csak akkor konfigurálja, ha vezetékes hálózata 802.1X vállalati hitelesítést igényel.</value>
   </data>
@@ -2201,16 +2420,22 @@ Licenc az MIT licenc alatt.</value>
     <value>Szabványos konfigurációs munkafolyamat.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>tábornok</value>
+    <value>Általános</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>tábornok</value>
+    <value>Általános</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD otthon</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Otthon</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>A telepítés során kérje be a technikustól a tartományi hitelesítő adatokat.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Interaktív</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurálja a telepített eszközök nevét.</value>
@@ -2271,6 +2496,12 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Automatikus csatlakozás a tartományhoz a telepítési jelszóval védett hitelesítő adatokkal.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktív kiépítési mód</value>
@@ -2974,7 +3205,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Kezelje az indítást, a nyelvet, a diagnosztikát és az alkalmazás viselkedését.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>tábornok</value>
+    <value>Általános</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Készítsen biztonsági mentést a beállításairól, vigye át őket egy másik számítógépre, vagy tartsa őket szinkronban.</value>
@@ -3916,5 +4147,11 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Automatikus csatlakozás a tartományhoz a telepítési jelszóval védett hitelesítő adatokkal.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch tartományhoz csatlakozás</value>
   </data>
 </root>

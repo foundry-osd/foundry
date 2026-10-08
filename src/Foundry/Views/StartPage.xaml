@@ -140,6 +140,21 @@
                         </wct:SettingsExpander.ItemsHeader>
                     </wct:SettingsExpander>
 
+                    <wct:SettingsExpander x:Name="DomainJoinOverviewCard"
+                        Description="{x:Bind ViewModel.DomainJoinOverviewSummary, Mode=OneWay}"
+                        IsExpanded="{x:Bind ViewModel.IsDomainJoinOverviewExpanded, Mode=TwoWay}">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE902;" />
+                        </wct:SettingsExpander.HeaderIcon>
+                        <wct:SettingsExpander.ItemsHeader>
+                            <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
+                                <ItemsControl
+                                    ItemTemplate="{StaticResource StartConfigurationOverviewItemTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.DomainJoinOverviewItems, Mode=OneWay}" />
+                            </Grid>
+                        </wct:SettingsExpander.ItemsHeader>
+                    </wct:SettingsExpander>
+
                     <wct:SettingsExpander x:Name="CustomizationOverviewCard"
                         Description="{x:Bind ViewModel.CustomizationOverviewSummary, Mode=OneWay}"
                         IsExpanded="{x:Bind ViewModel.IsCustomizationOverviewExpanded, Mode=TwoWay}">

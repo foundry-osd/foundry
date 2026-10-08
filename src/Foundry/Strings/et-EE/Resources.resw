@@ -1834,6 +1834,216 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentatsiooni ei saanud avada</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Liitmiskonto</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Vaikimisi</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Domeen</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU-d</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Olek</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Lisa</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Tühjenda vaikevalik</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Muuda</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Eemalda</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Määra vaikevalikuks</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Sisestage esmalt kehtiv konto ning kontrollige seejärel parooli pikkust.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Jah</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>OU-de otsimine domeenist...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>Otsing tühistati.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Sellest domeenist ei leitud ühtegi OU-d.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>Loetleda õnnestus ainult osa OU-sid. Kuvatud OU-sid saate siiski lisada.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Kõik selle domeeni OU-d on juba loendis.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>Otsingu ajalimiit ületati. Saate OU-sid käsitsi lisada.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Domeenist ei saanud otsida. Kontrollige, kas see arvuti saab sellega ühendust ja kas teie Windowsi konto saab seda lugeda, või lisage OU-d käsitsi.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Lisa domeen</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Lisa domeen</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Muuda domeeni</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Praeguse parooli säilitamiseks jätke parool tühjaks.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Domeeni ei salvestatud. Kontrollige domeeninime.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Enne domeeni nime muutmist eemaldage selle domeeni OU-d.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Domeene pole lisatud.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>OU-sid pole lisatud.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU-sid ei lisatud. Need kuuluvad teise domeeni kui valitud domeen.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Lisage esmalt domeen ja loetlege seejärel selle OU-d.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU-d ei lisatud. Kontrollige kuvatavat nime ja eristusnime. OU peab kuuluma valitud domeeni.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organisatsiooniüksused</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Domeeni {0} organisatsiooniüksused</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Valige domeen, et loetleda selle OU-d.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Valitud OU-d: {0}/{1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Ühine</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Lisage vähemalt üks domeen.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>See domeen on juba loendis.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>Kahel OU-l on sama sisemine ID. Eemaldage üks neist ja lisage see uuesti.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Sisestage kehtiv domeeninimi, näiteks corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Igal OU-l peab olema kuni 120 märgi pikkune kuvatav nimi.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Lubage lehel „Üldine“ paroolikaitse ja määrake juurutusparool.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Sisestage konto parool.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>Sisestage konto kujul DOMAIN\user või user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Sisestage ühine liitmiskonto või määrake sellele domeenile oma konto.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Loendisse saab lisada kuni 32 domeeni.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>Loendisse saab lisada kuni 1024 OU-d.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Konto (DOMAIN\user või user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>Lisa OU</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Tühista otsing</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Domeeninimi</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Kasuta eraldi kontot</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Kasuta ühist liitmiskontot</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Impordi domeenist</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Loetleb teie Windowsi konto abil valitud domeeni OU-d. Valige lisatavad OU-d.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>Impordi OU-d domeenist</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domeenid, millega see andmekandja saab arvuteid liita. Kui loetletud on mitu, valivad tehnikud juurutamise ajal ühe; vaikedomeen on eelvalitud.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domeenid</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Lisa valitud OU-d</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Sisestage OU kuvatav nimi ja eristusnimi. OU peab kuuluma valitud domeeni.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>Lisa OU käsitsi</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>Eristusnimi</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Kuvatav nimi</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Valikuline. Loetlege OU-d, kuhu arvuteid saab valitud domeenis paigutada. Kui loetletud on ainult üks OU, kasutatakse alati seda; kui loetletud on mitu, valivad tehnikud juurutamise ajal ühe. Olemasolev arvutikonto teisaldatakse valitud OU-sse.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Parool</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Konto, mida kasutavad kõik domeenid, millel pole oma kontot. Sellel peab olema õigus arvuteid domeeniga liita ja teie valitud OU-desse teisaldada.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Ühine liitmiskonto</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Usaldusväärne juur-CA sertifikaadi fail</value>
   </data>
@@ -1874,7 +2084,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Parool</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Hoidke seda parooli turvaliselt. See kaitseb kohalike Windowsi kontode paroole, Autopiloti identimisteavet ja profiile ning kohandatud vastusefaile.</value>
+    <value>Hoidke seda parooli turvaliselt. See kaitseb kohalike Windowsi kontode paroole, domeeniga liitumise identimisteavet, Autopiloti identimisteavet ja profiile ning kohandatud vastusefaile.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Juurutusparool</value>
@@ -1907,7 +2117,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Valitud arhitektuuri jaoks WinPE keelepakette ei tuvastatud.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Kindral</value>
+    <value>Üldine</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Vaata üle ja alusta</value>
@@ -1986,6 +2196,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Andmekandja valmisoleku olek</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Küsige tehnikult juurutamise ajal domeeni identimisteavet.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Interaktiivne domeeniga liitumine</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>araabia (Saudi Araabia)</value>
@@ -2191,6 +2407,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentatsioon</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Domeeniga liitumine</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Standardne Ethernet ühenduvus on vaikimisi saadaval. Seadistage see jaotis ainult siis, kui teie traadiga võrk nõuab 802.1X ettevõtte autentimist.</value>
   </data>
@@ -2201,16 +2420,22 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Standardse konfiguratsiooni töövoog.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Kindral</value>
+    <value>Üldine</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Kindral</value>
+    <value>Üldine</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD koju</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Kodu</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>Küsige tehnikult juurutamise ajal domeeni identimisteavet.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Interaktiivne</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Seadistage juurutatud seadmete nimed.</value>
@@ -2271,6 +2496,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Liituge domeeniga automaatselt identimisteabe abil, mida kaitseb juurutusparool.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktiivne juurutusrežiim</value>
@@ -2974,7 +3205,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Käivitamise, keele, diagnostika ja rakenduse käitumise haldamine.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Kindral</value>
+    <value>Üldine</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Varundage oma sätted, teisaldage need teise arvutisse või hoidke neid sünkroonis.</value>
@@ -3916,5 +4147,11 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Liituge domeeniga automaatselt identimisteabe abil, mida kaitseb juurutusparool.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Zero-touchi domeeniga liitumine</value>
   </data>
 </root>

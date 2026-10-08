@@ -256,6 +256,12 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>דפי פריסה</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>אינטראקטיבי</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>דף שגיאה</value>
   </data>
@@ -356,6 +362,48 @@ ErrorCode=0x80070005
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>חשבון (DOMAIN\user או user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>הזן את החשבון בתבנית DOMAIN\user או user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>מיקום ברירת המחדל של התחום</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>ספק את פרטי ההצטרפות לתחום עבור מחשב זה. ההצטרפות מתבצעת לאחר התקנת Windows.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>יחידה ארגונית</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>הזן שם מובחן תקין של OU בתחום זה, או השאר ריק.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>שם התחום</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>הזן שם תחום תקין, כגון corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>פרטי ההצטרפות לתחום חסרים או אינם תקינים. הפריסה לא התחילה.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>שם מובחן של OU (אופציונלי)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>השאר ריק כדי להשתמש במיקום ברירת המחדל של התחום.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>סיסמה</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>הצטרפות לתחום</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>מהדורת Windows זו אינה יכולה להצטרף לתחום. התקנת Windows ממשיכה ללא הצטרפות.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

@@ -239,6 +239,8 @@ public sealed class DeploymentSessionDebugPreviewTests
         public event EventHandler? CompletionStarting { add { } remove { } }
         public Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default) =>
             throw new InvalidOperationException("Previews must not execute deployment.");
+        public Task<DeploymentResult> RunAsync(DeploymentContext context, Foundry.Deploy.Services.DomainJoin.DomainJoinPreparedInput? input,
+            CancellationToken cancellationToken = default) => RunAsync(context, cancellationToken);
     }
 
     private sealed class EmptyNetworkSnapshotProvider : INetworkAdapterSnapshotProvider

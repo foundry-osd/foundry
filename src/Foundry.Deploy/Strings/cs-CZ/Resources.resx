@@ -256,6 +256,12 @@ Licencováno pod licencí MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stránky nasazení</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktivní</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Chybová stránka</value>
   </data>
@@ -356,6 +362,48 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Účet (DOMAIN\user nebo user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Zadejte účet ve tvaru DOMAIN\user nebo user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>Výchozí umístění domény</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Zadejte údaje pro připojení tohoto počítače k doméně. Připojení proběhne po instalaci systému Windows.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Organizační jednotka</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Zadejte platný rozlišující název OU v této doméně, nebo nechte pole prázdné.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Název domény</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Zadejte platný název domény, například corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>Údaje pro připojení k doméně chybí nebo nejsou platné. Nasazení nebylo zahájeno.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>Rozlišující název OU (volitelné)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>Ponechte prázdné, chcete-li použít výchozí umístění domény.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Připojení k doméně</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>Tuto edici Windows nelze připojit k doméně. Instalace Windows pokračuje bez připojení.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

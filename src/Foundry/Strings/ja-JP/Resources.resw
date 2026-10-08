@@ -1834,6 +1834,216 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>ドキュメントを開けませんでした</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>参加用アカウント</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>既定</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>ドメイン</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU数</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>既定の選択を解除</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>既定に設定</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>先に有効なアカウントを入力してから、パスワードの長さを確認してください。</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>ドメインでOUを検索しています...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>検索をキャンセルしました。</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>このドメインにOUが見つかりませんでした。</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>一部のOUのみ一覧表示できました。表示されているOUは追加できます。</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>このドメインのOUは、すべて既に一覧にあります。</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>検索がタイムアウトしました。OUは手動で追加できます。</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>ドメインを検索できませんでした。このコンピューターがドメインに接続でき、Windowsアカウントでドメインを読み取れることを確認するか、OUを手動で追加してください。</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>ドメインを追加</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>ドメインの追加</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>ドメインの編集</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>現在のパスワードを保持するには、パスワードを空欄のままにしてください。</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>ドメインは保存されませんでした。ドメイン名を確認してください。</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>準備完了</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>ドメイン名を変更する前に、このドメインのOUを削除してください。</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>ドメインは追加されていません。</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>OUは追加されていません。</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OUは追加されませんでした。選択したドメインとは異なるドメインに属しています。</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>先にドメインを追加してから、そのOUを登録してください。</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OUは追加されませんでした。表示名と識別名を確認してください。OUは選択したドメインに属している必要があります。</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>組織単位</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>{0}の組織単位</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>OUを一覧表示するドメインを選択してください。</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>選択されたOU: {0} / {1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>共有</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>ドメインを1つ以上追加してください。</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>このドメインは既に一覧にあります。</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>2つのOUの内部IDが同じです。一方を削除して追加し直してください。</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>corp.contoso.comなどの有効なドメイン名を入力してください。</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>各OUには120文字以内の表示名が必要です。</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>「一般」ページでパスワード保護を有効にし、展開パスワードを設定してください。</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>アカウントのパスワードを入力してください。</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>アカウントはDOMAIN\userまたはuser@domainの形式で入力してください。</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>共有の参加用アカウントを入力するか、このドメインに専用のアカウントを設定してください。</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>ドメインは最大32件まで登録できます。</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>OUは最大1,024件まで登録できます。</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>アカウント (DOMAIN\userまたはuser@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>OUを追加</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>検索をキャンセル</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>ドメイン名</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>専用アカウントを使用</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>共有の参加用アカウントを使用</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>ドメインからインポート</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Windowsアカウントを使用して、選択したドメインのOUを一覧表示します。追加するOUを選択してください。</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>ドメインからOUをインポート</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>このメディアが参加できるドメインです。複数登録されている場合は、技術者が展開中に1つを選択します。既定のドメインがあらかじめ選択されています。</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>ドメイン</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>選択したOUを追加</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>OUの表示名と識別名を入力してください。OUは選択したドメインに属している必要があります。</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>OUを手動で追加</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>識別名</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>表示名</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>省略可能です。選択したドメインでコンピューターを配置できるOUを登録します。OUが1つだけの場合は常にそのOUが使用され、複数登録されている場合は技術者が展開中に1つを選択します。既存のコンピューターアカウントは選択したOUに移動されます。</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>専用のアカウントを持たないすべてのドメインで使用されるアカウントです。コンピューターを参加させ、選択したOUに移動する権限が必要です。</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>共有の参加用アカウント</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>信頼されたルート CA 証明書ファイル</value>
   </data>
@@ -1874,7 +2084,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パスワード</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>このパスワードは安全に保管してください。Windows のローカル アカウントのパスワード、Autopilot の資格情報とプロファイル、およびカスタム応答ファイルを保護します。</value>
+    <value>このパスワードは安全に保管してください。Windows のローカル アカウントのパスワード、ドメイン参加の資格情報、Autopilot の資格情報とプロファイル、およびカスタム応答ファイルを保護します。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>展開パスワード</value>
@@ -1986,6 +2196,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>メディアの準備状況</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>展開時に技術者にドメインの資格情報の入力を求めます。</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>対話型ドメイン参加</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>アラビア語 (サウジアラビア)</value>
@@ -2191,6 +2407,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>ドキュメント</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>ドメイン参加</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>標準の Ethernet 接続はデフォルトで利用可能です。このセクションは、有線ネットワークで 802.1X エンタープライズ認証が必要な場合にのみ設定します。</value>
   </data>
@@ -2211,6 +2430,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>ホーム</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>展開時に技術者にドメインの資格情報の入力を求めます。</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>対話型</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>展開されたデバイス名を構成します。</value>
@@ -2271,6 +2496,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>展開パスワードで保護された資格情報を使用して、ドメインに自動的に参加します。</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>ゼロタッチ</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>アクティブなプロビジョニング モード</value>
@@ -3916,5 +4147,11 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>展開パスワードで保護された資格情報を使用して、ドメインに自動的に参加します。</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>ゼロタッチドメイン参加</value>
   </data>
 </root>

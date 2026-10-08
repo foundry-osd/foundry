@@ -8,6 +8,28 @@ namespace Foundry.Utilities.Tests.Diagnostics;
 
 public sealed class DiagnosticContentSanitizerTests
 {
+    [Theory]
+    [InlineData("""{"Password":"prefix-canary-tail","Domain":"corp.example.test"}""")]
+    [InlineData("""{"dOmAiN_jOiN_pAsSwOrD":"prefix\"canary-tail","Domain":"corp.example.test"}""")]
+    [InlineData("""{"DomainJoinPassword":"prefix\\\"canary-tail","Domain":"corp.example.test"}""")]
+    [InlineData("""{\"DomainJoinPassword\":\"prefix\\\"canary-tail\",\"Domain\":\"corp.example.test\"}""")]
+    [InlineData("""{"Domain Join Password":"prefix\"canary-tail","Domain":"corp.example.test"}""")]
+    [InlineData("""{\"Domain.JoinPassword\":\"prefix\\\"canary-tail\",\"Domain\":\"corp.example.test\"}""")]
+    public void Sanitize_QuotedCredentialValuesDoNotLeakEscapedSuffixes(string text)
+    {
+        string singleLine = DiagnosticContentSanitizer.Sanitize(text);
+        string multiline = DiagnosticContentSanitizer.SanitizeMultiline("Before\r\n" + text + "\r\nAfter");
+
+        Assert.DoesNotContain("prefix", singleLine, StringComparison.Ordinal);
+        Assert.DoesNotContain("canary-tail", singleLine, StringComparison.Ordinal);
+        Assert.DoesNotContain("prefix", multiline, StringComparison.Ordinal);
+        Assert.DoesNotContain("canary-tail", multiline, StringComparison.Ordinal);
+        Assert.Contains("corp.example.test", singleLine, StringComparison.Ordinal);
+        Assert.StartsWith("Before\r\n", multiline, StringComparison.Ordinal);
+        Assert.EndsWith("\r\nAfter", multiline, StringComparison.Ordinal);
+        Assert.Contains("<redacted>", singleLine, StringComparison.Ordinal);
+    }
+
     [Fact]
     public void Sanitize_RemovesSensitiveDiagnosticValues()
     {

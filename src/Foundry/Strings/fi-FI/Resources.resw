@@ -1834,6 +1834,216 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Asiakirjoja ei voitu avata</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Liittämistili</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Oletus</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Toimialue</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU:t</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Tyhjennä oletusvalinta</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Aseta oletukseksi</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Anna ensin kelvollinen tili ja tarkista sitten salasanan pituus.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Kyllä</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>Etsitään OU:ita toimialueesta...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>Haku peruutettiin.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Tästä toimialueesta ei löytynyt OU:ita.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>Vain osa OU:ista voitiin luetella. Voit silti lisätä näkyvissä olevat.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Kaikki tämän toimialueen OU:t ovat jo luettelossa.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>Haku aikakatkaistiin. Voit lisätä OU:ita manuaalisesti.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Toimialueesta ei voitu hakea. Tarkista, että tämä tietokone saa siihen yhteyden ja että Windows-tililläsi on oikeus lukea sitä, tai lisää OU:t manuaalisesti.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Lisää toimialue</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Lisää toimialue</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Muokkaa toimialuetta</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Jätä salasana tyhjäksi, jos haluat säilyttää nykyisen.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Toimialuetta ei tallennettu. Tarkista toimialueen nimi.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Poista tämän toimialueen OU:t ennen sen nimen muuttamista.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Toimialueita ei ole lisätty.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>OU:ita ei ole lisätty.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU:ita ei lisätty. Ne kuuluvat eri toimialueeseen kuin valittu toimialue.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Lisää ensin toimialue ja luettele sitten sen OU:t.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU:ta ei lisätty. Tarkista näyttönimi ja yksilöivä nimi. OU:n on kuuluttava valittuun toimialueeseen.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organisaatioyksiköt</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Toimialueen {0} organisaatioyksiköt</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Valitse toimialue, niin voit luetella sen OU:t.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Valitut OU:t: {0} / {1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Jaettu</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Lisää vähintään yksi toimialue.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Tämä toimialue on jo luettelossa.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>Kahdella OU:lla on sama sisäinen tunnus. Poista toinen ja lisää se uudelleen.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Anna kelvollinen toimialueen nimi, esimerkiksi corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Jokaisella OU:lla on oltava enintään 120 merkin pituinen näyttönimi.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Ota salasanasuojaus käyttöön sivulla ”Yleiset” ja määritä käyttöönoton salasana.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Anna tilin salasana.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>Anna tili muodossa DOMAIN\user tai user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Anna jaettu liittämistili tai määritä tälle toimialueelle oma tili.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Luettelossa voi olla enintään 32 toimialuetta.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>Luettelossa voi olla enintään 1 024 OU:ta.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Tili (DOMAIN\user tai user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>Lisää OU</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Peruuta haku</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Toimialueen nimi</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Käytä erillistä tiliä</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Käytä jaettua liittämistiliä</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Tuo toimialueesta</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Luettelee Windows-tilisi avulla valitun toimialueen OU:t. Valitse lisättävät.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>Tuo OU:t toimialueesta</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Toimialueet, joihin tämä media voi liittyä. Jos niitä on luettelossa useita, teknikot valitsevat yhden käyttöönoton aikana; oletustoimialue on esivalittuna.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Toimialueet</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Lisää valitut OU:t</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Anna näyttönimi ja OU:n yksilöivä nimi. OU:n on kuuluttava valittuun toimialueeseen.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>Lisää OU manuaalisesti</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>Yksilöivä nimi</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Näyttönimi</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Valinnainen. Luettele OU:t, joihin tietokoneita voidaan sijoittaa valitussa toimialueessa. Jos luettelossa on vain yksi OU, sitä käytetään aina; jos niitä on useita, teknikot valitsevat yhden käyttöönoton aikana. Olemassa oleva tietokonetili siirretään valittuun OU:hun.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Tili, jota käyttävät kaikki toimialueet, joilla ei ole omaa tiliä. Sillä on oltava oikeus liittää tietokoneita ja siirtää ne valitsemiisi OU:ihin.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Jaettu liittämistili</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Luotettu juurivarmennetiedosto</value>
   </data>
@@ -1874,7 +2084,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Salasana</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Säilytä tämä salasana turvallisesti. Se suojaa paikallisten Windows-tilien salasanat, Autopilot-tunnistetiedot ja -profiilit sekä mukautetut vastaustiedostot.</value>
+    <value>Säilytä tämä salasana turvallisesti. Se suojaa paikallisten Windows-tilien salasanat, toimialueeseen liittymisen tunnistetiedot, Autopilot-tunnistetiedot ja -profiilit sekä mukautetut vastaustiedostot.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Käyttöönoton salasana</value>
@@ -1907,7 +2117,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Valitulle arkkitehtuurille ei havaittu WinPE-kielipaketteja.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Kenraali</value>
+    <value>Yleiset</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Tarkista ja aloita</value>
@@ -1986,6 +2196,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Tietovälineen valmiustila</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Pyydä teknikolta toimialueen tunnistetiedot käyttöönoton aikana.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Vuorovaikutteinen toimialueeseen liittyminen</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabia (Saudi-Arabia)</value>
@@ -2191,6 +2407,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentaatio</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Toimialueeseen liittyminen</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Normaali Ethernet-yhteys on käytettävissä oletuksena. Määritä tämä osio vain, jos kiinteä verkkosi vaatii 802.1X yritystodennusta.</value>
   </data>
@@ -2201,16 +2420,22 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Vakiokonfigurointityönkulku.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Kenraali</value>
+    <value>Yleiset</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Kenraali</value>
+    <value>Yleiset</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD kotiin</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Kotiin</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>Pyydä teknikolta toimialueen tunnistetiedot käyttöönoton aikana.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Interaktiivinen</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Määritä käyttöön otettujen laitteiden nimet.</value>
@@ -2271,6 +2496,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Liity toimialueeseen automaattisesti käyttöönoton salasanalla suojatuilla tunnistetiedoilla.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktiivinen käyttöönotto-tila</value>
@@ -2974,7 +3205,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Hallitse käynnistystä, kieltä, diagnostiikkaa ja sovellusten toimintaa.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Kenraali</value>
+    <value>Yleiset</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Varmuuskopioi asetuksesi, siirrä ne toiselle tietokoneelle tai pidä ne synkronoituina.</value>
@@ -3916,5 +4147,11 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Liity toimialueeseen automaattisesti käyttöönoton salasanalla suojatuilla tunnistetiedoilla.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch-liittyminen toimialueeseen</value>
   </data>
 </root>

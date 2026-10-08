@@ -170,8 +170,30 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         {
             ValidateBootstrapCapability(archive);
         }
+        if (applicationName == "Foundry.PostInstall")
+            await ValidatePostInstallManifestAsync(archive, runtimeIdentifier, cancellationToken).ConfigureAwait(false);
 
         return applicationOptions with { ArchivePath = archivePath, ArchiveSha256 = hash };
+    }
+
+    private static async Task ValidatePostInstallManifestAsync(ZipArchive archive, string runtimeIdentifier, CancellationToken cancellationToken)
+    {
+        var entries = archive.Entries.Where(entry => entry.FullName.Equals(Models.PreOobe.PostInstallRuntimeManifest.FileName, StringComparison.OrdinalIgnoreCase)).ToArray();
+        if (entries.Length != 1 || entries[0].Length is <= 0 or > 65536)
+            throw new InvalidDataException("PostInstall runtime metadata is missing, ambiguous or exceeds its size limit.");
+        await using var input = entries[0].Open();
+        using var bounded = new MemoryStream();
+        byte[] buffer = new byte[8192];
+        int count;
+        while ((count = await input.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) != 0)
+        {
+            if (bounded.Length + count > 65536) throw new InvalidDataException("PostInstall runtime metadata exceeds its size limit.");
+            bounded.Write(buffer, 0, count);
+        }
+        var manifest = JsonSerializer.Deserialize<Models.PreOobe.PostInstallRuntimeManifest>(bounded.ToArray(),
+            Configuration.ConfigurationJsonDefaults.SerializerOptions);
+        if (manifest is null || manifest.SchemaVersion != 1 || manifest.ContractVersion != 1 || manifest.RuntimeIdentifier != runtimeIdentifier)
+            throw new InvalidDataException("PostInstall runtime metadata is incompatible with the selected Windows image or deployment contract.");
     }
 
     public async Task<WinPeResult> ProvisionAsync(

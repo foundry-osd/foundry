@@ -11,6 +11,72 @@ namespace Foundry.PostInstall.Tests;
 public sealed class PostInstallConsoleTests
 {
     [Fact]
+    public void DomainOutcomes_ShowIndependentPhasesAndPlacementWarning()
+    {
+        using var f = new DomainFixture();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
+        report.Write(report.Read() with
+        {
+            OriginatingBootId = "installed-boot",
+            Join = new() { State = DomainJoinPhaseState.Succeeded },
+            Placement = new() { State = DomainJoinPhaseState.Failed, FailureCode = DomainJoinFailureCode.PlacementFailed },
+            Restart = DomainJoinRestartState.Required
+        });
+        using var output = new StringWriter();
+        using var console = new PostInstallConsole(f.Plan, "test.log", output);
+        console.Report(new([], "CompletedWithErrors", DomainResult: report.Read(), WarningCount: 1));
+        console.Complete(new("CompletedWithErrors", 0));
+        string text = output.ToString();
+        Assert.Contains("Domain joined; target OU placement failed", text);
+        Assert.Contains("Join: Succeeded", text);
+        Assert.Contains("Placement: Failed", text);
+        Assert.Contains("Membership: NotStarted", text);
+        Assert.Contains("Restart: Required", text);
+        Assert.Contains("Cleanup: Pending", text);
+        Assert.Contains("Warnings: 1", text);
+    }
+
+    [Theory]
+    [InlineData(DomainJoinPhaseState.Succeeded, DomainJoinPhaseState.Unverified, "Domain joined; target OU placement not confirmed")]
+    [InlineData(DomainJoinPhaseState.Succeeded, DomainJoinPhaseState.Unknown, "Domain joined; target OU placement not confirmed")]
+    [InlineData(DomainJoinPhaseState.Unknown, DomainJoinPhaseState.Skipped, "Domain join outcome unknown; membership is checked after restart")]
+    [InlineData(DomainJoinPhaseState.Succeeded, DomainJoinPhaseState.Failed, "Domain joined in the default location; target OU not found")]
+    public void DomainOutcomes_ExplainUnconfirmedStates(DomainJoinPhaseState join, DomainJoinPhaseState placement, string expected)
+    {
+        using var f = new DomainFixture();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
+        DomainJoinResult result = report.Read() with
+        {
+            Join = new() { State = join },
+            Placement = new() { State = placement, FailureCode = placement == DomainJoinPhaseState.Failed ? DomainJoinFailureCode.OrganizationalUnitNotFound : null }
+        };
+        using var output = new StringWriter();
+        using var console = new PostInstallConsole(f.Plan, "test.log", output);
+        console.Report(new([], "Running", DomainResult: result, WarningCount: 1));
+        Assert.Contains(expected, output.ToString());
+    }
+
+    [Theory]
+    [InlineData(DomainJoinPhaseState.Succeeded)]
+    [InlineData(DomainJoinPhaseState.Failed)]
+    [InlineData(DomainJoinPhaseState.Unverified)]
+    public void UnknownJoin_StopsAnnouncingTheCheckOnceMembershipWasChecked(DomainJoinPhaseState membership)
+    {
+        using var f = new DomainFixture();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
+        DomainJoinResult result = report.Read() with
+        {
+            Join = new() { State = DomainJoinPhaseState.Unknown },
+            Membership = new() { State = membership }
+        };
+        using var output = new StringWriter();
+        using var console = new PostInstallConsole(f.Plan, "test.log", output);
+        console.Report(new([], "Running", DomainResult: result, WarningCount: 1));
+        Assert.Contains("Membership: " + membership, output.ToString());
+        Assert.DoesNotContain("is checked after restart", output.ToString());
+    }
+
+    [Fact]
     public void RedirectedOutput_ReportsResumedResultsAndOnlyChangedActions()
     {
         using var output = new StringWriter();

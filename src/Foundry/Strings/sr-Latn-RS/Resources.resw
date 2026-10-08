@@ -1834,6 +1834,216 @@ Licencirano pod MIT licencom.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentacija nije mogla da se otvori</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Nalog za pridruživanje</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Podrazumevano</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Domen</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Obriši podrazumevani izbor</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Ukloni</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Postavi kao podrazumevano</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Prvo unesite važeći nalog, a zatim proverite dužinu lozinke.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Da</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>Pretraga OU u domenu...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>Pretraga je otkazana.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Nijedna OU nije pronađena u ovom domenu.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>Samo neke OU su mogle da budu prikazane. Prikazane i dalje možete da dodate.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Sve OU u ovom domenu već su na listi.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>Vreme za pretragu je isteklo. OU možete da dodate ručno.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Pretraga domena nije uspela. Proverite da li ovaj računar može da mu pristupi i da li vaš Windows nalog može da ga čita ili dodajte OU ručno.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Dodaj domen</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Dodavanje domena</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Uređivanje domena</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Ostavite lozinku praznu da biste zadržali trenutnu.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Domen nije sačuvan. Proverite ime domena.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Spreman</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Uklonite OU ovog domena pre promene njegovog imena.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Nema dodatih domena.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Nema dodatih OU.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU nisu dodate. Pripadaju drugom domenu, a ne izabranom.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Prvo dodajte domen, a zatim navedite njegove OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU nije dodata. Proverite ime za prikaz i jedinstveno ime. OU mora pripadati izabranom domenu.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organizacione jedinice</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Organizacione jedinice domena {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Izaberite domen da biste prikazali njegove OU.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Izabrane OU: {0} od {1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Deljeni</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Dodajte bar jedan domen.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Ovaj domen je već na listi.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>Dve OU imaju isti interni ID. Uklonite jednu i dodajte je ponovo.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Unesite važeće ime domena, na primer corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Svaka OU mora imati ime za prikaz sa najviše 120 znakova.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Omogućite zaštitu lozinkom na stranici „Opšte” i postavite lozinku za primenu.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Unesite lozinku naloga.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>Unesite nalog u obliku DOMAIN\user ili user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Unesite deljeni nalog za pridruživanje ili dodelite ovom domenu sopstveni nalog.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Možete navesti najviše 32 domena.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>Možete navesti najviše 1.024 OU.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Nalog (DOMAIN\user ili user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>Dodaj OU</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Otkaži pretragu</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Ime domena</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Koristi namenski nalog</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Koristi deljeni nalog za pridruživanje</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Uvezi iz domena</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Prikazuje OU izabranog domena, koristeći vaš Windows nalog. Izaberite one koje želite da dodate.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>Uvoz OU iz domena</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domeni kojima ovaj medijum može da se pridruži. Kada ih je navedeno više, tehničari biraju jedan tokom primene; podrazumevani je unapred izabran.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domeni</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Dodaj izabrane OU</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Unesite ime za prikaz i jedinstveno ime OU. OU mora pripadati izabranom domenu.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>Ručno dodavanje OU</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>Jedinstveno ime</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Ime za prikaz</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Opciono. Navedite OU u koje računari mogu da se smeste u izabranom domenu. Ako je navedena samo jedna OU, ona se uvek koristi; kada ih je navedeno više, tehničari biraju jednu tokom primene. Postojeći nalog računara premešta se u izabranu OU.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Lozinka</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Nalog koji koristi svaki domen koji nema sopstveni nalog. Potrebna mu je dozvola da pridružuje računare i da ih premešta u OU koje izaberete.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Deljeni nalog za pridruživanje</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Datoteka sertifikata pouzdanog root CA</value>
   </data>
@@ -1874,7 +2084,7 @@ Licencirano pod MIT licencom.</value>
     <value>Lozinka</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Čuvajte ovu lozinku na sigurnom. Ona štiti lozinke lokalnih Windows naloga, Autopilot akreditive i profile, kao i prilagođene datoteke odgovora.</value>
+    <value>Čuvajte ovu lozinku na sigurnom. Ona štiti lozinke lokalnih Windows naloga, akreditive za pridruživanje domenu, Autopilot akreditive i profile, kao i prilagođene datoteke odgovora.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Lozinka za primenu</value>
@@ -1907,7 +2117,7 @@ Licencirano pod MIT licencom.</value>
     <value>Za izabranu arhitekturu nisu otkriveni WinPE jezički paketi.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>general</value>
+    <value>Opšte</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Pregledajte i počnite</value>
@@ -1986,6 +2196,12 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Status spremnosti medijuma</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Zatražite od tehničara akreditive domena tokom primene.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Interaktivno pridruživanje domenu</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arapski (Saudijska Arabija)</value>
@@ -2191,6 +2407,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentacija</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Pridruživanje domenu</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Standardno Ethernet povezivanje je podrazumevano dostupno. Konfigurišite ovaj odeljak samo ako vaša žičana mreža zahteva 802.1X autentifikaciju preduzeća.</value>
   </data>
@@ -2201,16 +2420,22 @@ Licencirano pod MIT licencom.</value>
     <value>Standardni tok rada konfiguracije.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>general</value>
+    <value>Opšte</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>general</value>
+    <value>Opšte</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD kući</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>Zatražite od tehničara akreditive domena tokom primene.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Interaktivno</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurišite nazive raspoređenih uređaja.</value>
@@ -2271,6 +2496,12 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Pridružite se domenu automatski pomoću akreditiva zaštićenih lozinkom za primenu.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktivan režim obezbeđivanja</value>
@@ -2974,7 +3205,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Upravljajte pokretanjem, jezikom, dijagnostikom i ponašanjem aplikacije.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>general</value>
+    <value>Opšte</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Napravite rezervne kopije svojih podešavanja, prenesite ih na drugi računar ili ih održavajte sinhronizovanim.</value>
@@ -3916,5 +4147,11 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Pridružite se domenu automatski pomoću akreditiva zaštićenih lozinkom za primenu.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch pridruživanje domenu</value>
   </data>
 </root>

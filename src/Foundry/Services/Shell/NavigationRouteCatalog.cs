@@ -11,7 +11,8 @@ public enum NavigationSection
     General,
     Network,
     WindowsAutopilot,
-    Customization
+    Customization,
+    DomainJoin
 }
 
 public sealed record NavigationRoute(
@@ -38,6 +39,8 @@ public static class NavigationRouteCatalog
         CreatePrimary<AutopilotJsonProfilePage>("Nav_AutopilotJsonProfileKey", "E8A5", NavigationSection.WindowsAutopilot),
         CreatePrimary<AutopilotZeroTouchPage>("Nav_AutopilotZeroTouchKey", "E753", NavigationSection.WindowsAutopilot),
         CreatePrimary<AutopilotInteractiveHashUploadPage>("Nav_AutopilotInteractiveHashUploadKey", "E928", NavigationSection.WindowsAutopilot),
+        CreatePrimary<ZeroTouchDomainJoinPage>("Nav_ZeroTouchDomainJoinKey", "F003", NavigationSection.DomainJoin),
+        CreatePrimary<InteractiveDomainJoinPage>("Nav_InteractiveDomainJoinKey", "E928", NavigationSection.DomainJoin),
         CreatePrimary<OsSelectionPage>("Nav_OsSelectionKey", "EC77", NavigationSection.Customization),
         CreatePrimary<CustomImagesPage>("Nav_CustomImagesKey", "E958", NavigationSection.Customization),
         CreatePrimary<UnattendPage>("Nav_UnattendKey", "E8A5", NavigationSection.Customization),
@@ -71,6 +74,7 @@ public static class NavigationRouteCatalog
         NavigationSection.General => "Nav_GeneralSection.Title",
         NavigationSection.Network => "Nav_NetworkSection.Title",
         NavigationSection.WindowsAutopilot => "Nav_WindowsAutopilotSection.Title",
+        NavigationSection.DomainJoin => "Nav_DomainJoinSection.Title",
         NavigationSection.Customization => "Nav_CustomizationSection.Title",
         _ => throw new ArgumentOutOfRangeException(nameof(section), section, null)
     };

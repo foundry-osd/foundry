@@ -87,6 +87,7 @@
 
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
+                        ContentAlignment="Vertical"
                         Description="{x:Bind ViewModel.ProfilesDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.ProfilesLabel, Mode=OneWay}">
                         <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
@@ -100,7 +101,7 @@
                                 CanFilterColumns="False"
                                 CanReorderColumns="False"
                                 CanResizeColumns="False"
-                                CanSortColumns="False"
+                                CanSortColumns="True"
                                 CornerButtonMode="None"
                                 HeadersVisibility="Columns"
                                 IsReadOnly="True"
@@ -112,15 +113,20 @@
                                 Visibility="{x:Bind ViewModel.ProfilesVisibility, Mode=OneWay}">
                                 <tv:TableView.Columns>
                                     <tv:TableViewTextColumn
+                                        Width="2*"
                                         Binding="{Binding DisplayName}"
                                         Header="{x:Bind ViewModel.ProfileNameColumnHeader, Mode=OneWay}" />
                                     <tv:TableViewTextColumn
+                                        Width="*"
                                         Binding="{Binding Source}"
                                         Header="{x:Bind ViewModel.ProfileSourceColumnHeader, Mode=OneWay}" />
                                     <tv:TableViewTextColumn
+                                        Width="*"
                                         Binding="{Binding ImportedAtDisplay}"
-                                        Header="{x:Bind ViewModel.ProfileImportedColumnHeader, Mode=OneWay}" />
+                                        Header="{x:Bind ViewModel.ProfileImportedColumnHeader, Mode=OneWay}"
+                                        SortMemberPath="ImportedAtUtc" />
                                     <tv:TableViewTextColumn
+                                        Width="2*"
                                         Binding="{Binding FolderName}"
                                         Header="{x:Bind ViewModel.ProfileFolderColumnHeader, Mode=OneWay}" />
                                 </tv:TableView.Columns>

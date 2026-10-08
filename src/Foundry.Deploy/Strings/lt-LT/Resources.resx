@@ -256,6 +256,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Diegimo puslapiai</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktyvus</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Klaidos puslapis</value>
   </data>
@@ -356,6 +362,48 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Paskyra (DOMAIN\user arba user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Įveskite paskyrą formatu DOMAIN\user arba user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>Numatytoji domeno vieta</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Pateikite šio kompiuterio prisijungimo prie domeno duomenis. Prie domeno prisijungiama įdiegus Windows.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Organizacinis vienetas</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Įveskite tinkamą šio domeno OU skiriamąjį vardą arba palikite tuščią.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Domeno vardas</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Įveskite tinkamą domeno vardą, pvz., corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>Prisijungimo prie domeno informacijos trūksta arba ji netinkama. Diegimas nepradėtas.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>OU skiriamasis vardas (nebūtinas)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>Palikite tuščią, kad būtų naudojama numatytoji domeno vieta.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Slaptažodis</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Prisijungimas prie domeno</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>Šio Windows leidimo negalima prijungti prie domeno. Windows diegimas tęsiamas be prisijungimo prie domeno.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

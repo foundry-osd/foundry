@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.DomainJoinOuSelectionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tv="using:WinUI.TableView"
+    CloseButtonStyle="{ThemeResource DefaultButtonStyle}"
+    CornerRadius="{ThemeResource OverlayCornerRadius}"
+    DefaultButton="Primary"
+    PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <Grid x:Name="DialogContentRoot"
+        RowSpacing="{ThemeResource FoundryContentGroupSpacing}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+            <TextBlock
+                Text="{x:Bind ViewModel.Description}"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                Text="{x:Bind ViewModel.IncompleteText}"
+                TextWrapping="Wrap"
+                Visibility="{x:Bind ViewModel.IncompleteVisibility}" />
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                VerticalAlignment="Center"
+                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                Text="{x:Bind ViewModel.SelectedCountDisplay, Mode=OneWay}" />
+
+            <Button
+                Grid.Column="1"
+                MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                Margin="{ThemeResource FoundryInlineLeadingButtonMargin}"
+                Click="OnSelectAllClick"
+                Content="{x:Bind ViewModel.SelectAllText}" />
+            <Button
+                Grid.Column="2"
+                MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                Click="OnClearClick"
+                Content="{x:Bind ViewModel.ClearText}" />
+        </Grid>
+
+        <!--  The table scrolls within a fixed maximum height, so a large directory cannot stretch the dialog.  -->
+        <tv:TableView x:Name="OrganizationalUnitsTable"
+            Grid.Row="2"
+            MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+            AutoGenerateColumns="False"
+            CanFilterColumns="False"
+            CanReorderColumns="False"
+            CanResizeColumns="False"
+            CanSortColumns="True"
+            CornerButtonMode="None"
+            HeadersVisibility="Columns"
+            IsReadOnly="True"
+            ItemsSource="{x:Bind ViewModel.OrganizationalUnits}"
+            SelectionChanged="OnSelectionChanged"
+            SelectionMode="Multiple"
+            SelectionUnit="Row"
+            ShowExportOptions="False">
+            <tv:TableView.Columns>
+                <tv:TableViewTextColumn
+                    Width="*"
+                    Binding="{Binding DisplayName}"
+                    Header="{x:Bind ViewModel.DisplayNameColumnHeader}" />
+                <tv:TableViewTextColumn
+                    Width="2*"
+                    Binding="{Binding DistinguishedName}"
+                    Header="{x:Bind ViewModel.DistinguishedNameColumnHeader}" />
+            </tv:TableView.Columns>
+        </tv:TableView>
+    </Grid>
+</ContentDialog>

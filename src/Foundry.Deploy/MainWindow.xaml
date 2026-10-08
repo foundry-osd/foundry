@@ -140,6 +140,26 @@
                                 IsChecked="{Binding IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode, Mode=OneWay}" />
                         </MenuItem>
                     </MenuItem>
+                    <MenuItem Header="{Binding Strings[DomainJoin.Title]}">
+                        <MenuItem
+                            Command="{Binding SetDebugDomainJoinModeCommand}"
+                            CommandParameter="{x:Static runtime:DebugDomainJoinMode.None}"
+                            Header="{Binding Strings[Common.None]}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsDebugDomainJoinNoneMode, Mode=OneWay}" />
+                        <MenuItem
+                            Command="{Binding SetDebugDomainJoinModeCommand}"
+                            CommandParameter="{x:Static runtime:DebugDomainJoinMode.Interactive}"
+                            Header="{Binding Strings[Debug.DomainJoin.Interactive]}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsDebugDomainJoinInteractiveMode, Mode=OneWay}" />
+                        <MenuItem
+                            Command="{Binding SetDebugDomainJoinModeCommand}"
+                            CommandParameter="{x:Static runtime:DebugDomainJoinMode.ZeroTouch}"
+                            Header="{Binding Strings[Debug.DomainJoin.ZeroTouch]}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsDebugDomainJoinZeroTouchMode, Mode=OneWay}" />
+                    </MenuItem>
                     <MenuItem Header="{Binding Strings[Debug.CustomImages]}">
                         <MenuItem
                             Command="{Binding SetDebugCustomImageScenarioCommand}"

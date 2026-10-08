@@ -48,6 +48,12 @@ public static class FoundryApplicationInfo
     /// </summary>
     public const string AutopilotInteractiveDocumentationUrl = DocumentationUrl + "/foundry-osd/autopilot/interactive-hardware-hash";
 
+    /// <summary>Gets the interactive domain joining documentation URL.</summary>
+    public const string InteractiveDomainJoinDocumentationUrl = DocumentationUrl + "/foundry-osd/domain-join/interactive";
+
+    /// <summary>Gets the automatic domain joining documentation URL.</summary>
+    public const string ZeroTouchDomainJoinDocumentationUrl = DocumentationUrl + "/foundry-osd/domain-join/zero-touch";
+
     /// <summary>
     /// Gets the general configuration documentation URL.
     /// </summary>

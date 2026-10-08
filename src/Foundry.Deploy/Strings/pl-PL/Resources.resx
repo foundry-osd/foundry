@@ -256,6 +256,12 @@ Licencjonowany na licencji MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Strony wdrożeniowe</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktywnie</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Strona błędu</value>
   </data>
@@ -356,6 +362,48 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Konto (DOMAIN\user lub user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Wprowadź konto w formacie DOMAIN\user lub user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>Domyślna lokalizacja domeny</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Podaj dane dołączania tego komputera do domeny. Dołączenie następuje po zainstalowaniu systemu Windows.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Jednostka organizacyjna</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Wprowadź prawidłową nazwę wyróżniającą jednostki OU w tej domenie lub pozostaw pole puste.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Nazwa domeny</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Wprowadź prawidłową nazwę domeny, na przykład corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>Brak informacji o dołączaniu do domeny lub są one nieprawidłowe. Wdrażanie nie zostało rozpoczęte.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>Nazwa wyróżniająca OU (opcjonalna)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>Pozostaw puste, aby użyć domyślnej lokalizacji domeny.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Dołączanie do domeny</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>Ta edycja systemu Windows nie może dołączyć do domeny. Instalacja systemu Windows jest kontynuowana bez dołączania.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

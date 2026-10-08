@@ -33,4 +33,15 @@ public sealed class DeploymentWizardStepDefinitionTests
         Assert.Equal(DeploymentWizardStepId.Autopilot, steps[^2].Id);
         Assert.Equal(DeploymentWizardStepId.Summary, steps[^1].Id);
     }
+
+    [Fact]
+    public void CreateSequence_IncludesDomainJoinImmediatelyBeforeSummary()
+    {
+        IReadOnlyList<DeploymentWizardStepDefinition> steps =
+            DeploymentWizardStepDefinition.CreateSequence(includeAutopilot: false, includeDomainJoin: true);
+
+        Assert.Equal(DeploymentWizardStepId.Drivers, steps[^3].Id);
+        Assert.Equal(DeploymentWizardStepId.DomainJoin, steps[^2].Id);
+        Assert.Equal(DeploymentWizardStepId.Summary, steps[^1].Id);
+    }
 }

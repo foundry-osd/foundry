@@ -256,6 +256,12 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>صفحات النشر</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>تفاعلي</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>صفحة الخطأ</value>
   </data>
@@ -356,6 +362,48 @@
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>الحساب (DOMAIN\user أو user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>أدخل الحساب بالصيغة DOMAIN\user أو user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>الموقع الافتراضي للنطاق</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>أدخل تفاصيل الانضمام إلى النطاق لهذا الكمبيوتر. يتم الانضمام بعد تثبيت Windows.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>الوحدة التنظيمية</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>أدخل اسماً مميزاً صالحاً لوحدة OU في هذا النطاق، أو اترك الحقل فارغاً.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>اسم النطاق</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>أدخل اسم نطاق صالحاً، مثل corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>معلومات الانضمام إلى النطاق مفقودة أو غير صالحة. لم يبدأ النشر.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>الاسم المميز لـ OU (اختياري)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>اترك الحقل فارغاً لاستخدام الموقع الافتراضي للنطاق.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>الانضمام إلى النطاق</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>لا يمكن لإصدار Windows هذا الانضمام إلى نطاق. سيستمر تثبيت Windows دون ذلك.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

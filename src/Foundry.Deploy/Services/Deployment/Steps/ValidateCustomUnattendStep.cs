@@ -21,8 +21,14 @@ public sealed class ValidateCustomUnattendStep(UnattendContentService contentSer
         cancellationToken.ThrowIfCancellationRequested();
         context.UnattendSnapshot?.Dispose();
         context.UnattendSnapshot = contentService.Read(context.Request.Unattend, context.Request.OperatingSystem.Architecture,
-            context.Request.IsAutopilotEnabled, context.Request.AutopilotProvisioningMode);
-        if (PreOobe.PreOobeContentResolver.IsRequired(context.Request))
+            context.Request.IsAutopilotEnabled, context.Request.AutopilotProvisioningMode,
+            context.Request.DomainJoinRequest?.Disposition is DomainJoin.DomainJoinDeploymentDisposition.Ready or DomainJoin.DomainJoinDeploymentDisposition.DryRun);
+        if (context.Request.DomainJoinIntent is { } intent && !string.Equals(
+            context.UnattendSnapshot.Inspection.ConcreteComputerName, intent.ComputerName, StringComparison.Ordinal))
+            return DeploymentStepResult.Failed("The custom answer-file computer name differs from the computer name confirmed for the domain join.",
+                DeploymentFailure.Guard(DeploymentOperationNames.ValidateTarget, DeploymentFailureReasons.InvalidInput,
+                    "domain_custom_name_mismatch"));
+        if (PreOobe.PreOobeContentResolver.IsRequired(context.Request, context.RuntimeState))
             context.UnattendSnapshot.ValidatePostInstallHook(context.Request.OperatingSystem.Architecture);
         if (context.UnattendSnapshot.Inspection.HasCommands)
         {

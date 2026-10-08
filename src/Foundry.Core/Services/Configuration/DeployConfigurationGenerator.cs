@@ -57,9 +57,24 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings,
         OobeAccountSecretState? oobeAccountSecretState,
+        string? authoringVersion = null) =>
+        Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, null, authoringVersion);
+
+    /// <inheritdoc />
+    public FoundryDeployConfigurationDocument Generate(
+        FoundryConfigurationDocument document,
+        byte[]? deploymentSecretsKey,
+        DeployProtectionSettings? protectionSettings,
+        OobeAccountSecretState? oobeAccountSecretState,
+        DomainJoinSecretState? domainJoinSecretState,
         string? authoringVersion = null)
     {
         ArgumentNullException.ThrowIfNull(document);
+        DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(document.Autopilot, document.DomainJoin);
+        if (document.DomainJoin.IsEnabled && !DomainJoinConfigurationValidator.EvaluateReadiness(document.DomainJoin,
+            account => domainJoinSecretState?.HasPassword(account) == true,
+            protectionSettings?.IsEnabled == true && deploymentSecretsKey is { Length: MediaSecretEnvelopeProtector.KeySizeBytes }).IsValid)
+            throw new InvalidOperationException("Domain joining configuration is not ready for deployment media.");
         CustomImageSettingsValidator.ThrowIfInvalid(document.CustomImages);
         PreOobeConfigurationValidator.ThrowIfInvalid(document.PreOobe);
         UnattendFileService.ValidateSettings(document.Unattend, protectionSettings?.IsEnabled == true);
@@ -72,6 +87,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         return new FoundryDeployConfigurationDocument
         {
             AuthoringVersion = authoringVersion,
+            DomainJoin = MapDomainJoinSettings(document.DomainJoin, deploymentSecretsKey, domainJoinSecretState),
             Protection = protectionSettings ?? new DeployProtectionSettings(),
             PreOobe = new DeployPreOobeSettings
             {
@@ -182,6 +198,52 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             },
             Telemetry = document.Telemetry
         };
+    }
+
+    private static DeployDomainJoinSettings MapDomainJoinSettings(DomainJoinSettings settings, byte[]? key, DomainJoinSecretState? secrets)
+    {
+        if (!settings.IsEnabled) return new();
+        bool automatic = settings.Mode == DomainJoinMode.Automatic;
+        return new()
+        {
+            IsEnabled = true,
+            Mode = settings.Mode,
+            Domains = settings.Domains.Select(domain =>
+            {
+                string? account = automatic ? settings.ResolveAccountName(domain) : null;
+                return new DeployDomainJoinDomainSettings
+                {
+                    Id = domain.Id,
+                    DomainName = domain.DomainName,
+                    AccountName = account,
+                    OrganizationalUnits = domain.OrganizationalUnits.Select(unit => unit with { }).ToArray(),
+                    DefaultOuId = domain.DefaultOuId,
+                    EncryptedCredentials = automatic ? ProtectDomainCredentials(domain.DomainName, account!, key!, secrets!) : null
+                };
+            }).ToArray(),
+            DefaultDomainId = settings.DefaultDomainId
+        };
+    }
+
+    /// <summary>
+    /// Binds the account's password to one domain. A shared account therefore yields one payload per domain, and
+    /// none of them decodes for another domain.
+    /// </summary>
+    private static SecretEnvelope ProtectDomainCredentials(string domainName, string accountName, byte[] key, DomainJoinSecretState secrets)
+    {
+        var context = new DomainJoinCredentialContext(domainName, accountName);
+        char[] password = secrets.GetPasswordCopy(accountName)!;
+        byte[]? payload = null;
+        try
+        {
+            payload = DomainJoinCredentialPayloadCodec.Encode(context, password);
+            return MediaSecretEnvelopeProtector.EncryptBytes(payload, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+            if (payload is not null) CryptographicOperations.ZeroMemory(payload);
+        }
     }
 
     private static PreOobeActionSettings ClonePreOobeAction(PreOobeActionSettings action) => action with

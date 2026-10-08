@@ -1834,6 +1834,216 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentāciju nevarēja atvērt</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Pievienošanas konts</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Noklusējums</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Domēns</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Statuss</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Pievienot</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Notīrīt noklusējuma izvēli</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Noņemt</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Iestatīt kā noklusējumu</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Vispirms ievadiet derīgu kontu, pēc tam pārbaudiet paroles garumu.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Jā</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>Tiek meklētas OU domēnā...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>Meklēšana atcelta.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Šajā domēnā netika atrasta neviena OU.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>Izdevās parādīt tikai daļu OU. Parādītās joprojām varat pievienot.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Visas šī domēna OU jau ir sarakstā.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>Meklēšanai iestājās taimauts. OU varat pievienot manuāli.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Domēnā neizdevās veikt meklēšanu. Pārbaudiet, vai šis dators var to sasniegt un vai jūsu Windows konts var to lasīt, vai pievienojiet OU manuāli.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Pievienot domēnu</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Pievienot domēnu</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Rediģēt domēnu</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Atstājiet paroli tukšu, lai paturētu pašreizējo.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Domēns netika saglabāts. Pārbaudiet domēna nosaukumu.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Gatavs</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Pirms domēna nosaukuma maiņas noņemiet šī domēna OU.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Nav pievienots neviens domēns.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Nav pievienota neviena OU.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU netika pievienotas. Tās pieder citam domēnam, nevis atlasītajam.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Vispirms pievienojiet domēnu, pēc tam norādiet tā OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU netika pievienota. Pārbaudiet parādāmo nosaukumu un atšķirīgo nosaukumu. OU jāpieder atlasītajam domēnam.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organizatoriskās vienības</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Domēna {0} organizatoriskās vienības</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Atlasiet domēnu, lai norādītu tā OU.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Atlasītās OU: {0} no {1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Kopīgs</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Pievienojiet vismaz vienu domēnu.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Šis domēns jau ir sarakstā.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>Divām OU ir vienāds iekšējais ID. Noņemiet vienu un pievienojiet to vēlreiz.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Ievadiet derīgu domēna nosaukumu, piemēram, corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Katrai OU nepieciešams parādāmais nosaukums, kas nav garāks par 120 rakstzīmēm.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Lapā „Vispārīgi” ieslēdziet aizsardzību ar paroli un iestatiet izvietošanas paroli.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Ievadiet konta paroli.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>Ievadiet kontu formātā DOMAIN\user vai user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Ievadiet kopīgo pievienošanas kontu vai piešķiriet šim domēnam savu kontu.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Sarakstā var būt ne vairāk kā 32 domēni.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>Sarakstā var būt ne vairāk kā 1024 OU.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Konts (DOMAIN\user vai user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>Pievienot OU</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Atcelt meklēšanu</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Domēna nosaukums</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Izmantot atsevišķu kontu</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Izmantot kopīgo pievienošanas kontu</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Importēt no domēna</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Parāda atlasītā domēna OU, izmantojot jūsu Windows kontu. Atlasiet pievienojamās.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>Importēt OU no domēna</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domēni, kuriem var pievienoties, izmantojot šo datu nesēju. Ja norādīti vairāki, tehniķi izvietošanas laikā izvēlas vienu; noklusējuma domēns ir atlasīts iepriekš.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domēni</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Pievienot atlasītās OU</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Ievadiet OU parādāmo nosaukumu un atšķirīgo nosaukumu. OU jāpieder atlasītajam domēnam.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>Pievienot OU manuāli</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>Atšķirīgais nosaukums</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Parādāmais nosaukums</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Neobligāti. Norādiet OU, kurās atlasītajā domēnā var ievietot datorus. Ja norādīta viena OU, tā tiek izmantota vienmēr; ja norādītas vairākas, tehniķi izvietošanas laikā izvēlas vienu. Esošs datora konts tiek pārvietots uz izvēlēto OU.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Parole</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Konts, ko izmanto visi domēni, kuriem nav sava konta. Tam nepieciešamas atļaujas pievienot datorus un pārvietot tos uz jūsu izvēlētajām OU.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Kopīgais pievienošanas konts</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Uzticams saknes CA sertifikāta fails</value>
   </data>
@@ -1874,7 +2084,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Parole</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Glabājiet šo paroli drošībā. Tā aizsargā lokālo Windows kontu paroles, Autopilot akreditācijas datus un profilus, kā arī pielāgotos atbilžu failus.</value>
+    <value>Glabājiet šo paroli drošībā. Tā aizsargā lokālo Windows kontu paroles, pievienošanās domēnam akreditācijas datus, Autopilot akreditācijas datus un profilus, kā arī pielāgotos atbilžu failus.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Izvietošanas parole</value>
@@ -1907,7 +2117,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atlasītajai arhitektūrai netika konstatētas WinPE valodu pakotnes.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Ģenerālis</value>
+    <value>Vispārīgi</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Pārskatiet un sāciet</value>
@@ -1986,6 +2196,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Datu nesēja gatavības statuss</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Izvietošanas laikā pieprasīt tehniķim domēna akreditācijas datus.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Interaktīva pievienošanās domēnam</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arābu (Saūda Arābija)</value>
@@ -2191,6 +2407,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentācija</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Pievienošanās domēnam</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Standarta Ethernet savienojums ir pieejams pēc noklusējuma. Konfigurējiet šo sadaļu tikai tad, ja jūsu vadu tīklam ir nepieciešama 802.1X uzņēmuma autentifikācija.</value>
   </data>
@@ -2201,16 +2420,22 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Standarta konfigurācijas darbplūsma.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Ģenerālis</value>
+    <value>Vispārīgi</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Ģenerālis</value>
+    <value>Vispārīgi</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD mājās</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Sākums</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>Izvietošanas laikā pieprasīt tehniķim domēna akreditācijas datus.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Interaktīvi</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurējiet izvietoto ierīču nosaukumus.</value>
@@ -2271,6 +2496,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Automātiski pievienoties domēnam, izmantojot akreditācijas datus, ko aizsargā izvietošanas parole.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktīvais nodrošināšanas režīms</value>
@@ -2974,7 +3205,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Pārvaldiet startēšanu, valodu, diagnostiku un lietojumprogrammu darbību.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Ģenerālis</value>
+    <value>Vispārīgi</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Dublējiet savus iestatījumus, pārsūtiet tos uz citu datoru vai uzturiet tos sinhronizētus.</value>
@@ -3916,5 +4147,11 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Automātiski pievienoties domēnam, izmantojot akreditācijas datus, ko aizsargā izvietošanas parole.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Pievienošanās domēnam Zero-touch režīmā</value>
   </data>
 </root>

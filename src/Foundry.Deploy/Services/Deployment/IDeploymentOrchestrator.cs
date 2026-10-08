@@ -28,4 +28,7 @@ public interface IDeploymentOrchestrator
     /// <param name="cancellationToken">Token that cancels the deployment.</param>
     /// <returns>The final deployment result, or a failed result when the single-operation gate rejects the request.</returns>
     Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default);
+    /// <summary>Accepts ownership on every exit, including a busy gate or execution-context construction failure.</summary>
+    Task<DeploymentResult> RunAsync(DeploymentContext context, DomainJoin.DomainJoinPreparedInput? domainJoinInput,
+        CancellationToken cancellationToken = default);
 }

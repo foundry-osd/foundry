@@ -256,6 +256,12 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementeringssider</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktiv</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Feilside</value>
   </data>
@@ -356,6 +362,48 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Konto (DOMAIN\user eller user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Angi kontoen som DOMAIN\user eller user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>Domenets standardplassering</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Oppgi opplysningene for domenetilknytning for denne datamaskinen. Tilknytningen skjer etter at Windows er installert.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Organisasjonsenhet</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Angi et gyldig unikt navn for en OU i dette domenet, eller la feltet stå tomt.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Domenenavn</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Angi et gyldig domenenavn, for eksempel corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>Informasjonen for domenetilknytning mangler eller er ugyldig. Distribusjonen har ikke startet.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>Unikt navn for OU (valgfritt)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>La stå tomt for å bruke domenets standardplassering.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Passord</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Domenetilknytning</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>Denne Windows-utgaven kan ikke knyttes til et domene. Windows-installasjonen fortsetter uten domenetilknytning.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

@@ -1834,6 +1834,216 @@ Licenseret under MIT-licensen.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentation kunne ikke åbnes</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Tilslutningskonto</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Domæne</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU'er</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Tilføj</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Ryd standardvalg</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Angiv som standard</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Angiv først en gyldig konto, og kontrollér derefter adgangskodens længde.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>Søger efter OU'er i domænet...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>Søgningen blev annulleret.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Der blev ikke fundet nogen OU'er i dette domæne.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>Kun nogle af OU'erne kunne vises. Du kan stadig tilføje dem, der vises.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Alle OU'er i dette domæne er allerede på listen.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>Søgningen fik timeout. Du kan tilføje OU'er manuelt.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Der kunne ikke søges i domænet. Kontrollér, at denne computer kan nå det, og at din Windows-konto kan læse det, eller tilføj OU'er manuelt.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Tilføj domæne</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Tilføj et domæne</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Rediger domæne</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Lad adgangskoden være tom for at beholde den nuværende.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Gem</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Domænet blev ikke gemt. Kontrollér domænenavnet.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Fjern dette domænes OU'er, før du ændrer dets navn.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Ingen domæner tilføjet.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Ingen OU'er tilføjet.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU'erne blev ikke tilføjet. De tilhører et andet domæne end det valgte.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Tilføj først et domæne, og angiv derefter dets OU'er.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU'en blev ikke tilføjet. Kontrollér visningsnavnet og det entydige navn. OU'en skal tilhøre det valgte domæne.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organisationsenheder</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Organisationsenheder i {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Vælg et domæne for at angive dets OU'er.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Valgte OU'er: {0} af {1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Delt</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Tilføj mindst ét domæne.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Dette domæne er allerede på listen.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>To OU'er har samme interne id. Fjern den ene, og tilføj den igen.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Angiv et gyldigt domænenavn, f.eks. corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Hver OU skal have et visningsnavn på højst 120 tegn.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Aktivér adgangskodebeskyttelse på siden "Generelt", og angiv adgangskoden til installation.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Angiv kontoens adgangskode.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>Angiv kontoen som DOMAIN\user eller user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Angiv den delte tilslutningskonto, eller giv dette domæne sin egen konto.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Listen kan indeholde op til 32 domæner.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>Listen kan indeholde op til 1.024 OU'er.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Konto (DOMAIN\user eller user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>Tilføj OU</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Annuller søgning</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Domænenavn</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Brug en dedikeret konto</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Brug den delte tilslutningskonto</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Importér fra domæne</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Viser OU'erne i det valgte domæne ved hjælp af din Windows-konto. Vælg dem, der skal tilføjes.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>Importér OU'er fra domænet</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domæner, som dette medie kan tilslutte computere til. Når der er angivet flere, vælger teknikere ét under udrulning; standarddomænet er valgt på forhånd.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domæner</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Tilføj valgte OU'er</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Angiv et visningsnavn og OU'ens entydige navn. OU'en skal tilhøre det valgte domæne.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>Tilføj en OU manuelt</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>Entydigt navn</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Visningsnavn</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Valgfrit. Angiv de OU'er i det valgte domæne, som computere kan placeres i. En enkelt OU bruges altid; når der er angivet flere, vælger teknikere én under udrulning. En eksisterende computerkonto flyttes til den valgte OU.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Adgangskode</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Konto, der bruges af alle domæner, som ikke har deres egen konto. Den skal have tilladelse til at tilslutte computere og flytte dem til de OU'er, du vælger.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Delt tilslutningskonto</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Betroet rod-CA-certifikatfil</value>
   </data>
@@ -1874,7 +2084,7 @@ Licenseret under MIT-licensen.</value>
     <value>Adgangskode</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Opbevar denne adgangskode sikkert. Den beskytter adgangskoder til lokale Windows-konti, legitimationsoplysninger og profiler til Autopilot samt brugerdefinerede svarfiler.</value>
+    <value>Opbevar denne adgangskode sikkert. Den beskytter adgangskoder til lokale Windows-konti, legitimationsoplysninger til domænetilslutning, legitimationsoplysninger og profiler til Autopilot samt brugerdefinerede svarfiler.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Adgangskode til installation</value>
@@ -1986,6 +2196,12 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Status for medieberedskab</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Bed teknikeren om domænelegitimationsoplysninger under udrulning.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Interaktiv domænetilslutning</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabisk (Saudi-Arabien)</value>
@@ -2191,6 +2407,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentation</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Domænetilslutning</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Standard Ethernet-forbindelse er tilgængelig som standard. Konfigurer kun denne sektion, hvis dit kablede netværk kræver 802.1X virksomhedsgodkendelse.</value>
   </data>
@@ -2211,6 +2430,12 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Hjem</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>Bed teknikeren om domænelegitimationsoplysninger under udrulning.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Interaktiv</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurer deployerede enhedsnavne.</value>
@@ -2271,6 +2496,12 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Tilslut automatisk til domænet med legitimationsoplysninger, der er beskyttet af adgangskoden til installation.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktiv provisioning-tilstand</value>
@@ -3916,5 +4147,11 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Tilslut automatisk til domænet med legitimationsoplysninger, der er beskyttet af adgangskoden til installation.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch-domænetilslutning</value>
   </data>
 </root>

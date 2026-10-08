@@ -25,6 +25,65 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPreflightTests
 {
+    [Fact]
+    public async Task InitialOrchestratedPlanIncludesDomainOnlyStaging()
+    {
+        using var fixture = new PipelineFixture { Failure = "dead_url" };
+        fixture.DomainJoinRequest = new(Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
+        fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
+        using var input = new Services.DomainJoin.DomainJoinPreparedInput(new("corp.test", "CORP\\joiner"), "LAB01", null, "secret");
+        await fixture.RunOrchestratedAsync(input);
+        Assert.Contains(fixture.Progress.First().Plan!, entry => entry.Name == DeploymentStepNames.StagePreOobeCustomization);
+    }
+
+    [Theory]
+    [InlineData(false, "Core", DomainJoinExecutionStatus.SkippedUnsupportedEdition)]
+    [InlineData(true, "Professional", DomainJoinExecutionStatus.SkippedImageComposition)]
+    [InlineData(false, null, DomainJoinExecutionStatus.Pending)]
+    public async Task AppliedImageDomainEligibilityWarnsAndContinues(bool embeddedJoin, string? appliedEdition, DomainJoinExecutionStatus status)
+    {
+        using var fixture = new PipelineFixture
+        {
+            AppliedEdition = appliedEdition,
+            EmbeddedAnswerFile = embeddedJoin
+                ? "<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-UnattendedJoin\" processorArchitecture=\"amd64\"><Identification /></component></settings></unattend>"
+                : "<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\"><ComputerName>LAB01</ComputerName></component></settings></unattend>"
+        };
+        fixture.DomainJoinRequest = new(Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
+        fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
+        var result = await fixture.RunAsync();
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(status, fixture.Context!.RuntimeState.DomainJoinStatus);
+        Assert.Contains("apply:1", fixture.Events);
+        Assert.Equal(appliedEdition ?? "Professional", fixture.Context.RuntimeState.ActualWindowsEditionId);
+        Assert.NotNull(fixture.Context.Request.DomainJoinIntent);
+        if (status != DomainJoinExecutionStatus.Pending) Assert.Null(fixture.Context.DomainJoinInput);
+    }
+
+    [Fact]
+    public async Task DomainOnlyDeploymentPreparesPostInstallRuntimeBeforeDiskPreparation()
+    {
+        using var fixture = new PipelineFixture();
+        fixture.DomainJoinRequest = new(Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
+        fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
+        using var context = fixture.CreateContext();
+        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(fixture.Root) };
+        var result = await fixture.CreatePostInstallPreflight(resolver).ExecuteAsync(context, TestContext.Current.CancellationToken);
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.DoesNotContain("partition", fixture.Events);
+    }
+
+    [Fact]
+    public async Task MissingPreparedDomainInputNeverErasesDisk()
+    {
+        using var fixture = new PipelineFixture();
+        fixture.DomainJoinRequest = new(Foundry.Deploy.Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
+        fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
+        DeploymentResult result = await fixture.RunOrchestratedAsync();
+        Assert.False(result.IsSuccess);
+        Assert.DoesNotContain("partition", fixture.Events);
+    }
+
     [Theory]
     [InlineData(DeploymentMode.Iso, false)]
     [InlineData(DeploymentMode.Usb, false)]
@@ -621,8 +680,12 @@ public sealed class DeploymentPreflightTests
         public string? OptionalFeatureId { get; init; }
         public bool OptionalFeatureEnable { get; init; } = true;
         public string Failure { get; set; } = "";
+        public string? AppliedEdition { get; init; } = "Professional";
+        public string? EmbeddedAnswerFile { get; init; }
         public CustomImageSelection? CustomImage { get; set; }
         public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PostInstall { get; set; } = new();
+        public Foundry.Deploy.Services.DomainJoin.DomainJoinDeploymentRequest? DomainJoinRequest { get; set; }
+        public Foundry.Deploy.Services.DomainJoin.DomainJoinDeploymentIntent? DomainJoinIntent { get; set; }
         public DeploymentStepExecutionContext? Context { get; private set; }
         private readonly HttpClient _client;
         private readonly CancellationTokenSource _cancellation = new();
@@ -670,6 +733,8 @@ public sealed class DeploymentPreflightTests
                 TargetDiskIdentity = Identity,
                 TargetComputerName = "LAB01",
                 PreOobe = PostInstall,
+                DomainJoinRequest = DomainJoinRequest,
+                DomainJoinIntent = DomainJoinIntent,
                 IsDryRun = IsDryRun,
                 DriverPackSelectionKind = DeferredDriver || DriverPackOverride is not null ? DriverPackSelectionKind.OemCatalog : DriverPackSelectionKind.None,
                 DriverPack = DriverPackOverride ?? (DeferredDriver ? new DriverPackCatalogItem { Manufacturer = "Lenovo", FileName = "drivers.exe", SizeBytes = 100 } : null),
@@ -699,17 +764,21 @@ public sealed class DeploymentPreflightTests
 
         public DeploymentStepExecutionContext CreateContext()
         {
-            Context = new DeploymentStepExecutionContext(CreateRequest(),
-                new DeploymentRuntimeState
-                {
-                    WorkspaceRoot = Path.Combine(Root, "Workspace"),
-                    Mode = Mode,
-                    ResolvedCache = new CacheResolution { RootPath = Failure == "ram_cache" ? @"X:\Cache" : CacheRoot, Source = "test" }
-                }, [], new DriverApplicationOperationProgressService(), new DriverApplicationLogService(), new PipelineDisks(this), Progress.Add);
+            DeploymentContext request = CreateRequest();
+            var runtimeState = new DeploymentRuntimeState
+            {
+                WorkspaceRoot = Path.Combine(Root, "Workspace"),
+                Mode = Mode,
+                ResolvedCache = new CacheResolution { RootPath = Failure == "ram_cache" ? @"X:\Cache" : CacheRoot, Source = "test" }
+            };
+            DomainJoinRuntimeEligibility.Initialize(request, runtimeState);
+            Context = new DeploymentStepExecutionContext(request, runtimeState, [], new DriverApplicationOperationProgressService(), new DriverApplicationLogService(), new PipelineDisks(this), Progress.Add,
+                domainJoinInput: DomainJoinRequest?.Disposition == Services.DomainJoin.DomainJoinDeploymentDisposition.Ready
+                    ? new(new("corp.test", "CORP\\joiner"), "LAB01", null, "secret") : null);
             return Context;
         }
 
-        public async Task<DeploymentResult> RunOrchestratedAsync()
+        public async Task<DeploymentResult> RunOrchestratedAsync(Services.DomainJoin.DomainJoinPreparedInput? preparedInput = null)
         {
             var disks = new PipelineDisks(this);
             IDeploymentStep[] steps = DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)(name switch
@@ -737,7 +806,9 @@ public sealed class DeploymentPreflightTests
                     _cancellation.Cancel();
                 }
             };
-            return await orchestrator.RunAsync(CreateRequest() with { ApplyFirmwareUpdates = false }, _cancellation.Token);
+            return preparedInput is null
+                ? await orchestrator.RunAsync(CreateRequest() with { ApplyFirmwareUpdates = false }, _cancellation.Token)
+                : await orchestrator.RunAsync(CreateRequest() with { ApplyFirmwareUpdates = false }, preparedInput, _cancellation.Token);
         }
 
         private sealed class FixturePostInstall(PipelineFixture fixture) : PreOobeContentResolver
@@ -846,7 +917,16 @@ public sealed class DeploymentPreflightTests
                 return Task.FromResult(new DeploymentTargetLayout { DiskNumber = 1, SystemPartitionRoot = Path.Combine(_fixture.Root, "System"), WindowsPartitionRoot = _fixture.WindowsRoot, RecoveryPartitionRoot = Path.Combine(_fixture.Root, "Recovery"), RecoveryPartitionLetter = 'R' });
             }
             public override Task ApplyImageAsync(string imagePath, int imageIndex, string windowsPartitionRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null)
-            { _fixture.Events.Add($"apply:{imageIndex}"); return Task.CompletedTask; }
+            {
+                _fixture.Events.Add($"apply:{imageIndex}");
+                if (_fixture.EmbeddedAnswerFile is { } xml)
+                {
+                    string answer = Path.Combine(windowsPartitionRoot, "Windows", "Panther", "unattend.xml");
+                    Directory.CreateDirectory(Path.GetDirectoryName(answer)!);
+                    File.WriteAllText(answer, xml);
+                }
+                return Task.CompletedTask;
+            }
             public override Task ConfigureBootAsync(string windowsPartitionRoot, string systemPartitionRoot, int operatingSystemBuildMajor, string workingDirectory, CancellationToken cancellationToken = default)
             {
                 Assert.Equal(_fixture.WindowsRoot, windowsPartitionRoot);
@@ -854,7 +934,7 @@ public sealed class DeploymentPreflightTests
                 _fixture.Events.Add("boot");
                 return Task.CompletedTask;
             }
-            public override Task<string?> GetAppliedWindowsEditionAsync(string windowsPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => Task.FromResult<string?>("Professional");
+            public override Task<string?> GetAppliedWindowsEditionAsync(string windowsPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => Task.FromResult(_fixture.AppliedEdition);
         }
 
         private sealed class RejectingProcessRunner : IProcessRunner

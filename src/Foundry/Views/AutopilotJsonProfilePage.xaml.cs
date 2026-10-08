@@ -14,6 +14,7 @@ public sealed partial class AutopilotJsonProfilePage : Page
     {
         ViewModel = App.GetService<AutopilotConfigurationViewModel>();
         InitializeComponent();
+        TableViewDefaultSort.Attach(ProfilesTable, nameof(AutopilotProfileEntryViewModel.DisplayName));
         Unloaded += OnUnloaded;
     }
 

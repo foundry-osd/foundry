@@ -88,7 +88,22 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     }
 
     /// <inheritdoc />
-    public async Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default)
+    public Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default) =>
+        RunAsync(context, null, cancellationToken);
+
+    /// <inheritdoc />
+    public async Task<DeploymentResult> RunAsync(DeploymentContext context, DomainJoin.DomainJoinPreparedInput? domainJoinInput,
+        CancellationToken cancellationToken = default)
+    {
+        using var ownedInput = domainJoinInput;
+        ArgumentNullException.ThrowIfNull(context);
+        if (!DomainJoin.DomainJoinPreparedInput.IsValidFor(context, domainJoinInput))
+            return new DeploymentResult { IsSuccess = false, Message = "The prepared domain input is unavailable or inconsistent." };
+        return await RunOwnedAsync(context, domainJoinInput, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<DeploymentResult> RunOwnedAsync(DeploymentContext context, DomainJoin.DomainJoinPreparedInput? domainJoinInput,
+        CancellationToken cancellationToken)
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
         string operationId = Guid.NewGuid().ToString("N", CultureInfo.InvariantCulture);
@@ -196,6 +211,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
+            PreOobe.DomainJoinRuntimeEligibility.Initialize(context, runtimeState);
             IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(context, runtimeState);
             runtimeState.DriverPackInstallMode = DeploymentPlan.ResolveDriverMode(context);
             _logger.LogInformation("Deployment workspace root resolved to '{WorkspaceRoot}'.", runtimeState.WorkspaceRoot);
@@ -206,8 +222,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 _operationProgressService,
                 _deploymentLogService,
                 _targetDiskService,
-                progress => StepProgressChanged?.Invoke(this, progress));
+                progress => StepProgressChanged?.Invoke(this, progress), domainJoinInput: domainJoinInput);
             await DeploymentRunContextLogger.AppendRunContextAsync(executionContext, cancellationToken).ConfigureAwait(false);
+            await PreOobe.DomainJoinRuntimeEligibility.ReportLaunchSkipAsync(executionContext, cancellationToken).ConfigureAwait(false);
 
             for (int i = 0; i < plan.Count; i++)
             {
@@ -504,6 +521,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["deploy_autopilot_provisioning_mode"] = NormalizeTelemetryString(ResolveAutopilotProvisioningMode(context)),
             ["deploy_autopilot_hash_upload_state"] = NormalizeTelemetryString(runtimeState?.AutopilotHardwareHashUploadState.ToString()),
             ["deploy_autopilot_hash_group_tag_selected"] = !string.IsNullOrWhiteSpace(runtimeState?.AutopilotHardwareHashGroupTag),
+            ["deploy_domain_join_enabled"] = context.DomainJoinRequest is not null,
+            ["deploy_domain_join_mode"] = ResolveDomainJoinMode(context.DomainJoinRequest),
+            ["deploy_domain_join_domain_source"] = (context.DomainJoinRequest?.DomainSource ?? DomainJoin.DomainJoinDomainSource.None).ToString().ToLowerInvariant(),
+            ["deploy_domain_join_ou_source"] = (context.DomainJoinRequest?.OuSource ?? DomainJoin.DomainJoinOuSource.None).ToString().ToLowerInvariant(),
+            ["deploy_domain_join_status"] = ResolveDomainJoinStatus(runtimeState),
             ["deploy_unattend_mode"] = context.UsesCustomUnattend ? "custom" : "native",
             ["deploy_oobe_enabled"] = !context.UsesCustomUnattend && context.Oobe.IsEnabled,
             ["deploy_oobe_administrator_enabled"] = !context.UsesCustomUnattend && context.Oobe.EnableAdministratorAccount,
@@ -589,6 +611,23 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ? "windows"
             : $"windows_{NormalizeTelemetryString(operatingSystem.WindowsRelease)}";
     }
+
+    private static string ResolveDomainJoinMode(DomainJoin.DomainJoinDeploymentRequest? request) => request switch
+    {
+        null => "disabled",
+        { Mode: Foundry.Core.Models.Configuration.DomainJoinMode.Automatic } => "zero_touch",
+        _ => "interactive"
+    };
+
+    /// <summary>Reports how far Deploy took the join; the join itself runs later in installed Windows and is not reported.</summary>
+    private static string ResolveDomainJoinStatus(DeploymentRuntimeState? runtimeState) => runtimeState?.DomainJoinStatus switch
+    {
+        DomainJoinExecutionStatus.Pending => "pending",
+        DomainJoinExecutionStatus.Ready => "staged",
+        DomainJoinExecutionStatus.SkippedUnsupportedEdition => "skipped_unsupported_edition",
+        DomainJoinExecutionStatus.SkippedImageComposition => "skipped_image_composition",
+        _ => "disabled"
+    };
 
     private static string ResolveAutopilotProvisioningMode(DeploymentContext context)
     {

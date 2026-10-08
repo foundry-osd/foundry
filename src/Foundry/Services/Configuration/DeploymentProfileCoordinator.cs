@@ -18,6 +18,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     private readonly IDeploymentProfilePackageService packages;
     private readonly DeploymentProfileSessionService session;
     private readonly IFoundryConfigurationStateService configuration;
+    private readonly IDomainJoinSecretStateService domainSecrets;
     private readonly IAppDispatcher dispatcher;
     private readonly IShellNavigationGuardService navigationGuard;
     private readonly SemaphoreSlim gate = new(1, 1);
@@ -61,12 +62,13 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     public DeploymentProfileCoordinator(LocalDeploymentProfileRepository local, IDeploymentProfilePackageService packages,
         DeploymentProfileSessionService session, IFoundryConfigurationStateService configuration,
         IAppDispatcher dispatcher, IShellNavigationGuardService navigationGuard,
-        INetworkSecretStateService network, IDeploymentProtectionSecretStateService deployment, IOobeAccountSecretStateService accounts)
+        INetworkSecretStateService network, IDeploymentProtectionSecretStateService deployment, IOobeAccountSecretStateService accounts, IDomainJoinSecretStateService domainSecrets)
     {
         this.local = local;
         this.packages = packages;
         this.session = session;
         this.configuration = configuration;
+        this.domainSecrets = domainSecrets;
         observedConfiguration = configuration.Current;
         this.dispatcher = dispatcher;
         this.navigationGuard = navigationGuard;
@@ -74,6 +76,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         network.Changed += OnEdited;
         deployment.Changed += OnEdited;
         accounts.Changed += OnEdited;
+        domainSecrets.Changed += OnEdited;
     }
 
     public event EventHandler? Changed;
@@ -500,6 +503,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         !ReferenceEquals(previous.PreOobe, current.PreOobe) ||
         !ReferenceEquals(previous.Unattend, current.Unattend) ||
         !ReferenceEquals(previous.Autopilot, current.Autopilot) ||
+        !ReferenceEquals(previous.DomainJoin, current.DomainJoin) ||
         previous.General with
         {
             IsoOutputPath = current.General.IsoOutputPath,
@@ -577,11 +581,11 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
 
     private static void EnsureCompleteCheckpoint(DeploymentProfileDocument profile)
     {
-        if (profile.Secrets.Entries.Any(secret => secret.State is ProfileValueState.Unavailable or ProfileValueState.Omitted) ||
+        if (profile.Secrets.Entries.Any(secret => secret.Purpose != ProfileSecretPurpose.DomainJoinPassword && (secret.State is ProfileValueState.Unavailable or ProfileValueState.Omitted)) ||
             profile.Assets.Any(asset => asset.State is ProfileValueState.Unavailable or ProfileValueState.Omitted))
         {
             Logger.Warning("Profile checkpoint is incomplete. UnavailableSecrets={UnavailableSecrets}, UnavailableAssets={UnavailableAssets}",
-                profile.Secrets.Entries.Count(secret => secret.State is ProfileValueState.Unavailable or ProfileValueState.Omitted),
+                profile.Secrets.Entries.Count(secret => secret.Purpose != ProfileSecretPurpose.DomainJoinPassword && (secret.State is ProfileValueState.Unavailable or ProfileValueState.Omitted)),
                 profile.Assets.Count(asset => asset.State is ProfileValueState.Unavailable or ProfileValueState.Omitted));
             throw new IncompleteProfileCheckpointException();
         }
@@ -615,6 +619,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     {
         // A close scope may outlive host disposal; it must not re-enable the destroyed shell.
         ownsNavigationGuard = false;
+        domainSecrets.Changed -= OnEdited;
         lifetime.Cancel();
         debounce?.Cancel();
         debounce?.Dispose();

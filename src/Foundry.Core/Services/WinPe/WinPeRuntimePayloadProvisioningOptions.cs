@@ -57,6 +57,14 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     /// <summary>Gets Foundry.PostInstall payload options, following the Deploy debug selection.</summary>
     public WinPeRuntimePayloadApplicationOptions PostInstall { get; init; } = new();
 
+    /// <summary>Enables the selected local runtime or paired release source when domain actions require it.</summary>
+    public WinPeRuntimePayloadProvisioningOptions WithDomainJoinRuntime(bool enabled) => !enabled ? this : this with
+    {
+        PostInstall = PostInstall.IsEnabled || !string.IsNullOrWhiteSpace(PostInstall.ArchivePath) || !string.IsNullOrWhiteSpace(PostInstall.ProjectPath)
+            ? PostInstall with { IsEnabled = true }
+            : new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
+    };
+
     /// <summary>
     /// Creates development-time payload options from debugger state and environment variables.
     /// </summary>
@@ -111,7 +119,19 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
                 getEnvironmentVariable,
                 projectDiscoveryStartPath)
         };
-        if (!options.Deploy.IsEnabled) return options;
+        if (!options.Deploy.IsEnabled)
+        {
+            string archive = (getEnvironmentVariable(WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallArchive) ?? string.Empty).Trim();
+            string project = (getEnvironmentVariable(WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallProject) ?? string.Empty).Trim();
+            return string.IsNullOrWhiteSpace(archive) && string.IsNullOrWhiteSpace(project) ? options : options with
+            {
+                PostInstall = new()
+                {
+                    ArchivePath = archive,
+                    ProjectPath = string.IsNullOrWhiteSpace(archive) ? project : string.Empty
+                }
+            };
+        }
         string? discoveryPath = string.IsNullOrWhiteSpace(options.Deploy.ProjectPath)
             ? projectDiscoveryStartPath : Path.GetDirectoryName(Path.GetFullPath(options.Deploy.ProjectPath));
         return options with

@@ -20,6 +20,9 @@
         <DataTemplate x:Key="AutopilotStepTemplate">
             <wizardViews:AutopilotStepView />
         </DataTemplate>
+        <DataTemplate x:Key="DomainJoinStepTemplate">
+            <wizardViews:DomainJoinStepView />
+        </DataTemplate>
         <DataTemplate x:Key="SummaryStepTemplate">
             <wizardViews:SummaryStepView />
         </DataTemplate>
@@ -154,6 +157,13 @@
                                 <Setter
                                     Property="ContentTemplate"
                                     Value="{StaticResource AutopilotStepTemplate}" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding IsDomainJoinStep}"
+                                Value="True">
+                                <Setter
+                                    Property="ContentTemplate"
+                                    Value="{StaticResource DomainJoinStepTemplate}" />
                             </DataTrigger>
                             <DataTrigger
                                 Binding="{Binding IsSummaryStep}"

@@ -256,6 +256,12 @@ Sous licence MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pages de déploiement</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interactif</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Page d’erreur</value>
   </data>
@@ -356,6 +362,48 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Compte (DOMAIN\user ou user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Saisissez le compte au format DOMAIN\user ou user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>Emplacement par défaut du domaine</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Indiquez les informations de jonction au domaine pour cet ordinateur. La jonction a lieu après l’installation de Windows.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Unité d’organisation</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Saisissez un nom distinctif d’OU valide dans ce domaine, ou laissez le champ vide.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Nom de domaine</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Saisissez un nom de domaine valide, par exemple corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>Les informations de jonction au domaine sont manquantes ou non valides. Le déploiement n’a pas commencé.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>Nom distinctif de l’OU (facultatif)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>Laissez vide pour utiliser l’emplacement par défaut du domaine.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Jonction au domaine</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>Cette édition de Windows ne peut pas joindre un domaine. L’installation de Windows se poursuit sans jonction.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

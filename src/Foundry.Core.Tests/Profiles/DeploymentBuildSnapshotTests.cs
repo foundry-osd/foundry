@@ -18,6 +18,49 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
     private readonly string root = Path.Combine(Path.GetTempPath(), "FoundrySnapshotTests", Guid.NewGuid().ToString("N"));
 
     [Fact]
+    public async Task SnapshotCopiesThePasswordOfEveryReferencedAccount()
+    {
+        using var accounts = new OobeAccountSecretState();
+        using var domain = new DomainJoinSecretState();
+        var context = new DomainJoinCredentialContext("example.com", "EXAMPLE\\joiner");
+        var dedicated = new DomainJoinCredentialContext("emea.example.com", "EMEA\\joiner");
+        domain.SetPassword(context.AccountName, " frozen password ");
+        domain.SetPassword(dedicated.AccountName, "second");
+        var document = new FoundryConfigurationDocument
+        {
+            General = new() { DeploymentProtection = new() { IsEnabled = true } },
+            DomainJoin = new()
+            {
+                IsEnabled = true,
+                Mode = DomainJoinMode.Automatic,
+                SharedAccountName = context.AccountName,
+                DefaultDomainId = "a",
+                Domains = [new() { Id = "a", DomainName = context.DomainName }, new() { Id = "b", DomainName = dedicated.DomainName, AccountName = dedicated.AccountName }]
+            }
+        };
+        Task<DeploymentBuildSnapshot> capturing = DeploymentBuildSnapshot.CaptureAsync(document, accounts, domain, "MediaPassword123!", root, null, TestContext.Current.CancellationToken);
+        domain.Clear();
+        using DeploymentBuildSnapshot snapshot = await capturing;
+        using var protection = snapshot.CreateDeploymentProtectionMaterial();
+        string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
+        var deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        byte[] payload = MediaSecretEnvelopeProtector.DecryptBytes(deploy.DomainJoin.Domains[0].EncryptedCredentials!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        byte[] second = MediaSecretEnvelopeProtector.DecryptBytes(deploy.DomainJoin.Domains[1].EncryptedCredentials!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        try
+        {
+            using var decoded = DomainJoinCredentialPayloadCodec.Decode(payload, context);
+            using var decodedSecond = DomainJoinCredentialPayloadCodec.Decode(second, dedicated);
+            Assert.Equal(" frozen password ", new string(decoded.Password.Span));
+            Assert.Equal("second", new string(decodedSecond.Password.Span));
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(payload);
+            CryptographicOperations.ZeroMemory(second);
+        }
+    }
+
+    [Fact]
     public async Task CaptureAsync_PreservesOneAuthoringVersionAcrossBothRuntimeOutputs()
     {
         using var secrets = new OobeAccountSecretState();

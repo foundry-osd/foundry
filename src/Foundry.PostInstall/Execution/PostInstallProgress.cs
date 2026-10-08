@@ -11,7 +11,7 @@ public sealed record PostInstallActionProgress(string Id, string Name, string St
 
 /// <summary>Restores completed actions after restart and exposes countdowns without persisting presentation state.</summary>
 public sealed record PostInstallProgress(IReadOnlyList<PostInstallActionProgress> Actions, string Status,
-    bool IsResuming = false, int? RestartSecondsRemaining = null)
+    bool IsResuming = false, int? RestartSecondsRemaining = null, DomainJoinResult? DomainResult = null, int WarningCount = 0)
 {
     /// <summary>Uses English built-in labels while preserving user-authored action names.</summary>
     public static string GetActionName(PreOobeExecutionAction action) => action.BuiltInKind switch
@@ -22,6 +22,8 @@ public sealed record PostInstallProgress(IReadOnlyList<PostInstallActionProgress
         PreOobeBuiltInKind.AiRemoval => "Remove AI components",
         PreOobeBuiltInKind.Activation => "Activate Windows",
         PreOobeBuiltInKind.Cleanup => "Cleanup",
+        PreOobeBuiltInKind.DomainJoinAndPlacement => "Join domain and place computer",
+        PreOobeBuiltInKind.VerifyDomainMembership => "Verify domain membership",
         _ => action.Name
     };
 }

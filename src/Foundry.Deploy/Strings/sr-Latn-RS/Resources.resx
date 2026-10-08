@@ -256,6 +256,12 @@ Licencirano pod MIT licencom.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stranice za primenu</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktivno</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Stranica sa greškom</value>
   </data>
@@ -356,6 +362,48 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Nalog (DOMAIN\user ili user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Unesite nalog u obliku DOMAIN\user ili user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>Podrazumevana lokacija domena</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Unesite podatke za pridruživanje ovog računara domenu. Pridruživanje se izvršava nakon instalacije sistema Windows.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Organizaciona jedinica</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Unesite važeće jedinstveno ime OU u ovom domenu ili ostavite polje prazno.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Ime domena</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Unesite važeće ime domena, na primer corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>Podaci za pridruživanje domenu nedostaju ili nisu važeći. Primena nije započeta.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>Jedinstveno ime OU (opciono)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>Ostavite prazno da biste koristili podrazumevanu lokaciju domena.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Lozinka</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Pridruživanje domenu</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>Ovo izdanje sistema Windows ne može da se pridruži domenu. Instalacija sistema Windows se nastavlja bez pridruživanja.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

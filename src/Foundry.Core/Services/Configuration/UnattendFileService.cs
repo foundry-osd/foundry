@@ -88,7 +88,7 @@ public static class UnattendFileService
     /// Checks supported passes and applicable component settings without certifying Windows SIM compatibility.
     /// Auxiliary architectures remain unchanged; only applicable components contribute conflict signals.
     /// </summary>
-    public static UnattendInspection Inspect(byte[] content, string? targetArchitecture = null)
+    public static UnattendInspection Inspect(byte[] content, string? targetArchitecture = null, bool requiresDomainJoin = false)
     {
         XDocument document = Parse(content);
         XElement root = document.Root!;
@@ -107,6 +107,8 @@ public static class UnattendFileService
         bool hasApplicableSettings = false;
         bool hasCommands = false;
         bool conflictsWithAutopilot = false;
+        bool hasUnattendedJoinComponent = false;
+        var computerNames = new List<string>();
         foreach (XElement settings in root.Elements(UnattendNamespace + "settings"))
         {
             string? pass = (string?)settings.Attribute("pass");
@@ -123,6 +125,7 @@ public static class UnattendFileService
 
             foreach (XElement component in settings.Elements(UnattendNamespace + "component"))
             {
+                hasUnattendedJoinComponent |= (string?)component.Attribute("name") == "Microsoft-Windows-UnattendedJoin";
                 if (string.IsNullOrWhiteSpace((string?)component.Attribute("name")) || !component.Elements().Any(element => element.Name.Namespace == UnattendNamespace))
                 {
                     continue;
@@ -144,6 +147,11 @@ public static class UnattendFileService
 
                 hasApplicableSettings = true;
 
+                if (name == "Microsoft-Windows-Shell-Setup" && pass == "specialize")
+                {
+                    computerNames.AddRange(Children(component, "ComputerName").Select(element => element.Value));
+                }
+
                 hasCommands |= HasCommands(component, name, pass);
                 conflictsWithAutopilot |= ConflictsWithAutopilot(component, name, pass);
             }
@@ -154,11 +162,20 @@ public static class UnattendFileService
             throw new InvalidDataException("The answer file has no supported component settings applicable to the selected architecture.");
         }
 
+        string? concreteComputerName = computerNames.Count == 1 && ComputerNameRules.IsValid(computerNames[0])
+            ? computerNames[0] : null;
+        if (requiresDomainJoin && (hasUnattendedJoinComponent || concreteComputerName is null))
+        {
+            throw new InvalidDataException("Domain joining requires exactly one valid specialize computer name and no UnattendedJoin component.");
+        }
+
         return new UnattendInspection
         {
             Architectures = architectures.Order(StringComparer.Ordinal).ToArray(),
             HasCommands = hasCommands,
-            ConflictsWithAutopilot = conflictsWithAutopilot
+            ConflictsWithAutopilot = conflictsWithAutopilot,
+            HasUnattendedJoinComponent = hasUnattendedJoinComponent,
+            ConcreteComputerName = concreteComputerName
         };
     }
 

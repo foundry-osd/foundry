@@ -10,6 +10,170 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class FoundryConfigurationServiceTests
 {
+    [Fact]
+    public void DomainJoinRoundTripsDomainsWithTheirOusAndLeavesOtherSectionsAlone()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument loaded = service.Deserialize(service.Serialize(TwoDomainDraft()));
+
+        Assert.Equal(["corp.test", "emea.test"], loaded.DomainJoin.Domains.Select(domain => domain.DomainName));
+        Assert.Equal("emea", loaded.DomainJoin.DefaultDomainId);
+        Assert.Equal("CORP\\join", loaded.DomainJoin.SharedAccountName);
+        Assert.Equal("EMEA\\join", loaded.DomainJoin.Domains[1].AccountName);
+
+        Assert.Equal(["devices", "servers"], loaded.DomainJoin.Domains[0].OrganizationalUnits.Select(unit => unit.Id));
+        Assert.Equal("servers", loaded.DomainJoin.Domains[0].DefaultOuId);
+        Assert.Empty(loaded.DomainJoin.Domains[1].OrganizationalUnits);
+        Assert.Equal(@"E:\Media\retained.iso", loaded.General.IsoOutputPath);
+        Assert.Equal("retained-wifi", loaded.Network.Wifi.Ssid);
+        Assert.Equal("retained-machine", loaded.Customization.MachineNaming.ManualInitialValue);
+    }
+
+    [Fact]
+    public void EarlierUnreleasedDomainJoinShapeLoadsAsAnEmptyDomainList()
+    {
+        const string json = "{\"schemaVersion\":18,\"domainJoin\":{\"isEnabled\":false,\"mode\":1,\"domainName\":\"corp.test\"," +
+            "\"accountName\":\"CORP\\\\join\",\"ouCatalogDomain\":\"corp.test\",\"organizationalUnits\":[{\"id\":\"a\",\"displayName\":\"A\"," +
+            "\"distinguishedName\":\"OU=A,DC=corp,DC=test\"}],\"defaultOuId\":\"a\",\"allowOuSelectionDuringDeployment\":true}}";
+
+        FoundryConfigurationDocument document = new FoundryConfigurationService().Deserialize(json);
+
+        Assert.Empty(document.DomainJoin.Domains);
+        Assert.Null(document.DomainJoin.DefaultDomainId);
+        Assert.Null(document.DomainJoin.SharedAccountName);
+        Assert.True(DomainJoinConfigurationValidator.ValidateMetadata(document.DomainJoin).IsValid);
+    }
+
+    [Fact]
+    public void NullDomainAndOuListsOfAHandEditedFileLoadAsEmptyLists()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument withoutDomains = service.Deserialize("{\"schemaVersion\":18,\"domainJoin\":{\"isEnabled\":true,\"mode\":1,\"domains\":null}}");
+        FoundryConfigurationDocument withoutUnits = service.Deserialize("{\"schemaVersion\":18,\"domainJoin\":{\"isEnabled\":true,\"mode\":1," +
+            "\"sharedAccountName\":\"CORP\\\\join\",\"defaultDomainId\":\"a\",\"domains\":[{\"id\":\"a\",\"domainName\":\"corp.test\",\"organizationalUnits\":null}]}}");
+
+        Assert.Empty(withoutDomains.DomainJoin.Domains);
+        Assert.Empty(withoutDomains.DomainJoin.GetStoredAccountNames());
+        DomainJoinDomainSettings domain = Assert.Single(withoutUnits.DomainJoin.Domains);
+        Assert.Empty(domain.OrganizationalUnits);
+        // The loaded list is usable by the catalogs, which is where a null list used to fail.
+        Assert.Single(DomainJoinOrganizationalUnitCatalog.Merge(withoutUnits.DomainJoin, "a",
+            [new() { Id = "ou", DisplayName = "Sales", DistinguishedName = "OU=Sales,DC=corp,DC=test" }]).Domains[0].OrganizationalUnits);
+    }
+
+    [Theory]
+    [InlineData("malformed-dn")]
+    [InlineData("foreign-dn")]
+    [InlineData("duplicate-id")]
+    [InlineData("duplicate-dn")]
+    [InlineData("missing-default-ou")]
+    [InlineData("missing-default-domain")]
+    [InlineData("duplicate-domain")]
+    [InlineData("oversized-label")]
+    [InlineData("overflow")]
+    [InlineData("provisioning-conflict")]
+    public void Deserialize_RejectsMalformedDomainListAndProvisioningConflict(string corruption)
+    {
+        FoundryConfigurationDocument draft = TwoDomainDraft();
+        DomainJoinSettings settings = draft.DomainJoin;
+        DomainJoinDomainSettings corp = settings.Domains[0];
+        DomainJoinOrganizationalUnitSettings first = corp.OrganizationalUnits[0];
+        DomainJoinOrganizationalUnitSettings second = corp.OrganizationalUnits[1];
+        DomainJoinSettings WithCorp(DomainJoinDomainSettings changed) => settings with { Domains = [changed, settings.Domains[1]] };
+        settings = corruption switch
+        {
+            "malformed-dn" => WithCorp(corp with { OrganizationalUnits = [first with { DistinguishedName = "invalid" }, second] }),
+            "foreign-dn" => WithCorp(corp with { OrganizationalUnits = [first with { DistinguishedName = "OU=Devices,DC=emea,DC=test" }, second] }),
+            "duplicate-id" => WithCorp(corp with { DefaultOuId = null, OrganizationalUnits = [first, second with { Id = "devices" }] }),
+            "duplicate-dn" => WithCorp(corp with { OrganizationalUnits = [first, second with { DistinguishedName = "OU=Devices,DC=corp,DC=test" }] }),
+            "missing-default-ou" => WithCorp(corp with { DefaultOuId = "missing" }),
+            "missing-default-domain" => settings with { DefaultDomainId = "missing" },
+            "duplicate-domain" => settings with { Domains = [corp, settings.Domains[1] with { DomainName = "CORP.test" }] },
+            "oversized-label" => WithCorp(corp with { OrganizationalUnits = [first with { DisplayName = new string('x', 121) }, second] }),
+            "overflow" => WithCorp(corp with
+            {
+                DefaultOuId = null,
+                OrganizationalUnits = Enumerable.Range(0, 1025).Select(index => first with
+                { Id = index.ToString(), DistinguishedName = $"OU=Devices{index},DC=corp,DC=test" }).ToArray()
+            }),
+            _ => settings
+        };
+        draft = draft with { DomainJoin = settings, Autopilot = draft.Autopilot with { IsEnabled = corruption == "provisioning-conflict" } };
+        var service = new FoundryConfigurationService();
+        string json = service.Serialize(draft);
+        Assert.Throws<InvalidOperationException>(() => service.Deserialize(json));
+    }
+
+    [Fact]
+    public void DisabledDomainJoin_RemainsSavableAndPortable()
+    {
+        var service = new FoundryConfigurationService();
+        FoundryConfigurationDocument draft = TwoDomainDraft();
+        draft = draft with { DomainJoin = draft.DomainJoin with { IsEnabled = false } };
+
+        FoundryConfigurationDocument loaded = service.Deserialize(service.Serialize(draft));
+        FoundryConfigurationDocument portable = Foundry.Core.Services.Profiles.DeploymentProfileProjection.CreatePortable(loaded);
+
+        Assert.False(portable.DomainJoin.IsEnabled);
+        Assert.Equal(["devices", "servers"], portable.DomainJoin.Domains[0].OrganizationalUnits.Select(unit => unit.Id));
+    }
+
+    private static FoundryConfigurationDocument TwoDomainDraft() => new()
+    {
+        General = new() { IsoOutputPath = @"E:\Media\retained.iso", WinPeLanguage = "fr-FR", IncludeDellDrivers = true },
+        Network = new() { Wifi = new() { Ssid = "retained-wifi" } },
+        Customization = new() { MachineNaming = new() { IsEnabled = true, Mode = MachineNamingMode.Manual, ManualInitialValue = "retained-machine" } },
+        DomainJoin = new()
+        {
+            IsEnabled = true,
+            Mode = DomainJoinMode.Automatic,
+            SharedAccountName = "CORP\\join",
+            DefaultDomainId = "emea",
+            Domains =
+            [
+                new()
+                {
+                    Id = "corp",
+                    DomainName = "corp.test",
+                    DefaultOuId = "servers",
+                    OrganizationalUnits =
+                    [
+                        new() { Id = "devices", DisplayName = "Devices", DistinguishedName = "OU=Devices,DC=corp,DC=test" },
+                        new() { Id = "servers", DisplayName = "Servers", DistinguishedName = "OU=Servers,DC=corp,DC=test" }
+                    ]
+                },
+                new() { Id = "emea", DomainName = "emea.test", AccountName = "EMEA\\join" }
+            ]
+        }
+    };
+
+    [Fact]
+    public void AConfigurationWithoutDomainJoinLoadsItDisabledAtTheCurrentSchema()
+    {
+        FoundryConfigurationDocument document = new FoundryConfigurationService().Deserialize("{\"schemaVersion\":17}");
+        Assert.Equal(18, document.SchemaVersion);
+        Assert.False(document.DomainJoin.IsEnabled);
+    }
+
+    [Fact]
+    public void Deserialize_RejectsContradictoryProvisioningModesWithoutChoosingWinner()
+    {
+        Assert.Throws<InvalidOperationException>(() => new FoundryConfigurationService().Deserialize(
+            "{\"schemaVersion\":18,\"autopilot\":{\"isEnabled\":true},\"domainJoin\":{\"isEnabled\":true}}"));
+    }
+
+    [Fact]
+    public void Deserialize_AutomaticSecretFreeDraftIsImportable()
+    {
+        FoundryConfigurationDocument document = new FoundryConfigurationService().Deserialize(
+            "{\"schemaVersion\":18,\"domainJoin\":{\"isEnabled\":true,\"mode\":1}}");
+        Assert.True(document.DomainJoin.IsEnabled);
+        Assert.True(DomainJoinConfigurationValidator.ValidateMetadata(document.DomainJoin).IsValid);
+        Assert.False(DomainJoinConfigurationValidator.EvaluateReadiness(document.DomainJoin, _ => false, false).IsValid);
+    }
+
     [Theory]
     [InlineData("[\"99H1\"]", null)]
     [InlineData("[]", null)]
@@ -39,7 +203,7 @@ public sealed class FoundryConfigurationServiceTests
         FoundryConfigurationDocument document = service.Deserialize(json);
         var generated = new DeployConfigurationGenerator().Generate(document);
 
-        Assert.Equal(17, document.SchemaVersion);
+        Assert.Equal(18, document.SchemaVersion);
         Assert.Equal(ConfigurationSchemaVersions.DeployCurrent, generated.SchemaVersion);
         Assert.Equal(expectedDefault is null ? [] : new[] { expectedDefault }, document.OperatingSystemSelection.AllowedReleaseIds);
         Assert.Equal(expectedDefault, document.OperatingSystemSelection.DefaultReleaseId);

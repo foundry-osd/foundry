@@ -47,14 +47,17 @@ internal sealed class NavigationStatusService : INavigationStatusService
             return null;
         }
 
-        bool isAutopilotTarget = target is ConfigurationNavigationTarget.AutopilotJsonProfile or
+        bool isProvisioningModeTarget = target is ConfigurationNavigationTarget.AutopilotJsonProfile or
             ConfigurationNavigationTarget.AutopilotHardwareHashUpload or
-            ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload;
-        return ToNavigationStatus(state, isAutopilotTarget);
+            ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload or
+            ConfigurationNavigationTarget.DomainJoinInteractive or ConfigurationNavigationTarget.DomainJoinAutomatic;
+        return ToNavigationStatus(state, isProvisioningModeTarget);
     }
 
     private static ConfigurationNavigationTarget ResolveTarget(Type pageType)
     {
+        if (pageType == typeof(InteractiveDomainJoinPage)) return ConfigurationNavigationTarget.DomainJoinInteractive;
+        if (pageType == typeof(ZeroTouchDomainJoinPage)) return ConfigurationNavigationTarget.DomainJoinAutomatic;
         if (pageType == typeof(GeneralConfigurationPage))
         {
             return ConfigurationNavigationTarget.General;
@@ -132,7 +135,7 @@ internal sealed class NavigationStatusService : INavigationStatusService
 
     private static NavigationStatus ToNavigationStatus(
         ConfigurationOverviewState state,
-        bool isAutopilotTarget)
+        bool isProvisioningModeTarget)
     {
         return state switch
         {
@@ -140,7 +143,7 @@ internal sealed class NavigationStatusService : INavigationStatusService
                 "Common.NeedsAttention",
                 NavigationInfoBadgeSeverity.Critical),
             ConfigurationOverviewState.Configured or ConfigurationOverviewState.Default => CreateStatus(
-                isAutopilotTarget ? "NavigationStatus.ActiveProvisioningMode" : "NavigationStatus.Configured",
+                isProvisioningModeTarget ? "NavigationStatus.ActiveProvisioningMode" : "NavigationStatus.Configured",
                 NavigationInfoBadgeSeverity.Success),
             _ => new NavigationStatus(null, "NavigationStatus.NotConfigured")
         };

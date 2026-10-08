@@ -20,6 +20,30 @@ public sealed class DeploymentWizardStateServiceTests
         Assert.False(canGoNext);
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void DomainJoinStep_BlocksNextAndStartUntilItsInputIsValid(bool hasValidDomainJoinInput)
+    {
+        var service = new DeploymentWizardStateService();
+        DeploymentWizardStateSnapshot onStep = CreateSnapshot(currentStepId: DeploymentWizardStepId.DomainJoin) with
+        {
+            AvailableSteps = DeploymentWizardStepDefinition.CreateSequence(includeAutopilot: false, includeDomainJoin: true),
+            HasValidDomainJoinInput = hasValidDomainJoinInput
+        };
+        DeploymentWizardStateSnapshot onSummary = CreateSnapshot(
+            currentStepId: DeploymentWizardStepId.Summary,
+            hasSelectedOperatingSystem: true,
+            hasTargetDiskSelection: true,
+            isTargetComputerNameValid: true,
+            hasValidDriverPackSelection: true,
+            hasValidAutopilotSelection: true) with
+        { HasValidDomainJoinInput = hasValidDomainJoinInput };
+
+        Assert.Equal(hasValidDomainJoinInput, service.CanGoNext(onStep));
+        Assert.Equal(hasValidDomainJoinInput, service.CanStartDeployment(onSummary));
+    }
+
     [Fact]
     public void CanStartDeployment_WhenDebugSafeModeHasNoDiskSelection_ReturnsTrue()
     {

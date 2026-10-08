@@ -54,6 +54,18 @@ public static class DeploymentProfileMerge
                 });
             }
         }
+        // One secret per join account still stored; an account that left the configuration takes its secret with it.
+        foreach (string account in captured.Configuration.DomainJoin.GetStoredAccountNames())
+        {
+            string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, captured, account);
+            DeploymentProfileSecret? omitted = baseline.Secrets.Entries.SingleOrDefault(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword &&
+                secret.Identity == identity && secret.State == ProfileValueState.Omitted);
+            if (omitted is null) continue;
+            int index = secrets.FindIndex(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword && secret.Identity == identity);
+            if (index < 0) secrets.Add(omitted with { Value = null });
+            else if (secrets[index].State == ProfileValueState.Unavailable)
+                secrets[index] = secrets[index] with { State = ProfileValueState.Omitted, Value = null };
+        }
         return result with { Secrets = new() { Entries = secrets } };
     }
 
@@ -99,6 +111,11 @@ public static class DeploymentProfileMerge
     {
         if (incoming.ProfileId != local.ProfileId)
             throw new ArgumentException("Local values belong to a different profile.", nameof(local));
+        // A local domain password is reused only for an account both sides still store.
+        HashSet<string> sharedDomainIdentities = incoming.Configuration.DomainJoin.GetStoredAccountNames()
+            .Intersect(local.Configuration.DomainJoin.GetStoredAccountNames(), StringComparer.Ordinal)
+            .Select(account => DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, incoming, account))
+            .ToHashSet(StringComparer.Ordinal);
         return incoming with
         {
             Secrets = new DeploymentProfileSecrets
@@ -106,7 +123,8 @@ public static class DeploymentProfileMerge
                 Entries = incoming.Secrets.Entries.Select(secret =>
                 {
                     DeploymentProfileSecret selected = secret;
-                    if (secret.State == ProfileValueState.Omitted)
+                    bool matchingDomain = secret.Purpose != ProfileSecretPurpose.DomainJoinPassword || sharedDomainIdentities.Contains(secret.Identity);
+                    if (secret.State == ProfileValueState.Omitted && matchingDomain)
                     {
                         selected = local.Secrets.Entries.SingleOrDefault(candidate => candidate.Purpose == secret.Purpose &&
                             candidate.Identity == secret.Identity && candidate.State is ProfileValueState.Present or ProfileValueState.Blank) ?? secret;

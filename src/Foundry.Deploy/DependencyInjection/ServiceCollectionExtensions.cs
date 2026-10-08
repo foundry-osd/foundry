@@ -14,6 +14,7 @@ using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Deployment.Steps;
+using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
@@ -93,6 +94,8 @@ public static class ServiceCollectionExtensions
                 logger);
         });
         services.AddSingleton<IDeploymentLaunchPreparationService, DeploymentLaunchPreparationService>();
+
+        services.AddSingleton<IDomainJoinPreparationService, DomainJoinPreparationService>();
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
         services.AddSingleton<UtilityProcessRunner>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();

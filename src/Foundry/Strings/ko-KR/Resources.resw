@@ -1834,6 +1834,216 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>문서를 열 수 없습니다.</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>가입 계정</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>기본값</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>도메인</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU 수</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>추가</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>기본 선택 지우기</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>제거</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>기본값으로 설정</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>먼저 유효한 계정을 입력한 다음 암호 길이를 확인하세요.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>예</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>도메인에서 OU를 검색하는 중...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>검색이 취소되었습니다.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>이 도메인에서 OU를 찾을 수 없습니다.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>일부 OU만 표시할 수 있었습니다. 표시된 OU는 추가할 수 있습니다.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>이 도메인에 있는 모든 OU가 이미 목록에 있습니다.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>검색 시간이 초과되었습니다. OU를 수동으로 추가할 수 있습니다.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>도메인을 검색할 수 없습니다. 이 컴퓨터가 도메인에 연결할 수 있고 Windows 계정으로 도메인을 읽을 수 있는지 확인하거나 OU를 수동으로 추가하세요.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>도메인 추가</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>도메인 추가</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>도메인 편집</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>현재 암호를 유지하려면 암호를 비워 두세요.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>도메인이 저장되지 않았습니다. 도메인 이름을 확인하세요.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>준비됨</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>이름을 변경하기 전에 이 도메인의 OU를 제거하세요.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>추가된 도메인이 없습니다.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>추가된 OU가 없습니다.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU가 추가되지 않았습니다. 선택한 도메인과 다른 도메인에 속해 있습니다.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>먼저 도메인을 추가한 다음 해당 도메인의 OU를 등록하세요.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU가 추가되지 않았습니다. 표시 이름과 고유 이름을 확인하세요. OU는 선택한 도메인에 속해야 합니다.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>조직 구성 단위</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>{0}의 조직 구성 단위</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>OU를 표시할 도메인을 선택하세요.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>선택된 OU: {0}/{1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>공유</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>도메인을 하나 이상 추가하세요.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>이 도메인은 이미 목록에 있습니다.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>두 OU의 내부 ID가 같습니다. 하나를 제거한 후 다시 추가하세요.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>corp.contoso.com과 같은 유효한 도메인 이름을 입력하세요.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>각 OU에는 120자 이하의 표시 이름이 필요합니다.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>"일반" 페이지에서 암호 보호를 활성화하고 배포 암호를 설정하세요.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>계정 암호를 입력하세요.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>계정을 DOMAIN\user 또는 user@domain 형식으로 입력하세요.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>공유 가입 계정을 입력하거나 이 도메인에 전용 계정을 지정하세요.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>도메인은 최대 32개까지 등록할 수 있습니다.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>OU는 최대 1,024개까지 등록할 수 있습니다.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>계정 (DOMAIN\user 또는 user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>OU 추가</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>검색 취소</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>도메인 이름</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>전용 계정 사용</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>공유 가입 계정 사용</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>도메인에서 가져오기</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Windows 계정을 사용하여 선택한 도메인의 OU를 표시합니다. 추가할 OU를 선택하세요.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>도메인에서 OU 가져오기</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>이 미디어가 가입할 수 있는 도메인입니다. 여러 개가 등록된 경우 기술자가 배포 중에 하나를 선택하며, 기본 도메인이 미리 선택되어 있습니다.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>도메인</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>선택한 OU 추가</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>OU의 표시 이름과 고유 이름을 입력하세요. OU는 선택한 도메인에 속해야 합니다.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>OU 수동 추가</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>고유 이름</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>표시 이름</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>선택 사항입니다. 선택한 도메인에서 컴퓨터를 배치할 수 있는 OU를 등록하세요. OU가 하나만 등록된 경우 항상 해당 OU가 사용되며, 여러 개가 등록된 경우 기술자가 배포 중에 하나를 선택합니다. 기존 컴퓨터 계정은 선택한 OU로 이동됩니다.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>암호</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>자체 계정이 없는 모든 도메인에서 사용하는 계정입니다. 컴퓨터를 가입시키고 선택한 OU로 이동할 권한이 필요합니다.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>공유 가입 계정</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>신뢰할 수 있는 루트 CA 인증서 파일</value>
   </data>
@@ -1874,7 +2084,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>암호</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>이 암호를 안전하게 보관하세요. 로컬 Windows 계정 암호, Autopilot 자격 증명 및 프로필, 사용자 지정 응답 파일을 보호합니다.</value>
+    <value>이 암호를 안전하게 보관하세요. 로컬 Windows 계정 암호, 도메인 가입 자격 증명, Autopilot 자격 증명 및 프로필, 사용자 지정 응답 파일을 보호합니다.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>배포 암호</value>
@@ -1986,6 +2196,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>미디어 준비 상태</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>배포 중 기술자에게 도메인 자격 증명을 요청합니다.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>대화형 도메인 가입</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>아랍어(사우디아라비아)</value>
@@ -2191,6 +2407,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>문서</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>도메인 가입</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>기본적으로 표준 Ethernet 연결을 사용할 수 있습니다. 유선 네트워크에 802.1X 기업 인증이 필요한 경우에만 이 섹션을 구성하십시오.</value>
   </data>
@@ -2211,6 +2430,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>홈</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>배포 중 기술자에게 도메인 자격 증명을 요청합니다.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>대화형</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>배포된 장치 이름을 구성합니다.</value>
@@ -2271,6 +2496,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>배포 암호로 보호되는 자격 증명을 사용하여 도메인에 자동으로 가입합니다.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>제로 터치</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>활성 프로비저닝 모드</value>
@@ -3916,5 +4147,11 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>배포 암호로 보호되는 자격 증명을 사용하여 도메인에 자동으로 가입합니다.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>제로 터치 도메인 가입</value>
   </data>
 </root>

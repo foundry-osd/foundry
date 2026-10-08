@@ -256,6 +256,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Bevezetési oldalak</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktív</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Hiba oldal</value>
   </data>
@@ -356,6 +362,48 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Fiók (DOMAIN\user vagy user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>A fiókot DOMAIN\user vagy user@domain formában adja meg.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>A tartomány alapértelmezett helye</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Adja meg a számítógép tartományhoz csatlakoztatásának adatait. A csatlakozás a Windows telepítése után történik.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Szervezeti egység</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Adjon meg érvényes OU megkülönböztető nevet ebben a tartományban, vagy hagyja üresen.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Tartománynév</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Adjon meg érvényes tartománynevet, például: corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>A tartományhoz csatlakozás adatai hiányoznak vagy érvénytelenek. A telepítés nem indult el.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>OU megkülönböztető neve (nem kötelező)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>Hagyja üresen a tartomány alapértelmezett helyének használatához.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Jelszó</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Tartományhoz csatlakozás</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>Ez a Windows-kiadás nem csatlakoztatható tartományhoz. A Windows telepítése enélkül folytatódik.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

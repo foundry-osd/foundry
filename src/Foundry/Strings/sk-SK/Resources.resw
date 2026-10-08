@@ -1834,6 +1834,216 @@ Licencované podľa licencie MIT.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentáciu nebolo možné otvoriť</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Účet na pripojenie</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Predvolená</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Doména</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Pridať</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Zrušiť predvolený výber</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Odstrániť</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Nastaviť ako predvolenú</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Najprv zadajte platný účet, potom skontrolujte dĺžku hesla.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Áno</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>Vyhľadávajú sa OU v doméne...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>Vyhľadávanie bolo zrušené.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>V tejto doméne sa nenašli žiadne OU.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>Podarilo sa načítať len niektoré OU. Zobrazené OU môžete napriek tomu pridať.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Všetky OU v tejto doméne sa už v zozname nachádzajú.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>Časový limit vyhľadávania uplynul. OU môžete pridať ručne.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Doménu sa nepodarilo prehľadať. Skontrolujte, či má tento počítač k doméne prístup a či ju váš účet Windows môže čítať, alebo pridajte OU ručne.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Pridať doménu</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Pridať doménu</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Upraviť doménu</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Ak chcete ponechať aktuálne heslo, nechajte heslo prázdne.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Doména nebola uložená. Skontrolujte názov domény.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Pripravené</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Pred zmenou názvu tejto domény odstráňte jej OU.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Neboli pridané žiadne domény.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Neboli pridané žiadne OU.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU neboli pridané. Patria do inej domény, než je vybraná doména.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Najprv pridajte doménu, potom uveďte jej OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU nebola pridaná. Skontrolujte zobrazovaný názov a rozlišujúci názov. OU musí patriť do vybranej domény.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organizačné jednotky</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Organizačné jednotky domény {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Vyberte doménu, ak chcete uviesť jej OU.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Vybrané OU: {0} z {1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Zdieľaný</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Pridajte aspoň jednu doménu.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Táto doména sa už v zozname nachádza.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>Dve OU majú rovnaký interný identifikátor. Jednu odstráňte a pridajte ju znova.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Zadajte platný názov domény, napríklad corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Každá OU musí mať zobrazovaný názov s najviac 120 znakmi.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Na stránke „Všeobecné“ zapnite ochranu heslom a nastavte heslo nasadenia.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Zadajte heslo účtu.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>Zadajte účet v tvare DOMAIN\user alebo user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Zadajte zdieľaný účet na pripojenie alebo priraďte tejto doméne vlastný účet.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Zoznam môže obsahovať najviac 32 domén.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>Zoznam môže obsahovať najviac 1 024 OU.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Účet (DOMAIN\user alebo user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>Pridať OU</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Zrušiť vyhľadávanie</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Názov domény</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Použiť vyhradený účet</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Použiť zdieľaný účet na pripojenie</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Importovať z domény</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Zobrazí OU vybranej domény pomocou vášho účtu Windows. Vyberte tie, ktoré chcete pridať.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>Importovať OU z domény</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domény, ku ktorým toto médium môže pripájať počítače. Ak je uvedených viacero, technici si počas nasadenia vyberú jednu; predvolená je vopred vybraná.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domény</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Pridať vybrané OU</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Zadajte zobrazovaný názov a rozlišujúci názov OU. OU musí patriť do vybranej domény.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>Pridať OU ručne</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>Rozlišujúci názov</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Zobrazovaný názov</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Voliteľné. Uveďte OU, do ktorých možno vo vybranej doméne umiestniť počítače. Jediná OU sa použije vždy; ak je ich uvedených viacero, technici si počas nasadenia vyberú jednu. Existujúci účet počítača sa presunie do vybranej OU.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Účet, ktorý používa každá doména bez vlastného účtu. Potrebuje oprávnenie pripájať počítače a presúvať ich do vybraných OU.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Zdieľaný účet na pripojenie</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Súbor certifikátu dôveryhodnej koreňovej CA</value>
   </data>
@@ -1874,7 +2084,7 @@ Licencované podľa licencie MIT.</value>
     <value>Heslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Uchovávajte toto heslo v bezpečí. Chráni heslá lokálnych kont systému Windows, prihlasovacie údaje a profily Autopilot a vlastné súbory odpovedí.</value>
+    <value>Uchovávajte toto heslo v bezpečí. Chráni heslá lokálnych kont systému Windows, poverenia na pripojenie k doméne, prihlasovacie údaje a profily Autopilot a vlastné súbory odpovedí.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Heslo nasadenia</value>
@@ -1907,7 +2117,7 @@ Licencované podľa licencie MIT.</value>
     <value>Pre zvolenú architektúru neboli zistené žiadne jazykové balíky WinPE.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>generál</value>
+    <value>Všeobecné</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Skontrolujte a začnite</value>
@@ -1986,6 +2196,12 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Stav pripravenosti média</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Počas nasadenia si vyžiadajte od technika poverenia domény.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Interaktívne pripojenie k doméne</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabčina (Saudská Arábia)</value>
@@ -2191,6 +2407,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentácia</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Pripojenie k doméne</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Štandardne je k dispozícii štandardné pripojenie Ethernet. Túto časť nakonfigurujte len vtedy, ak vaša káblová sieť vyžaduje podnikové overenie 802.1X.</value>
   </data>
@@ -2201,16 +2420,22 @@ Licencované podľa licencie MIT.</value>
     <value>Štandardný pracovný postup konfigurácie.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>generál</value>
+    <value>Všeobecné</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>generál</value>
+    <value>Všeobecné</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD domov</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Domov</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>Počas nasadenia si vyžiadajte od technika poverenia domény.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Interaktívne</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Nakonfigurujte názvy nasadených zariadení.</value>
@@ -2271,6 +2496,12 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Pripojte sa k doméne automaticky pomocou poverení chránených heslom nasadenia.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktívny režim poskytovania</value>
@@ -2974,7 +3205,7 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Manage startup, language, diagnostics, and application behavior.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>generál</value>
+    <value>Všeobecné</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Zálohujte svoje nastavenia, preneste ich do iného počítača alebo ich udržiavajte synchronizované.</value>
@@ -3916,5 +4147,11 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Pripojte sa k doméne automaticky pomocou poverení chránených heslom nasadenia.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch pripojenie k doméne</value>
   </data>
 </root>

@@ -1834,6 +1834,216 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Impossibile aprire la documentazione</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Account di aggiunta</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Predefinito</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Dominio</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Aggiungi</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Cancella scelta predefinita</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Rimuovi</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Imposta come predefinito</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Inserisci prima un account valido, quindi controlla la lunghezza della password.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Sì</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>Ricerca delle OU nel dominio...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>Ricerca annullata.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Nessuna OU trovata in questo dominio.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>È stato possibile elencare solo alcune OU. Puoi comunque aggiungere quelle mostrate.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Tutte le OU in questo dominio sono già nell'elenco.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>La ricerca ha superato il tempo limite. Puoi aggiungere le OU manualmente.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Impossibile eseguire la ricerca nel dominio. Verifica che questo computer possa raggiungerlo e che il tuo account Windows possa leggerlo, oppure aggiungi le OU manualmente.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Aggiungi dominio</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Aggiungi un dominio</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Modifica dominio</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Lascia vuota la password per mantenere quella attuale.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Il dominio non è stato salvato. Controlla il nome di dominio.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Pronto</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Rimuovi le OU di questo dominio prima di modificarne il nome.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Nessun dominio aggiunto.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Nessuna OU aggiunta.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>Le OU non sono state aggiunte. Appartengono a un dominio diverso da quello selezionato.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Aggiungi prima un dominio, quindi elenca le sue OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>La OU non è stata aggiunta. Controlla il nome visualizzato e il nome distinto. La OU deve appartenere al dominio selezionato.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Unità organizzative</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Unità organizzative di {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Seleziona un dominio per elencarne le OU.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>OU selezionate: {0} di {1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Condiviso</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Aggiungi almeno un dominio.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Questo dominio è già nell'elenco.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>Due OU hanno lo stesso ID interno. Rimuovine una e aggiungila di nuovo.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Inserisci un nome di dominio valido, ad esempio corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Ogni OU richiede un nome visualizzato di massimo 120 caratteri.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Abilita la protezione con password nella pagina "Generale" e imposta la password di distribuzione.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Inserisci la password dell'account.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>Inserisci l'account come DOMAIN\user o user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Inserisci l'account di aggiunta condiviso oppure assegna a questo dominio un account proprio.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Puoi elencare fino a 32 domini.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>Puoi elencare fino a 1.024 OU.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Account (DOMAIN\user o user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>Aggiungi OU</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Annulla ricerca</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Nome di dominio</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Usa un account dedicato</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Usa l'account di aggiunta condiviso</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Importa dal dominio</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Elenca le OU del dominio selezionato, usando il tuo account Windows. Seleziona quelle da aggiungere.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>Importa OU dal dominio</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domini a cui questo supporto può aggiungere i computer. Se ne sono elencati diversi, i tecnici ne scelgono uno durante la distribuzione; il dominio predefinito è preselezionato.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domini</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Aggiungi OU selezionate</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Inserisci un nome visualizzato e il nome distinto della OU. La OU deve appartenere al dominio selezionato.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>Aggiungi una OU manualmente</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>Nome distinto</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Nome visualizzato</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Facoltativo. Elenca le OU in cui è possibile collocare i computer nel dominio selezionato. Se è elencata una sola OU, viene sempre usata; se ne sono elencate diverse, i tecnici ne scelgono una durante la distribuzione. Un account computer esistente viene spostato nella OU scelta.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Account usato da tutti i domini che non hanno un account proprio. Deve avere l'autorizzazione per aggiungere computer e spostarli nelle OU scelte.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Account di aggiunta condiviso</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>File del certificato della CA radice attendibile</value>
   </data>
@@ -1874,7 +2084,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Conserva questa password al sicuro. Protegge le password degli account locali di Windows, le credenziali e i profili Autopilot e i file di risposte personalizzati.</value>
+    <value>Conserva questa password al sicuro. Protegge le password degli account locali di Windows, le credenziali di aggiunta al dominio, le credenziali e i profili Autopilot e i file di risposte personalizzati.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Password di distribuzione</value>
@@ -1986,6 +2196,12 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Stato di preparazione del supporto</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Richiedi al tecnico le credenziali di dominio durante la distribuzione.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Aggiunta interattiva al dominio</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabo (Arabia Saudita)</value>
@@ -2191,6 +2407,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Documentazione</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Aggiunta al dominio</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>La connettività standard Ethernet è disponibile per impostazione predefinita. Configura questa sezione solo se la tua rete cablata richiede l'autenticazione aziendale 802.1X.</value>
   </data>
@@ -2211,6 +2430,12 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Casa</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>Richiedi al tecnico le credenziali di dominio durante la distribuzione.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Interattivo</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Configura i nomi dei dispositivi distribuiti.</value>
@@ -2271,6 +2496,12 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Esegui l'aggiunta al dominio automaticamente usando credenziali protette dalla password di distribuzione.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Modalità di provisioning attiva</value>
@@ -3916,5 +4147,11 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Esegui l'aggiunta al dominio automaticamente usando credenziali protette dalla password di distribuzione.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Aggiunta al dominio zero-touch</value>
   </data>
 </root>

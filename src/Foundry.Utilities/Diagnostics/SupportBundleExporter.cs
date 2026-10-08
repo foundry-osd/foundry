@@ -62,6 +62,11 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
                     sourceIndex++;
                     cancellationToken.ThrowIfCancellationRequested();
                     string sourceName = Path.GetFileName(sourcePath);
+                    if (sourceName.Equals("credentials.bin", StringComparison.OrdinalIgnoreCase))
+                    {
+                        omittedFiles.Add(new SupportBundleOmission(sourceIndex, sourceName, "SensitiveCredentialPayload"));
+                        continue;
+                    }
                     try
                     {
                         string content = await ReadSharedTextAsync(sourcePath, cancellationToken).ConfigureAwait(false);

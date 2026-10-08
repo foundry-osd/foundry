@@ -5,6 +5,7 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Catalog;
+using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.ViewModels;
 using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
@@ -24,8 +25,10 @@ public sealed class DeploymentWizardContext : IDisposable
         OperatingSystemCatalog = operatingSystemCatalog ?? throw new ArgumentNullException(nameof(operatingSystemCatalog));
         DriverPackSelection = driverPackSelection ?? throw new ArgumentNullException(nameof(driverPackSelection));
         CustomImages = new();
+        DomainJoinStep = new();
 
         Preparation.StateChanged += OnPreparationStateChanged;
+        DomainJoinStep.StateChanged += OnDomainJoinStepStateChanged;
         OperatingSystemCatalog.StateChanged += OnOperatingSystemCatalogStateChanged;
         DriverPackSelection.StateChanged += OnDriverPackSelectionStateChanged;
         CustomImages.StateChanged += OnOperatingSystemCatalogStateChanged;
@@ -37,8 +40,10 @@ public sealed class DeploymentWizardContext : IDisposable
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
     public CustomImageSelectionViewModel CustomImages { get; }
+    public DomainJoinStepViewModel DomainJoinStep { get; }
     public OperatingSystemMetadata? SelectedOperatingSystem => CustomImages.IsCustom ? CustomImages.Selection : OperatingSystemCatalog.SelectedOperatingSystem;
     public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PreOobe { get; private set; } = new();
+    public Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings DomainJoin { get; private set; } = new();
     public DeployCompletionSettings Completion { get; private set; } = new();
     public CoreDeployNetworkSettings Network { get; private set; } = new();
     public DeployOobeSettings Oobe { get; private set; } = new();
@@ -85,6 +90,15 @@ public sealed class DeploymentWizardContext : IDisposable
         ApplyCatalogSnapshot(startupSnapshot.CatalogSnapshot);
     }
 
+    /// <summary>Replaces the media Domain Join configuration with a debug scenario and resets the technician's inputs.</summary>
+    public void ApplyDebugDomainJoin(Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings domainJoin)
+    {
+        DomainJoin = domainJoin ?? throw new ArgumentNullException(nameof(domainJoin));
+        DomainJoinStep.Configure(DomainJoin);
+        RefreshDriverPackSelectionContext();
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public void ApplyCatalogSnapshot(DeploymentCatalogSnapshot snapshot)
     {
         ArgumentNullException.ThrowIfNull(snapshot);
@@ -105,6 +119,8 @@ public sealed class DeploymentWizardContext : IDisposable
         OperatingSystemCatalog.StateChanged -= OnOperatingSystemCatalogStateChanged;
         DriverPackSelection.StateChanged -= OnDriverPackSelectionStateChanged;
         CustomImages.StateChanged -= OnOperatingSystemCatalogStateChanged;
+        DomainJoinStep.StateChanged -= OnDomainJoinStepStateChanged;
+        DomainJoinStep.Dispose();
         CustomImages.Dispose();
         Preparation.Dispose();
         DriverPackSelection.Dispose();
@@ -116,6 +132,8 @@ public sealed class DeploymentWizardContext : IDisposable
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles)
     {
         PreOobe = document.PreOobe ?? new();
+        DomainJoin = document.DomainJoin ?? new();
+        DomainJoinStep.Configure(DomainJoin);
         Completion = document.Completion ?? new DeployCompletionSettings();
         OperatingSystemCatalog.ApplyOperatingSystemSelection(document.OperatingSystemSelection);
         CustomImages.Configure(document.CustomImages ?? new());
@@ -142,6 +160,11 @@ public sealed class DeploymentWizardContext : IDisposable
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    private void OnDomainJoinStepStateChanged(object? sender, EventArgs e)
+    {
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     private void OnDriverPackSelectionStateChanged(object? sender, EventArgs e)
     {
         StateChanged?.Invoke(this, EventArgs.Empty);
@@ -149,7 +172,9 @@ public sealed class DeploymentWizardContext : IDisposable
 
     private void RefreshDriverPackSelectionContext()
     {
-        Preparation.UpdateUnattendContext(SelectedOperatingSystem?.Architecture ?? OperatingSystemCatalog.EffectiveOsArchitecture);
+        Preparation.UpdateUnattendContext(
+            SelectedOperatingSystem?.Architecture ?? OperatingSystemCatalog.EffectiveOsArchitecture,
+            DomainJoinPreparationService.IsRequiredFor(DomainJoin, SelectedOperatingSystem));
         DriverPackSelection.UpdateSelectionContext(
             Preparation.DetectedHardware,
             SelectedOperatingSystem,

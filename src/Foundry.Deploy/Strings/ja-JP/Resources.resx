@@ -256,6 +256,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>導入ページ</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>対話型</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>ゼロタッチ</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>エラーページ</value>
   </data>
@@ -356,6 +362,48 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>アカウント (DOMAIN\userまたはuser@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>アカウントはDOMAIN\userまたはuser@domainの形式で入力してください。</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>ドメインの既定の場所</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>このコンピューターのドメイン参加情報を入力してください。参加はWindowsのインストール後に実行されます。</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>組織単位</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>このドメイン内の有効なOUの識別名を入力するか、空欄にしてください。</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>ドメイン名</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>corp.contoso.comなどの有効なドメイン名を入力してください。</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>ドメイン参加の情報がないか、無効です。展開は開始されていません。</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>OUの識別名 (省略可)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>空欄にするとドメインの既定の場所が使用されます。</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>ドメイン参加</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>このWindowsエディションはドメインに参加できません。ドメインに参加せずにWindowsのインストールを続行します。</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

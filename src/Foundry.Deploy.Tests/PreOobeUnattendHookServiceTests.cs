@@ -14,6 +14,44 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class PreOobeUnattendHookServiceTests
 {
+    [Theory]
+    [InlineData("<ComputerName>OLD</ComputerName>", false, false, true)]
+    [InlineData("<ComputerName>OLD</ComputerName>", false, true, false)]
+    [InlineData("<ComputerName>LAB01</ComputerName>", true, true, true)]
+    [InlineData("<ComputerName>LAB01</ComputerName><ComputerName>LAB01</ComputerName>", false, false, false)]
+    [InlineData("", false, false, true)]
+    [InlineData("", false, true, false)]
+    public async Task DomainCompositionChecksNameCountAndFinalIdentity(string names, bool custom, bool final, bool compatible)
+    {
+        string root = Path.Combine(Path.GetTempPath(), "Foundry.Deploy.Tests", Guid.NewGuid().ToString("N"));
+        string answer = Path.Combine(root, "Windows", "Panther", "unattend.xml");
+        Directory.CreateDirectory(Path.GetDirectoryName(answer)!);
+        try
+        {
+            File.WriteAllText(answer, $"<unattend xmlns=\"{Namespace}\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\">{names}</component></settings></unattend>");
+            var result = await PreOobeUnattendPrecedenceService.InspectDomainCompositionAsync(root, "x64", "LAB01", custom, final, TestContext.Current.CancellationToken);
+            Assert.Equal(compatible, result.IsCompatible);
+            Assert.Equal(compatible, result.SkipCode is null);
+        }
+        finally { Directory.Delete(root, recursive: true); }
+    }
+
+    [Fact]
+    public async Task EmbeddedDomainJoinReturnsDomainOnlyIncompatibility()
+    {
+        string root = Path.Combine(Path.GetTempPath(), "Foundry.Deploy.Tests", Guid.NewGuid().ToString("N"));
+        string answer = Path.Combine(root, "Windows", "Panther", "unattend.xml");
+        Directory.CreateDirectory(Path.GetDirectoryName(answer)!);
+        try
+        {
+            File.WriteAllText(answer, $"<unattend xmlns=\"{Namespace}\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-UnattendedJoin\" processorArchitecture=\"amd64\"><Identification /></component></settings></unattend>");
+            var result = await new PreOobeUnattendPrecedenceService(null!).CheckDomainCompositionAsync(root, "x64", "LAB01", false, TestContext.Current.CancellationToken);
+            Assert.False(result.IsCompatible);
+            Assert.Equal(Services.Deployment.DomainJoinSkipCode.EmbeddedDomainJoin, result.SkipCode);
+        }
+        finally { Directory.Delete(root, recursive: true); }
+    }
+
     private const string Namespace = "urn:schemas-microsoft-com:unattend";
     private readonly PreOobeUnattendHookService _service = new();
 

@@ -18,6 +18,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
+    private readonly IDomainJoinSecretStateService domainJoinSecretStateService;
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
     private ConfigurationOverviewEvaluation? cachedEvaluation;
 
@@ -27,6 +28,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         INetworkSecretStateService networkSecretStateService,
         IOobeAccountSecretStateService oobeAccountSecretStateService,
+        IDomainJoinSecretStateService domainJoinSecretStateService,
         IWinPeLanguageDiscoveryService languageDiscoveryService)
     {
         this.adkService = adkService;
@@ -34,6 +36,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.networkSecretStateService = networkSecretStateService;
         this.oobeAccountSecretStateService = oobeAccountSecretStateService;
+        this.domainJoinSecretStateService = domainJoinSecretStateService;
         this.languageDiscoveryService = languageDiscoveryService;
 
         adkService.StatusChanged += OnAdkStatusChanged;
@@ -41,6 +44,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         deploymentProtectionSecretStateService.Changed += OnUnderlyingStateChanged;
         networkSecretStateService.Changed += OnUnderlyingStateChanged;
         oobeAccountSecretStateService.Changed += OnUnderlyingStateChanged;
+        domainJoinSecretStateService.Changed += OnUnderlyingStateChanged;
     }
 
     public event EventHandler? Changed;
@@ -65,6 +69,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
                     deploymentProtectionSecretStateService.IsValid,
                 IsOobeAccountConfigurationReady = oobeAccountSecretStateService.Validate(configuration.Customization.Oobe).IsValid,
                 IsAutopilotConfigurationReady = configurationStateService.IsAutopilotConfigurationReady,
+                IsDomainJoinConfigurationReady = configurationStateService.IsDomainJoinConfigurationReady,
                 IsCustomImagesReady = configurationStateService.IsCustomImagesReady,
                 IsPostInstallationReady = configurationStateService.IsPostInstallationReady,
                 IsUnattendConfigurationReady = configurationStateService.IsUnattendConfigurationReady

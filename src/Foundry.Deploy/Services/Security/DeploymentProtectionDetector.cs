@@ -37,6 +37,9 @@ internal static class DeploymentProtectionDetector
         string? workspaceRootPath = null)
     {
         ArgumentNullException.ThrowIfNull(configuration);
+        if (configuration.Document?.DomainJoin.Domains?.Any(domain => domain?.EncryptedCredentials is not null) == true ||
+            configuration.Document?.DomainJoin is { IsEnabled: true, Mode: Foundry.Core.Models.Configuration.DomainJoinMode.Automatic })
+            return true;
         if (configuration.Document is null && configuration.Exists)
         {
             return true;

@@ -20,13 +20,19 @@ public sealed record DeploymentWizardStepDefinition(
     private static readonly DeploymentWizardStepDefinition Autopilot =
         new(DeploymentWizardStepId.Autopilot, "Wizard.Step.Autopilot");
 
+    private static readonly DeploymentWizardStepDefinition DomainJoin =
+        new(DeploymentWizardStepId.DomainJoin, "DomainJoin.Title");
+
     private static readonly DeploymentWizardStepDefinition Summary =
         new(DeploymentWizardStepId.Summary, "Wizard.Step.Summary");
 
-    public static IReadOnlyList<DeploymentWizardStepDefinition> CreateSequence(bool includeAutopilot)
+    /// <summary>Builds the wizard steps; the provisioning steps appear only when the media needs technician input for them.</summary>
+    public static IReadOnlyList<DeploymentWizardStepDefinition> CreateSequence(bool includeAutopilot, bool includeDomainJoin = false)
     {
-        return includeAutopilot
-            ? [TargetDevice, OperatingSystem, Drivers, Autopilot, Summary]
-            : [TargetDevice, OperatingSystem, Drivers, Summary];
+        List<DeploymentWizardStepDefinition> steps = [TargetDevice, OperatingSystem, Drivers];
+        if (includeAutopilot) steps.Add(Autopilot);
+        if (includeDomainJoin) steps.Add(DomainJoin);
+        steps.Add(Summary);
+        return steps;
     }
 }

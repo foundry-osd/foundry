@@ -18,6 +18,14 @@ internal static class DeploymentProfilePayload
     private const int MaximumAssetBytes = 4 * 1024 * 1024;
     private const int MaximumTotalAssetBytes = 8 * 1024 * 1024;
     private static readonly UTF8Encoding SecretEncoding = new(false, true);
+
+    // Written by earlier builds: the single-domain shape, then the two technician-choice settings that the number of
+    // listed domains and OUs now replaces. The strict reader would otherwise reject the whole profile.
+    private static readonly string[] RetiredDomainJoinMembers =
+    [
+        "domainName", "accountName", "ouCatalogDomain", "organizationalUnits", "defaultOuId",
+        "allowDomainSelectionDuringDeployment", "allowOuSelectionDuringDeployment"
+    ];
     private static readonly JsonSerializerOptions Options = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -43,6 +51,7 @@ internal static class DeploymentProfilePayload
     internal static DeploymentProfileDocument Deserialize(byte[] bytes, bool portable)
     {
         DeploymentProfileDocument? profile = null;
+        byte[]? current = null;
         try
         {
             using JsonDocument json = JsonDocument.Parse(bytes, new() { MaxDepth = 32 });
@@ -71,7 +80,8 @@ internal static class DeploymentProfilePayload
             {
                 RequireProperties(asset, "id", "kind", "relativePath", "state");
             }
-            profile = JsonSerializer.Deserialize<DeploymentProfileDocument>(bytes, Options)
+            current = WithoutRetiredDomainJoinMembers(json.RootElement);
+            profile = JsonSerializer.Deserialize<DeploymentProfileDocument>(current ?? bytes, Options)
                 ?? throw new InvalidDataException("The profile payload is missing.");
             Validate(profile);
             return profile with { Configuration = ProjectConfiguration(profile.Configuration, portable) };
@@ -85,6 +95,63 @@ internal static class DeploymentProfilePayload
         {
             ClearBuffers(profile);
             throw;
+        }
+        finally
+        {
+            if (current is not null) CryptographicOperations.ZeroMemory(current);
+        }
+    }
+
+    /// <summary>
+    /// Rewrites a payload saved by an earlier build without its retired Domain Join members, so the profile loads
+    /// instead of being rejected: a single-domain profile yields an empty domain list, and a profile that only
+    /// carried the technician-choice settings keeps its domains. Returns <see langword="null"/> when the payload
+    /// carries none of them. The copy holds the profile secrets; the caller clears it.
+    /// </summary>
+    private static byte[]? WithoutRetiredDomainJoinMembers(JsonElement root)
+    {
+        if (!root.GetProperty("configuration").TryGetProperty("domainJoin", out JsonElement domainJoin)
+            || domainJoin.ValueKind != JsonValueKind.Object || !RetiredDomainJoinMembers.Any(name => domainJoin.TryGetProperty(name, out _)))
+        {
+            return null;
+        }
+        using var buffer = new BoundedPayloadStream();
+        try
+        {
+            using (var writer = new Utf8JsonWriter(buffer))
+            {
+                writer.WriteStartObject();
+                foreach (JsonProperty property in root.EnumerateObject())
+                {
+                    if (!property.NameEquals("configuration"))
+                    {
+                        property.WriteTo(writer);
+                        continue;
+                    }
+                    writer.WriteStartObject(property.Name);
+                    foreach (JsonProperty section in property.Value.EnumerateObject())
+                    {
+                        if (!section.NameEquals("domainJoin"))
+                        {
+                            section.WriteTo(writer);
+                            continue;
+                        }
+                        writer.WriteStartObject(section.Name);
+                        foreach (JsonProperty member in section.Value.EnumerateObject().Where(member => !RetiredDomainJoinMembers.Contains(member.Name, StringComparer.Ordinal)))
+                        {
+                            member.WriteTo(writer);
+                        }
+                        writer.WriteEndObject();
+                    }
+                    writer.WriteEndObject();
+                }
+                writer.WriteEndObject();
+            }
+            return buffer.ToArray();
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(buffer.GetBuffer());
         }
     }
 
@@ -120,7 +187,8 @@ internal static class DeploymentProfilePayload
         {
             if (secret is null || !Enum.IsDefined(secret.Purpose) || !Enum.IsDefined(secret.State) || !IsIdentity(secret.Identity)
                 || !identities.Add($"{(int)secret.Purpose}:{secret.Identity}")
-                || (secret.State == ProfileValueState.Present ? !IsValidSecret(secret.Value) : secret.Value is not null))
+                || (secret.State == ProfileValueState.Present ? !IsValidSecret(secret.Value) : secret.Value is not null)
+                || (secret.Purpose == ProfileSecretPurpose.DomainJoinPassword && secret.Value?.Contains((byte)0) == true))
             {
                 throw new InvalidDataException("The profile secret record is invalid.");
             }
@@ -199,6 +267,8 @@ internal static class DeploymentProfilePayload
         ValidateList(configuration.OperatingSystemSelection.AllowedEditions);
         ValidateList(configuration.Autopilot.HardwareHashUpload.KnownGroupTags);
         ValidateList(configuration.Autopilot.Profiles);
+        ValidateList(configuration.DomainJoin.Domains);
+        foreach (DomainJoinDomainSettings domain in configuration.DomainJoin.Domains) ValidateList(domain.OrganizationalUnits);
         ValidateList(configuration.Unattend.Files);
         var ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var folders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);

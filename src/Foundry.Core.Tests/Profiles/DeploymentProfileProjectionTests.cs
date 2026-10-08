@@ -11,6 +11,17 @@ namespace Foundry.Core.Tests.Profiles;
 public sealed class DeploymentProfileProjectionTests
 {
     [Fact]
+    public void DomainSecretIdentityIsTheCanonicalAccountAlone()
+    {
+        var profile = new DeploymentProfileDocument();
+        Assert.Equal(DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile, "EXAMPLE\\joiner"),
+            DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile, " example\\JOINER "));
+        Assert.NotEqual(DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile, "EXAMPLE\\joiner"),
+            DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile, "EXAMPLE\\other"));
+        Assert.Throws<ArgumentException>(() => DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile));
+    }
+
+    [Fact]
     public void PortableContent_IgnoresHostPathsTelemetryAndRecordOrdering()
     {
         DeploymentProfileDocument first = CreateProfile();

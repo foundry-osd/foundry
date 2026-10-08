@@ -735,6 +735,66 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(TelemetryBootMediaUsbOperations.None, result["boot_media_usb_operation"]);
     }
 
+    [Theory]
+    [InlineData(false, DomainJoinMode.Automatic, "disabled", 0, 0, false, false)]
+    [InlineData(true, DomainJoinMode.Automatic, "zero_touch", 2, 3, true, true)]
+    [InlineData(true, DomainJoinMode.Interactive, "interactive", 2, 3, true, false)]
+    public void Build_ReportsDomainJoinUsageWithoutDirectoryNames(bool enabled, DomainJoinMode mode, string expectedMode,
+        int expectedDomains, int expectedOus, bool expectedDefaultOu, bool expectedSharedAccount)
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            DomainJoin = new DomainJoinSettings
+            {
+                IsEnabled = enabled,
+                Mode = mode,
+                SharedAccountName = @"PRIVATE\joiner",
+                DefaultDomainId = "one",
+                Domains =
+                [
+                    new()
+                    {
+                        Id = "one",
+                        DomainName = "private.example.test",
+                        DefaultOuId = "ou-1",
+                        OrganizationalUnits =
+                        [
+                            new() { Id = "ou-1", DisplayName = "PrivateOne", DistinguishedName = "OU=PrivateOne,DC=private,DC=example,DC=test" },
+                            new() { Id = "ou-2", DisplayName = "PrivateTwo", DistinguishedName = "OU=PrivateTwo,DC=private,DC=example,DC=test" }
+                        ]
+                    },
+                    new()
+                    {
+                        Id = "two",
+                        DomainName = "private2.example.test",
+                        AccountName = @"PRIVATE2\joiner",
+                        OrganizationalUnits = [new() { Id = "ou-3", DisplayName = "PrivateThree", DistinguishedName = "OU=PrivateThree,DC=private2,DC=example,DC=test" }]
+                    }
+                ]
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal(enabled, result["domain_join_enabled"]);
+        Assert.Equal(expectedMode, result["domain_join_mode"]);
+        Assert.Equal(expectedDomains, result["domain_join_domain_count"]);
+        Assert.Equal(expectedOus, result["domain_join_ou_count"]);
+        Assert.Equal(expectedDefaultOu, result["domain_join_default_ou_set"]);
+
+        Assert.Equal(expectedSharedAccount, result["domain_join_shared_account_used"]);
+        Assert.DoesNotContain(result.Values, value => value is string text && text.Contains("private", StringComparison.OrdinalIgnoreCase));
+    }
+
     [Fact]
     public void Build_WhenInteractiveHardwareHashUploadIsEnabled_ReportsInteractiveMode()
     {

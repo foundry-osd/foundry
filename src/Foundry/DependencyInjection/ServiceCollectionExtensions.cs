@@ -120,6 +120,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkSecretStateService, NetworkSecretStateService>();
         services.AddSingleton<IDeploymentProtectionSecretStateService, DeploymentProtectionSecretStateService>();
         services.AddSingleton<IOobeAccountSecretStateService, OobeAccountSecretStateService>();
+        services.AddSingleton<IDomainJoinSecretStateService, DomainJoinSecretStateService>();
         services.AddSingleton<IOobeAdditionalAccountDialogService, OobeAdditionalAccountDialogService>();
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
         services.AddSingleton<Foundry.Core.Services.Profiles.IDeploymentProfilePackageService, Foundry.Core.Services.Profiles.DeploymentProfilePackageService>();
@@ -168,6 +169,9 @@ public static class ServiceCollectionExtensions
         services.AddTransient<UnattendConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();
         services.AddTransient<AutopilotConfigurationViewModel>();
+        services.AddSingleton<Foundry.Services.DomainJoin.IAuthoringDomainOuDiscoveryService, Foundry.Services.DomainJoin.AuthoringDomainOuDiscoveryService>();
+        services.AddSingleton<Foundry.Services.DomainJoin.IDomainJoinDialogService, Foundry.Services.DomainJoin.DomainJoinDialogService>();
+        services.AddTransient<DomainJoinConfigurationViewModel>();
         services.AddTransient<CustomizationConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<HomeLandingViewModel>();

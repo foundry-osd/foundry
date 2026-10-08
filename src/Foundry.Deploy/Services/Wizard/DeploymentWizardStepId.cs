@@ -10,5 +10,6 @@ public enum DeploymentWizardStepId
     OperatingSystem,
     Drivers,
     Autopilot,
+    DomainJoin,
     Summary
 }

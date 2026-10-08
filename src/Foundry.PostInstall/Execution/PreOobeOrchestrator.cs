@@ -5,7 +5,6 @@
 using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.PreOobe;
-using Foundry.Core.Services.Configuration;
 using Serilog;
 
 namespace Foundry.PostInstall.Execution;
@@ -17,6 +16,9 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
     private IProgress<PostInstallProgress>? progress = progress;
     private readonly Func<TimeSpan, CancellationToken, Task> delay = delay ?? Task.Delay;
     private bool isResuming;
+    private DomainJoinBinding? domainBinding;
+    private DomainJoinResultStore? domainResults;
+    private DomainJoinResult? domainReport;
     private const int MaximumRestarts = 1024;
     public async Task<OrchestrationOutcome> RunAsync(PreOobeExecutionPlan plan, CancellationToken cancellationToken)
     {
@@ -32,14 +34,26 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
             var cleanup = new OwnedPayloadCleanup(root, journal);
             try
             {
-                ValidatePlan(plan);
+                PreOobePlanValidator.ValidatePlan(plan);
                 state = journal.Read();
-                ValidateState(plan, state);
+                PreOobePlanValidator.ValidateState(plan, state, planHash);
                 boot = bootIdentity();
                 if (string.IsNullOrWhiteSpace(boot)) throw new InvalidDataException("Boot identity is unavailable.");
                 validated = true;
                 isResuming = state.RestartCount > 0 && state.BootIdentity != boot;
+                bool domainResume = ReconcileDomain(plan, state, boot);
                 Report(plan, state);
+                if (domainResume && domainReport?.Restart is DomainJoinRestartState.Required or DomainJoinRestartState.Requested)
+                {
+                    if (state.DomainRestartBootIdentity == boot) return new("AwaitingRestart", 3);
+                    state.BootIdentity = boot;
+                    return await RequestRestartAsync(plan, state, 0, cancellationToken).ConfigureAwait(false);
+                }
+                if (domainResume)
+                {
+                    state.Status = "Running";
+                    state.CompletionStatus = null;
+                }
                 if (state.Status is "Succeeded" or "CompletedWithErrors" or "Failed" or "Interrupted")
                     return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
                 if (state.Status == "Completing")
@@ -51,7 +65,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                 {
                     if (state.BootIdentity == boot) return new("AwaitingRestart", 3);
                 }
-                else if (state.Status != "Pending")
+                else if (state.Status != "Pending" && !domainResume)
                 {
                     state.Status = "Interrupted";
                     state.UnsafePayloadBootIdentity = state.BootIdentity;
@@ -59,7 +73,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     journal.Write(state);
                     return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
                 }
-                else
+                else if (state.Status == "Pending")
                 {
                     Report(plan, state, "Verifying");
                     await VerifyPackagesAsync(plan, cancellationToken).ConfigureAwait(false);
@@ -100,6 +114,16 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                         state.UnsafeActionId = action.Id;
                         outcome = outcome with { Succeeded = false, FailureCode = "execution_uncertain" };
                     }
+                    bool domainAction = action.BuiltInKind is PreOobeBuiltInKind.DomainJoinAndPlacement or PreOobeBuiltInKind.VerifyDomainMembership;
+                    if (domainAction)
+                    {
+                        domainReport = domainResults!.Read();
+                        state.DomainReceiptGeneration = new DomainJoinPhaseStore(root, plan, planHash).Read().Generation;
+                        state.HasWarnings |= DomainJoinResultStore.HasWarnings(domainReport);
+                        LogDomainReport(domainReport);
+                        if (action.BuiltInKind == PreOobeBuiltInKind.DomainJoinAndPlacement)
+                            outcome = outcome with { RestartRequested = domainReport.Restart == DomainJoinRestartState.Required };
+                    }
                     if (outcome.Succeeded && outcome.NextSubstep is int next)
                     {
                         if (next <= state.Substep || next > 10000) throw new InvalidDataException("Invalid internal cursor.");
@@ -121,10 +145,11 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     Report(plan, state);
                     Log.Information("Post-installation action {ActionId} finished with {Status}; exit code {ExitCode}",
                         action.Id, state.Actions[action.Id].Status, outcome.ExitCode);
-                    if (!cleanup.Dispose(plan, state, false, boot)) throw new IOException("Sensitive input disposal failed.");
+                    if (DisposePayloads(plan, state, false, boot, cleanup).HasFatalSensitiveFailure) throw new IOException("Sensitive input disposal failed.");
                     bool mayContinue = action.CustomAction?.Process?.ErrorPolicy == PreOobeErrorPolicy.Continue ||
-                        action.BuiltInKind is PreOobeBuiltInKind.Activation;
-                    if (!outcome.Succeeded && (!mayContinue || state.UnsafePayloadBootIdentity == boot))
+                        action.BuiltInKind is PreOobeBuiltInKind.Activation || domainAction;
+                    bool uncertainNow = state.UnsafePayloadBootIdentity == boot && state.UnsafeActionId == action.Id;
+                    if (!outcome.Succeeded && (!mayContinue || uncertainNow && !domainAction))
                     {
                         state.Status = "Failed";
                         journal.Write(state);
@@ -147,19 +172,141 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                 Log.Error("Post-installation stopped; failure type {FailureType}", ex.GetType().Name);
                 if (validated && state is not null)
                 {
-                    if (actionInFlight)
+                    if (actionInFlight || state.Status == "Running" && state.Cursor < plan.Actions.Count &&
+                        state.Actions.GetValueOrDefault(plan.Actions[state.Cursor].Id)?.Status == "Running")
                     {
                         state.UnsafePayloadBootIdentity = boot;
                         state.UnsafeActionId = state.Cursor < plan.Actions.Count ? plan.Actions[state.Cursor].Id : null;
                     }
                     state.Status = "Failed";
                     try { journal.Write(state); } catch (Exception error) when (error is IOException or UnauthorizedAccessException) { }
-                    cleanup.Dispose(plan, state, true, boot);
+                    try { if (DisposePayloads(plan, state, true, boot, cleanup).HasFatalSensitiveFailure) state.Status = "Failed"; }
+                    catch (Exception error) when (error is not OutOfMemoryException and not StackOverflowException)
+                    { Log.Error("Post-installation cleanup could not be published; failure type {FailureType}", error.GetType().Name); }
                     Report(plan, state);
                 }
                 return new("Failed", 3);
             }
         }
+    }
+
+    private bool ReconcileDomain(PreOobeExecutionPlan plan, JournalState state, string boot)
+    {
+        if (!plan.Actions.Any(action => action.BuiltInKind == PreOobeBuiltInKind.DomainJoinAndPlacement)) return false;
+        domainBinding = DomainJoinBinding.Validate(plan);
+        var phases = new DomainJoinPhaseStore(root, plan, planHash);
+        var join = state.Actions.GetValueOrDefault(domainBinding.JoinAction.Id);
+        bool inspectWorker = join?.Status == "Running" && state.BootIdentity == boot;
+        using var workerLease = inspectWorker ? TryAcquireWorkerLease(phases) : null;
+        var receipt = phases.Read();
+        if (state.DomainReceiptGeneration is { } generation && (generation < 0 || receipt.Generation < generation))
+            throw new InvalidDataException("Domain receipt generation moved backwards.");
+        domainResults = new(root, plan, planHash);
+        domainReport = domainResults.Read();
+        if (join is null || join.Status == "Skipped" && domainReport.Join.State == DomainJoinPhaseState.NotStarted)
+        {
+            if (receipt.OriginatingBootId is not null || domainReport.Join.State != DomainJoinPhaseState.NotStarted ||
+                state.DomainRestartBootIdentity is not null || state.DomainReceiptGeneration is not null)
+                throw new InvalidDataException("Domain execution has no journaled owner.");
+            return false;
+        }
+        string origin = domainReport.OriginatingBootId.Length > 0 ? domainReport.OriginatingBootId :
+            state.BootIdentity ?? throw new InvalidDataException("Domain execution origin is missing.");
+        DomainJoinBinding.ValidateBoot(origin);
+        domainReport = domainResults.Reconcile(receipt, origin, workerUnsettled: inspectWorker && workerLease is null);
+        state.DomainReceiptGeneration = receipt.Generation;
+        if (state.DomainRestartBootIdentity is { } requested && (requested != origin || state.RestartCount == 0))
+            throw new InvalidDataException("Domain restart checkpoint is invalid.");
+        if (domainReport.Restart is DomainJoinRestartState.Required or DomainJoinRestartState.Requested)
+        {
+            var restart = boot != origin ? DomainJoinRestartState.Completed :
+                state.DomainRestartBootIdentity is not null ? DomainJoinRestartState.Requested : DomainJoinRestartState.Required;
+            if (domainReport.Restart == DomainJoinRestartState.Requested && state.DomainRestartBootIdentity is null)
+                throw new InvalidDataException("Domain restart publication is missing.");
+            domainReport = domainReport with { Restart = restart };
+            domainResults.Write(domainReport);
+        }
+        bool warning = DomainJoinResultStore.HasWarnings(domainReport);
+        state.HasWarnings |= warning;
+        LogDomainReport(domainReport);
+        int joinIndex = plan.Actions.ToList().FindIndex(action => action.Id == domainBinding.JoinAction.Id);
+        if (state.Cursor < joinIndex) throw new InvalidDataException("Domain cursor precedes its recorded execution.");
+        if (join.Status == "Running")
+        {
+            bool settledPrepared = workerLease is not null && receipt.Phase == DomainJoinReceiptPhase.Prepared &&
+                domainReport.Join.State == DomainJoinPhaseState.Failed;
+            if (settledPrepared)
+            {
+                if (state.UnsafePayloadBootIdentity == origin && state.UnsafeActionId == domainBinding.JoinAction.Id)
+                {
+                    state.UnsafePayloadBootIdentity = null;
+                    state.UnsafeActionId = null;
+                }
+                else if (state.UnsafePayloadBootIdentity == boot)
+                {
+                    state.Status = "Failed";
+                    state.CompletionStatus = null;
+                    journal.Write(state);
+                    return false;
+                }
+            }
+            else if (state.UnsafePayloadBootIdentity != boot || state.UnsafeActionId == domainBinding.JoinAction.Id)
+            {
+                state.UnsafePayloadBootIdentity = origin;
+                state.UnsafeActionId = domainBinding.JoinAction.Id;
+            }
+            state.Actions[domainBinding.JoinAction.Id] = join with
+            {
+                Status = warning ? "Failed" : "Succeeded",
+                FailureCode = warning ? "domain_join_warning" : null,
+                CompletedAtUtc = DateTimeOffset.UtcNow
+            };
+        }
+        if (state.Cursor == joinIndex) { state.Cursor++; state.Substep = 0; }
+        bool resume = state.Cursor < plan.Actions.Count && plan.Actions[state.Cursor].Id == domainBinding.VerificationAction.Id;
+        if (resume && domainReport.Membership.State is DomainJoinPhaseState.Succeeded or DomainJoinPhaseState.Failed or DomainJoinPhaseState.Skipped)
+        {
+            state.Actions[domainBinding.VerificationAction.Id] = new() { Status = domainReport.Membership.State == DomainJoinPhaseState.Failed ? "Failed" : "Succeeded" };
+            state.Cursor++;
+        }
+        journal.Write(state);
+        return resume;
+    }
+
+    /// <summary>Records the password-free phase outcomes; only states, allowlisted codes and numeric errors are written.</summary>
+    private static void LogDomainReport(DomainJoinResult report)
+    {
+        Log.Information(
+            "Domain join report; join {JoinState} ({JoinFailure}), placement {PlacementState} ({PlacementFailure}), " +
+            "membership {MembershipState} ({MembershipFailure}), restart {Restart}, cleanup {Cleanup}",
+            report.Join.State, report.Join.FailureCode, report.Placement.State, report.Placement.FailureCode,
+            report.Membership.State, report.Membership.FailureCode, report.Restart, report.Cleanup);
+        foreach (var (phase, result) in new[] { ("join", report.Join), ("placement", report.Placement), ("membership", report.Membership) })
+        {
+            if (result.NativeErrorCode is null && result.LdapErrorCode is null && result.DirectoryResultCode is null) continue;
+            Log.Warning("Domain {Phase} error codes; native {NativeErrorCode}, LDAP {LdapErrorCode}, directory result {DirectoryResultCode}",
+                phase, result.NativeErrorCode, result.LdapErrorCode, result.DirectoryResultCode);
+        }
+    }
+
+    private static IDisposable? TryAcquireWorkerLease(DomainJoinPhaseStore phases)
+    {
+        try { return phases.AcquireWorkerLease(); }
+        catch (IOException error) when ((error.HResult & 0xffff) is 32 or 33) { return null; }
+    }
+
+    private OwnedPayloadCleanupOutcome DisposePayloads(PreOobeExecutionPlan plan, JournalState state, bool terminal, string boot, OwnedPayloadCleanup cleanup)
+    {
+        var outcome = cleanup.Dispose(plan, state, terminal, boot);
+        state.HasWarnings |= outcome.HasDomainCleanupPending;
+        if (domainResults is not null && domainBinding is not null)
+        {
+            domainReport = domainResults.Read();
+            var disposition = state.PayloadDispositions.GetValueOrDefault(domainBinding.Parameters.CredentialPayloadPath);
+            var next = disposition == "Disposed" ? DomainJoinCleanupState.Disposed : DomainJoinCleanupState.Pending;
+            if (domainReport.Cleanup != next) domainResults.Write(domainReport = domainReport with { Cleanup = next });
+        }
+        return outcome;
     }
 
     /// <summary>Commits the next cursor before waiting; cancelling the display delay must not invalidate a durable restart.</summary>
@@ -169,7 +316,22 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
         if (++state.RestartCount > MaximumRestarts) throw new InvalidDataException("Restart budget exceeded.");
         state.DeferredRestart = false;
         state.Status = "AwaitingRestart";
-        journal.Write(state);
+        bool domainRestart = domainReport?.Restart == DomainJoinRestartState.Required;
+        if (domainRestart) state.DomainRestartBootIdentity = domainReport!.OriginatingBootId;
+        try { journal.Write(state); }
+        catch
+        {
+            // Do not publish an uncommitted restart marker through the outer failure handler.
+            var durable = journal.Read();
+            state.RestartCount = durable.RestartCount;
+            state.DomainRestartBootIdentity = durable.DomainRestartBootIdentity;
+            throw;
+        }
+        if (domainRestart)
+        {
+            domainReport = domainReport! with { Restart = DomainJoinRestartState.Requested };
+            domainResults!.Write(domainReport);
+        }
         Log.Information("Post-installation checkpoint saved for restart {RestartCount}; delay {DelaySeconds} seconds",
             state.RestartCount, seconds);
         try
@@ -227,7 +389,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
 
     private OrchestrationOutcome Finish(PreOobeExecutionPlan plan, JournalState state, string boot, OwnedPayloadCleanup cleanup)
     {
-        if (!cleanup.Dispose(plan, state, true, boot)) state.Status = "Failed";
+        if (DisposePayloads(plan, state, true, boot, cleanup).HasFatalSensitiveFailure) state.Status = "Failed";
         foreach (PreOobeExecutionAction action in plan.Actions)
             if (!state.Actions.ContainsKey(action.Id)) state.Actions[action.Id] = new() { Status = "Skipped" };
         if (state.Status == "Succeeded" && state.HasWarnings) state.Status = "CompletedWithErrors";
@@ -252,58 +414,22 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                 if (elapsed < TimeSpan.Zero) elapsed = TimeSpan.Zero;
                 return new PostInstallActionProgress(action.Id, PostInstallProgress.GetActionName(action), actionStatus, elapsed, result?.ExitCode);
             }).ToArray();
-            progress.Report(new(actions, status ?? state.Status, isResuming, restartSecondsRemaining));
+            int warnings = state.Actions.Count(pair => pair.Key != domainBinding?.JoinAction.Id && pair.Key != domainBinding?.VerificationAction.Id &&
+                (pair.Value.Status == "Failed" || pair.Value.FailureCode is not null));
+            if (domainReport is not null)
+            {
+                warnings += new[] { domainReport.Join, domainReport.Placement, domainReport.Membership }.Count(phase =>
+                    phase.State is DomainJoinPhaseState.Failed or DomainJoinPhaseState.Unknown or DomainJoinPhaseState.Unverified);
+                if (state.PayloadDispositions.GetValueOrDefault(domainBinding!.Parameters.CredentialPayloadPath) == "CleanupPending") warnings++;
+            }
+            if (state.HasWarnings) warnings = Math.Max(1, warnings);
+            progress.Report(new(actions, status ?? state.Status, isResuming, restartSecondsRemaining, domainReport, warnings));
         }
         catch (Exception error) when (error is not OutOfMemoryException and not StackOverflowException)
         {
             progress = null;
             Log.Warning("Post-installation progress display is unavailable; failure type {FailureType}", error.GetType().Name);
         }
-    }
-
-    private static void ValidatePlan(PreOobeExecutionPlan plan)
-    {
-        if (plan.SchemaVersion != 1 || plan.RuntimeContractVersion != 1 ||
-            string.IsNullOrWhiteSpace(plan.OperationId) || string.IsNullOrWhiteSpace(plan.AttemptId) ||
-            plan.Actions.Count > PreOobeConfigurationValidator.MaximumActions + Enum.GetValues<PreOobeBuiltInKind>().Length ||
-            plan.Actions.Count(action => action.CustomAction is not null) > PreOobeConfigurationValidator.MaximumActions ||
-            plan.Actions.Where(action => action.BuiltInKind.HasValue).Select(action => action.BuiltInKind).Distinct().Count() != plan.Actions.Count(action => action.BuiltInKind.HasValue) ||
-            plan.Actions.Select(action => action.Id).Distinct(StringComparer.Ordinal).Count() != plan.Actions.Count)
-            throw new InvalidDataException("The execution plan is invalid.");
-        bool sawCustom = false;
-        bool sawCleanup = false;
-        foreach (PreOobeExecutionAction action in plan.Actions)
-        {
-            if (string.IsNullOrWhiteSpace(action.Id) || action.Id.Any(character => !char.IsAsciiLetterOrDigit(character) && character is not ('-' or '_')) ||
-                (action.CustomAction is null) == (action.BuiltInKind is null) ||
-                action.BuiltInKind is { } kind && !Enum.IsDefined(kind) || sawCleanup ||
-                sawCustom && action.BuiltInKind is not (null or PreOobeBuiltInKind.Cleanup))
-                throw new InvalidDataException("The execution action is invalid.");
-            sawCustom |= action.CustomAction is not null;
-            sawCleanup |= action.BuiltInKind == PreOobeBuiltInKind.Cleanup;
-            if (action.CustomAction is { } custom &&
-                (custom.RestartDelaySeconds is < 0 or > PreOobeConfigurationValidator.MaximumRestartDelaySeconds ||
-                 custom.Kind != PreOobeActionKind.Restart && custom.RestartDelaySeconds != 0))
-                throw new InvalidDataException("The restart delay is invalid.");
-        }
-        foreach (PreOobeOwnedPayload payload in plan.OwnedPayloads)
-            if (!(payload.RelativePath.Replace('/', '\\').StartsWith("Payloads\\", StringComparison.OrdinalIgnoreCase) ||
-                  payload.RelativePath.Replace('/', '\\').Equals("Work\\PreOobe\\" + plan.OperationId, StringComparison.OrdinalIgnoreCase)) ||
-                payload.ConsumerActionIds.Any(id => !plan.Actions.Any(action => action.Id == id)))
-                throw new InvalidDataException("Payload ownership is invalid.");
-    }
-
-    private void ValidateState(PreOobeExecutionPlan plan, JournalState state)
-    {
-        if (state.SchemaVersion != 1 || state.OperationId != plan.OperationId || state.AttemptId != plan.AttemptId ||
-            !string.Equals(state.PlanHash, planHash, StringComparison.OrdinalIgnoreCase) || state.Cursor < 0 ||
-            state.Cursor > plan.Actions.Count || state.Generation < 0 || state.Substep < 0 || state.Substep > 10000 ||
-            state.RestartCount < 0 || state.RestartCount > MaximumRestarts ||
-            state.Status == "AwaitingRestart" && (state.RestartCount == 0 || string.IsNullOrWhiteSpace(state.BootIdentity)) ||
-            state.Status is not ("Pending" or "Running" or "AwaitingRestart" or "Completing" or "Succeeded" or "CompletedWithErrors" or "Failed" or "Interrupted") ||
-            state.Status == "Completing" && state.CompletionStatus is not ("Succeeded" or "CompletedWithErrors" or "Failed" or "Interrupted") ||
-            state.Status == "Pending" && (state.Cursor != 0 || state.Substep != 0 || state.Actions.Count != 0 || state.RestartCount != 0))
-            throw new InvalidDataException("The journal does not match this operation.");
     }
 
     private async Task VerifyPackagesAsync(PreOobeExecutionPlan plan, CancellationToken cancellationToken)

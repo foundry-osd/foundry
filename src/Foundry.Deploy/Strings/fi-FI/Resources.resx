@@ -256,6 +256,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Käyttöönottosivut</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interaktiivinen</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Virhesivu</value>
   </data>
@@ -356,6 +362,48 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Tili (DOMAIN\user tai user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Anna tili muodossa DOMAIN\user tai user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>Toimialueen oletussijainti</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Anna tämän tietokoneen toimialueeseen liittymisen tiedot. Liittyminen tehdään Windowsin asennuksen jälkeen.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Organisaatioyksikkö</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Anna kelvollinen OU:n yksilöivä nimi tästä toimialueesta tai jätä kenttä tyhjäksi.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Toimialueen nimi</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Anna kelvollinen toimialueen nimi, esimerkiksi corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>Toimialueeseen liittymisen tiedot puuttuvat tai ovat virheellisiä. Käyttöönotto ei ole alkanut.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>OU:n yksilöivä nimi (valinnainen)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>Jätä tyhjäksi, jos haluat käyttää toimialueen oletussijaintia.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Toimialueeseen liittyminen</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>Tätä Windows-versiota ei voi liittää toimialueeseen. Windowsin asennus jatkuu ilman liittämistä.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

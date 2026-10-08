@@ -1834,6 +1834,216 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Δεν ήταν δυνατό το άνοιγμα της τεκμηρίωσης</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Λογαριασμός σύνδεσης σε τομέα</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Προεπιλογή</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Τομέας</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Προσθήκη</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Εκκαθάριση προεπιλογής</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Κατάργηση</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Ορισμός ως προεπιλογής</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Εισαγάγετε πρώτα έγκυρο λογαριασμό και, στη συνέχεια, ελέγξτε το μήκος του κωδικού πρόσβασης.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Ναι</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>Αναζήτηση OU στον τομέα...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>Η αναζήτηση ακυρώθηκε.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Δεν βρέθηκαν OU σε αυτόν τον τομέα.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>Ήταν δυνατή η εμφάνιση μόνο ορισμένων OU. Μπορείτε ωστόσο να προσθέσετε όσες εμφανίζονται.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Όλες οι OU σε αυτόν τον τομέα υπάρχουν ήδη στη λίστα.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>Έληξε το χρονικό όριο της αναζήτησης. Μπορείτε να προσθέσετε OU χειροκίνητα.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η αναζήτηση στον τομέα. Ελέγξτε ότι αυτός ο υπολογιστής έχει πρόσβαση σε αυτόν και ότι ο λογαριασμός σας Windows μπορεί να τον διαβάσει ή προσθέστε OU χειροκίνητα.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Προσθήκη τομέα</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Προσθήκη τομέα</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Επεξεργασία τομέα</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Αφήστε τον κωδικό πρόσβασης κενό για να διατηρήσετε τον τρέχοντα.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Ο τομέας δεν αποθηκεύτηκε. Ελέγξτε το όνομα τομέα.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Έτοιμο</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Καταργήστε τις OU αυτού του τομέα πριν αλλάξετε το όνομά του.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Δεν έχουν προστεθεί τομείς.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>Δεν έχουν προστεθεί OU.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>Οι OU δεν προστέθηκαν. Ανήκουν σε διαφορετικό τομέα από τον επιλεγμένο.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Προσθέστε πρώτα έναν τομέα και, στη συνέχεια, καταχωρήστε τις OU του.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>Η OU δεν προστέθηκε. Ελέγξτε το εμφανιζόμενο όνομα και το διακεκριμένο όνομα. Η OU πρέπει να ανήκει στον επιλεγμένο τομέα.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Οργανωτικές μονάδες</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Οργανωτικές μονάδες του τομέα {0}</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Επιλέξτε έναν τομέα για να καταχωρήσετε τις OU του.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Επιλεγμένες OU: {0} από {1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Κοινόχρηστος</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Προσθέστε τουλάχιστον έναν τομέα.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Αυτός ο τομέας υπάρχει ήδη στη λίστα.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>Δύο OU έχουν το ίδιο εσωτερικό αναγνωριστικό. Καταργήστε τη μία και προσθέστε την ξανά.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Εισαγάγετε ένα έγκυρο όνομα τομέα, όπως corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Κάθε OU χρειάζεται εμφανιζόμενο όνομα με έως 120 χαρακτήρες.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Ενεργοποιήστε την προστασία με κωδικό πρόσβασης στη σελίδα «Γενικά» και ορίστε τον κωδικό πρόσβασης ανάπτυξης.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Εισαγάγετε τον κωδικό πρόσβασης του λογαριασμού.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>Εισαγάγετε τον λογαριασμό ως DOMAIN\user ή user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Εισαγάγετε τον κοινόχρηστο λογαριασμό σύνδεσης σε τομέα ή ορίστε για αυτόν τον τομέα δικό του λογαριασμό.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Η λίστα μπορεί να περιέχει έως 32 τομείς.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>Η λίστα μπορεί να περιέχει έως 1.024 OU.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Λογαριασμός (DOMAIN\user ή user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>Προσθήκη OU</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Ακύρωση αναζήτησης</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Όνομα τομέα</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Χρήση αποκλειστικού λογαριασμού</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Χρήση του κοινόχρηστου λογαριασμού σύνδεσης σε τομέα</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Εισαγωγή από τομέα</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Εμφανίζει τις OU του επιλεγμένου τομέα, με χρήση του λογαριασμού σας Windows. Επιλέξτε όσες θέλετε να προσθέσετε.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>Εισαγωγή OU από τον τομέα</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Τομείς στους οποίους μπορεί να γίνει σύνδεση με αυτό το μέσο. Όταν έχουν καταχωρηθεί περισσότεροι από ένας, οι τεχνικοί επιλέγουν έναν κατά την ανάπτυξη· ο προεπιλεγμένος τομέας είναι ήδη επιλεγμένος.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Τομείς</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Προσθήκη επιλεγμένων OU</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Εισαγάγετε ένα εμφανιζόμενο όνομα και το διακεκριμένο όνομα της OU. Η OU πρέπει να ανήκει στον επιλεγμένο τομέα.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>Χειροκίνητη προσθήκη OU</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>Διακεκριμένο όνομα</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Εμφανιζόμενο όνομα</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Προαιρετικό. Καταχωρήστε τις OU στις οποίες μπορούν να τοποθετηθούν υπολογιστές στον επιλεγμένο τομέα. Αν έχει καταχωρηθεί μόνο μία OU, χρησιμοποιείται πάντα· όταν έχουν καταχωρηθεί περισσότερες, οι τεχνικοί επιλέγουν μία κατά την ανάπτυξη. Ένας υπάρχων λογαριασμός υπολογιστή μετακινείται στην επιλεγμένη OU.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Κωδικός πρόσβασης</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Λογαριασμός που χρησιμοποιείται από κάθε τομέα που δεν έχει δικό του λογαριασμό. Χρειάζεται δικαίωμα σύνδεσης υπολογιστών και μετακίνησής τους στις OU που επιλέγετε.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Κοινόχρηστος λογαριασμός σύνδεσης σε τομέα</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Αξιόπιστο αρχείο πιστοποιητικού CA root</value>
   </data>
@@ -1874,7 +2084,7 @@
     <value>Κωδικός πρόσβασης</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Φυλάξτε αυτόν τον κωδικό πρόσβασης με ασφάλεια. Προστατεύει τους κωδικούς πρόσβασης των τοπικών λογαριασμών Windows, τα διαπιστευτήρια και τα προφίλ Autopilot και τα προσαρμοσμένα αρχεία απαντήσεων.</value>
+    <value>Φυλάξτε αυτόν τον κωδικό πρόσβασης με ασφάλεια. Προστατεύει τους κωδικούς πρόσβασης των τοπικών λογαριασμών Windows, τα διαπιστευτήρια σύνδεσης σε τομέα, τα διαπιστευτήρια και τα προφίλ Autopilot και τα προσαρμοσμένα αρχεία απαντήσεων.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Κωδικός πρόσβασης ανάπτυξης</value>
@@ -1907,7 +2117,7 @@
     <value>Δεν εντοπίστηκαν πακέτα γλώσσας WinPE για την επιλεγμένη αρχιτεκτονική.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Στρατηγός</value>
+    <value>Γενικά</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Ελέγξτε και ξεκινήστε</value>
@@ -1986,6 +2196,12 @@
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Κατάσταση ετοιμότητας μέσου</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Ζητήστε από τον τεχνικό διαπιστευτήρια τομέα κατά την ανάπτυξη.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Διαδραστική σύνδεση σε τομέα</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Αραβικά (Σαουδική Αραβία)</value>
@@ -2191,6 +2407,9 @@
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Τεκμηρίωση</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Σύνδεση σε τομέα</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Η τυπική συνδεσιμότητα Ethernet είναι διαθέσιμη από προεπιλογή. Διαμορφώστε αυτήν την ενότητα μόνο εάν το ενσύρματο δίκτυό σας απαιτεί εταιρικό έλεγχο ταυτότητας 802.1X.</value>
   </data>
@@ -2201,16 +2420,22 @@
     <value>Τυπική ροή εργασιών διαμόρφωσης.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Στρατηγός</value>
+    <value>Γενικά</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Στρατηγός</value>
+    <value>Γενικά</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD σπίτι</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Σπίτι</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>Ζητήστε από τον τεχνικό διαπιστευτήρια τομέα κατά την ανάπτυξη.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Διαδραστική</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Διαμορφώστε τα ονόματα των αναπτυγμένων συσκευών.</value>
@@ -2271,6 +2496,12 @@
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Συνδεθείτε στον τομέα αυτόματα με διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης ανάπτυξης.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Ενεργή λειτουργία προμήθειας</value>
@@ -2974,7 +3205,7 @@
     <value>Διαχειριστείτε την εκκίνηση, τη γλώσσα, τα διαγνωστικά και τη συμπεριφορά εφαρμογών.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Στρατηγός</value>
+    <value>Γενικά</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Δημιουργήστε αντίγραφα ασφαλείας των ρυθμίσεών σας, μεταφέρετέ τις σε άλλον υπολογιστή ή διατηρήστε τις συγχρονισμένες.</value>
@@ -3916,5 +4147,11 @@
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Συνδεθείτε στον τομέα αυτόματα με διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης ανάπτυξης.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Σύνδεση σε τομέα Zero-touch</value>
   </data>
 </root>

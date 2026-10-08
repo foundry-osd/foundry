@@ -55,6 +55,15 @@ public interface IDeployConfigurationGenerator
         OobeAccountSecretState? oobeAccountSecretState,
         string? authoringVersion = null);
 
+    /// <summary>Generates active domain metadata and context-bound credentials using the existing media protection.</summary>
+    FoundryDeployConfigurationDocument Generate(
+        FoundryConfigurationDocument document,
+        byte[]? deploymentSecretsKey,
+        DeployProtectionSettings? protectionSettings,
+        OobeAccountSecretState? oobeAccountSecretState,
+        DomainJoinSecretState? domainJoinSecretState,
+        string? authoringVersion = null);
+
     /// <summary>
     /// Serializes a deployment runtime configuration document to JSON.
     /// </summary>

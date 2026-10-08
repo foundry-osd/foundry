@@ -8,11 +8,45 @@ using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Security;
 using Microsoft.Extensions.Logging.Abstractions;
+using Foundry.Deploy.Services.DomainJoin;
 
 namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentExecutionServiceTests
 {
+    [Theory]
+    [InlineData("denied")]
+    [InlineData("canceled")]
+    [InlineData("failed")]
+    [InlineData("success")]
+    public async Task ExecuteAsync_DisposesDomainInputOnEveryExit(string exit)
+    {
+        using var cancellation = new CancellationTokenSource();
+        if (exit == "canceled") cancellation.Cancel();
+        using var keys = new DeploymentSecretKeySession();
+        var orchestrator = new RecordingOrchestrator
+        {
+            Run = _ => exit == "failed" ? Task.FromException<DeploymentResult>(new InvalidOperationException("failure")) :
+                Task.FromResult(new DeploymentResult { IsSuccess = true, Message = "Completed" })
+        };
+        var service = new DeploymentExecutionService(orchestrator, new FakeConfigurationService(exit == "denied"), keys,
+            NullLogger<DeploymentExecutionService>.Instance);
+        var input = new DomainJoinPreparedInput(new("corp.test", "CORP\\join"), "TEST-PC", null, "secret".AsSpan());
+        ReadOnlyMemory<char> password = input.Password;
+        DeploymentContext request = CreateContext() with
+        {
+            DomainJoinRequest = new(DomainJoinDeploymentDisposition.Ready),
+            DomainJoinIntent = new("corp.test", "TEST-PC", null)
+        };
+
+        DeploymentExecutionRunResult result = await service.ExecuteAsync(request, input, cancellation.Token);
+
+        Assert.Equal(exit == "success", result.IsSuccess);
+        Assert.All(password.ToArray(), value => Assert.Equal('\0', value));
+        Assert.DoesNotContain("secret", result.Message ?? "");
+        Assert.DoesNotContain("CORP", result.Message ?? "");
+    }
+
     [Fact]
     public async Task ExecuteAsync_ForwardsCallerTokenAndCancelledOutcome()
     {
@@ -182,5 +216,8 @@ public sealed class DeploymentExecutionServiceTests
             ReceivedToken = cancellationToken;
             return Run?.Invoke(cancellationToken) ?? Task.FromResult(Result);
         }
+
+        public Task<DeploymentResult> RunAsync(DeploymentContext context, DomainJoinPreparedInput? input, CancellationToken cancellationToken = default) =>
+            RunAsync(context, cancellationToken);
     }
 }

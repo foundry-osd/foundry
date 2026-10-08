@@ -1834,6 +1834,216 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Nepavyko atidaryti dokumentų</value>
   </data>
+  <data name="DomainJoin.ColumnAccount" xml:space="preserve">
+    <value>Prijungimo prie domeno paskyra</value>
+  </data>
+  <data name="DomainJoin.ColumnDefault" xml:space="preserve">
+    <value>Numatytasis</value>
+  </data>
+  <data name="DomainJoin.ColumnDomain" xml:space="preserve">
+    <value>Domenas</value>
+  </data>
+  <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
+    <value>OU</value>
+  </data>
+  <data name="DomainJoin.ColumnStatus" xml:space="preserve">
+    <value>Būsena</value>
+  </data>
+  <data name="DomainJoin.CommandAdd" xml:space="preserve">
+    <value>Pridėti</value>
+  </data>
+  <data name="DomainJoin.CommandClearDefault" xml:space="preserve">
+    <value>Išvalyti numatytąjį pasirinkimą</value>
+  </data>
+  <data name="DomainJoin.CommandEdit" xml:space="preserve">
+    <value>Redaguoti</value>
+  </data>
+  <data name="DomainJoin.CommandRemove" xml:space="preserve">
+    <value>Pašalinti</value>
+  </data>
+  <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
+    <value>Nustatyti kaip numatytąjį</value>
+  </data>
+  <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
+    <value>Pirmiausia įveskite tinkamą paskyrą, tada patikrinkite slaptažodžio ilgį.</value>
+  </data>
+  <data name="DomainJoin.DefaultMarker" xml:space="preserve">
+    <value>Taip</value>
+  </data>
+  <data name="DomainJoin.Discovering" xml:space="preserve">
+    <value>Ieškoma OU domene...</value>
+  </data>
+  <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
+    <value>Paieška atšaukta.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryEmpty" xml:space="preserve">
+    <value>Šiame domene OU nerasta.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
+    <value>Pavyko pateikti tik dalį OU. Rodomus vis tiek galite pridėti.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Visi šio domeno OU jau yra sąraše.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
+    <value>Baigėsi paieškai skirtas laikas. OU galite pridėti rankiniu būdu.</value>
+  </data>
+  <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
+    <value>Nepavyko atlikti paieškos domene. Patikrinkite, ar šis kompiuteris gali jį pasiekti ir ar jūsų Windows paskyra gali jį skaityti, arba pridėkite OU rankiniu būdu.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
+    <value>Pridėti domeną</value>
+  </data>
+  <data name="DomainJoin.DomainDialogAddTitle" xml:space="preserve">
+    <value>Pridėti domeną</value>
+  </data>
+  <data name="DomainJoin.DomainDialogEditTitle" xml:space="preserve">
+    <value>Redaguoti domeną</value>
+  </data>
+  <data name="DomainJoin.DomainDialogPasswordHint" xml:space="preserve">
+    <value>Palikite slaptažodį tuščią, kad būtų išsaugotas dabartinis.</value>
+  </data>
+  <data name="DomainJoin.DomainDialogSave" xml:space="preserve">
+    <value>Įrašyti</value>
+  </data>
+  <data name="DomainJoin.DomainInputInvalid" xml:space="preserve">
+    <value>Domenas neįrašytas. Patikrinkite domeno vardą.</value>
+  </data>
+  <data name="DomainJoin.DomainReady" xml:space="preserve">
+    <value>Paruošta</value>
+  </data>
+  <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
+    <value>Prieš keisdami šio domeno vardą, pašalinkite jo OU.</value>
+  </data>
+  <data name="DomainJoin.EmptyDomains" xml:space="preserve">
+    <value>Domenų nepridėta.</value>
+  </data>
+  <data name="DomainJoin.EmptyOrganizationalUnits" xml:space="preserve">
+    <value>OU nepridėta.</value>
+  </data>
+  <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
+    <value>OU nepridėti. Jie priklauso kitam domenui nei pasirinktasis.</value>
+  </data>
+  <data name="DomainJoin.NoDomainYet" xml:space="preserve">
+    <value>Pirmiausia pridėkite domeną, tada išvardykite jo OU.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
+    <value>OU nepridėtas. Patikrinkite rodomą pavadinimą ir skiriamąjį vardą. OU turi priklausyti pasirinktam domenui.</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
+    <value>Organizaciniai vienetai</value>
+  </data>
+  <data name="DomainJoin.OrganizationalUnitsOfFormat" xml:space="preserve">
+    <value>Domeno {0} organizaciniai vienetai</value>
+  </data>
+  <data name="DomainJoin.SelectDomain" xml:space="preserve">
+    <value>Pasirinkite domeną, kad būtų pateiktas jo OU sąrašas.</value>
+  </data>
+  <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
+    <value>Pasirinkta OU: {0} iš {1}</value>
+  </data>
+  <data name="DomainJoin.SharedAccount" xml:space="preserve">
+    <value>Bendra</value>
+  </data>
+  <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
+    <value>Pridėkite bent vieną domeną.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
+    <value>Šis domenas jau yra sąraše.</value>
+  </data>
+  <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
+    <value>Du OU turi tą patį vidinį ID. Pašalinkite vieną ir pridėkite jį iš naujo.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
+    <value>Įveskite tinkamą domeno vardą, pvz., corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
+    <value>Kiekvienam OU reikia rodomo pavadinimo, ne ilgesnio kaip 120 simbolių.</value>
+  </data>
+  <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Puslapyje „Bendra“ įjunkite apsaugą slaptažodžiu ir nustatykite diegimo slaptažodį.</value>
+  </data>
+  <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
+    <value>Įveskite paskyros slaptažodį.</value>
+  </data>
+  <data name="DomainJoin.Validation.QualifiedAccountRequired" xml:space="preserve">
+    <value>Įveskite paskyrą formatu DOMAIN\user arba user@domain.</value>
+  </data>
+  <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
+    <value>Įveskite bendrą prijungimo prie domeno paskyrą arba priskirkite šiam domenui atskirą paskyrą.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
+    <value>Sąraše gali būti ne daugiau kaip 32 domenai.</value>
+  </data>
+  <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
+    <value>Sąraše gali būti ne daugiau kaip 1 024 OU.</value>
+  </data>
+  <data name="DomainJoinAccount.Header" xml:space="preserve">
+    <value>Paskyra (DOMAIN\user arba user@domain)</value>
+  </data>
+  <data name="DomainJoinAdd.Content" xml:space="preserve">
+    <value>Pridėti OU</value>
+  </data>
+  <data name="DomainJoinCancel.Content" xml:space="preserve">
+    <value>Atšaukti paiešką</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.Header" xml:space="preserve">
+    <value>Domeno vardas</value>
+  </data>
+  <data name="DomainJoinDialogDomainName.PlaceholderText" xml:space="preserve">
+    <value>corp.contoso.com</value>
+  </data>
+  <data name="DomainJoinDialogUseDedicated.Content" xml:space="preserve">
+    <value>Naudoti atskirą paskyrą</value>
+  </data>
+  <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
+    <value>Naudoti bendrą prijungimo prie domeno paskyrą</value>
+  </data>
+  <data name="DomainJoinDiscover.Content" xml:space="preserve">
+    <value>Importuoti iš domeno</value>
+  </data>
+  <data name="DomainJoinDiscovery.Description" xml:space="preserve">
+    <value>Naudojant jūsų Windows paskyrą pateikiamas pasirinkto domeno OU sąrašas. Pasirinkite, kuriuos pridėti.</value>
+  </data>
+  <data name="DomainJoinDiscovery.Header" xml:space="preserve">
+    <value>Importuoti OU iš domeno</value>
+  </data>
+  <data name="DomainJoinDomains.Description" xml:space="preserve">
+    <value>Domenai, prie kurių gali prisijungti ši laikmena. Jei išvardyti keli, technikai diegimo metu pasirenka vieną; numatytasis domenas būna parinktas iš anksto.</value>
+  </data>
+  <data name="DomainJoinDomains.Header" xml:space="preserve">
+    <value>Domenai</value>
+  </data>
+  <data name="DomainJoinImportSelected.Content" xml:space="preserve">
+    <value>Pridėti pasirinktus OU</value>
+  </data>
+  <data name="DomainJoinManualDestination.Description" xml:space="preserve">
+    <value>Įveskite OU rodomą pavadinimą ir skiriamąjį vardą. OU turi priklausyti pasirinktam domenui.</value>
+  </data>
+  <data name="DomainJoinManualDestination.Header" xml:space="preserve">
+    <value>Pridėti OU rankiniu būdu</value>
+  </data>
+  <data name="DomainJoinManualDn.Header" xml:space="preserve">
+    <value>Skiriamasis vardas</value>
+  </data>
+  <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
+    <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
+  </data>
+  <data name="DomainJoinManualLabel.Header" xml:space="preserve">
+    <value>Rodomas pavadinimas</value>
+  </data>
+  <data name="DomainJoinOuCard.Description" xml:space="preserve">
+    <value>Nebūtina. Išvardykite OU, kuriuose galima talpinti kompiuterius pasirinktame domene. Jei išvardytas tik vienas OU, jis naudojamas visada; jei išvardyti keli, technikai diegimo metu pasirenka vieną. Esama kompiuterio paskyra perkeliama į pasirinktą OU.</value>
+  </data>
+  <data name="DomainJoinPassword.Header" xml:space="preserve">
+    <value>Slaptažodis</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
+    <value>Paskyra, kurią naudoja visi domenai, neturintys savo paskyros. Jai reikia teisių prijungti kompiuterius ir perkelti juos į jūsų pasirinktus OU.</value>
+  </data>
+  <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
+    <value>Bendra prijungimo prie domeno paskyra</value>
+  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Patikimas šakninio CA sertifikato failas</value>
   </data>
@@ -1874,7 +2084,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Slaptažodis</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Saugiai laikykite šį slaptažodį. Jis apsaugo vietinių „Windows“ paskyrų slaptažodžius, „Autopilot“ prisijungimo duomenis ir profilius bei pasirinktinius atsakymų failus.</value>
+    <value>Saugiai laikykite šį slaptažodį. Jis apsaugo vietinių „Windows“ paskyrų slaptažodžius, prisijungimo prie domeno duomenis, „Autopilot“ prisijungimo duomenis ir profilius bei pasirinktinius atsakymų failus.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Diegimo slaptažodis</value>
@@ -1907,7 +2117,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinktai architektūrai WinPE kalbos paketų neaptikta.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>Generolas</value>
+    <value>Bendra</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Peržiūrėkite ir pradėkite</value>
@@ -1986,6 +2196,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
     <value>Laikmenos parengties būsena</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Diegimo metu paprašyti techniko domeno prisijungimo duomenų.</value>
+  </data>
+  <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Interaktyvus prisijungimas prie domeno</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabų (Saudo Arabija)</value>
@@ -2191,6 +2407,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentacija</value>
   </data>
+  <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
+    <value>Prisijungimas prie domeno</value>
+  </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>Standartinis Ethernet ryšys galimas pagal numatytuosius nustatymus. Konfigūruokite šį skyrių, tik jei jūsų laidiniam tinklui reikalingas 802.1X įmonės autentifikavimas.</value>
   </data>
@@ -2201,16 +2420,22 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Standartinė konfigūravimo darbo eiga.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>Generolas</value>
+    <value>Bendra</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>Generolas</value>
+    <value>Bendra</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD namuose</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Pradžia</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
+    <value>Diegimo metu paprašyti techniko domeno prisijungimo duomenų.</value>
+  </data>
+  <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
+    <value>Interaktyvus</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigūruokite įdiegtų įrenginių pavadinimus.</value>
@@ -2271,6 +2496,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
     <value>Autopilot</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
+    <value>Prisijungti prie domeno automatiškai naudojant prisijungimo duomenis, apsaugotus diegimo slaptažodžiu.</value>
+  </data>
+  <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktyvus parengimo režimas</value>
@@ -2974,7 +3205,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Tvarkykite paleidimą, kalbą, diagnostiką ir programos elgseną.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>Generolas</value>
+    <value>Bendra</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
     <value>Kurkite atsargines parametrų kopijas, perkelkite juos į kitą kompiuterį arba palaikykite jų sinchronizavimą.</value>
@@ -3916,5 +4147,11 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
+    <value>Prisijungti prie domeno automatiškai naudojant prisijungimo duomenis, apsaugotus diegimo slaptažodžiu.</value>
+  </data>
+  <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch prisijungimas prie domeno</value>
   </data>
 </root>

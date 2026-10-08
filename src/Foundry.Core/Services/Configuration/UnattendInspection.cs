@@ -23,4 +23,10 @@ public sealed record UnattendInspection
     /// Gets whether applicable known settings take ownership of enrollment-sensitive OOBE or accounts.
     /// </summary>
     public bool ConflictsWithAutopilot { get; init; }
+
+    /// <summary>Gets whether a join component exists, including empty and workgroup-only components.</summary>
+    public bool HasUnattendedJoinComponent { get; init; }
+
+    /// <summary>Gets exactly one valid applicable specialize name, preserving its original spelling.</summary>
+    public string? ConcreteComputerName { get; init; }
 }

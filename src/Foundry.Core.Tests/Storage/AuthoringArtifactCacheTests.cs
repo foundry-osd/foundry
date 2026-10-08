@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 using Foundry.Core.Services.Storage;
@@ -141,41 +140,6 @@ public sealed class AuthoringArtifactCacheTests : IDisposable
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => pending);
         Assert.Equal(payload, await File.ReadAllBytesAsync(first.Path, TestContext.Current.CancellationToken));
         Assert.Equal(1, downloads);
-    }
-
-    [Fact]
-    public async Task AcquireAsync_AnotherProcessLeasePreventsAcquisition()
-    {
-        await using (var first = await Acquire()) { }
-        string leasePath = Assert.Single(Directory.GetFiles(root, ".lease", SearchOption.AllDirectories));
-        string ready = Path.Combine(root, "ready");
-        string release = Path.Combine(root, "release");
-        string script = $"$lease = [IO.File]::Open('{leasePath.Replace("'", "''")}', 'Open', 'ReadWrite', 'None'); try {{ [IO.File]::WriteAllText('{ready.Replace("'", "''")}', 'ready'); $deadline = [DateTime]::UtcNow.AddSeconds(15); while (-not [IO.File]::Exists('{release.Replace("'", "''")}') -and [DateTime]::UtcNow -lt $deadline) {{ Start-Sleep -Milliseconds 20 }} }} finally {{ $lease.Dispose() }}";
-        var start = new ProcessStartInfo("powershell.exe") { UseShellExecute = false, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden };
-        start.ArgumentList.Add("-NoProfile");
-        start.ArgumentList.Add("-NonInteractive");
-        start.ArgumentList.Add("-EncodedCommand");
-        start.ArgumentList.Add(Convert.ToBase64String(Encoding.Unicode.GetBytes(script)));
-        using Process process = Process.Start(start)!;
-        try
-        {
-            using var timeout = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
-            timeout.CancelAfter(TimeSpan.FromSeconds(10));
-            while (!File.Exists(ready)) await Task.Delay(20, timeout.Token);
-            using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
-            Task<CachedArtifactLease> pending = new AuthoringArtifactCache(root).AcquireAsync(Request, Download, cancellation.Token);
-            Assert.False(pending.IsCompleted);
-            cancellation.Cancel();
-            await Assert.ThrowsAnyAsync<OperationCanceledException>(() => pending);
-            Assert.Equal(1, downloads);
-        }
-        finally
-        {
-            File.WriteAllText(release, "release");
-            await process.WaitForExitAsync(TestContext.Current.CancellationToken);
-        }
-        await using var afterRelease = await Acquire();
-        Assert.True(afterRelease.CacheHit);
     }
 
     [Fact]

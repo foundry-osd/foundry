@@ -256,6 +256,12 @@ Licensed under the MIT License.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Deployment pages</value>
   </data>
+  <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
+    <value>Interactive</value>
+  </data>
+  <data name="Debug.DomainJoin.ZeroTouch" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
     <value>Error page</value>
   </data>
@@ -356,6 +362,48 @@ Action: Verify disk attributes and retry deployment.</value>
   </data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value> | {0}</value>
+  </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Account (DOMAIN\user or user@domain)</value>
+  </data>
+  <data name="DomainJoin.AccountInvalid" xml:space="preserve">
+    <value>Enter the account as DOMAIN\user or user@domain.</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>Domain default location</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Provide the domain join details for this computer. The join happens after Windows is installed.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Organisational unit</value>
+  </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Enter a valid OU distinguished name in this domain, or leave it empty.</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Domain name</value>
+  </data>
+  <data name="DomainJoin.DomainInvalid" xml:space="preserve">
+    <value>Enter a valid domain name, such as corp.contoso.com.</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>The domain join information is missing or not valid. Deployment has not started.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>OU distinguished name (optional)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>Leave empty to use the domain's default location.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Domain join</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>This Windows edition cannot join a domain. Windows installation continues without it.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalogue</value>

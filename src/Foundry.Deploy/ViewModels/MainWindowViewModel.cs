@@ -15,6 +15,7 @@ using Foundry.Deploy;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Security;
@@ -48,6 +49,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly DeploymentWizardContext _wizardContext;
     private readonly DeploymentWizardNavigationState _wizardNavigationState;
     private DebugAutopilotMode _debugAutopilotMode = DebugAutopilotMode.None;
+    private DebugDomainJoinMode _debugDomainJoinMode = DebugDomainJoinMode.None;
     private BootMediaUpdateReason _bootMediaUpdateReason;
     private BootMediaUpdateReason? _debugBootMediaUpdateReasonOverride;
     private bool _isInitialized;
@@ -55,6 +57,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private Task? _initializationTask;
     private readonly CancellationTokenSource _startupCancellation = new();
     private CancellationTokenSource? _deploymentCancellation;
+    private string? _launchFailureMessage;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(PreviousWizardStepCommand))]
@@ -75,6 +78,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [NotifyCanExecuteChangedFor(nameof(ShowDebugErrorPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugCancelledPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(SetDebugAutopilotModeCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SetDebugDomainJoinModeCommand))]
     [NotifyCanExecuteChangedFor(nameof(ToggleDebugBootMediaUpdateReasonCommand))]
     [NotifyCanExecuteChangedFor(nameof(SetDebugCustomImageScenarioCommand))]
     [NotifyCanExecuteChangedFor(nameof(CancelDeploymentCommand))]
@@ -101,6 +105,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
     public string EffectiveOsArchitecture => OperatingSystemCatalog.EffectiveOsArchitecture;
     public CustomImageSelectionViewModel CustomImages => _wizardContext.CustomImages;
+    public DomainJoinStepViewModel DomainJoinStep => _wizardContext.DomainJoinStep;
     public OperatingSystemMetadata? SelectedOperatingSystem => _wizardContext.SelectedOperatingSystem;
     public string WindowTitle => GetString("App.WindowTitle");
     public string VersionDisplay => Format("Common.VersionFormat", FoundryDeployApplicationInfo.Version);
@@ -142,6 +147,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public bool IsOperatingSystemStep => CurrentWizardStepId == DeploymentWizardStepId.OperatingSystem;
     public bool IsDriversStep => CurrentWizardStepId == DeploymentWizardStepId.Drivers;
     public bool IsAutopilotStep => CurrentWizardStepId == DeploymentWizardStepId.Autopilot;
+    public bool IsDomainJoinStep => CurrentWizardStepId == DeploymentWizardStepId.DomainJoin;
     public bool IsSummaryStep => CurrentWizardStepId == DeploymentWizardStepId.Summary;
     public bool IsReturningToSummary => _wizardNavigationState.IsReturningToSummary;
     public bool IsDebugAutopilotNoneMode => IsDebugAutopilotMode(DebugAutopilotMode.None);
@@ -150,6 +156,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public bool IsDebugAutopilotHardwareHashUploadExpiredCertificateMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadExpiredCertificate);
     public bool IsDebugAutopilotHardwareHashUploadMissingCertificateMetadataMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadMissingCertificateMetadata);
     public bool IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadNoDefaultGroupTag);
+    public bool IsDebugDomainJoinNoneMode => IsDebugDomainJoinMode(DebugDomainJoinMode.None);
+    public bool IsDebugDomainJoinInteractiveMode => IsDebugDomainJoinMode(DebugDomainJoinMode.Interactive);
+    public bool IsDebugDomainJoinZeroTouchMode => IsDebugDomainJoinMode(DebugDomainJoinMode.ZeroTouch);
 
     public MainWindowViewModel(
         ILocalizationService localizationService,
@@ -186,7 +195,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OperatingSystemCatalog = _wizardContext.OperatingSystemCatalog;
         DriverPackSelection = _wizardContext.DriverPackSelection;
         _wizardNavigationState = new DeploymentWizardNavigationState(
-            DeploymentWizardStepDefinition.CreateSequence(HasAutopilotConfigurationStep()));
+            DeploymentWizardStepDefinition.CreateSequence(HasAutopilotConfigurationStep(), HasDomainJoinStep()));
         RefreshWizardSteps();
         RefreshSummaryCategories();
         Session = new DeploymentSessionViewModel(
@@ -316,6 +325,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return;
         }
 
+        // Autopilot and Domain Join are exclusive, so a debug Autopilot scenario replaces a debug Domain Join one.
+        if (mode != DebugAutopilotMode.None && _debugDomainJoinMode != DebugDomainJoinMode.None)
+        {
+            ApplyDebugDomainJoinMode(DebugDomainJoinMode.None);
+        }
+
         _debugAutopilotMode = mode;
         Preparation.ApplyDebugAutopilotMode(mode);
         RaiseDebugAutopilotModePropertiesChanged();
@@ -371,9 +386,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private async Task StartDeploymentAsync()
     {
         _logger.LogInformation("Start deployment requested.");
+        ReportLaunchFailure(null);
         DriverPackSelectionKind effectiveDriverPackKind = DriverPackSelection.EffectiveSelectionKind;
         DriverPackCatalogItem? effectiveDriverPack = DriverPackSelection.ResolveEffectiveSelection();
-        DeploymentLaunchPreparationResult launchPreparation = _deploymentLaunchPreparationService.Prepare(
+        using DomainJoinSubmission? domainJoinSubmission = DomainJoinStep.CreateSubmission();
+        using DeploymentLaunchPreparationResult launchPreparation = _deploymentLaunchPreparationService.Prepare(
             new DeploymentLaunchRequest
             {
                 Mode = _deploymentRuntimeContext.Mode,
@@ -398,19 +415,25 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 WindowsOptionalFeatures = _wizardContext.WindowsOptionalFeatures,
                 Completion = _wizardContext.Completion,
                 IsDryRun = IsDebugSafeMode
-            });
+            }, _wizardContext.DomainJoin, domainJoinSubmission);
 
-        if (!string.Equals(Preparation.TargetComputerName, launchPreparation.NormalizedComputerName, StringComparison.Ordinal))
+        if (!Preparation.UsesCustomUnattend &&
+            !string.Equals(Preparation.TargetComputerName, launchPreparation.NormalizedComputerName, StringComparison.Ordinal))
         {
             Preparation.TargetComputerName = launchPreparation.NormalizedComputerName;
         }
 
         if (!launchPreparation.IsReadyToStart || launchPreparation.Context is null)
         {
-            if (launchPreparation.FailureMessage is not null)
-                Preparation.ReportUnattendFailure(launchPreparation.FailureMessage);
+            if (launchPreparation.IsUnattendFailure)
+                Preparation.ReportUnattendFailure(launchPreparation.FailureMessage!);
+            else
+                ReportLaunchFailure(launchPreparation.FailureMessage);
             return;
         }
+
+        // The prepared input now owns its own copy; the wizard keeps no password once a deployment starts.
+        RunOnUi(DomainJoinStep.ClearPassword);
 
         RunOnUi(() =>
         {
@@ -424,7 +447,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         try
         {
             DeploymentExecutionRunResult executionRunResult = await _deploymentExecutionService
-                .ExecuteAsync(launchPreparation.Context, _deploymentCancellation!.Token)
+                .ExecuteAsync(launchPreparation.Context, launchPreparation.TakeDomainJoinInput(), _deploymentCancellation!.Token)
                 .ConfigureAwait(false);
 
             RunOnUi(() => Session.ApplyExecutionRunResult(executionRunResult));
@@ -439,6 +462,18 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 _deploymentCancellation = null;
             });
         }
+    }
+
+    /// <summary>Shows a launch failure in the review summary without invalidating any wizard selection, so Start stays available.</summary>
+    private void ReportLaunchFailure(string? message)
+    {
+        if (string.Equals(_launchFailureMessage, message, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        _launchFailureMessage = message;
+        RefreshSummaryCategories();
     }
 
     [RelayCommand(CanExecute = nameof(CanCancelDeployment))]
@@ -517,6 +552,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     private void OnWizardContextStateChanged(object? sender, EventArgs e)
     {
+        _launchFailureMessage = null;
         RefreshWizardSteps();
         RefreshSummaryCategories();
         OnPropertyChanged(nameof(EffectiveOsArchitecture));
@@ -544,6 +580,31 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         SetDebugCustomImageScenarioCommand.NotifyCanExecuteChanged();
     }
 
+    [RelayCommand(CanExecute = nameof(CanUseDebugTools))]
+    private void SetDebugDomainJoinMode(DebugDomainJoinMode mode)
+    {
+        if (!IsDebugSafeMode)
+        {
+            return;
+        }
+
+        if (mode != DebugDomainJoinMode.None && _debugAutopilotMode != DebugAutopilotMode.None)
+        {
+            SetDebugAutopilotMode(DebugAutopilotMode.None);
+        }
+
+        ApplyDebugDomainJoinMode(mode);
+    }
+
+    private void ApplyDebugDomainJoinMode(DebugDomainJoinMode mode)
+    {
+        _debugDomainJoinMode = mode;
+        _wizardContext.ApplyDebugDomainJoin(DebugDomainJoinScenarios.Create(mode));
+        OnPropertyChanged(nameof(IsDebugDomainJoinNoneMode));
+        OnPropertyChanged(nameof(IsDebugDomainJoinInteractiveMode));
+        OnPropertyChanged(nameof(IsDebugDomainJoinZeroTouchMode));
+    }
+
     private bool CanShowDebugPages()
     {
         return IsDebugSafeMode && !IsDeploymentRunning;
@@ -566,6 +627,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private bool IsDebugAutopilotMode(DebugAutopilotMode mode)
     {
         return IsDebugSafeMode && _debugAutopilotMode == mode;
+    }
+
+    private bool IsDebugDomainJoinMode(DebugDomainJoinMode mode)
+    {
+        return IsDebugSafeMode && _debugDomainJoinMode == mode;
     }
 
     private void RaiseDebugAutopilotModePropertiesChanged()
@@ -628,6 +694,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload ||
                 Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload ||
                 Preparation.SelectedAutopilotProfile is not null,
+            HasValidDomainJoinInput = !HasDomainJoinStep() || DomainJoinStep.IsValid,
             IsCustomImageMode = CustomImages.IsCustom,
             IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && (CustomImages.IsEnabled || OperatingSystemCatalog.IsReadyForNavigation())
         };
@@ -640,6 +707,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(IsOperatingSystemStep));
         OnPropertyChanged(nameof(IsDriversStep));
         OnPropertyChanged(nameof(IsAutopilotStep));
+        OnPropertyChanged(nameof(IsDomainJoinStep));
         OnPropertyChanged(nameof(IsSummaryStep));
         OnPropertyChanged(nameof(IsReturningToSummary));
     }
@@ -647,7 +715,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void RefreshWizardSteps()
     {
         IReadOnlyList<DeploymentWizardStepDefinition> definitions =
-            DeploymentWizardStepDefinition.CreateSequence(HasAutopilotConfigurationStep());
+            DeploymentWizardStepDefinition.CreateSequence(HasAutopilotConfigurationStep(), HasDomainJoinStep());
         bool sequenceChanged = WizardSteps.Count != definitions.Count ||
                                WizardSteps.Select(step => step.Id).Where((id, index) => id != definitions[index].Id).Any();
         if (sequenceChanged)
@@ -707,7 +775,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             TargetSummary = Preparation.EffectiveComputerName,
             IsTargetConfigured = Preparation.IsUnattendSelectionValid && Preparation.IsTargetComputerNameValid &&
                                  (IsDebugSafeMode || Preparation.SelectedTargetDisk?.IsSelectable == true),
-            HasTargetWarning = Preparation.HasUnattendWarning || Preparation.HasUnattendValidationError || Preparation.SelectedTargetDisk is { IsSelectable: false },
+            HasTargetWarning = Preparation.HasUnattendWarning || Preparation.HasUnattendValidationError || _launchFailureMessage is not null ||
+                               Preparation.SelectedTargetDisk is { IsSelectable: false },
             TargetRows = BuildTargetSummaryRows(),
             OperatingSystemSummary = SummaryOperatingSystemText,
             IsOperatingSystemConfigured = operatingSystem is not null,
@@ -739,6 +808,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             AutopilotRows = BuildAutopilotSummaryRows(),
             IsAutopilotConfigured = Preparation.IsAutopilotEnabled,
             HasAutopilotStep = HasAutopilotConfigurationStep(),
+            DomainJoinSummary = IsDomainJoinApplicable() ? DomainJoinStep.DomainName : GetString("Summary.Status.NotConfigured"),
+            DomainJoinRows = BuildDomainJoinSummaryRows(),
+            IsDomainJoinConfigured = _wizardContext.DomainJoin.IsEnabled,
+            HasDomainJoinWarning = !IsDomainJoinApplicable(),
+            HasDomainJoinStep = HasDomainJoinStep(),
             WindowsCustomizationSummary = hasCustomization
                 ? GetString("Summary.Status.Configured")
                 : GetString("Summary.Status.NoChanges"),
@@ -786,7 +860,40 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             rows.Add(new(GetString("Summary.WarningDetails"), Preparation.UnattendWarning));
         if (Preparation.HasUnattendValidationError)
             rows.Add(new(GetString("Summary.Status"), Preparation.UnattendValidationMessage));
+        else if (_launchFailureMessage is not null)
+            rows.Add(new(GetString("Summary.Status"), _launchFailureMessage));
         return rows;
+    }
+
+    private IReadOnlyList<DeploymentSummaryRowViewModel> BuildDomainJoinSummaryRows()
+    {
+        if (!_wizardContext.DomainJoin.IsEnabled)
+        {
+            return [];
+        }
+
+        if (!IsDomainJoinApplicable())
+        {
+            return [new(GetString("Summary.Status"), GetString("DomainJoin.UnsupportedEdition"))];
+        }
+
+        return
+        [
+            new(GetString("DomainJoin.Domain"), DomainJoinStep.DomainName),
+            new(GetString("DomainJoin.Destination"), DomainJoinStep.EffectiveOuDistinguishedName ?? GetString("DomainJoin.DefaultDestination"))
+        ];
+    }
+
+    /// <summary>Gets whether the join applies to the selected image; an unsupported edition skips it.</summary>
+    private bool IsDomainJoinApplicable()
+    {
+        return DomainJoinPreparationService.IsRequiredFor(_wizardContext.DomainJoin, SelectedOperatingSystem);
+    }
+
+    /// <summary>Gets whether the wizard shows the Domain Join step, which needs something for the technician to enter or choose.</summary>
+    private bool HasDomainJoinStep()
+    {
+        return DomainJoinStep.HasInput && IsDomainJoinApplicable();
     }
 
     private IReadOnlyList<DeploymentSummaryRowViewModel> BuildDriverSummaryRows()
