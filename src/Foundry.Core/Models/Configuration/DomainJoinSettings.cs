@@ -29,12 +29,12 @@ public sealed record DomainJoinSettings
         : Domains.FirstOrDefault(domain => string.Equals(domain.Id, id, StringComparison.OrdinalIgnoreCase));
 
     /// <summary>
-    /// Returns the distinct canonical accounts the listed domains join with. Only Zero-touch stores accounts, so
-    /// every other state references none and owns no password.
+    /// Returns the distinct canonical accounts that may own a password: the shared account, even before a domain
+    /// uses it, and every dedicated account. Only Zero-touch stores accounts, so every other state references none.
     /// </summary>
     public IReadOnlyList<string> GetReferencedAccountNames() => !IsEnabled || Mode != DomainJoinMode.Automatic
         ? []
-        : Domains.Select(ResolveAccountName)
+        : Domains.Select(ResolveAccountName).Prepend(SharedAccountName)
             .Where(account => !string.IsNullOrWhiteSpace(account))
             .Select(account => DomainJoinCredentialContext.CanonicalizeAccountName(account))
             .Distinct(StringComparer.Ordinal)

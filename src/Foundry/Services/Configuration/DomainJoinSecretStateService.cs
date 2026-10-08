@@ -7,18 +7,18 @@ using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Services.Configuration;
 
-/// <summary>Owns the desktop session's domain password and publishes changes to profile persistence.</summary>
+/// <summary>Owns the desktop session's join account passwords and publishes changes to profile persistence.</summary>
 internal sealed class DomainJoinSecretStateService : IDomainJoinSecretStateService, IDisposable
 {
     private readonly DomainJoinSecretState state = new();
     public event EventHandler? Changed;
-    public void SetPassword(DomainJoinCredentialContext context, ReadOnlySpan<char> value)
+    public void SetPassword(string accountName, ReadOnlySpan<char> value)
     {
-        state.SetPassword(context, value);
+        state.SetPassword(accountName, value);
         Changed?.Invoke(this, EventArgs.Empty);
     }
-    public char[]? GetPasswordCopy(DomainJoinCredentialContext context) => state.GetPasswordCopy(context);
-    public bool HasPassword(DomainJoinCredentialContext context) => state.HasPassword(context);
+    public char[]? GetPasswordCopy(string accountName) => state.GetPasswordCopy(accountName);
+    public bool HasPassword(string accountName) => state.HasPassword(accountName);
     public void Update(DomainJoinSettings settings)
     {
         if (state.Update(settings)) Changed?.Invoke(this, EventArgs.Empty);

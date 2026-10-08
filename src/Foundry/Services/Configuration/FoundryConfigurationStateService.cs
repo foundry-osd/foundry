@@ -194,7 +194,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     /// <inheritdoc />
     public bool IsDomainJoinConfigurationReady => DomainJoinConfigurationValidator.EvaluateReadiness(
         Current.DomainJoin,
-        domainJoinSecretStateService.HasPassword(new(Current.DomainJoin.DomainName ?? string.Empty, Current.DomainJoin.AccountName ?? string.Empty)),
+        domainJoinSecretStateService.HasPassword,
         Current.General.DeploymentProtection.IsEnabled && deploymentProtectionSecretStateService.IsValid).IsValid;
 
     /// <inheritdoc />
@@ -490,22 +490,22 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private DomainJoinSecretState CreateDomainJoinSecretState(DomainJoinSettings settings)
     {
         var state = new DomainJoinSecretState();
-        if (!settings.IsEnabled || settings.Mode != DomainJoinMode.Automatic) return state;
-        var context = new DomainJoinCredentialContext(settings.DomainName ?? string.Empty, settings.AccountName ?? string.Empty);
-        char[]? password = domainJoinSecretStateService.GetPasswordCopy(context);
         try
         {
-            if (password is not null) state.SetPassword(context, password);
+            foreach (string account in settings.GetReferencedAccountNames())
+            {
+                char[]? password = domainJoinSecretStateService.GetPasswordCopy(account);
+                if (password is null) continue;
+                try { state.SetPassword(account, password); }
+                finally { CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan())); }
+            }
+
             return state;
         }
         catch
         {
             state.Dispose();
             throw;
-        }
-        finally
-        {
-            if (password is not null) CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
         }
     }
 

@@ -21,7 +21,7 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
     public AuthoringDomainOuDiscoveryService(ILogger logger) => this.logger = logger.ForContext<AuthoringDomainOuDiscoveryService>();
 
     /// <inheritdoc />
-    public async Task<DomainOuDiscoveryResult> DiscoverAsync(CancellationToken cancellationToken)
+    public async Task<DomainOuDiscoveryResult> DiscoverAsync(string domainName, CancellationToken cancellationToken)
     {
         logger.Information("Domain destination discovery started.");
         var lifetime = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
@@ -34,7 +34,7 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
                 await operationGate.WaitAsync(lifetime.Token).ConfigureAwait(false);
                 try
                 {
-                    result = await DiscoverOwnedAsync(lifetime.Token).ConfigureAwait(false);
+                    result = await DiscoverOwnedAsync(domainName, lifetime.Token).ConfigureAwait(false);
                     if (result.Status == DomainOuDiscoveryStatus.Canceled && !cancellationToken.IsCancellationRequested)
                         result = result with { Status = DomainOuDiscoveryStatus.Unavailable, ErrorCode = "Timeout" };
                     return result;
@@ -59,7 +59,7 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
         catch (OperationCanceledException) { return new(null, [], DomainOuDiscoveryStatus.Canceled, "Canceled"); }
     }
 
-    private static async Task<DomainOuDiscoveryResult> DiscoverOwnedAsync(CancellationToken token)
+    private static async Task<DomainOuDiscoveryResult> DiscoverOwnedAsync(string domainName, CancellationToken token)
     {
         string? domain = null;
         string? namingContext = null;
@@ -67,7 +67,7 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
         try
         {
             token.ThrowIfCancellationRequested();
-            (domain, string controller) = LocateComputerDomain();
+            (domain, string controller) = LocateDomain(domainName);
             token.ThrowIfCancellationRequested();
             using var connection = new LdapConnection(new LdapDirectoryIdentifier(controller, 389, true, false), null, AuthType.Negotiate);
             connection.Timeout = RequestTimeout;
@@ -112,11 +112,11 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
             return new(domain, candidates, incomplete ? DomainOuDiscoveryStatus.Incomplete : DomainOuDiscoveryStatus.Unavailable,
                 "DirectoryRead", DirectoryResultCode: ex.Response is null ? null : (int)ex.Response.ResultCode);
         }
-        catch (Win32Exception ex) { return new(domain, [], DomainOuDiscoveryStatus.Unavailable, "ComputerDomainUnavailable", NativeErrorCode: ex.NativeErrorCode); }
+        catch (Win32Exception ex) { return new(domain, [], DomainOuDiscoveryStatus.Unavailable, "DomainUnavailable", NativeErrorCode: ex.NativeErrorCode); }
         catch (Exception ex) when (ex is LdapException or InvalidDataException or InvalidOperationException or ArgumentException or NotSupportedException)
         {
             return new(domain, candidates, candidates.Count > 0 ? DomainOuDiscoveryStatus.Incomplete : DomainOuDiscoveryStatus.Unavailable,
-                ex is InvalidOperationException ? "ComputerDomainUnavailable" : "DirectoryRead", LdapErrorCode: (ex as LdapException)?.ErrorCode);
+                ex is InvalidOperationException ? "DomainUnavailable" : "DirectoryRead", LdapErrorCode: (ex as LdapException)?.ErrorCode);
         }
     }
 
@@ -171,17 +171,15 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
         return await completion.Task.ConfigureAwait(false);
     }
 
-    private static (string Domain, string Controller) LocateComputerDomain()
+    /// <summary>Locates a domain controller of the named DNS domain; the computer need not be a member of it.</summary>
+    private static (string Domain, string Controller) LocateDomain(string domainName)
     {
-        nint membership = 0;
+        if (!DomainJoinCredentialContext.IsValidDomainName(domainName)) throw new InvalidOperationException();
         nint locator = 0;
         try
         {
-            uint status = NetGetJoinInformation(null, out membership, out int joinStatus);
-            if (status != 0) throw new Win32Exception(unchecked((int)status));
-            if (joinStatus != 3) throw new InvalidOperationException();
-            string flatDomain = Marshal.PtrToStringUni(membership) ?? throw new InvalidDataException();
-            status = DsGetDcName(null, flatDomain, 0, null, 0x10 | 0x10000 | 0x40000000, out locator);
+            // DS_DIRECTORY_SERVICE_REQUIRED | DS_IS_DNS_NAME | DS_RETURN_DNS_NAME
+            uint status = DsGetDcName(null, DomainJoinCredentialContext.CanonicalizeDomainName(domainName), 0, null, 0x10 | 0x20000 | 0x40000000, out locator);
             if (status != 0) throw new Win32Exception(unchecked((int)status));
             DomainControllerInfo info = Marshal.PtrToStructure<DomainControllerInfo>(locator);
             string domain = Marshal.PtrToStringUni(info.DomainName) ?? string.Empty;
@@ -192,7 +190,6 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
         finally
         {
             if (locator != 0) NetApiBufferFree(locator);
-            if (membership != 0) NetApiBufferFree(membership);
         }
     }
 
@@ -210,8 +207,7 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
         public nint ClientSiteName;
     }
 
-    [DllImport("netapi32.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
-    private static extern uint NetGetJoinInformation(string? server, out nint nameBuffer, out int status);
+
     [DllImport("netapi32.dll", EntryPoint = "DsGetDcNameW", ExactSpelling = true, CharSet = CharSet.Unicode)]
     private static extern uint DsGetDcName(string? computer, string? domain, nint guid, string? site, uint flags, out nint info);
     [DllImport("netapi32.dll", ExactSpelling = true)]

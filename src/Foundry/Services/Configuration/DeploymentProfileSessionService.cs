@@ -79,10 +79,9 @@ public sealed class DeploymentProfileSessionService : IDisposable
                 Add(ProfileSecretPurpose.WifiPassphrase, configuration.Network.Wifi.Passphrase);
             }
 
-            if (configuration.DomainJoin.IsEnabled && configuration.DomainJoin.Mode == DomainJoinMode.Automatic)
+            foreach (string account in configuration.DomainJoin.GetReferencedAccountNames())
             {
-                var context = new DomainJoinCredentialContext(configuration.DomainJoin.DomainName ?? string.Empty, configuration.DomainJoin.AccountName ?? string.Empty);
-                char[]? password = domainSecrets.GetPasswordCopy(context);
+                char[]? password = domainSecrets.GetPasswordCopy(account);
                 try
                 {
                     entries.Add((new DeploymentProfileSecret
@@ -90,7 +89,7 @@ public sealed class DeploymentProfileSessionService : IDisposable
                         Purpose = ProfileSecretPurpose.DomainJoinPassword,
                         State = !includeSecrets ? ProfileValueState.Omitted : password is null ? ProfileValueState.Unavailable : ProfileValueState.Present,
                         Value = includeSecrets && password is not null ? EncodePassword(password) : null
-                    }, null));
+                    }, account));
                 }
                 finally
                 {
@@ -296,7 +295,7 @@ public sealed class DeploymentProfileSessionService : IDisposable
             }
         }
 
-        char[]? domainPassword = GetDomainPassword();
+        (string Account, char[] Password)[] domainPasswords = GetDomainPasswords();
         try
         {
             configurationState.Replace(materialized, () =>
@@ -311,28 +310,30 @@ public sealed class DeploymentProfileSessionService : IDisposable
                     accountSecrets.SetAdditionalAccountPassword(id, password.AsSpan());
                     accountSecrets.SetAdditionalAccountConfirmation(id, password.AsSpan());
                 }
-                if (domainPassword is not null)
-                    domainSecrets.SetPassword(new(materialized.DomainJoin.DomainName!, materialized.DomainJoin.AccountName!), domainPassword);
+                foreach ((string account, char[] password) in domainPasswords) domainSecrets.SetPassword(account, password);
                 autopilotSession.BootMediaCertificate = boot;
             });
         }
         finally
         {
-            if (domainPassword is not null) CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(domainPassword.AsSpan()));
+            foreach ((_, char[] password) in domainPasswords) CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
         }
         RememberSourceMetadata(profile, materialized);
         Logger.Information("Profile session activation completed. ProfileId={ProfileId}", profile.ProfileId);
 
-        char[]? GetDomainPassword()
+        // Only accounts the materialized configuration still joins with, and only when qualified, can own a password.
+        (string Account, char[] Password)[] GetDomainPasswords()
         {
-            DomainJoinSettings settings = materialized.DomainJoin;
-            if (!settings.IsEnabled || settings.Mode != DomainJoinMode.Automatic) return null;
-            var context = new DomainJoinCredentialContext(settings.DomainName ?? string.Empty, settings.AccountName ?? string.Empty);
-            if (!context.Matches(new(profile.Configuration.DomainJoin.DomainName ?? string.Empty, profile.Configuration.DomainJoin.AccountName ?? string.Empty))) return null;
-            string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile);
-            DeploymentProfileSecret? secret = profile.Secrets.Entries.SingleOrDefault(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword && secret.Identity == identity);
-            if (secret?.State != ProfileValueState.Present) return null;
-            return Encoding.UTF8.GetChars(secret.Value!);
+            var passwords = new List<(string, char[])>();
+            foreach (string account in materialized.DomainJoin.GetReferencedAccountNames())
+            {
+                if (!DomainJoinConfigurationValidator.IsQualifiedAccount(account)) continue;
+                string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile, account);
+                DeploymentProfileSecret? secret = profile.Secrets.Entries.SingleOrDefault(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword && secret.Identity == identity);
+                if (secret?.State == ProfileValueState.Present) passwords.Add((account, Encoding.UTF8.GetChars(secret.Value!)));
+            }
+
+            return passwords.ToArray();
         }
 
         string? Get(ProfileSecretPurpose purpose, string? accountId = null)

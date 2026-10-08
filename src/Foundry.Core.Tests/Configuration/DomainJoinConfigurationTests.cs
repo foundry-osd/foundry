@@ -237,6 +237,8 @@ public sealed class DomainJoinConfigurationTests
             Domain("c", "lab.test") with { AccountName = "LAB\\Join" });
         Assert.Equal(new[] { DomainJoinCredentialContext.CanonicalizeAccountName("CORP\\join"), DomainJoinCredentialContext.CanonicalizeAccountName("LAB\\Join") },
             settings.GetReferencedAccountNames());
+        // The shared account keeps its password while it is being set up, before any domain relies on it.
+        Assert.Equal([DomainJoinCredentialContext.CanonicalizeAccountName("CORP\\join")], (settings with { Domains = [] }).GetReferencedAccountNames());
         Assert.Empty((settings with { Mode = DomainJoinMode.Interactive }).GetReferencedAccountNames());
         Assert.Empty((settings with { IsEnabled = false }).GetReferencedAccountNames());
         Assert.Equal("LAB\\Join", settings.ResolveAccountName(settings.Domains[2]));
