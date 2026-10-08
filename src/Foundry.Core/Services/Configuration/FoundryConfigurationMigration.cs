@@ -30,6 +30,16 @@ public static class FoundryConfigurationMigration
     private const int SupportedOperatingSystemReleasesSchemaVersion = 17;
     private const int LegacyRandomLength = 6;
 
+    /// <summary>
+    /// A file edited by hand may carry <c>null</c> where a list is expected. It means "none", so the lists become
+    /// empty instead of failing later. A null domain entry is kept for validation to reject.
+    /// </summary>
+    private static DomainJoinSettings WithoutNullLists(DomainJoinSettings settings) => settings with
+    {
+        Domains = (settings.Domains ?? [])
+            .Select(domain => domain is { OrganizationalUnits: null } ? domain with { OrganizationalUnits = [] } : domain).ToArray()
+    };
+
     public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
@@ -40,7 +50,7 @@ public static class FoundryConfigurationMigration
 
         migrated = migrated with { CustomImages = migrated.CustomImages ?? new CustomImagesSettings() };
         migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
-        migrated = migrated with { DomainJoin = migrated.DomainJoin ?? new DomainJoinSettings() };
+        migrated = migrated with { DomainJoin = WithoutNullLists(migrated.DomainJoin ?? new DomainJoinSettings()) };
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(migrated.Autopilot, migrated.DomainJoin);
         if (!DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin).IsValid)
         {

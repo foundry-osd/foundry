@@ -45,6 +45,24 @@ public sealed class FoundryConfigurationServiceTests
         Assert.True(DomainJoinConfigurationValidator.ValidateMetadata(document.DomainJoin).IsValid);
     }
 
+    [Fact]
+    public void NullDomainAndOuListsOfAHandEditedFileLoadAsEmptyLists()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument withoutDomains = service.Deserialize("{\"schemaVersion\":18,\"domainJoin\":{\"isEnabled\":true,\"mode\":1,\"domains\":null}}");
+        FoundryConfigurationDocument withoutUnits = service.Deserialize("{\"schemaVersion\":18,\"domainJoin\":{\"isEnabled\":true,\"mode\":1," +
+            "\"sharedAccountName\":\"CORP\\\\join\",\"defaultDomainId\":\"a\",\"domains\":[{\"id\":\"a\",\"domainName\":\"corp.test\",\"organizationalUnits\":null}]}}");
+
+        Assert.Empty(withoutDomains.DomainJoin.Domains);
+        Assert.Empty(withoutDomains.DomainJoin.GetStoredAccountNames());
+        DomainJoinDomainSettings domain = Assert.Single(withoutUnits.DomainJoin.Domains);
+        Assert.Empty(domain.OrganizationalUnits);
+        // The loaded list is usable by the catalogs, which is where a null list used to fail.
+        Assert.Single(DomainJoinOrganizationalUnitCatalog.Merge(withoutUnits.DomainJoin, "a",
+            [new() { Id = "ou", DisplayName = "Sales", DistinguishedName = "OU=Sales,DC=corp,DC=test" }]).Domains[0].OrganizationalUnits);
+    }
+
     [Theory]
     [InlineData("malformed-dn")]
     [InlineData("foreign-dn")]
