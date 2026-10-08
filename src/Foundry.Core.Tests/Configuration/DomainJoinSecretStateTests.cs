@@ -61,30 +61,82 @@ public sealed class DomainJoinSecretStateTests
     {
         Assert.Throws<InvalidDataException>(() => DomainJoinCredentialPayloadCodec.Encode(Context, new string('é', 1281)));
         using var state = new DomainJoinSecretState();
-        Assert.Throws<InvalidDataException>(() => state.SetPassword(Context, new string('a', 2561)));
+        Assert.Throws<InvalidDataException>(() => state.SetPassword(Account, new string('a', 2561)));
     }
 
     [Fact]
-    public void ContextChangeClearsPassword()
+    public void TwoDomainsNamingTheSameAccountShareOnePassword()
     {
         using var state = new DomainJoinSecretState();
-        state.SetPassword(Context, " original password ");
-        Assert.True(state.HasPassword(new(" EXAMPLE.COM. ", "example\\JOINER")));
-        Assert.Equal(" original password ", new string(state.GetPasswordCopy(Context)!));
-        Assert.True(state.Update(new() { IsEnabled = true, Mode = DomainJoinMode.Automatic, DomainName = "other.example.com", AccountName = Context.AccountName }));
-        Assert.False(state.HasPassword(Context));
-        Assert.Null(state.GetPasswordCopy(Context));
+        state.SetPassword("CORP\\join", " exact password ");
+        Assert.True(state.HasPassword("corp\\JOIN"));
+        Assert.Equal(" exact password ", new string(state.GetPasswordCopy("corp\\JOIN")!));
+        Assert.Single(state.AccountNames);
+    }
+
+    [Fact]
+    public void AnAccountStillUsedByAnotherDomainKeepsItsPassword()
+    {
+        using var state = new DomainJoinSecretState();
+        state.SetPassword("CORP\\join", "shared");
+        DomainJoinSettings settings = ZeroTouch("CORP\\join", new() { Id = "a", DomainName = "corp.test", AccountName = "LAB\\join" },
+            new() { Id = "b", DomainName = "emea.test" });
+        Assert.False(state.Update(settings));
+        Assert.True(state.HasPassword("CORP\\join"));
+    }
+
+    [Fact]
+    public void AnAccountNoLongerReferencedLosesItsPassword()
+    {
+        using var state = new DomainJoinSecretState();
+        state.SetPassword("CORP\\join", "shared");
+        state.SetPassword("LAB\\join", "dedicated");
+        Assert.True(state.Update(ZeroTouch("CORP\\join", new() { Id = "a", DomainName = "corp.test" })));
+        Assert.True(state.HasPassword("CORP\\join"));
+        Assert.False(state.HasPassword("LAB\\join"));
+        Assert.Null(state.GetPasswordCopy("LAB\\join"));
     }
 
     [Theory]
     [InlineData(false, DomainJoinMode.Automatic)]
     [InlineData(true, DomainJoinMode.Interactive)]
-    public void LeavingAutomaticModeClearsPassword(bool enabled, DomainJoinMode mode)
+    public void InteractiveOrDisabledSettingsEraseEveryPassword(bool enabled, DomainJoinMode mode)
     {
         using var state = new DomainJoinSecretState();
-        state.SetPassword(Context, "password");
-        Assert.True(state.Update(new() { IsEnabled = enabled, Mode = mode, DomainName = Context.DomainName, AccountName = Context.AccountName }));
-        Assert.False(state.HasPassword(Context));
+        state.SetPassword(Account, "password");
+        Assert.True(state.Update(ZeroTouch(Account, new() { Id = "a", DomainName = "example.com" }) with { IsEnabled = enabled, Mode = mode }));
+        Assert.False(state.HasPassword(Account));
+        Assert.Empty(state.AccountNames);
+    }
+
+    [Theory]
+    [InlineData("join")]
+    [InlineData("")]
+    [InlineData("CORP\\")]
+    public void AnUnqualifiedAccountCannotOwnAPassword(string account)
+    {
+        using var state = new DomainJoinSecretState();
+        Assert.Throws<ArgumentException>(() => state.SetPassword(account, "password"));
+        Assert.False(state.HasPassword(account));
+    }
+
+    [Fact]
+    public void AnEmptyValueRemovesTheAccountsPassword()
+    {
+        using var state = new DomainJoinSecretState();
+        state.SetPassword(Account, "password");
+        state.SetPassword(Account, string.Empty);
+        Assert.False(state.HasPassword(Account));
+    }
+
+    [Fact]
+    public void ReturnedCopiesAreIndependent()
+    {
+        using var state = new DomainJoinSecretState();
+        state.SetPassword(Account, "password");
+        char[] first = state.GetPasswordCopy(Account)!;
+        Array.Clear(first);
+        Assert.Equal("password", new string(state.GetPasswordCopy(Account)!));
     }
 
     [Fact]
@@ -92,20 +144,23 @@ public sealed class DomainJoinSecretStateTests
     {
         var state = new DomainJoinSecretState();
         char[] input = "password".ToCharArray();
-        state.SetPassword(Context, input);
-        char[] owned = (char[])typeof(DomainJoinSecretState).GetField("password", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(state)!;
+        state.SetPassword(Account, input);
+        var owned = (Dictionary<string, char[]>)typeof(DomainJoinSecretState).GetField("passwords", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(state)!;
+        char[] buffer = owned.Values.Single();
         state.Dispose();
-        Assert.All(owned, value => Assert.Equal('\0', value));
+        Assert.All(buffer, value => Assert.Equal('\0', value));
         Assert.Equal("password", new string(input));
-        Assert.Throws<ObjectDisposedException>(() => state.GetPasswordCopy(Context));
+        Assert.Throws<ObjectDisposedException>(() => state.GetPasswordCopy(Account));
     }
 
-    [Fact]
-    public void DifferentContextCannotReadPassword()
+    private const string Account = "EXAMPLE\\joiner";
+
+    private static DomainJoinSettings ZeroTouch(string? shared, params DomainJoinDomainSettings[] domains) => new()
     {
-        using var state = new DomainJoinSecretState();
-        state.SetPassword(Context, "password");
-        Assert.False(state.HasPassword(new("example.com", "EXAMPLE\\other")));
-        Assert.Null(state.GetPasswordCopy(new("other.com", Context.AccountName)));
-    }
+        IsEnabled = true,
+        Mode = DomainJoinMode.Automatic,
+        SharedAccountName = shared,
+        Domains = domains,
+        DefaultDomainId = domains[0].Id
+    };
 }

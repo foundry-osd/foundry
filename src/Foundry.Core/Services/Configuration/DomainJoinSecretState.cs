@@ -8,56 +8,67 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Core.Services.Configuration;
 
-/// <summary>Owns one session password bound to an active automatic domain credential context.</summary>
+/// <summary>
+/// Owns the session passwords of the join accounts, one per account. Two domains that name the same account share
+/// one password; the domain is bound later, when a payload is written for the media.
+/// </summary>
 public sealed class DomainJoinSecretState : IDisposable
 {
-    private char[]? password;
-    private DomainJoinCredentialContext? context;
+    private readonly Dictionary<string, char[]> passwords = new(StringComparer.Ordinal);
     private bool isDisposed;
 
-    /// <summary>Validates and copies a password without normalization, clearing the previous owned buffer.</summary>
-    public void SetPassword(DomainJoinCredentialContext context, ReadOnlySpan<char> value)
+    /// <summary>Gets the canonical names of the accounts that currently own a password.</summary>
+    public IReadOnlyList<string> AccountNames
+    {
+        get
+        {
+            ObjectDisposedException.ThrowIf(isDisposed, this);
+            return passwords.Keys.ToArray();
+        }
+    }
+
+    /// <summary>Validates and copies a password without normalization; an empty value removes the account's password.</summary>
+    public void SetPassword(string accountName, ReadOnlySpan<char> value)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
-        DomainJoinCredentialPayloadCodec.ValidateContext(context);
+        if (!DomainJoinConfigurationValidator.IsQualifiedAccount(accountName))
+            throw new ArgumentException("Only a qualified account can own a password.", nameof(accountName));
         if (!value.IsEmpty) DomainJoinCredentialPayloadCodec.ValidatePassword(value);
-        Clear();
-        this.context = context;
-        password = value.IsEmpty ? null : value.ToArray();
+        string key = DomainJoinCredentialContext.CanonicalizeAccountName(accountName);
+        Erase(key);
+        if (!value.IsEmpty) passwords[key] = value.ToArray();
     }
 
-    /// <summary>Returns an independent owned copy only for matching identity; callers must clear it.</summary>
-    public char[]? GetPasswordCopy(DomainJoinCredentialContext context)
+    /// <summary>Returns an independent owned copy for the account; callers must clear it.</summary>
+    public char[]? GetPasswordCopy(string accountName)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
-        return HasPassword(context) ? password!.ToArray() : null;
+        return Find(accountName)?.ToArray();
     }
 
-    /// <summary>Reports availability only for the same canonical domain and account.</summary>
-    public bool HasPassword(DomainJoinCredentialContext context)
+    /// <summary>Reports whether the account, compared in canonical form, owns a password.</summary>
+    public bool HasPassword(string accountName)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
-        ArgumentNullException.ThrowIfNull(context);
-        return password is { Length: > 0 } && this.context?.Matches(context) == true;
+        return Find(accountName) is not null;
     }
 
-    /// <summary>Clears credentials immediately when automatic mode or their domain/account ownership changes.</summary>
+    /// <summary>Erases the passwords of accounts no listed domain joins with any more; returns whether any was erased.</summary>
     public bool Update(DomainJoinSettings settings)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
         ArgumentNullException.ThrowIfNull(settings);
-        return !settings.IsEnabled || settings.Mode != DomainJoinMode.Automatic ||
-            context?.Matches(new(settings.DomainName ?? string.Empty, settings.AccountName ?? string.Empty)) != true
-            ? Clear() : false;
+        var referenced = new HashSet<string>(settings.GetReferencedAccountNames(), StringComparer.Ordinal);
+        string[] orphaned = passwords.Keys.Where(account => !referenced.Contains(account)).ToArray();
+        foreach (string account in orphaned) Erase(account);
+        return orphaned.Length > 0;
     }
 
-    /// <summary>Erases the owned password and its binding; independent caller copies remain caller-owned.</summary>
+    /// <summary>Erases every owned password; independent caller copies remain caller-owned.</summary>
     public bool Clear()
     {
-        bool changed = password is not null;
-        if (password is not null) CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
-        password = null;
-        context = null;
+        bool changed = passwords.Count > 0;
+        foreach (string account in passwords.Keys.ToArray()) Erase(account);
         return changed;
     }
 
@@ -66,5 +77,15 @@ public sealed class DomainJoinSecretState : IDisposable
         if (isDisposed) return;
         Clear();
         isDisposed = true;
+    }
+
+    private char[]? Find(string accountName) =>
+        !string.IsNullOrWhiteSpace(accountName) &&
+        passwords.TryGetValue(DomainJoinCredentialContext.CanonicalizeAccountName(accountName), out char[]? password) ? password : null;
+
+    private void Erase(string key)
+    {
+        if (!passwords.Remove(key, out char[]? password)) return;
+        CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
     }
 }
