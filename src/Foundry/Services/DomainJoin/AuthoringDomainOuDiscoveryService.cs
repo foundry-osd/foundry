@@ -207,7 +207,6 @@ internal sealed class AuthoringDomainOuDiscoveryService : IAuthoringDomainOuDisc
         public nint ClientSiteName;
     }
 
-
     [DllImport("netapi32.dll", EntryPoint = "DsGetDcNameW", ExactSpelling = true, CharSet = CharSet.Unicode)]
     private static extern uint DsGetDcName(string? computer, string? domain, nint guid, string? site, uint flags, out nint info);
     [DllImport("netapi32.dll", ExactSpelling = true)]

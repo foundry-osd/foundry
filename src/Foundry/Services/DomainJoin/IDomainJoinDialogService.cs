@@ -40,5 +40,5 @@ public interface IDomainJoinDialogService
 /// <param name="AccountName">The current dedicated account; <see langword="null"/> means the shared account.</param>
 public sealed record DomainJoinDomainDialogRequest(bool IsNew, bool AsksForAccount, bool CanRename, string DomainName, string? AccountName);
 
-/// <summary>Carries what was entered in the domain dialog. The password is valid only during the save callback.</summary>
+/// <summary>Carries what was entered in the domain dialog. The save callback copies the password and must not keep this record.</summary>
 public sealed record DomainJoinDomainDialogInput(string DomainName, bool UsesSharedAccount, string AccountName, ReadOnlyMemory<char> Password);

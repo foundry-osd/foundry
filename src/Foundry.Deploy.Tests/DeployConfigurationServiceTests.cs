@@ -32,6 +32,23 @@ public sealed class DeployConfigurationServiceTests
         Assert.DoesNotContain("CORP", result.FailureMessage);
     }
 
+    [Theory]
+    [InlineData("""{"id":"b","domainName":"emea.test","accountName":"EMEA\\join","encryptedCredentials":{}}""", true)]
+    [InlineData("""{"id":"b","domainName":"emea.test","accountName":"EMEA\\join"}""", false)]
+    [InlineData("""{"id":"b","domainName":"emea.test","encryptedCredentials":{}}""", false)]
+    public void LoadOptional_RequiresCredentialsForEveryZeroTouchDomainOnProtectedMedia(string second, bool loads)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json",
+            """{"protection":{"isEnabled":true},"domainJoin":{"isEnabled":true,"mode":1,"defaultDomainId":"a","domains":[""" +
+            """{"id":"a","domainName":"corp.test","accountName":"CORP\\join","encryptedCredentials":{}},""" + second + "]}}");
+
+        DeployConfigurationLoadResult result = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+
+        Assert.Equal(loads, result.Document is not null);
+    }
+
     [Fact]
     public void LoadOptional_PreservesInteractiveSettingsOnUnprotectedMedia()
     {

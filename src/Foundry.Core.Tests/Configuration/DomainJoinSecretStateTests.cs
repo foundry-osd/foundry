@@ -78,11 +78,15 @@ public sealed class DomainJoinSecretStateTests
     public void AnAccountStillUsedByAnotherDomainKeepsItsPassword()
     {
         using var state = new DomainJoinSecretState();
-        state.SetPassword("CORP\\join", "shared");
-        DomainJoinSettings settings = ZeroTouch("CORP\\join", new DomainJoinDomainSettings { Id = "a", DomainName = "corp.test", AccountName = "LAB\\join" },
-            new DomainJoinDomainSettings { Id = "b", DomainName = "emea.test" });
-        Assert.False(state.Update(settings));
-        Assert.True(state.HasPassword("CORP\\join"));
+        state.SetPassword("LAB\\join", "dedicated");
+        var first = new DomainJoinDomainSettings { Id = "a", DomainName = "corp.test", AccountName = "LAB\\join" };
+        var second = new DomainJoinDomainSettings { Id = "b", DomainName = "emea.test", AccountName = "LAB\\join" };
+
+        Assert.False(state.Update(ZeroTouch("CORP\\join", first with { AccountName = "EMEA\\join" }, second)));
+        Assert.True(state.HasPassword("LAB\\join"));
+
+        Assert.True(state.Update(ZeroTouch("CORP\\join", first with { AccountName = "EMEA\\join" }, second with { AccountName = null })));
+        Assert.False(state.HasPassword("LAB\\join"));
     }
 
     [Fact]

@@ -25,7 +25,7 @@ public interface IFoundryConfigurationService
     /// <returns>The deserialized document, or a default document when the JSON literal is <c>null</c>.</returns>
     FoundryConfigurationDocument Deserialize(string json);
 
-    /// <summary>Loads a machine-local authoring draft, retaining a domain-changed catalog awaiting repair.</summary>
-    /// <remarks>Only catalog/target domain mismatch is permitted; catalog integrity and exclusive provisioning still apply. External imports must use <see cref="Deserialize"/>.</remarks>
+    /// <summary>Loads the authoring draft saved on this computer.</summary>
+    /// <remarks>Applies the same migrations and validation as <see cref="Deserialize"/>, which external imports must use.</remarks>
     FoundryConfigurationDocument DeserializeLocalAuthoringDraft(string json);
 }
