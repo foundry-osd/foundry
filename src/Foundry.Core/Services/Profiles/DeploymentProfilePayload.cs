@@ -18,6 +18,9 @@ internal static class DeploymentProfilePayload
     private const int MaximumAssetBytes = 4 * 1024 * 1024;
     private const int MaximumTotalAssetBytes = 8 * 1024 * 1024;
     private static readonly UTF8Encoding SecretEncoding = new(false, true);
+
+    // Written by builds that preceded the domain list. The strict reader would otherwise reject the whole profile.
+    private static readonly string[] SingleDomainMembers = ["domainName", "accountName", "ouCatalogDomain", "organizationalUnits", "defaultOuId"];
     private static readonly JsonSerializerOptions Options = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -43,6 +46,7 @@ internal static class DeploymentProfilePayload
     internal static DeploymentProfileDocument Deserialize(byte[] bytes, bool portable)
     {
         DeploymentProfileDocument? profile = null;
+        byte[]? current = null;
         try
         {
             using JsonDocument json = JsonDocument.Parse(bytes, new() { MaxDepth = 32 });
@@ -71,7 +75,8 @@ internal static class DeploymentProfilePayload
             {
                 RequireProperties(asset, "id", "kind", "relativePath", "state");
             }
-            profile = JsonSerializer.Deserialize<DeploymentProfileDocument>(bytes, Options)
+            current = WithoutSingleDomainMembers(json.RootElement);
+            profile = JsonSerializer.Deserialize<DeploymentProfileDocument>(current ?? bytes, Options)
                 ?? throw new InvalidDataException("The profile payload is missing.");
             Validate(profile);
             return profile with { Configuration = ProjectConfiguration(profile.Configuration, portable) };
@@ -85,6 +90,62 @@ internal static class DeploymentProfilePayload
         {
             ClearBuffers(profile);
             throw;
+        }
+        finally
+        {
+            if (current is not null) CryptographicOperations.ZeroMemory(current);
+        }
+    }
+
+    /// <summary>
+    /// Rewrites a payload saved with the earlier single-domain Domain Join shape without its retired members, so the
+    /// profile loads with an empty domain list instead of being rejected. Returns <see langword="null"/> when the
+    /// payload carries none of them. The copy holds the profile secrets; the caller clears it.
+    /// </summary>
+    private static byte[]? WithoutSingleDomainMembers(JsonElement root)
+    {
+        if (!root.GetProperty("configuration").TryGetProperty("domainJoin", out JsonElement domainJoin)
+            || domainJoin.ValueKind != JsonValueKind.Object || !SingleDomainMembers.Any(name => domainJoin.TryGetProperty(name, out _)))
+        {
+            return null;
+        }
+        using var buffer = new BoundedPayloadStream();
+        try
+        {
+            using (var writer = new Utf8JsonWriter(buffer))
+            {
+                writer.WriteStartObject();
+                foreach (JsonProperty property in root.EnumerateObject())
+                {
+                    if (!property.NameEquals("configuration"))
+                    {
+                        property.WriteTo(writer);
+                        continue;
+                    }
+                    writer.WriteStartObject(property.Name);
+                    foreach (JsonProperty section in property.Value.EnumerateObject())
+                    {
+                        if (!section.NameEquals("domainJoin"))
+                        {
+                            section.WriteTo(writer);
+                            continue;
+                        }
+                        writer.WriteStartObject(section.Name);
+                        foreach (JsonProperty member in section.Value.EnumerateObject().Where(member => !SingleDomainMembers.Contains(member.Name, StringComparer.Ordinal)))
+                        {
+                            member.WriteTo(writer);
+                        }
+                        writer.WriteEndObject();
+                    }
+                    writer.WriteEndObject();
+                }
+                writer.WriteEndObject();
+            }
+            return buffer.ToArray();
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(buffer.GetBuffer());
         }
     }
 

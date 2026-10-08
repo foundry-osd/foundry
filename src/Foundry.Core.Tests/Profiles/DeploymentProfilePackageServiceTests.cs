@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json.Nodes;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Profiles;
@@ -20,6 +21,41 @@ public sealed class DeploymentProfilePackageServiceTests
     {
         var profile = CreateProfile() with { Secrets = new() { Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain", State = ProfileValueState.Present, Value = [112, 0, 119] }] } };
         Assert.Throws<InvalidDataException>(() => _service.Encrypt(profile, new byte[32], ProfilePackagePurpose.SharedRevision));
+    }
+
+    [Fact]
+    public void ProfileSavedWithTheEarlierSingleDomainShapeLoadsWithAnEmptyDomainList()
+    {
+        DeploymentProfileDocument profile = CreateProfile() with
+        {
+            Secrets = new() { Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = new string('A', 64), State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("domain-password") }] }
+        };
+        JsonNode root = JsonNode.Parse(DeploymentProfilePayload.Serialize(profile, portable: false))!;
+        JsonObject domainJoin = root["configuration"]!["domainJoin"]!.AsObject();
+        foreach (string added in new[] { "sharedAccountName", "domains", "defaultDomainId", "allowDomainSelectionDuringDeployment" }) domainJoin.Remove(added);
+        domainJoin["isEnabled"] = true;
+        domainJoin["domainName"] = "corp.test";
+        domainJoin["accountName"] = "CORP\\join";
+        domainJoin["ouCatalogDomain"] = "corp.test";
+        domainJoin["organizationalUnits"] = new JsonArray(new JsonObject { ["id"] = "a", ["displayName"] = "A", ["distinguishedName"] = "OU=A,DC=corp,DC=test" });
+        domainJoin["defaultOuId"] = "a";
+
+        DeploymentProfileDocument loaded = DeploymentProfilePayload.Deserialize(Encoding.UTF8.GetBytes(root.ToJsonString()), portable: false);
+
+        Assert.True(loaded.Configuration.DomainJoin.IsEnabled);
+        Assert.Empty(loaded.Configuration.DomainJoin.Domains);
+        Assert.Null(loaded.Configuration.DomainJoin.DefaultDomainId);
+        Assert.Single(loaded.Secrets.Entries);
+    }
+
+    [Fact]
+    public void AnUnknownDomainJoinMemberStillInvalidatesTheProfile()
+    {
+        JsonNode root = JsonNode.Parse(DeploymentProfilePayload.Serialize(CreateProfile(), portable: false))!;
+        root["configuration"]!["domainJoin"]!["domainName"] = "corp.test";
+        root["configuration"]!["domainJoin"]!["unknownMember"] = true;
+
+        Assert.Throws<InvalidDataException>(() => DeploymentProfilePayload.Deserialize(Encoding.UTF8.GetBytes(root.ToJsonString()), portable: false));
     }
 
     [Fact]
