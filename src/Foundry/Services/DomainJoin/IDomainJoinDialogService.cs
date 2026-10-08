@@ -24,6 +24,14 @@ public interface IDomainJoinDialogService
     /// <param name="tryAdd">Adds the display name and distinguished name; returns the refusal reason, or null.</param>
     Task ShowAddAsync(Func<string, string, string?> tryAdd);
 
+    /// <summary>
+    /// Asks for a new display name for a listed OU. The dialog stays open while <paramref name="tryRename"/>
+    /// returns a message, so the name can be corrected in place.
+    /// </summary>
+    /// <param name="unit">The OU being renamed; its distinguished name is shown but cannot change.</param>
+    /// <param name="tryRename">Saves the display name; returns the refusal reason, or null.</param>
+    Task ShowRenameAsync(DomainJoinOrganizationalUnitSettings unit, Func<string, string?> tryRename);
+
     /// <summary>Lets the user choose which discovered OUs to add.</summary>
     /// <param name="candidates">OUs found in the searched domain.</param>
     /// <param name="isIncomplete">Whether the directory returned only part of its OUs.</param>

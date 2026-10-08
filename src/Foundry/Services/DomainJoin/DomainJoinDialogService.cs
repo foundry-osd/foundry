@@ -32,6 +32,18 @@ public sealed class DomainJoinDialogService(IApplicationLocalizationService loca
         await dialog.ShowAsync();
     }
 
+    public async Task ShowRenameAsync(DomainJoinOrganizationalUnitSettings unit, Func<string, string?> tryRename)
+    {
+        ArgumentNullException.ThrowIfNull(unit);
+        ArgumentNullException.ThrowIfNull(tryRename);
+
+        var dialog = new DomainJoinOuAddDialog(localization, (displayName, _) => tryRename(displayName), unit)
+        {
+            XamlRoot = App.MainWindow.Content.XamlRoot
+        };
+        await dialog.ShowAsync();
+    }
+
     public async Task<IReadOnlyList<DomainJoinOrganizationalUnitSettings>?> PickAsync(
         IReadOnlyList<DomainJoinOrganizationalUnitSettings> candidates, bool isIncomplete)
     {

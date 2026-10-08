@@ -119,6 +119,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     private bool CanEditDomain => SelectedDomain is not null;
     private bool CanSetDefaultDomain => SelectedDomain is { } domain &&
         !string.Equals(configuration.Current.DomainJoin.DefaultDomainId, domain.Id, StringComparison.OrdinalIgnoreCase);
+    private bool CanEditOrganizationalUnit => SelectedDomain is not null && selectedOuRows.Count == 1;
     private bool CanRemoveSelectedOrganizationalUnits => selectedOuRows.Count > 0;
     private bool CanSetDefaultOrganizationalUnit => SelectedDomain is { } domain && selectedOuRows.Count == 1 &&
         !string.Equals(domain.Settings.DefaultOuId, selectedOuRows[0].Settings.Id, StringComparison.OrdinalIgnoreCase);
@@ -282,6 +283,26 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             return null;
         }
         catch (ArgumentException) { return Text(GetMergeFailureKey(row.Settings, added, "CatalogInputInvalid")); }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanEditOrganizationalUnit))]
+    private Task EditOrganizationalUnitAsync()
+    {
+        if (SelectedDomain is not { } row || selectedOuRows.Count != 1) return Task.CompletedTask;
+        DomainJoinOrganizationalUnitSettings unit = selectedOuRows[0].Settings;
+        return domainDialogs.ShowRenameAsync(unit, displayName => TryRenameOrganizationalUnit(row.Id, unit.Id, displayName));
+    }
+
+    /// <summary>Renames one listed OU; returns the reason shown in the dialog when the name is refused.</summary>
+    private string? TryRenameOrganizationalUnit(string domainId, string ouId, string displayName)
+    {
+        if (disposed) return null;
+        try
+        {
+            Save(DomainJoinOrganizationalUnitCatalog.Rename(configuration.Current.DomainJoin, domainId, ouId, displayName));
+            return null;
+        }
+        catch (ArgumentException) { return Text("Validation." + DomainJoinValidationCode.InvalidOuDisplayName); }
     }
 
     /// <summary>Tracks the OU table selection that the OU commands act on.</summary>
@@ -670,6 +691,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
 
     private void NotifyOrganizationalUnitCommands()
     {
+        EditOrganizationalUnitCommand.NotifyCanExecuteChanged();
         RemoveSelectedOrganizationalUnitsCommand.NotifyCanExecuteChanged();
         SetDefaultOrganizationalUnitCommand.NotifyCanExecuteChanged();
         ClearDefaultOrganizationalUnitCommand.NotifyCanExecuteChanged();

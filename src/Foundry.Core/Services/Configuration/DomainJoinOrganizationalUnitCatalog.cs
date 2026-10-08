@@ -27,6 +27,23 @@ public static class DomainJoinOrganizationalUnitCatalog
             DomainJoinDomainCatalog.Replace(current, domain with { OrganizationalUnits = units.ToArray() }), nameof(selected));
     }
 
+    /// <summary>
+    /// Changes the display name of one listed OU. Its identity and distinguished name stay, so it remains the
+    /// default when it was, and a later import of the same OU keeps the chosen name.
+    /// </summary>
+    public static DomainJoinSettings Rename(DomainJoinSettings current, string domainId, string ouId, string displayName)
+    {
+        DomainJoinDomainSettings domain = DomainJoinDomainCatalog.Require(current, domainId);
+        if (!domain.OrganizationalUnits.Any(IsRenamed)) throw new ArgumentException("The OU is not listed.", nameof(ouId));
+        string name = (displayName ?? string.Empty).Trim();
+        return DomainJoinDomainCatalog.Validated(DomainJoinDomainCatalog.Replace(current, domain with
+        {
+            OrganizationalUnits = domain.OrganizationalUnits.Select(unit => IsRenamed(unit) ? unit with { DisplayName = name } : unit).ToArray()
+        }), nameof(displayName));
+
+        bool IsRenamed(DomainJoinOrganizationalUnitSettings unit) => string.Equals(unit.Id, ouId, StringComparison.OrdinalIgnoreCase);
+    }
+
     /// <summary>Removes an OU from one domain and clears it as that domain's default; it never validates, so a damaged list can be repaired step by step.</summary>
     public static DomainJoinSettings Remove(DomainJoinSettings current, string domainId, string ouId)
     {

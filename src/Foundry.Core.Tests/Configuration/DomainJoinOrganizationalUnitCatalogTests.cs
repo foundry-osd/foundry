@@ -51,6 +51,33 @@ public sealed class DomainJoinOrganizationalUnitCatalogTests
     }
 
     [Fact]
+    public void RenamingAnOuChangesOnlyItsDisplayNameAndKeepsItTheDefault()
+    {
+        DomainJoinSettings current = Catalog();
+        DomainJoinOrganizationalUnitSettings before = current.Domains[0].OrganizationalUnits[0];
+
+        DomainJoinSettings renamed = DomainJoinOrganizationalUnitCatalog.Rename(current, "corp", "MANUAL", "  Paris workstations  ");
+
+        DomainJoinOrganizationalUnitSettings after = Assert.Single(renamed.Domains[0].OrganizationalUnits);
+        Assert.Equal(before with { DisplayName = "Paris workstations" }, after);
+        Assert.Equal("manual", renamed.Domains[0].DefaultOuId);
+        Assert.Same(current.Domains[1], renamed.Domains[1]);
+        // A later import of the same OU keeps the chosen name.
+        Assert.Equal(after, DomainJoinOrganizationalUnitCatalog.Merge(renamed, "corp",
+            [Unit("import", "Devices", before.DistinguishedName)]).Domains[0].OrganizationalUnits[0]);
+    }
+
+    [Theory]
+    [InlineData("corp", "manual", "   ")]
+    [InlineData("corp", "missing", "Sales")]
+    [InlineData("missing", "manual", "Sales")]
+    public void RenamingRefusesABlankNameOrAnUnknownOu(string domainId, string ouId, string displayName)
+    {
+        Assert.Throws<ArgumentException>(() => DomainJoinOrganizationalUnitCatalog.Rename(Catalog(), domainId, ouId, displayName));
+        Assert.Throws<ArgumentException>(() => DomainJoinOrganizationalUnitCatalog.Rename(Catalog(), "corp", "manual", new string('a', 121)));
+    }
+
+    [Fact]
     public void ExcludeListedKeepsOnlyOusAnImportWouldAdd()
     {
         DomainJoinOrganizationalUnitSettings added = Unit("new", "Servers", "OU=Servers,DC=corp,DC=test");

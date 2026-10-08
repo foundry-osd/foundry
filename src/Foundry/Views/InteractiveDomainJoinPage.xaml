@@ -156,6 +156,10 @@
                                             Icon="Download"
                                             Label="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
                                         <AppBarButton
+                                            Command="{x:Bind ViewModel.EditOrganizationalUnitCommand}"
+                                            Icon="Edit"
+                                            Label="{x:Bind ViewModel.EditLabel, Mode=OneWay}" />
+                                        <AppBarButton
                                             Command="{x:Bind ViewModel.RemoveSelectedOrganizationalUnitsCommand}"
                                             Icon="Delete"
                                             Label="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />
