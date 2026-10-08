@@ -54,19 +54,17 @@ public static class DeploymentProfileMerge
                 });
             }
         }
-        DomainJoinSettings domain = captured.Configuration.DomainJoin;
-        if (domain.IsEnabled && domain.Mode == DomainJoinMode.Automatic)
+        // One secret per join account still referenced; an account that left the configuration takes its secret with it.
+        foreach (string account in captured.Configuration.DomainJoin.GetReferencedAccountNames())
         {
-            string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, captured);
+            string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, captured, account);
             DeploymentProfileSecret? omitted = baseline.Secrets.Entries.SingleOrDefault(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword &&
                 secret.Identity == identity && secret.State == ProfileValueState.Omitted);
-            if (omitted is not null)
-            {
-                int index = secrets.FindIndex(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword);
-                if (index < 0) secrets.Add(omitted with { Value = null });
-                else if (secrets[index].State == ProfileValueState.Unavailable)
-                    secrets[index] = secrets[index] with { State = ProfileValueState.Omitted, Value = null };
-            }
+            if (omitted is null) continue;
+            int index = secrets.FindIndex(secret => secret.Purpose == ProfileSecretPurpose.DomainJoinPassword && secret.Identity == identity);
+            if (index < 0) secrets.Add(omitted with { Value = null });
+            else if (secrets[index].State == ProfileValueState.Unavailable)
+                secrets[index] = secrets[index] with { State = ProfileValueState.Omitted, Value = null };
         }
         return result with { Secrets = new() { Entries = secrets } };
     }
@@ -113,6 +111,11 @@ public static class DeploymentProfileMerge
     {
         if (incoming.ProfileId != local.ProfileId)
             throw new ArgumentException("Local values belong to a different profile.", nameof(local));
+        // A local domain password is reused only for an account both sides still join with.
+        HashSet<string> sharedDomainIdentities = incoming.Configuration.DomainJoin.GetReferencedAccountNames()
+            .Intersect(local.Configuration.DomainJoin.GetReferencedAccountNames(), StringComparer.Ordinal)
+            .Select(account => DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, incoming, account))
+            .ToHashSet(StringComparer.Ordinal);
         return incoming with
         {
             Secrets = new DeploymentProfileSecrets
@@ -120,11 +123,7 @@ public static class DeploymentProfileMerge
                 Entries = incoming.Secrets.Entries.Select(secret =>
                 {
                     DeploymentProfileSecret selected = secret;
-                    bool matchingDomain = secret.Purpose != ProfileSecretPurpose.DomainJoinPassword ||
-                        incoming.Configuration.DomainJoin.IsEnabled && incoming.Configuration.DomainJoin.Mode == DomainJoinMode.Automatic &&
-                        new DomainJoinCredentialContext(incoming.Configuration.DomainJoin.DomainName ?? string.Empty, incoming.Configuration.DomainJoin.AccountName ?? string.Empty)
-                            .Matches(new(local.Configuration.DomainJoin.DomainName ?? string.Empty, local.Configuration.DomainJoin.AccountName ?? string.Empty)) &&
-                        secret.Identity == DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, incoming);
+                    bool matchingDomain = secret.Purpose != ProfileSecretPurpose.DomainJoinPassword || sharedDomainIdentities.Contains(secret.Identity);
                     if (secret.State == ProfileValueState.Omitted && matchingDomain)
                     {
                         selected = local.Secrets.Entries.SingleOrDefault(candidate => candidate.Purpose == secret.Purpose &&

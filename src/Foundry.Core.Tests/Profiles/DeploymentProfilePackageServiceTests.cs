@@ -23,25 +23,39 @@ public sealed class DeploymentProfilePackageServiceTests
     }
 
     [Fact]
-    public void ExportOmitsDomainPasswordWithoutMutatingSource()
+    public void PortableExportOmitsEveryDomainPasswordWithoutMutatingSource()
     {
         byte[] password = Encoding.UTF8.GetBytes("domain-password");
         DeploymentProfileDocument profile = CreateProfile() with
         {
-            Configuration = new() { DomainJoin = new() { IsEnabled = true, Mode = DomainJoinMode.Automatic, DomainName = "example.com", AccountName = "EXAMPLE\\joiner" } },
+            Configuration = new()
+            {
+                DomainJoin = new()
+                {
+                    IsEnabled = true,
+                    Mode = DomainJoinMode.Automatic,
+                    SharedAccountName = "EXAMPLE\\joiner",
+                    DefaultDomainId = "a",
+                    Domains = [new() { Id = "a", DomainName = "example.com" }, new() { Id = "b", DomainName = "emea.example.com", AccountName = "EMEA\\joiner" }]
+                }
+            },
             Secrets = new()
             {
                 Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain", State = ProfileValueState.Present, Value = password },
+                new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = "domain2", State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("second-password") },
                 new() { Purpose = ProfileSecretPurpose.WifiPassphrase, Identity = "wifi", State = ProfileValueState.Present, Value = Encoding.UTF8.GetBytes("wifi-password") }]
             }
         };
         DeploymentProfileDocument imported = _service.Import(_service.Export(profile, "password"), "password");
-        Assert.Equal(ProfileValueState.Omitted, imported.Secrets.Entries[0].State);
-        Assert.Null(imported.Secrets.Entries[0].Value);
-        Assert.Equal("wifi-password", Encoding.UTF8.GetString(imported.Secrets.Entries[1].Value!));
+        Assert.All(imported.Secrets.Entries.Take(2), secret =>
+        {
+            Assert.Equal(ProfileValueState.Omitted, secret.State);
+            Assert.Null(secret.Value);
+        });
+        Assert.Equal("wifi-password", Encoding.UTF8.GetString(imported.Secrets.Entries[2].Value!));
         Assert.Equal("domain-password", Encoding.UTF8.GetString(password));
         Assert.Equal(ProfileValueState.Present, profile.Secrets.Entries[0].State);
-        Assert.Equal("example.com", imported.Configuration.DomainJoin.DomainName);
+        Assert.Equal(["example.com", "emea.example.com"], imported.Configuration.DomainJoin.Domains.Select(domain => domain.DomainName));
     }
 
     [Fact]

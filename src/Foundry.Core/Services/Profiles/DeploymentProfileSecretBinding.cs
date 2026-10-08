@@ -19,8 +19,10 @@ public static class DeploymentProfileSecretBinding
         FoundryConfigurationDocument configuration = profile.Configuration;
         string[] context = purpose switch
         {
-            ProfileSecretPurpose.DomainJoinPassword => [DomainJoinCredentialContext.CanonicalizeDomainName(configuration.DomainJoin.DomainName),
-                DomainJoinCredentialContext.CanonicalizeAccountName(configuration.DomainJoin.AccountName)],
+            // Bound to the account alone: a shared account serves several domains, and renaming a domain must not orphan it.
+            ProfileSecretPurpose.DomainJoinPassword => [string.IsNullOrWhiteSpace(accountId)
+                ? throw new ArgumentException("A domain join secret is identified by its account.", nameof(accountId))
+                : DomainJoinCredentialContext.CanonicalizeAccountName(accountId)],
             ProfileSecretPurpose.DeploymentPassword => ["media-protection"],
             ProfileSecretPurpose.WifiPassphrase => [configuration.Network.Wifi.Ssid ?? string.Empty, configuration.Network.Wifi.SecurityType ?? string.Empty],
             ProfileSecretPurpose.AdministratorPassword => ["builtin-administrator"],

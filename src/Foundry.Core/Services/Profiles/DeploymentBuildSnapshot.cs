@@ -87,11 +87,13 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         try
         {
             snapshot.CopyAccountSecrets(accountSecrets);
-            if (domainSecrets is not null && configuration.DomainJoin.IsEnabled && configuration.DomainJoin.Mode == DomainJoinMode.Automatic)
+            if (domainSecrets is not null)
             {
-                var context = new DomainJoinCredentialContext(configuration.DomainJoin.DomainName ?? string.Empty, configuration.DomainJoin.AccountName ?? string.Empty);
-                char[]? password = domainSecrets.GetPasswordCopy(context);
-                if (password is not null) Copy(password, value => snapshot.domainSecrets.SetPassword(context, value));
+                foreach (string account in configuration.DomainJoin.GetReferencedAccountNames())
+                {
+                    char[]? password = domainSecrets.GetPasswordCopy(account);
+                    if (password is not null) Copy(password, value => snapshot.domainSecrets.SetPassword(account, value));
+                }
             }
             return snapshot.PrepareAsync(cancellationToken);
         }

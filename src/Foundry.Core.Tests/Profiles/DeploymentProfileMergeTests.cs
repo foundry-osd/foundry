@@ -13,36 +13,103 @@ public sealed class DeploymentProfileMergeTests
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public void DomainOmittedMetadataSurvivesRecaptureWithoutRevivingPassword(bool includeSecrets)
+    public void MergeKeepsAnOmittedSecretForEachAccountStillReferenced(bool includeSecrets)
     {
-        DeploymentProfileDocument baseline = new() { ProfileId = Guid.NewGuid(), Configuration = new() { DomainJoin = new() { IsEnabled = true, Mode = DomainJoinMode.Automatic, DomainName = "example.com", AccountName = "EXAMPLE\\joiner" } } };
-        string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, baseline);
-        baseline = baseline with { Secrets = new() { Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = identity, State = ProfileValueState.Omitted }] } };
+        DeploymentProfileDocument baseline = TwoAccountProfile();
+        baseline = baseline with { Secrets = new() { Entries = [Secret(baseline, "CORP\\join", ProfileValueState.Omitted), Secret(baseline, "EMEA\\join", ProfileValueState.Omitted)] } };
         var captured = baseline with { Secrets = new() { Entries = [baseline.Secrets.Entries[0] with { State = ProfileValueState.Unavailable }] } };
+
         var result = DeploymentProfileMerge.PreserveOmittedSourceMetadata(captured, baseline, baseline.Configuration, includeSecrets);
-        Assert.Equal(ProfileValueState.Omitted, Assert.Single(result.Secrets.Entries).State);
-        Assert.Null(result.Secrets.Entries[0].Value);
-        captured = captured with { Secrets = new(), Configuration = captured.Configuration with { DomainJoin = captured.Configuration.DomainJoin with { AccountName = "EXAMPLE\\other" } } };
-        Assert.Empty(DeploymentProfileMerge.PreserveOmittedSourceMetadata(captured, baseline, baseline.Configuration, includeSecrets).Secrets.Entries);
+
+        Assert.Equal(2, result.Secrets.Entries.Count);
+        Assert.All(result.Secrets.Entries, secret =>
+        {
+            Assert.Equal(ProfileValueState.Omitted, secret.State);
+            Assert.Null(secret.Value);
+        });
+        Assert.Equal(baseline.Secrets.Entries.Select(secret => secret.Identity).Order(), result.Secrets.Entries.Select(secret => secret.Identity).Order());
     }
 
     [Fact]
-    public void DomainOmissionRetainsOnlyMatchingContext()
+    public void MergeDropsTheSecretOfAnAccountNoLongerReferenced()
     {
-        DeploymentProfileDocument local = new() { ProfileId = Guid.NewGuid(), Configuration = new() { DomainJoin = new() { IsEnabled = true, Mode = DomainJoinMode.Automatic, DomainName = "example.com", AccountName = "EXAMPLE\\joiner" } } };
-        string identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, local);
-        local = local with { Secrets = new() { Entries = [new() { Purpose = ProfileSecretPurpose.DomainJoinPassword, Identity = identity, State = ProfileValueState.Present, Value = [112, 97, 115, 115] }] } };
-        DeploymentProfileDocument omitted = local with { Secrets = new() { Entries = [local.Secrets.Entries[0] with { State = ProfileValueState.Omitted, Value = null }] } };
-        var retained = DeploymentProfileMerge.PreserveOmittedLocalValues(omitted, local);
-        Assert.Equal(new byte[] { 112, 97, 115, 115 }, retained.Secrets.Entries[0].Value);
-        Assert.NotSame(local.Secrets.Entries[0].Value, retained.Secrets.Entries[0].Value);
-        var disabled = omitted with { Configuration = omitted.Configuration with { DomainJoin = omitted.Configuration.DomainJoin with { IsEnabled = false } } };
-        Assert.Null(DeploymentProfileMerge.PreserveOmittedLocalValues(disabled, local).Secrets.Entries[0].Value);
-        omitted = omitted with { Configuration = omitted.Configuration with { DomainJoin = omitted.Configuration.DomainJoin with { AccountName = "EXAMPLE\\other" } } };
-        // Even a stale imported identity must not carry a password to another account.
-        var changed = DeploymentProfileMerge.PreserveOmittedLocalValues(omitted, local);
-        Assert.Null(changed.Secrets.Entries[0].Value);
+        DeploymentProfileDocument baseline = TwoAccountProfile();
+        baseline = baseline with { Secrets = new() { Entries = [Secret(baseline, "CORP\\join", ProfileValueState.Omitted), Secret(baseline, "EMEA\\join", ProfileValueState.Omitted)] } };
+        DomainJoinSettings settings = baseline.Configuration.DomainJoin;
+        // The second domain falls back to the shared account, so EMEA\join is referenced by nothing.
+        var captured = baseline with
+        {
+            Secrets = new(),
+            Configuration = baseline.Configuration with { DomainJoin = settings with { Domains = [settings.Domains[0], settings.Domains[1] with { AccountName = null }] } }
+        };
+
+        var result = DeploymentProfileMerge.PreserveOmittedSourceMetadata(captured, baseline, baseline.Configuration, includeSecrets: false);
+
+        DeploymentProfileSecret kept = Assert.Single(result.Secrets.Entries);
+        Assert.Equal(baseline.Secrets.Entries[0].Identity, kept.Identity);
     }
+
+    [Fact]
+    public void LocalValueIsPreservedOnlyForTheSameAccount()
+    {
+        DeploymentProfileDocument local = TwoAccountProfile();
+        local = local with
+        {
+            Secrets = new()
+            {
+                Entries = [Secret(local, "CORP\\join", ProfileValueState.Present, [112, 97, 115, 115]), Secret(local, "EMEA\\join", ProfileValueState.Present, [101, 109, 101, 97])]
+            }
+        };
+        DeploymentProfileDocument incoming = local with { Secrets = new() { Entries = [local.Secrets.Entries[0] with { State = ProfileValueState.Omitted, Value = null }] } };
+
+        var retained = DeploymentProfileMerge.PreserveOmittedLocalValues(incoming, local);
+
+        DeploymentProfileSecret secret = Assert.Single(retained.Secrets.Entries);
+        Assert.Equal(new byte[] { 112, 97, 115, 115 }, secret.Value);
+        Assert.NotSame(local.Secrets.Entries[0].Value, secret.Value);
+        var disabled = incoming with { Configuration = incoming.Configuration with { DomainJoin = incoming.Configuration.DomainJoin with { IsEnabled = false } } };
+        Assert.Null(DeploymentProfileMerge.PreserveOmittedLocalValues(disabled, local).Secrets.Entries[0].Value);
+        // Even a stale imported identity must not carry a password to an account the incoming profile no longer uses.
+        var changed = incoming with { Configuration = incoming.Configuration with { DomainJoin = incoming.Configuration.DomainJoin with { SharedAccountName = "CORP\\other" } } };
+        Assert.Null(DeploymentProfileMerge.PreserveOmittedLocalValues(changed, local).Secrets.Entries[0].Value);
+    }
+
+    [Fact]
+    public void RenamingADomainKeepsItsAccountSecret()
+    {
+        DeploymentProfileDocument profile = TwoAccountProfile();
+        DomainJoinSettings settings = profile.Configuration.DomainJoin;
+        DeploymentProfileDocument renamed = profile with
+        {
+            Configuration = profile.Configuration with { DomainJoin = settings with { Domains = [settings.Domains[0] with { DomainName = "renamed.test" }, settings.Domains[1]] } }
+        };
+        Assert.Equal(DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile, "CORP\\join"),
+            DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, renamed, "corp\\JOIN"));
+    }
+
+    private static DeploymentProfileDocument TwoAccountProfile() => new()
+    {
+        ProfileId = Guid.NewGuid(),
+        Configuration = new()
+        {
+            DomainJoin = new()
+            {
+                IsEnabled = true,
+                Mode = DomainJoinMode.Automatic,
+                SharedAccountName = "CORP\\join",
+                DefaultDomainId = "corp",
+                Domains = [new() { Id = "corp", DomainName = "corp.test" }, new() { Id = "emea", DomainName = "emea.test", AccountName = "EMEA\\join" }]
+            }
+        }
+    };
+
+    private static DeploymentProfileSecret Secret(DeploymentProfileDocument profile, string account, ProfileValueState state, byte[]? value = null) => new()
+    {
+        Purpose = ProfileSecretPurpose.DomainJoinPassword,
+        Identity = DeploymentProfileSecretBinding.Identity(ProfileSecretPurpose.DomainJoinPassword, profile, account),
+        State = state,
+        Value = value
+    };
 
     [Fact]
     public void Merge_SettingsOnlyRoundTripRetainsAnotherPcsCertificate()
