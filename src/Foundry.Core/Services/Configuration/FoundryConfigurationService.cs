@@ -9,10 +9,6 @@ namespace Foundry.Core.Services.Configuration;
 
 public sealed class FoundryConfigurationService : IFoundryConfigurationService
 {
-    /// <inheritdoc />
-    public FoundryConfigurationDocument DeserializeLocalAuthoringDraft(string json) =>
-        FoundryConfigurationMigration.ApplyLocalAuthoringDraftSchemaMigrations(DeserializeDocument(json));
-
     public string Serialize(FoundryConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);

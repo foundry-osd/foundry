@@ -8,7 +8,7 @@ using Foundry.Services.Localization;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Backs the picker shown after searching the authoring computer's domain for organizational units. Nothing is
+/// Backs the picker shown after searching the selected domain for organizational units. Nothing is
 /// selected initially because a domain lists OUs, such as Domain Controllers, that must not receive deployed
 /// computers by default.
 /// </summary>

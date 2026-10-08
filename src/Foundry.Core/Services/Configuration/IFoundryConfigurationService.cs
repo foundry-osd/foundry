@@ -24,8 +24,4 @@ public interface IFoundryConfigurationService
     /// <param name="json">The JSON document content.</param>
     /// <returns>The deserialized document, or a default document when the JSON literal is <c>null</c>.</returns>
     FoundryConfigurationDocument Deserialize(string json);
-
-    /// <summary>Loads the authoring draft saved on this computer.</summary>
-    /// <remarks>Applies the same migrations and validation as <see cref="Deserialize"/>, which external imports must use.</remarks>
-    FoundryConfigurationDocument DeserializeLocalAuthoringDraft(string json);
 }

@@ -15,7 +15,7 @@ public sealed class FoundryConfigurationServiceTests
     {
         var service = new FoundryConfigurationService();
 
-        FoundryConfigurationDocument loaded = service.DeserializeLocalAuthoringDraft(service.Serialize(TwoDomainDraft()));
+        FoundryConfigurationDocument loaded = service.Deserialize(service.Serialize(TwoDomainDraft()));
 
         Assert.Equal(["corp.test", "emea.test"], loaded.DomainJoin.Domains.Select(domain => domain.DomainName));
         Assert.Equal("emea", loaded.DomainJoin.DefaultDomainId);
@@ -84,7 +84,6 @@ public sealed class FoundryConfigurationServiceTests
         draft = draft with { DomainJoin = settings, Autopilot = draft.Autopilot with { IsEnabled = corruption == "provisioning-conflict" } };
         var service = new FoundryConfigurationService();
         string json = service.Serialize(draft);
-        Assert.Throws<InvalidOperationException>(() => service.DeserializeLocalAuthoringDraft(json));
         Assert.Throws<InvalidOperationException>(() => service.Deserialize(json));
     }
 

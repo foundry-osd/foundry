@@ -17,15 +17,6 @@ public sealed class DomainJoinSecretState : IDisposable
     private readonly Dictionary<string, char[]> passwords = new(StringComparer.Ordinal);
     private bool isDisposed;
 
-    /// <summary>Gets the canonical names of the accounts that currently own a password.</summary>
-    public IReadOnlyList<string> AccountNames
-    {
-        get
-        {
-            ObjectDisposedException.ThrowIf(isDisposed, this);
-            return passwords.Keys.ToArray();
-        }
-    }
 
     /// <summary>Validates and copies a password without normalization; an empty value removes the account's password.</summary>
     public void SetPassword(string accountName, ReadOnlySpan<char> value)

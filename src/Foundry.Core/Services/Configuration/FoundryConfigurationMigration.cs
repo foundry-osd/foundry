@@ -30,10 +30,6 @@ public static class FoundryConfigurationMigration
     private const int SupportedOperatingSystemReleasesSchemaVersion = 17;
     private const int LegacyRandomLength = 6;
 
-    /// <summary>Migrates a machine-local authoring draft; it follows the same rules as any other saved document.</summary>
-    public static FoundryConfigurationDocument ApplyLocalAuthoringDraftSchemaMigrations(FoundryConfigurationDocument document) =>
-        ApplySchemaMigrations(document);
-
     public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);

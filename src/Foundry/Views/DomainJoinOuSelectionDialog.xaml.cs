@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Foundry.Views;
 
-/// <summary>Lists the organizational units found in the authoring computer's domain so the user can choose which to add.</summary>
+/// <summary>Lists the organizational units found in the selected domain so the user can choose which to add.</summary>
 public sealed partial class DomainJoinOuSelectionDialog : ContentDialog
 {
     // The dialog pads its content by 24 px on each side; a larger allowance leaves the content narrower than the title.

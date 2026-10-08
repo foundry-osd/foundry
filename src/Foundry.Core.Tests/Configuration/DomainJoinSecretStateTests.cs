@@ -71,7 +71,9 @@ public sealed class DomainJoinSecretStateTests
         state.SetPassword("CORP\\join", " exact password ");
         Assert.True(state.HasPassword("corp\\JOIN"));
         Assert.Equal(" exact password ", new string(state.GetPasswordCopy("corp\\JOIN")!));
-        Assert.Single(state.AccountNames);
+        // Both spellings name one entry: writing through the other replaces the password instead of adding one.
+        state.SetPassword("corp\\JOIN", "replaced");
+        Assert.Equal("replaced", new string(state.GetPasswordCopy("CORP\\join")!));
     }
 
     [Fact]
