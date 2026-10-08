@@ -1852,6 +1852,9 @@
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>تعذّر عرض سوى بعض وحدات OU. لا يزال بإمكانك إضافة الوحدات المعروضة.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>جميع وحدات OU في نطاق هذا الكمبيوتر موجودة بالفعل في القائمة.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>انتهت مهلة البحث. يمكنك إضافة وحدات OU يدوياً.</value>
   </data>

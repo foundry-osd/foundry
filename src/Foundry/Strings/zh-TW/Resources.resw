@@ -1852,6 +1852,9 @@
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>只能列出部分 OU。您仍可新增已顯示的 OU。</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>此電腦的網域中的所有 OU 都已在清單中。</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>搜尋已逾時。您可以手動新增 OU。</value>
   </data>

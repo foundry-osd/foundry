@@ -51,6 +51,12 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         ApplyState();
     }
 
+    /// <summary>
+    /// Raised before listed rows are removed. The table must drop its selection first: removing selected rows one
+    /// by one makes it scroll to a row that no longer exists.
+    /// </summary>
+    public event EventHandler? OrganizationalUnitRowsRemoving;
+
     /// <summary>Gets the saved OUs; a domain search changes this collection only through the import dialog.</summary>
     public ObservableCollection<DomainJoinOrganizationalUnitEntryViewModel> OrganizationalUnits { get; } = [];
     public bool IsActive => configuration.Current.DomainJoin.IsEnabled && configuration.Current.DomainJoin.Mode == pageMode;
@@ -226,11 +232,16 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             DomainOuDiscoveryStatus.Unavailable => result.ErrorCode == "Timeout" ? "DiscoveryTimeout" : "DiscoveryUnavailable",
             _ => result.Candidates.Count == 0 ? "DiscoveryEmpty" : null
         };
+        // OUs already listed are left out of the picker; selecting them again would add nothing.
+        IReadOnlyList<DomainJoinOrganizationalUnitSettings> candidates = failureKey is null
+            ? DomainJoinOrganizationalUnitCatalog.ExcludeListed(baseline, result.Candidates)
+            : [];
+        if (failureKey is null && candidates.Count == 0) failureKey = "DiscoveryNothingNew";
         SetStatus(failureKey);
         if (failureKey is not null) return;
 
         IReadOnlyList<DomainJoinOrganizationalUnitSettings>? selected =
-            await ouDialogs.PickAsync(result.Candidates, result.Status == DomainOuDiscoveryStatus.Incomplete);
+            await ouDialogs.PickAsync(candidates, result.Status == DomainOuDiscoveryStatus.Incomplete);
         // The settings can change while the dialog is open, for example through profile synchronization.
         if (selected is null || selected.Count == 0 || disposed || !ReferenceEquals(baseline, configuration.Current.DomainJoin)) return;
         try { Save(DomainJoinOrganizationalUnitCatalog.Merge(baseline, result.ComputerDomain ?? string.Empty, selected)); }
@@ -408,6 +419,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     /// </summary>
     private void SynchronizeOrganizationalUnits(IReadOnlyList<DomainJoinOrganizationalUnitSettings> units)
     {
+        if (OrganizationalUnits.Any(row => !units.Contains(row.Settings))) OrganizationalUnitRowsRemoving?.Invoke(this, EventArgs.Empty);
         for (int index = OrganizationalUnits.Count - 1; index >= 0; index--)
         {
             if (!units.Contains(OrganizationalUnits[index].Settings)) OrganizationalUnits.RemoveAt(index);

@@ -1852,6 +1852,9 @@ Licencované podľa licencie MIT.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Podarilo sa načítať len niektoré OU. Zobrazené OU môžete napriek tomu pridať.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Všetky OU v doméne tohto počítača sa už v zozname nachádzajú.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Časový limit vyhľadávania uplynul. OU môžete pridať ručne.</value>
   </data>

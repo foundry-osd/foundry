@@ -1852,6 +1852,9 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Endast vissa OU:er kunde visas. Du kan fortfarande lägga till de som visas.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Alla OU:er i den här datorns domän finns redan i listan.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Tidsgränsen för sökningen överskreds. Du kan lägga till OU:er manuellt.</value>
   </data>

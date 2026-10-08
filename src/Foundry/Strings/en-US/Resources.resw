@@ -1852,6 +1852,9 @@ Licensed under the MIT License.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Only some of the OUs could be listed. You can still add the ones shown.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Every OU in this computer's domain is already in the list.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>The search timed out. You can add OUs manually.</value>
   </data>

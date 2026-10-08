@@ -22,6 +22,17 @@ public sealed class DomainJoinOrganizationalUnitCatalogTests
     }
 
     [Fact]
+    public void ExcludeListedKeepsOnlyOusAnImportWouldAdd()
+    {
+        DomainJoinOrganizationalUnitSettings added = Unit("new", "Servers", "OU=Servers,DC=contoso,DC=test");
+
+        IReadOnlyList<DomainJoinOrganizationalUnitSettings> remaining = DomainJoinOrganizationalUnitCatalog.ExcludeListed(Catalog(),
+            [Unit("import", "Renamed", "ou=devices,dc=contoso,dc=test"), added]);
+
+        Assert.Equal([added], remaining);
+    }
+
+    [Fact]
     public void DomainChangeInvalidatesCatalogSelection()
     {
         DomainJoinSettings changed = Catalog() with { DomainName = "other.test" };

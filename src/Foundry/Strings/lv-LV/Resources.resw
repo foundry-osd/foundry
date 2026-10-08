@@ -1852,6 +1852,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Izdevās parādīt tikai daļu OU. Parādītās joprojām varat pievienot.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Visas šī datora domēna OU jau ir sarakstā.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Meklēšanai iestājās taimauts. OU varat pievienot manuāli.</value>
   </data>

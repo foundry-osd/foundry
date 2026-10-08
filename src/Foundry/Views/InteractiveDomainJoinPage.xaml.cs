@@ -16,8 +16,12 @@ public sealed partial class InteractiveDomainJoinPage : Page
         ViewModel = App.GetService<DomainJoinConfigurationViewModel>();
         ViewModel.SetPageMode(DomainJoinMode.Interactive);
         InitializeComponent();
+        OrganizationalUnitTableSort.Attach(OrganizationalUnitsTable);
+        ViewModel.OrganizationalUnitRowsRemoving += OnOrganizationalUnitRowsRemoving;
         Unloaded += OnUnloaded;
     }
+
+    private void OnOrganizationalUnitRowsRemoving(object? sender, EventArgs e) => OrganizationalUnitsTable.DeselectAll();
 
     private void CatalogTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -31,6 +35,7 @@ public sealed partial class InteractiveDomainJoinPage : Page
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Unloaded -= OnUnloaded;
+        ViewModel.OrganizationalUnitRowsRemoving -= OnOrganizationalUnitRowsRemoving;
         ViewModel.Dispose();
     }
 }

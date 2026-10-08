@@ -1852,6 +1852,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Loetleda õnnestus ainult osa OU-sid. Kuvatud OU-sid saate siiski lisada.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Kõik selle arvuti domeeni OU-d on juba loendis.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Otsingu ajalimiit ületati. Saate OU-sid käsitsi lisada.</value>
   </data>

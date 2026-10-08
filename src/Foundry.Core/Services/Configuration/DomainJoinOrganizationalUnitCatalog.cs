@@ -58,6 +58,26 @@ public static class DomainJoinOrganizationalUnitCatalog
         return result;
     }
 
+    /// <summary>
+    /// Returns the candidates that are not listed yet, compared as <see cref="Merge"/> compares them, so an import
+    /// offers only what it would add. A candidate with an unreadable name is kept for the merge to reject.
+    /// </summary>
+    public static IReadOnlyList<DomainJoinOrganizationalUnitSettings> ExcludeListed(DomainJoinSettings current,
+        IReadOnlyList<DomainJoinOrganizationalUnitSettings> candidates)
+    {
+        ArgumentNullException.ThrowIfNull(current);
+        ArgumentNullException.ThrowIfNull(candidates);
+        var listed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (DomainJoinOrganizationalUnitSettings unit in current.OrganizationalUnits)
+        {
+            if (DistinguishedNameRules.TryParse(unit.DistinguishedName, out ParsedDistinguishedName parsed))
+                listed.Add(DistinguishedNameRules.GetComparisonKey(parsed));
+        }
+
+        return candidates.Where(candidate => !DistinguishedNameRules.TryParse(candidate.DistinguishedName, out ParsedDistinguishedName parsed) ||
+            !listed.Contains(DistinguishedNameRules.GetComparisonKey(parsed))).ToArray();
+    }
+
     private static string Key(string dn) => DistinguishedNameRules.TryParse(dn, out ParsedDistinguishedName parsed)
         ? DistinguishedNameRules.GetComparisonKey(parsed)
         : throw new ArgumentException("The OU distinguished name is invalid.", nameof(dn));

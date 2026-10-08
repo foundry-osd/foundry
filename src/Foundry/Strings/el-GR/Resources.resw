@@ -1852,6 +1852,9 @@
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Ήταν δυνατή η εμφάνιση μόνο ορισμένων OU. Μπορείτε ωστόσο να προσθέσετε όσες εμφανίζονται.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Όλες οι OU στον τομέα αυτού του υπολογιστή υπάρχουν ήδη στη λίστα.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Έληξε το χρονικό όριο της αναζήτησης. Μπορείτε να προσθέσετε OU χειροκίνητα.</value>
   </data>

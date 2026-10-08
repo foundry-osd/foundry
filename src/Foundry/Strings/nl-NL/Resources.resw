@@ -1852,6 +1852,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Slechts een deel van de OU's kon worden weergegeven. U kunt de weergegeven OU's nog steeds toevoegen.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Alle OU's in het domein van deze computer staan al in de lijst.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>De tijdslimiet voor het zoeken is verstreken. U kunt OU's handmatig toevoegen.</value>
   </data>

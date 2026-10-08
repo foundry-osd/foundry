@@ -60,7 +60,7 @@
             CanFilterColumns="False"
             CanReorderColumns="False"
             CanResizeColumns="False"
-            CanSortColumns="False"
+            CanSortColumns="True"
             CornerButtonMode="None"
             HeadersVisibility="Columns"
             IsReadOnly="True"

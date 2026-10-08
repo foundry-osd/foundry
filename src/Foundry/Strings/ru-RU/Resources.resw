@@ -1852,6 +1852,9 @@
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Удалось получить только часть OU. Показанные OU все равно можно добавить.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Все OU в домене этого компьютера уже есть в списке.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Время ожидания поиска истекло. OU можно добавить вручную.</value>
   </data>

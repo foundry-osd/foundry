@@ -1852,6 +1852,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>一部のOUのみ一覧表示できました。表示されているOUは追加できます。</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>このコンピューターのドメインのOUは、すべて既に一覧にあります。</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>検索がタイムアウトしました。OUは手動で追加できます。</value>
   </data>

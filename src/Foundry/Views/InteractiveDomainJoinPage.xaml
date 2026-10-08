@@ -119,13 +119,13 @@
                                 Text="{x:Bind ViewModel.OrganizationalUnitsValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.OrganizationalUnitsValidationVisibility, Mode=OneWay}" />
-                            <tv:TableView
+                            <tv:TableView x:Name="OrganizationalUnitsTable"
                                 MaxHeight="{ThemeResource FoundryTableMaxHeight}"
                                 AutoGenerateColumns="False"
                                 CanFilterColumns="False"
                                 CanReorderColumns="False"
                                 CanResizeColumns="False"
-                                CanSortColumns="False"
+                                CanSortColumns="True"
                                 CornerButtonMode="None"
                                 HeadersVisibility="Columns"
                                 IsReadOnly="True"

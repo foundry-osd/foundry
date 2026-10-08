@@ -1852,6 +1852,9 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Doar o parte dintre OU-uri au putut fi listate. Le puteți adăuga în continuare pe cele afișate.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Toate OU-urile din domeniul acestui computer sunt deja în listă.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Căutarea a depășit timpul alocat. Puteți adăuga OU-uri manual.</value>
   </data>

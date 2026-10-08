@@ -1852,6 +1852,9 @@ Licencováno pod licencí MIT.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Podařilo se vypsat jen některé jednotky OU. Zobrazené jednotky můžete přesto přidat.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Všechny jednotky OU v doméně tohoto počítače už v seznamu jsou.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Vypršel časový limit vyhledávání. Jednotky OU můžete přidat ručně.</value>
   </data>

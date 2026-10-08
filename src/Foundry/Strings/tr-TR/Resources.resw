@@ -1852,6 +1852,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>OU’ların yalnızca bir kısmı listelenebildi. Gösterilenleri yine de ekleyebilirsiniz.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Bu bilgisayarın etki alanındaki tüm OU’lar zaten listede.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Arama zaman aşımına uğradı. OU’ları el ile ekleyebilirsiniz.</value>
   </data>

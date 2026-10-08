@@ -1852,6 +1852,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Vain osa OU:ista voitiin luetella. Voit silti lisätä näkyvissä olevat.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Kaikki tämän tietokoneen toimialueen OU:t ovat jo luettelossa.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Haku aikakatkaistiin. Voit lisätä OU:ita manuaalisesti.</value>
   </data>

@@ -1852,6 +1852,9 @@
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Само част от OU можаха да бъдат изведени. Показаните все пак могат да бъдат добавени.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Всички OU в домейна на този компютър вече са в списъка.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Времето за търсене изтече. Можете да добавите OU ръчно.</value>
   </data>

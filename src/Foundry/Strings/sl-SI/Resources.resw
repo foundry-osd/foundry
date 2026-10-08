@@ -1852,6 +1852,9 @@ Licencirano pod licenco MIT.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Prikazati je bilo mogoče le nekatere OU. Prikazane lahko vseeno dodate.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Vse OU v domeni tega računalnika so že na seznamu.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Časovna omejitev iskanja je potekla. OU lahko dodate ročno.</value>
   </data>

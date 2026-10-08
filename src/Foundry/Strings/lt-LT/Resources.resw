@@ -1852,6 +1852,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Pavyko pateikti tik dalį OU. Rodomus vis tiek galite pridėti.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Visi šio kompiuterio domeno OU jau yra sąraše.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Baigėsi paieškai skirtas laikas. OU galite pridėti rankiniu būdu.</value>
   </data>

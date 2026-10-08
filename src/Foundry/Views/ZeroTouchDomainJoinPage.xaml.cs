@@ -19,9 +19,13 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
         ViewModel = App.GetService<DomainJoinConfigurationViewModel>();
         ViewModel.SetPageMode(DomainJoinMode.Automatic);
         InitializeComponent();
+        OrganizationalUnitTableSort.Attach(OrganizationalUnitsTable);
+        ViewModel.OrganizationalUnitRowsRemoving += OnOrganizationalUnitRowsRemoving;
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         Unloaded += OnUnloaded;
     }
+
+    private void OnOrganizationalUnitRowsRemoving(object? sender, EventArgs e) => OrganizationalUnitsTable.DeselectAll();
 
     private void CatalogTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -62,6 +66,7 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Unloaded -= OnUnloaded;
+        ViewModel.OrganizationalUnitRowsRemoving -= OnOrganizationalUnitRowsRemoving;
         ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
         ViewModel.Dispose();
         synchronizingPassword = true; DomainPasswordBox.Password = string.Empty;

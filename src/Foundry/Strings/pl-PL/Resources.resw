@@ -1852,6 +1852,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Udało się wyświetlić tylko część jednostek OU. Wyświetlone jednostki nadal można dodać.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Wszystkie jednostki OU w domenie tego komputera są już na liście.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Upłynął limit czasu wyszukiwania. Jednostki OU możesz dodać ręcznie.</value>
   </data>

@@ -1852,6 +1852,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Csak az OU-k egy részét sikerült listázni. A megjelenítetteket így is hozzáadhatja.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>A számítógép tartományának összes OU-ja már szerepel a listában.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>A keresés túllépte az időkorlátot. Az OU-kat kézzel is hozzáadhatja.</value>
   </data>

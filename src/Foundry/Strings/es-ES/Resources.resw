@@ -1852,6 +1852,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
     <value>Solo se han podido mostrar algunas OU. Puede agregar igualmente las que aparecen.</value>
   </data>
+  <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
+    <value>Todas las OU del dominio de este equipo ya están en la lista.</value>
+  </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
     <value>Se ha agotado el tiempo de búsqueda. Puede agregar OU manualmente.</value>
   </data>
