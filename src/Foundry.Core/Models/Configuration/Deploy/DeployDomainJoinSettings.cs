@@ -4,16 +4,14 @@
 
 namespace Foundry.Core.Models.Configuration.Deploy;
 
-/// <summary>Carries active domain metadata; interactive projections omit the account and credential envelope.</summary>
+/// <summary>Carries the joinable domains to Foundry.Deploy; interactive projections omit accounts and credential envelopes.</summary>
 public sealed record DeployDomainJoinSettings
 {
     public bool IsEnabled { get; init; }
     public DomainJoinMode Mode { get; init; } = DomainJoinMode.Interactive;
-    public string? DomainName { get; init; }
-    public string? AccountName { get; init; }
-    public string? OuCatalogDomain { get; init; }
-    public IReadOnlyList<DomainJoinOrganizationalUnitSettings> OrganizationalUnits { get; init; } = [];
-    public string? DefaultOuId { get; init; }
+    public IReadOnlyList<DeployDomainJoinDomainSettings> Domains { get; init; } = [];
+    /// <summary>Gets the domain joined when the technician does not choose one.</summary>
+    public string? DefaultDomainId { get; init; }
+    public bool AllowDomainSelectionDuringDeployment { get; init; }
     public bool AllowOuSelectionDuringDeployment { get; init; }
-    public SecretEnvelope? EncryptedCredentials { get; init; }
 }
