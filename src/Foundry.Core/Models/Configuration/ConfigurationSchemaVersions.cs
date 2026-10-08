@@ -10,6 +10,6 @@ public static class ConfigurationSchemaVersions
 
     public const int ConnectCurrent = 5;
 
-    public const int DeployCurrent = 15;
+    public const int DeployCurrent = 16;
 
 }
