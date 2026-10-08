@@ -23,7 +23,7 @@ public enum DebugDomainJoinMode
     Interactive,
 
     /// <summary>
-    /// Shows the wizard step as Zero-touch media with technician OU choice would: a fixed domain and the OU list.
+    /// Shows the wizard step as Zero-touch media with technician choice would: the domain list and the OU list.
     /// </summary>
     ZeroTouch
 }
@@ -34,8 +34,6 @@ public enum DebugDomainJoinMode
 /// </summary>
 public static class DebugDomainJoinScenarios
 {
-    private const string Domain = "corp.contoso.com";
-
     public static DeployDomainJoinSettings Create(DebugDomainJoinMode mode) => mode switch
     {
         DebugDomainJoinMode.Interactive => CreateEnabled(DomainJoinMode.Interactive, accountName: null),
@@ -43,20 +41,30 @@ public static class DebugDomainJoinScenarios
         _ => new()
     };
 
+    /// <summary>Lists two domains, one with OUs and one without, so every state of the step can be reached.</summary>
     private static DeployDomainJoinSettings CreateEnabled(DomainJoinMode mode, string? accountName) => new()
     {
         IsEnabled = true,
         Mode = mode,
-        DomainName = Domain,
-        AccountName = accountName,
-        OuCatalogDomain = Domain,
-        OrganizationalUnits =
+        DefaultDomainId = "corp",
+        AllowDomainSelectionDuringDeployment = true,
+        AllowOuSelectionDuringDeployment = true,
+        Domains =
         [
-            new() { Id = "workstations", DisplayName = "Workstations", DistinguishedName = "OU=Workstations,DC=corp,DC=contoso,DC=com" },
-            new() { Id = "laptops", DisplayName = "Laptops", DistinguishedName = "OU=Laptops,OU=Workstations,DC=corp,DC=contoso,DC=com" },
-            new() { Id = "kiosks", DisplayName = "Kiosks", DistinguishedName = "OU=Kiosks,DC=corp,DC=contoso,DC=com" }
-        ],
-        DefaultOuId = "workstations",
-        AllowOuSelectionDuringDeployment = true
+            new()
+            {
+                Id = "corp",
+                DomainName = "corp.contoso.com",
+                AccountName = accountName,
+                DefaultOuId = "workstations",
+                OrganizationalUnits =
+                [
+                    new() { Id = "workstations", DisplayName = "Workstations", DistinguishedName = "OU=Workstations,DC=corp,DC=contoso,DC=com" },
+                    new() { Id = "laptops", DisplayName = "Laptops", DistinguishedName = "OU=Laptops,OU=Workstations,DC=corp,DC=contoso,DC=com" },
+                    new() { Id = "kiosks", DisplayName = "Kiosks", DistinguishedName = "OU=Kiosks,DC=corp,DC=contoso,DC=com" }
+                ]
+            },
+            new() { Id = "emea", DomainName = "emea.contoso.com", AccountName = accountName }
+        ]
     };
 }

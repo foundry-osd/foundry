@@ -231,6 +231,7 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_autopilot_hash_group_tag_selected",
                 "deploy_domain_join_enabled",
                 "deploy_domain_join_mode",
+                "deploy_domain_join_domain_source",
                 "deploy_domain_join_ou_source",
                 "deploy_domain_join_status",
                 "deploy_completion_reboot_mode",

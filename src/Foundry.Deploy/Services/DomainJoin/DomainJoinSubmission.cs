@@ -15,9 +15,10 @@ public sealed class DomainJoinSubmission : IDisposable
 {
     private readonly char[] password;
 
-    public DomainJoinSubmission(string domainName, string accountName, string? selectedOuId, ReadOnlySpan<char> password,
+    public DomainJoinSubmission(string? selectedDomainId, string domainName, string accountName, string? selectedOuId, ReadOnlySpan<char> password,
         string? typedOuDistinguishedName = null)
     {
+        SelectedDomainId = selectedDomainId;
         DomainName = domainName;
         AccountName = accountName;
         SelectedOuId = selectedOuId;
@@ -25,6 +26,9 @@ public sealed class DomainJoinSubmission : IDisposable
         this.password = password.ToArray();
     }
 
+    /// <summary>Listed domain the technician retained; <see langword="null"/> when the media lists no domain.</summary>
+    internal string? SelectedDomainId { get; }
+    /// <summary>Domain typed in Interactive mode when the media lists none; otherwise the retained domain's name.</summary>
     internal string DomainName { get; }
     internal string AccountName { get; }
     internal string? SelectedOuId { get; }

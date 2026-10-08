@@ -144,7 +144,12 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
                 domainIntent = CreateDryRunIntent(domainJoin!, domainJoinSubmission, normalizedComputerName);
             }
 
-            domainRequest = domainRequest with { OuSource = DomainJoinPreparationService.ResolveOuSource(domainJoin!, domainIntent) };
+            domainRequest = domainRequest with
+            {
+                OuSource = DomainJoinPreparationService.ResolveOuSource(
+                    DomainJoinPreparationService.ResolveDomain(domainJoin!, domainJoinSubmission?.SelectedDomainId), domainIntent),
+                DomainSource = DomainJoinPreparationService.ResolveDomainSource(domainJoin!, domainIntent)
+            };
         }
 
         if (!request.IsDryRun && !ConfirmDestructiveDeployment(effectiveTargetDisk, request.SelectedOperatingSystem, request, hasCustomCommands, domainRequest, domainIntent))
@@ -191,12 +196,13 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
     /// <summary>Simulates the join target from the wizard input without touching credentials; an unusable input yields no intent.</summary>
     private static DomainJoinDeploymentIntent? CreateDryRunIntent(DeployDomainJoinSettings settings, DomainJoinSubmission? submission, string computerName)
     {
-        string? domain = submission?.DomainName is { Length: > 0 } entered ? entered : settings.DomainName;
+        var retained = DomainJoinPreparationService.ResolveDomain(settings, submission?.SelectedDomainId);
+        string? domain = settings.Domains.Count > 0 ? retained?.DomainName : submission?.DomainName;
         if (!Foundry.Core.Models.Configuration.DomainJoinCredentialContext.IsValidDomainName(domain)) return null;
         try
         {
             return new(domain!, computerName, DomainJoinPreparationService.ResolveOrganizationalUnit(
-                settings, domain!, submission?.SelectedOuId, submission?.TypedOuDistinguishedName));
+                settings, retained, submission?.SelectedOuId, submission?.TypedOuDistinguishedName));
         }
         catch (global::System.IO.InvalidDataException)
         {

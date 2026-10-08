@@ -613,6 +613,7 @@ public sealed class DeploymentOrchestratorTests
         Assert.False((bool)telemetryEvent.Properties["deploy_domain_join_enabled"]!);
         Assert.Equal("disabled", telemetryEvent.Properties["deploy_domain_join_mode"]);
         Assert.Equal("none", telemetryEvent.Properties["deploy_domain_join_ou_source"]);
+        Assert.Equal("none", telemetryEvent.Properties["deploy_domain_join_domain_source"]);
         Assert.Equal("disabled", telemetryEvent.Properties["deploy_domain_join_status"]);
         Assert.True((bool)telemetryEvent.Properties["deploy_oobe_enabled"]!);
         Assert.True((bool)telemetryEvent.Properties["deploy_oobe_administrator_enabled"]!);

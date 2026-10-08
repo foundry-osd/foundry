@@ -96,12 +96,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         var shell = new FakeApplicationShellService();
         DeploymentLaunchPreparationService service = CreateService(shell, keys);
         DeployDomainJoinSettings settings = automatic
-            ? DomainJoinPreparationServiceTests.Automatic(new("corp.test", "CORP\\join"), key) with
-            {
-                OuCatalogDomain = "corp.test",
-                AllowOuSelectionDuringDeployment = true,
-                OrganizationalUnits = [new() { Id = "sales", DisplayName = "Sales", DistinguishedName = "OU=Sales,DC=corp,DC=test" }]
-            }
+            ? DomainJoinPreparationServiceTests.WithCatalog(DomainJoinPreparationServiceTests.Automatic(new("corp.test", "CORP\\join"), key))
             : new() { IsEnabled = true };
         using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), settings, domainJoinSubmission: null);
         Assert.False(result.IsReadyToStart);
@@ -138,7 +133,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     private static DomainJoinSubmission Submission(string? selectedOuId = null, string? typedOu = null) =>
-        new("corp.test", "CORP\\join", selectedOuId, "secret".AsSpan(), typedOu);
+        new(null, "corp.test", "CORP\\join", selectedOuId, "secret".AsSpan(), typedOu);
 
     private static DeploymentLaunchPreparationService CreateService(FakeApplicationShellService shell, DeploymentSecretKeySession keys) =>
         new(shell, domainJoinPreparationService: new DomainJoinPreparationService(keys));

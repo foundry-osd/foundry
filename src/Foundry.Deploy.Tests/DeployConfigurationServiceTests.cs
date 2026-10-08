@@ -13,10 +13,14 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeployConfigurationServiceTests
 {
     [Theory]
-    [InlineData("""{"isEnabled":true,"mode":1,"domainName":"corp.test","accountName":"CORP\\join","encryptedCredentials":{}}""")]
-    [InlineData("""{"isEnabled":true,"mode":0,"encryptedCredentials":{}}""")]
-    [InlineData("""{"isEnabled":true,"mode":0,"domainName":"invalid domain"}""")]
-    [InlineData("""{"isEnabled":true,"organizationalUnits":null}""")]
+    [InlineData("""{"isEnabled":true,"mode":1,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","accountName":"CORP\\join","encryptedCredentials":{}}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":1,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","accountName":"CORP\\join"}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","encryptedCredentials":{}}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","accountName":"CORP\\join"}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"invalid domain"}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"missing","domains":[{"id":"a","domainName":"corp.test"}]}""")]
+    [InlineData("""{"isEnabled":true,"domains":null}""")]
+    [InlineData("""{"isEnabled":true,"domains":[null]}""")]
     public void LoadOptional_RejectsUnprotectedAutomaticOrMalformedDomainMetadata(string domain)
     {
         using var directory = new TemporaryDirectory();
@@ -33,14 +37,15 @@ public sealed class DeployConfigurationServiceTests
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json",
-            """{"domainJoin":{"isEnabled":true,"mode":0,"domainName":"corp.test"}}""");
+            """{"domainJoin":{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test"}]}}""");
         DeployConfigurationLoadResult result = new DeployConfigurationService(
             NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
         Assert.NotNull(result.Document);
         Assert.True(result.Document.DomainJoin.IsEnabled);
-        Assert.Equal("corp.test", result.Document.DomainJoin.DomainName);
-        Assert.Null(result.Document.DomainJoin.AccountName);
-        Assert.Null(result.Document.DomainJoin.EncryptedCredentials);
+        var domain = Assert.Single(result.Document.DomainJoin.Domains);
+        Assert.Equal("corp.test", domain.DomainName);
+        Assert.Null(domain.AccountName);
+        Assert.Null(domain.EncryptedCredentials);
         Assert.False(result.Document.Protection.IsEnabled);
     }
 

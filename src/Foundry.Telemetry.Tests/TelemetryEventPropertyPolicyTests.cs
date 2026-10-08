@@ -525,6 +525,7 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["deploy_domain_join_enabled"] = true,
             ["deploy_domain_join_mode"] = "interactive",
             ["deploy_domain_join_ou_source"] = "selected",
+            ["deploy_domain_join_domain_source"] = "default",
             ["deploy_domain_join_status"] = "staged",
             ["operating_system_url"] = "https://example.invalid/os.wim",
             ["driver_pack_url"] = "https://example.invalid/driver.cab",
@@ -565,6 +566,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True((bool)result["deploy_domain_join_enabled"]!);
         Assert.Equal("interactive", result["deploy_domain_join_mode"]);
         Assert.Equal("selected", result["deploy_domain_join_ou_source"]);
+        Assert.Equal("default", result["deploy_domain_join_domain_source"]);
         Assert.Equal("staged", result["deploy_domain_join_status"]);
         Assert.False(result.ContainsKey("operating_system_url"));
         Assert.False(result.ContainsKey("driver_pack_url"));

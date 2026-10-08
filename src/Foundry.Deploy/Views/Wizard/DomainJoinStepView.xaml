@@ -28,11 +28,18 @@
                         Margin="0,0,0,8"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{Binding DataContext.Strings[DomainJoin.Domain], ElementName=ViewRoot}" />
+                    <ComboBox
+                        AutomationProperties.Name="{Binding DataContext.Strings[DomainJoin.Domain], ElementName=ViewRoot}"
+                        DisplayMemberPath="DomainName"
+                        ItemsSource="{Binding Domains}"
+                        SelectedItem="{Binding SelectedDomain}"
+                        Visibility="{Binding IsDomainListVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <TextBox x:Name="DomainInput"
                         AutomationProperties.Name="{Binding DataContext.Strings[DomainJoin.Domain], ElementName=ViewRoot}"
                         IsReadOnly="{Binding IsDomainReadOnly}"
                         MaxLength="253"
-                        Text="{Binding DomainName, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding DomainName, UpdateSourceTrigger=PropertyChanged}"
+                        Visibility="{Binding IsDomainTextVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <TextBlock
                         Margin="0,4,0,0"
                         Foreground="{DynamicResource SystemFillColorCriticalBrush}"

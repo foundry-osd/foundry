@@ -9,11 +9,15 @@ public sealed record DomainJoinDeploymentIntent(string DomainName, string Comput
 
 /// <summary>
 /// Records that domain joining was requested even when an unsupported edition or simulation bypasses credentials,
-/// with the mode and the origin of the chosen OU for usage telemetry.
+/// with the mode and the origin of the chosen domain and OU for usage telemetry.
 /// </summary>
 public sealed record DomainJoinDeploymentRequest(DomainJoinDeploymentDisposition Disposition,
     Foundry.Core.Models.Configuration.DomainJoinMode Mode = Foundry.Core.Models.Configuration.DomainJoinMode.Interactive,
-    DomainJoinOuSource OuSource = DomainJoinOuSource.None);
+    DomainJoinOuSource OuSource = DomainJoinOuSource.None,
+    DomainJoinDomainSource DomainSource = DomainJoinDomainSource.None);
+
+/// <summary>Tells where the joined domain came from, without naming it.</summary>
+public enum DomainJoinDomainSource { None, Default, Selected, Typed }
 
 /// <summary>Tells where the join target OU came from, without naming it.</summary>
 public enum DomainJoinOuSource { None, Default, Selected, Typed }

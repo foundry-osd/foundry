@@ -13,9 +13,9 @@ using Foundry.Deploy.Services.DomainJoin;
 namespace Foundry.Deploy.ViewModels;
 
 /// <summary>
-/// Holds what the technician enters on the Domain Join wizard step: credentials in Interactive mode and the OU
-/// when the media lets the technician choose one. The password is an owned buffer that never enters wizard
-/// state, logs or the deployment request.
+/// Holds what the technician enters on the Domain Join wizard step: the domain when the media lets the technician
+/// choose one, credentials in Interactive mode, and the OU of the retained domain. The password is an owned
+/// buffer that never enters wizard state, logs or the deployment request.
 /// </summary>
 public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposable
 {
@@ -28,6 +28,11 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     /// <summary>Raised when the owned password is erased, so the view can empty its password box.</summary>
     public event EventHandler? PasswordCleared;
 
+    /// <summary>Listed domain shown in the domain list; the default applies when the technician cannot choose.</summary>
+    [ObservableProperty]
+    private DeployDomainJoinDomainSettings? selectedDomain;
+
+    /// <summary>Name of the retained domain, or the name typed when the media lists no domain.</summary>
     [ObservableProperty]
     private string domainName = string.Empty;
 
@@ -40,27 +45,34 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     [ObservableProperty]
     private string typedOuDistinguishedName = string.Empty;
 
-    public IReadOnlyList<DomainJoinOrganizationalUnitSettings> OrganizationalUnits => settings.OrganizationalUnits;
+    public IReadOnlyList<DeployDomainJoinDomainSettings> Domains => settings.Domains;
 
-    /// <summary>Gets whether the technician supplies the domain, account and password.</summary>
+    /// <summary>Gets the OUs of the retained domain; they change with the domain.</summary>
+    public IReadOnlyList<DomainJoinOrganizationalUnitSettings> OrganizationalUnits => RetainedDomain?.OrganizationalUnits ?? [];
+
+    /// <summary>Gets whether the technician supplies the account and password.</summary>
     public bool RequiresCredentials => settings.IsEnabled && settings.Mode == DomainJoinMode.Interactive;
 
-    public bool IsDomainReadOnly => !RequiresCredentials;
+    /// <summary>Gets whether the technician picks the domain: the media allows it and lists more than one.</summary>
+    public bool IsDomainListVisible => settings.IsEnabled && settings.AllowDomainSelectionDuringDeployment && settings.Domains.Count > 1;
 
-    /// <summary>Gets whether the technician picks an OU from the saved list.</summary>
-    public bool IsOuListVisible => settings.AllowOuSelectionDuringDeployment && HasUsableOuList;
+    /// <summary>Gets whether the domain is shown as text: read-only for a listed domain, editable when the media lists none.</summary>
+    public bool IsDomainTextVisible => !IsDomainListVisible;
 
-    /// <summary>Gets whether an OU may be typed, which is only offered when no saved list applies to the domain.</summary>
-    public bool IsTypedOuVisible => RequiresCredentials && !HasUsableOuList;
+    public bool IsDomainReadOnly => HasListedDomains;
+
+    /// <summary>Gets whether the technician picks an OU from the retained domain's list.</summary>
+    public bool IsOuListVisible => settings.AllowOuSelectionDuringDeployment && OrganizationalUnits.Count > 0;
+
+    /// <summary>Gets whether an OU may be typed, which is only offered in Interactive mode for a domain without listed OUs.</summary>
+    public bool IsTypedOuVisible => RequiresCredentials && OrganizationalUnits.Count == 0;
 
     /// <summary>Gets whether the step has anything for the technician to enter or choose.</summary>
-    public bool HasInput => settings.IsEnabled &&
-        (RequiresCredentials || settings.AllowOuSelectionDuringDeployment &&
-            DomainJoinPreparationService.HasCompatibleCatalog(settings, settings.DomainName));
+    public bool HasInput => settings.IsEnabled && (RequiresCredentials || IsDomainListVisible || IsOuListVisible);
 
     public bool HasPassword => password is { Length: > 0 };
 
-    public bool IsDomainInvalid => DomainName.Length > 0 && !DomainJoinCredentialContext.IsValidDomainName(DomainName);
+    public bool IsDomainInvalid => !HasListedDomains && DomainName.Length > 0 && !DomainJoinCredentialContext.IsValidDomainName(DomainName);
 
     public bool IsAccountInvalid => AccountName.Length > 0 && !DomainJoinConfigurationValidator.IsQualifiedAccount(AccountName);
 
@@ -69,7 +81,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     /// <summary>Gets whether the wizard may leave the step and start a deployment with these inputs.</summary>
     public bool IsValid => !HasInput ||
-        DomainJoinCredentialContext.IsValidDomainName(DomainName) &&
+        (HasListedDomains ? RetainedDomain is not null : DomainJoinCredentialContext.IsValidDomainName(DomainName)) &&
         (!RequiresCredentials || DomainJoinConfigurationValidator.IsQualifiedAccount(AccountName) && HasPassword) &&
         (!IsOuListVisible || SelectedOrganizationalUnit is not null) &&
         !IsTypedOuInvalid;
@@ -78,9 +90,12 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     public string? EffectiveOuDistinguishedName =>
         IsOuListVisible ? SelectedOrganizationalUnit?.DistinguishedName :
         IsTypedOuVisible ? (TypedOu.Length > 0 && !IsTypedOuInvalid ? TypedOu : null) :
-        DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(settings, DomainName)?.DistinguishedName;
+        DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(RetainedDomain)?.DistinguishedName;
 
-    private bool HasUsableOuList => DomainJoinPreparationService.HasCompatibleCatalog(settings, DomainName);
+    private bool HasListedDomains => settings.Domains.Count > 0;
+
+    /// <summary>The domain the join will use: the technician's choice when allowed, otherwise the media default.</summary>
+    private DeployDomainJoinDomainSettings? RetainedDomain => DomainJoinPreparationService.ResolveDomain(settings, SelectedDomain?.Id);
 
     private string TypedOu => TypedOuDistinguishedName.Trim();
 
@@ -91,11 +106,9 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         ClearPassword();
         AccountName = string.Empty;
         TypedOuDistinguishedName = string.Empty;
-        DomainName = settings.DomainName ?? string.Empty;
-        SelectedOrganizationalUnit = DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(settings, DomainName);
-        OnPropertyChanged(nameof(OrganizationalUnits));
-        OnPropertyChanged(nameof(HasInput));
-        RaiseDerivedStateChanged();
+        OnPropertyChanged(nameof(Domains));
+        SelectedDomain = DomainJoinPreparationService.ResolveDomain(settings, null);
+        ApplyRetainedDomain();
     }
 
     /// <summary>Replaces the owned password with a copy of the supplied characters.</summary>
@@ -120,6 +133,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     /// <summary>Copies the current inputs for launch preparation; the caller disposes the result.</summary>
     public DomainJoinSubmission? CreateSubmission() => !settings.IsEnabled ? null : new(
+        HasListedDomains ? RetainedDomain?.Id : null,
         DomainName,
         RequiresCredentials ? AccountName : string.Empty,
         IsOuListVisible ? SelectedOrganizationalUnit?.Id : null,
@@ -128,11 +142,21 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     public void Dispose() => ErasePassword();
 
-    partial void OnDomainNameChanged(string value)
+    partial void OnSelectedDomainChanged(DeployDomainJoinDomainSettings? value) => ApplyRetainedDomain();
+
+    partial void OnDomainNameChanged(string value) => RaiseDerivedStateChanged();
+
+    /// <summary>
+    /// Shows the retained domain and resets the OU to that domain's default. The account and password are kept,
+    /// because one account may serve several domains.
+    /// </summary>
+    private void ApplyRetainedDomain()
     {
-        // A saved OU only applies to the domain its list was built for.
-        if (!HasUsableOuList) SelectedOrganizationalUnit = null;
-        else SelectedOrganizationalUnit ??= DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(settings, value);
+        DeployDomainJoinDomainSettings? retained = RetainedDomain;
+        if (HasListedDomains) DomainName = retained?.DomainName ?? string.Empty;
+        TypedOuDistinguishedName = string.Empty;
+        OnPropertyChanged(nameof(OrganizationalUnits));
+        SelectedOrganizationalUnit = DomainJoinPreparationService.ResolveDefaultOrganizationalUnit(retained);
         RaiseDerivedStateChanged();
     }
 
@@ -149,6 +173,9 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     private void RaiseDerivedStateChanged()
     {
         OnPropertyChanged(nameof(RequiresCredentials));
+        OnPropertyChanged(nameof(HasInput));
+        OnPropertyChanged(nameof(IsDomainListVisible));
+        OnPropertyChanged(nameof(IsDomainTextVisible));
         OnPropertyChanged(nameof(IsDomainReadOnly));
         OnPropertyChanged(nameof(IsOuListVisible));
         OnPropertyChanged(nameof(IsTypedOuVisible));

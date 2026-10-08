@@ -147,13 +147,18 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
     private static void ValidateDomainJoin(FoundryDeployConfigurationDocument document)
     {
         var settings = document.DomainJoin;
-        if (settings is null || settings.OrganizationalUnits is null ||
-            document.Autopilot?.IsEnabled == true && settings.IsEnabled ||
-            !Foundry.Core.Services.Configuration.DomainJoinConfigurationValidator.EvaluateReadiness(
+        if (settings is null || settings.Domains is null || settings.Domains.Any(domain => domain is null) ||
+            document.Autopilot?.IsEnabled == true && settings.IsEnabled)
+            throw new InvalidDataException("The domain join configuration is invalid.");
+        bool interactive = settings.Mode == Foundry.Core.Models.Configuration.DomainJoinMode.Interactive;
+        // Zero-touch media carries credentials for every domain; Interactive media carries none.
+        HashSet<string> withCredentials = settings.Domains.Where(domain => domain.EncryptedCredentials is not null)
+            .Select(domain => domain.AccountName ?? string.Empty).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        if (!Foundry.Core.Services.Configuration.DomainJoinConfigurationValidator.EvaluateReadiness(
                 Foundry.Deploy.Services.DomainJoin.DomainJoinPreparationService.ToAuthored(settings),
-                settings.EncryptedCredentials is not null, document.Protection?.IsEnabled == true).IsValid ||
-            settings.IsEnabled && settings.Mode == Foundry.Core.Models.Configuration.DomainJoinMode.Interactive &&
-                (settings.AccountName is not null || settings.EncryptedCredentials is not null))
+                withCredentials.Contains, document.Protection?.IsEnabled == true).IsValid ||
+            settings.IsEnabled && !interactive && settings.Domains.Any(domain => domain.EncryptedCredentials is null) ||
+            settings.IsEnabled && interactive && settings.Domains.Any(domain => domain.AccountName is not null || domain.EncryptedCredentials is not null))
             throw new InvalidDataException("The domain join configuration is invalid.");
     }
 }

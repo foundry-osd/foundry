@@ -523,6 +523,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["deploy_autopilot_hash_group_tag_selected"] = !string.IsNullOrWhiteSpace(runtimeState?.AutopilotHardwareHashGroupTag),
             ["deploy_domain_join_enabled"] = context.DomainJoinRequest is not null,
             ["deploy_domain_join_mode"] = ResolveDomainJoinMode(context.DomainJoinRequest),
+            ["deploy_domain_join_domain_source"] = (context.DomainJoinRequest?.DomainSource ?? DomainJoin.DomainJoinDomainSource.None).ToString().ToLowerInvariant(),
             ["deploy_domain_join_ou_source"] = (context.DomainJoinRequest?.OuSource ?? DomainJoin.DomainJoinOuSource.None).ToString().ToLowerInvariant(),
             ["deploy_domain_join_status"] = ResolveDomainJoinStatus(runtimeState),
             ["deploy_unattend_mode"] = context.UsesCustomUnattend ? "custom" : "native",
