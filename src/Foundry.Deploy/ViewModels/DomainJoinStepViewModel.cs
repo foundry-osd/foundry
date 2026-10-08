@@ -104,6 +104,8 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     {
         settings = domainJoin ?? throw new ArgumentNullException(nameof(domainJoin));
         ClearPassword();
+        // A typed domain belongs to the earlier configuration; a listed one is shown again below.
+        DomainName = string.Empty;
         AccountName = string.Empty;
         TypedOuDistinguishedName = string.Empty;
         OnPropertyChanged(nameof(Domains));

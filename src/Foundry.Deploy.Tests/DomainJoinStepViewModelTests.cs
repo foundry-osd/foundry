@@ -291,7 +291,7 @@ public sealed class DomainJoinStepViewModelTests
 
         step.Configure(new());
 
-        Assert.Equal("corp.test", step.DomainName);
+        Assert.Equal(string.Empty, step.DomainName);
         Assert.Equal(string.Empty, step.AccountName);
         Assert.False(step.HasPassword);
         Assert.Equal(1, cleared);
