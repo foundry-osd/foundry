@@ -1985,7 +1985,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bir OU girişi bozuk. Kaldırıp yeniden ekleyin.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>"Genel" sayfasında medya parola korumasını etkinleştirin ve bir medya parolası belirleyin.</value>
+    <value>"Genel" sayfasında parola korumasını etkinleştirin ve dağıtım parolasını belirleyin.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Listedeki her OU kendi etki alanına ait olmalıdır.</value>
@@ -2114,7 +2114,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Parola</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Bu parolayı güvende tutun. Yerel Windows hesaplarının parolalarını, Autopilot kimlik bilgilerini ve profillerini ve özel yanıt dosyalarını korur.</value>
+    <value>Bu parolayı güvende tutun. Yerel Windows hesaplarının parolalarını, etki alanına katılma kimlik bilgilerini, Autopilot kimlik bilgilerini ve profillerini ve özel yanıt dosyalarını korur.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Dağıtım parolası</value>
@@ -2528,7 +2528,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Medya parolasıyla korunan kimlik bilgilerini kullanarak etki alanına otomatik olarak katılın.</value>
+    <value>Dağıtım parolasıyla korunan kimlik bilgilerini kullanarak etki alanına otomatik olarak katılın.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,9 +4179,9 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Medya parolasıyla korunan kimlik bilgilerini kullanarak etki alanına otomatik olarak katılın.</value>
+    <value>Dağıtım parolasıyla korunan kimlik bilgilerini kullanarak etki alanına otomatik olarak katılın.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Müdahalesiz etki alanına katılma</value>
+    <value>Zero-touch etki alanına katılma</value>
   </data>
 </root>

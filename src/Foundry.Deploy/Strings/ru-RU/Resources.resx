@@ -376,7 +376,7 @@
     <value>Укажите сведения для присоединения этого компьютера к домену. Присоединение выполняется после установки Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
-    <value>Организационная единица</value>
+    <value>Подразделение</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Укажите допустимое различающееся имя OU в этом домене или оставьте поле пустым.</value>

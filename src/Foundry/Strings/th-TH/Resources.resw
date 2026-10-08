@@ -1859,7 +1859,7 @@
     <value>แก้ไข</value>
   </data>
   <data name="DomainJoin.CommandRemove" xml:space="preserve">
-    <value>นำออก</value>
+    <value>ลบออก</value>
   </data>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>ตั้งเป็นค่าเริ่มต้น</value>
@@ -1985,7 +1985,7 @@
     <value>รายการ OU เสียหาย ลบออกแล้วเพิ่มใหม่อีกครั้ง</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>เปิดการป้องกันสื่อด้วยรหัสผ่านในหน้า "ทั่วไป" และตั้งรหัสผ่านสื่อ</value>
+    <value>เปิดการป้องกันด้วยรหัสผ่านในหน้า "ทั่วไป" และตั้งรหัสผ่านการปรับใช้</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>OU ทั้งหมดในรายการต้องอยู่ในโดเมนของตนเอง</value>
@@ -1997,7 +1997,7 @@
     <value>ป้อนบัญชีในรูปแบบ DOMAIN\user หรือ user@domain</value>
   </data>
   <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
-    <value>ป้อนบัญชีสำหรับเข้าร่วมโดเมนที่ใช้ร่วมกัน หรือกำหนดบัญชีเฉพาะให้โดเมนนี้</value>
+    <value>ป้อนบัญชีที่ใช้ร่วมกันสำหรับเข้าร่วมโดเมน หรือกำหนดบัญชีเฉพาะให้โดเมนนี้</value>
   </data>
   <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
     <value>เพิ่มโดเมนในรายการได้ไม่เกิน 32 รายการ</value>
@@ -2027,7 +2027,7 @@
     <value>ใช้บัญชีเฉพาะ</value>
   </data>
   <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
-    <value>ใช้บัญชีสำหรับเข้าร่วมโดเมนที่ใช้ร่วมกัน</value>
+    <value>ใช้บัญชีที่ใช้ร่วมกันสำหรับเข้าร่วมโดเมน</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>นำเข้าจากโดเมน</value>
@@ -2072,7 +2072,7 @@
     <value>บัญชีที่ใช้กับทุกโดเมนที่ไม่มีบัญชีของตนเอง บัญชีนี้ต้องมีสิทธิ์นำคอมพิวเตอร์เข้าร่วมโดเมนและย้ายไปยัง OU ที่คุณเลือก</value>
   </data>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
-    <value>บัญชีสำหรับเข้าร่วมโดเมนที่ใช้ร่วมกัน</value>
+    <value>บัญชีที่ใช้ร่วมกันสำหรับเข้าร่วมโดเมน</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>ไฟล์ใบรับรอง root CA ที่เชื่อถือได้</value>
@@ -2114,7 +2114,7 @@
     <value>รหัสผ่าน</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>เก็บรักษารหัสผ่านนี้ให้ปลอดภัย รหัสผ่านนี้ปกป้องรหัสผ่านของบัญชี Windows ภายในเครื่อง ข้อมูลประจำตัวและโปรไฟล์ Autopilot และไฟล์คำตอบที่กำหนดเอง</value>
+    <value>เก็บรักษารหัสผ่านนี้ให้ปลอดภัย รหัสผ่านนี้ปกป้องรหัสผ่านของบัญชี Windows ภายในเครื่อง ข้อมูลประจำตัวสำหรับการเข้าร่วมโดเมน ข้อมูลประจำตัวและโปรไฟล์ Autopilot และไฟล์คำตอบที่กำหนดเอง</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>รหัสผ่านการปรับใช้</value>
@@ -2228,7 +2228,7 @@
     <value>สถานะความพร้อมของสื่อ</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>ขอข้อมูลรับรองโดเมนจากช่างเทคนิคระหว่างการปรับใช้</value>
+    <value>ขอข้อมูลประจำตัวของโดเมนจากช่างเทคนิคระหว่างการปรับใช้</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
     <value>การเข้าร่วมโดเมนแบบโต้ตอบ</value>
@@ -2462,7 +2462,7 @@
     <value>บ้าน</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
-    <value>ขอข้อมูลรับรองโดเมนจากช่างเทคนิคระหว่างการปรับใช้</value>
+    <value>ขอข้อมูลประจำตัวของโดเมนจากช่างเทคนิคระหว่างการปรับใช้</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
     <value>แบบโต้ตอบ</value>
@@ -2528,7 +2528,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>เข้าร่วมโดเมนโดยอัตโนมัติโดยใช้ข้อมูลรับรองที่ป้องกันด้วยรหัสผ่านสื่อ</value>
+    <value>เข้าร่วมโดเมนโดยอัตโนมัติโดยใช้ข้อมูลประจำตัวที่ป้องกันด้วยรหัสผ่านการปรับใช้</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,9 +4179,9 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>เข้าร่วมโดเมนโดยอัตโนมัติโดยใช้ข้อมูลรับรองที่ป้องกันด้วยรหัสผ่านสื่อ</value>
+    <value>เข้าร่วมโดเมนโดยอัตโนมัติโดยใช้ข้อมูลประจำตัวที่ป้องกันด้วยรหัสผ่านการปรับใช้</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>การเข้าร่วมโดเมนแบบอัตโนมัติโดยไม่ต้องดำเนินการ</value>
+    <value>การเข้าร่วมโดเมนแบบ Zero-touch</value>
   </data>
 </root>

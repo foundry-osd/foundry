@@ -1985,7 +1985,7 @@
     <value>רשומת OU פגומה. הסר אותה והוסף אותה שוב.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>הפעל הגנה על המדיה באמצעות סיסמה בעמוד "כללי" והגדר סיסמת מדיה.</value>
+    <value>הפעל הגנה באמצעות סיסמה בעמוד "כללי" והגדר את סיסמת הפריסה.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>כל OU שברשימה חייבת להשתייך לתחום שלה.</value>
@@ -2114,7 +2114,7 @@
     <value>סיסמה</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>שמור על סיסמה זו במקום בטוח. היא מגנה על סיסמאות של חשבונות Windows מקומיים, על פרטי הכניסה והפרופילים של Autopilot ועל קובצי תשובות מותאמים אישית.</value>
+    <value>שמור על סיסמה זו במקום בטוח. היא מגנה על סיסמאות של חשבונות Windows מקומיים, על פרטי הכניסה להצטרפות לתחום, על פרטי הכניסה והפרופילים של Autopilot ועל קובצי תשובות מותאמים אישית.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>סיסמת פריסה</value>
@@ -2528,7 +2528,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>הצטרף לתחום באופן אוטומטי באמצעות פרטי כניסה המוגנים בסיסמת המדיה.</value>
+    <value>הצטרף לתחום באופן אוטומטי באמצעות פרטי כניסה המוגנים בסיסמת הפריסה.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,9 +4179,9 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>הצטרף לתחום באופן אוטומטי באמצעות פרטי כניסה המוגנים בסיסמת המדיה.</value>
+    <value>הצטרף לתחום באופן אוטומטי באמצעות פרטי כניסה המוגנים בסיסמת הפריסה.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>הצטרפות לתחום ללא מגע</value>
+    <value>הצטרפות לתחום ב-Zero-touch</value>
   </data>
 </root>

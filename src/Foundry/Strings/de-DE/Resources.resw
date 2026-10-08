@@ -1985,7 +1985,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Ein OU-Eintrag ist beschädigt. Entfernen Sie ihn und fügen Sie ihn erneut hinzu.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Aktivieren Sie auf der Seite „Allgemein“ den Kennwortschutz für das Medium und legen Sie ein Medienkennwort fest.</value>
+    <value>Aktivieren Sie auf der Seite „Allgemein“ den Kennwortschutz und legen Sie das Bereitstellungskennwort fest.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Jede aufgelistete OU muss zu ihrer Domäne gehören.</value>
@@ -2114,7 +2114,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Kennwort</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Bewahren Sie dieses Kennwort sicher auf. Es schützt Kennwörter lokaler Windows-Konten, Autopilot-Anmeldeinformationen und -Profile sowie benutzerdefinierte Antwortdateien.</value>
+    <value>Bewahren Sie dieses Kennwort sicher auf. Es schützt Kennwörter lokaler Windows-Konten, Anmeldeinformationen für den Domänenbeitritt, Autopilot-Anmeldeinformationen und -Profile sowie benutzerdefinierte Antwortdateien.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Bereitstellungskennwort</value>
@@ -2528,7 +2528,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Der Domäne automatisch mit Anmeldeinformationen beitreten, die durch das Medienkennwort geschützt sind.</value>
+    <value>Der Domäne automatisch mit Anmeldeinformationen beitreten, die durch das Bereitstellungskennwort geschützt sind.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,7 +4179,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Der Domäne automatisch mit Anmeldeinformationen beitreten, die durch das Medienkennwort geschützt sind.</value>
+    <value>Der Domäne automatisch mit Anmeldeinformationen beitreten, die durch das Bereitstellungskennwort geschützt sind.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-Touch-Domänenbeitritt</value>

@@ -1985,7 +1985,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Een OU-vermelding is beschadigd. Verwijder deze en voeg deze opnieuw toe.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Schakel wachtwoordbeveiliging voor het medium in op de pagina Algemeen en stel een mediumwachtwoord in.</value>
+    <value>Schakel wachtwoordbeveiliging in op de pagina Algemeen en stel het implementatiewachtwoord in.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Elke OU in de lijst moet tot het bijbehorende domein behoren.</value>
@@ -2114,7 +2114,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Wachtwoord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Bewaar dit wachtwoord veilig. Het beschermt wachtwoorden voor lokale Windows-accounts, Autopilot-referenties en -profielen en aangepaste antwoordbestanden.</value>
+    <value>Bewaar dit wachtwoord veilig. Het beschermt wachtwoorden voor lokale Windows-accounts, referenties voor domeintoetreding, Autopilot-referenties en -profielen en aangepaste antwoordbestanden.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Implementatiewachtwoord</value>
@@ -2528,7 +2528,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Treed automatisch toe tot het domein met referenties die zijn beveiligd met het mediumwachtwoord.</value>
+    <value>Treed automatisch toe tot het domein met referenties die zijn beveiligd met het implementatiewachtwoord.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,7 +4179,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Treed automatisch toe tot het domein met referenties die zijn beveiligd met het mediumwachtwoord.</value>
+    <value>Treed automatisch toe tot het domein met referenties die zijn beveiligd met het implementatiewachtwoord.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touch-domeintoetreding</value>

@@ -1985,7 +1985,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>OUのエントリが破損しています。削除して追加し直してください。</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>「一般」ページでメディアのパスワード保護を有効にし、メディアパスワードを設定してください。</value>
+    <value>「一般」ページでパスワード保護を有効にし、展開パスワードを設定してください。</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>一覧の各OUは、それぞれのドメインに属している必要があります。</value>
@@ -2114,7 +2114,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パスワード</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>このパスワードは安全に保管してください。Windows のローカル アカウントのパスワード、Autopilot の資格情報とプロファイル、およびカスタム応答ファイルを保護します。</value>
+    <value>このパスワードは安全に保管してください。Windows のローカル アカウントのパスワード、ドメイン参加の資格情報、Autopilot の資格情報とプロファイル、およびカスタム応答ファイルを保護します。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>展開パスワード</value>
@@ -2528,7 +2528,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>メディアパスワードで保護された資格情報を使用して、ドメインに自動的に参加します。</value>
+    <value>展開パスワードで保護された資格情報を使用して、ドメインに自動的に参加します。</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>ゼロタッチ</value>
@@ -4179,7 +4179,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>メディアパスワードで保護された資格情報を使用して、ドメインに自動的に参加します。</value>
+    <value>展開パスワードで保護された資格情報を使用して、ドメインに自動的に参加します。</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>ゼロタッチドメイン参加</value>

@@ -1985,7 +1985,7 @@ Licencirano pod MIT licencom.</value>
     <value>Stavka OU je oštećena. Uklonite je i dodajte ponovo.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Omogućite zaštitu medijuma lozinkom na stranici „Opšte” i postavite lozinku medijuma.</value>
+    <value>Omogućite zaštitu lozinkom na stranici „Opšte” i postavite lozinku za primenu.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Svaka navedena OU mora pripadati svom domenu.</value>
@@ -2030,7 +2030,7 @@ Licencirano pod MIT licencom.</value>
     <value>Koristi deljeni nalog za pridruživanje</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
-    <value>Uvoz iz domena</value>
+    <value>Uvezi iz domena</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
     <value>Prikazuje OU izabranog domena, koristeći vaš Windows nalog. Izaberite one koje želite da dodate.</value>
@@ -2114,7 +2114,7 @@ Licencirano pod MIT licencom.</value>
     <value>Lozinka</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Čuvajte ovu lozinku na sigurnom. Ona štiti lozinke lokalnih Windows naloga, Autopilot akreditive i profile, kao i prilagođene datoteke odgovora.</value>
+    <value>Čuvajte ovu lozinku na sigurnom. Ona štiti lozinke lokalnih Windows naloga, akreditive za pridruživanje domenu, Autopilot akreditive i profile, kao i prilagođene datoteke odgovora.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Lozinka za primenu</value>
@@ -2528,7 +2528,7 @@ Licencirano pod MIT licencom.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Pridružite se domenu automatski pomoću akreditiva zaštićenih lozinkom medijuma.</value>
+    <value>Pridružite se domenu automatski pomoću akreditiva zaštićenih lozinkom za primenu.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,9 +4179,9 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Pridružite se domenu automatski pomoću akreditiva zaštićenih lozinkom medijuma.</value>
+    <value>Pridružite se domenu automatski pomoću akreditiva zaštićenih lozinkom za primenu.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Pridruživanje domenu bez intervencije</value>
+    <value>Zero-touch pridruživanje domenu</value>
   </data>
 </root>

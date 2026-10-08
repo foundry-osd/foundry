@@ -1985,7 +1985,7 @@ Licensierad under MIT-licensen.</value>
     <value>En OU-post är skadad. Ta bort den och lägg till den igen.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Aktivera lösenordsskydd för mediet på sidan ”Allmänt” och ange ett medielösenord.</value>
+    <value>Aktivera lösenordsskydd på sidan ”Allmänt” och ange distributionslösenordet.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Alla OU:er i listan måste tillhöra sin domän.</value>
@@ -2114,7 +2114,7 @@ Licensierad under MIT-licensen.</value>
     <value>Lösenord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Förvara detta lösenord säkert. Det skyddar lösenord för lokala Windows-konton, autentiseringsuppgifter och profiler för Autopilot samt egna svarsfiler.</value>
+    <value>Förvara detta lösenord säkert. Det skyddar lösenord för lokala Windows-konton, autentiseringsuppgifter för domänanslutning, autentiseringsuppgifter och profiler för Autopilot samt egna svarsfiler.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Distributionslösenord</value>
@@ -2528,7 +2528,7 @@ Licensierad under MIT-licensen.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Anslut till domänen automatiskt med autentiseringsuppgifter som skyddas av medielösenordet.</value>
+    <value>Anslut till domänen automatiskt med autentiseringsuppgifter som skyddas av distributionslösenordet.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,9 +4179,9 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Anslut till domänen automatiskt med autentiseringsuppgifter som skyddas av medielösenordet.</value>
+    <value>Anslut till domänen automatiskt med autentiseringsuppgifter som skyddas av distributionslösenordet.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Domänanslutning utan handpåläggning</value>
+    <value>Zero-touch-domänanslutning</value>
   </data>
 </root>

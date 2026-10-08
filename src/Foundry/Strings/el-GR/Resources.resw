@@ -1985,7 +1985,7 @@
     <value>Μια καταχώρηση OU είναι κατεστραμμένη. Καταργήστε την και προσθέστε την ξανά.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Ενεργοποιήστε την προστασία του μέσου με κωδικό πρόσβασης στη σελίδα «Γενικά» και ορίστε έναν κωδικό πρόσβασης μέσου.</value>
+    <value>Ενεργοποιήστε την προστασία με κωδικό πρόσβασης στη σελίδα «Γενικά» και ορίστε τον κωδικό πρόσβασης ανάπτυξης.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Κάθε OU της λίστας πρέπει να ανήκει στον τομέα της.</value>
@@ -2114,7 +2114,7 @@
     <value>Κωδικός πρόσβασης</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Φυλάξτε αυτόν τον κωδικό πρόσβασης με ασφάλεια. Προστατεύει τους κωδικούς πρόσβασης των τοπικών λογαριασμών Windows, τα διαπιστευτήρια και τα προφίλ Autopilot και τα προσαρμοσμένα αρχεία απαντήσεων.</value>
+    <value>Φυλάξτε αυτόν τον κωδικό πρόσβασης με ασφάλεια. Προστατεύει τους κωδικούς πρόσβασης των τοπικών λογαριασμών Windows, τα διαπιστευτήρια σύνδεσης σε τομέα, τα διαπιστευτήρια και τα προφίλ Autopilot και τα προσαρμοσμένα αρχεία απαντήσεων.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Κωδικός πρόσβασης ανάπτυξης</value>
@@ -2528,7 +2528,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Συνδεθείτε στον τομέα αυτόματα με διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης μέσου.</value>
+    <value>Συνδεθείτε στον τομέα αυτόματα με διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης ανάπτυξης.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,7 +4179,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Συνδεθείτε στον τομέα αυτόματα με διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης μέσου.</value>
+    <value>Συνδεθείτε στον τομέα αυτόματα με διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης ανάπτυξης.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Σύνδεση σε τομέα Zero-touch</value>

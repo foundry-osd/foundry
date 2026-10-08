@@ -1835,7 +1835,7 @@
     <value>文件無法開啟</value>
   </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
-    <value>加入帳戶</value>
+    <value>網域加入帳戶</value>
   </data>
   <data name="DomainJoin.ColumnDefault" xml:space="preserve">
     <value>預設</value>
@@ -1985,7 +1985,7 @@
     <value>某個 OU 項目已損毀。請將其移除，然後重新新增。</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>請在「一般」頁面啟用媒體密碼保護，並設定媒體密碼。</value>
+    <value>請在「一般」頁面啟用密碼保護，並設定部署密碼。</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>列出的每個 OU 都必須屬於其對應的網域。</value>
@@ -1997,7 +1997,7 @@
     <value>請以 DOMAIN\user 或 user@domain 格式輸入帳戶。</value>
   </data>
   <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
-    <value>請輸入共用加入帳戶，或為此網域指定自己的帳戶。</value>
+    <value>請輸入共用的網域加入帳戶，或為此網域指定自己的帳戶。</value>
   </data>
   <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
     <value>最多可列出 32 個網域。</value>
@@ -2027,7 +2027,7 @@
     <value>使用專用帳戶</value>
   </data>
   <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
-    <value>使用共用加入帳戶</value>
+    <value>使用共用的網域加入帳戶</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>從網域匯入</value>
@@ -2072,7 +2072,7 @@
     <value>供所有沒有自己帳戶的網域使用的帳戶。該帳戶需要有權將電腦加入網域，並將其移至您選取的 OU。</value>
   </data>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
-    <value>共用加入帳戶</value>
+    <value>共用的網域加入帳戶</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>受信任的根 CA 憑證文件</value>
@@ -2114,7 +2114,7 @@
     <value>密碼</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>請妥善保管此密碼。它用於保護本機 Windows 帳戶密碼、Autopilot 認證和設定檔，以及自訂回應檔案。</value>
+    <value>請妥善保管此密碼。它用於保護本機 Windows 帳戶密碼、網域加入認證、Autopilot 認證和設定檔，以及自訂回應檔案。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>部署密碼</value>
@@ -2528,7 +2528,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>使用受媒體密碼保護的認證自動加入網域。</value>
+    <value>使用受部署密碼保護的認證自動加入網域。</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,9 +4179,9 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>使用受媒體密碼保護的認證自動加入網域。</value>
+    <value>使用受部署密碼保護的認證自動加入網域。</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>零接觸網域加入</value>
+    <value>Zero-touch 網域加入</value>
   </data>
 </root>

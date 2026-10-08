@@ -370,7 +370,7 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
     <value>Geben Sie das Konto als DOMAIN\user oder user@domain ein.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
-    <value>Standardspeicherort der Domäne</value>
+    <value>Standardort der Domäne</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
     <value>Geben Sie die Angaben für den Domänenbeitritt dieses Computers ein. Der Beitritt erfolgt nach der Installation von Windows.</value>
@@ -394,7 +394,7 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
     <value>Distinguished Name der OU (optional)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Leer lassen, um den Standardspeicherort der Domäne zu verwenden.</value>
+    <value>Leer lassen, um den Standardort der Domäne zu verwenden.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Kennwort</value>

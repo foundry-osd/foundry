@@ -1985,7 +1985,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Wpis jednostki OU jest uszkodzony. Usuń go i dodaj ponownie.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Włącz ochronę nośnika hasłem na stronie Ogólne i ustaw hasło nośnika.</value>
+    <value>Włącz ochronę hasłem na stronie Ogólne i ustaw hasło wdrożenia.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Każda jednostka OU na liście musi należeć do swojej domeny.</value>
@@ -2114,7 +2114,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Hasło</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Przechowuj to hasło w bezpiecznym miejscu. Chroni ono hasła lokalnych kont systemu Windows, dane uwierzytelniające i profile Autopilot oraz niestandardowe pliki odpowiedzi.</value>
+    <value>Przechowuj to hasło w bezpiecznym miejscu. Chroni ono hasła lokalnych kont systemu Windows, poświadczenia dołączania do domeny, dane uwierzytelniające i profile Autopilot oraz niestandardowe pliki odpowiedzi.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Hasło wdrożenia</value>
@@ -2528,7 +2528,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Dołączaj do domeny automatycznie przy użyciu poświadczeń chronionych hasłem nośnika.</value>
+    <value>Dołączaj do domeny automatycznie przy użyciu poświadczeń chronionych hasłem wdrożenia.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,7 +4179,7 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Dołączaj do domeny automatycznie przy użyciu poświadczeń chronionych hasłem nośnika.</value>
+    <value>Dołączaj do domeny automatycznie przy użyciu poświadczeń chronionych hasłem wdrożenia.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Bezobsługowe dołączanie do domeny</value>

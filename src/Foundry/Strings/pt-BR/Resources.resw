@@ -1835,7 +1835,7 @@ Licenciado sob a licença MIT.</value>
     <value>Não foi possível abrir a documentação</value>
   </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
-    <value>Conta de associação</value>
+    <value>Conta de ingresso</value>
   </data>
   <data name="DomainJoin.ColumnDefault" xml:space="preserve">
     <value>Padrão</value>
@@ -1928,7 +1928,7 @@ Licenciado sob a licença MIT.</value>
     <value>Primeiro adicione um domínio; depois liste as OUs dele.</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
-    <value>A OU não foi adicionada. Verifique o nome de exibição e o nome distinto. A OU deve pertencer ao domínio selecionado.</value>
+    <value>A OU não foi adicionada. Verifique o nome de exibição e o nome diferenciado. A OU deve pertencer ao domínio selecionado.</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitsHeader" xml:space="preserve">
     <value>Unidades organizacionais</value>
@@ -1970,7 +1970,7 @@ Licenciado sob a licença MIT.</value>
     <value>A conta é longa demais ou inválida.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Uma OU tem um nome distinto inválido.</value>
+    <value>Uma OU tem um nome diferenciado inválido.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
     <value>Uma entrada de domínio está corrompida. Remova-a e adicione-a novamente.</value>
@@ -1985,7 +1985,7 @@ Licenciado sob a licença MIT.</value>
     <value>Uma entrada de OU está corrompida. Remova-a e adicione-a novamente.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Ative a proteção da mídia por senha na página Geral e defina uma senha da mídia.</value>
+    <value>Ative a proteção por senha na página Geral e defina a senha de implantação.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Cada OU listada deve pertencer ao seu domínio.</value>
@@ -1997,7 +1997,7 @@ Licenciado sob a licença MIT.</value>
     <value>Insira a conta como DOMAIN\user ou user@domain.</value>
   </data>
   <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
-    <value>Insira a conta de associação compartilhada ou atribua a este domínio uma conta própria.</value>
+    <value>Insira a conta de ingresso compartilhada ou atribua a este domínio uma conta própria.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
     <value>É possível listar até 32 domínios.</value>
@@ -2006,7 +2006,7 @@ Licenciado sob a licença MIT.</value>
     <value>É possível listar até 1.024 OUs.</value>
   </data>
   <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Este modo de associação ao domínio não é compatível.</value>
+    <value>Este modo de ingresso no domínio não é compatível.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Conta (DOMAIN\user ou user@domain)</value>
@@ -2027,7 +2027,7 @@ Licenciado sob a licença MIT.</value>
     <value>Usar uma conta dedicada</value>
   </data>
   <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
-    <value>Usar a conta de associação compartilhada</value>
+    <value>Usar a conta de ingresso compartilhada</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>Importar do domínio</value>
@@ -2039,7 +2039,7 @@ Licenciado sob a licença MIT.</value>
     <value>Importar OUs do domínio</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
-    <value>Domínios aos quais esta mídia pode associar computadores. Quando há vários listados, os técnicos escolhem um durante a implantação; o padrão vem pré-selecionado.</value>
+    <value>Domínios nos quais esta mídia pode ingressar computadores. Quando há vários listados, os técnicos escolhem um durante a implantação; o padrão vem pré-selecionado.</value>
   </data>
   <data name="DomainJoinDomains.Header" xml:space="preserve">
     <value>Domínios</value>
@@ -2048,13 +2048,13 @@ Licenciado sob a licença MIT.</value>
     <value>Adicionar OUs selecionadas</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
-    <value>Insira um nome de exibição e o nome distinto da OU. A OU deve pertencer ao domínio selecionado.</value>
+    <value>Insira um nome de exibição e o nome diferenciado da OU. A OU deve pertencer ao domínio selecionado.</value>
   </data>
   <data name="DomainJoinManualDestination.Header" xml:space="preserve">
     <value>Adicionar uma OU manualmente</value>
   </data>
   <data name="DomainJoinManualDn.Header" xml:space="preserve">
-    <value>Nome distinto</value>
+    <value>Nome diferenciado</value>
   </data>
   <data name="DomainJoinManualDn.PlaceholderText" xml:space="preserve">
     <value>OU=Workstations,DC=corp,DC=contoso,DC=com</value>
@@ -2069,10 +2069,10 @@ Licenciado sob a licença MIT.</value>
     <value>Senha</value>
   </data>
   <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
-    <value>Conta usada por todos os domínios que não têm uma conta própria. Ela precisa de permissão para associar computadores e movê-los para as OUs que você escolher.</value>
+    <value>Conta usada por todos os domínios que não têm uma conta própria. Ela precisa de permissão para ingressar computadores no domínio e movê-los para as OUs que você escolher.</value>
   </data>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
-    <value>Conta de associação compartilhada</value>
+    <value>Conta de ingresso compartilhada</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Arquivo de certificado de CA raiz confiável</value>
@@ -2114,7 +2114,7 @@ Licenciado sob a licença MIT.</value>
     <value>Senha</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Mantenha essa senha em segurança. Ela protege as senhas de contas locais do Windows, as credenciais e os perfis do Autopilot e os arquivos de resposta personalizados.</value>
+    <value>Mantenha essa senha em segurança. Ela protege as senhas de contas locais do Windows, as credenciais de ingresso no domínio, as credenciais e os perfis do Autopilot e os arquivos de resposta personalizados.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Senha de implantação</value>
@@ -2231,7 +2231,7 @@ Licenciado sob a licença MIT.</value>
     <value>Solicite ao técnico as credenciais de domínio durante a implantação.</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Associação interativa ao domínio</value>
+    <value>Ingresso interativo no domínio</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Árabe (Arábia Saudita)</value>
@@ -2438,7 +2438,7 @@ Licenciado sob a licença MIT.</value>
     <value>Documentação</value>
   </data>
   <data name="Nav_DomainJoinSection.Title" xml:space="preserve">
-    <value>Associação ao domínio</value>
+    <value>Ingresso no domínio</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
     <value>A conectividade padrão Ethernet está disponível por padrão. Configure esta seção somente se sua rede com fio exigir autenticação empresarial 802.1X.</value>
@@ -2528,7 +2528,7 @@ Licenciado sob a licença MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Associe ao domínio automaticamente usando credenciais protegidas pela senha da mídia.</value>
+    <value>Ingresse no domínio automaticamente usando credenciais protegidas pela senha de implantação.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,9 +4179,9 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Associe ao domínio automaticamente usando credenciais protegidas pela senha da mídia.</value>
+    <value>Ingresse no domínio automaticamente usando credenciais protegidas pela senha de implantação.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Associação ao domínio zero-touch</value>
+    <value>Ingresso zero-touch no domínio</value>
   </data>
 </root>

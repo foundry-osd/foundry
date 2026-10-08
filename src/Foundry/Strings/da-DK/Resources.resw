@@ -1985,7 +1985,7 @@ Licenseret under MIT-licensen.</value>
     <value>En OU-post er beskadiget. Fjern den, og tilføj den igen.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Aktivér adgangskodebeskyttelse af mediet på siden "Generelt", og angiv en medieadgangskode.</value>
+    <value>Aktivér adgangskodebeskyttelse på siden "Generelt", og angiv adgangskoden til installation.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Hver OU på listen skal tilhøre sit domæne.</value>
@@ -2114,7 +2114,7 @@ Licenseret under MIT-licensen.</value>
     <value>Adgangskode</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Opbevar denne adgangskode sikkert. Den beskytter adgangskoder til lokale Windows-konti, legitimationsoplysninger og profiler til Autopilot samt brugerdefinerede svarfiler.</value>
+    <value>Opbevar denne adgangskode sikkert. Den beskytter adgangskoder til lokale Windows-konti, legitimationsoplysninger til domænetilslutning, legitimationsoplysninger og profiler til Autopilot samt brugerdefinerede svarfiler.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Adgangskode til installation</value>
@@ -2528,7 +2528,7 @@ Licenseret under MIT-licensen.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Tilslut domænet automatisk med legitimationsoplysninger, der er beskyttet af medieadgangskoden.</value>
+    <value>Tilslut automatisk til domænet med legitimationsoplysninger, der er beskyttet af adgangskoden til installation.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,7 +4179,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Tilslut domænet automatisk med legitimationsoplysninger, der er beskyttet af medieadgangskoden.</value>
+    <value>Tilslut automatisk til domænet med legitimationsoplysninger, der er beskyttet af adgangskoden til installation.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touch-domænetilslutning</value>

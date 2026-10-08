@@ -1940,7 +1940,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinkite domeną, kad būtų pateiktas jo OU sąrašas.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
-    <value>Pasirinkti OU: {0} iš {1}</value>
+    <value>Pasirinkta OU: {0} iš {1}</value>
   </data>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Bendra</value>
@@ -1985,7 +1985,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>OU įrašas sugadintas. Pašalinkite jį ir pridėkite iš naujo.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Puslapyje „Bendra“ įjunkite laikmenos apsaugą slaptažodžiu ir nustatykite laikmenos slaptažodį.</value>
+    <value>Puslapyje „Bendra“ įjunkite apsaugą slaptažodžiu ir nustatykite diegimo slaptažodį.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Kiekvienas sąraše esantis OU turi priklausyti savo domenui.</value>
@@ -2114,7 +2114,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Slaptažodis</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Saugiai laikykite šį slaptažodį. Jis apsaugo vietinių „Windows“ paskyrų slaptažodžius, „Autopilot“ prisijungimo duomenis ir profilius bei pasirinktinius atsakymų failus.</value>
+    <value>Saugiai laikykite šį slaptažodį. Jis apsaugo vietinių „Windows“ paskyrų slaptažodžius, prisijungimo prie domeno duomenis, „Autopilot“ prisijungimo duomenis ir profilius bei pasirinktinius atsakymų failus.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Diegimo slaptažodis</value>
@@ -2528,7 +2528,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Prisijungti prie domeno automatiškai naudojant prisijungimo duomenis, apsaugotus laikmenos slaptažodžiu.</value>
+    <value>Prisijungti prie domeno automatiškai naudojant prisijungimo duomenis, apsaugotus diegimo slaptažodžiu.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,9 +4179,9 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Prisijungti prie domeno automatiškai naudojant prisijungimo duomenis, apsaugotus laikmenos slaptažodžiu.</value>
+    <value>Prisijungti prie domeno automatiškai naudojant prisijungimo duomenis, apsaugotus diegimo slaptažodžiu.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Prisijungimas prie domeno be įsikišimo</value>
+    <value>Zero-touch prisijungimas prie domeno</value>
   </data>
 </root>

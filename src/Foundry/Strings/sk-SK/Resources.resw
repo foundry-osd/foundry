@@ -1985,7 +1985,7 @@ Licencované podľa licencie MIT.</value>
     <value>Položka OU je poškodená. Odstráňte ju a pridajte znova.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Na stránke „Všeobecné“ zapnite ochranu média heslom a nastavte heslo média.</value>
+    <value>Na stránke „Všeobecné“ zapnite ochranu heslom a nastavte heslo nasadenia.</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>Každá uvedená OU musí patriť do svojej domény.</value>
@@ -2114,7 +2114,7 @@ Licencované podľa licencie MIT.</value>
     <value>Heslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Uchovávajte toto heslo v bezpečí. Chráni heslá lokálnych kont systému Windows, prihlasovacie údaje a profily Autopilot a vlastné súbory odpovedí.</value>
+    <value>Uchovávajte toto heslo v bezpečí. Chráni heslá lokálnych kont systému Windows, poverenia na pripojenie k doméne, prihlasovacie údaje a profily Autopilot a vlastné súbory odpovedí.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Heslo nasadenia</value>
@@ -2528,7 +2528,7 @@ Licencované podľa licencie MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>Pripojte sa k doméne automaticky pomocou poverení chránených heslom média.</value>
+    <value>Pripojte sa k doméne automaticky pomocou poverení chránených heslom nasadenia.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,9 +4179,9 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>Pripojte sa k doméne automaticky pomocou poverení chránených heslom média.</value>
+    <value>Pripojte sa k doméne automaticky pomocou poverení chránených heslom nasadenia.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Pripojenie k doméne bez zásahu</value>
+    <value>Zero-touch pripojenie k doméne</value>
   </data>
 </root>

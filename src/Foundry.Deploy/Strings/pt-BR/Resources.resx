@@ -373,13 +373,13 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
     <value>Local padrão do domínio</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Informe os dados de associação ao domínio para este computador. A associação ocorre depois que o Windows é instalado.</value>
+    <value>Informe os dados de ingresso no domínio para este computador. O ingresso ocorre depois que o Windows é instalado.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Unidade organizacional</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Insira um nome distinto de OU válido neste domínio ou deixe o campo vazio.</value>
+    <value>Insira um nome diferenciado de OU válido neste domínio ou deixe o campo vazio.</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Nome do domínio</value>
@@ -388,10 +388,10 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
     <value>Insira um nome de domínio válido, como corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>As informações de associação ao domínio estão ausentes ou são inválidas. A implantação não foi iniciada.</value>
+    <value>As informações de ingresso no domínio estão ausentes ou são inválidas. A implantação não foi iniciada.</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
-    <value>Nome distinto da OU (opcional)</value>
+    <value>Nome diferenciado da OU (opcional)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
     <value>Deixe vazio para usar o local padrão do domínio.</value>
@@ -400,10 +400,10 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
     <value>Senha</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
-    <value>Associação ao domínio</value>
+    <value>Ingresso no domínio</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Esta edição do Windows não pode ser associada a um domínio. A instalação do Windows continua sem a associação.</value>
+    <value>Esta edição do Windows não pode ingressar em um domínio. A instalação do Windows continua sem o ingresso.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

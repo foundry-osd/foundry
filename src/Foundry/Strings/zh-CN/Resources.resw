@@ -1835,7 +1835,7 @@
     <value>文档无法打开</value>
   </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
-    <value>加入账户</value>
+    <value>域加入账户</value>
   </data>
   <data name="DomainJoin.ColumnDefault" xml:space="preserve">
     <value>默认</value>
@@ -1859,7 +1859,7 @@
     <value>编辑</value>
   </data>
   <data name="DomainJoin.CommandRemove" xml:space="preserve">
-    <value>移除</value>
+    <value>删除</value>
   </data>
   <data name="DomainJoin.CommandSetDefault" xml:space="preserve">
     <value>设为默认</value>
@@ -1985,7 +1985,7 @@
     <value>某个 OU 条目已损坏。请将其删除，然后重新添加。</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>请在“常规”页面启用介质密码保护，并设置介质密码。</value>
+    <value>请在“常规”页面启用密码保护，并设置部署密码。</value>
   </data>
   <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
     <value>列出的每个 OU 都必须属于其对应的域。</value>
@@ -1997,7 +1997,7 @@
     <value>请以 DOMAIN\user 或 user@domain 格式输入账户。</value>
   </data>
   <data name="DomainJoin.Validation.SharedAccountRequired" xml:space="preserve">
-    <value>请输入共享加入账户，或为此域指定自己的账户。</value>
+    <value>请输入共享的域加入账户，或为此域指定自己的账户。</value>
   </data>
   <data name="DomainJoin.Validation.TooManyDomains" xml:space="preserve">
     <value>最多可列出 32 个域。</value>
@@ -2027,7 +2027,7 @@
     <value>使用专用账户</value>
   </data>
   <data name="DomainJoinDialogUseShared.Content" xml:space="preserve">
-    <value>使用共享加入账户</value>
+    <value>使用共享的域加入账户</value>
   </data>
   <data name="DomainJoinDiscover.Content" xml:space="preserve">
     <value>从域导入</value>
@@ -2072,7 +2072,7 @@
     <value>供所有没有自己账户的域使用的账户。该账户需要有权将计算机加入域，并将其移至您选择的 OU。</value>
   </data>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
-    <value>共享加入账户</value>
+    <value>共享的域加入账户</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>受信任的根 CA 证书文件</value>
@@ -2114,7 +2114,7 @@
     <value>密码</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>请妥善保管此密码。它用于保护本地 Windows 帐户密码、Autopilot 凭据和配置文件，以及自定义应答文件。</value>
+    <value>请妥善保管此密码。它用于保护本地 Windows 帐户密码、域加入凭据、Autopilot 凭据和配置文件，以及自定义应答文件。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>部署密码</value>
@@ -2528,7 +2528,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
-    <value>使用受介质密码保护的凭据自动加入域。</value>
+    <value>使用受部署密码保护的凭据自动加入域。</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -4179,9 +4179,9 @@
     <value>Wi-Fi</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Description" xml:space="preserve">
-    <value>使用受介质密码保护的凭据自动加入域。</value>
+    <value>使用受部署密码保护的凭据自动加入域。</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>零接触域加入</value>
+    <value>Zero-touch 域加入</value>
   </data>
 </root>
