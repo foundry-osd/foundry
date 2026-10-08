@@ -118,11 +118,18 @@ public static class BootMediaTelemetryPropertyBuilder
     private static void AddDomainJoinTelemetryProperties(IDictionary<string, object?> properties, DomainJoinSettings settings)
     {
         bool enabled = settings.IsEnabled;
-        int organizationalUnitCount = settings.OrganizationalUnits?.Count ?? 0;
+        IReadOnlyList<DomainJoinDomainSettings> domains = settings.Domains ?? [];
+        int organizationalUnitCount = domains.Sum(domain => domain.OrganizationalUnits?.Count ?? 0);
         properties["domain_join_enabled"] = enabled;
         properties["domain_join_mode"] = !enabled ? "disabled" : settings.Mode == DomainJoinMode.Automatic ? "zero_touch" : "interactive";
-        properties["domain_join_ou_count"] = enabled ? Math.Clamp(organizationalUnitCount, 0, DomainJoinConfigurationValidator.MaximumOrganizationalUnits) : 0;
-        properties["domain_join_default_ou_set"] = enabled && !string.IsNullOrWhiteSpace(settings.DefaultOuId);
+        properties["domain_join_domain_count"] = enabled ? Math.Clamp(domains.Count, 0, DomainJoinConfigurationValidator.MaximumDomains) : 0;
+        properties["domain_join_domain_selection_allowed"] = enabled && settings.AllowDomainSelectionDuringDeployment;
+        properties["domain_join_shared_account_used"] = enabled && settings.Mode == DomainJoinMode.Automatic &&
+            domains.Any(domain => string.IsNullOrWhiteSpace(domain.AccountName));
+        properties["domain_join_ou_count"] = enabled
+            ? Math.Clamp(organizationalUnitCount, 0, DomainJoinConfigurationValidator.MaximumDomains * DomainJoinConfigurationValidator.MaximumOrganizationalUnits)
+            : 0;
+        properties["domain_join_default_ou_set"] = enabled && domains.Any(domain => !string.IsNullOrWhiteSpace(domain.DefaultOuId));
         properties["domain_join_ou_selection_allowed"] = enabled && settings.AllowOuSelectionDuringDeployment;
     }
 

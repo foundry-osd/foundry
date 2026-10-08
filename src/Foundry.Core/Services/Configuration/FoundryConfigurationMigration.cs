@@ -30,14 +30,11 @@ public static class FoundryConfigurationMigration
     private const int SupportedOperatingSystemReleasesSchemaVersion = 17;
     private const int LegacyRandomLength = 6;
 
-    /// <summary>Migrates a machine-local authoring draft, allowing only a retained catalog/target domain mismatch awaiting repair.</summary>
+    /// <summary>Migrates a machine-local authoring draft; it follows the same rules as any other saved document.</summary>
     public static FoundryConfigurationDocument ApplyLocalAuthoringDraftSchemaMigrations(FoundryConfigurationDocument document) =>
-        ApplySchemaMigrations(document, allowCatalogDomainMismatch: true);
+        ApplySchemaMigrations(document);
 
-    public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document) =>
-        ApplySchemaMigrations(document, allowCatalogDomainMismatch: false);
-
-    private static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document, bool allowCatalogDomainMismatch)
+    public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
 
@@ -49,10 +46,7 @@ public static class FoundryConfigurationMigration
         migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
         migrated = migrated with { DomainJoin = migrated.DomainJoin ?? new DomainJoinSettings() };
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(migrated.Autopilot, migrated.DomainJoin);
-        DomainJoinValidationResult metadata = DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin);
-        // A disabled mode cannot reach media, so its retained catalog may await repair without blocking saves.
-        bool toleratesCatalogDomainMismatch = allowCatalogDomainMismatch || !migrated.DomainJoin.IsEnabled;
-        if (metadata.Issues.Any(issue => !toleratesCatalogDomainMismatch || issue.Code != DomainJoinValidationCode.CatalogDomainMismatch))
+        if (!DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin).IsValid)
         {
             throw new InvalidOperationException("Domain join metadata is invalid.");
         }

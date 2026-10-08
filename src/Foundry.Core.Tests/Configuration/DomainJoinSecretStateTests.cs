@@ -79,8 +79,8 @@ public sealed class DomainJoinSecretStateTests
     {
         using var state = new DomainJoinSecretState();
         state.SetPassword("CORP\\join", "shared");
-        DomainJoinSettings settings = ZeroTouch("CORP\\join", new() { Id = "a", DomainName = "corp.test", AccountName = "LAB\\join" },
-            new() { Id = "b", DomainName = "emea.test" });
+        DomainJoinSettings settings = ZeroTouch("CORP\\join", new DomainJoinDomainSettings { Id = "a", DomainName = "corp.test", AccountName = "LAB\\join" },
+            new DomainJoinDomainSettings { Id = "b", DomainName = "emea.test" });
         Assert.False(state.Update(settings));
         Assert.True(state.HasPassword("CORP\\join"));
     }
@@ -91,7 +91,7 @@ public sealed class DomainJoinSecretStateTests
         using var state = new DomainJoinSecretState();
         state.SetPassword("CORP\\join", "shared");
         state.SetPassword("LAB\\join", "dedicated");
-        Assert.True(state.Update(ZeroTouch("CORP\\join", new() { Id = "a", DomainName = "corp.test" })));
+        Assert.True(state.Update(ZeroTouch("CORP\\join", new DomainJoinDomainSettings { Id = "a", DomainName = "corp.test" })));
         Assert.True(state.HasPassword("CORP\\join"));
         Assert.False(state.HasPassword("LAB\\join"));
         Assert.Null(state.GetPasswordCopy("LAB\\join"));
@@ -104,7 +104,7 @@ public sealed class DomainJoinSecretStateTests
     {
         using var state = new DomainJoinSecretState();
         state.SetPassword(Account, "password");
-        Assert.True(state.Update(ZeroTouch(Account, new() { Id = "a", DomainName = "example.com" }) with { IsEnabled = enabled, Mode = mode }));
+        Assert.True(state.Update(ZeroTouch(Account, new DomainJoinDomainSettings { Id = "a", DomainName = "example.com" }) with { IsEnabled = enabled, Mode = mode }));
         Assert.False(state.HasPassword(Account));
         Assert.Empty(state.AccountNames);
     }

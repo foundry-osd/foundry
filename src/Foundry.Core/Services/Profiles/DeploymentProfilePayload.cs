@@ -200,7 +200,8 @@ internal static class DeploymentProfilePayload
         ValidateList(configuration.OperatingSystemSelection.AllowedEditions);
         ValidateList(configuration.Autopilot.HardwareHashUpload.KnownGroupTags);
         ValidateList(configuration.Autopilot.Profiles);
-        ValidateList(configuration.DomainJoin.OrganizationalUnits);
+        ValidateList(configuration.DomainJoin.Domains);
+        foreach (DomainJoinDomainSettings domain in configuration.DomainJoin.Domains) ValidateList(domain.OrganizationalUnits);
         ValidateList(configuration.Unattend.Files);
         var ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var folders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);

@@ -736,11 +736,11 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     }
 
     [Theory]
-    [InlineData(false, DomainJoinMode.Automatic, "disabled", 0, false, false)]
-    [InlineData(true, DomainJoinMode.Automatic, "zero_touch", 2, true, true)]
-    [InlineData(true, DomainJoinMode.Interactive, "interactive", 2, true, true)]
-    public void Build_ReportsDomainJoinUsageWithoutDirectoryNames(
-        bool enabled, DomainJoinMode mode, string expectedMode, int expectedCount, bool expectedDefault, bool expectedSelection)
+    [InlineData(false, DomainJoinMode.Automatic, "disabled", 0, 0, false, false, false)]
+    [InlineData(true, DomainJoinMode.Automatic, "zero_touch", 2, 3, true, true, true)]
+    [InlineData(true, DomainJoinMode.Interactive, "interactive", 2, 3, true, true, false)]
+    public void Build_ReportsDomainJoinUsageWithoutDirectoryNames(bool enabled, DomainJoinMode mode, string expectedMode,
+        int expectedDomains, int expectedOus, bool expectedDefaultOu, bool expectedChoice, bool expectedSharedAccount)
     {
         var document = new FoundryConfigurationDocument
         {
@@ -748,15 +748,31 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             {
                 IsEnabled = enabled,
                 Mode = mode,
-                DomainName = "private.example.test",
-                AccountName = @"PRIVATE\joiner",
-                OrganizationalUnits =
+                SharedAccountName = @"PRIVATE\joiner",
+                DefaultDomainId = "one",
+                AllowDomainSelectionDuringDeployment = true,
+                AllowOuSelectionDuringDeployment = true,
+                Domains =
                 [
-                    new() { Id = "ou-1", DisplayName = "PrivateOne", DistinguishedName = "OU=PrivateOne,DC=private,DC=example,DC=test" },
-                    new() { Id = "ou-2", DisplayName = "PrivateTwo", DistinguishedName = "OU=PrivateTwo,DC=private,DC=example,DC=test" }
-                ],
-                DefaultOuId = "ou-1",
-                AllowOuSelectionDuringDeployment = true
+                    new()
+                    {
+                        Id = "one",
+                        DomainName = "private.example.test",
+                        DefaultOuId = "ou-1",
+                        OrganizationalUnits =
+                        [
+                            new() { Id = "ou-1", DisplayName = "PrivateOne", DistinguishedName = "OU=PrivateOne,DC=private,DC=example,DC=test" },
+                            new() { Id = "ou-2", DisplayName = "PrivateTwo", DistinguishedName = "OU=PrivateTwo,DC=private,DC=example,DC=test" }
+                        ]
+                    },
+                    new()
+                    {
+                        Id = "two",
+                        DomainName = "private2.example.test",
+                        AccountName = @"PRIVATE2\joiner",
+                        OrganizationalUnits = [new() { Id = "ou-3", DisplayName = "PrivateThree", DistinguishedName = "OU=PrivateThree,DC=private2,DC=example,DC=test" }]
+                    }
+                ]
             }
         };
 
@@ -773,9 +789,12 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
 
         Assert.Equal(enabled, result["domain_join_enabled"]);
         Assert.Equal(expectedMode, result["domain_join_mode"]);
-        Assert.Equal(expectedCount, result["domain_join_ou_count"]);
-        Assert.Equal(expectedDefault, result["domain_join_default_ou_set"]);
-        Assert.Equal(expectedSelection, result["domain_join_ou_selection_allowed"]);
+        Assert.Equal(expectedDomains, result["domain_join_domain_count"]);
+        Assert.Equal(expectedOus, result["domain_join_ou_count"]);
+        Assert.Equal(expectedDefaultOu, result["domain_join_default_ou_set"]);
+        Assert.Equal(expectedChoice, result["domain_join_ou_selection_allowed"]);
+        Assert.Equal(expectedChoice, result["domain_join_domain_selection_allowed"]);
+        Assert.Equal(expectedSharedAccount, result["domain_join_shared_account_used"]);
         Assert.DoesNotContain(result.Values, value => value is string text && text.Contains("private", StringComparison.OrdinalIgnoreCase));
     }
 
