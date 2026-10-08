@@ -1320,6 +1320,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     /// BCDBoot does not reliably create the firmware entry when <c>/s</c> is used, so the device can return to the
     /// deployment media or a network boot option after the restart. Firmware may reject these writes; the boot files
     /// are already in place, so every failure is logged and the deployment continues.
+    /// <para>
+    /// BCDEdit reaches the firmware only through the system store. GPT boot media carries its own EFI system
+    /// partition, so BCDEdit sees two candidates and opens neither until the system store device is set to the
+    /// target partition. That selection lasts until the restart and must precede every other command.
+    /// </para>
     /// </remarks>
     private async Task PrioritizeWindowsBootManagerAsync(
         string systemPartitionRoot,
@@ -1335,6 +1340,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         ];
 
         _logger.LogInformation("Prioritizing Windows Boot Manager in the firmware boot order. SystemPartition={SystemPartition}", systemPartition);
+
+        // BCDEdit documents this command for an ambiguous system store only, so a rejection on a device with a
+        // single EFI system partition is not a failure: the commands below decide the outcome.
+        await TryRunFirmwareBootCommandAsync(["/sysstore", systemPartition], workingDirectory, cancellationToken, failureLevel: LogLevel.Debug).ConfigureAwait(false);
 
         bool succeeded = true;
         foreach (string[] arguments in commands)
@@ -1359,7 +1368,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string[] arguments,
         string workingDirectory,
         CancellationToken cancellationToken,
-        bool logOutput = false)
+        bool logOutput = false,
+        LogLevel failureLevel = LogLevel.Warning)
     {
         string commandLine = string.Join(' ', arguments);
         try
@@ -1370,7 +1380,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
             if (!execution.IsSuccess)
             {
-                _logger.LogWarning("Firmware boot command failed. Command={Command}, Diagnostic={Diagnostic}", commandLine, execution.ToDiagnosticText());
+                _logger.Log(failureLevel, "Firmware boot command failed. Command={Command}, Diagnostic={Diagnostic}", commandLine, execution.ToDiagnosticText());
                 return false;
             }
 
@@ -1383,7 +1393,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            _logger.LogWarning(ex, "Firmware boot command could not be started. Command={Command}", commandLine);
+            _logger.Log(failureLevel, ex, "Firmware boot command could not be started. Command={Command}", commandLine);
             return false;
         }
     }
