@@ -399,9 +399,6 @@ ErrorCode=0x80070005
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Пароль</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Домен: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Приєднання до домену</value>
   </data>

@@ -399,9 +399,6 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parool</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domeen: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domeeniga liitumine</value>
   </data>

@@ -399,9 +399,6 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Passord</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domene: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domenetilknytning</value>
   </data>

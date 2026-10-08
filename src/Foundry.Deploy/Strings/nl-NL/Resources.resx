@@ -399,9 +399,6 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Wachtwoord</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domein: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domeintoetreding</value>
   </data>

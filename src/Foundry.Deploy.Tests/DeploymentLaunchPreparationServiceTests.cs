@@ -79,6 +79,8 @@ public sealed class DeploymentLaunchPreparationServiceTests
         Assert.Equal(1, shell.ConfirmationCallCount);
         Assert.Equal(new DomainJoinDeploymentIntent("corp.test", "LAB-01", null), result.Context!.DomainJoinIntent);
         Assert.Equal(DomainJoinDeploymentDisposition.Ready, result.Context.DomainJoinRequest!.Disposition);
+        // The erase confirmation is about the disk and the image; the join is reviewed on the summary page.
+        Assert.DoesNotContain("corp.test", shell.LastConfirmationMessage);
         string json = JsonSerializer.Serialize(result.Context);
         Assert.DoesNotContain("CORP", json);
         Assert.DoesNotContain("secret", json);

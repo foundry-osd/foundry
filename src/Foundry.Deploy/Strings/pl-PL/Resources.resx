@@ -399,9 +399,6 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domena: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Dołączanie do domeny</value>
   </data>

@@ -399,9 +399,6 @@ ErrorCode=0x80070005
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>סיסמה</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>תחום: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>הצטרפות לתחום</value>
   </data>

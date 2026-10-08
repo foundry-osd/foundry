@@ -399,9 +399,6 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parolă</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domeniu: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Asociere la domeniu</value>
   </data>

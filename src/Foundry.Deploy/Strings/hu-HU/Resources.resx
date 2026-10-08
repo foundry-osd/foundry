@@ -399,9 +399,6 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Jelszó</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Tartomány: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Tartományhoz csatlakozás</value>
   </data>

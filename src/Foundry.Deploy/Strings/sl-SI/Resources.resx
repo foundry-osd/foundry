@@ -399,9 +399,6 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Geslo</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domena: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pridružitev domeni</value>
   </data>

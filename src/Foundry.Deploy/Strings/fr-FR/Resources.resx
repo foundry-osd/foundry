@@ -399,9 +399,6 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Mot de passe</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domaine : {0}. OU : {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Jonction au domaine</value>
   </data>

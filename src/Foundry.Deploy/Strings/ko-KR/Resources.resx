@@ -399,9 +399,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>암호</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>도메인: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>도메인 가입</value>
   </data>

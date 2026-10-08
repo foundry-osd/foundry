@@ -152,7 +152,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             };
         }
 
-        if (!request.IsDryRun && !ConfirmDestructiveDeployment(effectiveTargetDisk, request.SelectedOperatingSystem, request, hasCustomCommands, domainRequest, domainIntent))
+        if (!request.IsDryRun && !ConfirmDestructiveDeployment(effectiveTargetDisk, request.SelectedOperatingSystem, request, hasCustomCommands, domainRequest))
         {
             return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
@@ -218,10 +218,9 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
     /// <param name="request">Effective customization and answer-file ownership shown in the confirmation.</param>
     /// <param name="hasCustomCommands">Whether preserved commands require an overlap warning.</param>
     /// <param name="domainRequest">Secret-free disposition, including any intentional edition skip.</param>
-    /// <param name="domainIntent">Frozen domain and OU shown in the final review.</param>
     /// <returns><see langword="true"/> when the user confirms the destructive operation.</returns>
     private bool ConfirmDestructiveDeployment(TargetDiskInfo targetDisk, OperatingSystemMetadata operatingSystem, DeploymentLaunchRequest request, bool hasCustomCommands,
-        DomainJoinDeploymentRequest? domainRequest, DomainJoinDeploymentIntent? domainIntent)
+        DomainJoinDeploymentRequest? domainRequest)
     {
         string sizeGiB = targetDisk.SizeBytes > 0
             ? $"{(targetDisk.SizeBytes / 1024d / 1024d / 1024d):0.0} GiB"
@@ -245,11 +244,9 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
                 message += Environment.NewLine + LocalizationText.GetString("Unattend.HashWarning");
         }
 
+        // The domain and OU are reviewed on the summary page; only the edition warning belongs to this confirmation.
         if (domainRequest?.Disposition == DomainJoinDeploymentDisposition.UnsupportedEdition)
             message += Environment.NewLine + LocalizationText.GetString("DomainJoin.UnsupportedEdition");
-        if (domainIntent is not null)
-            message += Environment.NewLine + LocalizationText.Format("DomainJoin.ReviewFormat", domainIntent.DomainName,
-                domainIntent.TargetOuDn ?? LocalizationText.GetString("DomainJoin.DefaultDestination"));
         return _applicationShellService.ConfirmWarning(LocalizationText.GetString("Launch.ConfirmDiskEraseTitle"), message);
     }
 }

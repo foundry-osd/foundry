@@ -399,9 +399,6 @@
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>密码</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>域：{0}。OU：{1}。</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>域加入</value>
   </data>

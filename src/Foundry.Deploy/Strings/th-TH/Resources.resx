@@ -399,9 +399,6 @@
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>รหัสผ่าน</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>โดเมน: {0} OU: {1}</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>การเข้าร่วมโดเมน</value>
   </data>

@@ -399,9 +399,6 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Heslo</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Doména: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Připojení k doméně</value>
   </data>

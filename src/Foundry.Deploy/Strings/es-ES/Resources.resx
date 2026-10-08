@@ -399,9 +399,6 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Contraseña</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Dominio: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Unión al dominio</value>
   </data>

@@ -399,9 +399,6 @@ Action: Verify disk attributes and retry deployment.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domain: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domain join</value>
   </data>

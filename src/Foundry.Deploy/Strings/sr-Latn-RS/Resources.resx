@@ -399,9 +399,6 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Lozinka</value>
   </data>
-  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
-    <value>Domen: {0}. OU: {1}.</value>
-  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pridruživanje domenu</value>
   </data>
