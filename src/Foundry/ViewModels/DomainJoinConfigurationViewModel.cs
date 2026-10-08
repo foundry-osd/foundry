@@ -12,36 +12,39 @@ using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
-/// <summary>Shares domain metadata, volatile credentials and the OU list, with its add and import dialogs, across both authoring pages.</summary>
+/// <summary>
+/// Shares the list of joinable domains, their OUs and the volatile join account passwords across both authoring
+/// pages. The OU list always shows the domain selected in the domain list.
+/// </summary>
 public sealed partial class DomainJoinConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IFoundryConfigurationStateService configuration;
     private readonly IDomainJoinSecretStateService secrets;
     private readonly IDeploymentProtectionSecretStateService protectionSecrets;
     private readonly IAuthoringDomainOuDiscoveryService discovery;
-    private readonly IDomainJoinOuDialogService ouDialogs;
+    private readonly IDomainJoinDialogService domainDialogs;
     private readonly IDialogService dialogs;
     private readonly IApplicationLocalizationService localization;
-    private readonly List<DomainJoinOrganizationalUnitEntryViewModel> selectedListedRows = [];
-    private IReadOnlyList<DomainJoinValidationCode> issues = [];
+    private readonly List<DomainJoinOrganizationalUnitEntryViewModel> selectedOuRows = [];
+    private IReadOnlyList<DomainJoinValidationIssue> issues = [];
     private CancellationTokenSource? discoveryCancellation;
     private DomainJoinSettings? appliedSettings;
     private DomainJoinMode pageMode;
     private bool applying;
     private bool disposed;
-    private bool credentialInputInvalid;
+    private bool sharedCredentialInputInvalid;
     private long discoveryRevision;
     private string? statusKey;
 
     public DomainJoinConfigurationViewModel(IFoundryConfigurationStateService configuration,
         IDomainJoinSecretStateService secrets, IDeploymentProtectionSecretStateService protectionSecrets, IAuthoringDomainOuDiscoveryService discovery,
-        IDomainJoinOuDialogService ouDialogs, IDialogService dialogs, IApplicationLocalizationService localization)
+        IDomainJoinDialogService domainDialogs, IDialogService dialogs, IApplicationLocalizationService localization)
     {
-        this.ouDialogs = ouDialogs;
         this.configuration = configuration;
         this.secrets = secrets;
         this.protectionSecrets = protectionSecrets;
         this.discovery = discovery;
+        this.domainDialogs = domainDialogs;
         this.dialogs = dialogs;
         this.localization = localization;
         configuration.StateChanged += OnStateChanged;
@@ -52,68 +55,85 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     }
 
     /// <summary>
-    /// Raised before listed rows are removed. The table must drop its selection first: removing selected rows one
+    /// Raised before listed rows are removed. A table must drop its selection first: removing selected rows one
     /// by one makes it scroll to a row that no longer exists.
     /// </summary>
+    public event EventHandler? DomainRowsRemoving;
+
+    /// <inheritdoc cref="DomainRowsRemoving"/>
     public event EventHandler? OrganizationalUnitRowsRemoving;
 
-    /// <summary>Gets the saved OUs; a domain search changes this collection only through the import dialog.</summary>
+    public ObservableCollection<DomainJoinDomainEntryViewModel> Domains { get; } = [];
+
+    /// <summary>Gets the OUs of <see cref="SelectedDomain"/>; a domain search changes them only through the import dialog.</summary>
     public ObservableCollection<DomainJoinOrganizationalUnitEntryViewModel> OrganizationalUnits { get; } = [];
+
     public bool IsActive => configuration.Current.DomainJoin.IsEnabled && configuration.Current.DomainJoin.Mode == pageMode;
+    public bool IsZeroTouch => pageMode == DomainJoinMode.Automatic;
     public string ActionText => localization.GetString(IsActive ? "Common.Disable" : "Common.Enable");
     public string DocumentationUrl => pageMode == DomainJoinMode.Interactive
         ? FoundryApplicationInfo.InteractiveDomainJoinDocumentationUrl : FoundryApplicationInfo.ZeroTouchDomainJoinDocumentationUrl;
 
+    public string DomainColumnHeader => Text("ColumnDomain");
+    public string AccountColumnHeader => Text("ColumnAccount");
+    public string OuCountColumnHeader => Text("ColumnOuCount");
+    public string DefaultColumnHeader => Text("ColumnDefault");
+    public string StatusColumnHeader => Text("ColumnStatus");
     public string LabelColumnHeader => localization.GetString("DomainJoinManualLabel.Header");
     public string DistinguishedNameColumnHeader => localization.GetString("DomainJoinManualDn.Header");
-    public string RemoveSelectedText => Text("RemoveSelected");
-    public string EmptyListText => Text("EmptyCatalog");
+    public string EmptyDomainsText => Text("EmptyDomains");
+    public string EmptyOrganizationalUnitsText => Text(HasSelectedDomain ? "EmptyCatalog" : "SelectDomainFirst");
+
     /// <summary>Gets the import button label; the same button cancels a running domain search.</summary>
     public string ImportButtonText => localization.GetString(IsDiscovering ? "DomainJoinCancel.Content" : "DomainJoinDiscover.Content");
-    public Visibility ListVisibility => ToVisibility(OrganizationalUnits.Count > 0);
-    public Visibility EmptyListVisibility => ToVisibility(OrganizationalUnits.Count == 0);
 
-    public string DomainValidationMessage => GetIssueText(IsDomainIssue);
-    public Visibility DomainValidationVisibility => ToVisibility(DomainValidationMessage.Length > 0);
-    public string CredentialsValidationMessage => credentialInputInvalid ? Text("CredentialInputInvalid") : GetIssueText(IsCredentialIssue);
-    public Visibility CredentialsValidationVisibility => ToVisibility(CredentialsValidationMessage.Length > 0);
-    public string OrganizationalUnitsValidationMessage => GetIssueText(code => !IsDomainIssue(code) && !IsCredentialIssue(code));
+    public bool HasSelectedDomain => SelectedDomain is not null;
+    public string OrganizationalUnitsHeader => SelectedDomain is { } domain
+        ? localization.FormatString("DomainJoin.OrganizationalUnitsOfFormat", domain.DomainName)
+        : localization.GetString("DomainJoinCatalog.Header");
+    public Visibility DomainListVisibility => ToVisibility(Domains.Count > 0);
+    public Visibility EmptyDomainsVisibility => ToVisibility(Domains.Count == 0);
+    public Visibility OrganizationalUnitListVisibility => ToVisibility(OrganizationalUnits.Count > 0);
+    public Visibility EmptyOrganizationalUnitsVisibility => ToVisibility(OrganizationalUnits.Count == 0);
+
+    public string SharedAccountValidationMessage => sharedCredentialInputInvalid ? Text("CredentialInputInvalid") : GetSharedAccountIssueText();
+    public Visibility SharedAccountValidationVisibility => ToVisibility(SharedAccountValidationMessage.Length > 0);
+    public string DomainsValidationMessage => GetIssueText(issue => issue.DomainId is null && IsDomainListIssue(issue.Code));
+    public Visibility DomainsValidationVisibility => ToVisibility(DomainsValidationMessage.Length > 0);
+    public string OrganizationalUnitsValidationMessage => SelectedDomain is { } domain
+        ? GetIssueText(issue => string.Equals(issue.DomainId, domain.Id, StringComparison.OrdinalIgnoreCase) && IsOrganizationalUnitIssue(issue.Code))
+        : string.Empty;
     public Visibility OrganizationalUnitsValidationVisibility => ToVisibility(OrganizationalUnitsValidationMessage.Length > 0);
-    /// <summary>Gets the progress or outcome of the last domain search, shown beside the OU actions.</summary>
+
+    /// <summary>Gets the progress or outcome of the last domain search, shown beside the OU commands.</summary>
     public string StatusText => statusKey is null ? string.Empty : Text(statusKey);
     public Visibility StatusVisibility => ToVisibility(statusKey is not null);
     public Visibility DiscoveringVisibility => ToVisibility(IsDiscovering);
 
-    /// <summary>
-    /// Gets or sets whether a default OU applies. Turning it on preselects the first listed OU so the choice is
-    /// saved immediately; turning it off returns to the domain's default location.
-    /// </summary>
-    public bool UseDefaultOu
-    {
-        get => SelectedDefaultOu is not null;
-        set
-        {
-            if (value != UseDefaultOu) SelectedDefaultOu = value ? OrganizationalUnits.FirstOrDefault() : null;
-            // Also reverts the switch when no OU exists to select.
-            OnPropertyChanged();
-        }
-    }
-    public bool CanUseDefaultOu => OrganizationalUnits.Count > 0;
-
-    private bool CanRemoveSelected => selectedListedRows.Count > 0;
+    private bool CanEditDomain => SelectedDomain is not null;
+    private bool CanSetDefaultDomain => SelectedDomain is { } domain &&
+        !string.Equals(configuration.Current.DomainJoin.DefaultDomainId, domain.Id, StringComparison.OrdinalIgnoreCase);
+    private bool CanRemoveSelectedOrganizationalUnits => selectedOuRows.Count > 0;
+    private bool CanSetDefaultOrganizationalUnit => SelectedDomain is { } domain && selectedOuRows.Count == 1 &&
+        !string.Equals(domain.Settings.DefaultOuId, selectedOuRows[0].Settings.Id, StringComparison.OrdinalIgnoreCase);
+    private bool CanClearDefaultOrganizationalUnit => SelectedDomain?.Settings.DefaultOuId is not null;
 
     [ObservableProperty]
-    public partial string DomainName { get; set; } = string.Empty;
+    public partial DomainJoinDomainEntryViewModel? SelectedDomain { get; set; }
+
+    /// <summary>Gets or sets the account used by every domain that has no account of its own.</summary>
     [ObservableProperty]
-    public partial string AccountName { get; set; } = string.Empty;
-    /// <summary>Lets the technician pick an OU from the saved list during deployment.</summary>
+    public partial string SharedAccountName { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial bool AllowDomainSelectionDuringDeployment { get; set; }
+
     [ObservableProperty]
     public partial bool AllowOuSelectionDuringDeployment { get; set; }
-    /// <summary>Gets or sets the optional default OU, identified by its stable saved id rather than a search row.</summary>
-    [ObservableProperty]
-    public partial DomainJoinOrganizationalUnitEntryViewModel? SelectedDefaultOu { get; set; }
+
     [ObservableProperty]
     public partial bool IsDiscovering { get; set; }
+
     /// <summary>Invalidates PasswordBox content when volatile secret ownership or profile state changes.</summary>
     [ObservableProperty]
     public partial int SecretStateVersion { get; set; }
@@ -122,6 +142,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public void SetPageMode(DomainJoinMode mode)
     {
         pageMode = mode;
+        OnPropertyChanged(nameof(IsZeroTouch));
         RefreshPresentation();
     }
 
@@ -148,70 +169,152 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             baseline.DomainJoin with { IsEnabled = decision.Next == requested, Mode = pageMode });
     }
 
-    /// <summary>Copies matching live credentials for PasswordBox synchronization; the caller clears the buffer.</summary>
-    public char[]? GetPasswordCopy() => IsActive && pageMode == DomainJoinMode.Automatic ? secrets.GetPasswordCopy(Context()) : null;
+    /// <summary>Copies the shared account's password for PasswordBox synchronization; the caller clears the buffer.</summary>
+    public char[]? GetSharedPasswordCopy() => IsActive && IsZeroTouch && SharedAccountName.Trim() is { Length: > 0 } account
+        ? secrets.GetPasswordCopy(account) : null;
 
-    /// <summary>Stores only a context-bound owned password; incomplete identities cannot own a secret.</summary>
-    public void SetPassword(ReadOnlySpan<char> password)
+    /// <summary>Stores the shared account's password; an account that is not qualified cannot own one.</summary>
+    public void SetSharedPassword(ReadOnlySpan<char> password)
     {
-        if (!IsActive || pageMode != DomainJoinMode.Automatic) return;
+        if (!IsActive || !IsZeroTouch) return;
         try
         {
-            secrets.SetPassword(Context(), password);
-            SetCredentialInputInvalid(false);
+            secrets.SetPassword(SharedAccountName.Trim(), password);
+            SetSharedCredentialInputInvalid(false);
         }
         catch (Exception exception) when (exception is ArgumentException or InvalidDataException)
         {
-            secrets.Clear();
-            SetCredentialInputInvalid(true);
+            // An empty box on an account that cannot own a password is not an error worth showing.
+            SetSharedCredentialInputInvalid(!password.IsEmpty);
         }
     }
 
     [RelayCommand]
-    private Task AddOrganizationalUnitAsync() => ouDialogs.ShowAddAsync(TryAddOrganizationalUnit);
+    private Task AddDomainAsync() => domainDialogs.ShowDomainAsync(
+        new(IsNew: true, AsksForAccount: IsZeroTouch, CanRename: true, DomainName: string.Empty, AccountName: null),
+        input => TrySaveDomain(null, input));
 
-    /// <summary>Adds one typed OU; returns the reason shown in the dialog when the entry is refused.</summary>
-    private string? TryAddOrganizationalUnit(string displayName, string distinguishedName)
+    [RelayCommand(CanExecute = nameof(CanEditDomain))]
+    private Task EditDomainAsync()
+    {
+        if (SelectedDomain is not { } row) return Task.CompletedTask;
+        DomainJoinDomainSettings domain = row.Settings;
+        return domainDialogs.ShowDomainAsync(
+            new(IsNew: false, AsksForAccount: IsZeroTouch, CanRename: domain.OrganizationalUnits.Count == 0, domain.DomainName, domain.AccountName),
+            input => TrySaveDomain(domain.Id, input));
+    }
+
+    /// <summary>Adds or updates a domain; returns the reason shown in the dialog when the entry is refused.</summary>
+    private string? TrySaveDomain(string? domainId, DomainJoinDomainDialogInput input)
     {
         if (disposed) return null;
+        DomainJoinSettings current = configuration.Current.DomainJoin;
+        string? account = IsZeroTouch && !input.UsesSharedAccount ? input.AccountName.Trim() : null;
+        if (account is not null && !DomainJoinConfigurationValidator.IsQualifiedAccount(account))
+            return Text("Validation." + DomainJoinValidationCode.QualifiedAccountRequired);
+        if (account is not null && !input.Password.IsEmpty)
+        {
+            try { DomainJoinCredentialPayloadCodec.ValidatePassword(input.Password.Span); }
+            catch (InvalidDataException) { return Text("CredentialInputInvalid"); }
+        }
+
+        try
+        {
+            Save(domainId is null
+                ? DomainJoinDomainCatalog.Add(current, input.DomainName, account)
+                : DomainJoinDomainCatalog.Update(current, domainId, input.DomainName, account));
+        }
+        catch (ArgumentException) { return Text(GetDomainFailureKey(current, domainId, input.DomainName)); }
+
+        // An empty password box keeps the password the account already owns.
+        if (account is not null && !input.Password.IsEmpty) secrets.SetPassword(account, input.Password.Span);
+        if (domainId is null) SelectedDomain = Domains.LastOrDefault();
+        return null;
+    }
+
+    private static string GetDomainFailureKey(DomainJoinSettings current, string? domainId, string domainName)
+    {
+        string name = (domainName ?? string.Empty).Trim();
+        if (!DomainJoinCredentialContext.IsValidDomainName(name)) return "Validation." + DomainJoinValidationCode.InvalidDomainName;
+        string canonical = DomainJoinCredentialContext.CanonicalizeDomainName(name);
+        if (current.Domains.Any(domain => !string.Equals(domain.Id, domainId, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(DomainJoinCredentialContext.CanonicalizeDomainName(domain.DomainName), canonical, StringComparison.Ordinal)))
+            return "Validation." + DomainJoinValidationCode.DuplicateDomainName;
+        if (domainId is null && current.Domains.Count >= DomainJoinConfigurationValidator.MaximumDomains)
+            return "Validation." + DomainJoinValidationCode.TooManyDomains;
+        return domainId is not null && current.FindDomain(domainId) is { OrganizationalUnits.Count: > 0 } ? "DomainRenameBlocked" : "DomainInputInvalid";
+    }
+
+    /// <summary>Removes the selected domain together with its OUs.</summary>
+    [RelayCommand(CanExecute = nameof(CanEditDomain))]
+    private void RemoveDomain()
+    {
+        if (SelectedDomain is { } row) Save(DomainJoinDomainCatalog.Remove(configuration.Current.DomainJoin, row.Id));
+    }
+
+    [RelayCommand(CanExecute = nameof(CanSetDefaultDomain))]
+    private void SetDefaultDomain()
+    {
+        if (SelectedDomain is { } row) Save(DomainJoinDomainCatalog.SetDefault(configuration.Current.DomainJoin, row.Id));
+    }
+
+    [RelayCommand(CanExecute = nameof(CanEditDomain))]
+    private Task AddOrganizationalUnitAsync() => domainDialogs.ShowAddAsync(TryAddOrganizationalUnit);
+
+    /// <summary>Adds one typed OU to the selected domain; returns the reason shown in the dialog when it is refused.</summary>
+    private string? TryAddOrganizationalUnit(string displayName, string distinguishedName)
+    {
+        if (disposed || SelectedDomain is not { } row) return null;
         DomainJoinSettings current = configuration.Current.DomainJoin;
         var unit = new DomainJoinOrganizationalUnitSettings
         { Id = Guid.NewGuid().ToString("D"), DisplayName = displayName.Trim(), DistinguishedName = distinguishedName.Trim() };
         DomainJoinOrganizationalUnitSettings[] added = [unit];
         try
         {
-            Save(DomainJoinOrganizationalUnitCatalog.Merge(current, current.DomainName ?? string.Empty, added));
+            Save(DomainJoinOrganizationalUnitCatalog.Merge(current, row.Id, added));
             return null;
         }
-        catch (ArgumentException) { return Text(GetMergeFailureKey(current, added, "CatalogInputInvalid")); }
+        catch (ArgumentException) { return Text(GetMergeFailureKey(row.Settings, added, "CatalogInputInvalid")); }
     }
 
-    /// <summary>Tracks the saved-OU table selection that <see cref="RemoveSelectedCommand"/> acts on.</summary>
-    public void ReplaceSelectedListedRows(IEnumerable<DomainJoinOrganizationalUnitEntryViewModel> rows)
+    /// <summary>Tracks the OU table selection that the OU commands act on.</summary>
+    public void ReplaceSelectedOrganizationalUnits(IEnumerable<DomainJoinOrganizationalUnitEntryViewModel> rows)
     {
-        selectedListedRows.Clear();
-        selectedListedRows.AddRange(rows);
-        RemoveSelectedCommand.NotifyCanExecuteChanged();
+        selectedOuRows.Clear();
+        selectedOuRows.AddRange(rows);
+        NotifyOrganizationalUnitCommands();
     }
 
-
-    /// <summary>Removes the selected saved OUs and a default among them, keeping the others.</summary>
-    [RelayCommand(CanExecute = nameof(CanRemoveSelected))]
-    private void RemoveSelected()
+    /// <summary>Removes the selected OUs of the selected domain, and its default when it is among them.</summary>
+    [RelayCommand(CanExecute = nameof(CanRemoveSelectedOrganizationalUnits))]
+    private void RemoveSelectedOrganizationalUnits()
     {
+        if (SelectedDomain is not { } row) return;
         DomainJoinSettings settings = configuration.Current.DomainJoin;
-        foreach (DomainJoinOrganizationalUnitEntryViewModel row in selectedListedRows)
+        foreach (DomainJoinOrganizationalUnitEntryViewModel unit in selectedOuRows)
         {
-            settings = DomainJoinOrganizationalUnitCatalog.Remove(settings, row.Settings.Id);
+            settings = DomainJoinOrganizationalUnitCatalog.Remove(settings, row.Id, unit.Settings.Id);
         }
 
         Save(settings);
     }
 
+    [RelayCommand(CanExecute = nameof(CanSetDefaultOrganizationalUnit))]
+    private void SetDefaultOrganizationalUnit()
+    {
+        if (SelectedDomain is { } row && selectedOuRows.Count == 1)
+            Save(DomainJoinOrganizationalUnitCatalog.SetDefault(configuration.Current.DomainJoin, row.Id, selectedOuRows[0].Settings.Id));
+    }
+
+    [RelayCommand(CanExecute = nameof(CanClearDefaultOrganizationalUnit))]
+    private void ClearDefaultOrganizationalUnit()
+    {
+        if (SelectedDomain is { } row) Save(DomainJoinOrganizationalUnitCatalog.SetDefault(configuration.Current.DomainJoin, row.Id, null));
+    }
 
     /// <summary>
-    /// Searches the authoring computer's domain, then lets the user pick the OUs to add. Invoked again while the
-    /// search runs, it cancels that search instead.
+    /// Searches the selected domain, then lets the user pick the OUs to add. Invoked again while the search runs,
+    /// it cancels that search instead.
     /// </summary>
     [RelayCommand(AllowConcurrentExecutions = true)]
     private async Task ImportFromDomainAsync()
@@ -223,8 +326,10 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             return;
         }
 
+        if (SelectedDomain is not { } row) return;
+        string domainId = row.Id;
         DomainJoinSettings baseline = configuration.Current.DomainJoin;
-        DomainOuDiscoveryResult? result = await SearchDomainAsync(baseline);
+        DomainOuDiscoveryResult? result = await SearchDomainAsync(baseline, row.DomainName);
         if (result is null) return;
         string? failureKey = result.Status switch
         {
@@ -234,22 +339,22 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         };
         // OUs already listed are left out of the picker; selecting them again would add nothing.
         IReadOnlyList<DomainJoinOrganizationalUnitSettings> candidates = failureKey is null
-            ? DomainJoinOrganizationalUnitCatalog.ExcludeListed(baseline, result.Candidates)
+            ? DomainJoinOrganizationalUnitCatalog.ExcludeListed(row.Settings, result.Candidates)
             : [];
         if (failureKey is null && candidates.Count == 0) failureKey = "DiscoveryNothingNew";
         SetStatus(failureKey);
         if (failureKey is not null) return;
 
         IReadOnlyList<DomainJoinOrganizationalUnitSettings>? selected =
-            await ouDialogs.PickAsync(candidates, result.Status == DomainOuDiscoveryStatus.Incomplete);
+            await domainDialogs.PickAsync(candidates, result.Status == DomainOuDiscoveryStatus.Incomplete);
         // The settings can change while the dialog is open, for example through profile synchronization.
         if (selected is null || selected.Count == 0 || disposed || !ReferenceEquals(baseline, configuration.Current.DomainJoin)) return;
-        try { Save(DomainJoinOrganizationalUnitCatalog.Merge(baseline, result.ComputerDomain ?? string.Empty, selected)); }
-        catch (ArgumentException) { SetStatus(GetMergeFailureKey(baseline, selected, "ImportDomainMismatch")); }
+        try { Save(DomainJoinOrganizationalUnitCatalog.Merge(baseline, domainId, selected)); }
+        catch (ArgumentException) { SetStatus(GetMergeFailureKey(row.Settings, selected, "ImportDomainMismatch")); }
     }
 
     /// <summary>Runs one search; returns null when it was canceled, superseded or made stale by a settings change.</summary>
-    private async Task<DomainOuDiscoveryResult?> SearchDomainAsync(DomainJoinSettings baseline)
+    private async Task<DomainOuDiscoveryResult?> SearchDomainAsync(DomainJoinSettings baseline, string domainName)
     {
         long revision = ++discoveryRevision;
         var cancellation = new CancellationTokenSource();
@@ -258,7 +363,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         SetStatus("Discovering");
         try
         {
-            DomainOuDiscoveryResult result = await discovery.DiscoverAsync(cancellation.Token);
+            DomainOuDiscoveryResult result = await discovery.DiscoverAsync(domainName, cancellation.Token);
             return !disposed && revision == discoveryRevision && ReferenceEquals(baseline, configuration.Current.DomainJoin) ? result : null;
         }
         finally
@@ -283,11 +388,11 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     }
 
     /// <summary>Names the specific reason a merge was refused, falling back to the caller's general message.</summary>
-    private static string GetMergeFailureKey(DomainJoinSettings current, IReadOnlyList<DomainJoinOrganizationalUnitSettings> added, string fallbackKey)
+    private static string GetMergeFailureKey(DomainJoinDomainSettings domain, IReadOnlyList<DomainJoinOrganizationalUnitSettings> added, string fallbackKey)
     {
-        if (current.OrganizationalUnits.Count + added.Count > DomainJoinConfigurationValidator.MaximumOrganizationalUnits)
+        if (domain.OrganizationalUnits.Count + added.Count > DomainJoinConfigurationValidator.MaximumOrganizationalUnits)
             return "Validation." + DomainJoinValidationCode.TooManyOrganizationalUnits;
-        bool reusesListedId = added.Any(unit => current.OrganizationalUnits.Any(listed =>
+        bool reusesListedId = added.Any(unit => domain.OrganizationalUnits.Any(listed =>
             string.Equals(listed.Id, unit.Id, StringComparison.OrdinalIgnoreCase) &&
             !string.Equals(listed.DistinguishedName, unit.DistinguishedName, StringComparison.OrdinalIgnoreCase)));
         return reusesListedId ? "Validation." + DomainJoinValidationCode.DuplicateOuId : fallbackKey;
@@ -299,55 +404,80 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         OnPropertyChanged(nameof(DiscoveringVisibility));
     }
 
-    partial void OnDomainNameChanged(string value)
+    partial void OnSelectedDomainChanged(DomainJoinDomainEntryViewModel? value)
     {
         if (applying) return;
-        DomainJoinSettings current = configuration.Current.DomainJoin;
-        bool domainChanged = DomainJoinCredentialContext.CanonicalizeDomainName(current.DomainName) != DomainJoinCredentialContext.CanonicalizeDomainName(value);
-        Save(current with
-        {
-            DomainName = value,
-            DefaultOuId = domainChanged ? null : current.DefaultOuId,
-            AllowOuSelectionDuringDeployment = !domainChanged && current.AllowOuSelectionDuringDeployment
-        });
+        // A search and its outcome describe the domain that was selected when it started.
+        StopDiscovery();
+        SynchronizeOrganizationalUnits();
+        RefreshPresentation();
     }
-    partial void OnAccountNameChanged(string value) { if (!applying) Save(configuration.Current.DomainJoin with { AccountName = value }); }
+
+    partial void OnSharedAccountNameChanged(string value)
+    {
+        if (applying) return;
+        string trimmed = value.Trim();
+        Save(configuration.Current.DomainJoin with { SharedAccountName = trimmed.Length == 0 ? null : trimmed });
+    }
+
+    partial void OnAllowDomainSelectionDuringDeploymentChanged(bool value)
+    {
+        if (!applying) Save(configuration.Current.DomainJoin with { AllowDomainSelectionDuringDeployment = value });
+    }
+
     partial void OnAllowOuSelectionDuringDeploymentChanged(bool value)
     {
-        if (!applying) Save(configuration.Current.DomainJoin with { AllowOuSelectionDuringDeployment = OrganizationalUnits.Count > 0 && value });
+        if (!applying) Save(configuration.Current.DomainJoin with { AllowOuSelectionDuringDeployment = value });
     }
-    partial void OnSelectedDefaultOuChanged(DomainJoinOrganizationalUnitEntryViewModel? value)
-    {
-        OnPropertyChanged(nameof(UseDefaultOu));
-        if (!applying) Save(configuration.Current.DomainJoin with { DefaultOuId = value?.Settings.Id });
-    }
-    private DomainJoinCredentialContext Context() => new(configuration.Current.DomainJoin.DomainName ?? string.Empty, configuration.Current.DomainJoin.AccountName ?? string.Empty);
+
     private void Save(DomainJoinSettings settings) => configuration.UpdateDomainJoin(settings);
     private string Text(string key) => localization.GetString("DomainJoin." + key);
     private static Visibility ToVisibility(bool isVisible) => isVisible ? Visibility.Visible : Visibility.Collapsed;
-    private static bool IsDomainIssue(DomainJoinValidationCode code) =>
-        code is DomainJoinValidationCode.InvalidDomainName or DomainJoinValidationCode.DomainNameRequired;
-    private static bool IsCredentialIssue(DomainJoinValidationCode code) =>
-        code is DomainJoinValidationCode.InvalidAccountName or DomainJoinValidationCode.AccountNameRequired or
-            DomainJoinValidationCode.QualifiedAccountRequired or DomainJoinValidationCode.PasswordRequired or
-            DomainJoinValidationCode.MediaProtectionRequired;
 
-    /// <summary>Returns the first blocking issue owned by one card, so each message sits beside the input that fixes it.</summary>
-    private string GetIssueText(Func<DomainJoinValidationCode, bool> ownsIssue)
+    private static bool IsDomainListIssue(DomainJoinValidationCode code) =>
+        code is DomainJoinValidationCode.DomainsRequired or DomainJoinValidationCode.TooManyDomains or DomainJoinValidationCode.DefaultDomainMissing or
+            DomainJoinValidationCode.InvalidDomainId or DomainJoinValidationCode.DuplicateDomainId;
+
+    private static bool IsOrganizationalUnitIssue(DomainJoinValidationCode code) =>
+        code is DomainJoinValidationCode.TooManyOrganizationalUnits or DomainJoinValidationCode.InvalidOuId or DomainJoinValidationCode.InvalidOuDisplayName or
+            DomainJoinValidationCode.InvalidDistinguishedName or DomainJoinValidationCode.DuplicateOuId or DomainJoinValidationCode.DuplicateDistinguishedName or
+            DomainJoinValidationCode.OuOutsideDomain or DomainJoinValidationCode.DefaultOuMissing;
+
+    private string GetIssueText(Func<DomainJoinValidationIssue, bool> ownsIssue)
     {
-        foreach (DomainJoinValidationCode code in issues)
+        foreach (DomainJoinValidationIssue issue in issues)
         {
-            if (ownsIssue(code)) return Text("Validation." + code);
+            if (ownsIssue(issue)) return Text("Validation." + issue.Code);
         }
 
         return string.Empty;
     }
 
-    private void SetCredentialInputInvalid(bool value)
+    /// <summary>
+    /// Returns what the shared account card must fix: media protection, or an account problem reported by a domain
+    /// that relies on the shared account. Problems of dedicated accounts stay in that domain's row.
+    /// </summary>
+    private string GetSharedAccountIssueText()
     {
-        credentialInputInvalid = value;
-        OnPropertyChanged(nameof(CredentialsValidationMessage));
-        OnPropertyChanged(nameof(CredentialsValidationVisibility));
+        DomainJoinSettings current = configuration.Current.DomainJoin;
+        foreach (DomainJoinValidationIssue issue in issues)
+        {
+            if (issue.DomainId is null && issue.Code is DomainJoinValidationCode.MediaProtectionRequired or DomainJoinValidationCode.InvalidAccountName)
+                return Text("Validation." + issue.Code);
+            bool usesSharedAccount = current.FindDomain(issue.DomainId) is { } domain && string.IsNullOrWhiteSpace(domain.AccountName);
+            if (usesSharedAccount && issue.Code is DomainJoinValidationCode.SharedAccountRequired or DomainJoinValidationCode.QualifiedAccountRequired or
+                DomainJoinValidationCode.PasswordRequired)
+                return Text("Validation." + issue.Code);
+        }
+
+        return string.Empty;
+    }
+
+    private void SetSharedCredentialInputInvalid(bool value)
+    {
+        sharedCredentialInputInvalid = value;
+        OnPropertyChanged(nameof(SharedAccountValidationMessage));
+        OnPropertyChanged(nameof(SharedAccountValidationVisibility));
     }
 
     private void SetStatus(string? key)
@@ -359,7 +489,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
 
     /// <summary>
     /// Rebuilds the page only when the Domain Join settings themselves changed. Unrelated configuration changes
-    /// reuse the same settings instance and must not discard a running search or the table selection.
+    /// reuse the same settings instance and must not discard a running search or the table selections.
     /// </summary>
     private void OnStateChanged(object? sender, EventArgs args)
     {
@@ -375,20 +505,24 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
 
     private void OnSecretsChanged(object? sender, EventArgs args)
     {
-        credentialInputInvalid = false;
+        sharedCredentialInputInvalid = false;
         SecretStateVersion++;
-        RefreshValidation();
+        RefreshPresentation();
     }
 
-    private void OnProtectionSecretsChanged(object? sender, EventArgs args) => RefreshValidation();
+    private void OnProtectionSecretsChanged(object? sender, EventArgs args) => RefreshPresentation();
+
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs args)
     {
-        OnPropertyChanged(nameof(LabelColumnHeader));
-        OnPropertyChanged(nameof(DistinguishedNameColumnHeader));
-        OnPropertyChanged(nameof(RemoveSelectedText));
-        OnPropertyChanged(nameof(EmptyListText));
-        OnPropertyChanged(nameof(ImportButtonText));
-        OnPropertyChanged(nameof(StatusText));
+        foreach (string property in new[]
+        {
+            nameof(DomainColumnHeader), nameof(AccountColumnHeader), nameof(OuCountColumnHeader), nameof(DefaultColumnHeader), nameof(StatusColumnHeader),
+            nameof(LabelColumnHeader), nameof(DistinguishedNameColumnHeader), nameof(EmptyDomainsText), nameof(ImportButtonText), nameof(StatusText)
+        })
+        {
+            OnPropertyChanged(property);
+        }
+
         RefreshPresentation();
     }
 
@@ -399,14 +533,15 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         {
             DomainJoinSettings settings = configuration.Current.DomainJoin;
             appliedSettings = settings;
-            // The password box is emptied below, so an earlier rejected entry no longer describes what is shown.
-            credentialInputInvalid = false;
-            DomainName = settings.DomainName ?? string.Empty;
-            AccountName = settings.AccountName ?? string.Empty;
+            // The password box is refilled below, so an earlier rejected entry no longer describes what is shown.
+            sharedCredentialInputInvalid = false;
+            SharedAccountName = settings.SharedAccountName ?? string.Empty;
+            AllowDomainSelectionDuringDeployment = settings.AllowDomainSelectionDuringDeployment;
             AllowOuSelectionDuringDeployment = settings.AllowOuSelectionDuringDeployment;
-            SynchronizeOrganizationalUnits(settings.OrganizationalUnits);
-            selectedListedRows.RemoveAll(row => !OrganizationalUnits.Contains(row));
-            SelectedDefaultOu = OrganizationalUnits.FirstOrDefault(row => string.Equals(row.Settings.Id, settings.DefaultOuId, StringComparison.OrdinalIgnoreCase));
+            SynchronizeDomains(settings);
+            if (SelectedDomain is null || !Domains.Contains(SelectedDomain))
+                SelectedDomain = Domains.FirstOrDefault(row => string.Equals(row.Id, settings.DefaultDomainId, StringComparison.OrdinalIgnoreCase)) ?? Domains.FirstOrDefault();
+            SynchronizeOrganizationalUnits();
         }
         finally { applying = false; }
         SecretStateVersion++;
@@ -414,11 +549,44 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     }
 
     /// <summary>
-    /// Aligns the rows with the saved OUs while keeping the row of every unchanged OU. Rebuilding the collection
-    /// would reset the default OU box, which then shows nothing although a default is still selected.
+    /// Aligns the domain rows with the saved domains while keeping the row of every domain that still exists, so
+    /// the selection survives a save.
     /// </summary>
-    private void SynchronizeOrganizationalUnits(IReadOnlyList<DomainJoinOrganizationalUnitSettings> units)
+    private void SynchronizeDomains(DomainJoinSettings settings)
     {
+        IReadOnlyList<DomainJoinDomainSettings> domains = settings.Domains;
+        if (Domains.Any(row => settings.FindDomain(row.Id) is null)) DomainRowsRemoving?.Invoke(this, EventArgs.Empty);
+        for (int index = Domains.Count - 1; index >= 0; index--)
+        {
+            if (settings.FindDomain(Domains[index].Id) is null) Domains.RemoveAt(index);
+        }
+
+        for (int index = 0; index < domains.Count; index++)
+        {
+            if (index < Domains.Count && SameId(Domains[index], domains[index])) continue;
+            int existing = -1;
+            for (int candidate = index + 1; candidate < Domains.Count && existing < 0; candidate++)
+            {
+                if (SameId(Domains[candidate], domains[index])) existing = candidate;
+            }
+
+            if (existing >= 0) Domains.Move(existing, index);
+            else Domains.Insert(index, new(domains[index]));
+        }
+
+        for (int index = 0; index < domains.Count; index++) Domains[index].Settings = domains[index];
+
+        static bool SameId(DomainJoinDomainEntryViewModel row, DomainJoinDomainSettings domain) =>
+            string.Equals(row.Id, domain.Id, StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// Aligns the OU rows with the selected domain's OUs while keeping the row of every unchanged OU, so the table
+    /// selection survives a save.
+    /// </summary>
+    private void SynchronizeOrganizationalUnits()
+    {
+        IReadOnlyList<DomainJoinOrganizationalUnitSettings> units = SelectedDomain?.Settings.OrganizationalUnits ?? [];
         if (OrganizationalUnits.Any(row => !units.Contains(row.Settings))) OrganizationalUnitRowsRemoving?.Invoke(this, EventArgs.Empty);
         for (int index = OrganizationalUnits.Count - 1; index >= 0; index--)
         {
@@ -437,21 +605,35 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             if (existing >= 0) OrganizationalUnits.Move(existing, index);
             else OrganizationalUnits.Insert(index, new(units[index]));
         }
+
+        selectedOuRows.RemoveAll(row => !OrganizationalUnits.Contains(row));
     }
 
     /// <summary>Recomputes readiness issues; an inactive mode reports none because its inputs are disabled.</summary>
     private void RefreshValidation()
     {
+        DomainJoinSettings current = configuration.Current.DomainJoin;
         issues = IsActive
-            ? DomainJoinConfigurationValidator.EvaluateReadiness(configuration.Current.DomainJoin, secrets.HasPassword(Context()),
-                configuration.Current.General.DeploymentProtection.IsEnabled && protectionSecrets.IsValid).Issues.Select(issue => issue.Code).ToArray()
+            ? DomainJoinConfigurationValidator.EvaluateReadiness(current, secrets.HasPassword,
+                configuration.Current.General.DeploymentProtection.IsEnabled && protectionSecrets.IsValid).Issues
             : [];
-        OnPropertyChanged(nameof(DomainValidationMessage));
-        OnPropertyChanged(nameof(DomainValidationVisibility));
-        OnPropertyChanged(nameof(CredentialsValidationMessage));
-        OnPropertyChanged(nameof(CredentialsValidationVisibility));
-        OnPropertyChanged(nameof(OrganizationalUnitsValidationMessage));
-        OnPropertyChanged(nameof(OrganizationalUnitsValidationVisibility));
+        string sharedText = Text("SharedAccount");
+        string defaultText = Text("DefaultMarker");
+        string readyText = Text("DomainReady");
+        foreach (DomainJoinDomainEntryViewModel row in Domains)
+        {
+            DomainJoinValidationIssue? issue = issues.FirstOrDefault(candidate => string.Equals(candidate.DomainId, row.Id, StringComparison.OrdinalIgnoreCase));
+            row.AccountText = string.IsNullOrWhiteSpace(row.Settings.AccountName) ? sharedText : row.Settings.AccountName;
+            row.DefaultText = string.Equals(current.DefaultDomainId, row.Id, StringComparison.OrdinalIgnoreCase) ? defaultText : string.Empty;
+            row.IsReady = issue is null;
+            row.StatusText = issue is null ? readyText : Text("Validation." + issue.Code);
+        }
+
+        string? defaultOuId = SelectedDomain?.Settings.DefaultOuId;
+        foreach (DomainJoinOrganizationalUnitEntryViewModel row in OrganizationalUnits)
+        {
+            row.DefaultText = string.Equals(defaultOuId, row.Settings.Id, StringComparison.OrdinalIgnoreCase) ? defaultText : string.Empty;
+        }
     }
 
     private void RefreshPresentation()
@@ -459,13 +641,30 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         // Disposal can follow application shutdown, when the shared secret services are already disposed.
         if (disposed) return;
         RefreshValidation();
-        OnPropertyChanged(nameof(IsActive));
-        OnPropertyChanged(nameof(ActionText));
-        OnPropertyChanged(nameof(DocumentationUrl));
-        OnPropertyChanged(nameof(ListVisibility));
-        OnPropertyChanged(nameof(EmptyListVisibility));
-        OnPropertyChanged(nameof(CanUseDefaultOu));
-        RemoveSelectedCommand.NotifyCanExecuteChanged();
+        foreach (string property in new[]
+        {
+            nameof(IsActive), nameof(ActionText), nameof(DocumentationUrl), nameof(HasSelectedDomain), nameof(OrganizationalUnitsHeader),
+            nameof(EmptyOrganizationalUnitsText), nameof(DomainListVisibility), nameof(EmptyDomainsVisibility), nameof(OrganizationalUnitListVisibility),
+            nameof(EmptyOrganizationalUnitsVisibility), nameof(SharedAccountValidationMessage), nameof(SharedAccountValidationVisibility),
+            nameof(DomainsValidationMessage), nameof(DomainsValidationVisibility), nameof(OrganizationalUnitsValidationMessage),
+            nameof(OrganizationalUnitsValidationVisibility)
+        })
+        {
+            OnPropertyChanged(property);
+        }
+
+        EditDomainCommand.NotifyCanExecuteChanged();
+        RemoveDomainCommand.NotifyCanExecuteChanged();
+        SetDefaultDomainCommand.NotifyCanExecuteChanged();
+        AddOrganizationalUnitCommand.NotifyCanExecuteChanged();
+        NotifyOrganizationalUnitCommands();
+    }
+
+    private void NotifyOrganizationalUnitCommands()
+    {
+        RemoveSelectedOrganizationalUnitsCommand.NotifyCanExecuteChanged();
+        SetDefaultOrganizationalUnitCommand.NotifyCanExecuteChanged();
+        ClearDefaultOrganizationalUnitCommand.NotifyCanExecuteChanged();
     }
 
     /// <summary>Discards search work and subscriptions without clearing credentials owned by the active profile session.</summary>

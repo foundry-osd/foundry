@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.DomainJoinDomainDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    CloseButtonStyle="{ThemeResource DefaultButtonStyle}"
+    CornerRadius="{ThemeResource OverlayCornerRadius}"
+    DefaultButton="Primary"
+    PrimaryButtonClick="OnPrimaryButtonClick"
+    PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <StackPanel
+        Width="{ThemeResource FoundryWideInputMinWidth}"
+        Spacing="{ThemeResource FoundryContentGroupSpacing}">
+        <TextBox x:Name="DomainNameBox"
+            x:Uid="DomainJoinDialogDomainName"
+            MaxLength="253" />
+        <TextBlock x:Name="RenameHintTextBlock"
+            Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+            TextWrapping="WrapWholeWords"
+            Visibility="Collapsed" />
+        <StackPanel x:Name="AccountPanel"
+            Spacing="{ThemeResource FoundryContentGroupSpacing}">
+            <RadioButtons x:Name="AccountChoice"
+                SelectionChanged="OnAccountChoiceChanged">
+                <RadioButton x:Uid="DomainJoinDialogUseShared" />
+                <RadioButton x:Uid="DomainJoinDialogUseDedicated" />
+            </RadioButtons>
+            <StackPanel x:Name="DedicatedPanel"
+                Spacing="{ThemeResource FoundryContentGroupSpacing}">
+                <TextBox x:Name="AccountBox"
+                    x:Uid="DomainJoinAccount"
+                    MaxLength="512" />
+                <PasswordBox x:Name="PasswordBox"
+                    x:Uid="DomainJoinPassword"
+                    MaxLength="2560" />
+                <TextBlock x:Name="PasswordHintTextBlock"
+                    Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                    TextWrapping="WrapWholeWords" />
+            </StackPanel>
+        </StackPanel>
+        <TextBlock x:Name="ValidationTextBlock"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            TextWrapping="WrapWholeWords"
+            Visibility="Collapsed" />
+    </StackPanel>
+</ContentDialog>

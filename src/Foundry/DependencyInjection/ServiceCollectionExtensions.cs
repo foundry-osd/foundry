@@ -170,7 +170,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<NetworkConfigurationViewModel>();
         services.AddTransient<AutopilotConfigurationViewModel>();
         services.AddSingleton<Foundry.Services.DomainJoin.IAuthoringDomainOuDiscoveryService, Foundry.Services.DomainJoin.AuthoringDomainOuDiscoveryService>();
-        services.AddSingleton<Foundry.Services.DomainJoin.IDomainJoinOuDialogService, Foundry.Services.DomainJoin.DomainJoinOuDialogService>();
+        services.AddSingleton<Foundry.Services.DomainJoin.IDomainJoinDialogService, Foundry.Services.DomainJoin.DomainJoinDialogService>();
         services.AddTransient<DomainJoinConfigurationViewModel>();
         services.AddTransient<CustomizationConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();

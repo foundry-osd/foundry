@@ -7,8 +7,20 @@ using Foundry.Services.Localization;
 
 namespace Foundry.Services.DomainJoin;
 
-public sealed class DomainJoinOuDialogService(IApplicationLocalizationService localization) : IDomainJoinOuDialogService
+public sealed class DomainJoinDialogService(IApplicationLocalizationService localization) : IDomainJoinDialogService
 {
+    public async Task ShowDomainAsync(DomainJoinDomainDialogRequest request, Func<DomainJoinDomainDialogInput, string?> trySave)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        ArgumentNullException.ThrowIfNull(trySave);
+
+        var dialog = new DomainJoinDomainDialog(localization, request, trySave)
+        {
+            XamlRoot = App.MainWindow.Content.XamlRoot
+        };
+        await dialog.ShowAsync();
+    }
+
     public async Task ShowAddAsync(Func<string, string, string?> tryAdd)
     {
         ArgumentNullException.ThrowIfNull(tryAdd);
