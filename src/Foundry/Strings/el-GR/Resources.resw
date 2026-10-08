@@ -1945,20 +1945,8 @@
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Κοινόχρηστος</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Επιλέξτε έναν προεπιλεγμένο τομέα.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Η προεπιλεγμένη OU δεν υπάρχει πλέον στη λίστα. Επιλέξτε άλλη ή εκκαθαρίστε την προεπιλογή.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Προσθέστε τουλάχιστον έναν τομέα.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Η ίδια OU εμφανίζεται στη λίστα περισσότερες από μία φορές.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Δύο τομείς έχουν το ίδιο εσωτερικό αναγνωριστικό. Καταργήστε τον έναν και προσθέστε τον ξανά.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Αυτός ο τομέας υπάρχει ήδη στη λίστα.</value>
@@ -1966,29 +1954,14 @@
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Δύο OU έχουν το ίδιο εσωτερικό αναγνωριστικό. Καταργήστε τη μία και προσθέστε την ξανά.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Ο λογαριασμός είναι πολύ μεγάλος ή δεν είναι έγκυρος.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Το διακεκριμένο όνομα μιας OU δεν είναι έγκυρο.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Μια καταχώρηση τομέα είναι κατεστραμμένη. Καταργήστε την και προσθέστε την ξανά.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Εισαγάγετε ένα έγκυρο όνομα τομέα, όπως corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Κάθε OU χρειάζεται εμφανιζόμενο όνομα με έως 120 χαρακτήρες.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Μια καταχώρηση OU είναι κατεστραμμένη. Καταργήστε την και προσθέστε την ξανά.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Ενεργοποιήστε την προστασία με κωδικό πρόσβασης στη σελίδα «Γενικά» και ορίστε τον κωδικό πρόσβασης ανάπτυξης.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Κάθε OU της λίστας πρέπει να ανήκει στον τομέα της.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Εισαγάγετε τον κωδικό πρόσβασης του λογαριασμού.</value>
@@ -2004,9 +1977,6 @@
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Η λίστα μπορεί να περιέχει έως 1.024 OU.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Αυτή η λειτουργία σύνδεσης σε τομέα δεν υποστηρίζεται.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Λογαριασμός (DOMAIN\user ή user@domain)</value>

@@ -127,6 +127,19 @@ public sealed class DomainJoinPreparationServiceTests
     }
 
     [Fact]
+    public void ZeroTouchNeverAcceptsATypedOu()
+    {
+        using var keys = Unlocked(out byte[] key);
+        DeployDomainJoinSettings settings = TwoDomains(DomainJoinMode.Automatic, key);
+        using var submission = new DomainJoinSubmission("emea", "emea.test", string.Empty, null, default, "OU=Field,DC=emea,DC=test");
+
+        using DomainJoinPreparationResult result = new DomainJoinPreparationService(keys).Prepare(settings, "LAB-01", submission);
+
+        Assert.Equal(DomainJoinPreparationStatus.Invalid, result.Status);
+        Assert.Null(result.Input);
+    }
+
+    [Fact]
     public void AnOuOfAnotherListedDomainIsRefused()
     {
         using var keys = Unlocked(out byte[] key);

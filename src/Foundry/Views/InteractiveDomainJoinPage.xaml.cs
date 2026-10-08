@@ -31,7 +31,6 @@ public sealed partial class InteractiveDomainJoinPage : Page
     private void OrganizationalUnitsTable_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
         ViewModel.ReplaceSelectedOrganizationalUnits(OrganizationalUnitsTable.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
 
-
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Unloaded -= OnUnloaded;

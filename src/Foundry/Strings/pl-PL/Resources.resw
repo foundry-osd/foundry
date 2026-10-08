@@ -1945,20 +1945,8 @@ Licencjonowany na licencji MIT.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Wspólne</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Wybierz domyślną domenę.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Domyślnej jednostki OU nie ma już na liście. Wybierz inną lub wyczyść domyślny wybór.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Dodaj co najmniej jedną domenę.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Ta sama jednostka OU występuje na liście więcej niż raz.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Dwie domeny mają ten sam wewnętrzny identyfikator. Usuń jedną z nich i dodaj ją ponownie.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Ta domena jest już na liście.</value>
@@ -1966,29 +1954,14 @@ Licencjonowany na licencji MIT.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Dwie jednostki OU mają ten sam wewnętrzny identyfikator. Usuń jedną z nich i dodaj ją ponownie.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Konto jest za długie lub nieprawidłowe.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Jedna z jednostek OU ma nieprawidłową nazwę wyróżniającą.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Wpis domeny jest uszkodzony. Usuń go i dodaj ponownie.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Wprowadź prawidłową nazwę domeny, na przykład corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Każda jednostka OU wymaga nazwy wyświetlanej o długości do 120 znaków.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Wpis jednostki OU jest uszkodzony. Usuń go i dodaj ponownie.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Włącz ochronę hasłem na stronie Ogólne i ustaw hasło wdrożenia.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Każda jednostka OU na liście musi należeć do swojej domeny.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Wprowadź hasło konta.</value>
@@ -2004,9 +1977,6 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Lista może zawierać maksymalnie 1024 jednostki OU.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Ten tryb dołączania do domeny nie jest obsługiwany.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Konto (DOMAIN\user lub user@domain)</value>

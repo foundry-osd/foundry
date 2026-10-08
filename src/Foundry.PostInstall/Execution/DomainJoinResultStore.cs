@@ -70,7 +70,7 @@ internal sealed class DomainJoinResultStore(string root, PreOobeExecutionPlan pl
             previous.Cleanup == DomainJoinCleanupState.Disposed && value.Cleanup != DomainJoinCleanupState.Disposed ||
             !CanAdvance(previous.Join, value.Join) || !CanAdvance(previous.Placement, value.Placement) || !CanAdvance(previous.Membership, value.Membership))
             throw new InvalidDataException("Domain report transition is invalid.");
-        DomainStateFile.Write(root, path, value, create: false);
+        DomainStateFile.Write(root, path, value);
     }
     private static bool CanAdvance(DomainJoinPhaseResult previous, DomainJoinPhaseResult value) => previous == value ||
         previous.State == DomainJoinPhaseState.NotStarted ||

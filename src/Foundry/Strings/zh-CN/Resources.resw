@@ -1945,20 +1945,8 @@
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>共享</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>请选择默认域。</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>默认 OU 已不在列表中。请另选一个或清除默认选择。</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>请至少添加一个域。</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>同一个 OU 被列出了多次。</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>两个域的内部 ID 相同。请删除其中一个，然后重新添加。</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>此域已在列表中。</value>
@@ -1966,29 +1954,14 @@
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>两个 OU 的内部 ID 相同。请删除其中一个，然后重新添加。</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>账户过长或无效。</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>某个 OU 的可分辨名称无效。</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>某个域条目已损坏。请将其删除，然后重新添加。</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>请输入有效的域名，例如 corp.contoso.com。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>每个 OU 都需要一个不超过 120 个字符的显示名称。</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>某个 OU 条目已损坏。请将其删除，然后重新添加。</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>请在“常规”页面启用密码保护，并设置部署密码。</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>列出的每个 OU 都必须属于其对应的域。</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>请输入账户密码。</value>
@@ -2004,9 +1977,6 @@
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>最多可列出 1,024 个 OU。</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>不支持此域加入模式。</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>账户（DOMAIN\user 或 user@domain）</value>

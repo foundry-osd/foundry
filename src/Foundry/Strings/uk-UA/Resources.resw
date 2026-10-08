@@ -1945,20 +1945,8 @@
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Спільний</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Виберіть домен за замовчуванням.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU за замовчуванням більше немає в списку. Виберіть іншу або скиньте вибір за замовчуванням.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Додайте принаймні один домен.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Одна й та сама OU є в списку кілька разів.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Два домени мають однаковий внутрішній ідентифікатор. Видаліть один із них і додайте його знову.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Цей домен уже є в списку.</value>
@@ -1966,29 +1954,14 @@
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Дві OU мають однаковий внутрішній ідентифікатор. Видаліть одну з них і додайте її знову.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Обліковий запис задовгий або недійсний.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Одна з OU має недійсне розрізнювальне ім’я.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Запис домену пошкоджено. Видаліть його й додайте знову.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Введіть дійсне ім’я домену, наприклад corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Кожна OU потребує відображуваного імені завдовжки щонайбільше 120 символів.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Запис OU пошкоджено. Видаліть його й додайте знову.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Увімкніть захист паролем на сторінці «Загальні» і встановіть пароль розгортання.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Кожна OU в списку має належати до свого домену.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Введіть пароль облікового запису.</value>
@@ -2004,9 +1977,6 @@
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>До списку можна додати щонайбільше 1 024 OU.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Цей режим приєднання до домену не підтримується.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Обліковий запис (DOMAIN\user або user@domain)</value>

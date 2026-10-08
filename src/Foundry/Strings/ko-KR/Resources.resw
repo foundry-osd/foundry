@@ -1945,20 +1945,8 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>공유</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>기본 도메인을 선택하세요.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>기본 OU가 더 이상 목록에 없습니다. 다른 OU를 선택하거나 기본 선택을 지우세요.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>도메인을 하나 이상 추가하세요.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>같은 OU가 두 번 이상 등록되어 있습니다.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>두 도메인의 내부 ID가 같습니다. 하나를 제거한 후 다시 추가하세요.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>이 도메인은 이미 목록에 있습니다.</value>
@@ -1966,29 +1954,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>두 OU의 내부 ID가 같습니다. 하나를 제거한 후 다시 추가하세요.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>계정이 너무 길거나 유효하지 않습니다.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>고유 이름이 유효하지 않은 OU가 있습니다.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>도메인 항목이 손상되었습니다. 제거한 후 다시 추가하세요.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>corp.contoso.com과 같은 유효한 도메인 이름을 입력하세요.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>각 OU에는 120자 이하의 표시 이름이 필요합니다.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>OU 항목이 손상되었습니다. 제거한 후 다시 추가하세요.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>"일반" 페이지에서 암호 보호를 활성화하고 배포 암호를 설정하세요.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>목록의 각 OU는 해당 도메인에 속해야 합니다.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>계정 암호를 입력하세요.</value>
@@ -2004,9 +1977,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>OU는 최대 1,024개까지 등록할 수 있습니다.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>이 도메인 가입 모드는 지원되지 않습니다.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>계정 (DOMAIN\user 또는 user@domain)</value>

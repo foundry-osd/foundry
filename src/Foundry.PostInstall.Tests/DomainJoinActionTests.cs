@@ -77,6 +77,23 @@ public sealed class DomainJoinActionTests
     }
 
     [Fact]
+    public async Task Verification_KeepsTheAccountPageWhenTheJoinFailed()
+    {
+        using var f = new DomainFixture();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
+        report.Write(report.Read() with { OriginatingBootId = "installed-boot", Join = new() { State = DomainJoinPhaseState.Failed, FailureCode = DomainJoinFailureCode.JoinFailed } });
+        var journal = new ExecutionJournal(f.Root); var state = journal.Read(); state.Cursor = 1; state.BootIdentity = "next-boot";
+        state.Actions["verify"] = new() { Status = "Running" }; journal.Write(state);
+        File.Delete(OwnedPaths.Resolve(f.Root, f.Parameters.CredentialPayloadPath));
+        File.WriteAllText(OwnedPaths.Resolve(f.Root, "State/PreOobe/" + DomainJoinStateFiles.SkipAccountCreationRequest), string.Empty);
+
+        await new DomainMembershipVerificationAction(f.Root, f.Plan, f.Hash, "next-boot", f.Native).ExecuteAsync(f.Plan.Actions[1], CancellationToken.None);
+
+        Assert.Equal(DomainJoinPhaseState.Skipped, report.Read().Membership.State);
+        Assert.Equal(0, f.Native.AccountCreationSkips);
+    }
+
+    [Fact]
     public async Task Verification_StaysSuccessfulWhenTheAccountPageCannotBeSkipped()
     {
         using var f = new DomainFixture();

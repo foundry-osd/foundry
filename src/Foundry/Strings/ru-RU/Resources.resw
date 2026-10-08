@@ -1945,20 +1945,8 @@
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Общая</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Выберите домен по умолчанию.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU по умолчанию больше нет в списке. Выберите другое или сбросьте выбор по умолчанию.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Добавьте хотя бы один домен.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Одно и то же OU указано в списке несколько раз.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>У двух доменов одинаковый внутренний идентификатор. Удалите один из них и добавьте снова.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Этот домен уже есть в списке.</value>
@@ -1966,29 +1954,14 @@
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>У двух OU одинаковый внутренний идентификатор. Удалите одно из них и добавьте снова.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Учетная запись слишком длинная или недопустима.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>У одного из OU недопустимое различающееся имя.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Запись домена повреждена. Удалите ее и добавьте снова.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Укажите допустимое имя домена, например corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Каждому OU требуется отображаемое имя длиной не более 120 символов.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Запись OU повреждена. Удалите ее и добавьте снова.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Включите защиту паролем на странице «Общие» и задайте пароль развертывания.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Каждое OU в списке должно принадлежать своему домену.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Укажите пароль учетной записи.</value>
@@ -2004,9 +1977,6 @@
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>В список можно добавить не более 1 024 OU.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Этот режим присоединения к домену не поддерживается.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Учетная запись (DOMAIN\user или user@domain)</value>

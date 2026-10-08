@@ -136,8 +136,8 @@ public sealed class DeploymentLaunchPreparationServiceTests
             throw new InvalidOperationException("Credentials must not be prepared.");
     }
 
-    private static DomainJoinSubmission Submission(string? selectedOuId = null, string? typedOu = null) =>
-        new(null, "corp.test", "CORP\\join", selectedOuId, "secret".AsSpan(), typedOu);
+    private static DomainJoinSubmission Submission(string? typedOu = null) =>
+        new(null, "corp.test", "CORP\\join", null, "secret".AsSpan(), typedOu);
 
     private static DeploymentLaunchPreparationService CreateService(FakeApplicationShellService shell, DeploymentSecretKeySession keys) =>
         new(shell, domainJoinPreparationService: new DomainJoinPreparationService(keys));
@@ -602,7 +602,6 @@ public sealed class DeploymentLaunchPreparationServiceTests
         public string LastConfirmationTitle { get; private set; } = string.Empty;
 
         public string LastConfirmationMessage { get; private set; } = string.Empty;
-        public Action? OnConfirm { get; init; }
 
         public void ShowAbout()
         {
@@ -611,7 +610,6 @@ public sealed class DeploymentLaunchPreparationServiceTests
         public bool ConfirmWarning(string title, string message)
         {
             ConfirmationCallCount++;
-            OnConfirm?.Invoke();
             LastConfirmationTitle = title;
             LastConfirmationMessage = message;
             return ConfirmationResult;

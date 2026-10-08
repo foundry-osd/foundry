@@ -181,7 +181,8 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
     /// <summary>Explains a domain outcome the technician must follow up, or null when the phase states say enough.</summary>
     private static string? DomainWarning(DomainJoinResult domain) => domain.Join.State switch
     {
-        DomainJoinPhaseState.Unknown => "Domain join outcome unknown; membership is checked after restart",
+        DomainJoinPhaseState.Unknown when domain.Membership.State == DomainJoinPhaseState.NotStarted =>
+            "Domain join outcome unknown; membership is checked after restart",
         DomainJoinPhaseState.Succeeded => domain.Placement.State switch
         {
             DomainJoinPhaseState.Failed when domain.Placement.FailureCode == DomainJoinFailureCode.OrganizationalUnitNotFound =>

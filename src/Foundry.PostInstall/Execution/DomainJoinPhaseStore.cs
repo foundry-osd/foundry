@@ -12,9 +12,7 @@ namespace Foundry.PostInstall.Execution;
 internal sealed class DomainJoinPhaseStore(string root, PreOobeExecutionPlan plan, string planHash)
 {
     private readonly string path = OwnedPaths.Resolve(root, "State/PreOobe/domain-join-phase.json");
-    /// <summary>Describes the unassigned receipt Deploy staged; the installed boot is bound only by the worker.</summary>
-    public DomainJoinPhaseReceipt CreateSeed() =>
-        DomainJoinPhaseReceipt.CreateSeed(plan.OperationId, plan.AttemptId, planHash, DomainJoinBinding.Validate(plan).JoinAction.Id);
+
     /// <summary>Serializes domain workers independently of the parent-held runner lease.</summary>
     public IDisposable AcquireWorkerLease() => new FileStream(OwnedPaths.Resolve(root, "State/PreOobe/domain-worker.lease"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
     public DomainJoinPhaseReceipt Read()
@@ -41,7 +39,7 @@ internal sealed class DomainJoinPhaseStore(string root, PreOobeExecutionPlan pla
             previous.Join.State != DomainJoinPhaseState.NotStarted && previous.Join != value.Join ||
             previous.Placement.State != DomainJoinPhaseState.NotStarted && previous.Placement != value.Placement)
             throw new InvalidDataException("Domain receipt transition is invalid.");
-        DomainStateFile.Write(root, path, value, create: false);
+        DomainStateFile.Write(root, path, value);
     }
     /// <summary>Binds one unstarted seed to the validated Running journal before any mutation.</summary>
     public DomainJoinPhaseReceipt BindOrigin(string boot)
@@ -94,7 +92,7 @@ internal static class DomainStateFile
         byte[] bytes = new byte[(int)stream.Length]; stream.ReadExactly(bytes);
         return JsonSerializer.Deserialize<T>(bytes, ExecutionJournal.JsonOptions) ?? throw new InvalidDataException("Domain state is empty.");
     }
-    public static void Write<T>(string root, string path, T value, bool create)
+    public static void Write<T>(string root, string path, T value)
     {
         OwnedPaths.RejectReparsePoints(root, path);
         byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(value, ExecutionJournal.JsonOptions);
@@ -103,7 +101,7 @@ internal static class DomainStateFile
         try
         {
             using (var file = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None)) { file.Write(bytes); file.Flush(true); }
-            if (create) File.Move(temporary, path); else File.Replace(temporary, path, null);
+            File.Replace(temporary, path, null);
         }
         finally { try { File.Delete(temporary); } catch (IOException) { } }
     }

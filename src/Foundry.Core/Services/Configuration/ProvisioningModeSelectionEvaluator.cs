@@ -16,7 +16,7 @@ public enum ProvisioningSelection
 /// <summary>Describes the proposed choice; callers confirm replacement before applying it.</summary>
 public sealed record ProvisioningSelectionDecision(ProvisioningSelection Next, bool RequiresReplacementConfirmation);
 
-/// <summary>Evaluates technician selection without mutating saved settings.</summary>
+/// <summary>Evaluates the provisioning mode an author asks for without mutating saved settings.</summary>
 public static class ProvisioningModeSelectionEvaluator
 {
     /// <summary>Maps the active configuration to the shared policy while ignoring inactive nonsecret drafts.</summary>

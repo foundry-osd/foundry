@@ -141,7 +141,7 @@ public interface IFoundryConfigurationStateService
     /// <param name="settings">New Autopilot settings.</param>
     void UpdateAutopilot(AutopilotSettings settings);
 
-    /// <summary>Persists domain metadata and clears credentials whose ownership is no longer active.</summary>
+    /// <summary>Persists the Domain Join settings and erases the passwords of accounts they no longer store.</summary>
     void UpdateDomainJoin(DomainJoinSettings settings);
 
     /// <summary>Publishes one exclusive provisioning change after a successful candidate save.</summary>

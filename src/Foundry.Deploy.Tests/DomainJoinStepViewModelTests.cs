@@ -38,6 +38,18 @@ public sealed class DomainJoinStepViewModelTests
     }
 
     [Fact]
+    public void ZeroTouchStepIsSkippedForOneDomainWithoutOus()
+    {
+        using var step = new DomainJoinStepViewModel();
+        DeployDomainJoinSettings settings = OneDomain(DomainJoinMode.Automatic);
+        step.Configure(settings with { Domains = [settings.Domains[0] with { OrganizationalUnits = [], DefaultOuId = null }] });
+
+        Assert.False(step.HasInput);
+        Assert.True(step.IsValid);
+        Assert.Null(step.EffectiveOuDistinguishedName);
+    }
+
+    [Fact]
     public void ZeroTouchStepIsShownForADomainChoiceAlone()
     {
         using var step = new DomainJoinStepViewModel();
@@ -130,7 +142,7 @@ public sealed class DomainJoinStepViewModelTests
     }
 
     [Fact]
-    public void InteractiveWithListedDomainsHidesTheFreeDomainEntry()
+    public void InteractiveWithOneListedDomainShowsItReadOnly()
     {
         using var step = new DomainJoinStepViewModel();
         step.Configure(OneDomain(DomainJoinMode.Interactive));
@@ -269,6 +281,7 @@ public sealed class DomainJoinStepViewModelTests
     {
         using var step = new DomainJoinStepViewModel();
         step.Configure(DomainJoinPreparationServiceTests.WithTwoOus(OneDomain(DomainJoinMode.Automatic)));
+        step.AccountName = "CORP\\ignored";
         step.SetPassword("ignored");
 
         using DomainJoinSubmission submission = step.CreateSubmission()!;

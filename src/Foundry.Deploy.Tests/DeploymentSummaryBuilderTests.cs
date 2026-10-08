@@ -10,7 +10,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentSummaryBuilderTests
 {
     [Fact]
-    public void Build_AlwaysReturnsSevenCategoriesInApprovedOrder()
+    public void Build_ReturnsTheCategoriesInApprovedOrder()
     {
         var builder = new DeploymentSummaryBuilder(key => key);
 

@@ -1945,20 +1945,8 @@
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>مشترك</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>اختر نطاقاً افتراضياً.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>وحدة OU الافتراضية لم تعد في القائمة. اختر وحدة أخرى أو امسح الافتراضي.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>أضف نطاقاً واحداً على الأقل.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>وحدة OU نفسها مدرجة أكثر من مرة.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>يوجد نطاقان لهما المعرّف الداخلي نفسه. أزل أحدهما ثم أضفه من جديد.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>هذا النطاق مدرج بالفعل.</value>
@@ -1966,29 +1954,14 @@
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>توجد وحدتا OU لهما المعرّف الداخلي نفسه. أزل إحداهما ثم أضفها من جديد.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>الحساب طويل جداً أو غير صالح.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>الاسم المميز لإحدى وحدات OU غير صالح.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>أحد إدخالات النطاقات تالف. أزله ثم أضفه من جديد.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>أدخل اسم نطاق صالحاً، مثل corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>تحتاج كل وحدة OU إلى اسم عرض لا يتجاوز 120 حرفاً.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>أحد إدخالات OU تالف. أزله ثم أضفه من جديد.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>فعّل الحماية بكلمة مرور في صفحة «عام» وعيّن كلمة مرور النشر.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>يجب أن تنتمي كل وحدة OU مدرجة إلى نطاقها.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>أدخل كلمة مرور الحساب.</value>
@@ -2004,9 +1977,6 @@
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>يمكنك إدراج ما يصل إلى 1,024 وحدة OU.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>وضع الانضمام إلى النطاق هذا غير مدعوم.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>الحساب (DOMAIN\user أو user@domain)</value>

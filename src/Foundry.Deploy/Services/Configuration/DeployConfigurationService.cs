@@ -147,7 +147,7 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
     private static void ValidateDomainJoin(FoundryDeployConfigurationDocument document)
     {
         var settings = document.DomainJoin;
-        if (settings is null || settings.Domains is null || settings.Domains.Any(domain => domain is null) ||
+        if (settings is null || settings.Domains is null || settings.Domains.Any(domain => domain?.OrganizationalUnits is null) ||
             document.Autopilot?.IsEnabled == true && settings.IsEnabled)
             throw new InvalidDataException("The domain join configuration is invalid.");
         bool interactive = settings.Mode == Foundry.Core.Models.Configuration.DomainJoinMode.Interactive;

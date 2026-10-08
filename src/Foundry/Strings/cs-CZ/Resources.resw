@@ -1945,20 +1945,8 @@ Licencováno pod licencí MIT.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Sdílený</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Zvolte výchozí doménu.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Výchozí jednotka OU už v seznamu není. Zvolte jinou, nebo výchozí výběr zrušte.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Přidejte alespoň jednu doménu.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Stejná jednotka OU je uvedena vícekrát.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Dvě domény mají stejné interní ID. Jednu odeberte a přidejte ji znovu.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Tato doména už v seznamu je.</value>
@@ -1966,29 +1954,14 @@ Licencováno pod licencí MIT.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Dvě jednotky OU mají stejné interní ID. Jednu odeberte a přidejte ji znovu.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Účet je příliš dlouhý nebo neplatný.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Některá jednotka OU má neplatný rozlišující název.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Položka domény je poškozená. Odeberte ji a přidejte ji znovu.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Zadejte platný název domény, například corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Každá jednotka OU musí mít zobrazovaný název o délce nejvýše 120 znaků.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Položka OU je poškozená. Odeberte ji a přidejte ji znovu.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Na stránce „Obecné“ povolte ochranu heslem a nastavte heslo pro nasazení.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Každá uvedená jednotka OU musí patřit do své domény.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Zadejte heslo účtu.</value>
@@ -2004,9 +1977,6 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Můžete uvést nejvýše 1 024 jednotek OU.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Tento režim připojení k doméně není podporován.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Účet (DOMAIN\user nebo user@domain)</value>

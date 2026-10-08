@@ -1945,20 +1945,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Gedeeld</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Kies een standaarddomein.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>De standaard-OU staat niet meer in de lijst. Kies een andere of wis de standaardselectie.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Voeg ten minste één domein toe.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Dezelfde OU staat meer dan één keer in de lijst.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Twee domeinen hebben dezelfde interne id. Verwijder er één en voeg het opnieuw toe.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Dit domein staat al in de lijst.</value>
@@ -1966,29 +1954,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Twee OU's hebben dezelfde interne id. Verwijder er één en voeg deze opnieuw toe.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Het account is te lang of ongeldig.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Een OU heeft een ongeldige DN-naam.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Een domeinvermelding is beschadigd. Verwijder deze en voeg deze opnieuw toe.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Voer een geldige domeinnaam in, zoals corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Elke OU heeft een weergavenaam van maximaal 120 tekens nodig.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Een OU-vermelding is beschadigd. Verwijder deze en voeg deze opnieuw toe.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Schakel wachtwoordbeveiliging in op de pagina Algemeen en stel het implementatiewachtwoord in.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Elke OU in de lijst moet tot het bijbehorende domein behoren.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Voer het accountwachtwoord in.</value>
@@ -2004,9 +1977,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>De lijst mag maximaal 1.024 OU's bevatten.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Deze modus voor domeintoetreding wordt niet ondersteund.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Account (DOMAIN\user of user@domain)</value>

@@ -1945,20 +1945,8 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Delat</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Välj en standarddomän.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Standard-OU:n finns inte längre i listan. Välj en annan eller rensa standardvalet.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Lägg till minst en domän.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Samma OU finns med mer än en gång i listan.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Två domäner har samma interna ID. Ta bort den ena och lägg till den igen.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Den här domänen finns redan i listan.</value>
@@ -1966,29 +1954,14 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Två OU:er har samma interna ID. Ta bort den ena och lägg till den igen.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Kontot är för långt eller ogiltigt.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>En OU har ett ogiltigt unikt namn.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>En domänpost är skadad. Ta bort den och lägg till den igen.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Ange ett giltigt domännamn, till exempel corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Varje OU behöver ett visningsnamn med högst 120 tecken.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>En OU-post är skadad. Ta bort den och lägg till den igen.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Aktivera lösenordsskydd på sidan ”Allmänt” och ange distributionslösenordet.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Alla OU:er i listan måste tillhöra sin domän.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Ange kontots lösenord.</value>
@@ -2004,9 +1977,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Listan kan innehålla högst 1 024 OU:er.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Det här läget för domänanslutning stöds inte.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Konto (DOMAIN\user eller user@domain)</value>

@@ -31,7 +31,8 @@ internal sealed record DomainJoinBinding(PreOobeExecutionAction JoinAction, Doma
             ?? throw new InvalidDataException("Domain verification is missing.");
         string expected = $"Payloads/DomainJoin/{plan.OperationId}/credentials.bin";
         if (!DomainJoinCredentialContext.IsValidDomainName(parameters.DomainName) || !ComputerNameRules.IsValid(parameters.ComputerName) ||
-            parameters.TargetOuDn is not null && !DistinguishedNameRules.IsWithinDomain(parameters.TargetOuDn, parameters.DomainName) ||
+            parameters.TargetOuDn is not null && !(DistinguishedNameRules.IsOrganizationalUnit(parameters.TargetOuDn) &&
+                DistinguishedNameRules.IsWithinDomain(parameters.TargetOuDn, parameters.DomainName)) ||
             parameters.CredentialPayloadPath != expected || verification.JoinActionId != joins[0].Id ||
             verification.DomainName != parameters.DomainName || verification.ComputerName != parameters.ComputerName)
             throw new InvalidDataException("Domain parameters are invalid.");

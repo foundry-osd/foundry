@@ -142,6 +142,7 @@ public sealed class StagePreOobeCustomizationStepTests
         }
         // With the answer file Foundry generates, the runtime is asked to skip account creation after a verified join.
         Assert.True(File.Exists(Path.Combine(stateRoot, DomainJoinStateFiles.SkipAccountCreationRequest)));
+        Assert.Contains("<HideOnlineAccountScreens>true</HideOnlineAccountScreens>", File.ReadAllText(answer));
         byte[] planBytes = File.ReadAllBytes(context.RuntimeState.PreOobeManifestPath!);
         using var plan = JsonDocument.Parse(planBytes);
         Assert.DoesNotContain("joiner", Encoding.UTF8.GetString(planBytes));

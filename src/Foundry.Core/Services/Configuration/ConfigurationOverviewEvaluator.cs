@@ -226,7 +226,7 @@ public static class ConfigurationOverviewEvaluator
 
         ConfigurationOverviewState EvaluateDomainJoinMode(DomainJoinMode mode) => !settings.IsEnabled || settings.Mode != mode
             ? ConfigurationOverviewState.NotSelected
-            : isReady && DomainJoinConfigurationValidator.ValidateMetadata(settings).IsValid
+            : isReady
                 ? ConfigurationOverviewState.Configured
                 : ConfigurationOverviewState.NeedsAttention;
     }

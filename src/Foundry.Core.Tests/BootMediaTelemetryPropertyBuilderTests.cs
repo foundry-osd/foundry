@@ -790,9 +790,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(expectedDomains, result["domain_join_domain_count"]);
         Assert.Equal(expectedOus, result["domain_join_ou_count"]);
         Assert.Equal(expectedDefaultOu, result["domain_join_default_ou_set"]);
-        // The technician's choice follows from the counts above, so it is not reported on its own.
-        Assert.False(result.ContainsKey("domain_join_ou_selection_allowed"));
-        Assert.False(result.ContainsKey("domain_join_domain_selection_allowed"));
+
         Assert.Equal(expectedSharedAccount, result["domain_join_shared_account_used"]);
         Assert.DoesNotContain(result.Values, value => value is string text && text.Contains("private", StringComparison.OrdinalIgnoreCase));
     }

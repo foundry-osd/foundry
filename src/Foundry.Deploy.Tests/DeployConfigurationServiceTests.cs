@@ -19,6 +19,7 @@ public sealed class DeployConfigurationServiceTests
     [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","accountName":"CORP\\join"}]}""")]
     [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"invalid domain"}]}""")]
     [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"missing","domains":[{"id":"a","domainName":"corp.test"}]}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test","organizationalUnits":null}]}""")]
     [InlineData("""{"isEnabled":true,"domains":null}""")]
     [InlineData("""{"isEnabled":true,"domains":[null]}""")]
     public void LoadOptional_RejectsUnprotectedAutomaticOrMalformedDomainMetadata(string domain)
@@ -36,6 +37,8 @@ public sealed class DeployConfigurationServiceTests
     [InlineData("""{"id":"b","domainName":"emea.test","accountName":"EMEA\\join","encryptedCredentials":{}}""", true)]
     [InlineData("""{"id":"b","domainName":"emea.test","accountName":"EMEA\\join"}""", false)]
     [InlineData("""{"id":"b","domainName":"emea.test","encryptedCredentials":{}}""", false)]
+    // The account already has a payload on the first domain, so only the per-domain rule can refuse this one.
+    [InlineData("""{"id":"b","domainName":"emea.test","accountName":"CORP\\join"}""", false)]
     public void LoadOptional_RequiresCredentialsForEveryZeroTouchDomainOnProtectedMedia(string second, bool loads)
     {
         using var directory = new TemporaryDirectory();

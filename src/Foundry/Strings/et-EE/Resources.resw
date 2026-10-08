@@ -1945,20 +1945,8 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Ühine</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Valige vaikedomeen.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Vaikimisi OU-d pole enam loendis. Valige mõni teine või tühjendage vaikevalik.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Lisage vähemalt üks domeen.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Sama OU on loendis mitu korda.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Kahel domeenil on sama sisemine ID. Eemaldage üks neist ja lisage see uuesti.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>See domeen on juba loendis.</value>
@@ -1966,29 +1954,14 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Kahel OU-l on sama sisemine ID. Eemaldage üks neist ja lisage see uuesti.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Konto on liiga pikk või ei kehti.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Ühe OU eristusnimi ei kehti.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Üks domeenikirje on rikutud. Eemaldage see ja lisage uuesti.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Sisestage kehtiv domeeninimi, näiteks corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Igal OU-l peab olema kuni 120 märgi pikkune kuvatav nimi.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Üks OU kirje on rikutud. Eemaldage see ja lisage uuesti.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Lubage lehel „Üldine“ paroolikaitse ja määrake juurutusparool.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Iga loendis olev OU peab kuuluma oma domeeni.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Sisestage konto parool.</value>
@@ -2004,9 +1977,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Loendisse saab lisada kuni 1024 OU-d.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Seda domeeniga liitumise režiimi ei toetata.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Konto (DOMAIN\user või user@domain)</value>

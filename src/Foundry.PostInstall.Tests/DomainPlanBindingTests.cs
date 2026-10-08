@@ -31,6 +31,7 @@ public sealed class DomainPlanBindingTests
     [InlineData("verification")]
     [InlineData("payload")]
     [InlineData("attempt")]
+    [InlineData("container")]
     public void DomainBinding_RejectsUnsafePairOrCredentialOwnership(string fault)
     {
         using var f = new DomainFixture();
@@ -40,6 +41,15 @@ public sealed class DomainPlanBindingTests
             "consumer" => f.Plan with { OwnedPayloads = [f.Plan.OwnedPayloads[0] with { ConsumerActionIds = ["join", "verify"] }] },
             "verification" => f.Plan with { Actions = [f.Plan.Actions[0]] },
             "payload" => f.Plan with { OwnedPayloads = [f.Plan.OwnedPayloads[0] with { RelativePath = "Payloads/wrong.bin" }] },
+            // The target must be an organizational unit, as Core and Deploy require; a container of the domain is refused.
+            "container" => f.Plan with
+            {
+                Actions = [f.Plan.Actions[0] with
+                {
+                    Parameters = System.Text.Json.JsonSerializer.SerializeToElement(
+                        f.Parameters with { TargetOuDn = "CN=Computers,DC=example,DC=test" }, ExecutionJournal.JsonOptions)
+                }, f.Plan.Actions[1]]
+            },
             _ => f.Plan with { AttemptId = "not-an-attempt" }
         };
         Assert.Throws<InvalidDataException>(() => PreOobePlanValidator.ValidatePlan(plan));

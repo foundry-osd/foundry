@@ -62,7 +62,7 @@ public sealed record FoundryConfigurationDocument
     /// </summary>
     public AutopilotSettings Autopilot { get; init; } = new();
 
-    /// <summary>Gets optional online domain joining and its secret-free OU list.</summary>
+    /// <summary>Gets optional online domain joining: the joinable domains with their OUs and account names, without passwords.</summary>
     public DomainJoinSettings DomainJoin { get; init; } = new();
 
     /// <summary>

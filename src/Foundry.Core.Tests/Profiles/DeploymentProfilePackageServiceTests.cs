@@ -32,7 +32,7 @@ public sealed class DeploymentProfilePackageServiceTests
         };
         JsonNode root = JsonNode.Parse(DeploymentProfilePayload.Serialize(profile, portable: false))!;
         JsonObject domainJoin = root["configuration"]!["domainJoin"]!.AsObject();
-        foreach (string added in new[] { "sharedAccountName", "domains", "defaultDomainId", "allowDomainSelectionDuringDeployment" }) domainJoin.Remove(added);
+        foreach (string added in new[] { "sharedAccountName", "domains", "defaultDomainId" }) domainJoin.Remove(added);
         domainJoin["isEnabled"] = true;
         domainJoin["domainName"] = "corp.test";
         domainJoin["accountName"] = "CORP\\join";

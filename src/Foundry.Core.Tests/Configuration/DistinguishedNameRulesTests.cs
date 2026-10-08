@@ -25,7 +25,7 @@ public sealed class DistinguishedNameRulesTests
     [InlineData("OU=Sales\\2C West,DC=contoso,DC=test", "Sales, West")]
     [InlineData("OU=\\C3\\89quipe,DC=contoso,DC=test", "Équipe")]
     [InlineData("OU=研发,DC=contoso,DC=test", "研发")]
-    public void ParsesEscapedAndUnicodeValuesWithoutRewritingParent(string dn, string value)
+    public void ParsesEscapedAndUnicodeValues(string dn, string value)
     {
         Assert.True(DistinguishedNameRules.TryParse(dn, out ParsedDistinguishedName parsed));
         Assert.Equal(value, parsed.Rdns[0].Attributes[0].Value);

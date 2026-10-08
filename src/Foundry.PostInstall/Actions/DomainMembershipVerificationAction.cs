@@ -9,7 +9,10 @@ using Foundry.PostInstall.Windows;
 using Serilog;
 namespace Foundry.PostInstall.Actions;
 
-/// <summary>Checks only passwordless local DNS membership and the active final name on a later boot.</summary>
+/// <summary>
+/// Checks only passwordless local DNS membership and the active final name on a later boot, then lets a
+/// verified member skip the Windows account creation page.
+/// </summary>
 internal sealed class DomainMembershipVerificationAction(string root, PreOobeExecutionPlan plan, string planHash, string boot, INativeDomainJoin native)
 {
     public async Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, CancellationToken token)

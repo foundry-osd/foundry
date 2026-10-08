@@ -1945,20 +1945,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Bendra</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Pasirinkite numatytąjį domeną.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Numatytojo OU sąraše nebėra. Pasirinkite kitą arba išvalykite numatytąjį pasirinkimą.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Pridėkite bent vieną domeną.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Tas pats OU sąraše pateiktas daugiau nei vieną kartą.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Du domenai turi tą patį vidinį ID. Pašalinkite vieną ir pridėkite jį iš naujo.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Šis domenas jau yra sąraše.</value>
@@ -1966,29 +1954,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Du OU turi tą patį vidinį ID. Pašalinkite vieną ir pridėkite jį iš naujo.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Paskyra per ilga arba netinkama.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Vieno OU skiriamasis vardas netinkamas.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Domeno įrašas sugadintas. Pašalinkite jį ir pridėkite iš naujo.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Įveskite tinkamą domeno vardą, pvz., corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Kiekvienam OU reikia rodomo pavadinimo, ne ilgesnio kaip 120 simbolių.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>OU įrašas sugadintas. Pašalinkite jį ir pridėkite iš naujo.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Puslapyje „Bendra“ įjunkite apsaugą slaptažodžiu ir nustatykite diegimo slaptažodį.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Kiekvienas sąraše esantis OU turi priklausyti savo domenui.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Įveskite paskyros slaptažodį.</value>
@@ -2004,9 +1977,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Sąraše gali būti ne daugiau kaip 1 024 OU.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Šis prisijungimo prie domeno režimas nepalaikomas.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Paskyra (DOMAIN\user arba user@domain)</value>

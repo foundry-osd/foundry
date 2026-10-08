@@ -1945,20 +1945,8 @@
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>ใช้ร่วมกัน</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>เลือกโดเมนเริ่มต้น</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU เริ่มต้นไม่อยู่ในรายการแล้ว เลือก OU อื่นหรือล้างค่าเริ่มต้น</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>เพิ่มโดเมนอย่างน้อยหนึ่งรายการ</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>มี OU เดียวกันอยู่ในรายการมากกว่าหนึ่งครั้ง</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>มีโดเมนสองรายการที่ใช้ ID ภายในเดียวกัน ลบออกหนึ่งรายการแล้วเพิ่มใหม่อีกครั้ง</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>โดเมนนี้อยู่ในรายการแล้ว</value>
@@ -1966,29 +1954,14 @@
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>มี OU สองรายการที่ใช้ ID ภายในเดียวกัน ลบออกหนึ่งรายการแล้วเพิ่มใหม่อีกครั้ง</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>บัญชียาวเกินไปหรือไม่ถูกต้อง</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>มี OU ที่ชื่อเฉพาะไม่ถูกต้อง</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>รายการโดเมนเสียหาย ลบออกแล้วเพิ่มใหม่อีกครั้ง</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>ป้อนชื่อโดเมนที่ถูกต้อง เช่น corp.contoso.com</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>แต่ละ OU ต้องมีชื่อที่แสดงยาวไม่เกิน 120 อักขระ</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>รายการ OU เสียหาย ลบออกแล้วเพิ่มใหม่อีกครั้ง</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>เปิดการป้องกันด้วยรหัสผ่านในหน้า "ทั่วไป" และตั้งรหัสผ่านการปรับใช้</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>OU ทั้งหมดในรายการต้องอยู่ในโดเมนของตนเอง</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>ป้อนรหัสผ่านของบัญชี</value>
@@ -2004,9 +1977,6 @@
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>เพิ่ม OU ในรายการได้ไม่เกิน 1,024 รายการ</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>ไม่รองรับโหมดการเข้าร่วมโดเมนนี้</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>บัญชี (DOMAIN\user หรือ user@domain)</value>

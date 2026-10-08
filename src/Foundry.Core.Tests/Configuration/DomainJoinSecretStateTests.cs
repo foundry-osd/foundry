@@ -65,7 +65,7 @@ public sealed class DomainJoinSecretStateTests
     }
 
     [Fact]
-    public void TwoDomainsNamingTheSameAccountShareOnePassword()
+    public void AnAccountIsOneEntryWhateverItsSpelling()
     {
         using var state = new DomainJoinSecretState();
         state.SetPassword("CORP\\join", " exact password ");
@@ -92,7 +92,7 @@ public sealed class DomainJoinSecretStateTests
     }
 
     [Fact]
-    public void AnAccountNoLongerReferencedLosesItsPassword()
+    public void AnAccountNoLongerStoredLosesItsPassword()
     {
         using var state = new DomainJoinSecretState();
         state.SetPassword("CORP\\join", "shared");

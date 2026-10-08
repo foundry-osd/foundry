@@ -25,7 +25,10 @@ internal interface INativeDomainJoin
 /// <summary>Local passwordless membership observation using DNS domain identity and the active startup name.</summary>
 internal sealed record DomainMembershipSnapshot(int JoinStatus, string? DomainName, string ActiveComputerName, int? NativeErrorCode = null);
 
-/// <summary>Uses documented installed-Windows APIs without rejoin, unsecured, or hardening-bypass flags.</summary>
+/// <summary>
+/// Joins through documented installed-Windows APIs without rejoin, unsecured, or hardening-bypass flags, and
+/// records for Windows setup that no local account has to be created.
+/// </summary>
 internal sealed class NativeDomainJoin : INativeDomainJoin
 {
     public string GetActiveComputerName()

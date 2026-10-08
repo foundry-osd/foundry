@@ -283,11 +283,14 @@ internal sealed class DomainFixture : IDisposable
 /// <summary>Writes the two state files as Deploy stages them, so tests start from the production seed shape.</summary>
 internal static class DomainSeeds
 {
-    public static void WriteResult(string root, PreOobeExecutionPlan plan, string hash) => DomainStateFile.Write(root,
-        OwnedPaths.Resolve(root, "State/PreOobe/domain-join-result.json"), new DomainJoinResultStore(root, plan, hash).CreateSeed(), create: true);
+    public static void WriteResult(string root, PreOobeExecutionPlan plan, string hash) =>
+        Stage(root, "State/PreOobe/domain-join-result.json", new DomainJoinResultStore(root, plan, hash).CreateSeed());
 
-    public static void WritePhase(string root, PreOobeExecutionPlan plan, string hash) => DomainStateFile.Write(root,
-        OwnedPaths.Resolve(root, "State/PreOobe/domain-join-phase.json"), new DomainJoinPhaseStore(root, plan, hash).CreateSeed(), create: true);
+    public static void WritePhase(string root, PreOobeExecutionPlan plan, string hash) => Stage(root, "State/PreOobe/domain-join-phase.json",
+        DomainJoinPhaseReceipt.CreateSeed(plan.OperationId, plan.AttemptId, hash, DomainJoinBinding.Validate(plan).JoinAction.Id));
+
+    private static void Stage<T>(string root, string relativePath, T seed) =>
+        File.WriteAllBytes(OwnedPaths.Resolve(root, relativePath), JsonSerializer.SerializeToUtf8Bytes(seed, ExecutionJournal.JsonOptions));
 }
 
 internal sealed class FakeNative : INativeDomainJoin

@@ -1945,20 +1945,8 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>共有</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>既定のドメインを選択してください。</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>既定のOUは一覧にありません。別のOUを選択するか、既定の選択を解除してください。</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>ドメインを1つ以上追加してください。</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>同じOUが複数回登録されています。</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>2つのドメインの内部IDが同じです。一方を削除して追加し直してください。</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>このドメインは既に一覧にあります。</value>
@@ -1966,29 +1954,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>2つのOUの内部IDが同じです。一方を削除して追加し直してください。</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>アカウントが長すぎるか、無効です。</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>識別名が無効なOUがあります。</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>ドメインのエントリが破損しています。削除して追加し直してください。</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>corp.contoso.comなどの有効なドメイン名を入力してください。</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>各OUには120文字以内の表示名が必要です。</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>OUのエントリが破損しています。削除して追加し直してください。</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>「一般」ページでパスワード保護を有効にし、展開パスワードを設定してください。</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>一覧の各OUは、それぞれのドメインに属している必要があります。</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>アカウントのパスワードを入力してください。</value>
@@ -2004,9 +1977,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>OUは最大1,024件まで登録できます。</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>このドメイン参加モードはサポートされていません。</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>アカウント (DOMAIN\userまたはuser@domain)</value>

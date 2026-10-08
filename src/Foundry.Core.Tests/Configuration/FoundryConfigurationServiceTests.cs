@@ -86,7 +86,7 @@ public sealed class FoundryConfigurationServiceTests
         {
             "malformed-dn" => WithCorp(corp with { OrganizationalUnits = [first with { DistinguishedName = "invalid" }, second] }),
             "foreign-dn" => WithCorp(corp with { OrganizationalUnits = [first with { DistinguishedName = "OU=Devices,DC=emea,DC=test" }, second] }),
-            "duplicate-id" => WithCorp(corp with { OrganizationalUnits = [first, second with { Id = "devices" }] }),
+            "duplicate-id" => WithCorp(corp with { DefaultOuId = null, OrganizationalUnits = [first, second with { Id = "devices" }] }),
             "duplicate-dn" => WithCorp(corp with { OrganizationalUnits = [first, second with { DistinguishedName = "OU=Devices,DC=corp,DC=test" }] }),
             "missing-default-ou" => WithCorp(corp with { DefaultOuId = "missing" }),
             "missing-default-domain" => settings with { DefaultDomainId = "missing" },
@@ -94,6 +94,7 @@ public sealed class FoundryConfigurationServiceTests
             "oversized-label" => WithCorp(corp with { OrganizationalUnits = [first with { DisplayName = new string('x', 121) }, second] }),
             "overflow" => WithCorp(corp with
             {
+                DefaultOuId = null,
                 OrganizationalUnits = Enumerable.Range(0, 1025).Select(index => first with
                 { Id = index.ToString(), DistinguishedName = $"OU=Devices{index},DC=corp,DC=test" }).ToArray()
             }),
@@ -149,7 +150,7 @@ public sealed class FoundryConfigurationServiceTests
     };
 
     [Fact]
-    public void OldConfigurationDisablesDomainJoin()
+    public void AConfigurationWithoutDomainJoinLoadsItDisabledAtTheCurrentSchema()
     {
         FoundryConfigurationDocument document = new FoundryConfigurationService().Deserialize("{\"schemaVersion\":17}");
         Assert.Equal(18, document.SchemaVersion);

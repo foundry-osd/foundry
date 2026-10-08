@@ -13,7 +13,7 @@ namespace Foundry.Deploy.Services.Runtime;
 public enum DebugDomainJoinMode
 {
     /// <summary>
-    /// Uses the media configuration without a debug Domain Join scenario.
+    /// Disables Domain Join for the debug session.
     /// </summary>
     None,
 

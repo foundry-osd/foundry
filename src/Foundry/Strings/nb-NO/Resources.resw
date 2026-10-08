@@ -1945,20 +1945,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Felles</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Velg et standarddomene.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Standard-OU-en finnes ikke lenger i listen. Velg en annen eller fjern standardvalget.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Legg til minst ett domene.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Samme OU står i listen mer enn én gang.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>To domener har samme interne ID. Fjern det ene og legg det til på nytt.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Dette domenet står allerede i listen.</value>
@@ -1966,29 +1954,14 @@ Lisensiert under MIT-lisensen.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>To OU-er har samme interne ID. Fjern den ene og legg den til på nytt.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Kontoen er for lang eller ugyldig.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>En OU har et ugyldig unikt navn.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>En domeneoppføring er skadet. Fjern den og legg den til på nytt.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Angi et gyldig domenenavn, for eksempel corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Hver OU trenger et visningsnavn på maksimalt 120 tegn.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>En OU-oppføring er skadet. Fjern den og legg den til på nytt.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Slå på passordbeskyttelse på siden Generelt, og angi distribusjonspassordet.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Hver OU i listen må tilhøre sitt domene.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Angi kontopassordet.</value>
@@ -2004,9 +1977,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Listen kan inneholde opptil 1 024 OU-er.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Denne modusen for domenetilknytning støttes ikke.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Konto (DOMAIN\user eller user@domain)</value>

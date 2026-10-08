@@ -89,7 +89,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public string SetDefaultLabel => Text("CommandSetDefault");
     public string ClearDefaultLabel => Text("CommandClearDefault");
 
-
     /// <summary>Gets the import button label; the same button cancels a running domain search.</summary>
     public string ImportButtonText => localization.GetString(IsDiscovering ? "DomainJoinCancel.Content" : "DomainJoinDiscover.Content");
 
@@ -104,12 +103,13 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
 
     public string SharedAccountValidationMessage => sharedCredentialInputInvalid ? Text("CredentialInputInvalid") : GetSharedAccountIssueText();
     public Visibility SharedAccountValidationVisibility => ToVisibility(SharedAccountValidationMessage.Length > 0);
-    public string DomainsValidationMessage => GetIssueText(issue => issue.DomainId is null && IsDomainListIssue(issue.Code));
+    /// <summary>
+    /// Gets what the domain list still needs. Only a missing domain can be reported: every edit goes through the
+    /// catalogs, so the saved lists themselves are always valid.
+    /// </summary>
+    public string DomainsValidationMessage => issues.Any(issue => issue.Code == DomainJoinValidationCode.DomainsRequired)
+        ? Text("Validation." + DomainJoinValidationCode.DomainsRequired) : string.Empty;
     public Visibility DomainsValidationVisibility => ToVisibility(DomainsValidationMessage.Length > 0);
-    public string OrganizationalUnitsValidationMessage => SelectedDomain is { } domain
-        ? GetIssueText(issue => string.Equals(issue.DomainId, domain.Id, StringComparison.OrdinalIgnoreCase) && IsOrganizationalUnitIssue(issue.Code))
-        : string.Empty;
-    public Visibility OrganizationalUnitsValidationVisibility => ToVisibility(OrganizationalUnitsValidationMessage.Length > 0);
 
     /// <summary>Gets the progress or outcome of the last domain search, shown beside the OU commands.</summary>
     public string StatusText => statusKey is null ? string.Empty : Text(statusKey);
@@ -443,19 +443,9 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         Save(configuration.Current.DomainJoin with { SharedAccountName = trimmed.Length == 0 ? null : trimmed });
     }
 
-
     private void Save(DomainJoinSettings settings) => configuration.UpdateDomainJoin(settings);
     private string Text(string key) => localization.GetString("DomainJoin." + key);
     private static Visibility ToVisibility(bool isVisible) => isVisible ? Visibility.Visible : Visibility.Collapsed;
-
-    private static bool IsDomainListIssue(DomainJoinValidationCode code) =>
-        code is DomainJoinValidationCode.DomainsRequired or DomainJoinValidationCode.TooManyDomains or DomainJoinValidationCode.DefaultDomainMissing or
-            DomainJoinValidationCode.InvalidDomainId or DomainJoinValidationCode.DuplicateDomainId;
-
-    private static bool IsOrganizationalUnitIssue(DomainJoinValidationCode code) =>
-        code is DomainJoinValidationCode.TooManyOrganizationalUnits or DomainJoinValidationCode.InvalidOuId or DomainJoinValidationCode.InvalidOuDisplayName or
-            DomainJoinValidationCode.InvalidDistinguishedName or DomainJoinValidationCode.DuplicateOuId or DomainJoinValidationCode.DuplicateDistinguishedName or
-            DomainJoinValidationCode.OuOutsideDomain or DomainJoinValidationCode.DefaultOuMissing;
 
     private string GetIssueText(Func<DomainJoinValidationIssue, bool> ownsIssue)
     {
@@ -594,8 +584,8 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     }
 
     /// <summary>
-    /// Aligns the OU rows with the selected domain's OUs while keeping the row of every unchanged OU, so the table
-    /// selection survives a save.
+    /// Aligns the OU rows with the selected domain's OUs while keeping the row of every unchanged OU, so their
+    /// selection survives a save. A renamed OU gets a new row, which the sorted table then places by its new name.
     /// </summary>
     private void SynchronizeOrganizationalUnits()
     {
@@ -659,8 +649,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             nameof(IsActive), nameof(ActionText), nameof(DocumentationUrl), nameof(HasSelectedDomain), nameof(OrganizationalUnitsHeader),
             nameof(EmptyOrganizationalUnitsText), nameof(DomainListVisibility), nameof(EmptyDomainsVisibility), nameof(OrganizationalUnitListVisibility),
             nameof(EmptyOrganizationalUnitsVisibility), nameof(SharedAccountValidationMessage), nameof(SharedAccountValidationVisibility),
-            nameof(DomainsValidationMessage), nameof(DomainsValidationVisibility), nameof(OrganizationalUnitsValidationMessage),
-            nameof(OrganizationalUnitsValidationVisibility)
+            nameof(DomainsValidationMessage), nameof(DomainsValidationVisibility)
         })
         {
             OnPropertyChanged(property);

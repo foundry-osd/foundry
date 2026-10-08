@@ -37,7 +37,6 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
     private void OrganizationalUnitsTable_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
         ViewModel.ReplaceSelectedOrganizationalUnits(OrganizationalUnitsTable.SelectedItems.OfType<DomainJoinOrganizationalUnitEntryViewModel>());
 
-
     private void OnPasswordLoaded(object sender, RoutedEventArgs e) => SynchronizePassword();
 
     private void OnPasswordChanged(object sender, RoutedEventArgs e)

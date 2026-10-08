@@ -13,7 +13,7 @@ public sealed class DeploymentProfileMergeTests
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public void MergeKeepsAnOmittedSecretForEachAccountStillReferenced(bool includeSecrets)
+    public void MergeKeepsAnOmittedSecretForEachAccountStillStored(bool includeSecrets)
     {
         DeploymentProfileDocument baseline = TwoAccountProfile();
         baseline = baseline with { Secrets = new() { Entries = [Secret(baseline, "CORP\\join", ProfileValueState.Omitted), Secret(baseline, "EMEA\\join", ProfileValueState.Omitted)] } };
@@ -31,7 +31,7 @@ public sealed class DeploymentProfileMergeTests
     }
 
     [Fact]
-    public void MergeDropsTheSecretOfAnAccountNoLongerReferenced()
+    public void MergeDropsTheSecretOfAnAccountNoLongerStored()
     {
         DeploymentProfileDocument baseline = TwoAccountProfile();
         baseline = baseline with { Secrets = new() { Entries = [Secret(baseline, "CORP\\join", ProfileValueState.Omitted), Secret(baseline, "EMEA\\join", ProfileValueState.Omitted)] } };

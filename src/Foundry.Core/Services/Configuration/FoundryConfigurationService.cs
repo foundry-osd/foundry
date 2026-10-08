@@ -15,16 +15,13 @@ public sealed class FoundryConfigurationService : IFoundryConfigurationService
         return JsonSerializer.Serialize(document, ConfigurationJsonDefaults.SerializerOptions);
     }
 
-    public FoundryConfigurationDocument Deserialize(string json) =>
-        FoundryConfigurationMigration.ApplySchemaMigrations(DeserializeDocument(json));
-
-    private static FoundryConfigurationDocument DeserializeDocument(string json)
+    public FoundryConfigurationDocument Deserialize(string json)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(json);
         FoundryConfigurationDocument document = JsonSerializer.Deserialize<FoundryConfigurationDocument>(
                 json,
                 ConfigurationJsonDefaults.SerializerOptions)
             ?? new FoundryConfigurationDocument();
-        return document;
+        return FoundryConfigurationMigration.ApplySchemaMigrations(document);
     }
 }

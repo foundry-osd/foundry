@@ -44,7 +44,7 @@ public static class DomainJoinOrganizationalUnitCatalog
         bool IsRenamed(DomainJoinOrganizationalUnitSettings unit) => string.Equals(unit.Id, ouId, StringComparison.OrdinalIgnoreCase);
     }
 
-    /// <summary>Removes an OU from one domain and clears it as that domain's default; it never validates, so a damaged list can be repaired step by step.</summary>
+    /// <summary>Removes an OU from one domain and clears it as that domain's default. Removing from a valid list cannot make it invalid.</summary>
     public static DomainJoinSettings Remove(DomainJoinSettings current, string domainId, string ouId)
     {
         DomainJoinDomainSettings domain = DomainJoinDomainCatalog.Require(current, domainId);

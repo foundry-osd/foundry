@@ -1945,20 +1945,8 @@ Licencirano pod MIT licencom.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Deljeni</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Izaberite podrazumevani domen.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Podrazumevana OU više nije na listi. Izaberite drugu ili obrišite podrazumevani izbor.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Dodajte bar jedan domen.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Ista OU je navedena više puta.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Dva domena imaju isti interni ID. Uklonite jedan i dodajte ga ponovo.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Ovaj domen je već na listi.</value>
@@ -1966,29 +1954,14 @@ Licencirano pod MIT licencom.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Dve OU imaju isti interni ID. Uklonite jednu i dodajte je ponovo.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Nalog je predugačak ili nije važeći.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Jedna OU ima jedinstveno ime koje nije važeće.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Stavka domena je oštećena. Uklonite je i dodajte ponovo.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Unesite važeće ime domena, na primer corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Svaka OU mora imati ime za prikaz sa najviše 120 znakova.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Stavka OU je oštećena. Uklonite je i dodajte ponovo.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Omogućite zaštitu lozinkom na stranici „Opšte” i postavite lozinku za primenu.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Svaka navedena OU mora pripadati svom domenu.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Unesite lozinku naloga.</value>
@@ -2004,9 +1977,6 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Možete navesti najviše 1.024 OU.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Ovaj režim pridruživanja domenu nije podržan.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Nalog (DOMAIN\user ili user@domain)</value>

@@ -17,7 +17,6 @@ public sealed class DomainJoinSecretState : IDisposable
     private readonly Dictionary<string, char[]> passwords = new(StringComparer.Ordinal);
     private bool isDisposed;
 
-
     /// <summary>Validates and copies a password without normalization; an empty value removes the account's password.</summary>
     public void SetPassword(string accountName, ReadOnlySpan<char> value)
     {

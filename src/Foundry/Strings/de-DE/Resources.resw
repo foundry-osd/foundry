@@ -1945,20 +1945,8 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Gemeinsam</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Wählen Sie eine Standarddomäne aus.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Die Standard-OU ist nicht mehr in der Liste. Wählen Sie eine andere aus oder löschen Sie die Standardauswahl.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Fügen Sie mindestens eine Domäne hinzu.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Dieselbe OU ist mehrfach aufgelistet.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Zwei Domänen haben dieselbe interne ID. Entfernen Sie eine davon und fügen Sie sie erneut hinzu.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Diese Domäne ist bereits aufgelistet.</value>
@@ -1966,29 +1954,14 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Zwei OUs haben dieselbe interne ID. Entfernen Sie eine davon und fügen Sie sie erneut hinzu.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Das Konto ist zu lang oder ungültig.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Der Distinguished Name einer OU ist ungültig.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Ein Domäneneintrag ist beschädigt. Entfernen Sie ihn und fügen Sie ihn erneut hinzu.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Geben Sie einen gültigen Domänennamen ein, z. B. corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Jede OU benötigt einen Anzeigenamen mit höchstens 120 Zeichen.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Ein OU-Eintrag ist beschädigt. Entfernen Sie ihn und fügen Sie ihn erneut hinzu.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Aktivieren Sie auf der Seite „Allgemein“ den Kennwortschutz und legen Sie das Bereitstellungskennwort fest.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Jede aufgelistete OU muss zu ihrer Domäne gehören.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Geben Sie das Kontokennwort ein.</value>
@@ -2004,9 +1977,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Sie können bis zu 1.024 OUs auflisten.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Dieser Modus für den Domänenbeitritt wird nicht unterstützt.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Konto (DOMAIN\user oder user@domain)</value>

@@ -1945,20 +1945,8 @@
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>משותף</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>בחר תחום ברירת מחדל.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>OU ברירת המחדל כבר אינה ברשימה. בחר אחרת או נקה את ברירת המחדל.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>הוסף לפחות תחום אחד.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>אותה OU מופיעה ברשימה יותר מפעם אחת.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>לשני תחומים יש אותו מזהה פנימי. הסר אחד מהם והוסף אותו שוב.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>תחום זה כבר נמצא ברשימה.</value>
@@ -1966,29 +1954,14 @@
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>לשתי יחידות OU יש אותו מזהה פנימי. הסר אחת מהן והוסף אותה שוב.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>החשבון ארוך מדי או אינו תקין.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>ל-OU אחת יש שם מובחן שאינו תקין.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>רשומת תחום פגומה. הסר אותה והוסף אותה שוב.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>הזן שם תחום תקין, כגון corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>כל OU דורשת שם תצוגה באורך של עד 120 תווים.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>רשומת OU פגומה. הסר אותה והוסף אותה שוב.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>הפעל הגנה באמצעות סיסמה בעמוד "כללי" והגדר את סיסמת הפריסה.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>כל OU שברשימה חייבת להשתייך לתחום שלה.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>הזן את סיסמת החשבון.</value>
@@ -2004,9 +1977,6 @@
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>ניתן לכלול ברשימה עד 1,024 יחידות OU.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>מצב זה של הצטרפות לתחום אינו נתמך.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>חשבון (DOMAIN\user או user@domain)</value>

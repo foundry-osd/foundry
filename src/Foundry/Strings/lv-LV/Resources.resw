@@ -1945,20 +1945,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Kopīgs</value>
   </data>
-  <data name="DomainJoin.Validation.DefaultDomainMissing" xml:space="preserve">
-    <value>Izvēlieties noklusējuma domēnu.</value>
-  </data>
-  <data name="DomainJoin.Validation.DefaultOuMissing" xml:space="preserve">
-    <value>Noklusējuma OU vairs nav sarakstā. Izvēlieties citu vai notīriet noklusējuma izvēli.</value>
-  </data>
   <data name="DomainJoin.Validation.DomainsRequired" xml:space="preserve">
     <value>Pievienojiet vismaz vienu domēnu.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDistinguishedName" xml:space="preserve">
-    <value>Viena un tā pati OU sarakstā ir norādīta vairākkārt.</value>
-  </data>
-  <data name="DomainJoin.Validation.DuplicateDomainId" xml:space="preserve">
-    <value>Diviem domēniem ir vienāds iekšējais ID. Noņemiet vienu un pievienojiet to vēlreiz.</value>
   </data>
   <data name="DomainJoin.Validation.DuplicateDomainName" xml:space="preserve">
     <value>Šis domēns jau ir sarakstā.</value>
@@ -1966,29 +1954,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoin.Validation.DuplicateOuId" xml:space="preserve">
     <value>Divām OU ir vienāds iekšējais ID. Noņemiet vienu un pievienojiet to vēlreiz.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidAccountName" xml:space="preserve">
-    <value>Konts ir pārāk garš vai nav derīgs.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDistinguishedName" xml:space="preserve">
-    <value>Kādai OU ir nederīgs atšķirīgais nosaukums.</value>
-  </data>
-  <data name="DomainJoin.Validation.InvalidDomainId" xml:space="preserve">
-    <value>Kāds domēna ieraksts ir bojāts. Noņemiet to un pievienojiet vēlreiz.</value>
-  </data>
   <data name="DomainJoin.Validation.InvalidDomainName" xml:space="preserve">
     <value>Ievadiet derīgu domēna nosaukumu, piemēram, corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
     <value>Katrai OU nepieciešams parādāmais nosaukums, kas nav garāks par 120 rakstzīmēm.</value>
   </data>
-  <data name="DomainJoin.Validation.InvalidOuId" xml:space="preserve">
-    <value>Kāds OU ieraksts ir bojāts. Noņemiet to un pievienojiet vēlreiz.</value>
-  </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Lapā „Vispārīgi” ieslēdziet aizsardzību ar paroli un iestatiet izvietošanas paroli.</value>
-  </data>
-  <data name="DomainJoin.Validation.OuOutsideDomain" xml:space="preserve">
-    <value>Katrai sarakstā esošajai OU jāpieder savam domēnam.</value>
   </data>
   <data name="DomainJoin.Validation.PasswordRequired" xml:space="preserve">
     <value>Ievadiet konta paroli.</value>
@@ -2004,9 +1977,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="DomainJoin.Validation.TooManyOrganizationalUnits" xml:space="preserve">
     <value>Sarakstā var būt ne vairāk kā 1024 OU.</value>
-  </data>
-  <data name="DomainJoin.Validation.UnsupportedMode" xml:space="preserve">
-    <value>Šis pievienošanās domēnam režīms netiek atbalstīts.</value>
   </data>
   <data name="DomainJoinAccount.Header" xml:space="preserve">
     <value>Konts (DOMAIN\user vai user@domain)</value>

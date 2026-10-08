@@ -56,6 +56,26 @@ public sealed class PostInstallConsoleTests
         Assert.Contains(expected, output.ToString());
     }
 
+    [Theory]
+    [InlineData(DomainJoinPhaseState.Succeeded)]
+    [InlineData(DomainJoinPhaseState.Failed)]
+    [InlineData(DomainJoinPhaseState.Unverified)]
+    public void UnknownJoin_StopsAnnouncingTheCheckOnceMembershipWasChecked(DomainJoinPhaseState membership)
+    {
+        using var f = new DomainFixture();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); DomainSeeds.WriteResult(f.Root, f.Plan, f.Hash);
+        DomainJoinResult result = report.Read() with
+        {
+            Join = new() { State = DomainJoinPhaseState.Unknown },
+            Membership = new() { State = membership }
+        };
+        using var output = new StringWriter();
+        using var console = new PostInstallConsole(f.Plan, "test.log", output);
+        console.Report(new([], "Running", DomainResult: result, WarningCount: 1));
+        Assert.Contains("Membership: " + membership, output.ToString());
+        Assert.DoesNotContain("is checked after restart", output.ToString());
+    }
+
     [Fact]
     public void RedirectedOutput_ReportsResumedResultsAndOnlyChangedActions()
     {
