@@ -3394,13 +3394,28 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>USB oprettelse er blokeret</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Dette vil slette disken {0}: {1} ({2}). Fortsæt kun, hvis dette er det tilsigtede USB-drev.</value>
+    <value>Dette vil slette disken {0}: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
+    <value>Ingen læsbare volumener på denne disk.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formater og opret USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formater USB mål</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), {3} brugt af {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Uden navn</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Volumener på denne disk:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Alt på denne disk går tabt. Fortsæt kun, hvis dette er det tilsigtede USB-drev.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Opret USB</value>

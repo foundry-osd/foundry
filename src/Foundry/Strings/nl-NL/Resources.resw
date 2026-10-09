@@ -3394,13 +3394,28 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Het maken van USB is geblokkeerd</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Hierdoor wordt schijf {0}: {1} ({2}) gewist. Ga alleen verder als dit de beoogde USB-schijf is.</value>
+    <value>Hierdoor wordt schijf {0}: {1} ({2}) gewist.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
+    <value>Geen leesbaar volume op deze schijf.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formatteer en creëer USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formaat USB doel</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), {3} gebruikt van {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Zonder naam</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Volumes op deze schijf:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Alles op deze schijf gaat verloren. Ga alleen verder als dit de beoogde USB-schijf is.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Maak USB aan</value>

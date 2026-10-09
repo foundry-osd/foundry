@@ -3394,13 +3394,28 @@
     <value>تم حظر الإنشاء USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>سيؤدي هذا إلى مسح القرص {0}: {1} ({2}). تابع فقط إذا كان هذا هو محرك الأقراص USB المقصود.</value>
+    <value>سيؤدي هذا إلى مسح القرص {0}: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
+    <value>لا توجد وحدة تخزين قابلة للقراءة على هذا القرص.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>تنسيق وإنشاء USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>تنسيق USB الهدف</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2})، مستخدم {3} من {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>بدون اسم</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>وحدات التخزين على هذا القرص:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>سيتم فقدان كل شيء على هذا القرص. تابع فقط إذا كان هذا هو محرك الأقراص USB المقصود.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>إنشاء USB</value>

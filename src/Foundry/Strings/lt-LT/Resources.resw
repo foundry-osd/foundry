@@ -3394,13 +3394,28 @@ Licencijuota pagal MIT licenciją.</value>
     <value>USB kūrimas užblokuotas</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Taip bus ištrintas diskas {0}: {1} ({2}). Tęskite tik tuo atveju, jei tai numatytas USB diskas.</value>
+    <value>Taip bus ištrintas diskas {0}: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
+    <value>Šiame diske nėra nuskaitomo tomo.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formatuokite ir sukurkite USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formatuokite USB tikslą</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), panaudota {3} iš {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Be pavadinimo</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Šio disko tomai:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Viskas šiame diske bus prarasta. Tęskite tik tuo atveju, jei tai numatytas USB diskas.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Sukurti USB</value>

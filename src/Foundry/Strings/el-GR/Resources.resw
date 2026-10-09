@@ -3394,13 +3394,28 @@
     <value>Η δημιουργία USB έχει αποκλειστεί</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Αυτό θα διαγράψει το δίσκο {0}: {1} ({2}). Συνεχίστε μόνο εάν αυτή είναι η προβλεπόμενη μονάδα δίσκου USB.</value>
+    <value>Αυτό θα διαγράψει το δίσκο {0}: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
+    <value>Δεν υπάρχει αναγνώσιμος τόμος σε αυτόν τον δίσκο.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Μορφοποίηση και δημιουργία USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Μορφοποίηση USB στόχο</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), χρησιμοποιούνται {3} από {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Χωρίς όνομα</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Τόμοι σε αυτόν τον δίσκο:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Όλα τα δεδομένα σε αυτόν τον δίσκο θα χαθούν. Συνεχίστε μόνο εάν αυτή είναι η προβλεπόμενη μονάδα δίσκου USB.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Δημιουργία USB</value>

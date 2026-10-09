@@ -874,13 +874,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
             localizationService.GetString("StartMedia.CreateUsb.ConfirmTitle"),
-            string.Format(
-                localizationService.GetString("StartMedia.CreateUsb.ConfirmMessage"),
-                selectedDisk.DiskNumber,
-                selectedDisk.FriendlyName,
-                FormatByteSize(selectedDisk.SizeBytes)),
+            BuildUsbFormattingMessage(selectedDisk),
             localizationService.GetString("StartMedia.CreateUsb.ConfirmPrimary"),
-            localizationService.GetString("Common.Cancel")));
+            localizationService.GetString("Common.Cancel"),
+            PreferCancel: true));
         if (!confirmed)
         {
             logger.Information(
@@ -889,6 +886,53 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 selectedDisk.FriendlyName);
         }
         return confirmed;
+    }
+
+    /// <summary>
+    /// Describes the disk about to be erased and the volumes found on it when the USB list was last refreshed,
+    /// so the user can notice a wrong disk before confirming.
+    /// </summary>
+    private string BuildUsbFormattingMessage(WinPeUsbDiskCandidate selectedDisk)
+    {
+        List<string> lines =
+        [
+            string.Format(
+                localizationService.GetString("StartMedia.CreateUsb.ConfirmMessage"),
+                selectedDisk.DiskNumber,
+                selectedDisk.FriendlyName,
+                FormatByteSize(selectedDisk.SizeBytes)),
+            string.Empty
+        ];
+
+        if (selectedDisk.Volumes.Count == 0)
+        {
+            lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmNoVolumes"));
+        }
+        else
+        {
+            lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmVolumesHeader"));
+            lines.AddRange(selectedDisk.Volumes.Select(FormatUsbVolume));
+        }
+
+        lines.Add(string.Empty);
+        lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmWarning"));
+        return string.Join(Environment.NewLine, lines);
+    }
+
+    private string FormatUsbVolume(WinPeUsbVolume volume)
+    {
+        string label = string.IsNullOrWhiteSpace(volume.Label)
+            ? localizationService.GetString("StartMedia.CreateUsb.ConfirmVolumeNoName")
+            : volume.Label;
+
+        // A volume without a drive letter leaves the first placeholder empty.
+        return string.Format(
+            localizationService.GetString("StartMedia.CreateUsb.ConfirmVolumeLine"),
+            volume.DriveLetter,
+            label,
+            volume.FileSystem,
+            FormatByteSize(volume.UsedBytes),
+            FormatByteSize(volume.SizeBytes)).Trim();
     }
 
     private async Task<string> CreateIsoMediaAsync(
