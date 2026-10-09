@@ -94,11 +94,14 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                               function Get-FoundryUsbPartitionVolume($Partition) {
                                   $driveLetter = Get-FoundryUsbDriveLetter $Partition.DriveLetter
                                   if ($null -ne $driveLetter) {
-                                      $volume = Get-Volume -DriveLetter $driveLetter -ErrorAction SilentlyContinue
+                                      $volume = Get-Volume -DriveLetter $driveLetter -ErrorAction SilentlyContinue -ErrorVariable volumeErrors
                                   }
                                   else {
-                                      $volume = Get-Volume -Partition $Partition -ErrorAction SilentlyContinue
+                                      $volume = Get-Volume -Partition $Partition -ErrorAction SilentlyContinue -ErrorVariable volumeErrors
                                   }
+
+                                  # The caller cannot tell a failed read from a partition without a volume, so it is recorded here.
+                                  if ($volumeErrors.Count -gt 0) { $script:foundryUsbVolumeReadFailed = $true }
 
                                   if ($null -eq $volume) { return $null }
 
@@ -107,20 +110,39 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                       DriveLetter = Get-FoundryUsbDriveLetterText $Partition.DriveLetter
                                       FileSystemLabel = [string]$volume.FileSystemLabel
                                       FileSystem = [string]$volume.FileSystem
+                                      Size = [uint64]$volume.Size
+                                      SizeRemaining = [uint64]$volume.SizeRemaining
                                       GptType = [string]$Partition.GptType
                                       MbrType = [string]$Partition.MbrType
                                       IsActive = [bool]$Partition.IsActive
                                   }
                               }
 
+                              # The disks are read first: a disk that appears afterwards is not in the list, while a disk in the list
+                              # always has its partitions listed later, so a new disk is never reported as having none.
                               $disks = Get-Disk | Where-Object { $_.BusType -eq 'USB' }
+
+                              # Querying partitions by disk number raises a "not found" error for a disk without partitions, which cannot be
+                              # told from a real failure. Partitions are listed once and matched by disk number below, so any
+                              # error left here is a failed read.
+                              $allPartitions = @(Get-Partition -ErrorAction SilentlyContinue -ErrorVariable partitionErrors)
+                              $partitionReadFailed = $partitionErrors.Count -gt 0
+
                               $result = @(
                               foreach ($disk in $disks) {
-                                  $partitions = @(Get-Partition -DiskNumber $disk.Number -ErrorAction SilentlyContinue)
+                                  $script:foundryUsbVolumeReadFailed = $false
+                                  $partitions = @($allPartitions | Where-Object { $_.DiskNumber -eq $disk.Number })
                                   $volumes = @($partitions | ForEach-Object { Get-FoundryUsbPartitionVolume $_ })
                                   $letters = @(
                                       $volumes | Where-Object { $_.DriveLetter -ne '' } | ForEach-Object { $_.DriveLetter }
                                   )
+                                  # Volumes without a file system are not readable by Windows and are not shown to the user.
+                                  $readableVolumes = @(
+                                      $volumes |
+                                          Where-Object { $null -ne $_ -and -not [string]::IsNullOrEmpty($_.FileSystem) } |
+                                          Select-Object DriveLetter, FileSystemLabel, FileSystem, Size, SizeRemaining
+                                  )
+                                  $volumesReadFailed = $partitionReadFailed -or $script:foundryUsbVolumeReadFailed
                                   $hasBootVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32' }).Count -gt 0
                                   $hasGptBootPartition = @($partitions | Where-Object { [string]$_.GptType -eq $foundryGptBootPartitionType }).Count -gt 0
                                   $hasMbrBootPartition = @($partitions | Where-Object { $_.MbrType -in $foundryMbrBootPartitionTypes -and [bool]$_.IsActive }).Count -gt 0
@@ -133,11 +155,13 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                       SerialNumber = [string]$disk.SerialNumber
                                       UniqueId = [string]$disk.UniqueId
                                       BusType = [string]$disk.BusType
-                                      IsRemovable = $disk.IsRemovable
                                       IsSystem = [bool]$disk.IsSystem
                                       IsBoot = [bool]$disk.IsBoot
                                       Size = [uint64]$disk.Size
                                       IsFoundryMedia = [bool](($hasBootVolume -or $hasGptBootPartition -or $hasMbrBootPartition) -and $hasCacheVolume)
+                                      PartitionCount = [int]$partitions.Count
+                                      VolumesReadFailed = [bool]$volumesReadFailed
+                                      Volumes = $readableVolumes
                                   }
                               }
                               )
@@ -146,7 +170,8 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                   '[]'
                               }
                               else {
-                                  $result | ConvertTo-Json -Compress
+                                  # The default depth would flatten each volume into a string.
+                                  $result | ConvertTo-Json -Compress -Depth 4
                               }
                               """;
 
@@ -166,7 +191,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             IReadOnlyList<WinPeUsbDiskCandidate> candidates = ParseUsbCandidates(result.Value!)
                 .Where(candidate =>
                     candidate.BusType.Equals("USB", StringComparison.OrdinalIgnoreCase) &&
-                    candidate.IsRemovable != false &&
                     !candidate.IsSystem &&
                     !candidate.IsBoot)
                 .OrderBy(candidate => candidate.DiskNumber)
@@ -480,14 +504,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                 $"Disk {disk.Number} bus type is '{disk.BusType}'. Only USB disks are allowed.");
         }
 
-        if (disk.IsRemovable == false)
-        {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.UsbUnsafeTarget,
-                "Target disk is not removable.",
-                $"Disk {disk.Number} reports IsRemovable=false.");
-        }
-
         if (disk.IsSystem || disk.IsBoot)
         {
             return WinPeResult.Failure(
@@ -525,7 +541,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
     private static string CreateUsbDiskGuard(DiskIdentity expectedIdentity) =>
         WindowsDiskIdentityGuard.CreateScript(expectedIdentity) + Environment.NewLine + $$"""
         if (([string]$foundryConfirmedDisk.BusType).Trim() -ine 'USB' -or
-            $foundryConfirmedDisk.IsRemovable -eq $false -or
             $foundryConfirmedDisk.IsSystem -isnot [bool] -or $foundryConfirmedDisk.IsSystem -or
             $foundryConfirmedDisk.IsBoot -isnot [bool] -or $foundryConfirmedDisk.IsBoot -or
             [uint64]$foundryConfirmedDisk.Size -lt {{MinimumUsbDiskSizeBytes}}) {
@@ -1134,7 +1149,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                               SerialNumber = [string]$disk.SerialNumber
                               UniqueId = [string]$disk.UniqueId
                               BusType = [string]$disk.BusType
-                              IsRemovable = $disk.IsRemovable
                               IsSystem = [bool]$disk.IsSystem
                               IsBoot = [bool]$disk.IsBoot
                               Size = [uint64]$disk.Size
@@ -1294,6 +1308,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             return null;
         }
 
+        bool hasPartitionCount = TryGetInt32(element, "PartitionCount", out int partitionCount);
         return new WinPeUsbDiskCandidate
         {
             DiskNumber = diskNumber,
@@ -1302,12 +1317,58 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             SerialNumber = GetString(element, "SerialNumber"),
             UniqueId = GetString(element, "UniqueId"),
             BusType = GetString(element, "BusType"),
-            IsRemovable = GetNullableBool(element, "IsRemovable"),
             IsSystem = GetBool(element, "IsSystem"),
             IsBoot = GetBool(element, "IsBoot"),
             SizeBytes = GetUInt64(element, "Size"),
-            IsFoundryMedia = GetBool(element, "IsFoundryMedia")
+            IsFoundryMedia = GetBool(element, "IsFoundryMedia"),
+            PartitionCount = hasPartitionCount ? Math.Max(partitionCount, 0) : 0,
+            // An inventory that does not say how many partitions the disk has cannot prove it is empty.
+            VolumesReadFailed = GetBool(element, "VolumesReadFailed") || !hasPartitionCount,
+            Volumes = ParseUsbVolumes(element)
         };
+    }
+
+    /// <summary>
+    /// Reads the volume list of a disk. Windows PowerShell serializes a one-item list as a bare object on
+    /// some paths, so both shapes are accepted. Entries without a file system are not readable and are dropped.
+    /// Any other shape, such as the flattened text PowerShell writes when the JSON depth is too low, throws
+    /// <see cref="JsonException"/> so that a damaged inventory fails instead of reporting an empty disk.
+    /// </summary>
+    private static IReadOnlyList<WinPeUsbVolume> ParseUsbVolumes(JsonElement disk)
+    {
+        if (!disk.TryGetProperty("Volumes", out JsonElement volumes) || volumes.ValueKind == JsonValueKind.Null)
+        {
+            return [];
+        }
+
+        JsonElement[] items = volumes.ValueKind switch
+        {
+            JsonValueKind.Array => volumes.EnumerateArray().ToArray(),
+            JsonValueKind.Object => [volumes],
+            _ => throw new JsonException("The USB disk volume list is neither an array nor an object.")
+        };
+
+        if (items.Any(static item => item.ValueKind != JsonValueKind.Object))
+        {
+            throw new JsonException("The USB disk volume list contains an entry that is not an object.");
+        }
+
+        return items
+            .Select(static item =>
+            {
+                ulong size = GetUInt64(item, "Size");
+                ulong remaining = GetUInt64(item, "SizeRemaining");
+                return new WinPeUsbVolume
+                {
+                    DriveLetter = GetString(item, "DriveLetter").Trim(),
+                    Label = GetString(item, "FileSystemLabel"),
+                    FileSystem = GetString(item, "FileSystem").Trim(),
+                    SizeBytes = size,
+                    UsedBytes = remaining < size ? size - remaining : 0
+                };
+            })
+            .Where(static volume => volume.FileSystem.Length > 0)
+            .ToArray();
     }
 
     private static bool TryGetInt32(JsonElement element, string propertyName, out int value)
@@ -1348,25 +1409,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         return property.ValueKind == JsonValueKind.String &&
                bool.TryParse(property.GetString(), out bool parsed) &&
                parsed;
-    }
-
-    private static bool? GetNullableBool(JsonElement element, string propertyName)
-    {
-        if (!element.TryGetProperty(propertyName, out JsonElement property) ||
-            property.ValueKind == JsonValueKind.Null)
-        {
-            return null;
-        }
-
-        if (property.ValueKind is JsonValueKind.True or JsonValueKind.False)
-        {
-            return property.GetBoolean();
-        }
-
-        return property.ValueKind == JsonValueKind.String &&
-               bool.TryParse(property.GetString(), out bool parsed)
-            ? parsed
-            : null;
     }
 
     private static ulong GetUInt64(JsonElement element, string propertyName)

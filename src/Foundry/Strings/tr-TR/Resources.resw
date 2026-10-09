@@ -3394,13 +3394,31 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>USB oluşturma engellendi</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Bu, {0}: {1} ({2}) diskini silecektir. Yalnızca amaçlanan USB sürücüsü ise devam edin.</value>
+    <value>Bu, {0}: {1} ({2}) diskini silecektir.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Bu diskte bölüm yok.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>USB'yi biçimlendirin ve oluşturun</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>USB hedefini biçimlendir</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows bu diskteki birimleri okuyamıyor. Disk hâlâ veri içeriyor olabilir.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), {4} içinden {3} kullanıldı</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Adsız</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Bu diskteki birimler:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Bu diskteki her şey kaybolacak. Yalnızca amaçlanan USB diski ise devam edin.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB oluştur</value>

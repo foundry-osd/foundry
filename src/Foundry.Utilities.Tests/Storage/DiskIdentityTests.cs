@@ -136,7 +136,7 @@ public sealed class DiskIdentityTests
     public void FromDiskInfo_RetainsRawIdentityAndIgnoresMutablePartitionState()
     {
         var raw = new DiskInfo(3, " Device ", " Serial ", " USB ", "RAW", 64_000_000_000,
-            false, false, false, false, true)
+            false, false, false, false)
         { UniqueId = " UID " };
         DiskInfo partitioned = raw with { PartitionStyle = "GPT", IsReadOnly = true, IsOffline = true };
 

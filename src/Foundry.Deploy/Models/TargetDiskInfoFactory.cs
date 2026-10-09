@@ -20,7 +20,6 @@ public static class TargetDiskInfoFactory
             IsBoot = false,
             IsReadOnly = false,
             IsOffline = false,
-            IsRemovable = false,
             IsSelectable = true,
             SelectionWarning = string.Empty
         };

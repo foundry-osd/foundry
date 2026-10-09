@@ -12,9 +12,11 @@ namespace Foundry.Core.Services.Application;
 /// <param name="PrimaryButtonText">Text for the action that confirms the operation.</param>
 /// <param name="CancelButtonText">Text for the action that dismisses the operation.</param>
 /// <param name="IsPrimaryButtonAccent">Whether the primary action should use the platform accent style.</param>
+/// <param name="PreferCancel">Whether dismissing the operation is the default action, so that pressing Enter confirms nothing. It takes precedence over the accent primary button as the default.</param>
 public sealed record ConfirmationDialogRequest(
     string Title,
     string Message,
     string PrimaryButtonText,
     string CancelButtonText,
-    bool IsPrimaryButtonAccent = false);
+    bool IsPrimaryButtonAccent = false,
+    bool PreferCancel = false);

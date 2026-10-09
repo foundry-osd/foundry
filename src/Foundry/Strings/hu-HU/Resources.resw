@@ -3394,13 +3394,31 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A USB létrehozása le van tiltva</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Ezzel törli a {0}: {1} ({2}) lemezt. Csak akkor folytassa, ha ez a tervezett USB meghajtó.</value>
+    <value>Ezzel törli a {0}: {1} ({2}) lemezt.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Ezen a lemezen nincs partíció.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formázza és hozzon létre USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formázza a USB célt</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>A Windows nem tudja beolvasni a lemez köteteit. Továbbra is tartalmazhat adatokat.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), {3} használatban, összesen {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Névtelen</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>A lemez kötetei:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>A lemezen lévő minden adat elvész. Csak akkor folytassa, ha ez a tervezett USB-lemez.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB létrehozása</value>

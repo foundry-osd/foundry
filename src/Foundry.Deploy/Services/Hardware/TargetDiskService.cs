@@ -115,7 +115,6 @@ public sealed class TargetDiskService : ITargetDiskService
             IsBoot = snapshot.IsBoot,
             IsReadOnly = snapshot.IsReadOnly,
             IsOffline = snapshot.IsOffline,
-            IsRemovable = snapshot.IsRemovable,
             IsSelectable = string.IsNullOrWhiteSpace(warning),
             SelectionWarning = warning
         };

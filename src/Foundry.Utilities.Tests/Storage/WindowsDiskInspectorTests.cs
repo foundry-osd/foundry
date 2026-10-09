@@ -26,7 +26,6 @@ public sealed class WindowsDiskInspectorTests
                 IsBoot = $false
                 IsReadOnly = $false
                 IsOffline = $false
-                IsRemovable = $true
             }
             """);
 
@@ -56,8 +55,7 @@ public sealed class WindowsDiskInspectorTests
                   "IsSystem":"true",
                   "IsBoot":false,
                   "IsReadOnly":true,
-                  "IsOffline":"false",
-                  "IsRemovable":false
+                  "IsOffline":"false"
                 }
                 """));
         });
@@ -76,7 +74,6 @@ public sealed class WindowsDiskInspectorTests
         Assert.False(disk.IsBoot);
         Assert.True(disk.IsReadOnly);
         Assert.False(disk.IsOffline);
-        Assert.False(disk.IsRemovable);
 
         Assert.NotNull(capturedRequest);
         Assert.Equal("powershell.exe", capturedRequest.FileName);

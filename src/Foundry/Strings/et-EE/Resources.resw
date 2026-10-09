@@ -3394,13 +3394,31 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>USB loomine on blokeeritud</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>See kustutab ketta {0}: {1} ({2}). Jätkake ainult siis, kui see on mõeldud USB-draiv.</value>
+    <value>See kustutab ketta {0}: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Sellel kettal pole ühtegi partitsiooni.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Vorminda ja loo USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Vorming USB sihtmärk</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows ei saa selle ketta köiteid lugeda. Sellel võib siiski olla andmeid.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), kasutatud {3} / {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Nimeta</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Selle ketta köited:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Kõik sellel kettal läheb kaotsi. Jätkake ainult siis, kui see on ettenähtud USB-ketas.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Loo USB</value>

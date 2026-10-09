@@ -3394,13 +3394,31 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Die Erstellung von USB ist blockiert</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Dadurch wird die Festplatte {0} gelöscht: {1} ({2}). Fahren Sie nur fort, wenn dies das vorgesehene USB Laufwerk ist.</value>
+    <value>Dadurch wird die Festplatte {0} gelöscht: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Diese Festplatte enthält keine Partition.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formatieren und erstellen Sie USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formatieren Sie USB Ziel</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows kann die Volumes auf dieser Festplatte nicht lesen. Sie enthält möglicherweise weiterhin Daten.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), {3} von {4} belegt</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Ohne Namen</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Volumes auf dieser Festplatte:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Alles auf dieser Festplatte geht verloren. Fahren Sie nur fort, wenn dies die vorgesehene USB-Festplatte ist.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Erstellen Sie USB</value>
