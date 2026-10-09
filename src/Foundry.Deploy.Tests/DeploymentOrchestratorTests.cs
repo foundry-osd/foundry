@@ -434,6 +434,27 @@ public sealed class DeploymentOrchestratorTests
         ], started);
     }
     [Fact]
+    public async Task RunAsync_WhenRecoveryConfigurationSkipsBecauseWinReIsMissing_ContinuesAndSucceeds()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var orchestrator = CreateOrchestrator(DeploymentStepNames.ExecutionOrder.Select(name =>
+            name == DeploymentStepNames.ConfigureRecoveryEnvironment ? new SkippingStep(name) : (IDeploymentStep)new SucceedingStep(name)));
+        var updates = new List<DeploymentStepProgress>();
+        orchestrator.StepProgressChanged += (_, update) => updates.Add(update);
+
+        DeploymentResult result = await orchestrator.RunAsync(
+            CreateCancellationContext(workspace.RootPath) with { ApplyFirmwareUpdates = false }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess);
+        Assert.Contains(updates, update =>
+            update.StepName == DeploymentStepNames.ConfigureRecoveryEnvironment && update.State == DeploymentStepState.Skipped);
+        Assert.Contains(updates, update =>
+            update.StepName == DeploymentStepNames.SealRecoveryPartition && update.State == DeploymentStepState.Succeeded);
+        Assert.Contains(updates, update =>
+            update.StepName == DeploymentStepNames.FinalizeDeploymentAndWriteLogs && update.State == DeploymentStepState.Succeeded);
+    }
+
+    [Fact]
     public void Constructor_WhenStepRegistrationIsDuplicated_Throws()
     {
         IDeploymentStep[] steps = DeploymentStepNames.ExecutionOrder
@@ -1000,6 +1021,16 @@ public sealed class DeploymentOrchestratorTests
             cancellation.Cancel();
             return Task.FromCanceled<DeploymentStepResult>(cancellationToken);
         }
+    }
+
+    private sealed class SkippingStep(string name) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(
+            DeploymentStepExecutionContext context,
+            CancellationToken cancellationToken) =>
+            Task.FromResult(DeploymentStepResult.Skipped("The applied Windows image does not contain winre.wim."));
     }
 
     private sealed class SucceedingStep(string name) : IDeploymentStep

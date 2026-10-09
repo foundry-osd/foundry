@@ -69,6 +69,7 @@ internal sealed class DriverApplicationStepTestFixture : IDisposable
             WorkspaceRoot = WorkspaceRoot,
             TargetWindowsPartitionRoot = WindowsRoot,
             TargetRecoveryPartitionRoot = RecoveryRoot,
+            TargetRecoveryPartitionLetter = 'R',
             TargetFoundryRoot = Path.Combine(WindowsRoot, "Foundry"),
             ExtractedDriverPackPath = DriverRoot,
             DriverPackInstallMode = DriverPackInstallMode.OfflineInf,
@@ -100,6 +101,14 @@ internal class RecordingDriverApplicationService : IWindowsDeploymentService
 
     public int RecoveryApplyCount { get; private set; }
 
+    public int RecoveryConfigureCount { get; private set; }
+
+    public int RecoverySealCount { get; private set; }
+
+    public bool AppliedImageHasWinRe { get; set; } = true;
+
+    public Exception? RecoveryConfigureFailure { get; set; }
+
     public Task ApplyOfflineDriversAsync(string windowsPartitionRoot, string driverRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null)
     {
         WindowsApplyCount++;
@@ -130,9 +139,19 @@ internal class RecordingDriverApplicationService : IWindowsDeploymentService
 
     public Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(string setupMediaImagePath, string windowsPartitionRoot, int appliedImageIndex, DeployWindowsOptionalFeatureSettings settings, string scratchDirectory, string sourceExtractionDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null, Action? onInspectionStarted = null, Action? onSourcePreparationStarted = null, Action? onServicingStarted = null) => throw new NotSupportedException();
 
-    public Task ConfigureRecoveryEnvironmentAsync(string windowsPartitionRoot, string recoveryPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public Task<bool> ConfigureRecoveryEnvironmentAsync(string windowsPartitionRoot, string recoveryPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default)
+    {
+        RecoveryConfigureCount++;
+        return RecoveryConfigureFailure is null
+            ? Task.FromResult(AppliedImageHasWinRe)
+            : Task.FromException<bool>(RecoveryConfigureFailure);
+    }
 
-    public Task SealRecoveryPartitionAsync(string recoveryPartitionRoot, char recoveryPartitionLetter, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public Task SealRecoveryPartitionAsync(string recoveryPartitionRoot, char recoveryPartitionLetter, string workingDirectory, CancellationToken cancellationToken = default)
+    {
+        RecoverySealCount++;
+        return Task.CompletedTask;
+    }
 }
 
 internal sealed class DriverApplicationLogService : IDeploymentLogService

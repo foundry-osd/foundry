@@ -201,6 +201,20 @@ public sealed class NativeDeploymentWorkflowTests
         Assert.False(Directory.Exists(fixture.MountPath));
     }
 
+    [Fact]
+    public async Task ConfigureRecoveryEnvironmentAsync_WhenImageHasNoWinRe_ReturnsFalseWithoutTouchingRecoveryPartition()
+    {
+        using var fixture = new WorkflowFixture();
+        string recoveryRoot = Path.Combine(fixture.Root, "RecoveryPartition");
+
+        bool configured = await fixture.Service.ConfigureRecoveryEnvironmentAsync(
+            fixture.Root, recoveryRoot, fixture.Working, TestContext.Current.CancellationToken);
+
+        Assert.False(configured);
+        Assert.False(Directory.Exists(recoveryRoot));
+        Assert.Empty(fixture.Process.Calls);
+    }
+
     private static DeploymentOperationException Failure(string code) => new(
         DeploymentFailure.Guard(DeploymentOperationNames.ApplyRecoveryDrivers, DeploymentFailureReasons.InvalidState, code),
         code);

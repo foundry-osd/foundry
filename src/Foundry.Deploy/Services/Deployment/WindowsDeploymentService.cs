@@ -1055,7 +1055,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     }
 
     /// <inheritdoc />
-    public async Task ConfigureRecoveryEnvironmentAsync(
+    public async Task<bool> ConfigureRecoveryEnvironmentAsync(
         string windowsPartitionRoot,
         string recoveryPartitionRoot,
         string workingDirectory,
@@ -1077,7 +1077,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string sourceWinRePath = Path.Combine(windowsPath, "System32", "Recovery", WinReImageFileName);
         if (!File.Exists(sourceWinRePath))
         {
-            throw new FileNotFoundException("The offline Windows image does not contain winre.wim.", sourceWinRePath);
+            _logger.LogInformation("The applied Windows image does not contain winre.wim. SourceWinRePath={SourceWinRePath}", sourceWinRePath);
+            return false;
         }
 
         string recoveryDirectory = GetRecoveryDirectoryPath(recoveryPartitionRoot);
@@ -1101,6 +1102,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             cancellationToken).ConfigureAwait(false);
 
         _logger.LogInformation("Recovery environment configured successfully.");
+        return true;
     }
 
     /// <inheritdoc />

@@ -150,6 +150,12 @@ public sealed record DeploymentRuntimeState
     public bool WinReConfigured { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the applied Windows image has no winre.wim, so recovery steps that
+    /// depend on the recovery image are skipped instead of failed.
+    /// </summary>
+    public bool AppliedImageHasNoWinRe { get; set; }
+
+    /// <summary>
     /// Gets or sets the selected driver pack source.
     /// </summary>
     public DriverPackSelectionKind DriverPackSelectionKind { get; set; } = DriverPackSelectionKind.None;

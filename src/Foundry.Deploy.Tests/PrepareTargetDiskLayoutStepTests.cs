@@ -260,7 +260,7 @@ public sealed class PrepareTargetDiskLayoutStepTests
             throw new NotSupportedException();
         }
 
-        public Task ConfigureRecoveryEnvironmentAsync(
+        public Task<bool> ConfigureRecoveryEnvironmentAsync(
             string windowsPartitionRoot,
             string recoveryPartitionRoot,
             string workingDirectory,

@@ -45,6 +45,11 @@ public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDe
         DeploymentStepExecutionContext context,
         CancellationToken cancellationToken)
     {
+        if (context.RuntimeState.AppliedImageHasNoWinRe)
+        {
+            return DeploymentStepResult.Skipped("The applied Windows image does not contain winre.wim.");
+        }
+
         DeploymentStepResult? validationFailure = Validate(context);
         if (validationFailure is not null)
         {
