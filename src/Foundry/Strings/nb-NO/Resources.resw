@@ -377,7 +377,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Kopier passord</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Lagre denne PFX-filen og passordet nå på et sikkert sted. Foundry lagrer bare passordet sammen med konfigurasjonen din når Husk passord er slått på i Sikkerhetskopiering og synkronisering av innstillinger. Du trenger begge verdiene for å generere oppstartsmedier for maskinvarehash-opplasting.</value>
+    <value>Lagre denne PFX-filen og passordet nå på et sikkert sted. Foundry lagrer bare passordet sammen med konfigurasjonen din på denne PC-en når «Husk passord» er slått på i «Sikkerhetskopiering og synkronisering av innstillinger». Du trenger begge verdiene for å generere oppstartsmedier for maskinvarehash-opplasting.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Passord kopiert.</value>
@@ -2588,7 +2588,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Gi en bedrifts Wi-Fi profilmal</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Passordfrasen lagres med konfigurasjonen din bare når Husk passord er slått på i Sikkerhetskopiering og synkronisering av innstillinger. Ellers må du skrive den inn på nytt etter at du har startet Foundry OSD på nytt.</value>
+    <value>Passordfrasen lagres med konfigurasjonen din på denne PC-en bare når «Husk passord» er slått på i «Sikkerhetskopiering og synkronisering av innstillinger». Ellers lagres den ikke og må skrives inn på nytt, for eksempel etter at du har startet Foundry OSD på nytt.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importerer Wi-Fi-profilen som administreres av Foundry, til Windows før OOBE for å bevare utrullingstilkoblingen etter WinPE.</value>
@@ -3966,7 +3966,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Foundry bevarer originalfilen din og legger til den påkrevde kommandoen for etter installasjonen i distribusjonskopien. Du er fortsatt ansvarlig for dine egendefinerte innstillinger og kommandoer.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Egendefinerte filer krever passordbeskyttelse av distribusjonsmediet i den generelle konfigurasjonen. XML kan inneholde påloggingsinformasjon eller skript. Foundry beholder en kopi av hver fil sammen med konfigurasjonen din bare når Husk passord er slått på i Sikkerhetskopiering og synkronisering av innstillinger. Ellers lagres bare banen. Oppstartsavbildningen inneholder krypterte kopier.</value>
+    <value>Egendefinerte filer krever passordbeskyttelse av distribusjonsmediet i den generelle konfigurasjonen. XML kan inneholde påloggingsinformasjon eller skript. Foundry beholder en kopi av hver fil sammen med konfigurasjonen din på denne PC-en bare når «Husk passord» er slått på i «Sikkerhetskopiering og synkronisering av innstillinger». Ellers lagres bare banen. Oppstartsavbildningen inneholder krypterte kopier.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktiver passordbeskyttelse av distribusjonsmediet i den generelle konfigurasjonen for å bruke egendefinerte svarfiler.</value>

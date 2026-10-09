@@ -377,7 +377,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Şifreyi kopyala</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Bu PFX dosyasını ve şifresini şimdi güvenli bir konuma kaydedin. Foundry, şifreyi yapılandırmanızla birlikte yalnızca Ayarları yedekleme ve eşitleme içinde Parolaları hatırla açıkken kaydeder. Donanım karma yüklemesi için önyükleme ortamı oluşturmak amacıyla her iki değere de ihtiyacınız olacak.</value>
+    <value>Bu PFX dosyasını ve parolasını şimdi güvenli bir konuma kaydedin. Foundry, parolayı yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydeder. Donanım karma yüklemesi için önyükleme ortamı oluşturmak amacıyla her iki değere de ihtiyacınız olacak.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Şifre kopyalandı.</value>
@@ -2588,7 +2588,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kurumsal bir Wi-Fi profil şablonu sağlayın</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Wi-Fi parolası, yapılandırmanızla birlikte yalnızca Ayarları yedekleme ve eşitleme içinde Parolaları hatırla açıkken kaydedilir. Aksi takdirde Foundry OSD’yi yeniden başlattıktan sonra tekrar girin.</value>
+    <value>Parola, yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydedilir. Aksi takdirde kaydedilmez ve örneğin Foundry OSD’yi yeniden başlattıktan sonra tekrar girilmesi gerekir.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Foundry tarafından yönetilen Wi-Fi profilini OOBE öncesinde Windows’a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
@@ -3966,7 +3966,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Foundry özgün dosyanızı korur ve gerekli kurulum sonrası komutunu dağıtım kopyasına ekler. Özel ayarlarınız ve komutlarınız sizin sorumluluğunuzda kalır.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Özel dosyalar, Genel yapılandırmada dağıtım medyasının parolayla korunmasını gerektirir. XML, kimlik bilgileri veya betikler içerebilir. Foundry, yapılandırmanızla birlikte her dosyanın bir kopyasını yalnızca Ayarları yedekleme ve eşitleme içinde Parolaları hatırla açıkken saklar; aksi takdirde yalnızca yolu kaydeder. Önyükleme görüntüsü şifrelenmiş kopyalar içerir.</value>
+    <value>Özel dosyalar, Genel yapılandırmada dağıtım medyasının parolayla korunmasını gerektirir. XML, kimlik bilgileri veya betikler içerebilir. Foundry, yapılandırmanızla birlikte bu bilgisayarda her dosyanın bir kopyasını yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken saklar; aksi takdirde yalnızca yolu kaydeder. Önyükleme görüntüsü şifrelenmiş kopyalar içerir.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Özel yanıt dosyalarını kullanmak için Genel yapılandırmada dağıtım medyasının parola korumasını etkinleştirin.</value>

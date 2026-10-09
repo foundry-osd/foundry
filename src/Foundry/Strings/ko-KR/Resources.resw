@@ -377,7 +377,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>비밀번호 복사</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>이제 이 PFX 파일과 비밀번호를 안전한 위치에 저장하세요. Foundry는 설정 백업 및 동기화에서 암호 저장 옵션이 켜져 있을 때만 비밀번호를 구성과 함께 저장합니다. 하드웨어 해시 업로드를 위한 부팅 미디어를 생성하려면 두 값이 모두 필요합니다.</value>
+    <value>이제 이 PFX 파일과 암호를 안전한 위치에 저장하세요. Foundry는 “설정 백업 및 동기화”에서 “암호 저장” 옵션이 켜져 있을 때만 이 PC의 구성과 함께 암호를 저장합니다. 하드웨어 해시 업로드를 위한 부팅 미디어를 생성하려면 두 값이 모두 필요합니다.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>비밀번호가 복사되었습니다.</value>
@@ -2588,7 +2588,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>기업 Wi-Fi 프로필 템플릿 프로비저닝</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>암호는 설정 백업 및 동기화에서 암호 저장 옵션이 켜져 있을 때만 구성과 함께 저장됩니다. 그렇지 않으면 Foundry OSD를 다시 시작한 후 다시 입력하세요.</value>
+    <value>암호는 “설정 백업 및 동기화”에서 “암호 저장” 옵션이 켜져 있을 때만 이 PC의 구성과 함께 저장됩니다. 그렇지 않으면 저장되지 않으므로 예를 들어 Foundry OSD를 다시 시작한 후 다시 입력해야 합니다.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Foundry에서 관리하는 Wi-Fi 프로필을 OOBE 전에 Windows로 가져와 WinPE 이후에도 배포 연결을 유지합니다.</value>
@@ -3966,7 +3966,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Foundry는 원본 파일을 보존하고 필요한 설치 후 명령을 배포 복사본에 추가합니다. 사용자 지정 설정과 명령에 대한 책임은 사용자에게 있습니다.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>사용자 지정 파일을 사용하려면 일반 구성에서 배포 미디어 암호 보호를 사용하도록 설정해야 합니다. XML에는 자격 증명이나 스크립트가 포함될 수 있습니다. Foundry는 설정 백업 및 동기화에서 암호 저장 옵션이 켜져 있을 때만 각 파일의 복사본을 구성과 함께 보관하며, 그렇지 않으면 경로만 저장합니다. 부팅 이미지에는 암호화된 복사본이 포함됩니다.</value>
+    <value>사용자 지정 파일을 사용하려면 일반 구성에서 배포 미디어 암호 보호를 사용하도록 설정해야 합니다. XML에는 자격 증명이나 스크립트가 포함될 수 있습니다. Foundry는 “설정 백업 및 동기화”에서 “암호 저장” 옵션이 켜져 있을 때만 이 PC의 구성과 함께 각 파일의 복사본을 보관하며, 그렇지 않으면 경로만 저장합니다. 부팅 이미지에는 암호화된 복사본이 포함됩니다.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>사용자 지정 응답 파일을 사용하려면 일반 구성에서 배포 미디어 암호 보호를 사용하도록 설정하세요.</value>

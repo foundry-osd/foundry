@@ -377,7 +377,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kopioi salasana</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Tallenna tämä PFX-tiedosto ja salasana nyt turvalliseen paikkaan. Foundry tallentaa salasanan kokoonpanosi mukana vain, kun Muista salasanat on otettu käyttöön kohdassa Asetusten varmuuskopiointi ja synkronointi. Tarvitset molemmat arvot käynnistysmedian luomiseen laitteiston hash-latausta varten.</value>
+    <value>Tallenna tämä PFX-tiedosto ja salasana nyt turvalliseen paikkaan. Foundry tallentaa salasanan kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”. Tarvitset molemmat arvot käynnistysmedian luomiseen laitteiston hash-latausta varten.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Salasana kopioitu.</value>
@@ -2588,7 +2588,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Luo yrityksen Wi-Fi profiilimalli</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Salalause tallennetaan kokoonpanosi mukana vain, kun Muista salasanat on otettu käyttöön kohdassa Asetusten varmuuskopiointi ja synkronointi. Muussa tapauksessa anna se uudelleen Foundry OSD:n uudelleenkäynnistyksen jälkeen.</value>
+    <value>Tunnuslause tallennetaan kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”. Muuten sitä ei tallenneta, ja se on annettava uudelleen, esimerkiksi Foundry OSD:n uudelleenkäynnistyksen jälkeen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Tuo Foundryn hallitseman Wi-Fi-profiilin Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys säilyy WinPE:n jälkeen.</value>
@@ -3966,7 +3966,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Foundry säilyttää alkuperäisen tiedostosi ja lisää tarvittavan asennuksen jälkeisen komennon käyttöönottokopioon. Olet edelleen vastuussa mukautetuista asetuksistasi ja komennoistasi.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Mukautetut tiedostot edellyttävät käyttöönottotietovälineen salasanasuojausta yleisissä asetuksissa. XML voi sisältää tunnistetietoja tai komentosarjoja. Foundry säilyttää kopion jokaisesta tiedostosta kokoonpanosi mukana vain, kun Muista salasanat on otettu käyttöön kohdassa Asetusten varmuuskopiointi ja synkronointi; muussa tapauksessa se tallentaa vain polun. Käynnistysnäköistiedosto sisältää salatut kopiot.</value>
+    <value>Mukautetut tiedostot edellyttävät käyttöönottotietovälineen salasanasuojausta yleisissä asetuksissa. XML voi sisältää tunnistetietoja tai komentosarjoja. Foundry säilyttää kopion jokaisesta tiedostosta kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”; muussa tapauksessa se tallentaa vain polun. Käynnistysnäköistiedosto sisältää salatut kopiot.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ota käyttöön käyttöönottotietovälineen salasanasuojaus yleisissä asetuksissa, jotta voit käyttää mukautettuja vastaustiedostoja.</value>
