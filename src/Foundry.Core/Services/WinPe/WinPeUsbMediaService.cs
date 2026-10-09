@@ -118,13 +118,16 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                   }
                               }
 
+                              # The disks are read first: a disk that appears afterwards is not in the list, while a disk in the list
+                              # always has its partitions listed later, so a new disk is never reported as having none.
+                              $disks = Get-Disk | Where-Object { $_.BusType -eq 'USB' }
+
                               # Querying partitions by disk number raises a "not found" error for a disk without partitions, which cannot be
                               # told from a real failure. Partitions are listed once and matched by disk number below, so any
                               # error left here is a failed read.
                               $allPartitions = @(Get-Partition -ErrorAction SilentlyContinue -ErrorVariable partitionErrors)
                               $partitionReadFailed = $partitionErrors.Count -gt 0
 
-                              $disks = Get-Disk | Where-Object { $_.BusType -eq 'USB' }
                               $result = @(
                               foreach ($disk in $disks) {
                                   $script:foundryUsbVolumeReadFailed = $false

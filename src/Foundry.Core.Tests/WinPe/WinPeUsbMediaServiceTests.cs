@@ -481,6 +481,13 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("$partitionReadFailed = $partitionErrors.Count -gt 0", script, StringComparison.Ordinal);
         Assert.Contains("Where-Object { $_.DiskNumber -eq $disk.Number }", script, StringComparison.Ordinal);
         Assert.Contains("$volumesReadFailed = $partitionReadFailed -or $script:foundryUsbVolumeReadFailed", script, StringComparison.Ordinal);
+
+        // Disks are read before the partitions, so a disk that appears in between is never listed without its partitions
+        // and cannot be reported as having none.
+        Assert.True(
+            script.IndexOf("$disks = Get-Disk", StringComparison.Ordinal) is var disksAt and >= 0 &&
+            script.IndexOf("$allPartitions = ", StringComparison.Ordinal) > disksAt,
+            "The disks must be listed before the partitions.");
     }
 
     private static async Task<WinPeUsbDiskCandidate> GetSingleCandidateAsync(string payload)
