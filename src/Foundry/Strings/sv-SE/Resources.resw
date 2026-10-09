@@ -3325,7 +3325,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>ARM64 media kräver GPT partitionsstil.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot är aktiverat men ingen giltig standardprofil har valts.</value>
+    <value>Windows Autopilot är aktiverat men konfigurationen är inte klar.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Connect-administration är inte klar.</value>

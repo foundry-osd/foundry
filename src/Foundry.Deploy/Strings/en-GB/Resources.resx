@@ -624,6 +624,9 @@ Continue with deployment?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>The image cache cannot be prepared. Check its free space and write access.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>The downloaded Windows image failed hash verification. Check the network connection and the storage device, then try again.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>The target disk does not have enough space for the known deployment requirements. Select a larger disk.</value>
   </data>
@@ -634,16 +637,16 @@ Continue with deployment?</value>
     <value>The image's expanded size is unavailable or invalid. Select another image.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>The image size or hash metadata is invalid. Refresh the operating system catalogue.</value>
+    <value>The image size or hash metadata in the catalogue is invalid. Select another image, or restart the device from the deployment media to reload the catalogue.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>The image URL must use HTTP or HTTPS. Refresh the operating system catalogue.</value>
+    <value>The image URL must use HTTP or HTTPS. Select another image, or restart the device from the deployment media to reload the catalogue.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Deployment readiness could not be confirmed. Restart deployment before preparing the disk.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>The image source is unavailable. Check the connection and refresh the operating system catalogue.</value>
+    <value>The image source is unavailable. Check the network connection and try again.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Target volume free space could not be checked. Check the target disk before retrying deployment.</value>
@@ -1762,7 +1765,7 @@ Continue with deployment?</value>
     <value>Use Foundry settings</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows uses the selected answer file. Foundry does not merge or add settings.</value>
+    <value>Windows uses the selected answer file. Foundry keeps your settings and adds its post-installation command when the deployment needs one.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Answer file</value>

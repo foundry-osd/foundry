@@ -3325,7 +3325,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>ARM64-media vereisen partitiestijl GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot is ingeschakeld, maar er is geen geldig standaardprofiel geselecteerd.</value>
+    <value>Windows Autopilot is ingeschakeld, maar de configuratie is niet gereed.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Connect-inrichting is niet gereed.</value>

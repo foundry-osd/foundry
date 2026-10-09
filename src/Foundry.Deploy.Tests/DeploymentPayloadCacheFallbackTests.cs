@@ -11,6 +11,7 @@ using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Utilities.Processes;
@@ -278,6 +279,49 @@ public sealed class DeploymentPayloadCacheFallbackTests
         Assert.Equal(DeploymentStepState.Failed, result.State);
         Assert.Equal("preflight_not_ready", result.Failure?.Code);
         Assert.Null(downloadService.DestinationPath);
+    }
+
+    [Fact]
+    public async Task DownloadOperatingSystemImageStep_WhenDownloadedHashDiffers_ReportsDownloadVerificationFailure()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        byte[] content = [1, 2, 3, 4];
+        using var client = new HttpClient(new PayloadHttpMessageHandler(content));
+        var downloader = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        using DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace,
+            operatingSystemSizeBytes: content.Length,
+            expectedHash: new string('B', 64));
+        SetOperatingSystemPreflight(context, workspace, usesTargetStorage: true);
+
+        DeploymentStepResult result = await new DownloadOperatingSystemImageStep(downloader)
+            .ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.NotEqual("Preflight.DownloadVerificationFailed", result.Message);
+        Assert.Equal(LocalizationText.GetString("Preflight.DownloadVerificationFailed"), result.Message);
+        Assert.Equal(DeploymentFailureReasons.InvalidState, result.Failure?.Reason);
+    }
+
+    [Fact]
+    public async Task DownloadOperatingSystemImageStep_WhenHashMetadataIsInvalid_ReportsInvalidMetadata()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using var client = new HttpClient(new PayloadHttpMessageHandler([1, 2, 3, 4]));
+        var downloader = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        using DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace,
+            operatingSystemSizeBytes: 4,
+            expectedHash: "ABCDEF");
+        SetOperatingSystemPreflight(context, workspace, usesTargetStorage: true);
+
+        DeploymentStepResult result = await new DownloadOperatingSystemImageStep(downloader)
+            .ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.NotEqual("Preflight.InvalidMetadata", result.Message);
+        Assert.Equal(LocalizationText.GetString("Preflight.InvalidMetadata"), result.Message);
+        Assert.Equal(DeploymentFailureReasons.InvalidState, result.Failure?.Reason);
     }
 
     [Fact]

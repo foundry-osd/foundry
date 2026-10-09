@@ -3325,7 +3325,7 @@
     <value>ARM64 介质需要 GPT 分区样式。</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot 已启用，但未选择有效的默认配置文件。</value>
+    <value>Windows Autopilot 已启用，但其配置尚未准备好。</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>连接配置尚未准备好。</value>

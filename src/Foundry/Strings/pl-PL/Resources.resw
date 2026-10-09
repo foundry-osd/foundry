@@ -3325,7 +3325,7 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Nośnik ARM64 wymaga stylu partycji GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot jest włączone, ale nie wybrano prawidłowego profilu domyślnego.</value>
+    <value>Windows Autopilot jest włączony, ale jego konfiguracja nie jest gotowa.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Udostępnianie połączenia nie jest gotowe.</value>

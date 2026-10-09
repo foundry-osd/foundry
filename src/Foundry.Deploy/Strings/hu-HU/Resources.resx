@@ -624,6 +624,9 @@ Folytatja a telepítést?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>A lemezkép gyorsítótára nem készíthető elő. Ellenőrizze a szabad helyet és az írási jogosultságokat.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>A letöltött Windows-lemezkép kivonatának ellenőrzése sikertelen volt. Ellenőrizze a hálózati kapcsolatot és a tárolóeszközt, majd próbálja újra.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>A céllemezen nincs elegendő hely az ismert telepítési követelmények teljesítéséhez. Válasszon nagyobb lemezt.</value>
   </data>
@@ -634,16 +637,16 @@ Folytatja a telepítést?</value>
     <value>A lemezkép alkalmazás utáni mérete nem érhető el vagy érvénytelen. Válasszon másik lemezképet.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>A lemezkép méretére vagy kivonatára vonatkozó metaadatok érvénytelenek. Frissítse az operációs rendszerek katalógusát.</value>
+    <value>A katalógusban szereplő lemezkép méretére vagy kivonatára vonatkozó metaadatok érvénytelenek. Válasszon másik lemezképet, vagy indítsa újra az eszközt a telepítési adathordozóról a katalógus újratöltéséhez.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>A lemezkép URL-címének HTTP vagy HTTPS protokollt kell használnia. Frissítse az operációs rendszerek katalógusát.</value>
+    <value>A lemezkép URL-címének HTTP vagy HTTPS protokollt kell használnia. Válasszon másik lemezképet, vagy indítsa újra az eszközt a telepítési adathordozóról a katalógus újratöltéséhez.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>A telepítési készenlétet nem sikerült megerősíteni. A lemez előkészítése előtt indítsa újra a telepítést.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>A lemezkép forrása nem érhető el. Ellenőrizze a kapcsolatot, és frissítse az operációs rendszerek katalógusát.</value>
+    <value>A lemezkép forrása nem érhető el. Ellenőrizze a hálózati kapcsolatot, és próbálja újra.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>A célköteten lévő szabad helyet nem sikerült ellenőrizni. A telepítés újbóli megkísérlése előtt ellenőrizze a céllemezt.</value>
@@ -1762,7 +1765,7 @@ Folytatja a telepítést?</value>
     <value>A Foundry beállításainak használata</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A Windows a kiválasztott válaszfájlt használja. A Foundry nem egyesít és nem ad hozzá beállításokat.</value>
+    <value>A Windows a kiválasztott válaszfájlt használja. A Foundry megőrzi az Ön beállításait, és hozzáadja a telepítés utáni parancsát, ha a telepítéshez szükség van rá.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Válaszfájl</value>

@@ -46,6 +46,11 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
             return DeploymentStepResult.Failed(LocalizationText.GetString("Preflight.InvalidMetadata"),
                 DeploymentFailureClassifier.Classify(exception, DeploymentOperationNames.DownloadOperatingSystemImage));
         }
+        catch (ArtifactHashMismatchException exception)
+        {
+            return DeploymentStepResult.Failed(LocalizationText.GetString("Preflight.DownloadVerificationFailed"),
+                DeploymentFailureClassifier.Classify(exception, DeploymentOperationNames.DownloadOperatingSystemImage));
+        }
         catch (InvalidOperationException exception)
         {
             return DeploymentStepResult.Failed(LocalizationText.GetString("Preflight.InvalidMetadata"),

@@ -3325,7 +3325,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Az ARM64 adathordozóhoz GPT partícióstílus szükséges.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>A Autopilot engedélyezve van, de nincs érvényes alapértelmezett profil kiválasztva.</value>
+    <value>A Windows Autopilot engedélyezve van, de a konfigurációja nincs készen.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>A csatlakozás kiépítése nem áll készen.</value>

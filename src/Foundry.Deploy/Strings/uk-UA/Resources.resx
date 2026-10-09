@@ -624,6 +624,9 @@ ErrorCode=0x80070005
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Не вдається підготувати кеш образу. Перевірте вільне місце й доступ для запису до кешу.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Не вдалося перевірити хеш завантаженого образу Windows. Перевірте мережеве підключення та пристрій зберігання й спробуйте ще раз.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>На цільовому диску недостатньо місця для відомих вимог розгортання. Виберіть диск більшої місткості.</value>
   </data>
@@ -634,16 +637,16 @@ ErrorCode=0x80070005
     <value>Розмір образу після застосування недоступний або недійсний. Виберіть інший образ.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Метадані розміру або хешу образу недійсні. Оновіть каталог операційних систем.</value>
+    <value>Метадані розміру або хешу образу в каталозі недійсні. Виберіть інший образ або перезапустіть пристрій із носія для розгортання, щоб повторно завантажити каталог.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>URL образу має використовувати HTTP або HTTPS. Оновіть каталог операційних систем.</value>
+    <value>URL образу має використовувати HTTP або HTTPS. Виберіть інший образ або перезапустіть пристрій із носія для розгортання, щоб повторно завантажити каталог.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Не вдалося підтвердити готовність до розгортання. Перезапустіть розгортання перед підготовкою диска.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Джерело образу недоступне. Перевірте підключення й оновіть каталог операційних систем.</value>
+    <value>Джерело образу недоступне. Перевірте мережеве підключення й спробуйте ще раз.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Не вдалося перевірити вільне місце на цільовому томі. Перевірте цільовий диск перед повторною спробою розгортання.</value>
@@ -1762,7 +1765,7 @@ ErrorCode=0x80070005
     <value>Використовувати параметри Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows використовує вибраний файл відповідей. Foundry не об’єднує й не додає параметри.</value>
+    <value>Windows використовує вибраний файл відповідей. Foundry зберігає ваші параметри й додає власну команду етапу після інсталяції, коли цього потребує розгортання.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Файл відповідей</value>

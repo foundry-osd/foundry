@@ -635,7 +635,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         await ExecuteSelectedWifiActionAsync(
             () => _networkBootstrapService.DisconnectWifiAsync(_disposeCts.Token),
             "wifi.selected_action",
-            BuildSelectedWifiDisconnectFeedback,
+            result => BuildSelectedWifiDisconnectFeedback(result.StatusMessage),
             refreshAfterAction: true).ConfigureAwait(false);
     }
 
@@ -1333,7 +1333,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private async Task ExecuteSelectedWifiActionAsync(
         Func<Task<NetworkBootstrapResult>> action,
         string networkOperation,
-        Func<string, string?> resolveFeedback,
+        Func<NetworkBootstrapResult, string?> resolveFeedback,
         bool refreshAfterAction)
     {
         if (_disposeCts.IsCancellationRequested)
@@ -1355,7 +1355,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         {
             NetworkBootstrapResult result = await action().ConfigureAwait(false);
             LogHandledNetworkFailures(networkOperation, operationId, result);
-            string? feedback = resolveFeedback(result.StatusMessage);
+            string? feedback = resolveFeedback(result);
 
             await RunOnUiAsync(() =>
             {
@@ -1398,14 +1398,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
     }
 
-    private string? BuildSelectedWifiConnectFeedback(string status)
+    private string? BuildSelectedWifiConnectFeedback(NetworkBootstrapResult result)
     {
+        string status = result.StatusMessage;
         if (status.StartsWith("Wi-Fi connected to ", StringComparison.Ordinal))
         {
             return null;
         }
 
-        if (status.Contains("not supported in this build", StringComparison.OrdinalIgnoreCase))
+        if (result.HandledFailures.Any(static failure => failure.Code == NetworkBootstrapHandledFailure.WifiRuntimeNotSupportedCode))
         {
             return GetString("Wifi.ActionSelectedNotSupported");
         }

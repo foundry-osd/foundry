@@ -33,7 +33,8 @@ public sealed class LocalizationResourceTests
             "StepMessage.CopyingDriverPackage", "StepMessage.ExtractingFirmwareUpdate",
             "StepMessage.StagingFirmwareUpdate", "StepResult.NoFirmwareUpdatePayload",
             "StepResult.SelectedFirmwarePayloadUnavailable", "StepResult.SelectedDriverPayloadUnavailable",
-            "StepResult.SimulationFormat", "StepResult.CatalogDriverInfMissingFormat", "StepResult.NoFirmwareCabFiles"
+            "StepResult.SimulationFormat", "StepResult.CatalogDriverInfMissingFormat", "StepResult.NoFirmwareCabFiles",
+            "Preflight.DownloadVerificationFailed"
         ];
         foreach (string key in requiredKeys)
         {

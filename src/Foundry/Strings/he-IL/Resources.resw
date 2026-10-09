@@ -3325,7 +3325,7 @@
     <value>מדיה ARM64 דורשת סגנון מחיצה GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot מופעל אך לא נבחר פרופיל ברירת מחדל חוקי.</value>
+    <value>Windows Autopilot מופעל אך התצורה שלו אינה מוכנה.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>התצורה של Connect אינה מוכנה.</value>

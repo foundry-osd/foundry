@@ -624,6 +624,9 @@ Nastaviti s implementacijom?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Predmemorija slike ne može se pripremiti. Provjerite slobodan prostor i pristup za pisanje u nju.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Provjera sažetka preuzete slike sustava Windows nije uspjela. Provjerite mrežnu vezu i uređaj za pohranu te pokušajte ponovno.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Na ciljnom disku nema dovoljno prostora za poznate zahtjeve implementacije. Odaberite disk većeg kapaciteta.</value>
   </data>
@@ -634,16 +637,16 @@ Nastaviti s implementacijom?</value>
     <value>Veličina slike nakon primjene nije dostupna ili nije valjana. Odaberite drugu sliku.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Metapodaci o veličini ili sažetku slike nisu valjani. Osvježite katalog operacijskih sustava.</value>
+    <value>Metapodaci o veličini ili sažetku slike u katalogu nisu valjani. Odaberite drugu sliku ili ponovno pokrenite uređaj s medija za implementaciju kako biste ponovno učitali katalog.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>URL slike mora upotrebljavati HTTP ili HTTPS. Osvježite katalog operacijskih sustava.</value>
+    <value>URL slike mora upotrebljavati HTTP ili HTTPS. Odaberite drugu sliku ili ponovno pokrenite uređaj s medija za implementaciju kako biste ponovno učitali katalog.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Spremnost za implementaciju nije se mogla potvrditi. Ponovno pokrenite implementaciju prije pripreme diska.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Izvor slike nije dostupan. Provjerite vezu i osvježite katalog operacijskih sustava.</value>
+    <value>Izvor slike nije dostupan. Provjerite mrežnu vezu i pokušajte ponovno.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Slobodan prostor na ciljnom volumenu nije se mogao provjeriti. Provjerite ciljni disk prije ponovnog pokušaja implementacije.</value>
@@ -1762,7 +1765,7 @@ Nastaviti s implementacijom?</value>
     <value>Koristi postavke sustava Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows koristi odabranu datoteku odgovora. Foundry ne spaja niti dodaje postavke.</value>
+    <value>Windows koristi odabranu datoteku odgovora. Foundry čuva vaše postavke i dodaje vlastitu naredbu za fazu nakon instalacije kada je implementacija zahtijeva.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Datoteka odgovora</value>
