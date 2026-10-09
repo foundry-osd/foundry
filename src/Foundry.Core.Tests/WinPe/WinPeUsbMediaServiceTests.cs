@@ -385,6 +385,95 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Equal(0UL, volume.UsedBytes);
     }
 
+    [Theory]
+    [InlineData("\"Volumes\":[\"@{DriveLetter=E:; FileSystem=NTFS}\"],")]
+    [InlineData("\"Volumes\":[1],")]
+    [InlineData("\"Volumes\":\"@{DriveLetter=E:}\",")]
+    [InlineData("\"Volumes\":42,")]
+    public async Task GetUsbCandidatesAsync_WhenVolumeDataIsMalformed_FailsInsteadOfReportingNoVolumes(string volumesJson)
+    {
+        string payload = "{\"Number\":9,\"FriendlyName\":\"Disk\",\"SerialNumber\":\"SERIAL\",\"UniqueId\":\"UNIQUE\",\"BusType\":\"USB\"," + volumesJson +
+            "\"IsSystem\":false,\"IsBoot\":false,\"Size\":64000000000}";
+        using TempWorkspace workspace = TempWorkspace.Create();
+        var service = new WinPeUsbMediaService(new FakeRunner(payload));
+
+        WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>> result = await service.GetUsbCandidatesAsync(
+            new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
+            workspace.RootPath,
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.UsbQueryFailed, result.Error?.Code);
+    }
+
+    [Fact]
+    public async Task GetUsbCandidatesAsync_WhenVolumesIsNull_ReturnsNoVolumes()
+    {
+        string payload = """{"Number":9,"FriendlyName":"Disk","SerialNumber":"S","UniqueId":"U","BusType":"USB","Volumes":null,"IsSystem":false,"IsBoot":false,"Size":64000000000}""";
+
+        Assert.Empty((await GetSingleCandidateAsync(payload)).Volumes);
+    }
+
+    [Theory]
+    [InlineData("\"Size\":1000,", 1000UL, 1000UL)]
+    [InlineData("\"Size\":1000,\"SizeRemaining\":400,", 1000UL, 600UL)]
+    [InlineData("\"SizeRemaining\":400,", 0UL, 0UL)]
+    public async Task GetUsbCandidatesAsync_WhenVolumeSizesAreMissing_AssumesTheVolumeIsFull(string sizes, ulong size, ulong used)
+    {
+        string payload = "{\"Number\":9,\"FriendlyName\":\"Disk\",\"SerialNumber\":\"S\",\"UniqueId\":\"U\",\"BusType\":\"USB\",\"Volumes\":[{\"DriveLetter\":\"E:\",\"FileSystemLabel\":\"X\",\"FileSystem\":\"NTFS\"," +
+            sizes + "\"Ignored\":0}],\"IsSystem\":false,\"IsBoot\":false,\"Size\":64000000000}";
+
+        WinPeUsbVolume volume = Assert.Single((await GetSingleCandidateAsync(payload)).Volumes);
+
+        Assert.Equal(size, volume.SizeBytes);
+        Assert.Equal(used, volume.UsedBytes);
+    }
+
+    [Fact]
+    public async Task GetUsbCandidatesAsync_ReturnsPartitionCountAndVolumeReadFailure()
+    {
+        string payload = """{"Number":9,"FriendlyName":"Disk","SerialNumber":"S","UniqueId":"U","BusType":"USB","PartitionCount":3,"VolumesReadFailed":true,"Volumes":[],"IsSystem":false,"IsBoot":false,"Size":64000000000}""";
+
+        WinPeUsbDiskCandidate candidate = await GetSingleCandidateAsync(payload);
+
+        Assert.Equal(3, candidate.PartitionCount);
+        Assert.True(candidate.VolumesReadFailed);
+        Assert.Equal(WinPeUsbVolumeSummary.UnreadableVolumes, candidate.VolumeSummary);
+    }
+
+    [Fact]
+    public async Task GetUsbCandidatesAsync_WhenInventoryReportsNoPartitionAndNoFailure_SaysNoPartition()
+    {
+        string payload = """{"Number":9,"FriendlyName":"Disk","SerialNumber":"S","UniqueId":"U","BusType":"USB","PartitionCount":0,"VolumesReadFailed":false,"Volumes":[],"IsSystem":false,"IsBoot":false,"Size":64000000000}""";
+
+        Assert.Equal(WinPeUsbVolumeSummary.NoPartition, (await GetSingleCandidateAsync(payload)).VolumeSummary);
+    }
+
+    [Fact]
+    public async Task GetUsbCandidatesAsync_WhenInventoryOmitsThePartitionCount_TreatsTheReadAsFailed()
+    {
+        string payload = """{"Number":9,"FriendlyName":"Disk","SerialNumber":"S","UniqueId":"U","BusType":"USB","Volumes":[],"IsSystem":false,"IsBoot":false,"Size":64000000000}""";
+
+        Assert.Equal(WinPeUsbVolumeSummary.UnreadableVolumes, (await GetSingleCandidateAsync(payload)).VolumeSummary);
+    }
+
+    [Fact]
+    public async Task GetUsbCandidatesAsync_InventoryScriptKeepsTheJsonDepthAndVolumeFields()
+    {
+        var runner = new FakeRunner("[]");
+        var service = new WinPeUsbMediaService(runner);
+        using TempWorkspace workspace = TempWorkspace.Create();
+
+        await service.GetUsbCandidatesAsync(new WinPeToolPaths { PowerShellPath = "pwsh.exe" }, workspace.RootPath, CancellationToken.None);
+
+        // Without an explicit depth, two or more disks flatten each volume into the string "@{...}".
+        string script = DecodePowerShellEncodedCommand(runner.Executions[0].Arguments);
+        Assert.Contains("ConvertTo-Json -Compress -Depth 4", script, StringComparison.Ordinal);
+        Assert.Contains("Volumes = $readableVolumes", script, StringComparison.Ordinal);
+        Assert.Contains("PartitionCount = ", script, StringComparison.Ordinal);
+        Assert.Contains("VolumesReadFailed = ", script, StringComparison.Ordinal);
+    }
+
     private static async Task<WinPeUsbDiskCandidate> GetSingleCandidateAsync(string payload)
     {
         using TempWorkspace workspace = TempWorkspace.Create();
