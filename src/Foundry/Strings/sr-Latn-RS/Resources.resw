@@ -377,7 +377,7 @@ Licencirano pod MIT licencom.</value>
     <value>Kopiraj lozinku</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Sačuvajte ovu PFKS datoteku i lozinku sada na bezbednoj lokaciji. Foundry ne čuva lozinku i ne može je ponovo prikazati nakon što se ovaj dijalog zatvori. Biće vam potrebne obe vrednosti da biste generisali medijum za pokretanje za hardverski heš upload.</value>
+    <value>Sačuvajte ovu PFKS datoteku i lozinku sada na bezbednoj lokaciji. Foundry čuva lozinku sa vašom konfiguracijom samo kada je opcija Zapamti lozinke uključena u odeljku Rezervne kopije i sinhronizacija podešavanja. Biće vam potrebne obe vrednosti da biste generisali medijum za pokretanje za hardverski heš upload.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Lozinka je kopirana.</value>
@@ -2588,7 +2588,7 @@ Licencirano pod MIT licencom.</value>
     <value>Obezbedite šablon profila preduzeća Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Lične Wi-Fi pristupne fraze ostaju prolazne u autorskoj aplikaciji i ne ostaju u Foundry konfiguraciji.</value>
+    <value>Pristupna fraza se čuva sa vašom konfiguracijom samo kada je opcija Zapamti lozinke uključena u odeljku Rezervne kopije i sinhronizacija podešavanja. U suprotnom, unesite je ponovo nakon ponovnog pokretanja programa Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Uvozi Wi-Fi profil kojim upravlja Foundry u Windows pre OOBE-a kako bi se povezivanje za implementaciju očuvalo posle WinPE-a.</value>
@@ -3966,7 +3966,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Foundry čuva originalnu datoteku i dodaje svoju obaveznu komandu za fazu posle instalacije u kopiju za primenu. I dalje ste odgovorni za prilagođene postavke i komande.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Prilagođene datoteke zahtevaju zaštitu medija za primenu lozinkom u opštoj konfiguraciji. XML može sadržati akreditive ili skripte. Katalog čuva samo reference na izvore; slika za pokretanje sadrži šifrovane kopije.</value>
+    <value>Prilagođene datoteke zahtevaju zaštitu medija za primenu lozinkom u opštoj konfiguraciji. XML može sadržati akreditive ili skripte. Foundry čuva kopiju svake datoteke sa vašom konfiguracijom samo kada je opcija Zapamti lozinke uključena u odeljku Rezervne kopije i sinhronizacija podešavanja; u suprotnom čuva samo putanju. Slika za pokretanje sadrži šifrovane kopije.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Da biste koristili prilagođene datoteke odgovora, omogućite zaštitu medija za primenu lozinkom u opštoj konfiguraciji.</value>

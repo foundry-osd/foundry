@@ -377,7 +377,7 @@ Licențiat sub licența MIT.</value>
     <value>Copiați parola</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Salvați acest fișier PFX și parola acum într-o locație sigură. Foundry nu stochează parola și nu o poate afișa din nou după închiderea acestui dialog. Veți avea nevoie de ambele valori pentru a genera medii de pornire pentru încărcarea hash hardware.</value>
+    <value>Salvați acest fișier PFX și parola acum într-o locație sigură. Foundry salvează parola împreună cu configurația dvs. numai când opțiunea Memorează parolele este activată în Copiere de rezervă și sincronizare a setărilor. Veți avea nevoie de ambele valori pentru a genera medii de pornire pentru încărcarea hash hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parola a fost copiată.</value>
@@ -2588,7 +2588,7 @@ Licențiat sub licența MIT.</value>
     <value>Furnizați un șablon de profil Wi-Fi de întreprindere</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Frazele de acces personale Wi-Fi rămân tranzitorii în aplicația de creație și nu sunt persistente în configurația Foundry.</value>
+    <value>Fraza de acces este salvată împreună cu configurația dvs. numai când opțiunea Memorează parolele este activată în Copiere de rezervă și sincronizare a setărilor. În caz contrar, introduceți-o din nou după repornirea Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importă profilul Wi-Fi gestionat de Foundry în Windows înainte de OOBE, pentru a păstra conectivitatea de implementare după WinPE.</value>
@@ -3966,7 +3966,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Foundry păstrează fișierul original și adaugă comanda sa obligatorie pentru etapa de după instalare în copia pentru implementare. Rămâneți responsabil pentru setările și comenzile personalizate.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Fișierele personalizate necesită protejarea prin parolă a suportului de implementare în configurația generală. XML-ul poate conține acreditări sau scripturi. Catalogul salvează doar referințe la surse; imaginea de pornire conține copii criptate.</value>
+    <value>Fișierele personalizate necesită protejarea prin parolă a suportului de implementare în configurația generală. XML-ul poate conține acreditări sau scripturi. Foundry păstrează o copie a fiecărui fișier împreună cu configurația dvs. numai când opțiunea Memorează parolele este activată în Copiere de rezervă și sincronizare a setărilor; în caz contrar, salvează doar calea. Imaginea de pornire conține copii criptate.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Activați protejarea prin parolă a suportului de implementare în configurația generală pentru a folosi fișiere de răspuns personalizate.</value>

@@ -377,7 +377,7 @@ Licenciado sob a licença MIT.</value>
     <value>Copiar senha</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Salve este arquivo PFX e senha agora em um local seguro. Foundry não armazena a senha e não pode mostrá-la novamente após o fechamento desta caixa de diálogo. Você precisará de ambos os valores para gerar mídia de inicialização para upload de hash de hardware.</value>
+    <value>Guarde agora este ficheiro PFX e a palavra-passe num local seguro. O Foundry guarda a palavra-passe com a sua configuração apenas quando Memorizar palavras-passe está ativado em Cópia de segurança e sincronização de definições. Vai precisar de ambos os valores para gerar suportes de arranque para o carregamento do hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Senha copiada.</value>
@@ -2588,7 +2588,7 @@ Licenciado sob a licença MIT.</value>
     <value>Provisionar um modelo de perfil empresarial Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>As senhas pessoais Wi-Fi permanecem transitórias no aplicativo de autoria e não persistem na configuração Foundry.</value>
+    <value>A palavra-passe é guardada com a sua configuração apenas quando Memorizar palavras-passe está ativado em Cópia de segurança e sincronização de definições. Caso contrário, introduza-a novamente depois de reiniciar o Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importa para o Windows o perfil Wi-Fi gerido pelo Foundry antes do OOBE para preservar a conectividade de implementação após o WinPE.</value>
@@ -3966,7 +3966,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>O Foundry preserva o ficheiro original e adiciona o seu comando obrigatório de pós-instalação à cópia de implementação. Continua a ser responsável pelas suas definições e comandos personalizados.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Os ficheiros personalizados exigem proteção por palavra-passe do suporte de implementação na configuração Geral. O XML pode conter credenciais ou scripts. O catálogo guarda apenas referências às origens; a imagem de arranque contém cópias encriptadas.</value>
+    <value>Os ficheiros personalizados exigem proteção por palavra-passe do suporte de implementação na configuração Geral. O XML pode conter credenciais ou scripts. O Foundry mantém uma cópia de cada ficheiro com a sua configuração apenas quando Memorizar palavras-passe está ativado em Cópia de segurança e sincronização de definições; caso contrário, guarda apenas o caminho. A imagem de arranque contém cópias encriptadas.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ative a proteção por palavra-passe do suporte de implementação na configuração Geral para usar ficheiros de resposta personalizados.</value>

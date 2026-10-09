@@ -377,7 +377,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Skopiuj hasło</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Zapisz teraz ten plik PFX i hasło w bezpiecznym miejscu. Foundry nie przechowuje hasła i nie może go wyświetlić ponownie po zamknięciu tego okna dialogowego. Obie wartości będą potrzebne do wygenerowania nośnika startowego do przesłania skrótu sprzętowego.</value>
+    <value>Zapisz teraz ten plik PFX i hasło w bezpiecznym miejscu. Foundry zapisuje hasło razem z konfiguracją tylko wtedy, gdy opcja Zapamiętaj hasła jest włączona w sekcji Kopie zapasowe i synchronizacja ustawień. Obie wartości będą potrzebne do wygenerowania nośnika startowego do przesłania skrótu sprzętowego.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Hasło skopiowane.</value>
@@ -2588,7 +2588,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Udostępnij szablon profilu korporacyjnego Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Osobiste hasła Wi-Fi pozostają tymczasowe w aplikacji autorskiej i nie są utrwalane w konfiguracji Foundry.</value>
+    <value>Hasło jest zapisywane razem z konfiguracją tylko wtedy, gdy opcja Zapamiętaj hasła jest włączona w sekcji Kopie zapasowe i synchronizacja ustawień. W przeciwnym razie wprowadź je ponownie po ponownym uruchomieniu programu Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuje profil Wi-Fi zarządzany przez Foundry do Windows przed OOBE, aby zachować łączność wdrożeniową po WinPE.</value>
@@ -3966,7 +3966,7 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Foundry zachowuje oryginalny plik i dodaje wymagane polecenie działań po instalacji do kopii wdrożeniowej. Nadal odpowiadasz za własne ustawienia i polecenia.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Pliki niestandardowe wymagają ochrony nośnika wdrożeniowego hasłem w konfiguracji ogólnej. XML może zawierać poświadczenia lub skrypty. Katalog zapisuje tylko odwołania do źródeł. Obraz rozruchowy zawiera zaszyfrowane kopie.</value>
+    <value>Pliki niestandardowe wymagają ochrony nośnika wdrożeniowego hasłem w konfiguracji ogólnej. XML może zawierać poświadczenia lub skrypty. Foundry przechowuje kopię każdego pliku razem z konfiguracją tylko wtedy, gdy opcja Zapamiętaj hasła jest włączona w sekcji Kopie zapasowe i synchronizacja ustawień. W przeciwnym razie zapisuje tylko ścieżkę. Obraz rozruchowy zawiera zaszyfrowane kopie.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Włącz ochronę nośnika wdrożeniowego hasłem w konfiguracji ogólnej, aby używać niestandardowych plików odpowiedzi.</value>

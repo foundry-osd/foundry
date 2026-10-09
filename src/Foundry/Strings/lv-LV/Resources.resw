@@ -377,7 +377,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Kopēt paroli</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Saglabājiet šo PFX failu un paroli tagad drošā vietā. Foundry nesaglabā paroli un nevar to parādīt vēlreiz pēc šī dialoglodziņa aizvēršanas. Jums būs nepieciešamas abas vērtības, lai ģenerētu sāknēšanas datu nesēju aparatūras hash augšupielādei.</value>
+    <value>Saglabājiet šo PFX failu un paroli tagad drošā vietā. Foundry saglabā paroli kopā ar konfigurāciju tikai tad, ja sadaļā Iestatījumu dublēšana un sinhronizēšana ir ieslēgta opcija Atcerēties paroles. Jums būs nepieciešamas abas vērtības, lai ģenerētu sāknēšanas datu nesēju aparatūras hash augšupielādei.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parole nokopēta.</value>
@@ -2588,7 +2588,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nodrošiniet uzņēmuma Wi-Fi profila veidni</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Personiskās Wi-Fi ieejas frāzes saglabājas īslaicīgas autorēšanas lietotnē un netiek saglabātas Foundry konfigurācijā.</value>
+    <value>Ieejas frāze tiek saglabāta kopā ar konfigurāciju tikai tad, ja sadaļā Iestatījumu dublēšana un sinhronizēšana ir ieslēgta opcija Atcerēties paroles. Pretējā gadījumā ievadiet to vēlreiz pēc Foundry OSD restartēšanas.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importē Foundry pārvaldīto Wi-Fi profilu sistēmā Windows pirms OOBE, lai pēc WinPE saglabātu izvietošanas savienojamību.</value>
@@ -3966,7 +3966,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Foundry saglabā sākotnējo failu un izvietošanas kopijai pievieno savu obligāto komandu darbībām pēc instalēšanas. Jūs joprojām esat atbildīgs par pielāgotajiem iestatījumiem un komandām.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Pielāgotiem failiem nepieciešama izvietošanas datu nesēja aizsardzība ar paroli vispārīgajā konfigurācijā. XML var saturēt akreditācijas datus vai skriptus. Katalogā tiek saglabātas tikai atsauces uz avotiem; sāknēšanas attēlā ir šifrētas kopijas.</value>
+    <value>Pielāgotiem failiem nepieciešama izvietošanas datu nesēja aizsardzība ar paroli vispārīgajā konfigurācijā. XML var saturēt akreditācijas datus vai skriptus. Foundry saglabā katra faila kopiju kopā ar konfigurāciju tikai tad, ja sadaļā Iestatījumu dublēšana un sinhronizēšana ir ieslēgta opcija Atcerēties paroles; pretējā gadījumā tiek saglabāts tikai ceļš. Sāknēšanas attēlā ir šifrētas kopijas.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Lai izmantotu pielāgotus atbilžu failus, vispārīgajā konfigurācijā iespējojiet izvietošanas datu nesēja aizsardzību ar paroli.</value>

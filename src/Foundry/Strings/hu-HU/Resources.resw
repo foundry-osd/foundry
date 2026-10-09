@@ -377,7 +377,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Jelszó másolása</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Mentse el ezt a PFX-fájlt és jelszót most egy biztonságos helyre. A Foundry nem tárolja a jelszót, és a párbeszédpanel bezárása után nem tudja újra megjeleníteni. Mindkét értékre szüksége lesz a rendszerindító adathordozó létrehozásához a hardveres hash feltöltéshez.</value>
+    <value>Mentse el ezt a PFX-fájlt és jelszót most egy biztonságos helyre. A Foundry csak akkor menti a jelszót a konfigurációval együtt, ha a(z) Jelszavak megjegyzése be van kapcsolva a(z) Beállítások biztonsági mentése és szinkronizálása területen. Mindkét értékre szüksége lesz a rendszerindító adathordozó létrehozásához a hardveres hash feltöltéshez.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Jelszó másolva.</value>
@@ -2588,7 +2588,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Hozzon létre egy vállalati Wi-Fi profilsablont</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>A személyes Wi-Fi jelszavak átmenetiek maradnak a szerzői alkalmazásban, és nem maradnak meg a Foundry konfigurációban.</value>
+    <value>A jelszó csak akkor kerül mentésre a konfigurációval együtt, ha a(z) Jelszavak megjegyzése be van kapcsolva a(z) Beállítások biztonsági mentése és szinkronizálása területen. Ellenkező esetben a Foundry OSD újraindítása után adja meg újra.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importálja a Foundry által kezelt Wi-Fi-profilt a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is megmaradjon.</value>
@@ -3966,7 +3966,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>A Foundry megőrzi az eredeti fájlt, és hozzáadja a szükséges telepítés utáni parancsát a telepítési példányhoz. Az egyéni beállításokért és parancsokért továbbra is Ön felel.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Az egyéni fájlok használatához az Általános konfigurációban engedélyezni kell a telepítési adathordozó jelszavas védelmét. Az XML hitelesítő adatokat vagy szkripteket tartalmazhat. A katalógus csak a forráshivatkozásokat menti; a rendszerindító lemezkép titkosított másolatokat tartalmaz.</value>
+    <value>Az egyéni fájlok használatához az Általános konfigurációban engedélyezni kell a telepítési adathordozó jelszavas védelmét. Az XML hitelesítő adatokat vagy szkripteket tartalmazhat. A Foundry csak akkor tárolja az egyes fájlok másolatát a konfigurációval együtt, ha a(z) Jelszavak megjegyzése be van kapcsolva a(z) Beállítások biztonsági mentése és szinkronizálása területen; ellenkező esetben csak az elérési utat menti. A rendszerindító lemezkép titkosított másolatokat tartalmaz.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Az egyéni válaszfájlok használatához engedélyezze a telepítési adathordozó jelszavas védelmét az Általános konfigurációban.</value>

@@ -377,7 +377,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zkopírujte heslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Uložte tento soubor PFX a heslo na bezpečné místo. Foundry neukládá heslo a nemůže je znovu zobrazit po zavření tohoto dialogu. K vygenerování spouštěcího média pro nahrání hardwarového hash budete potřebovat obě hodnoty.</value>
+    <value>Uložte tento soubor PFX a heslo na bezpečné místo. Foundry ukládá heslo s vaší konfigurací pouze v případě, že je v části Zálohování a synchronizace nastavení zapnuta možnost Zapamatovat hesla. K vygenerování spouštěcího média pro nahrání hardwarového hash budete potřebovat obě hodnoty.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Heslo zkopírováno.</value>
@@ -2588,7 +2588,7 @@ Licencováno pod licencí MIT.</value>
     <value>Poskytněte podnikovou šablonu profilu Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Osobní přístupové fráze Wi-Fi zůstávají ve vývojové aplikaci přechodné a nejsou zachovány v konfiguraci Foundry.</value>
+    <value>Přístupová fráze se uloží s vaší konfigurací pouze v případě, že je v části Zálohování a synchronizace nastavení zapnuta možnost Zapamatovat hesla. Jinak ji po restartu Foundry OSD zadejte znovu.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuje profil Wi-Fi spravovaný Foundry do Windows před OOBE, aby se po WinPE zachovalo připojení potřebné k nasazení.</value>
@@ -3966,7 +3966,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Foundry zachová původní soubor a přidá svůj požadovaný příkaz pro fázi po instalaci do kopie pro nasazení. Za vlastní nastavení a příkazy nadále odpovídáte vy.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Vlastní soubory vyžadují ochranu média pro nasazení heslem v obecné konfiguraci. XML může obsahovat přihlašovací údaje nebo skripty. Katalog ukládá pouze odkazy na zdroje. Spouštěcí bitová kopie obsahuje zašifrované kopie.</value>
+    <value>Vlastní soubory vyžadují ochranu média pro nasazení heslem v obecné konfiguraci. XML může obsahovat přihlašovací údaje nebo skripty. Foundry uchovává kopii každého souboru s vaší konfigurací pouze v případě, že je v části Zálohování a synchronizace nastavení zapnuta možnost Zapamatovat hesla; jinak ukládá pouze cestu. Spouštěcí bitová kopie obsahuje zašifrované kopie.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Chcete-li používat vlastní soubory odpovědí, povolte v obecné konfiguraci ochranu média pro nasazení heslem.</value>

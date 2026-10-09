@@ -377,7 +377,7 @@ Licencirano pod licenco MIT.</value>
     <value>Kopiraj geslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Shranite to datoteko PFX in geslo zdaj na varno mesto. Foundry ne shrani gesla in ga ne more več prikazati, ko se to pogovorno okno zapre. Za ustvarjanje zagonskega medija za nalaganje zgoščene vrednosti strojne opreme boste potrebovali obe vrednosti.</value>
+    <value>Shranite to datoteko PFX in geslo zdaj na varno mesto. Foundry shrani geslo skupaj s konfiguracijo samo, če je možnost Zapomni si gesla vklopljena v razdelku Varnostno kopiranje in sinhronizacija nastavitev. Za ustvarjanje zagonskega medija za nalaganje zgoščene vrednosti strojne opreme boste potrebovali obe vrednosti.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Geslo kopirano.</value>
@@ -2588,7 +2588,7 @@ Licencirano pod licenco MIT.</value>
     <value>Zagotavljanje predloge profila podjetja Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Osebna gesla Wi-Fi ostanejo začasna v aplikaciji za avtoring in se ne ohranijo v konfiguraciji Foundry.</value>
+    <value>Geslo se shrani skupaj s konfiguracijo samo, če je možnost Zapomni si gesla vklopljena v razdelku Varnostno kopiranje in sinhronizacija nastavitev. Sicer ga znova vnesite po vnovičnem zagonu aplikacije Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Uvozi profil Wi-Fi, ki ga upravlja Foundry, v Windows pred OOBE, da se po WinPE ohrani povezljivost uvedbe.</value>
@@ -3966,7 +3966,7 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Foundry ohrani izvirno datoteko in v kopijo za uvajanje doda svoj obvezni ukaz za fazo po namestitvi. Še naprej ste odgovorni za nastavitve in ukaze po meri.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Datoteke po meri zahtevajo zaščito medija za uvajanje z geslom v nastavitvah Splošno. XML lahko vsebuje poverilnice ali skripte. Katalog shrani samo sklice na vire; zagonska slika vsebuje šifrirane kopije.</value>
+    <value>Datoteke po meri zahtevajo zaščito medija za uvajanje z geslom v nastavitvah Splošno. XML lahko vsebuje poverilnice ali skripte. Foundry hrani kopijo vsake datoteke skupaj s konfiguracijo samo, če je možnost Zapomni si gesla vklopljena v razdelku Varnostno kopiranje in sinhronizacija nastavitev; sicer shrani samo pot. Zagonska slika vsebuje šifrirane kopije.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Za uporabo datotek odgovorov po meri v nastavitvah Splošno omogočite zaščito medija za uvajanje z geslom.</value>
