@@ -472,6 +472,15 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("Volumes = $readableVolumes", script, StringComparison.Ordinal);
         Assert.Contains("PartitionCount = ", script, StringComparison.Ordinal);
         Assert.Contains("VolumesReadFailed = ", script, StringComparison.Ordinal);
+
+        // Get-Partition -DiskNumber raises a "not found" error for a disk without partitions, which would make a
+        // blank disk look like a failed read. Partitions are listed once and matched by disk number instead,
+        // and every error of that listing still counts as a failed read.
+        Assert.DoesNotContain("Get-Partition -DiskNumber", script, StringComparison.Ordinal);
+        Assert.Contains("$allPartitions = @(Get-Partition -ErrorAction SilentlyContinue -ErrorVariable partitionErrors)", script, StringComparison.Ordinal);
+        Assert.Contains("$partitionReadFailed = $partitionErrors.Count -gt 0", script, StringComparison.Ordinal);
+        Assert.Contains("Where-Object { $_.DiskNumber -eq $disk.Number }", script, StringComparison.Ordinal);
+        Assert.Contains("$volumesReadFailed = $partitionReadFailed -or $script:foundryUsbVolumeReadFailed", script, StringComparison.Ordinal);
     }
 
     private static async Task<WinPeUsbDiskCandidate> GetSingleCandidateAsync(string payload)

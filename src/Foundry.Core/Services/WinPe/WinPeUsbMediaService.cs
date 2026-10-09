@@ -118,11 +118,17 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                   }
                               }
 
+                              # Querying partitions by disk number raises a "not found" error for a disk without partitions, which cannot be
+                              # told from a real failure. Partitions are listed once and matched by disk number below, so any
+                              # error left here is a failed read.
+                              $allPartitions = @(Get-Partition -ErrorAction SilentlyContinue -ErrorVariable partitionErrors)
+                              $partitionReadFailed = $partitionErrors.Count -gt 0
+
                               $disks = Get-Disk | Where-Object { $_.BusType -eq 'USB' }
                               $result = @(
                               foreach ($disk in $disks) {
                                   $script:foundryUsbVolumeReadFailed = $false
-                                  $partitions = @(Get-Partition -DiskNumber $disk.Number -ErrorAction SilentlyContinue -ErrorVariable partitionErrors)
+                                  $partitions = @($allPartitions | Where-Object { $_.DiskNumber -eq $disk.Number })
                                   $volumes = @($partitions | ForEach-Object { Get-FoundryUsbPartitionVolume $_ })
                                   $letters = @(
                                       $volumes | Where-Object { $_.DriveLetter -ne '' } | ForEach-Object { $_.DriveLetter }
@@ -133,7 +139,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                           Where-Object { $null -ne $_ -and -not [string]::IsNullOrEmpty($_.FileSystem) } |
                                           Select-Object DriveLetter, FileSystemLabel, FileSystem, Size, SizeRemaining
                                   )
-                                  $volumesReadFailed = ($partitionErrors.Count -gt 0) -or $script:foundryUsbVolumeReadFailed
+                                  $volumesReadFailed = $partitionReadFailed -or $script:foundryUsbVolumeReadFailed
                                   $hasBootVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32' }).Count -gt 0
                                   $hasGptBootPartition = @($partitions | Where-Object { [string]$_.GptType -eq $foundryGptBootPartitionType }).Count -gt 0
                                   $hasMbrBootPartition = @($partitions | Where-Object { $_.MbrType -in $foundryMbrBootPartitionTypes -and [bool]$_.IsActive }).Count -gt 0
