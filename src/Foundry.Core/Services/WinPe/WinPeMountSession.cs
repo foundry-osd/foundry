@@ -27,11 +27,16 @@ public sealed class WinPeMountSession : IAsyncDisposable
 {
     /// <summary>
     /// Identifies persistent cleanup attempts whose process exit is not confirmed.
-    /// Workspace deletion must preserve these markers and their containing workspace.
+    /// Workspace deletion must preserve these markers and their containing workspace. A retained marker is removed
+    /// only by <see cref="WinPeWorkspaceCleanupService.RecoverUnresolvedMountCleanupsAsync"/>, once Windows proves
+    /// that the image is no longer mounted.
     /// </summary>
     internal const string CleanupMarkerPattern = ".foundry-mount-cleanup-*.pending";
 
-    private static readonly TimeSpan CleanupTimeout = TimeSpan.FromMinutes(15);
+    /// <summary>
+    /// Bounds every DISM discard, including the retry made when a retained cleanup marker is recovered.
+    /// </summary>
+    internal static readonly TimeSpan CleanupTimeout = TimeSpan.FromMinutes(15);
     private readonly IWinPeProcessRunner _processRunner;
     private readonly string _dismPath;
     private readonly string _workingDirectory;
@@ -194,13 +199,11 @@ public sealed class WinPeMountSession : IAsyncDisposable
         {
             File.WriteAllText(markerPath, MountDirectoryPath);
             markerCreated = true;
-            WinPeProcessExecution discardResult = await WinPeDismProcessRunner.RunAsync(
+            WinPeProcessExecution discardResult = await RunDiscardAsync(
                 _processRunner,
                 _dismPath,
-                $"/Unmount-Image /MountDir:{WinPeProcessRunner.Quote(MountDirectoryPath)} /Discard",
+                MountDirectoryPath,
                 _workingDirectory,
-                "Discarding mounted image with DISM.",
-                progress: null,
                 cleanup.Token).ConfigureAwait(false);
 
             // Cancellation only attempts process termination; only a returned result confirms normal exit.
@@ -253,6 +256,27 @@ public sealed class WinPeMountSession : IAsyncDisposable
             }
             return WinPeResult.Failure(diagnostic);
         }
+    }
+
+    /// <summary>
+    /// Runs the DISM discard for a mount directory. A live session and the recovery of a retained cleanup marker
+    /// share this command so both unmount an image the same way.
+    /// </summary>
+    internal static Task<WinPeProcessExecution> RunDiscardAsync(
+        IWinPeProcessRunner processRunner,
+        string dismPath,
+        string mountDirectoryPath,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        return WinPeDismProcessRunner.RunAsync(
+            processRunner,
+            dismPath,
+            $"/Unmount-Image /MountDir:{WinPeProcessRunner.Quote(mountDirectoryPath)} /Discard",
+            workingDirectory,
+            "Discarding mounted image with DISM.",
+            progress: null,
+            cancellationToken);
     }
 
     /// <summary>

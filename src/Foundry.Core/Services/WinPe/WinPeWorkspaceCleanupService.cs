@@ -5,12 +5,16 @@
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>Preserves workspaces until mounted-image state permits safe deletion.</summary>
-public sealed class WinPeWorkspaceCleanupService
+public sealed partial class WinPeWorkspaceCleanupService
 {
     /// <summary>
     /// Blocks new servicing when an owned operation retains pending cleanup.
     /// Inspects only operation roots and their WinPe directories, without acquiring leases or walking mounts.
     /// </summary>
+    /// <remarks>
+    /// The failure details carry the manual recovery procedure, because a marker that
+    /// <see cref="RecoverUnresolvedMountCleanupsAsync"/> could not resolve keeps blocking until the user acts.
+    /// </remarks>
     public WinPeResult EnsureServicingCanStart(string workspaceRoot)
     {
         try
@@ -28,7 +32,7 @@ public sealed class WinPeWorkspaceCleanupService
                 {
                     return WinPeResult.Failure(new WinPeDiagnostic(WinPeErrorCodes.WimUnmountFailed,
                         "WinPE servicing is blocked because an earlier image cleanup has no confirmed completion.",
-                        $"Retained operation: '{path}'. Cleanup marker: '{marker}'. Preserve this workspace until cleanup can be verified.",
+                        $"Retained operation: '{path}'. Cleanup marker: '{marker}'. Preserve this workspace until cleanup can be verified.{Environment.NewLine}{DescribeManualRecovery(path, marker)}",
                         stage: "Check retained WinPE cleanup") with
                     { MountCleanupStatus = WinPeMountCleanupStatus.ExitUnconfirmed });
                 }
@@ -176,14 +180,24 @@ public sealed class WinPeWorkspaceCleanupService
     }
 
     private readonly Func<IReadOnlyList<WinPeMountedImage>> _getMountedImages;
+    private readonly IWinPeProcessRunner _processRunner;
+    private readonly TimeProvider _timeProvider;
 
     public WinPeWorkspaceCleanupService() : this(NativeWinPeMountedImageInventory.GetMountedImages)
     {
     }
 
-    internal WinPeWorkspaceCleanupService(Func<IReadOnlyList<WinPeMountedImage>> getMountedImages)
+    /// <summary>
+    /// Uses the supplied inventory, process runner, and clock so recovery can be exercised without DISM.
+    /// </summary>
+    internal WinPeWorkspaceCleanupService(
+        Func<IReadOnlyList<WinPeMountedImage>> getMountedImages,
+        IWinPeProcessRunner? processRunner = null,
+        TimeProvider? timeProvider = null)
     {
         _getMountedImages = getMountedImages;
+        _processRunner = processRunner ?? new WinPeProcessRunner();
+        _timeProvider = timeProvider ?? TimeProvider.System;
     }
 
     public WinPeResult Delete(string workspacePath)
