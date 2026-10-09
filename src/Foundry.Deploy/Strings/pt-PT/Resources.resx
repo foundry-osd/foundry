@@ -1765,7 +1765,7 @@ Continuar com a implantação?</value>
     <value>Usar definições do Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>O Windows usa o ficheiro de resposta selecionado. O Foundry não combina nem adiciona definições.</value>
+    <value>O Windows usa o ficheiro de resposta selecionado. O Foundry preserva as suas definições e adiciona o seu comando de pós-instalação quando a implementação precisa de um.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Ficheiro de resposta</value>

@@ -1765,7 +1765,7 @@ Continuare con la distribuzione?</value>
     <value>Usa le impostazioni di Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows usa il file di risposte selezionato. Foundry non unisce né aggiunge impostazioni.</value>
+    <value>Windows usa il file di risposte selezionato. Foundry conserva le impostazioni e aggiunge il proprio comando di post-installazione quando la distribuzione lo richiede.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>File di risposte</value>

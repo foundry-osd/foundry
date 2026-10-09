@@ -1765,7 +1765,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Foundry-Einstellungen verwenden</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows verwendet die ausgewählte Antwortdatei. Foundry führt keine Einstellungen zusammen und fügt keine hinzu.</value>
+    <value>Windows verwendet die ausgewählte Antwortdatei. Foundry behält Ihre Einstellungen bei und fügt seinen Befehl für die Nachinstallation hinzu, wenn die Bereitstellung einen benötigt.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Antwortdatei</value>

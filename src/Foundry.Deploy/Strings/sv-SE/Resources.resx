@@ -1765,7 +1765,7 @@ Fortsätt med implementeringen?</value>
     <value>Använd Foundry-inställningar</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows använder den valda svarsfilen. Foundry slår inte samman eller lägger till inställningar.</value>
+    <value>Windows använder den valda svarsfilen. Foundry behåller dina inställningar och lägger till sitt kommando för efter installationen när distributionen behöver ett.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Svarsfil</value>

@@ -1765,7 +1765,7 @@ ErrorCode=0x80070005
     <value>Використовувати параметри Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows використовує вибраний файл відповідей. Foundry не об’єднує й не додає параметри.</value>
+    <value>Windows використовує вибраний файл відповідей. Foundry зберігає ваші параметри й додає власну команду етапу після інсталяції, коли цього потребує розгортання.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Файл відповідей</value>

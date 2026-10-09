@@ -1765,7 +1765,7 @@ Sistema operativo: {4}
     <value>Usar la configuración de Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows usa el archivo de respuesta seleccionado. Foundry no combina ni añade opciones.</value>
+    <value>Windows usa el archivo de respuesta seleccionado. Foundry conserva sus opciones y añade su comando de posinstalación cuando la implementación lo necesita.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Archivo de respuesta</value>

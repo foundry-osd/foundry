@@ -1765,7 +1765,7 @@ Operativni sistem: {4}
     <value>Koristi postavke programa Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows koristi izabranu datoteku odgovora. Foundry ne spaja niti dodaje postavke.</value>
+    <value>Windows koristi izabranu datoteku odgovora. Foundry čuva vaše postavke i dodaje sopstvenu komandu za fazu posle instalacije kada implementacija to zahteva.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Datoteka odgovora</value>

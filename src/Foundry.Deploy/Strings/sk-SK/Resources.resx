@@ -1765,7 +1765,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Použiť nastavenia Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows používa vybraný súbor odpovedí. Foundry nastavenia nezlučuje ani nepridáva.</value>
+    <value>Windows používa vybraný súbor odpovedí. Foundry zachová vaše nastavenia a pridá svoj príkaz pre fázu po inštalácii, keď ho nasadenie vyžaduje.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Súbor odpovedí</value>

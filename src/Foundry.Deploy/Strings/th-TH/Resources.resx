@@ -1765,7 +1765,7 @@
     <value>ใช้การตั้งค่าของ Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows ใช้ไฟล์คำตอบที่เลือก Foundry จะไม่ผสานหรือเพิ่มการตั้งค่า</value>
+    <value>Windows ใช้ไฟล์คำตอบที่เลือก Foundry จะเก็บการตั้งค่าของคุณไว้และเพิ่มคำสั่งหลังการติดตั้งของ Foundry เมื่อการปรับใช้ต้องการ</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>ไฟล์คำตอบ</value>

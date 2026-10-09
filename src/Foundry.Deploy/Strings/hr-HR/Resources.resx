@@ -1765,7 +1765,7 @@ Nastaviti s implementacijom?</value>
     <value>Koristi postavke sustava Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows koristi odabranu datoteku odgovora. Foundry ne spaja niti dodaje postavke.</value>
+    <value>Windows koristi odabranu datoteku odgovora. Foundry čuva vaše postavke i dodaje vlastitu naredbu za fazu nakon instalacije kada je implementacija zahtijeva.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Datoteka odgovora</value>

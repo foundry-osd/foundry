@@ -1765,7 +1765,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Käytä Foundryn asetuksia</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows käyttää valittua vastaustiedostoa. Foundry ei yhdistä eikä lisää asetuksia.</value>
+    <value>Windows käyttää valittua vastaustiedostoa. Foundry säilyttää asetuksesi ja lisää oman asennuksen jälkeisen komentonsa, kun käyttöönotto sitä tarvitsee.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Vastaustiedosto</value>

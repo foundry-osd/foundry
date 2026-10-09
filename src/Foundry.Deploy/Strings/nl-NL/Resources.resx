@@ -1765,7 +1765,7 @@ Doorgaan met de implementatie?</value>
     <value>Foundry-instellingen gebruiken</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows gebruikt het geselecteerde antwoordbestand. Foundry voegt geen instellingen samen of toe.</value>
+    <value>Windows gebruikt het geselecteerde antwoordbestand. Foundry behoudt uw instellingen en voegt zijn opdracht voor na de installatie toe wanneer de implementatie die nodig heeft.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Antwoordbestand</value>

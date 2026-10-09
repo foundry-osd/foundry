@@ -1765,7 +1765,7 @@
     <value>Χρήση των ρυθμίσεων του Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Τα Windows χρησιμοποιούν το επιλεγμένο αρχείο απαντήσεων. Το Foundry δεν συγχωνεύει ούτε προσθέτει ρυθμίσεις.</value>
+    <value>Τα Windows χρησιμοποιούν το επιλεγμένο αρχείο απαντήσεων. Το Foundry διατηρεί τις ρυθμίσεις σας και προσθέτει τη δική του εντολή για μετά την εγκατάσταση όταν η ανάπτυξη την απαιτεί.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Αρχείο απαντήσεων</value>

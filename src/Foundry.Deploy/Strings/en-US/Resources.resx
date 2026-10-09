@@ -1765,7 +1765,7 @@ Continue with deployment?</value>
     <value>Use Foundry settings</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows uses the selected answer file. Foundry does not merge or add settings.</value>
+    <value>Windows uses the selected answer file. Foundry keeps your settings and adds its post-installation command when the deployment needs one.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Answer file</value>

@@ -1765,7 +1765,7 @@ Kas jätkata juurutamisega?</value>
     <value>Kasuta Foundry sätteid</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows kasutab valitud vastusefaili. Foundry ei ühenda ega lisa sätteid.</value>
+    <value>Windows kasutab valitud vastusefaili. Foundry säilitab sätted ja lisab oma installimisjärgse käsu, kui juurutus seda vajab.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Vastusefail</value>

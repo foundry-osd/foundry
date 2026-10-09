@@ -1765,7 +1765,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Bruk Foundry-innstillinger</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows bruker den valgte svarfilen. Foundry slår ikke sammen eller legger til innstillinger.</value>
+    <value>Windows bruker den valgte svarfilen. Foundry beholder innstillingene dine og legger til sin egen kommando for etter installasjonen når distribusjonen trenger det.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Svarfil</value>

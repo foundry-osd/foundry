@@ -1765,7 +1765,7 @@ Continuați cu implementarea?</value>
     <value>Folosește setările Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows folosește fișierul de răspuns selectat. Foundry nu îmbină și nu adaugă setări.</value>
+    <value>Windows folosește fișierul de răspuns selectat. Foundry păstrează setările dvs. și adaugă propria comandă pentru etapa de după instalare atunci când implementarea are nevoie de una.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Fișier de răspuns</value>

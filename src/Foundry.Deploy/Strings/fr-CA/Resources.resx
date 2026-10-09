@@ -1765,7 +1765,7 @@ Continuer le déploiement?</value>
     <value>Utiliser les paramètres de Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows utilise le fichier de réponses sélectionné. Foundry ne fusionne ni n’ajoute de paramètres.</value>
+    <value>Windows utilise le fichier de réponses sélectionné. Foundry conserve vos paramètres et ajoute sa commande de post-installation lorsque le déploiement en a besoin.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Fichier de réponses</value>

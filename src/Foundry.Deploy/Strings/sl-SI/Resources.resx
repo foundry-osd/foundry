@@ -1765,7 +1765,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Uporabi nastavitve Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows uporabi izbrano datoteko odgovorov. Foundry ne združuje ali dodaja nastavitev.</value>
+    <value>Windows uporabi izbrano datoteko odgovorov. Foundry ohrani vaše nastavitve in doda svoj ukaz za fazo po namestitvi, kadar ga uvajanje potrebuje.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Datoteka odgovorov</value>

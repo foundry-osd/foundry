@@ -1765,7 +1765,7 @@ Kontynuować wdrażanie?</value>
     <value>Użyj ustawień Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows używa wybranego pliku odpowiedzi. Foundry nie scala ani nie dodaje ustawień.</value>
+    <value>Windows używa wybranego pliku odpowiedzi. Foundry zachowuje Twoje ustawienia i dodaje własne polecenie działań po instalacji, gdy wdrożenie tego wymaga.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Plik odpowiedzi</value>

@@ -1765,7 +1765,7 @@ Tęsti diegimą?</value>
     <value>Naudoti „Foundry“ parametrus</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>„Windows“ naudoja pasirinktą atsakymų failą. „Foundry“ parametrų nesujungia ir neprideda.</value>
+    <value>„Windows“ naudoja pasirinktą atsakymų failą. „Foundry“ išsaugo jūsų parametrus ir, kai to reikia diegimui, prideda savo komandą, vykdomą po diegimo.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Atsakymų failas</value>

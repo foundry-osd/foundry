@@ -1765,7 +1765,7 @@ Vai turpināt izvietošanu?</value>
     <value>Izmantot Foundry iestatījumus</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows izmanto atlasīto atbilžu failu. Foundry neapvieno un nepievieno iestatījumus.</value>
+    <value>Windows izmanto atlasīto atbilžu failu. Foundry saglabā jūsu iestatījumus un pievieno savu komandu darbībām pēc instalēšanas, kad izvietošanai tas ir nepieciešams.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Atbilžu fails</value>

@@ -1765,7 +1765,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Foundry の設定を使用する</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows は選択した応答ファイルを使用します。Foundry は設定を結合したり追加したりしません。</value>
+    <value>Windows は選択した応答ファイルを使用します。Foundry は設定を保持し、展開で必要な場合にインストール後のコマンドを追加します。</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>応答ファイル</value>

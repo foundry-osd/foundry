@@ -1765,7 +1765,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Foundry ayarlarını kullan</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows seçilen yanıt dosyasını kullanır. Foundry ayarları birleştirmez veya eklemez.</value>
+    <value>Windows seçilen yanıt dosyasını kullanır. Foundry ayarlarınızı korur ve dağıtım gerektirdiğinde kurulum sonrası komutunu ekler.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Yanıt dosyası</value>

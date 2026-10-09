@@ -1765,7 +1765,7 @@
     <value>Использовать параметры Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows использует выбранный файл ответов. Foundry не объединяет и не добавляет параметры.</value>
+    <value>Windows использует выбранный файл ответов. Foundry сохраняет ваши параметры и добавляет собственную команду этапа после установки, когда этого требует развёртывание.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Файл ответов</value>

@@ -1765,7 +1765,7 @@
     <value>使用 Foundry 设置</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows 使用选定的应答文件。Foundry 不会合并或添加设置。</value>
+    <value>Windows 使用选定的应答文件。Foundry 会保留您的设置，并在部署需要时添加其安装后命令。</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>应答文件</value>
