@@ -107,6 +107,8 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                       DriveLetter = Get-FoundryUsbDriveLetterText $Partition.DriveLetter
                                       FileSystemLabel = [string]$volume.FileSystemLabel
                                       FileSystem = [string]$volume.FileSystem
+                                      Size = [uint64]$volume.Size
+                                      SizeRemaining = [uint64]$volume.SizeRemaining
                                       GptType = [string]$Partition.GptType
                                       MbrType = [string]$Partition.MbrType
                                       IsActive = [bool]$Partition.IsActive
@@ -120,6 +122,12 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                   $volumes = @($partitions | ForEach-Object { Get-FoundryUsbPartitionVolume $_ })
                                   $letters = @(
                                       $volumes | Where-Object { $_.DriveLetter -ne '' } | ForEach-Object { $_.DriveLetter }
+                                  )
+                                  # Volumes without a file system are not readable by Windows and are not shown to the user.
+                                  $readableVolumes = @(
+                                      $volumes |
+                                          Where-Object { $null -ne $_ -and -not [string]::IsNullOrEmpty($_.FileSystem) } |
+                                          Select-Object DriveLetter, FileSystemLabel, FileSystem, Size, SizeRemaining
                                   )
                                   $hasBootVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32' }).Count -gt 0
                                   $hasGptBootPartition = @($partitions | Where-Object { [string]$_.GptType -eq $foundryGptBootPartitionType }).Count -gt 0
@@ -137,6 +145,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                       IsBoot = [bool]$disk.IsBoot
                                       Size = [uint64]$disk.Size
                                       IsFoundryMedia = [bool](($hasBootVolume -or $hasGptBootPartition -or $hasMbrBootPartition) -and $hasCacheVolume)
+                                      Volumes = $readableVolumes
                                   }
                               }
                               )
@@ -145,7 +154,8 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                   '[]'
                               }
                               else {
-                                  $result | ConvertTo-Json -Compress
+                                  # The default depth would flatten each volume into a string.
+                                  $result | ConvertTo-Json -Compress -Depth 4
                               }
                               """;
 
@@ -1293,8 +1303,46 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             IsSystem = GetBool(element, "IsSystem"),
             IsBoot = GetBool(element, "IsBoot"),
             SizeBytes = GetUInt64(element, "Size"),
-            IsFoundryMedia = GetBool(element, "IsFoundryMedia")
+            IsFoundryMedia = GetBool(element, "IsFoundryMedia"),
+            Volumes = ParseUsbVolumes(element)
         };
+    }
+
+    /// <summary>
+    /// Reads the volume list of a disk. Windows PowerShell serializes a one-item list as a bare object on
+    /// some paths, so both shapes are accepted. Entries without a file system are not readable and are dropped.
+    /// </summary>
+    private static IReadOnlyList<WinPeUsbVolume> ParseUsbVolumes(JsonElement disk)
+    {
+        if (!disk.TryGetProperty("Volumes", out JsonElement volumes))
+        {
+            return [];
+        }
+
+        IEnumerable<JsonElement> items = volumes.ValueKind switch
+        {
+            JsonValueKind.Array => volumes.EnumerateArray(),
+            JsonValueKind.Object => [volumes],
+            _ => []
+        };
+
+        return items
+            .Where(static item => item.ValueKind == JsonValueKind.Object)
+            .Select(static item =>
+            {
+                ulong size = GetUInt64(item, "Size");
+                ulong remaining = GetUInt64(item, "SizeRemaining");
+                return new WinPeUsbVolume
+                {
+                    DriveLetter = GetString(item, "DriveLetter").Trim(),
+                    Label = GetString(item, "FileSystemLabel"),
+                    FileSystem = GetString(item, "FileSystem").Trim(),
+                    SizeBytes = size,
+                    UsedBytes = remaining < size ? size - remaining : 0
+                };
+            })
+            .Where(static volume => volume.FileSystem.Length > 0)
+            .ToArray();
     }
 
     private static bool TryGetInt32(JsonElement element, string propertyName, out int value)

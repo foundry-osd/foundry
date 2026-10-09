@@ -326,6 +326,80 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
+    public async Task GetUsbCandidatesAsync_ReturnsReadableVolumesWithLetterLabelFileSystemSizeAndUsedBytes()
+    {
+        string payload = """
+                         {"Number":9,"FriendlyName":"External SSD","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":500000000000,"Volumes":[
+                           {"DriveLetter":"E:","FileSystemLabel":"Photos","FileSystem":"NTFS","Size":400000000000,"SizeRemaining":150000000000},
+                           {"DriveLetter":"","FileSystemLabel":"Recovery","FileSystem":"NTFS","Size":1000000000,"SizeRemaining":400000000},
+                           {"DriveLetter":"F:","FileSystemLabel":"","FileSystem":"exFAT","Size":99000000000,"SizeRemaining":99000000000}
+                         ]}
+                         """;
+
+        IReadOnlyList<WinPeUsbVolume> volumes = (await GetSingleCandidateAsync(payload)).Volumes;
+
+        Assert.Equal(3, volumes.Count);
+        Assert.Equal(new WinPeUsbVolume { DriveLetter = "E:", Label = "Photos", FileSystem = "NTFS", SizeBytes = 400000000000, UsedBytes = 250000000000 }, volumes[0]);
+        Assert.Equal(new WinPeUsbVolume { DriveLetter = string.Empty, Label = "Recovery", FileSystem = "NTFS", SizeBytes = 1000000000, UsedBytes = 600000000 }, volumes[1]);
+        Assert.Equal(new WinPeUsbVolume { DriveLetter = "F:", Label = string.Empty, FileSystem = "exFAT", SizeBytes = 99000000000, UsedBytes = 0 }, volumes[2]);
+    }
+
+    [Theory]
+    [InlineData("\"Volumes\":[],")]
+    [InlineData("")]
+    [InlineData("\"Volumes\":[{\"DriveLetter\":\"\",\"FileSystemLabel\":\"\",\"FileSystem\":\"\",\"Size\":1000000,\"SizeRemaining\":0}],")]
+    public async Task GetUsbCandidatesAsync_WhenDiskHasNoReadableVolume_ReturnsEmptyVolumeList(string volumesJson)
+    {
+        string payload = "{\"Number\":9,\"FriendlyName\":\"Blank disk\",\"SerialNumber\":\"SERIAL\",\"UniqueId\":\"UNIQUE\",\"BusType\":\"USB\"," + volumesJson +
+            "\"IsSystem\":false,\"IsBoot\":false,\"Size\":64000000000}";
+
+        WinPeUsbDiskCandidate candidate = await GetSingleCandidateAsync(payload);
+
+        Assert.Empty(candidate.Volumes);
+    }
+
+    [Fact]
+    public async Task GetUsbCandidatesAsync_WhenPowerShellUnwrapsASingleVolume_StillReturnsIt()
+    {
+        string payload = """
+                         {"Number":9,"FriendlyName":"Flash drive","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000,
+                          "Volumes":{"DriveLetter":"G:","FileSystemLabel":"DATA","FileSystem":"FAT32","Size":64000000000,"SizeRemaining":63000000000}}
+                         """;
+
+        WinPeUsbVolume volume = Assert.Single((await GetSingleCandidateAsync(payload)).Volumes);
+
+        Assert.Equal("G:", volume.DriveLetter);
+        Assert.Equal(1000000000UL, volume.UsedBytes);
+    }
+
+    [Fact]
+    public async Task GetUsbCandidatesAsync_WhenRemainingSpaceExceedsSize_ReportsNothingUsed()
+    {
+        string payload = """
+                         {"Number":9,"FriendlyName":"Flash drive","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000,
+                          "Volumes":[{"DriveLetter":"G:","FileSystemLabel":"DATA","FileSystem":"NTFS","Size":1000,"SizeRemaining":2000}]}
+                         """;
+
+        WinPeUsbVolume volume = Assert.Single((await GetSingleCandidateAsync(payload)).Volumes);
+
+        Assert.Equal(0UL, volume.UsedBytes);
+    }
+
+    private static async Task<WinPeUsbDiskCandidate> GetSingleCandidateAsync(string payload)
+    {
+        using TempWorkspace workspace = TempWorkspace.Create();
+        var service = new WinPeUsbMediaService(new FakeRunner(payload));
+
+        WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>> result = await service.GetUsbCandidatesAsync(
+            new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
+            workspace.RootPath,
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        return Assert.Single(result.Value!);
+    }
+
+    [Fact]
     public async Task GetUsbCandidatesAsync_WhenDiskHasFoundryBootAndCacheVolumes_MarksFoundryMedia()
     {
         string payload = """

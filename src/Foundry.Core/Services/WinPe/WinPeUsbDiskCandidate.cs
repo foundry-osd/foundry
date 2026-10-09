@@ -16,4 +16,10 @@ public sealed record WinPeUsbDiskCandidate
     public bool IsBoot { get; init; }
     public ulong SizeBytes { get; init; }
     public bool IsFoundryMedia { get; init; }
+
+    /// <summary>
+    /// Gets the readable volumes found on the disk when the inventory was read. It is empty when the disk
+    /// has no volume with a file system.
+    /// </summary>
+    public IReadOnlyList<WinPeUsbVolume> Volumes { get; init; } = [];
 }
