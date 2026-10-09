@@ -30,7 +30,6 @@ public sealed class WindowsDiskInspector : IWindowsDiskInspector
                 IsBoot = [bool]$disk.IsBoot
                 IsReadOnly = [bool]$disk.IsReadOnly
                 IsOffline = [bool]$disk.IsOffline
-                IsRemovable = [bool]$disk.IsRemovable
             }
         }
         $result | ConvertTo-Json -Compress
@@ -174,8 +173,7 @@ if ($null -eq $partition) {{
             ReadRequiredBool(element, "IsSystem"),
             ReadRequiredBool(element, "IsBoot"),
             ReadRequiredBool(element, "IsReadOnly"),
-            ReadRequiredBool(element, "IsOffline"),
-            ReadBool(element, "IsRemovable"))
+            ReadRequiredBool(element, "IsOffline"))
         {
             UniqueId = ReadString(element, "UniqueId", trim: false)
         };
@@ -236,19 +234,6 @@ if ($null -eq $partition) {{
                ulong.TryParse(property.GetString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out ulong parsed)
             ? parsed
             : 0;
-    }
-
-    private static bool ReadBool(JsonElement root, string propertyName)
-    {
-        if (!root.TryGetProperty(propertyName, out JsonElement property))
-        {
-            return false;
-        }
-
-        return property.ValueKind == JsonValueKind.True ||
-               (property.ValueKind == JsonValueKind.String &&
-                bool.TryParse(property.GetString(), out bool parsed) &&
-                parsed);
     }
 
     private static bool ReadRequiredBool(JsonElement root, string propertyName)
