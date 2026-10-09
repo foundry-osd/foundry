@@ -40,18 +40,32 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
         using var temp = new TemporaryDirectory();
         RetainedOperation operation = CreateRetainedOperation(temp.Path);
         var mounted = new List<WinPeMountedImage> { Mounted(operation) };
+        var protectedWhile = new List<(string Step, bool LeaseIsExclusive, bool MarkerExists)>();
+        void Observe(string step) =>
+            protectedWhile.Add((step, IsLeaseHeldExclusively(operation), File.Exists(operation.MarkerPath)));
         var runner = new FakeWinPeProcessRunner
         {
             OnDiscardAsync = _ =>
             {
+                Observe("discard");
                 mounted.Clear();
                 return Task.FromResult(new WinPeProcessExecution());
             }
         };
-        var service = new WinPeWorkspaceCleanupService(() => mounted.ToArray(), runner);
+        var service = new WinPeWorkspaceCleanupService(
+            () =>
+            {
+                Observe("inventory");
+                return mounted.ToArray();
+            },
+            runner);
 
         await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
 
+        // The lease and the marker must cover the first inventory read, the discard and the confirming read.
+        (string, bool, bool)[] expected = [("inventory", true, true), ("discard", true, true), ("inventory", true, true)];
+        Assert.Equal(expected, protectedWhile);
+        Assert.False(IsLeaseHeldExclusively(operation));
         WinPeProcessExecution discard = Assert.Single(runner.Executions);
         Assert.Equal(DismPath, discard.FileName);
         Assert.Equal(
@@ -106,6 +120,28 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
         Assert.Contains($"dism /Unmount-Image /MountDir:\"{operation.MountDirectory}\" /Discard", details, StringComparison.Ordinal);
         Assert.Contains("dism /Cleanup-Mountpoints", details, StringComparison.Ordinal);
         Assert.Contains("start the operation again", details, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Theory]
+    [InlineData("different-case")]
+    [InlineData("trailing-separator")]
+    public async Task Recover_WhenInventoryReportsTheMountInAnotherForm_StillTreatsTheImageAsMounted(string form)
+    {
+        using var temp = new TemporaryDirectory();
+        RetainedOperation operation = CreateRetainedOperation(temp.Path);
+        string reportedMountPath = form == "different-case"
+            ? operation.MountDirectory.ToUpperInvariant()
+            : operation.MountDirectory + Path.DirectorySeparatorChar;
+        Assert.NotEqual(operation.MountDirectory, reportedMountPath);
+        var runner = new FakeWinPeProcessRunner();
+        var service = new WinPeWorkspaceCleanupService(
+            () => [new WinPeMountedImage(reportedMountPath, Path.Combine(operation.Path, "WinPe", "media", "sources", "boot.wim"))],
+            runner);
+
+        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+
+        Assert.Single(runner.Executions);
+        AssertStillBlocked(service, temp.Path, operation);
     }
 
     [Fact]
@@ -338,6 +374,20 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
         Assert.False(service.DeleteOwnedOperation(workspaceRoot, operation.Path).IsSuccess);
         Assert.True(Directory.Exists(operation.MountDirectory));
         return servicing;
+    }
+
+    /// <summary>Reports whether another opener is refused the read/write access a live operation would need.</summary>
+    private static bool IsLeaseHeldExclusively(RetainedOperation operation)
+    {
+        try
+        {
+            using var lease = new FileStream(Path.Combine(operation.Path, ".lease"), FileMode.Open, FileAccess.ReadWrite, FileShare.Delete);
+            return false;
+        }
+        catch (IOException)
+        {
+            return true;
+        }
     }
 
     private static void CreateJunction(string link, string target)
