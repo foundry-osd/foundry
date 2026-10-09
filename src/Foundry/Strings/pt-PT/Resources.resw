@@ -3325,7 +3325,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>A mídia ARM64 requer estilo de partição GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot está habilitado, mas nenhum perfil padrão válido está selecionado.</value>
+    <value>O Windows Autopilot está habilitado, mas a configuração dele não está pronta.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>O provisionamento do Connect não está pronto.</value>

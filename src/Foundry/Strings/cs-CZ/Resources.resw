@@ -3325,7 +3325,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Média ARM64 vyžadují styl oddílu GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot je povolen, ale není vybrán žádný platný výchozí profil.</value>
+    <value>Windows Autopilot je povolen, ale jeho konfigurace není připravena.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Zřizování připojení není připraveno.</value>

@@ -3325,7 +3325,7 @@
     <value>สื่อ ARM64 ต้องการรูปแบบพาร์ติชัน GPT</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot ถูกเปิดใช้งานแต่ไม่ได้เลือกโปรไฟล์เริ่มต้นที่ถูกต้อง</value>
+    <value>Windows Autopilot ถูกเปิดใช้งานแต่การกำหนดค่าไม่พร้อม</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>การจัดสรรการเชื่อมต่อไม่พร้อม</value>

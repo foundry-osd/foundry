@@ -3325,7 +3325,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>ARM64 datu nesējam ir nepieciešams GPT nodalījuma stils.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot ir iespējots, bet nav atlasīts derīgs noklusējuma profils.</value>
+    <value>Windows Autopilot ir iespējots, bet tā konfigurācija nav gatava.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Savienojuma nodrošināšana nav gatava.</value>

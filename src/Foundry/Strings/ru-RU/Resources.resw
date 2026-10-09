@@ -3325,7 +3325,7 @@
     <value>Для носителя ARM64 требуется стиль раздела GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot включен, но действительный профиль по умолчанию не выбран.</value>
+    <value>Windows Autopilot включен, но его конфигурация не готова.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Подготовка Connect не готова.</value>

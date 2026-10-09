@@ -442,7 +442,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             logger.Information(
                 "ISO media creation was blocked by preflight validation. BlockingReasons={BlockingReasons}",
                 string.Join(",", evaluation.IsoBlockingReasons));
-            await ShowBlockedDialogAsync("StartMedia.CreateIso.BlockedTitle", evaluation.IsoBlockingReasons);
+            await ShowBlockedDialogAsync(
+                "StartMedia.CreateIso.BlockedTitle",
+                evaluation.IsoBlockingReasons,
+                options.AutopilotConfigurationValidationCode);
             return;
         }
 
@@ -471,7 +474,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 "USB media creation was blocked by preflight validation. HasSelectedUsbTarget={HasSelectedUsbTarget}, BlockingReasons={BlockingReasons}",
                 options.SelectedUsbDisk is not null,
                 string.Join(",", evaluation.UsbBlockingReasons));
-            await ShowBlockedDialogAsync("StartMedia.CreateUsb.BlockedTitle", evaluation.UsbBlockingReasons);
+            await ShowBlockedDialogAsync(
+                "StartMedia.CreateUsb.BlockedTitle",
+                evaluation.UsbBlockingReasons,
+                options.AutopilotConfigurationValidationCode);
             return;
         }
 
@@ -568,7 +574,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         if (target == FinalMediaTarget.Iso ? !evaluation.CanCreateIso : !evaluation.CanCreateUsb)
         {
             await ShowBlockedDialogAsync(target == FinalMediaTarget.Iso ? "StartMedia.CreateIso.BlockedTitle" : "StartMedia.CreateUsb.BlockedTitle",
-                target == FinalMediaTarget.Iso ? evaluation.IsoBlockingReasons : evaluation.UsbBlockingReasons);
+                target == FinalMediaTarget.Iso ? evaluation.IsoBlockingReasons : evaluation.UsbBlockingReasons,
+                currentOptions.AutopilotConfigurationValidationCode);
             return;
         }
 
@@ -621,7 +628,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             {
                 shouldTrackMedia = false;
                 await ShowBlockedDialogAsync(target == FinalMediaTarget.Iso ? "StartMedia.CreateIso.BlockedTitle" : "StartMedia.CreateUsb.BlockedTitle",
-                    new[] { MediaPreflightBlockingReason.AdkNotReady });
+                    new[] { MediaPreflightBlockingReason.AdkNotReady },
+                    options.AutopilotConfigurationValidationCode);
                 return;
             }
             options = options with
@@ -1692,12 +1700,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task ShowBlockedDialogAsync(
         string titleResourceKey,
-        IReadOnlyList<MediaPreflightBlockingReason> blockingReasons)
+        IReadOnlyList<MediaPreflightBlockingReason> blockingReasons,
+        AutopilotConfigurationValidationCode autopilotValidationCode)
     {
         IReadOnlyList<MediaPreflightBlockingReason> reasons = blockingReasons.Distinct().ToList();
         string message = reasons.Count == 0
             ? localizationService.GetString("StartMedia.Operation.Failed")
-            : string.Join(Environment.NewLine, reasons.Select(reason => $"- {GetBlockingReasonText(reason)}"));
+            : string.Join(Environment.NewLine, reasons.Select(reason => $"- {GetBlockingReasonText(reason, autopilotValidationCode)}"));
 
         await ShowBlockedDialogAsync(titleResourceKey, message);
     }
@@ -2430,12 +2439,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ? localizationService.GetString("StartMedia.FinalExecution.Ready")
             : localizationService.GetString("StartMedia.FinalExecution.Deferred"));
 
-        AppendBlockingReasons(builder, reasons);
+        AppendBlockingReasons(builder, reasons, options.AutopilotConfigurationValidationCode);
 
         return builder.ToString();
     }
 
-    private void AppendBlockingReasons(StringBuilder builder, IReadOnlyList<MediaPreflightBlockingReason> reasons)
+    private void AppendBlockingReasons(
+        StringBuilder builder,
+        IReadOnlyList<MediaPreflightBlockingReason> reasons,
+        AutopilotConfigurationValidationCode autopilotValidationCode)
     {
         if (reasons.Count == 0)
         {
@@ -2446,13 +2458,21 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         builder.AppendLine(localizationService.GetString("StartMedia.Summary.BlockingReasons"));
         foreach (MediaPreflightBlockingReason reason in reasons)
         {
-            builder.AppendLine($"- {GetBlockingReasonText(reason)}");
+            builder.AppendLine($"- {GetBlockingReasonText(reason, autopilotValidationCode)}");
         }
     }
 
-    private string GetBlockingReasonText(MediaPreflightBlockingReason reason)
+    /// <summary>
+    /// Resolves the text of a blocking reason. When <paramref name="autopilotValidationCode"/> is supplied,
+    /// an Autopilot reason shows the same specific text as the Windows Autopilot card instead of the generic fallback.
+    /// </summary>
+    private string GetBlockingReasonText(
+        MediaPreflightBlockingReason reason,
+        AutopilotConfigurationValidationCode? autopilotValidationCode = null)
     {
-        return localizationService.GetString($"StartMedia.BlockingReason.{reason}");
+        return reason == MediaPreflightBlockingReason.AutopilotConfigurationNotReady && autopilotValidationCode is { } code
+            ? GetAutopilotValidationText(code)
+            : localizationService.GetString($"StartMedia.BlockingReason.{reason}");
     }
 
     private void LogPreflightSummary(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)

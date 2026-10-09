@@ -3325,7 +3325,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>ARM64 ortamı GPT bölümleme stilini gerektirir.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot etkinleştirildi ancak geçerli bir varsayılan profil seçilmedi.</value>
+    <value>Windows Autopilot etkinleştirildi ancak yapılandırması hazır değil.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Bağlantı temel hazırlığı hazır değil.</value>

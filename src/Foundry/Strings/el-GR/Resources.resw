@@ -3325,7 +3325,7 @@
     <value>Τα μέσα ARM64 απαιτούν στυλ κατάτμησης GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Το Autopilot είναι ενεργοποιημένο αλλά δεν έχει επιλεγεί έγκυρο προεπιλεγμένο προφίλ.</value>
+    <value>Το Windows Autopilot είναι ενεργοποιημένο αλλά η διαμόρφωσή του δεν είναι έτοιμη.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Η παροχή σύνδεσης δεν είναι έτοιμη.</value>
