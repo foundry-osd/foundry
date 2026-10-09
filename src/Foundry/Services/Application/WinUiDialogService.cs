@@ -49,6 +49,11 @@ public sealed class WinUiDialogService : IDialogService
             dialog.DefaultButton = ContentDialogButton.Primary;
         }
 
+        if (request.PreferCancel)
+        {
+            dialog.DefaultButton = ContentDialogButton.Close;
+        }
+
         ContentDialogResult result = await dialog.ShowAsync();
         return result == ContentDialogResult.Primary;
     }
