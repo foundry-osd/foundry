@@ -1188,6 +1188,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 ResolveProvisioningSource(runtimePayloadProvisioning.Deploy));
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CleanStaleWorkspaces);
+            // Recovery runs first so a workspace whose earlier cleanup is now verified is deleted in this same start.
+            await workspaceCleanupService.RecoverUnresolvedMountCleanupsAsync(Constants.WorkspacesDirectoryPath, tools.DismPath);
             CleanupStaleWinPeWorkspaces();
             EnsureSuccess(workspaceCleanupService.EnsureServicingCanStart(Constants.WorkspacesDirectoryPath));
             operationLease = WinPeWorkspaceLease.Create(Constants.WorkspacesDirectoryPath);
