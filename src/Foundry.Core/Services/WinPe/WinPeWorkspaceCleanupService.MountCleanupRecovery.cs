@@ -26,8 +26,8 @@ public sealed partial class WinPeWorkspaceCleanupService
     /// does not report the marker's mount directory, or one DISM discard bounded by
     /// <see cref="WinPeMountSession.CleanupTimeout"/> returns success and a fresh inventory read no longer reports
     /// it. In every other case the marker is kept and servicing stays blocked: the inventory cannot be read, the
-    /// discard fails, times out or cannot be confirmed, or the marker does not name a mount directory inside its own
-    /// operation.
+    /// discard fails, times out or cannot be confirmed, or the marker cannot be read as a mount directory inside its
+    /// own operation.
     /// </para>
     /// <para>
     /// Only operations that Foundry owns and whose lease can be opened exclusively are examined, so an operation that
@@ -118,7 +118,7 @@ public sealed partial class WinPeWorkspaceCleanupService
         if (mountDirectory is null)
         {
             LogUnresolved(logger, null, operationPath, null, markerPath,
-                "The marker does not name a mount directory inside its operation.");
+                "The marker could not be read as a mount directory inside its operation.");
             return;
         }
 
@@ -278,7 +278,7 @@ public sealed partial class WinPeWorkspaceCleanupService
         return mountDirectory is null
             ? string.Join(
                 Environment.NewLine,
-                "The cleanup marker does not name a mount directory inside this operation, so the cleanup cannot be verified automatically.",
+                "The cleanup marker could not be read as a mount directory inside this operation, so the cleanup cannot be verified automatically.",
                 Introduction,
                 "1. Restart Windows.",
                 "2. From an elevated command prompt, run: dism /Get-MountedImageInfo",

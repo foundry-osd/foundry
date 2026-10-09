@@ -27,9 +27,11 @@ public sealed class WinPeMountSession : IAsyncDisposable
 {
     /// <summary>
     /// Identifies persistent cleanup attempts whose process exit is not confirmed.
-    /// Workspace deletion must preserve these markers and their containing workspace. A retained marker is removed
-    /// only by <see cref="WinPeWorkspaceCleanupService.RecoverUnresolvedMountCleanupsAsync"/>, once Windows proves
-    /// that the image is no longer mounted.
+    /// Workspace deletion must preserve these markers and their containing workspace. Foundry removes a retained
+    /// marker only in <see cref="WinPeWorkspaceCleanupService.RecoverUnresolvedMountCleanupsAsync"/>, once Windows
+    /// proves that the image is no longer mounted. A marker that Foundry cannot read as a mount directory is left for
+    /// the user to delete, as the manual procedure reported by
+    /// <see cref="WinPeWorkspaceCleanupService.EnsureServicingCanStart"/> describes.
     /// </summary>
     internal const string CleanupMarkerPattern = ".foundry-mount-cleanup-*.pending";
 
