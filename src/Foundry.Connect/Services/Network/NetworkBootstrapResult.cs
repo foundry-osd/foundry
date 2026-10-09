@@ -29,4 +29,11 @@ public sealed record NetworkBootstrapResult(string StatusMessage, IReadOnlyList<
 /// <summary>
 /// Contains privacy-safe handled failure fields for remote diagnostics.
 /// </summary>
-public sealed record NetworkBootstrapHandledFailure(string Kind, string Reason, string? Code = null);
+public sealed record NetworkBootstrapHandledFailure(string Kind, string Reason, string? Code = null)
+{
+    /// <summary>
+    /// Identifies a Wi-Fi network or credential type that this build cannot connect at runtime.
+    /// Consumers decide on this code instead of the status message text.
+    /// </summary>
+    public const string WifiRuntimeNotSupportedCode = "wifi_runtime_not_supported";
+}
