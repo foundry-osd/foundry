@@ -133,7 +133,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                       SerialNumber = [string]$disk.SerialNumber
                                       UniqueId = [string]$disk.UniqueId
                                       BusType = [string]$disk.BusType
-                                      IsRemovable = $disk.IsRemovable
                                       IsSystem = [bool]$disk.IsSystem
                                       IsBoot = [bool]$disk.IsBoot
                                       Size = [uint64]$disk.Size
@@ -166,7 +165,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             IReadOnlyList<WinPeUsbDiskCandidate> candidates = ParseUsbCandidates(result.Value!)
                 .Where(candidate =>
                     candidate.BusType.Equals("USB", StringComparison.OrdinalIgnoreCase) &&
-                    candidate.IsRemovable != false &&
                     !candidate.IsSystem &&
                     !candidate.IsBoot)
                 .OrderBy(candidate => candidate.DiskNumber)
@@ -480,14 +478,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                 $"Disk {disk.Number} bus type is '{disk.BusType}'. Only USB disks are allowed.");
         }
 
-        if (disk.IsRemovable == false)
-        {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.UsbUnsafeTarget,
-                "Target disk is not removable.",
-                $"Disk {disk.Number} reports IsRemovable=false.");
-        }
-
         if (disk.IsSystem || disk.IsBoot)
         {
             return WinPeResult.Failure(
@@ -525,7 +515,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
     private static string CreateUsbDiskGuard(DiskIdentity expectedIdentity) =>
         WindowsDiskIdentityGuard.CreateScript(expectedIdentity) + Environment.NewLine + $$"""
         if (([string]$foundryConfirmedDisk.BusType).Trim() -ine 'USB' -or
-            $foundryConfirmedDisk.IsRemovable -eq $false -or
             $foundryConfirmedDisk.IsSystem -isnot [bool] -or $foundryConfirmedDisk.IsSystem -or
             $foundryConfirmedDisk.IsBoot -isnot [bool] -or $foundryConfirmedDisk.IsBoot -or
             [uint64]$foundryConfirmedDisk.Size -lt {{MinimumUsbDiskSizeBytes}}) {
@@ -1134,7 +1123,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                               SerialNumber = [string]$disk.SerialNumber
                               UniqueId = [string]$disk.UniqueId
                               BusType = [string]$disk.BusType
-                              IsRemovable = $disk.IsRemovable
                               IsSystem = [bool]$disk.IsSystem
                               IsBoot = [bool]$disk.IsBoot
                               Size = [uint64]$disk.Size
@@ -1302,7 +1290,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             SerialNumber = GetString(element, "SerialNumber"),
             UniqueId = GetString(element, "UniqueId"),
             BusType = GetString(element, "BusType"),
-            IsRemovable = GetNullableBool(element, "IsRemovable"),
             IsSystem = GetBool(element, "IsSystem"),
             IsBoot = GetBool(element, "IsBoot"),
             SizeBytes = GetUInt64(element, "Size"),
@@ -1348,25 +1335,6 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         return property.ValueKind == JsonValueKind.String &&
                bool.TryParse(property.GetString(), out bool parsed) &&
                parsed;
-    }
-
-    private static bool? GetNullableBool(JsonElement element, string propertyName)
-    {
-        if (!element.TryGetProperty(propertyName, out JsonElement property) ||
-            property.ValueKind == JsonValueKind.Null)
-        {
-            return null;
-        }
-
-        if (property.ValueKind is JsonValueKind.True or JsonValueKind.False)
-        {
-            return property.GetBoolean();
-        }
-
-        return property.ValueKind == JsonValueKind.String &&
-               bool.TryParse(property.GetString(), out bool parsed)
-            ? parsed
-            : null;
     }
 
     private static ulong GetUInt64(JsonElement element, string propertyName)

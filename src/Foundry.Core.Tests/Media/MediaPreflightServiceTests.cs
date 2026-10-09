@@ -55,7 +55,6 @@ public sealed class MediaPreflightServiceTests
                     SerialNumber = "USB123",
                     UniqueId = "USB-ID",
                     BusType = "USB",
-                    IsRemovable = true,
                     SizeBytes = 15UL * 1024UL * 1024UL * 1024UL
                 },
                 IsFinalExecutionEnabled = true
@@ -164,7 +163,6 @@ public sealed class MediaPreflightServiceTests
                 SerialNumber = "USB123",
                 UniqueId = "USB-ID",
                 BusType = "USB",
-                IsRemovable = true,
                 SizeBytes = 64_000_000_000
             }
         };

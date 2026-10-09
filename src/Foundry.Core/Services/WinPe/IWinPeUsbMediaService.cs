@@ -6,6 +6,10 @@ namespace Foundry.Core.Services.WinPe;
 
 public interface IWinPeUsbMediaService
 {
+    /// <summary>
+    /// Lists every disk connected on the USB bus, whether a flash drive or an external disk in an enclosure,
+    /// except the Windows system and boot disks. Windows reports no removable flag for disks, so none is applied.
+    /// </summary>
     Task<WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>> GetUsbCandidatesAsync(
         WinPeToolPaths tools,
         string workingDirectoryPath,

@@ -175,7 +175,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public ObservableCollection<SelectionOption<UsbFormatMode>> FormatModes { get; }
 
     /// <summary>
-    /// Gets removable USB disk candidates discovered for media creation.
+    /// Gets the disks connected by USB (flash drives and external disks) that are not the Windows system or boot disk.
     /// </summary>
     public ObservableCollection<SelectionOption<WinPeUsbDiskCandidate>> UsbCandidates { get; } = [];
 

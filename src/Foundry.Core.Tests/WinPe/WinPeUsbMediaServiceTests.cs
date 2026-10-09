@@ -11,15 +11,15 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeUsbMediaServiceTests
 {
     [Fact]
-    public async Task GetUsbCandidatesAsync_FiltersUnsafeDisksAndParsesCandidates()
+    public async Task GetUsbCandidatesAsync_KeepsEveryUsbDiskThatIsNotSystemOrBootRegardlessOfRemovableFlag()
     {
         using TempWorkspace workspace = TempWorkspace.Create();
         string payload = """
                          [
-                           {"Number":3,"FriendlyName":"Safe USB","DriveLetters":"E:","SerialNumber":"USB123","UniqueId":"USB-ID","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000},
-                           {"Number":4,"FriendlyName":"SATA Disk","DriveLetters":"F:","SerialNumber":"SATA123","UniqueId":"SATA-ID","BusType":"SATA","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000},
-                           {"Number":5,"FriendlyName":"Fixed USB","DriveLetters":"G:","SerialNumber":"USB456","UniqueId":"USB-ID-2","BusType":"USB","IsRemovable":false,"IsSystem":false,"IsBoot":false,"Size":64000000000},
-                           {"Number":6,"FriendlyName":"System USB","DriveLetters":"H:","SerialNumber":"USB789","UniqueId":"USB-ID-3","BusType":"USB","IsRemovable":true,"IsSystem":true,"IsBoot":false,"Size":64000000000}
+                           {"Number":3,"FriendlyName":"Safe USB","DriveLetters":"E:","SerialNumber":"USB123","UniqueId":"USB-ID","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000},
+                           {"Number":4,"FriendlyName":"SATA Disk","DriveLetters":"F:","SerialNumber":"SATA123","UniqueId":"SATA-ID","BusType":"SATA","IsSystem":false,"IsBoot":false,"Size":64000000000},
+                           {"Number":5,"FriendlyName":"External USB disk","DriveLetters":"G:","SerialNumber":"USB456","UniqueId":"USB-ID-2","BusType":"USB","IsRemovable":false,"IsSystem":false,"IsBoot":false,"Size":64000000000},
+                           {"Number":6,"FriendlyName":"System USB","DriveLetters":"H:","SerialNumber":"USB789","UniqueId":"USB-ID-3","BusType":"USB","IsSystem":true,"IsBoot":false,"Size":64000000000}
                          ]
                          """;
         var service = new WinPeUsbMediaService(new FakeRunner(payload));
@@ -30,11 +30,12 @@ public sealed class WinPeUsbMediaServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        WinPeUsbDiskCandidate candidate = Assert.Single(result.Value!);
-        Assert.Equal(3, candidate.DiskNumber);
+        Assert.Equal([3, 5], result.Value!.Select(disk => disk.DiskNumber));
+        WinPeUsbDiskCandidate candidate = result.Value![0];
         Assert.Equal("Safe USB", candidate.FriendlyName);
         Assert.Equal("E:", candidate.DriveLetters);
         Assert.Equal((ulong)64000000000, candidate.SizeBytes);
+        Assert.Equal("External USB disk", result.Value![1].FriendlyName);
     }
 
     [Fact]
@@ -50,8 +51,7 @@ public sealed class WinPeUsbMediaServiceTests
             {
                 Number = 1,
                 FriendlyName = "Internal SSD",
-                BusType = "NVMe",
-                IsRemovable = true
+                BusType = "NVMe"
             });
 
         Assert.False(result.IsSuccess);
@@ -80,7 +80,6 @@ public sealed class WinPeUsbMediaServiceTests
                 SerialNumber = "SERIAL-2",
                 UniqueId = "UNIQUE-2",
                 BusType = "USB",
-                IsRemovable = true,
                 Size = 64UL * 1024UL * 1024UL * 1024UL
             });
 
@@ -104,7 +103,6 @@ public sealed class WinPeUsbMediaServiceTests
                 Number = 3,
                 FriendlyName = "Boot USB",
                 BusType = "USB",
-                IsRemovable = true,
                 IsBoot = true
             });
 
@@ -126,7 +124,6 @@ public sealed class WinPeUsbMediaServiceTests
                 Number = 3,
                 FriendlyName = "Small USB",
                 BusType = "USB",
-                IsRemovable = true,
                 Size = 15UL * 1024UL * 1024UL * 1024UL
             });
 
@@ -332,7 +329,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task GetUsbCandidatesAsync_WhenDiskHasFoundryBootAndCacheVolumes_MarksFoundryMedia()
     {
         string payload = """
-                         {"Number":9,"FriendlyName":"Safe USB","DriveLetters":"S:, T:","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000,"IsFoundryMedia":true}
+                         {"Number":9,"FriendlyName":"Safe USB","DriveLetters":"S:, T:","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000,"IsFoundryMedia":true}
                          """;
         var service = new WinPeUsbMediaService(new FakeRunner(payload));
         using TempWorkspace workspace = TempWorkspace.Create();
@@ -351,7 +348,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task GetUsbCandidatesAsync_QueryDetectsGptEfiBootPartitionWithoutDriveLetter()
     {
         string payload = """
-                         {"Number":9,"FriendlyName":"Safe USB","DriveLetters":"T:","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000,"IsFoundryMedia":true}
+                         {"Number":9,"FriendlyName":"Safe USB","DriveLetters":"T:","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000,"IsFoundryMedia":true}
                          """;
         var runner = new FakeRunner(payload);
         var service = new WinPeUsbMediaService(runner);
@@ -509,7 +506,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task ProvisionAndPopulateAsync_WhenTargetIdentityIsUnsafe_ReturnsUnsafeTargetBeforeFormatting()
     {
         string payload = """
-                         {"Number":9,"FriendlyName":"Internal SSD","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"NVMe","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                         {"Number":9,"FriendlyName":"Internal SSD","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"NVMe","IsSystem":false,"IsBoot":false,"Size":64000000000}
                          """;
         var runner = new FakeRunner(payload);
         using TempWorkspace workspace = TempWorkspace.Create();
@@ -547,7 +544,7 @@ public sealed class WinPeUsbMediaServiceTests
         string? expectedCode)
     {
         string payload = $$"""
-                           {"Number":{{liveNumber}},"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"{{liveUniqueId}}","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                           {"Number":{{liveNumber}},"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"{{liveUniqueId}}","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
                            """;
         var runner = new FakeRunner(payload);
         using TempWorkspace workspace = TempWorkspace.Create();
@@ -576,7 +573,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task ProvisionAndPopulateAsync_WhenPartitioningUsb_UsesPowerShellStorageProvisioning()
     {
         string diskIdentity = """
-                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         string provisioningResult = """
                                     {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"Y:","CacheDriveLetter":"Z:"}
@@ -616,7 +613,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task ProvisionAndPopulateAsync_WhenProvisioningAssignsDriveLetters_UsesReturnedLetters()
     {
         string diskIdentity = """
-                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         string provisioningResult = """
                                     FOUNDRY_USB_PROGRESS|55|USB partitions formatted.
@@ -658,7 +655,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task ProvisionAndPopulateAsync_WhenProvisioningStreamsOutput_ReportsProvisioningSubstepsAndVerboseDetails()
     {
         string payload = """
-                         {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                         {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
                          """;
         string provisioningResult = """
                                     FOUNDRY_USB_PROGRESS|55|USB partitions formatted.
@@ -707,7 +704,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task UpdateBootPartitionAsync_WhenSelectedDiskIsFoundryMedia_FormatsOnlyBootPartitionAndCopiesMedia()
     {
         string diskIdentity = """
-                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         string layout = """
                         {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}
@@ -760,7 +757,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task UpdateBootPartitionAsync_WhenRuntimeProvisioningIsEnabled_RefreshesRuntimePayloadsOnCachePartition()
     {
         string diskIdentity = """
-                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         using TempWorkspace workspace = TempWorkspace.Create();
         using TemporaryDriveMapping bootDrive = TemporaryDriveMapping.Create(workspace.RootPath, "boot");
@@ -826,7 +823,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task UpdateBootPartitionAsync_WhenRuntimeProvisioningFails_ReturnsFailure()
     {
         string diskIdentity = """
-                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         using TempWorkspace workspace = TempWorkspace.Create();
         using TemporaryDriveMapping bootDrive = TemporaryDriveMapping.Create(workspace.RootPath, "boot");
@@ -884,7 +881,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task UpdateBootPartitionAsync_WhenSelectedDiskIsNotFoundryMedia_ReturnsVerificationFailureBeforeFormatting()
     {
         string diskIdentity = """
-                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         var runner = new FakeSequenceRunner(diskIdentity, string.Empty);
         using TempWorkspace workspace = TempWorkspace.Create();
@@ -965,7 +962,7 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task ProvisionAndPopulateAsync_PreservesProvisioningFailureMetadata(int exitCode, string output, string reason)
     {
         const string identity = """
-            {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+            {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
             """;
         var runner = new FakeSequenceRunner(identity, output) { FailureExitCode = exitCode };
         using TempWorkspace workspace = TempWorkspace.Create();
