@@ -624,6 +624,9 @@ Vai turpināt izvietošanu?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Attēla kešatmiņu nevar sagatavot. Pārbaudiet tās brīvo vietu un rakstīšanas piekļuvi.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Lejupielādētā Windows attēla jaucējvērtības pārbaude neizdevās. Pārbaudiet tīkla savienojumu un krātuves ierīci un mēģiniet vēlreiz.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Mērķa diskā nepietiek vietas zināmajām izvietošanas prasībām. Atlasiet disku ar lielāku ietilpību.</value>
   </data>
@@ -634,16 +637,16 @@ Vai turpināt izvietošanu?</value>
     <value>Attēla aizņemtās vietas apjoms diskā pēc tā izvietošanas nav pieejams vai nav derīgs. Atlasiet citu attēlu.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Attēla lieluma vai jaucējvērtības metadati nav derīgi. Atsvaidziniet operētājsistēmu katalogu.</value>
+    <value>Kataloga attēla lieluma vai jaucējvērtības metadati nav derīgi. Atlasiet citu attēlu vai restartējiet ierīci no izvietošanas datu nesēja, lai atkārtoti ielādētu katalogu.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>Attēla URL jāizmanto HTTP vai HTTPS. Atsvaidziniet operētājsistēmu katalogu.</value>
+    <value>Attēla URL jāizmanto HTTP vai HTTPS. Atlasiet citu attēlu vai restartējiet ierīci no izvietošanas datu nesēja, lai atkārtoti ielādētu katalogu.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Neizdevās apstiprināt gatavību izvietošanai. Pirms diska sagatavošanas sāciet izvietošanu no jauna.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Attēla avots nav pieejams. Pārbaudiet savienojumu un atsvaidziniet operētājsistēmu katalogu.</value>
+    <value>Attēla avots nav pieejams. Pārbaudiet tīkla savienojumu un mēģiniet vēlreiz.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Neizdevās pārbaudīt brīvo vietu mērķa sējumā. Pirms atkārtota izvietošanas mēģinājuma pārbaudiet mērķa disku.</value>

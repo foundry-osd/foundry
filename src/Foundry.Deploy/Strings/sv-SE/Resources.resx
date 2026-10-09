@@ -624,6 +624,9 @@ Fortsätt med implementeringen?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Avbildningscachen kan inte förberedas. Kontrollera ledigt utrymme och skrivåtkomst till cachen.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Hashverifieringen av den nedladdade Windows-avbildningen misslyckades. Kontrollera nätverksanslutningen och lagringsenheten och försök igen.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Måldisken har inte tillräckligt med utrymme för de kända distributionskraven. Välj en större disk.</value>
   </data>
@@ -634,16 +637,16 @@ Fortsätt med implementeringen?</value>
     <value>Avbildningens storlek efter att den har tillämpats är inte tillgänglig eller är ogiltig. Välj en annan avbildning.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Metadata för avbildningens storlek eller hash är ogiltiga. Uppdatera operativsystemskatalogen.</value>
+    <value>Metadata för avbildningens storlek eller hash i katalogen är ogiltiga. Välj en annan avbildning, eller starta om enheten från distributionsmediet för att läsa in katalogen på nytt.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>Avbildningens URL måste använda HTTP eller HTTPS. Uppdatera operativsystemskatalogen.</value>
+    <value>Avbildningens URL måste använda HTTP eller HTTPS. Välj en annan avbildning, eller starta om enheten från distributionsmediet för att läsa in katalogen på nytt.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Det gick inte att bekräfta att distributionen är redo. Starta om distributionen innan du förbereder disken.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Avbildningskällan är inte tillgänglig. Kontrollera anslutningen och uppdatera operativsystemskatalogen.</value>
+    <value>Avbildningskällan är inte tillgänglig. Kontrollera nätverksanslutningen och försök igen.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Det gick inte att kontrollera ledigt utrymme på målvolymen. Kontrollera måldisken innan du försöker distribuera igen.</value>

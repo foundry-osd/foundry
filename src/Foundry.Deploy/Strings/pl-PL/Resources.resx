@@ -624,6 +624,9 @@ Kontynuować wdrażanie?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Nie można przygotować pamięci podręcznej obrazu. Sprawdź wolne miejsce i uprawnienia do zapisu w pamięci podręcznej.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Weryfikacja skrótu pobranego obrazu systemu Windows nie powiodła się. Sprawdź połączenie sieciowe i urządzenie magazynujące, a następnie spróbuj ponownie.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Na dysku docelowym nie ma wystarczająco dużo miejsca, aby spełnić znane wymagania wdrożenia. Wybierz większy dysk.</value>
   </data>
@@ -634,16 +637,16 @@ Kontynuować wdrażanie?</value>
     <value>Rozmiar obrazu po zastosowaniu jest niedostępny lub nieprawidłowy. Wybierz inny obraz.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Metadane rozmiaru lub skrótu obrazu są nieprawidłowe. Odśwież katalog systemów operacyjnych.</value>
+    <value>Metadane rozmiaru lub skrótu obrazu w katalogu są nieprawidłowe. Wybierz inny obraz lub uruchom ponownie urządzenie z nośnika wdrożeniowego, aby ponownie załadować katalog.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>Adres URL obrazu musi używać HTTP lub HTTPS. Odśwież katalog systemów operacyjnych.</value>
+    <value>Adres URL obrazu musi używać HTTP lub HTTPS. Wybierz inny obraz lub uruchom ponownie urządzenie z nośnika wdrożeniowego, aby ponownie załadować katalog.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Nie udało się potwierdzić gotowości do wdrożenia. Uruchom ponownie wdrożenie przed przygotowaniem dysku.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Źródło obrazu jest niedostępne. Sprawdź połączenie i odśwież katalog systemów operacyjnych.</value>
+    <value>Źródło obrazu jest niedostępne. Sprawdź połączenie sieciowe i spróbuj ponownie.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Nie udało się sprawdzić wolnego miejsca na woluminie docelowym. Sprawdź dysk docelowy przed ponowną próbą wdrożenia.</value>

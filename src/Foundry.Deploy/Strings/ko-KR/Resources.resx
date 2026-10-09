@@ -624,6 +624,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>이미지 캐시를 준비할 수 없습니다. 캐시의 여유 공간과 쓰기 권한을 확인하세요.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>다운로드한 Windows 이미지의 해시 확인에 실패했습니다. 네트워크 연결과 저장 장치를 확인한 후 다시 시도하세요.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>대상 디스크에 알려진 배포 요구 사항을 충족할 공간이 부족합니다. 용량이 더 큰 디스크를 선택하세요.</value>
   </data>
@@ -634,16 +637,16 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>이미지를 적용한 후의 크기 정보가 없거나 올바르지 않습니다. 다른 이미지를 선택하세요.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>이미지 크기 또는 해시 메타데이터가 올바르지 않습니다. 운영 체제 카탈로그를 새로 고치세요.</value>
+    <value>카탈로그의 이미지 크기 또는 해시 메타데이터가 올바르지 않습니다. 다른 이미지를 선택하거나 배포 미디어에서 장치를 다시 시작하여 카탈로그를 다시 로드하세요.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>이미지 URL은 HTTP 또는 HTTPS를 사용해야 합니다. 운영 체제 카탈로그를 새로 고치세요.</value>
+    <value>이미지 URL은 HTTP 또는 HTTPS를 사용해야 합니다. 다른 이미지를 선택하거나 배포 미디어에서 장치를 다시 시작하여 카탈로그를 다시 로드하세요.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>배포 준비 상태를 확인할 수 없습니다. 디스크를 준비하기 전에 배포를 다시 시작하세요.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>이미지 원본을 사용할 수 없습니다. 연결을 확인하고 운영 체제 카탈로그를 새로 고치세요.</value>
+    <value>이미지 원본을 사용할 수 없습니다. 네트워크 연결을 확인하고 다시 시도하세요.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>대상 볼륨의 여유 공간을 확인할 수 없습니다. 배포를 다시 시도하기 전에 대상 디스크를 확인하세요.</value>

@@ -624,6 +624,9 @@ Continuați cu implementarea?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Memoria cache a imaginii nu poate fi pregătită. Verificați spațiul liber și accesul la scriere în aceasta.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Verificarea hashului imaginii Windows descărcate a eșuat. Verificați conexiunea la rețea și dispozitivul de stocare, apoi încercați din nou.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Discul țintă nu are suficient spațiu pentru cerințele de implementare cunoscute. Selectați un disc cu o capacitate mai mare.</value>
   </data>
@@ -634,16 +637,16 @@ Continuați cu implementarea?</value>
     <value>Dimensiunea imaginii după aplicare nu este disponibilă sau nu este validă. Selectați altă imagine.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Metadatele privind dimensiunea sau hashul imaginii nu sunt valide. Reîmprospătați catalogul sistemelor de operare.</value>
+    <value>Metadatele privind dimensiunea sau hashul imaginii din catalog nu sunt valide. Selectați altă imagine sau reporniți dispozitivul de pe mediul de implementare pentru a reîncărca catalogul.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>Adresa URL a imaginii trebuie să utilizeze HTTP sau HTTPS. Reîmprospătați catalogul sistemelor de operare.</value>
+    <value>Adresa URL a imaginii trebuie să utilizeze HTTP sau HTTPS. Selectați altă imagine sau reporniți dispozitivul de pe mediul de implementare pentru a reîncărca catalogul.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Nu s-a putut confirma pregătirea pentru implementare. Reporniți implementarea înainte de pregătirea discului.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Sursa imaginii nu este disponibilă. Verificați conexiunea și reîmprospătați catalogul sistemelor de operare.</value>
+    <value>Sursa imaginii nu este disponibilă. Verificați conexiunea la rețea și încercați din nou.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Nu s-a putut verifica spațiul liber de pe volumul țintă. Verificați discul țintă înainte de a reîncerca implementarea.</value>

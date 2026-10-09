@@ -624,6 +624,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>イメージキャッシュを準備できません。キャッシュの空き容量と書き込み権限を確認してください。</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>ダウンロードした Windows イメージのハッシュ検証に失敗しました。ネットワーク接続とストレージ デバイスを確認して、もう一度お試しください。</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>既知の展開要件を満たすための空き容量が対象ディスクにありません。容量の大きいディスクを選択してください。</value>
   </data>
@@ -634,16 +637,16 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>イメージの適用後のサイズを取得できないか、サイズが無効です。別のイメージを選択してください。</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>イメージのサイズまたはハッシュのメタデータが無効です。オペレーティングシステムのカタログを更新してください。</value>
+    <value>カタログ内のイメージのサイズまたはハッシュのメタデータが無効です。別のイメージを選択するか、展開メディアからデバイスを再起動してカタログを再読み込みしてください。</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>イメージの URL には HTTP または HTTPS を使用する必要があります。オペレーティングシステムのカタログを更新してください。</value>
+    <value>イメージの URL には HTTP または HTTPS を使用する必要があります。別のイメージを選択するか、展開メディアからデバイスを再起動してカタログを再読み込みしてください。</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>展開の準備ができていることを確認できませんでした。ディスクを準備する前に、展開を再開始してください。</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>イメージのソースを利用できません。接続を確認し、オペレーティングシステムのカタログを更新してください。</value>
+    <value>イメージのソースを利用できません。ネットワーク接続を確認して、もう一度お試しください。</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>対象ボリュームの空き容量を確認できませんでした。展開を再試行する前に、対象ディスクを確認してください。</value>

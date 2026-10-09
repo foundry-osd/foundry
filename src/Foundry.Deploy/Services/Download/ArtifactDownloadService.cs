@@ -282,7 +282,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         string? actual = downloadedArtifact.Hash;
         if (!string.Equals(normalizedExpectedHash, actual, StringComparison.OrdinalIgnoreCase))
         {
-            throw new InvalidOperationException(
+            throw new ArtifactHashMismatchException(
                 $"Hash verification failed for '{filePath}' ({hashAlgorithm.Value.Name}). Expected '{normalizedExpectedHash}', actual '{actual}'.");
         }
     }

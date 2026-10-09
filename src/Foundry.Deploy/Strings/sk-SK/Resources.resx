@@ -624,6 +624,9 @@ Pokračovať v nasadzovaní?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Vyrovnávaciu pamäť obrazu nemožno pripraviť. Skontrolujte v nej voľné miesto a prístup na zápis.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Overenie hodnoty hash stiahnutého obrazu systému Windows zlyhalo. Skontrolujte sieťové pripojenie a úložné zariadenie a skúste to znova.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Na cieľovom disku nie je dostatok miesta na známe požiadavky nasadenia. Vyberte väčší disk.</value>
   </data>
@@ -634,16 +637,16 @@ Pokračovať v nasadzovaní?</value>
     <value>Veľkosť obrazu po použití nie je dostupná alebo je neplatná. Vyberte iný obraz.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Metaúdaje o veľkosti alebo hodnote hash obrazu sú neplatné. Obnovte katalóg operačných systémov.</value>
+    <value>Metaúdaje o veľkosti alebo hodnote hash obrazu v katalógu sú neplatné. Vyberte iný obraz alebo reštartujte zariadenie z média na nasadenie, aby sa katalóg znova načítal.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>URL obrazu musí používať HTTP alebo HTTPS. Obnovte katalóg operačných systémov.</value>
+    <value>URL obrazu musí používať HTTP alebo HTTPS. Vyberte iný obraz alebo reštartujte zariadenie z média na nasadenie, aby sa katalóg znova načítal.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Pripravenosť na nasadenie sa nepodarilo potvrdiť. Pred prípravou disku spustite nasadenie znova.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Zdroj obrazu nie je dostupný. Skontrolujte pripojenie a obnovte katalóg operačných systémov.</value>
+    <value>Zdroj obrazu nie je dostupný. Skontrolujte sieťové pripojenie a skúste to znova.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Voľné miesto na cieľovom zväzku sa nepodarilo overiť. Pred ďalším pokusom o nasadenie skontrolujte cieľový disk.</value>

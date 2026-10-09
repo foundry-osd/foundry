@@ -624,6 +624,9 @@ Continuer le déploiement?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Le cache de l’image ne peut pas être préparé. Vérifiez son espace libre et les droits d’écriture.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>La vérification du hachage de l’image Windows téléchargée a échoué. Vérifiez la connexion réseau et le périphérique de stockage, puis réessayez.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Le disque cible ne dispose pas d’assez d’espace pour les besoins de déploiement connus. Sélectionnez un disque de plus grande capacité.</value>
   </data>
@@ -634,16 +637,16 @@ Continuer le déploiement?</value>
     <value>La taille de l’image après son application est indisponible ou invalide. Sélectionnez une autre image.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Les métadonnées de taille ou de hachage de l’image sont invalides. Actualisez le catalogue des systèmes d’exploitation.</value>
+    <value>Les métadonnées de taille ou de hachage de l’image dans le catalogue sont invalides. Sélectionnez une autre image ou redémarrez l’appareil depuis le support de déploiement pour recharger le catalogue.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>L’URL de l’image doit utiliser HTTP ou HTTPS. Actualisez le catalogue des systèmes d’exploitation.</value>
+    <value>L’URL de l’image doit utiliser HTTP ou HTTPS. Sélectionnez une autre image ou redémarrez l’appareil depuis le support de déploiement pour recharger le catalogue.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>L’état de préparation du déploiement n’a pas pu être confirmé. Relancez le déploiement avant de préparer le disque.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>La source de l’image est indisponible. Vérifiez la connexion et actualisez le catalogue des systèmes d’exploitation.</value>
+    <value>La source de l’image est indisponible. Vérifiez la connexion réseau et réessayez.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>L’espace libre du volume cible n’a pas pu être vérifié. Vérifiez le disque cible avant de réessayer le déploiement.</value>

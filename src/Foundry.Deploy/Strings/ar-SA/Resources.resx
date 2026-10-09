@@ -624,6 +624,9 @@
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>يتعذر تجهيز ذاكرة التخزين المؤقت للصورة. تحقق من المساحة الحرة فيها وإمكانية الكتابة إليها.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>فشل التحقق من قيمة التجزئة لصورة Windows التي تم تنزيلها. تحقق من اتصال الشبكة وجهاز التخزين، ثم حاول مرة أخرى.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>لا توجد مساحة كافية على القرص الهدف لتلبية متطلبات النشر المعروفة. حدد قرصًا بسعة أكبر.</value>
   </data>
@@ -634,16 +637,16 @@
     <value>حجم الصورة بعد تطبيقها غير متاح أو غير صالح. حدد صورة أخرى.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>البيانات الوصفية لحجم الصورة أو قيمة التجزئة غير صالحة. حدّث كتالوج أنظمة التشغيل.</value>
+    <value>البيانات الوصفية لحجم الصورة أو قيمة التجزئة في الكتالوج غير صالحة. حدد صورة أخرى، أو أعد تشغيل الجهاز من وسيط النشر لإعادة تحميل الكتالوج.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>يجب أن يستخدم عنوان URL للصورة بروتوكول HTTP أو HTTPS. حدّث كتالوج أنظمة التشغيل.</value>
+    <value>يجب أن يستخدم عنوان URL للصورة بروتوكول HTTP أو HTTPS. حدد صورة أخرى، أو أعد تشغيل الجهاز من وسيط النشر لإعادة تحميل الكتالوج.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>تعذر تأكيد الجاهزية للنشر. أعد بدء النشر قبل تجهيز القرص.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>مصدر الصورة غير متاح. تحقق من الاتصال وحدّث كتالوج أنظمة التشغيل.</value>
+    <value>مصدر الصورة غير متاح. تحقق من اتصال الشبكة وحاول مرة أخرى.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>تعذر التحقق من المساحة الحرة على وحدة التخزين الهدف. تحقق من القرص الهدف قبل إعادة محاولة النشر.</value>

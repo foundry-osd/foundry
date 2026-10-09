@@ -624,6 +624,9 @@ Operativni sistem: {4}
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Keš slike se ne može pripremiti. Proverite slobodan prostor i pristup za upis u njega.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Provera heš vrednosti preuzete Windows slike nije uspela. Proverite mrežnu vezu i uređaj za skladištenje i pokušajte ponovo.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Na ciljnom disku nema dovoljno prostora za poznate zahteve primene. Izaberite disk većeg kapaciteta.</value>
   </data>
@@ -634,16 +637,16 @@ Operativni sistem: {4}
     <value>Veličina slike nakon primene nije dostupna ili nije ispravna. Izaberite drugu sliku.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Metapodaci o veličini ili heš vrednosti slike nisu ispravni. Osvežite katalog operativnih sistema.</value>
+    <value>Metapodaci o veličini ili heš vrednosti slike u katalogu nisu ispravni. Izaberite drugu sliku ili ponovo pokrenite uređaj sa medija za implementaciju da biste ponovo učitali katalog.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>URL slike mora da koristi HTTP ili HTTPS. Osvežite katalog operativnih sistema.</value>
+    <value>URL slike mora da koristi HTTP ili HTTPS. Izaberite drugu sliku ili ponovo pokrenite uređaj sa medija za implementaciju da biste ponovo učitali katalog.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Nije moguće potvrditi spremnost za primenu. Ponovo pokrenite primenu pre pripreme diska.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Izvor slike nije dostupan. Proverite vezu i osvežite katalog operativnih sistema.</value>
+    <value>Izvor slike nije dostupan. Proverite mrežnu vezu i pokušajte ponovo.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Nije moguće proveriti slobodan prostor na ciljnom volumenu. Proverite ciljni disk pre ponovnog pokušaja primene.</value>

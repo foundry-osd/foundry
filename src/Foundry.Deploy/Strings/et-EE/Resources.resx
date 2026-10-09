@@ -624,6 +624,9 @@ Kas jätkata juurutamisega?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Tõmmise vahemälu ei saa ette valmistada. Kontrolli selle vaba ruumi ja kirjutusõigusi.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Allalaaditud Windowsi tõmmise räsikontroll ebaõnnestus. Kontrolli võrguühendust ja salvestusseadet ning proovi uuesti.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Sihtkettal pole teadaolevate juurutusnõuete täitmiseks piisavalt ruumi. Vali suurem ketas.</value>
   </data>
@@ -634,16 +637,16 @@ Kas jätkata juurutamisega?</value>
     <value>Tõmmise rakendamisjärgne suurus pole saadaval või on vigane. Vali teine tõmmis.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Tõmmise suuruse või räsi metaandmed on vigased. Värskenda operatsioonisüsteemide kataloogi.</value>
+    <value>Kataloogis olevad tõmmise suuruse või räsi metaandmed on vigased. Vali teine tõmmis või taaskäivita seade juurutusmeediumilt, et kataloog uuesti laadida.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>Tõmmise URL peab kasutama protokolli HTTP või HTTPS. Värskenda operatsioonisüsteemide kataloogi.</value>
+    <value>Tõmmise URL peab kasutama protokolli HTTP või HTTPS. Vali teine tõmmis või taaskäivita seade juurutusmeediumilt, et kataloog uuesti laadida.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Juurutusvalmidust ei õnnestunud kinnitada. Alusta juurutamist uuesti enne ketta ettevalmistamist.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Tõmmise allikas pole saadaval. Kontrolli ühendust ja värskenda operatsioonisüsteemide kataloogi.</value>
+    <value>Tõmmise allikas pole saadaval. Kontrolli võrguühendust ja proovi uuesti.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Sihtköite vaba ruumi ei õnnestunud kontrollida. Enne juurutamise uuesti proovimist kontrolli sihtketast.</value>

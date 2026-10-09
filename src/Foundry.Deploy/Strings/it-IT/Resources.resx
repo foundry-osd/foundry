@@ -624,6 +624,9 @@ Continuare con la distribuzione?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Impossibile preparare la cache dell’immagine. Controllare lo spazio libero e l’accesso in scrittura alla cache.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>La verifica dell’hash dell’immagine di Windows scaricata non è riuscita. Controllare la connessione di rete e il dispositivo di archiviazione, quindi riprovare.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Il disco di destinazione non dispone di spazio sufficiente per i requisiti di distribuzione noti. Selezionare un disco più capiente.</value>
   </data>
@@ -634,16 +637,16 @@ Continuare con la distribuzione?</value>
     <value>La dimensione dell’immagine dopo l’applicazione non è disponibile o non è valida. Selezionare un’altra immagine.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>I metadati della dimensione o dell’hash dell’immagine non sono validi. Aggiornare il catalogo dei sistemi operativi.</value>
+    <value>I metadati della dimensione o dell’hash dell’immagine nel catalogo non sono validi. Selezionare un’altra immagine oppure riavviare il dispositivo dal supporto di distribuzione per ricaricare il catalogo.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>L’URL dell’immagine deve usare HTTP o HTTPS. Aggiornare il catalogo dei sistemi operativi.</value>
+    <value>L’URL dell’immagine deve usare HTTP o HTTPS. Selezionare un’altra immagine oppure riavviare il dispositivo dal supporto di distribuzione per ricaricare il catalogo.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Impossibile confermare lo stato di preparazione alla distribuzione. Riavviare la distribuzione prima di preparare il disco.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>L’origine dell’immagine non è disponibile. Controllare la connessione e aggiornare il catalogo dei sistemi operativi.</value>
+    <value>L’origine dell’immagine non è disponibile. Controllare la connessione di rete e riprovare.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Impossibile verificare lo spazio libero sul volume di destinazione. Controllare il disco di destinazione prima di riprovare la distribuzione.</value>

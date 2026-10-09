@@ -624,6 +624,9 @@ Continuar com a implantação?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Não é possível preparar a cache da imagem. Verifique o espaço livre e o acesso de escrita na cache.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>A verificação de hash da imagem do Windows transferida falhou. Verifique a ligação de rede e o dispositivo de armazenamento e tente novamente.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>O disco de destino não tem espaço suficiente para os requisitos de implementação conhecidos. Selecione um disco de maior capacidade.</value>
   </data>
@@ -634,16 +637,16 @@ Continuar com a implantação?</value>
     <value>O tamanho da imagem após a aplicação está indisponível ou é inválido. Selecione outra imagem.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Os metadados de tamanho ou hash da imagem são inválidos. Atualize o catálogo de sistemas operativos.</value>
+    <value>Os metadados de tamanho ou hash da imagem no catálogo são inválidos. Selecione outra imagem ou reinicie o dispositivo a partir do suporte de implementação para recarregar o catálogo.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>O URL da imagem tem de utilizar HTTP ou HTTPS. Atualize o catálogo de sistemas operativos.</value>
+    <value>O URL da imagem tem de utilizar HTTP ou HTTPS. Selecione outra imagem ou reinicie o dispositivo a partir do suporte de implementação para recarregar o catálogo.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Não foi possível confirmar a prontidão para implementação. Reinicie a implementação antes de preparar o disco.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>A origem da imagem está indisponível. Verifique a ligação e atualize o catálogo de sistemas operativos.</value>
+    <value>A origem da imagem está indisponível. Verifique a ligação de rede e tente novamente.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Não foi possível verificar o espaço livre no volume de destino. Verifique o disco de destino antes de tentar novamente a implementação.</value>

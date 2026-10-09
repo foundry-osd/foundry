@@ -624,6 +624,9 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Predpomnilnika slike ni mogoče pripraviti. Preverite prosti prostor in pravice za pisanje vanj.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Preverjanje zgoščene vrednosti prenesene slike sistema Windows ni uspelo. Preverite omrežno povezavo in pomnilniško napravo ter poskusite znova.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Na ciljnem disku ni dovolj prostora za znane zahteve uvajanja. Izberite disk z večjo zmogljivostjo.</value>
   </data>
@@ -634,16 +637,16 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Velikost slike po uporabi na disku ni na voljo ali ni veljavna. Izberite drugo sliko.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Metapodatki o velikosti ali zgoščeni vrednosti slike niso veljavni. Osvežite katalog operacijskih sistemov.</value>
+    <value>Metapodatki o velikosti ali zgoščeni vrednosti slike v katalogu niso veljavni. Izberite drugo sliko ali znova zaženite napravo z namestitvenega medija, da znova naložite katalog.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>URL slike mora uporabljati HTTP ali HTTPS. Osvežite katalog operacijskih sistemov.</value>
+    <value>URL slike mora uporabljati HTTP ali HTTPS. Izberite drugo sliko ali znova zaženite napravo z namestitvenega medija, da znova naložite katalog.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Pripravljenosti na uvajanje ni bilo mogoče potrditi. Pred pripravo diska znova zaženite uvajanje.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Vir slike ni na voljo. Preverite povezavo in osvežite katalog operacijskih sistemov.</value>
+    <value>Vir slike ni na voljo. Preverite omrežno povezavo in poskusite znova.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Prostega prostora na ciljnem nosilcu ni bilo mogoče preveriti. Pred ponovnim poskusom uvajanja preverite ciljni disk.</value>

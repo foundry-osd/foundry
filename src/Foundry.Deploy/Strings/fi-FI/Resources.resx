@@ -624,6 +624,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Näköistiedoston välimuistia ei voida valmistella. Tarkista sen vapaa tila ja kirjoitusoikeudet.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Ladatun Windows-näköistiedoston tiivisteen vahvistus epäonnistui. Tarkista verkkoyhteys ja tallennuslaite ja yritä uudelleen.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Kohdelevyllä ei ole riittävästi tilaa tiedossa oleviin käyttöönottovaatimuksiin. Valitse suurempi levy.</value>
   </data>
@@ -634,16 +637,16 @@ Jatketaanko käyttöönottoa?</value>
     <value>Näköistiedoston koko levylle asentamisen jälkeen ei ole saatavilla tai on virheellinen. Valitse toinen näköistiedosto.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Näköistiedoston koon tai tiivisteen metatiedot ovat virheellisiä. Päivitä käyttöjärjestelmäluettelo.</value>
+    <value>Luettelon näköistiedoston koon tai tiivisteen metatiedot ovat virheellisiä. Valitse toinen näköistiedosto tai käynnistä laite uudelleen käyttöönottotietovälineeltä, jotta luettelo ladataan uudelleen.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>Näköistiedoston URL-osoitteen on käytettävä HTTP- tai HTTPS-protokollaa. Päivitä käyttöjärjestelmäluettelo.</value>
+    <value>Näköistiedoston URL-osoitteen on käytettävä HTTP- tai HTTPS-protokollaa. Valitse toinen näköistiedosto tai käynnistä laite uudelleen käyttöönottotietovälineeltä, jotta luettelo ladataan uudelleen.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Käyttöönottovalmiutta ei voitu vahvistaa. Aloita käyttöönotto uudelleen ennen levyn valmistelua.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Näköistiedoston lähde ei ole käytettävissä. Tarkista yhteys ja päivitä käyttöjärjestelmäluettelo.</value>
+    <value>Näköistiedoston lähde ei ole käytettävissä. Tarkista verkkoyhteys ja yritä uudelleen.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Kohdetaltion vapaata tilaa ei voitu tarkistaa. Tarkista kohdelevy ennen käyttöönoton yrittämistä uudelleen.</value>

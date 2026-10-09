@@ -624,6 +624,9 @@ Vil du fortsætte med implementeringen?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Afbildningens cache kan ikke klargøres. Kontrollér den ledige plads og skriveadgangen til den.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Hashbekræftelsen af den downloadede Windows-afbildning mislykkedes. Kontrollér netværksforbindelsen og lagerenheden, og prøv igen.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Der er ikke nok plads på måldisken til de kendte krav til udrulningen. Vælg en større disk.</value>
   </data>
@@ -634,16 +637,16 @@ Vil du fortsætte med implementeringen?</value>
     <value>Afbildningens størrelse efter anvendelse er ikke tilgængelig eller er ugyldig. Vælg en anden afbildning.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Metadata for afbildningens størrelse eller hash er ugyldige. Opdatér kataloget over operativsystemer.</value>
+    <value>Metadata for afbildningens størrelse eller hash i kataloget er ugyldige. Vælg en anden afbildning, eller genstart enheden fra installationsmediet for at genindlæse kataloget.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>Afbildningens URL skal bruge HTTP eller HTTPS. Opdatér kataloget over operativsystemer.</value>
+    <value>Afbildningens URL skal bruge HTTP eller HTTPS. Vælg en anden afbildning, eller genstart enheden fra installationsmediet for at genindlæse kataloget.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Det kunne ikke bekræftes, at udrulningen er klar. Start udrulningen igen, før du klargør disken.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Afbildningens kilde er ikke tilgængelig. Kontrollér forbindelsen, og opdatér kataloget over operativsystemer.</value>
+    <value>Afbildningens kilde er ikke tilgængelig. Kontrollér netværksforbindelsen, og prøv igen.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Den ledige plads på måldiskenheden kunne ikke kontrolleres. Kontrollér måldisken, før du forsøger at udrulle igen.</value>

@@ -624,6 +624,9 @@
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Не удается подготовить кэш образа. Проверьте свободное место и доступ на запись в кэш.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Не удалось проверить хеш скачанного образа Windows. Проверьте сетевое подключение и устройство хранения и повторите попытку.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>На целевом диске недостаточно места для известных требований развертывания. Выберите диск большей емкости.</value>
   </data>
@@ -634,16 +637,16 @@
     <value>Размер образа после применения недоступен или недействителен. Выберите другой образ.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Метаданные размера или хеша образа недействительны. Обновите каталог операционных систем.</value>
+    <value>Метаданные размера или хеша образа в каталоге недействительны. Выберите другой образ или перезапустите устройство с носителя для развёртывания, чтобы заново загрузить каталог.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>URL образа должен использовать HTTP или HTTPS. Обновите каталог операционных систем.</value>
+    <value>URL образа должен использовать HTTP или HTTPS. Выберите другой образ или перезапустите устройство с носителя для развёртывания, чтобы заново загрузить каталог.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Не удалось подтвердить готовность к развертыванию. Перезапустите развертывание перед подготовкой диска.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Источник образа недоступен. Проверьте подключение и обновите каталог операционных систем.</value>
+    <value>Источник образа недоступен. Проверьте сетевое подключение и повторите попытку.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Не удалось проверить свободное место на целевом томе. Проверьте целевой диск перед повторной попыткой развертывания.</value>

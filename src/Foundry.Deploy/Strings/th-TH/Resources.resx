@@ -624,6 +624,9 @@
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>ไม่สามารถเตรียมแคชของอิมเมจได้ โปรดตรวจสอบพื้นที่ว่างและสิทธิ์ในการเขียนลงแคช</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>การตรวจสอบค่าแฮชของอิมเมจ Windows ที่ดาวน์โหลดไม่สำเร็จ โปรดตรวจสอบการเชื่อมต่อเครือข่ายและอุปกรณ์จัดเก็บข้อมูล แล้วลองอีกครั้ง</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>ดิสก์เป้าหมายมีพื้นที่ไม่เพียงพอสำหรับข้อกำหนดการปรับใช้ที่ทราบ โปรดเลือกดิสก์ที่มีความจุมากขึ้น</value>
   </data>
@@ -634,16 +637,16 @@
     <value>ไม่พบข้อมูลขนาดของอิมเมจหลังจากนำไปใช้กับดิสก์ หรือข้อมูลไม่ถูกต้อง โปรดเลือกอิมเมจอื่น</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>เมทาดาทาของขนาดหรือค่าแฮชของอิมเมจไม่ถูกต้อง โปรดรีเฟรชแค็ตตาล็อกระบบปฏิบัติการ</value>
+    <value>เมทาดาทาของขนาดหรือค่าแฮชของอิมเมจในแค็ตตาล็อกไม่ถูกต้อง โปรดเลือกอิมเมจอื่น หรือรีสตาร์ตอุปกรณ์จากสื่อการปรับใช้เพื่อโหลดแค็ตตาล็อกใหม่</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>URL ของอิมเมจต้องใช้ HTTP หรือ HTTPS โปรดรีเฟรชแค็ตตาล็อกระบบปฏิบัติการ</value>
+    <value>URL ของอิมเมจต้องใช้ HTTP หรือ HTTPS โปรดเลือกอิมเมจอื่น หรือรีสตาร์ตอุปกรณ์จากสื่อการปรับใช้เพื่อโหลดแค็ตตาล็อกใหม่</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>ไม่สามารถยืนยันความพร้อมในการปรับใช้ได้ โปรดเริ่มการปรับใช้ใหม่ก่อนเตรียมดิสก์</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>แหล่งที่มาของอิมเมจไม่พร้อมใช้งาน โปรดตรวจสอบการเชื่อมต่อและรีเฟรชแค็ตตาล็อกระบบปฏิบัติการ</value>
+    <value>แหล่งที่มาของอิมเมจไม่พร้อมใช้งาน โปรดตรวจสอบการเชื่อมต่อเครือข่ายแล้วลองอีกครั้ง</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>ไม่สามารถตรวจสอบพื้นที่ว่างบนโวลุมเป้าหมายได้ โปรดตรวจสอบดิสก์เป้าหมายก่อนลองปรับใช้อีกครั้ง</value>
