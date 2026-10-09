@@ -2134,12 +2134,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Kalba</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Automatiškai paleiskite Foundry OSD, kai prisijungiate prie Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Paleiskite paleidžiant</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Įkrovos parinktys.</value>
   </data>

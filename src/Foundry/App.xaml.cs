@@ -128,6 +128,7 @@ namespace Foundry
         private static async Task InitializeAppAsync()
         {
             await Task.Run(() => DeploymentBuildSnapshot.CleanupAbandoned(Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots")));
+            await Task.Run(LegacyRunAtStartupCleanup.TryRemove);
             await GetService<DeploymentProfileCoordinator>().InitializeAsync();
             await GetService<IStartupReadinessService>().InitializeAsync();
             GetService<DeploymentProfileCoordinator>().StartAutomaticSynchronization();

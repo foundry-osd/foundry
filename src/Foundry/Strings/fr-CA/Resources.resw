@@ -2134,12 +2134,6 @@ Sous licence MIT.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Langue</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Lancez automatiquement Foundry OSD lorsque vous vous connectez à Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Exécuter au démarrage</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Options de démarrage.</value>
   </data>
