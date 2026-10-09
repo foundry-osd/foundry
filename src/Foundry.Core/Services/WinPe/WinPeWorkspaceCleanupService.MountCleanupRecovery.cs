@@ -37,13 +37,22 @@ public sealed partial class WinPeWorkspaceCleanupService
     /// <para>
     /// The pass removes markers only and never deletes a workspace. Call it before stale-workspace deletion and
     /// before <see cref="EnsureServicingCanStart"/>: <see cref="DeleteOwnedOperation"/> can then remove a recovered
-    /// workspace after its own inventory check, and the servicing check reports whatever remains unresolved. It does
-    /// not throw, because that check fails closed on any marker left behind.
+    /// workspace after its own inventory check, and the servicing check reports whatever remains unresolved. Recovery
+    /// failures are logged and never thrown, because that check fails closed on any marker left behind.
+    /// </para>
+    /// <para>
+    /// Cancellation is observed only before an operation and before a marker. It is never passed to DISM: a discard
+    /// that has started always runs to its own deadline, because interrupting one is what leaves a marker behind.
     /// </para>
     /// </remarks>
     /// <param name="workspaceRoot">Directory whose immediate children are operation workspaces.</param>
     /// <param name="dismPath">DISM executable from <see cref="WinPeToolPaths.DismPath"/>, as used to mount images.</param>
-    public async Task RecoverUnresolvedMountCleanupsAsync(string workspaceRoot, string dismPath)
+    /// <param name="cancellationToken">Stops the pass between markers and operations.</param>
+    /// <exception cref="OperationCanceledException">Cancellation was requested between two markers or operations.</exception>
+    public async Task RecoverUnresolvedMountCleanupsAsync(
+        string workspaceRoot,
+        string dismPath,
+        CancellationToken cancellationToken)
     {
         ILogger logger = Log.ForContext<WinPeWorkspaceCleanupService>();
         string root;
@@ -65,11 +74,12 @@ public sealed partial class WinPeWorkspaceCleanupService
 
         foreach (string candidate in candidates)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             try
             {
-                await RecoverOperationAsync(root, candidate, dismPath, logger).ConfigureAwait(false);
+                await RecoverOperationAsync(root, candidate, dismPath, logger, cancellationToken).ConfigureAwait(false);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
             {
                 logger.Warning(exception,
                     "Retained mounted-image cleanup could not be recovered because the operation could not be safely inspected. OperationPath={OperationPath}",
@@ -78,7 +88,12 @@ public sealed partial class WinPeWorkspaceCleanupService
         }
     }
 
-    private async Task RecoverOperationAsync(string root, string candidate, string dismPath, ILogger logger)
+    private async Task RecoverOperationAsync(
+        string root,
+        string candidate,
+        string dismPath,
+        ILogger logger,
+        CancellationToken cancellationToken)
     {
         string? operationPath = ResolveOwnedOperation(root, candidate);
         if (operationPath is null || !EnumerateCleanupMarkers(operationPath).Any()) return;
@@ -102,6 +117,7 @@ public sealed partial class WinPeWorkspaceCleanupService
             var attemptedMounts = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string markerPath in EnumerateCleanupMarkers(operationPath).ToArray())
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 await RecoverMarkerAsync(operationPath, markerPath, dismPath, attemptedMounts, logger).ConfigureAwait(false);
             }
         }

@@ -24,7 +24,7 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
             () => [new WinPeMountedImage(Path.Combine(temp.Path, "unrelated-mount"), Path.Combine(temp.Path, "unrelated.wim"))],
             runner);
 
-        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
 
         Assert.False(File.Exists(operation.MarkerPath));
         Assert.Empty(runner.Executions);
@@ -60,7 +60,7 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
             },
             runner);
 
-        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
 
         // The lease and the marker must cover the first inventory read, the discard and the confirming read.
         (string, bool, bool)[] expected = [("inventory", true, true), ("discard", true, true), ("inventory", true, true)];
@@ -110,7 +110,7 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
                 : mounted.ToArray(),
             runner);
 
-        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
 
         Assert.Single(runner.Executions);
         WinPeResult servicing = AssertStillBlocked(service, temp.Path, operation);
@@ -138,10 +138,58 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
             () => [new WinPeMountedImage(reportedMountPath, Path.Combine(operation.Path, "WinPe", "media", "sources", "boot.wim"))],
             runner);
 
-        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
 
         Assert.Single(runner.Executions);
         AssertStillBlocked(service, temp.Path, operation);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Recover_WhenCancelledDuringADiscard_FinishesThatDiscardAndStopsBeforeTheNextMarker(bool markersShareAnOperation)
+    {
+        using var temp = new TemporaryDirectory();
+        RetainedOperation first = CreateRetainedOperation(temp.Path);
+        string secondMount;
+        string secondMarker;
+        if (markersShareAnOperation)
+        {
+            secondMount = Path.Combine(first.Path, "WinPe", "windows-source-Pro", "install-mount");
+            secondMarker = Path.Combine(first.Path, "WinPe", ".foundry-mount-cleanup-second.pending");
+            File.WriteAllText(secondMarker, secondMount);
+        }
+        else
+        {
+            RetainedOperation second = CreateRetainedOperation(temp.Path);
+            secondMount = second.MountDirectory;
+            secondMarker = second.MarkerPath;
+        }
+
+        using var cancellation = new CancellationTokenSource();
+        CancellationToken discardToken = default;
+        var runner = new FakeWinPeProcessRunner
+        {
+            OnDiscardAsync = token =>
+            {
+                discardToken = token;
+                cancellation.Cancel();
+                return Task.FromResult(new WinPeProcessExecution { ExitCode = 50 });
+            }
+        };
+        var service = new WinPeWorkspaceCleanupService(
+            () => [new WinPeMountedImage(first.MountDirectory, "first.wim"), new WinPeMountedImage(secondMount, "second.wim")],
+            runner);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(
+            () => service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, cancellation.Token));
+
+        // The caller's cancellation never reaches DISM: an interrupted discard is what leaves a marker behind.
+        Assert.Single(runner.Executions);
+        Assert.NotEqual(cancellation.Token, discardToken);
+        Assert.False(discardToken.IsCancellationRequested);
+        Assert.True(File.Exists(first.MarkerPath));
+        Assert.True(File.Exists(secondMarker));
     }
 
     [Fact]
@@ -162,7 +210,7 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
         };
         var service = new WinPeWorkspaceCleanupService(() => [Mounted(operation)], runner, clock);
 
-        Task recovery = service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+        Task recovery = service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
         try
         {
             clock.Advance(WinPeMountSession.CleanupTimeout - TimeSpan.FromSeconds(1));
@@ -195,7 +243,7 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
         };
         var service = new WinPeWorkspaceCleanupService(() => [Mounted(operation)], runner);
 
-        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
 
         Assert.Single(runner.Executions);
         Assert.True(File.Exists(secondMarker));
@@ -239,7 +287,7 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
         {
             var service = new WinPeWorkspaceCleanupService(() => inventory, runner);
 
-            await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+            await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
 
             Assert.Empty(runner.Executions);
             WinPeResult servicing = AssertStillBlocked(service, temp.Path, operation, content);
@@ -257,7 +305,7 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
 
         using (new FileStream(operation.MarkerPath, FileMode.Open, FileAccess.Read, FileShare.None))
         {
-            await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+            await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
             Assert.False(service.EnsureServicingCanStart(temp.Path).IsSuccess);
         }
 
@@ -281,7 +329,7 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
             var runner = new FakeWinPeProcessRunner();
             var service = new WinPeWorkspaceCleanupService(() => [], runner);
 
-            await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+            await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
 
             Assert.Empty(runner.Executions);
             AssertStillBlocked(service, temp.Path, operation, content);
@@ -306,7 +354,7 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
                 : throw new IOException("Inventory unavailable."),
             runner);
 
-        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
 
         Assert.Empty(runner.Executions);
         AssertStillBlocked(service, temp.Path, operation);
@@ -332,7 +380,7 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
         var runner = new FakeWinPeProcessRunner();
         var service = new WinPeWorkspaceCleanupService(() => imageIsMounted ? [Mounted(operation)] : [], runner);
 
-        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath);
+        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
 
         Assert.Empty(runner.Executions);
         Assert.Equal(operation.MountDirectory, File.ReadAllText(operation.MarkerPath));
