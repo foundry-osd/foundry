@@ -3396,14 +3396,17 @@
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>Это сотрет диск {0}: {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>На этом диске нет доступных для чтения томов.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>На этом диске нет разделов.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Отформатируйте и создайте USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Формат цели USB</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows не может прочитать тома на этом диске. На нём всё ещё могут быть данные.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), использовано {3} из {4}</value>

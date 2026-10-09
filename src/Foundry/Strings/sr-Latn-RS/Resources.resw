@@ -3396,14 +3396,17 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>Ovo će obrisati disk {0}: {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>Na ovom disku nema čitljivog volumena.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Ovaj disk nema particiju.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formatirajte i kreirajte USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Format USB cilj</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows ne može da pročita volumene na ovom disku. Na njemu i dalje mogu da se nalaze podaci.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), iskorišćeno {3} od {4}</value>
@@ -3415,7 +3418,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Volumeni na ovom disku:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Sve na ovom disku biće izgubljeno. Nastavite samo ako je ovo namenjena USB disk jedinica.</value>
+    <value>Sve na ovom disku biće izgubljeno. Nastavite samo ako je ovo namenjeni USB disk.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Kreiraj USB</value>

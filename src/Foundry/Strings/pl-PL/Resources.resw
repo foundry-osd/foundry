@@ -3396,14 +3396,17 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>Spowoduje to usunięcie dysku {0}: {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>Na tym dysku nie ma czytelnego woluminu.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Ten dysk nie ma żadnej partycji.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Sformatuj i utwórz USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Sformatuj cel USB</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>System Windows nie może odczytać woluminów na tym dysku. Nadal mogą się na nim znajdować dane.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), użyto {3} z {4}</value>

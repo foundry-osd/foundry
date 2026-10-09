@@ -3396,14 +3396,17 @@
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>这将擦除磁盘{0}：{1} ({2})。</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>此磁盘上没有可读取的卷。</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>此磁盘没有分区。</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>格式化并创建USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>格式化USB目标</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows 无法读取此磁盘上的卷。它仍可能包含数据。</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2})，已使用 {3}，共 {4}</value>
@@ -3415,7 +3418,7 @@
     <value>此磁盘上的卷：</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>此磁盘上的所有内容都将丢失。仅当这是预期的 USB 驱动器时才继续。</value>
+    <value>此磁盘上的所有内容都将丢失。仅当这是预期的 USB 磁盘时才继续。</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>创建USB</value>

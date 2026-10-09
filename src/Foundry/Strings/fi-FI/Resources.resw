@@ -3396,14 +3396,17 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>Tämä tyhjentää levyn {0}: {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>Tällä levyllä ei ole luettavaa taltiota.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Tällä levyllä ei ole osiota.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Muotoile ja luo USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Muotoile USB kohde</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows ei voi lukea tämän levyn taltioita. Levyllä voi silti olla tietoja.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), käytetty {3} / {4}</value>
@@ -3415,7 +3418,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Tämän levyn taltiot:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Kaikki tämän levyn tiedot menetetään. Jatka vain, jos tämä on tarkoitettu USB-asema.</value>
+    <value>Kaikki tämän levyn tiedot menetetään. Jatka vain, jos tämä on tarkoitettu USB-levy.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Luo USB</value>

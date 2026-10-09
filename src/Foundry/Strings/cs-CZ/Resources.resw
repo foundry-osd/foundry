@@ -3396,14 +3396,17 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>Tím se vymaže disk {0}: {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>Na tomto disku není žádný čitelný svazek.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Tento disk nemá žádný oddíl.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Naformátujte a vytvořte USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formát USB cíl</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Systém Windows nemůže přečíst svazky na tomto disku. Může stále obsahovat data.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), využito {3} z {4}</value>
@@ -3415,7 +3418,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Svazky na tomto disku:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Všechna data na tomto disku budou ztracena. Pokračujte pouze v případě, že se jedná o zamýšlenou jednotku USB.</value>
+    <value>Všechna data na tomto disku budou ztracena. Pokračujte pouze v případě, že se jedná o zamýšlený disk USB.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Vytvořit USB</value>

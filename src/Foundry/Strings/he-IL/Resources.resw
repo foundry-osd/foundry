@@ -3396,14 +3396,17 @@
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>פעולה זו תמחק את הדיסק {0}: {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>אין כרך קריא בדיסק זה.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>בדיסק זה אין מחיצות.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>עיצוב וצור USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>פורמט USB יעד</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows אינו יכול לקרוא את אמצעי האחסון בדיסק זה. ייתכן שהוא עדיין מכיל נתונים.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), {3} בשימוש מתוך {4}</value>
@@ -3412,10 +3415,10 @@
     <value>ללא שם</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
-    <value>כרכים בדיסק זה:</value>
+    <value>אמצעי אחסון בדיסק זה:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>כל מה שבדיסק זה יאבד. המשך רק אם זהו הכונן USB המיועד.</value>
+    <value>כל מה שבדיסק זה יאבד. המשך רק אם זהו דיסק ה-USB המיועד.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>צור USB</value>

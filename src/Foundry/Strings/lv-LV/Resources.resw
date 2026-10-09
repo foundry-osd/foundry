@@ -3396,14 +3396,17 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>Tas izdzēsīs disku {0}: {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>Šajā diskā nav nolasāma sējuma.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Šajā diskā nav neviena nodalījuma.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formatējiet un izveidojiet USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formatējiet USB mērķi</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Sistēma Windows nevar nolasīt šī diska sējumus. Tajā joprojām var būt dati.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), izmantots {3} no {4}</value>

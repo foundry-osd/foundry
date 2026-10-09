@@ -3396,14 +3396,17 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>Dette vil slette disken {0}: {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>Ingen lesbare volumer på denne disken.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Denne disken har ingen partisjoner.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formater og lag USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formater USB mål</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows kan ikke lese volumene på denne disken. Den kan fortsatt inneholde data.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), {3} brukt av {4}</value>
@@ -3415,7 +3418,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Volumer på denne disken:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Alt på denne disken går tapt. Fortsett bare hvis dette er den tiltenkte USB-stasjonen.</value>
+    <value>Alt på denne disken går tapt. Fortsett bare hvis dette er den tiltenkte USB-disken.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Opprett USB</value>

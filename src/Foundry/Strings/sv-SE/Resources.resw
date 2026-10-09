@@ -3396,14 +3396,17 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>Detta kommer att radera disken {0}: {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>Inga läsbara volymer på den här disken.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Den här disken har ingen partition.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formatera och skapa USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formatera USB mål</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows kan inte läsa volymerna på den här disken. Den kan fortfarande innehålla data.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), {3} använt av {4}</value>
@@ -3415,7 +3418,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Volymer på den här disken:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Allt på den här disken går förlorat. Fortsätt endast om detta är den avsedda USB-enheten.</value>
+    <value>Allt på den här disken går förlorat. Fortsätt endast om detta är den avsedda USB-disken.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Skapa USB</value>

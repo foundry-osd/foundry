@@ -872,9 +872,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<bool> ConfirmUsbFormattingAsync(WinPeUsbDiskCandidate selectedDisk)
     {
+        WinPeUsbDiskCandidate? currentDisk = await ReadCurrentUsbDiskAsync(selectedDisk);
+        if (currentDisk is null)
+        {
+            return false;
+        }
+
         bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
             localizationService.GetString("StartMedia.CreateUsb.ConfirmTitle"),
-            BuildUsbFormattingMessage(selectedDisk),
+            BuildUsbFormattingMessage(currentDisk),
             localizationService.GetString("StartMedia.CreateUsb.ConfirmPrimary"),
             localizationService.GetString("Common.Cancel"),
             PreferCancel: true));
@@ -889,8 +895,42 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>
-    /// Describes the disk about to be erased and the volumes found on it when the USB list was last refreshed,
-    /// so the user can notice a wrong disk before confirming.
+    /// Reads the USB inventory again just before the erase confirmation, because the list shown on the page can
+    /// be old, and returns the selected disk as it is now. When the disk is gone or no longer matches its
+    /// selected identity, or the read fails, it tells the user and returns null so that nothing is confirmed.
+    /// </summary>
+    private async Task<WinPeUsbDiskCandidate?> ReadCurrentUsbDiskAsync(WinPeUsbDiskCandidate selectedDisk)
+    {
+        WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>> result = await usbMediaService.GetUsbCandidatesAsync(
+            ResolveWinPeToolsOrThrow(),
+            Constants.UsbQueryTempDirectoryPath,
+            CancellationToken.None);
+        if (!result.IsSuccess || result.Value is null)
+        {
+            logger.Warning("USB target could not be read before the erase confirmation. ErrorCode={ErrorCode}", result.Error?.Code);
+            await ShowBlockedDialogAsync(
+                "StartMedia.CreateUsb.BlockedTitle",
+                result.Error?.Message ?? localizationService.GetString("StartMedia.Usb.QueryFailed"));
+            return null;
+        }
+
+        WinPeUsbDiskCandidate? currentDisk = WinPeUsbDiskCandidateSelector.FindConfirmed(result.Value, selectedDisk);
+        if (currentDisk is null)
+        {
+            logger.Warning(
+                "USB target identity could not be confirmed before the erase confirmation. DiskNumber={DiskNumber}",
+                selectedDisk.DiskNumber);
+            await ShowBlockedDialogAsync(
+                "StartMedia.CreateUsb.BlockedTitle",
+                localizationService.GetString("StartMedia.Operation.DiskIdentityCannotBeConfirmed"));
+        }
+
+        return currentDisk;
+    }
+
+    /// <summary>
+    /// Describes the disk about to be erased and what was just read on it, so the user can notice a wrong disk
+    /// before confirming. A disk is only described as having no partition when the read succeeded and found none.
     /// </summary>
     private string BuildUsbFormattingMessage(WinPeUsbDiskCandidate selectedDisk)
     {
@@ -904,14 +944,18 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             string.Empty
         ];
 
-        if (selectedDisk.Volumes.Count == 0)
+        switch (selectedDisk.VolumeSummary)
         {
-            lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmNoVolumes"));
-        }
-        else
-        {
-            lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmVolumesHeader"));
-            lines.AddRange(selectedDisk.Volumes.Select(FormatUsbVolume));
+            case WinPeUsbVolumeSummary.ReadableVolumes:
+                lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmVolumesHeader"));
+                lines.AddRange(selectedDisk.Volumes.Select(FormatUsbVolume));
+                break;
+            case WinPeUsbVolumeSummary.NoPartition:
+                lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmNoPartition"));
+                break;
+            default:
+                lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmUnreadableVolumes"));
+                break;
         }
 
         lines.Add(string.Empty);

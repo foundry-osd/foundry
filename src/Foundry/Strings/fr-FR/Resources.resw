@@ -3396,14 +3396,17 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>Cela effacera le disque {0} : {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>Aucun volume lisible sur ce disque.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Ce disque ne contient aucune partition.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formater et créer l'USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formater la cible USB</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows ne peut pas lire les volumes de ce disque. Il peut quand même contenir des données.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), {3} utilisés sur {4}</value>
@@ -3415,7 +3418,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Volumes sur ce disque :</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Tout ce qui se trouve sur ce disque sera perdu. Continuez uniquement s’il s’agit de la clé USB prévue.</value>
+    <value>Tout ce qui se trouve sur ce disque sera perdu. Continuez uniquement s’il s’agit du disque USB prévu.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Créer l'USB</value>

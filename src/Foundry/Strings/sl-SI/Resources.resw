@@ -3396,14 +3396,17 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>To bo izbrisalo disk {0}: {1} ({2}).</value>
   </data>
-  <data name="StartMedia.CreateUsb.ConfirmNoVolumes" xml:space="preserve">
-    <value>Na tem disku ni berljivega nosilca.</value>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Ta disk nima nobene particije.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Oblikuj in ustvari USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Oblikujte cilj USB</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows ne more prebrati nosilcev na tem disku. Morda še vedno vsebuje podatke.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), uporabljeno {3} od {4}</value>
@@ -3415,7 +3418,7 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Nosilci na tem disku:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Vse na tem disku bo izgubljeno. Nadaljujte le, če je to predvideni pogon USB.</value>
+    <value>Vse na tem disku bo izgubljeno. Nadaljujte le, če je to predvideni disk USB.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Ustvari USB</value>
