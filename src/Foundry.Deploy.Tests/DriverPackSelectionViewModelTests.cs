@@ -40,6 +40,36 @@ public sealed class DriverPackSelectionViewModelTests
     }
 
     [Fact]
+    public void EffectiveSelectionKind_WhenPhysicalHardwareMatchesNoDriverPackModel_DefaultsToMicrosoftUpdateCatalog()
+    {
+        var viewModel = new DriverPackSelectionViewModel(
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance),
+            new LocalizationService(),
+            "x64");
+        HardwareProfile hardware = new()
+        {
+            Manufacturer = "Lenovo",
+            Model = "ThinkPad T14 Gen 5",
+            Product = "21ML",
+            IsVirtualMachine = false
+        };
+        OperatingSystemCatalogItem operatingSystem = new()
+        {
+            WindowsRelease = "11",
+            ReleaseId = "25H2",
+            Architecture = "x64"
+        };
+
+        viewModel.UpdateSelectionContext(hardware, operatingSystem, "x64");
+        viewModel.ReplaceCatalog(
+        [
+            CreateCatalogItem("x13", "25H2", new DateTimeOffset(2026, 01, 01, 0, 0, 0, TimeSpan.Zero))
+        ]);
+
+        Assert.Equal(DriverPackSelectionKind.MicrosoftUpdateCatalog, viewModel.EffectiveSelectionKind);
+    }
+
+    [Fact]
     public void ResolveEffectiveSelection_WhenLenovoPacksShareReleaseDate_SelectsNewestCompatibleRelease()
     {
         var viewModel = new DriverPackSelectionViewModel(
