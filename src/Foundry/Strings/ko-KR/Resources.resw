@@ -2134,12 +2134,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>언어</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Windows에 로그인하면 Foundry OSD이 자동으로 실행됩니다.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>시작 시 실행</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>부팅 옵션.</value>
   </data>

@@ -2134,12 +2134,6 @@
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>ภาษา</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>เปิด Foundry OSD โดยอัตโนมัติเมื่อคุณเข้าสู่ระบบ Windows</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>ทำงานเมื่อเริ่มต้น</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>ตัวเลือกการบูต</value>
   </data>

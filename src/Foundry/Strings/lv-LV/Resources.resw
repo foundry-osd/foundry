@@ -2134,12 +2134,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Valoda</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Automātiski palaist Foundry OSD, kad piesakāties Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Palaist startēšanas laikā</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Sāknēšanas opcijas.</value>
   </data>

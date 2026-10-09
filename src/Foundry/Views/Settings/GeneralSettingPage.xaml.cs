@@ -4,7 +4,6 @@
 
 using Foundry.Localization;
 using Foundry.Services.Localization;
-using Foundry.Services.Startup;
 using Serilog;
 
 namespace Foundry.Views;
@@ -12,9 +11,7 @@ namespace Foundry.Views;
 public sealed partial class GeneralSettingPage : Page
 {
     private bool isInitializingLanguageSelection = true;
-    private bool isInitializingStartupToggle = true;
     private readonly IApplicationLocalizationService localizationService;
-    private readonly IWindowsStartupService startupService;
     private readonly ILogger logger = Log.ForContext<GeneralSettingPage>();
 
     public GeneralSettingViewModel ViewModel { get; }
@@ -22,56 +19,12 @@ public sealed partial class GeneralSettingPage : Page
     public GeneralSettingPage()
     {
         localizationService = App.GetService<IApplicationLocalizationService>();
-        startupService = App.GetService<IWindowsStartupService>();
         ViewModel = App.GetService<GeneralSettingViewModel>();
         InitializeComponent();
         ApplyLocalizedText();
         localizationService.LanguageChanged += OnLanguageChanged;
-        Loaded += OnLoaded;
         Unloaded += OnUnloaded;
         isInitializingLanguageSelection = false;
-    }
-
-    private async void OnLoaded(object sender, RoutedEventArgs e)
-    {
-        isInitializingStartupToggle = true;
-        try
-        {
-            bool isEnabled = await startupService.IsEnabledAsync();
-            if (IsLoaded)
-            {
-                StartupToggle.IsOn = isEnabled;
-            }
-        }
-        finally
-        {
-            isInitializingStartupToggle = false;
-        }
-    }
-
-    private async void StartupToggle_Toggled(object sender, RoutedEventArgs e)
-    {
-        if (isInitializingStartupToggle)
-        {
-            return;
-        }
-
-        StartupToggle.IsEnabled = false;
-        try
-        {
-            bool isEnabled = await startupService.SetEnabledAsync(StartupToggle.IsOn);
-            isInitializingStartupToggle = true;
-            StartupToggle.IsOn = isEnabled;
-        }
-        catch (Exception ex)
-        {
-            logger.Warning(ex, "Failed to update Windows startup state.");
-        }
-        finally
-        {
-            isInitializingStartupToggle = false;
-            StartupToggle.IsEnabled = true;
-        }
     }
 
     private async void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,8 +60,6 @@ public sealed partial class GeneralSettingPage : Page
 
     private void ApplyLocalizedText()
     {
-        StartupCard.Header = localizationService.GetString("GeneralSetting_StartupCard.Header");
-        StartupCard.Description = localizationService.GetString("GeneralSetting_StartupCard.Description");
         LanguageCard.Header = localizationService.GetString("GeneralSetting_LanguageCard.Header");
         LanguageCard.Description = localizationService.GetString("GeneralSetting_LanguageCard.Description");
         ExportDiagnosticsCard.Header = localizationService.GetString("Diagnostics.ExportCardHeader");
@@ -127,7 +78,6 @@ public sealed partial class GeneralSettingPage : Page
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
-        Loaded -= OnLoaded;
         Unloaded -= OnUnloaded;
     }
 }

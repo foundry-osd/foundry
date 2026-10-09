@@ -2134,12 +2134,6 @@ Licencirano pod licenco MIT.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Jezik</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Samodejno zaženi Foundry OSD, ko se prijaviš v Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Zaženi ob zagonu</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Možnosti zagona.</value>
   </data>
