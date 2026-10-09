@@ -1188,6 +1188,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 ResolveProvisioningSource(runtimePayloadProvisioning.Deploy));
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CleanStaleWorkspaces);
+            // Recovery can wait on a DISM discard, so the user sees a status first. It runs before stale cleanup so a
+            // workspace whose earlier cleanup is now verified is deleted in this same start.
+            operationProgressService.Report(5, localizationService.GetString("StartMedia.Operation.CleaningWorkspace"));
+            await workspaceCleanupService.RecoverUnresolvedMountCleanupsAsync(
+                Constants.WorkspacesDirectoryPath,
+                tools.DismPath,
+                cancellationToken);
             CleanupStaleWinPeWorkspaces();
             EnsureSuccess(workspaceCleanupService.EnsureServicingCanStart(Constants.WorkspacesDirectoryPath));
             operationLease = WinPeWorkspaceLease.Create(Constants.WorkspacesDirectoryPath);
