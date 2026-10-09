@@ -377,7 +377,7 @@ Licensed under the MIT License.</value>
     <value>Copy password</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Save this PFX file and password now in a secure location. Foundry does not store the password and cannot show it again after this dialog closes. You will need both values to generate boot media for hardware hash upload.</value>
+    <value>Save this PFX file and password now in a secure location. Foundry saves the password with your configuration on this PC only when Remember passwords is on in Settings backup and sync. You will need both values to generate boot media for hardware hash upload.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Password copied.</value>
@@ -2588,7 +2588,7 @@ Licensed under the MIT License.</value>
     <value>Provision an enterprise Wi-Fi profile template</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Personal Wi-Fi passphrases remain transient in the authoring app and are not persisted in Foundry configuration.</value>
+    <value>The passphrase is saved with your configuration on this PC only when Remember passwords is on in Settings backup and sync. Otherwise it is not saved and must be entered again, for example after restarting Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Import the Wi-Fi profile managed by Foundry into Windows before OOBE to preserve deployment connectivity after WinPE.</value>
@@ -3966,7 +3966,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>Foundry preserves your original file and adds its required post-installation command to the deployment copy. You remain responsible for your custom settings and commands.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. Foundry keeps a copy of each file with your configuration on this PC only when Remember passwords is on in Settings backup and sync; otherwise it saves the path only. The boot image contains encrypted copies.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Enable deployment media password protection in General configuration to use custom answer files.</value>

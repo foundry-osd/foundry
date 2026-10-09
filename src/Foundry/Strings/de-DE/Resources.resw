@@ -377,7 +377,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Passwort kopieren</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Speichern Sie diese PFX-Datei und das Passwort jetzt an einem sicheren Ort. Foundry speichert das Passwort nicht und kann es nach dem Schließen dieses Dialogs nicht mehr anzeigen. Sie benötigen beide Werte, um Boot-Medien für den Hardware-Hash-Upload zu generieren.</value>
+    <value>Speichern Sie diese PFX-Datei und das Kennwort jetzt an einem sicheren Ort. Foundry speichert das Kennwort nur dann mit Ihrer Konfiguration auf diesem PC, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist. Sie benötigen beide Werte, um Boot-Medien für den Hardware-Hash-Upload zu generieren.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Passwort kopiert.</value>
@@ -2588,7 +2588,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Stellen Sie eine Unternehmensprofilvorlage Wi-Fi bereit</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Persönliche Wi-Fi Passphrasen bleiben in der Authoring-App vorübergehend und werden in der Foundry Konfiguration nicht beibehalten.</value>
+    <value>Die Passphrase wird nur dann mit Ihrer Konfiguration auf diesem PC gespeichert, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist. Andernfalls wird sie nicht gespeichert und muss erneut eingegeben werden, zum Beispiel nach einem Neustart von Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importiert das von Foundry verwaltete Wi-Fi-Profil vor OOBE in Windows, um die Bereitstellungskonnektivität nach WinPE aufrechtzuerhalten.</value>
@@ -3966,7 +3966,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Foundry bewahrt Ihre Originaldatei und fügt der Bereitstellungskopie seinen erforderlichen Befehl für die Nachinstallation hinzu. Sie bleiben für Ihre benutzerdefinierten Einstellungen und Befehle verantwortlich.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Benutzerdefinierte Dateien erfordern den Kennwortschutz für Bereitstellungsmedien in der allgemeinen Konfiguration. XML kann Anmeldeinformationen oder Skripts enthalten. Der Katalog speichert nur Quellverweise; das Startimage enthält verschlüsselte Kopien.</value>
+    <value>Benutzerdefinierte Dateien erfordern den Kennwortschutz für Bereitstellungsmedien in der allgemeinen Konfiguration. XML kann Anmeldeinformationen oder Skripts enthalten. Foundry speichert nur dann eine Kopie jeder Datei mit Ihrer Konfiguration auf diesem PC, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist; andernfalls wird nur der Pfad gespeichert. Das Startimage enthält verschlüsselte Kopien.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivieren Sie in der allgemeinen Konfiguration den Kennwortschutz für Bereitstellungsmedien, um benutzerdefinierte Antwortdateien zu verwenden.</value>

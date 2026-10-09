@@ -377,7 +377,7 @@ Sous licence MIT.</value>
     <value>Copier le mot de passe</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Enregistrez maintenant ce fichier PFX et ce mot de passe dans un emplacement sécurisé. Foundry ne stocke pas le mot de passe et ne pourra plus l’afficher après la fermeture de cette fenêtre. Ces deux éléments seront nécessaires pour générer le média de démarrage avec envoi du hash matériel.</value>
+    <value>Enregistrez maintenant ce fichier PFX et ce mot de passe dans un emplacement sécurisé. Foundry n’enregistre le mot de passe avec votre configuration sur ce PC que si « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres ». Ces deux éléments seront nécessaires pour générer le média de démarrage avec envoi du hash matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Mot de passe copié.</value>
@@ -2588,7 +2588,7 @@ Sous licence MIT.</value>
     <value>Provisionner un modèle de profil Wi-Fi entreprise</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Les phrases secrètes Wi-Fi personnelles restent transitoires dans l'application et ne sont pas persistées dans la configuration Foundry.</value>
+    <value>La phrase secrète n’est enregistrée avec votre configuration sur ce PC que si « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres ». Sinon, elle n’est pas enregistrée et doit être saisie à nouveau, par exemple après le redémarrage de Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importe le profil Wi-Fi géré par Foundry dans Windows avant l’OOBE afin de conserver la connectivité de déploiement après WinPE.</value>
@@ -3966,7 +3966,7 @@ L’application de la mise à jour redémarre Foundry OSD.</value>
     <value>Foundry préserve votre fichier d’origine et ajoute sa commande de post-installation requise à la copie de déploiement. Vous restez responsable de vos paramètres et commandes personnalisés.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Les fichiers personnalisés nécessitent la protection du média de déploiement par mot de passe dans la configuration générale. Le XML peut contenir des identifiants ou des scripts. Le catalogue ne conserve que les références aux sources ; l’image de démarrage contient des copies chiffrées.</value>
+    <value>Les fichiers personnalisés nécessitent la protection du média de déploiement par mot de passe dans la configuration générale. Le XML peut contenir des identifiants ou des scripts. Foundry ne conserve une copie de chaque fichier avec votre configuration sur ce PC que si « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres » ; sinon, il n’enregistre que le chemin. L’image de démarrage contient des copies chiffrées.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Activez la protection du média de déploiement par mot de passe dans la configuration générale pour utiliser des fichiers de réponses personnalisés.</value>

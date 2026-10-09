@@ -377,7 +377,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Copiar contraseña</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Guarde este archivo PFX y su contraseña ahora en una ubicación segura. Foundry no almacena la contraseña y no puede volver a mostrarla después de que se cierra este cuadro de diálogo. Necesitará ambos valores para generar medios de arranque para la carga de hash de hardware.</value>
+    <value>Guarde este archivo PFX y su contraseña ahora en una ubicación segura. Foundry guarda la contraseña con su configuración en esta computadora solo cuando “Recordar contraseñas” está activado en “Respaldo y sincronización de ajustes”. Necesitará ambos valores para generar medios de arranque para la carga de hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Contraseña copiada.</value>
@@ -2588,7 +2588,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Aprovisionar una plantilla de perfil empresarial Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Las frases de contraseña personales Wi-Fi permanecen transitorias en la aplicación de creación y no persisten en la configuración Foundry.</value>
+    <value>La frase de contraseña se guarda con su configuración en esta computadora solo cuando “Recordar contraseñas” está activado en “Respaldo y sincronización de ajustes”. De lo contrario, no se guarda y debe ingresarse de nuevo, por ejemplo, después de reiniciar Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importa en Windows el perfil Wi-Fi administrado por Foundry antes de OOBE para conservar la conectividad de implementación después de WinPE.</value>
@@ -3966,7 +3966,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Foundry conserva el archivo original y agrega su comando de posinstalación requerido a la copia de implementación. Usted sigue siendo responsable de sus opciones y comandos personalizados.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Los archivos personalizados requieren protección mediante contraseña del medio de implementación en la configuración general. El XML puede contener credenciales o scripts. El catálogo solo guarda referencias a los orígenes; la imagen de arranque contiene copias cifradas.</value>
+    <value>Los archivos personalizados requieren protección mediante contraseña del medio de implementación en la configuración general. El XML puede contener credenciales o scripts. Foundry conserva una copia de cada archivo con su configuración en esta computadora solo cuando “Recordar contraseñas” está activado en “Respaldo y sincronización de ajustes”; de lo contrario, guarda únicamente la ruta. La imagen de arranque contiene copias cifradas.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Habilite la protección mediante contraseña del medio de implementación en la configuración general para usar archivos de respuesta personalizados.</value>

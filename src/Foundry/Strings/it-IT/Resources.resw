@@ -377,7 +377,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Copia la password</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Salva subito il file PFX e la password in un luogo sicuro. Foundry non memorizza la password e non può visualizzarla nuovamente dopo la chiusura di questa finestra di dialogo. Avrai bisogno di entrambi i valori per generare un supporto di avvio per il caricamento dell'hash hardware.</value>
+    <value>Salva subito il file PFX e la password in un luogo sicuro. Foundry salva la password con la configurazione su questo PC solo quando «Memorizza password» è attivo in «Backup e sincronizzazione delle impostazioni». Avrai bisogno di entrambi i valori per generare un supporto di avvio per il caricamento dell'hash hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Password copiata.</value>
@@ -2588,7 +2588,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Effettua il provisioning di un modello di profilo aziendale Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Le passphrase personali Wi-Fi rimangono temporanee nell'app di creazione e non vengono mantenute nella configurazione Foundry.</value>
+    <value>La passphrase viene salvata con la configurazione su questo PC solo quando «Memorizza password» è attivo in «Backup e sincronizzazione delle impostazioni». In caso contrario non viene salvata e va inserita di nuovo, ad esempio dopo il riavvio di Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importa in Windows il profilo Wi-Fi gestito da Foundry prima di OOBE per preservare la connettività di distribuzione dopo WinPE.</value>
@@ -3966,7 +3966,7 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
     <value>Foundry conserva il file originale e aggiunge il proprio comando obbligatorio di post-installazione alla copia di distribuzione. La responsabilità delle impostazioni e dei comandi personalizzati rimane dell’utente.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>I file personalizzati richiedono la protezione del supporto di distribuzione tramite password nella configurazione generale. L'XML può contenere credenziali o script. Il catalogo salva solo i riferimenti alle origini; l'immagine di avvio contiene copie crittografate.</value>
+    <value>I file personalizzati richiedono la protezione del supporto di distribuzione tramite password nella configurazione generale. L'XML può contenere credenziali o script. Foundry conserva una copia di ogni file con la configurazione su questo PC solo quando «Memorizza password» è attivo in «Backup e sincronizzazione delle impostazioni»; in caso contrario salva solo il percorso. L'immagine di avvio contiene copie crittografate.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Abilita la protezione del supporto di distribuzione tramite password nella configurazione generale per usare file di risposte personalizzati.</value>

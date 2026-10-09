@@ -377,7 +377,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nukopijuokite slaptažodį</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Išsaugokite šį PFX failą ir slaptažodį dabar saugioje vietoje. Foundry neišsaugo slaptažodžio ir negali jo vėl rodyti, kai šis dialogo langas užsidaro. Jums reikės abiejų reikšmių, kad sugeneruotumėte įkrovos laikmeną aparatinės įrangos maišos įkėlimui.</value>
+    <value>Išsaugokite šį PFX failą ir slaptažodį dabar saugioje vietoje. Foundry šiame kompiuteryje išsaugo slaptažodį kartu su konfigūracija tik tada, kai skiltyje „Parametrų atsarginės kopijos ir sinchronizavimas“ įjungta parinktis „Įsiminti slaptažodžius“. Jums reikės abiejų reikšmių, kad sugeneruotumėte įkrovos laikmeną aparatinės įrangos maišos įkėlimui.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Slaptažodis nukopijuotas.</value>
@@ -2588,7 +2588,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pateikite įmonės Wi-Fi profilio šabloną</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Asmeninės Wi-Fi slaptafrazės išlieka trumpalaikės kūrimo programoje ir neišsaugomos Foundry konfigūracijoje.</value>
+    <value>Slaptafrazė kartu su konfigūracija šiame kompiuteryje išsaugoma tik tada, kai skiltyje „Parametrų atsarginės kopijos ir sinchronizavimas“ įjungta parinktis „Įsiminti slaptažodžius“. Kitu atveju ji neišsaugoma ir ją reikia įvesti iš naujo, pavyzdžiui, iš naujo paleidus Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuoja Foundry valdomą Wi-Fi profilį į Windows prieš OOBE, kad diegimo ryšys išliktų po WinPE.</value>
@@ -3966,7 +3966,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>„Foundry“ išsaugo originalų failą ir į diegimo kopiją įtraukia savo būtiną komandą, vykdomą po diegimo. Už pasirinktinius parametrus ir komandas ir toliau atsakote jūs.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Pasirinktiniams failams reikia diegimo laikmenos apsaugos slaptažodžiu bendrojoje konfigūracijoje. XML gali būti kredencialų arba scenarijų. Kataloge išsaugomos tik nuorodos į šaltinius; įkrovos atvaizde yra užšifruotos kopijos.</value>
+    <value>Pasirinktiniams failams reikia diegimo laikmenos apsaugos slaptažodžiu bendrojoje konfigūracijoje. XML gali būti kredencialų arba scenarijų. Foundry šiame kompiuteryje išsaugo kiekvieno failo kopiją kartu su konfigūracija tik tada, kai skiltyje „Parametrų atsarginės kopijos ir sinchronizavimas“ įjungta parinktis „Įsiminti slaptažodžius“; kitu atveju išsaugomas tik kelias. Įkrovos atvaizde yra užšifruotos kopijos.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Norėdami naudoti pasirinktinius atsakymų failus, bendrojoje konfigūracijoje įgalinkite diegimo laikmenos apsaugą slaptažodžiu.</value>
