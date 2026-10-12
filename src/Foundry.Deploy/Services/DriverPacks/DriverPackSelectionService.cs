@@ -98,17 +98,12 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
             };
         }
 
-        DriverPackCatalogItem[] releaseCandidates = SelectReleaseCandidates(candidates, targetReleaseId);
-        DriverPackCatalogItem latest = releaseCandidates
-            .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
-            .First();
-
-        _logger.LogInformation("Driver pack selected by fallback newest candidate. DriverPackId={DriverPackId}, Name={DriverPackName}", latest.Id, latest.Name);
+        _logger.LogInformation("No driver pack matches the device model. Manufacturer={Manufacturer}, Model={Model}, Product={Product}", manufacturer, model, product);
 
         return new DriverPackSelectionResult
         {
-            DriverPack = latest,
-            SelectionReason = "No model exact match; selected newest compatible manufacturer candidate."
+            DriverPack = null,
+            SelectionReason = "No driver pack matches the device model."
         };
     }
 
