@@ -48,11 +48,15 @@ public sealed partial class WinPeWorkspaceCleanupService
     /// <param name="workspaceRoot">Directory whose immediate children are operation workspaces.</param>
     /// <param name="dismPath">DISM executable from <see cref="WinPeToolPaths.DismPath"/>, as used to mount images.</param>
     /// <param name="cancellationToken">Stops the pass between markers and operations.</param>
+    /// <param name="dismProgress">
+    /// Receives the percentage that DISM prints during a discard retry. Nothing is reported when no retry is needed.
+    /// </param>
     /// <exception cref="OperationCanceledException">Cancellation was requested between two markers or operations.</exception>
     public async Task RecoverUnresolvedMountCleanupsAsync(
         string workspaceRoot,
         string dismPath,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        IProgress<WinPeDismProgress>? dismProgress = null)
     {
         ILogger logger = Log.ForContext<WinPeWorkspaceCleanupService>();
         string root;
@@ -77,7 +81,7 @@ public sealed partial class WinPeWorkspaceCleanupService
             cancellationToken.ThrowIfCancellationRequested();
             try
             {
-                await RecoverOperationAsync(root, candidate, dismPath, logger, cancellationToken).ConfigureAwait(false);
+                await RecoverOperationAsync(root, candidate, dismPath, logger, cancellationToken, dismProgress).ConfigureAwait(false);
             }
             catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
             {
@@ -93,7 +97,8 @@ public sealed partial class WinPeWorkspaceCleanupService
         string candidate,
         string dismPath,
         ILogger logger,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        IProgress<WinPeDismProgress>? dismProgress)
     {
         string? operationPath = ResolveOwnedOperation(root, candidate);
         if (operationPath is null || !EnumerateCleanupMarkers(operationPath).Any()) return;
@@ -118,7 +123,7 @@ public sealed partial class WinPeWorkspaceCleanupService
             foreach (string markerPath in EnumerateCleanupMarkers(operationPath).ToArray())
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                await RecoverMarkerAsync(operationPath, markerPath, dismPath, attemptedMounts, logger).ConfigureAwait(false);
+                await RecoverMarkerAsync(operationPath, markerPath, dismPath, attemptedMounts, logger, dismProgress).ConfigureAwait(false);
             }
         }
     }
@@ -128,7 +133,8 @@ public sealed partial class WinPeWorkspaceCleanupService
         string markerPath,
         string dismPath,
         HashSet<string> attemptedMounts,
-        ILogger logger)
+        ILogger logger,
+        IProgress<WinPeDismProgress>? dismProgress)
     {
         string? mountDirectory = TryReadMarkerMountDirectory(operationPath, markerPath);
         if (mountDirectory is null)
@@ -176,7 +182,8 @@ public sealed partial class WinPeWorkspaceCleanupService
                     dismPath,
                     mountDirectory,
                     Path.GetDirectoryName(markerPath)!,
-                    cleanup.Token).ConfigureAwait(false);
+                    cleanup.Token,
+                    dismProgress).ConfigureAwait(false);
             }
             catch (Exception exception)
             {

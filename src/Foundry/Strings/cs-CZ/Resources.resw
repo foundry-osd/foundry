@@ -3594,6 +3594,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>Potvrzení změn obrázku pomocí DISM.</value>
   </data>
+  <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
+    <value>Zahazování připojeného obrazu pomocí DISM.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>Export obrázku Windows pomocí DISM.</value>
   </data>

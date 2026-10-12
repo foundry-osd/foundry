@@ -3594,6 +3594,9 @@
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>使用DISM 提交圖像更改。</value>
   </data>
+  <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
+    <value>使用 DISM 捨棄已掛接的映像。</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>使用DISM 匯出Windows 影像。</value>
   </data>

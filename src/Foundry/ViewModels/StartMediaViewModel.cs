@@ -1284,13 +1284,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 ResolveProvisioningSource(runtimePayloadProvisioning.Deploy));
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CleanStaleWorkspaces);
-            // Recovery can wait on a DISM discard, so the user sees a status first. It runs before stale cleanup so a
-            // workspace whose earlier cleanup is now verified is deleted in this same start.
+            // Recovery can wait on a DISM discard, so the user sees a status first and the DISM percentage while a
+            // discard runs. It runs before stale cleanup so a workspace whose earlier cleanup is now verified is
+            // deleted in this same start.
             operationProgressService.Report(5, localizationService.GetString("StartMedia.Operation.CleaningWorkspace"));
             await workspaceCleanupService.RecoverUnresolvedMountCleanupsAsync(
                 Constants.WorkspacesDirectoryPath,
                 tools.DismPath,
-                cancellationToken);
+                cancellationToken,
+                new Progress<WinPeDismProgress>(ReportMountCleanupRecoveryProgress));
+            operationProgressService.ClearSecondary();
             CleanupStaleWinPeWorkspaces();
             EnsureSuccess(workspaceCleanupService.EnsureServicingCanStart(Constants.WorkspacesDirectoryPath));
             operationLease = WinPeWorkspaceLease.Create(Constants.WorkspacesDirectoryPath);
@@ -1515,6 +1518,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         operationProgressService.Report(progress, localizationService.GetString(statusResourceKey));
     }
 
+    private void ReportMountCleanupRecoveryProgress(WinPeDismProgress progress)
+    {
+        operationProgressService.Report(
+            5,
+            localizationService.GetString("StartMedia.Operation.CleaningWorkspace"),
+            progress.Percent,
+            LocalizeDismProgressStatus(progress.Status));
+    }
+
     private void ReportCustomizationProgress(WinPeMountedImageCustomizationProgress progress)
     {
         int normalizedProgress = Math.Clamp(35 + (progress.Percent * 47 / 100), 35, 82);
@@ -1691,6 +1703,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             "Applying optional components with DISM." => "StartMedia.Operation.DismApplyingOptionalComponents",
             "Applying international settings with DISM." => "StartMedia.Operation.DismApplyingInternationalSettings",
             "Committing image changes with DISM." => "StartMedia.Operation.DismCommittingImageChanges",
+            "Discarding mounted image with DISM." => "StartMedia.Operation.DismDiscardingMountedImage",
             _ => string.Empty
         };
 

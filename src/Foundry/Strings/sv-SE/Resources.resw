@@ -3594,6 +3594,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>Gör bildändringar med DISM.</value>
   </data>
+  <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
+    <value>Förkastar den monterade bilden med DISM.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>Exporterar Windows-bild med DISM.</value>
   </data>

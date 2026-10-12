@@ -3594,6 +3594,9 @@
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>تنفيذ تغييرات الصورة باستخدام DISM.</value>
   </data>
+  <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
+    <value>إلغاء تركيب الصورة دون حفظ التغييرات باستخدام DISM.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>تصدير صورة Windows باستخدام DISM.</value>
   </data>

@@ -3594,6 +3594,9 @@
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>Фиксируем изменения изображения с помощью DISM.</value>
   </data>
+  <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
+    <value>Отменяем изменения смонтированного образа с помощью DISM.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>Экспорт изображения Windows с помощью DISM.</value>
   </data>

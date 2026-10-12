@@ -76,6 +76,63 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
         Assert.True(service.EnsureServicingCanStart(temp.Path).IsSuccess);
     }
 
+    [Fact]
+    public async Task Recover_WhenProgressIsSupplied_ReportsTheDismPercentOfTheDiscardRetry()
+    {
+        using var temp = new TemporaryDirectory();
+        RetainedOperation operation = CreateRetainedOperation(temp.Path);
+        var mounted = new List<WinPeMountedImage> { Mounted(operation) };
+        var runner = new FakeWinPeProcessRunner
+        {
+            DiscardOutput =
+            [
+                "Deployment Image Servicing and Management tool",
+                "[===========                20.0%                          ]",
+                "[==========================100.0%==========================]",
+                "The operation completed successfully."
+            ],
+            OnDiscardAsync = _ =>
+            {
+                mounted.Clear();
+                return Task.FromResult(new WinPeProcessExecution());
+            }
+        };
+        var service = new WinPeWorkspaceCleanupService(() => mounted.ToArray(), runner);
+        var progress = new RecordingProgress();
+
+        await service.RecoverUnresolvedMountCleanupsAsync(
+            temp.Path, DismPath, TestContext.Current.CancellationToken, progress);
+
+        WinPeDismProgress[] expected =
+        [
+            new() { Percent = 20, Status = "Discarding mounted image with DISM." },
+            new() { Percent = 100, Status = "Discarding mounted image with DISM." }
+        ];
+        Assert.Equal(expected, progress.Reports);
+        WinPeProcessExecution discard = Assert.Single(runner.Executions);
+        Assert.Equal(
+            $"/English /Unmount-Image /MountDir:{WinPeProcessRunner.Quote(operation.MountDirectory)} /Discard",
+            discard.Arguments);
+        Assert.False(File.Exists(operation.MarkerPath));
+    }
+
+    [Fact]
+    public async Task Recover_WhenNoDiscardRetryIsNeeded_ReportsNoProgress()
+    {
+        using var temp = new TemporaryDirectory();
+        RetainedOperation operation = CreateRetainedOperation(temp.Path);
+        var runner = new FakeWinPeProcessRunner { DiscardOutput = ["[==========================100.0%==========================]"] };
+        var service = new WinPeWorkspaceCleanupService(() => [], runner);
+        var progress = new RecordingProgress();
+
+        await service.RecoverUnresolvedMountCleanupsAsync(
+            temp.Path, DismPath, TestContext.Current.CancellationToken, progress);
+
+        Assert.Empty(progress.Reports);
+        Assert.Empty(runner.Executions);
+        Assert.False(File.Exists(operation.MarkerPath));
+    }
+
     [Theory]
     [InlineData("nonzero-exit")]
     [InlineData("runner-throws")]
@@ -493,13 +550,24 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
         }
     }
 
-    private sealed class FakeWinPeProcessRunner : IWinPeProcessRunner
+    /// <summary>Records reports on the calling thread, unlike <see cref="Progress{T}"/>, which posts them.</summary>
+    private sealed class RecordingProgress : IProgress<WinPeDismProgress>
+    {
+        public List<WinPeDismProgress> Reports { get; } = [];
+
+        public void Report(WinPeDismProgress value) => Reports.Add(value);
+    }
+
+    private sealed class FakeWinPeProcessRunner : IWinPeProcessOutputRunner
     {
         /// <summary>Gets every started process, including attempts whose result is a failure or an exception.</summary>
         public List<WinPeProcessExecution> Executions { get; } = [];
 
         public Func<CancellationToken, Task<WinPeProcessExecution>> OnDiscardAsync { get; init; } =
             _ => Task.FromResult(new WinPeProcessExecution());
+
+        /// <summary>Gets the lines DISM prints during a discard; they reach the caller only when it asks for output.</summary>
+        public string[] DiscardOutput { get; init; } = [];
 
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
@@ -515,6 +583,23 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
                 WorkingDirectory = workingDirectory
             });
             return OnDiscardAsync(cancellationToken);
+        }
+
+        public Task<WinPeProcessExecution> RunWithOutputAsync(
+            string fileName,
+            string arguments,
+            string workingDirectory,
+            Action<string>? onOutputData,
+            Action<string>? onErrorData,
+            CancellationToken cancellationToken,
+            IReadOnlyDictionary<string, string>? environmentOverrides = null)
+        {
+            foreach (string line in DiscardOutput)
+            {
+                onOutputData?.Invoke(line);
+            }
+
+            return RunAsync(fileName, arguments, workingDirectory, cancellationToken, environmentOverrides);
         }
 
         public Task<WinPeProcessExecution> RunCmdScriptAsync(

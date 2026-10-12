@@ -3594,6 +3594,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>DISM을(를) 사용하여 이미지 변경 사항을 커밋합니다.</value>
   </data>
+  <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
+    <value>DISM을 사용하여 마운트된 이미지의 변경 내용을 취소합니다.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>DISM을 사용하여 Windows 이미지를 내보내는 중입니다.</value>
   </data>

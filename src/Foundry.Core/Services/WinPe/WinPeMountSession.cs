@@ -262,14 +262,16 @@ public sealed class WinPeMountSession : IAsyncDisposable
 
     /// <summary>
     /// Runs the DISM discard for a mount directory. A live session and the recovery of a retained cleanup marker
-    /// share this command so both unmount an image the same way.
+    /// share this command so both unmount an image the same way. Only the recovery supplies
+    /// <paramref name="dismProgress"/>; a live session does not report the progress of its discard.
     /// </summary>
     internal static Task<WinPeProcessExecution> RunDiscardAsync(
         IWinPeProcessRunner processRunner,
         string dismPath,
         string mountDirectoryPath,
         string workingDirectory,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        IProgress<WinPeDismProgress>? dismProgress = null)
     {
         return WinPeDismProcessRunner.RunAsync(
             processRunner,
@@ -277,7 +279,7 @@ public sealed class WinPeMountSession : IAsyncDisposable
             $"/Unmount-Image /MountDir:{WinPeProcessRunner.Quote(mountDirectoryPath)} /Discard",
             workingDirectory,
             "Discarding mounted image with DISM.",
-            progress: null,
+            dismProgress,
             cancellationToken);
     }
 

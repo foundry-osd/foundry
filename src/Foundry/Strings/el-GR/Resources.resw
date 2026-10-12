@@ -3594,6 +3594,9 @@
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>Πραγματοποίηση αλλαγών εικόνας με DISM.</value>
   </data>
+  <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
+    <value>Απόρριψη της προσαρτημένης εικόνας με DISM.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>Εξαγωγή εικόνας Windows με DISM.</value>
   </data>

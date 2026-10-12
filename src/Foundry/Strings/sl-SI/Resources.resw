@@ -3594,6 +3594,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>Izvajanje sprememb slike z DISM.</value>
   </data>
+  <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
+    <value>Zavračanje vpete slike z DISM.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>Izvažanje Windows slike z DISM.</value>
   </data>
