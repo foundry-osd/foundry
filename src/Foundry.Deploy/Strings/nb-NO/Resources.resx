@@ -624,6 +624,9 @@ Vil du fortsette med distribusjonen?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Avbildningshurtigbufferen kan ikke klargjøres. Kontroller ledig plass og skrivetilgang til den.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Hash-verifiseringen av den nedlastede Windows-avbildningen mislyktes. Kontroller nettverkstilkoblingen og lagringsenheten, og prøv igjen.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Måldisken har ikke nok plass til de kjente distribusjonskravene. Velg en større disk.</value>
   </data>
@@ -634,16 +637,16 @@ Vil du fortsette med distribusjonen?</value>
     <value>Avbildningens størrelse etter installasjon er utilgjengelig eller ugyldig. Velg en annen avbildning.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Metadata for avbildningens størrelse eller hash er ugyldige. Oppdater operativsystemkatalogen.</value>
+    <value>Metadata for avbildningens størrelse eller hash i katalogen er ugyldige. Velg en annen avbildning, eller start enheten på nytt fra distribusjonsmediet for å laste katalogen på nytt.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>Avbildningens URL må bruke HTTP eller HTTPS. Oppdater operativsystemkatalogen.</value>
+    <value>Avbildningens URL må bruke HTTP eller HTTPS. Velg en annen avbildning, eller start enheten på nytt fra distribusjonsmediet for å laste katalogen på nytt.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Det kunne ikke bekreftes at distribusjonen er klar. Start distribusjonen på nytt før du klargjør disken.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Avbildningskilden er utilgjengelig. Kontroller tilkoblingen og oppdater operativsystemkatalogen.</value>
+    <value>Avbildningskilden er utilgjengelig. Kontroller nettverkstilkoblingen og prøv igjen.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Ledig plass på målvolumet kunne ikke kontrolleres. Kontroller måldisken før du prøver distribusjonen på nytt.</value>
@@ -1762,7 +1765,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Bruk Foundry-innstillinger</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows bruker den valgte svarfilen. Foundry slår ikke sammen eller legger til innstillinger.</value>
+    <value>Windows bruker den valgte svarfilen. Foundry beholder innstillingene dine og legger til sin egen kommando for etter installasjonen når distribusjonen trenger det.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Svarfil</value>

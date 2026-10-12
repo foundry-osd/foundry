@@ -624,6 +624,9 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Der Abbildcache kann nicht vorbereitet werden. Prüfen Sie den freien Speicherplatz und den Schreibzugriff auf den Cache.</value>
   </data>
+  <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
+    <value>Die Hashüberprüfung des heruntergeladenen Windows-Abbilds ist fehlgeschlagen. Überprüfen Sie die Netzwerkverbindung und das Speichergerät, und versuchen Sie es erneut.</value>
+  </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Auf dem Zieldatenträger ist nicht genügend Speicherplatz für die bekannten Bereitstellungsanforderungen vorhanden. Wählen Sie einen größeren Datenträger aus.</value>
   </data>
@@ -634,16 +637,16 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Die Größe des Abbilds nach dem Anwenden ist nicht verfügbar oder ungültig. Wählen Sie ein anderes Abbild aus.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Die Metadaten zur Größe oder zum Hashwert des Abbilds sind ungültig. Aktualisieren Sie den Betriebssystemkatalog.</value>
+    <value>Die Metadaten zur Größe oder zum Hashwert des Abbilds im Katalog sind ungültig. Wählen Sie ein anderes Abbild aus, oder starten Sie das Gerät vom Bereitstellungsmedium neu, um den Katalog erneut zu laden.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>Die URL des Abbilds muss HTTP oder HTTPS verwenden. Aktualisieren Sie den Betriebssystemkatalog.</value>
+    <value>Die URL des Abbilds muss HTTP oder HTTPS verwenden. Wählen Sie ein anderes Abbild aus, oder starten Sie das Gerät vom Bereitstellungsmedium neu, um den Katalog erneut zu laden.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Die Bereitschaft für die Bereitstellung konnte nicht bestätigt werden. Starten Sie die Bereitstellung erneut, bevor Sie den Datenträger vorbereiten.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>Die Quelle des Abbilds ist nicht verfügbar. Prüfen Sie die Verbindung und aktualisieren Sie den Betriebssystemkatalog.</value>
+    <value>Die Quelle des Abbilds ist nicht verfügbar. Überprüfen Sie die Netzwerkverbindung, und versuchen Sie es erneut.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Der freie Speicherplatz auf dem Zielvolume konnte nicht geprüft werden. Prüfen Sie den Zieldatenträger, bevor Sie die Bereitstellung erneut versuchen.</value>
@@ -1762,7 +1765,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Foundry-Einstellungen verwenden</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>Windows verwendet die ausgewählte Antwortdatei. Foundry führt keine Einstellungen zusammen und fügt keine hinzu.</value>
+    <value>Windows verwendet die ausgewählte Antwortdatei. Foundry behält Ihre Einstellungen bei und fügt seinen Befehl für die Nachinstallation hinzu, wenn die Bereitstellung einen benötigt.</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Antwortdatei</value>

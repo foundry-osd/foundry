@@ -66,6 +66,28 @@ public sealed class NetworkBootstrapServiceTests
     }
 
     [Fact]
+    public async Task ConnectWifiNetworkAsync_WhenNetworkIsEnterprise_ReturnsRuntimeNotSupportedFailure()
+    {
+        var configuration = new FoundryConnectConfiguration
+        {
+            Capabilities = new NetworkCapabilitiesOptions { WifiProvisioned = true }
+        };
+        var service = new NetworkBootstrapService(
+            configuration,
+            new FakeConnectConfigurationService(configuration),
+            new CapturingNetworkProfileRoamingService(),
+            NullLogger<NetworkBootstrapService>.Instance,
+            getWifiInterfaceIds: static () => []);
+
+        NetworkBootstrapResult result = await service.ConnectWifiNetworkAsync(
+            "Corp", null, "WPA2-Enterprise", null, TestContext.Current.CancellationToken);
+
+        NetworkBootstrapHandledFailure failure = Assert.Single(result.HandledFailures);
+        Assert.Equal("unsupported", failure.Reason);
+        Assert.Equal("wifi_runtime_not_supported", failure.Code);
+    }
+
+    [Fact]
     public async Task ApplyProvisionedSettingsAsync_WhenCancelledBeforeNativeCommand_ThrowsCancellation()
     {
         using var tempDirectory = new TemporaryDirectory();
