@@ -23,7 +23,6 @@ public sealed record TargetDiskInfo
     public bool IsBoot { get; init; }
     public bool IsReadOnly { get; init; }
     public bool IsOffline { get; init; }
-    public bool IsRemovable { get; init; }
     public bool IsSelectable { get; init; }
     public string SelectionWarning { get; init; } = string.Empty;
 

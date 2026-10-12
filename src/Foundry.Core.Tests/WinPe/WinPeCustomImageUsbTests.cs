@@ -163,7 +163,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             }
             string output = layout
                 ? """{"BootDriveLetter":"S:","CacheDriveLetter":"T:","BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096}"""
-                : """{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}""";
+                : """{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}""";
             return Task.FromResult(new WinPeProcessExecution { ExitCode = format ? 1 : 0, StandardOutput = output });
         }
         public Task<WinPeProcessExecution> RunCmdScriptAsync(string script, string arguments, string working, CancellationToken token) => throw new NotSupportedException();

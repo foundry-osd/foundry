@@ -93,4 +93,55 @@ public sealed class WinPeUsbDiskCandidateSelectorTests
 
         Assert.Same(Other, result);
     }
+
+    [Fact]
+    public void FindConfirmed_WhenDiskIsUnchanged_ReturnsTheFreshlyReadCandidate()
+    {
+        WinPeUsbDiskCandidate fresh = Selected with { Volumes = [new WinPeUsbVolume { DriveLetter = "E:", FileSystem = "NTFS" }] };
+
+        WinPeUsbDiskCandidate? result = WinPeUsbDiskCandidateSelector.FindConfirmed([Other, fresh], Selected);
+
+        Assert.Same(fresh, result);
+    }
+
+    [Fact]
+    public void FindConfirmed_WhenDiskIsGone_ReturnsNull()
+    {
+        Assert.Null(WinPeUsbDiskCandidateSelector.FindConfirmed([Other], Selected));
+        Assert.Null(WinPeUsbDiskCandidateSelector.FindConfirmed([], Selected));
+    }
+
+    [Theory]
+    [InlineData("number")]
+    [InlineData("size")]
+    [InlineData("name")]
+    [InlineData("bus")]
+    public void FindConfirmed_WhenAnIdentityFactChanged_ReturnsNull(string changedFact)
+    {
+        WinPeUsbDiskCandidate changed = changedFact switch
+        {
+            "number" => Selected with { DiskNumber = 7 },
+            "size" => Selected with { SizeBytes = 32_000_000_000 },
+            "name" => Selected with { FriendlyName = "Another USB" },
+            _ => Selected with { BusType = "SATA" }
+        };
+
+        Assert.Null(WinPeUsbDiskCandidateSelector.FindConfirmed([changed], Selected));
+    }
+
+    [Fact]
+    public void FindConfirmed_WhenTheIdentifierIsAmbiguous_ReturnsNull()
+    {
+        WinPeUsbDiskCandidate duplicate = Selected with { DiskNumber = 8 };
+
+        Assert.Null(WinPeUsbDiskCandidateSelector.FindConfirmed([Selected, duplicate], Selected));
+    }
+
+    [Fact]
+    public void FindConfirmed_WhenTheSelectionHasNoIdentifier_ReturnsNull()
+    {
+        WinPeUsbDiskCandidate anonymous = Selected with { SerialNumber = string.Empty, UniqueId = string.Empty };
+
+        Assert.Null(WinPeUsbDiskCandidateSelector.FindConfirmed([anonymous], anonymous));
+    }
 }

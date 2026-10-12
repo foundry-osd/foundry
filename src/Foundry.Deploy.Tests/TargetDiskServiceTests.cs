@@ -17,8 +17,8 @@ public sealed class TargetDiskServiceTests
     {
         DiskInfo[] snapshots =
         [
-            new(1, "Target", "SHARED", "SATA", "RAW", 4096, false, false, false, false, false),
-            new(2, "Bridge", "SHARED", "USB", "GPT", 4096, false, false, false, false, true)
+            new(1, "Target", "SHARED", "SATA", "RAW", 4096, false, false, false, false),
+            new(2, "Bridge", "SHARED", "USB", "GPT", 4096, false, false, false, false)
         ];
         var service = CreateService(getDisks: _ => Task.FromResult<IReadOnlyList<DiskInfo>>(snapshots));
 
@@ -32,7 +32,7 @@ public sealed class TargetDiskServiceTests
     public async Task GetDisksAsync_WhenHardwareIdentityIsMissing_BlocksTarget()
     {
         var service = CreateService(getDisks: _ => Task.FromResult<IReadOnlyList<DiskInfo>>(
-            [new(1, "Target", "", "SATA", "RAW", 4096, false, false, false, false, false)]));
+            [new(1, "Target", "", "SATA", "RAW", 4096, false, false, false, false)]));
 
         TargetDiskInfo disk = Assert.Single(await service.GetDisksAsync(TestContext.Current.CancellationToken));
 
@@ -44,10 +44,10 @@ public sealed class TargetDiskServiceTests
     {
         DiskInfo[] snapshots =
         [
-            new(0, "System", "", "NVMe", "GPT", 1024, true, false, false, false, false),
-            new(2, "USB media", "USB-2", "USB", "GPT", 2048, false, false, false, false, true),
-            new(1, "Target", "SERIAL-1", "SATA", "GPT", 4096, false, false, false, false, false),
-            new(3, "Removable target", "SERIAL-3", "SD", "GPT", 8192, false, false, false, false, true)
+            new(0, "System", "", "NVMe", "GPT", 1024, true, false, false, false),
+            new(2, "USB media", "USB-2", "USB", "GPT", 2048, false, false, false, false),
+            new(1, "Target", "SERIAL-1", "SATA", "GPT", 4096, false, false, false, false),
+            new(3, "Removable target", "SERIAL-3", "SD", "GPT", 8192, false, false, false, false)
         ];
         var service = CreateService(getDisks: _ => Task.FromResult<IReadOnlyList<DiskInfo>>(snapshots));
 
@@ -58,7 +58,6 @@ public sealed class TargetDiskServiceTests
         Assert.Equal("Target", disks[0].FriendlyName);
         Assert.Equal("SERIAL-1", disks[0].SerialNumber);
         Assert.True(disks[1].IsSelectable);
-        Assert.True(disks[1].IsRemovable);
         Assert.False(disks[2].IsSelectable);
         Assert.Equal(LocalizationText.GetString("Disk.BlockedSystemDisk"), disks[2].SelectionWarning);
         Assert.Equal(LocalizationText.GetString("Common.Unknown"), disks[2].SerialNumber);
@@ -70,9 +69,9 @@ public sealed class TargetDiskServiceTests
     {
         DiskInfo[] snapshots =
         [
-            new(1, "Target", "", "SATA", "RAW", 4096, false, false, false, false, false) { UniqueId = "UID-1" },
-            new(2, "Target", "SHARED", "SATA", "GPT", 4096, false, false, false, false, false) { UniqueId = "UID-2" },
-            new(3, "Target", "SHARED", "SATA", "GPT", 4096, false, false, false, false, false) { UniqueId = "UID-3" }
+            new(1, "Target", "", "SATA", "RAW", 4096, false, false, false, false) { UniqueId = "UID-1" },
+            new(2, "Target", "SHARED", "SATA", "GPT", 4096, false, false, false, false) { UniqueId = "UID-2" },
+            new(3, "Target", "SHARED", "SATA", "GPT", 4096, false, false, false, false) { UniqueId = "UID-3" }
         ];
         var service = CreateService(getDisks: _ => Task.FromResult<IReadOnlyList<DiskInfo>>(snapshots));
 
@@ -88,7 +87,7 @@ public sealed class TargetDiskServiceTests
     public async Task GetDisksAsync_WhenRequestedForValidation_RetainsExcludedUsbDisks()
     {
         var service = CreateService(getDisks: _ => Task.FromResult<IReadOnlyList<DiskInfo>>(
-            [new(2, "USB", "USB-2", "USB", "GPT", 4096, false, false, false, false, true)]));
+            [new(2, "USB", "USB-2", "USB", "GPT", 4096, false, false, false, false)]));
 
         TargetDiskInfo disk = Assert.Single(await service.GetDisksAsync(TestContext.Current.CancellationToken, includeExcludedDisks: true));
 

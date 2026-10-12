@@ -17,8 +17,7 @@ public sealed record DiskInfo(
     bool IsSystem,
     bool IsBoot,
     bool IsReadOnly,
-    bool IsOffline,
-    bool IsRemovable)
+    bool IsOffline)
 {
     /// <summary>
     /// Gets the Windows storage device identifier without changing its representation.
