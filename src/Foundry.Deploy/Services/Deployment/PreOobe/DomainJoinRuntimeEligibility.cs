@@ -15,11 +15,16 @@ internal static class DomainJoinRuntimeEligibility
         state.DomainJoinStatus = request.DomainJoinRequest?.Disposition switch
         {
             Services.DomainJoin.DomainJoinDeploymentDisposition.UnsupportedEdition => DomainJoinExecutionStatus.SkippedUnsupportedEdition,
+            Services.DomainJoin.DomainJoinDeploymentDisposition.Declined => DomainJoinExecutionStatus.SkippedByTechnician,
             Services.DomainJoin.DomainJoinDeploymentDisposition.Ready or Services.DomainJoin.DomainJoinDeploymentDisposition.DryRun => DomainJoinExecutionStatus.Pending,
             _ => DomainJoinExecutionStatus.Disabled
         };
-        if (state.DomainJoinStatus == DomainJoinExecutionStatus.SkippedUnsupportedEdition)
-            state.DomainJoinSkipCode = DomainJoinSkipCode.UnsupportedEdition;
+        state.DomainJoinSkipCode = state.DomainJoinStatus switch
+        {
+            DomainJoinExecutionStatus.SkippedUnsupportedEdition => DomainJoinSkipCode.UnsupportedEdition,
+            DomainJoinExecutionStatus.SkippedByTechnician => DomainJoinSkipCode.DeclinedByTechnician,
+            _ => state.DomainJoinSkipCode
+        };
     }
 
     /// <summary>Records the skip decided at launch; skips found during execution are recorded by <see cref="SkipAsync"/>.</summary>
@@ -43,5 +48,7 @@ internal static class DomainJoinRuntimeEligibility
     }
 
     private static Task AppendSkipLogAsync(DeploymentStepExecutionContext context, DomainJoinSkipCode code, CancellationToken cancellationToken) =>
-        context.AppendLogAsync(DeploymentLogLevel.Warning, $"Domain joining skipped. Reason={code}.", cancellationToken);
+        // Declining is the technician's decision, not a problem with the deployment, so it is not a warning.
+        context.AppendLogAsync(code == DomainJoinSkipCode.DeclinedByTechnician ? DeploymentLogLevel.Info : DeploymentLogLevel.Warning,
+            $"Domain joining skipped. Reason={code}.", cancellationToken);
 }

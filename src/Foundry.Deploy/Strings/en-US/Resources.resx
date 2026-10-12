@@ -381,6 +381,9 @@ Action: Verify disk attributes and retry deployment.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Enter a valid OU distinguished name in this domain, or leave it empty.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Do not join a domain</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Domain name</value>
   </data>
@@ -389,6 +392,9 @@ Action: Verify disk attributes and retry deployment.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>The domain join information is missing or not valid. Deployment has not started.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Join a domain</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OU distinguished name (optional)</value>

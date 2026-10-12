@@ -105,6 +105,8 @@ public sealed record DeploymentSummarySource
     public string DomainJoinSummary { get; init; } = string.Empty;
     public bool IsDomainJoinConfigured { get; init; }
     public bool HasDomainJoinWarning { get; init; }
+    /// <summary>Gets whether the technician chose not to join a domain, which is shown as a neutral choice, not a warning.</summary>
+    public bool IsDomainJoinDeclined { get; init; }
     public bool HasDomainJoinStep { get; init; }
     public required string WindowsCustomizationSummary { get; init; }
     public required IReadOnlyList<DeploymentSummaryRowViewModel> WindowsCustomizationRows { get; init; }
@@ -184,7 +186,8 @@ public sealed class DeploymentSummaryBuilder
             categories.Insert(4, new(
                 _localize("DomainJoin.Title"),
                 source.DomainJoinSummary,
-                source.HasDomainJoinWarning ? DeploymentSummaryStatus.Caution : DeploymentSummaryStatus.Configured,
+                source.HasDomainJoinWarning ? DeploymentSummaryStatus.Caution :
+                    source.IsDomainJoinDeclined ? DeploymentSummaryStatus.Neutral : DeploymentSummaryStatus.Configured,
                 source.DomainJoinRows,
                 source.HasDomainJoinStep ? DeploymentWizardStepId.DomainJoin : null));
         }

@@ -381,6 +381,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>이 도메인 내의 유효한 OU 고유 이름을 입력하거나 비워 두세요.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>도메인에 가입하지 않음</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>도메인 이름</value>
   </data>
@@ -389,6 +392,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>도메인 가입 정보가 없거나 유효하지 않습니다. 배포가 시작되지 않았습니다.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>도메인에 가입</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OU 고유 이름 (선택 사항)</value>

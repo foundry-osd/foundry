@@ -626,6 +626,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         DomainJoinExecutionStatus.Ready => "staged",
         DomainJoinExecutionStatus.SkippedUnsupportedEdition => "skipped_unsupported_edition",
         DomainJoinExecutionStatus.SkippedImageComposition => "skipped_image_composition",
+        DomainJoinExecutionStatus.SkippedByTechnician => "skipped_by_technician",
         _ => "disabled"
     };
 

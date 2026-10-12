@@ -381,6 +381,9 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Introduza um nome distinto de OU válido neste domínio, ou deixe o campo vazio.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Não associar a um domínio</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Nome do domínio</value>
   </data>
@@ -389,6 +392,9 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>As informações de associação ao domínio estão em falta ou não são válidas. A implementação não foi iniciada.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Associar a um domínio</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Nome distinto da OU (opcional)</value>

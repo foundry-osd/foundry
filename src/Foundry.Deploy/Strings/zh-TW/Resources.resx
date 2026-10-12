@@ -381,6 +381,9 @@
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>請輸入此網域內有效的 OU 辨別名稱，或留空。</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>不加入網域</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>網域名稱</value>
   </data>
@@ -389,6 +392,9 @@
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>網域加入資訊遺漏或無效。部署尚未開始。</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>加入網域</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OU 辨別名稱（選用）</value>

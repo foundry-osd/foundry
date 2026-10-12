@@ -381,6 +381,9 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Introduzca un nombre distintivo de OU válido en este dominio, o deje el campo vacío.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>No unirse a un dominio</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Nombre de dominio</value>
   </data>
@@ -389,6 +392,9 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Los datos de unión al dominio faltan o no son válidos. La implementación no ha comenzado.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Unirse a un dominio</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Nombre distintivo de la OU (opcional)</value>

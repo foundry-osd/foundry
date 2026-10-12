@@ -381,6 +381,9 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Zadajte platný rozlišujúci názov OU v tejto doméne alebo nechajte pole prázdne.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Nepripájať k doméne</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Názov domény</value>
   </data>
@@ -389,6 +392,9 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Údaje na pripojenie k doméne chýbajú alebo sú neplatné. Nasadenie sa nezačalo.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Pripojiť k doméne</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Rozlišujúci názov OU (voliteľné)</value>

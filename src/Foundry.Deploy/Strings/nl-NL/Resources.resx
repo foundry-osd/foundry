@@ -381,6 +381,9 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Voer een geldige DN-naam van een OU in dit domein in, of laat het veld leeg.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Niet toetreden tot een domein</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Domeinnaam</value>
   </data>
@@ -389,6 +392,9 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>De gegevens voor domeintoetreding ontbreken of zijn ongeldig. De implementatie is niet gestart.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Toetreden tot een domein</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>DN-naam van OU (optioneel)</value>

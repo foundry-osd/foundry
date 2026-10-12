@@ -381,6 +381,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>このドメイン内の有効なOUの識別名を入力するか、空欄にしてください。</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>ドメインに参加しない</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>ドメイン名</value>
   </data>
@@ -389,6 +392,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>ドメイン参加の情報がないか、無効です。展開は開始されていません。</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>ドメインに参加する</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>OUの識別名 (省略可)</value>

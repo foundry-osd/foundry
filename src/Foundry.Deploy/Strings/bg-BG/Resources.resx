@@ -381,6 +381,9 @@
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Въведете валидно отличително име на OU в този домейн или оставете полето празно.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Без присъединяване към домейн</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Име на домейна</value>
   </data>
@@ -389,6 +392,9 @@
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Данните за присъединяване към домейна липсват или са невалидни. Разполагането не е започнало.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Присъединяване към домейн</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Отличително име на OU (незадължително)</value>

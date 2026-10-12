@@ -133,6 +133,13 @@ public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession key
     private static bool SameDomain(string first, string second) => string.Equals(
         DomainJoinCredentialContext.CanonicalizeDomainName(first), DomainJoinCredentialContext.CanonicalizeDomainName(second), StringComparison.Ordinal);
 
+    /// <summary>
+    /// Determines whether this deployment joins a domain: the join applies to the selected image and the technician
+    /// did not choose to deploy the computer without it.
+    /// </summary>
+    internal static bool IsRequiredFor(DeployDomainJoinSettings? settings, OperatingSystemMetadata? operatingSystem, bool isDeclined) =>
+        !isDeclined && IsRequiredFor(settings, operatingSystem);
+
     /// <summary>Determines whether the join applies to the selected image; positively unsupported editions skip it.</summary>
     internal static bool IsRequiredFor(DeployDomainJoinSettings? settings, OperatingSystemMetadata? operatingSystem)
     {

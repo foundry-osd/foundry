@@ -808,10 +808,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             AutopilotRows = BuildAutopilotSummaryRows(),
             IsAutopilotConfigured = Preparation.IsAutopilotEnabled,
             HasAutopilotStep = HasAutopilotConfigurationStep(),
-            DomainJoinSummary = IsDomainJoinApplicable() ? DomainJoinStep.DomainName : GetString("Summary.Status.NotConfigured"),
+            DomainJoinSummary = !IsDomainJoinApplicable() ? GetString("Summary.Status.NotConfigured") :
+                DomainJoinStep.IsJoinDeclined ? GetString("DomainJoin.DoNotJoin") : DomainJoinStep.DomainName,
             DomainJoinRows = BuildDomainJoinSummaryRows(),
             IsDomainJoinConfigured = _wizardContext.DomainJoin.IsEnabled,
             HasDomainJoinWarning = !IsDomainJoinApplicable(),
+            IsDomainJoinDeclined = IsDomainJoinApplicable() && DomainJoinStep.IsJoinDeclined,
             HasDomainJoinStep = HasDomainJoinStep(),
             WindowsCustomizationSummary = hasCustomization
                 ? GetString("Summary.Status.Configured")
@@ -875,6 +877,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         if (!IsDomainJoinApplicable())
         {
             return [new(GetString("Summary.Status"), GetString("DomainJoin.UnsupportedEdition"))];
+        }
+
+        if (DomainJoinStep.IsJoinDeclined)
+        {
+            return [];
         }
 
         return
@@ -1100,6 +1107,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
             OperatingSystemCatalog.RefreshLocalizedMediaOptions();
             CustomImages.RefreshLocalization();
+            DomainJoinStep.RefreshLocalizedText();
             OnPropertyChanged(nameof(OperatingSystemArchitectureDisplay));
             OnPropertyChanged(nameof(SummaryTargetDiskText));
             OnPropertyChanged(nameof(SummaryOperatingSystemText));

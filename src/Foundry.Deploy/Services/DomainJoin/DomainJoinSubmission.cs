@@ -26,6 +26,12 @@ public sealed class DomainJoinSubmission : IDisposable
         this.password = password.ToArray();
     }
 
+    /// <summary>Creates the submission of a technician who chose not to join a domain; it carries no input.</summary>
+    public static DomainJoinSubmission Declined() => new(null, string.Empty, string.Empty, null, default) { DeclinesJoin = true };
+
+    /// <summary>Whether the technician chose not to join a domain although the media configures the join.</summary>
+    internal bool DeclinesJoin { get; private init; }
+
     /// <summary>Listed domain the technician retained; <see langword="null"/> when the media lists no domain.</summary>
     internal string? SelectedDomainId { get; }
     /// <summary>Domain typed in Interactive mode when the media lists none; otherwise the retained domain's name.</summary>
