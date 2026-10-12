@@ -381,6 +381,9 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Angiv et gyldigt entydigt OU-navn i dette domæne, eller lad feltet være tomt.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Tilslut ikke til et domæne</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Domænenavn</value>
   </data>
@@ -389,6 +392,9 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Oplysningerne til domænetilslutning mangler eller er ugyldige. Udrulningen er ikke startet.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Tilslut til et domæne</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Entydigt navn for OU (valgfrit)</value>

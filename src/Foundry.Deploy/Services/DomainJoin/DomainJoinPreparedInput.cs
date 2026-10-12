@@ -54,7 +54,8 @@ public sealed class DomainJoinPreparedInput : IDisposable
         if (request.IsAutopilotEnabled) return false;
         return request.DomainJoinRequest.Disposition switch
         {
-            DomainJoinDeploymentDisposition.UnsupportedEdition => input is null && request.DomainJoinIntent is null,
+            DomainJoinDeploymentDisposition.UnsupportedEdition or DomainJoinDeploymentDisposition.Declined =>
+                input is null && request.DomainJoinIntent is null,
             DomainJoinDeploymentDisposition.DryRun => input is null && request.IsDryRun,
             DomainJoinDeploymentDisposition.Ready => !request.IsDryRun && request.DomainJoinIntent is { } intent &&
                 DomainJoinCredentialContext.IsValidDomainName(intent.DomainName) && input?.Matches(intent) == true &&

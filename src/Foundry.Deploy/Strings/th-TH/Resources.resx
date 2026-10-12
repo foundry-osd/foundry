@@ -381,6 +381,9 @@
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>ป้อนชื่อเฉพาะของ OU ที่ถูกต้องในโดเมนนี้ หรือปล่อยว่างไว้</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>ไม่เข้าร่วมโดเมน</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>ชื่อโดเมน</value>
   </data>
@@ -389,6 +392,9 @@
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>ข้อมูลการเข้าร่วมโดเมนขาดหายไปหรือไม่ถูกต้อง การปรับใช้ยังไม่เริ่มต้น</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>เข้าร่วมโดเมน</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>ชื่อเฉพาะของ OU (ไม่บังคับ)</value>

@@ -13,6 +13,21 @@ namespace Foundry.Deploy.Tests;
 [Collection(nameof(SerilogCollection))]
 public sealed class FinalizeDeploymentAndWriteLogsStepTests
 {
+    [Theory]
+    [InlineData(DomainJoinSkipCode.DeclinedByTechnician, DeploymentLogLevel.Info)]
+    [InlineData(DomainJoinSkipCode.UnsupportedEdition, DeploymentLogLevel.Warning)]
+    public async Task LaunchSkipIsLoggedAsAWarningUnlessTheTechnicianDeclinedTheJoin(DomainJoinSkipCode code, DeploymentLogLevel level)
+    {
+        var logs = new RecordingDomainLogService();
+        using var fixture = new Fixture(logs);
+        fixture.Context.RuntimeState.DomainJoinSkipCode = code;
+
+        await Foundry.Deploy.Services.Deployment.PreOobe.DomainJoinRuntimeEligibility.ReportLaunchSkipAsync(
+            fixture.Context, TestContext.Current.CancellationToken);
+
+        Assert.Equal([(level, $"Domain joining skipped. Reason={code}.")], logs.Messages);
+    }
+
     [Fact]
     public async Task FinalizeRecordsDomainSkipInSummary()
     {

@@ -51,6 +51,30 @@ public sealed class DeploymentSummaryBuilderTests
         Assert.Equal(hasStep ? DeploymentWizardStepId.DomainJoin : null, categories[4].EditStepId);
     }
 
+    [Theory]
+    [InlineData(false, false, DeploymentSummaryStatus.Configured)]
+    [InlineData(true, false, DeploymentSummaryStatus.Neutral)]
+    [InlineData(false, true, DeploymentSummaryStatus.Caution)]
+    [InlineData(true, true, DeploymentSummaryStatus.Caution)]
+    public void Build_ShowsADeclinedDomainJoinAsNeutralAndAnUnsupportedOneAsCaution(bool declined, bool warning, DeploymentSummaryStatus expected)
+    {
+        var builder = new DeploymentSummaryBuilder(key => key);
+        DeploymentSummarySource source = CreateSource() with
+        {
+            IsDomainJoinConfigured = true,
+            DomainJoinSummary = "DomainJoin.DoNotJoin",
+            IsDomainJoinDeclined = declined,
+            HasDomainJoinWarning = warning,
+            HasDomainJoinStep = true
+        };
+
+        DeploymentSummaryCategoryViewModel category = builder.Build(source)[4];
+
+        Assert.Equal("DomainJoin.Title", category.Title);
+        Assert.Equal(expected, category.Status);
+        Assert.Equal(DeploymentWizardStepId.DomainJoin, category.EditStepId);
+    }
+
     [Fact]
     public void Build_ShowsAbsentAutopilotAsNeutralWithoutEditAction()
     {

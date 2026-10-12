@@ -23,4 +23,8 @@ public enum DomainJoinDomainSource { None, Default, Selected, Typed }
 public enum DomainJoinOuSource { None, Default, Selected, Typed }
 
 /// <summary>Distinguishes actual prepared execution, edition skip and secret-free simulation.</summary>
-public enum DomainJoinDeploymentDisposition { Ready, UnsupportedEdition, DryRun }
+/// <summary>
+/// Says what a deployment does with the join the media configures. <see cref="Declined"/> is the technician's
+/// choice on the Domain Join step not to join a domain for this computer.
+/// </summary>
+public enum DomainJoinDeploymentDisposition { Ready, UnsupportedEdition, DryRun, Declined }

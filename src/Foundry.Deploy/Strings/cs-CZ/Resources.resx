@@ -381,6 +381,9 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Zadejte platný rozlišující název OU v této doméně, nebo nechte pole prázdné.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Nepřipojovat k doméně</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Název domény</value>
   </data>
@@ -389,6 +392,9 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Údaje pro připojení k doméně chybí nebo nejsou platné. Nasazení nebylo zahájeno.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Připojit k doméně</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Rozlišující název OU (volitelné)</value>

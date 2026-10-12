@@ -162,6 +162,8 @@ public sealed class DeploymentWizardContext : IDisposable
 
     private void OnDomainJoinStepStateChanged(object? sender, EventArgs e)
     {
+        // Declining the join lifts what the join demands from a custom answer file.
+        RefreshUnattendContext();
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -170,11 +172,16 @@ public sealed class DeploymentWizardContext : IDisposable
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void RefreshDriverPackSelectionContext()
+    private void RefreshUnattendContext()
     {
         Preparation.UpdateUnattendContext(
             SelectedOperatingSystem?.Architecture ?? OperatingSystemCatalog.EffectiveOsArchitecture,
-            DomainJoinPreparationService.IsRequiredFor(DomainJoin, SelectedOperatingSystem));
+            DomainJoinPreparationService.IsRequiredFor(DomainJoin, SelectedOperatingSystem, DomainJoinStep.IsJoinDeclined));
+    }
+
+    private void RefreshDriverPackSelectionContext()
+    {
+        RefreshUnattendContext();
         DriverPackSelection.UpdateSelectionContext(
             Preparation.DetectedHardware,
             SelectedOperatingSystem,

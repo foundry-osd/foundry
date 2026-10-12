@@ -381,6 +381,9 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Introduceți un nume distinctiv de OU valid din acest domeniu sau lăsați câmpul gol.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Fără asociere la un domeniu</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Nume de domeniu</value>
   </data>
@@ -389,6 +392,9 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Informațiile de asociere la domeniu lipsesc sau nu sunt valide. Implementarea nu a început.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Asociere la un domeniu</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Nume distinctiv OU (opțional)</value>

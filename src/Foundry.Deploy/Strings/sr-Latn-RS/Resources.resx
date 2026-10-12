@@ -381,6 +381,9 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Unesite važeće jedinstveno ime OU u ovom domenu ili ostavite polje prazno.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Ne pridružuj domenu</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Ime domena</value>
   </data>
@@ -389,6 +392,9 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Podaci za pridruživanje domenu nedostaju ili nisu važeći. Primena nije započeta.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Pridruži domenu</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Jedinstveno ime OU (opciono)</value>

@@ -14,39 +14,199 @@ public sealed class DomainJoinStepViewModelTests
     [Theory]
     [InlineData(false, DomainJoinMode.Interactive, 1, false)]
     [InlineData(true, DomainJoinMode.Interactive, 1, true)]
-    [InlineData(true, DomainJoinMode.Automatic, 1, false)]
+    [InlineData(true, DomainJoinMode.Automatic, 1, true)]
     [InlineData(true, DomainJoinMode.Automatic, 2, true)]
-    public void StepIsNeededOnlyWhenTheTechnicianHasSomethingToEnter(bool enabled, DomainJoinMode mode, int ouCount, bool expected)
+    public void StepIsShownWheneverTheMediaConfiguresTheJoin(bool enabled, DomainJoinMode mode, int ouCount, bool expected)
     {
         using var step = new DomainJoinStepViewModel();
         DeployDomainJoinSettings settings = OneDomain(mode) with { IsEnabled = enabled };
         step.Configure(ouCount == 2 ? DomainJoinPreparationServiceTests.WithTwoOus(settings) : settings);
 
         Assert.Equal(expected, step.HasInput);
+        Assert.Equal(expected, step.IsDomainListVisible);
     }
 
     [Fact]
-    public void ZeroTouchStepIsSkippedWhenThereIsNothingToChoose()
+    public void ZeroTouchStepWithOneDomainStartsValidOnThatDomain()
     {
         using var step = new DomainJoinStepViewModel();
         step.Configure(OneDomain(DomainJoinMode.Automatic));
 
-        Assert.False(step.HasInput);
+        Assert.True(step.HasInput);
         Assert.True(step.IsValid);
+        Assert.False(step.IsJoinDeclined);
         Assert.Equal("corp.test", step.DomainName);
         Assert.Equal("OU=Sales,DC=corp,DC=test", step.EffectiveOuDistinguishedName);
     }
 
     [Fact]
-    public void ZeroTouchStepIsSkippedForOneDomainWithoutOus()
+    public void ZeroTouchStepForOneDomainWithoutOusUsesTheDefaultLocation()
     {
         using var step = new DomainJoinStepViewModel();
         DeployDomainJoinSettings settings = OneDomain(DomainJoinMode.Automatic);
         step.Configure(settings with { Domains = [settings.Domains[0] with { OrganizationalUnits = [], DefaultOuId = null }] });
 
-        Assert.False(step.HasInput);
+        Assert.True(step.HasInput);
         Assert.True(step.IsValid);
         Assert.Null(step.EffectiveOuDistinguishedName);
+    }
+
+    [Theory]
+    [InlineData(0, DomainJoinMode.Interactive)]
+    [InlineData(1, DomainJoinMode.Interactive)]
+    [InlineData(1, DomainJoinMode.Automatic)]
+    [InlineData(2, DomainJoinMode.Interactive)]
+    [InlineData(2, DomainJoinMode.Automatic)]
+    public void NotJoiningIsOfferedLastAndIsNeverPreselected(int domainCount, DomainJoinMode mode)
+    {
+        using var step = new DomainJoinStepViewModel();
+        step.Configure(Settings(domainCount, mode));
+
+        Assert.Equal(Math.Max(domainCount, 1) + 1, step.DomainChoices.Count);
+        Assert.Equal(DomainJoinChoiceKind.DoNotJoin, step.DomainChoices[^1].Kind);
+        Assert.Single(step.DomainChoices, choice => choice.Kind == DomainJoinChoiceKind.DoNotJoin);
+        Assert.All(step.DomainChoices, choice => Assert.False(string.IsNullOrWhiteSpace(choice.DisplayName)));
+        Assert.Same(step.DomainChoices[0], step.SelectedDomainChoice);
+        Assert.Equal(domainCount == 0 ? DomainJoinChoiceKind.TypedDomain : DomainJoinChoiceKind.ListedDomain, step.SelectedDomainChoice!.Kind);
+        Assert.False(step.IsJoinDeclined);
+    }
+
+    [Fact]
+    public void ListedDomainsAreOfferedByNameInMediaOrder()
+    {
+        using var step = new DomainJoinStepViewModel();
+        step.Configure(TwoDomains(DomainJoinMode.Automatic) with { DefaultDomainId = "emea" });
+
+        Assert.Equal(["corp.test", "emea.test"], step.DomainChoices.Take(2).Select(choice => choice.DisplayName));
+        Assert.Equal("emea", step.SelectedDomainChoice?.Domain?.Id);
+
+        step.SelectedDomainChoice = step.DomainChoices[0];
+
+        Assert.Equal("corp", step.SelectedDomain?.Id);
+        Assert.Equal("corp.test", step.DomainName);
+    }
+
+    [Theory]
+    [InlineData(0, DomainJoinMode.Interactive)]
+    [InlineData(1, DomainJoinMode.Interactive)]
+    [InlineData(2, DomainJoinMode.Automatic)]
+    public void NotJoiningHidesEveryInputErasesThePasswordAndIsValid(int domainCount, DomainJoinMode mode)
+    {
+        using var step = new DomainJoinStepViewModel();
+        DeployDomainJoinSettings settings = Settings(domainCount, mode);
+        step.Configure(domainCount == 0 ? settings : DomainJoinPreparationServiceTests.WithTwoOus(settings));
+        step.SetPassword("secret");
+        int cleared = 0;
+        step.PasswordCleared += (_, _) => cleared++;
+
+        step.SelectedDomainChoice = step.DomainChoices[^1];
+
+        Assert.True(step.IsJoinDeclined);
+        Assert.True(step.HasInput);
+        Assert.True(step.IsDomainListVisible);
+        Assert.False(step.IsDomainTextVisible);
+        Assert.False(step.RequiresCredentials);
+        Assert.False(step.IsOuListVisible);
+        Assert.False(step.IsTypedOuVisible);
+        Assert.False(step.IsDomainInvalid);
+        Assert.False(step.HasPassword);
+        Assert.Equal(1, cleared);
+        Assert.Null(step.EffectiveOuDistinguishedName);
+        Assert.True(step.IsValid);
+        Assert.Same(step.DomainChoices[^1], step.SelectedDomainChoice);
+    }
+
+    [Fact]
+    public void NotJoiningSubmitsNoDomainAccountPasswordOrOu()
+    {
+        using var step = new DomainJoinStepViewModel();
+        step.Configure(DomainJoinPreparationServiceTests.WithTwoOus(TwoDomains(DomainJoinMode.Interactive)));
+        step.AccountName = "CORP\\join";
+        step.SetPassword("secret");
+
+        step.SelectedDomainChoice = step.DomainChoices[^1];
+        using DomainJoinSubmission submission = step.CreateSubmission()!;
+
+        Assert.True(submission.DeclinesJoin);
+        Assert.Null(submission.SelectedDomainId);
+        Assert.Equal(string.Empty, submission.DomainName);
+        Assert.Equal(string.Empty, submission.AccountName);
+        Assert.Null(submission.SelectedOuId);
+        Assert.Null(submission.TypedOuDistinguishedName);
+        Assert.True(submission.Password.IsEmpty);
+    }
+
+    [Fact]
+    public void ChoosingADomainAgainRestoresTheJoinAndItsInputs()
+    {
+        using var step = new DomainJoinStepViewModel();
+        step.Configure(DomainJoinPreparationServiceTests.WithTwoOus(TwoDomains(DomainJoinMode.Interactive)));
+        step.AccountName = "CORP\\join";
+        step.SelectedDomainChoice = step.DomainChoices[^1];
+
+        step.SelectedDomainChoice = step.DomainChoices[0];
+
+        Assert.False(step.IsJoinDeclined);
+        Assert.True(step.RequiresCredentials);
+        Assert.True(step.IsOuListVisible);
+        Assert.Equal("corp.test", step.DomainName);
+        Assert.Equal("CORP\\join", step.AccountName);
+        // The password was erased when the join was declined, so it must be typed again.
+        Assert.False(step.IsValid);
+        using DomainJoinSubmission submission = step.CreateSubmission()!;
+        Assert.False(submission.DeclinesJoin);
+        Assert.Equal("corp", submission.SelectedDomainId);
+    }
+
+    [Fact]
+    public void ATypedDomainIsKeptWhileTheJoinIsDeclined()
+    {
+        using var step = new DomainJoinStepViewModel();
+        step.Configure(new() { IsEnabled = true });
+        step.DomainName = "corp.test";
+
+        step.SelectedDomainChoice = step.DomainChoices[^1];
+        Assert.False(step.IsDomainTextVisible);
+        step.SelectedDomainChoice = step.DomainChoices[0];
+
+        Assert.True(step.IsDomainTextVisible);
+        Assert.Equal("corp.test", step.DomainName);
+    }
+
+    [Fact]
+    public void ReconfiguringOffersTheJoinAgain()
+    {
+        using var step = new DomainJoinStepViewModel();
+        step.Configure(OneDomain(DomainJoinMode.Automatic));
+        step.SelectedDomainChoice = step.DomainChoices[^1];
+
+        step.Configure(TwoDomains(DomainJoinMode.Automatic));
+
+        Assert.False(step.IsJoinDeclined);
+        Assert.Equal("corp", step.SelectedDomainChoice?.Domain?.Id);
+    }
+
+    [Fact]
+    public void TheListControlClearingItsSelectionIsNotAChoice()
+    {
+        using var step = new DomainJoinStepViewModel();
+        step.Configure(TwoDomains(DomainJoinMode.Automatic));
+
+        step.SelectedDomainChoice = null;
+
+        Assert.False(step.IsJoinDeclined);
+        Assert.Equal("corp", step.SelectedDomainChoice?.Domain?.Id);
+    }
+
+    [Fact]
+    public void NoChoiceIsOfferedWhenTheMediaDoesNotConfigureTheJoin()
+    {
+        using var step = new DomainJoinStepViewModel();
+        step.Configure(new());
+
+        Assert.Empty(step.DomainChoices);
+        Assert.Null(step.SelectedDomainChoice);
+        Assert.False(step.HasInput);
     }
 
     [Fact]
@@ -63,15 +223,15 @@ public sealed class DomainJoinStepViewModelTests
     }
 
     [Theory]
-    [InlineData(1, false)]
-    [InlineData(2, true)]
-    public void DomainListIsOfferedWhenSeveralDomainsAreListed(int domainCount, bool expected)
+    [InlineData(1)]
+    [InlineData(2)]
+    public void ListedDomainsAreShownInTheListAndNeverTyped(int domainCount)
     {
         using var step = new DomainJoinStepViewModel();
-        step.Configure(domainCount == 1 ? OneDomain(DomainJoinMode.Interactive) : TwoDomains(DomainJoinMode.Interactive));
+        step.Configure(Settings(domainCount, DomainJoinMode.Interactive));
 
-        Assert.Equal(expected, step.IsDomainListVisible);
-        Assert.True(step.IsDomainReadOnly);
+        Assert.True(step.IsDomainListVisible);
+        Assert.False(step.IsDomainTextVisible);
         Assert.Equal("corp.test", step.DomainName);
     }
 
@@ -142,22 +302,11 @@ public sealed class DomainJoinStepViewModelTests
     }
 
     [Fact]
-    public void InteractiveWithOneListedDomainShowsItReadOnly()
-    {
-        using var step = new DomainJoinStepViewModel();
-        step.Configure(OneDomain(DomainJoinMode.Interactive));
-
-        Assert.True(step.IsDomainTextVisible);
-        Assert.True(step.IsDomainReadOnly);
-        Assert.False(step.IsDomainInvalid);
-    }
-
-    [Fact]
     public void InteractiveWithoutListedDomainsIsValidOnlyWithDomainQualifiedAccountAndPassword()
     {
         using var step = new DomainJoinStepViewModel();
         step.Configure(new() { IsEnabled = true });
-        Assert.False(step.IsDomainReadOnly);
+        Assert.True(step.IsDomainTextVisible);
         Assert.False(step.IsValid);
 
         step.DomainName = "corp.test";
@@ -343,6 +492,10 @@ public sealed class DomainJoinStepViewModelTests
     }
 
     private static DeployDomainJoinSettings TwoDomains(DomainJoinMode mode) => DomainJoinPreparationServiceTests.TwoDomains(mode, new byte[32]);
+
+    /// <summary>Returns a media configuration that lists no domain (Interactive only), one domain or two.</summary>
+    private static DeployDomainJoinSettings Settings(int domainCount, DomainJoinMode mode) =>
+        domainCount switch { 0 => new() { IsEnabled = true }, 1 => OneDomain(mode), _ => TwoDomains(mode) };
 
     private static DeployDomainJoinSettings OneDomain(DomainJoinMode mode)
     {

@@ -381,6 +381,9 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Inserisci un nome distinto di OU valido in questo dominio, oppure lascia il campo vuoto.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Non aggiungere a un dominio</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Nome di dominio</value>
   </data>
@@ -389,6 +392,9 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>I dati per l'aggiunta al dominio sono mancanti o non validi. La distribuzione non è iniziata.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Aggiungi a un dominio</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Nome distinto della OU (facoltativo)</value>

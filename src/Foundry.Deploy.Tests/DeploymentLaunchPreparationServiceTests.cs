@@ -178,6 +178,50 @@ public sealed class DeploymentLaunchPreparationServiceTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
+    public void DeclinedJoinStartsTheDeploymentWithoutPreparingCredentialsOrAJoinTarget(bool isDryRun)
+    {
+        var shell = new FakeApplicationShellService();
+        var service = new DeploymentLaunchPreparationService(shell, domainJoinPreparationService: new ForbiddenPreparation());
+        using DomainJoinSubmission submission = DomainJoinSubmission.Declined();
+        using DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(isDryRun ? null : CreateDisk(), isDryRun: isDryRun), new() { IsEnabled = true }, submission);
+        Assert.True(result.IsReadyToStart);
+        Assert.Null(result.TakeDomainJoinInput());
+        Assert.Null(result.Context!.DomainJoinIntent);
+        Assert.Equal(DomainJoinDeploymentDisposition.Declined, result.Context.DomainJoinRequest!.Disposition);
+        Assert.Equal(DomainJoinDomainSource.None, result.Context.DomainJoinRequest.DomainSource);
+        Assert.Equal(DomainJoinOuSource.None, result.Context.DomainJoinRequest.OuSource);
+        Assert.True(DomainJoinPreparedInput.IsValidFor(result.Context, null));
+        // Declining is the technician's own choice, so the erase confirmation says nothing about the join.
+        if (!isDryRun) Assert.DoesNotContain(Foundry.Deploy.Services.Localization.LocalizationText.GetString("DomainJoin.UnsupportedEdition"), shell.LastConfirmationMessage);
+    }
+
+    [Fact]
+    public void DeclinedJoinNeverAcceptsPreparedCredentials()
+    {
+        var service = new DeploymentLaunchPreparationService(new FakeApplicationShellService(), domainJoinPreparationService: new ForbiddenPreparation());
+        using DomainJoinSubmission submission = DomainJoinSubmission.Declined();
+        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), new() { IsEnabled = true }, submission);
+        using var input = new DomainJoinPreparedInput(new("corp.test", "CORP\\join"), "LAB-01", null, "secret".AsSpan());
+
+        Assert.False(DomainJoinPreparedInput.IsValidFor(result.Context!, input));
+    }
+
+    [Fact]
+    public void UnsupportedEditionIsReportedEvenWhenTheJoinWasDeclined()
+    {
+        var service = new DeploymentLaunchPreparationService(new FakeApplicationShellService(), domainJoinPreparationService: new ForbiddenPreparation());
+        DeploymentLaunchRequest request = CreateRequest(CreateDisk());
+        request = request with { SelectedOperatingSystem = (OperatingSystemCatalogItem)request.SelectedOperatingSystem! with { Edition = "Home" } };
+        using DomainJoinSubmission submission = DomainJoinSubmission.Declined();
+        using DeploymentLaunchPreparationResult result = service.Prepare(request, new() { IsEnabled = true }, submission);
+        Assert.True(result.IsReadyToStart);
+        Assert.Equal(DomainJoinDeploymentDisposition.UnsupportedEdition, result.Context!.DomainJoinRequest!.Disposition);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
     public void DryRunSimulatesTheJoinTargetWithoutPreparingCredentials(bool hasWizardInput)
     {
         var service = new DeploymentLaunchPreparationService(new FakeApplicationShellService(), domainJoinPreparationService: new ForbiddenPreparation());

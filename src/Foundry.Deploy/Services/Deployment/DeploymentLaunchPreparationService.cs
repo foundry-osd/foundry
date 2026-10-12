@@ -57,8 +57,11 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
         if (requestedDomainJoin && (request.IsAutopilotEnabled ||
             !DomainJoinConfigurationValidator.ValidateMetadata(DomainJoinPreparationService.ToAuthored(domainJoin!)).IsValid))
             return DeploymentLaunchPreparationResult.Failure(request.TargetComputerName, LocalizationText.GetString("DomainJoin.Invalid"));
-        bool requiresDomainJoin = DomainJoinPreparationService.IsRequiredFor(domainJoin, request.SelectedOperatingSystem);
-        bool unsupportedDomainJoin = requestedDomainJoin && !requiresDomainJoin;
+        bool supportsDomainJoin = DomainJoinPreparationService.IsRequiredFor(domainJoin, request.SelectedOperatingSystem);
+        bool unsupportedDomainJoin = requestedDomainJoin && !supportsDomainJoin;
+        // The technician may deploy without the join the media configures; nothing of the join is then prepared.
+        bool declinedDomainJoin = supportsDomainJoin && domainJoinSubmission?.DeclinesJoin == true;
+        bool requiresDomainJoin = supportsDomainJoin && !declinedDomainJoin;
 
         string normalizedComputerName = ComputerNameRules.Normalize(request.TargetComputerName);
         if (!request.UsesCustomUnattend && !ComputerNameRules.IsValid(normalizedComputerName))
@@ -128,6 +131,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
         if (requestedDomainJoin)
         {
             DomainJoinDeploymentDisposition disposition = unsupportedDomainJoin ? DomainJoinDeploymentDisposition.UnsupportedEdition :
+                declinedDomainJoin ? DomainJoinDeploymentDisposition.Declined :
                 request.IsDryRun ? DomainJoinDeploymentDisposition.DryRun : DomainJoinDeploymentDisposition.Ready;
             domainRequest = new(disposition, domainJoin!.Mode);
             if (disposition == DomainJoinDeploymentDisposition.Ready)

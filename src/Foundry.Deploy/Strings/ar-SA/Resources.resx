@@ -381,6 +381,9 @@
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>أدخل اسماً مميزاً صالحاً لوحدة OU في هذا النطاق، أو اترك الحقل فارغاً.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>عدم الانضمام إلى نطاق</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>اسم النطاق</value>
   </data>
@@ -389,6 +392,9 @@
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>معلومات الانضمام إلى النطاق مفقودة أو غير صالحة. لم يبدأ النشر.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>الانضمام إلى نطاق</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>الاسم المميز لـ OU (اختياري)</value>

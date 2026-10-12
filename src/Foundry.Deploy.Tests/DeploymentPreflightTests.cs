@@ -36,6 +36,18 @@ public sealed class DeploymentPreflightTests
         Assert.Contains(fixture.Progress.First().Plan!, entry => entry.Name == DeploymentStepNames.StagePreOobeCustomization);
     }
 
+    [Fact]
+    public async Task DeclinedJoinIsSkippedFromTheStartWithoutDomainStaging()
+    {
+        using var fixture = new PipelineFixture { Failure = "dead_url" };
+        fixture.DomainJoinRequest = new(Services.DomainJoin.DomainJoinDeploymentDisposition.Declined);
+        await fixture.RunOrchestratedAsync();
+        Assert.DoesNotContain(fixture.Progress.First().Plan!, entry => entry.Name == DeploymentStepNames.StagePreOobeCustomization);
+        Assert.Equal(DomainJoinExecutionStatus.SkippedByTechnician, fixture.Context!.RuntimeState.DomainJoinStatus);
+        Assert.Equal(DomainJoinSkipCode.DeclinedByTechnician, fixture.Context.RuntimeState.DomainJoinSkipCode);
+        Assert.False(PreOobeContentResolver.HasDomainTasks(fixture.Context.Request, fixture.Context.RuntimeState));
+    }
+
     [Theory]
     [InlineData(false, "Core", DomainJoinExecutionStatus.SkippedUnsupportedEdition)]
     [InlineData(true, "Professional", DomainJoinExecutionStatus.SkippedImageComposition)]

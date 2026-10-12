@@ -381,6 +381,9 @@
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
     <value>Укажите допустимое различающееся имя OU в этом домене или оставьте поле пустым.</value>
   </data>
+  <data name="DomainJoin.DoNotJoin" xml:space="preserve">
+    <value>Не присоединять к домену</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Имя домена</value>
   </data>
@@ -389,6 +392,9 @@
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Сведения для присоединения к домену отсутствуют или недопустимы. Развертывание не начато.</value>
+  </data>
+  <data name="DomainJoin.JoinDomain" xml:space="preserve">
+    <value>Присоединить к домену</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
     <value>Различающееся имя OU (необязательно)</value>

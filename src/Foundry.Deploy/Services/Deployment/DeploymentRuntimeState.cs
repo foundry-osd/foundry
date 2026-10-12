@@ -11,10 +11,13 @@ using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.Deplo
 namespace Foundry.Deploy.Services.Deployment;
 
 /// <summary>Tracks effective domain eligibility without modifying the technician's frozen request.</summary>
-public enum DomainJoinExecutionStatus { Disabled, Pending, Ready, SkippedUnsupportedEdition, SkippedImageComposition }
+public enum DomainJoinExecutionStatus { Disabled, Pending, Ready, SkippedUnsupportedEdition, SkippedImageComposition, SkippedByTechnician }
 
-/// <summary>Allowlisted reasons for a WinPE domain warning retained without a fabricated installed-Windows report.</summary>
-public enum DomainJoinSkipCode { UnsupportedEdition, EmbeddedDomainJoin, AmbiguousComputerName, ComputerNameMismatch }
+/// <summary>
+/// Allowlisted reasons for a WinPE domain warning retained without a fabricated installed-Windows report.
+/// <see cref="DeclinedByTechnician"/> is not a warning: the technician chose to deploy without the join.
+/// </summary>
+public enum DomainJoinSkipCode { UnsupportedEdition, EmbeddedDomainJoin, AmbiguousComputerName, ComputerNameMismatch, DeclinedByTechnician }
 
 /// <summary>
 /// Captures mutable deployment state persisted to logs and reused across deployment steps.
