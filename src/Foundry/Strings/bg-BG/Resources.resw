@@ -3325,7 +3325,7 @@
     <value>ARM64 медия изисква GPT стил на дял.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot е активиран, но не е избран валиден профил по подразбиране.</value>
+    <value>Windows Autopilot е активиран, но неговата конфигурация не е готова.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Предоставянето на връзка не е готово.</value>

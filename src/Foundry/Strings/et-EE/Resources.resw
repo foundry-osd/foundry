@@ -3325,7 +3325,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>ARM64 meedium nõuab GPT partitsioonistiili.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot on lubatud, kuid kehtivat vaikeprofiili pole valitud.</value>
+    <value>Windows Autopilot on lubatud, kuid selle konfiguratsioon pole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Ühenduse loomine pole valmis.</value>

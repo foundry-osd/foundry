@@ -3325,7 +3325,7 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Mediji ARM64 zahtevajo slog particije GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot je omogočen, vendar ni izbran veljaven privzeti profil.</value>
+    <value>Windows Autopilot je omogočen, vendar njegova konfiguracija ni pripravljena.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Omogočanje povezave ni pripravljeno.</value>

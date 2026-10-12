@@ -3325,7 +3325,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>ARM64-Medien erfordern den Partitionsstil GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot ist aktiviert, aber es ist kein gültiges Standardprofil ausgewählt.</value>
+    <value>Windows Autopilot ist aktiviert, aber die Konfiguration ist nicht bereit.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Die Connect-Bereitstellung ist nicht bereit.</value>

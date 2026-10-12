@@ -3325,7 +3325,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>ARM64-media vaatii GPT-osion tyylin.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot on käytössä, mutta kelvollista oletusprofiilia ei ole valittu.</value>
+    <value>Windows Autopilot on käytössä, mutta sen määritys ei ole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Yhteyden hallinta ei ole valmis.</value>

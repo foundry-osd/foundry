@@ -3325,7 +3325,7 @@
     <value>تتطلب وسائط ARM64 نمط القسم GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>تم تمكين Autopilot ولكن لم يتم تحديد ملف تعريف افتراضي صالح.</value>
+    <value>تم تمكين Windows Autopilot ولكن تكوينه غير جاهز.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>توفير الاتصال غير جاهز.</value>

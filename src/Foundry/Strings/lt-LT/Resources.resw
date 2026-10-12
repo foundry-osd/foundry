@@ -3325,7 +3325,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>ARM64 laikmenai reikalingas GPT skaidinio stilius.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot įjungtas, bet nepasirinktas tinkamas numatytasis profilis.</value>
+    <value>Windows Autopilot įjungtas, bet jo konfigūracija neparengta.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Prisijungimo teikimas neparengtas.</value>

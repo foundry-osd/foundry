@@ -3325,7 +3325,7 @@
     <value>ARM64 媒體需要 GPT 分割區樣式。</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot 已啟用，但未選擇有效的預設設定檔。</value>
+    <value>Windows Autopilot 已啟用，但其配置尚未準備好。</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>連接配置尚未準備好。</value>

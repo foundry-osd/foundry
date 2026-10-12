@@ -3325,7 +3325,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Media ARM64 necesită stilul de partiție GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot este activat, dar nu este selectat niciun profil implicit valid.</value>
+    <value>Windows Autopilot este activat, dar configurarea acestuia nu este pregătită.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Aprovizionarea conexiunii nu este gata.</value>

@@ -3325,7 +3325,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>ARM64 미디어에는 GPT 파티션 스타일이 필요합니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot이 활성화되었지만 유효한 기본 프로필이 선택되지 않았습니다.</value>
+    <value>Windows Autopilot이 활성화되었지만 구성이 준비되지 않았습니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Connect 프로비저닝이 준비되지 않았습니다.</value>
