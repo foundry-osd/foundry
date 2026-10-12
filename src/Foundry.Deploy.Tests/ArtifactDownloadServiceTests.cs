@@ -313,7 +313,7 @@ public sealed class ArtifactDownloadServiceTests
             NullLogger<ArtifactDownloadService>.Instance,
             new HttpClient(new StaticHttpMessageHandler(downloadedContent)));
 
-        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+        ArtifactHashMismatchException exception = await Assert.ThrowsAsync<ArtifactHashMismatchException>(() =>
             service.DownloadAsync(
                 "https://example.test/driver.cab",
                 destinationPath,
@@ -367,7 +367,7 @@ public sealed class ArtifactDownloadServiceTests
         using var client = new HttpClient(new StaticHttpMessageHandler(content));
         var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
 
-        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+        ArtifactHashMismatchException exception = await Assert.ThrowsAsync<ArtifactHashMismatchException>(() =>
             service.DownloadAsync("https://example.test/driver.cab", destinationPath, expectedHash,
                 expectedSizeBytes: content.Length, cancellationToken: TestContext.Current.CancellationToken));
 

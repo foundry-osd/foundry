@@ -24,7 +24,7 @@ public sealed class StageCustomUnattendStep : DeploymentStepBase
         try
         {
             await context.UnattendSnapshot.StageAsync(context.RuntimeState.TargetWindowsPartitionRoot, cancellationToken).ConfigureAwait(false);
-            return DeploymentStepResult.Succeeded("Custom answer file staged unchanged. Foundry does not merge or add settings.");
+            return DeploymentStepResult.Succeeded("Custom answer file staged.");
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException)
         {

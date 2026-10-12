@@ -211,7 +211,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         {
             return NetworkBootstrapResult.Failed(
                 "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.",
-                CreateHandledFailure("unsupported", "wifi_runtime_not_supported"));
+                CreateHandledFailure("unsupported", NetworkBootstrapHandledFailure.WifiRuntimeNotSupportedCode));
         }
 
         string? profilePath = null;
@@ -470,7 +470,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         if (_configuration.Wifi.HasEnterpriseProfile && _configuration.Wifi.AllowRuntimeCredentials)
         {
             messages.Add("Runtime-entered Wi-Fi 802.1X credentials are not supported in this build. Use a provisioned enterprise profile template.");
-            AddHandledFailure(handledFailures, CreateHandledFailure("unsupported", "wifi_runtime_not_supported"));
+            AddHandledFailure(handledFailures, CreateHandledFailure("unsupported", NetworkBootstrapHandledFailure.WifiRuntimeNotSupportedCode));
         }
 
         return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);

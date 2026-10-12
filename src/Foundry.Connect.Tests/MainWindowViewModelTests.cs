@@ -203,6 +203,40 @@ public sealed class MainWindowViewModelTests
     }
 
     [Fact]
+    public async Task ConnectSelectedWifiAsync_WhenRuntimeSupportIsMissing_ShowsNotSupportedFeedback()
+    {
+        using MainWindowViewModel viewModel = CreateViewModel(
+            new RecordingTelemetryService(),
+            new QueueNetworkStatusService(CreateDisconnectedSnapshot()),
+            networkBootstrapService: new ConnectWifiNetworkResultNetworkBootstrapService(NetworkBootstrapResult.Failed(
+                "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.",
+                new NetworkBootstrapHandledFailure("network", "unsupported", "wifi_runtime_not_supported"))));
+        await viewModel.RefreshStatusCommand.ExecuteAsync(null);
+        viewModel.SelectedWifiNetwork = Assert.Single(viewModel.WifiNetworks);
+
+        await InvokeNonPublicAsync(viewModel, "ConnectSelectedWifiAsync");
+
+        Assert.Equal(viewModel.Strings["Wifi.ActionSelectedNotSupported"], viewModel.SelectedWifiActionFeedbackText);
+    }
+
+    [Fact]
+    public async Task ConnectSelectedWifiAsync_WhenAnotherFailureIsReturned_ShowsGenericConnectFailure()
+    {
+        using MainWindowViewModel viewModel = CreateViewModel(
+            new RecordingTelemetryService(),
+            new QueueNetworkStatusService(CreateDisconnectedSnapshot()),
+            networkBootstrapService: new ConnectWifiNetworkResultNetworkBootstrapService(NetworkBootstrapResult.Failed(
+                "Wi-Fi connection failed for 'Foundry': timeout",
+                new NetworkBootstrapHandledFailure("network", "timeout", "wifi_connect_timeout"))));
+        await viewModel.RefreshStatusCommand.ExecuteAsync(null);
+        viewModel.SelectedWifiNetwork = Assert.Single(viewModel.WifiNetworks);
+
+        await InvokeNonPublicAsync(viewModel, "ConnectSelectedWifiAsync");
+
+        Assert.Equal(viewModel.Strings["Wifi.ActionConnectFailed"], viewModel.SelectedWifiActionFeedbackText);
+    }
+
+    [Fact]
     public async Task InitializeAsync_WhenProvisionedSettingsReturnWiredHandledFailure_LogsStructuredWiredFailure()
     {
         var telemetry = new RecordingTelemetryService();
@@ -637,6 +671,22 @@ public sealed class MainWindowViewModelTests
             string authentication,
             string? passphrase,
             CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
+
+        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
+    }
+
+    private sealed class ConnectWifiNetworkResultNetworkBootstrapService(NetworkBootstrapResult connectWifiNetworkResult) : INetworkBootstrapService
+    {
+        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
+
+        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
+
+        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
+            string ssid,
+            string? ssidHex,
+            string authentication,
+            string? passphrase,
+            CancellationToken cancellationToken) => Task.FromResult(connectWifiNetworkResult);
 
         public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
     }
