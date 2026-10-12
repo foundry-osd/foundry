@@ -377,7 +377,7 @@ Sous licence MIT.</value>
     <value>Copier le mot de passe</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Enregistrez maintenant ce fichier PFX et ce mot de passe dans un emplacement sécurisé. Foundry ne stocke pas le mot de passe et ne pourra plus l’afficher après la fermeture de cette fenêtre. Ces deux éléments seront nécessaires pour générer le média de démarrage avec envoi du hash matériel.</value>
+    <value>Enregistrez maintenant ce fichier PFX et ce mot de passe dans un emplacement sécurisé. Foundry n’enregistre le mot de passe avec votre configuration sur ce PC que si « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres ». Ces deux éléments seront nécessaires pour générer le média de démarrage avec envoi du hash matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Mot de passe copié.</value>
@@ -2134,12 +2134,6 @@ Sous licence MIT.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Langue</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Lancer automatiquement Foundry OSD lorsque vous ouvrez une session Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Lancer au démarrage</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Options de démarrage.</value>
   </data>
@@ -2588,7 +2582,7 @@ Sous licence MIT.</value>
     <value>Provisionner un modèle de profil Wi-Fi entreprise</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Les phrases secrètes Wi-Fi personnelles restent transitoires dans l'application et ne sont pas persistées dans la configuration Foundry.</value>
+    <value>La phrase secrète n’est enregistrée avec votre configuration sur ce PC que si « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres ». Sinon, elle n’est pas enregistrée et doit être saisie à nouveau, par exemple après le redémarrage de Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importe le profil Wi-Fi géré par Foundry dans Windows avant l’OOBE afin de conserver la connectivité de déploiement après WinPE.</value>
@@ -3325,7 +3319,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Le média ARM64 exige le style de partition GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot est activé mais aucun profil par défaut valide n'est sélectionné.</value>
+    <value>Windows Autopilot est activé mais sa configuration n'est pas prête.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Le provisionnement Connect n'est pas prêt.</value>
@@ -3394,13 +3388,31 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>La création USB est bloquée</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Cela effacera le disque {0} : {1} ({2}). Continuez uniquement s’il s’agit de la clé USB prévue.</value>
+    <value>Cela effacera le disque {0} : {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Ce disque ne contient aucune partition.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formater et créer l'USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formater la cible USB</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows ne peut pas lire les volumes de ce disque. Il peut quand même contenir des données.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), {3} utilisés sur {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Sans nom</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Volumes sur ce disque :</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Tout ce qui se trouve sur ce disque sera perdu. Continuez uniquement s’il s’agit du disque USB prévu.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Créer l'USB</value>
@@ -3966,7 +3978,7 @@ L’application de la mise à jour redémarre Foundry OSD.</value>
     <value>Foundry préserve votre fichier d’origine et ajoute sa commande de post-installation requise à la copie de déploiement. Vous restez responsable de vos paramètres et commandes personnalisés.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Les fichiers personnalisés nécessitent la protection du média de déploiement par mot de passe dans la configuration générale. Le XML peut contenir des identifiants ou des scripts. Le catalogue ne conserve que les références aux sources ; l’image de démarrage contient des copies chiffrées.</value>
+    <value>Les fichiers personnalisés nécessitent la protection du média de déploiement par mot de passe dans la configuration générale. Le XML peut contenir des identifiants ou des scripts. Foundry ne conserve une copie de chaque fichier avec votre configuration sur ce PC que si « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres » ; sinon, il n’enregistre que le chemin. L’image de démarrage contient des copies chiffrées.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Activez la protection du média de déploiement par mot de passe dans la configuration générale pour utiliser des fichiers de réponses personnalisés.</value>

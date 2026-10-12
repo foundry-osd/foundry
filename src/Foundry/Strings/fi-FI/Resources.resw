@@ -377,7 +377,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kopioi salasana</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Tallenna tämä PFX-tiedosto ja salasana nyt turvalliseen paikkaan. Foundry ei tallenna salasanaa eikä voi näyttää sitä uudelleen tämän valintaikkunan sulkemisen jälkeen. Tarvitset molemmat arvot käynnistysmedian luomiseen laitteiston hash-latausta varten.</value>
+    <value>Tallenna tämä PFX-tiedosto ja salasana nyt turvalliseen paikkaan. Foundry tallentaa salasanan kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”. Tarvitset molemmat arvot käynnistysmedian luomiseen laitteiston hash-latausta varten.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Salasana kopioitu.</value>
@@ -2134,12 +2134,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Kieli</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Käynnistä Foundry OSD automaattisesti, kun kirjaudut sisään Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Suorita käynnistyksen yhteydessä</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Käynnistysvaihtoehdot.</value>
   </data>
@@ -2588,7 +2582,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Luo yrityksen Wi-Fi profiilimalli</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Henkilökohtaiset Wi-Fi-salalauseet pysyvät ohimenevinä luontisovelluksessa, eivätkä ne säily Foundry-kokoonpanossa.</value>
+    <value>Tunnuslause tallennetaan kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”. Muuten sitä ei tallenneta, ja se on annettava uudelleen, esimerkiksi Foundry OSD:n uudelleenkäynnistyksen jälkeen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Tuo Foundryn hallitseman Wi-Fi-profiilin Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys säilyy WinPE:n jälkeen.</value>
@@ -3325,7 +3319,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>ARM64-media vaatii GPT-osion tyylin.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot on käytössä, mutta kelvollista oletusprofiilia ei ole valittu.</value>
+    <value>Windows Autopilot on käytössä, mutta sen määritys ei ole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Yhteyden hallinta ei ole valmis.</value>
@@ -3394,13 +3388,31 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>USB luominen on estetty</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Tämä tyhjentää levyn {0}: {1} ({2}). Jatka vain, jos tämä on tarkoitettu USB-asema.</value>
+    <value>Tämä tyhjentää levyn {0}: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Tällä levyllä ei ole osiota.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Muotoile ja luo USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Muotoile USB kohde</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows ei voi lukea tämän levyn taltioita. Levyllä voi silti olla tietoja.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), käytetty {3} / {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Ei nimeä</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Tämän levyn taltiot:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Kaikki tämän levyn tiedot menetetään. Jatka vain, jos tämä on tarkoitettu USB-levy.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Luo USB</value>
@@ -3966,7 +3978,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Foundry säilyttää alkuperäisen tiedostosi ja lisää tarvittavan asennuksen jälkeisen komennon käyttöönottokopioon. Olet edelleen vastuussa mukautetuista asetuksistasi ja komennoistasi.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Mukautetut tiedostot edellyttävät käyttöönottotietovälineen salasanasuojausta yleisissä asetuksissa. XML voi sisältää tunnistetietoja tai komentosarjoja. Luettelo tallentaa vain lähdeviitteet; käynnistysnäköistiedosto sisältää salatut kopiot.</value>
+    <value>Mukautetut tiedostot edellyttävät käyttöönottotietovälineen salasanasuojausta yleisissä asetuksissa. XML voi sisältää tunnistetietoja tai komentosarjoja. Foundry säilyttää kopion jokaisesta tiedostosta kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”; muussa tapauksessa se tallentaa vain polun. Käynnistysnäköistiedosto sisältää salatut kopiot.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ota käyttöön käyttöönottotietovälineen salasanasuojaus yleisissä asetuksissa, jotta voit käyttää mukautettuja vastaustiedostoja.</value>

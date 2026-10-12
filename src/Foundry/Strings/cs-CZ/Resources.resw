@@ -377,7 +377,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zkopírujte heslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Uložte tento soubor PFX a heslo na bezpečné místo. Foundry neukládá heslo a nemůže je znovu zobrazit po zavření tohoto dialogu. K vygenerování spouštěcího média pro nahrání hardwarového hash budete potřebovat obě hodnoty.</value>
+    <value>Uložte tento soubor PFX a heslo na bezpečné místo. Foundry ukládá heslo s vaší konfigurací na tomto počítači pouze v případě, že je v části „Zálohování a synchronizace nastavení“ zapnuta možnost „Zapamatovat hesla“. K vygenerování spouštěcího média pro nahrání hardwarového hash budete potřebovat obě hodnoty.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Heslo zkopírováno.</value>
@@ -2134,12 +2134,6 @@ Licencováno pod licencí MIT.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Jazyk</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Automaticky spustit Foundry OSD, když se přihlásíte do Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Spustit při startu</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Možnosti spouštění.</value>
   </data>
@@ -2588,7 +2582,7 @@ Licencováno pod licencí MIT.</value>
     <value>Poskytněte podnikovou šablonu profilu Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Osobní přístupové fráze Wi-Fi zůstávají ve vývojové aplikaci přechodné a nejsou zachovány v konfiguraci Foundry.</value>
+    <value>Přístupová fráze se uloží s vaší konfigurací na tomto počítači pouze v případě, že je v části „Zálohování a synchronizace nastavení“ zapnuta možnost „Zapamatovat hesla“. Jinak se neukládá a je nutné ji zadat znovu, například po restartu Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuje profil Wi-Fi spravovaný Foundry do Windows před OOBE, aby se po WinPE zachovalo připojení potřebné k nasazení.</value>
@@ -3325,7 +3319,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Média ARM64 vyžadují styl oddílu GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot je povolen, ale není vybrán žádný platný výchozí profil.</value>
+    <value>Windows Autopilot je povolen, ale jeho konfigurace není připravena.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Zřizování připojení není připraveno.</value>
@@ -3394,13 +3388,31 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Vytváření USB je blokováno</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Tím se vymaže disk {0}: {1} ({2}). Pokračujte pouze v případě, že se jedná o zamýšlenou jednotku USB.</value>
+    <value>Tím se vymaže disk {0}: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Tento disk nemá žádný oddíl.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Naformátujte a vytvořte USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formát USB cíl</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Systém Windows nemůže přečíst svazky na tomto disku. Může stále obsahovat data.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), využito {3} z {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Bez názvu</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Svazky na tomto disku:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Všechna data na tomto disku budou ztracena. Pokračujte pouze v případě, že se jedná o zamýšlený disk USB.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Vytvořit USB</value>
@@ -3966,7 +3978,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Foundry zachová původní soubor a přidá svůj požadovaný příkaz pro fázi po instalaci do kopie pro nasazení. Za vlastní nastavení a příkazy nadále odpovídáte vy.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Vlastní soubory vyžadují ochranu média pro nasazení heslem v obecné konfiguraci. XML může obsahovat přihlašovací údaje nebo skripty. Katalog ukládá pouze odkazy na zdroje. Spouštěcí bitová kopie obsahuje zašifrované kopie.</value>
+    <value>Vlastní soubory vyžadují ochranu média pro nasazení heslem v obecné konfiguraci. XML může obsahovat přihlašovací údaje nebo skripty. Foundry uchovává kopii každého souboru s vaší konfigurací na tomto počítači pouze v případě, že je v části „Zálohování a synchronizace nastavení“ zapnuta možnost „Zapamatovat hesla“; jinak ukládá pouze cestu. Spouštěcí bitová kopie obsahuje zašifrované kopie.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Chcete-li používat vlastní soubory odpovědí, povolte v obecné konfiguraci ochranu média pro nasazení heslem.</value>

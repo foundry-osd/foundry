@@ -377,7 +377,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Kopeeri parool</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Salvestage see PFX-fail ja parool nüüd turvalisse kohta. Foundry ei salvesta parooli ega saa seda pärast selle dialoogi sulgemist uuesti näidata. Riistvara räsi üleslaadimiseks alglaadimismeediumi loomiseks vajate mõlemat väärtust.</value>
+    <value>Salvestage see PFX-fail ja parool nüüd turvalisse kohta. Foundry salvestab parooli koos teie konfiguratsiooniga sellel arvutil ainult siis, kui „Jäta paroolid meelde“ on jaotises „Sätete varundamine ja sünkroonimine“ sisse lülitatud. Riistvara räsi üleslaadimiseks alglaadimismeediumi loomiseks vajate mõlemat väärtust.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parool kopeeritud.</value>
@@ -2134,12 +2134,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Keel</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Käivitage automaatselt Foundry OSD, kui logite sisse aadressile Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Käivitage käivitamisel</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Alglaadimisvalikud.</value>
   </data>
@@ -2588,7 +2582,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Looge ettevõtte Wi-Fi profiili mall</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Isiklikud Wi-Fi paroolid jäävad loomisrakenduses mööduvateks ja neid ei säilitata Foundry konfiguratsioonis.</value>
+    <value>Parool salvestatakse koos teie konfiguratsiooniga sellel arvutil ainult siis, kui „Jäta paroolid meelde“ on jaotises „Sätete varundamine ja sünkroonimine“ sisse lülitatud. Vastasel juhul seda ei salvestata ja see tuleb uuesti sisestada, näiteks pärast Foundry OSD taaskäivitamist.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Impordib Foundry hallatava Wi-Fi profiili Windowsisse enne OOBE-d, et juurutuse ühenduvus säiliks pärast WinPE-d.</value>
@@ -3325,7 +3319,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>ARM64 meedium nõuab GPT partitsioonistiili.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot on lubatud, kuid kehtivat vaikeprofiili pole valitud.</value>
+    <value>Windows Autopilot on lubatud, kuid selle konfiguratsioon pole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Ühenduse loomine pole valmis.</value>
@@ -3394,13 +3388,31 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>USB loomine on blokeeritud</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>See kustutab ketta {0}: {1} ({2}). Jätkake ainult siis, kui see on mõeldud USB-draiv.</value>
+    <value>See kustutab ketta {0}: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Sellel kettal pole ühtegi partitsiooni.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Vorminda ja loo USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Vorming USB sihtmärk</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows ei saa selle ketta köiteid lugeda. Sellel võib siiski olla andmeid.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), kasutatud {3} / {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Nimeta</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Selle ketta köited:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Kõik sellel kettal läheb kaotsi. Jätkake ainult siis, kui see on ettenähtud USB-ketas.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Loo USB</value>
@@ -3966,7 +3978,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Foundry säilitab algse faili ja lisab juurutuskoopiasse oma nõutava installimisjärgse käsu. Vastutate endiselt oma kohandatud sätete ja käskude eest.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Kohandatud failid nõuavad üldkonfiguratsioonis juurutusandmekandja paroolikaitset. XML võib sisaldada identimisteavet või skripte. Kataloog salvestab ainult allikaviited; alglaadimistõmmis sisaldab krüptitud koopiaid.</value>
+    <value>Kohandatud failid nõuavad üldkonfiguratsioonis juurutusandmekandja paroolikaitset. XML võib sisaldada identimisteavet või skripte. Foundry säilitab iga faili koopia koos teie konfiguratsiooniga sellel arvutil ainult siis, kui „Jäta paroolid meelde“ on jaotises „Sätete varundamine ja sünkroonimine“ sisse lülitatud; vastasel juhul salvestab ainult tee. Alglaadimistõmmis sisaldab krüptitud koopiaid.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Kohandatud vastusefailide kasutamiseks lubage üldkonfiguratsioonis juurutusandmekandja paroolikaitse.</value>

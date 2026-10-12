@@ -377,7 +377,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Kopier passord</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Lagre denne PFX-filen og passordet nå på et sikkert sted. Foundry lagrer ikke passordet og kan ikke vise det igjen etter at denne dialogboksen lukkes. Du trenger begge verdiene for å generere oppstartsmedier for maskinvarehash-opplasting.</value>
+    <value>Lagre denne PFX-filen og passordet nå på et sikkert sted. Foundry lagrer bare passordet sammen med konfigurasjonen din på denne PC-en når «Husk passord» er slått på i «Sikkerhetskopiering og synkronisering av innstillinger». Du trenger begge verdiene for å generere oppstartsmedier for maskinvarehash-opplasting.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Passord kopiert.</value>
@@ -2134,12 +2134,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Språk</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Start Foundry OSD automatisk når du logger på Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Kjør ved oppstart</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Oppstartsalternativer.</value>
   </data>
@@ -2588,7 +2582,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Gi en bedrifts Wi-Fi profilmal</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Personlige Wi-Fi passordfraser forblir forbigående i forfatterappen og blir ikke bevart i Foundry-konfigurasjonen.</value>
+    <value>Passordfrasen lagres med konfigurasjonen din på denne PC-en bare når «Husk passord» er slått på i «Sikkerhetskopiering og synkronisering av innstillinger». Ellers lagres den ikke og må skrives inn på nytt, for eksempel etter at du har startet Foundry OSD på nytt.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importerer Wi-Fi-profilen som administreres av Foundry, til Windows før OOBE for å bevare utrullingstilkoblingen etter WinPE.</value>
@@ -3325,7 +3319,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>ARM64-medier krever GPT partisjonsstil.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot er aktivert, men ingen gyldig standardprofil er valgt.</value>
+    <value>Windows Autopilot er aktivert, men konfigurasjonen er ikke klar.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Connect-klargjøring er ikke klar.</value>
@@ -3394,13 +3388,31 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>USB opprettelse er blokkert</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Dette vil slette disken {0}: {1} ({2}). Fortsett bare hvis dette er den tiltenkte USB-stasjonen.</value>
+    <value>Dette vil slette disken {0}: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Denne disken har ingen partisjoner.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formater og lag USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formater USB mål</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows kan ikke lese volumene på denne disken. Den kan fortsatt inneholde data.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), {3} brukt av {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Uten navn</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Volumer på denne disken:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Alt på denne disken går tapt. Fortsett bare hvis dette er den tiltenkte USB-disken.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Opprett USB</value>
@@ -3966,7 +3978,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Foundry bevarer originalfilen din og legger til den påkrevde kommandoen for etter installasjonen i distribusjonskopien. Du er fortsatt ansvarlig for dine egendefinerte innstillinger og kommandoer.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Egendefinerte filer krever passordbeskyttelse av distribusjonsmediet i den generelle konfigurasjonen. XML kan inneholde påloggingsinformasjon eller skript. Katalogen lagrer bare kildereferanser. Oppstartsavbildningen inneholder krypterte kopier.</value>
+    <value>Egendefinerte filer krever passordbeskyttelse av distribusjonsmediet i den generelle konfigurasjonen. XML kan inneholde påloggingsinformasjon eller skript. Foundry beholder en kopi av hver fil sammen med konfigurasjonen din på denne PC-en bare når «Husk passord» er slått på i «Sikkerhetskopiering og synkronisering av innstillinger». Ellers lagres bare banen. Oppstartsavbildningen inneholder krypterte kopier.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktiver passordbeskyttelse av distribusjonsmediet i den generelle konfigurasjonen for å bruke egendefinerte svarfiler.</value>

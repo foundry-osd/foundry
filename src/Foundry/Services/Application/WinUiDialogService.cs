@@ -46,6 +46,14 @@ public sealed class WinUiDialogService : IDialogService
         if (request.IsPrimaryButtonAccent)
         {
             dialog.PrimaryButtonStyle = (Style)Microsoft.UI.Xaml.Application.Current.Resources["AccentButtonStyle"];
+        }
+
+        if (request.PreferCancel)
+        {
+            dialog.DefaultButton = ContentDialogButton.Close;
+        }
+        else if (request.IsPrimaryButtonAccent)
+        {
             dialog.DefaultButton = ContentDialogButton.Primary;
         }
 

@@ -78,6 +78,22 @@ public sealed class ApplyRecoveryDriversStepTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_WhenAppliedImageHasNoWinRe_SkipsWithoutServicing()
+    {
+        using var fixture = new DriverApplicationStepTestFixture();
+        DeploymentStepExecutionContext context = fixture.CreateContext();
+        context.RuntimeState.WinReConfigured = false;
+        context.RuntimeState.AppliedImageHasNoWinRe = true;
+        var step = new ApplyRecoveryDriversStep(fixture.DeploymentService);
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
+        Assert.Contains("winre.wim", result.Message, StringComparison.Ordinal);
+        Assert.Equal(0, fixture.DeploymentService.RecoveryApplyCount);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenDryRunAndRecoveryConfigured_SimulatesWithoutServicingRecovery()
     {
         using var fixture = new DriverApplicationStepTestFixture();

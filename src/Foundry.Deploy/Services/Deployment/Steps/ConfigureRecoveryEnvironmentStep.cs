@@ -32,13 +32,19 @@ public sealed class ConfigureRecoveryEnvironmentStep : DeploymentStepBase
         Directory.CreateDirectory(workingDirectory);
 
         context.EmitCurrentStepIndeterminate("Configuring recovery environment...", "Preparing Windows Recovery Environment...", DeploymentOperationNames.ConfigureRecovery);
-        await _windowsDeploymentService
+        bool configured = await _windowsDeploymentService
             .ConfigureRecoveryEnvironmentAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 context.RuntimeState.TargetRecoveryPartitionRoot,
                 workingDirectory,
                 cancellationToken)
             .ConfigureAwait(false);
+
+        if (!configured)
+        {
+            context.RuntimeState.AppliedImageHasNoWinRe = true;
+            return DeploymentStepResult.Skipped("The applied Windows image does not contain winre.wim.");
+        }
 
         context.RuntimeState.WinReConfigured = true;
         await context.AppendLogAsync(

@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.Storage;
+
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
@@ -32,6 +34,26 @@ public static class WinPeUsbDiskCandidateSelector
 
         return previous is null ? candidates.FirstOrDefault() : candidates.Count == 1 ? candidates[0] : null;
     }
+
+    /// <summary>
+    /// Finds the candidate that is still the very disk the user selected: one unique device for the selection's
+    /// unique id (or serial number) whose number, size, name and bus type are unchanged. Returns null when the
+    /// disk is gone, ambiguous or changed, so that nothing is shown or erased on the strength of an outdated
+    /// selection.
+    /// </summary>
+    public static WinPeUsbDiskCandidate? FindConfirmed(
+        IReadOnlyList<WinPeUsbDiskCandidate> candidates,
+        WinPeUsbDiskCandidate selected)
+    {
+        ArgumentNullException.ThrowIfNull(candidates);
+        ArgumentNullException.ThrowIfNull(selected);
+
+        DiskIdentity? resolved = ToIdentity(selected).Resolve(candidates.Select(ToIdentity));
+        return resolved is null ? null : candidates.First(candidate => candidate.DiskNumber == resolved.Number);
+    }
+
+    private static DiskIdentity ToIdentity(WinPeUsbDiskCandidate disk) => new(
+        disk.DiskNumber, disk.UniqueId, disk.SerialNumber, disk.FriendlyName, disk.BusType, disk.SizeBytes);
 
     private static WinPeUsbDiskCandidate? FindByStableIdentity(
         IReadOnlyList<WinPeUsbDiskCandidate> candidates,

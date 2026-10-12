@@ -377,7 +377,7 @@
     <value>Копіювати пароль</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Збережіть цей файл PFX і пароль зараз у безпечному місці. Foundry не зберігає пароль і не може показати його знову після закриття цього діалогового вікна. Вам знадобляться обидва значення, щоб створити завантажувальний носій для завантаження хешу апаратного забезпечення.</value>
+    <value>Збережіть цей файл PFX і пароль зараз у безпечному місці. Foundry зберігає пароль разом із конфігурацією на цьому комп’ютері, лише якщо в розділі «Резервне копіювання та синхронізація налаштувань» увімкнено параметр «Запам’ятати паролі». Вам знадобляться обидва значення, щоб створити завантажувальний носій для завантаження хешу апаратного забезпечення.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Пароль скопійовано.</value>
@@ -2134,12 +2134,6 @@
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Мова</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Автоматично запускати Foundry OSD, коли ви входите в Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Запускати при запуску</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Параметри завантаження.</value>
   </data>
@@ -2588,7 +2582,7 @@
     <value>Надання корпоративного шаблону профілю Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Особисті парольні фрази Wi-Fi залишаються тимчасовими в програмі розробки та не зберігаються в конфігурації Foundry.</value>
+    <value>Парольна фраза зберігається разом із конфігурацією на цьому комп’ютері, лише якщо в розділі «Резервне копіювання та синхронізація налаштувань» увімкнено параметр «Запам’ятати паролі». В іншому разі вона не зберігається, і її потрібно ввести знову, наприклад після перезапуску Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Імпортує керований Foundry профіль Wi-Fi до Windows перед OOBE, щоб зберегти підключення для розгортання після WinPE.</value>
@@ -3325,7 +3319,7 @@
     <value>Носії ARM64 вимагають стилю розділу GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot увімкнено, але дійсний профіль за замовчуванням не вибрано.</value>
+    <value>Windows Autopilot увімкнено, але його конфігурація не готова.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Ініціалізація підключення не готова.</value>
@@ -3394,13 +3388,31 @@
     <value>Створення USB заблоковано</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Це зітре диск {0}: {1} ({2}). Продовжуйте, лише якщо це призначений диск USB.</value>
+    <value>Це зітре диск {0}: {1} ({2}).</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>На цьому диску немає розділів.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Відформатуйте та створіть USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Формат USB target</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows не може прочитати томи на цьому диску. На ньому все ще можуть бути дані.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), використано {3} з {4}</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Без назви</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Томи на цьому диску:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Усе на цьому диску буде втрачено. Продовжуйте, лише якщо це призначений диск USB.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Створити USB</value>
@@ -3966,7 +3978,7 @@
     <value>Foundry зберігає оригінальний файл і додає обов’язкову команду етапу після інсталяції до копії для розгортання. Ви й надалі відповідаєте за власні параметри та команди.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Для власних файлів потрібен захист носія розгортання паролем у загальних налаштуваннях. XML може містити облікові дані або сценарії. Каталог зберігає лише посилання на джерела; завантажувальний образ містить зашифровані копії.</value>
+    <value>Для власних файлів потрібен захист носія розгортання паролем у загальних налаштуваннях. XML може містити облікові дані або сценарії. Foundry зберігає копію кожного файлу разом із конфігурацією на цьому комп’ютері, лише якщо в розділі «Резервне копіювання та синхронізація налаштувань» увімкнено параметр «Запам’ятати паролі»; в іншому разі зберігається тільки шлях. Завантажувальний образ містить зашифровані копії.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Щоб використовувати власні файли відповідей, увімкніть захист носія розгортання паролем у загальних налаштуваннях.</value>

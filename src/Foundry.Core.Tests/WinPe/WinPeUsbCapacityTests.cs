@@ -183,7 +183,7 @@ public sealed class WinPeUsbCapacityTests : IDisposable
             MutationAttempted |= script.Contains("Format-Volume", StringComparison.Ordinal);
             string output = layout
                 ? $$"""{"BootDriveLetter":"S:","CacheDriveLetter":"T:","BootPartitionSizeBytes":{{capacity}},"BootAllocationUnitSizeBytes":4096}"""
-                : """{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}""";
+                : """{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}""";
             return Task.FromResult(new WinPeProcessExecution { ExitCode = MutationAttempted ? 1 : 0, StandardOutput = output });
         }
         public Task<WinPeProcessExecution> RunCmdScriptAsync(string scriptPath, string scriptArguments, string workingDirectory, CancellationToken cancellationToken) => throw new NotSupportedException();

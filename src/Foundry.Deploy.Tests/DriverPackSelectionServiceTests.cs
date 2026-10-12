@@ -49,13 +49,15 @@ public sealed class DriverPackSelectionServiceTests
         Assert.Equal("Matched by hardware model/product and compatible OS release.", result.SelectionReason);
     }
 
-    [Fact]
-    public void SelectBest_WhenNoExactModelExists_FallsBackToNewestManufacturerCandidate()
+    [Theory]
+    [InlineData("HP")]
+    [InlineData("Unknown")]
+    public void SelectBest_WhenNoCandidateMatchesDeviceModel_ReturnsNoDriverPack(string manufacturer)
     {
         var service = new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance);
         HardwareProfile hardware = new()
         {
-            Manufacturer = "HP",
+            Manufacturer = manufacturer,
             Model = "EliteBook 845",
             Product = "EliteBook 845"
         };
@@ -66,26 +68,34 @@ public sealed class DriverPackSelectionServiceTests
             Architecture = "x64"
         };
 
-        DriverPackCatalogItem olderCandidate = CreateCatalogItem(
-            id: "older",
+        DriverPackCatalogItem hpOlder = CreateCatalogItem(
+            id: "hp-older",
             manufacturer: "HP",
             releaseId: "25H2",
             architecture: "x64",
             releaseDate: new DateTimeOffset(2026, 01, 01, 0, 0, 0, TimeSpan.Zero),
             modelNames: ["EliteBook 840"]);
 
-        DriverPackCatalogItem newerCandidate = CreateCatalogItem(
-            id: "newer",
+        DriverPackCatalogItem hpNewer = CreateCatalogItem(
+            id: "hp-newer",
             manufacturer: "HP",
             releaseId: "25H2",
             architecture: "x64",
             releaseDate: new DateTimeOffset(2026, 02, 01, 0, 0, 0, TimeSpan.Zero),
             modelNames: ["ProBook"]);
 
-        DriverPackSelectionResult result = service.SelectBest([olderCandidate, newerCandidate], hardware, operatingSystem);
+        DriverPackCatalogItem dell = CreateCatalogItem(
+            id: "dell",
+            manufacturer: "Dell",
+            releaseId: "25H2",
+            architecture: "x64",
+            releaseDate: new DateTimeOffset(2026, 03, 01, 0, 0, 0, TimeSpan.Zero),
+            modelNames: ["Latitude 5450"]);
 
-        Assert.Equal("newer", result.DriverPack?.Id);
-        Assert.Equal("No model exact match; selected newest compatible manufacturer candidate.", result.SelectionReason);
+        DriverPackSelectionResult result = service.SelectBest([hpOlder, hpNewer, dell], hardware, operatingSystem);
+
+        Assert.Null(result.DriverPack);
+        Assert.Equal("No driver pack matches the device model.", result.SelectionReason);
     }
 
     [Theory]

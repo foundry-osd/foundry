@@ -15,7 +15,7 @@ public sealed class WinPeUsbIdentityContinuityTests
     private static DiskIdentity ConfirmedIdentity => new(9, "UNIQUE", "SERIAL", "Safe USB", "USB", 64000000000);
 
     private const string SafeDiskJson = """
-        {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000,"IsOffline":true,"IsReadOnly":true,"PartitionStyle":"GPT"}
+        {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000,"IsOffline":true,"IsReadOnly":true,"PartitionStyle":"GPT"}
         """;
 
     [Theory]
@@ -40,7 +40,6 @@ public sealed class WinPeUsbIdentityContinuityTests
             SerialNumber = "SERIAL",
             UniqueId = "UNIQUE",
             BusType = "USB",
-            IsRemovable = true,
             Size = 64000000000
         };
 
@@ -70,7 +69,7 @@ public sealed class WinPeUsbIdentityContinuityTests
     {
         foreach (string boundary in new[] { "provision", "layout", "format" })
         {
-            foreach (string change in new[] { "duplicate", "missing", "renumbered", "serial", "unique", "capacity", "model", "bus", "system", "boot", "fixed", "unknown-system", "unknown-boot", "malformed-system", "malformed-boot" })
+            foreach (string change in new[] { "duplicate", "missing", "renumbered", "serial", "unique", "capacity", "model", "bus", "system", "boot", "unknown-system", "unknown-boot", "malformed-system", "malformed-boot" })
             {
                 yield return [boundary, change];
             }
@@ -93,7 +92,6 @@ public sealed class WinPeUsbIdentityContinuityTests
             "bus" => SafeDiskJson.Replace("\"BusType\":\"USB\"", "\"BusType\":\"SATA\"", StringComparison.Ordinal),
             "system" => SafeDiskJson.Replace("\"IsSystem\":false", "\"IsSystem\":true", StringComparison.Ordinal),
             "boot" => SafeDiskJson.Replace("\"IsBoot\":false", "\"IsBoot\":true", StringComparison.Ordinal),
-            "fixed" => SafeDiskJson.Replace("\"IsRemovable\":true", "\"IsRemovable\":false", StringComparison.Ordinal),
             "unknown-system" => SafeDiskJson.Replace("\"IsSystem\":false,", "", StringComparison.Ordinal),
             "unknown-boot" => SafeDiskJson.Replace("\"IsBoot\":false,", "", StringComparison.Ordinal),
             "malformed-system" => SafeDiskJson.Replace("\"IsSystem\":false", "\"IsSystem\":\"false\"", StringComparison.Ordinal),
@@ -104,22 +102,25 @@ public sealed class WinPeUsbIdentityContinuityTests
         HarnessResult result = await ExecuteSafelyAsync(await GetBoundaryScriptAsync(boundary), inventory, boundary);
 
         Assert.Equal(0, result.Mutations);
-        string expectedMarker = change is "system" or "boot" or "fixed" or "unknown-system" or "unknown-boot" or "malformed-system" or "malformed-boot"
+        string expectedMarker = change is "system" or "boot" or "unknown-system" or "unknown-boot" or "malformed-system" or "malformed-boot"
             ? WinPeUsbMediaService.UsbUnsafeTargetMarker
             : "FOUNDRY_DISK_IDENTITY_MISMATCH";
         Assert.Contains(expectedMarker, result.Error, StringComparison.Ordinal);
     }
 
     [Theory]
-    [InlineData("provision", true)]
-    [InlineData("layout", true)]
-    [InlineData("format", true)]
-    [InlineData("provision", false)]
-    [InlineData("layout", false)]
-    [InlineData("format", false)]
-    public async Task GeneratedScript_WhenConfirmedDiskIsStillEligible_ReachesMutationSentinel(string boundary, bool removableKnown)
+    [InlineData("provision", "absent")]
+    [InlineData("layout", "absent")]
+    [InlineData("format", "absent")]
+    [InlineData("provision", "false")]
+    [InlineData("layout", "false")]
+    [InlineData("format", "false")]
+    public async Task GeneratedScript_WhenConfirmedDiskIsStillEligible_ReachesMutationSentinel(string boundary, string removableFlag)
     {
-        string inventory = removableKnown ? SafeDiskJson : SafeDiskJson.Replace("\"IsRemovable\":true", "\"IsRemovable\":null", StringComparison.Ordinal);
+        // Get-Disk exposes no IsRemovable property; a stray value must never decide eligibility.
+        string inventory = removableFlag == "absent"
+            ? SafeDiskJson
+            : SafeDiskJson.Replace("\"BusType\":\"USB\",", "\"BusType\":\"USB\",\"IsRemovable\":false,", StringComparison.Ordinal);
 
         HarnessResult result = await ExecuteSafelyAsync(await GetBoundaryScriptAsync(boundary), inventory, boundary);
 

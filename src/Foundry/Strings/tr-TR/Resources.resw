@@ -377,7 +377,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Şifreyi kopyala</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Bu PFX dosyasını ve şifresini şimdi güvenli bir konuma kaydedin. Foundry şifreyi saklamaz ve bu iletişim kutusu kapatıldıktan sonra tekrar gösteremez. Donanım karma yüklemesi için önyükleme ortamı oluşturmak amacıyla her iki değere de ihtiyacınız olacak.</value>
+    <value>Bu PFX dosyasını ve parolasını şimdi güvenli bir konuma kaydedin. Foundry, parolayı yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydeder. Donanım karma yüklemesi için önyükleme ortamı oluşturmak amacıyla her iki değere de ihtiyacınız olacak.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Şifre kopyalandı.</value>
@@ -2134,12 +2134,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Dil</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Windows'de oturum açtığınızda Foundry OSD'yi otomatik olarak başlatın.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Başlangıçta çalıştır</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Önyükleme seçenekleri.</value>
   </data>
@@ -2588,7 +2582,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kurumsal bir Wi-Fi profil şablonu sağlayın</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Kişisel Wi-Fi parolaları yazma uygulamasında geçici kalır ve Foundry yapılandırmasında kalıcı olmaz.</value>
+    <value>Parola, yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydedilir. Aksi takdirde kaydedilmez ve örneğin Foundry OSD’yi yeniden başlattıktan sonra tekrar girilmesi gerekir.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Foundry tarafından yönetilen Wi-Fi profilini OOBE öncesinde Windows’a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
@@ -3325,7 +3319,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>ARM64 ortamı GPT bölümleme stilini gerektirir.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot etkinleştirildi ancak geçerli bir varsayılan profil seçilmedi.</value>
+    <value>Windows Autopilot etkinleştirildi ancak yapılandırması hazır değil.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Bağlantı temel hazırlığı hazır değil.</value>
@@ -3394,13 +3388,31 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>USB oluşturma engellendi</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Bu, {0}: {1} ({2}) diskini silecektir. Yalnızca amaçlanan USB sürücüsü ise devam edin.</value>
+    <value>Bu, {0}: {1} ({2}) diskini silecektir.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
+    <value>Bu diskte bölüm yok.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>USB'yi biçimlendirin ve oluşturun</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>USB hedefini biçimlendir</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
+    <value>Windows bu diskteki birimleri okuyamıyor. Disk hâlâ veri içeriyor olabilir.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
+    <value>{0} {1} ({2}), {4} içinden {3} kullanıldı</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumeNoName" xml:space="preserve">
+    <value>Adsız</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
+    <value>Bu diskteki birimler:</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
+    <value>Bu diskteki her şey kaybolacak. Yalnızca amaçlanan USB diski ise devam edin.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB oluştur</value>
@@ -3966,7 +3978,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Foundry özgün dosyanızı korur ve gerekli kurulum sonrası komutunu dağıtım kopyasına ekler. Özel ayarlarınız ve komutlarınız sizin sorumluluğunuzda kalır.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Özel dosyalar, Genel yapılandırmada dağıtım medyasının parolayla korunmasını gerektirir. XML, kimlik bilgileri veya betikler içerebilir. Katalog yalnızca kaynak başvurularını kaydeder; önyükleme görüntüsü şifrelenmiş kopyalar içerir.</value>
+    <value>Özel dosyalar, Genel yapılandırmada dağıtım medyasının parolayla korunmasını gerektirir. XML, kimlik bilgileri veya betikler içerebilir. Foundry, yapılandırmanızla birlikte bu bilgisayarda her dosyanın bir kopyasını yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken saklar; aksi takdirde yalnızca yolu kaydeder. Önyükleme görüntüsü şifrelenmiş kopyalar içerir.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Özel yanıt dosyalarını kullanmak için Genel yapılandırmada dağıtım medyasının parola korumasını etkinleştirin.</value>
