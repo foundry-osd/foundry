@@ -3594,6 +3594,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>Confirmando alterações de imagem com DISM.</value>
   </data>
+  <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
+    <value>Descartando imagem montada com DISM.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>Exportando imagem Windows com DISM.</value>
   </data>

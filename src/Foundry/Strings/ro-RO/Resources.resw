@@ -3594,6 +3594,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>Comitarea modificărilor imaginii cu DISM.</value>
   </data>
+  <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
+    <value>Renunțarea la imaginea montată cu DISM.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>Se exportă imaginea Windows cu DISM.</value>
   </data>
