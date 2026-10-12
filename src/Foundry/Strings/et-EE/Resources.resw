@@ -377,7 +377,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Kopeeri parool</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Salvestage see PFX-fail ja parool nüüd turvalisse kohta. Foundry ei salvesta parooli ega saa seda pärast selle dialoogi sulgemist uuesti näidata. Riistvara räsi üleslaadimiseks alglaadimismeediumi loomiseks vajate mõlemat väärtust.</value>
+    <value>Salvestage see PFX-fail ja parool nüüd turvalisse kohta. Foundry salvestab parooli koos teie konfiguratsiooniga sellel arvutil ainult siis, kui „Jäta paroolid meelde“ on jaotises „Sätete varundamine ja sünkroonimine“ sisse lülitatud. Riistvara räsi üleslaadimiseks alglaadimismeediumi loomiseks vajate mõlemat väärtust.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parool kopeeritud.</value>
@@ -2588,7 +2588,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Looge ettevõtte Wi-Fi profiili mall</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Isiklikud Wi-Fi paroolid jäävad loomisrakenduses mööduvateks ja neid ei säilitata Foundry konfiguratsioonis.</value>
+    <value>Parool salvestatakse koos teie konfiguratsiooniga sellel arvutil ainult siis, kui „Jäta paroolid meelde“ on jaotises „Sätete varundamine ja sünkroonimine“ sisse lülitatud. Vastasel juhul seda ei salvestata ja see tuleb uuesti sisestada, näiteks pärast Foundry OSD taaskäivitamist.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Impordib Foundry hallatava Wi-Fi profiili Windowsisse enne OOBE-d, et juurutuse ühenduvus säiliks pärast WinPE-d.</value>
@@ -3966,7 +3966,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Foundry säilitab algse faili ja lisab juurutuskoopiasse oma nõutava installimisjärgse käsu. Vastutate endiselt oma kohandatud sätete ja käskude eest.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Kohandatud failid nõuavad üldkonfiguratsioonis juurutusandmekandja paroolikaitset. XML võib sisaldada identimisteavet või skripte. Kataloog salvestab ainult allikaviited; alglaadimistõmmis sisaldab krüptitud koopiaid.</value>
+    <value>Kohandatud failid nõuavad üldkonfiguratsioonis juurutusandmekandja paroolikaitset. XML võib sisaldada identimisteavet või skripte. Foundry säilitab iga faili koopia koos teie konfiguratsiooniga sellel arvutil ainult siis, kui „Jäta paroolid meelde“ on jaotises „Sätete varundamine ja sünkroonimine“ sisse lülitatud; vastasel juhul salvestab ainult tee. Alglaadimistõmmis sisaldab krüptitud koopiaid.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Kohandatud vastusefailide kasutamiseks lubage üldkonfiguratsioonis juurutusandmekandja paroolikaitse.</value>
