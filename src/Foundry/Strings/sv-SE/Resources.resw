@@ -377,7 +377,7 @@ Licensierad under MIT-licensen.</value>
     <value>Kopiera lösenord</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Spara denna PFX-fil och lösenord nu på en säker plats. Foundry lagrar inte lösenordet och kan inte visa det igen efter att den här dialogrutan stängts. Du behöver båda värdena för att generera startmedia för hårdvaruhashuppladdning.</value>
+    <value>Spara denna PFX-fil och lösenord nu på en säker plats. Foundry sparar lösenordet tillsammans med din konfiguration på den här datorn endast när ”Kom ihåg lösenord” är aktiverat i ”Säkerhetskopiering och synkronisering av inställningar”. Du behöver båda värdena för att generera startmedia för hårdvaruhashuppladdning.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Lösenordet har kopierats.</value>
@@ -2588,7 +2588,7 @@ Licensierad under MIT-licensen.</value>
     <value>Tillhandahåll en företagsprofilmall Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Personliga Wi-Fi lösenfraser förblir övergående i författarappen och finns inte kvar i Foundry-konfigurationen.</value>
+    <value>Lösenfrasen sparas tillsammans med din konfiguration på den här datorn endast när ”Kom ihåg lösenord” är aktiverat i ”Säkerhetskopiering och synkronisering av inställningar”. Annars sparas den inte och måste anges igen, till exempel efter att du har startat om Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importerar Wi-Fi-profilen som hanteras av Foundry till Windows före OOBE för att bevara distributionsanslutningen efter WinPE.</value>
@@ -3966,7 +3966,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Foundry bevarar din originalfil och lägger till sitt obligatoriska kommando för efter installationen i distributionskopian. Du ansvarar fortfarande för dina anpassade inställningar och kommandon.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Egna filer kräver lösenordsskydd för distributionsmediet under Allmänt. XML kan innehålla autentiseringsuppgifter eller skript. Katalogen sparar endast referenser till källorna; startavbildningen innehåller krypterade kopior.</value>
+    <value>Egna filer kräver lösenordsskydd för distributionsmediet under Allmänt. XML kan innehålla autentiseringsuppgifter eller skript. Foundry behåller en kopia av varje fil tillsammans med din konfiguration på den här datorn endast när ”Kom ihåg lösenord” är aktiverat i ”Säkerhetskopiering och synkronisering av inställningar”; annars sparas bara sökvägen. Startavbildningen innehåller krypterade kopior.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivera lösenordsskydd för distributionsmediet under Allmänt för att använda egna svarsfiler.</value>

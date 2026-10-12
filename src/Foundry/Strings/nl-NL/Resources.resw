@@ -377,7 +377,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Kopieer wachtwoord</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Bewaar dit PFX-bestand en wachtwoord nu op een veilige locatie. Foundry slaat het wachtwoord niet op en kan het niet opnieuw weergeven nadat dit dialoogvenster is gesloten. U hebt beide waarden nodig om opstartmedia te genereren voor het uploaden van hardware-hash.</value>
+    <value>Bewaar dit PFX-bestand en wachtwoord nu op een veilige locatie. Foundry slaat het wachtwoord alleen met uw configuratie op deze pc op als “Wachtwoorden onthouden” is ingeschakeld in “Back-up en synchronisatie van instellingen”. U hebt beide waarden nodig om opstartmedia te genereren voor het uploaden van hardware-hash.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Wachtwoord gekopieerd.</value>
@@ -2588,7 +2588,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Richt een ondernemingsprofielsjabloon Wi-Fi in</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Persoonlijke Wi-Fi-wachtwoorden blijven van voorbijgaande aard in de ontwerp-app en blijven niet behouden in de Foundry-configuratie.</value>
+    <value>De wachtwoordzin wordt alleen met uw configuratie op deze pc opgeslagen als “Wachtwoorden onthouden” is ingeschakeld in “Back-up en synchronisatie van instellingen”. Anders wordt deze niet opgeslagen en moet u deze opnieuw invoeren, bijvoorbeeld na het opnieuw starten van Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importeert het door Foundry beheerde Wi-Fi-profiel vóór OOBE in Windows om de implementatieconnectiviteit na WinPE te behouden.</value>
@@ -3966,7 +3966,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Foundry behoudt uw oorspronkelijke bestand en voegt de vereiste opdracht voor na de installatie toe aan de implementatiekopie. U blijft verantwoordelijk voor uw aangepaste instellingen en opdrachten.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Aangepaste bestanden vereisen wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie. XML kan aanmeldingsgegevens of scripts bevatten. De catalogus slaat alleen bronverwijzingen op. De opstartimage bevat versleutelde kopieën.</value>
+    <value>Aangepaste bestanden vereisen wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie. XML kan aanmeldingsgegevens of scripts bevatten. Foundry bewaart alleen een kopie van elk bestand bij uw configuratie op deze pc als “Wachtwoorden onthouden” is ingeschakeld in “Back-up en synchronisatie van instellingen”. Anders wordt alleen het pad opgeslagen. De opstartimage bevat versleutelde kopieën.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Schakel wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie in om aangepaste antwoordbestanden te gebruiken.</value>

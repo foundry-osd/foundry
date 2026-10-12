@@ -377,7 +377,7 @@ Licenseret under MIT-licensen.</value>
     <value>Kopiér adgangskoden</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Gem denne PFX-fil og adgangskode nu på et sikkert sted. Foundry gemmer ikke adgangskoden og kan ikke vise den igen, når denne dialogboks lukkes. Du skal bruge begge værdier for at generere boot-medier til hardware-hash-upload.</value>
+    <value>Gem denne PFX-fil og adgangskode nu på et sikkert sted. Foundry gemmer kun adgangskoden sammen med din konfiguration på denne pc, når »Husk adgangskoder« er slået til i »Sikkerhedskopiering og synkronisering af indstillinger«. Du skal bruge begge værdier for at generere boot-medier til hardware-hash-upload.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Adgangskode kopieret.</value>
@@ -2588,7 +2588,7 @@ Licenseret under MIT-licensen.</value>
     <value>Giv en virksomheds Wi-Fi profilskabelon</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Personlige Wi-Fi-adgangssætninger forbliver forbigående i forfatterappen og bevares ikke i Foundry-konfigurationen.</value>
+    <value>Adgangssætningen gemmes sammen med din konfiguration på denne pc, kun når »Husk adgangskoder« er slået til i »Sikkerhedskopiering og synkronisering af indstillinger«. Ellers gemmes den ikke og skal indtastes igen, for eksempel efter genstart af Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importerer Wi-Fi-profilen, der administreres af Foundry, til Windows før OOBE for at bevare udrulningsforbindelsen efter WinPE.</value>
@@ -3966,7 +3966,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Foundry bevarer din oprindelige fil og føjer sin påkrævede kommando til efter installationen til udrulningskopien. Du er fortsat ansvarlig for dine tilpassede indstillinger og kommandoer.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Brugerdefinerede filer kræver adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration. XML kan indeholde legitimationsoplysninger eller scripts. Kataloget gemmer kun referencer til kilderne. Startafbildningen indeholder krypterede kopier.</value>
+    <value>Brugerdefinerede filer kræver adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration. XML kan indeholde legitimationsoplysninger eller scripts. Foundry beholder kun en kopi af hver fil sammen med din konfiguration på denne pc, når »Husk adgangskoder« er slået til i »Sikkerhedskopiering og synkronisering af indstillinger«; ellers gemmes kun stien. Startafbildningen indeholder krypterede kopier.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivér adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration for at bruge brugerdefinerede svarfiler.</value>

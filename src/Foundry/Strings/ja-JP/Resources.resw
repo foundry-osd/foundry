@@ -377,7 +377,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パスワードをコピーする</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>この PFX ファイルとパスワードを安全な場所に保存します。 Foundry はパスワードを保存しないため、このダイアログが閉じた後にパスワードを再度表示することはできません。ハードウェア ハッシュ アップロード用のブート メディアを生成するには、両方の値が必要です。</value>
+    <value>この PFX ファイルとパスワードを安全な場所に保存します。 Foundry は、「設定のバックアップと同期」で「パスワードを保存」がオンの場合にのみ、この PC 上の構成と共にパスワードを保存します。ハードウェア ハッシュ アップロード用のブート メディアを生成するには、両方の値が必要です。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>パスワードがコピーされました。</value>
@@ -2588,7 +2588,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>エンタープライズ Wi-Fi プロファイル テンプレートをプロビジョニングする</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>個人の Wi-Fi パスフレーズは、オーサリング アプリ内で一時的なままであり、Foundry 構成には保持されません。</value>
+    <value>パスフレーズは、「設定のバックアップと同期」で「パスワードを保存」がオンの場合にのみ、この PC 上の構成と共に保存されます。それ以外の場合は保存されないため、たとえば Foundry OSD の再起動後に、もう一度入力する必要があります。</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Foundry で管理されている Wi-Fi プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開時の接続を維持します。</value>
@@ -3966,7 +3966,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Foundry は元のファイルを保持し、必要なインストール後のコマンドを展開用コピーに追加します。カスタム設定とコマンドの責任は引き続きユーザーにあります。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>カスタムファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にする必要があります。XML には資格情報やスクリプトが含まれている場合があります。カタログにはソースへの参照のみが保存され、ブートイメージには暗号化されたコピーが含まれます。</value>
+    <value>カスタムファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にする必要があります。XML には資格情報やスクリプトが含まれている場合があります。Foundry は、「設定のバックアップと同期」で「パスワードを保存」がオンの場合にのみ、この PC 上の構成と共に各ファイルのコピーを保持します。それ以外の場合は、パスのみを保存します。ブートイメージには暗号化されたコピーが含まれます。</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>カスタム応答ファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にしてください。</value>
