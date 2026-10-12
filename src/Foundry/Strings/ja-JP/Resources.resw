@@ -2134,12 +2134,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>言語</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Windows にログインすると、Foundry OSD が自動的に起動します。</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>起動時に実行</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>ブートオプション。</value>
   </data>

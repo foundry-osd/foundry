@@ -2134,12 +2134,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Kieli</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Käynnistä Foundry OSD automaattisesti, kun kirjaudut sisään Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Suorita käynnistyksen yhteydessä</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Käynnistysvaihtoehdot.</value>
   </data>

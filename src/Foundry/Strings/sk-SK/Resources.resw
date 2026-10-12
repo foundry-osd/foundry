@@ -2134,12 +2134,6 @@ Licencované podľa licencie MIT.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Jazyk</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Automaticky spustiť Foundry OSD, keď sa prihlásite do Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Spustiť pri štarte</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Možnosti zavádzania.</value>
   </data>

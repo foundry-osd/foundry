@@ -2134,12 +2134,6 @@
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>語言</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>當您登入Windows時自動啟動Foundry OSD。</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>啟動時運行</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>啟動選項。</value>
   </data>

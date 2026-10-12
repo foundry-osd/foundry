@@ -2134,12 +2134,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Språk</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Start Foundry OSD automatisk når du logger på Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Kjør ved oppstart</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Oppstartsalternativer.</value>
   </data>

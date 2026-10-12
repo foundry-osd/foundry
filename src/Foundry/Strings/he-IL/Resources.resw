@@ -2134,12 +2134,6 @@
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>שפה</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>הפעל אוטומטית את Foundry OSD כשאתה נכנס ל-Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>הפעל בעת ההפעלה</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>אפשרויות אתחול.</value>
   </data>

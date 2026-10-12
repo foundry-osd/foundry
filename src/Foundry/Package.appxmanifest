@@ -45,9 +45,6 @@
 				<uap:SplashScreen Image="Assets\Store\SplashScreen.png"/>
 			</uap:VisualElements>
 			<Extensions>
-				<desktop:Extension Category="windows.startupTask" Executable="Foundry.exe" EntryPoint="Windows.FullTrustApplication">
-					<desktop:StartupTask TaskId="FoundryStartup" Enabled="false" DisplayName="Foundry OSD"/>
-				</desktop:Extension>
 				<uap3:Extension Category="windows.appExecutionAlias">
 					<uap3:AppExecutionAlias>
 						<desktop:ExecutionAlias Alias="Foundry.exe"/>

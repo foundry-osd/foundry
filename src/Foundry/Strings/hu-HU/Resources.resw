@@ -2134,12 +2134,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Nyelv</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>A Foundry OSD automatikus elindítása, amikor bejelentkezik a Windows fiókba.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Indításkor futtassa</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Rendszerindítási lehetőségek.</value>
   </data>

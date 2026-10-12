@@ -2134,12 +2134,6 @@
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Γλώσσα</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Εκκινήστε αυτόματα το Foundry OSD όταν συνδέεστε στο Windows.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Εκτέλεση κατά την εκκίνηση</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Επιλογές εκκίνησης.</value>
   </data>

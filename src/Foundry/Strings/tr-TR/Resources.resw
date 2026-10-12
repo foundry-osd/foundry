@@ -2134,12 +2134,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Dil</value>
   </data>
-  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Windows'de oturum açtığınızda Foundry OSD'yi otomatik olarak başlatın.</value>
-  </data>
-  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Başlangıçta çalıştır</value>
-  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Önyükleme seçenekleri.</value>
   </data>
