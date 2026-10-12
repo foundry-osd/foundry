@@ -148,13 +148,20 @@ public interface IWindowsDeploymentService
     /// <summary>
     /// Copies and configures Windows RE on the recovery partition.
     /// </summary>
-    /// <remarks>Requires winre.wim in the applied image and winrecfg.exe in the boot environment.</remarks>
+    /// <remarks>
+    /// Requires winrecfg.exe in the boot environment. An applied image without winre.wim, for example a captured
+    /// image whose recovery environment was moved to a recovery partition, is not a failure: nothing is copied or
+    /// registered and the method reports <see langword="false"/>.
+    /// </remarks>
     /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
     /// <param name="recoveryPartitionRoot">Root path of the recovery partition.</param>
     /// <param name="workingDirectory">Directory used for temporary scripts and command output.</param>
     /// <param name="cancellationToken">Token that cancels recovery configuration.</param>
-    /// <returns>A task that completes after WinRE is configured.</returns>
-    Task ConfigureRecoveryEnvironmentAsync(
+    /// <returns>
+    /// A task whose result is <see langword="true"/> after WinRE is configured, or <see langword="false"/> when the
+    /// applied image does not contain winre.wim and nothing was changed.
+    /// </returns>
+    Task<bool> ConfigureRecoveryEnvironmentAsync(
         string windowsPartitionRoot,
         string recoveryPartitionRoot,
         string workingDirectory,
