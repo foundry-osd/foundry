@@ -37,7 +37,7 @@
   description: Dependency, package, or project metadata change
 
 - name: tests
-  color: 'bfd4f2'
+  color: '9db4ff'
   description: Test coverage or test infrastructure change
 
 # Project labels
@@ -59,7 +59,7 @@
   description: Changes in the Foundry.Deploy deployment application
 
 - name: 'project: foundry-connect'
-  color: '5319e7'
+  color: 'ea580c'
   description: Changes in the Foundry.Connect WinPE network provisioning application
 
 - name: 'project: foundry-bootstrap'
@@ -115,7 +115,7 @@
   description: Not actionable as submitted
 
 - name: wontfix
-  color: 'ffffff'
+  color: '57606a'
   description: Intentionally not planned
 
 - name: stale
