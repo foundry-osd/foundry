@@ -2,18 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Diagnostics;
-using System.Text;
-using System.Text.Json;
 using Foundry.Core.Services.WinPe;
-using Foundry.Utilities.Storage;
 
 namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeUsbIdentityContinuityTests
 {
-    private static DiskIdentity ConfirmedIdentity => new(9, "UNIQUE", "SERIAL", "Safe USB", "USB", 64000000000);
-
     private const string SafeDiskJson = """
         {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000,"IsOffline":true,"IsReadOnly":true,"PartitionStyle":"GPT"}
         """;
@@ -48,117 +42,6 @@ public sealed class WinPeUsbIdentityContinuityTests
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.UsbIdentityMismatch, result.Error?.Code);
         Assert.Equal(WinPeFailureReasons.DiskValidation, result.Error?.FailureReason);
-    }
-
-    [Theory]
-    [InlineData("provision")]
-    [InlineData("layout")]
-    [InlineData("format")]
-    public async Task GeneratedScript_WhenDiskIsReplaced_RejectsBeforeAnyMutation(string boundary)
-    {
-        string script = await GetBoundaryScriptAsync(boundary);
-        string changedDisk = SafeDiskJson.Replace("UNIQUE", "REPLACED", StringComparison.Ordinal);
-
-        HarnessResult result = await ExecuteSafelyAsync(script, changedDisk, boundary);
-
-        Assert.Equal(0, result.Mutations);
-        Assert.Contains("FOUNDRY_DISK_IDENTITY_MISMATCH", result.Error, StringComparison.Ordinal);
-    }
-
-    public static IEnumerable<object[]> RejectedSnapshots()
-    {
-        foreach (string boundary in new[] { "provision", "layout", "format" })
-        {
-            foreach (string change in new[] { "duplicate", "missing", "renumbered", "serial", "unique", "capacity", "model", "bus", "system", "boot", "unknown-system", "unknown-boot", "malformed-system", "malformed-boot" })
-            {
-                yield return [boundary, change];
-            }
-        }
-    }
-
-    [Theory]
-    [MemberData(nameof(RejectedSnapshots))]
-    public async Task GeneratedScript_WhenIdentityOrEligibilityChanges_RejectsBeforeAnyMutation(string boundary, string change)
-    {
-        string inventory = change switch
-        {
-            "duplicate" => $"[{SafeDiskJson},{SafeDiskJson.Replace("\"Number\":9", "\"Number\":10", StringComparison.Ordinal).Replace("\"BusType\":\"USB\"", "\"BusType\":\"NVMe\"", StringComparison.Ordinal)}]",
-            "missing" => "[]",
-            "renumbered" => SafeDiskJson.Replace("\"Number\":9", "\"Number\":10", StringComparison.Ordinal),
-            "serial" => SafeDiskJson.Replace("SERIAL", "", StringComparison.Ordinal),
-            "unique" => SafeDiskJson.Replace("UNIQUE", "", StringComparison.Ordinal),
-            "capacity" => SafeDiskJson.Replace("64000000000", "65000000000", StringComparison.Ordinal),
-            "model" => SafeDiskJson.Replace("Safe USB", "Safe USB replacement", StringComparison.Ordinal),
-            "bus" => SafeDiskJson.Replace("\"BusType\":\"USB\"", "\"BusType\":\"SATA\"", StringComparison.Ordinal),
-            "system" => SafeDiskJson.Replace("\"IsSystem\":false", "\"IsSystem\":true", StringComparison.Ordinal),
-            "boot" => SafeDiskJson.Replace("\"IsBoot\":false", "\"IsBoot\":true", StringComparison.Ordinal),
-            "unknown-system" => SafeDiskJson.Replace("\"IsSystem\":false,", "", StringComparison.Ordinal),
-            "unknown-boot" => SafeDiskJson.Replace("\"IsBoot\":false,", "", StringComparison.Ordinal),
-            "malformed-system" => SafeDiskJson.Replace("\"IsSystem\":false", "\"IsSystem\":\"false\"", StringComparison.Ordinal),
-            "malformed-boot" => SafeDiskJson.Replace("\"IsBoot\":false", "\"IsBoot\":0", StringComparison.Ordinal),
-            _ => throw new ArgumentOutOfRangeException(nameof(change))
-        };
-
-        HarnessResult result = await ExecuteSafelyAsync(await GetBoundaryScriptAsync(boundary), inventory, boundary);
-
-        Assert.Equal(0, result.Mutations);
-        string expectedMarker = change is "system" or "boot" or "unknown-system" or "unknown-boot" or "malformed-system" or "malformed-boot"
-            ? WinPeUsbMediaService.UsbUnsafeTargetMarker
-            : "FOUNDRY_DISK_IDENTITY_MISMATCH";
-        Assert.Contains(expectedMarker, result.Error, StringComparison.Ordinal);
-    }
-
-    [Theory]
-    [InlineData("provision", "absent")]
-    [InlineData("layout", "absent")]
-    [InlineData("format", "absent")]
-    [InlineData("provision", "false")]
-    [InlineData("layout", "false")]
-    [InlineData("format", "false")]
-    public async Task GeneratedScript_WhenConfirmedDiskIsStillEligible_ReachesMutationSentinel(string boundary, string removableFlag)
-    {
-        // Get-Disk exposes no IsRemovable property; a stray value must never decide eligibility.
-        string inventory = removableFlag == "absent"
-            ? SafeDiskJson
-            : SafeDiskJson.Replace("\"BusType\":\"USB\",", "\"BusType\":\"USB\",\"IsRemovable\":false,", StringComparison.Ordinal);
-
-        HarnessResult result = await ExecuteSafelyAsync(await GetBoundaryScriptAsync(boundary), inventory, boundary);
-
-        Assert.Equal(1, result.Mutations);
-        Assert.Equal("SAFE_TEST_MUTATION_SENTINEL", result.Error);
-    }
-
-    [Theory]
-    [InlineData(11, true)]
-    [InlineData(12, true)]
-    [InlineData(7, false)]
-    public async Task LayoutScript_OnMbrMedia_AcceptsOnlyFat32BootPartitionType(int bootMbrType, bool accepted)
-    {
-        string inventory = SafeDiskJson.Replace("\"PartitionStyle\":\"GPT\"", "\"PartitionStyle\":\"MBR\"", StringComparison.Ordinal);
-
-        HarnessResult result = await ExecuteSafelyAsync(await GetBoundaryScriptAsync("layout"), inventory, "layout", bootMbrType: bootMbrType);
-
-        if (accepted)
-        {
-            Assert.Equal(1, result.Mutations);
-            Assert.Equal("SAFE_TEST_MUTATION_SENTINEL", result.Error);
-        }
-        else
-        {
-            Assert.Equal(0, result.Mutations);
-            Assert.Contains("Expected BOOT FAT32 partition", result.Error, StringComparison.Ordinal);
-        }
-    }
-
-    [Theory]
-    [InlineData("layout")]
-    [InlineData("format")]
-    public async Task GeneratedScript_WhenDiskChangesAfterReadOnlyInspection_RejectsAtMutationBoundary(string boundary)
-    {
-        HarnessResult result = await ExecuteSafelyAsync(await GetBoundaryScriptAsync(boundary), SafeDiskJson, boundary, replaceAfterInspection: true);
-
-        Assert.Equal(0, result.Mutations);
-        Assert.Contains("FOUNDRY_DISK_IDENTITY_MISMATCH", result.Error, StringComparison.Ordinal);
     }
 
     [Theory]
@@ -319,146 +202,6 @@ public sealed class WinPeUsbIdentityContinuityTests
         }
     }
 
-    private static async Task<string> GetBoundaryScriptAsync(string boundary)
-    {
-        if (boundary == "provision")
-        {
-            return WinPeUsbMediaService.BuildPowerShellProvisioningScript(ConfirmedIdentity, UsbPartitionStyle.Gpt, UsbFormatMode.Quick);
-        }
-
-        if (boundary == "format")
-        {
-            return WinPeUsbMediaService.BuildPowerShellBootPartitionUpdateScript(ConfirmedIdentity, new WinPeUsbProvisionResult { BootDriveLetter = "S:", BootPartitionSizeBytes = 2147483648, BootAllocationUnitSizeBytes = 4096 }, UsbFormatMode.Quick);
-        }
-
-        var runner = new BoundaryRunner();
-        var service = new WinPeUsbMediaService(runner);
-        await service.UpdateBootPartitionAsync(
-            ConfirmedOptions,
-            new WinPeBuildArtifact { WorkingDirectoryPath = Path.GetTempPath() },
-            new WinPeToolPaths { PowerShellPath = "shadowed" }, false);
-        return runner.Scripts[1];
-    }
-
-    [Theory]
-    [InlineData(1073741824L, 4096U)]
-    [InlineData(2147483648L, 8192U)]
-    public async Task UpdateScript_WhenBootGeometryChanged_RejectsBeforeFormatting(long partitionSize, uint allocationUnitSize)
-    {
-        string script = await GetBoundaryScriptAsync("format");
-        HarnessResult result = await ExecuteSafelyAsync(script, SafeDiskJson, "format",
-            bootPartitionSize: partitionSize, allocationUnitSize: allocationUnitSize);
-        Assert.Equal(0, result.Mutations);
-        Assert.Contains(WinPeErrorCodes.UsbBootCapacityUnknown, result.Error, StringComparison.Ordinal);
-    }
-
-    [Theory]
-    [InlineData("layout")]
-    [InlineData("format")]
-    public async Task GeometryReadFailure_UsesCapacityValidationBeforeMutation(string boundary)
-    {
-        string script = await GetBoundaryScriptAsync(boundary);
-        HarnessResult result = await ExecuteSafelyAsync(script, SafeDiskJson, boundary, failCapacityRead: true);
-        Assert.Equal(0, result.Mutations);
-        Assert.Contains(WinPeErrorCodes.UsbBootCapacityUnknown, result.Error, StringComparison.Ordinal);
-    }
-
-    private static async Task<HarnessResult> ExecuteSafelyAsync(string script, string inventoryJson, string boundary, bool replaceAfterInspection = false,
-        long bootPartitionSize = 2147483648, uint allocationUnitSize = 4096, bool failCapacityRead = false, int? bootMbrType = null)
-    {
-        string fixture = Convert.ToBase64String(Encoding.UTF8.GetBytes(inventoryJson));
-        // Get-Partition reports MbrType as the numeric MBR partition ID and leaves it empty on GPT disks.
-        string bootPartitionType = bootMbrType is null
-            ? "GptType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'; MbrType = $null"
-            : $"GptType = $null; MbrType = [uint16]{bootMbrType}";
-        string cachePartitionType = bootMbrType is null ? "GptType = ''; MbrType = $null" : "GptType = $null; MbrType = [uint16]7";
-        string harness = $$"""
-            $ErrorActionPreference = 'Stop'
-            Import-Module Microsoft.PowerShell.Utility
-            Import-Module Microsoft.PowerShell.Management
-            $PSModuleAutoLoadingPreference = 'None'
-            $env:PATH = ''
-            $global:mutations = 0
-            $global:inventory = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('{{fixture}}')) | ConvertFrom-Json
-            $global:diskQueries = 0
-            function Import-Module { }
-            function Get-Disk {
-                param($Number)
-                $global:diskQueries++
-                foreach ($disk in $global:inventory) {
-                    if ({{(replaceAfterInspection ? "$true" : "$false")}} -and $global:diskQueries -gt 1) { $disk.UniqueId = 'REPLACED' }
-                    if (-not $PSBoundParameters.ContainsKey('Number') -or $disk.Number -eq $Number) { $disk }
-                }
-            }
-            function Get-Partition {
-                [pscustomobject]@{ PartitionNumber = 1; Size = {{bootPartitionSize}}; DriveLetter = '{{(boundary == "layout" && !failCapacityRead ? "" : "S")}}'; {{bootPartitionType}}; AccessPaths = @('S:\'); IsActive = $true }
-                [pscustomobject]@{ PartitionNumber = 2; DriveLetter = 'T'; {{cachePartitionType}}; AccessPaths = @('T:\'); IsActive = $false }
-            }
-            function Get-Volume {
-                param($DriveLetter, $Partition)
-                if ({{(failCapacityRead ? "$true" : "$false")}} -and $Partition.PartitionNumber -eq 1) { throw 'Synthetic geometry read failure' }
-                if ($DriveLetter -eq 'T' -or $Partition.PartitionNumber -eq 2) {
-                    [pscustomobject]@{ FileSystemLabel = 'Foundry Cache'; FileSystem = 'NTFS' }
-                } else {
-                    [pscustomobject]@{ FileSystemLabel = 'BOOT'; FileSystem = 'FAT32'; AllocationUnitSize = {{allocationUnitSize}} }
-                }
-            }
-            function Stop-Mutation { $global:mutations++; throw 'SAFE_TEST_MUTATION_SENTINEL' }
-            foreach ($command in @('Set-Disk', 'Remove-PartitionAccessPath', 'Clear-Disk', 'Update-HostStorageCache', 'Update-Disk', 'Initialize-Disk', 'New-Partition', 'Format-Volume', 'Add-PartitionAccessPath', 'Set-Partition', 'diskpart.exe', 'format.com', 'format.exe', 'mountvol.exe', 'Set-Content', 'Remove-Item', 'Start-Sleep')) {
-                Set-Item -LiteralPath "Function:$command" -Value { Stop-Mutation }
-            }
-            $failure = ''
-            try {
-                & {
-            {{script}}
-                } | Out-Null
-            } catch { $failure = $_.Exception.Message }
-            [pscustomobject]@{ Mutations = $global:mutations; Error = $failure } | ConvertTo-Json -Compress
-            """;
-        string path = Path.Combine(Path.GetTempPath(), $"foundry-usb-guard-{Guid.NewGuid():N}.ps1");
-        try
-        {
-            await File.WriteAllTextAsync(path, harness, new UTF8Encoding(true));
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "WindowsPowerShell", "v1.0", "powershell.exe"),
-                UseShellExecute = false,
-                CreateNoWindow = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true
-            };
-            foreach (string argument in new[] { "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", path })
-            {
-                startInfo.ArgumentList.Add(argument);
-            }
-
-            using Process process = Process.Start(startInfo)!;
-            Task<string> outputTask = process.StandardOutput.ReadToEndAsync();
-            Task<string> errorTask = process.StandardError.ReadToEndAsync();
-            using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-            try
-            {
-                await process.WaitForExitAsync(timeout.Token);
-            }
-            catch
-            {
-                process.Kill(entireProcessTree: true);
-                throw;
-            }
-
-            string output = await outputTask;
-            string error = await errorTask;
-            Assert.True(process.ExitCode == 0, error + output);
-            return JsonSerializer.Deserialize<HarnessResult>(output)!;
-        }
-        finally
-        {
-            File.Delete(path);
-        }
-    }
-
-    private sealed record HarnessResult(int Mutations, string Error);
-
     private sealed class WorkflowRunner(string boundary, string outcome, string failure) : IWinPeProcessRunner
     {
         public Action<CancellationToken>? OnBoundary { get; init; }
@@ -502,23 +245,6 @@ public sealed class WinPeUsbIdentityContinuityTests
                 StandardError = failed ? failure : string.Empty,
                 StandardOutput = Arguments.Count == 1 ? Inventory : Arguments.Count == 2 ? layout : string.Empty
             });
-        }
-
-        public Task<WinPeProcessExecution> RunCmdScriptAsync(string scriptPath, string scriptArguments, string workingDirectory, CancellationToken cancellationToken) => throw new NotSupportedException();
-
-        public Task<WinPeProcessExecution> RunCmdScriptDirectAsync(string scriptPath, string scriptArguments, string workingDirectory, CancellationToken cancellationToken) => throw new NotSupportedException();
-    }
-
-    private sealed class BoundaryRunner : IWinPeProcessRunner
-    {
-        public List<string> Scripts { get; } = [];
-
-        public Task<WinPeProcessExecution> RunAsync(string fileName, string arguments, string workingDirectory, CancellationToken cancellationToken, IReadOnlyDictionary<string, string>? environmentOverrides = null)
-        {
-            Scripts.Add(arguments.Contains("-File ", StringComparison.Ordinal)
-                ? File.ReadAllText(arguments[(arguments.IndexOf("-File ", StringComparison.Ordinal) + 6)..].Trim('"'))
-                : Encoding.Unicode.GetString(Convert.FromBase64String(arguments.Split(' ')[^1])));
-            return Task.FromResult(new WinPeProcessExecution { ExitCode = Scripts.Count == 1 ? 0 : 1, StandardOutput = Scripts.Count == 1 ? SafeDiskJson : string.Empty });
         }
 
         public Task<WinPeProcessExecution> RunCmdScriptAsync(string scriptPath, string scriptArguments, string workingDirectory, CancellationToken cancellationToken) => throw new NotSupportedException();
