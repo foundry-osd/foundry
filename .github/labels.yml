@@ -29,7 +29,7 @@
   description: Maintenance or routine repository work
 
 - name: refactor
-  color: 'fbca04'
+  color: 'c2e0c6'
   description: Internal code change without intended behavior changes
 
 - name: dependencies
@@ -67,11 +67,11 @@
   description: Changes in the Foundry.Bootstrap WinPE boot orchestration runtime
 
 - name: 'project: foundry-postinstall'
-  color: '006b75'
+  color: '8d5524'
   description: Changes in the Foundry.PostInstall post-installation runtime
 
 - name: ui
-  color: '7057ff'
+  color: 'db2777'
   description: User interface or XAML changes
 
 - name: ci
@@ -97,11 +97,11 @@
   description: Usage, setup, or contribution question
 
 - name: blocked
-  color: 'b60205'
+  color: '24292f'
   description: Blocked by another task or external dependency
 
 - name: 'status: waiting-for-user'
-  color: 'fbca04'
+  color: 'fb8c00'
   description: Waiting for user feedback or requested information
 
 # Resolution labels
@@ -111,19 +111,19 @@
   description: Already tracked elsewhere
 
 - name: invalid
-  color: 'cfd3d7'
+  color: 'e4e669'
   description: Not actionable as submitted
 
 - name: wontfix
-  color: 'cfd3d7'
+  color: 'ffffff'
   description: Intentionally not planned
 
 - name: stale
-  color: 'cfd3d7'
+  color: '8b949e'
   description: No recent activity
 
 # Special labels
 
 - name: pinned
-  color: '006b75'
+  color: '6e7b1e'
   description: Exempt from stale handling
