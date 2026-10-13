@@ -5,8 +5,7 @@
     <UseWPF>true</UseWPF>
     <StartupObject>Foundry.Connect.Program</StartupObject>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <ApplicationIcon>Assets\Icons\app.ico</ApplicationIcon>
-    <PackageIcon>app.ico</PackageIcon>
+    <ApplicationIcon>..\..\Assets\Brand\Foundry.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -188,15 +187,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Icons\app.ico" />
-    <Resource Include="Assets\Images\foundry-about-logo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Assets\Icons\app.ico">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <Resource Include="..\..\Assets\Brand\Foundry.ico" Link="Assets\Icons\app.ico" />
+    <Resource Include="..\..\Assets\Brand\Foundry.png" Link="Assets\Images\foundry-about-logo.png" />
   </ItemGroup>
 
   <ItemGroup>
