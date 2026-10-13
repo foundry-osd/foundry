@@ -12,6 +12,12 @@
   <a href="LICENSE"><img src="https://img.shields.io/github/license/foundry-osd/foundry?style=flat&label=License&labelColor=24292F&color=2563EB" alt="MIT license"></a>
 </p>
 
+<p>
+  <a href="https://github.com/foundry-osd/foundry/actions/workflows/ci.yml?query=branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/foundry-osd/foundry/ci.yml?branch=main&style=flat&label=CI&labelColor=24292F" alt="CI status on main"></a>
+  <a href="https://github.com/foundry-osd/catalog/actions/workflows/run-scripts-daily.yml"><img src="https://img.shields.io/github/actions/workflow/status/foundry-osd/catalog/run-scripts-daily.yml?branch=main&style=flat&label=Catalog%20status&labelColor=24292F" alt="Catalog daily update status"></a>
+  <a href="https://github.com/foundry-osd/catalog/commits/main"><img src="https://img.shields.io/github/last-commit/foundry-osd/catalog?style=flat&label=Catalog%20updated&labelColor=24292F" alt="Date of the last catalog update"></a>
+</p>
+
 **From media creation to Windows installation**
 
 Foundry is an open-source Windows 11 deployment solution for enterprise IT teams. Build bootable USB or ISO media on an administrator workstation, start the target device from it, and Foundry guides the technician through network setup and Windows installation.
