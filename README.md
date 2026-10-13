@@ -65,8 +65,6 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 
 > [!NOTE]
 > Foundry OSD runs on Windows 10 and Windows 11 with local administrator rights and internet access, and creates x64 or ARM64 deployment media. Target devices need internet access during deployment. Check [Requirements](https://docs.foundryosd.com/start-here/requirements) and [Supported versions](https://docs.foundryosd.com/reference/supported-versions) before deployment.
->
-> The installers are not code-signed, so Windows may show a SmartScreen or unknown-publisher prompt. Download them only from this repository and verify them against the [asset digests](https://github.com/foundry-osd/foundry/releases/latest) published with each release.
 
 > [!IMPORTANT]
 > Creating USB media erases the selected USB device. Deploying Windows can erase or repartition the selected target disk. Validate your configuration and test it on representative hardware before production use.
