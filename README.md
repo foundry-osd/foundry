@@ -34,11 +34,13 @@ Foundry is an open-source Windows 11 deployment solution for enterprise IT teams
 
 ## How it works
 
-Foundry separates the deployment into three focused stages:
+Foundry uses three applications, one for each stage of the deployment:
 
-- 💿 **Create media with Foundry OSD** — configure the deployment and build bootable ISO or USB media from an administrator workstation.
-- 🌐 **Connect with Foundry Connect** — start the target device in WinPE and validate Ethernet, Wi-Fi, or enterprise connectivity.
-- 🪟 **Install with Foundry Deploy** — choose the Windows content, target disk, drivers, firmware, and provisioning options, then run the deployment.
+1. **Foundry OSD** — configure the deployment and build bootable ISO or USB media from an administrator workstation.
+2. **Foundry Connect** — start the target device in WinPE and validate Ethernet, Wi-Fi, or enterprise connectivity.
+3. **Foundry Deploy** — choose the Windows content, target disk, drivers, firmware, and provisioning options, then run the deployment.
+
+All three applications are available in 38 languages.
 
 Operating system, driver pack, firmware, and WinPE metadata come from the maintained [`foundry-osd/catalog`](https://github.com/foundry-osd/catalog).
 
@@ -55,14 +57,16 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 ## Get started
 
 1. Install the MSI matching the architecture of your administrator workstation.
-2. Open Foundry OSD and validate the Windows ADK and Windows PE prerequisites.
+2. Open Foundry OSD and use the **ADK** page to install the Windows ADK and Windows PE add-on if they are missing.
 3. Configure the deployment, then create ISO or USB media.
 4. Boot a representative test device and continue through Foundry Connect and Foundry Deploy.
 
 [Follow the complete quick start →](https://docs.foundryosd.com/start-here/quick-start)
 
 > [!NOTE]
-> Foundry OSD runs on Windows 10 and Windows 11. It creates x64 or ARM64 deployment media using the Windows ADK and matching Windows PE add-on. Available Windows releases are catalog-driven; check [Supported versions](https://docs.foundryosd.com/reference/supported-versions) before deployment.
+> Foundry OSD runs on Windows 10 and Windows 11 with local administrator rights and internet access, and creates x64 or ARM64 deployment media. Target devices need internet access during deployment. Check [Requirements](https://docs.foundryosd.com/start-here/requirements) and [Supported versions](https://docs.foundryosd.com/reference/supported-versions) before deployment.
+>
+> The installers are not code-signed, so Windows may show a SmartScreen or unknown-publisher prompt. Download them only from this repository and verify them against the [asset digests](https://github.com/foundry-osd/foundry/releases/latest) published with each release.
 
 > [!IMPORTANT]
 > Creating USB media erases the selected USB device. Deploying Windows can erase or repartition the selected target disk. Validate your configuration and test it on representative hardware before production use.
@@ -79,7 +83,7 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 
 Found a bug or have a feature request? Use the [issue chooser](https://github.com/foundry-osd/foundry/issues/new/choose). For setup questions and troubleshooting, follow the [support guide](SUPPORT.md).
 
-Code contributions are welcome. Read the [contributing guide](CONTRIBUTING.md) before starting substantial work, and report vulnerabilities privately through the [security policy](SECURITY.md).
+Code contributions are welcome. Foundry is built with .NET 10, WinUI 3, and WPF; the [contributing guide](CONTRIBUTING.md) covers the development environment, solution map, and validation steps. Read it before starting substantial work, and report vulnerabilities privately through the [security policy](SECURITY.md).
 
 ## Telemetry and privacy
 
