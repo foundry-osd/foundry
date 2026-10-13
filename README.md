@@ -7,14 +7,14 @@
 <p>
   <a href="https://github.com/foundry-osd/foundry/releases/latest"><img src="https://img.shields.io/github/v/release/foundry-osd/foundry?display_name=tag&sort=semver&style=flat&label=Latest%20Release&labelColor=24292F&color=2563EB" alt="Latest release"></a>
   <a href="https://github.com/foundry-osd/foundry/releases"><img src="https://img.shields.io/github/downloads/foundry-osd/foundry/total?style=flat&label=Downloads&labelColor=24292F&color=22A06B" alt="Total downloads"></a>
-  <a href="https://docs.foundryosd.com/reference/supported-versions"><img src="https://img.shields.io/badge/OS%20Scope-Windows%2011%2024H2%20%7C%2025H2%20%7C%2026H2-2563EB?style=flat&logo=windows11&logoColor=white&labelColor=24292F" alt="Windows 11 24H2, 25H2, and 26H2"></a>
+  <a href="https://docs.foundryosd.com/reference/supported-versions"><img src="https://img.shields.io/badge/Deploys-Windows%2011%2024H2%20%7C%2025H2%20%7C%2026H2-2563EB?style=flat&logo=windows11&logoColor=white&labelColor=24292F" alt="Windows 11 24H2, 25H2, and 26H2"></a>
   <img src="https://img.shields.io/badge/Architecture-x64%20%7C%20ARM64-2563EB?style=flat&labelColor=24292F" alt="Architecture x64 and ARM64">
   <a href="LICENSE"><img src="https://img.shields.io/github/license/foundry-osd/foundry?style=flat&label=License&labelColor=24292F&color=2563EB" alt="MIT license"></a>
 </p>
 
-**Build deployment media. Connect in WinPE. Deploy Windows.**
+**From media creation to Windows installation**
 
-Foundry is an open-source Windows deployment toolkit that helps IT administrators create bootable ISO or USB media and guides technicians from network readiness through a Windows 11 installation.
+Foundry is an open-source Windows 11 deployment solution for enterprise IT teams. Build bootable USB or ISO media on an administrator workstation, start the target device from it, and Foundry guides the technician through network setup and Windows installation.
 
 <p>
   <a href="https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-win-x64.msi"><img src="https://img.shields.io/badge/Download-x64-0078D4?style=for-the-badge&logo=windows11&logoColor=white" alt="Download Foundry OSD for Windows x64"></a>
@@ -24,7 +24,7 @@ Foundry is an open-source Windows deployment toolkit that helps IT administrator
 
 <sub>Install x64 on most administrator workstations or ARM64 on Windows on Arm.</sub>
 
-[Quick start](https://docs.foundryosd.com/start-here/quick-start) · [Documentation](https://docs.foundryosd.com) · [Release notes and asset digests](https://github.com/foundry-osd/foundry/releases/latest) · [Usage dashboard](https://eu.posthog.com/embedded/g_cVY9GEAqJEUIu-KgiXReDV-iixCQ)
+[Quick start](https://docs.foundryosd.com/start-here/quick-start) · [Documentation](https://docs.foundryosd.com) · [Release notes and asset digests](https://github.com/foundry-osd/foundry/releases/latest)
 
 </div>
 
@@ -32,7 +32,7 @@ Foundry is an open-source Windows deployment toolkit that helps IT administrator
 
 ![Foundry workflow showing deployment media creation, WinPE network readiness, and Windows deployment](Assets/GitHub/foundry-workflow.png)
 
-## From media creation to Windows installation
+## How it works
 
 Foundry separates the deployment into three focused stages:
 
@@ -44,13 +44,13 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 
 ## What you can configure
 
-- **Deployment content** — Windows release, language, edition, licensing channel, drivers, and optional firmware.
-- **Windows setup** — localization, OOBE, privacy, optional features, AppX packages, and offline component choices.
-- **Computer naming** — compose names from device data or enter them manually. Numeric-only names are rejected before deployment; use a prefix such as `PC-` with numeric serial numbers.
-- **Post-installation** — order PowerShell scripts, CMD commands, EXE/MSI packages and controlled restarts before OOBE. Content stays outside the boot image and is staged locally for the resumable .NET runtime. See [Post-installation](https://docs.foundryosd.com/foundry-osd/customization/post-installation).
-- **Custom answer files** — [import and select an Unattend file](https://docs.foundryosd.com/foundry-osd/customization/unattend) to configure Windows beyond the options exposed in Foundry, within the supported setup passes.
-- **Network readiness** — Ethernet, Wi-Fi, and enterprise 802.1X settings for WinPE.
-- **Provisioning and protection** — Windows Autopilot options and optional protection for deployment media and embedded configuration.
+- **Windows** — release, edition, language, and licensing channel from the catalog, or [your own ISO/WIM image](https://docs.foundryosd.com/foundry-osd/customization/custom-windows-images).
+- **Setup experience** — computer naming, OOBE, privacy, local accounts, optional features, and removal of AppX packages and AI components.
+- **Post-installation** — [scripts, commands, and EXE/MSI packages](https://docs.foundryosd.com/foundry-osd/customization/post-installation) run in order before OOBE.
+- **Custom answer files** — [import your own Unattend file](https://docs.foundryosd.com/foundry-osd/customization/unattend) for anything beyond the built-in options.
+- **Network** — Ethernet, Wi-Fi, and enterprise 802.1X in WinPE.
+- **Provisioning** — Windows Autopilot or [Active Directory domain join](https://docs.foundryosd.com/foundry-osd/domain-join).
+- **Profiles and protection** — [save and share configurations](https://docs.foundryosd.com/foundry-osd/deployment-profiles) with your team, and optionally require a technician password before deployment starts.
 
 ## Get started
 
@@ -81,6 +81,10 @@ Found a bug or have a feature request? Use the [issue chooser](https://github.co
 
 Code contributions are welcome. Read the [contributing guide](CONTRIBUTING.md) before starting substantial work, and report vulnerabilities privately through the [security policy](SECURITY.md).
 
+## Telemetry and privacy
+
+Anonymous usage telemetry and remote error diagnostics are enabled by default. Each can be disabled independently in Settings. See [Telemetry and privacy](https://docs.foundryosd.com/reference/telemetry-and-privacy) for details, and the [usage dashboard](https://eu.posthog.com/embedded/g_cVY9GEAqJEUIu-KgiXReDV-iixCQ) for the aggregated data.
+
 ## Supported by
 
 <p align="center">
@@ -93,4 +97,4 @@ Code contributions are welcome. Read the [contributing guide](CONTRIBUTING.md) b
 
 ---
 
-Foundry is available under the [MIT License](LICENSE). Anonymous usage telemetry and remote error diagnostics are enabled by default and can be disabled independently in Settings. See [Telemetry and privacy](https://docs.foundryosd.com/reference/telemetry-and-privacy), [Third-Party Notices](THIRD_PARTY_NOTICES.md), and the [Code of Conduct](CODE_OF_CONDUCT.md).
+Foundry is available under the [MIT License](LICENSE). See [Third-Party Notices](THIRD_PARTY_NOTICES.md) and the [Code of Conduct](CODE_OF_CONDUCT.md).
