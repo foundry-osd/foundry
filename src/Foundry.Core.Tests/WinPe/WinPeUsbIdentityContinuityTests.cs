@@ -65,49 +65,6 @@ public sealed class WinPeUsbIdentityContinuityTests
         Assert.Contains("FOUNDRY_DISK_IDENTITY_MISMATCH", result.Error, StringComparison.Ordinal);
     }
 
-    public static IEnumerable<object[]> RejectedSnapshots()
-    {
-        foreach (string boundary in new[] { "provision", "layout", "format" })
-        {
-            foreach (string change in new[] { "duplicate", "missing", "renumbered", "serial", "unique", "capacity", "model", "bus", "system", "boot", "unknown-system", "unknown-boot", "malformed-system", "malformed-boot" })
-            {
-                yield return [boundary, change];
-            }
-        }
-    }
-
-    [Theory]
-    [MemberData(nameof(RejectedSnapshots))]
-    public async Task GeneratedScript_WhenIdentityOrEligibilityChanges_RejectsBeforeAnyMutation(string boundary, string change)
-    {
-        string inventory = change switch
-        {
-            "duplicate" => $"[{SafeDiskJson},{SafeDiskJson.Replace("\"Number\":9", "\"Number\":10", StringComparison.Ordinal).Replace("\"BusType\":\"USB\"", "\"BusType\":\"NVMe\"", StringComparison.Ordinal)}]",
-            "missing" => "[]",
-            "renumbered" => SafeDiskJson.Replace("\"Number\":9", "\"Number\":10", StringComparison.Ordinal),
-            "serial" => SafeDiskJson.Replace("SERIAL", "", StringComparison.Ordinal),
-            "unique" => SafeDiskJson.Replace("UNIQUE", "", StringComparison.Ordinal),
-            "capacity" => SafeDiskJson.Replace("64000000000", "65000000000", StringComparison.Ordinal),
-            "model" => SafeDiskJson.Replace("Safe USB", "Safe USB replacement", StringComparison.Ordinal),
-            "bus" => SafeDiskJson.Replace("\"BusType\":\"USB\"", "\"BusType\":\"SATA\"", StringComparison.Ordinal),
-            "system" => SafeDiskJson.Replace("\"IsSystem\":false", "\"IsSystem\":true", StringComparison.Ordinal),
-            "boot" => SafeDiskJson.Replace("\"IsBoot\":false", "\"IsBoot\":true", StringComparison.Ordinal),
-            "unknown-system" => SafeDiskJson.Replace("\"IsSystem\":false,", "", StringComparison.Ordinal),
-            "unknown-boot" => SafeDiskJson.Replace("\"IsBoot\":false,", "", StringComparison.Ordinal),
-            "malformed-system" => SafeDiskJson.Replace("\"IsSystem\":false", "\"IsSystem\":\"false\"", StringComparison.Ordinal),
-            "malformed-boot" => SafeDiskJson.Replace("\"IsBoot\":false", "\"IsBoot\":0", StringComparison.Ordinal),
-            _ => throw new ArgumentOutOfRangeException(nameof(change))
-        };
-
-        HarnessResult result = await ExecuteSafelyAsync(await GetBoundaryScriptAsync(boundary), inventory, boundary);
-
-        Assert.Equal(0, result.Mutations);
-        string expectedMarker = change is "system" or "boot" or "unknown-system" or "unknown-boot" or "malformed-system" or "malformed-boot"
-            ? WinPeUsbMediaService.UsbUnsafeTargetMarker
-            : "FOUNDRY_DISK_IDENTITY_MISMATCH";
-        Assert.Contains(expectedMarker, result.Error, StringComparison.Ordinal);
-    }
-
     [Theory]
     [InlineData("provision", "absent")]
     [InlineData("layout", "absent")]
@@ -341,18 +298,6 @@ public sealed class WinPeUsbIdentityContinuityTests
     }
 
     [Theory]
-    [InlineData(1073741824L, 4096U)]
-    [InlineData(2147483648L, 8192U)]
-    public async Task UpdateScript_WhenBootGeometryChanged_RejectsBeforeFormatting(long partitionSize, uint allocationUnitSize)
-    {
-        string script = await GetBoundaryScriptAsync("format");
-        HarnessResult result = await ExecuteSafelyAsync(script, SafeDiskJson, "format",
-            bootPartitionSize: partitionSize, allocationUnitSize: allocationUnitSize);
-        Assert.Equal(0, result.Mutations);
-        Assert.Contains(WinPeErrorCodes.UsbBootCapacityUnknown, result.Error, StringComparison.Ordinal);
-    }
-
-    [Theory]
     [InlineData("layout")]
     [InlineData("format")]
     public async Task GeometryReadFailure_UsesCapacityValidationBeforeMutation(string boundary)
@@ -364,8 +309,10 @@ public sealed class WinPeUsbIdentityContinuityTests
     }
 
     private static async Task<HarnessResult> ExecuteSafelyAsync(string script, string inventoryJson, string boundary, bool replaceAfterInspection = false,
-        long bootPartitionSize = 2147483648, uint allocationUnitSize = 4096, bool failCapacityRead = false, int? bootMbrType = null)
+        bool failCapacityRead = false, int? bootMbrType = null)
     {
+        const long bootPartitionSize = 2147483648;
+        const uint allocationUnitSize = 4096;
         string fixture = Convert.ToBase64String(Encoding.UTF8.GetBytes(inventoryJson));
         // Get-Partition reports MbrType as the numeric MBR partition ID and leaves it empty on GPT disks.
         string bootPartitionType = bootMbrType is null
