@@ -46,13 +46,13 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 
 ## What you can configure
 
-- **Windows** — release, edition, language, and licensing channel from the catalog, or [your own ISO/WIM image](https://docs.foundryosd.com/foundry-osd/customization/custom-windows-images).
-- **Setup experience** — computer naming, OOBE, privacy, local accounts, optional features, and removal of AppX packages and AI components.
+- **Windows** — [release, edition, language, and licensing channel](https://docs.foundryosd.com/foundry-osd/customization/operating-system) from the catalog, or [your own ISO/WIM image](https://docs.foundryosd.com/foundry-osd/customization/custom-windows-images).
+- **Setup experience** — [computer naming](https://docs.foundryosd.com/foundry-osd/customization/machine-naming), [OOBE, privacy, and local accounts](https://docs.foundryosd.com/foundry-osd/customization/oobe), [optional features](https://docs.foundryosd.com/foundry-osd/customization/optional-features), and removal of [AppX packages](https://docs.foundryosd.com/foundry-osd/customization/appx-removals) and [AI components](https://docs.foundryosd.com/foundry-osd/customization/ai-components).
 - **Post-installation** — [scripts, commands, and EXE/MSI packages](https://docs.foundryosd.com/foundry-osd/customization/post-installation) run in order before OOBE.
 - **Custom answer files** — [import your own Unattend file](https://docs.foundryosd.com/foundry-osd/customization/unattend) for anything beyond the built-in options.
-- **Network** — Ethernet, Wi-Fi, and enterprise 802.1X in WinPE.
-- **Provisioning** — Windows Autopilot or [Active Directory domain join](https://docs.foundryosd.com/foundry-osd/domain-join).
-- **Profiles and protection** — [save and share configurations](https://docs.foundryosd.com/foundry-osd/deployment-profiles) with your team, and optionally require a technician password before deployment starts.
+- **Network** — [Ethernet, Wi-Fi, and enterprise 802.1X](https://docs.foundryosd.com/foundry-osd/network) in WinPE.
+- **Provisioning** — [Windows Autopilot](https://docs.foundryosd.com/foundry-osd/autopilot) or [Active Directory domain join](https://docs.foundryosd.com/foundry-osd/domain-join).
+- **Profiles and protection** — [save and share configurations](https://docs.foundryosd.com/foundry-osd/deployment-profiles) with your team, and optionally [require a technician password](https://docs.foundryosd.com/foundry-osd/general#password-protection) before deployment starts.
 
 ## Get started
 
