@@ -17,11 +17,11 @@
   description: Documentation updates
 
 - name: breaking-change
-  color: 'b60205'
+  color: '7f1d1d'
   description: Introduces a breaking change
 
 - name: security
-  color: 'ee0701'
+  color: 'c026d3'
   description: Security-related change or report
 
 - name: chore
@@ -33,7 +33,7 @@
   description: Internal code change without intended behavior changes
 
 - name: dependencies
-  color: '0366d6'
+  color: 'fbcfe8'
   description: Dependency, package, or project metadata change
 
 - name: tests
@@ -43,15 +43,15 @@
 # Project labels
 
 - name: 'project: foundry'
-  color: '1d76db'
+  color: '06b6d4'
   description: Changes in the Foundry desktop application
 
 - name: 'project: foundry-core'
-  color: '0052cc'
+  color: '0a3069'
   description: Changes in the Foundry.Core shared business logic library
 
 - name: 'project: shared'
-  color: '0b7285'
+  color: 'b08800'
   description: Changes in shared localization, telemetry, or utility libraries
 
 - name: 'project: foundry-deploy'
@@ -63,7 +63,7 @@
   description: Changes in the Foundry.Connect WinPE network provisioning application
 
 - name: 'project: foundry-bootstrap'
-  color: '006b75'
+  color: '84cc16'
   description: Changes in the Foundry.Bootstrap WinPE boot orchestration runtime
 
 - name: 'project: foundry-postinstall'
