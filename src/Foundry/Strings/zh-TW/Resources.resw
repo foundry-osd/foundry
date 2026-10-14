@@ -2165,7 +2165,7 @@
     <value>Windows PE 附加元件</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>使用 WinPE 提供支援的現代桌面工作流程建置 Windows 部署媒體。</value>
+    <value>從建立媒體到安裝 Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>向左捲動</value>

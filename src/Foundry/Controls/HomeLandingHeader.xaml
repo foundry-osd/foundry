@@ -10,7 +10,7 @@
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/CoverLight.png</ImageSource>
+                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/Cover.png</ImageSource>
                     <SolidColorBrush x:Key="HomeHeaderBackgroundBrush"
                         Color="#F3F3F3" />
                     <SolidColorBrush x:Key="HomeHeaderForegroundBrush"
@@ -34,7 +34,7 @@
                     </LinearGradientBrush>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/CoverDark.png</ImageSource>
+                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/Cover.png</ImageSource>
                     <SolidColorBrush x:Key="HomeHeaderBackgroundBrush"
                         Color="#202020" />
                     <SolidColorBrush x:Key="HomeHeaderForegroundBrush"
@@ -58,7 +58,7 @@
                     </LinearGradientBrush>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="HighContrast">
-                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/CoverDark.png</ImageSource>
+                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/Cover.png</ImageSource>
                     <SolidColorBrush x:Key="HomeHeaderBackgroundBrush"
                         Color="Black" />
                     <SolidColorBrush x:Key="HomeHeaderForegroundBrush"
@@ -111,22 +111,37 @@
             </Grid>
         </controls:OpacityMaskView>
 
-        <StackPanel
+        <Grid
             Margin="36,48,36,0"
             VerticalAlignment="Center"
-            Orientation="Vertical">
-            <TextBlock
-                FontSize="18"
-                Foreground="{ThemeResource HomeHeaderForegroundBrush}"
-                Text="{x:Bind ViewModel.HeaderSubtitle, Mode=OneWay}"
-                TextWrapping="Wrap" />
-            <TextBlock
-                AutomationProperties.HeadingLevel="Level1"
-                Foreground="{ThemeResource HomeHeaderForegroundBrush}"
-                Style="{StaticResource TitleLargeTextBlockStyle}"
-                Text="{x:Bind ViewModel.HeaderTitle, Mode=OneWay}"
-                TextWrapping="Wrap" />
-        </StackPanel>
+            ColumnSpacing="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Width="96"
+                Height="96"
+                VerticalAlignment="Center"
+                AutomationProperties.AccessibilityView="Raw"
+                Source="ms-appx:///Assets/AppIcon.png" />
+            <StackPanel
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Spacing="{StaticResource FoundryTextGroupSpacing}">
+                <TextBlock
+                    AutomationProperties.HeadingLevel="Level1"
+                    Foreground="{ThemeResource HomeHeaderForegroundBrush}"
+                    Style="{StaticResource TitleLargeTextBlockStyle}"
+                    Text="{x:Bind ViewModel.HeaderTitle, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    FontSize="20"
+                    Foreground="{ThemeResource HomeHeaderForegroundBrush}"
+                    Text="{x:Bind ViewModel.HeaderSubtitle, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
 
         <controls:HorizontalScrollContainer
             Grid.Row="2"

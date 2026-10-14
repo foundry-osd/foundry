@@ -2165,7 +2165,7 @@
     <value>Windows PE ส่วนเสริม</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>สร้างสื่อการปรับใช้ Windows ด้วยเวิร์กโฟลว์เดสก์ท็อปสมัยใหม่ที่ขับเคลื่อนโดย WinPE</value>
+    <value>ตั้งแต่การสร้างสื่อไปจนถึงการติดตั้ง Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>เลื่อนไปทางซ้าย</value>

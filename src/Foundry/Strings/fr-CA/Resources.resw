@@ -2165,7 +2165,7 @@ Sous licence MIT.</value>
     <value>Windows PE Module complémentaire</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Créez des supports de déploiement Windows avec un workflow de bureau moderne optimisé par WinPE.</value>
+    <value>De la création du support à l'installation de Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Faire défiler vers la gauche</value>

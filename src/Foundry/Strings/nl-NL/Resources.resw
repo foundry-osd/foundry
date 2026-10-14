@@ -2165,7 +2165,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Windows PE-add-on</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Bouw Windows-implementatiemedia met een moderne desktopworkflow mogelijk gemaakt door WinPE.</value>
+    <value>Van het maken van media tot de installatie van Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Naar links schuiven</value>

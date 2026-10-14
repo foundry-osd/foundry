@@ -199,7 +199,7 @@ foreach ($directory in $winUiResourceDirectories) {
     --runtime $RuntimeIdentifier `
     --framework $velopackFrameworks `
     --outputDir $releaseDir `
-    --icon (Join-Path $repoRoot 'src\Foundry\Assets\AppIcon.ico') `
+    --icon (Join-Path $repoRoot 'Assets\Brand\Foundry.ico') `
     --releaseNotes $generatedReleaseNotesPath `
     --noPortable
 

@@ -2165,7 +2165,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Windows PE Lisäosa</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Rakenna Windows käyttöönottomediaa nykyaikaisella työpöytätyönkululla, jota käyttää WinPE.</value>
+    <value>Median luomisesta Windowsin asennukseen</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Vieritä vasemmalle</value>

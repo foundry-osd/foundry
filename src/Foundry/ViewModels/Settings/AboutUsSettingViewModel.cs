@@ -107,6 +107,12 @@ namespace Foundry.ViewModels
                 "MIT",
                 "https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE",
                 "https://html-agility-pack.net/",
+                true),
+            CreateThirdPartyLicenseItem(
+                "Icons8 (Foundry logo)",
+                "Icons8 License",
+                "https://icons8.com/license",
+                "https://icons8.com/",
                 false),
             CreateThirdPartyLicenseItem(
                 "Microsoft Windows SDK Build Tools",

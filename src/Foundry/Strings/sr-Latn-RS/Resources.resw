@@ -2165,7 +2165,7 @@ Licencirano pod MIT licencom.</value>
     <value>Windows PE Dodatak</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Izgradite Windows medijum za primenu sa modernim radnim procesom na radnoj površini koji pokreće WinPE.</value>
+    <value>Od kreiranja medijuma do instalacije sistema Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Pomeri nalevo</value>

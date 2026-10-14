@@ -17,11 +17,11 @@
   description: Documentation updates
 
 - name: breaking-change
-  color: 'b60205'
+  color: '7f1d1d'
   description: Introduces a breaking change
 
 - name: security
-  color: 'ee0701'
+  color: 'c026d3'
   description: Security-related change or report
 
 - name: chore
@@ -29,29 +29,29 @@
   description: Maintenance or routine repository work
 
 - name: refactor
-  color: 'fbca04'
+  color: 'c2e0c6'
   description: Internal code change without intended behavior changes
 
 - name: dependencies
-  color: '0366d6'
+  color: 'fbcfe8'
   description: Dependency, package, or project metadata change
 
 - name: tests
-  color: 'bfd4f2'
+  color: '9db4ff'
   description: Test coverage or test infrastructure change
 
 # Project labels
 
 - name: 'project: foundry'
-  color: '1d76db'
+  color: '06b6d4'
   description: Changes in the Foundry desktop application
 
 - name: 'project: foundry-core'
-  color: '0052cc'
+  color: '0a3069'
   description: Changes in the Foundry.Core shared business logic library
 
 - name: 'project: shared'
-  color: '0b7285'
+  color: 'b08800'
   description: Changes in shared localization, telemetry, or utility libraries
 
 - name: 'project: foundry-deploy'
@@ -59,19 +59,19 @@
   description: Changes in the Foundry.Deploy deployment application
 
 - name: 'project: foundry-connect'
-  color: '5319e7'
+  color: 'ea580c'
   description: Changes in the Foundry.Connect WinPE network provisioning application
 
 - name: 'project: foundry-bootstrap'
-  color: '006b75'
+  color: '84cc16'
   description: Changes in the Foundry.Bootstrap WinPE boot orchestration runtime
 
 - name: 'project: foundry-postinstall'
-  color: '006b75'
+  color: '8d5524'
   description: Changes in the Foundry.PostInstall post-installation runtime
 
 - name: ui
-  color: '7057ff'
+  color: 'db2777'
   description: User interface or XAML changes
 
 - name: ci
@@ -97,11 +97,11 @@
   description: Usage, setup, or contribution question
 
 - name: blocked
-  color: 'b60205'
+  color: '24292f'
   description: Blocked by another task or external dependency
 
 - name: 'status: waiting-for-user'
-  color: 'fbca04'
+  color: 'fb8c00'
   description: Waiting for user feedback or requested information
 
 # Resolution labels
@@ -111,19 +111,19 @@
   description: Already tracked elsewhere
 
 - name: invalid
-  color: 'cfd3d7'
+  color: 'e4e669'
   description: Not actionable as submitted
 
 - name: wontfix
-  color: 'cfd3d7'
+  color: '57606a'
   description: Intentionally not planned
 
 - name: stale
-  color: 'cfd3d7'
+  color: '8b949e'
   description: No recent activity
 
 # Special labels
 
 - name: pinned
-  color: '006b75'
+  color: '6e7b1e'
   description: Exempt from stale handling

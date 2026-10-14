@@ -2165,7 +2165,7 @@ Licenciado sob a licença MIT.</value>
     <value>Windows PE Complemento</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Crie mídia de implantação Windows com um fluxo de trabalho de desktop moderno desenvolvido por WinPE.</value>
+    <value>Da criação da mídia à instalação do Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Rolar para a esquerda</value>

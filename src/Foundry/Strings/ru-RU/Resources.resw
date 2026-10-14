@@ -2165,7 +2165,7 @@
     <value>Windows PE Дополнение</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Создайте носитель развертывания Windows с помощью современного рабочего процесса на базе WinPE.</value>
+    <value>От создания носителя до установки Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Прокрутить влево</value>

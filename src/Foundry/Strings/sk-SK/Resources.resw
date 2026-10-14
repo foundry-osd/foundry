@@ -2165,7 +2165,7 @@ Licencované podľa licencie MIT.</value>
     <value>Doplnok Windows PE</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Vytvorte nasadzovacie médium Windows s moderným pracovným postupom na pracovnej ploche, ktorý využíva WinPE.</value>
+    <value>Od vytvorenia média po inštaláciu systému Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Posunúť doľava</value>

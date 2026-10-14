@@ -2165,7 +2165,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Windows PE Eklenti</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>WinPE tarafından desteklenen modern bir masaüstü iş akışıyla Windows dağıtım ortamı oluşturun.</value>
+    <value>Ortam oluşturmadan Windows kurulumuna</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Sola kaydır</value>

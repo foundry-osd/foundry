@@ -2165,7 +2165,7 @@ Sous licence MIT.</value>
     <value>Module complémentaire Windows PE</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Créez des médias de déploiement Windows avec un workflow desktop moderne basé sur WinPE.</value>
+    <value>De la création du média à l'installation de Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Faire défiler vers la gauche</value>

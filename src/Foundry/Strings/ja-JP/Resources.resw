@@ -2165,7 +2165,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Windows PE アドオン</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>WinPE を活用した最新のデスクトップ ワークフローを使用して Windows 展開メディアを構築します。</value>
+    <value>メディアの作成から Windows のインストールまで</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>左にスクロール</value>

@@ -2165,7 +2165,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Windows PE Add-on</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Erstellen Sie Windows Bereitstellungsmedien mit einem modernen Desktop-Workflow, der von WinPE unterstützt wird.</value>
+    <value>Von der Medienerstellung bis zur Windows-Installation</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Nach links scrollen</value>
