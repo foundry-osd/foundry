@@ -120,8 +120,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Image
-                Width="80"
-                Height="80"
+                Width="96"
+                Height="96"
                 VerticalAlignment="Center"
                 AutomationProperties.AccessibilityView="Raw"
                 Source="ms-appx:///Assets/AppIcon.png" />
