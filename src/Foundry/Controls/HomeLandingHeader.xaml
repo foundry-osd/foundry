@@ -10,7 +10,7 @@
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/CoverLight.png</ImageSource>
+                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/Cover.png</ImageSource>
                     <SolidColorBrush x:Key="HomeHeaderBackgroundBrush"
                         Color="#F3F3F3" />
                     <SolidColorBrush x:Key="HomeHeaderForegroundBrush"
@@ -34,7 +34,7 @@
                     </LinearGradientBrush>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/CoverDark.png</ImageSource>
+                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/Cover.png</ImageSource>
                     <SolidColorBrush x:Key="HomeHeaderBackgroundBrush"
                         Color="#202020" />
                     <SolidColorBrush x:Key="HomeHeaderForegroundBrush"
@@ -58,7 +58,7 @@
                     </LinearGradientBrush>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="HighContrast">
-                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/CoverDark.png</ImageSource>
+                    <ImageSource x:Key="HomeHeaderImage">/Assets/Cover/Cover.png</ImageSource>
                     <SolidColorBrush x:Key="HomeHeaderBackgroundBrush"
                         Color="Black" />
                     <SolidColorBrush x:Key="HomeHeaderForegroundBrush"

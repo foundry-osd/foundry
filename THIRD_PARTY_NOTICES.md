@@ -18,4 +18,12 @@ The Foundry application icon and logo are the Hammer and Anvil icon by Icons8, i
 - License: [Icons8 License](https://icons8.com/license)
 - Included files: `Assets/Source/Foundry.master.svg`, `Assets/Brand/Foundry.ico`, `Assets/Brand/Foundry.png`, and the logos in `src/Foundry/Assets/Store`
 
+## Background image
+
+The Foundry OSD Home page header, the README banner, the documentation home banner, and the repository social preview use a photo by Dima Solomin from Unsplash.
+
+- Upstream: [Photo by Dima Solomin](https://unsplash.com/photos/eJ6uQ2pIE4Y) on [Unsplash](https://unsplash.com)
+- License: [Unsplash License](https://unsplash.com/license)
+- Included files: `src/Foundry/Assets/Cover/Cover.png`, `Assets/GitHub/readme-logo.png`, and `Assets/GitHub/social-preview.png`
+
 This file supplements, and does not replace, the license files distributed with each bundled asset.

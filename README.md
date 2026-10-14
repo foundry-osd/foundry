@@ -36,8 +36,6 @@ Foundry is an open-source Windows 11 deployment solution for enterprise IT teams
 
 ---
 
-![Foundry workflow showing deployment media creation, WinPE network readiness, and Windows deployment](Assets/GitHub/foundry-workflow.png)
-
 ## How it works
 
 Foundry uses three applications, one for each stage of the deployment:
