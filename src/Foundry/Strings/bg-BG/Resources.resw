@@ -2165,7 +2165,7 @@
     <value>Windows PE Добавка</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Създайте Windows носител за внедряване с модерен работен процес на настолен компютър, захранван от WinPE.</value>
+    <value>От създаването на носителя до инсталирането на Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Превъртане наляво</value>

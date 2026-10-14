@@ -2165,7 +2165,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Windows PE 부가기능</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>WinPE이 제공하는 최신 데스크탑 워크플로를 사용하여 Windows 배포 미디어를 구축하세요.</value>
+    <value>미디어 생성부터 Windows 설치까지</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>왼쪽으로 스크롤</value>

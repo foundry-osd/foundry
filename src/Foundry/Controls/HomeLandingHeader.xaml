@@ -111,22 +111,37 @@
             </Grid>
         </controls:OpacityMaskView>
 
-        <StackPanel
+        <Grid
             Margin="36,48,36,0"
             VerticalAlignment="Center"
-            Orientation="Vertical">
-            <TextBlock
-                FontSize="18"
-                Foreground="{ThemeResource HomeHeaderForegroundBrush}"
-                Text="{x:Bind ViewModel.HeaderSubtitle, Mode=OneWay}"
-                TextWrapping="Wrap" />
-            <TextBlock
-                AutomationProperties.HeadingLevel="Level1"
-                Foreground="{ThemeResource HomeHeaderForegroundBrush}"
-                Style="{StaticResource TitleLargeTextBlockStyle}"
-                Text="{x:Bind ViewModel.HeaderTitle, Mode=OneWay}"
-                TextWrapping="Wrap" />
-        </StackPanel>
+            ColumnSpacing="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Width="80"
+                Height="80"
+                VerticalAlignment="Center"
+                AutomationProperties.AccessibilityView="Raw"
+                Source="ms-appx:///Assets/AppIcon.png" />
+            <StackPanel
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Spacing="{StaticResource FoundryTextGroupSpacing}">
+                <TextBlock
+                    AutomationProperties.HeadingLevel="Level1"
+                    Foreground="{ThemeResource HomeHeaderForegroundBrush}"
+                    Style="{StaticResource TitleLargeTextBlockStyle}"
+                    Text="{x:Bind ViewModel.HeaderTitle, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    FontSize="20"
+                    Foreground="{ThemeResource HomeHeaderForegroundBrush}"
+                    Text="{x:Bind ViewModel.HeaderSubtitle, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
 
         <controls:HorizontalScrollContainer
             Grid.Row="2"

@@ -2165,7 +2165,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Windows PE Priedas</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Sukurkite Windows diegimo laikmeną naudodami modernią darbalaukio darbo eigą, kurią palaiko WinPE.</value>
+    <value>Nuo laikmenos sukūrimo iki Windows įdiegimo</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Slinkti kairėn</value>

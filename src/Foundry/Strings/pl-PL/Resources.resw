@@ -2165,7 +2165,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Windows PE Dodatek</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Twórz nośniki wdrożeniowe Windows za pomocą nowoczesnego przepływu pracy na komputerze stacjonarnym obsługiwanego przez WinPE.</value>
+    <value>Od utworzenia nośnika do instalacji systemu Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Przewiń w lewo</value>

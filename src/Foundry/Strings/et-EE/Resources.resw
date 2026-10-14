@@ -2165,7 +2165,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Windows PE Lisand</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Ehitage Windows juurutusmeedium kaasaegse töölaua töövooga, mida toetab WinPE.</value>
+    <value>Meediumi loomisest kuni Windowsi installimiseni</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Keri vasakule</value>

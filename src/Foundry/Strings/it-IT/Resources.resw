@@ -2165,7 +2165,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Windows PE Componente aggiuntivo</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Crea supporti di distribuzione Windows con un flusso di lavoro desktop moderno basato su WinPE.</value>
+    <value>Dalla creazione dei supporti all'installazione di Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Scorri a sinistra</value>

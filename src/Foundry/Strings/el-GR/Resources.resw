@@ -2165,7 +2165,7 @@
     <value>Windows PE Πρόσθετο</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Δημιουργήστε μέσα ανάπτυξης Windows με μια σύγχρονη ροή εργασίας για επιτραπέζιους υπολογιστές που υποστηρίζεται από το WinPE.</value>
+    <value>Από τη δημιουργία μέσων έως την εγκατάσταση των Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Κύλιση αριστερά</value>

@@ -2165,7 +2165,7 @@
     <value>Windows PE الوظيفة الإضافية</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>أنشئ وسائط نشر Windows باستخدام سير عمل سطح مكتب حديث مدعوم بواسطة WinPE.</value>
+    <value>من إنشاء الوسائط إلى تثبيت Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>التمرير إلى اليسار</value>

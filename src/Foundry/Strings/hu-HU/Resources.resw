@@ -2165,7 +2165,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Windows PE Kiegészítő</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Építsen Windows telepítési adathordozót a WinPE által hajtott modern asztali munkafolyamattal.</value>
+    <value>Az adathordozó létrehozásától a Windows telepítéséig</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Görgetés balra</value>

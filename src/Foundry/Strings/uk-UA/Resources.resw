@@ -2165,7 +2165,7 @@
     <value>Windows PE Надбудова</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Створюйте носії для розгортання Windows за допомогою сучасного робочого процесу настільного комп’ютера на базі WinPE.</value>
+    <value>Від створення носія до інсталяції Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Прокрутити ліворуч</value>

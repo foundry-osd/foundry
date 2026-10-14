@@ -2165,7 +2165,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Windows PE tillegg</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Bygg Windows distribusjonsmedier med en moderne skrivebordsarbeidsflyt drevet av WinPE.</value>
+    <value>Fra oppretting av medier til installasjon av Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Rull til venstre</value>

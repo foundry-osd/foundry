@@ -2165,7 +2165,7 @@ Licensed under the MIT License.</value>
     <value>Windows PE Add-on</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Build Windows deployment media with a modern desktop workflow powered by WinPE.</value>
+    <value>From media creation to Windows installation</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Scroll left</value>

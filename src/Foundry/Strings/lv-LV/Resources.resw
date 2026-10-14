@@ -2165,7 +2165,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Windows PE Papildinājums</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Veidojiet Windows izvietošanas datu nesēju ar modernu darbvirsmas darbplūsmu, ko nodrošina WinPE.</value>
+    <value>No datu nesēja izveides līdz Windows instalēšanai</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Ritināt pa kreisi</value>
