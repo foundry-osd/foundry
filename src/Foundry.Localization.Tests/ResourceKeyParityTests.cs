@@ -37,6 +37,14 @@ public sealed class ResourceKeyParityTests
         "TB"
     ];
 
+    private static readonly Dictionary<string, string> FrenchByteUnits = new(StringComparer.Ordinal)
+    {
+        ["Ko"] = "KB",
+        ["Mo"] = "MB",
+        ["Go"] = "GB",
+        ["To"] = "TB"
+    };
+
     private static readonly string[] SupportedCultures = FoundrySupportedCultures.CreateCatalog()
         .CreateOptions(System.Globalization.CultureInfo.GetCultureInfo("en-US"), key => key)
         .Select(option => option.Code).ToArray();
@@ -187,7 +195,7 @@ public sealed class ResourceKeyParityTests
                     continue;
                 }
 
-                string[] actualTokens = ExtractTechnicalTokens(cultureValues[key]);
+                string[] actualTokens = ExtractTechnicalTokens(NormalizeLocalizedByteUnits(culture, cultureValues[key]));
 
                 Assert.True(
                     expectedTokens.SequenceEqual(actualTokens, StringComparer.Ordinal),
@@ -260,6 +268,17 @@ public sealed class ResourceKeyParityTests
             .Select(match => match.Value)
             .Order(StringComparer.Ordinal)
             .ToArray();
+    }
+
+    /// <summary>
+    /// Maps the French byte-unit symbols (Ko, Mo, Go, To) to their protected English tokens so French cultures can
+    /// localize units without failing the technical-token check.
+    /// </summary>
+    private static string NormalizeLocalizedByteUnits(string culture, string value)
+    {
+        return culture.StartsWith("fr-", StringComparison.Ordinal)
+            ? Regex.Replace(value, @"(?<!\p{L})(?:Ko|Mo|Go|To)(?!\p{L})", match => FrenchByteUnits[match.Value])
+            : value;
     }
 
     private static string[] ExtractTechnicalTokens(string value)
