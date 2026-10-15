@@ -68,7 +68,7 @@ Licensed under the MIT License.</value>
     <value>Language</value>
   </data>
   <data name="Catalog.LicenseChannel" xml:space="preserve">
-    <value>License channel</value>
+    <value>Licence channel</value>
   </data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve">
     <value>Catalogue load failed: {0}</value>
@@ -412,7 +412,7 @@ Action: Verify disk attributes and retry deployment.</value>
     <value>This Windows edition cannot join a domain. Windows installation continues without it.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
-    <value>Microsoft Update Catalogue</value>
+    <value>Microsoft Update Catalog</value>
   </data>
   <data name="DriverPack.Model" xml:space="preserve">
     <value>Model</value>
@@ -688,7 +688,7 @@ Continue with deployment?</value>
     <value>Interactive hardware hash upload</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profile provisioning</value>
+    <value>JSON profile</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profile</value>
@@ -757,7 +757,7 @@ Continue with deployment?</value>
     <value>Deployment steps</value>
   </data>
   <data name="Splash.InitializingComponents" xml:space="preserve">
-    <value>Initializing components...</value>
+    <value>Initialising components...</value>
   </data>
   <data name="Splash.StartDeployment" xml:space="preserve">
     <value>Start deployment</value>
@@ -886,7 +886,7 @@ Continue with deployment?</value>
     <value>Extract firmware update</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
-    <value>Finalize deployment</value>
+    <value>Finalise deployment</value>
   </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Check deployment readiness</value>
@@ -1027,7 +1027,7 @@ Continue with deployment?</value>
     <value>Extracting firmware update...</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
-    <value>Finalizing deployment...</value>
+    <value>Finalising deployment...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Importing hardware hash into Microsoft Graph...</value>
@@ -1057,7 +1057,7 @@ Continue with deployment?</value>
     <value>Preparing Microsoft Graph import...</value>
   </data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve">
-    <value>Preparing Microsoft Update Catalogue lookup...</value>
+    <value>Preparing Microsoft Update Catalog lookup...</value>
   </data>
   <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve">
     <value>Preparing target disk layout...</value>
@@ -1306,7 +1306,7 @@ Continue with deployment?</value>
     <value>Interactive Autopilot registration assistant staged (simulation).</value>
   </data>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
-    <value>Microsoft Update Catalogue did not produce driver content.</value>
+    <value>Microsoft Update Catalog did not produce driver content.</value>
   </data>
   <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
     <value>No deferred driver installer is required.</value>
@@ -1540,7 +1540,7 @@ Continue with deployment?</value>
     <value>Target device</value>
   </data>
   <data name="Summary.Category.WindowsCustomization" xml:space="preserve">
-    <value>Windows customization</value>
+    <value>Windows customisation</value>
   </data>
   <data name="Summary.Description" xml:space="preserve">
     <value>Review your selections before starting deployment.</value>
@@ -1579,7 +1579,7 @@ Continue with deployment?</value>
     <value>Language</value>
   </data>
   <data name="Summary.LicenseChannel" xml:space="preserve">
-    <value>License channel</value>
+    <value>Licence channel</value>
   </data>
   <data name="Summary.LocationAccess" xml:space="preserve">
     <value>Location access</value>
@@ -1624,7 +1624,7 @@ Continue with deployment?</value>
     <value>Release</value>
   </data>
   <data name="Summary.RestartBehavior" xml:space="preserve">
-    <value>Restart behavior</value>
+    <value>Restart behaviour</value>
   </data>
   <data name="Summary.RestartDelay" xml:space="preserve">
     <value>Restart delay</value>
@@ -1639,7 +1639,7 @@ Continue with deployment?</value>
     <value>Skip account creation</value>
   </data>
   <data name="Summary.SkipLicenseTerms" xml:space="preserve">
-    <value>Skip license terms</value>
+    <value>Skip licence terms</value>
   </data>
   <data name="Summary.Status" xml:space="preserve">
     <value>Status</value>
@@ -1747,13 +1747,13 @@ Continue with deployment?</value>
     <value>Open log file</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>This answer file conflicts with the configured Autopilot enrolment mode. Choose another file or change the media configuration.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Custom commands may conflict with Foundry. Test this configuration.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hash upload does not guarantee Autopilot enrollment.</value>
+    <value>Hash upload does not guarantee Autopilot enrolment.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>Test this answer file with the selected Windows image and Foundry configuration.</value>
