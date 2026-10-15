@@ -59,7 +59,7 @@ Sous licence MIT.</value>
     <value>Fermer</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Configuration: paramètres par défaut intégrés</value>
+    <value>Configuration : paramètres par défaut intégrés</value>
   </data>
   <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
     <value>Configuration : {0}</value>
@@ -68,10 +68,10 @@ Sous licence MIT.</value>
     <value>Connecté</value>
   </data>
   <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Dernière mise à jour: {0:HH:mm:ss}</value>
+    <value>Dernière mise à jour : {0:HH:mm:ss}</value>
   </data>
   <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Dernière mise à jour: en attente</value>
+    <value>Dernière mise à jour : en attente</value>
   </data>
   <data name="Common.RefreshIntervalFormat" xml:space="preserve">
     <value>Actualisation toutes les {0} secondes</value>
@@ -153,7 +153,7 @@ Sous licence MIT.</value>
     <value>En attente de configuration réseau</value>
   </data>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>En attente de DHCP ou d'une configuration réseau statique</value>
+    <value>En attente de DHCP ou d’une configuration réseau statique</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabe (Arabie Saoudite)</value>
@@ -288,16 +288,16 @@ Sous licence MIT.</value>
     <value>Poursuite automatique dans {0}s</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>L'accès à Internet a été validé. Vous pouvez continuer maintenant.</value>
+    <value>L’accès à Internet a été validé. Vous pouvez continuer maintenant.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Prêt pour le réseau</value>
   </data>
   <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Échec de l'actualisation du réseau</value>
+    <value>Échec de l’actualisation du réseau</value>
   </data>
   <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>L'accès Internet n'a pas encore été validé.</value>
+    <value>L’accès Internet n’a pas encore été validé.</value>
   </data>
   <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
     <value>En attente du réseau</value>
@@ -312,10 +312,10 @@ Sous licence MIT.</value>
     <value>Système</value>
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
-    <value>Actualiser l'état</value>
+    <value>Actualiser l’état</value>
   </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
-    <value>Impossible d'appliquer les paramètres réseau provisionnés.</value>
+    <value>Impossible d’appliquer les paramètres réseau provisionnés.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Impossible de se connecter. Vérifiez le mot de passe ou les paramètres réseau et réessayez.</value>
@@ -330,19 +330,19 @@ Sous licence MIT.</value>
     <value>Impossible de déconnecter le profil Wi-Fi provisionné. Essayer à nouveau.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
-    <value>Le profil Wi-Fi provisionné n'est pas disponible.</value>
+    <value>Le profil Wi-Fi provisionné n’est pas disponible.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
-    <value>Ce réseau Wi-Fi n'est pas pris en charge dans cette version.</value>
+    <value>Ce réseau Wi-Fi n’est pas pris en charge dans cette version.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
-    <value>Impossible de terminer l'action Wi-Fi. Essayer à nouveau.</value>
+    <value>Impossible de terminer l’action Wi-Fi. Essayer à nouveau.</value>
   </data>
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
     <value>Authentification</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Paramètres de l'image de démarrage</value>
+    <value>Paramètres de l’image de démarrage</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Sécurité configurée</value>
@@ -357,22 +357,22 @@ Sous licence MIT.</value>
     <value>Provisionné Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Profil d'entreprise</value>
+    <value>Profil d’entreprise</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>Réseau caché</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Aucun adaptateur Wi-Fi n'est disponible.</value>
+    <value>Aucun adaptateur Wi-Fi n’est disponible.</value>
   </data>
   <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Aucun adaptateur Wi-Fi n'est actuellement détecté.</value>
+    <value>Aucun adaptateur Wi-Fi n’est actuellement détecté.</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
-    <value>Aucun réseau Wi-Fi n'est actuellement visible.</value>
+    <value>Aucun réseau Wi-Fi n’est actuellement visible.</value>
   </data>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>Aucun profil Wi-Fi provisionné n'est disponible dans cette image de démarrage.</value>
+    <value>Aucun profil Wi-Fi provisionné n’est disponible dans cette image de démarrage.</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
@@ -438,7 +438,7 @@ Sous licence MIT.</value>
     <value>WPA Personnel</value>
   </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certificat inclus dans l'image de démarrage</value>
+    <value>{0} · Certificat inclus dans l’image de démarrage</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Un autre réseau Wi-Fi est actif</value>
@@ -459,7 +459,7 @@ Sous licence MIT.</value>
     <value>Afficher ou masquer le mot de passe Wi-Fi</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>La prise en charge de Wi-Fi n'est pas disponible dans cet environnement de démarrage.</value>
+    <value>La prise en charge de Wi-Fi n’est pas disponible dans cet environnement de démarrage.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Profil provisionné sans nom</value>

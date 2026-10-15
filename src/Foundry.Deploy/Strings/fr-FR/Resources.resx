@@ -47,16 +47,16 @@ Sous licence MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
-    <value>La version de Foundry OSD utilisée pour créer ce support de démarrage ne peut pas être déterminée. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
+    <value>La version de Foundry OSD utilisée pour créer ce média de démarrage ne peut pas être déterminée. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le média de démarrage USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Nouvelle version disponible. Mettez à jour Foundry OSD et recréez le support de démarrage.</value>
+    <value>Nouvelle version disponible. Mettez à jour Foundry OSD et recréez le média de démarrage.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Mettez à jour Foundry OSD et recréez le support de démarrage.</value>
+    <value>Mettez à jour Foundry OSD et recréez le média de démarrage.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ce support de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
+    <value>Ce média de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le média de démarrage USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Architecture : {0}</value>
@@ -155,7 +155,7 @@ Sous licence MIT.</value>
     <value>Inspection et vérification de l’image…</value>
   </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
-    <value>Le manifeste des images personnalisées est manquant, endommagé ou ne correspond pas à ce support de démarrage. Recréez le support ou choisissez une autre source.</value>
+    <value>Le manifeste des images personnalisées est manquant, endommagé ou ne correspond pas à ce média de démarrage. Recréez le média ou choisissez une autre source.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
     <value>L’image ne peut pas être lue, ou son index sélectionné ou ses métadonnées ont changé. Sélectionnez à nouveau l’image et réessayez.</value>
@@ -164,7 +164,7 @@ Sous licence MIT.</value>
     <value>L’image ou l’index par défaut configuré n’est pas disponible. Choisissez explicitement une image et un index.</value>
   </data>
   <data name="CustomImages.NoImages" xml:space="preserve">
-    <value>Aucune image personnalisée trouvée. Connectez le support approprié ou ajoutez un fichier WIM au dossier USB indiqué dans la documentation.</value>
+    <value>Aucune image personnalisée trouvée. Connectez le média approprié ou ajoutez un fichier WIM au dossier de la clé USB indiqué dans la documentation.</value>
   </data>
   <data name="CustomImages.NotReady" xml:space="preserve">
     <value>L’image personnalisée n’est pas prête.</value>
@@ -176,7 +176,7 @@ Sous licence MIT.</value>
     <value>Résoudre l’image personnalisée</value>
   </data>
   <data name="CustomImages.Resolved" xml:space="preserve">
-    <value>Image personnalisée résolue depuis le support de déploiement.</value>
+    <value>Image personnalisée résolue depuis le média de déploiement.</value>
   </data>
   <data name="CustomImages.Source" xml:space="preserve">
     <value>Source de l’image</value>
@@ -200,7 +200,7 @@ Sous licence MIT.</value>
     <value>Infos du certificat manquantes</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve">
-    <value>Sans group tag par défaut</value>
+    <value>Sans balise de groupe par défaut</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve">
     <value>Certificat valide</value>
@@ -442,7 +442,7 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
     <value>Étape en échec : {0}</value>
   </data>
   <data name="Error.SecureConnectionFailed" xml:space="preserve">
-    <value>Impossible d’établir une connexion sécurisée. Vérifiez la date et l’heure de l’appareil ainsi que les certificats de confiance du support de démarrage, y compris le certificat d’un éventuel proxy HTTPS.</value>
+    <value>Impossible d’établir une connexion sécurisée. Vérifiez la date et l’heure de l’appareil ainsi que les certificats de confiance du média de démarrage, y compris le certificat d’un éventuel proxy HTTPS.</value>
   </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Détails de l’erreur</value>
@@ -613,7 +613,7 @@ Continuer le déploiement ?</value>
     <value>Préparation des composants de post-installation...</value>
   </data>
   <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
-    <value>Les composants de post-installation n’ont pas pu être préparés. Vérifiez votre connexion et réessayez, ou recréez le support de démarrage. Consultez le journal de déploiement pour plus de détails.</value>
+    <value>Les composants de post-installation n’ont pas pu être préparés. Vérifiez votre connexion et réessayez, ou recréez le média de démarrage. Consultez le journal de déploiement pour plus de détails.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Préparation de la post-installation terminée (simulation).</value>
@@ -643,10 +643,10 @@ Continuer le déploiement ?</value>
     <value>La taille de l’image après son application est indisponible ou invalide. Sélectionnez une autre image.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Les métadonnées de taille ou de hachage de l’image dans le catalogue sont invalides. Sélectionnez une autre image ou redémarrez l’appareil depuis le support de déploiement pour recharger le catalogue.</value>
+    <value>Les métadonnées de taille ou de hachage de l’image dans le catalogue sont invalides. Sélectionnez une autre image ou redémarrez l’appareil depuis le média de déploiement pour recharger le catalogue.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>L’URL de l’image doit utiliser HTTP ou HTTPS. Sélectionnez une autre image ou redémarrez l’appareil depuis le support de déploiement pour recharger le catalogue.</value>
+    <value>L’URL de l’image doit utiliser HTTP ou HTTPS. Sélectionnez une autre image ou redémarrez l’appareil depuis le média de déploiement pour recharger le catalogue.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>L’état de préparation du déploiement n’a pas pu être confirmé. Relancez le déploiement avant de préparer le disque.</value>
@@ -682,7 +682,7 @@ Continuer le déploiement ?</value>
     <value>État de l’envoi du hash matériel</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>Téléversement zero-touch du hachage matériel</value>
+    <value>Téléversement zero-touch du hash matériel</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
     <value>Envoi interactif du hash matériel</value>
@@ -787,7 +787,7 @@ Continuer le déploiement ?</value>
     <value>Préparation du déploiement...</value>
   </data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve">
-    <value>L’exécutable de redémarrage requis 'wpeutil.exe' est introuvable.</value>
+    <value>L’exécutable de redémarrage requis « wpeutil.exe » est introuvable.</value>
   </data>
   <data name="Status.StartingStep" xml:space="preserve">
     <value>Démarrage de l’étape...</value>
@@ -967,7 +967,7 @@ Continuer le déploiement ?</value>
     <value>Vérification des appareils Windows Autopilot ({0} restant)...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve">
-    <value>Vérification du group tag Windows Autopilot ({0} restant)...</value>
+    <value>Vérification de la balise de groupe Windows Autopilot ({0} restant)...</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Nettoyage de l’espace de travail temporaire...</value>
@@ -1000,7 +1000,7 @@ Continuer le déploiement ?</value>
     <value>Copie du paquet de pilotes...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Copie des fichiers d'enregistrement interactif...</value>
+    <value>Copie des fichiers d’enregistrement interactif...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Création des partitions simulées...</value>
@@ -1099,7 +1099,7 @@ Continuer le déploiement ?</value>
     <value>Préparation du profil Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
-    <value>Préparation de l'assistant d'enregistrement Autopilot...</value>
+    <value>Préparation de l’assistant d’enregistrement Autopilot...</value>
   </data>
   <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
     <value>Préparation de la mise à jour du micrologiciel...</value>
@@ -1117,7 +1117,7 @@ Continuer le déploiement ?</value>
     <value>Mise à jour de l’appareil Autopilot existant...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
-    <value>Mise à jour du group tag Windows Autopilot dans Microsoft Graph...</value>
+    <value>Mise à jour de la balise de groupe Windows Autopilot dans Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
     <value>Envoi du hash matériel Autopilot...</value>
@@ -1132,7 +1132,7 @@ Continuer le déploiement ?</value>
     <value>Attente de la visibilité de l’appareil Autopilot...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
-    <value>Attente de la mise à jour du group tag Autopilot...</value>
+    <value>Attente de la mise à jour de la balise de groupe Autopilot...</value>
   </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Écriture des journaux de fin...</value>
@@ -1147,7 +1147,7 @@ Continuer le déploiement ?</value>
     <value>Écriture du manifeste Autopilot de simulation...</value>
   </data>
   <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
-    <value>Écriture du manifeste d'enregistrement interactif en simulation...</value>
+    <value>Écriture du manifeste d’enregistrement interactif en simulation...</value>
   </data>
   <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve">
     <value>Écriture des valeurs du premier démarrage...</value>
@@ -1192,7 +1192,7 @@ Continuer le déploiement ?</value>
     <value>Autopilot est désactivé.</value>
   </data>
   <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve">
-    <value>La mise à jour du group tag de l’appareil Windows Autopilot n’a pas été confirmée avant l’expiration du délai.</value>
+    <value>La mise à jour de la balise de groupe de l’appareil Windows Autopilot n’a pas été confirmée avant l’expiration du délai.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
     <value>Hash matériel Autopilot importé et visible dans les appareils Windows Autopilot.</value>
@@ -1300,10 +1300,10 @@ Continuer le déploiement ?</value>
     <value>Les mises à jour firmware sont ignorées lorsque l’appareil fonctionne sur batterie.</value>
   </data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
-    <value>Assistant d'enregistrement Autopilot interactif préparé.</value>
+    <value>Assistant d’enregistrement Autopilot interactif préparé.</value>
   </data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
-    <value>Assistant d'enregistrement Autopilot interactif préparé (simulation).</value>
+    <value>Assistant d’enregistrement Autopilot interactif préparé (simulation).</value>
   </data>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog n’a produit aucun contenu de pilote.</value>
@@ -1438,7 +1438,7 @@ Continuer le déploiement ?</value>
     <value>La partition Windows cible est indisponible pour l’envoi du hash matériel Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
-    <value>La partition Windows cible n'est pas disponible pour préparer l'assistant d'enregistrement Autopilot interactif.</value>
+    <value>La partition Windows cible n’est pas disponible pour préparer l’assistant d’enregistrement Autopilot interactif.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Mode d’installation du pack de pilotes non pris en charge.</value>
@@ -1495,7 +1495,7 @@ Continuer le déploiement ?</value>
     <value>Suppression des composants d’IA</value>
   </data>
   <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
-    <value>Suppression des applications et de l'IA</value>
+    <value>Suppression des applications et de l’IA</value>
   </data>
   <data name="Summary.AppxRemoval" xml:space="preserve">
     <value>Suppression des applications AppX</value>
@@ -1510,7 +1510,7 @@ Continuer le déploiement ?</value>
     <value>Redémarrage automatique</value>
   </data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve">
-    <value>Group tag Autopilot</value>
+    <value>Balise de groupe Autopilot</value>
   </data>
   <data name="Summary.AutopilotProfile" xml:space="preserve">
     <value>Profil Autopilot</value>
@@ -1588,7 +1588,7 @@ Continuer le déploiement ?</value>
     <value>Désactivé de force</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
-    <value>Contrôlé par l'utilisateur</value>
+    <value>Contrôlé par l’utilisateur</value>
   </data>
   <data name="Summary.Manual" xml:space="preserve">
     <value>Manuel</value>
@@ -1666,7 +1666,7 @@ Continuer le déploiement ?</value>
     <value>Total configuré</value>
   </data>
   <data name="Summary.WarningDetails" xml:space="preserve">
-    <value>Détails de l'avertissement</value>
+    <value>Détails de l’avertissement</value>
   </data>
   <data name="Summary.Wifi" xml:space="preserve">
     <value>Wi-Fi</value>
@@ -1753,7 +1753,7 @@ Continuer le déploiement ?</value>
     <value>Les commandes personnalisées peuvent entrer en conflit avec Foundry. Testez cette configuration.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>L’envoi du hachage ne garantit pas l’inscription à Autopilot.</value>
+    <value>L’envoi du hash ne garantit pas l’inscription à Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>Testez ce fichier de réponses avec l’image Windows et la configuration Foundry sélectionnées.</value>

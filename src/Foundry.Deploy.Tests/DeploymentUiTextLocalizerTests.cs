@@ -190,8 +190,8 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Submitting import request to Microsoft Graph...", "Envoi de la demande d’import à Microsoft Graph...")]
     [InlineData("Waiting for Autopilot device visibility...", "Attente de la visibilité de l’appareil Autopilot...")]
     [InlineData("Updating existing Autopilot device...", "Mise à jour de l’appareil Autopilot existant...")]
-    [InlineData("Updating Windows Autopilot group tag in Microsoft Graph...", "Mise à jour du group tag Windows Autopilot dans Microsoft Graph...")]
-    [InlineData("Waiting for Autopilot group tag update...", "Attente de la mise à jour du group tag Autopilot...")]
+    [InlineData("Updating Windows Autopilot group tag in Microsoft Graph...", "Mise à jour de la balise de groupe Windows Autopilot dans Microsoft Graph...")]
+    [InlineData("Waiting for Autopilot group tag update...", "Attente de la mise à jour de la balise de groupe Autopilot...")]
     [InlineData("Preparing Autopilot hardware hash upload...", "Préparation de l’envoi du hash matériel Autopilot...")]
     [InlineData("Decrypting media certificate...", "Déchiffrement du certificat du média...")]
     [InlineData("Authenticating Autopilot hardware hash upload...", "Authentification de l’envoi du hash matériel Autopilot...")]
@@ -204,11 +204,11 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Autopilot hardware hash upload skipped because media metadata is incomplete.", "Envoi du hash matériel Autopilot ignoré car les informations de certificat du média sont incomplètes.")]
     [InlineData("Autopilot hardware hash imported and visible in Windows Autopilot devices.", "Hash matériel Autopilot importé et visible dans les appareils Windows Autopilot.")]
     [InlineData("Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.", "L’appareil Autopilot importé n’est pas apparu dans les appareils Windows Autopilot avant l’expiration du délai.")]
-    [InlineData("Windows Autopilot device group tag update was not confirmed before the timeout.", "La mise à jour du group tag de l’appareil Windows Autopilot n’a pas été confirmée avant l’expiration du délai.")]
+    [InlineData("Windows Autopilot device group tag update was not confirmed before the timeout.", "La mise à jour de la balise de groupe de l’appareil Windows Autopilot n’a pas été confirmée avant l’expiration du délai.")]
     [InlineData("Autopilot hardware hash upload prepared for dry run.", "Envoi du hash matériel Autopilot préparé pour la simulation.")]
     [InlineData("Autopilot hardware hash upload prepared (simulation).", "Envoi du hash matériel Autopilot préparé (simulation).")]
     [InlineData("System reboot", "Redémarrage système")]
-    [InlineData("Required reboot executable 'wpeutil.exe' was not found.", "L’exécutable de redémarrage requis 'wpeutil.exe' est introuvable.")]
+    [InlineData("Required reboot executable 'wpeutil.exe' was not found.", "L’exécutable de redémarrage requis «\u00A0wpeutil.exe\u00A0» est introuvable.")]
     public void LocalizeMessage_TranslatesDeploymentRuntimeMessages(string input, string expected)
     {
         CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
@@ -257,7 +257,7 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("12.5 MB downloaded", "12.5 MB téléchargés")]
     [InlineData("Checking Windows Autopilot devices (1 second remaining)...", "Vérification des appareils Windows Autopilot (1s restant)...")]
     [InlineData("Checking Windows Autopilot devices (600 seconds remaining)...", "Vérification des appareils Windows Autopilot (600s restant)...")]
-    [InlineData("Checking Windows Autopilot group tag (600 seconds remaining)...", "Vérification du group tag Windows Autopilot (600s restant)...")]
+    [InlineData("Checking Windows Autopilot group tag (600 seconds remaining)...", "Vérification de la balise de groupe Windows Autopilot (600s restant)...")]
     [InlineData("Selected Autopilot profile file was not found: 'X:\\profile.json'.", "Le fichier du profil Autopilot sélectionné est introuvable : 'X:\\profile.json'.")]
     [InlineData("Autopilot hardware hash capture failed: OA3 report does not contain a serial number.", "La capture du hash matériel Autopilot a échoué : OA3 report does not contain a serial number.")]
     [InlineData("Autopilot hardware hash import failed: ZtdDeviceAlreadyAssigned.", "L’import du hash matériel Autopilot a échoué : ZtdDeviceAlreadyAssigned.")]

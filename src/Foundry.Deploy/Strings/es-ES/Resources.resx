@@ -95,7 +95,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Copiar al portapapeles</value>
   </data>
   <data name="Common.Deploy" xml:space="preserve">
-    <value>Desplegar</value>
+    <value>Implementar</value>
   </data>
   <data name="Common.Detected" xml:space="preserve">
     <value>Detectado</value>
@@ -125,7 +125,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Anterior</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
-    <value>Indisponible</value>
+    <value>No disponible</value>
   </data>
   <data name="Common.Unknown" xml:space="preserve">
     <value>Desconocido</value>
@@ -206,13 +206,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Certificado válido</value>
   </data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve">
-    <value>JSON perfil</value>
+    <value>Perfil JSON</value>
   </data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Sin Autopilot</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
-    <value>Página de despliegue cancelado</value>
+    <value>Página cancelada</value>
   </data>
   <data name="Debug.CustomImages" xml:space="preserve">
     <value>Imágenes de Windows personalizadas</value>
@@ -697,13 +697,13 @@ Sistema operativo: {4}
     <value>No se encontraron perfiles Autopilot incrustados en este medio.</value>
   </data>
   <data name="Preparation.ComputerName" xml:space="preserve">
-    <value>Nombre de la computadora</value>
+    <value>Nombre del ordenador</value>
   </data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve">
     <value>1-15 caracteres. A-Z, a-z, 0-9 y guión únicamente.</value>
   </data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve">
-    <value>El nombre de la computadora debe contener de 1 a 15 caracteres válidos (letras, números o guiones).</value>
+    <value>El nombre del ordenador debe contener de 1 a 15 caracteres válidos (letras, números o guiones).</value>
   </data>
   <data name="Preparation.DetectingHardware" xml:space="preserve">
     <value>Detectando hardware...</value>
@@ -772,10 +772,10 @@ Sistema operativo: {4}
     <value>Cancelación solicitada. Esperando a que la operación actual finalice de forma segura.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Despliegue cancelado</value>
+    <value>Implementación cancelada</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
-    <value>Despliegue detenido. El disco de destino puede contener una instalación incompleta.</value>
+    <value>Implementación detenida. Es posible que el disco de destino contenga una instalación incompleta.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>En curso...</value>
@@ -784,7 +784,7 @@ Sistema operativo: {4}
     <value>No se proporcionaron detalles del error.</value>
   </data>
   <data name="Status.PreparingDeployment" xml:space="preserve">
-    <value>Preparando el despliegue...</value>
+    <value>Preparando la implementación...</value>
   </data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve">
     <value>No se encontró el ejecutable de reinicio requerido 'wpeutil.exe'.</value>
@@ -826,7 +826,7 @@ Sistema operativo: {4}
     <value>Paso desconocido</value>
   </data>
   <data name="Status.WaitingForDeployment" xml:space="preserve">
-    <value>Esperando el despliegue...</value>
+    <value>Esperando la implementación...</value>
   </data>
   <data name="Status.WaitingForProgress" xml:space="preserve">
     <value>Esperando avances....</value>
@@ -886,7 +886,7 @@ Sistema operativo: {4}
     <value>Extraer actualización de firmware</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
-    <value>Finalizar despliegue</value>
+    <value>Finalizar la implementación</value>
   </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Comprobar si la implementación está lista</value>
@@ -922,7 +922,7 @@ Sistema operativo: {4}
     <value>Validar archivo de respuestas</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Comprobar configuración del despliegue</value>
+    <value>Comprobar la configuración de la implementación</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Aplicando paquete de controladores...</value>
@@ -982,7 +982,7 @@ Sistema operativo: {4}
     <value>Configurando personalizaciones sin conexión...</value>
   </data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve">
-    <value>Configurando los ajustes OOBE...</value>
+    <value>Aplicando la configuración de OOBE...</value>
   </data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve">
     <value>Configurando el entorno de recuperación...</value>
@@ -1027,7 +1027,7 @@ Sistema operativo: {4}
     <value>Extrayendo actualización de firmware...</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
-    <value>Finalizando el despliegue...</value>
+    <value>Finalizando la implementación...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Importando hash de hardware a Microsoft Graph...</value>
@@ -1159,7 +1159,7 @@ Sistema operativo: {4}
     <value>Escribir políticas de IA fuera de línea...</value>
   </data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve">
-    <value>Escribiendo el nombre de la computadora sin conexión...</value>
+    <value>Escribiendo el nombre del ordenador sin conexión...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
     <value>Aplicando</value>
@@ -1192,28 +1192,28 @@ Sistema operativo: {4}
     <value>Autopilot está deshabilitado.</value>
   </data>
   <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve">
-    <value>Windows Autopilot la actualización de la etiqueta del grupo de dispositivos no se confirmó antes del tiempo de espera.</value>
+    <value>No se confirmó la actualización de la etiqueta de grupo del dispositivo de Windows Autopilot antes de que se agotara el tiempo de espera.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Autopilot hash de hardware importado y visible en dispositivos Windows Autopilot.</value>
+    <value>Hash de hardware de Autopilot importado y visible en los dispositivos de Windows Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot falló la captura de hash de hardware: {0}</value>
+    <value>Error en la captura del hash de hardware de Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot falló la importación de hash de hardware: {0}</value>
+    <value>Error en la importación del hash de hardware de Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot carga de hash de hardware preparada para simulación.</value>
+    <value>Carga del hash de hardware de Autopilot preparada para la simulación.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot carga de hash de hardware preparada (simulación).</value>
+    <value>Carga del hash de hardware de Autopilot preparada (simulación).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
     <value>Autopilot se omitió la carga del hash de hardware porque el certificado integrado expiró.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot carga de hash de hardware omitida: {0}</value>
+    <value>Carga del hash de hardware de Autopilot omitida: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot se omitió la carga del hash de hardware porque la información del certificado de medios requerida está incompleta.</value>
@@ -1222,10 +1222,10 @@ Sistema operativo: {4}
     <value>Autopilot está habilitado pero no se seleccionó ningún perfil.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot perfil preparado.</value>
+    <value>Perfil de Autopilot preparado.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot perfil preparado (simulación).</value>
+    <value>Perfil de Autopilot preparado (simulación).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Estrategia de caché resuelta.</value>
@@ -1405,10 +1405,10 @@ Sistema operativo: {4}
     <value>No se pudo resolver el directorio Autopilot de destino.</value>
   </data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve">
-    <value>Nombre de la computadora de destino configurado.</value>
+    <value>Nombre del ordenador de destino configurado.</value>
   </data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve">
-    <value>Nombre de la computadora de destino configurado (simulación).</value>
+    <value>Nombre del ordenador de destino configurado (simulación).</value>
   </data>
   <data name="StepResult.TargetConfigurationValidated" xml:space="preserve">
     <value>Configuración de destino validada.</value>
@@ -1510,10 +1510,10 @@ Sistema operativo: {4}
     <value>Reinicio automático</value>
   </data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve">
-    <value>Autopilot etiqueta de grupo</value>
+    <value>Etiqueta de grupo de Autopilot</value>
   </data>
   <data name="Summary.AutopilotProfile" xml:space="preserve">
-    <value>Autopilot Perfil</value>
+    <value>Perfil de Autopilot</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
     <value>Compilación</value>

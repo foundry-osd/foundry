@@ -71,7 +71,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Repositorio</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
-    <value>Windows creación de medios de implementación</value>
+    <value>Creación de medios de implementación de Windows</value>
   </data>
   <data name="AboutDialog.SupportLink" xml:space="preserve">
     <value>Apoyo</value>
@@ -101,19 +101,19 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Operación de Windows ADK cancelada.</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK operación completada</value>
+    <value>Operación de ADK completada</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Usando el instalador ADK en caché</value>
   </data>
   <data name="Adk.Operation.Downloaded" xml:space="preserve">
-    <value>ADK instalador descargado</value>
+    <value>Instalador de ADK descargado</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>Descargando el instalador ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK operación fallida</value>
+    <value>Error en la operación de ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
     <value>Instalando Windows ADK</value>
@@ -152,7 +152,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Instale o actualice las herramientas de implementación Windows ADK y el complemento Windows PE necesarios para la creación de medios.</value>
   </data>
   <data name="Adk.SetupAction.Title" xml:space="preserve">
-    <value>ADK configuración</value>
+    <value>Instalación de ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
     <value>Instala la versión compatible de Windows ADK 24H2 (10.1.26100.9457).</value>
@@ -293,10 +293,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>El inquilino no devolvió ningún perfil Autopilot.</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot la descarga del perfil falló: {0}</value>
+    <value>Error al descargar el perfil de Autopilot: {0}</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
-    <value>Autopilot la descarga falló</value>
+    <value>Error en la descarga de Autopilot</value>
   </data>
   <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
     <value>No se encontraron perfiles Autopilot</value>
@@ -335,7 +335,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>contraseña PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
-    <value>Ingrese la contraseña de PFX.</value>
+    <value>Introduzca la contraseña del PFX.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
     <value>Seleccione el PFX protegido con contraseña correspondiente antes de crear el medio de arranque.</value>
@@ -377,7 +377,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Copiar contraseña</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Guarde este archivo PFX y su contraseña ahora en una ubicación segura. Foundry guarda la contraseña con su configuración en este equipo solo cuando «Recordar contraseñas» está activado en «Copia de seguridad y sincronización de ajustes». Necesitará ambos valores para generar medios de arranque para la carga de hash de hardware.</value>
+    <value>Guarde este archivo PFX y su contraseña ahora en una ubicación segura. Foundry guarda la contraseña con su configuración en este equipo solo cuando «Recordar contraseñas» está activado en «Copia de seguridad y sincronización de la configuración». Necesitará ambos valores para generar medios de arranque para la carga de hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Contraseña copiada.</value>
@@ -485,7 +485,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Listo</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
-    <value>Certificados de registro de aplicaciones confiables para la autenticación WinPE Graph.</value>
+    <value>Certificados de registro de aplicaciones de confianza para la autenticación de Graph en WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
     <value>Certificados provisionados</value>
@@ -548,7 +548,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>{0}</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
-    <value>Autopilot la importación falló</value>
+    <value>Error en la importación de Autopilot</value>
   </data>
   <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
     <value>Importar Autopilot perfil JSON</value>
@@ -563,7 +563,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Carga interactiva del hash de hardware</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
-    <value>JSON aprovisionamiento de perfil</value>
+    <value>Aprovisionamiento con perfil JSON</value>
   </data>
   <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
     <value>{0} está actualmente activo. Si continúas, se desactivará y se habilitará {1}.</value>
@@ -644,7 +644,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Perfil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Configure la carga automática de hash de hardware con soporte de tenant.</value>
+    <value>Configure la carga automática del hash de hardware mediante el inquilino.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Carga zero-touch del hash de hardware</value>
@@ -686,7 +686,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Refrescar</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
-    <value>Indisponible</value>
+    <value>No disponible</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arquitectura</value>
@@ -914,7 +914,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Paquetes seleccionados: {0} de {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Asigne al dispositivo de Windows Autopilot el nombre final de la computadora confirmado en Foundry Deploy durante la carga del hash de hardware.</value>
+    <value>Asigne al dispositivo de Windows Autopilot el nombre final del ordenador confirmado en Foundry Deploy durante la carga del hash de hardware.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
     <value>Active la asignación de nombres de dispositivos y la carga zero-touch o interactiva del hash de hardware para asignar el nombre final de implementación en Autopilot.</value>
@@ -1343,16 +1343,16 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Servicios de información web e Internet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
-    <value>Disponible para todos los objetivos seleccionados</value>
+    <value>Disponible para todos los destinos seleccionados</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
-    <value>Disponible para algunos objetivos seleccionados</value>
+    <value>Disponible para algunos destinos seleccionados</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
     <value>La disponibilidad se verificará con la imagen de Windows aplicada.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
-    <value>No disponible para los objetivos seleccionados</value>
+    <value>No disponible para los destinos seleccionados</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
     <value>{0}—{1}</value>
@@ -1787,7 +1787,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Ninguna característica opcional de Windows coincide con esta búsqueda.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Los cambios se aplican sin conexión después de instalar Windows y antes de la OOBE. Habilitar operaciones utiliza solo la imagen instalada o fuentes de medios de configuración coincidentes; no se utiliza ningún respaldo de Internet.</value>
+    <value>Los cambios se aplican sin conexión después de instalar Windows y antes de la OOBE. Las operaciones de habilitación solo usan la imagen instalada o los orígenes coincidentes de los medios de instalación; no se recurre a Internet.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
     <value>Funciones de búsqueda</value>
@@ -2312,10 +2312,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Ucraniano (Ucrania)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Cargar el nombre de la computadora en Autopilot</value>
+    <value>Cargar el nombre del ordenador en Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Cargar el nombre de la computadora en Autopilot</value>
+    <value>Cargar el nombre del ordenador en Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Conservar caracteres de la izquierda</value>
@@ -2351,7 +2351,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Acerca de</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
-    <value>ADK preparación e instalación.</value>
+    <value>Preparación e instalación de ADK.</value>
   </data>
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
@@ -2396,7 +2396,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Personalización</value>
   </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
-    <value>Foundry documentación y enlaces de proyectos.</value>
+    <value>Documentación de Foundry y enlaces del proyecto.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Documentación</value>
@@ -2420,7 +2420,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>General</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD casa</value>
+    <value>Inicio de Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Inicio</value>
@@ -2513,7 +2513,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>No configurado</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
-    <value>El comportamiento empresarial está impulsado por la plantilla de perfil de esta compilación. Las credenciales 802.1X ingresadas durante la implementación no se proporcionan aquí.</value>
+    <value>En esta compilación, el comportamiento empresarial lo determina la plantilla de perfil. Las credenciales 802.1X introducidas durante la implementación no se aprovisionan aquí.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Tipo de seguridad Wi-Fi no admitido '{0}'.</value>
@@ -2528,7 +2528,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>No se encontró el archivo de certificado de CA raíz de confianza de Enterprise Wi-Fi.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi requiere un archivo de certificado de CA raíz confiable cuando la confianza del certificado está habilitada.</value>
+    <value>Wi-Fi empresarial requiere un archivo de certificado de CA raíz de confianza cuando la confianza del certificado está habilitada.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>No se encontró el archivo de plantilla de perfil empresarial Wi-Fi.</value>
@@ -2546,10 +2546,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>La configuración Wi-Fi requiere un SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>No se encontró el archivo de certificado de CA raíz confiable 802.1X cableado.</value>
+    <value>No se encontró el archivo de certificado de CA raíz de confianza para 802.1X cableado.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>802.1X cableado requiere un archivo de certificado de CA raíz confiable cuando la confianza del certificado está habilitada.</value>
+    <value>802.1X cableado requiere un archivo de certificado de CA raíz de confianza cuando la confianza del certificado está habilitada.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>No se encontró el archivo de plantilla de perfil 802.1X cableado.</value>
@@ -2564,7 +2564,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Seleccione una plantilla de perfil de red</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importar un certificado de CA raíz confiable</value>
+    <value>Importar un certificado de CA raíz de confianza</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Copia los certificados de cliente PFX configurados en Windows y los importa en el almacén personal de certificados LocalMachine antes de OOBE.</value>
@@ -2582,7 +2582,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Aprovisionar una plantilla de perfil empresarial Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>La frase de contraseña se guarda con su configuración en este equipo solo cuando «Recordar contraseñas» está activado en «Copia de seguridad y sincronización de ajustes». De lo contrario, no se guarda y debe volver a introducirse, por ejemplo, después de reiniciar Foundry OSD.</value>
+    <value>La frase de contraseña se guarda con su configuración en este equipo solo cuando «Recordar contraseñas» está activado en «Copia de seguridad y sincronización de la configuración». De lo contrario, no se guarda y debe volver a introducirse, por ejemplo, después de reiniciar Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importa en Windows el perfil Wi-Fi gestionado por Foundry antes de OOBE para conservar la conectividad de implementación después de WinPE.</value>
@@ -2885,7 +2885,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Desconectar</value>
   </data>
   <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>¿Dejar de sincronizar esta configuración en este PC? Se conservarán tus ajustes actuales. La configuración compartida y los demás PC no se modificarán.</value>
+    <value>¿Dejar de sincronizar esta configuración en este PC? Se conservará tu configuración actual. La configuración compartida y los demás PC no se modificarán.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportar</value>
@@ -3178,7 +3178,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Contraseña</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Puerto</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
     <value>Esta configuración solo se aplica a esta aplicación. No se añade a los medios de implementación y no afecta a Foundry Connect ni a Foundry Deploy.</value>
@@ -3202,10 +3202,10 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>General</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Guarda una copia de seguridad de tus ajustes, transfiérelos a otro PC o mantenlos sincronizados.</value>
+    <value>Guarda una copia de seguridad de tu configuración, transfiérela a otro PC o mantenla sincronizada.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Copia de seguridad y sincronización de ajustes</value>
+    <value>Copia de seguridad y sincronización de la configuración</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure cómo se conecta Foundry OSD a los servicios en línea.</value>
@@ -3307,13 +3307,13 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>La carga de hash de hardware está habilitada pero falta la conexión del inquilino. Conéctese con el inquilino desde Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
-    <value>Autopilot JSON el modo de perfil está habilitado pero no se selecciona ningún perfil predeterminado válido.</value>
+    <value>El modo de perfil JSON de Autopilot está habilitado, pero no se ha seleccionado ningún perfil predeterminado válido.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot utiliza un modo de aprovisionamiento no compatible.</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
-    <value>ADK o WinPE El complemento no está listo.</value>
+    <value>ADK o el complemento WinPE no están listos.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
     <value>Los medios ARM64 requieren el estilo de partición GPT.</value>
@@ -3337,10 +3337,10 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>La creación de medios no está habilitada en esta compilación.</value>
   </data>
   <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
-    <value>ISO la ruta de salida debe terminar en.iso.</value>
+    <value>La ruta de salida ISO debe terminar en .iso.</value>
   </data>
   <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
-    <value>WinPE el idioma de inicio no está seleccionado.</value>
+    <value>No se ha seleccionado el idioma de arranque de WinPE.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
     <value>La configuración de red no está lista.</value>
@@ -3379,13 +3379,13 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>TB</value>
   </data>
   <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
-    <value>ISO la creación está bloqueada</value>
+    <value>La creación de la ISO está bloqueada</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Crear ISO</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
-    <value>USB la creación está bloqueada</value>
+    <value>La creación del USB está bloqueada</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
     <value>Esto borrará el disco {0}: {1} ({2}).</value>
@@ -3454,28 +3454,28 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Autopilot</value>
   </data>
   <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Fuente de la imagen de arranque</value>
+    <value>Origen de la imagen de arranque</value>
   </data>
   <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Conectar aprovisionamiento</value>
+    <value>Aprovisionamiento de Connect</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
     <value>Configuración de Deploy</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Conductores</value>
+    <value>Controladores</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
-    <value>USB modo de formato</value>
+    <value>Modo de formato USB</value>
   </data>
   <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO ruta de salida</value>
+    <value>Ruta de salida ISO</value>
   </data>
   <data name="StartMedia.Field.Network" xml:space="preserve">
     <value>Configuración de red</value>
   </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
-    <value>USB estilo de partición</value>
+    <value>Estilo de partición USB</value>
   </data>
   <data name="StartMedia.Field.Secrets" xml:space="preserve">
     <value>Secretos de los medios</value>
@@ -3487,7 +3487,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Unidad USB de destino</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
-    <value>WinPE idioma de arranque</value>
+    <value>Idioma de arranque de WinPE</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
     <value>Cree medios ISO o USB después de que pasen todas las comprobaciones de preparación.</value>
@@ -3511,10 +3511,10 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Elija dónde se escribirá el Foundry ISO generado.</value>
   </data>
   <data name="StartMedia.IsoPath.Header" xml:space="preserve">
-    <value>ISO salida</value>
+    <value>Salida ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO imagen</value>
+    <value>Imagen ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Seleccione ISO ruta de salida</value>
@@ -3831,7 +3831,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>La lista de unidades USB se puede actualizar cuando finalicen las comprobaciones de preparación de ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
-    <value>USB unidades encontradas: {0}</value>
+    <value>Unidades USB encontradas: {0}</value>
   </data>
   <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
     <value>Disco {0} - {1} ({2})</value>
@@ -3858,7 +3858,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Idioma utilizado por el entorno de arranque WinPE.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
-    <value>WinPE idioma de arranque</value>
+    <value>Idioma de arranque de WinPE</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Predeterminado</value>
@@ -3873,16 +3873,16 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Abrir</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
-    <value>Abra Windows configuración de color para cambiar el color de acento.</value>
+    <value>Abra la configuración de color de Windows para cambiar el color de énfasis.</value>
   </data>
   <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
-    <value>Color de acento</value>
+    <value>Color de énfasis</value>
   </data>
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
     <value>Acrílico</value>
   </data>
   <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
-    <value>Acrílico Fino</value>
+    <value>Acrílico fino</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
     <value>Seleccione el tema de la aplicación.</value>
@@ -3906,7 +3906,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Material</value>
   </data>
   <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
-    <value>mica alternativa</value>
+    <value>Mica alternativo</value>
   </data>
   <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
     <value>Mica</value>
@@ -3975,13 +3975,13 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Usar la configuración de Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>El archivo seleccionado reemplaza el archivo de respuesta generado por Foundry. Foundry conserva sus opciones personalizadas y añade el comando de posinstalación requerido a la copia de despliegue. Seleccione Usar la configuración de Foundry para utilizar su configuración guardada.</value>
+    <value>El archivo seleccionado reemplaza el archivo de respuesta generado por Foundry. Foundry conserva sus opciones personalizadas y añade el comando de posinstalación requerido a la copia de implementación. Seleccione Usar la configuración de Foundry para utilizar su configuración guardada.</value>
   </data>
   <data name="Unattend.PostInstallationDescription" xml:space="preserve">
-    <value>Foundry conserva el archivo original y añade su comando de posinstalación requerido a la copia de despliegue. Usted sigue siendo responsable de sus opciones y comandos personalizados.</value>
+    <value>Foundry conserva el archivo original y añade su comando de posinstalación requerido a la copia de implementación. Usted sigue siendo responsable de sus opciones y comandos personalizados.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Los archivos personalizados requieren protección mediante contraseña del medio de implementación en la configuración general. El XML puede contener credenciales o scripts. Foundry conserva una copia de cada archivo con su configuración en este equipo solo cuando «Recordar contraseñas» está activado en «Copia de seguridad y sincronización de ajustes»; de lo contrario, guarda únicamente la ruta. La imagen de arranque contiene copias cifradas.</value>
+    <value>Los archivos personalizados requieren protección mediante contraseña del medio de implementación en la configuración general. El XML puede contener credenciales o scripts. Foundry conserva una copia de cada archivo con su configuración en este equipo solo cuando «Recordar contraseñas» está activado en «Copia de seguridad y sincronización de la configuración»; de lo contrario, guarda únicamente la ruta. La imagen de arranque contiene copias cifradas.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Habilite la protección mediante contraseña del medio de implementación en la configuración general para usar archivos de respuesta personalizados.</value>
@@ -4053,7 +4053,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Descargando: {0}%</value>
   </data>
   <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
-    <value>La actualización se descarga en segundo plano. Abra los ajustes de actualización para ver el progreso.</value>
+    <value>La actualización se descarga en segundo plano. Abra la configuración de actualizaciones para ver el progreso.</value>
   </data>
   <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
     <value>Aplique la actualización y reinicie Foundry OSD. También se instalará automáticamente al cerrar la aplicación.</value>
@@ -4149,7 +4149,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>OWE (cifrado inalámbrico oportunista)</value>
   </data>
   <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
-    <value>WPA2/WPA3 personales</value>
+    <value>WPA2/WPA3 personal</value>
   </data>
   <data name="Wifi.SsidLabel" xml:space="preserve">
     <value>SSID</value>
@@ -4158,7 +4158,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Habilitar el aprovisionamiento de Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
-    <value>Configure el aprovisionamiento de Wi-Fi, perfiles incrustados y roaming de perfil de Windows.</value>
+    <value>Configure el aprovisionamiento de Wi-Fi, los perfiles incrustados y la itinerancia de perfiles de Windows.</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>

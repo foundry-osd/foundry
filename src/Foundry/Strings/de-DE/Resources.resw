@@ -212,13 +212,13 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Windows PE Add-on</value>
   </data>
   <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
-    <value>Windows ADK und Windows PE Add-on downgraden</value>
+    <value>Windows ADK und Windows PE Add-on herabstufen</value>
   </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
-    <value>Installieren Sie das Add-on Windows ADK und Windows PE</value>
+    <value>Windows ADK und Windows PE Add-on installieren</value>
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
-    <value>Aktualisieren Sie das Add-on Windows ADK und Windows PE</value>
+    <value>Windows ADK und Windows PE Add-on aktualisieren</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Konfiguration der KI-Komponenten aktivieren</value>
@@ -257,7 +257,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Quelle aktualisieren</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
-    <value>Suchen Sie nach Updates</value>
+    <value>Nach Updates suchen</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Versionshinweise</value>
@@ -314,31 +314,31 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Foundry OSD Autopilot Registrierung ist nicht konfiguriert.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
-    <value>Das ausgewählte Zertifikat ist abgelaufen. Erstellen Sie ein gültiges Zertifikat oder wählen Sie ein gültiges Zertifikat aus, bevor Sie Boot-Medien erstellen.</value>
+    <value>Das ausgewählte Zertifikat ist abgelaufen. Erstellen oder wählen Sie ein gültiges Zertifikat aus, bevor Sie Startmedien erstellen.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
     <value>Wählen Sie ein PFX aus, das einem App-Registrierungszertifikat entspricht.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Passwortgeschütztes PFX zum Hardware-Hash-Upload in das Boot-Medium kopiert.</value>
+    <value>Kennwortgeschützte PFX-Datei, die für den Hardware-Hash-Upload in das Startmedium kopiert wird.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Die ausgewählte PFX-Datei existiert nicht mehr.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
-    <value>Das ausgewählte PFX konnte mit dem angegebenen Passwort nicht geöffnet werden.</value>
+    <value>Die ausgewählte PFX-Datei konnte mit dem angegebenen Kennwort nicht geöffnet werden.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
-    <value>Boot-Medienzertifikat</value>
+    <value>Zertifikat für das Startmedium</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
-    <value>PFX-Passwort</value>
+    <value>PFX-Kennwort</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
-    <value>Geben Sie das PFX-Passwort ein.</value>
+    <value>Geben Sie das PFX-Kennwort ein.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
-    <value>Wählen Sie das passende passwortgeschützte PFX aus, bevor Sie Boot-Medien erstellen.</value>
+    <value>Wählen Sie die passende kennwortgeschützte PFX-Datei aus, bevor Sie Startmedien erstellen.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
     <value>PFX-Datei</value>
@@ -350,10 +350,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Das ausgewählte PFX enthält kein privates Schlüsselmaterial.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
-    <value>Zertifikat bereit für die Generierung des Boot-Mediums.</value>
+    <value>Das Zertifikat ist für die Erstellung von Startmedien bereit.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
-    <value>Wählen Sie PFX</value>
+    <value>PFX-Datei auswählen</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Der Fingerabdruck des PFX-Zertifikats stimmt nicht mit dem ausgewählten App-Registrierungszertifikat überein.</value>
@@ -374,16 +374,16 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Erstellt</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
-    <value>Passwort kopieren</value>
+    <value>Kennwort kopieren</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Speichern Sie diese PFX-Datei und das Kennwort jetzt an einem sicheren Ort. Foundry speichert das Kennwort nur dann mit Ihrer Konfiguration auf diesem PC, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist. Sie benötigen beide Werte, um Boot-Medien für den Hardware-Hash-Upload zu generieren.</value>
+    <value>Speichern Sie diese PFX-Datei und das Kennwort jetzt an einem sicheren Ort. Foundry speichert das Kennwort nur dann mit Ihrer Konfiguration auf diesem PC, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist. Sie benötigen beide Werte, um Startmedien für den Hardware-Hash-Upload zu erstellen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
-    <value>Passwort kopiert.</value>
+    <value>Kennwort kopiert.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
-    <value>PFX-Passwort</value>
+    <value>PFX-Kennwort</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
     <value>PFX-Datei</value>
@@ -563,7 +563,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Interaktiver Hardware-Hash-Upload</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
-    <value>JSON Profilbereitstellung</value>
+    <value>JSON-Profilbereitstellung</value>
   </data>
   <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
     <value>{0} ist derzeit aktiv. Mit dem Fortfahren wird er deaktiviert und {1} aktiviert.</value>
@@ -716,7 +716,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Bevorzugtes Abbild</value>
   </data>
   <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
-    <value>Wählen Sie, ob Foundry Deploy zunächst den Foundry-Katalog oder benutzerdefinierte Windows-Images anzeigt.</value>
+    <value>Wählen Sie aus, ob Foundry Deploy zunächst den Foundry-Katalog oder benutzerdefinierte Windows-Abbilder anzeigt.</value>
   </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
     <value>Standardquelle für Images in Foundry Deploy</value>
@@ -788,7 +788,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Aktualisieren</value>
   </data>
   <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Dieses Image aus dem aktuellen Profil entfernen und seine lokale Kopie löschen? In anderen Profilen, die darauf verweisen, wird es als fehlend angezeigt. Originaldateien und vorhandene Medien bleiben unverändert.</value>
+    <value>Dieses Abbild aus dem aktuellen Profil entfernen und seine lokale Kopie löschen? In anderen Profilen, die darauf verweisen, wird es als fehlend angezeigt. Originaldateien und vorhandene Medien bleiben unverändert.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Entfernen</value>
@@ -1349,7 +1349,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Verfügbar für einige ausgewählte Ziele</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Die Verfügbarkeit wird anhand des angewendeten Windows-Images überprüft</value>
+    <value>Die Verfügbarkeit wird anhand des angewendeten Windows-Abbilds überprüft</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
     <value>Für die ausgewählten Ziele nicht verfügbar</value>
@@ -1763,7 +1763,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>{0} konfiguriert ({1} aktivieren, {2} deaktivieren)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
-    <value>Die Verfügbarkeit hängt von der Copilot+ PC-Hardware und dem installierten Windows-Image ab.</value>
+    <value>Die Verfügbarkeit hängt von der Copilot+ PC-Hardware und dem installierten Windows-Abbild ab.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
     <value>Erfordert kompatible Virtualisierungshardware- und Firmwareeinstellungen.</value>
@@ -1787,7 +1787,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Für diese Suche stimmen keine optionalen Windows-Funktionen überein.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Änderungen werden offline angewendet, nachdem Windows installiert wurde und vor OOBE. Bei Aktivierungsvorgängen wird nur das installierte Image oder passende Setup-Medienquellen verwendet. Es wird kein Internet-Fallback verwendet.</value>
+    <value>Änderungen werden nach der Installation von Windows und vor OOBE offline angewendet. Aktivierungsvorgänge verwenden nur das installierte Abbild oder passende Quellen des Setupmediums; es wird kein Internet-Fallback verwendet.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
     <value>Suchfunktionen</value>
@@ -2111,16 +2111,16 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Windows PE-Zeitzone</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
-    <value>Installieren Sie Windows ADK und das Windows PE Add-on, bevor Sie die Boot-Sprache WinPE auswählen.</value>
+    <value>Installieren Sie Windows ADK und das Windows PE Add-on, bevor Sie die WinPE-Startsprache auswählen.</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
-    <value>Für die ausgewählte Architektur wurden keine WinPE Sprachpakete erkannt.</value>
+    <value>Für die ausgewählte Architektur wurden keine WinPE-Sprachpakete erkannt.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
     <value>Allgemein</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
-    <value>Überprüfen und beginnen</value>
+    <value>Überprüfen und starten</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
     <value>Überprüfen Sie die Bereitschaft, und wählen Sie die Medienausgaben aus.</value>
@@ -2144,7 +2144,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>ADK-Bereitschaft.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
-    <value>Öffnen Sie ADK</value>
+    <value>ADK öffnen</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
     <value>Produktdokumentation.</value>
@@ -2351,7 +2351,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Info</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
-    <value>ADK Bereitschaft und Installation.</value>
+    <value>ADK-Bereitschaft und Installation.</value>
   </data>
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
@@ -2498,7 +2498,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
-    <value>Aktiverter Bereitstellungsmodus</value>
+    <value>Aktiver Bereitstellungsmodus</value>
   </data>
   <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
     <value>ADK nicht bereit</value>
@@ -2540,7 +2540,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Persönliches Wi-Fi erfordert eine 8 bis 63 Zeichen lange Passphrase.</value>
   </data>
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
-    <value>Die Wi-Fi-Konfiguration erfordert die Bereitstellung von Wi-Fi-Unterstützung im Boot-Image.</value>
+    <value>Die Wi-Fi-Konfiguration erfordert, dass Wi-Fi-Unterstützung im Startabbild bereitgestellt wird.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Die Wi-Fi-Konfiguration erfordert ein SSID.</value>
@@ -3247,7 +3247,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Der Vorgang wird sicher beendet. Der aktuelle Datenträger- oder Abbildvorgang muss möglicherweise abgeschlossen werden, bevor die Bereinigung beendet werden kann.</value>
   </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
-    <value>Wählen Sie die Boot-Architektur und den Boot-Signatur-Modus aus.</value>
+    <value>Wählen Sie die Architektur und den Signaturmodus für den Start aus.</value>
   </data>
   <data name="StartMedia.Architecture.Header" xml:space="preserve">
     <value>Architektur und Signatur</value>
@@ -3262,37 +3262,37 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Aktiviert: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Der Hardware-Hash-Upload ist aktiviert, aber der ausgewählte Ablauf des Zertifikats fehlt.</value>
+    <value>Der Hardware-Hash-Upload ist aktiviert, aber das Ablaufdatum des ausgewählten Zertifikats fehlt.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Der Hardware-Hash-Upload ist aktiviert, aber das ausgewählte Zertifikat ist abgelaufen. Wählen Sie ein gültiges Zertifikat aus, bevor Sie ein Bootmedium erstellen.</value>
+    <value>Der Hardware-Hash-Upload ist aktiviert, aber das ausgewählte Zertifikat ist abgelaufen. Wählen Sie ein gültiges Zertifikat aus, bevor Sie ein Startmedium erstellen.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Der Hardware-Hash-Upload ist aktiviert, aber das ausgewählte PFX stimmt nicht mit einem App-Registrierungszertifikat überein.</value>
+    <value>Der Hardware-Hash-Upload ist aktiviert, aber die ausgewählte PFX-Datei entspricht keinem Zertifikat der App-Registrierung.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Der Hardware-Hash-Upload ist aktiviert, aber der ausgewählte Fingerabdruck des Zertifikats fehlt.</value>
+    <value>Der Hardware-Hash-Upload ist aktiviert, aber der Fingerabdruck des ausgewählten Zertifikats fehlt.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
     <value>Der Hardware-Hash-Upload ist aktiviert, aber die App-Registrierung ist nicht konfiguriert. Stellen Sie über Autopilot eine Verbindung zum Mandanten her.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Der Hardware-Hash-Upload ist aktiviert, aber der PFX-Ablauf des Startmediums konnte nicht validiert werden.</value>
+    <value>Der Hardware-Hash-Upload ist aktiviert, aber das Ablaufdatum der PFX-Datei für das Startmedium konnte nicht überprüft werden.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Der Hardware-Hash-Upload ist aktiviert, aber das ausgewählte Boot-Medium-PFX ist abgelaufen.</value>
+    <value>Der Hardware-Hash-Upload ist aktiviert, aber die ausgewählte PFX-Datei für das Startmedium ist abgelaufen.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Der Hardware-Hash-Upload ist aktiviert, aber das Boot-Medium-PFX wurde nicht validiert.</value>
+    <value>Der Hardware-Hash-Upload ist aktiviert, aber die PFX-Datei für das Startmedium wurde nicht überprüft.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Der Hardware-Hash-Upload ist aktiviert, aber das ausgewählte PFX stimmt nicht mit dem aktiven Zertifikat überein.</value>
+    <value>Der Hardware-Hash-Upload ist aktiviert, aber die ausgewählte PFX-Datei entspricht nicht dem aktiven Zertifikat.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Der Hardware-Hash-Upload ist aktiviert, es ist jedoch kein Boot-Medium-PFX ausgewählt.</value>
+    <value>Der Hardware-Hash-Upload ist aktiviert, aber es ist keine PFX-Datei für das Startmedium ausgewählt.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Der Hardware-Hash-Upload ist aktiviert, aber das PFX-Passwort für das Startmedium fehlt.</value>
+    <value>Der Hardware-Hash-Upload ist aktiviert, aber das Kennwort der PFX-Datei für das Startmedium fehlt.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
     <value>Der Hardware-Hash-Upload ist aktiviert, aber die App-Client-ID fehlt. Stellen Sie über Autopilot erneut eine Verbindung zum Mandanten her.</value>
@@ -3307,13 +3307,13 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Der Hardware-Hash-Upload ist aktiviert, aber die Mandantenverbindung fehlt. Stellen Sie über Autopilot eine Verbindung zum Mandanten her.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
-    <value>Autopilot JSON Profilmodus ist aktiviert, aber es ist kein gültiges Standardprofil ausgewählt.</value>
+    <value>Der Autopilot-Modus „JSON-Profil“ ist aktiviert, aber es ist kein gültiges Standardprofil ausgewählt.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot verwendet einen nicht unterstützten Bereitstellungsmodus.</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
-    <value>ADK oder WinPE Add-on ist nicht bereit.</value>
+    <value>Das ADK oder das WinPE-Add-on ist nicht bereit.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
     <value>ARM64-Medien erfordern den Partitionsstil GPT.</value>
@@ -3331,16 +3331,16 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Der benutzerdefinierte Treiberordner ist nicht vorhanden.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
-    <value>Die Bereitstellungskonfigurationsgenerierung ist noch nicht bereit.</value>
+    <value>Die Erstellung der Deploy-Konfiguration ist nicht bereit.</value>
   </data>
   <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
     <value>Die Medienerstellung ist in diesem Build nicht aktiviert.</value>
   </data>
   <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
-    <value>ISO Ausgabepfad muss mit.iso enden.</value>
+    <value>Der ISO-Ausgabepfad muss auf .iso enden.</value>
   </data>
   <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
-    <value>WinPE Boot-Sprache ist nicht ausgewählt.</value>
+    <value>Es ist keine WinPE-Startsprache ausgewählt.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
     <value>Die Netzwerkkonfiguration ist nicht bereit.</value>
@@ -3349,13 +3349,13 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Es ist kein USB-Laufwerk ausgewählt.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
-    <value>Erforderliche Mediengeheimnisse sind nicht bereit.</value>
+    <value>Die erforderlichen Mediengeheimnisse sind nicht bereit.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Das ausgewählte USB-Laufwerk ist zu klein. Verwenden Sie ein USB-Laufwerk mit mindestens 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
-    <value>Die ausgewählte WinPE Boot-Sprache ist für die ausgewählte Architektur nicht verfügbar.</value>
+    <value>Die ausgewählte WinPE-Startsprache ist für die ausgewählte Architektur nicht verfügbar.</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
     <value>Standard-WinPE</value>
@@ -3379,28 +3379,28 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>TB</value>
   </data>
   <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
-    <value>Die Erstellung von ISO ist blockiert</value>
+    <value>Die ISO-Erstellung ist blockiert</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>Erstellen Sie ISO</value>
+    <value>ISO erstellen</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
-    <value>Die Erstellung von USB ist blockiert</value>
+    <value>Die USB-Erstellung ist blockiert</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Dadurch wird die Festplatte {0} gelöscht: {1} ({2}).</value>
+    <value>Dadurch wird Datenträger {0}: {1} ({2}) gelöscht.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
-    <value>Diese Festplatte enthält keine Partition.</value>
+    <value>Dieser Datenträger enthält keine Partition.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
-    <value>Formatieren und erstellen Sie USB</value>
+    <value>Formatieren und USB-Medium erstellen</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>USB-Laufwerk formatieren</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
-    <value>Windows kann die Volumes auf dieser Festplatte nicht lesen. Sie enthält möglicherweise weiterhin Daten.</value>
+    <value>Windows kann die Volumes auf diesem Datenträger nicht lesen. Er enthält möglicherweise weiterhin Daten.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), {3} von {4} belegt</value>
@@ -3409,13 +3409,13 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Ohne Namen</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumesHeader" xml:space="preserve">
-    <value>Volumes auf dieser Festplatte:</value>
+    <value>Volumes auf diesem Datenträger:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
     <value>Alle Daten auf diesem Datenträger gehen verloren. Fahren Sie nur fort, wenn dies das gewünschte USB-Laufwerk ist.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>Erstellen Sie USB</value>
+    <value>USB erstellen</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Optionaler Ordner mit zusätzlichen .inf-Treibern.</value>
@@ -3424,7 +3424,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Benutzerdefinierter Treiberordner</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
-    <value>Wählen Sie den benutzerdefinierten Treiberordner aus</value>
+    <value>Benutzerdefinierten Treiberordner auswählen</value>
   </data>
   <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
     <value>Dell</value>
@@ -3454,7 +3454,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Autopilot</value>
   </data>
   <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Boot-Image-Quelle</value>
+    <value>Quelle des Startabbilds</value>
   </data>
   <data name="StartMedia.Field.Connect" xml:space="preserve">
     <value>Connect-Bereitstellung</value>
@@ -3466,16 +3466,16 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Treiber</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
-    <value>USB Formatierungsmodus</value>
+    <value>USB-Formatierungsmodus</value>
   </data>
   <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO Ausgabepfad</value>
+    <value>ISO-Ausgabepfad</value>
   </data>
   <data name="StartMedia.Field.Network" xml:space="preserve">
     <value>Netzwerkkonfiguration</value>
   </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
-    <value>USB Partitionsstil</value>
+    <value>USB-Partitionsstil</value>
   </data>
   <data name="StartMedia.Field.Secrets" xml:space="preserve">
     <value>Mediengeheimnisse</value>
@@ -3487,7 +3487,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>USB-Ziel</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
-    <value>WinPE Boot-Sprache</value>
+    <value>WinPE-Startsprache</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
     <value>Erstellen Sie ISO- oder USB-Medien, nachdem alle Bereitschaftsprüfungen bestanden wurden.</value>
@@ -3508,16 +3508,16 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Schnellformatierung</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
-    <value>Wählen Sie aus, wo das generierte Foundry ISO geschrieben werden soll.</value>
+    <value>Wählen Sie aus, wo die generierte Foundry-ISO-Datei gespeichert werden soll.</value>
   </data>
   <data name="StartMedia.IsoPath.Header" xml:space="preserve">
-    <value>ISO Ausgabe</value>
+    <value>ISO-Ausgabe</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
     <value>ISO-Abbild</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
-    <value>Wählen Sie ISO Ausgabepfad</value>
+    <value>ISO-Ausgabepfad auswählen</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
     <value>{0} zusätzliche(s) lokale(s) Konto/Konten</value>
@@ -3778,16 +3778,16 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Bereit</value>
   </data>
   <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
-    <value>Bereitschaftselemente, die Maßnahmen erfordern: {0}</value>
+    <value>Elemente, die eine Aktion erfordern: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
-    <value>Bereit zum Erstellen von ISO Medien</value>
+    <value>Bereit zum Erstellen von ISO-Medien</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
     <value>Bereit zum Erstellen von ISO- und USB-Medien</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
-    <value>Bereit zum Erstellen von USB Medien</value>
+    <value>Bereit zum Erstellen von USB-Medien</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Überprüfen Sie die Warnungen zur Medienausgabe</value>
@@ -3831,16 +3831,16 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Die Liste der USB-Laufwerke kann aktualisiert werden, sobald die ADK-Bereitschaftsprüfung abgeschlossen ist.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
-    <value>USB Laufwerke gefunden: {0}</value>
+    <value>USB-Laufwerke gefunden: {0}</value>
   </data>
   <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
-    <value>Festplatte {0} - {1} ({2})</value>
+    <value>Datenträger {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
     <value>Nach USB-Laufwerken wird gesucht…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
-    <value>Es wurden keine USB Laufwerke gefunden.</value>
+    <value>Es wurden keine USB-Laufwerke gefunden.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
     <value>Fehler beim Aktualisieren der USB-Laufwerke.</value>
@@ -3855,10 +3855,10 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>USB-Ziel</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
-    <value>Von der WinPE Boot-Umgebung verwendete Sprache.</value>
+    <value>Von der WinPE-Startumgebung verwendete Sprache.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
-    <value>WinPE Boot-Sprache</value>
+    <value>WinPE-Startsprache</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Standard</value>
@@ -3945,7 +3945,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Importieren Sie mindestens eine Antwortdatei, um dieses Feature zu verwenden.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Die importierten Dateien werden in das Startimage integriert. Beim Deaktivieren bleibt der Katalog erhalten, seine Dateien werden jedoch von neuen Medien ausgeschlossen.</value>
+    <value>Die importierten Dateien werden in das Startabbild integriert. Beim Deaktivieren bleibt der Katalog erhalten, seine Dateien werden jedoch von neuen Medien ausgeschlossen.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
     <value>Benutzerdefinierte Antwortdateien aktivieren</value>
@@ -3981,7 +3981,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Foundry bewahrt Ihre Originaldatei und fügt der Bereitstellungskopie seinen erforderlichen Befehl für die Nachinstallation hinzu. Sie bleiben für Ihre benutzerdefinierten Einstellungen und Befehle verantwortlich.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Benutzerdefinierte Dateien erfordern den Kennwortschutz für Bereitstellungsmedien in der allgemeinen Konfiguration. XML kann Anmeldeinformationen oder Skripts enthalten. Foundry speichert nur dann eine Kopie jeder Datei mit Ihrer Konfiguration auf diesem PC, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist; andernfalls wird nur der Pfad gespeichert. Das Startimage enthält verschlüsselte Kopien.</value>
+    <value>Benutzerdefinierte Dateien erfordern den Kennwortschutz für Bereitstellungsmedien in der allgemeinen Konfiguration. XML kann Anmeldeinformationen oder Skripts enthalten. Foundry speichert nur dann eine Kopie jeder Datei mit Ihrer Konfiguration auf diesem PC, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist; andernfalls wird nur der Pfad gespeichert. Das Startabbild enthält verschlüsselte Kopien.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivieren Sie in der allgemeinen Konfiguration den Kennwortschutz für Bereitstellungsmedien, um benutzerdefinierte Antwortdateien zu verwenden.</value>

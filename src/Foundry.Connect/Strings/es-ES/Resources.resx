@@ -77,7 +77,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Se actualiza cada {0} segundos</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
-    <value>Indisponible</value>
+    <value>No disponible</value>
   </data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versión: {0}</value>
@@ -126,13 +126,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Adaptador</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Verifique la conexión del cable</value>
+    <value>Compruebe la conexión del cable</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP arrendamiento detectado</value>
+    <value>Concesión DHCP detectada</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Puerta</value>
+    <value>Puerta de enlace</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -288,10 +288,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Continuando automáticamente en {0}s</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>El acceso a Internet ha sido validado. Puedes continuar ahora.</value>
+    <value>Se ha validado el acceso a Internet. Ya puede continuar.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
-    <value>Listo para la red</value>
+    <value>Red lista</value>
   </data>
   <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
     <value>Error al actualizar la red</value>
@@ -300,7 +300,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>El acceso a Internet aún no ha sido validado.</value>
   </data>
   <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>esperando red</value>
+    <value>Esperando la red</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Oscuro</value>
@@ -321,13 +321,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>No se puede conectar. Verifique la contraseña o la configuración de red e inténtelo nuevamente.</value>
   </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
-    <value>No se puede desconectar. Intentar otra vez.</value>
+    <value>No se puede desconectar. Inténtelo de nuevo.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
-    <value>No se puede conectar el perfil Wi-Fi aprovisionado. Intentar otra vez.</value>
+    <value>No se puede conectar con el perfil Wi-Fi aprovisionado. Inténtelo de nuevo.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
-    <value>No se puede desconectar el perfil Wi-Fi aprovisionado. Intentar otra vez.</value>
+    <value>No se puede desconectar el perfil Wi-Fi aprovisionado. Inténtelo de nuevo.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>El perfil Wi-Fi aprovisionado no está disponible.</value>
@@ -336,7 +336,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Esta red Wi-Fi no es compatible con esta compilación.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
-    <value>No se puede completar la acción Wi-Fi. Intentar otra vez.</value>
+    <value>No se puede completar la acción de Wi-Fi. Inténtelo de nuevo.</value>
   </data>
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
     <value>Autenticación</value>
@@ -354,7 +354,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>Aprovisionado Wi-Fi · {0}</value>
+    <value>Wi-Fi aprovisionada · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Perfil empresarial</value>
@@ -381,13 +381,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Esta red requiere un perfil Wi-Fi aprovisionado.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>Aprovisionado Wi-Fi</value>
+    <value>Wi-Fi aprovisionada</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Actualizar redes Wi-Fi</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
-    <value>Empresa</value>
+    <value>Empresarial</value>
   </data>
   <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
     <value>{0} (máquina)</value>
@@ -411,13 +411,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>WPA2 empresarial</value>
   </data>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
-    <value>WPA2 personales</value>
+    <value>WPA2 personal</value>
   </data>
   <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
     <value>WPA2/WPA3 empresarial</value>
   </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
-    <value>WPA2/WPA3 personales</value>
+    <value>WPA2/WPA3 personal</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 empresarial</value>
@@ -426,16 +426,16 @@ Licenciado bajo la Licencia MIT.</value>
     <value>WPA3 empresarial de 192 bits</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
-    <value>WPA3 personales</value>
+    <value>WPA3 personal</value>
   </data>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
-    <value>WPA Empresa</value>
+    <value>WPA empresarial</value>
   </data>
   <data name="Wifi.SecurityWpaNone" xml:space="preserve">
     <value>WPA Ninguno</value>
   </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
-    <value>WPA Personal</value>
+    <value>WPA personal</value>
   </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
     <value>{0} · Certificado incluido en la imagen de arranque</value>

@@ -158,7 +158,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Das Manifest der benutzerdefinierten Abbilder fehlt, ist beschädigt oder passt nicht zu diesem Startmedium. Erstellen Sie das Medium neu oder wählen Sie eine andere Quelle.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Das Image kann nicht gelesen werden oder der ausgewählte Index bzw. die Metadaten haben sich geändert. Wählen Sie das Image erneut aus und versuchen Sie es noch einmal.</value>
+    <value>Das Abbild kann nicht gelesen werden, oder der ausgewählte Index bzw. die Metadaten haben sich geändert. Wählen Sie das Abbild erneut aus, und versuchen Sie es noch einmal.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Das konfigurierte Standardabbild oder der Index ist nicht verfügbar. Wählen Sie ausdrücklich ein Abbild und einen Index aus.</value>
@@ -206,7 +206,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Gültiges Zertifikat</value>
   </data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve">
-    <value>JSON Profil</value>
+    <value>JSON-Profil</value>
   </data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nein Autopilot</value>
@@ -266,11 +266,11 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Fehlerseite</value>
   </data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve">
-    <value>Debug-Vorschau: Die Anwendung von DISM ist fehlgeschlagen, da die Zielpartition schreibgeschützt ist.
+    <value>Debug-Vorschau: Das Anwenden mit DISM ist fehlgeschlagen, da die Zielpartition schreibgeschützt ist.
 
 Fehlercode=0x80070005
-Details: Zugriff verweigert, während das Image im Zielpfad gemountet wird.
-Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereitstellung.</value>
+Details: Zugriff verweigert beim Einbinden des Abbilds im Zielpfad.
+Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bereitstellung.</value>
   </data>
   <data name="Debug.ProgressPageCommand" xml:space="preserve">
     <value>Fortschrittsseite</value>
@@ -352,10 +352,10 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
     <value>Die Datenträgeridentität fehlt, ist nicht eindeutig oder hat sich geändert. Starten Sie Foundry Deploy neu und wählen Sie den Datenträger erneut aus.</value>
   </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
-    <value>Zielfestplatte {0} ist blockiert: {1}</value>
+    <value>Zieldatenträger {0} ist blockiert: {1}</value>
   </data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve">
-    <value>Zielfestplatte {0} ist nicht mehr vorhanden.</value>
+    <value>Zieldatenträger {0} ist nicht mehr vorhanden.</value>
   </data>
   <data name="Disk.UnknownSize" xml:space="preserve">
     <value>Unbekannte Größe</value>
@@ -568,7 +568,7 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
     <value>Ukrainisch (Ukraine)</value>
   </data>
   <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
-    <value>Dadurch werden alle Daten auf der ausgewählten Festplatte gelöscht und das ausgewählte Betriebssystem installiert.
+    <value>Dadurch werden alle Daten auf dem ausgewählten Datenträger gelöscht, und das ausgewählte Betriebssystem wird installiert.
 
 Datenträger: {0}
 Modell: {1}
@@ -580,7 +580,7 @@ Betriebssystem: {4}
 Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve">
-    <value>Bestätigen Sie das Löschen der Festplatte</value>
+    <value>Löschen des Datenträgers bestätigen</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Info</value>
@@ -595,7 +595,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>_Design</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>_Werkzeuge</value>
+    <value>_Extras</value>
   </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Wählen Sie die Windows-Version, die Sprache, die Edition und den Lizenzkanal aus.</value>
@@ -727,13 +727,13 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Batterie</value>
   </data>
   <data name="Preparation.TargetDisk" xml:space="preserve">
-    <value>Zielfestplatte</value>
+    <value>Zieldatenträger</value>
   </data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve">
     <value>Erkennung des Ziellaufwerks fehlgeschlagen: {0}</value>
   </data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve">
-    <value>Wählen Sie eine Zielfestplatte aus. Nicht berechtigte Datenträger werden blockiert.</value>
+    <value>Wählen Sie einen Zieldatenträger aus. Nicht geeignete Datenträger sind blockiert.</value>
   </data>
   <data name="Progress.ElapsedTime" xml:space="preserve">
     <value>Verstrichene Zeit</value>
@@ -775,7 +775,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Bereitstellung abgebrochen</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
-    <value>Bereitstellung gestoppt. Die Zielfestplatte enthält möglicherweise eine unvollständige Installation.</value>
+    <value>Bereitstellung beendet. Der Zieldatenträger enthält möglicherweise eine unvollständige Installation.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>In Bearbeitung...</value>
@@ -805,10 +805,10 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Schritt abgeschlossen.</value>
   </data>
   <data name="Status.StepCounterFormat" xml:space="preserve">
-    <value>Schritt: {0} von {1}</value>
+    <value>Schritt {0} von {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Schritt:? von?</value>
+    <value>Schritt ? von ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Schritt fehlgeschlagen.</value>
@@ -931,7 +931,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Abbild wird angewendet...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
-    <value>Betriebssystem-Image wird angewendet...</value>
+    <value>Betriebssystemabbild wird angewendet...</value>
   </data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
     <value>WinRE-Treiber werden angewendet...</value>
@@ -955,7 +955,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Cache wird überprüft...</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
-    <value>Cache-Festplattenkonflikt wird überprüft...</value>
+    <value>Konflikt mit dem Cachedatenträger wird überprüft...</value>
   </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Bereitschaft für die Bereitstellung wird geprüft...</value>
@@ -1018,7 +1018,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Firmware-Update wird heruntergeladen...</value>
   </data>
   <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
-    <value>Betriebssystem-Image wird heruntergeladen...</value>
+    <value>Betriebssystemabbild wird heruntergeladen...</value>
   </data>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Treiberpaket extrahieren...</value>
@@ -1045,7 +1045,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>WinRE mounten...</value>
   </data>
   <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve">
-    <value>Zielfestplatte wird partitioniert...</value>
+    <value>Zieldatenträger wird partitioniert...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
     <value>Autopilot Hardware-Hash-Upload wird vorbereitet...</value>
@@ -1060,7 +1060,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Microsoft Update Catalog-Suche wird vorbereitet...</value>
   </data>
   <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve">
-    <value>Zielfestplattenlayout wird vorbereitet...</value>
+    <value>Layout des Zieldatenträgers wird vorbereitet...</value>
   </data>
   <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve">
     <value>Zielarbeitsbereich wird vorbereitet...</value>
@@ -1084,7 +1084,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Bereitstellungscache wird überprüft...</value>
   </data>
   <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve">
-    <value>Zielfestplatte wird erneut validiert...</value>
+    <value>Zieldatenträger wird erneut überprüft...</value>
   </data>
   <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
     <value>Laufen OA3Tool...</value>
@@ -1102,7 +1102,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Autopilot-Registrierungsassistent wird bereitgestellt...</value>
   </data>
   <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
-    <value>Firmwareupdate bereitstellen...</value>
+    <value>Firmwareupdate wird bereitgestellt...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Paket wird bereitgestellt...</value>
@@ -1345,22 +1345,22 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Offline-Anpassung deaktiviert.</value>
   </data>
   <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
-    <value>Betriebssystem-Image angewendet.</value>
+    <value>Betriebssystemabbild angewendet.</value>
   </data>
   <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
-    <value>Betriebssystem-Image angewendet (Simulation).</value>
+    <value>Betriebssystemabbild angewendet (Simulation).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Betriebssystem-Image heruntergeladen.</value>
+    <value>Betriebssystemabbild heruntergeladen.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
-    <value>Das Betriebssystem-Image wurde nicht heruntergeladen.</value>
+    <value>Das Betriebssystemabbild wurde nicht heruntergeladen.</value>
   </data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
-    <value>Betriebssystem-Image bereit (Simulation).</value>
+    <value>Betriebssystemabbild bereit (Simulation).</value>
   </data>
   <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
-    <value>Betriebssystem-Image aus Cache aufgelöst.</value>
+    <value>Betriebssystemabbild aus dem Cache ermittelt.</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Das Betriebssystem URL fehlt.</value>
@@ -1417,10 +1417,10 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Zielkonfiguration validiert (Simulation).</value>
   </data>
   <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve">
-    <value>Das Layout der Zielfestplatte wurde nicht vorbereitet.</value>
+    <value>Das Layout des Zieldatenträgers wurde nicht vorbereitet.</value>
   </data>
   <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve">
-    <value>Zielfestplattenlayout vorbereitet.</value>
+    <value>Layout des Zieldatenträgers vorbereitet.</value>
   </data>
   <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve">
     <value>Zielplattenlayout vorbereitet (Simulation).</value>
@@ -1600,7 +1600,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Netzwerkprofil-Roaming</value>
   </data>
   <data name="Summary.NoDiskSelected" xml:space="preserve">
-    <value>Keine Festplatte ausgewählt</value>
+    <value>Kein Datenträger ausgewählt</value>
   </data>
   <data name="Summary.NoSelection" xml:space="preserve">
     <value>Keine Auswahl</value>
@@ -1657,7 +1657,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Maßgeschneiderte Erlebnisse</value>
   </data>
   <data name="Summary.TargetDisk" xml:space="preserve">
-    <value>Zielfestplatte</value>
+    <value>Zieldatenträger</value>
   </data>
   <data name="Summary.Title" xml:space="preserve">
     <value>Zusammenfassung der Bereitstellung</value>
@@ -1696,7 +1696,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Geräteinventar</value>
   </data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve">
-    <value>Die ausgewählte Zielfestplatte wird gelöscht, wenn die Bereitstellung beginnt.</value>
+    <value>Der ausgewählte Zieldatenträger wird beim Start der Bereitstellung gelöscht.</value>
   </data>
   <data name="TargetDevice.Firmware" xml:space="preserve">
     <value>Firmware-Updates</value>
@@ -1756,7 +1756,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Das Hochladen des Hashs garantiert keine Autopilot-Registrierung.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>Testen Sie diese Antwortdatei mit dem ausgewählten Windows-Image und der Foundry-Konfiguration.</value>
+    <value>Testen Sie diese Antwortdatei mit dem ausgewählten Windows-Abbild und der Foundry-Konfiguration.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
     <value>Die ausgewählte Antwortdatei ist nicht verfügbar, ungültig oder mit der ausgewählten Windows-Architektur inkompatibel. Wählen Sie eine andere Datei oder erstellen Sie das Medium neu.</value>

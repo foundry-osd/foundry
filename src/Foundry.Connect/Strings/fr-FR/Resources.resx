@@ -41,16 +41,16 @@ Sous licence MIT.</value>
     <value>Foundry Connect</value>
   </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
-    <value>La version de Foundry OSD utilisée pour créer ce support de démarrage ne peut pas être déterminée. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
+    <value>La version de Foundry OSD utilisée pour créer ce média de démarrage ne peut pas être déterminée. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le média de démarrage USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Nouvelle version disponible. Mettez à jour Foundry OSD et recréez le support de démarrage.</value>
+    <value>Nouvelle version disponible. Mettez à jour Foundry OSD et recréez le média de démarrage.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Mettez à jour Foundry OSD et recréez le support de démarrage.</value>
+    <value>Mettez à jour Foundry OSD et recréez le média de démarrage.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ce support de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
+    <value>Ce média de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le média de démarrage USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Annuler</value>
@@ -294,7 +294,7 @@ Sous licence MIT.</value>
     <value>Réseau prêt</value>
   </data>
   <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>L'actualisation du réseau a échoué</value>
+    <value>L’actualisation du réseau a échoué</value>
   </data>
   <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
     <value>L’accès Internet n’a pas encore été validé.</value>

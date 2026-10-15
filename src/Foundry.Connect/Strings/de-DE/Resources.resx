@@ -282,7 +282,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Design</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Werkzeuge</value>
+    <value>Extras</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Automatische Fortsetzung in {0}s</value>
@@ -318,7 +318,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Die bereitgestellten Netzwerkeinstellungen können nicht angewendet werden.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
-    <value>Es kann keine Verbindung hergestellt werden. Überprüfen Sie das Passwort oder die Netzwerkeinstellungen und versuchen Sie es erneut.</value>
+    <value>Es kann keine Verbindung hergestellt werden. Überprüfen Sie das Kennwort oder die Netzwerkeinstellungen, und versuchen Sie es erneut.</value>
   </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Die Verbindung kann nicht getrennt werden. Versuchen Sie es erneut.</value>
@@ -342,7 +342,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Authentifizierung</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Boot-Image-Einstellungen</value>
+    <value>Einstellungen des Startabbilds</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurierte Sicherheit</value>
@@ -372,7 +372,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Derzeit sind keine Wi-Fi Netzwerke sichtbar.</value>
   </data>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>In diesem Boot-Image ist kein bereitgestelltes Wi-Fi-Profil verfügbar.</value>
+    <value>In diesem Startabbild ist kein bereitgestelltes Wi-Fi-Profil verfügbar.</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
@@ -438,7 +438,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>WPA Persönlich</value>
   </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Zertifikat im Boot-Image enthalten</value>
+    <value>{0} · Zertifikat im Startabbild enthalten</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ein anderes Wi-Fi Netzwerk ist aktiv</value>
@@ -456,7 +456,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
-    <value>Wi-Fi Passwort ein- oder ausblenden</value>
+    <value>Wi-Fi-Kennwort anzeigen oder ausblenden</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Wi-Fi-Unterstützung ist in dieser Boot-Umgebung nicht verfügbar.</value>
