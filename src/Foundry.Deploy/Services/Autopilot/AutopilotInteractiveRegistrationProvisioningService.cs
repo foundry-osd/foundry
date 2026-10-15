@@ -19,6 +19,12 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
     private const string ScriptFileName = "Start-FoundryAutopilotRegistration.ps1";
     private const string LauncherFileName = "Start-FoundryAutopilotRegistration.cmd";
     private const string ConfigFileName = "config.json";
+
+    /// <summary>Staged assistant script, relative to the retained Foundry root that Foundry.PostInstall resolves.</summary>
+    internal const string RuntimeScriptRelativePath = "Runtime/AutopilotRegistration/" + ScriptFileName;
+
+    /// <summary>Staged assistant configuration, relative to the retained Foundry root that Foundry.PostInstall resolves.</summary>
+    internal const string RuntimeConfigRelativePath = "Runtime/AutopilotRegistration/" + ConfigFileName;
     private const string SetupScriptMarkerKey = "FOUNDRY AUTOPILOT REGISTRATION";
     private const string ScriptResourceName = "Foundry.Deploy.AutopilotRegistration.Start-FoundryAutopilotRegistration.ps1";
     private static readonly string RuntimeRegistrationRoot = DeploymentStorageLayout.RuntimePath(@"Runtime\AutopilotRegistration");

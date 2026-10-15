@@ -131,7 +131,6 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         runtimeState.PreOobeManifestPath = Path.Combine(layout.StatePreOobe, "plan.json");
     }
 
-    /// <summary>Preserves automatic OEM activation only for native retail-image deployments.</summary>
     /// <summary>
     /// The interactive Autopilot assistant runs as a post-installation action because windeploy skips OOBE.cmd on
     /// non-Enterprise editions licensed by a firmware OEM key.
@@ -139,6 +138,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
     public static bool ShouldRunAutopilotRegistration(DeploymentContext request) =>
         request.IsAutopilotEnabled && request.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
 
+    /// <summary>Preserves automatic OEM activation only for native retail-image deployments.</summary>
     public static bool ShouldActivateWindowsOem(DeploymentContext request) =>
         !request.UsesCustomUnattend &&
         string.Equals(request.OperatingSystem.LicenseChannel, "RET", StringComparison.OrdinalIgnoreCase);

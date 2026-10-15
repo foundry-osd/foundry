@@ -20,6 +20,7 @@ public sealed class AutopilotRegistrationAction(string root, string windowsRoot,
     /// <summary>Bounds how long an unattended device can hold Windows Setup on the assistant.</summary>
     public static readonly TimeSpan Timeout = TimeSpan.FromMinutes(60);
 
+    /// <summary>Succeeds only when the assistant reports a completed registration; every other end lets Setup continue.</summary>
     public async Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, CancellationToken cancellationToken)
     {
         AutopilotRegistrationSettings settings = BuiltInSettings.Read<AutopilotRegistrationSettings>(action);

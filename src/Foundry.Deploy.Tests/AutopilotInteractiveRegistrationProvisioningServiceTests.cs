@@ -85,6 +85,20 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_StagesFilesAtThePathsThePostInstallPlanReferences()
+    {
+        string windowsRoot = CreateWindowsRoot();
+
+        AutopilotInteractiveRegistrationProvisioningResult result = CreateService().Provision(windowsRoot);
+
+        string foundryRoot = DeploymentStorageLayout.FromPartitionRoot(windowsRoot).Root;
+        Assert.Equal(result.ScriptPath, Path.Combine(foundryRoot,
+            AutopilotInteractiveRegistrationProvisioningService.RuntimeScriptRelativePath.Replace('/', Path.DirectorySeparatorChar)));
+        Assert.Equal(result.ConfigPath, Path.Combine(foundryRoot,
+            AutopilotInteractiveRegistrationProvisioningService.RuntimeConfigRelativePath.Replace('/', Path.DirectorySeparatorChar)));
+    }
+
+    [Fact]
     public void Provision_WritesSanitizedConfigWithDeviceCodeSettings()
     {
         string windowsRoot = CreateWindowsRoot();

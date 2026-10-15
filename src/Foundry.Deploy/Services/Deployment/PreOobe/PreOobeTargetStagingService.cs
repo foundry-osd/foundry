@@ -130,8 +130,8 @@ public sealed class PreOobeTargetStagingService
             if (Steps.StagePreOobeCustomizationStep.ShouldRunAutopilotRegistration(context.Request))
                 AddBuiltIn("autopilot-registration", PreOobeBuiltInKind.AutopilotRegistration, new
                 {
-                    scriptPath = "Runtime/AutopilotRegistration/Start-FoundryAutopilotRegistration.ps1",
-                    configPath = "Runtime/AutopilotRegistration/config.json"
+                    scriptPath = Autopilot.AutopilotInteractiveRegistrationProvisioningService.RuntimeScriptRelativePath,
+                    configPath = Autopilot.AutopilotInteractiveRegistrationProvisioningService.RuntimeConfigRelativePath
                 });
             foreach (var action in PreOobeContentResolver.ApplicableActions(context.Request)) actions.Add(new() { Id = action.Id, Name = action.Name, CustomAction = action });
             foreach (var package in content.Packages)
