@@ -197,16 +197,19 @@ Licensierad under MIT-licensen.</value>
     <value>Obligatorisk versionspolicy</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE-filer är tillgängliga</value>
+    <value>tillgängliga</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE-filer saknas</value>
+    <value>saknas</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Tillägget installerat</value>
+    <value>Installerat</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Installerat (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Tillägg saknas</value>
+    <value>Inte installerat</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Tillägg</value>
@@ -679,6 +682,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Aktiverad</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Kräver åtgärd</value>
   </data>
@@ -1003,6 +1009,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Granska komponentinställningarna. Datornamnets maximala längd är 15 tecken.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Aktivera lösenordsskydd på sidan Allmänt om du vill använda ett fördefinierat lösenord.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Anger ett fördefinierat lösenord för det här kontot. Skyddat distributionsmedium krävs. Stäng av detta för att använda ett tomt lösenord.</value>
   </data>
@@ -1247,10 +1256,7 @@ Licensierad under MIT-licensen.</value>
     <value>Senaste tillgängliga uppdateringen</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} uppdateringar tidigare</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 uppdatering tidigare</value>
+    <value>Uppdateringar före den senaste: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigurera de Windows 11-versioner som erbjuds under distributionen.</value>
@@ -1760,7 +1766,7 @@ Licensierad under MIT-licensen.</value>
     <value>Oförändrat</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} konfigurerad ({1} aktivera, {2} inaktivera)</value>
+    <value>Konfigurerade: {0} (aktivera: {1}, inaktivera: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Tillgängligheten beror på Copilot+ PC-hårdvara och den installerade Windows-avbildningen.</value>
@@ -2267,7 +2273,7 @@ Licensierad under MIT-licensen.</value>
     <value>Litauiska (Litauen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norsk Bokmal (Norge)</value>
+    <value>Norskt bokmål (Norge)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>polska (Polen)</value>
@@ -2957,7 +2963,7 @@ Licensierad under MIT-licensen.</value>
     <value>Fler alternativ</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} filer saknas eller inkluderades inte. Välj var de finns innan du skapar media.</value>
+    <value>Saknade eller uteslutna filer: {0}. Välj var de finns innan du skapar media.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfigurationens namn</value>
@@ -3520,7 +3526,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Välj ISO utdatasökväg</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} ytterligare lokala konton</value>
+    <value>Ytterligare lokala konton: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Inbyggd administratör aktiverad</value>
@@ -3939,7 +3945,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Visningsnamn</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Hoppade över {0} filer som redan finns i katalogen.</value>
+    <value>Överhoppade filer som redan finns i katalogen: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Importera minst en svarsfil för att använda den här funktionen.</value>

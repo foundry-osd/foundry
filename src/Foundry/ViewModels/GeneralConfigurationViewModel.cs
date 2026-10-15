@@ -291,7 +291,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
                          .OrderBy(timeZone => timeZone.BaseUtcOffset)
                          .ThenBy(timeZone => timeZone.DisplayName, StringComparer.CurrentCulture))
             {
-                TimeZoneOptions.Add(new(timeZone.Id, $"{timeZone.DisplayName} ({timeZone.Id})"));
+                TimeZoneOptions.Add(new(timeZone.Id, timeZone.DisplayName, timeZone.Id));
             }
 
             SelectedTimeZone = SelectStringOption(TimeZoneOptions, selectedValue) ?? TimeZoneOptions[0];

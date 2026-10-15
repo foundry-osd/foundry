@@ -197,16 +197,19 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Nõutav versioonipoliitika</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE failid on saadaval</value>
+    <value>saadaval</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE failid puuduvad</value>
+    <value>puuduvad</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Lisandmoodul on installitud</value>
+    <value>Installitud</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Installitud (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Lisandmoodul puudub</value>
+    <value>Pole installitud</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Lisand</value>
@@ -679,6 +682,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Lubatud</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Vajab tähelepanu</value>
   </data>
@@ -1003,6 +1009,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Kontrollige komponentide sätteid. Arvuti nime maksimaalne pikkus on 15 märki.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Eelmääratud parooli kasutamiseks lülitage lehel Üldine sisse paroolikaitse.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Määrab sellele kontole eelmääratud parooli. Nõutav on kaitstud juurutusmeedium. Tühja parooli kasutamiseks lülitage see välja.</value>
   </data>
@@ -1247,10 +1256,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Uusim saadaolev värskendus</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} värskendust varasem</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 värskendus varasem</value>
+    <value>Värskendused enne uusimat: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigureerige juurutamise ajal pakutavad Windows 11 versioonid.</value>
@@ -1760,7 +1766,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Muutmata</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} seadistatud ({1} luba, {2} keela)</value>
+    <value>Seadistatud: {0} (luba: {1}, keela: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Saadavus sõltub Copilot+ arvuti riistvarast ja installitud Windowsi pildist.</value>
@@ -2267,7 +2273,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Leedu (Leedu)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norra bokmal (Norra)</value>
+    <value>norra bokmål (Norra)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poola keel (Poola)</value>
@@ -2957,7 +2963,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Rohkem valikuid</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} faili on puudu või jäid lisamata. Valige enne andmekandja loomist nende asukohad.</value>
+    <value>Puuduvad või lisamata failid: {0}. Valige enne andmekandja loomist nende asukohad.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfiguratsiooni nimi</value>
@@ -3520,7 +3526,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Valige ISO väljundtee</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} täiendavat kohalikku kontot</value>
+    <value>Täiendavad kohalikud kontod: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Sisseehitatud administraator lubatud</value>
@@ -3939,7 +3945,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Kuvatav nimi</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Vahele jäeti {0} faili, mis on juba kataloogis.</value>
+    <value>Vahele jäetud failid, mis on juba kataloogis: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Selle funktsiooni kasutamiseks importige vähemalt üks vastusefail.</value>

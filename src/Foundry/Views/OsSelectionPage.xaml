@@ -126,7 +126,8 @@
                                         <DataTemplate x:DataType="viewModels:SelectableStringOptionViewModel">
                                             <CheckBox
                                                 Content="{x:Bind DisplayName, Mode=OneWay}"
-                                                IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                ToolTipService.ToolTip="{x:Bind Value}" />
                                         </DataTemplate>
                                     </ItemsRepeater.ItemTemplate>
                                 </ItemsRepeater>

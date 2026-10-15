@@ -197,16 +197,19 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Política de versión requerida</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Archivos de WinPE disponibles</value>
+    <value>disponibles</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Faltan archivos de WinPE</value>
+    <value>faltan</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Complemento instalado</value>
+    <value>Instalado</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Instalado (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Falta el complemento</value>
+    <value>No instalado</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Complemento</value>
@@ -679,6 +682,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Activado</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Requiere atención</value>
   </data>
@@ -1003,6 +1009,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Revise la configuración de los componentes. La longitud máxima del nombre del equipo es de 15 caracteres.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Activa la protección con contraseña en la página General para usar una contraseña predefinida.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Establece una contraseña predefinida para esta cuenta. Se requiere un medio de implementación protegido. Desactive esta opción para usar una contraseña en blanco.</value>
   </data>
@@ -1247,10 +1256,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Actualización disponible más reciente</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} actualizaciones antes</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 actualización antes</value>
+    <value>Actualizaciones anteriores a la más reciente: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Configure las versiones de Windows 11 que se ofrecen durante la implementación.</value>
@@ -1760,7 +1766,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Sin cambios</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} configurado ({1} habilitar, {2} deshabilitar)</value>
+    <value>Configuradas: {0} (habilitar: {1}, deshabilitar: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>La disponibilidad depende del hardware de la PC Copilot+ y de la imagen de Windows instalada.</value>
@@ -2267,7 +2273,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>lituano (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal noruego (Noruega)</value>
+    <value>Bokmål noruego (Noruega)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polaco (Polonia)</value>
@@ -2957,7 +2963,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Más opciones</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Faltan {0} archivos o no se han incluido. Selecciona sus ubicaciones antes de crear medios.</value>
+    <value>Archivos que faltan o no se han incluido: {0}. Selecciona sus ubicaciones antes de crear medios.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Nombre de la configuración</value>
@@ -3520,7 +3526,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Seleccione ISO ruta de salida</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} cuenta(s) local(es) adicional(es)</value>
+    <value>Cuentas locales adicionales: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Administrador integrado habilitado</value>
@@ -3939,7 +3945,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Nombre para mostrar</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Se han omitido {0} archivos que ya estaban en el catálogo.</value>
+    <value>Archivos omitidos porque ya están en el catálogo: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Importe al menos un archivo de respuesta para usar esta característica.</value>

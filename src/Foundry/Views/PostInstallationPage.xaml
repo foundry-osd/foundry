@@ -36,7 +36,7 @@
                         Severity="Warning"
                         Visibility="{x:Bind ViewModel.HasReadinessIssue, Mode=OneWay}" />
                     <InfoBar
-                        IsClosable="False"
+                        IsClosable="True"
                         IsOpen="{x:Bind ViewModel.HasStatus, Mode=OneWay}"
                         Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
                         Severity="Error"

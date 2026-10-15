@@ -197,16 +197,19 @@ Licenc az MIT licenc alatt.</value>
     <value>Kötelező verzió házirend</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>A WinPE-fájlok elérhetők</value>
+    <value>elérhető</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Hiányzó WinPE-fájlok</value>
+    <value>hiányzik</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Kiegészítő telepítve</value>
+    <value>Telepítve</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Telepítve (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Hiányzik a kiegészítő</value>
+    <value>Nincs telepítve</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Kiegészítő</value>
@@ -679,6 +682,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Engedélyezve</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Beavatkozást igényel</value>
   </data>
@@ -1003,6 +1009,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Ellenőrizze az összetevők beállításait. A számítógépnév maximális hossza 15 karakter.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Előre megadott jelszó használatához kapcsolja be a jelszavas védelmet az Általános lapon.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Előre megadott jelszót állít be ehhez a fiókhoz. Védett telepítési adathordozó szükséges. Üres jelszó használatához kapcsolja ki.</value>
   </data>
@@ -1247,10 +1256,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Legújabb elérhető frissítés</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} frissítéssel korábbi</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 frissítéssel korábbi</value>
+    <value>Frissítések a legújabb előtt: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigurálja a telepítés során felkínált Windows 11-verziókat.</value>
@@ -1760,7 +1766,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Változatlan</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} konfigurálva ({1} engedélyezve, {2} letiltva)</value>
+    <value>Konfigurálva: {0} (engedélyezés: {1}, letiltás: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Az elérhetőség a Copilot+ PC hardverétől és a telepített Windows rendszerképtől függ.</value>
@@ -2267,7 +2273,7 @@ Licenc az MIT licenc alatt.</value>
     <value>litván (Litvánia)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norvég bokmal (Norvégia)</value>
+    <value>norvég bokmål (Norvégia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>lengyel (Lengyelország)</value>
@@ -2957,7 +2963,7 @@ Licenc az MIT licenc alatt.</value>
     <value>További lehetőségek</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} fájl hiányzik vagy nem került bele. Válassza ki a helyüket az adathordozó létrehozása előtt.</value>
+    <value>Hiányzó vagy bele nem foglalt fájlok: {0}. Válassza ki a helyüket az adathordozó létrehozása előtt.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfiguráció neve</value>
@@ -3939,7 +3945,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Megjelenítendő név</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>A rendszer kihagyott {0}, a katalógusban már szereplő fájlt.</value>
+    <value>Kihagyott, a katalógusban már szereplő fájlok: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>A funkció használatához importáljon legalább egy válaszfájlt.</value>

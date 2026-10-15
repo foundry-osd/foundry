@@ -71,9 +71,17 @@
                         </wct:SettingsCard.HeaderIcon>
                         <ComboBox
                             Width="{ThemeResource FoundryWideInputMinWidth}"
-                            DisplayMemberPath="DisplayName"
                             ItemsSource="{x:Bind ViewModel.TimeZoneOptions, Mode=OneWay}"
-                            SelectedItem="{x:Bind ViewModel.SelectedTimeZone, Mode=TwoWay}" />
+                            SelectedItem="{x:Bind ViewModel.SelectedTimeZone, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Text="{Binding DisplayName}"
+                                        TextTrimming="CharacterEllipsis"
+                                        ToolTipService.ToolTip="{Binding ToolTip}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </wct:SettingsCard>
 
                     <wct:SettingsExpander x:Name="DeploymentCompletionCard">

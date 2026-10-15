@@ -23,9 +23,10 @@ public sealed partial class SelectableStringOptionViewModel : ObservableObject
     public string Value { get; }
 
     /// <summary>
-    /// Gets the display name shown in the authoring UI.
+    /// Gets or sets the display name shown in the authoring UI; it changes when the UI language changes.
     /// </summary>
-    public string DisplayName { get; }
+    [ObservableProperty]
+    public partial string DisplayName { get; set; }
 
     /// <summary>
     /// Gets the ordering weight used by the authoring UI.

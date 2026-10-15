@@ -74,7 +74,7 @@
                                         Title="{x:Bind ViewModel.OobeAccountsNeedsAttentionText, Mode=OneWay}"
                                         IsClosable="False"
                                         IsOpen="True"
-                                        Message="{x:Bind ViewModel.OobeAccountPasswordDescription, Mode=OneWay}"
+                                        Message="{x:Bind ViewModel.OobeAccountDeploymentProtectionRequiredMessage, Mode=OneWay}"
                                         Severity="Error"
                                         Visibility="{x:Bind ViewModel.OobeAccountDeploymentProtectionRequiredVisibility, Mode=OneWay}" />
 

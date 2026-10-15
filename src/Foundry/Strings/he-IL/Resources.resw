@@ -197,16 +197,19 @@
     <value>מדיניות גרסה נדרשת</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>קובצי WinPE זמינים</value>
+    <value>זמינים</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>חסרים קובצי WinPE</value>
+    <value>חסרים</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE הותקן תוסף</value>
+    <value>מותקן</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>מותקן (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE חסר תוסף</value>
+    <value>לא מותקן</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE תוסף</value>
@@ -679,6 +682,9 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>מופעל</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>דורש טיפול</value>
   </data>
@@ -1003,6 +1009,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>בדוק את הגדרות הרכיבים. האורך המרבי של שם המחשב הוא 15 תווים.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>כדי להשתמש בסיסמה מוגדרת מראש, יש להפעיל הגנה באמצעות סיסמה בדף "כללי".</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>הגדרת סיסמה מוגדרת מראש עבור חשבון זה. נדרשת מדיית פריסה מוגנת. כבה אפשרות זו כדי להשתמש בסיסמה ריקה.</value>
   </data>
@@ -1247,10 +1256,7 @@
     <value>העדכון הזמין העדכני ביותר</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} עדכונים קודם לכן</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>עדכון אחד קודם לכן</value>
+    <value>עדכונים לפני העדכני ביותר: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>הגדר את גרסאות Windows 11 שיוצעו במהלך הפריסה.</value>
@@ -1760,7 +1766,7 @@
     <value>ללא שינוי</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} מוגדר ({1} הפעל, {2} השבת)</value>
+    <value>מוגדרים: {0} (הפעלה: {1}, השבתה: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>הזמינות תלויה בחומרת PC Copilot+ ובתמונת Windows המותקנת.</value>
@@ -2957,7 +2963,7 @@
     <value>אפשרויות נוספות</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} קבצים חסרים או לא נכללו. יש לבחור את המיקומים שלהם לפני יצירת מדיה.</value>
+    <value>קבצים חסרים או שלא נכללו: {0}. יש לבחור את המיקומים שלהם לפני יצירת מדיה.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>שם התצורה</value>
@@ -3939,7 +3945,7 @@
     <value>שם תצוגה</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>דולגו {0} קבצים שכבר קיימים בקטלוג.</value>
+    <value>קבצים שדולגו כי הם כבר קיימים בקטלוג: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>ייבאו לפחות קובץ תשובות אחד כדי להשתמש בתכונה זו.</value>

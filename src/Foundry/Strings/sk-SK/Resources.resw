@@ -197,16 +197,19 @@ Licencované podľa licencie MIT.</value>
     <value>Politika požadovanej verzie</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Súbory WinPE sú k dispozícii</value>
+    <value>k dispozícii</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Súbory WinPE chýbajú</value>
+    <value>chýbajú</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Doplnok nainštalovaný</value>
+    <value>Nainštalované</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Nainštalované (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Chýba doplnok</value>
+    <value>Nenainštalované</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Doplnok Windows PE</value>
@@ -679,6 +682,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Povolené</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Vyžaduje pozornosť</value>
   </data>
@@ -1003,6 +1009,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Skontrolujte nastavenia súčastí. Maximálna dĺžka názvu počítača je 15 znakov.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Ak chcete použiť preddefinované heslo, zapnite ochranu heslom na stránke Všeobecné.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Nastaví pre toto konto vopred definované heslo. Vyžaduje sa chránené médium nasadenia. Vypnutím použijete prázdne heslo.</value>
   </data>
@@ -1247,10 +1256,7 @@ Licencované podľa licencie MIT.</value>
     <value>Najnovšia dostupná aktualizácia</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>O {0} aktualizácií skôr</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>O 1 aktualizáciu skôr</value>
+    <value>Aktualizácie pred najnovšou: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Nakonfigurujte verzie Windows 11 ponúkané počas nasadenia.</value>
@@ -1760,7 +1766,7 @@ Licencované podľa licencie MIT.</value>
     <value>Nezmenené</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} nakonfigurované ({1} povoliť, {2} zakázať)</value>
+    <value>Nakonfigurované: {0} (povoliť: {1}, zakázať: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Dostupnosť závisí od hardvéru počítača Copilot+ a nainštalovaného obrazu systému Windows.</value>
@@ -2267,7 +2273,7 @@ Licencované podľa licencie MIT.</value>
     <value>litovčina (Litva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>nórsky bokmal (Nórsko)</value>
+    <value>nórsky bokmål (Nórsko)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poľština (Poľsko)</value>
@@ -2957,7 +2963,7 @@ Licencované podľa licencie MIT.</value>
     <value>Ďalšie možnosti</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} súborov chýba alebo neboli zahrnuté. Pred vytvorením médií vyberte ich umiestnenia.</value>
+    <value>Chýbajúce alebo nezahrnuté súbory: {0}. Pred vytvorením médií vyberte ich umiestnenia.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Názov konfigurácie</value>
@@ -3939,7 +3945,7 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
     <value>Zobrazovaný názov</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Preskočené súbory, ktoré už sú v katalógu: {0}.</value>
+    <value>Preskočené súbory, ktoré už sú v katalógu: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Ak chcete používať túto funkciu, importujte aspoň jeden súbor odpovedí.</value>

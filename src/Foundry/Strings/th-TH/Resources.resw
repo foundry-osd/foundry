@@ -197,16 +197,19 @@
     <value>นโยบายเวอร์ชันที่ต้องการ</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>มีไฟล์ WinPE พร้อมใช้งาน</value>
+    <value>พร้อมใช้งาน</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>ไฟล์ WinPE ขาดหายไป</value>
+    <value>ขาดหายไป</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE ติดตั้งส่วนเสริมแล้ว</value>
+    <value>ติดตั้งแล้ว</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>ติดตั้งแล้ว (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE ส่วนเสริมหายไป</value>
+    <value>ยังไม่ได้ติดตั้ง</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE ส่วนเสริม</value>
@@ -679,6 +682,9 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>เปิดใช้งานแล้ว</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>ต้องตรวจสอบ</value>
   </data>
@@ -1003,6 +1009,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>ตรวจสอบการตั้งค่าส่วนประกอบ ชื่อคอมพิวเตอร์มีความยาวสูงสุด 15 อักขระ</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>เปิดการป้องกันด้วยรหัสผ่านในหน้า "ทั่วไป" เพื่อใช้รหัสผ่านที่กำหนดไว้ล่วงหน้า</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>ตั้งรหัสผ่านที่กำหนดไว้ล่วงหน้าสำหรับบัญชีนี้ จำเป็นต้องใช้สื่อการปรับใช้ที่มีการป้องกัน ปิดตัวเลือกนี้เพื่อใช้รหัสผ่านว่าง</value>
   </data>
@@ -1247,10 +1256,7 @@
     <value>การอัปเดตล่าสุดที่พร้อมใช้งาน</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>ย้อนหลัง {0} การอัปเดต</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>ย้อนหลัง 1 การอัปเดต</value>
+    <value>จำนวนการอัปเดตก่อนรายการล่าสุด: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>กำหนดค่าเวอร์ชัน Windows 11 ที่มีให้เลือกระหว่างการปรับใช้</value>
@@ -1760,7 +1766,7 @@
     <value>ไม่เปลี่ยนแปลง</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>กำหนดค่า {0} (เปิดใช้งาน {1}, {2} ปิดใช้งาน)</value>
+    <value>กำหนดค่าแล้ว: {0} (เปิดใช้งาน: {1}, ปิดใช้งาน: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>ความพร้อมใช้งานขึ้นอยู่กับฮาร์ดแวร์พีซี Copilot+ และอิมเมจ Windows ที่ติดตั้ง</value>
@@ -2957,7 +2963,7 @@
     <value>ตัวเลือกเพิ่มเติม</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>มีไฟล์ {0} รายการขาดหายไปหรือไม่ได้รวมไว้ เลือกตำแหน่งของไฟล์ก่อนสร้างสื่อ</value>
+    <value>ไฟล์ที่ขาดหายไปหรือไม่ได้รวมไว้: {0} เลือกตำแหน่งของไฟล์ก่อนสร้างสื่อ</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>ชื่อชุดการตั้งค่า</value>
@@ -3939,7 +3945,7 @@
     <value>ชื่อที่แสดง</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>ข้ามไฟล์ที่มีอยู่ในแค็ตตาล็อกแล้ว {0} ไฟล์</value>
+    <value>ไฟล์ที่ข้ามเนื่องจากมีอยู่ในแค็ตตาล็อกแล้ว: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>นำเข้าไฟล์คำตอบอย่างน้อยหนึ่งไฟล์เพื่อใช้คุณลักษณะนี้</value>

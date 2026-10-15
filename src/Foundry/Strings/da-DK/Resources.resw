@@ -197,16 +197,19 @@ Licenseret under MIT-licensen.</value>
     <value>Påkrævet versionspolitik</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE-filer er tilgængelige</value>
+    <value>tilgængelige</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE-filer mangler</value>
+    <value>mangler</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Tilføjelse installeret</value>
+    <value>Installeret</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Installeret (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Tilføjelse mangler</value>
+    <value>Ikke installeret</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Tilføjelse</value>
@@ -679,6 +682,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Aktiveret</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Kræver opmærksomhed</value>
   </data>
@@ -1003,6 +1009,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Gennemgå komponentindstillingerne. Den maksimale længde på computernavnet er 15 tegn.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Slå adgangskodebeskyttelse til på siden Generelt for at bruge en foruddefineret adgangskode.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Angiver en foruddefineret adgangskode til denne konto. Der kræves beskyttede installationsmedier. Slå dette fra for at bruge en tom adgangskode.</value>
   </data>
@@ -1247,10 +1256,7 @@ Licenseret under MIT-licensen.</value>
     <value>Seneste tilgængelige opdatering</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} opdateringer tidligere</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 opdatering tidligere</value>
+    <value>Opdateringer før den seneste: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigurer de Windows 11-versioner, der tilbydes under udrulning.</value>
@@ -1760,7 +1766,7 @@ Licenseret under MIT-licensen.</value>
     <value>Uændret</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} konfigureret ({1} aktiver, {2} deaktiver)</value>
+    <value>Konfigureret: {0} (aktiver: {1}, deaktiver: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Tilgængeligheden afhænger af Copilot+ pc-hardware og det installerede Windows-image.</value>
@@ -2267,7 +2273,7 @@ Licenseret under MIT-licensen.</value>
     <value>Litauisk (Litauen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norsk Bokmal (Norge)</value>
+    <value>Norsk bokmål (Norge)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>polsk (Polen)</value>
@@ -2957,7 +2963,7 @@ Licenseret under MIT-licensen.</value>
     <value>Flere indstillinger</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} filer mangler eller blev ikke medtaget. Vælg deres placeringer, før du opretter medier.</value>
+    <value>Manglende eller udeladte filer: {0}. Vælg deres placeringer, før du opretter medier.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfigurationens navn</value>
@@ -3520,7 +3526,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Vælg ISO outputsti</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} ekstra lokal(e) konto/konti</value>
+    <value>Ekstra lokale konti: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Indbygget Administrator aktiveret</value>
@@ -3939,7 +3945,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Visningsnavn</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Sprang {0} fil(er) over, som allerede findes i kataloget.</value>
+    <value>Oversprungne filer, der allerede findes i kataloget: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Importér mindst én svarfil for at bruge denne funktion.</value>

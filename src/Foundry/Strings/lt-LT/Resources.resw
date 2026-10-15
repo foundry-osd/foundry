@@ -197,16 +197,19 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Būtina versijos politika</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE failai pasiekiami</value>
+    <value>pasiekiami</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Trūksta WinPE failų</value>
+    <value>trūksta</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Įdiegtas priedas</value>
+    <value>Įdiegtas</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Įdiegtas (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Trūksta priedo</value>
+    <value>Neįdiegtas</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Priedas</value>
@@ -679,6 +682,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Įjungta</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Reikia dėmesio</value>
   </data>
@@ -1003,6 +1009,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Peržiūrėkite komponentų parametrus. Didžiausias kompiuterio pavadinimo ilgis yra 15 simbolių.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Norėdami naudoti iš anksto nustatytą slaptažodį, puslapyje Bendra įjunkite apsaugą slaptažodžiu.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Nustato iš anksto apibrėžtą šios paskyros slaptažodį. Reikalinga apsaugota diegimo laikmena. Išjunkite, jei norite naudoti tuščią slaptažodį.</value>
   </data>
@@ -1247,10 +1256,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Naujausias pasiekiamas naujinimas</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} naujinimais ankstesnis</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 naujinimu ankstesnis</value>
+    <value>Naujinimai prieš naujausią: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigūruokite diegimo metu siūlomas Windows 11 versijas.</value>
@@ -1760,7 +1766,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepakitęs</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} sukonfigūruota ({1} įjungti, {2} išjungti)</value>
+    <value>Sukonfigūruota: {0} (įjungti: {1}, išjungti: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Prieinamumas priklauso nuo „Copilot+“ kompiuterio aparatinės įrangos ir įdiegto „Windows“ vaizdo.</value>
@@ -2267,7 +2273,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>lietuvių (Lietuva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norvegų bokmal (Norvegija)</value>
+    <value>norvegų bukmolas (Norvegija)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>lenkų (Lenkija)</value>
@@ -2957,7 +2963,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Daugiau parinkčių</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Trūkstamų arba neįtrauktų failų skaičius: {0}. Prieš kurdami laikmeną, pasirinkite jų vietas.</value>
+    <value>Trūkstami arba neįtraukti failai: {0}. Prieš kurdami laikmeną, pasirinkite jų vietas.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfigūracijos pavadinimas</value>
@@ -3520,7 +3526,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinkite ISO išvesties kelią</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} papildoma (-os) vietinė (-ės) paskyra (-os)</value>
+    <value>Papildomos vietinės paskyros: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Įtaisytasis administratorius įjungtas</value>
@@ -3939,7 +3945,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Rodomas pavadinimas</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Praleista kataloge jau esančių failų: {0}.</value>
+    <value>Praleisti failai, jau esantys kataloge: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Norėdami naudoti šią funkciją, importuokite bent vieną atsakymų failą.</value>

@@ -197,16 +197,19 @@ Licencirano pod licenco MIT.</value>
     <value>Politika zahtevane različice</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Datoteke WinPE so na voljo</value>
+    <value>na voljo</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Datoteke WinPE manjkajo</value>
+    <value>manjkajo</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Nameščen dodatek</value>
+    <value>Nameščeno</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Nameščeno (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Manjka dodatek</value>
+    <value>Ni nameščeno</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Dodatek</value>
@@ -679,6 +682,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Omogočeno</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Zahteva pozornost</value>
   </data>
@@ -1003,6 +1009,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Preglejte nastavitve komponent. Največja dolžina imena računalnika je 15 znakov.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Če želite uporabiti vnaprej določeno geslo, na strani Splošno vklopite zaščito z geslom.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Nastavi vnaprej določeno geslo za ta račun. Potreben je zaščiten namestitveni medij. Izklopite za uporabo praznega gesla.</value>
   </data>
@@ -1247,10 +1256,7 @@ Licencirano pod licenco MIT.</value>
     <value>Najnovejša razpoložljiva posodobitev</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} posodobitev prej</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 posodobitev prej</value>
+    <value>Posodobitve pred najnovejšo: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigurirajte različice sistema Windows 11, ki so na voljo med uvajanjem.</value>
@@ -1760,7 +1766,7 @@ Licencirano pod licenco MIT.</value>
     <value>Nespremenjeno</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} konfigurirano ({1} omogoči, {2} onemogoči)</value>
+    <value>Konfigurirano: {0} (omogoči: {1}, onemogoči: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Razpoložljivost je odvisna od strojne opreme Copilot+ PC in nameščene slike Windows.</value>
@@ -2267,7 +2273,7 @@ Licencirano pod licenco MIT.</value>
     <value>litovščina (Litva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norveški bokmal (Norveška)</value>
+    <value>norveški bokmål (Norveška)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poljščina (Poljska)</value>
@@ -3939,7 +3945,7 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Prikazno ime</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Preskočene datoteke, ki so že v katalogu: {0}.</value>
+    <value>Preskočene datoteke, ki so že v katalogu: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Za uporabo te funkcije uvozite vsaj eno datoteko odgovorov.</value>

@@ -4,7 +4,6 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Utilities.Globalization;
@@ -16,6 +15,9 @@ public sealed partial class CustomizationConfigurationViewModel
     private const string AutomaticSelectionValue = "";
 
     private bool isRefreshingOperatingSystemSelectionOptions;
+
+    // English registry names used when a language has no localized Language.* resource.
+    private readonly Dictionary<string, string> operatingSystemLanguageFallbackNames = new(StringComparer.OrdinalIgnoreCase);
 
     public ObservableCollection<SelectableStringOptionViewModel> OperatingSystemLanguageOptions { get; } = [];
     public ObservableCollection<SelectionOption<string>> DefaultOperatingSystemLanguageOptions { get; } = [];
@@ -181,14 +183,16 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void InitializeOperatingSystemSelectionOptions(IReadOnlyList<LanguageRegistryEntry> languages)
     {
+        Dictionary<string, string> localizedNames = GetLocalizedLanguageNames();
         foreach (LanguageRegistryEntry language in languages
             .OrderBy(language => language.SortOrder)
             .ThenBy(language => language.Code, StringComparer.OrdinalIgnoreCase))
         {
             string code = CultureCode.Canonicalize(language.Code);
+            operatingSystemLanguageFallbackNames[code] = language.DisplayName;
             var option = new SelectableStringOptionViewModel(
                 code,
-                $"{language.DisplayName} ({code})",
+                GetOperatingSystemLanguageDisplayName(localizedNames, code),
                 language.SortOrder,
                 false);
             option.PropertyChanged += OnOperatingSystemSelectionOptionPropertyChanged;
@@ -267,8 +271,42 @@ public sealed partial class CustomizationConfigurationViewModel
         OperatingSystemDefaultEditionLabel = localizationService.GetString("Customization.OperatingSystemDefaultEditionLabel");
         OperatingSystemDefaultEditionDescription = localizationService.GetString("Customization.OperatingSystemDefaultEditionDescription");
         AutomaticOptionText = localizationService.GetString("Common.AutomaticOption");
+        RefreshOperatingSystemLanguageDisplayNames();
         RefreshOperatingSystemMediaOffsetOptions(BuildOperatingSystemSelectionSettings().DefaultMediaOffset);
         RefreshOperatingSystemDefaultOptions(BuildOperatingSystemSelectionSettings());
+    }
+
+    private void RefreshOperatingSystemLanguageDisplayNames()
+    {
+        if (OperatingSystemLanguageOptions.Count == 0)
+        {
+            return;
+        }
+
+        Dictionary<string, string> localizedNames = GetLocalizedLanguageNames();
+        foreach (SelectableStringOptionViewModel option in OperatingSystemLanguageOptions)
+        {
+            option.DisplayName = GetOperatingSystemLanguageDisplayName(localizedNames, option.Value);
+        }
+    }
+
+    private Dictionary<string, string> GetLocalizedLanguageNames()
+    {
+        return localizationService.CreateSupportedLanguageOptions()
+            .ToDictionary(
+                option => CultureCode.Canonicalize(option.Code),
+                option => option.DisplayName,
+                StringComparer.OrdinalIgnoreCase);
+    }
+
+    private string GetOperatingSystemLanguageDisplayName(IReadOnlyDictionary<string, string> localizedNames, string code)
+    {
+        if (localizedNames.TryGetValue(code, out string? localizedName))
+        {
+            return localizedName;
+        }
+
+        return operatingSystemLanguageFallbackNames.TryGetValue(code, out string? fallbackName) ? fallbackName : code;
     }
 
     private void RefreshOperatingSystemMediaOffsetOptions(int selectedOffset)
@@ -278,14 +316,9 @@ public sealed partial class CustomizationConfigurationViewModel
             new(0, localizationService.GetString("Customization.OperatingSystemMediaLatestOption")));
         for (int offset = 1; offset <= 11; offset++)
         {
-            string label = offset == 1
-                ? localizationService.GetString("Customization.OperatingSystemMediaPreviousSingleOption")
-                : string.Format(
-                    CultureInfo.CurrentUICulture,
-                    localizationService.GetString("Customization.OperatingSystemMediaPreviousOptionFormat"),
-                    offset);
-            DefaultOperatingSystemMediaOffsetOptions.Add(
-                new(offset, label));
+            DefaultOperatingSystemMediaOffsetOptions.Add(new(
+                offset,
+                localizationService.FormatString("Customization.OperatingSystemMediaPreviousOptionFormat", offset)));
         }
 
         int effectiveOffset = Math.Clamp(selectedOffset, 0, 11);

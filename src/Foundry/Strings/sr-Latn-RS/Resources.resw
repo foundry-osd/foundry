@@ -197,16 +197,19 @@ Licencirano pod MIT licencom.</value>
     <value>Obavezna politika verzije</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE datoteke su dostupne</value>
+    <value>dostupne</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Nedostaju WinPE datoteke</value>
+    <value>nedostaju</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Dodatak je instaliran</value>
+    <value>Instalirano</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Instalirano (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Nedostaje dodatak</value>
+    <value>Nije instalirano</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Dodatak</value>
@@ -679,6 +682,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Omogućeno</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Zahteva pažnju</value>
   </data>
@@ -1003,6 +1009,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Pregledajte postavke komponenti. Maksimalna dužina imena računara je 15 znakova.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Da biste koristili unapred definisanu lozinku, uključite zaštitu lozinkom na stranici Opšte.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Postavlja unapred definisanu lozinku za ovaj nalog. Potreban je zaštićen medijum za primenu. Isključite ovu opciju za praznu lozinku.</value>
   </data>
@@ -1247,10 +1256,7 @@ Licencirano pod MIT licencom.</value>
     <value>Najnovije dostupno ažuriranje</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} ažuriranja ranije</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 ažuriranje ranije</value>
+    <value>Ažuriranja pre najnovijeg: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigurišite verzije sistema Windows 11 koje se nude tokom primene.</value>
@@ -1760,7 +1766,7 @@ Licencirano pod MIT licencom.</value>
     <value>Nepromenjeno</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} konfigurisano ({1} omogući, {2} onemogući)</value>
+    <value>Konfigurisano: {0} (omogući: {1}, onemogući: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Dostupnost zavisi od hardvera računara Copilot+ i instaliranog Windows imidža.</value>
@@ -2267,7 +2273,7 @@ Licencirano pod MIT licencom.</value>
     <value>litvanski (Litvanija)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norveški bokmal (Norveška)</value>
+    <value>norveški bokmål (Norveška)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poljski (Poljska)</value>
@@ -2957,7 +2963,7 @@ Licencirano pod MIT licencom.</value>
     <value>Više opcija</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Broj datoteka koje nedostaju ili nisu uključene: {0}. Izaberite njihove lokacije pre pravljenja medija.</value>
+    <value>Datoteke koje nedostaju ili nisu uključene: {0}. Izaberite njihove lokacije pre pravljenja medija.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Naziv konfiguracije</value>
@@ -3939,7 +3945,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Ime za prikaz</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Preskočeno je {0} datoteka koje već postoje u katalogu.</value>
+    <value>Preskočene datoteke koje već postoje u katalogu: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Uvezite najmanje jednu datoteku odgovora da biste koristili ovu funkciju.</value>
