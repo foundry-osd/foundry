@@ -348,7 +348,7 @@ public sealed class StagePreOobeCustomizationStepTests
         using DeploymentStepExecutionContext context = CreateContext(tempDirectory, isDryRun: dryRun);
         string source = Path.Combine(tempDirectory.RootPath, "driver.exe");
         await File.WriteAllBytesAsync(source, [1, 2, 3], TestContext.Current.CancellationToken);
-        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
+        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredPostInstall;
         context.RuntimeState.DownloadedDriverPackPath = source;
 
         DeploymentStepResult result = await new StageDriverInstallerStep(new FakeDriverPackStrategyResolver())
@@ -359,7 +359,6 @@ public sealed class StagePreOobeCustomizationStepTests
         Assert.Equal(!dryRun, File.Exists(context.RuntimeState.DeferredDriverPackagePath));
         if (!dryRun)
             Assert.Equal(new byte[] { 1, 2, 3 }, await File.ReadAllBytesAsync(context.RuntimeState.DeferredDriverPackagePath!, TestContext.Current.CancellationToken));
-        Assert.False(File.Exists(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd")));
     }
 
     [Fact]
@@ -370,7 +369,7 @@ public sealed class StagePreOobeCustomizationStepTests
         string stagedPath = Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "Drivers", "driver.exe");
         Directory.CreateDirectory(Path.GetDirectoryName(stagedPath)!);
         await File.WriteAllBytesAsync(stagedPath, [1, 2, 3], TestContext.Current.CancellationToken);
-        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
+        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredPostInstall;
         context.RuntimeState.DeferredDriverPackagePath = stagedPath;
         context.RuntimeState.DownloadedDriverPackPath = Path.Combine(tempDirectory.RootPath, "missing-download.exe");
         var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(),
@@ -448,7 +447,7 @@ public sealed class StagePreOobeCustomizationStepTests
         string driverPackagePath = Path.Combine(tempDirectory.RootPath, "driver.exe");
         File.WriteAllBytes(driverPackagePath, [1, 2, 3]);
         using DeploymentStepExecutionContext context = CreateContext(tempDirectory, licenseChannel: "RET");
-        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
+        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredPostInstall;
         context.RuntimeState.DownloadedDriverPackPath = driverPackagePath;
         await new StageDriverInstallerStep(new FakeDriverPackStrategyResolver())
             .ExecuteAsync(context, TestContext.Current.CancellationToken);
@@ -493,7 +492,7 @@ public sealed class StagePreOobeCustomizationStepTests
     {
         using var tempDirectory = new TemporaryDirectory();
         using DeploymentStepExecutionContext context = CreateContext(tempDirectory);
-        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
+        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredPostInstall;
         var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(),
             new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)));
 
@@ -510,7 +509,7 @@ public sealed class StagePreOobeCustomizationStepTests
         string driverPackagePath = Path.Combine(tempDirectory.RootPath, "driver.exe");
         File.WriteAllBytes(driverPackagePath, [1, 2, 3]);
         using DeploymentStepExecutionContext context = CreateContext(tempDirectory);
-        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
+        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredPostInstall;
         context.RuntimeState.DownloadedDriverPackPath = driverPackagePath;
         var step = new StageDriverInstallerStep(new FakeDriverPackStrategyResolver(DeferredDriverPackageCommandKind.None));
 
@@ -625,7 +624,7 @@ public sealed class StagePreOobeCustomizationStepTests
         {
             return new DriverPackExecutionPlan
             {
-                InstallMode = DriverPackInstallMode.DeferredSetupComplete,
+                InstallMode = DriverPackInstallMode.DeferredPostInstall,
                 ExtractionMethod = DriverPackExtractionMethod.None,
                 DeferredCommandKind = commandKind,
                 DownloadedPath = downloadedPath,

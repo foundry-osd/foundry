@@ -25,7 +25,7 @@ public class PreOobeContentResolver
         HasDomainTasks(request, state) ||
         request.PreOobe.IsEnabled && request.PreOobe.Actions.Any(action => action.IsEnabled) ||
         HasBuiltInTasks(request.AppxRemoval, request.AiComponentRemoval,
-            DeploymentPlan.ResolveDriverMode(request) == Services.DriverPacks.DriverPackInstallMode.DeferredSetupComplete,
+            DeploymentPlan.ResolveDriverMode(request) == Services.DriverPacks.DriverPackInstallMode.DeferredPostInstall,
             request.Network.ProfileRoaming.IsAnyEnabled, StagePreOobeCustomizationStep.ShouldActivateWindowsOem(request),
             StagePreOobeCustomizationStep.ShouldRunAutopilotRegistration(request));
 

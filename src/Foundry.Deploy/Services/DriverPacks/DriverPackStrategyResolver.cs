@@ -56,7 +56,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
         if (manufacturerLower.Contains("lenovo", StringComparison.Ordinal) && extension == ".exe")
         {
             return CreatePlan(
-                DriverPackInstallMode.DeferredSetupComplete,
+                DriverPackInstallMode.DeferredPostInstall,
                 DriverPackExtractionMethod.None,
                 DeferredDriverPackageCommandKind.LenovoExecutable,
                 downloadedPath,
@@ -67,7 +67,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
         if (manufacturerLower.Contains("microsoft", StringComparison.Ordinal) && extension == ".msi")
         {
             return CreatePlan(
-                DriverPackInstallMode.DeferredSetupComplete,
+                DriverPackInstallMode.DeferredPostInstall,
                 DriverPackExtractionMethod.None,
                 DeferredDriverPackageCommandKind.SurfaceMsi,
                 downloadedPath,

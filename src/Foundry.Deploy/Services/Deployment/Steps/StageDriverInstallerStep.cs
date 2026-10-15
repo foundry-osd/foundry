@@ -29,7 +29,7 @@ public sealed class StageDriverInstallerStep(IDriverPackStrategyResolver driverP
         CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (context.RuntimeState.DriverPackInstallMode != DriverPackInstallMode.DeferredSetupComplete)
+        if (context.RuntimeState.DriverPackInstallMode != DriverPackInstallMode.DeferredPostInstall)
         {
             return DeploymentStepResult.Skipped("No deferred driver installer is required.");
         }

@@ -8,5 +8,5 @@ public enum DriverPackInstallMode
 {
     None = 0,
     OfflineInf = 1,
-    DeferredSetupComplete = 2
+    DeferredPostInstall = 2
 }

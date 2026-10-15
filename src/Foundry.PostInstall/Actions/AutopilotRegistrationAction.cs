@@ -11,9 +11,9 @@ namespace Foundry.PostInstall.Actions;
 /// Runs the Deploy-staged interactive Autopilot registration assistant while Windows Setup waits in specialize.
 /// </summary>
 /// <remarks>
-/// Running here instead of OOBE.cmd keeps the assistant available on non-Enterprise editions licensed by a firmware
-/// OEM key, where windeploy skips user-provided setup scripts. The assistant only uploads the hardware hash, so ending
-/// it on timeout cannot leave the installed system in a partial state.
+/// Running from the specialize pass keeps the assistant available on every edition, including non-Enterprise editions
+/// licensed by a firmware OEM key. The assistant only uploads the hardware hash, so ending it on timeout cannot leave
+/// the installed system in a partial state.
 /// </remarks>
 public sealed class AutopilotRegistrationAction(string root, string windowsRoot, IPreOobeProcessExecutor processes)
 {

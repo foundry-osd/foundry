@@ -27,40 +27,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         }
     }
 
-    [Theory]
-    [InlineData("completed", true)]
-    [InlineData("failed", false)]
-    public void Provision_MigratesCompletedLegacyGuard(string status, bool expectedGuard)
-    {
-        string windowsRoot = CreateWindowsRoot();
-        var layout = DeploymentStorageLayout.FromPartitionRoot(windowsRoot);
-        string legacyDirectory = Path.Combine(layout.Root, "AutopilotRegistration", "State");
-        Directory.CreateDirectory(legacyDirectory);
-        string legacyRoot = Path.GetDirectoryName(legacyDirectory)!;
-        string legacyScript = Path.Combine(legacyRoot, "Start-FoundryAutopilotRegistration.ps1");
-        File.WriteAllText(legacyScript, "old helper");
-        string unrelated = Path.Combine(legacyRoot, "vendor.txt");
-        File.WriteAllText(unrelated, "preserve");
-        string legacyGuard = Path.Combine(legacyDirectory, "registration-result.json");
-        File.WriteAllText(legacyGuard, JsonSerializer.Serialize(new { status }));
-        AutopilotInteractiveRegistrationProvisioningResult result = CreateService().Provision(windowsRoot);
-        string guard = Path.Combine(result.StateRootPath, "registration-result.json");
-        Assert.Equal(expectedGuard, File.Exists(guard));
-        Assert.True(File.Exists(legacyGuard));
-        Assert.Equal(!expectedGuard, File.Exists(legacyScript));
-        Assert.True(File.Exists(unrelated));
-        if (expectedGuard)
-        {
-            using JsonDocument state = JsonDocument.Parse(File.ReadAllText(guard));
-            Assert.Equal("completed", state.RootElement.GetProperty("status").GetString());
-            CreateService().Provision(windowsRoot);
-            Assert.Equal("completed", JsonDocument.Parse(File.ReadAllText(guard)).RootElement.GetProperty("status").GetString());
-        }
-        Assert.Empty(Directory.GetFiles(result.StateRootPath, "*.tmp"));
-    }
-
     [Fact]
-    public void Provision_StagesAssistantWithoutOobeLaunchChain()
+    public void Provision_StagesOnlyTheAssistantScriptLauncherAndConfig()
     {
         string windowsRoot = CreateWindowsRoot();
         var service = CreateService();
@@ -81,7 +49,6 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.True(Directory.Exists(logRoot));
         Assert.Equal(["config.json", "Start-FoundryAutopilotRegistration.cmd", "Start-FoundryAutopilotRegistration.ps1"],
             Directory.GetFiles(registrationRoot).Select(Path.GetFileName).Order(StringComparer.OrdinalIgnoreCase));
-        Assert.False(File.Exists(Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "OOBE.cmd")));
     }
 
     [Fact]
@@ -137,56 +104,6 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
     }
 
     [Fact]
-    public void Provision_RemovesObsoleteOobeLaunchBlock()
-    {
-        string windowsRoot = CreateWindowsRoot();
-        string oobePath = Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "OOBE.cmd");
-        Directory.CreateDirectory(Path.GetDirectoryName(oobePath)!);
-        File.WriteAllText(oobePath, string.Join(Environment.NewLine,
-        [
-            "@echo off",
-            "REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN",
-            @"call ""%SystemRoot%\Temp\Foundry\Runtime\AutopilotRegistration\Start-FoundryAutopilotRegistrationOobe.cmd""",
-            "REM <<< FOUNDRY AUTOPILOT REGISTRATION END",
-            "echo existing customization"
-        ]));
-
-        CreateService().Provision(windowsRoot);
-
-        string oobe = File.ReadAllText(oobePath);
-        Assert.DoesNotContain("FOUNDRY AUTOPILOT REGISTRATION", oobe);
-        Assert.Contains("echo existing customization", oobe);
-    }
-
-    [Fact]
-    public void Provision_RemovesObsoleteSetupCompleteLaunchBlock()
-    {
-        string windowsRoot = CreateWindowsRoot();
-        string setupCompletePath = Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
-        Directory.CreateDirectory(Path.GetDirectoryName(setupCompletePath)!);
-        File.WriteAllText(
-            setupCompletePath,
-            string.Join(
-                Environment.NewLine,
-                [
-                    "@echo off",
-                    "REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN",
-                    "old-autopilot-registration-command",
-                    "REM <<< FOUNDRY AUTOPILOT REGISTRATION END",
-                    "echo existing customization"
-                ]));
-        var service = CreateService();
-
-        service.Provision(windowsRoot);
-
-        string setupComplete = File.ReadAllText(setupCompletePath);
-
-        Assert.DoesNotContain("old-autopilot-registration-command", setupComplete);
-        Assert.Contains("echo existing customization", setupComplete);
-        Assert.DoesNotContain("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", setupComplete);
-    }
-
-    [Fact]
     public void Provision_StagedScriptContainsExpectedFlowWithoutExternalModuleDependencies()
     {
         string windowsRoot = CreateWindowsRoot();
@@ -236,6 +153,6 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
 
     private static AutopilotInteractiveRegistrationProvisioningService CreateService()
     {
-        return new AutopilotInteractiveRegistrationProvisioningService(new SetupCompleteScriptService());
+        return new AutopilotInteractiveRegistrationProvisioningService();
     }
 }

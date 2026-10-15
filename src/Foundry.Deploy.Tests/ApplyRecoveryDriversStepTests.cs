@@ -40,7 +40,7 @@ public sealed class ApplyRecoveryDriversStepTests
 
     [Theory]
     [InlineData(DriverPackInstallMode.None)]
-    [InlineData(DriverPackInstallMode.DeferredSetupComplete)]
+    [InlineData(DriverPackInstallMode.DeferredPostInstall)]
     public async Task ExecuteAsync_WhenRecoveryServicingIsNotRequired_Skips(DriverPackInstallMode installMode)
     {
         using var fixture = new DriverApplicationStepTestFixture();

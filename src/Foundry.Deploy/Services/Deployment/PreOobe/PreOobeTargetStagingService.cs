@@ -229,9 +229,6 @@ public sealed class PreOobeTargetStagingService
                 finally { CryptographicOperations.ZeroMemory(bytes); context.ClearDomainJoinInput(); }
             }
             cancellationToken.ThrowIfCancellationRequested();
-            string setupComplete = Path.Combine(partition, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
-            new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY PRE-OOBE");
-            new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY DRIVERPACK");
             if (context.RuntimeState.DomainJoinStatus == DomainJoinExecutionStatus.Ready && !context.Request.UsesCustomUnattend)
             {
                 // Runs after the OOBE customization step, which otherwise leaves the Microsoft account sign-in visible.

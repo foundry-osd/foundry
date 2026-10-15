@@ -44,7 +44,7 @@ public sealed class ApplyDriverPackStepTests
         using var fixture = new DriverApplicationStepTestFixture();
         string packagePath = fixture.CreateDriverPackage();
         DeploymentStepExecutionContext context = fixture.CreateContext();
-        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
+        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredPostInstall;
         context.RuntimeState.DownloadedDriverPackPath = packagePath;
         var step = new ApplyDriverPackStep(fixture.DeploymentService);
 

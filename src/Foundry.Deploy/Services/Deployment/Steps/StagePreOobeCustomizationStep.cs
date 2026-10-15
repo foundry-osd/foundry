@@ -43,7 +43,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         }
 
         PreOobeDriverPackScriptSettings? driverPackSettings = null;
-        if (context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete)
+        if (context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredPostInstall)
         {
             (driverPackSettings, DeploymentStepResult? failure) = ResolveStagedDriverPackage(context);
             if (failure is not null)
@@ -78,7 +78,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         }
 
         PreOobeDriverPackScriptSettings? driverPackSettings = null;
-        if (context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete)
+        if (context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredPostInstall)
         {
             (driverPackSettings, DeploymentStepResult? failure) = ResolveStagedDriverPackage(context);
             if (failure is not null)
@@ -94,7 +94,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
     }
 
     private static bool HasTasks(DeploymentStepExecutionContext context) => PreOobeContentResolver.IsRequired(context.Request, context.RuntimeState) ||
-        context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete || context.NetworkProfileRoamingPayload?.DataFiles.Count > 0;
+        context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredPostInstall || context.NetworkProfileRoamingPayload?.DataFiles.Count > 0;
 
     private (PreOobeDriverPackScriptSettings? Settings, DeploymentStepResult? Failure) ResolveStagedDriverPackage(
         DeploymentStepExecutionContext context)
@@ -132,8 +132,8 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
     }
 
     /// <summary>
-    /// The interactive Autopilot assistant runs as a post-installation action because windeploy skips OOBE.cmd on
-    /// non-Enterprise editions licensed by a firmware OEM key.
+    /// The interactive Autopilot assistant runs as a post-installation action, from the specialize pass, so it starts
+    /// on every edition, including non-Enterprise editions licensed by a firmware OEM key.
     /// </summary>
     public static bool ShouldRunAutopilotRegistration(DeploymentContext request) =>
         request.IsAutopilotEnabled && request.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;

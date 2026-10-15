@@ -54,7 +54,7 @@ public sealed class AutopilotRegistrationScriptTests
         Directory.CreateDirectory(root);
         try
         {
-            var service = new AutopilotInteractiveRegistrationProvisioningService(new SetupCompleteScriptService());
+            var service = new AutopilotInteractiveRegistrationProvisioningService();
             var staged = service.Provision(root, name);
             string script = $$"""
                 $ErrorActionPreference = 'Stop'
