@@ -721,7 +721,7 @@ ErrorCode=0x80070005
     <value>{0} | TPM: {1} | כוח: {2} | קושחה: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>חשמל</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>סוללה</value>
@@ -1504,7 +1504,7 @@ ErrorCode=0x80070005
     <value>ארכיטקטורת מערכת</value>
   </data>
   <data name="Summary.Automatic" xml:space="preserve">
-    <value>Automatic</value>
+    <value>אוטומטי</value>
   </data>
   <data name="Summary.AutomaticRestart" xml:space="preserve">
     <value>הפעלה מחדש אוטומטית</value>
@@ -1516,7 +1516,7 @@ ErrorCode=0x80070005
     <value>Autopilot פרופיל</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>גרסת Build</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>חשבון מנהל מערכת מוכלל</value>
@@ -1549,13 +1549,13 @@ ErrorCode=0x80070005
     <value>נתוני אבחון</value>
   </data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve">
-    <value>Off</value>
+    <value>כבוי</value>
   </data>
   <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
-    <value>Optional</value>
+    <value>אופציונלי</value>
   </data>
   <data name="Summary.DiagnosticData.Required" xml:space="preserve">
-    <value>Required</value>
+    <value>חובה</value>
   </data>
   <data name="Summary.Edition" xml:space="preserve">
     <value>מהדורת מערכת ההפעלה</value>
@@ -1570,7 +1570,7 @@ ErrorCode=0x80070005
     <value>הסתרת הגדרת פרטיות</value>
   </data>
   <data name="Summary.Included" xml:space="preserve">
-    <value>Included</value>
+    <value>כלול</value>
   </data>
   <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
     <value>אבחון בדיו והקלדה</value>
@@ -1588,10 +1588,10 @@ ErrorCode=0x80070005
     <value>כבוי בכפייה</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
-    <value>User controlled</value>
+    <value>נשלט על ידי המשתמש</value>
   </data>
   <data name="Summary.Manual" xml:space="preserve">
-    <value>Manual</value>
+    <value>ידני</value>
   </data>
   <data name="Summary.ManualRestart" xml:space="preserve">
     <value>הפעלה מחדש ידנית</value>
@@ -1606,7 +1606,7 @@ ErrorCode=0x80070005
     <value>אין בחירה</value>
   </data>
   <data name="Summary.NotIncluded" xml:space="preserve">
-    <value>Not included</value>
+    <value>לא כלול</value>
   </data>
   <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
     <value>זיהוי דיבור מקוון</value>
@@ -1624,7 +1624,7 @@ ErrorCode=0x80070005
     <value>גרסה</value>
   </data>
   <data name="Summary.RestartBehavior" xml:space="preserve">
-    <value>Restart behavior</value>
+    <value>אופן ההפעלה מחדש</value>
   </data>
   <data name="Summary.RestartDelay" xml:space="preserve">
     <value>עיכוב הפעלה מחדש</value>
@@ -1675,7 +1675,7 @@ ErrorCode=0x80070005
     <value>תכונות אופציונליות של Windows</value>
   </data>
   <data name="Summary.WiredDot1x" xml:space="preserve">
-    <value>Wired 802.1X</value>
+    <value>802.1X קווי</value>
   </data>
   <data name="TargetDevice.Architecture" xml:space="preserve">
     <value>ארכיטקטורה</value>

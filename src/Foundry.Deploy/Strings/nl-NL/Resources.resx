@@ -721,7 +721,7 @@ Doorgaan met de implementatie?</value>
     <value>{0} | TPM: {1} | Vermogen: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>Netstroom</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Batterij</value>
@@ -1180,7 +1180,7 @@ Doorgaan met de implementatie?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Staging</value>
+    <value>Klaarzetten</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>De index van de toegepaste Windows-installatiekopie is niet beschikbaar.</value>

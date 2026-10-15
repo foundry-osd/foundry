@@ -270,7 +270,7 @@ Licencirano pod MIT licencom.</value>
     <value>ukrajinski (Ukrajina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>About</value>
+    <value>O programu</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Otklanjanje grešaka</value>
@@ -303,7 +303,7 @@ Licencirano pod MIT licencom.</value>
     <value>Čeka se mreža</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Tamno</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
     <value>Svetlo</value>
@@ -387,7 +387,7 @@ Licencirano pod MIT licencom.</value>
     <value>Osvežite Wi-Fi mreže</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
-    <value>Enterprise</value>
+    <value>Preduzeće</value>
   </data>
   <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
     <value>{0} (mašina)</value>

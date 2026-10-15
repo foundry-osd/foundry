@@ -273,7 +273,7 @@ Licencované podľa licencie MIT.</value>
     <value>O aplikácii</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>Ladenie</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Jazyk</value>

@@ -132,7 +132,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>DHCP vuokrasopimus havaittu</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Gateway</value>
+    <value>Yhdyskäytävä</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -273,7 +273,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tietoja</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>Virheenkorjaus</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Kieli</value>

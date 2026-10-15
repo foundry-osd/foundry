@@ -119,7 +119,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Egyik sem</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>Nincs adat</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
     <value>Vissza</value>
@@ -586,7 +586,7 @@ Folytatja a telepítést?</value>
     <value>_Névjegy</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Hibakeresés</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Nyelv</value>
@@ -721,7 +721,7 @@ Folytatja a telepítést?</value>
     <value>{0} | TPM: {1} | Teljesítmény: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>Hálózati tápellátás</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Akkumulátor</value>
@@ -1489,13 +1489,13 @@ Folytatja a telepítést?</value>
     <value>További helyi fiókok</value>
   </data>
   <data name="Summary.AdvertisingId" xml:space="preserve">
-    <value>Advertising ID</value>
+    <value>Hirdetésazonosító</value>
   </data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve">
     <value>AI komponens eltávolítása</value>
   </data>
   <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
-    <value>Application and AI removal</value>
+    <value>Alkalmazások és MI eltávolítása</value>
   </data>
   <data name="Summary.AppxRemoval" xml:space="preserve">
     <value>AppX eltávolítás</value>
@@ -1546,7 +1546,7 @@ Folytatja a telepítést?</value>
     <value>Az üzembe helyezés megkezdése előtt tekintse át a választásait.</value>
   </data>
   <data name="Summary.DiagnosticData" xml:space="preserve">
-    <value>Diagnostic data</value>
+    <value>Diagnosztikai adatok</value>
   </data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve">
     <value>Ki</value>
@@ -1564,16 +1564,16 @@ Folytatja a telepítést?</value>
     <value>Funkciók letiltva</value>
   </data>
   <data name="Summary.FeaturesEnabled" xml:space="preserve">
-    <value>Features enabled</value>
+    <value>Funkciók engedélyezve</value>
   </data>
   <data name="Summary.HidePrivacySetup" xml:space="preserve">
-    <value>Hide privacy setup</value>
+    <value>Adatvédelmi beállítások elrejtése</value>
   </data>
   <data name="Summary.Included" xml:space="preserve">
     <value>Tartalmazza</value>
   </data>
   <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
-    <value>Inking and typing diagnostics</value>
+    <value>Szabadkézi írási és gépelési diagnosztika</value>
   </data>
   <data name="Summary.Language" xml:space="preserve">
     <value>Nyelv</value>
@@ -1582,7 +1582,7 @@ Folytatja a telepítést?</value>
     <value>Licenccsatorna</value>
   </data>
   <data name="Summary.LocationAccess" xml:space="preserve">
-    <value>Location access</value>
+    <value>Helyhozzáférés</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
     <value>Kényszerített</value>
@@ -1609,7 +1609,7 @@ Folytatja a telepítést?</value>
     <value>Nem tartalmazza</value>
   </data>
   <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
-    <value>Online speech recognition</value>
+    <value>Online beszédfelismerés</value>
   </data>
   <data name="Summary.Oobe" xml:space="preserve">
     <value>OOBE</value>
@@ -1618,7 +1618,7 @@ Folytatja a telepítést?</value>
     <value>Privát kulcsú anyag</value>
   </data>
   <data name="Summary.ProvisioningMethod" xml:space="preserve">
-    <value>Provisioning method</value>
+    <value>Kiépítési mód</value>
   </data>
   <data name="Summary.Release" xml:space="preserve">
     <value>Verzió</value>
@@ -1639,7 +1639,7 @@ Folytatja a telepítést?</value>
     <value>Fióklétrehozás kihagyása</value>
   </data>
   <data name="Summary.SkipLicenseTerms" xml:space="preserve">
-    <value>Skip license terms</value>
+    <value>Licencfeltételek kihagyása</value>
   </data>
   <data name="Summary.Status" xml:space="preserve">
     <value>Állapot</value>
@@ -1654,7 +1654,7 @@ Folytatja a telepítést?</value>
     <value>Nincs konfigurálva</value>
   </data>
   <data name="Summary.TailoredExperiences" xml:space="preserve">
-    <value>Tailored experiences</value>
+    <value>Személyre szabott élmények</value>
   </data>
   <data name="Summary.TargetDisk" xml:space="preserve">
     <value>Céllemez</value>
@@ -1663,10 +1663,10 @@ Folytatja a telepítést?</value>
     <value>Telepítési összefoglaló</value>
   </data>
   <data name="Summary.TotalConfigured" xml:space="preserve">
-    <value>Total configured</value>
+    <value>Összesen konfigurálva</value>
   </data>
   <data name="Summary.WarningDetails" xml:space="preserve">
-    <value>Warning details</value>
+    <value>Figyelmeztetés részletei</value>
   </data>
   <data name="Summary.Wifi" xml:space="preserve">
     <value>Wi-Fi</value>

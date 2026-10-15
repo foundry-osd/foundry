@@ -721,7 +721,7 @@ Continuați cu implementarea?</value>
     <value>{0} | TPM: {1} | Putere: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>Rețea electrică</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Bateria</value>

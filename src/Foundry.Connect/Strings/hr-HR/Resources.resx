@@ -132,7 +132,7 @@ Licenciran prema MIT licenci.</value>
     <value>DHCP otkriven najam</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Gateway</value>
+    <value>Pristupnik</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -273,7 +273,7 @@ Licenciran prema MIT licenci.</value>
     <value>O aplikaciji</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>Otklanjanje pogrešaka</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Jezik</value>

@@ -209,7 +209,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>JSON perfil</value>
   </data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
-    <value>No Autopilot</value>
+    <value>Sin Autopilot</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Página de despliegue cancelado</value>
@@ -1516,7 +1516,7 @@ Sistema operativo: {4}
     <value>Autopilot Perfil</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Compilación</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Cuenta de administrador integrada</value>

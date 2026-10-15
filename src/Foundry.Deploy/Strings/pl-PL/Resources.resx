@@ -721,7 +721,7 @@ Kontynuować wdrażanie?</value>
     <value>{0} | TPM: {1} | Moc: {2} | Oprogramowanie sprzętowe: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>Zasilanie sieciowe</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Bateria</value>
@@ -1516,7 +1516,7 @@ Kontynuować wdrażanie?</value>
     <value>Profil Autopilot</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Kompilacja</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Wbudowane konto Administrator</value>
@@ -1642,7 +1642,7 @@ Kontynuować wdrażanie?</value>
     <value>Pomiń warunki licencji</value>
   </data>
   <data name="Summary.Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Stan</value>
   </data>
   <data name="Summary.Status.Configured" xml:space="preserve">
     <value>Skonfigurowano</value>

@@ -62,7 +62,7 @@ Sous licence MIT.</value>
     <value>Configuration: paramètres par défaut intégrés</value>
   </data>
   <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Configuration: {0}</value>
+    <value>Configuration : {0}</value>
   </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Connecté</value>
@@ -80,7 +80,7 @@ Sous licence MIT.</value>
     <value>Indisponible</value>
   </data>
   <data name="Common.VersionFormat" xml:space="preserve">
-    <value>Version: {0}</value>
+    <value>Version : {0}</value>
   </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
     <value>Afficher Ethernet uniquement</value>

@@ -1516,7 +1516,7 @@
     <value>Autopilot الملف الشخصي</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>رقم البنية</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>حساب المسؤول المضمن</value>

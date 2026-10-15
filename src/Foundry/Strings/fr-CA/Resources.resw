@@ -19,7 +19,7 @@
     <value>Créé et maintenu par Mickaël CHAVE.</value>
   </data>
   <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
-    <value>Contributions: {0}</value>
+    <value>Contributions : {0}</value>
   </data>
   <data name="AboutDialog.ContributorsError" xml:space="preserve">
     <value>Les contributeurs n'ont pas pu être chargés depuis GitHub.</value>
@@ -3361,7 +3361,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Norme WinPE</value>
   </data>
   <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi image</value>
+    <value>Image WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>o</value>

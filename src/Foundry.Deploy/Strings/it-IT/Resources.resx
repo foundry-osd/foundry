@@ -209,7 +209,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>JSON profilo</value>
   </data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
-    <value>No Autopilot</value>
+    <value>Senza Autopilot</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Pagina di distribuzione annullata</value>
@@ -721,7 +721,7 @@ Continuare con la distribuzione?</value>
     <value>{0} | TPM: {1} | Potenza: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>CA</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Batteria</value>
@@ -1549,7 +1549,7 @@ Continuare con la distribuzione?</value>
     <value>Dati diagnostici</value>
   </data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Disattivato</value>
   </data>
   <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
     <value>Facoltativo</value>

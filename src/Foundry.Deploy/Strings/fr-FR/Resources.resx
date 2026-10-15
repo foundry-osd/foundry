@@ -664,7 +664,7 @@ Continuer le déploiement ?</value>
     <value>Le certificat Autopilot a expiré. Le déploiement peut continuer sans envoyer le hash matériel.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
-    <value>Group tag</value>
+    <value>Balise de groupe</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
     <value>Les informations de certificat requises sont manquantes. Le déploiement peut continuer sans envoyer le hash matériel.</value>

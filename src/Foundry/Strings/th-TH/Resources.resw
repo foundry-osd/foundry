@@ -3088,109 +3088,109 @@
     <value>ตรวจสอบช่องที่ต้องกรอก หากต้องระบุโฟลเดอร์เครือข่าย ให้ใช้เส้นทาง เช่น \\server\share\folder หากป้อนรหัสผ่านของไฟล์สองครั้ง ตรวจสอบให้แน่ใจว่าทั้งสองครั้งตรงกัน</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>การเชื่อมต่อล้มเหลว</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>ตรวจสอบการตั้งค่าพร็อกซี</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>การเชื่อมต่อใหม่จาก Foundry OSD จะใช้การตั้งค่าเหล่านี้</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>ใช้การตั้งค่าพร็อกซีแล้ว</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD เชื่อมต่อกับ GitHub และบริการของ Microsoft ได้โดยใช้การตั้งค่าที่เลือก</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>เชื่อมต่อสำเร็จ</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>ป้อนชื่อผู้ใช้และรหัสผ่านสำหรับการรับรองความถูกต้องของพร็อกซีแบบระบุชัดเจน</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>นำไปใช้</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>ใช้ข้อมูลประจำตัว Windows ปัจจุบัน</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>เลือกวิธีที่พร็อกซีรับรองความถูกต้องของ Foundry OSD</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>การรับรองความถูกต้อง</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>ชื่อผู้ใช้และรหัสผ่าน</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>ไม่มีการรับรองความถูกต้อง</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>ชื่อโฮสต์หรือรูปแบบไวด์การ์ดที่คั่นด้วยเครื่องหมายอัฒภาค (ไม่บังคับ)</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>รายการที่ไม่ใช้พร็อกซี</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>เชื่อมต่อโดยตรงกับชื่อโฮสต์ที่ไม่มีจุด</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>ไม่ใช้พร็อกซีสำหรับที่อยู่ภายใน</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>ข้อมูลประจำตัวจะถูกจัดเก็บอย่างปลอดภัยในตัวจัดการข้อมูลประจำตัวของ Windows</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>ข้อมูลประจำตัวของพร็อกซี</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>โดเมน (ไม่บังคับ)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>ป้อนที่อยู่และพอร์ตของพร็อกซี</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>พร็อกซีเซิร์ฟเวอร์</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>เลือกวิธีที่ Foundry OSD เชื่อมต่อกับอินเทอร์เน็ต</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>วิธีการใช้พร็อกซี</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>ไม่ใช้พร็อกซี (เชื่อมต่อโดยตรง)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>ตั้งค่าพร็อกซีด้วยตนเอง</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>ใช้การตั้งค่า Windows (แนะนำ)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>รหัสผ่าน</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>พอร์ต</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>การตั้งค่าเหล่านี้ใช้กับแอปนี้เท่านั้น จะไม่ถูกเพิ่มลงในสื่อการปรับใช้ และไม่มีผลต่อ Foundry Connect หรือ Foundry Deploy</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Foundry OSD เท่านั้น</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>ทดสอบการเชื่อมต่อ</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>ชื่อผู้ใช้</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>การตั้งค่า</value>
@@ -3208,10 +3208,10 @@
     <value>สำรองและซิงค์การตั้งค่า</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>กำหนดค่าวิธีที่ Foundry OSD เชื่อมต่อกับบริการออนไลน์</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>พร็อกซี</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
     <value>ส่งบันทึกทุกระดับและบริบททางเทคนิคไปยัง PostHog โดยปกปิดข้อมูลลับสำหรับการยืนยันตัวตน พร้อมรายงานข้อยกเว้นแยกต่างหาก บันทึกจะถูกลบโดยอัตโนมัติหลังจาก 7 วัน</value>

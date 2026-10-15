@@ -1489,13 +1489,13 @@
     <value>Дополнительные локальные учетные записи</value>
   </data>
   <data name="Summary.AdvertisingId" xml:space="preserve">
-    <value>Advertising ID</value>
+    <value>Рекламный идентификатор</value>
   </data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve">
     <value>Удаление компонентов ИИ</value>
   </data>
   <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
-    <value>Application and AI removal</value>
+    <value>Удаление приложений и компонентов ИИ</value>
   </data>
   <data name="Summary.AppxRemoval" xml:space="preserve">
     <value>Удаление AppX</value>
@@ -1546,7 +1546,7 @@
     <value>Проверьте выбранные параметры перед началом развертывания.</value>
   </data>
   <data name="Summary.DiagnosticData" xml:space="preserve">
-    <value>Diagnostic data</value>
+    <value>Диагностические данные</value>
   </data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve">
     <value>Выключен</value>
@@ -1564,16 +1564,16 @@
     <value>Функции отключены</value>
   </data>
   <data name="Summary.FeaturesEnabled" xml:space="preserve">
-    <value>Features enabled</value>
+    <value>Функции включены</value>
   </data>
   <data name="Summary.HidePrivacySetup" xml:space="preserve">
-    <value>Hide privacy setup</value>
+    <value>Скрыть настройки конфиденциальности</value>
   </data>
   <data name="Summary.Included" xml:space="preserve">
     <value>Включен</value>
   </data>
   <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
-    <value>Inking and typing diagnostics</value>
+    <value>Диагностика рукописного ввода и набора текста</value>
   </data>
   <data name="Summary.Language" xml:space="preserve">
     <value>Язык</value>
@@ -1582,7 +1582,7 @@
     <value>Лицензионный канал</value>
   </data>
   <data name="Summary.LocationAccess" xml:space="preserve">
-    <value>Location access</value>
+    <value>Доступ к местоположению</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
     <value>Принудительно выключен</value>
@@ -1609,7 +1609,7 @@
     <value>Не включен</value>
   </data>
   <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
-    <value>Online speech recognition</value>
+    <value>Распознавание речи онлайн</value>
   </data>
   <data name="Summary.Oobe" xml:space="preserve">
     <value>OOBE</value>
@@ -1618,7 +1618,7 @@
     <value>Материал с закрытым ключом</value>
   </data>
   <data name="Summary.ProvisioningMethod" xml:space="preserve">
-    <value>Provisioning method</value>
+    <value>Способ подготовки</value>
   </data>
   <data name="Summary.Release" xml:space="preserve">
     <value>Версия</value>
@@ -1639,10 +1639,10 @@
     <value>Пропустить создание учетной записи</value>
   </data>
   <data name="Summary.SkipLicenseTerms" xml:space="preserve">
-    <value>Skip license terms</value>
+    <value>Пропустить условия лицензии</value>
   </data>
   <data name="Summary.Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Состояние</value>
   </data>
   <data name="Summary.Status.Configured" xml:space="preserve">
     <value>Настроено</value>
@@ -1654,7 +1654,7 @@
     <value>Не настроено</value>
   </data>
   <data name="Summary.TailoredExperiences" xml:space="preserve">
-    <value>Tailored experiences</value>
+    <value>Персонализированные возможности</value>
   </data>
   <data name="Summary.TargetDisk" xml:space="preserve">
     <value>Целевой диск</value>
@@ -1663,10 +1663,10 @@
     <value>Сводка по развертыванию</value>
   </data>
   <data name="Summary.TotalConfigured" xml:space="preserve">
-    <value>Total configured</value>
+    <value>Всего настроено</value>
   </data>
   <data name="Summary.WarningDetails" xml:space="preserve">
-    <value>Warning details</value>
+    <value>Сведения о предупреждении</value>
   </data>
   <data name="Summary.Wifi" xml:space="preserve">
     <value>Wi-Fi</value>

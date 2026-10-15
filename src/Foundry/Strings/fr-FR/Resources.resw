@@ -74,7 +74,7 @@ Sous licence MIT.</value>
     <value>Création de médias de déploiement Windows</value>
   </data>
   <data name="AboutDialog.SupportLink" xml:space="preserve">
-    <value>Support</value>
+    <value>Assistance</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
     <value>Foundry OSD utilise les bibliothèques et outils suivants. Leurs licences et pages de projet sont indiquées ci-dessous.</value>

@@ -1516,7 +1516,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Autopilot Profili</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Derleme</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Yerleşik Yönetici hesabı</value>

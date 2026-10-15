@@ -261,7 +261,7 @@ Licensierad under MIT-licensen.</value>
     <value>svenska (Sverige)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>Thai (Thailand)</value>
+    <value>Thailändska (Thailand)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
     <value>turkiska (Türkiye)</value>
@@ -354,7 +354,7 @@ Licensierad under MIT-licensen.</value>
     <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>Provisioned Wi-Fi · {0}</value>
+    <value>Tillhandahållet Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Företagsprofil</value>
@@ -381,7 +381,7 @@ Licensierad under MIT-licensen.</value>
     <value>Detta nätverk kräver en tillhandahållen Wi-Fi-profil.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>Provisioned Wi-Fi</value>
+    <value>Tillhandahållet Wi-Fi</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Uppdatera Wi-Fi nätverk</value>

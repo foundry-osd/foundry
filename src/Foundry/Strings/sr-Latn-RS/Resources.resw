@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>About</value>
+    <value>O programu</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Kreirao i održava Mickael CHAVE.</value>
@@ -269,7 +269,7 @@ Licencirano pod MIT licencom.</value>
     <value>Akcije profila</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
-    <value>Folder</value>
+    <value>Fascikla</value>
   </data>
   <data name="Autopilot.ColumnImported" xml:space="preserve">
     <value>Uvezeno</value>
@@ -371,7 +371,7 @@ Licencirano pod MIT licencom.</value>
     <value>Kreiranje sertifikata nije uspelo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
-    <value>Created</value>
+    <value>Kreirano</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
     <value>Kopiraj lozinku</value>
@@ -410,7 +410,7 @@ Licencirano pod MIT licencom.</value>
     <value>Sačuvaj Autopilot sertifikat PFKS</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Thumbprint</value>
+    <value>Otisak</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Nisu obezbeđeni nikakvi sertifikati.</value>
@@ -533,7 +533,7 @@ Licencirano pod MIT licencom.</value>
     <value>Ime</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>Value</value>
+    <value>Vrednost</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
     <value>Povežite se sa Microsoft Graph za ovu sesiju aplikacije da biste upravljali podešavanjima heš otpremanja.</value>
@@ -890,7 +890,7 @@ Licencirano pod MIT licencom.</value>
     <value>Paketi</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>Custom</value>
+    <value>Prilagođeno</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>Izaberite jednu ili više kataloških kategorija da biste unapred izabrali pakete.</value>
@@ -1109,7 +1109,7 @@ Licencirano pod MIT licencom.</value>
     <value>Dijagnostički podaci</value>
   </data>
   <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
-    <value>Off</value>
+    <value>Isključeno</value>
   </data>
   <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
     <value>Opciono</value>
@@ -2348,7 +2348,7 @@ Licencirano pod MIT licencom.</value>
     <value>Informacije o proizvodu i verziji.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>About</value>
+    <value>O programu</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK spremnost i montaža.</value>
@@ -2423,7 +2423,7 @@ Licencirano pod MIT licencom.</value>
     <value>Foundry OSD kući</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Home</value>
+    <value>Početna</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Zatražite od tehničara akreditive domena tokom primene.</value>
@@ -3088,109 +3088,109 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Proverite obavezna polja. Ako se traži mrežna fascikla, koristite putanju kao što je \\server\share\folder. Ako lozinku datoteke unosite dva puta, proverite da li se oba unosa podudaraju.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Povezivanje nije uspelo</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Proverite podešavanja proksi servera</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nove veze iz programa Foundry OSD sada koriste ova podešavanja.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Podešavanja proksi servera su primenjena</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD je pristupio uslugama GitHub i Microsoft pomoću izabranih podešavanja.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Povezivanje je uspelo</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Unesite korisničko ime i lozinku za eksplicitnu autentifikaciju na proksi serveru.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Primeni</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Koristi trenutne Windows akreditive</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Izaberite način na koji proksi server autentifikuje Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentifikacija</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Korisničko ime i lozinka</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Bez autentifikacije</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Opcionalni nazivi hostova ili džoker obrasci razdvojeni tačkom i zarezom.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Lista izuzetaka</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Povezuj se direktno sa nazivima hostova koji ne sadrže tačku.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Zaobiđi lokalne adrese</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Akreditivi se bezbedno čuvaju u Windows upravljaču akreditivima.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Akreditivi proksi servera</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domen (opcionalno)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Unesite adresu i port proksi servera.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proksi server</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Izaberite kako se Foundry OSD povezuje na internet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Način korišćenja proksija</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Bez proksija (direktna veza)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Ručno podešen proksi</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Koristi Windows podešavanja (preporučeno)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Lozinka</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Ova podešavanja se primenjuju samo na ovu aplikaciju. Ne dodaju se na medij za primenu i ne utiču na Foundry Connect ni Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Samo Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Testiraj vezu</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Korisničko ime</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Podešavanja</value>
@@ -3208,10 +3208,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Rezervne kopije i sinhronizacija podešavanja</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigurišite kako se Foundry OSD povezuje sa onlajn uslugama.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Proksi</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
     <value>Šaljite sve nivoe evidencije i tehnički kontekst u PostHog uz maskirane tajne za autentifikaciju i zasebne izveštaje o izuzecima. Evidencije se automatski brišu posle 7 dana.</value>
@@ -3891,7 +3891,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Tema aplikacije</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>Tamno</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>Sistem</value>
@@ -4128,7 +4128,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Prethodno obezbedite Wi-Fi profil</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
-    <value>Passphrase</value>
+    <value>Pristupna fraza</value>
   </data>
   <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
     <value>VPA2/VPA3 Enterprise</value>

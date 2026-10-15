@@ -119,7 +119,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Keine</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>k. A.</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
     <value>Zurück</value>
@@ -586,7 +586,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>_Info</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Debuggen</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Sprache</value>
@@ -1675,7 +1675,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Optionale Windows-Funktionen</value>
   </data>
   <data name="Summary.WiredDot1x" xml:space="preserve">
-    <value>Wired 802.1X</value>
+    <value>Kabelgebundenes 802.1X</value>
   </data>
   <data name="TargetDevice.Architecture" xml:space="preserve">
     <value>Architektur</value>

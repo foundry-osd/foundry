@@ -59,7 +59,7 @@ Sous licence MIT.</value>
     <value>Ce support de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
-    <value>Architecture: {0}</value>
+    <value>Architecture : {0}</value>
   </data>
   <data name="Catalog.EditionTarget" xml:space="preserve">
     <value>Édition (cible)</value>
@@ -131,7 +131,7 @@ Sous licence MIT.</value>
     <value>Inconnu</value>
   </data>
   <data name="Common.VersionFormat" xml:space="preserve">
-    <value>Version: {0}</value>
+    <value>Version : {0}</value>
   </data>
   <data name="Common.Yes" xml:space="preserve">
     <value>Oui</value>
