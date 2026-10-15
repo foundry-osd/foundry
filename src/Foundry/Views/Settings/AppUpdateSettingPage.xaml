@@ -228,6 +228,7 @@
                     BorderThickness="1"
                     CornerRadius="{ThemeResource FoundryControlCornerRadius}">
                     <TextBlock
+                        MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
                         Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                         Text="{x:Bind ViewModel.UpdateSourceDescription, Mode=OneWay}"
                         TextWrapping="WrapWholeWords" />

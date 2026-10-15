@@ -38,8 +38,9 @@
                 </wct:SettingsCard.HeaderIcon>
                 <StackPanel Spacing="8">
                     <HyperlinkButton
+                        MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
                         Padding="0"
-                        HorizontalAlignment="Stretch"
+                        HorizontalAlignment="Left"
                         HorizontalContentAlignment="Left"
                         Command="{x:Bind ViewModel.OpenLogFolderCommand}"
                         ToolTipService.ToolTip="{x:Bind ViewModel.LogDirectoryPath}">

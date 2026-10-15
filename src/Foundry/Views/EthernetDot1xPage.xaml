@@ -50,11 +50,13 @@
                                     Text="{x:Bind ViewModel.Dot1xProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button
                                     Grid.Column="1"
-                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    MinWidth="{StaticResource FoundryCompactActionMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseDot1xProfileTemplateCommand}"
                                     Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
                             </Grid>
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.Dot1xProfileTemplateValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
@@ -83,14 +85,18 @@
                                     Text="{x:Bind ViewModel.Dot1xCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button
                                     Grid.Column="1"
-                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    MinWidth="{StaticResource FoundryCompactActionMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseDot1xCertificateCommand}"
                                     Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
                             </Grid>
                             <PasswordBox
+                                Width="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Header="{x:Bind ViewModel.CertificatePasswordLabel, Mode=OneWay}"
                                 Password="{x:Bind ViewModel.Dot1xCertificatePassword, Mode=TwoWay}" />
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.Dot1xCertificateValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"

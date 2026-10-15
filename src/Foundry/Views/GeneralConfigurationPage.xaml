@@ -56,6 +56,8 @@
                                 SelectedItem="{x:Bind ViewModel.SelectedWinPeLanguage, Mode=TwoWay}"
                                 SelectionChanged="WinPeLanguageComboBox_SelectionChanged" />
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Text="{x:Bind ViewModel.WinPeLanguageUnavailableDescription, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
@@ -109,7 +111,7 @@
                             <wct:SettingsCard x:Name="DeploymentProtectionPasswordCard"
                                 Visibility="{x:Bind ViewModel.DeploymentProtectionFieldsVisibility, Mode=OneWay}">
                                 <StackPanel
-                                    MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                    Width="{ThemeResource FoundryWideInputMinWidth}"
                                     Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                                     <PasswordBox x:Name="DeploymentProtectionPasswordBox"
                                         Loaded="DeploymentProtectionPasswordBox_Loaded"
@@ -148,10 +150,10 @@
                                     Orientation="Horizontal"
                                     Spacing="{ThemeResource FoundryInlineControlSpacing}">
                                     <TextBox
-                                        MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                        Width="{ThemeResource FoundryWideInputMinWidth}"
                                         Text="{x:Bind ViewModel.CustomDriverDirectoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <Button x:Name="BrowseCustomDriversButton"
-                                        MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                        MinWidth="{StaticResource FoundryCompactActionMinWidth}"
                                         Command="{x:Bind ViewModel.BrowseCustomDriverDirectoryCommand}" />
                                 </StackPanel>
                             </wct:SettingsCard>
