@@ -106,11 +106,13 @@ public sealed class DeploymentSessionDebugPreviewTests
             DeploymentTimelineEntryViewModel autopilot = Assert.Single(session.TimelineEntries,
                 entry => entry.RawName == DeploymentStepNames.ProvisionAutopilot);
             Assert.Equal(LocalizationText.GetString(labelKey), autopilot.DisplayName);
+            // The interactive assistant runs as a post-installation action, which adds its staging step.
+            int count = mode == AutopilotProvisioningMode.InteractiveHardwareHashUpload ? 12 : 11;
             Assert.Equal(DeploymentPage.Success, session.CurrentPage);
-            Assert.Equal(11, session.TimelineEntries.Count);
+            Assert.Equal(count, session.TimelineEntries.Count);
             Assert.Equal(100, session.DeploymentProgress);
             Assert.Equal(LocalizationText.GetString("Step.FinalizeDeploymentAndWriteLogs"), session.CurrentStepName);
-            Assert.Equal(LocalizationText.Format("Status.StepCounterFormat", 11, 11), session.StepCounterText);
+            Assert.Equal(LocalizationText.Format("Status.StepCounterFormat", count, count), session.StepCounterText);
             AssertCachedImage(session);
             Assert.All(session.TimelineEntries.Where(entry => entry.RawName != DeploymentStepNames.DownloadOperatingSystemImage),
                 entry => Assert.Equal(DeploymentStepState.Succeeded, entry.State));

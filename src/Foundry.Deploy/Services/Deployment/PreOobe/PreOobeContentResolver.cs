@@ -26,14 +26,16 @@ public class PreOobeContentResolver
         request.PreOobe.IsEnabled && request.PreOobe.Actions.Any(action => action.IsEnabled) ||
         HasBuiltInTasks(request.AppxRemoval, request.AiComponentRemoval,
             DeploymentPlan.ResolveDriverMode(request) == Services.DriverPacks.DriverPackInstallMode.DeferredSetupComplete,
-            request.Network.ProfileRoaming.IsAnyEnabled, StagePreOobeCustomizationStep.ShouldActivateWindowsOem(request));
+            request.Network.ProfileRoaming.IsAnyEnabled, StagePreOobeCustomizationStep.ShouldActivateWindowsOem(request),
+            StagePreOobeCustomizationStep.ShouldRunAutopilotRegistration(request));
 
     internal static bool HasDomainTasks(DeploymentContext request, DeploymentRuntimeState? state = null) =>
         state is null ? request.DomainJoinIntent is not null : state.DomainJoinStatus is DomainJoinExecutionStatus.Pending or DomainJoinExecutionStatus.Ready;
 
     internal static bool HasBuiltInTasks(Models.Configuration.DeployAppxRemovalSettings appxRemoval,
-        Models.Configuration.DeployAiComponentRemovalSettings aiRemoval, bool deferredDriver, bool network, bool activation) =>
-        deferredDriver || network || activation || appxRemoval.IsEnabled && appxRemoval.PackageNames.Any(name => !string.IsNullOrWhiteSpace(name)) ||
+        Models.Configuration.DeployAiComponentRemovalSettings aiRemoval, bool deferredDriver, bool network, bool activation,
+        bool autopilotRegistration) =>
+        deferredDriver || network || activation || autopilotRegistration || appxRemoval.IsEnabled && appxRemoval.PackageNames.Any(name => !string.IsNullOrWhiteSpace(name)) ||
         aiRemoval.IsEnabled && (aiRemoval.RemoveCopilot || aiRemoval.RemoveAiHub);
 
     internal static string ResolveRid(string architecture) => architecture.ToLowerInvariant() switch

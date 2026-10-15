@@ -82,7 +82,8 @@ public static class DeploymentPlan
             request.AiComponentRemoval,
             hasDrivers && driverMode == DriverPackInstallMode.DeferredSetupComplete,
             hasNetworkPayload || (!networkResolved && request.Network.ProfileRoaming.IsAnyEnabled),
-            StagePreOobeCustomizationStep.ShouldActivateWindowsOem(request));
+            StagePreOobeCustomizationStep.ShouldActivateWindowsOem(request),
+            StagePreOobeCustomizationStep.ShouldRunAutopilotRegistration(request));
         if (setupTasks || PreOobeContentResolver.HasDomainTasks(request, state) || request.PreOobe.IsEnabled && request.PreOobe.Actions.Any(action => action.IsEnabled)) names.Add(DeploymentStepNames.StagePreOobeCustomization);
         names.Add(DeploymentStepNames.ConfigureRecoveryEnvironment);
         if (hasDrivers && driverMode == DriverPackInstallMode.OfflineInf) names.Add(DeploymentStepNames.ApplyRecoveryDrivers);

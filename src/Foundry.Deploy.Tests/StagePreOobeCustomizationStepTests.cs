@@ -469,6 +469,26 @@ public sealed class StagePreOobeCustomizationStepTests
     }
 
     [Fact]
+    public async Task StagePreOobeCustomizationStep_WhenInteractiveAutopilot_StagesAssistantAfterActivation()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentStepExecutionContext context = CreateContext(tempDirectory, licenseChannel: "RET",
+            autopilot: AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+        var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(),
+            new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)));
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        using JsonDocument plan = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
+        JsonElement[] actions = plan.RootElement.GetProperty("actions").EnumerateArray().ToArray();
+        Assert.Equal(new[] { "windows-oem-activation", "autopilot-registration", "cleanup" }, actions.Select(action => action.GetProperty("id").GetString()));
+        JsonElement parameters = actions[1].GetProperty("parameters");
+        Assert.Equal("Runtime/AutopilotRegistration/Start-FoundryAutopilotRegistration.ps1", parameters.GetProperty("scriptPath").GetString());
+        Assert.Equal("Runtime/AutopilotRegistration/config.json", parameters.GetProperty("configPath").GetString());
+    }
+
+    [Fact]
     public async Task StagePreOobeCustomizationStep_WhenDeferredDriverPayloadIsMissing_FailsWithoutStaging()
     {
         using var tempDirectory = new TemporaryDirectory();
@@ -535,7 +555,8 @@ public sealed class StagePreOobeCustomizationStepTests
         bool usesCustomUnattend = false,
         bool isDryRun = false,
         Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings? postInstall = null,
-        bool domain = false)
+        bool domain = false,
+        AutopilotProvisioningMode? autopilot = null)
     {
         var request = new DeploymentContext
         {
@@ -552,7 +573,9 @@ public sealed class StagePreOobeCustomizationStepTests
             TargetComputerName = "LAB01",
             OperatingSystem = new OperatingSystemCatalogItem { LicenseChannel = licenseChannel, Architecture = "x64" },
             DriverPackSelectionKind = DriverPackSelectionKind.OemCatalog,
-            DriverPack = new DriverPackCatalogItem()
+            DriverPack = new DriverPackCatalogItem(),
+            IsAutopilotEnabled = autopilot.HasValue,
+            AutopilotProvisioningMode = autopilot ?? AutopilotProvisioningMode.JsonProfile
         };
         var runtimeState = new DeploymentRuntimeState
         {

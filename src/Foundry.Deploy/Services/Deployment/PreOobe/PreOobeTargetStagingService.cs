@@ -126,6 +126,13 @@ public sealed class PreOobeTargetStagingService
             if (context.Request.AppxRemoval.IsEnabled && context.Request.AppxRemoval.PackageNames.Count > 0)
                 AddBuiltIn("remove-appx", PreOobeBuiltInKind.Appx, new { packageNames = context.Request.AppxRemoval.PackageNames });
             if (Steps.StagePreOobeCustomizationStep.ShouldActivateWindowsOem(context.Request)) AddBuiltIn("windows-oem-activation", PreOobeBuiltInKind.Activation, new { });
+            // ProvisionAutopilot stages these files later; the runtime reports a missing assistant instead of failing Setup.
+            if (Steps.StagePreOobeCustomizationStep.ShouldRunAutopilotRegistration(context.Request))
+                AddBuiltIn("autopilot-registration", PreOobeBuiltInKind.AutopilotRegistration, new
+                {
+                    scriptPath = "Runtime/AutopilotRegistration/Start-FoundryAutopilotRegistration.ps1",
+                    configPath = "Runtime/AutopilotRegistration/config.json"
+                });
             foreach (var action in PreOobeContentResolver.ApplicableActions(context.Request)) actions.Add(new() { Id = action.Id, Name = action.Name, CustomAction = action });
             foreach (var package in content.Packages)
             {

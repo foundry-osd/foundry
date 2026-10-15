@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
@@ -131,6 +132,13 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
     }
 
     /// <summary>Preserves automatic OEM activation only for native retail-image deployments.</summary>
+    /// <summary>
+    /// The interactive Autopilot assistant runs as a post-installation action because windeploy skips OOBE.cmd on
+    /// non-Enterprise editions licensed by a firmware OEM key.
+    /// </summary>
+    public static bool ShouldRunAutopilotRegistration(DeploymentContext request) =>
+        request.IsAutopilotEnabled && request.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
+
     public static bool ShouldActivateWindowsOem(DeploymentContext request) =>
         !request.UsesCustomUnattend &&
         string.Equals(request.OperatingSystem.LicenseChannel, "RET", StringComparison.OrdinalIgnoreCase);
