@@ -212,7 +212,7 @@ Licensed under the MIT License.</value>
     <value>No Autopilot</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
-    <value>Cancelled page</value>
+    <value>Canceled page</value>
   </data>
   <data name="Debug.CustomImages" xml:space="preserve">
     <value>Custom Windows images</value>
@@ -772,7 +772,7 @@ Continue with deployment?</value>
     <value>Cancellation requested. Waiting for the current operation to finish safely.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Deployment cancelled</value>
+    <value>Deployment canceled</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Deployment stopped. The target disk may contain an incomplete installation.</value>
@@ -799,7 +799,7 @@ Continue with deployment?</value>
     <value>Starting {0}...</value>
   </data>
   <data name="Status.StepCancelled" xml:space="preserve">
-    <value>Cancelled</value>
+    <value>Canceled</value>
   </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Step completed.</value>

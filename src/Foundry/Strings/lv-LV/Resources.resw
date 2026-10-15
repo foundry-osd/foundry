@@ -25,7 +25,7 @@
     <value>Līdzautorus nevarēja ielādēt no GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Notiek līdzautoru ielāde...</value>
+    <value>Notiek līdzautoru ielāde…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Līdzstrādnieki</value>
@@ -62,7 +62,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Piezīmes par laidienu nevarēja ielādēt iegultajā pārlūkprogrammā.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Notiek izlaiduma piezīmju ielāde...</value>
+    <value>Notiek izlaiduma piezīmju ielāde…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Izlaiduma piezīmes</value>
@@ -302,7 +302,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nav atrasts neviens Autopilot profils</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Notiek Autopilot profilu lejupielāde...</value>
+    <value>Notiek Autopilot profilu lejupielāde…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} ir konfigurēts.</value>
@@ -419,7 +419,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pievienojiet īrnieku</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Notiek nomnieka pievienošana...</value>
+    <value>Notiek nomnieka pievienošana…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Izveidot sertifikātu</value>
@@ -554,7 +554,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Importēt Autopilot profilu JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Notiek Autopilot profila importēšana...</value>
+    <value>Notiek Autopilot profila importēšana…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Kad iespējots, tehniķis Windows iestatīšanas laikā pierakstās ar Microsoft ierīces kodu un augšupielādē ierīces aparatūras jaucējkodu.</value>
@@ -1796,7 +1796,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Meklējiet pēc parādāmā nosaukuma vai DISM līdzekļa nosaukuma</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksportēt...</value>
+    <value>Eksportēt…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Izveidojiet sanitizētu atbalsta arhīvu, nemainot sākotnējos žurnālus.</value>
@@ -1814,7 +1814,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Diagnostikas eksportēšana neizdevās</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Papildu: eksportēt neapstrādātus žurnālus...</value>
+    <value>Papildu: eksportēt neapstrādātus žurnālus…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Eksportēt neapstrādātus žurnālus</value>
@@ -1871,7 +1871,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Jā</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Tiek meklētas OU domēnā...</value>
+    <value>Tiek meklētas OU domēnā…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Meklēšana atcelta.</value>
@@ -2720,7 +2720,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Importēt mapi</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Satura importēšana...</value>
+    <value>Satura importēšana…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Šī darbība nav derīga. Pārbaudiet tās konfigurāciju.</value>
@@ -2750,7 +2750,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Ievadiet mapi no importētā satura vai atstājiet šo lauku tukšu.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Satura ielāde...</value>
+    <value>Satura ielāde…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importējiet trūkstošo saturu darbībai “{0}”.</value>

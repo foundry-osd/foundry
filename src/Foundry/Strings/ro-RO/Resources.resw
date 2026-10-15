@@ -25,7 +25,7 @@
     <value>Colaboratorii nu au putut fi încărcați din GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Se încarcă colaboratorii...</value>
+    <value>Se încarcă colaboratorii…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Colaboratori</value>
@@ -62,7 +62,7 @@ Licențiat sub licența MIT.</value>
     <value>Notele de lansare nu au putut fi încărcate în browserul încorporat.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Se încarcă notele de lansare...</value>
+    <value>Se încarcă notele de lansare…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Note de lansare</value>
@@ -302,7 +302,7 @@ Licențiat sub licența MIT.</value>
     <value>Nu au fost găsite profiluri Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Se descarcă profilurile Autopilot...</value>
+    <value>Se descarcă profilurile Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} este configurat.</value>
@@ -419,7 +419,7 @@ Licențiat sub licența MIT.</value>
     <value>Conectați chiriașul</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Se conectează chiriașul...</value>
+    <value>Se conectează chiriașul…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Creați certificat</value>
@@ -554,7 +554,7 @@ Licențiat sub licența MIT.</value>
     <value>Importați profilul Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Se importă profilul Autopilot...</value>
+    <value>Se importă profilul Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Când este activată, tehnicianul se conectează cu un cod de dispozitiv Microsoft în timpul configurării Windows și încarcă hashul hardware al dispozitivului.</value>
@@ -1796,7 +1796,7 @@ Licențiat sub licența MIT.</value>
     <value>Căutați după numele afișat sau numele caracteristicii DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportă...</value>
+    <value>Exportă…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Creează o arhivă de asistență sanitizată fără a modifica jurnalele originale.</value>
@@ -1814,7 +1814,7 @@ Licențiat sub licența MIT.</value>
     <value>Exportul diagnosticelor a eșuat</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avansat: exportă jurnalele brute...</value>
+    <value>Avansat: exportă jurnalele brute…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Exportă jurnalele brute</value>
@@ -1871,7 +1871,7 @@ Licențiat sub licența MIT.</value>
     <value>Da</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Se caută OU-uri în domeniu...</value>
+    <value>Se caută OU-uri în domeniu…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Căutare anulată.</value>
@@ -2720,7 +2720,7 @@ Licențiat sub licența MIT.</value>
     <value>Importați un folder</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Se importă conținutul...</value>
+    <value>Se importă conținutul…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Această acțiune nu este validă. Verifică-i configurația.</value>
@@ -2750,7 +2750,7 @@ Licențiat sub licența MIT.</value>
     <value>Introdu un folder din conținutul importat sau lasă acest câmp gol.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Se încarcă conținutul...</value>
+    <value>Se încarcă conținutul…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importă conținutul lipsă pentru „{0}”.</value>

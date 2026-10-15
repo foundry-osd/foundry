@@ -25,7 +25,7 @@
     <value>Katkıda bulunanlar GitHub'dan yüklenemedi.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Katkıda bulunanlar yükleniyor...</value>
+    <value>Katkıda bulunanlar yükleniyor…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Katkıda Bulunanlar</value>
@@ -62,7 +62,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sürüm notları yerleşik tarayıcıya yüklenemedi.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Sürüm notları yükleniyor...</value>
+    <value>Sürüm notları yükleniyor…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Sürüm notları</value>
@@ -302,7 +302,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot profili bulunamadı</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot profilleri indiriliyor...</value>
+    <value>Autopilot profilleri indiriliyor…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} yapılandırıldı.</value>
@@ -419,7 +419,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kiracıyı bağlayın</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Kiracı bağlanıyor...</value>
+    <value>Kiracı bağlanıyor…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Sertifika oluştur</value>
@@ -554,7 +554,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot profilini içe aktar JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot profili içe aktarılıyor...</value>
+    <value>Autopilot profili içe aktarılıyor…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Etkinleştirildiğinde teknisyen, Windows kurulumu sırasında Microsoft cihaz koduyla oturum açar ve cihazın donanım karmasını yükler.</value>
@@ -1796,7 +1796,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Görünen ada veya DISM özellik adına göre arayın</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Dışa aktar...</value>
+    <value>Dışa aktar…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Özgün günlükleri değiştirmeden temizlenmiş bir destek arşivi oluştur.</value>
@@ -1814,7 +1814,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Tanılama dışa aktarılamadı</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Gelişmiş: ham günlükleri dışa aktar...</value>
+    <value>Gelişmiş: ham günlükleri dışa aktar…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Ham günlükleri dışa aktar</value>
@@ -1871,7 +1871,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Evet</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Etki alanında OU aranıyor...</value>
+    <value>Etki alanında OU aranıyor…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Arama iptal edildi.</value>
@@ -2720,7 +2720,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Klasör içeri aktar</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>İçerik içe aktarılıyor...</value>
+    <value>İçerik içe aktarılıyor…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Bu eylem geçersiz. Yapılandırmasını denetleyin.</value>
@@ -2750,7 +2750,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>İçeri aktarılan içerikten bir klasör girin veya bu alanı boş bırakın.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>İçerik yükleniyor...</value>
+    <value>İçerik yükleniyor…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>“{0}” için eksik içeriği içeri aktarın.</value>

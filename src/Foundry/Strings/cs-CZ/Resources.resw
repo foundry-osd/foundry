@@ -25,7 +25,7 @@
     <value>Přispěvatele nebylo možné načíst z GitHubu.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Načítání přispěvatelů...</value>
+    <value>Načítání přispěvatelů…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Přispěvatelé</value>
@@ -62,7 +62,7 @@ Licencováno pod licencí MIT.</value>
     <value>Poznámky k vydání se nepodařilo načíst ve vloženém prohlížeči.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Načítání poznámek k vydání...</value>
+    <value>Načítání poznámek k vydání…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Poznámky k vydání</value>
@@ -302,7 +302,7 @@ Licencováno pod licencí MIT.</value>
     <value>Nebyly nalezeny žádné profily Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Stahování profilů Autopilot...</value>
+    <value>Stahování profilů Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} je nakonfigurován.</value>
@@ -419,7 +419,7 @@ Licencováno pod licencí MIT.</value>
     <value>Připojte nájemce</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Připojování nájemníka...</value>
+    <value>Připojování nájemníka…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Vytvořte certifikát</value>
@@ -554,7 +554,7 @@ Licencováno pod licencí MIT.</value>
     <value>Importovat profil Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Import profilu Autopilot...</value>
+    <value>Import profilu Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Je-li povoleno, technik se během instalace Windows přihlásí pomocí kódu zařízení Microsoft a nahraje hardwarový hash zařízení.</value>
@@ -1796,7 +1796,7 @@ Licencováno pod licencí MIT.</value>
     <value>Vyhledávejte podle zobrazovaného názvu nebo názvu funkce DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportovat...</value>
+    <value>Exportovat…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Vytvořte očištěný archiv podpory bez úpravy původních protokolů.</value>
@@ -1814,7 +1814,7 @@ Licencováno pod licencí MIT.</value>
     <value>Export diagnostiky se nezdařil</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Upřesnit: exportovat nezpracované protokoly...</value>
+    <value>Upřesnit: exportovat nezpracované protokoly…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Exportovat nezpracované protokoly</value>
@@ -1871,7 +1871,7 @@ Licencováno pod licencí MIT.</value>
     <value>Ano</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Vyhledávání jednotek OU v doméně...</value>
+    <value>Vyhledávání jednotek OU v doméně…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Vyhledávání bylo zrušeno.</value>
@@ -2720,7 +2720,7 @@ Licencováno pod licencí MIT.</value>
     <value>Importovat složku</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importování obsahu...</value>
+    <value>Importování obsahu…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Tato akce je neplatná. Zkontrolujte její konfiguraci.</value>
@@ -2750,7 +2750,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zadejte složku z importovaného obsahu nebo ponechte toto pole prázdné.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Načítání obsahu...</value>
+    <value>Načítání obsahu…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importujte chybějící obsah pro „{0}“.</value>

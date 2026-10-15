@@ -25,7 +25,7 @@
     <value>Не удалось загрузить участников с GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Загрузка участников...</value>
+    <value>Загрузка участников…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Авторы</value>
@@ -62,7 +62,7 @@
     <value>Примечания к выпуску не удалось загрузить во встроенный браузер.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Загрузка примечаний к выпуску...</value>
+    <value>Загрузка примечаний к выпуску…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Примечания к выпуску</value>
@@ -302,7 +302,7 @@
     <value>Профили Autopilot не найдены</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Загрузка профилей Autopilot...</value>
+    <value>Загрузка профилей Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} настроен.</value>
@@ -419,7 +419,7 @@
     <value>Подключить арендатора</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Подключение арендатора...</value>
+    <value>Подключение арендатора…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Создать сертификат</value>
@@ -554,7 +554,7 @@
     <value>Импортировать профиль Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Импорт профиля Autopilot...</value>
+    <value>Импорт профиля Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>При включении технический специалист входит в систему с кодом устройства Microsoft во время установки Windows и отправляет аппаратный хеш устройства.</value>
@@ -1796,7 +1796,7 @@
     <value>Поиск по отображаемому имени или названию функции DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Экспорт...</value>
+    <value>Экспорт…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Создать очищенный архив поддержки без изменения исходных журналов.</value>
@@ -1814,7 +1814,7 @@
     <value>Не удалось экспортировать диагностику</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Дополнительно: экспорт необработанных журналов...</value>
+    <value>Дополнительно: экспорт необработанных журналов…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Экспортировать необработанные журналы</value>
@@ -1871,7 +1871,7 @@
     <value>Да</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Поиск OU в домене...</value>
+    <value>Поиск OU в домене…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Поиск отменен.</value>
@@ -2720,7 +2720,7 @@
     <value>Импортировать папку</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Импорт содержимого...</value>
+    <value>Импорт содержимого…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Это действие недопустимо. Проверьте его конфигурацию.</value>
@@ -2750,7 +2750,7 @@
     <value>Введите папку из импортированного содержимого или оставьте поле пустым.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Загрузка содержимого...</value>
+    <value>Загрузка содержимого…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Импортируйте недостающее содержимое для «{0}».</value>

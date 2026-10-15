@@ -25,7 +25,7 @@
     <value>コントリビューターを GitHub からロードできませんでした。</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>寄稿者を読み込んでいます...</value>
+    <value>寄稿者を読み込んでいます…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>貢献者</value>
@@ -62,7 +62,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>リリース ノートを組み込みブラウザにロードできませんでした。</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>リリースノートを読み込んでいます...</value>
+    <value>リリースノートを読み込んでいます…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>リリースノート</value>
@@ -302,7 +302,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot プロフィールが見つかりませんでした</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot プロファイルをダウンロードしています...</value>
+    <value>Autopilot プロファイルをダウンロードしています…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} が設定されています。</value>
@@ -419,7 +419,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>テナントを接続する</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>テナントを接続中...</value>
+    <value>テナントを接続中…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>証明書の作成</value>
@@ -554,7 +554,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot プロフィール JSON をインポート</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot プロフィールをインポートしています...</value>
+    <value>Autopilot プロフィールをインポートしています…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>有効にすると、技術者は Windows セットアップ中に Microsoft のデバイス コードでサインインし、デバイスのハードウェア ハッシュをアップロードします。</value>
@@ -1796,7 +1796,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>表示名または DISM 機能名で検索する</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>エクスポート...</value>
+    <value>エクスポート…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>元のログを変更せずに、サニタイズ済みのサポート アーカイブを作成します。</value>
@@ -1814,7 +1814,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>診断のエクスポートに失敗しました</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>詳細設定: 生ログをエクスポート...</value>
+    <value>詳細設定: 生ログをエクスポート…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>生ログをエクスポート</value>
@@ -1871,7 +1871,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>はい</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>ドメインでOUを検索しています...</value>
+    <value>ドメインでOUを検索しています…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>検索をキャンセルしました。</value>
@@ -2720,7 +2720,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>フォルダーをインポート</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>コンテンツをインポートしています...</value>
+    <value>コンテンツをインポートしています…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>このアクションは無効です。構成を確認してください。</value>
@@ -2750,7 +2750,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>インポートしたコンテンツ内のフォルダーを入力するか、空欄のままにしてください。</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>コンテンツを読み込んでいます...</value>
+    <value>コンテンツを読み込んでいます…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>「{0}」の不足しているコンテンツをインポートしてください。</value>

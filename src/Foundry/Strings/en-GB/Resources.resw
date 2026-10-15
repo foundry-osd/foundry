@@ -25,7 +25,7 @@
     <value>Contributors could not be loaded from GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Loading contributors...</value>
+    <value>Loading contributors…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Contributors</value>
@@ -62,7 +62,7 @@ Licensed under the MIT License.</value>
     <value>Release notes could not be loaded in the embedded browser.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Loading release notes...</value>
+    <value>Loading release notes…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Release notes</value>
@@ -302,7 +302,7 @@ Licensed under the MIT License.</value>
     <value>No Autopilot profiles found</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Downloading Autopilot profiles...</value>
+    <value>Downloading Autopilot profiles…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} is configured.</value>
@@ -419,7 +419,7 @@ Licensed under the MIT License.</value>
     <value>Connect tenant</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Connecting tenant...</value>
+    <value>Connecting tenant…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Create certificate</value>
@@ -554,7 +554,7 @@ Licensed under the MIT License.</value>
     <value>Import Autopilot profile JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importing Autopilot profile...</value>
+    <value>Importing Autopilot profile…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>When enabled, the technician signs in with a Microsoft device code during Windows setup and uploads the device hardware hash.</value>
@@ -1796,7 +1796,7 @@ Licensed under the MIT License.</value>
     <value>Search by display name or DISM feature name</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Export...</value>
+    <value>Export…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Create a sanitised support archive without modifying the original logs.</value>
@@ -1814,7 +1814,7 @@ Licensed under the MIT License.</value>
     <value>Diagnostics export failed</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Advanced: export raw logs...</value>
+    <value>Advanced: export raw logs…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Export raw logs</value>
@@ -1871,7 +1871,7 @@ Licensed under the MIT License.</value>
     <value>Yes</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Searching the domain for OUs...</value>
+    <value>Searching the domain for OUs…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Search cancelled.</value>
@@ -2720,7 +2720,7 @@ Licensed under the MIT License.</value>
     <value>Import folder</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importing content...</value>
+    <value>Importing content…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>This action is invalid. Check its configuration.</value>
@@ -2750,7 +2750,7 @@ Licensed under the MIT License.</value>
     <value>Enter a folder from the imported content, or leave this empty.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Loading content...</value>
+    <value>Loading content…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Import the missing content for "{0}".</value>
@@ -3346,13 +3346,13 @@ Passwords and access keys included: {2}</value>
     <value>Network configuration is not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>No USB target is selected.</value>
+    <value>No USB drive is selected.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Required media secrets are not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>The selected USB target is too small. Use a USB key of at least 16 GB.</value>
+    <value>The selected USB drive is too small. Use a USB drive of at least 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Selected WinPE boot language is not available for the selected architecture.</value>
@@ -3397,7 +3397,7 @@ Passwords and access keys included: {2}</value>
     <value>Format and create USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Format USB target</value>
+    <value>Format USB drive</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows cannot read the volumes on this disk. It may still contain data.</value>
@@ -3412,7 +3412,7 @@ Passwords and access keys included: {2}</value>
     <value>Volumes on this disk:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Everything on this disk will be lost. Continue only if this is the intended USB disk.</value>
+    <value>Everything on this disk will be lost. Continue only if this is the intended USB drive.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Create USB</value>
@@ -3828,7 +3828,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>Update USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB targets can be refreshed after ADK readiness is complete.</value>
+    <value>USB drives can be refreshed after ADK readiness is complete.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB drives found: {0}</value>
@@ -3837,19 +3837,19 @@ Applying the update restarts Foundry OSD.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Scanning USB targets.</value>
+    <value>Scanning for USB drives…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>No USB drives were found.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB target refresh failed.</value>
+    <value>USB drive refresh failed.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Format behaviour used before copying the final USB media.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Partition scheme used when preparing the selected USB target.</value>
+    <value>Partition scheme used when preparing the selected USB drive.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>USB target</value>

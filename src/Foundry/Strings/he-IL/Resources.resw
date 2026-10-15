@@ -25,7 +25,7 @@
     <value>לא ניתן היה לטעון תורמים מ-GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>טוען תורמים...</value>
+    <value>טוען תורמים…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>תורמים</value>
@@ -62,7 +62,7 @@
     <value>לא ניתן היה לטעון הערות גרסה בדפדפן המוטמע.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>טוען הערות שחרור...</value>
+    <value>טוען הערות שחרור…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>הערות שחרור</value>
@@ -302,7 +302,7 @@
     <value>לא נמצאו פרופילים של Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>מוריד פרופילים של Autopilot...</value>
+    <value>מוריד פרופילים של Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} מוגדר.</value>
@@ -419,7 +419,7 @@
     <value>חבר דייר</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>מחבר דייר...</value>
+    <value>מחבר דייר…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>צור תעודה</value>
@@ -554,7 +554,7 @@
     <value>ייבוא פרופיל Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>מייבא פרופיל Autopilot...</value>
+    <value>מייבא פרופיל Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>כשהאפשרות מופעלת, הטכנאי נכנס באמצעות קוד מכשיר של Microsoft במהלך התקנת Windows ומעלה את hash החומרה של המכשיר.</value>
@@ -1796,7 +1796,7 @@
     <value>חפש לפי שם תצוגה או שם תכונה DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>ייצוא...</value>
+    <value>ייצוא…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>צור ארכיון תמיכה מחוטא בלי לשנות את היומנים המקוריים.</value>
@@ -1814,7 +1814,7 @@
     <value>ייצוא האבחון נכשל</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>מתקדם: ייצוא יומנים גולמיים...</value>
+    <value>מתקדם: ייצוא יומנים גולמיים…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>ייצוא יומנים גולמיים</value>
@@ -1871,7 +1871,7 @@
     <value>כן</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>מחפש יחידות OU בתחום...</value>
+    <value>מחפש יחידות OU בתחום…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>החיפוש בוטל.</value>
@@ -2720,7 +2720,7 @@
     <value>ייבא תיקייה</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>מייבא תוכן...</value>
+    <value>מייבא תוכן…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>פעולה זו אינה תקינה. בדוק את התצורה שלה.</value>
@@ -2750,7 +2750,7 @@
     <value>הזן תיקייה מתוך התוכן שיובא, או השאר שדה זה ריק.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>טוען תוכן...</value>
+    <value>טוען תוכן…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>ייבא את התוכן החסר עבור "{0}".</value>

@@ -25,7 +25,7 @@
     <value>A közreműködőket nem lehetett betölteni a GitHubból.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Közreműködők betöltése...</value>
+    <value>Közreműködők betöltése…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Közreműködők</value>
@@ -62,7 +62,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A kibocsátási megjegyzések nem tölthetők be a beágyazott böngészőbe.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Kiadási megjegyzések betöltése...</value>
+    <value>Kiadási megjegyzések betöltése…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Kiadási megjegyzések</value>
@@ -302,7 +302,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Nem található Autopilot profil</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot profilok letöltése...</value>
+    <value>Autopilot profilok letöltése…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} be van állítva.</value>
@@ -419,7 +419,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Csatlakoztassa a bérlőt</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Bérlő csatlakoztatása...</value>
+    <value>Bérlő csatlakoztatása…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Hozzon létre tanúsítványt</value>
@@ -554,7 +554,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Autopilot profil importálása JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot profil importálása...</value>
+    <value>Autopilot profil importálása…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Ha engedélyezve van, a technikus a Windows telepítése során Microsoft-eszközkóddal jelentkezik be, és feltölti az eszköz hardverhashét.</value>
@@ -1796,7 +1796,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Keresés megjelenített név vagy DISM funkció neve alapján</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportálás...</value>
+    <value>Exportálás…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Hozzon létre megtisztított támogatási archívumot az eredeti naplók módosítása nélkül.</value>
@@ -1814,7 +1814,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A diagnosztika exportálása nem sikerült</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Speciális: nyers naplók exportálása...</value>
+    <value>Speciális: nyers naplók exportálása…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Nyers naplók exportálása</value>
@@ -1871,7 +1871,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Igen</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>OU-k keresése a tartományban...</value>
+    <value>OU-k keresése a tartományban…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>A keresés megszakítva.</value>
@@ -2720,7 +2720,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Mappa importálása</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Tartalom importálása...</value>
+    <value>Tartalom importálása…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ez a művelet érvénytelen. Ellenőrizze a konfigurációját.</value>
@@ -2750,7 +2750,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Adjon meg egy mappát az importált tartalomból, vagy hagyja üresen ezt a mezőt.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Tartalom betöltése...</value>
+    <value>Tartalom betöltése…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importálja a(z) „{0}” hiányzó tartalmát.</value>

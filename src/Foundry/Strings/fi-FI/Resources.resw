@@ -25,7 +25,7 @@
     <value>Osallistujia ei voitu ladata GitHubista.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Ladataan osallistujia...</value>
+    <value>Ladataan osallistujia…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Osallistujat</value>
@@ -62,7 +62,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Julkaisutietoja ei voitu ladata upotettuun selaimeen.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Ladataan julkaisutietoja...</value>
+    <value>Ladataan julkaisutietoja…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Julkaisutiedot</value>
@@ -302,7 +302,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Autopilot-profiileja ei löytynyt</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Ladataan Autopilot profiileja...</value>
+    <value>Ladataan Autopilot profiileja…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} on määritetty.</value>
@@ -419,7 +419,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Yhdistä vuokralainen</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Yhdistetään vuokralaista...</value>
+    <value>Yhdistetään vuokralaista…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Luo sertifikaatti</value>
@@ -554,7 +554,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tuo Autopilot profiili JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Tuodaan Autopilot profiilia...</value>
+    <value>Tuodaan Autopilot profiilia…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Kun tämä on käytössä, teknikko kirjautuu Windowsin asennuksen aikana Microsoftin laitekoodilla ja lataa laitteen laitteiston hajautusarvon.</value>
@@ -1796,7 +1796,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Hae näyttönimellä tai DISM-ominaisuuden nimellä</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Vie...</value>
+    <value>Vie…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Luo puhdistettu tukipaketti muuttamatta alkuperäisiä lokeja.</value>
@@ -1814,7 +1814,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Diagnostiikan vienti epäonnistui</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Lisäasetukset: vie raakalokit...</value>
+    <value>Lisäasetukset: vie raakalokit…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Vie raakalokit</value>
@@ -1871,7 +1871,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kyllä</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Etsitään OU:ita toimialueesta...</value>
+    <value>Etsitään OU:ita toimialueesta…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Haku peruutettiin.</value>
@@ -2720,7 +2720,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tuo kansio</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Tuodaan sisältöä...</value>
+    <value>Tuodaan sisältöä…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Tämä toiminto on virheellinen. Tarkista sen määritykset.</value>
@@ -2750,7 +2750,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kirjoita tuodun sisällön kansio tai jätä kenttä tyhjäksi.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Ladataan sisältöä...</value>
+    <value>Ladataan sisältöä…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Tuo puuttuva sisältö toiminnolle ”{0}”.</value>

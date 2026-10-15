@@ -25,7 +25,7 @@
     <value>Kaasautoreid ei saanud GitHubist laadida.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Kaasautorite laadimine...</value>
+    <value>Kaasautorite laadimine…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Kaastöölised</value>
@@ -62,7 +62,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Väljalaskemärkmeid ei saanud manustatud brauserisse laadida.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Väljalaskemärkmete laadimine...</value>
+    <value>Väljalaskemärkmete laadimine…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Väljalaske märkmed</value>
@@ -302,7 +302,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Autopilot profiile ei leitud</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot profiilide allalaadimine...</value>
+    <value>Autopilot profiilide allalaadimine…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} on konfigureeritud.</value>
@@ -419,7 +419,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Ühendage üürnik</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Üürniku ühendamine...</value>
+    <value>Üürniku ühendamine…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Looge sertifikaat</value>
@@ -554,7 +554,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Import Autopilot profiil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot profiili importimine...</value>
+    <value>Autopilot profiili importimine…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Kui see on lubatud, logib tehnik Windowsi seadistamise ajal sisse Microsofti seadmekoodiga ja laadib üles seadme riistvararäsi.</value>
@@ -1796,7 +1796,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Otsige kuvatava nime või DISM-i funktsiooni nime järgi</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Ekspordi...</value>
+    <value>Ekspordi…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Loo puhastatud tugiarhiiv ilma algseid logisid muutmata.</value>
@@ -1814,7 +1814,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Diagnostika eksport ebaõnnestus</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Täpsemalt: ekspordi töötlemata logid...</value>
+    <value>Täpsemalt: ekspordi töötlemata logid…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Ekspordi töötlemata logid</value>
@@ -1871,7 +1871,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Jah</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>OU-de otsimine domeenist...</value>
+    <value>OU-de otsimine domeenist…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Otsing tühistati.</value>
@@ -2720,7 +2720,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Impordi kaust</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Sisu importimine...</value>
+    <value>Sisu importimine…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>See toiming on vigane. Kontrolli selle seadistust.</value>
@@ -2750,7 +2750,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Sisesta imporditud sisu kaust või jäta see väli tühjaks.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Sisu laadimine...</value>
+    <value>Sisu laadimine…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Impordi puuduv sisu toimingu „{0}” jaoks.</value>

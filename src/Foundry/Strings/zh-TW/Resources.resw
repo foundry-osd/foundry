@@ -25,7 +25,7 @@
     <value>無法從 GitHub 載入貢獻者。</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>正在加載貢獻者...</value>
+    <value>正在加載貢獻者…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>貢獻者</value>
@@ -62,7 +62,7 @@
     <value>無法在嵌入式瀏覽器中載入發行說明。</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>正在載入發行說明...</value>
+    <value>正在載入發行說明…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>發行說明</value>
@@ -302,7 +302,7 @@
     <value>找不到 Autopilot 設定文件</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>正在下載Autopilot 設定檔...</value>
+    <value>正在下載Autopilot 設定檔…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} 已配置。</value>
@@ -419,7 +419,7 @@
     <value>連接租戶</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>正在連接租戶...</value>
+    <value>正在連接租戶…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>建立證書</value>
@@ -554,7 +554,7 @@
     <value>導入Autopilot設定檔JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>正在導入Autopilot個人資料...</value>
+    <value>正在導入Autopilot個人資料…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>啟用後，技術人員將在 Windows 安裝期間使用 Microsoft 裝置代碼登入並上傳裝置硬體雜湊。</value>
@@ -1796,7 +1796,7 @@
     <value>按顯示名稱或 DISM 功能名稱搜尋</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>匯出...</value>
+    <value>匯出…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>建立已淨化的支援封存檔，而不修改原始記錄。</value>
@@ -1814,7 +1814,7 @@
     <value>匯出診斷資訊失敗</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>進階：匯出原始記錄...</value>
+    <value>進階：匯出原始記錄…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>匯出原始記錄</value>
@@ -1871,7 +1871,7 @@
     <value>是</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>正在網域中搜尋 OU...</value>
+    <value>正在網域中搜尋 OU…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>搜尋已取消。</value>
@@ -2720,7 +2720,7 @@
     <value>匯入資料夾</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>正在匯入內容...</value>
+    <value>正在匯入內容…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>此動作無效。請檢查其設定。</value>
@@ -2750,7 +2750,7 @@
     <value>輸入匯入內容中的資料夾，或保留空白。</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>正在載入內容...</value>
+    <value>正在載入內容…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>匯入「{0}」缺少的內容。</value>

@@ -25,7 +25,7 @@
     <value>Bidragsgivare kunde inte laddas från GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Läser in bidragsgivare...</value>
+    <value>Läser in bidragsgivare…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Bidragsgivare</value>
@@ -62,7 +62,7 @@ Licensierad under MIT-licensen.</value>
     <value>Det gick inte att läsa in releasenotes i den inbäddade webbläsaren.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Laddar versionsinformation...</value>
+    <value>Laddar versionsinformation…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Release notes</value>
@@ -302,7 +302,7 @@ Licensierad under MIT-licensen.</value>
     <value>Inga Autopilot-profiler hittades</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Laddar ned Autopilot profiler...</value>
+    <value>Laddar ned Autopilot profiler…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} är konfigurerad.</value>
@@ -419,7 +419,7 @@ Licensierad under MIT-licensen.</value>
     <value>Anslut hyresgäst</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Ansluter hyresgäst...</value>
+    <value>Ansluter hyresgäst…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Skapa certifikat</value>
@@ -554,7 +554,7 @@ Licensierad under MIT-licensen.</value>
     <value>Importera Autopilot profil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importerar Autopilot profil...</value>
+    <value>Importerar Autopilot profil…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>När funktionen är aktiverad loggar teknikern in med en Microsoft-enhetskod under Windows-installationen och laddar upp enhetens maskinvaruhash.</value>
@@ -1796,7 +1796,7 @@ Licensierad under MIT-licensen.</value>
     <value>Sök efter visningsnamn eller DISM-funktionsnamn</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportera...</value>
+    <value>Exportera…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Skapa ett rensat supportarkiv utan att ändra de ursprungliga loggarna.</value>
@@ -1814,7 +1814,7 @@ Licensierad under MIT-licensen.</value>
     <value>Export av diagnostik misslyckades</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avancerat: exportera råa loggar...</value>
+    <value>Avancerat: exportera råa loggar…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Exportera råa loggar</value>
@@ -1871,7 +1871,7 @@ Licensierad under MIT-licensen.</value>
     <value>Ja</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Söker efter OU:er i domänen...</value>
+    <value>Söker efter OU:er i domänen…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Sökningen avbröts.</value>
@@ -2720,7 +2720,7 @@ Licensierad under MIT-licensen.</value>
     <value>Importera mapp</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importerar innehåll...</value>
+    <value>Importerar innehåll…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Den här åtgärden är ogiltig. Kontrollera konfigurationen.</value>
@@ -2750,7 +2750,7 @@ Licensierad under MIT-licensen.</value>
     <value>Ange en mapp från det importerade innehållet eller lämna fältet tomt.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Läser in innehåll...</value>
+    <value>Läser in innehåll…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importera det saknade innehållet för ”{0}”.</value>

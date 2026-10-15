@@ -25,7 +25,7 @@
     <value>Mitwirkende konnten nicht von GitHub geladen werden.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Mitwirkende werden geladen...</value>
+    <value>Mitwirkende werden geladen…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Mitwirkende</value>
@@ -62,7 +62,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Versionshinweise konnten nicht im eingebetteten Browser geladen werden.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Versionshinweise werden geladen...</value>
+    <value>Versionshinweise werden geladen…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Versionshinweise</value>
@@ -302,7 +302,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Keine Autopilot Profile gefunden</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot-Profile werden heruntergeladen...</value>
+    <value>Autopilot-Profile werden heruntergeladen…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} ist konfiguriert.</value>
@@ -419,7 +419,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Mieter verbinden</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Mieter verbinden...</value>
+    <value>Mieter verbinden…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Zertifikat erstellen</value>
@@ -554,7 +554,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Autopilot Profil importieren JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot-Profil wird importiert...</value>
+    <value>Autopilot-Profil wird importiert…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Wenn aktiviert, meldet sich der Techniker während der Windows-Einrichtung mit einem Microsoft-Gerätecode an und lädt den Hardware-Hash des Geräts hoch.</value>
@@ -1796,7 +1796,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Suchen Sie nach Anzeigename oder DISM-Funktionsname</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportieren...</value>
+    <value>Exportieren…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Erstellen Sie ein bereinigtes Supportarchiv, ohne die ursprünglichen Protokolle zu ändern.</value>
@@ -1814,7 +1814,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Export der Diagnose fehlgeschlagen</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Erweitert: Rohprotokolle exportieren...</value>
+    <value>Erweitert: Rohprotokolle exportieren…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Rohprotokolle exportieren</value>
@@ -1871,7 +1871,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Ja</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Die Domäne wird nach OUs durchsucht...</value>
+    <value>Die Domäne wird nach OUs durchsucht…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Suche abgebrochen.</value>
@@ -2720,7 +2720,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Ordner importieren</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Inhalt wird importiert...</value>
+    <value>Inhalt wird importiert…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Diese Aktion ist ungültig. Prüfen Sie ihre Konfiguration.</value>
@@ -2750,7 +2750,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Geben Sie einen Ordner aus den importierten Inhalten ein oder lassen Sie das Feld leer.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Inhalt wird geladen...</value>
+    <value>Inhalt wird geladen…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importieren Sie die fehlenden Inhalte für „{0}“.</value>

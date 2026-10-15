@@ -25,7 +25,7 @@
     <value>Сътрудниците не можаха да бъдат заредени от GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Сътрудниците се зареждат...</value>
+    <value>Сътрудниците се зареждат…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Сътрудници</value>
@@ -62,7 +62,7 @@
     <value>Бележките по изданието не можаха да бъдат заредени във вградения браузър.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Бележките по версията се зареждат...</value>
+    <value>Бележките по версията се зареждат…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Бележки по изданието</value>
@@ -302,7 +302,7 @@
     <value>Няма намерени Autopilot профили</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Изтеглят се Autopilot профили...</value>
+    <value>Изтеглят се Autopilot профили…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} е конфигуриран.</value>
@@ -419,7 +419,7 @@
     <value>Свържете наемател</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Наемател се свързва...</value>
+    <value>Наемател се свързва…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Създаване на сертификат</value>
@@ -554,7 +554,7 @@
     <value>Импортиране на Autopilot профил JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Импортиране на Autopilot профил...</value>
+    <value>Импортиране на Autopilot профил…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Когато е разрешено, техникът влиза с код за устройство на Microsoft по време на настройката на Windows и качва хардуерния хеш на устройството.</value>
@@ -1796,7 +1796,7 @@
     <value>Търсене по показвано име или име на DISM функция</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Експортиране...</value>
+    <value>Експортиране…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Създайте саниран архив за поддръжка, без да променяте оригиналните регистрационни файлове.</value>
@@ -1814,7 +1814,7 @@
     <value>Неуспешно експортиране на диагностика</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Разширено: експортиране на необработени регистрационни файлове...</value>
+    <value>Разширено: експортиране на необработени регистрационни файлове…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Експортиране на необработени регистрационни файлове</value>
@@ -1871,7 +1871,7 @@
     <value>Да</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Търсене на OU в домейна...</value>
+    <value>Търсене на OU в домейна…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Търсенето е отменено.</value>
@@ -2720,7 +2720,7 @@
     <value>Импортиране на папка</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Импортиране на съдържание...</value>
+    <value>Импортиране на съдържание…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Това действие е невалидно. Проверете конфигурацията му.</value>
@@ -2750,7 +2750,7 @@
     <value>Въведете папка от импортираното съдържание или оставете полето празно.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Зареждане на съдържание...</value>
+    <value>Зареждане на съдържание…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Импортирайте липсващото съдържание за „{0}“.</value>

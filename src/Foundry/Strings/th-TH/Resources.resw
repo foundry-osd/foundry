@@ -25,7 +25,7 @@
     <value>ไม่สามารถโหลดผู้ร่วมให้ข้อมูลจาก GitHub</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>กำลังโหลดผู้ร่วมให้ข้อมูล...</value>
+    <value>กำลังโหลดผู้ร่วมให้ข้อมูล…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>ผู้ร่วมให้ข้อมูล</value>
@@ -62,7 +62,7 @@
     <value>ไม่สามารถโหลดบันทึกประจำรุ่นในเบราว์เซอร์แบบฝังได้</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>กำลังโหลดบันทึกประจำรุ่น...</value>
+    <value>กำลังโหลดบันทึกประจำรุ่น…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>บันทึกประจำรุ่น</value>
@@ -302,7 +302,7 @@
     <value>ไม่พบโปรไฟล์ Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>กำลังดาวน์โหลดโปรไฟล์ Autopilot...</value>
+    <value>กำลังดาวน์โหลดโปรไฟล์ Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} ได้รับการกำหนดค่าแล้ว</value>
@@ -419,7 +419,7 @@
     <value>เชื่อมต่อผู้เช่า</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>กำลังเชื่อมต่อผู้เช่า...</value>
+    <value>กำลังเชื่อมต่อผู้เช่า…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>สร้างใบรับรอง</value>
@@ -554,7 +554,7 @@
     <value>นำเข้าโปรไฟล์ Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>กำลังนำเข้าโปรไฟล์ Autopilot...</value>
+    <value>กำลังนำเข้าโปรไฟล์ Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>เมื่อเปิดใช้งาน ช่างเทคนิคจะลงชื่อเข้าใช้ด้วยรหัสอุปกรณ์ Microsoft ระหว่างการตั้งค่า Windows และอัปโหลดแฮชฮาร์ดแวร์ของอุปกรณ์</value>
@@ -1796,7 +1796,7 @@
     <value>ค้นหาตามชื่อที่แสดงหรือชื่อคุณสมบัติ DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>ส่งออก...</value>
+    <value>ส่งออก…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>สร้างไฟล์เก็บถาวรสำหรับการสนับสนุนที่ผ่านการล้างข้อมูลแล้ว โดยไม่แก้ไขบันทึกต้นฉบับ</value>
@@ -1814,7 +1814,7 @@
     <value>การส่งออกข้อมูลการวินิจฉัยล้มเหลว</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>ขั้นสูง: ส่งออกบันทึกดิบ...</value>
+    <value>ขั้นสูง: ส่งออกบันทึกดิบ…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>ส่งออกบันทึกดิบ</value>
@@ -1871,7 +1871,7 @@
     <value>ใช่</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>กำลังค้นหา OU ในโดเมน...</value>
+    <value>กำลังค้นหา OU ในโดเมน…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>ยกเลิกการค้นหาแล้ว</value>
@@ -2720,7 +2720,7 @@
     <value>นำเข้าโฟลเดอร์</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>กำลังนำเข้าเนื้อหา...</value>
+    <value>กำลังนำเข้าเนื้อหา…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>การดำเนินการนี้ไม่ถูกต้อง ตรวจสอบการกำหนดค่า</value>
@@ -2750,7 +2750,7 @@
     <value>ป้อนโฟลเดอร์จากเนื้อหาที่นำเข้าหรือเว้นว่างไว้</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>กำลังโหลดเนื้อหา...</value>
+    <value>กำลังโหลดเนื้อหา…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>นำเข้าเนื้อหาที่ขาดหายไปสำหรับ "{0}"</value>

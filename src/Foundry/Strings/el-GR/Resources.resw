@@ -25,7 +25,7 @@
     <value>Δεν ήταν δυνατή η φόρτωση των συντελεστών από το GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Φόρτωση συντελεστών...</value>
+    <value>Φόρτωση συντελεστών…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Συνεισφέροντες</value>
@@ -62,7 +62,7 @@
     <value>Δεν ήταν δυνατή η φόρτωση των σημειώσεων έκδοσης στο ενσωματωμένο πρόγραμμα περιήγησης.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Φόρτωση σημειώσεων έκδοσης...</value>
+    <value>Φόρτωση σημειώσεων έκδοσης…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Σημειώσεις έκδοσης</value>
@@ -302,7 +302,7 @@
     <value>Δεν βρέθηκαν προφίλ Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Λήψη προφίλ Autopilot...</value>
+    <value>Λήψη προφίλ Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>Το {0} έχει ρυθμιστεί.</value>
@@ -419,7 +419,7 @@
     <value>Συνδέστε τον ενοικιαστή</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Σύνδεση ενοικιαστή...</value>
+    <value>Σύνδεση ενοικιαστή…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Δημιουργία πιστοποιητικού</value>
@@ -554,7 +554,7 @@
     <value>Εισαγωγή προφίλ Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Εισαγωγή προφίλ Autopilot...</value>
+    <value>Εισαγωγή προφίλ Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Όταν είναι ενεργοποιημένη, ο τεχνικός συνδέεται με κωδικό συσκευής Microsoft κατά τη ρύθμιση των Windows και αποστέλλει τον κατακερματισμό υλικού της συσκευής.</value>
@@ -1796,7 +1796,7 @@
     <value>Αναζήτηση με βάση το εμφανιζόμενο όνομα ή το όνομα της δυνατότητας DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Εξαγωγή...</value>
+    <value>Εξαγωγή…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Δημιουργήστε ένα καθαρισμένο αρχείο υποστήριξης χωρίς να τροποποιήσετε τα αρχικά αρχεία καταγραφής.</value>
@@ -1814,7 +1814,7 @@
     <value>Η εξαγωγή διαγνωστικών απέτυχε</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Για προχωρημένους: εξαγωγή ακατέργαστων αρχείων καταγραφής...</value>
+    <value>Για προχωρημένους: εξαγωγή ακατέργαστων αρχείων καταγραφής…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Εξαγωγή ακατέργαστων αρχείων καταγραφής</value>
@@ -1871,7 +1871,7 @@
     <value>Ναι</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Αναζήτηση OU στον τομέα...</value>
+    <value>Αναζήτηση OU στον τομέα…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Η αναζήτηση ακυρώθηκε.</value>
@@ -2720,7 +2720,7 @@
     <value>Εισαγωγή φακέλου</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Εισαγωγή περιεχομένου...</value>
+    <value>Εισαγωγή περιεχομένου…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Αυτή η ενέργεια δεν είναι έγκυρη. Ελέγξτε τη διαμόρφωσή της.</value>
@@ -2750,7 +2750,7 @@
     <value>Εισαγάγετε έναν φάκελο από το εισαγόμενο περιεχόμενο ή αφήστε το πεδίο κενό.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Φόρτωση περιεχομένου...</value>
+    <value>Φόρτωση περιεχομένου…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Εισαγάγετε το περιεχόμενο που λείπει για το «{0}».</value>

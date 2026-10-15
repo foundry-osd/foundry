@@ -25,7 +25,7 @@
     <value>Prispievateľov nebolo možné načítať z GitHubu.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Načítavajú sa prispievatelia...</value>
+    <value>Načítavajú sa prispievatelia…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Prispievatelia</value>
@@ -62,7 +62,7 @@ Licencované podľa licencie MIT.</value>
     <value>Poznámky k vydaniu sa nepodarilo načítať do vstavaného prehliadača.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Načítavajú sa poznámky k vydaniu...</value>
+    <value>Načítavajú sa poznámky k vydaniu…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Poznámky k vydaniu</value>
@@ -302,7 +302,7 @@ Licencované podľa licencie MIT.</value>
     <value>Nenašli sa žiadne profily Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Sťahujú sa profily Autopilot...</value>
+    <value>Sťahujú sa profily Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} je nakonfigurované.</value>
@@ -419,7 +419,7 @@ Licencované podľa licencie MIT.</value>
     <value>Pripojte nájomcu</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Pripája sa nájomník...</value>
+    <value>Pripája sa nájomník…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Vytvorte certifikát</value>
@@ -554,7 +554,7 @@ Licencované podľa licencie MIT.</value>
     <value>Importovať profil Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importuje sa profil Autopilot...</value>
+    <value>Importuje sa profil Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Po povolení sa technik počas inštalácie systému Windows prihlási pomocou kódu zariadenia Microsoft a nahrá hardvérový hash zariadenia.</value>
@@ -1796,7 +1796,7 @@ Licencované podľa licencie MIT.</value>
     <value>Vyhľadávajte podľa zobrazovaného názvu alebo názvu funkcie DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportovať...</value>
+    <value>Exportovať…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Vytvoriť sanitizovaný archív podpory bez úpravy pôvodných denníkov.</value>
@@ -1814,7 +1814,7 @@ Licencované podľa licencie MIT.</value>
     <value>Export diagnostiky zlyhal</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Rozšírené: exportovať nespracované denníky...</value>
+    <value>Rozšírené: exportovať nespracované denníky…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Exportovať nespracované denníky</value>
@@ -1871,7 +1871,7 @@ Licencované podľa licencie MIT.</value>
     <value>Áno</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Vyhľadávajú sa OU v doméne...</value>
+    <value>Vyhľadávajú sa OU v doméne…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Vyhľadávanie bolo zrušené.</value>
@@ -2720,7 +2720,7 @@ Licencované podľa licencie MIT.</value>
     <value>Importovať priečinok</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importuje sa obsah...</value>
+    <value>Importuje sa obsah…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Táto akcia je neplatná. Skontrolujte jej konfiguráciu.</value>
@@ -2750,7 +2750,7 @@ Licencované podľa licencie MIT.</value>
     <value>Zadajte priečinok z importovaného obsahu alebo nechajte toto pole prázdne.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Načítava sa obsah...</value>
+    <value>Načítava sa obsah…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importujte chýbajúci obsah pre „{0}“.</value>

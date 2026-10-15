@@ -25,7 +25,7 @@
     <value>Bidragsytere kunne ikke lastes inn fra GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Laster inn bidragsytere...</value>
+    <value>Laster inn bidragsytere…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Bidragsytere</value>
@@ -62,7 +62,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Versjonsnotater kunne ikke lastes inn i den innebygde nettleseren.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Laster inn versjonsnotater...</value>
+    <value>Laster inn versjonsnotater…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Utgivelsesnotater</value>
@@ -302,7 +302,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Ingen Autopilot profiler funnet</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Laster ned Autopilot-profiler...</value>
+    <value>Laster ned Autopilot-profiler…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} er konfigurert.</value>
@@ -419,7 +419,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Koble til leietaker</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Kobler til leietaker...</value>
+    <value>Kobler til leietaker…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Opprett sertifikat</value>
@@ -554,7 +554,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Importer Autopilot profil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importerer Autopilot profil...</value>
+    <value>Importerer Autopilot profil…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Når dette er aktivert, logger teknikeren på med en Microsoft-enhetskode under Windows-installasjonen og laster opp enhetens maskinvarehash.</value>
@@ -1796,7 +1796,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Søk etter visningsnavn eller DISM-funksjonsnavn</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksporter...</value>
+    <value>Eksporter…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Opprett et renset støttearkiv uten å endre de opprinnelige loggene.</value>
@@ -1814,7 +1814,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Eksport av diagnostikk mislyktes</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avansert: eksporter rålogger...</value>
+    <value>Avansert: eksporter rålogger…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Eksporter rålogger</value>
@@ -1871,7 +1871,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Ja</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Søker etter OU-er i domenet...</value>
+    <value>Søker etter OU-er i domenet…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Søket ble avbrutt.</value>
@@ -2720,7 +2720,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Importer mappe</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importerer innhold...</value>
+    <value>Importerer innhold…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Denne handlingen er ugyldig. Kontroller konfigurasjonen.</value>
@@ -2750,7 +2750,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Skriv inn en mappe fra det importerte innholdet, eller la feltet stå tomt.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Laster inn innhold...</value>
+    <value>Laster inn innhold…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importer det manglende innholdet for «{0}».</value>

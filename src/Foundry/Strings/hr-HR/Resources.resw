@@ -25,7 +25,7 @@
     <value>Suradnike nije bilo moguće učitati s GitHuba.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Učitavanje suradnika...</value>
+    <value>Učitavanje suradnika…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Suradnici</value>
@@ -62,7 +62,7 @@ Licenciran prema MIT licenci.</value>
     <value>Napomene o izdanju nisu se mogle učitati u ugrađeni preglednik.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Učitavanje napomena o izdanju...</value>
+    <value>Učitavanje napomena o izdanju…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Bilješke o izdanju</value>
@@ -302,7 +302,7 @@ Licenciran prema MIT licenci.</value>
     <value>Nije pronađen nijedan Autopilot profil</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Preuzimanje Autopilot profila...</value>
+    <value>Preuzimanje Autopilot profila…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} je konfiguriran.</value>
@@ -419,7 +419,7 @@ Licenciran prema MIT licenci.</value>
     <value>Povežite stanara</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Povezivanje stanara...</value>
+    <value>Povezivanje stanara…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Izradi certifikat</value>
@@ -554,7 +554,7 @@ Licenciran prema MIT licenci.</value>
     <value>Uvezi Autopilot profil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Uvoz Autopilot profila...</value>
+    <value>Uvoz Autopilot profila…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Kada je omogućeno, tehničar se tijekom postavljanja sustava Windows prijavljuje pomoću Microsoftova koda uređaja i prenosi hardverski hash uređaja.</value>
@@ -1796,7 +1796,7 @@ Licenciran prema MIT licenci.</value>
     <value>Pretražujte prema nazivu za prikaz ili nazivu značajke DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Izvezi...</value>
+    <value>Izvezi…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Stvorite pročišćenu arhivu podrške bez mijenjanja izvornih zapisnika.</value>
@@ -1814,7 +1814,7 @@ Licenciran prema MIT licenci.</value>
     <value>Izvoz dijagnostike nije uspio</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Napredno: izvezi neobrađene zapisnike...</value>
+    <value>Napredno: izvezi neobrađene zapisnike…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Izvezi neobrađene zapisnike</value>
@@ -1871,7 +1871,7 @@ Licenciran prema MIT licenci.</value>
     <value>Da</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Pretraživanje OU-ova u domeni...</value>
+    <value>Pretraživanje OU-ova u domeni…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Pretraživanje je otkazano.</value>
@@ -2720,7 +2720,7 @@ Licenciran prema MIT licenci.</value>
     <value>Uvezi mapu</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Uvoz sadržaja...</value>
+    <value>Uvoz sadržaja…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ova radnja nije valjana. Provjerite njezinu konfiguraciju.</value>
@@ -2750,7 +2750,7 @@ Licenciran prema MIT licenci.</value>
     <value>Unesite mapu iz uvezenog sadržaja ili ostavite ovo polje praznim.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Učitavanje sadržaja...</value>
+    <value>Učitavanje sadržaja…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Uvezite sadržaj koji nedostaje za „{0}”.</value>

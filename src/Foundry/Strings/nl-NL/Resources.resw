@@ -25,7 +25,7 @@
     <value>Bijdragers kunnen niet worden geladen vanuit GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Bijdragers laden...</value>
+    <value>Bijdragers laden…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Bijdragers</value>
@@ -62,7 +62,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Release-opmerkingen konden niet worden geladen in de ingebouwde browser.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Releaseopmerkingen laden...</value>
+    <value>Releaseopmerkingen laden…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Release-opmerkingen</value>
@@ -302,7 +302,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Geen Autopilot profielen gevonden</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot profielen downloaden...</value>
+    <value>Autopilot profielen downloaden…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} is geconfigureerd.</value>
@@ -419,7 +419,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Huurder verbinden</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Huurder verbinden...</value>
+    <value>Huurder verbinden…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Certificaat maken</value>
@@ -554,7 +554,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Importeer Autopilot profiel JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot profiel importeren...</value>
+    <value>Autopilot profiel importeren…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Indien ingeschakeld, meldt de technicus zich tijdens de Windows-installatie aan met een Microsoft-apparaatcode en uploadt de hardware-hash van het apparaat.</value>
@@ -1796,7 +1796,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Zoek op weergavenaam of DISM-functienaam</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exporteren...</value>
+    <value>Exporteren…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Maak een opgeschoond ondersteuningsarchief zonder de oorspronkelijke logboeken te wijzigen.</value>
@@ -1814,7 +1814,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Exporteren van diagnostiek mislukt</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Geavanceerd: ruwe logboeken exporteren...</value>
+    <value>Geavanceerd: ruwe logboeken exporteren…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Ruwe logboeken exporteren</value>
@@ -1871,7 +1871,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Ja</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>OU's zoeken in het domein...</value>
+    <value>OU's zoeken in het domein…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Zoeken geannuleerd.</value>
@@ -2720,7 +2720,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Map importeren</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Inhoud importeren...</value>
+    <value>Inhoud importeren…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Deze actie is ongeldig. Controleer de configuratie.</value>
@@ -2750,7 +2750,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Voer een map uit de geïmporteerde inhoud in of laat dit veld leeg.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Inhoud laden...</value>
+    <value>Inhoud laden…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importeer de ontbrekende inhoud voor '{0}'.</value>

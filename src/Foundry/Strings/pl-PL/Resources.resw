@@ -25,7 +25,7 @@
     <value>Nie można załadować autorów z GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Ładowanie autorów...</value>
+    <value>Ładowanie autorów…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Współautorzy</value>
@@ -62,7 +62,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie można załadować informacji o wersji do wbudowanej przeglądarki.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Ładowanie informacji o wersji...</value>
+    <value>Ładowanie informacji o wersji…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Informacje o wydaniu</value>
@@ -302,7 +302,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie znaleziono profili Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Pobieranie profili Autopilot...</value>
+    <value>Pobieranie profili Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} jest skonfigurowane.</value>
@@ -419,7 +419,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Połącz najemcę</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Łączę najemcę...</value>
+    <value>Łączę najemcę…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Utwórz certyfikat</value>
@@ -554,7 +554,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Importuj profil Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importowanie profilu Autopilot...</value>
+    <value>Importowanie profilu Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Po włączeniu technik loguje się za pomocą kodu urządzenia Microsoft podczas instalacji systemu Windows i przesyła skrót sprzętowy urządzenia.</value>
@@ -1796,7 +1796,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Szukaj według nazwy wyświetlanej lub nazwy funkcji DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksportuj...</value>
+    <value>Eksportuj…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Utwórz oczyszczone archiwum pomocy technicznej bez modyfikowania oryginalnych dzienników.</value>
@@ -1814,7 +1814,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Eksport diagnostyki nie powiódł się</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Zaawansowane: eksportuj surowe dzienniki...</value>
+    <value>Zaawansowane: eksportuj surowe dzienniki…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Eksportuj surowe dzienniki</value>
@@ -1871,7 +1871,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Tak</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Wyszukiwanie jednostek OU w domenie...</value>
+    <value>Wyszukiwanie jednostek OU w domenie…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Wyszukiwanie anulowano.</value>
@@ -2720,7 +2720,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Importuj folder</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importowanie zawartości...</value>
+    <value>Importowanie zawartości…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ta akcja jest nieprawidłowa. Sprawdź jej konfigurację.</value>
@@ -2750,7 +2750,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Wprowadź folder z zaimportowanej zawartości lub pozostaw to pole puste.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Ładowanie zawartości...</value>
+    <value>Ładowanie zawartości…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Zaimportuj brakującą zawartość dla „{0}”.</value>

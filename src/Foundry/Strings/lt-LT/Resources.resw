@@ -25,7 +25,7 @@
     <value>Nepavyko įkelti bendraautorių iš „GitHub“.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Įkeliami bendraautoriai...</value>
+    <value>Įkeliami bendraautoriai…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Pagalbininkai</value>
@@ -62,7 +62,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Išleidimo pastabų nepavyko įkelti į įterptąją naršyklę.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Įkeliamos leidimo pastabos...</value>
+    <value>Įkeliamos leidimo pastabos…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Išleidimo pastabos</value>
@@ -302,7 +302,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nerasta jokių Autopilot profilių</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Atsisiunčiami Autopilot profiliai...</value>
+    <value>Atsisiunčiami Autopilot profiliai…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} sukonfigūruotas.</value>
@@ -419,7 +419,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Prijunkite nuomininką</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Jungiamasi nuomininkas...</value>
+    <value>Jungiamasi nuomininkas…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Sukurti sertifikatą</value>
@@ -554,7 +554,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Importuoti Autopilot profilį JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importuojamas Autopilot profilis...</value>
+    <value>Importuojamas Autopilot profilis…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Įjungus, technikas Windows sąrankos metu prisijungia naudodamas Microsoft įrenginio kodą ir įkelia įrenginio aparatūros maišą.</value>
@@ -1796,7 +1796,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Ieškokite pagal rodomą pavadinimą arba DISM funkcijos pavadinimą</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksportuoti...</value>
+    <value>Eksportuoti…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Sukurkite išvalytą palaikymo archyvą nekeisdami originalių žurnalų.</value>
@@ -1814,7 +1814,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepavyko eksportuoti diagnostikos</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Išsamiau: eksportuoti neapdorotus žurnalus...</value>
+    <value>Išsamiau: eksportuoti neapdorotus žurnalus…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Eksportuoti neapdorotus žurnalus</value>
@@ -1871,7 +1871,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Taip</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Ieškoma OU domene...</value>
+    <value>Ieškoma OU domene…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Paieška atšaukta.</value>
@@ -2720,7 +2720,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Importuoti aplanką</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importuojamas turinys...</value>
+    <value>Importuojamas turinys…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Šis veiksmas netinkamas. Patikrinkite jo konfigūraciją.</value>
@@ -2750,7 +2750,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Įveskite aplanką iš importuoto turinio arba palikite šį lauką tuščią.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Įkeliamas turinys...</value>
+    <value>Įkeliamas turinys…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importuokite trūkstamą „{0}“ turinį.</value>

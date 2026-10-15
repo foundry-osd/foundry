@@ -25,7 +25,7 @@
     <value>Не вдалося завантажити учасників із GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Завантаження авторів...</value>
+    <value>Завантаження авторів…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Дописувачі</value>
@@ -62,7 +62,7 @@
     <value>Примітки до випуску не вдалося завантажити у вбудований браузер.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Завантаження приміток до випуску...</value>
+    <value>Завантаження приміток до випуску…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Примітки до випуску</value>
@@ -302,7 +302,7 @@
     <value>Профілі Autopilot не знайдено</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Завантаження профілів Autopilot...</value>
+    <value>Завантаження профілів Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} налаштовано.</value>
@@ -419,7 +419,7 @@
     <value>Підключити орендаря</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Підключення орендаря...</value>
+    <value>Підключення орендаря…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Створити сертифікат</value>
@@ -554,7 +554,7 @@
     <value>Імпорт профілю Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Імпорт профілю Autopilot...</value>
+    <value>Імпорт профілю Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Коли ввімкнено, технічний спеціаліст входить за кодом пристрою Microsoft під час налаштування Windows і завантажує апаратний хеш пристрою.</value>
@@ -1796,7 +1796,7 @@
     <value>Пошук за відображуваною назвою або назвою функції DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Експортувати...</value>
+    <value>Експортувати…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Створити очищений архів підтримки без змін в оригінальних журналах.</value>
@@ -1814,7 +1814,7 @@
     <value>Не вдалося експортувати діагностику</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Додатково: експортувати необроблені журнали...</value>
+    <value>Додатково: експортувати необроблені журнали…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Експортувати необроблені журнали</value>
@@ -1871,7 +1871,7 @@
     <value>Так</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Пошук OU в домені...</value>
+    <value>Пошук OU в домені…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Пошук скасовано.</value>
@@ -2720,7 +2720,7 @@
     <value>Імпортувати папку</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Імпортування вмісту...</value>
+    <value>Імпортування вмісту…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ця дія недійсна. Перевірте її конфігурацію.</value>
@@ -2750,7 +2750,7 @@
     <value>Введіть папку з імпортованого вмісту або залиште це поле порожнім.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Завантаження вмісту...</value>
+    <value>Завантаження вмісту…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Імпортуйте відсутній вміст для «{0}».</value>

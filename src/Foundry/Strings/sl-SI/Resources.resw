@@ -25,7 +25,7 @@
     <value>Sodelujočih ni bilo mogoče naložiti iz GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Nalaganje sodelavcev...</value>
+    <value>Nalaganje sodelavcev…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Sodelujoči</value>
@@ -62,7 +62,7 @@ Licencirano pod licenco MIT.</value>
     <value>Opomb ob izdaji ni bilo mogoče naložiti v vdelani brskalnik.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Nalaganje opomb ob izdaji...</value>
+    <value>Nalaganje opomb ob izdaji…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Opombe ob izdaji</value>
@@ -302,7 +302,7 @@ Licencirano pod licenco MIT.</value>
     <value>Najden ni noben profil Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Prenašanje profilov Autopilot...</value>
+    <value>Prenašanje profilov Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} je konfiguriran.</value>
@@ -419,7 +419,7 @@ Licencirano pod licenco MIT.</value>
     <value>Povežite najemnika</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Povezovanje najemnika...</value>
+    <value>Povezovanje najemnika…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Ustvari potrdilo</value>
@@ -554,7 +554,7 @@ Licencirano pod licenco MIT.</value>
     <value>Uvozi Autopilot profil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Uvažanje profila Autopilot...</value>
+    <value>Uvažanje profila Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Ko je omogočeno, se tehnik med namestitvijo sistema Windows prijavi s kodo naprave Microsoft in naloži zgoščeno vrednost strojne opreme naprave.</value>
@@ -1796,7 +1796,7 @@ Licencirano pod licenco MIT.</value>
     <value>Iščite po prikaznem imenu ali imenu funkcije DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Izvozi...</value>
+    <value>Izvozi…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Ustvari očiščen arhiv za podporo brez spreminjanja izvirnih dnevnikov.</value>
@@ -1814,7 +1814,7 @@ Licencirano pod licenco MIT.</value>
     <value>Izvoz diagnostike ni uspel</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Napredno: izvozi neobdelane dnevnike...</value>
+    <value>Napredno: izvozi neobdelane dnevnike…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Izvozi neobdelane dnevnike</value>
@@ -1871,7 +1871,7 @@ Licencirano pod licenco MIT.</value>
     <value>Da</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Iskanje OU v domeni...</value>
+    <value>Iskanje OU v domeni…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Iskanje je preklicano.</value>
@@ -2720,7 +2720,7 @@ Licencirano pod licenco MIT.</value>
     <value>Uvozi mapo</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Uvažanje vsebine...</value>
+    <value>Uvažanje vsebine…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>To dejanje ni veljavno. Preverite njegovo konfiguracijo.</value>
@@ -2750,7 +2750,7 @@ Licencirano pod licenco MIT.</value>
     <value>Vnesite mapo iz uvožene vsebine ali pustite to polje prazno.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Nalaganje vsebine...</value>
+    <value>Nalaganje vsebine…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Uvozite manjkajočo vsebino za »{0}«.</value>

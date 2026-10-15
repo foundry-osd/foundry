@@ -25,7 +25,7 @@
     <value>Bidragydere kunne ikke indlæses fra GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Indlæser bidragydere...</value>
+    <value>Indlæser bidragydere…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Bidragydere</value>
@@ -62,7 +62,7 @@ Licenseret under MIT-licensen.</value>
     <value>Produktbemærkninger kunne ikke indlæses i den integrerede browser.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Indlæser udgivelsesbemærkninger...</value>
+    <value>Indlæser udgivelsesbemærkninger…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Udgivelsesbemærkninger</value>
@@ -302,7 +302,7 @@ Licenseret under MIT-licensen.</value>
     <value>Ingen Autopilot profiler fundet</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Downloader Autopilot profiler...</value>
+    <value>Downloader Autopilot profiler…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} er konfigureret.</value>
@@ -419,7 +419,7 @@ Licenseret under MIT-licensen.</value>
     <value>Tilslut lejer</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Tilslutter lejer...</value>
+    <value>Tilslutter lejer…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Opret certifikat</value>
@@ -554,7 +554,7 @@ Licenseret under MIT-licensen.</value>
     <value>Importer Autopilot profil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importerer Autopilot profil...</value>
+    <value>Importerer Autopilot profil…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Når den er aktiveret, logger teknikeren på med en Microsoft-enhedskode under Windows-installationen og uploader enhedens hardwarehash.</value>
@@ -1796,7 +1796,7 @@ Licenseret under MIT-licensen.</value>
     <value>Søg efter visningsnavn eller DISM-funktionsnavn</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksporter...</value>
+    <value>Eksporter…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Opret et renset supportarkiv uden at ændre de oprindelige logfiler.</value>
@@ -1814,7 +1814,7 @@ Licenseret under MIT-licensen.</value>
     <value>Eksport af diagnostik mislykkedes</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avanceret: eksporter rå logfiler...</value>
+    <value>Avanceret: eksporter rå logfiler…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Eksporter rå logfiler</value>
@@ -1871,7 +1871,7 @@ Licenseret under MIT-licensen.</value>
     <value>Ja</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Søger efter OU'er i domænet...</value>
+    <value>Søger efter OU'er i domænet…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Søgningen blev annulleret.</value>
@@ -2720,7 +2720,7 @@ Licenseret under MIT-licensen.</value>
     <value>Importér mappe</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importerer indhold...</value>
+    <value>Importerer indhold…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Denne handling er ugyldig. Kontrollér konfigurationen.</value>
@@ -2750,7 +2750,7 @@ Licenseret under MIT-licensen.</value>
     <value>Angiv en mappe fra det importerede indhold, eller lad feltet være tomt.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Indlæser indhold...</value>
+    <value>Indlæser indhold…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importér det manglende indhold til "{0}".</value>
