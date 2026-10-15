@@ -39,6 +39,52 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
     }
 
     [Fact]
+    public async Task CaptureAsync_RegistersCopiedPcpKspProviderBeforeRunningOa3Tool()
+    {
+        using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
+        workspace.WriteTargetPcpKsp("pcp");
+        workspace.WriteOa3Tool();
+        var processRunner = new RecordingProcessRunner(workspace);
+        var service = CreateService(processRunner);
+
+        AutopilotHardwareHashCaptureResult result = await service.CaptureAsync(
+            workspace.CreateRequest(groupTag: null),
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess);
+        string winPeSystem32Path = Path.Combine(workspace.WinPeWindowsRootPath, "System32");
+        Assert.Collection(
+            processRunner.Invocations,
+            registration =>
+            {
+                Assert.Equal(Path.Combine(winPeSystem32Path, "rundll32.exe"), registration.FileName);
+                Assert.Equal([$"{Path.Combine(winPeSystem32Path, "PCPKsp.dll")},DllInstall"], registration.Arguments);
+            },
+            oa3 => Assert.Equal(Path.Combine(workspace.WorkspaceRootPath, "Tools", "OA3", "oa3tool.exe"), oa3.FileName));
+    }
+
+    [Fact]
+    public async Task CaptureAsync_WhenPcpKspRegistrationFails_ReturnsSupportLibraryRegistrationFailure()
+    {
+        using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
+        workspace.WriteTargetPcpKsp("pcp");
+        workspace.WriteOa3Tool();
+        var processRunner = new RecordingProcessRunner(workspace)
+        {
+            RegistrationExitCode = 1
+        };
+        var service = CreateService(processRunner);
+
+        AutopilotHardwareHashCaptureResult result = await service.CaptureAsync(
+            workspace.CreateRequest(groupTag: null),
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(AutopilotHardwareHashCaptureFailureCode.SupportLibraryRegistrationFailed, result.FailureCode);
+        Assert.False(processRunner.WasOa3ToolCalled);
+    }
+
+    [Fact]
     public async Task CaptureAsync_WritesFileBasedOa3ConfigurationWithExpectedPaths()
     {
         using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
@@ -222,9 +268,14 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
             NullLogger<AutopilotHardwareHashCaptureService>.Instance);
     }
 
+    private sealed record ProcessInvocation(string FileName, IReadOnlyList<string> Arguments);
+
     private sealed class RecordingProcessRunner(TemporaryWorkspace workspace) : IProcessRunner
     {
-        public bool WasCalled { get; private set; }
+        public List<ProcessInvocation> Invocations { get; } = [];
+        public bool WasCalled => Invocations.Count > 0;
+        public bool WasOa3ToolCalled { get; private set; }
+        public int RegistrationExitCode { get; init; }
         public bool WasPcpKspPresentBeforeOa3Run { get; private set; }
         public string? CopiedPcpKspPath { get; private set; }
         public string? WorkingDirectory { get; private set; }
@@ -275,7 +326,19 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
             Action<string>? onErrorData,
             CancellationToken cancellationToken = default)
         {
-            WasCalled = true;
+            Invocations.Add(new ProcessInvocation(fileName, [.. arguments]));
+            if (Path.GetFileName(fileName).Equals("rundll32.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                return Task.FromResult(new ProcessExecutionResult
+                {
+                    ExitCode = RegistrationExitCode,
+                    FileName = fileName,
+                    Arguments = string.Join(' ', arguments),
+                    WorkingDirectory = workingDirectory
+                });
+            }
+
+            WasOa3ToolCalled = true;
             WorkingDirectory = workingDirectory;
             CopiedPcpKspPath = Path.Combine(workspace.WinPeWindowsRootPath, "System32", "PCPKsp.dll");
             WasPcpKspPresentBeforeOa3Run = File.Exists(CopiedPcpKspPath);

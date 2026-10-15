@@ -40,6 +40,11 @@ public enum AutopilotHardwareHashCaptureFailureCode
     SupportLibraryLoadFailed,
 
     /// <summary>
+    /// The copied PCPKsp support library could not be registered as the Microsoft Platform Crypto Provider in WinPE.
+    /// </summary>
+    SupportLibraryRegistrationFailed,
+
+    /// <summary>
     /// OA3Tool did not create the expected OA3 report XML.
     /// </summary>
     ReportMissing,
@@ -57,5 +62,10 @@ public enum AutopilotHardwareHashCaptureFailureCode
     /// <summary>
     /// The OA3 report XML did not contain a device serial number.
     /// </summary>
-    SerialMissing
+    SerialMissing,
+
+    /// <summary>
+    /// OA3Tool detected a TPM but could not read its version, so Autopilot would not treat the hash as TPM 2.0 capable.
+    /// </summary>
+    TpmVersionMissing
 }

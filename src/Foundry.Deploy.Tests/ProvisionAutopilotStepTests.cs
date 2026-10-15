@@ -289,6 +289,27 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_WhenHardwareHashCaptureCannotRegisterPcpKsp_FailsDeployment()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = CreateStep(
+            captureService: new FakeAutopilotHardwareHashCaptureService(
+                AutopilotHardwareHashCaptureResult.Failed(
+                    AutopilotHardwareHashCaptureFailureCode.SupportLibraryRegistrationFailed,
+                    "PCPKsp.dll registration failed")));
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: false,
+            provisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+            hardwareHashUpload: CreateCompleteHardwareHashSettings());
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("support_library_registration_failed", result.Failure?.Code);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenHardwareHashCaptureCannotLoadPcpKsp_FailsDeployment()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
