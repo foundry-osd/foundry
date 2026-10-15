@@ -98,10 +98,16 @@
     <value>ความสามารถในการสร้างสื่อ</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>ยกเลิกการดำเนินการ Windows ADK แล้ว</value>
+    <value>ยกเลิกการติดตั้งแล้ว</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>ยกเลิกการติดตั้ง Windows ADK แล้ว</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK การดำเนินการเสร็จสิ้นแล้ว</value>
+    <value>Windows ADK และส่วนเสริม Windows PE พร้อมใช้งานแล้ว ตอนนี้คุณสามารถสร้างสื่อสำหรับบูตได้</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>ติดตั้ง Windows ADK แล้ว</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>การใช้ตัวติดตั้งแคช ADK</value>
@@ -113,7 +119,10 @@
     <value>กำลังดาวน์โหลดตัวติดตั้ง ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>การดำเนินการ ADK ล้มเหลว</value>
+    <value>การติดตั้งไม่เสร็จสมบูรณ์ ดูรายละเอียดได้ในบันทึก</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>การติดตั้ง Windows ADK ล้มเหลว</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
     <value>กำลังติดตั้ง Windows ADK</value>
@@ -127,6 +136,9 @@
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>การติดตั้งเสร็จสิ้นแล้ว ตรวจสอบข้อกำหนด ADK ที่เหลือ</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK ต้องได้รับการตรวจสอบ</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>การลบ Windows ADK ที่มีอยู่ออก</value>
   </data>
@@ -135,6 +147,9 @@
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>กำลังเตรียมการติดตั้ง Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>กำลังอัปเกรด Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>กำลังตรวจสอบการติดตั้ง ADK</value>
@@ -2674,9 +2689,6 @@
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>สถานะเนื้อหา</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>ตรวจสอบเนื้อหาหลังการติดตั้งแล้ว</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>ดำเนินการต่อเมื่อเกิดข้อผิดพลาด</value>
   </data>
@@ -2805,9 +2817,6 @@
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>อาร์กิวเมนต์ของสคริปต์</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>กำลังจัดเตรียมเนื้อหาหลังการติดตั้ง</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>รหัสออกเมื่อสำเร็จ (คั่นด้วยจุลภาค)</value>
@@ -3237,11 +3246,8 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>อัปเดตแอป</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>การดำเนินการเสร็จสมบูรณ์</value>
-  </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>อยู่ระหว่างดำเนินการ</value>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>เวลาที่ผ่านไป: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>กำลังหยุดอย่างปลอดภัย อาจต้องรอให้การดำเนินการกับดิสก์หรืออิมเมจที่กำลังทำอยู่เสร็จสิ้นก่อน จึงจะล้างข้อมูลให้เสร็จสมบูรณ์ได้</value>
@@ -3311,6 +3317,12 @@
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot ใช้โหมดการจัดสรรที่ไม่รองรับ</value>
+  </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>แก้ไขปัญหาต่อไปนี้ก่อนสร้างสื่อ:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>ไม่สามารถเริ่มการสร้างสื่อได้ ตรวจสอบรายการความพร้อมในหน้าเริ่ม</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK หรือ WinPE ส่วนเสริมยังไม่พร้อม</value>
@@ -3444,23 +3456,8 @@
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>สถาปัตยกรรม</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>แหล่งที่มาของอิมเมจสำหรับบูต</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>เชื่อมต่อการจัดเตรียม</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>ปรับใช้การกำหนดค่า</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>ไดรเวอร์</value>
@@ -3468,23 +3465,8 @@
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB โหมดรูปแบบ</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO เส้นทางเอาต์พุต</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>การกำหนดค่าเครือข่าย</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB รูปแบบพาร์ติชัน</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>ความลับของสื่อ</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>โหมดลายเซ็น</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB เป้าหมาย</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE ภาษาสำหรับบูต</value>
@@ -3500,6 +3482,9 @@
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>การสร้างสื่อจะพร้อมใช้งานเมื่อผ่านการตรวจสอบความพร้อมทั้งหมด</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>เลือกเอาต์พุต ISO หรือ USB ด้านล่างเพื่อเริ่มต้น</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>รูปแบบเต็ม</value>
@@ -3529,52 +3514,49 @@
     <value>ข้ามการสร้างบัญชี OOBE แล้ว</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>การใช้ภาษาและส่วนประกอบเสริม</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>ส่วนประกอบที่จำเป็นสำหรับอิมเมจสำหรับบูตพร้อมแล้ว</value>
+    <value>กำลังเพิ่มภาษาและส่วนประกอบเสริม…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>กำลังสร้างพื้นที่ทำงาน WinPE</value>
+    <value>กำลังสร้างพื้นที่ทำงาน WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>ยกเลิกการสร้างสื่อแล้ว</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} จาก {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>ยกเลิกการสร้างสื่อแล้ว และลบไฟล์ชั่วคราวแล้ว</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>กำลังตรวจสอบความปลอดภัยของเป้าหมาย USB</value>
+    <value>กำลังตรวจสอบว่าสามารถลบข้อมูลในไดรฟ์ USB ได้อย่างปลอดภัย…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>ทำความสะอาดพื้นที่ทำงาน WinPE</value>
+    <value>กำลังล้างไฟล์จากการเรียกใช้ครั้งก่อน…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>กำลังล้างตารางพาร์ติชัน USB</value>
+    <value>กำลังลบข้อมูลในไดรฟ์ USB…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>กำลังดำเนินการเปลี่ยนแปลงอิมเมจสำหรับบูต</value>
+    <value>กำลังบันทึกอิมเมจสำหรับบูต…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>การสร้างสื่อขั้นสุดท้ายเสร็จสมบูรณ์</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>กำลังคัดลอกอิมเมจ Windows แบบกำหนดเอง…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>กำลังคัดลอกเนื้อหาหลังการติดตั้ง…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>กำลังคัดลอกสื่อ WinPE ไปยัง USB</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>การสร้างสื่อ ISO</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>การสร้างสื่อ USB</value>
+    <value>กำลังคัดลอกไฟล์ WinPE ไปยังไดรฟ์ USB…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>การสร้างพาร์ติชัน BOOT</value>
+    <value>กำลังสร้างพาร์ติชัน BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>การสร้างพาร์ติชันแคช</value>
+    <value>กำลังสร้างพาร์ติชันแคช…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>ไดรเวอร์ที่กำหนดเองมีขนาดรวมอย่างน้อย {0} โดยมีขนาดสูงสุด {1} เลือกเฉพาะไดรเวอร์เครือข่ายและที่เก็บข้อมูลที่ Windows PE ต้องใช้เท่านั้น</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>การปรับแต่งอิมเมจสำหรับบูต</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>ข้อมูลระบุตัวตนของไดรฟ์ USB ขาดหายไป ไม่ชัดเจน หรือมีการเปลี่ยนแปลง รีเฟรชรายการไดรฟ์ USB แล้วเลือกไดรฟ์อีกครั้ง</value>
@@ -3583,82 +3565,64 @@
     <value>ไม่สามารถแก้ไขไดรฟ์ USB ที่เลือกได้อย่างปลอดภัยอีกต่อไป รีเฟรชรายการไดรฟ์ USB แล้วเลือกไดรฟ์ USB อื่น</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>ใช้การตั้งค่าสากลด้วย DISM</value>
+    <value>กำลังนำการตั้งค่าภาษาไปใช้…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>การใช้ชุดภาษาด้วย DISM</value>
+    <value>กำลังเพิ่มชุดภาษา…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>การใช้ส่วนประกอบเสริมด้วย DISM</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>กำลังดำเนินการเปลี่ยนแปลงรูปภาพด้วย DISM</value>
+    <value>กำลังเพิ่มส่วนประกอบเสริม…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>กำลังยกเลิกรูปภาพที่เมานท์ด้วย DISM</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>กำลังส่งออกรูปภาพ Windows ด้วย DISM</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>การแทรกไดรเวอร์ด้วย DISM</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>กำลังเมานท์รูปภาพด้วย DISM</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>การแก้ไขดัชนีรูปภาพ Windows ด้วย DISM</value>
+    <value>กำลังละทิ้งอิมเมจที่ยังคงเมานต์ค้างไว้จากการเรียกใช้ครั้งก่อน…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>กำลังดาวน์โหลดเนื้อหา</value>
+    <value>กำลังดาวน์โหลด</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>กำลังดาวน์โหลดแพ็คเกจไดรเวอร์</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>กำลังดาวน์โหลดแพ็คเกจไดรเวอร์ {0} จาก {1}: {2}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>กำลังดาวน์โหลดส่วนประกอบการปรับใช้ {0}</value>
+    <value>กำลังดาวน์โหลด {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
     <value>กำลังดาวน์โหลดแพ็คเกจต้นทาง Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>การประเมินนโยบายลายเซ็นการบูต</value>
+    <value>กำลังตรวจสอบการรองรับลายเซ็นการบูต…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>กำลังส่งออกอิมเมจ Windows เพื่อเตรียมอิมเมจสำหรับบูต</value>
+    <value>กำลังแยกอิมเมจ Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>การสร้างสื่อขั้นสุดท้ายล้มเหลว</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>ล้มเหลวระหว่างขั้นตอนที่ {0} จาก {1}: {2}</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>กำลังสรุปเอาต์พุต ISO</value>
+    <value>กำลังบันทึกไฟล์ ISO…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>การจัดรูปแบบพาร์ติชัน BOOT</value>
+    <value>กำลังฟอร์แมตพาร์ติชัน BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>การจัดรูปแบบพาร์ติชันแคช</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>การปรับแต่งอิมเมจสำหรับบูตเสร็จสมบูรณ์</value>
+    <value>กำลังฟอร์แมตพาร์ติชันแคช…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>กำลังเตรียมใช้งานตารางพาร์ติชัน USB</value>
+    <value>กำลังสร้างตารางพาร์ติชัน…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>การฉีดไดรเวอร์เข้าไปในอิมเมจสำหรับบูต</value>
+    <value>กำลังเพิ่มไดรเวอร์ลงในอิมเมจสำหรับบูต…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>กำลังตรวจสอบเค้าโครงสื่อ USB</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO สื่อเสร็จเรียบร้อย</value>
+    <value>กำลังอ่านเค้าโครงของไดรฟ์ USB…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry ไม่สามารถแทนที่ไฟล์ ISO ที่ {0} ได้ ไฟล์อาจถูกเมาท์อยู่ แนบกับเครื่องเสมือน เปิดอยู่ในโปรแกรมอื่น หรือเป็นแบบอ่านอย่างเดียว ให้ยกเลิกการเมาท์หรือปิดไฟล์ หรือเลือกเส้นทางเอาต์พุตอื่น แล้วลองอีกครั้ง</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>สร้างสื่อ ISO สำเร็จแล้ว</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>บันทึกไฟล์ ISO ไว้ที่:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>ขนาด: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>พื้นที่ดิสก์ไม่เพียงพอสำหรับสร้างอิมเมจสำหรับบูต. ต้องมีพื้นที่ว่างอย่างน้อย {0} บน {2}. พื้นที่ว่างที่มี: {1}. โปรดเพิ่มพื้นที่ว่างแล้วลองอีกครั้ง.</value>
@@ -3667,73 +3631,148 @@
     <value>ไม่สามารถตรวจสอบพื้นที่ดิสก์ที่พร้อมใช้งานสำหรับสร้างอิมเมจสำหรับบูตใน {0} ได้. โปรดตรวจสอบว่าสามารถเข้าถึงตำแหน่งนั้นได้แล้วลองอีกครั้ง.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>การติดตั้งอิมเมจสำหรับบูต</value>
+    <value>กำลังเปิดอิมเมจสำหรับบูต…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>การติดตั้งอิมเมจต้นฉบับ Windows</value>
+    <value>กำลังเปิดอิมเมจ Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>เปิดโฟลเดอร์</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>เปิดโฟลเดอร์บันทึก</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>กำลังเปิดดิสก์ USB</value>
+    <value>กำลังเปิดไดรฟ์ USB…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>การแบ่งพาร์ติชันและการจัดรูปแบบเป้าหมาย USB</value>
+    <value>กำลังแบ่งพาร์ติชันไดรฟ์ USB…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>การคัดลอกไฟล์ไปยังไดรฟ์ USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>การสร้างไฟล์ ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>การปรับแต่งอิมเมจสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>การรับไดรเวอร์</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>การดำเนินการขั้นสุดท้าย</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>การฟอร์แมตไดรฟ์ USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>การเตรียมพื้นที่ทำงาน</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>การอัปเดตไดรฟ์ USB</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>กำลังเตรียมการปรับแต่งอิมเมจสำหรับบูต</value>
+    <value>กำลังเตรียมอิมเมจสำหรับบูต…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>กำลังเตรียมส่วนประกอบ Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>กำลังเตรียมเส้นทางเอาต์พุต ISO</value>
+    <value>กำลังเตรียมโฟลเดอร์เอาต์พุต ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>กำลังเตรียมพื้นที่ทำงาน ISO</value>
+    <value>กำลังเตรียมไฟล์ ISO…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>กำลังเตรียมเนื้อหาหลังการติดตั้ง…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>กำลังเตรียมพาร์ติชันแคช USB</value>
+    <value>กำลังเตรียมพาร์ติชันแคช…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>กำลังเตรียมแอตทริบิวต์ดิสก์ USB</value>
+    <value>กำลังเตรียมไดรฟ์ USB…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>กำลังเตรียมแพ็คเกจซอร์ส Windows</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>กำลังเตรียมพื้นที่ทำงาน WinPE</value>
+    <value>กำลังรับแพ็คเกจต้นทาง Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>การจัดเตรียมทรัพย์สินสำหรับบูต Foundry</value>
+    <value>กำลังเพิ่มไฟล์เริ่มต้นระบบของ Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>การเพิ่ม Foundry องค์ประกอบการปรับใช้</value>
+    <value>กำลังเพิ่มส่วนประกอบ Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>การเพิ่มส่วนประกอบ Foundry ไปยังสื่อ USB</value>
+    <value>กำลังเพิ่มส่วนประกอบ Foundry ลงในไดรฟ์ USB…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>กำลังลบไฟล์ชั่วคราว…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>การแทนที่อิมเมจสำหรับบูตด้วย WinRE</value>
+    <value>กำลังแทนที่อิมเมจสำหรับบูตด้วย Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>กำลังแก้ไขแพ็คเกจไดรเวอร์</value>
+    <value>กำลังตรวจสอบไดรเวอร์ที่จะเพิ่ม…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>การแก้ไขดัชนีรูปภาพ Windows</value>
+    <value>กำลังเลือกรุ่น Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>การแก้ไขแค็ตตาล็อกแหล่งที่มา Windows</value>
+    <value>กำลังค้นหาแพ็คเกจต้นทาง Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>กำลังเรียกใช้ MakeWinPEMedia สำหรับ ISO</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>แพ็คเกจต้นทาง Windows ที่เลือก</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>ดูรายละเอียดได้ในบันทึก</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>กำลังจัดเตรียมส่วนประกอบที่จำเป็นสำหรับอิมเมจสำหรับบูต</value>
+    <value>กำลังคัดลอกไฟล์ที่จำเป็นจากอิมเมจ Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>ขั้นตอนที่ {0} จาก {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>รายละเอียดทางเทคนิค: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>ยกเลิกการสร้าง ISO แล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>การสร้าง ISO ล้มเหลว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>กำลังสร้าง ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>สร้าง ISO แล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>ยกเลิกการสร้างสื่อ USB แล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>การสร้างสื่อ USB ล้มเหลว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>กำลังสร้างสื่อ USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>สร้างสื่อ USB แล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>ยกเลิกการอัปเดตสื่อ USB แล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>การอัปเดตสื่อ USB ล้มเหลว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>กำลังอัปเดตสื่อ USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>อัปเดตสื่อ USB แล้ว</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>หมดเวลาการถ่ายโอน ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>กำลังอัปเดตสื่อ USB</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>เกิดข้อผิดพลาดที่ไม่คาดคิด ทำให้การสร้างสื่อหยุดลง</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>พาร์ติชัน BOOT บน USB ต้องการพื้นที่ประมาณ {0} แต่มีความจุ {1} ยังไม่มีการลบหรือฟอร์แมตข้อมูล ลดการปรับแต่งหรือไดรเวอร์ หรือสร้าง ISO</value>
@@ -3744,35 +3783,32 @@
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>ไฟล์บนสื่อบูตมีขนาด {0} แต่ FAT32 รองรับได้สูงสุด {1} ต่อไฟล์ ลดขนาดอิมเมจบูตหรือสร้าง ISO</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>อัปเดตพาร์ติชันบูต USB แล้ว</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>ไดรฟ์ USB นี้อาจใช้เริ่มระบบอุปกรณ์ไม่ได้อีกต่อไป ให้สร้างหรืออัปเดตใหม่อีกครั้งก่อนใช้งาน</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB สื่อเสร็จเรียบร้อย</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB พาร์ติชันที่ฟอร์แมตแล้ว</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB สร้างสื่อสำเร็จแล้ว ปริมาณการบูต: {0} ปริมาณแคช: {1}</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>อัปเดตพาร์ติชันบูต USB สำเร็จแล้ว โวลุ่มบูต: {0} โวลุ่มแคช: {1}</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>วอลุ่มบูต: {0} วอลุ่มแคช: {1}</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>กำลังตรวจสอบเป้าหมาย USB</value>
+    <value>กำลังตรวจสอบไดรฟ์ USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
+    <value>กำลังตรวจสอบไฟล์ในแคช {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>กำลังตรวจสอบสื่อสำหรับบูต USB</value>
+    <value>กำลังตรวจสอบไฟล์บูตของ USB…</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows บล็อกการเข้าถึงไฟล์อิมเมจ WinPE ซอฟต์แวร์ความปลอดภัยหรือเครื่องมืออื่นอาจกำลังล็อกไฟล์เหล่านั้น เพิ่มข้อยกเว้นสำหรับ {0} ในซอฟต์แวร์ความปลอดภัย ปิดเครื่องมือที่เมานต์อิมเมจ รีสตาร์ทคอมพิวเตอร์ แล้วลองอีกครั้ง ดูรายละเอียดได้ใน {1} และ {2}</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>กำลังเขียนไฟล์ ISO…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>รีวิว</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>ตรวจสอบ {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>พร้อม</value>
@@ -3859,6 +3895,15 @@
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE ภาษาสำหรับบูต</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>แพ็คเกจ: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>ต้องตรวจสอบ: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>ต้องตรวจสอบ: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>ค่าเริ่มต้น</value>

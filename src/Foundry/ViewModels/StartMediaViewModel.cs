@@ -60,10 +60,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IAppNavigationService appNavigationService;
     private readonly IDialogService dialogService;
     private readonly IApplicationLocalizationService localizationService;
+    private readonly IExternalProcessLauncher externalProcessLauncher;
     private readonly IAppDispatcher appDispatcher;
     private readonly ILogger logger;
     private IReadOnlyList<string> availableWinPeLanguages = [];
     private bool isLoadingConfiguration = true;
+    private MediaCreationProgressPlan? progressPlan;
     private string? lastCustomizationLogStatus;
     private int lastCustomizationLogBucket = -1;
     private string? lastDownloadLogStatus;
@@ -103,6 +105,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IAppNavigationService appNavigationService,
         IDialogService dialogService,
         IApplicationLocalizationService localizationService,
+        IExternalProcessLauncher externalProcessLauncher,
         IAppDispatcher appDispatcher,
         ILogger logger)
     {
@@ -131,6 +134,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.appNavigationService = appNavigationService;
         this.dialogService = dialogService;
         this.localizationService = localizationService;
+        this.externalProcessLauncher = externalProcessLauncher;
         this.appDispatcher = appDispatcher;
         this.logger = logger.ForContext<StartMediaViewModel>();
 
@@ -264,9 +268,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     public partial string FinalExecutionStatus { get; set; } = string.Empty;
-
-    [ObservableProperty]
-    public partial string GlobalSummary { get; set; } = string.Empty;
 
     [ObservableProperty]
     public partial string WinPeLanguage { get; set; } = string.Empty;
@@ -590,12 +591,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         using var operationCancellation = new CancellationTokenSource();
         CancellationToken cancellationToken = operationCancellation.Token;
         ResetProgressLogSampling();
+        progressPlan = MediaCreationProgressPlan.For(ToMediaCreationKind(target));
         RefreshEvaluation();
         // Final media operations can format disks or overwrite ISO output, so the shell remains locked until completion.
         shellNavigationGuardService.SetState(ShellNavigationState.InteractionPending);
-        string terminalStatus = string.Empty;
-        OperationOutcome outcome = OperationOutcome.None;
-        string? successMessage = null;
         Stopwatch stopwatch = Stopwatch.StartNew();
         bool success = false;
         var telemetryProgressTracker = new MediaCreationTelemetryProgressTracker();
@@ -675,14 +674,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 shouldTrackMedia = false;
                 return;
             }
-            string startStatus = target switch
-            {
-                FinalMediaTarget.Iso => localizationService.GetString("StartMedia.Operation.CreatingIso"),
-                FinalMediaTarget.UsbUpdate => localizationService.GetString("StartMedia.Operation.UpdatingUsb"),
-                _ => localizationService.GetString("StartMedia.Operation.CreatingUsb")
-            };
-
-            operationProgressService.Start(OperationKind.MediaCreation, startStatus, operationCancellation.Cancel);
+            operationProgressService.Start(
+                OperationKind.MediaCreation,
+                GetOperationTitle(target, OperationOutcome.None),
+                FormatStep(progressPlan.Current),
+                operationCancellation.Cancel);
             shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
             logger.Information(
                 "Final media creation started. Target={Target}, Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, IsoOutputPath={IsoOutputPath}, UsbDiskNumber={UsbDiskNumber}, UsbDiskName={UsbDiskName}",
@@ -700,35 +696,35 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options = options with { CustomDriverDirectoryPath = capturedConfiguration.General.CustomDriverDirectoryPath };
             deploymentProtectionMaterial = snapshot.CreateDeploymentProtectionMaterial();
 
+            string successMessage;
+            OperationAction? successAction = null;
             if (target == FinalMediaTarget.Iso)
             {
-                _ = await CreateIsoMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
-                successMessage = localizationService.GetString("StartMedia.Operation.IsoSuccessMessage");
-            }
-            else if (target == FinalMediaTarget.UsbUpdate)
-            {
-                WinPeUsbProvisionResult usbResult = await UpdateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
-                successMessage = string.Format(
-                    CultureInfo.CurrentCulture,
-                    localizationService.GetString("StartMedia.Operation.UsbUpdateSuccessMessage"),
-                    usbResult.BootDriveLetter,
-                    usbResult.CacheDriveLetter);
+                string isoPath = await CreateIsoMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
+                successMessage = BuildIsoSuccessMessage(isoPath);
+                successAction = new OperationAction(
+                    localizationService.GetString("StartMedia.Operation.OpenFolder"),
+                    () => OpenFolder(Path.GetDirectoryName(isoPath)));
             }
             else
             {
-                WinPeUsbProvisionResult usbResult = await CreateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
-                successMessage = string.Format(
-                    CultureInfo.CurrentCulture,
-                    localizationService.GetString("StartMedia.Operation.UsbSuccessMessage"),
+                WinPeUsbProvisionResult usbResult = target == FinalMediaTarget.UsbUpdate
+                    ? await UpdateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken)
+                    : await CreateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
+                successMessage = localizationService.FormatString(
+                    "StartMedia.Operation.UsbVolumesFormat",
                     usbResult.BootDriveLetter,
                     usbResult.CacheDriveLetter);
             }
 
             cancellationToken.ThrowIfCancellationRequested();
-            terminalStatus = successMessage ?? localizationService.GetString("StartMedia.Operation.Completed");
-            operationProgressService.Complete(terminalStatus);
+            ReportPhase(MediaCreationPhase.Finishing, 100);
+            operationProgressService.Finish(
+                OperationOutcome.Success,
+                GetOperationTitle(target, OperationOutcome.Success),
+                successMessage,
+                successAction);
             success = true;
-            outcome = OperationOutcome.Success;
             logger.Information(
                 "Final media creation completed. Target={Target}, DurationMs={DurationMs}",
                 target,
@@ -736,7 +732,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex) when (ex is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
-            outcome = OperationOutcome.Error;
             bool isTimeout = ex is TimeoutException or OperationCanceledException;
             failureDiagnostic = ex is CustomDriverSizeLimitException driverSizeLimit
                 ? new WinPeDiagnostic(
@@ -759,8 +754,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 ? telemetryProgressTracker.CurrentStepName
                 : failureDiagnostic.Stage;
             telemetryProgressTracker.SetCurrentStep(failedStepName);
-            string failedStatus = localizationService.GetString("StartMedia.Operation.Failed");
-            string failureMessage = failureDiagnostic.FailureReason == WinPeFailureReasons.Timeout
+            string? failureMessage = failureDiagnostic.FailureReason == WinPeFailureReasons.Timeout
                 ? localizationService.GetString("StartMedia.Operation.TransferTimedOut")
                 : IsWinPeImageAccessBlocked(failureDiagnostic)
                 ? FormatWinPeImageAccessBlockedFailure()
@@ -776,12 +770,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                         CultureInfo.CurrentCulture,
                         localizationService.GetString("StartMedia.Operation.IsoOutputLocked"),
                         options.IsoOutputPath),
-                    _ => ex.Message
+                    _ => null
                 };
-            terminalStatus = string.IsNullOrWhiteSpace(failureMessage)
-                ? failedStatus
-                : $"{failedStatus} {failureMessage}";
-            operationProgressService.Complete(terminalStatus);
+            operationProgressService.Finish(
+                OperationOutcome.Error,
+                GetOperationTitle(target, OperationOutcome.Error),
+                BuildFailureMessage(failureMessage, ex.Message),
+                new OperationAction(localizationService.GetString("StartMedia.Operation.OpenLogFolder"), OpenLogFolder));
             if (failureDiagnostic.Code is WinPeErrorCodes.CustomDriversTooLarge
                 or WinPeErrorCodes.UsbBootCapacityInsufficient
                 or WinPeErrorCodes.UsbBootCapacityUnknown
@@ -816,7 +811,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
         {
-            terminalStatus = localizationService.GetString("StartMedia.Operation.Cancelled");
+            operationProgressService.Finish(
+                OperationOutcome.Cancelled,
+                GetOperationTitle(target, OperationOutcome.Cancelled),
+                BuildCancelledMessage(target));
             failureDiagnostic = new WinPeDiagnostic(
                 WinPeErrorCodes.OperationCancelled,
                 "Boot media creation was cancelled.",
@@ -871,10 +869,113 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 shellNavigationGuardService.SetState(adkService.CurrentStatus.CanCreateMedia
                     ? ShellNavigationState.Ready
                     : ShellNavigationState.AdkBlocked);
-                operationProgressService.Reset(terminalStatus, outcome);
+                operationProgressService.Reset();
+                progressPlan = null;
                 IsMediaOperationRunning = false;
                 RefreshEvaluation();
             }
+        }
+    }
+
+    private static MediaCreationKind ToMediaCreationKind(FinalMediaTarget target) => target switch
+    {
+        FinalMediaTarget.Iso => MediaCreationKind.Iso,
+        FinalMediaTarget.UsbUpdate => MediaCreationKind.UsbUpdate,
+        _ => MediaCreationKind.UsbCreate
+    };
+
+    private string GetOperationTitle(FinalMediaTarget target, OperationOutcome outcome)
+    {
+        string targetName = target switch
+        {
+            FinalMediaTarget.Iso => "Iso",
+            FinalMediaTarget.UsbUpdate => "UsbUpdate",
+            _ => "Usb"
+        };
+        string state = outcome switch
+        {
+            OperationOutcome.Success => "Succeeded",
+            OperationOutcome.Error => "Failed",
+            OperationOutcome.Cancelled => "Cancelled",
+            _ => "Running"
+        };
+        return localizationService.GetString($"StartMedia.Operation.Title.{targetName}{state}");
+    }
+
+    private string BuildIsoSuccessMessage(string isoPath)
+    {
+        string size = File.Exists(isoPath)
+            ? ByteSizeFormatter.Format(localizationService, (ulong)new FileInfo(isoPath).Length)
+            : string.Empty;
+        string[] lines = size.Length == 0
+            ? [localizationService.GetString("StartMedia.Operation.IsoSavedLead"), isoPath]
+            : [localizationService.GetString("StartMedia.Operation.IsoSavedLead"), isoPath, localizationService.FormatString("StartMedia.Operation.IsoSizeFormat", size)];
+        return string.Join(Environment.NewLine, lines);
+    }
+
+    /// <summary>
+    /// Builds the failure message: the localized reason, the step that failed, technical details only when no
+    /// localized reason exists, and where to find the log.
+    /// </summary>
+    private string BuildFailureMessage(string? localizedReason, string technicalDetails)
+    {
+        List<string> paragraphs = [localizedReason ?? localizationService.GetString("StartMedia.Operation.UnexpectedFailure")];
+        if (progressPlan is not null)
+        {
+            MediaCreationProgress failedAt = progressPlan.Current;
+            paragraphs.Add(localizationService.FormatString(
+                "StartMedia.Operation.FailedStepFormat",
+                failedAt.StepNumber,
+                failedAt.StepCount,
+                GetPhaseLabel(failedAt.Phase)));
+        }
+
+        if (localizedReason is null && !string.IsNullOrWhiteSpace(technicalDetails))
+        {
+            paragraphs.Add(localizationService.FormatString("StartMedia.Operation.TechnicalDetailsFormat", technicalDetails.Trim()));
+        }
+
+        paragraphs.Add(localizationService.GetString("StartMedia.Operation.SeeLog"));
+        return string.Join(Environment.NewLine + Environment.NewLine, paragraphs);
+    }
+
+    private string BuildCancelledMessage(FinalMediaTarget target)
+    {
+        string message = localizationService.GetString("StartMedia.Operation.CancelledMessage");
+        bool usbWasModified = target != FinalMediaTarget.Iso
+            && progressPlan?.Current.Phase is MediaCreationPhase.FormattingUsbDrive
+                or MediaCreationPhase.CopyingToUsbDrive
+                or MediaCreationPhase.UpdatingUsbDrive
+                or MediaCreationPhase.Finishing;
+        return usbWasModified
+            ? message + Environment.NewLine + Environment.NewLine + localizationService.GetString("StartMedia.Operation.UsbMayBeIncomplete")
+            : message;
+    }
+
+    private void OpenFolder(string? folderPath)
+    {
+        if (string.IsNullOrWhiteSpace(folderPath))
+        {
+            return;
+        }
+
+        _ = OpenFolderSafelyAsync(folderPath);
+    }
+
+    private void OpenLogFolder()
+    {
+        OpenFolder(Path.GetDirectoryName(Constants.LogFilePath));
+    }
+
+    private async Task OpenFolderSafelyAsync(string folderPath)
+    {
+        try
+        {
+            await externalProcessLauncher.OpenFolderAsync(folderPath);
+        }
+        catch (Exception ex)
+        {
+            logger.Warning(ex, "Failed to open a folder from the media creation dialog.");
         }
     }
 
@@ -918,7 +1019,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             logger.Warning("USB target could not be read before the erase confirmation. ErrorCode={ErrorCode}", result.Error?.Code);
             await ShowBlockedDialogAsync(
                 "StartMedia.CreateUsb.BlockedTitle",
-                result.Error?.Message ?? localizationService.GetString("StartMedia.Usb.QueryFailed"));
+                localizationService.GetString("StartMedia.Usb.QueryFailed"));
             return null;
         }
 
@@ -948,7 +1049,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 localizationService.GetString("StartMedia.CreateUsb.ConfirmMessage"),
                 selectedDisk.DiskNumber,
                 selectedDisk.FriendlyName,
-                FormatByteSize(selectedDisk.SizeBytes)),
+                ByteSizeFormatter.Format(localizationService, selectedDisk.SizeBytes)),
             string.Empty
         ];
 
@@ -983,8 +1084,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             volume.DriveLetter,
             label,
             volume.FileSystem,
-            FormatByteSize(volume.UsedBytes),
-            FormatByteSize(volume.SizeBytes)).Trim();
+            ByteSizeFormatter.Format(localizationService, volume.UsedBytes),
+            ByteSizeFormatter.Format(localizationService, volume.SizeBytes)).Trim();
     }
 
     private async Task<string> CreateIsoMediaAsync(
@@ -1068,6 +1169,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeUsbDiskCandidate selectedDisk,
         CancellationToken cancellationToken)
     {
+        ReportPhase(MediaCreationPhase.Preparing, 0, localizationService.GetString("StartMedia.Operation.ValidatingUsbTarget"));
         WinPeResult result = await usbMediaService.ValidateUsbTargetAsync(
             CreateUsbTargetOptions(selectedDisk),
             ResolveWinPeToolsOrThrow(),
@@ -1247,7 +1349,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeToolPaths tools = ResolveWinPeToolsOrThrow();
             if (snapshot.Configuration.CustomImages.IsEnabled)
             {
-                operationProgressService.Report(5, localizationService.GetString("CustomImages.StageVerifying"));
+                ReportPhase(MediaCreationPhase.Preparing, 10, localizationService.GetString("CustomImages.StageVerifying"));
                 customImages = await new WinPeCustomImageMediaService().PrepareAsync(
                     customImageLibrary, snapshot.Configuration.CustomImages, cancellationToken);
             }
@@ -1287,20 +1389,20 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             // Recovery can wait on a DISM discard, so the user sees a status first and the DISM percentage while a
             // discard runs. It runs before stale cleanup so a workspace whose earlier cleanup is now verified is
             // deleted in this same start.
-            operationProgressService.Report(5, localizationService.GetString("StartMedia.Operation.CleaningWorkspace"));
+            ReportPhase(MediaCreationPhase.Preparing, 15, localizationService.GetString("StartMedia.Operation.CleaningWorkspace"));
             await workspaceCleanupService.RecoverUnresolvedMountCleanupsAsync(
                 Constants.WorkspacesDirectoryPath,
                 tools.DismPath,
                 cancellationToken,
                 new Progress<WinPeDismProgress>(ReportMountCleanupRecoveryProgress));
-            operationProgressService.ClearSecondary();
+            ReportPhase(MediaCreationPhase.Preparing, 20);
             CleanupStaleWinPeWorkspaces();
             EnsureSuccess(workspaceCleanupService.EnsureServicingCanStart(Constants.WorkspacesDirectoryPath));
             operationLease = WinPeWorkspaceLease.Create(Constants.WorkspacesDirectoryPath);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.BuildWinPeWorkspace);
             cancellationToken.ThrowIfCancellationRequested();
-            operationProgressService.Report(10, localizationService.GetString("StartMedia.Operation.BuildingWorkspace"));
+            ReportPhase(MediaCreationPhase.Preparing, 30, localizationService.GetString("StartMedia.Operation.BuildingWorkspace"));
             // Await Copype completion before observing cancellation so cleanup cannot race the process.
             WinPeResult<WinPeBuildArtifact> buildResult = await buildService.BuildAsync(
                 new WinPeBuildOptions
@@ -1331,11 +1433,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 UsbCacheRootPath = string.Empty
             };
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareRuntimePayloads);
+            ReportPhase(MediaCreationPhase.Preparing, 60, localizationService.GetString("StartMedia.Operation.PreparingComponents"));
             WinPeResult<WinPeRuntimePayloadProvisioningOptions> runtimePreparation =
                 await runtimePayloadProvisioningService.PrepareAsync(artifactRuntimePayloadProvisioning, cancellationToken);
             EnsureSuccess(runtimePreparation);
             artifactRuntimePayloadProvisioning = runtimePreparation.Value!;
 
+            ReportPhase(MediaCreationPhase.Preparing, 80, localizationService.GetString("StartMedia.Operation.PreparingPostInstallation"));
             postInstallation = await new WinPePreOobeMediaService().PrepareAsync(postInstallPackages,
                 snapshot.Configuration.PreOobe, cancellationToken);
 
@@ -1354,7 +1458,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 telemetryProgressTracker.CreateWorkspacePreparationProgress(
                     new Progress<WinPeWorkspacePreparationStage>(ReportWorkspacePreparationStage));
 
-            operationProgressService.Report(25, localizationService.GetString("StartMedia.Operation.PreparingWorkspace"));
+            ReportPhase(MediaCreationPhase.Preparing, 100);
             WinPeResult<WinPeWorkspacePreparationResult> preparationResult;
             WinPeMountedImageAssetProvisioningOptions assetProvisioning;
             try
@@ -1498,105 +1602,180 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void ReportWorkspacePreparationStage(WinPeWorkspacePreparationStage stage)
     {
-        int progress = stage switch
+        (MediaCreationPhase phase, int phasePercent, string detailKey) = stage switch
         {
-            WinPeWorkspacePreparationStage.ResolvingDrivers => 30,
-            WinPeWorkspacePreparationStage.CustomizingImage => 35,
-            WinPeWorkspacePreparationStage.EvaluatingSignaturePolicy => 84,
-            _ => 35
+            WinPeWorkspacePreparationStage.ResolvingDrivers => (MediaCreationPhase.DownloadingDrivers, 0, "StartMedia.Operation.ResolvingDrivers"),
+            WinPeWorkspacePreparationStage.CustomizingImage => (MediaCreationPhase.CustomizingBootImage, 0, string.Empty),
+            WinPeWorkspacePreparationStage.EvaluatingSignaturePolicy => (MediaCreationPhase.CustomizingBootImage, 100, "StartMedia.Operation.EvaluatingSignaturePolicy"),
+            _ => (MediaCreationPhase.Preparing, 100, string.Empty)
         };
 
-        string statusResourceKey = stage switch
-        {
-            WinPeWorkspacePreparationStage.ResolvingDrivers => "StartMedia.Operation.ResolvingDrivers",
-            WinPeWorkspacePreparationStage.CustomizingImage => "StartMedia.Operation.CustomizingImage",
-            WinPeWorkspacePreparationStage.EvaluatingSignaturePolicy => "StartMedia.Operation.EvaluatingSignaturePolicy",
-            _ => "StartMedia.Operation.PreparingWorkspace"
-        };
-
-        logger.Debug("WinPE workspace preparation stage changed. Stage={Stage}, Progress={Progress}", stage, progress);
-        operationProgressService.Report(progress, localizationService.GetString(statusResourceKey));
+        logger.Debug("WinPE workspace preparation stage changed. Stage={Stage}, Phase={Phase}", stage, phase);
+        ReportPhase(phase, phasePercent, detailKey.Length == 0 ? string.Empty : localizationService.GetString(detailKey));
     }
 
     private void ReportMountCleanupRecoveryProgress(WinPeDismProgress progress)
     {
-        operationProgressService.Report(
-            5,
-            localizationService.GetString("StartMedia.Operation.CleaningWorkspace"),
-            progress.Percent,
-            LocalizeDismProgressStatus(progress.Status));
+        string detail = LocalizeDismDetailStatus(progress.Status);
+        ReportPhase(
+            MediaCreationPhase.Preparing,
+            15,
+            detail.Length == 0 ? localizationService.GetString("StartMedia.Operation.CleaningWorkspace") : detail,
+            progress.Percent);
     }
 
     private void ReportCustomizationProgress(WinPeMountedImageCustomizationProgress progress)
     {
-        int normalizedProgress = Math.Clamp(35 + (progress.Percent * 47 / 100), 35, 82);
-        string status = string.IsNullOrWhiteSpace(progress.Status)
-            ? localizationService.GetString("StartMedia.Operation.PreparingWorkspace")
-            : LocalizeCustomizationStatus(progress.Status);
+        // A DISM sub-step names what is applied more precisely than the customization stage that runs it.
+        string dismDetail = LocalizeDismDetailStatus(progress.DetailStatus);
+        string detail = dismDetail.Length > 0 ? dismDetail : LocalizeCustomizationStatus(progress.Status);
+        MediaCreationProgress overall = ReportPhase(MediaCreationPhase.CustomizingBootImage, progress.Percent, detail, progress.DetailPercent);
 
         int sampledPercent = progress.DetailPercent ?? progress.Percent;
         string sampledStatus = $"{progress.Status}|{progress.DetailStatus}";
         if (ShouldLogProgress(ref lastCustomizationLogStatus, ref lastCustomizationLogBucket, sampledStatus, sampledPercent))
         {
             logger.Debug(
-                "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, DetailStatus={DetailStatus}, DetailPercent={DetailPercent}",
+                "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, OverallPercent={OverallPercent}, DetailStatus={DetailStatus}, DetailPercent={DetailPercent}",
                 progress.Status,
                 progress.Percent,
-                normalizedProgress,
+                overall.Percent,
                 progress.DetailStatus,
                 progress.DetailPercent);
         }
-
-        if (progress.DetailPercent.HasValue || !string.IsNullOrWhiteSpace(progress.DetailStatus))
-        {
-            operationProgressService.Report(
-                normalizedProgress,
-                status,
-                progress.DetailPercent,
-                LocalizeDismProgressStatus(progress.DetailStatus));
-            return;
-        }
-
-        operationProgressService.Report(normalizedProgress, status);
     }
 
     private void ReportDownloadProgress(WinPeDownloadProgress progress)
     {
-        string status = string.IsNullOrWhiteSpace(progress.Status)
-            ? localizationService.GetString("StartMedia.Operation.Downloading")
-            : LocalizeDownloadStatus(progress.Status);
-
-        if (ShouldLogProgress(ref lastDownloadLogStatus, ref lastDownloadLogBucket, progress.Status, progress.Percent))
+        if (ShouldLogProgress(ref lastDownloadLogStatus, ref lastDownloadLogBucket, $"{progress.Status}|{progress.ItemName}", progress.Percent))
         {
             logger.Debug(
-                "Final media download progress changed. DownloadStatus={DownloadStatus}, DownloadPercent={DownloadPercent}",
+                "Final media download progress changed. DownloadStatus={DownloadStatus}, ItemName={ItemName}, DownloadPercent={DownloadPercent}",
                 progress.Status,
+                progress.ItemName,
                 progress.Percent);
         }
-        operationProgressService.Report(
-            operationProgressService.State.Progress,
-            operationProgressService.State.Status,
-            progress.Percent,
-            status);
+
+        string detail = FormatDownloadDetail(progress);
+        if (progress.Status == WinPeProgressStatuses.DownloadingDriverPackage && progress.ItemCount is > 0)
+        {
+            // Driver packages download in sequence, so their count drives the driver phase.
+            int completedItems = Math.Clamp((progress.ItemNumber ?? 1) - 1, 0, progress.ItemCount.Value);
+            int phasePercent = (int)((completedItems + ((progress.Percent ?? 0) / 100.0)) * 100 / progress.ItemCount.Value);
+            ReportPhase(MediaCreationPhase.DownloadingDrivers, phasePercent, detail, progress.Percent);
+            return;
+        }
+
+        ReportDetail(detail, detail.Length == 0 ? null : progress.Percent);
     }
 
     private void ReportFinalMediaProgress(WinPeMediaProgress progress)
     {
-        int normalizedProgress = Math.Clamp(88 + (progress.Percent * 10 / 100), 88, 98);
-        string status = string.IsNullOrWhiteSpace(progress.Status)
-            ? localizationService.GetString("StartMedia.Operation.CreatingIso")
-            : LocalizeFinalMediaStatus(progress.Status);
+        if (progressPlan is null)
+        {
+            return;
+        }
+
+        MediaCreationProgress overall = progressPlan.ReportFinalMedia(progress.Percent);
+        ReportProgress(overall, LocalizeFinalMediaStatus(progress.Status), null);
 
         if (ShouldLogProgress(ref lastFinalMediaLogStatus, ref lastFinalMediaLogBucket, progress.Status, progress.Percent))
         {
             logger.Debug(
-                "Final media output progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, HasLogDetail={HasLogDetail}",
+                "Final media output progress changed. CoreStatus={CoreStatus}, Percent={Percent}, OverallPercent={OverallPercent}, HasLogDetail={HasLogDetail}",
                 progress.Status,
                 progress.Percent,
-                normalizedProgress,
+                overall.Percent,
                 !string.IsNullOrWhiteSpace(progress.LogDetail));
         }
-        operationProgressService.Report(normalizedProgress, status);
+    }
+
+    /// <summary>
+    /// Reports progress inside a media creation phase with an optional detail line.
+    /// </summary>
+    private MediaCreationProgress ReportPhase(MediaCreationPhase phase, int phasePercent, string detail = "", int? detailProgress = null)
+    {
+        if (progressPlan is null)
+        {
+            return default;
+        }
+
+        MediaCreationProgress overall = progressPlan.Report(phase, phasePercent);
+        ReportProgress(overall, detail, detailProgress);
+        return overall;
+    }
+
+    /// <summary>
+    /// Updates only the detail line, keeping the current phase and percentage.
+    /// </summary>
+    private void ReportDetail(string detail, int? detailProgress)
+    {
+        if (progressPlan is not null)
+        {
+            ReportProgress(progressPlan.Current, detail, detailProgress);
+        }
+    }
+
+    private void ReportProgress(MediaCreationProgress overall, string detail, int? detailProgress)
+    {
+        operationProgressService.Report(overall.Percent, FormatStep(overall), detailProgress, detail);
+    }
+
+    private string FormatStep(MediaCreationProgress progress)
+    {
+        return localizationService.FormatString(
+            "StartMedia.Operation.StepFormat",
+            progress.StepNumber,
+            progress.StepCount,
+            GetPhaseLabel(progress.Phase));
+    }
+
+    private string GetPhaseLabel(MediaCreationPhase phase)
+    {
+        return localizationService.GetString(phase switch
+        {
+            MediaCreationPhase.Preparing => "StartMedia.Operation.Phase.Preparing",
+            MediaCreationPhase.DownloadingDrivers => "StartMedia.Operation.Phase.DownloadingDrivers",
+            MediaCreationPhase.CustomizingBootImage => "StartMedia.Operation.Phase.CustomizingBootImage",
+            MediaCreationPhase.CreatingIso => "StartMedia.Operation.Phase.CreatingIso",
+            MediaCreationPhase.FormattingUsbDrive => "StartMedia.Operation.Phase.FormattingUsbDrive",
+            MediaCreationPhase.CopyingToUsbDrive => "StartMedia.Operation.Phase.CopyingToUsbDrive",
+            MediaCreationPhase.UpdatingUsbDrive => "StartMedia.Operation.Phase.UpdatingUsbDrive",
+            _ => "StartMedia.Operation.Phase.Finishing"
+        });
+    }
+
+    private string FormatDownloadDetail(WinPeDownloadProgress progress)
+    {
+        string text = progress.Status switch
+        {
+            WinPeProgressStatuses.DownloadingDriverPackage => localizationService.FormatString(
+                "StartMedia.Operation.DownloadingDriverPackageFormat",
+                progress.ItemNumber ?? 1,
+                progress.ItemCount ?? 1,
+                progress.ItemName),
+            WinPeProgressStatuses.DownloadingWindowsSourcePackage => localizationService.GetString("StartMedia.Operation.DownloadingWindowsSourcePackage"),
+            WinPeProgressStatuses.DownloadingRuntimePayload => localizationService.FormatString("StartMedia.Operation.DownloadingRuntimePayloadFormat", progress.ItemName),
+            WinPeProgressStatuses.VerifyingCachedSource => localizationService.FormatString("StartMedia.Operation.VerifyingCachedFileFormat", progress.ItemName),
+            WinPeProgressStatuses.ReusingWindowsSourcePackage
+                or WinPeProgressStatuses.WindowsSourcePackageReady
+                or WinPeProgressStatuses.ReusingDriverPackage
+                or WinPeProgressStatuses.DriverPackageReady => string.Empty,
+            _ => localizationService.GetString("StartMedia.Operation.Downloading")
+        };
+
+        if (text.Length == 0 || progress.BytesTransferred is not long transferred)
+        {
+            return text;
+        }
+
+        string bytes = progress.TotalBytes is long total and > 0
+            ? localizationService.FormatString(
+                "StartMedia.Operation.ByteProgressFormat",
+                ByteSizeFormatter.Format(localizationService, (ulong)transferred),
+                ByteSizeFormatter.Format(localizationService, (ulong)total))
+            : ByteSizeFormatter.Format(localizationService, (ulong)transferred);
+        return localizationService.FormatString("StartMedia.Operation.DetailWithBytesFormat", text, bytes);
     }
 
     private void ResetProgressLogSampling()
@@ -1624,133 +1803,79 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private string LocalizeCustomizationStatus(string status)
     {
-        string resourceKey = status switch
+        return LocalizeStatus(status switch
         {
-            "Preparing boot image customization." => "StartMedia.Operation.PreparingBootImageCustomization",
-            "Mounting boot image." => "StartMedia.Operation.MountingBootImage",
-            "Injecting drivers into mounted image." => "StartMedia.Operation.InjectingDrivers",
-            "Applying language and optional components." => "StartMedia.Operation.ApplyingLanguageAndComponents",
-            "Provisioning Foundry boot assets." => "StartMedia.Operation.ProvisioningBootAssets",
-            "Provisioning Foundry runtime payloads." => "StartMedia.Operation.ProvisioningRuntimePayloads",
-            "Committing image changes." => "StartMedia.Operation.CommittingImageChanges",
-            "Image customization completed." => "StartMedia.Operation.ImageCustomizationCompleted",
-            "Resolving Windows source catalog." => "StartMedia.Operation.ResolvingWindowsSourceCatalog",
-            "Selected Windows source package." => "StartMedia.Operation.SelectedWindowsSourcePackage",
-            "Preparing Windows source package." => "StartMedia.Operation.PreparingWindowsSourcePackage",
-            "Downloading Windows source package." => "StartMedia.Operation.DownloadingWindowsSourcePackage",
-            "Resolving Windows image index." => "StartMedia.Operation.ResolvingWindowsImageIndex",
-            "Exporting Windows image for boot image preparation." => "StartMedia.Operation.ExportingWindowsSourceImage",
-            "Mounting Windows source image." => "StartMedia.Operation.MountingWindowsSourceImage",
-            "Staging boot image dependencies." => "StartMedia.Operation.StagingBootImageDependencies",
-            "Replacing boot image with WinRE." => "StartMedia.Operation.ReplacingBootImageWithWinRe",
-            "Boot image dependencies are ready." => "StartMedia.Operation.BootImageDependenciesReady",
-            _ => string.Empty
-        };
-
-        return string.IsNullOrWhiteSpace(resourceKey)
-            ? status
-            : localizationService.GetString(resourceKey);
+            WinPeProgressStatuses.PreparingBootImageCustomization => "StartMedia.Operation.PreparingBootImageCustomization",
+            WinPeProgressStatuses.MountingBootImage => "StartMedia.Operation.MountingBootImage",
+            WinPeProgressStatuses.InjectingDrivers => "StartMedia.Operation.InjectingDrivers",
+            WinPeProgressStatuses.ApplyingLanguageAndComponents => "StartMedia.Operation.ApplyingLanguageAndComponents",
+            WinPeProgressStatuses.ProvisioningBootAssets => "StartMedia.Operation.ProvisioningBootAssets",
+            WinPeProgressStatuses.ProvisioningRuntimePayloads => "StartMedia.Operation.ProvisioningRuntimePayloads",
+            WinPeProgressStatuses.CommittingImageChanges => "StartMedia.Operation.CommittingImageChanges",
+            WinPeProgressStatuses.ResolvingWindowsSourceCatalog
+                or WinPeProgressStatuses.SelectedWindowsSourcePackage => "StartMedia.Operation.ResolvingWindowsSourceCatalog",
+            WinPeProgressStatuses.PreparingWindowsSourcePackage => "StartMedia.Operation.PreparingWindowsSourcePackage",
+            WinPeProgressStatuses.ResolvingWindowsImageIndex => "StartMedia.Operation.ResolvingWindowsImageIndex",
+            WinPeProgressStatuses.ExportingWindowsSourceImage => "StartMedia.Operation.ExportingWindowsSourceImage",
+            WinPeProgressStatuses.MountingWindowsSourceImage => "StartMedia.Operation.MountingWindowsSourceImage",
+            WinPeProgressStatuses.StagingBootImageDependencies => "StartMedia.Operation.StagingBootImageDependencies",
+            WinPeProgressStatuses.ReplacingBootImageWithWinRe => "StartMedia.Operation.ReplacingBootImageWithWinRe",
+            _ => null
+        });
     }
 
-    private string LocalizeDownloadStatus(string status)
+    /// <summary>
+    /// Localizes the DISM sub-steps that say more than their customization stage; other DISM steps return empty.
+    /// </summary>
+    private string LocalizeDismDetailStatus(string status)
     {
-        if (status.StartsWith("Downloading Windows source package", StringComparison.Ordinal))
+        return LocalizeStatus(status switch
         {
-            int suffixIndex = status.IndexOf('(', StringComparison.Ordinal);
-            string suffix = suffixIndex >= 0
-                ? $" {status[suffixIndex..]}"
-                : string.Empty;
-            return localizationService.GetString("StartMedia.Operation.DownloadingWindowsSourcePackage") + suffix;
-        }
-
-        if (status.StartsWith("Downloading driver package", StringComparison.Ordinal))
-        {
-            int suffixIndex = status.IndexOf(':', StringComparison.Ordinal);
-            string suffix = suffixIndex >= 0
-                ? status[suffixIndex..]
-                : string.Empty;
-            return localizationService.GetString("StartMedia.Operation.DownloadingDriverPackage") + suffix;
-        }
-
-        const string runtimeDownloadPrefix = "Downloading ";
-        const string runtimeDownloadSuffix = " runtime payload.";
-        if (status.StartsWith(runtimeDownloadPrefix, StringComparison.Ordinal))
-        {
-            int suffixIndex = status.IndexOf('(', StringComparison.Ordinal);
-            int applicationNameEndIndex = status.IndexOf(runtimeDownloadSuffix, StringComparison.Ordinal);
-            if (applicationNameEndIndex > runtimeDownloadPrefix.Length)
-            {
-                string applicationName = status[runtimeDownloadPrefix.Length..applicationNameEndIndex];
-                string suffix = suffixIndex >= 0
-                    ? $" {status[suffixIndex..]}"
-                    : string.Empty;
-                return localizationService.FormatString("StartMedia.Operation.DownloadingRuntimePayloadFormat", applicationName) + suffix;
-            }
-        }
-
-        return status;
-    }
-
-    private string LocalizeDismProgressStatus(string status)
-    {
-        string resourceKey = status switch
-        {
-            "Exporting Windows image with DISM." => "StartMedia.Operation.DismExportingWindowsImage",
-            "Resolving Windows image index with DISM." => "StartMedia.Operation.DismResolvingWindowsImageIndex",
-            "Mounting image with DISM." => "StartMedia.Operation.DismMountingImage",
-            "Injecting drivers with DISM." => "StartMedia.Operation.DismInjectingDrivers",
-            "Applying language pack with DISM." => "StartMedia.Operation.DismApplyingLanguagePack",
-            "Applying optional components with DISM." => "StartMedia.Operation.DismApplyingOptionalComponents",
-            "Applying international settings with DISM." => "StartMedia.Operation.DismApplyingInternationalSettings",
-            "Committing image changes with DISM." => "StartMedia.Operation.DismCommittingImageChanges",
-            "Discarding mounted image with DISM." => "StartMedia.Operation.DismDiscardingMountedImage",
-            _ => string.Empty
-        };
-
-        return string.IsNullOrWhiteSpace(resourceKey)
-            ? status
-            : localizationService.GetString(resourceKey);
+            WinPeProgressStatuses.DismApplyingLanguagePack => "StartMedia.Operation.DismApplyingLanguagePack",
+            WinPeProgressStatuses.DismApplyingOptionalComponents => "StartMedia.Operation.DismApplyingOptionalComponents",
+            WinPeProgressStatuses.DismApplyingInternationalSettings => "StartMedia.Operation.DismApplyingInternationalSettings",
+            WinPeProgressStatuses.DismDiscardingMountedImage => "StartMedia.Operation.DismDiscardingMountedImage",
+            _ => null
+        });
     }
 
     private string LocalizeFinalMediaStatus(string status)
     {
-        string resourceKey = status switch
+        return LocalizeStatus(status switch
         {
-            "Preparing ISO output path." => "StartMedia.Operation.PreparingIsoOutput",
-            "Preparing ISO workspace." => "StartMedia.Operation.PreparingIsoWorkspace",
-            "Creating ISO media." => "StartMedia.Operation.CreatingIso",
-            "Staging custom Windows images." => "CustomImages.StageCopying",
-            "Custom Windows images verified." => "CustomImages.StageVerifying",
-            "Staging post-installation content." => "PostInstallation.StagingContent",
-            "Post-installation content verified." => "PostInstallation.ContentVerified",
-            "Running MakeWinPEMedia for ISO." => "StartMedia.Operation.RunningMakeWinPeMediaIso",
-            "Finalizing ISO output." => "StartMedia.Operation.FinalizingIsoOutput",
-            "ISO media completed." => "StartMedia.Operation.IsoMediaCompleted",
-            "Validating USB target." => "StartMedia.Operation.ValidatingUsbTarget",
-            "Checking USB target safety." => "StartMedia.Operation.CheckingUsbTargetSafety",
-            "Inspecting USB media layout." => "StartMedia.Operation.InspectingUsbMediaLayout",
-            "Partitioning and formatting USB target." => "StartMedia.Operation.PartitioningUsbTarget",
-            "Opening USB disk." => "StartMedia.Operation.OpeningUsbDisk",
-            "Preparing USB disk attributes." => "StartMedia.Operation.PreparingUsbDiskAttributes",
-            "Clearing USB partition table." => "StartMedia.Operation.ClearingUsbPartitionTable",
-            "Initializing USB partition table." => "StartMedia.Operation.InitializingUsbPartitionTable",
-            "Creating BOOT partition." => "StartMedia.Operation.CreatingUsbBootPartition",
-            "Formatting BOOT partition." => "StartMedia.Operation.FormattingUsbBootPartition",
-            "Creating cache partition." => "StartMedia.Operation.CreatingUsbCachePartition",
-            "Formatting cache partition." => "StartMedia.Operation.FormattingUsbCachePartition",
-            "USB partitions formatted." => "StartMedia.Operation.UsbPartitionsFormatted",
-            "Copying WinPE media to USB." => "StartMedia.Operation.CopyingUsbMedia",
-            "Verifying USB boot media." => "StartMedia.Operation.VerifyingUsbMedia",
-            "Preparing USB cache partition." => "StartMedia.Operation.PreparingUsbCache",
-            "Provisioning USB runtime payloads." => "StartMedia.Operation.ProvisioningUsbRuntimePayloads",
-            "USB media completed." => "StartMedia.Operation.UsbMediaCompleted",
-            "USB boot partition updated." => "StartMedia.Operation.UsbBootPartitionUpdated",
-            _ => string.Empty
-        };
+            WinPeProgressStatuses.PreparingIsoOutput => "StartMedia.Operation.PreparingIsoOutput",
+            WinPeProgressStatuses.PreparingIsoWorkspace => "StartMedia.Operation.PreparingIsoWorkspace",
+            WinPeProgressStatuses.CreatingIsoMedia or WinPeProgressStatuses.RunningMakeWinPeMediaIso => "StartMedia.Operation.WritingIso",
+            WinPeProgressStatuses.FinalizingIsoOutput => "StartMedia.Operation.FinalizingIsoOutput",
+            WinPeProgressStatuses.StagingCustomImages => "StartMedia.Operation.CopyingCustomImages",
+            WinPeProgressStatuses.StagingPostInstallation => "StartMedia.Operation.CopyingPostInstallation",
+            WinPeProgressStatuses.ValidatingUsbTarget => "StartMedia.Operation.ValidatingUsbTarget",
+            WinPeProgressStatuses.CheckingUsbTargetSafety => "StartMedia.Operation.CheckingUsbTargetSafety",
+            WinPeProgressStatuses.InspectingUsbMediaLayout => "StartMedia.Operation.InspectingUsbMediaLayout",
+            WinPeProgressStatuses.PartitioningUsbTarget => "StartMedia.Operation.PartitioningUsbTarget",
+            WinPeProgressStatuses.OpeningUsbDisk => "StartMedia.Operation.OpeningUsbDisk",
+            WinPeProgressStatuses.PreparingUsbDiskAttributes => "StartMedia.Operation.PreparingUsbDiskAttributes",
+            WinPeProgressStatuses.ClearingUsbPartitionTable => "StartMedia.Operation.ClearingUsbPartitionTable",
+            WinPeProgressStatuses.InitializingUsbPartitionTable => "StartMedia.Operation.InitializingUsbPartitionTable",
+            WinPeProgressStatuses.CreatingUsbBootPartition => "StartMedia.Operation.CreatingUsbBootPartition",
+            WinPeProgressStatuses.FormattingUsbBootPartition => "StartMedia.Operation.FormattingUsbBootPartition",
+            WinPeProgressStatuses.CreatingUsbCachePartition => "StartMedia.Operation.CreatingUsbCachePartition",
+            WinPeProgressStatuses.FormattingUsbCachePartition => "StartMedia.Operation.FormattingUsbCachePartition",
+            WinPeProgressStatuses.CopyingWinPeMediaToUsb => "StartMedia.Operation.CopyingUsbMedia",
+            WinPeProgressStatuses.VerifyingUsbBootMedia => "StartMedia.Operation.VerifyingUsbMedia",
+            WinPeProgressStatuses.PreparingUsbCachePartition => "StartMedia.Operation.PreparingUsbCache",
+            WinPeProgressStatuses.ProvisioningUsbRuntimePayloads => "StartMedia.Operation.ProvisioningUsbRuntimePayloads",
+            _ => null
+        });
+    }
 
-        return string.IsNullOrWhiteSpace(resourceKey)
-            ? status
-            : localizationService.GetString(resourceKey);
+    /// <summary>
+    /// Returns the localized text of a status resource, or an empty string for a status with no visible detail,
+    /// such as a completion status. Unknown Core statuses are never shown as raw English text.
+    /// </summary>
+    private string LocalizeStatus(string? resourceKey)
+    {
+        return resourceKey is null ? string.Empty : localizationService.GetString(resourceKey);
     }
 
     private void CleanupPreparedWorkspace(WinPeWorkspaceLease? operationLease)
@@ -1787,7 +1912,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             if (reportProgress)
             {
-                operationProgressService.Report(99, localizationService.GetString("StartMedia.Operation.CleaningWorkspace"));
+                ReportDetail(localizationService.GetString("StartMedia.Operation.RemovingTemporaryFiles"), null);
             }
 
             logger.Debug("Cleaning WinPE workspace. WorkspacePath={WorkspacePath}", workspacePath);
@@ -1811,10 +1936,18 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IReadOnlyList<MediaPreflightBlockingReason> blockingReasons,
         AutopilotConfigurationValidationCode autopilotValidationCode)
     {
-        IReadOnlyList<MediaPreflightBlockingReason> reasons = blockingReasons.Distinct().ToList();
-        string message = reasons.Count == 0
-            ? localizationService.GetString("StartMedia.Operation.Failed")
-            : string.Join(Environment.NewLine, reasons.Select(reason => $"- {GetBlockingReasonText(reason, autopilotValidationCode)}"));
+        string[] reasons = blockingReasons
+            .Distinct()
+            .Select(reason => GetBlockingReasonText(reason, autopilotValidationCode))
+            .ToArray();
+        string message = reasons.Length switch
+        {
+            0 => localizationService.GetString("StartMedia.Blocked.Unknown"),
+            1 => reasons[0],
+            _ => localizationService.GetString("StartMedia.Blocked.LeadIn")
+                + Environment.NewLine + Environment.NewLine
+                + string.Join(Environment.NewLine, reasons.Select(reason => $"\u2022 {reason}"))
+        };
 
         await ShowBlockedDialogAsync(titleResourceKey, message);
     }
@@ -1951,13 +2084,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         CanSelectUsbDisk = UsbCandidates.Count > 0 && !IsRefreshingUsbCandidates;
         CanCreateIso = evaluation.CanCreateIso && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
         CanCreateUsb = evaluation.CanCreateUsb && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
-        FinalExecutionStatus = options.IsFinalExecutionEnabled
-            ? localizationService.GetString("StartMedia.FinalExecution.Ready")
-            : localizationService.GetString("StartMedia.FinalExecution.Deferred");
+        FinalExecutionStatus = localizationService.GetString(!options.IsFinalExecutionEnabled
+            ? "StartMedia.FinalExecution.Deferred"
+            : evaluation.CanCreateIso || evaluation.CanCreateUsb
+                ? "StartMedia.FinalExecution.ReadyNow"
+                : "StartMedia.FinalExecution.Ready");
         ConfigurationOverviewEvaluation overview = configurationOverviewService.Evaluate();
         ReadinessSeverity = GetReadinessSeverity(evaluation);
         StatusSummary = BuildStatusText(evaluation, overview);
-        GlobalSummary = BuildGlobalSummary(options, evaluation);
         RebuildConfigurationOverview(options, evaluation, overview);
 
     }
@@ -2357,7 +2491,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 ConfigurationNavigationTarget.WindowsOptionalFeatures),
             CreateOverviewItem(ConfigurationOverviewItem.AppxRemoval, overview, "Nav_AppRemovalKey.Title",
                 customization.AppxRemoval.IsEnabled
-                    ? $"{localizationService.GetString("Customization.AppxRemovalPackagesLabel")}: {customization.AppxRemoval.PackageNames.Count}"
+                    ? localizationService.FormatString("StartOverview.AppxRemovalPackageCountFormat", customization.AppxRemoval.PackageNames.Count)
                     : localizationService.GetString("Nav_AppRemovalKey.Description"),
                 ConfigurationNavigationTarget.AppxRemoval),
             CreateOverviewItem(ConfigurationOverviewItem.AiComponents, overview, "Nav_AiComponentsKey.Title",
@@ -2377,7 +2511,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         string title = localizationService.GetString(titleKey);
         bool needsAttention = state == ConfigurationOverviewState.NeedsAttention;
         string actionText = needsAttention
-            ? $"{localizationService.GetString("StartMedia.Readiness.Action.Review")} {title}"
+            ? localizationService.FormatString("StartMedia.Readiness.Action.ReviewFormat", title)
             : string.Empty;
 
         return new StartConfigurationOverviewItemViewModel(
@@ -2464,8 +2598,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 : localizationService.GetString("Common.Disabled");
         }
 
-        string additionalItemCount = attentionItems.Count > 1 ? $" (+{attentionItems.Count - 1})" : string.Empty;
-        return $"{localizationService.GetString("Common.NeedsAttention")}: {attentionItems[0].Title}{additionalItemCount}";
+        return attentionItems.Count > 1
+            ? localizationService.FormatString("StartOverview.NeedsAttentionWithMoreFormat", attentionItems[0].Title, attentionItems.Count - 1)
+            : localizationService.FormatString("StartOverview.NeedsAttentionFormat", attentionItems[0].Title);
     }
 
     private static bool ReplaceOverviewItems(
@@ -2521,53 +2656,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ConfigurationOverviewState.NeedsAttention => "FoundryBlockedFontIconStyle",
             _ => "FoundryNeutralFontIconStyle"
         };
-    }
-
-    private string BuildGlobalSummary(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
-    {
-        IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
-        var builder = new StringBuilder();
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Adk")}: {FormatReady(adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64))}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.WinPeLanguage")}: {FormatValue(NormalizeCultureName(options.WinPeLanguage))}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.BootImageSource")}: {FormatBootImageSource(options.BootImageSource)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Architecture")}: {FormatArchitecture(options.Architecture)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.IsoPath")}: {FormatValue(options.IsoOutputPath)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.UsbTarget")}: {FormatUsbCandidate(options.SelectedUsbDisk)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Signature")}: {FormatSignatureMode(options.SignatureMode)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.PartitionStyle")}: {evaluation.EffectiveUsbPartitionStyle}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.FormatMode")}: {FormatUsbFormatMode(options.UsbFormatMode)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Drivers")}: {FormatDriverOptions(options.DriverVendors, options.CustomDriverDirectoryPath)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Network")}: {FormatReady(options.IsNetworkConfigurationReady)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Deploy")}: {FormatReady(options.IsDeployConfigurationReady)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Connect")}: {FormatReady(options.IsConnectProvisioningReady)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Secrets")}: {FormatReady(options.AreRequiredSecretsReady)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Autopilot")}: {FormatAutopilot(options)}");
-        builder.AppendLine();
-        builder.AppendLine(options.IsFinalExecutionEnabled
-            ? localizationService.GetString("StartMedia.FinalExecution.Ready")
-            : localizationService.GetString("StartMedia.FinalExecution.Deferred"));
-
-        AppendBlockingReasons(builder, reasons, options.AutopilotConfigurationValidationCode);
-
-        return builder.ToString();
-    }
-
-    private void AppendBlockingReasons(
-        StringBuilder builder,
-        IReadOnlyList<MediaPreflightBlockingReason> reasons,
-        AutopilotConfigurationValidationCode autopilotValidationCode)
-    {
-        if (reasons.Count == 0)
-        {
-            return;
-        }
-
-        builder.AppendLine();
-        builder.AppendLine(localizationService.GetString("StartMedia.Summary.BlockingReasons"));
-        foreach (MediaPreflightBlockingReason reason in reasons)
-        {
-            builder.AppendLine($"- {GetBlockingReasonText(reason, autopilotValidationCode)}");
-        }
     }
 
     /// <summary>
@@ -2705,7 +2793,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 localizationService.GetString("StartMedia.Usb.DiskDisplay"),
                 candidate.DiskNumber,
                 candidate.FriendlyName,
-                FormatByteSize(candidate.SizeBytes)));
+                ByteSizeFormatter.Format(localizationService, candidate.SizeBytes)));
     }
 
     private string FormatReady(bool isReady)
@@ -2783,20 +2871,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return parts.Count == 0 ? "-" : string.Join(", ", parts);
     }
 
-    private string FormatUsbCandidate(WinPeUsbDiskCandidate? candidate)
-    {
-        if (candidate is null)
-        {
-            return "-";
-        }
-
-        return string.Format(
-            localizationService.GetString("StartMedia.Usb.DiskDisplay"),
-            candidate.DiskNumber,
-            candidate.FriendlyName,
-            FormatByteSize(candidate.SizeBytes));
-    }
-
     private string FormatArchitecture(WinPeArchitecture architecture)
     {
         return architecture switch
@@ -2810,16 +2884,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private string FormatSignatureMode(WinPeSignatureMode signatureMode)
     {
         return localizationService.GetString($"StartMedia.SignatureMode.{signatureMode}");
-    }
-
-    private string FormatBootImageSource(WinPeBootImageSource bootImageSource)
-    {
-        return localizationService.GetString($"StartMedia.BootImageSource.{bootImageSource}");
-    }
-
-    private string FormatUsbFormatMode(UsbFormatMode formatMode)
-    {
-        return localizationService.GetString($"StartMedia.FormatMode.{formatMode}");
     }
 
     private string FormatDriverVendor(WinPeVendorSelection vendor)
@@ -2860,8 +2924,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private string FormatMediaCapacityFailure(string resourceKey, WinPeDiagnostic diagnostic, string? storageVolume = null)
     {
-        string required = diagnostic.RequiredBytes is ulong requiredBytes ? FormatByteSize(requiredBytes) : "—";
-        string available = diagnostic.AvailableBytes is ulong availableBytes ? FormatByteSize(availableBytes) : "—";
+        string required = diagnostic.RequiredBytes is ulong requiredBytes ? ByteSizeFormatter.Format(localizationService, requiredBytes) : "—";
+        string available = diagnostic.AvailableBytes is ulong availableBytes ? ByteSizeFormatter.Format(localizationService, availableBytes) : "—";
         // Near a limit, rounded sizes can look identical even though validation correctly rejects the payload.
         if (required == available && diagnostic.RequiredBytes > diagnostic.AvailableBytes)
         {
@@ -2875,27 +2939,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             required,
             available,
             storageVolume);
-    }
-
-    private string FormatByteSize(ulong bytes)
-    {
-        double size = bytes;
-        string[] units =
-        [
-            localizationService.GetString("StartMedia.ByteUnit.B"),
-            localizationService.GetString("StartMedia.ByteUnit.KB"),
-            localizationService.GetString("StartMedia.ByteUnit.MB"),
-            localizationService.GetString("StartMedia.ByteUnit.GB"),
-            localizationService.GetString("StartMedia.ByteUnit.TB")
-        ];
-        int unitIndex = 0;
-        while (size >= 1024 && unitIndex < units.Length - 1)
-        {
-            size /= 1024;
-            unitIndex++;
-        }
-
-        return $"{size:0.#} {units[unitIndex]}";
     }
 
     private WinPeToolPaths ResolveWinPeToolsOrThrow()

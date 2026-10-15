@@ -98,10 +98,16 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>メディア作成機能</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK の操作がキャンセルされました。</value>
+    <value>インストールはキャンセルされました。</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Windows ADK のインストールがキャンセルされました</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK 操作が完了しました</value>
+    <value>Windows ADK と Windows PE アドオンの準備ができました。ブート メディアを作成できます。</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK がインストールされました</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>キャッシュされた ADK インストーラーの使用</value>
@@ -113,7 +119,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ADK インストーラーをダウンロードしています</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK 操作が失敗しました</value>
+    <value>インストールは完了しませんでした。詳細はログに記録されています。</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Windows ADK のインストールに失敗しました</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
     <value>インストール中 Windows ADK</value>
@@ -127,6 +136,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>インストールが完了しました。残りの ADK 要件を確認してください。</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK の確認が必要です</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>既存の Windows ADK を削除しています</value>
   </data>
@@ -135,6 +147,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Windows ADK 24H2 のインストールを準備しています</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Windows ADK をアップグレードしています</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>ADK インストールを確認しています</value>
@@ -2674,9 +2689,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>コンテンツの状態</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>インストール後のコンテンツを検証しました。</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>エラー時に続行</value>
   </data>
@@ -2805,9 +2817,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>スクリプトの引数</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>インストール後のコンテンツを準備しています。</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>成功を示す終了コード (コンマ区切り)</value>
@@ -3237,11 +3246,8 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>アプリを更新する</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>操作完了</value>
-  </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>操作が進行中です</value>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>経過時間: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>安全に停止しています。クリーンアップが完了するまでに、現在のディスクまたはイメージの操作が終了するのを待つ必要がある場合があります。</value>
@@ -3311,6 +3317,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot は、サポートされていないプロビジョニング モードを使用しています。</value>
+  </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>メディアを作成する前に、次の問題を解決してください:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>メディアの作成を開始できません。スタート ページの準備項目を確認してください。</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK または WinPE アドオンの準備ができていません。</value>
@@ -3444,23 +3456,8 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>建築</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>ブートイメージソース</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>接続プロビジョニング</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>デプロイ構成</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>ドライバー</value>
@@ -3468,23 +3465,8 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB フォーマットモード</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO 出力パス</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>ネットワーク構成</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB パーティション スタイル</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>メディア秘密</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>署名モード</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB ターゲット</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE ブート言語</value>
@@ -3500,6 +3482,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>すべての準備状況チェックに合格すると、メディアの作成が可能になります。</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>開始するには、下で ISO または USB の出力を選択してください。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>フルフォーマット</value>
@@ -3529,52 +3514,49 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>OOBE アカウント作成をスキップ</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>言語とオプションのコンポーネントを適用します。</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>ブート イメージの依存関係の準備ができました。</value>
+    <value>言語とオプション コンポーネントを追加しています…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>WinPE ワークスペースを作成しています。</value>
+    <value>WinPE ワークスペースを作成しています…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>メディアの作成がキャンセルされました。</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} / {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>メディアの作成はキャンセルされました。一時ファイルは削除されました。</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>USB ターゲットの安全性を確認しています。</value>
+    <value>USB ドライブを安全に消去できることを確認しています…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>WinPE ワークスペースを掃除しています。</value>
+    <value>前回の実行で残ったファイルをクリーンアップしています…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>USB パーティション テーブルをクリアしています。</value>
+    <value>USB ドライブを消去しています…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>ブート イメージの変更をコミットしています。</value>
+    <value>ブート イメージを保存しています…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>最終的なメディアの作成が完了しました。</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>カスタム Windows イメージをコピーしています…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>インストール後のコンテンツをコピーしています…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>WinPE メディアを USB にコピーしています。</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>ISO メディアを作成しています。</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>USB メディアを作成しています。</value>
+    <value>WinPE ファイルを USB ドライブにコピーしています…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>BOOT パーティションを作成しています。</value>
+    <value>BOOT パーティションを作成しています…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>キャッシュパーティションを作成しています。</value>
+    <value>キャッシュ パーティションを作成しています…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>カスタムドライバーの合計サイズは少なくとも {0} で、上限は {1} です。Windows PE に必要なネットワークおよびストレージドライバーのみを選択してください。</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>ブートイメージのカスタマイズ。</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>USB ドライブの識別情報がないか、一意でないか、変更されています。USB ドライブ一覧を更新し、ドライブを再選択してください。</value>
@@ -3583,82 +3565,64 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>選択した USB ドライブは安全に変更できなくなりました。USB ドライブ一覧を更新し、別の USB ドライブを選択してください。</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>DISM を使用して国際設定を適用します。</value>
+    <value>言語設定を適用しています…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>DISM を使用して言語パックを適用します。</value>
+    <value>言語パックを追加しています…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>DISM を使用してオプションのコンポーネントを適用します。</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>DISM を使用してイメージの変更をコミットします。</value>
+    <value>オプション コンポーネントを追加しています…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>DISM を使用してマウントされたイメージを破棄します。</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>DISM を使用して Windows 画像をエクスポートしています。</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>DISM を使用してドライバーを挿入します。</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>DISMでの装着イメージ。</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>DISM を使用して Windows イメージ インデックスを解決します。</value>
+    <value>前回の実行でマウントされたままのイメージを破棄しています…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>コンテンツをダウンロードしています。</value>
+    <value>ダウンロード中</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>ドライバーパッケージのダウンロード</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>ドライバー パッケージ {0}/{1} をダウンロードしています: {2}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>{0} 展開コンポーネントをダウンロードしています。</value>
+    <value>{0} をダウンロードしています</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows ソース パッケージをダウンロードしています。</value>
+    <value>Windows ソース パッケージをダウンロードしています</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>ブート署名ポリシーを評価しています。</value>
+    <value>ブート署名のサポートを確認しています…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>ブート イメージの準備用に Windows イメージをエクスポートしています。</value>
+    <value>Windows イメージを抽出しています…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>最終的なメディアの作成に失敗しました。</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>ステップ {0}/{1} で失敗しました: {2}。</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>ISO 出力を終了中です。</value>
+    <value>ISO ファイルを保存しています…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>BOOT パーティションをフォーマット中です。</value>
+    <value>BOOT パーティションをフォーマットしています…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>キャッシュ パーティションをフォーマットしています。</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>ブートイメージのカスタマイズが完了しました。</value>
+    <value>キャッシュ パーティションをフォーマットしています…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>USB パーティション テーブルを初期化しています。</value>
+    <value>パーティション テーブルを作成しています…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>ブート イメージにドライバーを挿入します。</value>
+    <value>ブート イメージにドライバーを追加しています…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>USB メディアのレイアウトを検査しています。</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO メディアが完成しました。</value>
+    <value>USB ドライブのレイアウトを読み取っています…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry は {0} の ISO ファイルを置き換えられませんでした。ファイルがマウントされている、仮想マシンに接続されている、別のプログラムで開かれている、または読み取り専用である可能性があります。マウントを解除するかファイルを閉じるか、別の出力パスを選択してから、もう一度お試しください。</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>ISO メディアが正常に作成されました。</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO ファイルの保存先:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>サイズ: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>ブートイメージを作成するためのディスク空き容量が不足しています。{2} には少なくとも {0} の空き容量が必要です。使用可能な容量: {1}。空き容量を増やしてから、もう一度お試しください。</value>
@@ -3667,73 +3631,148 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>{0} でブートイメージの作成に使用できるディスク空き容量を確認できませんでした。その場所にアクセスできることを確認してから、もう一度お試しください。</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>ブートイメージをマウントしています。</value>
+    <value>ブート イメージを開いています…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Windows ソース イメージをマウントしています。</value>
+    <value>Windows イメージを開いています…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>フォルダーを開く</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>ログ フォルダーを開く</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>USB ディスクを開いています。</value>
+    <value>USB ドライブを開いています…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>USB ターゲットのパーティショニングとフォーマット。</value>
+    <value>USB ドライブをパーティション分割しています…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>USB ドライブへのファイルのコピー</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>ISO ファイルの作成</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>ブート イメージのカスタマイズ</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>ドライバーの取得</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>完了処理</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>USB ドライブのフォーマット</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>ワークスペースの準備</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>USB ドライブの更新</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>ブートイメージのカスタマイズを準備しています。</value>
+    <value>ブート イメージを準備しています…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Foundry コンポーネントを準備しています…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>ISO 出力パスを準備しています。</value>
+    <value>ISO の出力フォルダーを準備しています…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>ISO ワークスペースを準備しています。</value>
+    <value>ISO ファイルを準備しています…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>インストール後のコンテンツを準備しています…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>USB キャッシュ パーティションを準備しています。</value>
+    <value>キャッシュ パーティションを準備しています…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>USB ディスク属性を準備しています。</value>
+    <value>USB ドライブを準備しています…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows ソース パッケージを準備しています。</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>WinPE ワークスペースを準備しています。</value>
+    <value>Windows ソース パッケージを取得しています…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Foundry ブート アセットをプロビジョニングしています。</value>
+    <value>Foundry のスタートアップ ファイルを追加しています…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Foundry 展開コンポーネントを追加しています。</value>
+    <value>Foundry コンポーネントを追加しています…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry コンポーネントを USB メディアに追加します。</value>
+    <value>Foundry コンポーネントを USB ドライブに追加しています…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>一時ファイルを削除しています…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>ブート イメージを WinRE に置き換えます。</value>
+    <value>ブート イメージを Windows RE に置き換えています…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>ドライバー パッケージを解決します。</value>
+    <value>追加するドライバーを確認しています…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows イメージ インデックスを解決します。</value>
+    <value>Windows エディションを選択しています…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Windows ソース カタログを解決します。</value>
+    <value>Windows ソース パッケージを検索しています…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>ISO に対して MakeWinPEMedia を実行しています。</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>選択された Windows ソース パッケージ。</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>詳細はログに記録されています。</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>ブート イメージの依存関係をステージングしています。</value>
+    <value>Windows イメージから必要なファイルをコピーしています…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>ステップ {0}/{1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>技術的な詳細: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>ISO の作成がキャンセルされました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>ISO の作成に失敗しました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>ISO を作成しています</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO を作成しました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>USB メディアの作成がキャンセルされました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>USB メディアの作成に失敗しました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>USB メディアを作成しています</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB メディアを作成しました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>USB メディアの更新がキャンセルされました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>USB メディアの更新に失敗しました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>USB メディアを更新しています</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB メディアを更新しました</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>転送がタイムアウトしました。接続を確認して、もう一度お試しください。</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>USB メディアを更新しています。</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>予期しないエラーにより、メディアの作成が停止しました。</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB の BOOT パーティションには約 {0} が必要ですが、容量は {1} です。消去やフォーマットは行われていません。カスタマイズやドライバーを減らすか、ISO を作成してください。</value>
@@ -3744,35 +3783,32 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>ブートメディア内のファイルのサイズは {0} ですが、FAT32 のファイルサイズの上限は {1} です。ブートイメージのサイズを小さくするか、ISO を作成してください。</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB ブート パーティションが更新されました。</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>この USB ドライブからデバイスを起動できなくなっている可能性があります。使用する前に、もう一度作成または更新してください。</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB メディアが完成しました。</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB パーティションがフォーマットされました。</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB メディアが正常に作成されました。ブート ボリューム: {0}。キャッシュ ボリューム: {1}。</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB ブート パーティションが正常に更新されました。ブート ボリューム: {0}。キャッシュ ボリューム: {1}。</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>ブート ボリューム: {0}。キャッシュ ボリューム: {1}。</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>USB ターゲットを検証しています。</value>
+    <value>USB ドライブを確認しています…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
+    <value>キャッシュされたファイル {0} を検証しています</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>USB ブート メディアを確認しています。</value>
+    <value>USB のブート ファイルを検証しています…</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows によって WinPE イメージ ファイルへのアクセスがブロックされました。セキュリティ ソフトウェアまたは別のツールがファイルをロックしている可能性があります。セキュリティ ソフトウェアで {0} の除外を追加し、イメージをマウントするツールを閉じ、コンピューターを再起動してから、もう一度お試しください。詳細は {1} と {2} にあります。</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>ISO ファイルを書き込んでいます…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>準備状況を確認し、ISO または USB 出力を選択して、メディアの作成を開始します。</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>レビュー</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>{0} を確認</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>準備完了</value>
@@ -3859,6 +3895,15 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE ブート言語</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>パッケージ: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>確認が必要: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>確認が必要: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>既定</value>

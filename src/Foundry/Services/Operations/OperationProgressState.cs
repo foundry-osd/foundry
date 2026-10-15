@@ -9,9 +9,9 @@ namespace Foundry.Services.Operations;
 /// </summary>
 /// <param name="Kind">The active operation kind, or <see cref="OperationKind.None"/> when idle.</param>
 /// <param name="Progress">Primary operation progress clamped to the 0-100 range.</param>
-/// <param name="Status">Primary status text displayed to the user.</param>
-/// <param name="SecondaryProgress">Optional nested operation progress clamped to the 0-100 range.</param>
-/// <param name="SecondaryStatus">Optional nested operation status text.</param>
+/// <param name="Status">Primary status text displayed to the user, or the terminal message once finished.</param>
+/// <param name="SecondaryProgress">Optional progress of the current detail action, clamped to the 0-100 range.</param>
+/// <param name="SecondaryStatus">Optional text describing the current detail action.</param>
 public sealed record OperationProgressState(
     OperationKind Kind,
     int Progress,
@@ -30,9 +30,29 @@ public sealed record OperationProgressState(
     public bool IsRunning => Kind != OperationKind.None;
 
     /// <summary>
-    /// Gets the terminal result retained after the operation returns to idle.
+    /// Gets the title of the operation dialog: what is running, or the outcome once finished.
+    /// </summary>
+    public string Title { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets when the operation started, used to show the elapsed time.
+    /// </summary>
+    public DateTimeOffset StartedAt { get; init; }
+
+    /// <summary>
+    /// Gets whether the operation reached its outcome. The dialog may close although cleanup can still run.
+    /// </summary>
+    public bool IsFinished { get; init; }
+
+    /// <summary>
+    /// Gets the terminal result retained after the operation finishes.
     /// </summary>
     public OperationOutcome Outcome { get; init; }
+
+    /// <summary>
+    /// Gets an optional follow-up action offered once the operation is finished, such as opening the output folder.
+    /// </summary>
+    public OperationAction? FinishedAction { get; init; }
 
     /// <summary>
     /// Gets whether the operation currently accepts a user cancellation request.
@@ -45,7 +65,14 @@ public sealed record OperationProgressState(
     public bool IsCancellationRequested { get; init; }
 
     /// <summary>
-    /// Gets a value indicating whether nested progress should be shown.
+    /// Gets a value indicating whether a detail line should be shown.
     /// </summary>
-    public bool HasSecondaryProgress => SecondaryProgress.HasValue || !string.IsNullOrWhiteSpace(SecondaryStatus);
+    public bool HasSecondaryProgress => !string.IsNullOrWhiteSpace(SecondaryStatus);
 }
+
+/// <summary>
+/// Describes a follow-up action offered by a finished operation.
+/// </summary>
+/// <param name="Text">Localized button text.</param>
+/// <param name="Invoke">Action run when the button is selected; the dialog stays open.</param>
+public sealed record OperationAction(string Text, Action Invoke);

@@ -98,10 +98,16 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Median luomiskyky</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK -toiminto peruutettu.</value>
+    <value>Asennus peruutettiin.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Windows ADK:n asennus peruutettu</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK -toiminto suoritettu</value>
+    <value>Windows ADK ja Windows PE -lisäosa ovat valmiina. Voit nyt luoda käynnistysmedian.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK asennettu</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Välimuistissa olevan ADK-asennusohjelman käyttö</value>
@@ -113,7 +119,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Ladataan ADK asennusohjelmaa</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK -toiminto epäonnistui</value>
+    <value>Asennus ei valmistunut. Lisätietoja on lokissa.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Windows ADK:n asennus epäonnistui</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
     <value>Asennetaan Windows ADK</value>
@@ -127,6 +136,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Asennus on valmis. Tarkista jäljellä olevat ADK-vaatimukset.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK vaatii huomiota</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Poistetaan olemassa oleva Windows ADK</value>
   </data>
@@ -135,6 +147,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Valmistellaan Windows ADK 24H2 -asennusta</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Päivitetään Windows ADK:ta</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Vahvistetaan ADK asennusta</value>
@@ -2674,9 +2689,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Sisällön tila</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Asennuksen jälkeinen sisältö on tarkistettu.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Jatka virheestä huolimatta</value>
   </data>
@@ -2805,9 +2817,6 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Komentosarjan argumentit</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Valmistellaan asennuksen jälkeistä sisältöä.</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Onnistumisen paluukoodit (pilkuilla erotettuina)</value>
@@ -3237,11 +3246,8 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Päivitä sovellus</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Toiminto valmis</value>
-  </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Toiminta käynnissä</value>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Kulunut aika: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Pysäytetään turvallisesti. Nykyinen levyyn tai levykuvaan kohdistuva toiminto on ehkä suoritettava loppuun ennen siivouksen valmistumista.</value>
@@ -3311,6 +3317,12 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot käyttää ei-tuettua hallintatilaa.</value>
+  </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Ratkaise seuraavat ennen median luomista:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Median luontia ei voi aloittaa. Tarkista valmiuskohteet Aloita-sivulla.</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK tai WinPE Lisäosa ei ole valmis.</value>
@@ -3444,23 +3456,8 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Arkkitehtuuri</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Käynnistyskuvan lähde</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Yhdistä hallinta</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Ota kokoonpano käyttöön</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Kuljettajat</value>
@@ -3468,23 +3465,8 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB muototila</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO lähtöpolku</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Verkkoasetukset</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB osion tyyli</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Median salaisuudet</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Allekirjoitustila</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB kohde</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE käynnistyskieli</value>
@@ -3500,6 +3482,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Median luonti on käytettävissä, kun kaikki valmiustarkastukset ovat läpäisseet.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Aloita valitsemalla alta ISO- tai USB-tuloste.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Täysi muoto</value>
@@ -3529,52 +3514,49 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>OOBE-tilinluonti ohitettu</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Kielen ja valinnaisten komponenttien käyttö.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Käynnistyskuvan riippuvuudet ovat valmiit.</value>
+    <value>Lisätään kieltä ja valinnaisia komponentteja…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Luodaan WinPE työtilaa.</value>
+    <value>Luodaan WinPE-työtilaa…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Tietovälineen luonti peruutettu.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} / {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>Median luonti peruutettiin. Väliaikaiset tiedostot poistettiin.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Tarkistetaan USB kohteen turvallisuutta.</value>
+    <value>Varmistetaan, että USB-aseman voi tyhjentää turvallisesti…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>WinPE työtilan puhdistaminen.</value>
+    <value>Siivotaan edellisen suorituskerran tiedostoja…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>USB-osiotaulukon tyhjentäminen.</value>
+    <value>Tyhjennetään USB-asemaa…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Suoritetaan käynnistyskuvan muutoksia.</value>
+    <value>Tallennetaan käynnistysnäköistiedostoa…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Lopullinen median luominen valmis.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Kopioidaan mukautettuja Windows-näköistiedostoja…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Kopioidaan asennuksen jälkeistä sisältöä…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Kopioidaan WinPE mediaa USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Luodaan ISO mediaa.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Luodaan USB mediaa.</value>
+    <value>Kopioidaan WinPE-tiedostoja USB-asemaan…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Luodaan BOOT-osio.</value>
+    <value>Luodaan BOOT-osiota…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Luodaan välimuistiosio.</value>
+    <value>Luodaan välimuistiosiota…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Mukautetut ohjaimet vievät vähintään {0}; enimmäismäärä on {1}. Valitse vain Windows PE:n tarvitsemat verkko- ja tallennusohjaimet.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Käynnistyskuvan mukauttaminen.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>USB-aseman tunnistetiedot puuttuvat, eivät ole yksiselitteisiä tai ovat muuttuneet. Päivitä USB-asemien luettelo ja valitse asema uudelleen.</value>
@@ -3583,82 +3565,64 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Valittua USB-asemaa ei voi enää muokata turvallisesti. Päivitä USB-asemien luettelo ja valitse toinen USB-asema.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Kansainvälisten asetusten käyttäminen DISM:lla.</value>
+    <value>Otetaan kieliasetuksia käyttöön…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Kielipaketin käyttöönotto DISM.</value>
+    <value>Lisätään kielipakettia…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Valinnaisten komponenttien käyttäminen DISM:lla.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Kuvamuutosten tekeminen DISM:lla.</value>
+    <value>Lisätään valinnaisia komponentteja…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Hylätään liitetty kuva DISM:llä.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Viedään Windows-kuvaa DISM:lla.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Ohjainten pistäminen DISM:lla.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Asennuskuva DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows-kuvaindeksin ratkaiseminen DISM:lla.</value>
+    <value>Hylätään näköistiedostoa, jonka edellinen suorituskerta jätti liitetyksi…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Ladataan sisältöä.</value>
+    <value>Ladataan</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Ladataan ohjainpakettia</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Ladataan ohjainpakettia {0}/{1}: {2}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Ladataan {0} käyttöönottokomponentteja.</value>
+    <value>Ladataan: {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Ladataan Windows-lähdepakettia.</value>
+    <value>Ladataan Windowsin lähdepakettia</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Arvioidaan käynnistyksen allekirjoituskäytäntöä.</value>
+    <value>Tarkistetaan käynnistysallekirjoitusten tukea…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Viedään Windows-kuvaa käynnistyskuvan valmistelua varten.</value>
+    <value>Puretaan Windows-näköistiedostoa…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Lopullinen median luominen epäonnistui.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Virhe tapahtui vaiheessa {0}/{1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Viimeistellään ISO-tulostusta.</value>
+    <value>Tallennetaan ISO-tiedostoa…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>BOOT-osion alustus.</value>
+    <value>Alustetaan BOOT-osiota…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Välimuistiosion alustus.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Käynnistyskuvan mukauttaminen valmis.</value>
+    <value>Alustetaan välimuistiosiota…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Alustetaan USB osiotaulukkoa.</value>
+    <value>Luodaan osiotaulukkoa…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Ohjainten lisääminen käynnistyskuvaan.</value>
+    <value>Lisätään ohjaimia käynnistysnäköistiedostoon…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Tarkistetaan USB-median asettelua.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO media valmis.</value>
+    <value>Luetaan USB-aseman osiorakennetta…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry ei voinut korvata ISO-tiedostoa {0}. Tiedosto saattaa olla liitetty, kytketty virtuaalikoneeseen, auki toisessa ohjelmassa tai vain luku -tilassa. Irrota tai sulje se tai valitse toinen tulostepolku ja yritä sitten uudelleen.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>ISO -median luominen onnistui.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO-tiedosto tallennettiin sijaintiin:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Koko: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Levytila ei riitä käynnistyskuvan luomiseen. Kohteessa {2} on oltava vähintään {0} vapaata tilaa. Käytettävissä: {1}. Vapauta tilaa ja yritä uudelleen.</value>
@@ -3667,73 +3631,148 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Käynnistyskuvan luomiseen käytettävissä olevaa levytilaa ei voitu tarkistaa kohteessa {0}. Tarkista, että sijainti on käytettävissä, ja yritä uudelleen.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Asennus käynnistyskuva.</value>
+    <value>Avataan käynnistysnäköistiedostoa…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Windows-lähdekuvan asennus.</value>
+    <value>Avataan Windows-näköistiedostoa…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Avaa kansio</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Avaa lokikansio</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>USB-levyn avaaminen.</value>
+    <value>Avataan USB-asemaa…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Osio ja muotoilu USB kohde.</value>
+    <value>Osioidaan USB-asemaa…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Kopioidaan tiedostoja USB-asemaan</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Luodaan ISO-tiedostoa</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Mukautetaan käynnistysnäköistiedostoa</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Haetaan ohjaimia</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Viimeistellään</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Alustetaan USB-asemaa</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Valmistellaan työtilaa</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Päivitetään USB-asemaa</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Valmistellaan käynnistyskuvan mukauttamista.</value>
+    <value>Valmistellaan käynnistysnäköistiedostoa…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Valmistellaan Foundry-komponentteja…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Valmistellaan ISO lähtöpolkua.</value>
+    <value>Valmistellaan ISO-tiedoston kohdekansiota…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Valmistellaan ISO työtilaa.</value>
+    <value>Valmistellaan ISO-tiedostoja…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Valmistellaan asennuksen jälkeistä sisältöä…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Valmistellaan USB-välimuistiosiota.</value>
+    <value>Valmistellaan välimuistiosiota…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Valmistellaan USB levyattribuutteja.</value>
+    <value>Valmistellaan USB-asemaa…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Valmistellaan Windows-lähdepakettia.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Valmistellaan WinPE työtilaa.</value>
+    <value>Haetaan Windowsin lähdepakettia…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Käynnistysresurssit Foundry.</value>
+    <value>Lisätään Foundryn käynnistystiedostoja…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Lisätään Foundry käyttöönottokomponentteja.</value>
+    <value>Lisätään Foundry-komponentteja…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry komponenttien lisääminen USB-mediaan.</value>
+    <value>Lisätään Foundry-komponentteja USB-asemaan…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Poistetaan väliaikaisia tiedostoja…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Käynnistyskuvan korvaaminen WinRE:llä.</value>
+    <value>Korvataan käynnistysnäköistiedostoa Windows RE:llä…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Ajuripakettien ratkaiseminen.</value>
+    <value>Tarkistetaan, mitä ohjaimia lisätään…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Ratkaistaan Windows-kuvaindeksiä.</value>
+    <value>Valitaan Windows-versiota…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Windows-lähdeluettelon ratkaiseminen.</value>
+    <value>Etsitään Windowsin lähdepakettia…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>MakeWinPEMedia käynnissä ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Valittu Windows-lähdepaketti.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Lisätietoja on lokissa.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Valmistellaan käynnistyskuvan riippuvuuksia.</value>
+    <value>Kopioidaan tarvittavia tiedostoja Windows-näköistiedostosta…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Vaihe {0}/{1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Tekniset tiedot: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>ISO-tiedoston luonti peruutettu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>ISO-tiedoston luonti epäonnistui</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Luodaan ISO-tiedostoa</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO-tiedosto luotu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>USB-median luonti peruutettu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>USB-median luonti epäonnistui</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Luodaan USB-mediaa</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB-media luotu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>USB-median päivitys peruutettu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>USB-median päivitys epäonnistui</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Päivitetään USB-mediaa</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB-media päivitetty</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Siirron aikakatkaisu. Tarkista yhteys ja yritä uudelleen.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Päivitetään USB-mediaa.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Odottamaton virhe keskeytti median luonnin.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB-aseman BOOT-osio tarvitsee noin {0}, mutta sen kapasiteetti on {1}. Mitään ei ole poistettu tai alustettu. Vähennä mukautuksia tai ohjaimia tai luo ISO.</value>
@@ -3744,35 +3783,32 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Käynnistysmedian tiedoston koko on {0}; FAT32 tukee enintään {1} tiedostoa kohden. Pienennä käynnistysnäköistiedostoa tai luo ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB-käynnistysosio päivitettiin.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>USB-asemalta ei ehkä voi enää käynnistää laitetta. Luo tai päivitä se uudelleen ennen käyttöä.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB media valmis.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB osiot alustettu.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB media luotiin onnistuneesti. Käynnistysvoimakkuus: {0}. Välimuistin määrä: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB-käynnistysosio päivitettiin onnistuneesti. Käynnistystaltion nimi: {0}. Välimuistitaltion nimi: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Käynnistystaltio: {0}. Välimuistitaltio: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Vahvistetaan USB kohdetta.</value>
+    <value>Tarkistetaan USB-asemaa…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
+    <value>Tarkistetaan välimuistissa olevaa tiedostoa {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>USB käynnistysmedian tarkistaminen.</value>
+    <value>Tarkistetaan USB-aseman käynnistystiedostoja…</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows esti pääsyn WinPE-näköistiedostoihin. Suojausohjelmisto tai jokin muu työkalu saattaa lukita ne. Lisää suojausohjelmistoon poikkeus kohteelle {0}, sulje näköistiedostoja liittävät työkalut, käynnistä tietokone uudelleen ja yritä uudelleen. Lisätietoja on tiedostoissa {1} ja {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Kirjoitetaan ISO-tiedostoa…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tarkista valmius, valitse ISO- tai USB-tuloste ja käynnistä median luonti.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Tarkista</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Tarkista: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Valmis</value>
@@ -3859,6 +3895,15 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE käynnistyskieli</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Paketit: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Vaatii huomiota: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Vaatii huomiota: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Oletus</value>
