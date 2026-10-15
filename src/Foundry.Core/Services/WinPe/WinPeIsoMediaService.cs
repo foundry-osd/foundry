@@ -82,7 +82,8 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     ? Path.GetDirectoryName(preparedOutputPath)! : options.IsoTempDirectoryPath;
                 safeWorkspacePath = Path.Combine(temporaryRoot, "custom-iso-" + Guid.NewGuid().ToString("N"));
                 await WinPeCustomImageIsoMastering.PrepareAsync(preparedWorkspace.Artifact, options.CustomImages, options.PostInstallation,
-                    safeWorkspacePath, preparedOutputPath, requestedOutputPath, cancellationToken).ConfigureAwait(false);
+                    safeWorkspacePath, preparedOutputPath, requestedOutputPath, cancellationToken,
+                    WinPeScaledProgress.Create(options.Progress, 20, 40)).ConfigureAwait(false);
                 makeWinPeMediaWorkspacePath = safeWorkspacePath;
             }
             else

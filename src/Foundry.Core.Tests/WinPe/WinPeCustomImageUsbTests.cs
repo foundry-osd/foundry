@@ -111,8 +111,49 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         Assert.Equal(withImages ? 2048L : 0L, publisher.AdditionalCapacityBytes);
     }
 
-    private sealed class Publisher(bool fail) : IWinPeCustomImageMediaPublisher, IWinPePreOobeMediaPublisher
+    [Fact]
+    public async Task Update_ReportsPublishedContentInsideItsOwnMonotonicRange()
     {
+        Directory.CreateDirectory(root);
+        var publisher = new Publisher(fail: false, reportProgress: true);
+        var runner = new Runner(publisher);
+        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
+        using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
+        using var post = new WinPePreOobeMediaLease(new PreOobeMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
+        string config = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
+        {
+            PreOobe = new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
+            CustomImages = new() { IsEnabled = true, ManifestId = images.ManifestId, ManifestHash = images.ManifestHash }
+        }, ConfigurationJsonDefaults.SerializerOptions);
+        var progress = new CollectingProgress<WinPeMediaProgress>();
+        var options = new UsbOutputOptions
+        {
+            TargetDiskNumber = 9,
+            ExpectedDiskFriendlyName = "Safe USB",
+            ExpectedDiskSerialNumber = "SERIAL",
+            ExpectedDiskUniqueId = "UNIQUE",
+            ExpectedDiskBusType = "USB",
+            ExpectedDiskSizeBytes = 64000000000,
+            CustomImages = images,
+            PostInstallation = post,
+            DeployConfigurationJson = config,
+            Progress = progress
+        };
+
+        _ = await service.UpdateBootPartitionAsync(options,
+            new() { WorkingDirectoryPath = root, MediaDirectoryPath = root }, new() { PowerShellPath = "shadowed" }, false,
+            TestContext.Current.CancellationToken);
+
+        int[] percents = progress.Reports.Select(report => report.Percent).ToArray();
+        Assert.Equal(percents.Order(), percents);
+        Assert.All(
+            progress.Reports.Where(report => report.Status == Publisher.PublishStatus),
+            report => Assert.InRange(report.Percent, 22, 34));
+    }
+
+    private sealed class Publisher(bool fail, bool reportProgress = false) : IWinPeCustomImageMediaPublisher, IWinPePreOobeMediaPublisher
+    {
+        internal const string PublishStatus = "Publishing test content.";
         internal bool PublishAttempted { get; private set; }
         internal IReadOnlyList<string> ValidatedInputs { get; private set; } = [];
         internal long? AdditionalCapacityBytes { get; private set; }
@@ -126,6 +167,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         public Task PublishAsync(WinPePreOobeMediaLease package, string root, CancellationToken token, IProgress<WinPeMediaProgress>? progress = null)
         {
             PublishAttempted = true;
+            ReportPublishProgress(progress);
             return fail ? Task.FromException(new IOException("Disk full")) : Task.CompletedTask;
         }
         public Task ValidateSourcesAsync(WinPeCustomImageMediaLease package, CancellationToken cancellationToken = default) => Task.CompletedTask;
@@ -143,7 +185,15 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         public Task PublishAsync(WinPeCustomImageMediaLease package, string root, CancellationToken token = default, IProgress<WinPeMediaProgress>? progress = null)
         {
             PublishAttempted = true;
+            ReportPublishProgress(progress);
             return fail ? Task.FromException(new IOException("Disk full")) : Task.CompletedTask;
+        }
+
+        private void ReportPublishProgress(IProgress<WinPeMediaProgress>? progress)
+        {
+            if (!reportProgress || progress is null) return;
+            foreach (int percent in new[] { 0, 50, 100 })
+                progress.Report(new WinPeMediaProgress { Percent = percent, Status = PublishStatus });
         }
     }
 
@@ -168,5 +218,15 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         }
         public Task<WinPeProcessExecution> RunCmdScriptAsync(string script, string arguments, string working, CancellationToken token) => throw new NotSupportedException();
         public Task<WinPeProcessExecution> RunCmdScriptDirectAsync(string script, string arguments, string working, CancellationToken token) => throw new NotSupportedException();
+    }
+
+    private sealed class CollectingProgress<T> : IProgress<T>
+    {
+        public List<T> Reports { get; } = [];
+
+        public void Report(T value)
+        {
+            Reports.Add(value);
+        }
     }
 }
