@@ -520,8 +520,9 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.Contains(FakeReleaseHttpMessageHandler.LatestReleaseUri, httpHandler.RequestUris);
         Assert.Contains(FakeReleaseHttpMessageHandler.DownloadUri, httpHandler.RequestUris);
-        Assert.Contains(progress.Items, item => item is { Percent: 0, Status: "Downloading Foundry.Connect runtime payload." });
-        Assert.Contains(progress.Items, item => item.Percent == 100 && item.Status.Contains("Foundry.Connect", StringComparison.Ordinal));
+        Assert.Contains(progress.Items, item => item is { Percent: 0, ItemName: "Foundry.Connect" }
+            && item.Status == WinPeProgressStatuses.DownloadingRuntimePayload);
+        Assert.Contains(progress.Items, item => item is { Percent: 100, ItemName: "Foundry.Connect", BytesTransferred: > 0 });
         Assert.True(File.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Connect", "win-x64", "original.zip")));
         Assert.False(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Deploy")));
     }

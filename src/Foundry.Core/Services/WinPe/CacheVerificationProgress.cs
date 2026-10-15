@@ -13,6 +13,9 @@ internal sealed class CacheVerificationProgress(IProgress<WinPeDownloadProgress>
     public void Report(CachedArtifactVerificationProgress value) => progress?.Report(new WinPeDownloadProgress
     {
         Percent = value.IsComplete ? 100 : (int)Math.Min(99, value.BytesVerified * 100.0 / value.TotalBytes),
-        Status = $"Verifying cached source '{fileName}'."
+        Status = WinPeProgressStatuses.VerifyingCachedSource,
+        ItemName = fileName,
+        BytesTransferred = value.BytesVerified,
+        TotalBytes = value.TotalBytes
     });
 }

@@ -114,7 +114,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             languagePackPath,
             workingDirectoryPath,
             "Failed to add the selected WinPE language pack.",
-            "Applying language pack with DISM.",
+            WinPeProgressStatuses.DismApplyingLanguagePack,
             allowNonBlockingPackageFailure: false,
             dismProgress,
             cancellationToken).ConfigureAwait(false);
@@ -138,7 +138,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                     neutralPackagePath,
                     workingDirectoryPath,
                     $"Failed to add the '{component}' WinPE optional component.",
-                    "Applying optional components with DISM.",
+                    WinPeProgressStatuses.DismApplyingOptionalComponents,
                     allowNonBlockingPackageFailure: !isBlockingComponent,
                     dismProgress,
                     cancellationToken).ConfigureAwait(false);
@@ -165,7 +165,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                     localizedPackagePath,
                     workingDirectoryPath,
                     $"Failed to add the localized '{component}' WinPE optional component.",
-                    "Applying optional components with DISM.",
+                    WinPeProgressStatuses.DismApplyingOptionalComponents,
                     allowNonBlockingPackageFailure: !isBlockingComponent,
                     dismProgress,
                     cancellationToken).ConfigureAwait(false);
@@ -240,7 +240,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                 dismPath,
                 $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /{operation}:{canonicalLocale}",
                 workingDirectoryPath,
-                "Applying international settings with DISM.",
+                WinPeProgressStatuses.DismApplyingInternationalSettings,
                 dismProgress,
                 cancellationToken).ConfigureAwait(false);
 

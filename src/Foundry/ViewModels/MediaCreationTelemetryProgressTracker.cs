@@ -13,52 +13,39 @@ namespace Foundry.ViewModels;
 /// </summary>
 internal sealed class MediaCreationTelemetryProgressTracker : ILogEventEnricher
 {
-    private static readonly IReadOnlyList<StatusStepMapping> CustomizationStatusMappings =
-    (StatusStepMapping[])
-    [
-        new("Resolving Windows source catalog", MediaCreationStepNames.ResolveWinReSourceCatalog),
-        new("Selected Windows source package", MediaCreationStepNames.SelectWinReSourcePackage),
-        new("Preparing Windows source package", MediaCreationStepNames.PrepareWinReSourcePackage),
-        new("Resolving Windows image index", MediaCreationStepNames.ResolveWinReImageIndex),
-        new("Exporting Windows image", MediaCreationStepNames.ExportWinReSourceImage),
-        new("Mounting Windows source image", MediaCreationStepNames.MountWinReSourceImage),
-        new("Staging boot image dependencies", MediaCreationStepNames.StageWinReWifiDependencies),
-        new("Replacing boot image with WinRE", MediaCreationStepNames.ReplaceBootImageWithWinRe),
-        new("Preparing boot image customization", MediaCreationStepNames.CustomizeBootImage),
-        new("Mounting boot image", MediaCreationStepNames.MountBootImage),
-        new("Injecting drivers", MediaCreationStepNames.InjectDriversIntoBootImage),
-        new("Applying language", MediaCreationStepNames.ApplyLanguageAndOptionalComponents),
-        new("Applying optional components", MediaCreationStepNames.ApplyLanguageAndOptionalComponents),
-        new("Applying international settings", MediaCreationStepNames.ApplyLanguageAndOptionalComponents),
-        new("Provisioning Foundry boot assets", MediaCreationStepNames.ProvisionBootAssets),
-        new("Provisioning Foundry runtime payloads", MediaCreationStepNames.ProvisionRuntimePayloads),
-        new("Committing image changes", MediaCreationStepNames.CommitBootImageChanges)
-    ];
+    private static readonly IReadOnlyDictionary<string, string> CustomizationStepNames = new Dictionary<string, string>(StringComparer.Ordinal)
+    {
+        [WinPeProgressStatuses.ResolvingWindowsSourceCatalog] = MediaCreationStepNames.ResolveWinReSourceCatalog,
+        [WinPeProgressStatuses.SelectedWindowsSourcePackage] = MediaCreationStepNames.SelectWinReSourcePackage,
+        [WinPeProgressStatuses.PreparingWindowsSourcePackage] = MediaCreationStepNames.PrepareWinReSourcePackage,
+        [WinPeProgressStatuses.ResolvingWindowsImageIndex] = MediaCreationStepNames.ResolveWinReImageIndex,
+        [WinPeProgressStatuses.ExportingWindowsSourceImage] = MediaCreationStepNames.ExportWinReSourceImage,
+        [WinPeProgressStatuses.MountingWindowsSourceImage] = MediaCreationStepNames.MountWinReSourceImage,
+        [WinPeProgressStatuses.StagingBootImageDependencies] = MediaCreationStepNames.StageWinReWifiDependencies,
+        [WinPeProgressStatuses.ReplacingBootImageWithWinRe] = MediaCreationStepNames.ReplaceBootImageWithWinRe,
+        [WinPeProgressStatuses.PreparingBootImageCustomization] = MediaCreationStepNames.CustomizeBootImage,
+        [WinPeProgressStatuses.MountingBootImage] = MediaCreationStepNames.MountBootImage,
+        [WinPeProgressStatuses.InjectingDrivers] = MediaCreationStepNames.InjectDriversIntoBootImage,
+        [WinPeProgressStatuses.ApplyingLanguageAndComponents] = MediaCreationStepNames.ApplyLanguageAndOptionalComponents,
+        [WinPeProgressStatuses.ProvisioningBootAssets] = MediaCreationStepNames.ProvisionBootAssets,
+        [WinPeProgressStatuses.ProvisioningRuntimePayloads] = MediaCreationStepNames.ProvisionRuntimePayloads,
+        [WinPeProgressStatuses.CommittingImageChanges] = MediaCreationStepNames.CommitBootImageChanges
+    };
 
-    private static readonly IReadOnlyList<StatusStepMapping> DownloadStatusMappings =
-    (StatusStepMapping[])
-    [
-        new("Downloading driver package", MediaCreationStepNames.DownloadWinPeDriverPackage),
-        new("Downloading Windows source package", MediaCreationStepNames.DownloadWinReSourcePackage),
-        new("Downloading Foundry.Connect runtime payload", MediaCreationStepNames.DownloadConnectRuntimePayload),
-        new("Downloading Foundry.Deploy runtime payload", MediaCreationStepNames.DownloadDeployRuntimePayload)
-    ];
-
-    private static readonly IReadOnlyList<StatusStepMapping> FinalMediaStatusMappings =
-    (StatusStepMapping[])
-    [
-        new("Preparing ISO output path", MediaCreationStepNames.PrepareIsoOutputPath),
-        new("Preparing ISO workspace", MediaCreationStepNames.PrepareIsoWorkspace),
-        new("Running MakeWinPEMedia for ISO", MediaCreationStepNames.RunMakeWinPeMediaForIso),
-        new("Finalizing ISO output", MediaCreationStepNames.FinalizeIsoOutput),
-        new("Validating USB target", MediaCreationStepNames.ValidateUsbTarget),
-        new("Checking USB target safety", MediaCreationStepNames.CheckUsbTargetSafety),
-        new("Partitioning and formatting USB target", MediaCreationStepNames.PartitionAndFormatUsbTarget),
-        new("Copying WinPE media to USB", MediaCreationStepNames.CopyWinPeMediaToUsb),
-        new("Verifying USB boot media", MediaCreationStepNames.VerifyUsbBootMedia),
-        new("Preparing USB cache partition", MediaCreationStepNames.PrepareUsbCachePartition),
-        new("Provisioning USB runtime payloads", MediaCreationStepNames.ProvisionUsbRuntimePayloads)
-    ];
+    private static readonly IReadOnlyDictionary<string, string> FinalMediaStepNames = new Dictionary<string, string>(StringComparer.Ordinal)
+    {
+        [WinPeProgressStatuses.PreparingIsoOutput] = MediaCreationStepNames.PrepareIsoOutputPath,
+        [WinPeProgressStatuses.PreparingIsoWorkspace] = MediaCreationStepNames.PrepareIsoWorkspace,
+        [WinPeProgressStatuses.RunningMakeWinPeMediaIso] = MediaCreationStepNames.RunMakeWinPeMediaForIso,
+        [WinPeProgressStatuses.FinalizingIsoOutput] = MediaCreationStepNames.FinalizeIsoOutput,
+        [WinPeProgressStatuses.ValidatingUsbTarget] = MediaCreationStepNames.ValidateUsbTarget,
+        [WinPeProgressStatuses.CheckingUsbTargetSafety] = MediaCreationStepNames.CheckUsbTargetSafety,
+        [WinPeProgressStatuses.PartitioningUsbTarget] = MediaCreationStepNames.PartitionAndFormatUsbTarget,
+        [WinPeProgressStatuses.CopyingWinPeMediaToUsb] = MediaCreationStepNames.CopyWinPeMediaToUsb,
+        [WinPeProgressStatuses.VerifyingUsbBootMedia] = MediaCreationStepNames.VerifyUsbBootMedia,
+        [WinPeProgressStatuses.PreparingUsbCachePartition] = MediaCreationStepNames.PrepareUsbCachePartition,
+        [WinPeProgressStatuses.ProvisioningUsbRuntimePayloads] = MediaCreationStepNames.ProvisionUsbRuntimePayloads
+    };
 
     /// <summary>
     /// Gets the last media creation stage reported before the operation completed or failed.
@@ -137,33 +124,24 @@ internal sealed class MediaCreationTelemetryProgressTracker : ILogEventEnricher
 
     private static string ResolveFailedStepName(WinPeMountedImageCustomizationProgress progress)
     {
-        return ResolveStatusStepName(progress.Status, CustomizationStatusMappings, MediaCreationStepNames.CustomizeBootImage);
+        return CustomizationStepNames.GetValueOrDefault(progress.Status, MediaCreationStepNames.CustomizeBootImage);
     }
 
     private static string ResolveFailedStepName(WinPeDownloadProgress progress)
     {
-        return ResolveStatusStepName(progress.Status, DownloadStatusMappings, MediaCreationStepNames.DownloadMediaDependency);
+        return progress.Status switch
+        {
+            WinPeProgressStatuses.DownloadingDriverPackage => MediaCreationStepNames.DownloadWinPeDriverPackage,
+            WinPeProgressStatuses.DownloadingWindowsSourcePackage => MediaCreationStepNames.DownloadWinReSourcePackage,
+            WinPeProgressStatuses.DownloadingRuntimePayload when progress.ItemName == "Foundry.Connect" => MediaCreationStepNames.DownloadConnectRuntimePayload,
+            WinPeProgressStatuses.DownloadingRuntimePayload when progress.ItemName == "Foundry.Deploy" => MediaCreationStepNames.DownloadDeployRuntimePayload,
+            _ => MediaCreationStepNames.DownloadMediaDependency
+        };
     }
 
     private static string ResolveFailedStepName(WinPeMediaProgress progress)
     {
-        return ResolveStatusStepName(progress.Status, FinalMediaStatusMappings, MediaCreationStepNames.CreateFinalMedia);
-    }
-
-    private static string ResolveStatusStepName(
-        string status,
-        IReadOnlyList<StatusStepMapping> mappings,
-        string fallback)
-    {
-        foreach (StatusStepMapping mapping in mappings)
-        {
-            if (status.StartsWith(mapping.StatusPrefix, StringComparison.OrdinalIgnoreCase))
-            {
-                return mapping.StepName;
-            }
-        }
-
-        return fallback;
+        return FinalMediaStepNames.GetValueOrDefault(progress.Status, MediaCreationStepNames.CreateFinalMedia);
     }
 
     private sealed class TrackingProgress<T>(
@@ -178,7 +156,6 @@ internal sealed class MediaCreationTelemetryProgressTracker : ILogEventEnricher
         }
     }
 
-    private sealed record StatusStepMapping(string StatusPrefix, string StepName);
 }
 
 /// <summary>

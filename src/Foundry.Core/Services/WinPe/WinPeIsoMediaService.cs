@@ -63,13 +63,13 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 
         try
         {
-            ReportProgress(options.Progress, 0, "Preparing ISO output path.");
+            ReportProgress(options.Progress, 0, WinPeProgressStatuses.PreparingIsoOutput);
             EnsureOutputDirectoryExists(requestedOutputPath);
             if (!options.ForceOverwriteOutput && File.Exists(requestedOutputPath))
                 throw new IOException("The ISO output already exists and overwrite is disabled.");
             preparedOutputPath = PrepareOutputPath(requestedOutputPath, options.IsoTempDirectoryPath);
             currentStage = "Prepare ISO workspace";
-            ReportProgress(options.Progress, 20, "Preparing ISO workspace.");
+            ReportProgress(options.Progress, 20, WinPeProgressStatuses.PreparingIsoWorkspace);
             string makeWinPeMediaWorkspacePath;
             if (hasExternalContent)
             {
@@ -99,7 +99,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 (preparedWorkspace.UseBootEx ? " /bootex" : string.Empty);
 
             currentStage = $"Run {isoTool} for ISO";
-            ReportProgress(options.Progress, 40, hasExternalContent ? "Creating ISO media." : "Running MakeWinPEMedia for ISO.");
+            ReportProgress(options.Progress, 40, hasExternalContent ? WinPeProgressStatuses.CreatingIsoMedia : WinPeProgressStatuses.RunningMakeWinPeMediaIso);
             WinPeProcessExecution execution = !hasExternalContent
                 ? await _processRunner.RunCmdScriptAsync(preparedWorkspace.Tools.MakeWinPeMediaPath,
                     arguments, makeWinPeMediaWorkspacePath, cancellationToken).ConfigureAwait(false)
@@ -130,11 +130,11 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
             }
 
             currentStage = FinalizeOutputStage;
-            ReportProgress(options.Progress, 90, "Finalizing ISO output.");
+            ReportProgress(options.Progress, 90, WinPeProgressStatuses.FinalizingIsoOutput);
             cancellationToken.ThrowIfCancellationRequested();
             await FinalizeOutputAsync(preparedOutputPath, requestedOutputPath, options.ForceOverwriteOutput,
                 finalizeRetryCount, cancellationToken).ConfigureAwait(false);
-            ReportProgress(options.Progress, 100, "ISO media completed.");
+            ReportProgress(options.Progress, 100, WinPeProgressStatuses.IsoMediaCompleted);
             return WinPeResult.Success();
         }
         catch (Exception ex) when (currentStage == FinalizeOutputStage && IsOutputLockedOrDenied(ex))
