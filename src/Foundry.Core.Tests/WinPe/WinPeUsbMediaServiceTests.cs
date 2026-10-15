@@ -110,8 +110,10 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Equal(WinPeErrorCodes.UsbUnsafeTarget, result.Error?.Code);
     }
 
-    [Fact]
-    public void ValidateDiskSafety_WhenTargetIsBelowMinimumSize_ReturnsUnsafeTarget()
+    [Theory]
+    [InlineData(8_000_000_000UL)]
+    [InlineData(13_999_999_999UL)]
+    public void ValidateDiskSafety_WhenTargetIsBelowMinimumSize_ReturnsUnsafeTarget(ulong sizeBytes)
     {
         WinPeResult result = WinPeUsbMediaService.ValidateDiskSafety(
             new UsbOutputOptions
@@ -124,11 +126,40 @@ public sealed class WinPeUsbMediaServiceTests
                 Number = 3,
                 FriendlyName = "Small USB",
                 BusType = "USB",
-                Size = 15UL * 1024UL * 1024UL * 1024UL
+                Size = sizeBytes
             });
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.UsbUnsafeTarget, result.Error?.Code);
+    }
+
+    // Drives sold as 16 GB hold fewer than 16 GiB; the minimum accepts them.
+    [Theory]
+    [InlineData(14_000_000_000UL)]
+    [InlineData(15_376_000_000UL)]
+    public void ValidateDiskSafety_WhenTargetIsSoldAs16Gb_Succeeds(ulong sizeBytes)
+    {
+        WinPeResult result = WinPeUsbMediaService.ValidateDiskSafety(
+            new UsbOutputOptions
+            {
+                TargetDiskNumber = 3,
+                ExpectedDiskUniqueId = "USB-ID",
+                ExpectedDiskSerialNumber = "USB123",
+                ExpectedDiskFriendlyName = "USB sold as 16 GB",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = sizeBytes
+            },
+            new WinPeUsbDiskIdentity
+            {
+                Number = 3,
+                UniqueId = "USB-ID",
+                SerialNumber = "USB123",
+                FriendlyName = "USB sold as 16 GB",
+                BusType = "USB",
+                Size = sizeBytes
+            });
+
+        Assert.True(result.IsSuccess, result.Error?.Message);
     }
 
     [Theory]

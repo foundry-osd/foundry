@@ -42,8 +42,10 @@ public sealed class MediaPreflightServiceTests
         Assert.Contains(MediaPreflightBlockingReason.NoUsbTarget, evaluation.UsbBlockingReasons);
     }
 
-    [Fact]
-    public void Evaluate_WhenUsbCandidateIsBelowMinimumSize_BlocksUsbCreationOnly()
+    [Theory]
+    [InlineData(8_000_000_000UL)]
+    [InlineData(13_999_999_999UL)]
+    public void Evaluate_WhenUsbCandidateIsBelowMinimumSize_BlocksUsbCreationOnly(ulong sizeBytes)
     {
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
             CreateReadyOptions() with
@@ -55,7 +57,7 @@ public sealed class MediaPreflightServiceTests
                     SerialNumber = "USB123",
                     UniqueId = "USB-ID",
                     BusType = "USB",
-                    SizeBytes = 15UL * 1024UL * 1024UL * 1024UL
+                    SizeBytes = sizeBytes
                 },
                 IsFinalExecutionEnabled = true
             });
@@ -65,6 +67,31 @@ public sealed class MediaPreflightServiceTests
         Assert.False(evaluation.CanCreateUsb);
         Assert.Contains(MediaPreflightBlockingReason.UsbTargetBelowMinimumSize, evaluation.UsbBlockingReasons);
         Assert.DoesNotContain(MediaPreflightBlockingReason.UsbTargetBelowMinimumSize, evaluation.IsoBlockingReasons);
+    }
+
+    // Drives sold as 16 GB hold fewer than 16 GiB; the minimum accepts them.
+    [Theory]
+    [InlineData(14_000_000_000UL)]
+    [InlineData(15_376_000_000UL)]
+    [InlineData(16_000_000_000UL)]
+    public void Evaluate_WhenUsbCandidateIsSoldAs16Gb_DoesNotBlockOnSize(ulong sizeBytes)
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                SelectedUsbDisk = new WinPeUsbDiskCandidate
+                {
+                    DiskNumber = 3,
+                    FriendlyName = "USB sold as 16 GB",
+                    SerialNumber = "USB123",
+                    UniqueId = "USB-ID",
+                    BusType = "USB",
+                    SizeBytes = sizeBytes
+                },
+                IsFinalExecutionEnabled = true
+            });
+
+        Assert.DoesNotContain(MediaPreflightBlockingReason.UsbTargetBelowMinimumSize, evaluation.UsbBlockingReasons);
     }
 
     [Fact]
