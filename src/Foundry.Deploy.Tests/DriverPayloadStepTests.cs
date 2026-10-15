@@ -24,7 +24,7 @@ public sealed class DriverPayloadStepTests
         using var context = new DeploymentStepExecutionContext(original.Request with { IsDryRun = dryRun },
             original.RuntimeState, [], new DriverApplicationOperationProgressService(), new DriverApplicationLogService(),
             new DriverApplicationTargetDiskService(), _ => { });
-        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
+        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredPostInstall;
         context.RuntimeState.DownloadedDriverPackPath = fixture.CreateDriverPackage();
         var extraction = new RecordingExtractionService();
 
@@ -173,7 +173,7 @@ public sealed class DriverPayloadStepTests
         using var fixture = new DriverApplicationStepTestFixture();
         using DeploymentStepExecutionContext context = CreateContext(fixture, DriverPackSelectionKind.OemCatalog,
             new DriverPackCatalogItem { Manufacturer = "Lenovo", FileName = "drivers.exe", DownloadUrl = "https://example.test/drivers.exe" });
-        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
+        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredPostInstall;
         var downloader = new PayloadDownloader(0);
         var catalogService = new MicrosoftUpdateCatalogDriverService(
             new MicrosoftUpdateCatalogServiceTests.FakeArchiveExtractionService(),
@@ -185,7 +185,7 @@ public sealed class DriverPayloadStepTests
 
         Assert.Equal(DeploymentStepState.Skipped, result.State);
         Assert.True(File.Exists(context.RuntimeState.DownloadedDriverPackPath));
-        Assert.Equal(DriverPackInstallMode.DeferredSetupComplete, context.RuntimeState.DriverPackInstallMode);
+        Assert.Equal(DriverPackInstallMode.DeferredPostInstall, context.RuntimeState.DriverPackInstallMode);
     }
 
     [Fact]

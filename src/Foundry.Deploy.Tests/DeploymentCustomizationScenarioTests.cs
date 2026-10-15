@@ -112,7 +112,6 @@ public sealed class DeploymentCustomizationScenarioTests
         Assert.NotNull(context.NetworkProfileRoamingPayload);
 
         var windows = new RecordingCustomizationService();
-        var setupComplete = new SetupCompleteScriptService();
         IDeploymentStep[] customizationSteps =
         [
             new StageCustomUnattendStep(),
@@ -122,7 +121,7 @@ public sealed class DeploymentCustomizationScenarioTests
             new StagePreOobeCustomizationStep(new DriverPackStrategyResolver(),
                 new PreOobeTargetStagingService(path => Directory.CreateDirectory(path))),
             new ProvisionAutopilotStep(forbidden, forbidden,
-                new AutopilotInteractiveRegistrationProvisioningService(setupComplete), forbidden),
+                new AutopilotInteractiveRegistrationProvisioningService(), forbidden),
             new FinalizeDeploymentAndWriteLogsStep()
         ];
         IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(request, state,
@@ -168,13 +167,10 @@ public sealed class DeploymentCustomizationScenarioTests
         Assert.Contains("Microsoft.Copilot", planText);
         Assert.Contains("Microsoft.BingNews", planText);
         using JsonDocument executionPlan = JsonDocument.Parse(planText);
-        Assert.Equal(new[] { "driver-pack", "network-profile-roaming", "remove-ai-components", "remove-appx", "cleanup" },
+        Assert.Equal(new[] { "driver-pack", "network-profile-roaming", "remove-ai-components", "remove-appx", "autopilot-registration", "cleanup" },
             executionPlan.RootElement.GetProperty("actions").EnumerateArray().Select(action => action.GetProperty("id").GetString()));
-        string oobe = await File.ReadAllTextAsync(Path.Combine(fixture.WindowsRoot, "Windows", "Setup", "Scripts", "OOBE.cmd"), cancellationToken);
-        Assert.Equal(1, oobe.Split("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", StringSplitOptions.None).Length - 1);
         Assert.True(File.Exists(state.StagedAutopilotConfigurationPath));
-        foreach (string file in new[] { "Start-FoundryAutopilotRegistration.ps1", "Start-FoundryAutopilotRegistrationOobe.cmd", "Wait-FoundryAutopilotRegistrationOobe.ps1", "Start-FoundryAutopilotRegistrationForeground.ps1", "ServiceUI.exe" })
-            Assert.True(File.Exists(Path.Combine(retainedRoot, "Runtime", "AutopilotRegistration", file)), file);
+        Assert.True(File.Exists(Path.Combine(retainedRoot, "Runtime", "AutopilotRegistration", "Start-FoundryAutopilotRegistration.ps1")));
     }
 
     private sealed class ScenarioDiskService(string workspaceRoot, string windowsRoot) : ITargetDiskService

@@ -557,7 +557,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot profili içe aktarılıyor...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Etkinleştirildiğinde teknisyen, OOBE sırasında Microsoft cihaz koduyla oturum açar ve cihazın donanım karmasını yükler.</value>
+    <value>Etkinleştirildiğinde teknisyen, Windows kurulumu sırasında Microsoft cihaz koduyla oturum açar ve cihazın donanım karmasını yükler.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Etkileşimli donanım karması yükleme</value>
@@ -632,7 +632,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot profillerini seçin</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>OOBE sırasında donanım karması kaydı için teknisyenin cihaz koduyla oturum açmasını hazırlar.</value>
+    <value>Teknisyenin dağıtım sırasında cihazın donanım karmasını yüklemesini sağlar.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Etkileşimli donanım karması yükleme</value>
@@ -2369,7 +2369,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>AppX kaldırmaları</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>OOBE sırasında donanım karması kaydı için teknisyenin cihaz koduyla oturum açmasını hazırlar.</value>
+    <value>Donanım karmalarını dağıtım sırasında etkileşimli olarak yükler.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Etkileşimli</value>

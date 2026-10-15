@@ -121,6 +121,23 @@ public sealed class DeploymentPlanTests
     }
 
     [Theory]
+    [InlineData(AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, false, true)]
+    [InlineData(AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, true, true)]
+    [InlineData(AutopilotProvisioningMode.InteractiveHardwareHashUpload, false, false, false)]
+    [InlineData(AutopilotProvisioningMode.HardwareHashUpload, true, false, false)]
+    [InlineData(AutopilotProvisioningMode.JsonProfile, true, false, false)]
+    public void Build_InteractiveAutopilot_RequiresSetupTasks(AutopilotProvisioningMode mode, bool enabled, bool customUnattend, bool expected)
+    {
+        DeploymentContext request = Request() with
+        {
+            IsAutopilotEnabled = enabled,
+            AutopilotProvisioningMode = mode,
+            Unattend = customUnattend ? new UnattendSelection(new Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile(), "custom.xml") : null
+        };
+        Assert.Equal(expected, DeploymentPlan.Build(request, networkResolved: true).Any(step => step.Name == DeploymentStepNames.StagePreOobeCustomization));
+    }
+
+    [Theory]
     [InlineData(AutopilotProvisioningMode.JsonProfile, "Copy Autopilot profile")]
     [InlineData(AutopilotProvisioningMode.HardwareHashUpload, "Register Autopilot device")]
     [InlineData(AutopilotProvisioningMode.InteractiveHardwareHashUpload, "Prepare Autopilot assistant")]

@@ -25,6 +25,7 @@ public sealed class PreOobeActionExecutor(string root, string windowsRoot, PreOo
                 bootIdentity, processes, executablePath).ExecuteAsync(action, cancellationToken).ConfigureAwait(false),
             PreOobeBuiltInKind.VerifyDomainMembership => await new DomainMembershipVerificationAction(root, plan, planHash,
                 bootIdentity, new NativeDomainJoin()).ExecuteAsync(action, cancellationToken).ConfigureAwait(false),
+            PreOobeBuiltInKind.AutopilotRegistration => await new AutopilotRegistrationAction(root, windowsRoot, processes).ExecuteAsync(action, cancellationToken).ConfigureAwait(false),
             PreOobeBuiltInKind.Cleanup => await CleanupAsync(cancellationToken).ConfigureAwait(false),
             _ => throw new InvalidDataException("Unsupported built-in action.")
         };

@@ -557,7 +557,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Importando perfil Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Cuando está habilitado, el técnico inicia sesión con un código de dispositivo de Microsoft durante OOBE y carga el hash de hardware del dispositivo.</value>
+    <value>Cuando está habilitado, el técnico inicia sesión con un código de dispositivo de Microsoft durante la configuración de Windows y carga el hash de hardware del dispositivo.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Carga interactiva del hash de hardware</value>
@@ -632,7 +632,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Seleccione perfiles Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Prepara el inicio de sesión del técnico con código de dispositivo para registrar el hash de hardware durante OOBE.</value>
+    <value>Permite que el técnico cargue el hash de hardware del dispositivo durante la implementación.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Carga interactiva del hash de hardware</value>
@@ -2369,7 +2369,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Eliminaciones de AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Prepara el inicio de sesión del técnico con código de dispositivo para registrar el hash de hardware durante OOBE.</value>
+    <value>Carga hashes de hardware de forma interactiva durante la implementación.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interactivo</value>

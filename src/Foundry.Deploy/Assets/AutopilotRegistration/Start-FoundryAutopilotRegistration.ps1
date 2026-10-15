@@ -885,30 +885,24 @@ function Start-FoundryAutopilotRegistrationUi {
         $uploadButton.IsEnabled = $IsEnabled
     }
 
-    function Start-RebootCountdown {
-        $script:RebootCountdownSeconds = 10
-        Set-UploadProgress -Message ('Restarting in {0} seconds.' -f $script:RebootCountdownSeconds) -Value 0
-        $script:RebootCountdownTimer = New-Object System.Windows.Threading.DispatcherTimer
-        $script:RebootCountdownTimer.Interval = [TimeSpan]::FromSeconds(1)
-        $script:RebootCountdownTimer.Add_Tick({
-            $script:RebootCountdownSeconds--
-            if ($script:RebootCountdownSeconds -le 0) {
-                $script:RebootCountdownTimer.Stop()
-                Set-UploadProgress -Message 'Restarting now.' -Value 100
-                $script:RestartTimer = New-Object System.Windows.Threading.DispatcherTimer
-                $script:RestartTimer.Interval = [TimeSpan]::FromSeconds(1)
-                $script:RestartTimer.Add_Tick({
-                    $script:RestartTimer.Stop()
-                    Write-FoundryLog -Message 'Restarting device.'
-                    Start-Process -FilePath "$env:SystemRoot\System32\shutdown.exe" -ArgumentList '/r /t 0 /f' -WindowStyle Hidden
-                })
-                $script:RestartTimer.Start()
+    # Foundry.PostInstall runs this assistant during specialize; closing lets Windows Setup continue to OOBE.
+    function Start-CloseCountdown {
+        $script:CloseCountdownSeconds = 10
+        Set-UploadProgress -Message ('Continuing Windows setup in {0} seconds.' -f $script:CloseCountdownSeconds) -Value 0
+        $script:CloseCountdownTimer = New-Object System.Windows.Threading.DispatcherTimer
+        $script:CloseCountdownTimer.Interval = [TimeSpan]::FromSeconds(1)
+        $script:CloseCountdownTimer.Add_Tick({
+            $script:CloseCountdownSeconds--
+            if ($script:CloseCountdownSeconds -le 0) {
+                $script:CloseCountdownTimer.Stop()
+                Write-FoundryLog -Message 'Closing the assistant to continue Windows setup.'
+                $window.Close()
                 return
             }
 
-            Set-UploadProgress -Message ('Restarting in {0} seconds.' -f $script:RebootCountdownSeconds) -Value ((10 - $script:RebootCountdownSeconds) * 10)
+            Set-UploadProgress -Message ('Continuing Windows setup in {0} seconds.' -f $script:CloseCountdownSeconds) -Value ((10 - $script:CloseCountdownSeconds) * 10)
         })
-        $script:RebootCountdownTimer.Start()
+        $script:CloseCountdownTimer.Start()
     }
 
     function Show-AuthenticationStep {
@@ -1103,7 +1097,7 @@ function Start-FoundryAutopilotRegistrationUi {
                     $progressMessage = if ([string]::IsNullOrWhiteSpace([string]$Config.assignedComputerName)) { 'Registration completed.' } else { $completionMessage }
                     Set-UploadProgress -Message $progressMessage -Value 100 -IsIndeterminate $false
                     $script:ExitCode = 0
-                    Start-RebootCountdown
+                    Start-CloseCountdown
                 }
                 catch {
                     $script:UploadPollTimer.Stop()

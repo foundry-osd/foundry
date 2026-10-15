@@ -221,7 +221,7 @@ public sealed class PreflightDeploymentStep(
         string fileName = DeploymentStepExecutionContext.ResolveFileName(driver.FileName, driver.DownloadUrl);
         DriverPackExecutionPlan plan = new DriverPackStrategyResolver().Resolve(context.Request.DriverPackSelectionKind, driver, fileName);
         long archive = externalHeadroom.HasValue && externalHeadroom.Value >= driver.SizeBytes ? 0 : driver.SizeBytes;
-        return checked(archive + (plan.InstallMode == DriverPackInstallMode.DeferredSetupComplete ? driver.SizeBytes : 0));
+        return checked(archive + (plan.InstallMode == DriverPackInstallMode.DeferredPostInstall ? driver.SizeBytes : 0));
     }
 
     /// <summary>Creates localized validation failures before allowing any destructive boundary.</summary>

@@ -40,7 +40,7 @@ public sealed class DriverPackStrategyResolverTests
             driverPack,
             downloadedPath: @"C:\Temp\pack.exe");
 
-        Assert.Equal(DriverPackInstallMode.DeferredSetupComplete, plan.InstallMode);
+        Assert.Equal(DriverPackInstallMode.DeferredPostInstall, plan.InstallMode);
         Assert.Equal(DriverPackExtractionMethod.None, plan.ExtractionMethod);
         Assert.Equal(DeferredDriverPackageCommandKind.LenovoExecutable, plan.DeferredCommandKind);
     }

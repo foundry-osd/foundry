@@ -557,7 +557,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Autopilot-Profil wird importiert...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Wenn aktiviert, meldet sich der Techniker während OOBE mit einem Microsoft-Gerätecode an und lädt den Hardware-Hash des Geräts hoch.</value>
+    <value>Wenn aktiviert, meldet sich der Techniker während der Windows-Einrichtung mit einem Microsoft-Gerätecode an und lädt den Hardware-Hash des Geräts hoch.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktiver Hardware-Hash-Upload</value>
@@ -632,7 +632,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Wählen Sie Autopilot Profile aus</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Stellt die Technikeranmeldung per Gerätecode für die Hardware-Hash-Registrierung während OOBE bereit.</value>
+    <value>Der Techniker kann den Hardware-Hash des Geräts während der Bereitstellung hochladen.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktiver Hardware-Hash-Upload</value>
@@ -2369,7 +2369,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>AppX-Entfernungen</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Stellt die Technikeranmeldung per Gerätecode für die Hardware-Hash-Registrierung während OOBE bereit.</value>
+    <value>Hardware-Hashes während der Bereitstellung interaktiv hochladen.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktiv</value>

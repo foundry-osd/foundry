@@ -557,7 +557,7 @@
     <value>Імпорт профілю Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Коли ввімкнено, технічний спеціаліст входить за кодом пристрою Microsoft під час OOBE і завантажує апаратний хеш пристрою.</value>
+    <value>Коли ввімкнено, технічний спеціаліст входить за кодом пристрою Microsoft під час налаштування Windows і завантажує апаратний хеш пристрою.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Інтерактивне завантаження апаратного хешу</value>
@@ -632,7 +632,7 @@
     <value>Виберіть профілі Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Готує вхід техніка за кодом пристрою для реєстрації апаратного хешу під час OOBE.</value>
+    <value>Дає змогу технічному спеціалісту завантажити апаратний хеш пристрою під час розгортання.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Інтерактивне завантаження апаратного хешу</value>
@@ -2369,7 +2369,7 @@
     <value>Видалення пакетів AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Готує вхід техніка за кодом пристрою для реєстрації апаратного хешу під час OOBE.</value>
+    <value>Інтерактивно завантажує апаратні хеші під час розгортання.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Інтерактивно</value>

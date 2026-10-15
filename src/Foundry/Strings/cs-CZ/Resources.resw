@@ -557,7 +557,7 @@ Licencováno pod licencí MIT.</value>
     <value>Import profilu Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Je-li povoleno, technik se během OOBE přihlásí pomocí kódu zařízení Microsoft a nahraje hardwarový hash zařízení.</value>
+    <value>Je-li povoleno, technik se během instalace Windows přihlásí pomocí kódu zařízení Microsoft a nahraje hardwarový hash zařízení.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktivní nahrání hardwarového hashe</value>
@@ -632,7 +632,7 @@ Licencováno pod licencí MIT.</value>
     <value>Vyberte profily Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Připraví přihlášení technika pomocí kódu zařízení pro registraci hardwarového hashe během OOBE.</value>
+    <value>Umožní technikovi nahrát hardwarový hash zařízení během nasazení.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktivní nahrání hardwarového hashe</value>
@@ -2369,7 +2369,7 @@ Licencováno pod licencí MIT.</value>
     <value>Odebrání balíčků AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Připraví přihlášení technika pomocí kódu zařízení pro registraci hardwarového hashe během OOBE.</value>
+    <value>Interaktivně nahrává hardwarové hashe během nasazení.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktivní</value>

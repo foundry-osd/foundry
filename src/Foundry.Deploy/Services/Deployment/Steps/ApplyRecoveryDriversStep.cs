@@ -22,7 +22,7 @@ public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDe
         return context.RuntimeState.DriverPackInstallMode switch
         {
             DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
-            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
+            DriverPackInstallMode.DeferredPostInstall => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => ApplyLiveAsync(context, cancellationToken),
             _ => Task.FromResult(CreateUnsupportedModeFailure())
         };
@@ -35,7 +35,7 @@ public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDe
         return context.RuntimeState.DriverPackInstallMode switch
         {
             DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
-            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
+            DriverPackInstallMode.DeferredPostInstall => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => SimulateAsync(context, cancellationToken),
             _ => Task.FromResult(CreateUnsupportedModeFailure())
         };

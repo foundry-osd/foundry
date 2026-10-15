@@ -126,6 +126,13 @@ public sealed class PreOobeTargetStagingService
             if (context.Request.AppxRemoval.IsEnabled && context.Request.AppxRemoval.PackageNames.Count > 0)
                 AddBuiltIn("remove-appx", PreOobeBuiltInKind.Appx, new { packageNames = context.Request.AppxRemoval.PackageNames });
             if (Steps.StagePreOobeCustomizationStep.ShouldActivateWindowsOem(context.Request)) AddBuiltIn("windows-oem-activation", PreOobeBuiltInKind.Activation, new { });
+            // ProvisionAutopilot stages these files later; the runtime reports a missing assistant instead of failing Setup.
+            if (Steps.StagePreOobeCustomizationStep.ShouldRunAutopilotRegistration(context.Request))
+                AddBuiltIn("autopilot-registration", PreOobeBuiltInKind.AutopilotRegistration, new
+                {
+                    scriptPath = Autopilot.AutopilotInteractiveRegistrationProvisioningService.RuntimeScriptRelativePath,
+                    configPath = Autopilot.AutopilotInteractiveRegistrationProvisioningService.RuntimeConfigRelativePath
+                });
             foreach (var action in PreOobeContentResolver.ApplicableActions(context.Request)) actions.Add(new() { Id = action.Id, Name = action.Name, CustomAction = action });
             foreach (var package in content.Packages)
             {
@@ -222,9 +229,6 @@ public sealed class PreOobeTargetStagingService
                 finally { CryptographicOperations.ZeroMemory(bytes); context.ClearDomainJoinInput(); }
             }
             cancellationToken.ThrowIfCancellationRequested();
-            string setupComplete = Path.Combine(partition, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
-            new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY PRE-OOBE");
-            new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY DRIVERPACK");
             if (context.RuntimeState.DomainJoinStatus == DomainJoinExecutionStatus.Ready && !context.Request.UsesCustomUnattend)
             {
                 // Runs after the OOBE customization step, which otherwise leaves the Microsoft account sign-in visible.

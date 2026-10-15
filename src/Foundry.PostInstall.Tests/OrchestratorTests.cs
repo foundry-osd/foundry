@@ -147,6 +147,17 @@ public sealed class OrchestratorTests
     }
 
     [Fact]
+    public async Task FailedAutopilotRegistration_ContinuesWithErrors()
+    {
+        using var fixture = new Fixture("autopilot-registration", "second");
+        fixture.FailingActionId = "autopilot-registration";
+        fixture.Outcome = new ActionStepOutcome(false, 1, "autopilot_registration_incomplete");
+        Assert.Equal(0, await fixture.Run("boot"));
+        Assert.Equal("CompletedWithErrors", fixture.Journal.Read().Status);
+        Assert.Equal(["autopilot-registration", "second"], fixture.Executed);
+    }
+
+    [Fact]
     public async Task LeaseConflict_DoesNotDisposeAnotherInvocationPayload()
     {
         using var fixture = new Fixture("first");
@@ -164,6 +175,7 @@ public sealed class OrchestratorTests
         public PreOobeExecutionPlan Plan { get; private set; }
         public string Hash { get; private set; }
         public ActionStepOutcome? Outcome { get; set; }
+        public string FailingActionId { get; set; } = "first";
 
         public Fixture(params string[] ids)
         {
@@ -176,8 +188,13 @@ public sealed class OrchestratorTests
                 {
                     Id = id,
                     Name = id,
-                    BuiltInKind = id == "cleanup" ? PreOobeBuiltInKind.Cleanup : null,
-                    CustomAction = id == "cleanup" ? null : new PreOobeActionSettings
+                    BuiltInKind = id switch
+                    {
+                        "cleanup" => PreOobeBuiltInKind.Cleanup,
+                        "autopilot-registration" => PreOobeBuiltInKind.AutopilotRegistration,
+                        _ => null
+                    },
+                    CustomAction = id is "cleanup" or "autopilot-registration" ? null : new PreOobeActionSettings
                     {
                         Id = id,
                         Name = id,
@@ -212,7 +229,7 @@ public sealed class OrchestratorTests
         public Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, int substep, CancellationToken cancellationToken)
         {
             Executed.Add(action.Id);
-            return Task.FromResult(action.Id == "first" && Outcome is not null ? Outcome : new ActionStepOutcome(true));
+            return Task.FromResult(action.Id == FailingActionId && Outcome is not null ? Outcome : new ActionStepOutcome(true));
         }
 
         public void Dispose() => Directory.Delete(Root, true);

@@ -557,7 +557,7 @@ Sous licence MIT.</value>
     <value>Importation du profil Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Lorsqu’elle est activée, le technicien se connecte avec un code d’appareil Microsoft pendant l’OOBE et téléverse le hachage matériel de l’appareil.</value>
+    <value>Lorsqu’elle est activée, le technicien se connecte avec un code d’appareil Microsoft pendant l’installation de Windows et téléverse le hachage matériel de l’appareil.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Téléversement interactif du hachage matériel</value>
@@ -632,7 +632,7 @@ Sous licence MIT.</value>
     <value>Sélectionnez les profils Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Prépare la connexion du technicien par code d’appareil pour enregistrer le hachage matériel pendant l’OOBE.</value>
+    <value>Permet au technicien de téléverser le hachage matériel de l’appareil pendant le déploiement.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Téléversement interactif du hachage matériel</value>
@@ -2369,7 +2369,7 @@ Sous licence MIT.</value>
     <value>Suppressions d’AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Prépare la connexion du technicien par code d’appareil pour enregistrer le hachage matériel pendant l’OOBE.</value>
+    <value>Téléverse les hachages matériels de manière interactive pendant le déploiement.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interactif</value>

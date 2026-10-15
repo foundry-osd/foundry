@@ -557,7 +557,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Autopilot profil importálása...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Ha engedélyezve van, a technikus az OOBE során Microsoft-eszközkóddal jelentkezik be, és feltölti az eszköz hardverhashét.</value>
+    <value>Ha engedélyezve van, a technikus a Windows telepítése során Microsoft-eszközkóddal jelentkezik be, és feltölti az eszköz hardverhashét.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktív hardverhash-feltöltés</value>
@@ -632,7 +632,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Válassza ki a Autopilot profilokat</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Előkészíti a technikusi eszközkódos bejelentkezést a hardverhash regisztrálásához az OOBE során.</value>
+    <value>Lehetővé teszi a technikus számára az eszköz hardverhashének feltöltését az üzembe helyezés során.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktív hardverhash-feltöltés</value>
@@ -2369,7 +2369,7 @@ Licenc az MIT licenc alatt.</value>
     <value>AppX-eltávolítások</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Előkészíti a technikusi eszközkódos bejelentkezést a hardverhash regisztrálásához az OOBE során.</value>
+    <value>Hardverhasheket tölt fel interaktívan az üzembe helyezés során.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktív</value>

@@ -147,7 +147,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                         action.Id, state.Actions[action.Id].Status, outcome.ExitCode);
                     if (DisposePayloads(plan, state, false, boot, cleanup).HasFatalSensitiveFailure) throw new IOException("Sensitive input disposal failed.");
                     bool mayContinue = action.CustomAction?.Process?.ErrorPolicy == PreOobeErrorPolicy.Continue ||
-                        action.BuiltInKind is PreOobeBuiltInKind.Activation || domainAction;
+                        action.BuiltInKind is PreOobeBuiltInKind.Activation or PreOobeBuiltInKind.AutopilotRegistration || domainAction;
                     bool uncertainNow = state.UnsafePayloadBootIdentity == boot && state.UnsafeActionId == action.Id;
                     if (!outcome.Succeeded && (!mayContinue || uncertainNow && !domainAction))
                     {

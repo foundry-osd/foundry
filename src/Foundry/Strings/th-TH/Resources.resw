@@ -557,7 +557,7 @@
     <value>กำลังนำเข้าโปรไฟล์ Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>เมื่อเปิดใช้งาน ช่างเทคนิคจะลงชื่อเข้าใช้ด้วยรหัสอุปกรณ์ Microsoft ระหว่าง OOBE และอัปโหลดแฮชฮาร์ดแวร์ของอุปกรณ์</value>
+    <value>เมื่อเปิดใช้งาน ช่างเทคนิคจะลงชื่อเข้าใช้ด้วยรหัสอุปกรณ์ Microsoft ระหว่างการตั้งค่า Windows และอัปโหลดแฮชฮาร์ดแวร์ของอุปกรณ์</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
@@ -632,7 +632,7 @@
     <value>เลือกโปรไฟล์ Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>จัดเตรียมการลงชื่อเข้าใช้ของช่างเทคนิคด้วยรหัสอุปกรณ์สำหรับการลงทะเบียนแฮชฮาร์ดแวร์ระหว่าง OOBE</value>
+    <value>ให้ช่างเทคนิคอัปโหลดแฮชฮาร์ดแวร์ของอุปกรณ์ระหว่างการปรับใช้</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
@@ -2369,7 +2369,7 @@
     <value>การลบแอป AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>จัดเตรียมการลงชื่อเข้าใช้ของช่างเทคนิคด้วยรหัสอุปกรณ์สำหรับการลงทะเบียนแฮชฮาร์ดแวร์ระหว่าง OOBE</value>
+    <value>อัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบระหว่างการปรับใช้</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>แบบโต้ตอบ</value>

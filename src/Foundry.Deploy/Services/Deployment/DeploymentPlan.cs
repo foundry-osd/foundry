@@ -55,7 +55,7 @@ public static class DeploymentPlan
             names.Add(DeploymentStepNames.ExtractDriverPack);
             names.Add(DeploymentStepNames.ApplyDriverPack);
         }
-        if (hasDrivers && driverMode == DriverPackInstallMode.DeferredSetupComplete) names.Add(DeploymentStepNames.StageDriverInstaller);
+        if (hasDrivers && driverMode == DriverPackInstallMode.DeferredPostInstall) names.Add(DeploymentStepNames.StageDriverInstaller);
 
         // Battery/identifier restrictions remain visible as a reason when firmware was requested.
         bool firmwareRequested = request.ApplyFirmwareUpdates && state?.HardwareProfile?.IsVirtualMachine != true;
@@ -80,9 +80,10 @@ public static class DeploymentPlan
         bool setupTasks = PreOobeContentResolver.HasBuiltInTasks(
             request.AppxRemoval,
             request.AiComponentRemoval,
-            hasDrivers && driverMode == DriverPackInstallMode.DeferredSetupComplete,
+            hasDrivers && driverMode == DriverPackInstallMode.DeferredPostInstall,
             hasNetworkPayload || (!networkResolved && request.Network.ProfileRoaming.IsAnyEnabled),
-            StagePreOobeCustomizationStep.ShouldActivateWindowsOem(request));
+            StagePreOobeCustomizationStep.ShouldActivateWindowsOem(request),
+            StagePreOobeCustomizationStep.ShouldRunAutopilotRegistration(request));
         if (setupTasks || PreOobeContentResolver.HasDomainTasks(request, state) || request.PreOobe.IsEnabled && request.PreOobe.Actions.Any(action => action.IsEnabled)) names.Add(DeploymentStepNames.StagePreOobeCustomization);
         names.Add(DeploymentStepNames.ConfigureRecoveryEnvironment);
         if (hasDrivers && driverMode == DriverPackInstallMode.OfflineInf) names.Add(DeploymentStepNames.ApplyRecoveryDrivers);

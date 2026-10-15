@@ -221,10 +221,7 @@ public sealed class ProvisionAutopilotStepTests
         Assert.Equal(expectedConfigPath, context.RuntimeState.StagedAutopilotConfigurationPath);
         Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1")));
         Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd")));
-        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationOobe.cmd")));
-        Assert.True(File.Exists(Path.Combine(registrationRoot, "Wait-FoundryAutopilotRegistrationOobe.ps1")));
         Assert.True(File.Exists(expectedConfigPath));
-        Assert.True(File.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Setup", "Scripts", "OOBE.cmd")));
         Assert.True(Directory.Exists(DeploymentStorageLayout.FromPartitionRoot(workspace.TargetWindowsRootPath).StateAutopilotRegistration));
         Assert.True(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Temp", "Foundry", "Logs", "AutopilotRegistration")));
         Assert.False(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot")));
@@ -433,7 +430,7 @@ public sealed class ProvisionAutopilotStepTests
             captureService ?? new FakeAutopilotHardwareHashCaptureService(),
             uploadService ?? new FakeAutopilotHardwareHashUploadService(
                 AutopilotHardwareHashUploadResult.Completed("Device imported.")),
-            new AutopilotInteractiveRegistrationProvisioningService(new SetupCompleteScriptService()),
+            new AutopilotInteractiveRegistrationProvisioningService(),
             contentService ?? new FakeAutopilotProfileContentService());
     }
 
