@@ -60,7 +60,7 @@
                     VerticalAlignment="Center"
                     Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                     Text="{x:Bind Status}"
-                    TextWrapping="WrapWholeWords" />
+                    TextWrapping="Wrap" />
             </Grid>
         </DataTemplate>
     </Page.Resources>

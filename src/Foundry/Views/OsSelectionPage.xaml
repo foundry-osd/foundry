@@ -104,7 +104,8 @@
                         </wct:SettingsExpander.HeaderIcon>
                         <wct:SettingsExpander.Items>
                             <wct:SettingsCard
-                                HorizontalContentAlignment="Right"
+                                HorizontalContentAlignment="Stretch"
+                                ContentAlignment="Vertical"
                                 Description="{x:Bind ViewModel.OperatingSystemAllowedLanguagesDescription, Mode=OneWay}"
                                 Header="{x:Bind ViewModel.OperatingSystemAllowedLanguagesLabel, Mode=OneWay}">
                                 <wct:SettingsCard.HeaderIcon>
@@ -112,7 +113,7 @@
                                 </wct:SettingsCard.HeaderIcon>
                                 <ItemsRepeater
                                     MaxWidth="{ThemeResource FoundryLanguageGridMaxWidth}"
-                                    HorizontalAlignment="Right"
+                                    HorizontalAlignment="Left"
                                     ItemsSource="{x:Bind ViewModel.OperatingSystemLanguageOptions, Mode=OneWay}">
                                     <ItemsRepeater.Layout>
                                         <UniformGridLayout

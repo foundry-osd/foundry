@@ -132,7 +132,7 @@
                         AutomationProperties.Name="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                         CanFilterColumns="False"
                         CanReorderColumns="False"
-                        CanResizeColumns="False"
+                        CanResizeColumns="True"
                         CanSortColumns="False"
                         CornerButtonMode="None"
                         HeadersVisibility="Columns"
@@ -178,7 +178,8 @@
                                             Margin="12,0,12,0"
                                             Style="{Binding ReadinessStyle}"
                                             Text="{Binding Readiness}"
-                                            TextTrimming="CharacterEllipsis" />
+                                            TextTrimming="CharacterEllipsis"
+                                            ToolTipService.ToolTip="{Binding Readiness}" />
                                     </DataTemplate>
                                 </tv:TableViewTemplateColumn.CellTemplate>
                             </tv:TableViewTemplateColumn>

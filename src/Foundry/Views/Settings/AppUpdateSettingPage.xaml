@@ -58,14 +58,17 @@
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
                                 Spacing="{ThemeResource FoundrySpace4}">
-                                <StackPanel
-                                    Orientation="Horizontal"
-                                    Spacing="{ThemeResource FoundrySpace8}">
+                                <Grid ColumnSpacing="{ThemeResource FoundrySpace8}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
                                     <TextBlock
                                         Style="{ThemeResource FoundrySectionTitleTextBlockStyle}"
                                         Text="{x:Bind ViewModel.UpdateStatusTitle, Mode=OneWay}"
                                         TextWrapping="WrapWholeWords" />
                                     <Border
+                                        Grid.Column="1"
                                         Padding="8,3"
                                         VerticalAlignment="Center"
                                         Background="{ThemeResource AccentFillColorDefaultBrush}"
@@ -77,7 +80,7 @@
                                             Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                                             Text="{x:Bind ViewModel.UpdateNewBadgeText, Mode=OneWay}" />
                                     </Border>
-                                </StackPanel>
+                                </Grid>
                                 <TextBlock
                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                     Style="{ThemeResource FoundryCaptionTextBlockStyle}"
@@ -112,7 +115,9 @@
                                             FlowDirection="LeftToRight"
                                             FontWeight="SemiBold"
                                             Text="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}"
-                                            TextWrapping="NoWrap" />
+                                            TextTrimming="CharacterEllipsis"
+                                            TextWrapping="NoWrap"
+                                            ToolTipService.ToolTip="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}" />
                                     </StackPanel>
                                 </Border>
 
@@ -138,7 +143,9 @@
                                             FlowDirection="LeftToRight"
                                             FontWeight="SemiBold"
                                             Text="{x:Bind ViewModel.AvailableVersion, Mode=OneWay}"
-                                            TextWrapping="NoWrap" />
+                                            TextTrimming="CharacterEllipsis"
+                                            TextWrapping="NoWrap"
+                                            ToolTipService.ToolTip="{x:Bind ViewModel.AvailableVersion, Mode=OneWay}" />
                                     </StackPanel>
                                 </Border>
 
@@ -157,7 +164,9 @@
                                             FlowDirection="LeftToRight"
                                             FontWeight="SemiBold"
                                             Text="{x:Bind ViewModel.LastUpdateCheck, Mode=OneWay}"
-                                            TextWrapping="NoWrap" />
+                                            TextTrimming="CharacterEllipsis"
+                                            TextWrapping="NoWrap"
+                                            ToolTipService.ToolTip="{x:Bind ViewModel.LastUpdateCheck, Mode=OneWay}" />
                                     </StackPanel>
                                 </Border>
                             </Grid>
@@ -172,7 +181,9 @@
                                     Maximum="100"
                                     Minimum="0"
                                     Value="{x:Bind ViewModel.DownloadProgress, Mode=OneWay}" />
-                                <TextBlock Text="{x:Bind ViewModel.DownloadProgressText, Mode=OneWay}" />
+                                <TextBlock
+                                    Text="{x:Bind ViewModel.DownloadProgressText, Mode=OneWay}"
+                                    TextWrapping="WrapWholeWords" />
                             </StackPanel>
 
                             <StackPanel
@@ -218,7 +229,7 @@
                         <TextBlock
                             FlowDirection="LeftToRight"
                             Text="{x:Bind ViewModel.UpdateFeedUrl, Mode=OneWay}"
-                            TextWrapping="WrapWholeWords" />
+                            TextWrapping="Wrap" />
                     </StackPanel>
                 </wct:SettingsCard.Description>
                 <Border

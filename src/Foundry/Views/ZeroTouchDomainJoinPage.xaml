@@ -115,7 +115,7 @@
                                 AutoGenerateColumns="False"
                                 CanFilterColumns="False"
                                 CanReorderColumns="False"
-                                CanResizeColumns="False"
+                                CanResizeColumns="True"
                                 CanSortColumns="True"
                                 CornerButtonMode="None"
                                 HeadersVisibility="Columns"
@@ -154,7 +154,8 @@
                                                     Margin="12,0,12,0"
                                                     Style="{Binding StatusStyle}"
                                                     Text="{Binding StatusText}"
-                                                    TextTrimming="CharacterEllipsis" />
+                                                    TextTrimming="CharacterEllipsis"
+                                                    ToolTipService.ToolTip="{Binding StatusText}" />
                                             </DataTemplate>
                                         </tv:TableViewTemplateColumn.CellTemplate>
                                     </tv:TableViewTemplateColumn>
@@ -245,7 +246,7 @@
                                 AutoGenerateColumns="False"
                                 CanFilterColumns="False"
                                 CanReorderColumns="False"
-                                CanResizeColumns="False"
+                                CanResizeColumns="True"
                                 CanSortColumns="True"
                                 CornerButtonMode="None"
                                 HeadersVisibility="Columns"

@@ -117,7 +117,7 @@
                             AutomationProperties.Name="{x:Bind ViewModel.LibraryLabel, Mode=OneWay}"
                             CanFilterColumns="False"
                             CanReorderColumns="False"
-                            CanResizeColumns="False"
+                            CanResizeColumns="True"
                             CanSortColumns="True"
                             CornerButtonMode="None"
                             HeadersVisibility="Columns"
@@ -157,7 +157,8 @@
                                                 Margin="12,0,12,0"
                                                 Style="{Binding IncludedStyle}"
                                                 Text="{Binding Included}"
-                                                TextTrimming="CharacterEllipsis" />
+                                                TextTrimming="CharacterEllipsis"
+                                                ToolTipService.ToolTip="{Binding Included}" />
                                         </DataTemplate>
                                     </tv:TableViewTemplateColumn.CellTemplate>
                                 </tv:TableViewTemplateColumn>
@@ -171,7 +172,8 @@
                                                 Margin="12,0,12,0"
                                                 Style="{Binding DefaultStyle}"
                                                 Text="{Binding Default}"
-                                                TextTrimming="CharacterEllipsis" />
+                                                TextTrimming="CharacterEllipsis"
+                                                ToolTipService.ToolTip="{Binding Default}" />
                                         </DataTemplate>
                                     </tv:TableViewTemplateColumn.CellTemplate>
                                 </tv:TableViewTemplateColumn>
@@ -185,7 +187,8 @@
                                                 Margin="12,0,12,0"
                                                 Style="{Binding StatusStyle}"
                                                 Text="{Binding Status}"
-                                                TextTrimming="CharacterEllipsis" />
+                                                TextTrimming="CharacterEllipsis"
+                                                ToolTipService.ToolTip="{Binding Status}" />
                                         </DataTemplate>
                                     </tv:TableViewTemplateColumn.CellTemplate>
                                 </tv:TableViewTemplateColumn>
@@ -206,7 +209,7 @@
                                 AutomationProperties.Name="{x:Bind ViewModel.IndexesLabel, Mode=OneWay}"
                                 CanFilterColumns="False"
                                 CanReorderColumns="False"
-                                CanResizeColumns="False"
+                                CanResizeColumns="True"
                                 CanSortColumns="True"
                                 CornerButtonMode="None"
                                 HeadersVisibility="Columns"
@@ -251,7 +254,8 @@
                                                     Margin="12,0,12,0"
                                                     Style="{Binding PreferredStyle}"
                                                     Text="{Binding Preferred}"
-                                                    TextTrimming="CharacterEllipsis" />
+                                                    TextTrimming="CharacterEllipsis"
+                                                    ToolTipService.ToolTip="{Binding Preferred}" />
                                             </DataTemplate>
                                         </tv:TableViewTemplateColumn.CellTemplate>
                                     </tv:TableViewTemplateColumn>
@@ -261,7 +265,7 @@
                                 IsTextSelectionEnabled="True"
                                 Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                                 Text="{x:Bind ViewModel.ContentHash, Mode=OneWay}"
-                                TextWrapping="WrapWholeWords" />
+                                TextWrapping="Wrap" />
                         </StackPanel>
                     </wct:SettingsCard>
                     <wct:SettingsCard

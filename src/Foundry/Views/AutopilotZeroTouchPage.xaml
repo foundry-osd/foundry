@@ -61,7 +61,7 @@
                             AutoGenerateColumns="False"
                             CanFilterColumns="False"
                             CanReorderColumns="False"
-                            CanResizeColumns="False"
+                            CanResizeColumns="True"
                             CanSortColumns="True"
                             CornerButtonMode="None"
                             HeadersVisibility="Columns"
@@ -85,7 +85,8 @@
                                                 Margin="12,0,12,0"
                                                 Style="{Binding ValueStyle}"
                                                 Text="{Binding Value}"
-                                                TextTrimming="CharacterEllipsis" />
+                                                TextTrimming="CharacterEllipsis"
+                                                ToolTipService.ToolTip="{Binding Value}" />
                                         </DataTemplate>
                                     </tv:TableViewTemplateColumn.CellTemplate>
                                 </tv:TableViewTemplateColumn>
@@ -136,7 +137,7 @@
                                 AutoGenerateColumns="False"
                                 CanFilterColumns="False"
                                 CanReorderColumns="False"
-                                CanResizeColumns="False"
+                                CanResizeColumns="True"
                                 CanSortColumns="True"
                                 CornerButtonMode="None"
                                 HeadersVisibility="Columns"
@@ -148,10 +149,20 @@
                                 ShowExportOptions="False"
                                 Visibility="{x:Bind ViewModel.CertificatesVisibility, Mode=OneWay}">
                                 <tv:TableView.Columns>
-                                    <tv:TableViewTextColumn
+                                    <tv:TableViewTemplateColumn
                                         Width="2*"
-                                        Binding="{Binding Thumbprint}"
-                                        Header="{x:Bind ViewModel.CertificateThumbprintColumnHeader, Mode=OneWay}" />
+                                        Header="{x:Bind ViewModel.CertificateThumbprintColumnHeader, Mode=OneWay}"
+                                        SortMemberPath="Thumbprint">
+                                        <tv:TableViewTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Margin="12,0,12,0"
+                                                    Text="{Binding Thumbprint}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    ToolTipService.ToolTip="{Binding Thumbprint}" />
+                                            </DataTemplate>
+                                        </tv:TableViewTemplateColumn.CellTemplate>
+                                    </tv:TableViewTemplateColumn>
                                     <tv:TableViewTextColumn
                                         Width="*"
                                         Binding="{Binding StartsOnDisplay}"
@@ -167,14 +178,25 @@
                                                     Margin="12,0,12,0"
                                                     Style="{Binding ValidityStyle}"
                                                     Text="{Binding ExpiresOnDisplay}"
-                                                    TextTrimming="CharacterEllipsis" />
+                                                    TextTrimming="CharacterEllipsis"
+                                                    ToolTipService.ToolTip="{Binding ExpiresOnDisplay}" />
                                             </DataTemplate>
                                         </tv:TableViewTemplateColumn.CellTemplate>
                                     </tv:TableViewTemplateColumn>
-                                    <tv:TableViewTextColumn
+                                    <tv:TableViewTemplateColumn
                                         Width="2*"
-                                        Binding="{Binding KeyId}"
-                                        Header="{x:Bind ViewModel.CertificateIdColumnHeader, Mode=OneWay}" />
+                                        Header="{x:Bind ViewModel.CertificateIdColumnHeader, Mode=OneWay}"
+                                        SortMemberPath="KeyId">
+                                        <tv:TableViewTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Margin="12,0,12,0"
+                                                    Text="{Binding KeyId}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    ToolTipService.ToolTip="{Binding KeyId}" />
+                                            </DataTemplate>
+                                        </tv:TableViewTemplateColumn.CellTemplate>
+                                    </tv:TableViewTemplateColumn>
                                 </tv:TableView.Columns>
                             </tv:TableView>
                         </StackPanel>
