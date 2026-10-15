@@ -557,7 +557,7 @@ Licensed under the MIT License.</value>
     <value>Importing Autopilot profile...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>When enabled, the technician signs in with a Microsoft device code during OOBE and uploads the device hardware hash.</value>
+    <value>When enabled, the technician signs in with a Microsoft device code during Windows setup and uploads the device hardware hash.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interactive hardware hash upload</value>
@@ -632,7 +632,7 @@ Licensed under the MIT License.</value>
     <value>Select Autopilot profiles</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Stage technician device-code sign-in for hardware hash registration during OOBE.</value>
+    <value>Let the technician upload the device hardware hash during deployment.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interactive hardware hash upload</value>
@@ -2369,7 +2369,7 @@ Licensed under the MIT License.</value>
     <value>AppX removals</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Stage technician device-code sign-in for hardware hash registration during OOBE.</value>
+    <value>Upload hardware hashes interactively during deployment.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interactive</value>

@@ -557,7 +557,7 @@ Licenseret under MIT-licensen.</value>
     <value>Importerer Autopilot profil...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Når den er aktiveret, logger teknikeren på med en Microsoft-enhedskode under OOBE og uploader enhedens hardwarehash.</value>
+    <value>Når den er aktiveret, logger teknikeren på med en Microsoft-enhedskode under Windows-installationen og uploader enhedens hardwarehash.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktiv upload af hardwarehash</value>
@@ -632,7 +632,7 @@ Licenseret under MIT-licensen.</value>
     <value>Vælg Autopilot profiler</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Klargør teknikerlogin med enhedskode til registrering af hardwarehash under OOBE.</value>
+    <value>Lad teknikeren uploade enhedens hardwarehash under udrulningen.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktiv upload af hardwarehash</value>
@@ -2369,7 +2369,7 @@ Licenseret under MIT-licensen.</value>
     <value>AppX-fjernelser</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Klargør teknikerlogin med enhedskode til registrering af hardwarehash under OOBE.</value>
+    <value>Upload hardwarehash interaktivt under udrulningen.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktiv</value>

@@ -557,7 +557,7 @@ Licencirano pod licenco MIT.</value>
     <value>Uvažanje profila Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Ko je omogočeno, se tehnik med OOBE prijavi s kodo naprave Microsoft in naloži zgoščeno vrednost strojne opreme naprave.</value>
+    <value>Ko je omogočeno, se tehnik med namestitvijo sistema Windows prijavi s kodo naprave Microsoft in naloži zgoščeno vrednost strojne opreme naprave.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
@@ -632,7 +632,7 @@ Licencirano pod licenco MIT.</value>
     <value>Izberite profile Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Pripravi prijavo tehnika s kodo naprave za registracijo zgoščene vrednosti strojne opreme med OOBE.</value>
+    <value>Tehniku omogoči nalaganje zgoščene vrednosti strojne opreme naprave med uvajanjem.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
@@ -2369,7 +2369,7 @@ Licencirano pod licenco MIT.</value>
     <value>Odstranitve AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Pripravi prijavo tehnika s kodo naprave za registracijo zgoščene vrednosti strojne opreme med OOBE.</value>
+    <value>Interaktivno naloži zgoščene vrednosti strojne opreme med uvajanjem.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktivno</value>

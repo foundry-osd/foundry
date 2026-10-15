@@ -557,7 +557,7 @@ Licencirano pod MIT licencom.</value>
     <value>Uvoz Autopilot profila...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Kada je omogućeno, tehničar se tokom OOBE prijavljuje pomoću Microsoft koda uređaja i otprema hardverski heš uređaja.</value>
+    <value>Kada je omogućeno, tehničar se tokom Windows podešavanja prijavljuje pomoću Microsoft koda uređaja i otprema hardverski heš uređaja.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktivno otpremanje hardverskog heša</value>
@@ -632,7 +632,7 @@ Licencirano pod MIT licencom.</value>
     <value>Izaberite Autopilot profile</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Priprema prijavljivanje tehničara pomoću koda uređaja za registraciju hardverskog heša tokom OOBE.</value>
+    <value>Omogućava tehničaru da otpremi hardverski heš uređaja tokom primene.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktivno otpremanje hardverskog heša</value>
@@ -2369,7 +2369,7 @@ Licencirano pod MIT licencom.</value>
     <value>Uklanjanja AppX paketa</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Priprema prijavljivanje tehničara pomoću koda uređaja za registraciju hardverskog heša tokom OOBE.</value>
+    <value>Interaktivno otprema hardverske heševe tokom primene.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktivno</value>

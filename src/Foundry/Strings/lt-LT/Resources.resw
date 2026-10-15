@@ -557,7 +557,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Importuojamas Autopilot profilis...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Įjungus, technikas OOBE metu prisijungia naudodamas Microsoft įrenginio kodą ir įkelia įrenginio aparatūros maišą.</value>
+    <value>Įjungus, technikas Windows sąrankos metu prisijungia naudodamas Microsoft įrenginio kodą ir įkelia įrenginio aparatūros maišą.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktyvus aparatūros maišos įkėlimas</value>
@@ -632,7 +632,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinkite Autopilot profilius</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Paruošia techniko prisijungimą naudojant įrenginio kodą aparatūros maišos registracijai OOBE metu.</value>
+    <value>Leidžia technikui įkelti įrenginio aparatūros maišą diegimo metu.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktyvus aparatūros maišos įkėlimas</value>
@@ -2369,7 +2369,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>AppX šalinimai</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Paruošia techniko prisijungimą naudojant įrenginio kodą aparatūros maišos registracijai OOBE metu.</value>
+    <value>Interaktyviai įkelia aparatūros maišas diegimo metu.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktyvus</value>

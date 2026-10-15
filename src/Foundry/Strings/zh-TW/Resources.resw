@@ -557,7 +557,7 @@
     <value>正在導入Autopilot個人資料...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>啟用後，技術人員將在 OOBE 期間使用 Microsoft 裝置代碼登入並上傳裝置硬體雜湊。</value>
+    <value>啟用後，技術人員將在 Windows 安裝期間使用 Microsoft 裝置代碼登入並上傳裝置硬體雜湊。</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>互動式硬體雜湊上傳</value>
@@ -632,7 +632,7 @@
     <value>選擇Autopilot設定文件</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>在 OOBE 期間為硬體雜湊註冊準備技術人員裝置代碼登入。</value>
+    <value>讓技術人員在部署期間上傳裝置硬體雜湊。</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>互動式硬體雜湊上傳</value>
@@ -2369,7 +2369,7 @@
     <value>AppX 應用程式移除</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>在 OOBE 期間為硬體雜湊註冊準備技術人員裝置代碼登入。</value>
+    <value>在部署期間以互動方式上傳硬體雜湊。</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>互動式</value>

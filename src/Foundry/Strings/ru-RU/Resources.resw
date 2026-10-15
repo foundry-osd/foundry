@@ -557,7 +557,7 @@
     <value>Импорт профиля Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>При включении технический специалист входит в систему с кодом устройства Microsoft во время OOBE и отправляет аппаратный хеш устройства.</value>
+    <value>При включении технический специалист входит в систему с кодом устройства Microsoft во время установки Windows и отправляет аппаратный хеш устройства.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Интерактивная отправка аппаратного хеша</value>
@@ -632,7 +632,7 @@
     <value>Выберите профили Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Подготавливает вход техника с помощью кода устройства для регистрации аппаратного хеша во время OOBE.</value>
+    <value>Позволяет техническому специалисту отправить аппаратный хеш устройства во время развертывания.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Интерактивная отправка аппаратного хеша</value>
@@ -2369,7 +2369,7 @@
     <value>Удаление пакетов AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Подготавливает вход техника с помощью кода устройства для регистрации аппаратного хеша во время OOBE.</value>
+    <value>Интерактивная отправка аппаратных хешей во время развертывания.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Интерактивно</value>

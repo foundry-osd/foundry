@@ -557,7 +557,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot プロフィールをインポートしています...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>有効にすると、技術者は OOBE 中に Microsoft のデバイス コードでサインインし、デバイスのハードウェア ハッシュをアップロードします。</value>
+    <value>有効にすると、技術者は Windows セットアップ中に Microsoft のデバイス コードでサインインし、デバイスのハードウェア ハッシュをアップロードします。</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>対話型ハードウェア ハッシュ アップロード</value>
@@ -632,7 +632,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot プロフィールを選択してください</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>OOBE 中のハードウェア ハッシュ登録のために、技術者のデバイス コード サインインを準備します。</value>
+    <value>展開中に、技術者がデバイスのハードウェア ハッシュをアップロードできるようにします。</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>対話型ハードウェア ハッシュのアップロード</value>
@@ -2369,7 +2369,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>AppX アプリの削除</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>OOBE 中のハードウェア ハッシュ登録のために、技術者のデバイス コード サインインを準備します。</value>
+    <value>展開中にハードウェア ハッシュを対話形式でアップロードします。</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>対話型</value>

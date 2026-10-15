@@ -557,7 +557,7 @@
     <value>Импортиране на Autopilot профил...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Когато е разрешено, техникът влиза с код за устройство на Microsoft по време на OOBE и качва хардуерния хеш на устройството.</value>
+    <value>Когато е разрешено, техникът влиза с код за устройство на Microsoft по време на настройката на Windows и качва хардуерния хеш на устройството.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Интерактивно качване на хардуерен хеш</value>
@@ -632,7 +632,7 @@
     <value>Изберете Autopilot профили</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Подготвя влизане на техник с код на устройство за регистрация на хардуерен хеш по време на OOBE.</value>
+    <value>Позволява на техника да качи хардуерния хеш на устройството по време на внедряването.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Интерактивно качване на хардуерен хеш</value>
@@ -2369,7 +2369,7 @@
     <value>Премахвания на AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Подготвя влизане на техник с код на устройство за регистрация на хардуерен хеш по време на OOBE.</value>
+    <value>Качване на хардуерни хешове интерактивно по време на внедряването.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Интерактивно</value>

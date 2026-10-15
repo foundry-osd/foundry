@@ -557,7 +557,7 @@ Licențiat sub licența MIT.</value>
     <value>Se importă profilul Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Când este activată, tehnicianul se conectează cu un cod de dispozitiv Microsoft în timpul OOBE și încarcă hashul hardware al dispozitivului.</value>
+    <value>Când este activată, tehnicianul se conectează cu un cod de dispozitiv Microsoft în timpul configurării Windows și încarcă hashul hardware al dispozitivului.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Încărcare interactivă a hashului hardware</value>
@@ -632,7 +632,7 @@ Licențiat sub licența MIT.</value>
     <value>Selectați profiluri Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Pregătește conectarea tehnicianului cu cod de dispozitiv pentru înregistrarea hashului hardware în timpul OOBE.</value>
+    <value>Permite tehnicianului să încarce hashul hardware al dispozitivului în timpul implementării.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Încărcare interactivă a hashului hardware</value>
@@ -2369,7 +2369,7 @@ Licențiat sub licența MIT.</value>
     <value>Eliminări AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Pregătește conectarea tehnicianului cu cod de dispozitiv pentru înregistrarea hashului hardware în timpul OOBE.</value>
+    <value>Încarcă interactiv hashurile hardware în timpul implementării.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interactiv</value>

@@ -557,7 +557,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Notiek Autopilot profila importēšana...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Kad iespējots, tehniķis OOBE laikā pierakstās ar Microsoft ierīces kodu un augšupielādē ierīces aparatūras jaucējkodu.</value>
+    <value>Kad iespējots, tehniķis Windows iestatīšanas laikā pierakstās ar Microsoft ierīces kodu un augšupielādē ierīces aparatūras jaucējkodu.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktīva aparatūras jaucējkoda augšupielāde</value>
@@ -632,7 +632,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atlasiet Autopilot profilus</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Sagatavo tehniķa pierakstīšanos ar ierīces kodu aparatūras jaucējkoda reģistrācijai OOBE laikā.</value>
+    <value>Ļauj tehniķim izvietošanas laikā augšupielādēt ierīces aparatūras jaucējkodu.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktīva aparatūras jaucējkoda augšupielāde</value>
@@ -2369,7 +2369,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>AppX noņemšanas</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Sagatavo tehniķa pierakstīšanos ar ierīces kodu aparatūras jaucējkoda reģistrācijai OOBE laikā.</value>
+    <value>Interaktīvi augšupielādē aparatūras jaucējkodus izvietošanas laikā.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktīvi</value>

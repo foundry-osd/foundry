@@ -557,7 +557,7 @@
     <value>正在导入Autopilot个人资料...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>启用后，技术人员将在 OOBE 期间使用 Microsoft 设备代码登录并上传设备硬件哈希。</value>
+    <value>启用后，技术人员将在 Windows 安装期间使用 Microsoft 设备代码登录并上传设备硬件哈希。</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>交互式硬件哈希上传</value>
@@ -632,7 +632,7 @@
     <value>选择Autopilot配置文件</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>在 OOBE 期间为硬件哈希注册准备技术人员设备代码登录。</value>
+    <value>允许技术人员在部署期间上传设备硬件哈希。</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>交互式硬件哈希上传</value>
@@ -2369,7 +2369,7 @@
     <value>AppX 应用删除</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>在 OOBE 期间为硬件哈希注册准备技术人员设备代码登录。</value>
+    <value>在部署期间以交互方式上传硬件哈希。</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>交互式</value>

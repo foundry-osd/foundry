@@ -557,7 +557,7 @@ Licencované podľa licencie MIT.</value>
     <value>Importuje sa profil Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Po povolení sa technik počas OOBE prihlási pomocou kódu zariadenia Microsoft a nahrá hardvérový hash zariadenia.</value>
+    <value>Po povolení sa technik počas inštalácie systému Windows prihlási pomocou kódu zariadenia Microsoft a nahrá hardvérový hash zariadenia.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktívne nahratie hardvérového hashu</value>
@@ -632,7 +632,7 @@ Licencované podľa licencie MIT.</value>
     <value>Vyberte profily Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Pripraví prihlásenie technika pomocou kódu zariadenia na registráciu hardvérového hashu počas OOBE.</value>
+    <value>Umožní technikovi nahrať hardvérový hash zariadenia počas nasadenia.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktívne nahratie hardvérového hashu</value>
@@ -2369,7 +2369,7 @@ Licencované podľa licencie MIT.</value>
     <value>Odstránenie balíkov AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Pripraví prihlásenie technika pomocou kódu zariadenia na registráciu hardvérového hashu počas OOBE.</value>
+    <value>Interaktívne nahráva hardvérové hashe počas nasadenia.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktívne</value>

@@ -557,7 +557,7 @@
     <value>מייבא פרופיל Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>כשהאפשרות מופעלת, הטכנאי נכנס באמצעות קוד מכשיר של Microsoft במהלך OOBE ומעלה את hash החומרה של המכשיר.</value>
+    <value>כשהאפשרות מופעלת, הטכנאי נכנס באמצעות קוד מכשיר של Microsoft במהלך התקנת Windows ומעלה את hash החומרה של המכשיר.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>העלאה אינטראקטיבית של hash חומרה</value>
@@ -632,7 +632,7 @@
     <value>בחר Autopilot פרופילים</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>מכין כניסת טכנאי באמצעות קוד מכשיר לרישום hash חומרה במהלך OOBE.</value>
+    <value>מאפשר לטכנאי להעלות את hash החומרה של המכשיר במהלך הפריסה.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>העלאה אינטראקטיבית של Hash חומרה</value>
@@ -2369,7 +2369,7 @@
     <value>הסרת יישומי AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>מכין כניסת טכנאי באמצעות קוד מכשיר לרישום hash חומרה במהלך OOBE.</value>
+    <value>העלאה אינטראקטיבית של hash חומרה במהלך הפריסה.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>אינטראקטיבי</value>

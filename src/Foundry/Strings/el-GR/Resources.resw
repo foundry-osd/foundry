@@ -557,7 +557,7 @@
     <value>Εισαγωγή προφίλ Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Όταν είναι ενεργοποιημένη, ο τεχνικός συνδέεται με κωδικό συσκευής Microsoft κατά το OOBE και αποστέλλει τον κατακερματισμό υλικού της συσκευής.</value>
+    <value>Όταν είναι ενεργοποιημένη, ο τεχνικός συνδέεται με κωδικό συσκευής Microsoft κατά τη ρύθμιση των Windows και αποστέλλει τον κατακερματισμό υλικού της συσκευής.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Διαδραστική αποστολή κατακερματισμού υλικού</value>
@@ -632,7 +632,7 @@
     <value>Επιλέξτε προφίλ Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Προετοιμάζει σύνδεση τεχνικού με κωδικό συσκευής για εγγραφή κατακερματισμού υλικού κατά το OOBE.</value>
+    <value>Επιτρέπει στον τεχνικό να αποστείλει τον κατακερματισμό υλικού της συσκευής κατά την ανάπτυξη.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Διαδραστική αποστολή κατακερματισμού υλικού</value>
@@ -2369,7 +2369,7 @@
     <value>Αφαιρέσεις AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Προετοιμάζει σύνδεση τεχνικού με κωδικό συσκευής για εγγραφή κατακερματισμού υλικού κατά το OOBE.</value>
+    <value>Διαδραστική αποστολή κατακερματισμών υλικού κατά την ανάπτυξη.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Διαδραστική</value>

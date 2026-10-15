@@ -557,7 +557,7 @@ Licensierad under MIT-licensen.</value>
     <value>Importerar Autopilot profil...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>När funktionen är aktiverad loggar teknikern in med en Microsoft-enhetskod under OOBE och laddar upp enhetens maskinvaruhash.</value>
+    <value>När funktionen är aktiverad loggar teknikern in med en Microsoft-enhetskod under Windows-installationen och laddar upp enhetens maskinvaruhash.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktiv uppladdning av maskinvaruhash</value>
@@ -632,7 +632,7 @@ Licensierad under MIT-licensen.</value>
     <value>Välj Autopilot profiler</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Förbereder teknikerinloggning med enhetskod för registrering av maskinvaruhash under OOBE.</value>
+    <value>Låt teknikern ladda upp enhetens maskinvaruhash under distributionen.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktiv uppladdning av maskinvaruhash</value>
@@ -2369,7 +2369,7 @@ Licensierad under MIT-licensen.</value>
     <value>AppX-borttagningar</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Förbereder teknikerinloggning med enhetskod för registrering av maskinvaruhash under OOBE.</value>
+    <value>Ladda upp maskinvaruhashar interaktivt under distributionen.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktiv</value>

@@ -557,7 +557,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Importowanie profilu Autopilot...</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Po włączeniu technik loguje się za pomocą kodu urządzenia Microsoft podczas OOBE i przesyła skrót sprzętowy urządzenia.</value>
+    <value>Po włączeniu technik loguje się za pomocą kodu urządzenia Microsoft podczas instalacji systemu Windows i przesyła skrót sprzętowy urządzenia.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktywne przesyłanie skrótu sprzętowego</value>
@@ -632,7 +632,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Wybierz profile Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Przygotowuje logowanie technika kodem urządzenia do rejestracji skrótu sprzętowego podczas OOBE.</value>
+    <value>Umożliwia technikowi przesłanie skrótu sprzętowego urządzenia podczas wdrażania.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktywne przesyłanie skrótu sprzętowego</value>
@@ -2369,7 +2369,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Usuwanie pakietów AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Przygotowuje logowanie technika kodem urządzenia do rejestracji skrótu sprzętowego podczas OOBE.</value>
+    <value>Interaktywnie przesyła skróty sprzętowe podczas wdrażania.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktywnie</value>
