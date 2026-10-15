@@ -517,7 +517,8 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
     {
         return failureCode is AutopilotHardwareHashCaptureFailureCode.SupportLibraryMissing
             or AutopilotHardwareHashCaptureFailureCode.SupportLibraryCopyFailed
-            or AutopilotHardwareHashCaptureFailureCode.SupportLibraryLoadFailed;
+            or AutopilotHardwareHashCaptureFailureCode.SupportLibraryLoadFailed
+            or AutopilotHardwareHashCaptureFailureCode.SupportLibraryRegistrationFailed;
     }
 
     private static DeploymentFailure CreateHardwareHashCaptureFailure(
@@ -535,6 +536,11 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
                 DeploymentFailureKinds.Io,
                 DeploymentFailureReasons.UnexpectedException,
                 "support_library_copy_failed"),
+            AutopilotHardwareHashCaptureFailureCode.SupportLibraryRegistrationFailed => new(
+                DeploymentOperationNames.CaptureAutopilotHash,
+                DeploymentFailureKinds.Process,
+                DeploymentFailureReasons.NonZeroExit,
+                "support_library_registration_failed"),
             _ => new(
                 DeploymentOperationNames.CaptureAutopilotHash,
                 DeploymentFailureKinds.Process,

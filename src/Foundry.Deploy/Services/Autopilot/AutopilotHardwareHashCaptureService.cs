@@ -19,6 +19,7 @@ public sealed class AutopilotHardwareHashCaptureService(
     ILogger<AutopilotHardwareHashCaptureService> logger) : IAutopilotHardwareHashCaptureService
 {
     private const string PcpKspFileName = "PCPKsp.dll";
+    private const string RunDll32FileName = "rundll32.exe";
     private const string Oa3ToolRelativePath = @"Tools\OA3\oa3tool.exe";
     private const string RuntimeHashRelativePath = @"Runtime\AutopilotHash";
     private const string Oa3ConfigFileName = "OA3.cfg";
@@ -73,6 +74,27 @@ public sealed class AutopilotHardwareHashCaptureService(
             return AutopilotHardwareHashCaptureResult.Failed(
                 AutopilotHardwareHashCaptureFailureCode.SupportLibraryCopyFailed,
                 $"Required support library could not be copied to '{destinationPcpKspPath}': {ex.Message}");
+        }
+
+        // Copying PCPKsp.dll is not enough: OA3Tool opens the Microsoft Platform Crypto Provider through CNG,
+        // which WinPE only resolves after DllInstall registers the provider. Without it, OA3Tool reports the
+        // TPM version as 0xC0000225 and Autopilot rejects TPM-dependent profiles such as self-deploying mode.
+        ProcessExecutionResult registration = await processRunner
+            .RunAsync(
+                Path.Combine(request.WinPeWindowsRootPath, "System32", RunDll32FileName),
+                [$"{destinationPcpKspPath},DllInstall"],
+                runtimeHashRoot,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!registration.IsSuccess)
+        {
+            logger.LogWarning(
+                "Failed to register PCPKsp.dll as the Microsoft Platform Crypto Provider. ExitCode={ExitCode}.",
+                registration.ExitCode);
+            return AutopilotHardwareHashCaptureResult.Failed(
+                AutopilotHardwareHashCaptureFailureCode.SupportLibraryRegistrationFailed,
+                $"Required support library could not be registered from '{destinationPcpKspPath}' (exit code {registration.ExitCode}).");
         }
 
         await WriteOa3InputsAsync(runtimeHashRoot, cancellationToken).ConfigureAwait(false);

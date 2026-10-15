@@ -58,6 +58,13 @@ public static class AutopilotOa3XmlParser
             return Failed(AutopilotHardwareHashCaptureFailureCode.HashMissing, "OA3 report does not contain a hardware hash.");
         }
 
+        if (traceDocument is not null && TryGetTpmVersionError(traceDocument, out string tpmVersionError))
+        {
+            return Failed(
+                AutopilotHardwareHashCaptureFailureCode.TpmVersionMissing,
+                $"OA3Tool detected a TPM but could not read its version (error {tpmVersionError}); the hardware hash would not be recognized as TPM 2.0 capable.");
+        }
+
         return new AutopilotHardwareHashParseResult
         {
             FailureCode = AutopilotHardwareHashCaptureFailureCode.None,
@@ -124,6 +131,45 @@ public static class AutopilotOa3XmlParser
         }
 
         return string.Empty;
+    }
+
+    /// <summary>
+    /// Detects a trace where OA3Tool read the TPM endorsement key but failed to read the TPM version.
+    /// Devices without a TPM report neither value and are not treated as failures.
+    /// </summary>
+    private static bool TryGetTpmVersionError(XDocument traceDocument, out string error)
+    {
+        error = string.Empty;
+        XElement? tpm = traceDocument
+            .Descendants()
+            .FirstOrDefault(element => element.Name.LocalName.Equals("TPM", StringComparison.OrdinalIgnoreCase));
+        if (tpm is null || !IsUsableValue(FindTpmProperty(tpm, "TPM EkPub")?.Value))
+        {
+            return false;
+        }
+
+        XElement? version = FindTpmProperty(tpm, "TPM Version");
+        string? versionError = version?.Attribute("error")?.Value;
+        if (!string.IsNullOrWhiteSpace(versionError))
+        {
+            error = versionError.Trim();
+            return true;
+        }
+
+        if (!IsUsableValue(version?.Value))
+        {
+            error = "missing";
+            return true;
+        }
+
+        return false;
+    }
+
+    private static XElement? FindTpmProperty(XElement tpm, string name)
+    {
+        return tpm
+            .Elements()
+            .FirstOrDefault(element => element.Attribute("name")?.Value.Equals(name, StringComparison.OrdinalIgnoreCase) == true);
     }
 
     private static bool IsUsableValue(string? value)
