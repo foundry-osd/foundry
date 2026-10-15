@@ -1,0 +1,169 @@
+# Resource values that may stay identical to en-US in a non-English culture.
+# Product names, technical terms and words spelled the same in the target language belong here;
+# untranslated text does not.
+# Format: <Project> <key, or prefix ending with *> [culture ...]. Without cultures, the entry applies to every culture.
+
+# Foundry
+Foundry Customization.WindowsOptionalFeatures.Feature.*
+Foundry AboutDialog.FoundryLicenseTitle
+Foundry AboutDialog.HomepageLink de-DE nl-NL
+Foundry AboutDialog.RepositoryLink de-DE
+Foundry AboutDialog.SupportLink da-DK sv-SE
+Foundry Adk.PageTitle
+Foundry Adk.WinPeAddon.Title de-DE
+Foundry Autopilot.ColumnFolder pl-PL ro-RO
+Foundry Autopilot.ColumnName de-DE
+Foundry Autopilot.ColumnSource fr-CA fr-FR
+Foundry Autopilot.HardwareHashCertificateExpiresColumn fr-CA fr-FR
+Foundry Autopilot.HardwareHashOnboardingStatusLabel da-DK de-DE hr-HR nb-NO nl-NL sr-Latn-RS sv-SE
+Foundry Autopilot.HardwareHashTenantReadinessNameColumn de-DE
+Foundry CustomImages.ArchitectureLabel fr-CA fr-FR
+Foundry CustomImages.EditionLabel de-DE
+Foundry CustomImages.IndexNumberLabel cs-CZ de-DE fr-CA fr-FR hu-HU nl-NL ro-RO sk-SK sv-SE
+Foundry CustomImages.NameLabel de-DE
+Foundry CustomImages.No es-ES es-MX it-IT
+Foundry CustomImages.StatusLabel da-DK de-DE hr-HR nb-NO nl-NL pt-BR sr-Latn-RS sv-SE
+Foundry CustomImages.VersionLabel da-DK de-DE fr-CA fr-FR sv-SE
+Foundry Customization.AppxRemovalPackagesLabel fr-CA fr-FR
+Foundry Customization.MachineNamingComponentModel cs-CZ da-DK hr-HR nl-NL pl-PL ro-RO sk-SK sl-SI sr-Latn-RS tr-TR
+Foundry Customization.MachineNamingManualLabel es-ES es-MX pt-BR pt-PT ro-RO
+Foundry Customization.MachineNamingSeparatorLabel pl-PL ro-RO sr-Latn-RS
+Foundry Customization.OobeAccountTypeAdministrator da-DK de-DE hr-HR nb-NO nl-NL pl-PL ro-RO sr-Latn-RS
+Foundry Customization.OobeAccountTypeStandard da-DK de-DE fr-CA fr-FR it-IT nb-NO ro-RO sv-SE
+Foundry Customization.OobeAccountsHeader nl-NL
+Foundry Customization.OobeDiagnosticDataOptional de-DE
+Foundry Customization.WindowsOptionalFeatures.Category.Containers nl-NL
+Foundry Customization.WindowsOptionalFeatures.Category.Media fi-FI nl-NL sv-SE
+Foundry DomainJoin.ColumnOuCount de-DE pt-BR
+Foundry DomainJoin.ColumnStatus da-DK de-DE hr-HR nb-NO nl-NL pt-BR sr-Latn-RS sv-SE
+Foundry DomainJoinDialogDomainName.PlaceholderText
+Foundry DomainJoinManualDn.PlaceholderText
+Foundry DomainJoinPassword.Header it-IT
+Foundry EthernetDot1xPageHeader.Title
+Foundry GeneralConfiguration.DeploymentProtection.Password.Placeholder it-IT
+Foundry GeneralConfigurationPage_Title.Text es-ES es-MX ro-RO
+Foundry Home.AdkStatus.WinPeAddonLabel de-DE
+Foundry Home.Status.ConfigCard.Title fr-CA fr-FR
+Foundry Language.ThaiThailand da-DK nb-NO
+Foundry Nav_AdkKey.Title
+Foundry Nav_AutopilotZeroTouchKey.Title ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW
+Foundry Nav_DocumentationKey.Title fr-CA fr-FR
+Foundry Nav_EthernetDot1xKey.Title
+Foundry Nav_GeneralConfigurationKey.Title es-ES es-MX ro-RO
+Foundry Nav_GeneralSection.Title es-ES es-MX ro-RO
+Foundry Nav_HomeKey.Title it-IT
+Foundry Nav_OobeKey.Title
+Foundry Nav_PostInstallationKey.Title fr-CA fr-FR
+Foundry Nav_StartKey.Title da-DK hr-HR nb-NO
+Foundry Nav_UnattendKey.Title
+Foundry Nav_WifiKey.Title
+Foundry Nav_WindowsAutopilotSection.Title ar-SA bg-BG cs-CZ de-DE el-GR es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT lt-LT lv-LV pl-PL pt-BR ro-RO ru-RU sk-SK sl-SI sr-Latn-RS tr-TR uk-UA zh-TW
+Foundry Nav_ZeroTouchDomainJoinKey.Title ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW
+Foundry OobePageHeader.Title
+Foundry PostInstallation.Application cs-CZ da-DK de-DE es-ES es-MX it-IT nl-NL pt-BR pt-PT ro-RO
+Foundry PostInstallation.TypeHeader da-DK fr-CA fr-FR nb-NO nl-NL
+Foundry Proxy_AddressTextBox.PlaceholderText
+Foundry Proxy_BypassListTextBox.PlaceholderText
+Foundry Proxy_EndpointCard.Header cs-CZ
+Foundry Proxy_PasswordBox.PlaceholderText it-IT
+Foundry Proxy_PortNumberBox.PlaceholderText cs-CZ da-DK de-DE el-GR et-EE fi-FI fr-CA fr-FR hr-HR hu-HU lt-LT lv-LV nb-NO nl-NL pl-PL ro-RO sk-SK sl-SI sr-Latn-RS sv-SE tr-TR
+Foundry SettingsPage_GeneralCard.Header es-ES es-MX ro-RO
+Foundry SettingsPage_ProxyCard.Header cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO sk-SK sl-SI sv-SE tr-TR zh-TW
+Foundry StartMedia.ByteUnit.B cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI hr-HR hu-HU it-IT ja-JP lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO sk-SK sl-SI sr-Latn-RS sv-SE tr-TR
+Foundry StartMedia.ByteUnit.GB ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI he-IL hr-HR hu-HU it-IT ja-JP ko-KR lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW
+Foundry StartMedia.ByteUnit.KB ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI he-IL hr-HR hu-HU it-IT ja-JP ko-KR lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW
+Foundry StartMedia.ByteUnit.MB ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI he-IL hr-HR hu-HU it-IT ja-JP ko-KR lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW
+Foundry StartMedia.ByteUnit.TB ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI he-IL hr-HR hu-HU it-IT ja-JP ko-KR lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW
+Foundry StartMedia.DriverOptions.Dell
+Foundry StartMedia.DriverOptions.Hp
+Foundry StartMedia.DriverVendor.Dell
+Foundry StartMedia.DriverVendor.Hp
+Foundry StartMedia.Field.Adk
+Foundry StartMedia.Field.Architecture fr-CA fr-FR
+Foundry StartMedia.Field.Autopilot
+Foundry StartMedia.Field.Drivers pt-BR
+Foundry StartMedia.Signature.Ca2011
+Foundry StartMedia.Signature.Ca2023
+Foundry StartMedia.SignatureMode.Pca2011
+Foundry StartMedia.SignatureMode.Pca2023
+Foundry StartMedia.Usb.DiskDisplay cs-CZ da-DK hr-HR nb-NO sk-SK sl-SI sr-Latn-RS sv-SE tr-TR
+Foundry StartPage_Title.Text da-DK hr-HR nb-NO
+Foundry ThemeSetting_DefaultItem.Content da-DK de-DE nb-NO sv-SE
+Foundry ThemeSetting_MaterialCard.Header de-DE es-ES es-MX ro-RO sl-SI sv-SE
+Foundry ThemeSetting_MicaAltItem.Content cs-CZ de-DE el-GR et-EE fi-FI fr-CA fr-FR hr-HR hu-HU it-IT nl-NL pt-BR pt-PT ro-RO sk-SK sl-SI sr-Latn-RS sv-SE
+Foundry ThemeSetting_MicaItem.Content de-DE es-ES es-MX fi-FI fr-CA fr-FR hu-HU it-IT nl-NL pt-BR pt-PT ro-RO sl-SI sr-Latn-RS
+Foundry Wifi.PassphraseLabel de-DE it-IT
+Foundry Wifi.SecurityTypeEnterprise bg-BG cs-CZ da-DK de-DE el-GR et-EE fi-FI he-IL hr-HR hu-HU lv-LV nb-NO nl-NL ro-RO sk-SK sl-SI sv-SE uk-UA
+Foundry Wifi.SecurityTypeEnterpriseWpa3 bg-BG cs-CZ da-DK de-DE el-GR et-EE fi-FI he-IL hr-HR hu-HU lt-LT lv-LV nb-NO nl-NL pl-PL ro-RO sk-SK sl-SI sv-SE uk-UA
+Foundry Wifi.SecurityTypeEnterpriseWpa3192 bg-BG cs-CZ da-DK el-GR he-IL hr-HR lv-LV nb-NO nl-NL sk-SK sl-SI uk-UA
+Foundry Wifi.SecurityTypeOpen nl-NL
+Foundry Wifi.SecurityTypeOwe da-DK nb-NO ro-RO sv-SE
+Foundry Wifi.SecurityTypePersonal el-GR fi-FI hu-HU lt-LT lv-LV ro-RO sv-SE uk-UA
+Foundry Wifi.SsidLabel
+Foundry WifiPageHeader.Title
+
+# Foundry.Deploy
+Foundry.Deploy App.Name
+Foundry.Deploy App.WindowTitle
+Foundry.Deploy Autopilot.Title
+Foundry.Deploy Catalog.Version de-DE fr-CA fr-FR sv-SE
+Foundry.Deploy Common.No es-ES es-MX it-IT
+Foundry.Deploy Common.NotAvailable ro-RO
+Foundry.Deploy Common.VersionFormat da-DK de-DE sv-SE
+Foundry.Deploy CustomImages.Image fr-CA fr-FR
+Foundry.Deploy Debug.Autopilot
+Foundry.Deploy Debug.DomainJoin.ZeroTouch ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW
+Foundry.Deploy Disk.DisplayLabelFormat cs-CZ da-DK hr-HR nb-NO sk-SK sl-SI sr-Latn-RS sv-SE tr-TR
+Foundry.Deploy DomainJoin.Password it-IT
+Foundry.Deploy DriverPack.MicrosoftUpdateCatalog
+Foundry.Deploy DriverPack.Model cs-CZ da-DK hr-HR nl-NL ro-RO sk-SK sl-SI sr-Latn-RS
+Foundry.Deploy DriverPack.Oem bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT ja-JP ko-KR lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-TW
+Foundry.Deploy DriverPack.Version de-DE fr-CA fr-FR sv-SE
+Foundry.Deploy Language.ThaiThailand da-DK nb-NO
+Foundry.Deploy Menu.Debug it-IT
+Foundry.Deploy Progress.Session fr-CA fr-FR
+Foundry.Deploy StepResult.SimulationFormat fr-CA fr-FR
+Foundry.Deploy Summary.Architecture fr-CA fr-FR
+Foundry.Deploy Summary.Build da-DK de-DE fr-CA fr-FR hu-HU it-IT nb-NO nl-NL ro-RO sv-SE
+Foundry.Deploy Summary.Category.Autopilot
+Foundry.Deploy Summary.DiagnosticData.Optional de-DE
+Foundry.Deploy Summary.Manual es-ES es-MX pt-BR pt-PT ro-RO
+Foundry.Deploy Summary.Oobe
+Foundry.Deploy Summary.Status da-DK de-DE hr-HR nb-NO nl-NL pt-BR sr-Latn-RS sv-SE
+Foundry.Deploy Summary.Wifi
+Foundry.Deploy TargetDevice.Architecture fr-CA fr-FR
+Foundry.Deploy TargetDevice.Model cs-CZ da-DK hr-HR nl-NL pl-PL ro-RO sk-SK sl-SI sr-Latn-RS tr-TR
+Foundry.Deploy TargetDevice.Platform da-DK hu-HU nl-NL tr-TR
+Foundry.Deploy TargetDevice.Product nl-NL
+Foundry.Deploy TargetDevice.Tpm
+Foundry.Deploy Theme.System da-DK de-DE nb-NO sv-SE
+Foundry.Deploy Wizard.Step.Autopilot
+
+# Foundry.Connect
+Foundry.Connect App.Name
+Foundry.Connect App.WindowTitle
+Foundry.Connect Common.VersionFormat da-DK de-DE sv-SE
+Foundry.Connect Ethernet.AdapterLabel da-DK de-DE et-EE hr-HR hu-HU nb-NO nl-NL pl-PL sl-SI sr-Latn-RS sv-SE
+Foundry.Connect Ethernet.GatewayLabel da-DK nb-NO nl-NL sv-SE
+Foundry.Connect Ethernet.Ipv4Label
+Foundry.Connect Ethernet.Title
+Foundry.Connect Language.ThaiThailand da-DK nb-NO
+Foundry.Connect Menu.Debug it-IT
+Foundry.Connect Theme.System da-DK de-DE nb-NO sv-SE
+Foundry.Connect Wifi.ConnectionChipEthernet
+Foundry.Connect Wifi.ConnectionChipFormat ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT ja-JP ko-KR lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-TW
+Foundry.Connect Wifi.SecurityEnterprise cs-CZ da-DK he-IL hu-HU nb-NO sk-SK
+Foundry.Connect Wifi.SecurityMachineFormat nl-NL
+Foundry.Connect Wifi.SecurityOpen nl-NL
+Foundry.Connect Wifi.SecurityPersonal es-ES es-MX ro-RO
+Foundry.Connect Wifi.SecurityWep ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT ja-JP ko-KR lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sv-SE th-TH tr-TR uk-UA zh-TW
+Foundry.Connect Wifi.SecurityWpa2Enterprise bg-BG cs-CZ da-DK de-DE el-GR et-EE fi-FI he-IL hr-HR hu-HU lv-LV nb-NO nl-NL ro-RO sk-SK sl-SI sv-SE uk-UA
+Foundry.Connect Wifi.SecurityWpa2Personal bg-BG el-GR fi-FI hu-HU lv-LV ro-RO uk-UA
+Foundry.Connect Wifi.SecurityWpa2Wpa3Enterprise bg-BG cs-CZ da-DK de-DE el-GR et-EE fi-FI he-IL hr-HR hu-HU lv-LV nb-NO nl-NL ro-RO sk-SK sl-SI sv-SE uk-UA
+Foundry.Connect Wifi.SecurityWpa2Wpa3Personal el-GR fi-FI hu-HU lt-LT lv-LV ro-RO sv-SE uk-UA
+Foundry.Connect Wifi.SecurityWpa3Enterprise bg-BG cs-CZ da-DK de-DE el-GR et-EE fi-FI he-IL hr-HR hu-HU lv-LV nb-NO nl-NL ro-RO sk-SK sl-SI sv-SE uk-UA
+Foundry.Connect Wifi.SecurityWpa3Enterprise192 cs-CZ da-DK el-GR nb-NO nl-NL sk-SK sl-SI uk-UA
+Foundry.Connect Wifi.SecurityWpa3Personal bg-BG el-GR fi-FI hu-HU lv-LV ro-RO sl-SI uk-UA
+Foundry.Connect Wifi.SecurityWpaEnterprise cs-CZ da-DK et-EE fi-FI he-IL hu-HU lv-LV nb-NO ro-RO sk-SK sr-Latn-RS sv-SE
+Foundry.Connect Wifi.SecurityWpaPersonal es-MX ro-RO
+Foundry.Connect Wifi.Title

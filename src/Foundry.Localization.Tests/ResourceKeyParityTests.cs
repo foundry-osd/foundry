@@ -45,6 +45,19 @@ public sealed class ResourceKeyParityTests
         ["To"] = "TB"
     };
 
+    private const string UntranslatedValueAllowListFileName = "UntranslatedValueAllowList.txt";
+
+    private static readonly string[] SpellingStems =
+    [
+        "author", "capital", "categor", "central", "custom", "emphas", "final", "general", "initial", "local",
+        "maxim", "minim", "modern", "normal", "optim", "organ", "personal", "priorit", "real", "recogn", "sanit",
+        "serial", "special", "standard", "summar", "synchron", "util", "virtual", "visual"
+    ];
+
+    private static readonly string[] SpellingSuffixes = ["e", "ed", "es", "ing", "ation", "ations", "ational", "er", "ers"];
+
+    private static readonly Dictionary<string, string> BritishToAmericanSpelling = CreateBritishToAmericanSpelling();
+
     private static readonly string[] SupportedCultures = FoundrySupportedCultures.CreateCatalog()
         .CreateOptions(System.Globalization.CultureInfo.GetCultureInfo("en-US"), key => key)
         .Select(option => option.Code).ToArray();
@@ -204,6 +217,94 @@ public sealed class ResourceKeyParityTests
         }
     }
 
+    public static TheoryData<string> WpfResourceProjects => new()
+    {
+        "Foundry.Connect",
+        "Foundry.Deploy"
+    };
+
+    [Theory]
+    [MemberData(nameof(ResourceSets))]
+    public void NonEnglishCultures_DoNotCopyEnglishValues_ExceptAllowList(string projectName, string extension)
+    {
+        string sourceRoot = FindSourceRoot();
+        string stringsRoot = Path.Combine(sourceRoot, projectName, "Strings");
+        IReadOnlyDictionary<string, string> enUsValues = ReadResourceValues(Path.Combine(stringsRoot, "en-US", $"Resources{extension}"));
+        AllowListEntry[] allowList = ReadUntranslatedValueAllowList(sourceRoot, projectName);
+        List<string> failures = [];
+
+        foreach (string culture in SupportedCultures.Where(culture => !culture.StartsWith("en-", StringComparison.Ordinal)))
+        {
+            IReadOnlyDictionary<string, string> cultureValues = ReadResourceValues(Path.Combine(stringsRoot, culture, $"Resources{extension}"));
+
+            foreach ((string key, string enUsValue) in enUsValues)
+            {
+                if (string.Equals(enUsValue, cultureValues[key], StringComparison.Ordinal)
+                    && ContainsTranslatableText(enUsValue)
+                    && !allowList.Any(entry => entry.Allows(key, culture)))
+                {
+                    failures.Add($"{culture} {key}: '{enUsValue}'");
+                }
+            }
+        }
+
+        Assert.True(
+            failures.Count == 0,
+            $"{projectName} values are copied from en-US. Translate them or add them to {UntranslatedValueAllowListFileName}:{Environment.NewLine}{string.Join(Environment.NewLine, failures)}");
+    }
+
+    [Theory]
+    [MemberData(nameof(ResourceSets))]
+    public void EnGb_MatchesEnUsExceptSpelling(string projectName, string extension)
+    {
+        string stringsRoot = Path.Combine(FindSourceRoot(), projectName, "Strings");
+        IReadOnlyDictionary<string, string> enUsValues = ReadResourceValues(Path.Combine(stringsRoot, "en-US", $"Resources{extension}"));
+        IReadOnlyDictionary<string, string> enGbValues = ReadResourceValues(Path.Combine(stringsRoot, "en-GB", $"Resources{extension}"));
+
+        string[] failures = enUsValues
+            .Where(entry => !string.Equals(
+                NormalizeEnglishSpelling(entry.Value),
+                NormalizeEnglishSpelling(enGbValues[entry.Key]),
+                StringComparison.Ordinal))
+            .Select(entry => $"{entry.Key}: en-US '{entry.Value}', en-GB '{enGbValues[entry.Key]}'")
+            .ToArray();
+
+        Assert.True(
+            failures.Length == 0,
+            $"{projectName} en-GB differs from en-US beyond spelling:{Environment.NewLine}{string.Join(Environment.NewLine, failures)}");
+    }
+
+    [Theory]
+    [MemberData(nameof(WpfResourceProjects))]
+    public void AccessKeys_HaveNoLeadingSpace(string projectName)
+    {
+        string stringsRoot = Path.Combine(FindSourceRoot(), projectName, "Strings");
+        IReadOnlyDictionary<string, string> enUsValues = ReadResourceValues(Path.Combine(stringsRoot, "en-US", "Resources.resx"));
+        string[] accessKeyResourceKeys = enUsValues
+            .Where(entry => Regex.IsMatch(entry.Value, @"_[\p{L}\p{N}]"))
+            .Select(entry => entry.Key)
+            .ToArray();
+        List<string> failures = [];
+
+        foreach (string culture in SupportedCultures)
+        {
+            IReadOnlyDictionary<string, string> cultureValues = ReadResourceValues(Path.Combine(stringsRoot, culture, "Resources.resx"));
+
+            foreach (string key in accessKeyResourceKeys)
+            {
+                string value = cultureValues[key];
+                if (value.Count(character => character == '_') != 1 || !Regex.IsMatch(value, @"_[\p{L}\p{N}]"))
+                {
+                    failures.Add($"{culture} {key}: '{value}'");
+                }
+            }
+        }
+
+        Assert.True(
+            failures.Count == 0,
+            $"{projectName} access keys need exactly one '_' directly before a letter:{Environment.NewLine}{string.Join(Environment.NewLine, failures)}");
+    }
+
     private static string FindSourceRoot()
     {
         DirectoryInfo? directory = new(AppContext.BaseDirectory);
@@ -261,6 +362,107 @@ public sealed class ResourceKeyParityTests
             expectedMatch,
             ExtractPlaceholders(reference).SequenceEqual(ExtractPlaceholders(translation), StringComparer.Ordinal));
     }
+    private static bool ContainsTranslatableText(string value)
+    {
+        return Regex.IsMatch(Regex.Replace(value, @"\{\d+(?::[^}]*)?\}", string.Empty), @"\p{L}");
+    }
+
+    private static AllowListEntry[] ReadUntranslatedValueAllowList(string sourceRoot, string projectName)
+    {
+        string path = Path.Combine(sourceRoot, "Foundry.Localization.Tests", UntranslatedValueAllowListFileName);
+
+        return File.ReadLines(path)
+            .Select(line => line.Trim())
+            .Where(line => line.Length > 0 && !line.StartsWith('#'))
+            .Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+            .Where(fields => string.Equals(fields[0], projectName, StringComparison.Ordinal))
+            .Select(fields => new AllowListEntry(fields[1], fields.Skip(2).ToHashSet(StringComparer.Ordinal)))
+            .ToArray();
+    }
+
+    /// <summary>
+    /// Rewrites known British spellings to American spellings so en-GB can be compared with en-US.
+    /// </summary>
+    private static string NormalizeEnglishSpelling(string value)
+    {
+        string normalized = Regex.Replace(
+            value,
+            @"\bfull stops?\b",
+            match => MatchCase(match.Value, match.Value.EndsWith('s') ? "periods" : "period"),
+            RegexOptions.IgnoreCase);
+
+        return Regex.Replace(
+            normalized,
+            @"\p{L}+",
+            match => BritishToAmericanSpelling.TryGetValue(match.Value.ToLowerInvariant(), out string? american)
+                ? MatchCase(match.Value, american)
+                : match.Value);
+    }
+
+    private static string MatchCase(string source, string replacement)
+    {
+        if (source.All(character => !char.IsLetter(character) || char.IsUpper(character)))
+        {
+            return replacement.ToUpperInvariant();
+        }
+
+        return char.IsUpper(source[0])
+            ? char.ToUpperInvariant(replacement[0]) + replacement[1..]
+            : replacement;
+    }
+
+    private static Dictionary<string, string> CreateBritishToAmericanSpelling()
+    {
+        Dictionary<string, string> spelling = new(StringComparer.Ordinal)
+        {
+            ["analyse"] = "analyze",
+            ["analysed"] = "analyzed",
+            ["analysing"] = "analyzing",
+            ["behaviour"] = "behavior",
+            ["behaviours"] = "behaviors",
+            ["cancelled"] = "canceled",
+            ["cancelling"] = "canceling",
+            ["catalogue"] = "catalog",
+            ["catalogues"] = "catalogs",
+            ["centre"] = "center",
+            ["centres"] = "centers",
+            ["colour"] = "color",
+            ["coloured"] = "colored",
+            ["colours"] = "colors",
+            ["enrol"] = "enroll",
+            ["enrolment"] = "enrollment",
+            ["enrolments"] = "enrollments",
+            ["enrols"] = "enrolls",
+            ["favourite"] = "favorite",
+            ["favourites"] = "favorites",
+            ["licence"] = "license",
+            ["licences"] = "licenses",
+            ["programme"] = "program"
+        };
+
+        foreach (string stem in SpellingStems)
+        {
+            foreach (string suffix in SpellingSuffixes)
+            {
+                spelling[$"{stem}is{suffix}"] = $"{stem}iz{suffix}";
+            }
+        }
+
+        return spelling;
+    }
+
+    private sealed record AllowListEntry(string KeyPattern, IReadOnlySet<string> Cultures)
+    {
+        public bool Allows(string key, string culture)
+        {
+            bool keyMatches = KeyPattern.EndsWith('*')
+                ? key.StartsWith(KeyPattern[..^1], StringComparison.Ordinal)
+                : string.Equals(KeyPattern, key, StringComparison.Ordinal);
+
+            return keyMatches && (Cultures.Count == 0 || Cultures.Contains(culture));
+        }
+    }
+
     private static string[] ExtractPlaceholders(string value)
     {
         return Regex
