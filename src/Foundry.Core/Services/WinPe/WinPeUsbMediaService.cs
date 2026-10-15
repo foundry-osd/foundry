@@ -12,7 +12,13 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
 {
-    internal const ulong MinimumUsbDiskSizeBytes = 16UL * 1024UL * 1024UL * 1024UL;
+    /// <summary>
+    /// Smallest USB disk accepted as a media target. Drives sold as 16 GB hold fewer than 16 GiB, about 15 to 16
+    /// billion bytes, so the minimum is set in decimal bytes below that range. It still leaves room for the 2 GiB
+    /// BOOT partition and a cache partition. When the cache cannot hold an image, Foundry Deploy downloads it to
+    /// the target disk.
+    /// </summary>
+    internal const ulong MinimumUsbDiskSizeBytes = 14_000_000_000UL;
     private const string UsbProvisioningProgressPrefix = "FOUNDRY_USB_PROGRESS|";
     private const string UsbProvisioningVerbosePrefix = "FOUNDRY_USB_VERBOSE|";
     internal const string UsbUnsafeTargetMarker = "FOUNDRY_USB_UNSAFE_TARGET";
