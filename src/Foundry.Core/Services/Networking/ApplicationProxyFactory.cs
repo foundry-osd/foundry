@@ -17,8 +17,9 @@ public static class ApplicationProxyFactory
     /// <summary>
     /// Creates a manually configured HTTP proxy.
     /// </summary>
+    /// <exception cref="ApplicationProxyValidationException">The address or port is invalid.</exception>
     public static IWebProxy CreateManual(
-        string address,
+        string? address,
         int port,
         bool bypassLocal,
         string? bypassList,
@@ -26,16 +27,20 @@ public static class ApplicationProxyFactory
     {
         if (port is < 1 or > 65535)
         {
-            throw new ArgumentOutOfRangeException(nameof(port));
+            throw new ApplicationProxyValidationException(ApplicationProxyValidationReason.InvalidPort, nameof(port));
         }
 
         Uri endpoint = CreateEndpoint(address, port);
         return new ManualApplicationProxy(endpoint, bypassLocal, ParseBypassList(bypassList), credentials);
     }
 
-    private static Uri CreateEndpoint(string address, int port)
+    private static Uri CreateEndpoint(string? address, int port)
     {
-        ArgumentNullException.ThrowIfNull(address);
+        if (string.IsNullOrWhiteSpace(address))
+        {
+            throw new ApplicationProxyValidationException(ApplicationProxyValidationReason.AddressRequired, nameof(address));
+        }
+
         string normalized = address.Trim();
         if (!normalized.Contains("://", StringComparison.Ordinal))
         {
@@ -50,7 +55,7 @@ public static class ApplicationProxyFactory
             !string.IsNullOrEmpty(parsed.Fragment) ||
             !string.IsNullOrEmpty(parsed.UserInfo))
         {
-            throw new ArgumentException("Enter a valid HTTP or HTTPS proxy address.", nameof(address));
+            throw new ApplicationProxyValidationException(ApplicationProxyValidationReason.InvalidAddress, nameof(address));
         }
 
         return new UriBuilder(parsed) { Port = port }.Uri;

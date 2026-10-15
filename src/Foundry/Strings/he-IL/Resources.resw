@@ -292,8 +292,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>לא הוחזרו פרופילים של Autopilot על ידי השוכר.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>הורדת הפרופיל Autopilot נכשלה: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה להוריד את פרופילי Autopilot מהדייר.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>בדוק את החיבור לרשת וודא שלחשבון שלך יש הרשאה לקרוא פרופילי Autopilot ב-Intune, ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>הורדת Autopilot נכשלה</value>
@@ -364,8 +367,11 @@
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>פעולות תעודה</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry לא הצליח ליצור את אישור הרישום של האפליקציה. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry לא הצליח ליצור את האישור של רישום האפליקציה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>ודא שניתן לכתוב לתיקייה שנבחרה ושהחשבון שלך יכול לנהל את רישום האפליקציה, ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>יצירת האישור נכשלה</value>
@@ -400,8 +406,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>תעודת PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry לא הצליח להסיר את אישור הרישום של האפליקציה שנבחרה. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry לא הצליח להסיר את האישור שנבחר של רישום האפליקציה.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>הסרת האישור נכשלה</value>
@@ -442,8 +448,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>העלאת zero-touch של hash חומרה</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry לא הצליח להגדיר את רישום האפליקציה Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry לא הצליח להגדיר את רישום האפליקציה של Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>הכניסה לדייר נכשלה</value>
@@ -529,6 +535,9 @@
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>זיהוי דייר</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>בדוק את החיבור לרשת וודא שהחשבון שלך יכול לנהל רישומי אפליקציות בדייר, ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>לא מחובר</value>
   </data>
@@ -554,7 +563,10 @@
     <value>ייבוא פרופיל</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>לא ניתן היה לייבא את פרופיל Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>ודא שהקובץ הוא קובץ JSON חוקי של פרופיל Autopilot ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>הייבוא Autopilot נכשל</value>
@@ -3135,6 +3147,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>יש לבדוק את שדות החובה. אם נדרשת תיקיית רשת, יש להשתמש בנתיב כגון \\server\share\folder. אם מזינים סיסמת קובץ פעמיים, יש לוודא ששתי ההזנות זהות.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח לשמור את הגדרות ה-Proxy. נסה שוב. הפרטים מופיעים ביומן.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>הגדרות ה-Proxy לא הוחלו</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>שרת ה-Proxy דחה את הכניסה. בדוק את הגדרות האימות של ה-Proxy ונסה שוב.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח להתחבר לשירותי GitHub ו-Microsoft עם הגדרות אלה. בדוק את כתובת ה-Proxy, את היציאה ואת החיבור לרשת. הפרטים מופיעים ביומן.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>הזן את הכתובת של שרת ה-Proxy.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>הזן כתובת Proxy חוקית מסוג HTTP או HTTPS, לדוגמה proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>הזן מספר יציאה בין 1 ל-65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>לא נבדק</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>לא ניתן היה להחיל את העדכון: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח להפעיל את העדכון. נסה להחיל אותו שוב. הפרטים מופיעים ביומן.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח לבדוק אם יש עדכונים. בדוק את החיבור לרשת ונסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>מחפש עדכונים</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>הורדת העדכון נכשלה: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה להוריד את העדכון. בדוק את החיבור לרשת ונסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>מוריד עדכון</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>בדיקת העדכון נכשלה: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD מעודכן.</value>
@@ -4148,11 +4181,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>לא ניתן היה להחיל את העדכון</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>הורדת העדכון נכשלה</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>בדיקת העדכון נכשלה</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>מעודכן</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>העדכון מוכן להתקנה</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>בדיקת עדכון דילגה</value>

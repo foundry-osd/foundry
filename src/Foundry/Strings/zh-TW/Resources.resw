@@ -292,8 +292,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>租戶沒有返回Autopilot個人資料。</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot設定檔下載失敗：{0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>無法從租用戶下載 Autopilot 設定檔。</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>請檢查您的網路連線，並確認您的帳戶可以讀取 Intune 中的 Autopilot 設定檔，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot下載失敗</value>
@@ -364,8 +367,11 @@
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>證書操作</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 無法建立應用程式註冊證書。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry 無法建立應用程式註冊憑證。</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>請確認可以寫入選取的資料夾，且您的帳戶可以管理該應用程式註冊，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>證書建立失敗</value>
@@ -400,8 +406,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX憑證</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 無法刪除所選的應用程式註冊證書。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry 無法刪除選取的應用程式註冊憑證。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>證書刪除失敗</value>
@@ -442,8 +448,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch 硬體雜湊上傳</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 無法設定Autopilot 應用程式註冊。 {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry 無法設定 Autopilot 應用程式註冊。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>租戶入職失敗</value>
@@ -529,6 +535,9 @@
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>租戶ID</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>請檢查您的網路連線，並確認您的帳戶可以管理租用戶中的應用程式註冊，然後再試一次。如需詳細資料，請參閱記錄。</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>未連接</value>
   </data>
@@ -554,7 +563,10 @@
     <value>導入設定檔</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>無法匯入 Autopilot 設定檔。</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>請確認檔案是有效的 Autopilot 設定檔 JSON 檔案，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot導入失敗</value>
@@ -3135,6 +3147,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>請檢查必填欄位。如果需要網路資料夾，請使用 \\server\share\folder 這樣的路徑。如果輸入檔案密碼兩次，請確認兩次輸入相同。</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 無法儲存 Proxy 設定。請再試一次。如需詳細資料，請參閱記錄。</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>未套用 Proxy 設定</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxy 伺服器拒絕了登入。請檢查 Proxy 驗證設定，然後再試一次。</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD 無法使用這些設定連線到 GitHub 和 Microsoft 服務。請檢查 Proxy 位址、連接埠及您的網路連線。如需詳細資料，請參閱記錄。</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>請輸入 Proxy 伺服器位址。</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>請輸入有效的 HTTP 或 HTTPS Proxy 位址，例如 proxy.contoso.com。</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>請輸入 1 到 65535 之間的連接埠號碼。</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未檢查</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>無法套用更新：{0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 無法啟動更新。請嘗試重新套用更新。如需詳細資料，請參閱記錄。</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 無法檢查更新。請檢查您的網路連線，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>檢查更新</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>更新下載失敗：{0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>無法下載更新。請檢查您的網路連線，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>正在下載更新</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>更新檢查失敗：{0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD 是最新的。</value>
@@ -4148,11 +4181,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>無法套用更新</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>更新下載失敗</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新檢查失敗</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>最新</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>更新已可安裝</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>更新檢查已跳過</value>

@@ -292,8 +292,11 @@ Licensed under the MIT License.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>No Autopilot profiles were returned by the tenant.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profile download failed: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>The Autopilot profiles could not be downloaded from the tenant.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Check your network connection and make sure your account can read Autopilot profiles in Intune, then try again. Details are in the log.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot download failed</value>
@@ -364,8 +367,11 @@ Licensed under the MIT License.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Certificate actions</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry could not create the app registration certificate. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry could not create the app registration certificate.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Check that the selected folder can be written to and that your account can manage the app registration, then try again. Details are in the log.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Certificate creation failed</value>
@@ -400,8 +406,8 @@ Licensed under the MIT License.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX certificate</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry could not remove the selected app registration certificate. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry could not remove the selected app registration certificate.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Certificate removal failed</value>
@@ -442,8 +448,8 @@ Licensed under the MIT License.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch hardware hash upload</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry could not configure the Autopilot app registration. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry could not configure the Autopilot app registration.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Tenant onboarding failed</value>
@@ -529,6 +535,9 @@ Licensed under the MIT License.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Tenant ID</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Check your network connection and make sure your account can manage app registrations in the tenant, then try again. Details are in the log.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Not connected</value>
   </data>
@@ -554,7 +563,10 @@ Licensed under the MIT License.</value>
     <value>Import profile</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>The Autopilot profile could not be imported.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Check that the file is a valid Autopilot profile JSON file, then try again. Details are in the log.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot import failed</value>
@@ -3135,6 +3147,18 @@ Passwords and access keys included: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Check the required fields. If a network folder is requested, use a path such as \\server\share\folder. If you enter a file password twice, make sure both entries match.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD could not save the proxy settings. Try again. Details are in the log.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Proxy settings not applied</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>The proxy rejected the sign-in. Check the proxy authentication settings and try again.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD could not reach GitHub and Microsoft services with these settings. Check the proxy address, port, and your network connection. Details are in the log.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Passwords and access keys included: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Enter the proxy server address.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Enter a valid HTTP or HTTPS proxy address, such as proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Enter a port number from 1 to 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Applying the update restarts Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Not checked</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>The update could not be applied: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD could not start the update. Try applying it again. Details are in the log.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD could not check for updates. Check your network connection and try again. Details are in the log.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Checking for updates</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Update download failed: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>The update could not be downloaded. Check your network connection and try again. Details are in the log.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Downloading update</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Update check failed: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD is up to date.</value>
@@ -4148,11 +4181,17 @@ Applying the update restarts Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Update could not be applied</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Update download failed</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Update check failed</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Up to date</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Update ready to install</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Update check skipped</value>

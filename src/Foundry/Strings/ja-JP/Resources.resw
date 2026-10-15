@@ -292,8 +292,11 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>テナントから Autopilot プロファイルが返されませんでした。</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot プロファイルのダウンロードに失敗しました: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>テナントから Autopilot プロファイルをダウンロードできませんでした。</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>ネットワーク接続を確認し、お使いのアカウントで Intune の Autopilot プロファイルを読み取れることを確認してから、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot ダウンロードに失敗しました</value>
@@ -364,8 +367,11 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>証明書アクション</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry はアプリ登録証明書を作成できませんでした。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry はアプリ登録の証明書を作成できませんでした。</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>選択したフォルダーに書き込めること、およびお使いのアカウントでアプリの登録を管理できることを確認してから、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>証明書の作成に失敗しました</value>
@@ -400,8 +406,8 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX 証明書</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry は、選択されたアプリ登録証明書を削除できませんでした。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry は、選択したアプリ登録の証明書を削除できませんでした。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>証明書の削除に失敗しました</value>
@@ -442,8 +448,8 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>ゼロタッチ ハードウェア ハッシュ アップロード</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry は Autopilot アプリの登録を構成できませんでした。 {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry は Autopilot アプリの登録を構成できませんでした。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>テナントのオンボーディングに失敗しました</value>
@@ -529,6 +535,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>テナントID</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>ネットワーク接続を確認し、お使いのアカウントでテナント内のアプリの登録を管理できることを確認してから、もう一度お試しください。詳細はログに記録されています。</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>接続されていません</value>
   </data>
@@ -554,7 +563,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>プロファイルのインポート</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot プロファイルをインポートできませんでした。</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>ファイルが有効な Autopilot プロファイルの JSON ファイルであることを確認してから、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot インポートに失敗しました</value>
@@ -3135,6 +3147,18 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>必須項目を確認してください。ネットワークフォルダーを求められた場合は、\\server\share\folder のようなパスを使用してください。ファイルのパスワードを 2 回入力する場合は、両方が一致していることを確認してください。</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD はプロキシ設定を保存できませんでした。もう一度お試しください。詳細はログに記録されています。</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>プロキシ設定が適用されませんでした</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>プロキシによってサインインが拒否されました。プロキシの認証設定を確認して、もう一度お試しください。</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD は、これらの設定で GitHub および Microsoft のサービスに接続できませんでした。プロキシのアドレス、ポート、ネットワーク接続を確認してください。詳細はログに記録されています。</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>プロキシ サーバーのアドレスを入力してください。</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>有効な HTTP または HTTPS のプロキシ アドレス (proxy.contoso.com など) を入力してください。</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>1 から 65535 までのポート番号を入力してください。</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未チェック</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>更新を適用できませんでした: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD は更新を開始できませんでした。もう一度更新を適用してください。詳細はログに記録されています。</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD は更新を確認できませんでした。ネットワーク接続を確認して、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>アップデートをチェックしています</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>更新のダウンロードに失敗しました: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>更新をダウンロードできませんでした。ネットワーク接続を確認して、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>更新をダウンロード中</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>更新チェックに失敗しました: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD は最新です。</value>
@@ -4148,11 +4181,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>更新を適用できませんでした</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>更新のダウンロードに失敗しました</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新チェックに失敗しました</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>最新の状態</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>更新をインストールする準備ができました</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>更新チェックがスキップされました</value>

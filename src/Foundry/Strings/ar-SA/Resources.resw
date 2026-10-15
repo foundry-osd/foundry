@@ -292,8 +292,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>لم يتم إرجاع أي ملفات تعريف Autopilot بواسطة المستأجر.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot فشل تنزيل ملف التعريف: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>تعذر تنزيل ملفات تعريف Autopilot من المستأجر.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>تحقق من اتصال الشبكة وتأكد من أن حسابك يمكنه قراءة ملفات تعريف Autopilot في Intune، ثم حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>فشل التحميل Autopilot</value>
@@ -364,8 +367,11 @@
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>إجراءات الشهادة</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry تعذر إنشاء شهادة تسجيل التطبيق. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry إنشاء شهادة تسجيل التطبيق.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>تحقق من إمكانية الكتابة في المجلد المحدد ومن أن حسابك يمكنه إدارة تسجيل التطبيق، ثم حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>فشل إنشاء الشهادة</value>
@@ -400,8 +406,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>شهادة بفكس</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>تعذر على Foundry إزالة شهادة تسجيل التطبيق المحدد. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry إزالة شهادة تسجيل التطبيق المحددة.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>فشلت إزالة الشهادة</value>
@@ -442,8 +448,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>تحميل zero-touch لتجزئة الأجهزة</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry تعذر تكوين تسجيل التطبيق Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry تكوين تسجيل تطبيق Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>فشل إعداد المستأجر</value>
@@ -529,6 +535,9 @@
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>معرف المستأجر</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>تحقق من اتصال الشبكة وتأكد من أن حسابك يمكنه إدارة تسجيلات التطبيقات في المستأجر، ثم حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>غير متصل</value>
   </data>
@@ -554,7 +563,10 @@
     <value>استيراد الملف الشخصي</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>تعذر استيراد ملف تعريف Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>تحقق من أن الملف هو ملف JSON صالح لملف تعريف Autopilot، ثم حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot فشل الاستيراد</value>
@@ -3135,6 +3147,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>تحقق من الحقول المطلوبة. إذا طُلب مجلد شبكة، فاستخدم مسارًا مثل \\server\share\folder. إذا أدخلت كلمة مرور الملف مرتين، فتأكد من تطابقهما.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry OSD حفظ إعدادات الخادم الوكيل. حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>لم يتم تطبيق إعدادات الخادم الوكيل</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>رفض الخادم الوكيل تسجيل الدخول. تحقق من إعدادات مصادقة الخادم الوكيل وحاول مرة أخرى.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry OSD الوصول إلى خدمات GitHub و Microsoft باستخدام هذه الإعدادات. تحقق من عنوان الخادم الوكيل والمنفذ واتصال الشبكة. تتوفر التفاصيل في السجل.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>أدخل عنوان الخادم الوكيل.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>أدخل عنوان خادم وكيل HTTP أو HTTPS صالحًا، مثل proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>أدخل رقم منفذ من 1 إلى 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>لم يتم التحقق منها</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>تعذر تطبيق التحديث: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry OSD بدء التحديث. حاول تطبيقه مرة أخرى. تتوفر التفاصيل في السجل.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry OSD التحقق من وجود تحديثات. تحقق من اتصال الشبكة وحاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>التحقق من وجود تحديثات</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>فشل تنزيل التحديث: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>تعذر تنزيل التحديث. تحقق من اتصال الشبكة وحاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>جارٍ تنزيل التحديث</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>فشل التحقق من التحديث: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD محدث.</value>
@@ -4148,11 +4181,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>تعذر تطبيق التحديث</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>فشل تنزيل التحديث</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>فشل التحقق من التحديث</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>حتى الآن</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>التحديث جاهز للتثبيت</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>تم تخطي التحقق من التحديث</value>

@@ -292,8 +292,11 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Er zijn geen Autopilot-profielen geretourneerd door de huurder.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profieldownload mislukt: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>De Autopilot-profielen kunnen niet worden gedownload van de huurder.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Controleer je netwerkverbinding en zorg dat je account Autopilot-profielen in Intune kan lezen. Probeer het daarna opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot downloaden mislukt</value>
@@ -364,8 +367,11 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Certificaatacties</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kan het app-registratiecertificaat niet maken. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry kan het app-registratiecertificaat niet maken.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Controleer of er naar de geselecteerde map kan worden geschreven en of je account de app-registratie kan beheren. Probeer het daarna opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Het maken van het certificaat is mislukt</value>
@@ -400,8 +406,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX-certificaat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kan het geselecteerde app-registratiecertificaat niet verwijderen. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry kan het geselecteerde app-registratiecertificaat niet verwijderen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Het verwijderen van het certificaat is mislukt</value>
@@ -442,8 +448,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch hardware-hash-upload</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kon de Autopilot app-registratie niet configureren. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry kan de Autopilot-app-registratie niet configureren.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Onboarding van huurder is mislukt</value>
@@ -529,6 +535,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Huurder-ID</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Controleer je netwerkverbinding en zorg dat je account app-registraties in de huurder kan beheren. Probeer het daarna opnieuw. Details staan in het logboek.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Niet verbonden</value>
   </data>
@@ -554,7 +563,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Profiel importeren</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Het Autopilot-profiel kan niet worden geïmporteerd.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Controleer of het bestand een geldig JSON-bestand met een Autopilot-profiel is en probeer het opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot importeren mislukt</value>
@@ -3135,6 +3147,18 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Controleer de verplichte velden. Als om een netwerkmap wordt gevraagd, gebruik dan een pad zoals \\server\share\folder. Als je een bestandswachtwoord tweemaal invoert, controleer dan of beide invoeren overeenkomen.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kan de proxy-instellingen niet opslaan. Probeer het opnieuw. Details staan in het logboek.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Proxy-instellingen niet toegepast</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>De proxy heeft de aanmelding geweigerd. Controleer de instellingen voor proxyverificatie en probeer het opnieuw.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD kan GitHub- en Microsoft-services niet bereiken met deze instellingen. Controleer het proxyadres, de poort en je netwerkverbinding. Details staan in het logboek.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Voer het adres van de proxyserver in.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Voer een geldig HTTP- of HTTPS-proxyadres in, zoals proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Voer een poortnummer van 1 tot en met 65535 in.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Niet gecontroleerd</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>De update kon niet worden toegepast: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kan de update niet starten. Probeer de update opnieuw toe te passen. Details staan in het logboek.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kan niet controleren op updates. Controleer je netwerkverbinding en probeer het opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controleren op updates</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Downloaden van update mislukt: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>De update kan niet worden gedownload. Controleer je netwerkverbinding en probeer het opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Update downloaden</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Updatecontrole mislukt: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD is up-to-date.</value>
@@ -4148,11 +4181,17 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Update kon niet worden toegepast</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Downloaden van update mislukt</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Updatecontrole mislukt</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Up-to-date</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Update klaar om te installeren</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Updatecontrole overgeslagen</value>

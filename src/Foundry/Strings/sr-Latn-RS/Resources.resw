@@ -292,8 +292,11 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Zakupac nije vratio nijedan Autopilot profil.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot preuzimanje profila nije uspelo: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot profile nije moguće preuzeti od zakupca.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Proverite mrežnu vezu i uverite se da vaš nalog može da čita Autopilot profile u usluzi Intune, pa pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot preuzimanje nije uspelo</value>
@@ -364,8 +367,11 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Akcije sertifikata</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nije mogao da kreira sertifikat o registraciji aplikacije. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nije mogao da kreira sertifikat o registraciji aplikacije.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Proverite da li je u izabranu fasciklu moguće upisivati i da li vaš nalog može da upravlja registracijom aplikacije, pa pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Kreiranje sertifikata nije uspelo</value>
@@ -400,8 +406,8 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFKS sertifikat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nije mogao da ukloni izabrani sertifikat o registraciji aplikacije. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nije mogao da ukloni izabrani sertifikat o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Uklanjanje sertifikata nije uspelo</value>
@@ -442,8 +448,8 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch otpremanje hardverskog heša</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nije mogao da konfiguriše registraciju aplikacije Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nije mogao da konfiguriše registraciju aplikacije Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Uključivanje stanara nije uspelo</value>
@@ -529,6 +535,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID stanara</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Proverite mrežnu vezu i uverite se da vaš nalog može da upravlja registracijama aplikacija u zakupcu, pa pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nije povezan</value>
   </data>
@@ -554,7 +563,10 @@ Licencirano pod MIT licencom.</value>
     <value>Uvezi profil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot profil nije moguće uvesti.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Proverite da li je datoteka važeća JSON datoteka Autopilot profila, pa pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot uvoz nije uspeo</value>
@@ -3135,6 +3147,18 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Proverite obavezna polja. Ako se traži mrežna fascikla, koristite putanju kao što je \\server\share\folder. Ako lozinku datoteke unosite dva puta, proverite da li se oba unosa podudaraju.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao da sačuva podešavanja proksi servera. Pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Podešavanja proksi servera nisu primenjena</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proksi server je odbio prijavljivanje. Proverite podešavanja potvrde identiteta za proksi server i pokušajte ponovo.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao da pristupi uslugama GitHub i Microsoft uz ova podešavanja. Proverite adresu i port proksi servera, kao i mrežnu vezu. Detalji se nalaze u dnevniku.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Unesite adresu proksi servera.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Unesite važeću HTTP ili HTTPS adresu proksi servera, na primer proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Unesite broj porta od 1 do 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nije provereno</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Ažuriranje nije bilo moguće primeniti: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao da pokrene ažuriranje. Pokušajte ponovo da ga primenite. Detalji se nalaze u dnevniku.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao da proveri da li postoje ažuriranja. Proverite mrežnu vezu i pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Proveravam ažuriranja</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Preuzimanje ažuriranja nije uspelo: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Ažuriranje nije moguće preuzeti. Proverite mrežnu vezu i pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Preuzimanje ažuriranja</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Provera ažuriranja nije uspela: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD je ažuriran.</value>
@@ -4148,11 +4181,17 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Ažuriranje nije bilo moguće primeniti</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Preuzimanje ažuriranja nije uspelo</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Provera ažuriranja nije uspela</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Ažurno</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Ažuriranje je spremno za instalaciju</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Provera ažuriranja je preskočena</value>

@@ -292,8 +292,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>租户没有返回Autopilot个人资料。</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot配置文件下载失败：{0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>无法从租户下载 Autopilot 配置文件。</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>请检查网络连接，并确保您的帐户可以读取 Intune 中的 Autopilot 配置文件，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot下载失败</value>
@@ -364,8 +367,11 @@
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>证书操作</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 无法创建应用程序注册证书。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry 无法创建应用程序注册证书。</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>请检查所选文件夹是否可写入，以及您的帐户是否可以管理该应用程序注册，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>证书创建失败</value>
@@ -400,8 +406,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX证书</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 无法删除所选的应用程序注册证书。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry 无法删除所选的应用程序注册证书。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>证书删除失败</value>
@@ -442,8 +448,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch 硬件哈希上传</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 无法配置Autopilot 应用程序注册。 {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry 无法配置 Autopilot 应用程序注册。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>租户入职失败</value>
@@ -529,6 +535,9 @@
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>租户ID</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>请检查网络连接，并确保您的帐户可以管理租户中的应用程序注册，然后重试。有关详细信息，请参阅日志。</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>未连接</value>
   </data>
@@ -554,7 +563,10 @@
     <value>导入配置文件</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>无法导入 Autopilot 配置文件。</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>请检查该文件是否为有效的 Autopilot 配置文件 JSON 文件，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot导入失败</value>
@@ -3135,6 +3147,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>请检查必填字段。如果需要网络文件夹，请使用 \\server\share\folder 这样的路径。如果两次输入文件密码，请确保两次输入一致。</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 无法保存代理设置。请重试。有关详细信息，请参阅日志。</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>未应用代理设置</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>代理服务器拒绝了登录。请检查代理身份验证设置，然后重试。</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD 无法使用这些设置访问 GitHub 和 Microsoft 服务。请检查代理地址、端口和网络连接。有关详细信息，请参阅日志。</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>请输入代理服务器地址。</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>请输入有效的 HTTP 或 HTTPS 代理地址，例如 proxy.contoso.com。</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>请输入 1 到 65535 之间的端口号。</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未检查</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>无法应用更新：{0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 无法启动更新。请尝试重新应用更新。有关详细信息，请参阅日志。</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 无法检查更新。请检查网络连接，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>检查更新</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>更新下载失败：{0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>无法下载更新。请检查网络连接，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>正在下载更新</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>更新检查失败：{0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD 是最新的。</value>
@@ -4148,11 +4181,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>无法应用更新</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>更新下载失败</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新检查失败</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>最新</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>更新已准备好安装</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>更新检查已跳过</value>

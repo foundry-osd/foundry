@@ -292,8 +292,11 @@ Sous licence MIT.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Aucun profil Autopilot n'a été renvoyé par le locataire.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot Échec du téléchargement du profil: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Les profils Autopilot n’ont pas pu être téléchargés depuis le locataire.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Vérifiez votre connexion réseau et assurez-vous que votre compte peut lire les profils Autopilot dans Intune, puis réessayez. Les détails figurent dans le journal.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot échec du téléchargement</value>
@@ -364,8 +367,11 @@ Sous licence MIT.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Actions de certificat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry n'a pas pu créer le certificat d'enregistrement de l'application. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry n’a pas pu créer le certificat d’enregistrement de l’application.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Vérifiez que le dossier sélectionné est accessible en écriture et que votre compte peut gérer l’enregistrement de l’application, puis réessayez. Les détails figurent dans le journal.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>La création du certificat a échoué</value>
@@ -400,8 +406,8 @@ Sous licence MIT.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>Certificat PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry n'a pas pu supprimer le certificat d'enregistrement de l'application sélectionné. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry n’a pas pu supprimer le certificat d’enregistrement de l’application sélectionné.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Échec de la suppression du certificat</value>
@@ -442,8 +448,8 @@ Sous licence MIT.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Téléversement zero-touch du hachage matériel</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry n'a pas pu configurer l'enregistrement de l'application Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry n’a pas pu configurer l’enregistrement de l’application Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>L'intégration du locataire a échoué</value>
@@ -529,6 +535,9 @@ Sous licence MIT.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID du locataire</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Vérifiez votre connexion réseau et assurez-vous que votre compte peut gérer les enregistrements d’applications dans le locataire, puis réessayez. Les détails figurent dans le journal.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Non connecté</value>
   </data>
@@ -554,7 +563,10 @@ Sous licence MIT.</value>
     <value>Profil d'importation</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Le profil Autopilot n’a pas pu être importé.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Vérifiez que le fichier est un fichier JSON de profil Autopilot valide, puis réessayez. Les détails figurent dans le journal.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot échec de l'importation</value>
@@ -3135,6 +3147,18 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Vérifiez les champs obligatoires. Si un dossier réseau est demandé, utilisez un chemin tel que \\server\share\folder. Si vous entrez deux fois le mot de passe d’un fichier, assurez-vous que les deux entrées correspondent.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD n’a pas pu enregistrer les paramètres du proxy. Réessayez. Les détails figurent dans le journal.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Paramètres du proxy non appliqués</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Le proxy a refusé les identifiants. Vérifiez les paramètres d’authentification du proxy, puis réessayez.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD n’a pas pu joindre les services GitHub et Microsoft avec ces paramètres. Vérifiez l’adresse et le port du proxy, ainsi que votre connexion réseau. Les détails figurent dans le journal.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Échec de la connexion</value>
   </data>
@@ -3153,8 +3177,17 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connexion réussie</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Saisissez l’adresse du serveur proxy.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Saisissez un nom d’utilisateur et un mot de passe pour l’authentification explicite du proxy.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Saisissez une adresse de proxy HTTP ou HTTPS valide, par exemple proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Saisissez un numéro de port compris entre 1 et 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ L’application de la mise à jour redémarre Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Non vérifié</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>La mise à jour n’a pas pu être appliquée : {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD n’a pas pu lancer la mise à jour. Essayez de l’appliquer de nouveau. Les détails figurent dans le journal.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD n’a pas pu rechercher les mises à jour. Vérifiez votre connexion réseau, puis réessayez. Les détails figurent dans le journal.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Vérification des mises à jour</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Échec du téléchargement de la mise à jour : {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>La mise à jour n’a pas pu être téléchargée. Vérifiez votre connexion réseau, puis réessayez. Les détails figurent dans le journal.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Téléchargement de la mise à jour</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Échec de la vérification de la mise à jour: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD est à jour.</value>
@@ -4148,11 +4181,17 @@ L’application de la mise à jour redémarre Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>La mise à jour n’a pas pu être appliquée</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Échec du téléchargement de la mise à jour</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>La vérification de la mise à jour a échoué</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>À jour</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Mise à jour prête à être installée</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Vérification de la mise à jour ignorée</value>

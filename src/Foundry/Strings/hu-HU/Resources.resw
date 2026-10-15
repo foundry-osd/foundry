@@ -292,8 +292,11 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>A bérlő nem adott vissza Autopilot profilt.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profilletöltés sikertelen: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Az Autopilot-profilokat nem sikerült letölteni a bérlőtől.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Ellenőrizze a hálózati kapcsolatot, és győződjön meg arról, hogy a fiókja olvashatja az Autopilot-profilokat az Intune szolgáltatásban, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot letöltés sikertelen</value>
@@ -364,8 +367,11 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Tanúsítvány műveletek</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nem tudta létrehozni az alkalmazás regisztrációs tanúsítványát. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>A Foundry nem tudta létrehozni az alkalmazásregisztráció tanúsítványát.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Ellenőrizze, hogy a kiválasztott mappa írható-e, és hogy a fiókja kezelheti-e az alkalmazásregisztrációt, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>A tanúsítvány létrehozása nem sikerült</value>
@@ -400,8 +406,8 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX tanúsítvány</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nem tudta eltávolítani a kiválasztott alkalmazás regisztrációs tanúsítványát. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>A Foundry nem tudta eltávolítani az alkalmazásregisztráció kiválasztott tanúsítványát.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>A tanúsítvány eltávolítása nem sikerült</value>
@@ -442,8 +448,8 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch hardverhash-feltöltés</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nem tudta konfigurálni az Autopilot alkalmazás regisztrációját. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>A Foundry nem tudta konfigurálni az Autopilot-alkalmazásregisztrációt.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>A bérlő beiktatása nem sikerült</value>
@@ -529,6 +535,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Bérlői azonosító</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Ellenőrizze a hálózati kapcsolatot, és győződjön meg arról, hogy a fiókja kezelheti az alkalmazásregisztrációkat a bérlőben, majd próbálja újra. A részletek a naplóban találhatók.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nincs csatlakoztatva</value>
   </data>
@@ -554,7 +563,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Profil importálása</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Az Autopilot-profilt nem sikerült importálni.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Ellenőrizze, hogy a fájl érvényes Autopilot-profil JSON-fájl-e, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot importálás sikertelen</value>
@@ -3135,6 +3147,18 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Ellenőrizze a kötelező mezőket. Ha hálózati mappát kell megadnia, használjon például ilyen elérési utat: \\server\share\folder. Ha kétszer ad meg fájljelszót, ügyeljen arra, hogy a két bejegyzés egyezzen.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>A Foundry OSD nem tudta menteni a proxybeállításokat. Próbálja újra. A részletek a naplóban találhatók.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>A proxybeállítások nincsenek alkalmazva</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>A proxy elutasította a bejelentkezést. Ellenőrizze a proxy hitelesítési beállításait, és próbálja újra.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>A Foundry OSD ezekkel a beállításokkal nem érte el a GitHub és a Microsoft szolgáltatásait. Ellenőrizze a proxy címét, portját és a hálózati kapcsolatot. A részletek a naplóban találhatók.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Adja meg a proxykiszolgáló címét.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Adjon meg érvényes HTTP- vagy HTTPS-proxycímet, például: proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Adjon meg egy portszámot 1 és 65535 között.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nincs bejelölve</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>A frissítést nem sikerült alkalmazni: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>A Foundry OSD nem tudta elindítani a frissítést. Próbálja meg újra alkalmazni. A részletek a naplóban találhatók.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>A Foundry OSD nem tudott frissítéseket keresni. Ellenőrizze a hálózati kapcsolatot, és próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Frissítések keresése</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>A frissítés letöltése sikertelen: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>A frissítést nem sikerült letölteni. Ellenőrizze a hálózati kapcsolatot, és próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Frissítés letöltése</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>A frissítés ellenőrzése sikertelen: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>A Foundry OSD naprakész.</value>
@@ -4148,11 +4181,17 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>A frissítést nem sikerült alkalmazni</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>A frissítés letöltése sikertelen</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>A frissítés ellenőrzése sikertelen</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Naprakész</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>A frissítés készen áll a telepítésre</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>A frissítés ellenőrzése kimaradt</value>

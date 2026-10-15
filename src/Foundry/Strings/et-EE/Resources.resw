@@ -292,8 +292,11 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Üürnik Autopilot profiile ei tagastanud.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profiili allalaadimine ebaõnnestus: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot profiile ei saanud üürnikult alla laadida.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Kontrollige võrguühendust ja veenduge, et teie konto saab teenuses Intune Autopilot profiile lugeda, seejärel proovige uuesti. Üksikasjad leiate logist.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot allalaadimine ebaõnnestus</value>
@@ -364,8 +367,11 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Sertifikaadi toimingud</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry ei saanud rakenduse registreerimissertifikaati luua. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry ei saanud rakenduse registreerimise sertifikaati luua.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Veenduge, et valitud kausta saab kirjutada ja et teie konto saab rakenduse registreerimist hallata, seejärel proovige uuesti. Üksikasjad leiate logist.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Sertifikaadi loomine ebaõnnestus</value>
@@ -400,8 +406,8 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX sertifikaat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry ei saanud valitud rakenduse registreerimissertifikaati eemaldada. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry ei saanud valitud rakenduse registreerimise sertifikaati eemaldada.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Sertifikaadi eemaldamine ebaõnnestus</value>
@@ -442,8 +448,8 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch riistvararäsi üleslaadimine</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry ei saanud Autopilot rakenduse registreerimist konfigureerida. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry ei saanud Autopilot rakenduse registreerimist konfigureerida.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Üürniku liitumine ebaõnnestus</value>
@@ -529,6 +535,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Üürniku ID</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Kontrollige võrguühendust ja veenduge, et teie konto saab üürnikus rakenduste registreerimisi hallata, seejärel proovige uuesti. Üksikasjad leiate logist.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Pole ühendatud</value>
   </data>
@@ -554,7 +563,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Impordi profiil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot profiili ei saanud importida.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Veenduge, et fail on kehtiv Autopilot profiili JSON-fail, ja proovige uuesti. Üksikasjad leiate logist.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot import ebaõnnestus</value>
@@ -3135,6 +3147,18 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Kontrollige kohustuslikke välju. Kui küsitakse võrgukausta, kasutage näiteks teed \\server\share\folder. Kui sisestate faili parooli kaks korda, veenduge, et mõlemad sisestused kattuvad.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD ei saanud puhverserveri sätteid salvestada. Proovige uuesti. Üksikasjad leiate logist.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Puhverserveri sätteid ei rakendatud</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Puhverserver lükkas sisselogimise tagasi. Kontrollige puhverserveri autentimissätteid ja proovige uuesti.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD ei saanud nende sätetega ühendust teenustega GitHub ja Microsoft. Kontrollige puhverserveri aadressi, porti ja võrguühendust. Üksikasjad leiate logist.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Sisestage puhverserveri aadress.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Sisestage kehtiv HTTP või HTTPS puhverserveri aadress, näiteks proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Sisestage pordi number vahemikus 1–65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Pole kontrollitud</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Värskendust ei saanud rakendada: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD ei saanud värskendust käivitada. Proovige seda uuesti rakendada. Üksikasjad leiate logist.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD ei saanud värskendusi otsida. Kontrollige võrguühendust ja proovige uuesti. Üksikasjad leiate logist.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Värskenduste otsimine</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Värskenduse allalaadimine nurjus: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Värskendust ei saanud alla laadida. Kontrollige võrguühendust ja proovige uuesti. Üksikasjad leiate logist.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Värskenduse allalaadimine</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Värskenduskontroll ebaõnnestus: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD on ajakohane.</value>
@@ -4148,11 +4181,17 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Värskendust ei saanud rakendada</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Värskenduse allalaadimine nurjus</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Värskenduskontroll ebaõnnestus</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Ajakohane</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Värskendus on installimiseks valmis</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Värskenduste kontroll jäeti vahele</value>

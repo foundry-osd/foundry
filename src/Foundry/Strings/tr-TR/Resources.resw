@@ -292,8 +292,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Kiracı tarafından hiçbir Autopilot profili döndürülmedi.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profil indirilemedi: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot profilleri kiracıdan indirilemedi.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Ağ bağlantınızı denetleyin, hesabınızın Intune içindeki Autopilot profillerini okuyabildiğinden emin olun ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot indirme işlemi başarısız oldu</value>
@@ -364,8 +367,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Sertifika eylemleri</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry uygulama kayıt sertifikasını oluşturamadı. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry uygulama kayıt sertifikasını oluşturamadı.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Seçilen klasöre yazılabildiğini ve hesabınızın uygulama kaydını yönetebildiğini denetleyin, ardından yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Sertifika oluşturulamadı</value>
@@ -400,8 +406,8 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX sertifikası</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry seçilen uygulama kayıt sertifikasını kaldıramadı. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry seçilen uygulama kayıt sertifikasını kaldıramadı.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Sertifika kaldırılamadı</value>
@@ -442,8 +448,8 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch donanım karması yükleme</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry, Autopilot uygulama kaydını yapılandıramadı. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry, Autopilot uygulama kaydını yapılandıramadı.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Kiracının katılımı başarısız oldu</value>
@@ -529,6 +535,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Kiracı Kimliği</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Ağ bağlantınızı denetleyin, hesabınızın kiracıdaki uygulama kayıtlarını yönetebildiğinden emin olun ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Bağlı değil</value>
   </data>
@@ -554,7 +563,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Profili içe aktar</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot profili içeri aktarılamadı.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Dosyanın geçerli bir Autopilot profili JSON dosyası olduğunu denetleyin ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot içe aktarma başarısız oldu</value>
@@ -3135,6 +3147,18 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Zorunlu alanları kontrol edin. Bir ağ klasörü isteniyorsa \\server\share\folder gibi bir yol kullanın. Dosya parolasını iki kez giriyorsanız her iki girişin de aynı olduğundan emin olun.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD proxy ayarlarını kaydedemedi. Yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Proxy ayarları uygulanmadı</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxy oturum açma isteğini reddetti. Proxy kimlik doğrulama ayarlarını denetleyip yeniden deneyin.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD bu ayarlarla GitHub ve Microsoft hizmetlerine ulaşamadı. Proxy adresini, bağlantı noktasını ve ağ bağlantınızı denetleyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Proxy sunucusu adresini girin.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Geçerli bir HTTP veya HTTPS proxy adresi girin (örneğin, proxy.contoso.com).</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>1 ile 65535 arasında bir bağlantı noktası numarası girin.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>İşaretlenmedi</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Güncelleme uygulanamadı: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD güncellemeyi başlatamadı. Güncellemeyi yeniden uygulamayı deneyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD güncellemeleri denetleyemedi. Ağ bağlantınızı denetleyin ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Güncellemeler kontrol ediliyor</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Güncelleme indirilemedi: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Güncelleme indirilemedi. Ağ bağlantınızı denetleyin ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Güncelleme indiriliyor</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Güncelleme kontrolü başarısız oldu: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD güncel.</value>
@@ -4148,11 +4181,17 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Güncelleme uygulanamadı</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Güncelleme indirilemedi</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Güncelleme kontrolü başarısız oldu</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>güncel</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Güncelleme yüklenmeye hazır</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Güncelleme kontrolü atlandı</value>

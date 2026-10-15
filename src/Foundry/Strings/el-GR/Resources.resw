@@ -292,8 +292,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Δεν επιστράφηκαν προφίλ Autopilot από τον ενοικιαστή.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Η λήψη του προφίλ Autopilot απέτυχε: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η λήψη των προφίλ Autopilot από τον ενοικιαστή.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Ελέγξτε τη σύνδεση δικτύου σας και βεβαιωθείτε ότι ο λογαριασμός σας μπορεί να διαβάζει προφίλ Autopilot στο Intune και, στη συνέχεια, δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Η λήψη Autopilot απέτυχε</value>
@@ -364,8 +367,11 @@
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Ενέργειες πιστοποιητικού</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Το Foundry δεν μπόρεσε να δημιουργήσει το πιστοποιητικό εγγραφής της εφαρμογής. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να δημιουργήσει το πιστοποιητικό εγγραφής εφαρμογής.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Βεβαιωθείτε ότι μπορείτε να γράψετε στον επιλεγμένο φάκελο και ότι ο λογαριασμός σας μπορεί να διαχειρίζεται την εγγραφή εφαρμογής και, στη συνέχεια, δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Η δημιουργία πιστοποιητικού απέτυχε</value>
@@ -400,8 +406,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>Πιστοποιητικό PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Το Foundry δεν μπόρεσε να αφαιρέσει το επιλεγμένο πιστοποιητικό εγγραφής εφαρμογής. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να καταργήσει το επιλεγμένο πιστοποιητικό εγγραφής εφαρμογής.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Η αφαίρεση του πιστοποιητικού απέτυχε</value>
@@ -442,8 +448,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch αποστολή κατακερματισμού υλικού</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Το Foundry δεν μπόρεσε να διαμορφώσει την εγγραφή της εφαρμογής Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να διαμορφώσει την εγγραφή εφαρμογής Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Η ενσωμάτωση του μισθωτή απέτυχε</value>
@@ -529,6 +535,9 @@
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Ταυτότητα μισθωτή</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Ελέγξτε τη σύνδεση δικτύου σας και βεβαιωθείτε ότι ο λογαριασμός σας μπορεί να διαχειρίζεται εγγραφές εφαρμογών στον ενοικιαστή και, στη συνέχεια, δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Δεν είναι συνδεδεμένο</value>
   </data>
@@ -554,7 +563,10 @@
     <value>Εισαγωγή προφίλ</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Δεν ήταν δυνατή η εισαγωγή του προφίλ Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Βεβαιωθείτε ότι το αρχείο είναι έγκυρο αρχείο JSON προφίλ Autopilot και, στη συνέχεια, δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Η εισαγωγή Autopilot απέτυχε</value>
@@ -3135,6 +3147,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Ελέγξτε τα υποχρεωτικά πεδία. Αν ζητείται φάκελος δικτύου, χρησιμοποιήστε μια διαδρομή όπως \\server\share\folder. Αν πληκτρολογήσετε δύο φορές τον κωδικό πρόσβασης αρχείου, βεβαιωθείτε ότι οι δύο καταχωρίσεις είναι ίδιες.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Το Foundry OSD δεν μπόρεσε να αποθηκεύσει τις ρυθμίσεις διακομιστή μεσολάβησης. Δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Οι ρυθμίσεις διακομιστή μεσολάβησης δεν εφαρμόστηκαν</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Ο διακομιστής μεσολάβησης απέρριψε τη σύνδεση. Ελέγξτε τις ρυθμίσεις ελέγχου ταυτότητας του διακομιστή μεσολάβησης και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Το Foundry OSD δεν μπόρεσε να συνδεθεί στις υπηρεσίες GitHub και Microsoft με αυτές τις ρυθμίσεις. Ελέγξτε τη διεύθυνση και τη θύρα του διακομιστή μεσολάβησης, καθώς και τη σύνδεση δικτύου σας. Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Εισαγάγετε τη διεύθυνση του διακομιστή μεσολάβησης.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Εισαγάγετε μια έγκυρη διεύθυνση διακομιστή μεσολάβησης HTTP ή HTTPS, όπως proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Εισαγάγετε έναν αριθμό θύρας από 1 έως 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Δεν έχει ελεγχθεί</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η εφαρμογή της ενημέρωσης: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Το Foundry OSD δεν μπόρεσε να ξεκινήσει την ενημέρωση. Δοκιμάστε να την εφαρμόσετε ξανά. Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Το Foundry OSD δεν μπόρεσε να ελέγξει για ενημερώσεις. Ελέγξτε τη σύνδεση δικτύου σας και δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Έλεγχος για ενημερώσεις</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Η λήψη της ενημέρωσης απέτυχε: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η λήψη της ενημέρωσης. Ελέγξτε τη σύνδεση δικτύου σας και δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Λήψη ενημέρωσης</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Ο έλεγχος ενημέρωσης απέτυχε: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Το Foundry OSD είναι ενημερωμένο.</value>
@@ -4148,11 +4181,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Δεν ήταν δυνατή η εφαρμογή της ενημέρωσης</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Η λήψη της ενημέρωσης απέτυχε</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Ο έλεγχος ενημέρωσης απέτυχε</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Επίκαιρο</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Η ενημέρωση είναι έτοιμη για εγκατάσταση</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Ο έλεγχος ενημέρωσης παραβλέφθηκε</value>

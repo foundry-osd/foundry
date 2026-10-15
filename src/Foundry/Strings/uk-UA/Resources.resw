@@ -292,8 +292,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Орендар не повернув профілі Autopilot.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Помилка завантаження профілю Autopilot: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Не вдалося завантажити профілі Autopilot з орендаря.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Перевірте підключення до мережі та переконайтеся, що ваш обліковий запис має дозвіл на читання профілів Autopilot в Intune, а потім повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Помилка завантаження Autopilot</value>
@@ -364,8 +367,11 @@
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Сертифікаційні дії</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не вдалося створити сертифікат реєстрації програми. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry не вдалося створити сертифікат реєстрації програми.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Переконайтеся, що у вибрану папку можна записувати і що ваш обліковий запис має дозвіл на керування реєстрацією програми, а потім повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Не вдалося створити сертифікат</value>
@@ -400,8 +406,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>Сертифікат PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не вдалося видалити вибраний сертифікат реєстрації програми. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry не вдалося видалити вибраний сертифікат реєстрації програми.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Не вдалося видалити сертифікат</value>
@@ -442,8 +448,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch завантаження апаратного хешу</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не вдалося налаштувати реєстрацію програми Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry не вдалося налаштувати реєстрацію програми Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Помилка реєстрації орендаря</value>
@@ -529,6 +535,9 @@
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID орендаря</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Перевірте підключення до мережі та переконайтеся, що ваш обліковий запис має дозвіл на керування реєстраціями програм в орендарі, а потім повторіть спробу. Докладні відомості див. у журналі.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Не підключено</value>
   </data>
@@ -554,7 +563,10 @@
     <value>Імпорт профілю</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Не вдалося імпортувати профіль Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Переконайтеся, що файл є дійсним файлом JSON профілю Autopilot, і повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Помилка імпорту Autopilot</value>
@@ -3135,6 +3147,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Перевірте обов’язкові поля. Якщо потрібна мережева папка, укажіть шлях на зразок \\server\share\folder. Якщо ви вводите пароль файлу двічі, переконайтеся, що обидва значення збігаються.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не вдалося зберегти параметри проксі-сервера. Повторіть спробу. Докладні відомості див. у журналі.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Параметри проксі-сервера не застосовано</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Проксі-сервер відхилив вхід. Перевірте параметри автентифікації проксі-сервера та повторіть спробу.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD не вдалося підключитися до служб GitHub і Microsoft із цими параметрами. Перевірте адресу й порт проксі-сервера, а також підключення до мережі. Докладні відомості див. у журналі.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Введіть адресу проксі-сервера.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Введіть дійсну адресу проксі-сервера HTTP або HTTPS, наприклад proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Введіть номер порту від 1 до 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не перевірено</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Не вдалося застосувати оновлення: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не вдалося запустити оновлення. Спробуйте застосувати його ще раз. Докладні відомості див. у журналі.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не вдалося перевірити наявність оновлень. Перевірте підключення до мережі та повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Перевірка оновлень</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Не вдалося завантажити оновлення: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Не вдалося завантажити оновлення. Перевірте підключення до мережі та повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Завантаження оновлення</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Не вдалося перевірити оновлення: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD оновлено.</value>
@@ -4148,11 +4181,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Не вдалося застосувати оновлення</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Не вдалося завантажити оновлення</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Не вдалося перевірити оновлення</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>В актуальному стані</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Оновлення готове до інсталяції</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Перевірку оновлення пропущено</value>

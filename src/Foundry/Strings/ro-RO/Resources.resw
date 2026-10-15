@@ -292,8 +292,11 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Niciun profil Autopilot nu a fost returnat de chiriaș.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Descărcarea profilului Autopilot a eșuat: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Profilurile Autopilot nu au putut fi descărcate de la chiriaș.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Verificați conexiunea la rețea și asigurați-vă că acest cont poate citi profilurile Autopilot din Intune, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Descărcarea Autopilot a eșuat</value>
@@ -364,8 +367,11 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Actiuni de certificat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nu a putut crea certificatul de înregistrare a aplicației. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nu a putut crea certificatul de înregistrare a aplicației.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Verificați dacă se poate scrie în folderul selectat și dacă acest cont poate gestiona înregistrarea aplicației, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Crearea certificatului a eșuat</value>
@@ -400,8 +406,8 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>certificat PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nu a putut elimina certificatul de înregistrare a aplicației selectate. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nu a putut elimina certificatul selectat de înregistrare a aplicației.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Eliminarea certificatului a eșuat</value>
@@ -442,8 +448,8 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Încărcare zero-touch a hashului hardware</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nu a putut configura înregistrarea aplicației Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nu a putut configura înregistrarea aplicației Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Înregistrarea chiriașului a eșuat</value>
@@ -529,6 +535,9 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID locatar</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Verificați conexiunea la rețea și asigurați-vă că acest cont poate gestiona înregistrările de aplicații din chiriaș, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nu este conectat</value>
   </data>
@@ -554,7 +563,10 @@ Licențiat sub licența MIT.</value>
     <value>Importați profilul</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Profilul Autopilot nu a putut fi importat.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Verificați dacă fișierul este un fișier JSON valid de profil Autopilot, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Importul Autopilot nu a reușit</value>
@@ -3135,6 +3147,18 @@ Parole și chei de acces incluse: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Verificați câmpurile obligatorii. Dacă vi se cere un folder din rețea, folosiți o cale precum \\server\share\folder. Dacă introduceți parola fișierului de două ori, asigurați-vă că ambele valori sunt identice.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut salva setările proxy. Încercați din nou. Detaliile se găsesc în jurnal.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Setările proxy nu au fost aplicate</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Serverul proxy a respins conectarea. Verificați setările de autentificare proxy și încercați din nou.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut accesa serviciile GitHub și Microsoft cu aceste setări. Verificați adresa proxy, portul și conexiunea la rețea. Detaliile se găsesc în jurnal.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Parole și chei de acces incluse: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Introduceți adresa serverului proxy.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Introduceți o adresă proxy HTTP sau HTTPS validă, de exemplu proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Introduceți un număr de port între 1 și 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nu este verificat</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Actualizarea nu a putut fi aplicată: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut porni actualizarea. Încercați să o aplicați din nou. Detaliile se găsesc în jurnal.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut căuta actualizări. Verificați conexiunea la rețea și încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Se verifică actualizări</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Descărcarea actualizării a eșuat: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Actualizarea nu a putut fi descărcată. Verificați conexiunea la rețea și încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Se descarcă actualizarea</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Verificarea actualizării a eșuat: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD este la zi.</value>
@@ -4148,11 +4181,17 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Actualizarea nu a putut fi aplicată</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Descărcarea actualizării a eșuat</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Verificarea actualizării a eșuat</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>La zi</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Actualizarea este gata de instalare</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Verificarea actualizării a fost omisă</value>

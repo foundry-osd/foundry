@@ -292,8 +292,11 @@ Licensierad under MIT-licensen.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Inga Autopilot-profiler returnerades av hyresgästen.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profilnedladdning misslyckades: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Det gick inte att ladda ner Autopilot-profilerna från hyresgästen.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Kontrollera nätverksanslutningen och att ditt konto kan läsa Autopilot-profiler i Intune och försök sedan igen. Information finns i loggen.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot nedladdning misslyckades</value>
@@ -364,8 +367,11 @@ Licensierad under MIT-licensen.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Certifikatåtgärder</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunde inte skapa appregistreringscertifikatet. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry kunde inte skapa appregistreringscertifikatet.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Kontrollera att det går att skriva till den valda mappen och att ditt konto kan hantera appregistreringen och försök sedan igen. Information finns i loggen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Det gick inte att skapa certifikat</value>
@@ -400,8 +406,8 @@ Licensierad under MIT-licensen.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX-certifikat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunde inte ta bort det valda appregistreringscertifikatet. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry kunde inte ta bort det valda appregistreringscertifikatet.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Det gick inte att ta bort certifikatet</value>
@@ -442,8 +448,8 @@ Licensierad under MIT-licensen.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch-uppladdning av maskinvaruhash</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunde inte konfigurera Autopilot appregistreringen. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry kunde inte konfigurera Autopilot-appregistreringen.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Introduktion av hyresgäster misslyckades</value>
@@ -529,6 +535,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Hyresgäst ID</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Kontrollera nätverksanslutningen och att ditt konto kan hantera appregistreringar i hyresgästen och försök sedan igen. Information finns i loggen.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Ej ansluten</value>
   </data>
@@ -554,7 +563,10 @@ Licensierad under MIT-licensen.</value>
     <value>Importera profil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Det gick inte att importera Autopilot-profilen.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Kontrollera att filen är en giltig JSON-fil med en Autopilot-profil och försök sedan igen. Information finns i loggen.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot import misslyckades</value>
@@ -3135,6 +3147,18 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Kontrollera de obligatoriska fälten. Om en nätverksmapp efterfrågas använder du en sökväg som \\server\share\folder. Om du anger filens lösenord två gånger ska båda vara likadana.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunde inte spara proxyinställningarna. Försök igen. Information finns i loggen.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Proxyinställningarna tillämpades inte</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxyservern avvisade inloggningen. Kontrollera inställningarna för proxyautentisering och försök igen.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunde inte nå GitHub- och Microsoft-tjänster med de här inställningarna. Kontrollera proxyadressen, porten och nätverksanslutningen. Information finns i loggen.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Ange proxyserverns adress.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Ange en giltig HTTP- eller HTTPS-proxyadress, till exempel proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Ange ett portnummer från 1 till 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Uppdateringen startar om Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ej kontrollerat</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Uppdateringen kunde inte installeras: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunde inte starta uppdateringen. Försök att installera den igen. Information finns i loggen.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunde inte söka efter uppdateringar. Kontrollera nätverksanslutningen och försök igen. Information finns i loggen.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Söker efter uppdateringar</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Hämtningen av uppdateringen misslyckades: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Det gick inte att ladda ner uppdateringen. Kontrollera nätverksanslutningen och försök igen. Information finns i loggen.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Hämtar uppdatering</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Uppdateringskontrollen misslyckades: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD är uppdaterad.</value>
@@ -4148,11 +4181,17 @@ Uppdateringen startar om Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Uppdateringen kunde inte installeras</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Det gick inte att ladda ner uppdateringen</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Uppdateringskontrollen misslyckades</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Upp till datum</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Uppdateringen är redo att installeras</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Uppdateringskontrollen hoppades över</value>

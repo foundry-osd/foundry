@@ -260,7 +260,7 @@ namespace Foundry
                         {
                             updates.CancelShutdown();
                             shutdownStarted = false;
-                            await ShowUpdateHandoffFailureAsync(ex);
+                            await ShowUpdateHandoffFailureAsync();
                         }
                         return false;
                     }
@@ -299,12 +299,15 @@ namespace Foundry
 
         private static bool IsPreparedUpdateReady() => GetService<IApplicationUpdateStateService>().CurrentResult?.IsReadyToApply == true;
 
-        private static Task ShowUpdateHandoffFailureAsync(Exception exception)
+        /// <summary>
+        /// Reports a failed update handoff; the update service has already logged the exception.
+        /// </summary>
+        private static Task ShowUpdateHandoffFailureAsync()
         {
             IApplicationLocalizationService localization = GetService<IApplicationLocalizationService>();
             return GetService<IDialogService>().ShowMessageAsync(new DialogRequest(
                 localization.GetString("Update.StatusTitle.ApplyFailed"),
-                localization.FormatString("Update.Status.ApplyFailedFormat", exception.Message),
+                localization.GetString("Update.Status.ApplyFailedMessage"),
                 localization.GetString("Common.Close")));
         }
 

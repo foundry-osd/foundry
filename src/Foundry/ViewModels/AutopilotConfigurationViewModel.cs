@@ -506,10 +506,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException or InvalidOperationException or ArgumentException)
         {
             logger.Error(ex, "Autopilot profile import failed.");
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.ImportFailedTitle"),
-                localizationService.FormatString("Autopilot.ImportFailedMessage", ex.Message),
-                localizationService.GetString("Common.Close")));
+            await ShowFailureAsync("Autopilot.ImportFailedTitle", "Autopilot.ImportFailedMessage", "Autopilot.ImportFailedNextStep");
         }
         finally
         {
@@ -569,12 +566,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
         catch (Exception ex) when (ex is InvalidOperationException or HttpRequestException or JsonException or AuthenticationFailedException)
         {
-            string failureMessage = localizationService.FormatString("Autopilot.DownloadFailedFormat", ex.Message);
             logger.Error(ex, "Autopilot tenant download failed.");
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.DownloadFailedTitle"),
-                failureMessage,
-                localizationService.GetString("Common.Close")));
+            await ShowFailureAsync("Autopilot.DownloadFailedTitle", "Autopilot.DownloadFailedMessage", "Autopilot.DownloadFailedNextStep");
             return;
         }
         finally
@@ -681,10 +674,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or JsonException)
         {
             logger.Error(ex, "Autopilot hardware hash tenant onboarding failed.");
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.HardwareHashOnboardingFailedTitle"),
-                localizationService.FormatString("Autopilot.HardwareHashOnboardingFailedMessageFormat", ex.Message),
-                localizationService.GetString("Common.Close")));
+            await ShowFailureAsync(
+                "Autopilot.HardwareHashOnboardingFailedTitle",
+                "Autopilot.HardwareHashOnboardingFailedMessage",
+                "Autopilot.HardwareHashTenantFailureNextStep");
         }
         finally
         {
@@ -736,10 +729,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or IOException or UnauthorizedAccessException)
         {
             logger.Error(ex, "Autopilot hardware hash certificate creation failed. ErrorType={ErrorType}", ex.GetType().Name);
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.HardwareHashCertificateCreateFailedTitle"),
-                localizationService.FormatString("Autopilot.HardwareHashCertificateCreateFailedMessageFormat", ex.Message),
-                localizationService.GetString("Common.Close")));
+            await ShowFailureAsync(
+                "Autopilot.HardwareHashCertificateCreateFailedTitle",
+                "Autopilot.HardwareHashCertificateCreateFailedMessage",
+                "Autopilot.HardwareHashCertificateCreateFailedNextStep");
         }
         finally
         {
@@ -812,10 +805,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or JsonException)
         {
             logger.Error(ex, "Autopilot hardware hash certificate retirement failed.");
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.HardwareHashCertificateRetireFailedTitle"),
-                localizationService.FormatString("Autopilot.HardwareHashCertificateRetireFailedMessageFormat", ex.Message),
-                localizationService.GetString("Common.Close")));
+            await ShowFailureAsync(
+                "Autopilot.HardwareHashCertificateRetireFailedTitle",
+                "Autopilot.HardwareHashCertificateRetireFailedMessage",
+                "Autopilot.HardwareHashTenantFailureNextStep");
         }
         finally
         {
@@ -1403,6 +1396,17 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         return tenantOnboardingStatus == AutopilotTenantOnboardingStatus.Ready
             ? (Style)Application.Current.Resources["FoundrySuccessTextBlockStyle"]
             : (Style)Application.Current.Resources["FoundryCriticalTextBlockStyle"];
+    }
+
+    /// <summary>
+    /// Shows a localized failure summary and next step; the caller logs the exception details.
+    /// </summary>
+    private Task ShowFailureAsync(string titleKey, string summaryKey, string nextStepKey)
+    {
+        return dialogService.ShowMessageAsync(new DialogRequest(
+            localizationService.GetString(titleKey),
+            DialogText.JoinParagraphs(localizationService.GetString(summaryKey), localizationService.GetString(nextStepKey)),
+            localizationService.GetString("Common.Close")));
     }
 
     private string GetTenantOnboardingDialogTitle()

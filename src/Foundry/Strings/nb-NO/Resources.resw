@@ -292,8 +292,11 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Ingen Autopilot-profiler ble returnert av leietaker.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profilnedlasting mislyktes: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot-profilene kunne ikke lastes ned fra leietakeren.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Kontroller nettverkstilkoblingen, og sørg for at kontoen din kan lese Autopilot-profiler i Intune. Prøv deretter igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot nedlasting mislyktes</value>
@@ -364,8 +367,11 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Sertifikathandlinger</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunne ikke opprette appregistreringssertifikatet. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry kunne ikke opprette appregistreringssertifikatet.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Kontroller at det er mulig å skrive til den valgte mappen, og at kontoen din kan administrere appregistreringen. Prøv deretter igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Sertifikatopprettelsen mislyktes</value>
@@ -400,8 +406,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX-sertifikat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunne ikke fjerne det valgte appregistreringssertifikatet. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry kunne ikke fjerne det valgte appregistreringssertifikatet.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Fjerning av sertifikat mislyktes</value>
@@ -442,8 +448,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch opplasting av maskinvarehash</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunne ikke konfigurere Autopilot appregistreringen. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry kunne ikke konfigurere Autopilot-appregistreringen.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Innføring av leietaker mislyktes</value>
@@ -529,6 +535,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Leietaker ID</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Kontroller nettverkstilkoblingen, og sørg for at kontoen din kan administrere appregistreringer i leietakeren. Prøv deretter igjen. Detaljer finnes i loggen.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Ikke tilkoblet</value>
   </data>
@@ -554,7 +563,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Importer profil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot-profilen kunne ikke importeres.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Kontroller at filen er en gyldig JSON-fil med en Autopilot-profil, og prøv igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot import mislyktes</value>
@@ -3135,6 +3147,18 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Kontroller de påkrevde feltene. Hvis du blir bedt om en nettverksmappe, bruker du en bane som \\server\share\folder. Hvis du skriver inn filpassordet to ganger, må begge være like.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke lagre proxyinnstillingene. Prøv igjen. Detaljer finnes i loggen.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Proxyinnstillingene ble ikke brukt</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxyen avviste påloggingen. Kontroller innstillingene for proxygodkjenning, og prøv igjen.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke nå GitHub- og Microsoft-tjenester med disse innstillingene. Kontroller proxyadressen, porten og nettverkstilkoblingen. Detaljer finnes i loggen.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Angi adressen til proxyserveren.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Angi en gyldig HTTP- eller HTTPS-proxyadresse, for eksempel proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Angi et portnummer fra 1 til 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Oppdateringen starter Foundry OSD på nytt.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ikke sjekket</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Oppdateringen kunne ikke brukes: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke starte oppdateringen. Prøv å bruke den på nytt. Detaljer finnes i loggen.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke se etter oppdateringer. Kontroller nettverkstilkoblingen, og prøv igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Ser etter oppdateringer</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Nedlasting av oppdatering mislyktes: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Oppdateringen kunne ikke lastes ned. Kontroller nettverkstilkoblingen, og prøv igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Laster ned oppdatering</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Oppdateringssjekk mislyktes: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD er oppdatert.</value>
@@ -4148,11 +4181,17 @@ Oppdateringen starter Foundry OSD på nytt.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Oppdateringen kunne ikke brukes</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Nedlasting av oppdatering mislyktes</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Oppdateringssjekk mislyktes</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Oppdatert</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Oppdateringen er klar til å installeres</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Oppdateringssjekk hoppet over</value>

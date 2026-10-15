@@ -292,8 +292,11 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Īrnieks neatgrieza nevienu Autopilot profilu.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profila lejupielāde neizdevās: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot profilus neizdevās lejupielādēt no nomnieka.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Pārbaudiet tīkla savienojumu un pārliecinieties, vai jūsu konts var lasīt Autopilot profilus pakalpojumā Intune, pēc tam mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot lejupielāde neizdevās</value>
@@ -364,8 +367,11 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Sertifikātu darbības</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nevarēja izveidot lietotnes reģistrācijas sertifikātu. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nevarēja izveidot lietotnes reģistrācijas sertifikātu.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Pārbaudiet, vai atlasītajā mapē var rakstīt un vai jūsu konts var pārvaldīt lietotnes reģistrāciju, pēc tam mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Sertifikātu neizdevās izveidot</value>
@@ -400,8 +406,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX sertifikāts</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nevarēja noņemt atlasītās lietotnes reģistrācijas sertifikātu. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nevarēja noņemt atlasīto lietotnes reģistrācijas sertifikātu.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Sertifikāta noņemšana neizdevās</value>
@@ -442,8 +448,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch aparatūras jaucējkoda augšupielāde</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nevarēja konfigurēt Autopilot lietotnes reģistrāciju. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nevarēja konfigurēt Autopilot lietotnes reģistrāciju.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Īrnieka uzņemšana neizdevās</value>
@@ -529,6 +535,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Īrnieka ID</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Pārbaudiet tīkla savienojumu un pārliecinieties, vai jūsu konts var pārvaldīt lietotņu reģistrācijas nomniekā, pēc tam mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nav savienots</value>
   </data>
@@ -554,7 +563,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Importēt profilu</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot profilu neizdevās importēt.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Pārbaudiet, vai fails ir derīgs Autopilot profila JSON fails, un mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot importēšana neizdevās</value>
@@ -3135,6 +3147,18 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Pārbaudiet obligātos laukus. Ja tiek prasīta tīkla mape, izmantojiet ceļu, piemēram, \\server\share\folder. Ja faila paroli ievadāt divreiz, pārliecinieties, ka abi ieraksti sakrīt.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nevarēja saglabāt starpniekservera iestatījumus. Mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Starpniekservera iestatījumi netika lietoti</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Starpniekserveris noraidīja pierakstīšanos. Pārbaudiet starpniekservera autentifikācijas iestatījumus un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Ar šiem iestatījumiem Foundry OSD nevarēja sasniegt GitHub un Microsoft pakalpojumus. Pārbaudiet starpniekservera adresi, portu un tīkla savienojumu. Plašāka informācija ir žurnālā.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Ievadiet starpniekservera adresi.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Ievadiet derīgu HTTP vai HTTPS starpniekservera adresi, piemēram, proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Ievadiet porta numuru no 1 līdz 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nav pārbaudīts</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Atjauninājumu neizdevās lietot: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nevarēja startēt atjauninājumu. Mēģiniet to lietot vēlreiz. Plašāka informācija ir žurnālā.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nevarēja pārbaudīt, vai ir pieejami atjauninājumi. Pārbaudiet tīkla savienojumu un mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Notiek atjauninājumu pārbaude</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Atjauninājuma lejupielāde neizdevās: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Atjauninājumu neizdevās lejupielādēt. Pārbaudiet tīkla savienojumu un mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Atjauninājuma lejupielāde</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Atjaunināšanas pārbaude neizdevās: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD ir atjaunināta.</value>
@@ -4148,11 +4181,17 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Atjauninājumu neizdevās lietot</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Atjauninājuma lejupielāde neizdevās</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Atjaunināšanas pārbaude neizdevās</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Aktuāli</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Atjauninājums ir gatavs instalēšanai</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Atjaunināšanas pārbaude ir izlaista</value>

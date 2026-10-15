@@ -292,8 +292,11 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Nuomininkas negrąžino jokių Autopilot profilių.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profilio atsisiuntimas nepavyko: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Nepavyko atsisiųsti Autopilot profilių iš nuomininko.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Patikrinkite tinklo ryšį ir įsitikinkite, kad jūsų paskyra gali skaityti Autopilot profilius Intune tarnyboje, tada bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot atsisiųsti nepavyko</value>
@@ -364,8 +367,11 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Veiksmai su sertifikatu</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nepavyko sukurti programos registracijos sertifikato. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nepavyko sukurti programos registracijos sertifikato.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Patikrinkite, ar į pasirinktą aplanką galima rašyti ir ar jūsų paskyra gali valdyti programos registraciją, tada bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Nepavyko sukurti sertifikato</value>
@@ -400,8 +406,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX sertifikatas</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nepavyko pašalinti pasirinktos programos registracijos sertifikato. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nepavyko pašalinti pasirinkto programos registracijos sertifikato.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Nepavyko pašalinti sertifikato</value>
@@ -442,8 +448,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch aparatūros maišos įkėlimas</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nepavyko sukonfigūruoti Autopilot programos registracijos. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nepavyko sukonfigūruoti Autopilot programos registracijos.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Nuomininko priėmimas nepavyko</value>
@@ -529,6 +535,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Nuomininko ID</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Patikrinkite tinklo ryšį ir įsitikinkite, kad jūsų paskyra gali valdyti programų registracijas nuomininke, tada bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Neprisijungęs</value>
   </data>
@@ -554,7 +563,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Importuoti profilį</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Nepavyko importuoti Autopilot profilio.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Patikrinkite, ar failas yra tinkamas Autopilot profilio JSON failas, ir bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot importuoti nepavyko</value>
@@ -3135,6 +3147,18 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Patikrinkite privalomus laukus. Jei prašoma tinklo aplanko, naudokite kelią, pvz., \\server\share\folder. Jei failo slaptažodį įvedate du kartus, įsitikinkite, kad abu įrašai sutampa.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nepavyko išsaugoti tarpinio serverio nustatymų. Bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Tarpinio serverio nustatymai nepritaikyti</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Tarpinis serveris atmetė prisijungimą. Patikrinkite tarpinio serverio autentifikavimo nustatymus ir bandykite dar kartą.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Naudodama šiuos nustatymus Foundry OSD nepavyko pasiekti GitHub ir Microsoft paslaugų. Patikrinkite tarpinio serverio adresą, prievadą ir tinklo ryšį. Išsamesnės informacijos ieškokite žurnale.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Įveskite tarpinio serverio adresą.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Įveskite tinkamą HTTP arba HTTPS tarpinio serverio adresą, pvz., proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Įveskite prievado numerį nuo 1 iki 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nepatikrintas</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Nepavyko pritaikyti naujinimo: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nepavyko paleisti naujinimo. Pabandykite jį pritaikyti dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nepavyko patikrinti, ar yra naujinimų. Patikrinkite tinklo ryšį ir bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Tikrinama, ar nėra atnaujinimų</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Naujinimo atsisiųsti nepavyko: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Nepavyko atsisiųsti naujinimo. Patikrinkite tinklo ryšį ir bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Atsisiunčiamas naujinimas</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Atnaujinimo patikrinimas nepavyko: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD yra atnaujinta.</value>
@@ -4148,11 +4181,17 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Nepavyko pritaikyti naujinimo</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Nepavyko atsisiųsti naujinimo</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Nepavyko patikrinti atnaujinimo</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Naujausia</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Naujinimas paruoštas įdiegti</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Atnaujinimo patikra praleista</value>

@@ -292,8 +292,11 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Tenant nevrátil žádné profily Autopilot.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Stažení profilu Autopilot se nezdařilo: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Profily Autopilot se nepodařilo stáhnout z tenanta.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Zkontrolujte síťové připojení, ověřte, že váš účet může číst profily Autopilot v Intune, a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot stahování se nezdařilo</value>
@@ -364,8 +367,11 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Akce certifikátu</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nemohl vytvořit registrační certifikát aplikace. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nemohl vytvořit certifikát registrace aplikace.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Zkontrolujte, že do vybrané složky lze zapisovat a že váš účet může spravovat registraci aplikace, a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Vytvoření certifikátu se nezdařilo</value>
@@ -400,8 +406,8 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX certifikát</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nemohl odebrat vybraný certifikát registrace aplikace. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nemohl odebrat vybraný certifikát registrace aplikace.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Odebrání certifikátu se nezdařilo</value>
@@ -442,8 +448,8 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch nahrání hardwarového hashe</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nemohl nakonfigurovat registraci aplikace Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nemohl nakonfigurovat registraci aplikace Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Přihlášení nájemce se nezdařilo</value>
@@ -529,6 +535,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID nájemce</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Zkontrolujte síťové připojení, ověřte, že váš účet může spravovat registrace aplikací v tenantovi, a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nepřipojeno</value>
   </data>
@@ -554,7 +563,10 @@ Licencováno pod licencí MIT.</value>
     <value>Importovat profil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Profil Autopilot se nepodařilo importovat.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Zkontrolujte, že je soubor platným souborem JSON s profilem Autopilot, a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Import Autopilot se nezdařil</value>
@@ -3135,6 +3147,18 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Zkontrolujte povinná pole. Pokud je požadována síťová složka, použijte cestu jako \\server\share\folder. Pokud zadáváte heslo k souboru dvakrát, musí se obě zadání shodovat.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nemohl uložit nastavení proxy serveru. Zkuste to znovu. Podrobnosti najdete v protokolu.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Nastavení proxy serveru nebylo použito</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxy server odmítl přihlášení. Zkontrolujte nastavení ověřování proxy serveru a zkuste to znovu.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD se s tímto nastavením nemohl připojit ke službám GitHub a Microsoft. Zkontrolujte adresu a port proxy serveru a síťové připojení. Podrobnosti najdete v protokolu.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3153,8 +3177,17 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Zadejte adresu proxy serveru.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Zadejte platnou adresu proxy serveru HTTP nebo HTTPS, například proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Zadejte číslo portu od 1 do 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4109,20 +4142,20 @@ Použití aktualizace restartuje Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nekontrolováno</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Aktualizaci se nepodařilo použít: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nemohl spustit aktualizaci. Zkuste ji použít znovu. Podrobnosti najdete v protokolu.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nemohl vyhledat aktualizace. Zkontrolujte síťové připojení a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Kontrola aktualizací</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Stažení aktualizace se nezdařilo: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Aktualizaci se nepodařilo stáhnout. Zkontrolujte síťové připojení a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Stahování aktualizace</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Kontrola aktualizace selhala: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD je aktuální.</value>
@@ -4148,11 +4181,17 @@ Použití aktualizace restartuje Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Aktualizaci se nepodařilo použít</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Stažení aktualizace se nezdařilo</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Kontrola aktualizace se nezdařila</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Aktuální</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Aktualizace je připravená k instalaci</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Kontrola aktualizace byla přeskočena</value>
