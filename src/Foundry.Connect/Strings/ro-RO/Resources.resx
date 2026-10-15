@@ -19,7 +19,7 @@
     <value>Acest software este furnizat ca atare. Confirmați accesul la rețea înainte de a continua implementarea.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Drepturi de autor (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
 Licențiat sub licența MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -56,7 +56,7 @@ Licențiat sub licența MIT.</value>
     <value>Anulați</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Închide fereastra</value>
+    <value>Închide</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configurație: setări implicite încorporate</value>
@@ -273,7 +273,7 @@ Licențiat sub licența MIT.</value>
     <value>Despre</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Depanați</value>
+    <value>Depanare</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Limba</value>
@@ -303,10 +303,10 @@ Licențiat sub licența MIT.</value>
     <value>În așteptarea rețelei</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Întuneric</value>
+    <value>Întunecat</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Lumină</value>
+    <value>Luminos</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>
@@ -396,7 +396,7 @@ Licențiat sub licența MIT.</value>
     <value>{0} (mașină sau utilizator)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Deschide</value>
+    <value>Deschis</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Personal</value>

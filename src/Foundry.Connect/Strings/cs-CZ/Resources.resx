@@ -19,7 +19,7 @@
     <value>Tento software je poskytován tak, jak je. Před pokračováním v nasazení potvrďte přístup k síti.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorská práva (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
 Licencováno pod licencí MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -270,7 +270,7 @@ Licencováno pod licencí MIT.</value>
     <value>ukrajinština (Ukrajina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>O</value>
+    <value>O aplikaci</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Ladit</value>
@@ -279,7 +279,7 @@ Licencováno pod licencí MIT.</value>
     <value>Jazyk</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>téma</value>
+    <value>Motiv</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>Nástroje</value>
@@ -306,7 +306,7 @@ Licencováno pod licencí MIT.</value>
     <value>Tmavý</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Světlo</value>
+    <value>Světlý</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Systém</value>
@@ -396,7 +396,7 @@ Licencováno pod licencí MIT.</value>
     <value>{0} (stroj nebo uživatel)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Otevřít</value>
+    <value>Otevřené</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Osobní</value>

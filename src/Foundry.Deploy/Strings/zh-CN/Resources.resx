@@ -19,7 +19,7 @@
     <value>该软件按原样提供。使用前检查您的部署设置。</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>版权所有 (c) 2026 Mickaël CHAVE 和 Foundry Project 贡献者。
+    <value>Copyright (c) 2026 Mickaël CHAVE 和 Foundry Project 贡献者。
 根据 MIT 许可证获得许可。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -122,7 +122,7 @@
     <value>不适用</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>上一页</value>
+    <value>上一步</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>不可用</value>
@@ -1483,7 +1483,7 @@
     <value>这台计算机将在 {0}s 后重启。</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>重新启动</value>
+    <value>重启</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>其他本地帐户</value>
@@ -1735,10 +1735,10 @@
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>黑暗</value>
+    <value>深色</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>光</value>
+    <value>浅色</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>系统</value>

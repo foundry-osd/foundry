@@ -19,7 +19,7 @@
     <value>يتم توفير هذا البرنامج كما هو. قم بمراجعة إعدادات النشر الخاصة بك قبل الاستخدام.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>حقوق الطبع والنشر (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
 مرخص بموجب ترخيص MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -592,7 +592,7 @@
     <value>_اللغة</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>_الموضوع</value>
+    <value>_النسق</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_الأدوات</value>
@@ -721,7 +721,7 @@
     <value>{0} | TPM: {1} | القوة: {2} | البرامج الثابتة: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>تكييف</value>
+    <value>تيار متردد</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>البطارية</value>
@@ -1585,7 +1585,7 @@
     <value>الوصول إلى الموقع</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>إجباري</value>
+    <value>إيقاف إجباري</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>يتم التحكم فيه بواسطة المستخدم</value>
@@ -1735,10 +1735,10 @@
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>الظلام</value>
+    <value>داكن</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>ضوء</value>
+    <value>فاتح</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>النظام</value>

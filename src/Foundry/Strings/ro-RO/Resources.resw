@@ -34,7 +34,7 @@
     <value>Foundry OSD este o aplicație modernă pentru crearea media de implementare Windows, alimentată de WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Drepturi de autor (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
 Licențiat sub licența MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -410,7 +410,7 @@ Licențiat sub licența MIT.</value>
     <value>Salvați certificatul Autopilot PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Amprenta degetului mare</value>
+    <value>Amprentă</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Nu sunt furnizate certificate.</value>
@@ -614,7 +614,7 @@ Licențiat sub licența MIT.</value>
     <value>Anulează</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Clar</value>
+    <value>Ștergeți</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Alegeți ce profiluri de chiriași trebuie importate în Foundry.</value>
@@ -2420,10 +2420,10 @@ Licențiat sub licența MIT.</value>
     <value>General</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD acasă</value>
+    <value>Pagina de pornire Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Acasă</value>
+    <value>Pagina de pornire</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Solicitați tehnicianului acreditările de domeniu în timpul implementării.</value>
@@ -3346,13 +3346,13 @@ Parole și chei de acces incluse: {2}</value>
     <value>Configurarea rețelei nu este pregătită.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nu este selectată nicio țintă USB.</value>
+    <value>Nu este selectată nicio unitate USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Secretele media necesare nu sunt gata.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Ținta USB selectată este prea mică. Utilizați o cheie USB de cel puțin 16 GB.</value>
+    <value>Unitatea USB selectată este prea mică. Utilizați o unitate USB de cel puțin 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Limba de pornire WinPE selectată nu este disponibilă pentru arhitectura selectată.</value>
@@ -3397,7 +3397,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Formatați și creați USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatați USB țintă</value>
+    <value>Formatați unitatea USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows nu poate citi volumele de pe acest disc. Este posibil să conțină încă date.</value>
@@ -3412,7 +3412,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Volumele de pe acest disc:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Tot ce se află pe acest disc va fi pierdut. Continuați numai dacă acesta este discul USB intenționat.</value>
+    <value>Tot conținutul acestui disc va fi pierdut. Continuați numai dacă aceasta este unitatea USB dorită.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Creați USB</value>
@@ -3457,13 +3457,13 @@ Parole și chei de acces incluse: {2}</value>
     <value>Sursa imaginii de pornire</value>
   </data>
   <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Conectați furnizarea</value>
+    <value>Furnizare Connect</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Implementați configurația</value>
+    <value>Configurație Deploy</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Șoferii</value>
+    <value>Drivere</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>Modul format USB</value>
@@ -3502,10 +3502,10 @@ Parole și chei de acces incluse: {2}</value>
     <value>Crearea media este disponibilă atunci când toate verificările de pregătire trec.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Format complet</value>
+    <value>Formatare completă</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Format rapid</value>
+    <value>Formatare rapidă</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Alegeți unde va fi scris Foundry ISO generat.</value>
@@ -3772,7 +3772,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Revizuire</value>
+    <value>Examinați</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Gata</value>
@@ -3828,7 +3828,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Actualizare USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Țintele USB pot fi reîmprospătate după finalizarea pregătirii ADK.</value>
+    <value>Lista unităților USB poate fi reîmprospătată după finalizarea pregătirii ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Unități USB găsite: {0}</value>
@@ -3837,19 +3837,19 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Disc {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Scanarea țintelor USB.</value>
+    <value>Se caută unități USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nu au fost găsite unități USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>Reîmprospătarea destinației USB nu a reușit.</value>
+    <value>Reîmprospătarea listei de unități USB nu a reușit.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Comportamentul de format folosit înainte de a copia mediul final USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Schema de partiție utilizată la pregătirea țintei USB selectate.</value>
+    <value>Schema de partiție utilizată la pregătirea unității USB selectate.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>USB țintă</value>
@@ -3891,13 +3891,13 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Tema aplicației</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Întuneric</value>
+    <value>Întunecat</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>Sistem</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Lumină</value>
+    <value>Luminos</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Alegeți materialul de fundal folosit în spatele aplicației.</value>
@@ -4143,7 +4143,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Tip de securitate</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Deschide</value>
+    <value>Deschis</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (Opportunistic Wireless Encryption)</value>

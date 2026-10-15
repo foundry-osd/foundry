@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>Umbes</value>
+    <value>Teave</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Looja ja hooldaja on Mickaël CHAVE.</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD on kaasaegne rakendus Windows juurutusmeediumi loomiseks, mida toetab WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autoriõigus (c) 2026 Mickaël CHAVE ja Foundry Projecti kaasautorid.
+    <value>Copyright (c) 2026 Mickaël CHAVE ja Foundry Projecti kaasautorid.
 Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -614,7 +614,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Tühista</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Selge</value>
+    <value>Tühjenda</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Valige, millised üürniku profiilid importida kausta Foundry.</value>
@@ -2348,7 +2348,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Toote- ja versiooniteave.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>Umbes</value>
+    <value>Teave</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK valmisolek ja paigaldus.</value>
@@ -2423,7 +2423,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Foundry OSD koju</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Kodu</value>
+    <value>Avaleht</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Küsige tehnikult juurutamise ajal domeeni identimisteavet.</value>
@@ -3346,13 +3346,13 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Võrgu konfiguratsioon pole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>USB sihtmärki pole valitud.</value>
+    <value>USB-ketast pole valitud.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nõutavad meediasaladused pole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Valitud USB sihtmärk on liiga väike. Kasutage klahvi USB, mille suurus on vähemalt 16 GB.</value>
+    <value>Valitud USB-ketas on liiga väike. Kasutage vähemalt 16 GB mahuga USB-ketast.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Valitud WinPE alglaadimiskeel pole valitud arhitektuuri jaoks saadaval.</value>
@@ -3397,7 +3397,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Vorminda ja loo USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Vorming USB sihtmärk</value>
+    <value>Vorminda USB-ketas</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ei saa selle ketta köiteid lugeda. Sellel võib siiski olla andmeid.</value>
@@ -3412,7 +3412,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Selle ketta köited:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Kõik sellel kettal läheb kaotsi. Jätkake ainult siis, kui see on ettenähtud USB-ketas.</value>
+    <value>Kõik sellel kettal olevad andmed lähevad kaotsi. Jätkake ainult siis, kui see on õige USB-ketas.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Loo USB</value>
@@ -3460,7 +3460,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Ühendage varustamine</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Konfiguratsiooni juurutamine</value>
+    <value>Juurutuskonfiguratsioon</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Autojuhid</value>
@@ -3484,7 +3484,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Allkirja režiim</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB sihtmärk</value>
+    <value>USB-sihtketas</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE alglaadimiskeel</value>
@@ -3502,10 +3502,10 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Meediumi loomine on saadaval, kui kõik valmisolekukontrollid on läbinud.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Täielik formaat</value>
+    <value>Täielik vormindus</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Kiire vormindamine</value>
+    <value>Kiirvormindus</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Valige, kuhu genereeritud Foundry ISO kirjutatakse.</value>
@@ -3772,7 +3772,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Kontrollige valmisolekut, valige ISO või USB väljund ja alustage meediumi loomist.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Ülevaade</value>
+    <value>Vaata üle</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Valmis</value>
@@ -3828,7 +3828,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Värskenda USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB sihtmärke saab värskendada pärast seda, kui ADK valmisolek on lõppenud.</value>
+    <value>USB-kettaid saab värskendada pärast ADK valmisoleku kontrolli lõpuleviimist.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Leiti USB draivid: {0}</value>
@@ -3837,22 +3837,22 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Ketas {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB sihtmärkide skannimine.</value>
+    <value>USB-ketaste otsimine…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>USB draive ei leitud.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB sihtmärgi värskendamine ebaõnnestus.</value>
+    <value>USB-ketaste värskendamine nurjus.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Enne lõpliku USB meediumi kopeerimist kasutatud vormingu käitumine.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Jaotusskeem, mida kasutatakse valitud USB sihtmärgi ettevalmistamisel.</value>
+    <value>Sektsiooniskeem, mida kasutatakse valitud USB-ketta ettevalmistamisel.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB sihtmärk</value>
+    <value>USB-sihtketas</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE alglaadimiskeskkonnas kasutatav keel.</value>
@@ -3870,7 +3870,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Alusta</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Avatud</value>
+    <value>Ava</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Aktsentvärvi muutmiseks avage Windows värviseaded.</value>
@@ -3897,7 +3897,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Süsteem</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Valgus</value>
+    <value>Hele</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Valige rakenduse taga kasutatav taustadekoratsiooni materjal.</value>

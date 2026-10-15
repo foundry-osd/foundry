@@ -19,7 +19,7 @@
     <value>Tento software je poskytován tak, jak je. Před použitím zkontrolujte nastavení nasazení.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorská práva (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
 Licencováno pod licencí MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -122,7 +122,7 @@ Licencováno pod licencí MIT.</value>
     <value>N/A</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Předchozí</value>
+    <value>Zpět</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Není k dispozici</value>
@@ -583,7 +583,7 @@ Pokračovat v nasazování?</value>
     <value>Potvrďte vymazání disku</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_O</value>
+    <value>_O aplikaci</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Ladit</value>
@@ -592,7 +592,7 @@ Pokračovat v nasazování?</value>
     <value>_Jazyk</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>_Téma</value>
+    <value>_Motiv</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Nástroje</value>
@@ -1477,13 +1477,13 @@ Pokračovat v nasazování?</value>
     <value>Nasazení dokončeno</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Odeberte spouštěcí médium a potom vyberte Restartovat.</value>
+    <value>Vyjměte spouštěcí médium a potom vyberte „Restartovat“.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Tento počítač se restartuje za {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Restartujte</value>
+    <value>Restartovat</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Další místní účty</value>
@@ -1738,7 +1738,7 @@ Pokračovat v nasazování?</value>
     <value>Tmavý</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Světlo</value>
+    <value>Světlý</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Systém</value>

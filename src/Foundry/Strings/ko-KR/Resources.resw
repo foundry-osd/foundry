@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>소개</value>
+    <value>정보</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Mickaël CHAVE가 만들고 관리합니다.</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD은 WinPE에서 제공하는 Windows 배포 미디어를 작성하기 위한 최신 앱입니다.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>저작권 (c) 2026 Mickaël CHAVE 및 Foundry Project 기여자.
+    <value>Copyright (c) 2026 Mickaël CHAVE 및 Foundry Project 기여자.
 MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>타사 라이선스</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Foundry OSD 소개</value>
+    <value>Foundry OSD 정보</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>유용한 링크</value>
@@ -533,7 +533,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>이름</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>가치</value>
+    <value>값</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
     <value>해시 업로드 설정을 관리하려면 이 앱 세션에 대해 Microsoft Graph에 연결하세요.</value>
@@ -890,7 +890,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>패키지</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>맞춤</value>
+    <value>사용자 지정</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>패키지를 미리 선택하려면 하나 이상의 카탈로그 카테고리를 선택하세요.</value>
@@ -2348,7 +2348,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>제품 및 버전 정보.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>소개</value>
+    <value>정보</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK 준비 및 설치.</value>
@@ -3346,13 +3346,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>네트워크 구성이 준비되지 않았습니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>USB 대상이 선택되지 않았습니다.</value>
+    <value>선택한 USB 드라이브가 없습니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>필수 미디어 비밀번호가 준비되지 않았습니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>선택한 USB 대상이 너무 작습니다. 최소 16GB의 USB 키를 사용하세요.</value>
+    <value>선택한 USB 드라이브의 용량이 너무 작습니다. 16GB 이상의 USB 드라이브를 사용하세요.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>선택한 WinPE 부팅 언어는 선택한 아키텍처에 사용할 수 없습니다.</value>
@@ -3364,7 +3364,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>WinRE Wi-Fi 이미지</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>비</value>
+    <value>바이트</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3397,7 +3397,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>USB 형식 지정 및 생성</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>USB 대상 형식</value>
+    <value>USB 드라이브 포맷</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows에서 이 디스크의 볼륨을 읽을 수 없습니다. 데이터가 남아 있을 수 있습니다.</value>
@@ -3412,7 +3412,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>이 디스크의 볼륨:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>이 디스크의 모든 내용이 손실됩니다. 이것이 의도된 USB 디스크인 경우에만 계속하십시오.</value>
+    <value>이 디스크의 모든 데이터가 손실됩니다. 사용하려는 USB 드라이브인 경우에만 계속하세요.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB 생성</value>
@@ -3460,7 +3460,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>프로비저닝 연결</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>구성 배포</value>
+    <value>배포 구성</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>드라이버</value>
@@ -3502,7 +3502,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>모든 준비 확인을 통과하면 미디어 생성이 가능합니다.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>전체 형식</value>
+    <value>전체 포맷</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>빠른 포맷</value>
@@ -3828,7 +3828,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>USB 업데이트</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>ADK 준비가 완료된 후 USB 대상을 새로 고칠 수 있습니다.</value>
+    <value>ADK 준비가 완료된 후 USB 드라이브 목록을 새로 고칠 수 있습니다.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB 발견된 드라이브: {0}</value>
@@ -3837,19 +3837,19 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>디스크 {0} - {1}({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB 대상을 검색하는 중입니다.</value>
+    <value>USB 드라이브 검색 중…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>USB 드라이브를 찾을 수 없습니다.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB 대상 새로 고침에 실패했습니다.</value>
+    <value>USB 드라이브를 새로 고치지 못했습니다.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>최종 USB 미디어를 복사하기 전에 사용되는 형식 동작입니다.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>선택한 USB 대상을 준비할 때 사용되는 파티션 구성표입니다.</value>
+    <value>선택한 USB 드라이브를 준비할 때 사용하는 파티션 구성표입니다.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>USB 대상</value>
@@ -3891,13 +3891,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>앱 테마</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>어둠</value>
+    <value>어둡게</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>시스템</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>빛</value>
+    <value>밝게</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>앱 뒤에 사용되는 배경 자료를 선택하세요.</value>
@@ -4143,7 +4143,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>보안 유형</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>열기</value>
+    <value>개방형</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE(기회적 무선 암호화)</value>

@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>Über</value>
+    <value>Info</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Erstellt und gepflegt von Mickaël CHAVE.</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD ist eine moderne App zum Erstellen von Windows Bereitstellungsmedien, unterstützt von WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Urheberrecht (c) 2026 Mickaël CHAVE und die Mitwirkenden von Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE und die Mitwirkenden von Foundry Project.
 Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Drittanbieterlizenzen</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Über Foundry OSD</value>
+    <value>Info zu Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Nützliche Links</value>
@@ -281,13 +281,13 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Quelle</value>
   </data>
   <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Standardmäßig im angewendeten Windows-Bild bereitgestelltes Profil.</value>
+    <value>Standardmäßig im angewendeten Windows-Abbild bereitgestelltes Profil.</value>
   </data>
   <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
     <value>Standardprofil</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Download vom Mieter</value>
+    <value>Vom Mandanten herunterladen</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Vom Mandanten wurden keine Autopilot Profile zurückgegeben.</value>
@@ -416,10 +416,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Es werden keine Zertifikate bereitgestellt.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Mieter verbinden</value>
+    <value>Mandanten verbinden</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Mieter verbinden…</value>
+    <value>Mandant wird verbunden…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Zertifikat erstellen</value>
@@ -431,7 +431,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Kein Standardgruppen-Tag ausgewählt.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Mieter trennen</value>
+    <value>Mandanten trennen</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
     <value>Optionales Gruppen-Tag, das während des Hardware-Hash-Uploads in Foundry Deploy vorausgewählt wurde.</value>
@@ -446,10 +446,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Foundry konnte die Autopilot App-Registrierung nicht konfigurieren. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Das Mieter-Onboarding ist fehlgeschlagen</value>
+    <value>Das Mandanten-Onboarding ist fehlgeschlagen</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>Das ausgewählte Zertifikat ist abgelaufen. Erstellen Sie ein neues Zertifikat, speichern Sie dessen PFX und sein Kennwort und wählen Sie es dann als Startmedium aus.</value>
+    <value>Das ausgewählte Zertifikat ist abgelaufen. Erstellen Sie ein neues Zertifikat, speichern Sie die PFX-Datei und das Kennwort, und wählen Sie es dann für das Startmedium aus.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
     <value>Das zuvor ausgewählte Zertifikat ist in der verwalteten App-Registrierung nicht mehr vorhanden. Wählen Sie ein gültiges PFX aus, das einem bereitgestellten Zertifikat entspricht.</value>
@@ -464,7 +464,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Dem verwalteten Dienstprinzipal fehlt die Administratoreinwilligung für die erforderliche Microsoft Graph-Berechtigung. Erteilen Sie die Zustimmung des Administrators und stellen Sie die Verbindung wieder her.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Die verwaltete App-Registrierung ist noch nicht fertig. Überprüfen Sie die Mieterbereitschaft und stellen Sie die Verbindung wieder her.</value>
+    <value>Die verwaltete App-Registrierung ist nicht bereit. Überprüfen Sie die Mandantenbereitschaft, und stellen Sie die Verbindung erneut her.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Der verwalteten App-Registrierung fehlt die erforderliche Anwendungsberechtigung Microsoft Graph. Stellen Sie erneut eine Verbindung mit einem Konto her, das App-Registrierungen aktualisieren kann.</value>
@@ -473,7 +473,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Der verwaltete Dienstprinzipal fehlt oder ist deaktiviert. Stellen Sie erneut eine Verbindung mit einem Konto her, das Unternehmensanwendungen erstellen oder verwalten kann.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Das Mieter-Onboarding erfordert Aufmerksamkeit</value>
+    <value>Das Mandanten-Onboarding erfordert Aufmerksamkeit</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Status</value>
@@ -518,7 +518,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Kunden-ID</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>Mieter-ID</value>
+    <value>Mandanten-ID</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nicht verbunden</value>
@@ -527,7 +527,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Mandanten-, App-Registrierungs- und Bereitschaftsinformationen für den Hardware-Hash-Upload.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Mieterbereitschaft</value>
+    <value>Mandantenbereitschaft</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Name</value>
@@ -539,7 +539,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Stellen Sie für diese App-Sitzung eine Verbindung zu Microsoft Graph her, um die Hash-Upload-Einstellungen zu verwalten.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Mieteranbindung</value>
+    <value>Mandantenverbindung</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Profil importieren</value>
@@ -614,10 +614,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Abbrechen</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Klar</value>
+    <value>Löschen</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Wählen Sie aus, welche Mieterprofile in Foundry importiert werden sollen.</value>
+    <value>Wählen Sie aus, welche Mandantenprofile in Foundry importiert werden sollen.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Importieren</value>
@@ -2348,7 +2348,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Produkt- und Versionsinformationen.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>Über</value>
+    <value>Info</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK Bereitschaft und Installation.</value>
@@ -2420,10 +2420,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Allgemein</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD Zuhause</value>
+    <value>Foundry OSD-Startseite</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Zuhause</value>
+    <value>Startseite</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Domänenanmeldeinformationen während der Bereitstellung vom Techniker abfragen.</value>
@@ -3226,7 +3226,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Telemetrie aktivieren</value>
   </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
-    <value>Ändern Sie die Einstellungen für Thema, Hintergrund und Akzentfarbe.</value>
+    <value>Ändern Sie die Einstellungen für Design, Hintergrund und Akzentfarbe.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
     <value>Aussehen</value>
@@ -3346,13 +3346,13 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Die Netzwerkkonfiguration ist nicht bereit.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Es ist kein USB Ziel ausgewählt.</value>
+    <value>Es ist kein USB-Laufwerk ausgewählt.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Erforderliche Mediengeheimnisse sind nicht bereit.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Das ausgewählte USB Ziel ist zu klein. Verwenden Sie eine USB-Taste mit mindestens 16 GB.</value>
+    <value>Das ausgewählte USB-Laufwerk ist zu klein. Verwenden Sie ein USB-Laufwerk mit mindestens 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Die ausgewählte WinPE Boot-Sprache ist für die ausgewählte Architektur nicht verfügbar.</value>
@@ -3361,7 +3361,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Standard WinPE</value>
   </data>
   <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi Bild</value>
+    <value>WinRE-Abbild mit Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3397,7 +3397,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Formatieren und erstellen Sie USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatieren Sie USB Ziel</value>
+    <value>USB-Laufwerk formatieren</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows kann die Volumes auf dieser Festplatte nicht lesen. Sie enthält möglicherweise weiterhin Daten.</value>
@@ -3412,7 +3412,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Volumes auf dieser Festplatte:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Alles auf dieser Festplatte geht verloren. Fahren Sie nur fort, wenn dies die vorgesehene USB-Festplatte ist.</value>
+    <value>Alle Daten auf diesem Datenträger gehen verloren. Fahren Sie nur fort, wenn dies das gewünschte USB-Laufwerk ist.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Erstellen Sie USB</value>
@@ -3460,7 +3460,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Connect-Bereitstellung</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Konfiguration bereitstellen</value>
+    <value>Deploy-Konfiguration</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Treiber</value>
@@ -3484,7 +3484,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Signaturmodus</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB Ziel</value>
+    <value>USB-Ziel</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE Boot-Sprache</value>
@@ -3502,7 +3502,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Die Medienerstellung ist verfügbar, wenn alle Bereitschaftsprüfungen bestanden wurden.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Vollformat</value>
+    <value>Vollständige Formatierung</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Schnellformatierung</value>
@@ -3514,7 +3514,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>ISO Ausgabe</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO Bild</value>
+    <value>ISO-Abbild</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Wählen Sie ISO Ausgabepfad</value>
@@ -3772,7 +3772,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Prüfen Sie die Bereitschaft, wählen Sie eine ISO- oder USB-Ausgabe aus, und starten Sie die Medienerstellung.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Rezension</value>
+    <value>Überprüfen</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Bereit</value>
@@ -3828,7 +3828,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>USB aktualisieren</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB Ziele können aktualisiert werden, nachdem die ADK Bereitschaft abgeschlossen ist.</value>
+    <value>Die Liste der USB-Laufwerke kann aktualisiert werden, sobald die ADK-Bereitschaftsprüfung abgeschlossen ist.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB Laufwerke gefunden: {0}</value>
@@ -3837,22 +3837,22 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Festplatte {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Scannen von USB Zielen.</value>
+    <value>Nach USB-Laufwerken wird gesucht…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Es wurden keine USB Laufwerke gefunden.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB Zielaktualisierung fehlgeschlagen.</value>
+    <value>Fehler beim Aktualisieren der USB-Laufwerke.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formatierungsverhalten, das vor dem Kopieren des endgültigen USB-Mediums verwendet wird.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Partitionsschema, das beim Vorbereiten des ausgewählten USB-Ziels verwendet wird.</value>
+    <value>Partitionsschema, das beim Vorbereiten des ausgewählten USB-Laufwerks verwendet wird.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB Ziel</value>
+    <value>USB-Ziel</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Von der WinPE Boot-Umgebung verwendete Sprache.</value>
@@ -3870,7 +3870,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Starten</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Offen</value>
+    <value>Öffnen</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Öffnen Sie die Windows Farbeinstellungen, um die Akzentfarbe zu ändern.</value>
@@ -3885,10 +3885,10 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Acryl dünn</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
-    <value>Wählen Sie das Anwendungsthema aus.</value>
+    <value>Wählen Sie das App-Design aus.</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
-    <value>App-Thema</value>
+    <value>App-Design</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
     <value>Dunkel</value>
@@ -3897,7 +3897,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>System</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Licht</value>
+    <value>Hell</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Wählen Sie das Hintergrundmaterial aus, das hinter der App verwendet wird.</value>
@@ -3906,10 +3906,10 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Material</value>
   </data>
   <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
-    <value>Glimmer Alt</value>
+    <value>Mica Alt</value>
   </data>
   <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
-    <value>Glimmer</value>
+    <value>Mica</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
     <value>Enthält Einstellungen, die die Autopilot-Registrierung verhindern können. Inkompatible Registrierungsmodi werden bei der Bereitstellung blockiert.</value>

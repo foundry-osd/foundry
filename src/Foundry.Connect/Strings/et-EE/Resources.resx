@@ -19,7 +19,7 @@
     <value>See tarkvara tarnitakse sellisena, nagu see on. Enne juurutamise jätkamist kinnitage juurdepääs võrgule.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autoriõigus (c) 2026 Mickaël CHAVE ja Foundry Projecti kaasautorid.
+    <value>Copyright (c) 2026 Mickaël CHAVE ja Foundry Projecti kaasautorid.
 Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -56,7 +56,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Loobu</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Sule aken</value>
+    <value>Sule</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfiguratsioon: sisseehitatud vaikeseaded</value>
@@ -270,7 +270,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>ukraina (Ukraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Umbes</value>
+    <value>Teave</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Silumine</value>
@@ -306,7 +306,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Tume</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Valgus</value>
+    <value>Hele</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Süsteem</value>

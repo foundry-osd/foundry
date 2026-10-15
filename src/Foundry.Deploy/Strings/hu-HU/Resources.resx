@@ -19,7 +19,7 @@
     <value>Ezt a szoftvert úgy szállítjuk, ahogy van. Használat előtt tekintse át a telepítési beállításokat.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Szerzői jog (c) 2026 Mickaël CHAVE és a Foundry Project közreműködői.
+    <value>Copyright (c) 2026 Mickaël CHAVE és a Foundry Project közreműködői.
 Licenc az MIT licenc alatt.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -110,7 +110,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Engedélyezve</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Következő</value>
+    <value>Tovább</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>Nem</value>
@@ -122,7 +122,7 @@ Licenc az MIT licenc alatt.</value>
     <value>N/A</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Előző</value>
+    <value>Vissza</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nem elérhető</value>
@@ -583,7 +583,7 @@ Folytatja a telepítést?</value>
     <value>Erősítse meg a lemez törlését</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_Körülbelül</value>
+    <value>_Névjegy</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
@@ -1477,13 +1477,13 @@ Folytatja a telepítést?</value>
     <value>A telepítés befejeződött</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Távolítsa el a rendszerindító adathordozót, majd válassza az Újraindítás lehetőséget.</value>
+    <value>Távolítsa el a rendszerindító adathordozót, majd válassza az „Újraindítás” lehetőséget.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Ez a számítógép {0}s múlva újraindul.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Indítsa újra</value>
+    <value>Újraindítás</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>További helyi fiókok</value>
@@ -1738,7 +1738,7 @@ Folytatja a telepítést?</value>
     <value>Sötét</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Fény</value>
+    <value>Világos</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Rendszer</value>

@@ -34,7 +34,7 @@
     <value>Foundry OSD 是一款用于创作 Windows 部署媒体的现代应用程序，由 WinPE 提供支持。</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>版权所有 (c) 2026 Mickaël CHAVE 和 Foundry Project 贡献者。
+    <value>Copyright (c) 2026 Mickaël CHAVE 和 Foundry Project 贡献者。
 根据 MIT 许可证获得许可。</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@
     <value>第三方许可证</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>关于Foundry OSD</value>
+    <value>关于 Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>有用的链接</value>
@@ -533,7 +533,7 @@
     <value>名称</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>价值</value>
+    <value>值</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
     <value>连接到此应用程序会话的 Microsoft Graph 以管理哈希上传设置。</value>
@@ -620,7 +620,7 @@
     <value>选择应将哪些租户配置文件导入Foundry。</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>进口</value>
+    <value>导入</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
     <value>选择全部</value>
@@ -890,7 +890,7 @@
     <value>套餐</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>定制</value>
+    <value>自定义</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>选择一个或多个目录类别来预选包。</value>
@@ -2423,7 +2423,7 @@
     <value>Foundry OSD家</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>首页</value>
+    <value>主页</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>在部署期间要求技术人员提供域凭据。</value>
@@ -3346,13 +3346,13 @@
     <value>网络配置尚未准备好。</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>未选择 USB 目标。</value>
+    <value>未选择 USB 驱动器。</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>所需的媒体机密尚未准备好。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>所选USB 目标太小。使用至少 16 GB 的 USB 密钥。</value>
+    <value>所选 USB 驱动器容量太小。请使用至少 16 GB 的 USB 驱动器。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>所选 WinPE 引导语言不可用于所选架构。</value>
@@ -3364,7 +3364,7 @@
     <value>WinRE Wi-Fi 图像</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>乙</value>
+    <value>字节</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3397,7 +3397,7 @@
     <value>格式化并创建USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>格式化USB目标</value>
+    <value>格式化 USB 驱动器</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows 无法读取此磁盘上的卷。它仍可能包含数据。</value>
@@ -3412,7 +3412,7 @@
     <value>此磁盘上的卷：</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>此磁盘上的所有内容都将丢失。仅当这是预期的 USB 磁盘时才继续。</value>
+    <value>此磁盘上的所有内容都将丢失。仅当这是要使用的 USB 驱动器时才继续。</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>创建USB</value>
@@ -3484,7 +3484,7 @@
     <value>签名模式</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB目标</value>
+    <value>USB 目标</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE启动语言</value>
@@ -3502,7 +3502,7 @@
     <value>当所有准备情况检查通过后，即可进行媒体创建。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>完整格式</value>
+    <value>完全格式化</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>快速格式化</value>
@@ -3772,7 +3772,7 @@
     <value>检查就绪情况，选择 ISO 或 USB 输出，然后开始创建媒体。</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>评论</value>
+    <value>查看</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>准备好</value>
@@ -3828,7 +3828,7 @@
     <value>更新 USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>ADK 准备完成后可以刷新USB 目标。</value>
+    <value>ADK 就绪检查完成后才能刷新 USB 驱动器。</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>找到 USB 驱动器：{0}</value>
@@ -3837,22 +3837,22 @@
     <value>磁盘 {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>正在扫描USB目标。</value>
+    <value>正在扫描 USB 驱动器…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>未找到 USB 驱动器。</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB 目标刷新失败。</value>
+    <value>USB 驱动器刷新失败。</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>复制最终 USB 媒体之前使用的格式化行为。</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>准备选定的 USB 目标时使用的分区方案。</value>
+    <value>准备所选 USB 驱动器时使用的分区方案。</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB目标</value>
+    <value>USB 目标</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE 引导环境使用的语言。</value>
@@ -3891,13 +3891,13 @@
     <value>应用主题</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>黑暗</value>
+    <value>深色</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>系统</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>光</value>
+    <value>浅色</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>选择应用程序背后使用的背景材料。</value>
@@ -4143,7 +4143,7 @@
     <value>安全类型</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>打开</value>
+    <value>开放</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE（机会无线加密）</value>

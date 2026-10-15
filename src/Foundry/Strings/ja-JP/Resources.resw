@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>について</value>
+    <value>バージョン情報</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Mickaël CHAVE によって作成および保守されています。</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD は、WinPE を利用した Windows 展開メディアを作成するための最新のアプリです。</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>著作権 (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
+    <value>Copyright (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
 MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>サードパーティ ライセンス</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Foundry OSDについて</value>
+    <value>Foundry OSD のバージョン情報</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>役立つリンク</value>
@@ -2348,7 +2348,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>製品とバージョンの情報。</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>について</value>
+    <value>バージョン情報</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK の準備とインストール。</value>
@@ -3346,13 +3346,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ネットワーク構成の準備ができていません。</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>USB ターゲットが選択されていません。</value>
+    <value>USB ドライブが選択されていません。</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>必要なメディア シークレットの準備ができていません。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>選択された USB ターゲットは小さすぎます。少なくとも 16 GB の USB キーを使用してください。</value>
+    <value>選択した USB ドライブの容量が不足しています。16 GB 以上の USB ドライブを使用してください。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>選択された WinPE ブート言語は、選択されたアーキテクチャでは使用できません。</value>
@@ -3397,7 +3397,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>USB をフォーマットして作成します</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>USB ターゲットの形式</value>
+    <value>USB ドライブのフォーマット</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows はこのディスク上のボリュームを読み取れません。データが残っている可能性があります。</value>
@@ -3412,7 +3412,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>このディスク上のボリューム:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>このディスク上のすべてが失われます。これが目的の USB ディスクである場合にのみ続行してください。</value>
+    <value>このディスク上のすべてのデータが失われます。目的の USB ドライブである場合にのみ続行してください。</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB を作成します</value>
@@ -3502,10 +3502,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>すべての準備状況チェックに合格すると、メディアの作成が可能になります。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>フルフォーマット</value>
+    <value>フル フォーマット</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>クイックフォーマット</value>
+    <value>クイック フォーマット</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>生成された Foundry ISO を書き込む場所を選択します。</value>
@@ -3772,7 +3772,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>準備状況を確認し、ISO または USB 出力を選択して、メディアの作成を開始します。</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>レビュー</value>
+    <value>確認</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>準備完了</value>
@@ -3828,7 +3828,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>USB を更新</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB ターゲットは、ADK の準備が完了した後に更新できます。</value>
+    <value>ADK の準備が完了すると、USB ドライブの一覧を更新できます。</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB ドライブが見つかりました: {0}</value>
@@ -3837,19 +3837,19 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ディスク {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB ターゲットをスキャンしています。</value>
+    <value>USB ドライブをスキャンしています…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>USB ドライブが見つかりませんでした。</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB ターゲットの更新に失敗しました。</value>
+    <value>USB ドライブの一覧を更新できませんでした。</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>最終的な USB メディアをコピーする前に使用されるフォーマット動作。</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>選択した USB ターゲットを準備するときに使用されるパーティション スキーム。</value>
+    <value>選択した USB ドライブの準備時に使用するパーティション スキーム。</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>USB ターゲット</value>
@@ -3891,7 +3891,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>アプリのテーマ</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>暗い</value>
+    <value>ダーク</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>システム</value>
@@ -4143,7 +4143,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>セキュリティの種類</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>開く</value>
+    <value>オープン</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (日和見無線暗号化)</value>

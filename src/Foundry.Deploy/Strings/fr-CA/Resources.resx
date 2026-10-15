@@ -19,7 +19,7 @@
     <value>Ce logiciel est fourni tel quel. Vérifiez vos paramètres de déploiement avant utilisation.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Droits d’auteur (c) 2026 Mickaël CHAVE et les contributeurs de Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE et les contributeurs de Foundry Project.
 Sous licence MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -1738,7 +1738,7 @@ Continuer le déploiement?</value>
     <value>Sombre</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Lumière</value>
+    <value>Clair</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Système</value>

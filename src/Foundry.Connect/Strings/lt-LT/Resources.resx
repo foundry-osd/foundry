@@ -19,7 +19,7 @@
     <value>Ši programinė įranga pateikiama tokia, kokia yra. Prieš tęsdami diegimą, patvirtinkite prieigą prie tinklo.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorių teisės (c) 2026 Mickaël CHAVE ir Foundry Project bendraautoriai.
+    <value>Copyright (c) 2026 Mickaël CHAVE ir Foundry Project bendraautoriai.
 Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -279,7 +279,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Kalba</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>tema</value>
+    <value>Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>Įrankiai</value>
@@ -306,7 +306,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Tamsus</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Šviesa</value>
+    <value>Šviesus</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>
@@ -396,7 +396,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>{0} (mašina arba naudotojas)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Atidaryti</value>
+    <value>Atviras</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Asmeninis</value>

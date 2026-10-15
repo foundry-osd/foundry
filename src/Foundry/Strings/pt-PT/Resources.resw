@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>Sobre</value>
+    <value>Acerca de</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Criado e mantido por Mickaël CHAVE.</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD é um aplicativo moderno para criação de mídia de implantação Windows desenvolvido por WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Direitos de autor (c) 2026 Mickaël CHAVE e os colaboradores do Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE e os colaboradores do Foundry Project.
 Licenciado sob a licença MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@ Licenciado sob a licença MIT.</value>
     <value>Licenças de terceiros</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Sobre Foundry OSD</value>
+    <value>Acerca do Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Links úteis</value>
@@ -2348,7 +2348,7 @@ Licenciado sob a licença MIT.</value>
     <value>Informações sobre produto e versão.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>Sobre</value>
+    <value>Acerca de</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK prontidão e instalação.</value>
@@ -3193,7 +3193,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Username</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
-    <value>Configurações</value>
+    <value>Definições</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
     <value>Gerencie inicialização, idioma, diagnóstico e comportamento do aplicativo.</value>
@@ -3346,13 +3346,13 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>A configuração da rede não está pronta.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nenhum alvo USB está selecionado.</value>
+    <value>Não foi selecionada nenhuma unidade USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Os segredos de mídia necessários não estão prontos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>O alvo USB selecionado é muito pequeno. Use uma chave USB de pelo menos 16 GB.</value>
+    <value>A unidade USB selecionada é demasiado pequena. Utilize uma unidade USB com, pelo menos, 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>O idioma de inicialização WinPE selecionado não está disponível para a arquitetura selecionada.</value>
@@ -3397,7 +3397,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Formate e crie USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatar USB destino</value>
+    <value>Formatar a unidade USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>O Windows não consegue ler os volumes deste disco. Ele ainda pode conter dados.</value>
@@ -3412,7 +3412,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Volumes neste disco:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Tudo neste disco será perdido. Continue apenas se este for o disco USB pretendido.</value>
+    <value>Todo o conteúdo deste disco será perdido. Continue apenas se esta for a unidade USB pretendida.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Crie USB</value>
@@ -3460,7 +3460,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Conectar provisionamento</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Implantar configuração</value>
+    <value>Configuração do Deploy</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Motoristas</value>
@@ -3484,7 +3484,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Modo de assinatura</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB alvo</value>
+    <value>Unidade USB de destino</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE idioma de inicialização</value>
@@ -3502,7 +3502,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>A criação de mídia estará disponível quando todas as verificações de prontidão forem aprovadas.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Formato completo</value>
+    <value>Formatação completa</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Formatação rápida</value>
@@ -3772,7 +3772,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Reveja a preparação, escolha uma saída ISO ou USB e inicie a criação do suporte.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Revisão</value>
+    <value>Rever</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Pronto</value>
@@ -3828,7 +3828,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Atualizar USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Os alvos USB podem ser atualizados após a conclusão da prontidão ADK.</value>
+    <value>A lista de unidades USB pode ser atualizada depois de concluídas as verificações de preparação do ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Unidades USB encontradas: {0}</value>
@@ -3837,22 +3837,22 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Disco {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Verificando alvos USB.</value>
+    <value>A procurar unidades USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nenhuma unidade USB foi encontrada.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>Falha na atualização do destino USB.</value>
+    <value>Não foi possível atualizar a lista de unidades USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Comportamento de formato usado antes de copiar a mídia USB final.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Esquema de partição usado ao preparar o destino USB selecionado.</value>
+    <value>Esquema de partições utilizado ao preparar a unidade USB selecionada.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB alvo</value>
+    <value>Unidade USB de destino</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Idioma usado pelo ambiente de inicialização WinPE.</value>
@@ -3897,7 +3897,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Sistema</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Luz</value>
+    <value>Claro</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Escolha o material de fundo usado por trás do aplicativo.</value>
@@ -4143,7 +4143,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Tipo de segurança</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Abrir</value>
+    <value>Aberta</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (criptografia sem fio oportunista)</value>

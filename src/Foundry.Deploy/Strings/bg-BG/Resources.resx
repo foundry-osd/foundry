@@ -19,7 +19,7 @@
     <value>Този софтуер се предоставя такъв, какъвто е. Прегледайте настройките си за внедряване преди употреба.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Авторско право (c) 2026 Mickaël CHAVE и сътрудниците на Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE и сътрудниците на Foundry Project.
 Лицензирано съгласно лиценза на MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -110,7 +110,7 @@
     <value>Активирано</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Следваща</value>
+    <value>Напред</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>не</value>
@@ -122,7 +122,7 @@
     <value>N/A</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Предишен</value>
+    <value>Назад</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недостъпен</value>
@@ -1483,7 +1483,7 @@
     <value>Този компютър ще се рестартира след {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Рестартирайте</value>
+    <value>Рестартиране</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Допълнителни локални акаунти</value>
@@ -1735,13 +1735,13 @@
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Тъмно</value>
+    <value>Тъмен</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>светлина</value>
+    <value>Светъл</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
-    <value>система</value>
+    <value>Системен</value>
   </data>
   <data name="Tools.OpenLogFile" xml:space="preserve">
     <value>Отворете регистрационния файл</value>

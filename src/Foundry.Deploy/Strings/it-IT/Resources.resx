@@ -19,7 +19,7 @@
     <value>Questo software viene fornito così com'è. Controlla le impostazioni di distribuzione prima dell'uso.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Diritto d’autore (c) 2026 Mickaël CHAVE e i collaboratori di Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE e i collaboratori di Foundry Project.
 Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -89,7 +89,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Annulla</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Chiudi la finestra</value>
+    <value>Chiudi</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Copia negli appunti</value>
@@ -122,7 +122,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>N/D</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Precedente</value>
+    <value>Indietro</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Non disponibile</value>
@@ -583,7 +583,7 @@ Continuare con la distribuzione?</value>
     <value>Conferma la cancellazione del disco</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_Circa</value>
+    <value>_Informazioni</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
@@ -1477,13 +1477,13 @@ Continuare con la distribuzione?</value>
     <value>Distribuzione completata</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Rimuovere il supporto di avvio, quindi selezionare Riavvia.</value>
+    <value>Rimuovere il supporto di avvio, quindi selezionare «Riavvia».</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Questo computer verrà riavviato tra {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Riavviare</value>
+    <value>Riavvia</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Account locali aggiuntivi</value>
@@ -1735,10 +1735,10 @@ Continuare con la distribuzione?</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Buio</value>
+    <value>Scuro</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Luce</value>
+    <value>Chiaro</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>

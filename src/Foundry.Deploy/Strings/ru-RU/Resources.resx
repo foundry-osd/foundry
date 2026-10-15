@@ -19,7 +19,7 @@
     <value>Это программное обеспечение предоставляется как есть. Перед использованием просмотрите настройки развертывания.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Авторские права (c) 2026 Mickaël CHAVE и участники Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE и участники Foundry Project.
 Лицензировано по лицензии MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -122,7 +122,7 @@
     <value>Н/Д</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Предыдущий</value>
+    <value>Назад</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недоступно</value>
@@ -583,7 +583,7 @@
     <value>Подтвердить очистку диска</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_О нас</value>
+    <value>_О программе</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Отладка</value>
@@ -721,7 +721,7 @@
     <value>{0} | TPM: {1} | Сила: {2} | Прошивка: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>переменного тока</value>
+    <value>От сети</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Батарея</value>
@@ -1477,7 +1477,7 @@
     <value>Развертывание завершено</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Извлеките загрузочный носитель, затем выберите «Перезапустить».</value>
+    <value>Извлеките загрузочный носитель, затем выберите «Перезагрузить».</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Этот компьютер перезагрузится через {0}s.</value>
@@ -1738,10 +1738,10 @@
     <value>Темный</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Свет</value>
+    <value>Светлый</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
-    <value>Система</value>
+    <value>Системный</value>
   </data>
   <data name="Tools.OpenLogFile" xml:space="preserve">
     <value>Открыть файл журнала</value>

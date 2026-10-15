@@ -34,7 +34,7 @@
     <value>Foundry OSD is een moderne app voor het schrijven van Windows-implementatiemedia, mogelijk gemaakt door WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Auteursrecht (c) 2026 Mickaël CHAVE en de bijdragers aan Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE en de bijdragers aan Foundry Project.
 Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -614,7 +614,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Annuleer</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Duidelijk</value>
+    <value>Wissen</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Kies welke huurderprofielen moeten worden geïmporteerd in Foundry.</value>
@@ -2360,7 +2360,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Verwijder of schakel Windows AI-componenten uit.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI-onderdelen</value>
+    <value>AI-componenten</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Selecteer ingerichte apps om te verwijderen.</value>
@@ -2423,7 +2423,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Foundry OSD thuis</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Thuis</value>
+    <value>Startpagina</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Vraag de technicus tijdens de implementatie om domeinreferenties.</value>
@@ -3346,13 +3346,13 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Netwerkconfiguratie is niet gereed.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Er is geen USB doel geselecteerd.</value>
+    <value>Er is geen USB-station geselecteerd.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Vereiste mediageheimen zijn niet gereed.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Het geselecteerde USB doel is te klein. Gebruik een USB-sleutel van minimaal 16 GB.</value>
+    <value>Het geselecteerde USB-station is te klein. Gebruik een USB-station van minimaal 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>De geselecteerde WinPE opstarttaal is niet beschikbaar voor de geselecteerde architectuur.</value>
@@ -3397,7 +3397,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Formatteer en creëer USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formaat USB doel</value>
+    <value>USB-station formatteren</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows kan de volumes op deze schijf niet lezen. Er kunnen nog steeds gegevens op staan.</value>
@@ -3412,7 +3412,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Volumes op deze schijf:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Alles op deze schijf gaat verloren. Ga alleen verder als dit de beoogde USB-schijf is.</value>
+    <value>Alles op deze schijf gaat verloren. Ga alleen door als dit het juiste USB-station is.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Maak USB aan</value>
@@ -3460,7 +3460,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Sluit de inrichting aan</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Configuratie implementeren</value>
+    <value>Deploy-configuratie</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Chauffeurs</value>
@@ -3484,7 +3484,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Handtekeningmodus</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB doel</value>
+    <value>USB-doel</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE opstarttaal</value>
@@ -3502,7 +3502,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Het maken van media is beschikbaar wanneer alle gereedheidscontroles zijn geslaagd.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Volledig formaat</value>
+    <value>Volledig formatteren</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Snel formatteren</value>
@@ -3772,7 +3772,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Controleer de gereedheid, kies ISO- of USB-uitvoer en start het maken van media.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Beoordeling</value>
+    <value>Controleren</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Klaar</value>
@@ -3828,7 +3828,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>USB bijwerken</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB doelen kunnen worden vernieuwd nadat ADK gereed is.</value>
+    <value>USB-stations kunnen worden vernieuwd zodra de ADK-controles zijn voltooid.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB schijven gevonden: {0}</value>
@@ -3837,22 +3837,22 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Schijf {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB doelen scannen.</value>
+    <value>Zoeken naar USB-stations…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Er zijn geen USB-schijven gevonden.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB doelvernieuwing mislukt.</value>
+    <value>Vernieuwen van USB-stations is mislukt.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formaatgedrag dat wordt gebruikt voordat de definitieve USB-media worden gekopieerd.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Partitieschema gebruikt bij het voorbereiden van het geselecteerde USB doel.</value>
+    <value>Partitieschema dat wordt gebruikt bij het voorbereiden van het geselecteerde USB-station.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB doel</value>
+    <value>USB-doel</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Taal gebruikt door de WinPE opstartomgeving.</value>
@@ -4143,7 +4143,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Beveiligingstype</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Openen</value>
+    <value>Open</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (opportunistische draadloze codering)</value>

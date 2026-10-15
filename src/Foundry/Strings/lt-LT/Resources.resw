@@ -34,7 +34,7 @@
     <value>Foundry OSD yra moderni programa, skirta kurti Windows diegimo laikmeną, kurią palaiko WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autorių teisės (c) 2026 Mickaël CHAVE ir Foundry Project bendraautoriai.
+    <value>Copyright (c) 2026 Mickaël CHAVE ir Foundry Project bendraautoriai.
 Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -410,7 +410,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Išsaugokite Autopilot sertifikatą PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Nykščio atspaudas</value>
+    <value>Kontrolinis kodas</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Jokie sertifikatai nepateikiami.</value>
@@ -614,7 +614,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Atšaukti</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Aišku</value>
+    <value>Valyti</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Pasirinkite, kurie nuomininko profiliai turi būti importuojami į Foundry.</value>
@@ -3346,13 +3346,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Tinklo konfigūracija neparengta.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nepasirinktas joks USB tikslas.</value>
+    <value>Nepasirinktas joks USB diskas.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Reikalingos žiniasklaidos paslaptys neparengtos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Pasirinktas USB tikslas yra per mažas. Naudokite bent 16 GB USB klavišą.</value>
+    <value>Pasirinktas USB diskas per mažas. Naudokite bent 16 GB talpos USB diską.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Pasirinkta WinPE įkrovos kalba nepasiekiama pasirinktai architektūrai.</value>
@@ -3397,7 +3397,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Formatuokite ir sukurkite USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatuokite USB tikslą</value>
+    <value>Formatuoti USB diską</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>„Windows“ negali nuskaityti šio disko tomų. Jame vis tiek gali būti duomenų.</value>
@@ -3412,7 +3412,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Šio disko tomai:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Viskas šiame diske bus prarasta. Tęskite tik tuo atveju, jei tai numatytas USB diskas.</value>
+    <value>Visi šiame diske esantys duomenys bus prarasti. Tęskite tik tuo atveju, jei tai tinkamas USB diskas.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Sukurti USB</value>
@@ -3460,7 +3460,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Prijungti aprūpinimą</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Įdiegti konfigūraciją</value>
+    <value>Diegimo konfigūracija</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Vairuotojai</value>
@@ -3484,7 +3484,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Parašo režimas</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB taikinys</value>
+    <value>Tikslinis USB diskas</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE įkrovos kalba</value>
@@ -3502,10 +3502,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Laikmenos kūrimas pasiekiamas, kai praeina visi parengties patikrinimai.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Pilnas formatas</value>
+    <value>Visiškas formatavimas</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Greitas formatas</value>
+    <value>Greitasis formatavimas</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Pasirinkite, kur bus rašomas sugeneruotas Foundry ISO.</value>
@@ -3772,7 +3772,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Peržiūrėkite parengtį, pasirinkite ISO arba USB išvestį ir pradėkite laikmenos kūrimą.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Apžvalga</value>
+    <value>Peržiūrėti</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Paruošta</value>
@@ -3828,7 +3828,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Atnaujinti USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB taikinius galima atnaujinti, kai ADK bus parengta.</value>
+    <value>USB diskus galima atnaujinti, kai baigiamas ADK parengties patikrinimas.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB rasti diskai: {0}</value>
@@ -3837,22 +3837,22 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Diskas {0} – {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Nuskaitomi USB taikiniai.</value>
+    <value>Ieškoma USB diskų…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nerasta USB diskų.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB tikslinio atnaujinimo nepavyko.</value>
+    <value>Nepavyko atnaujinti USB diskų.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formatavimo elgesys, naudojamas prieš nukopijuojant galutinę USB laikmeną.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Pasidalijimo schema naudojama ruošiant pasirinktą USB tikslą.</value>
+    <value>Skaidinių schema, naudojama ruošiant pasirinktą USB diską.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB taikinys</value>
+    <value>Tikslinis USB diskas</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE įkrovos aplinkos naudojama kalba.</value>
@@ -3897,7 +3897,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Sistema</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Šviesa</value>
+    <value>Šviesus</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Pasirinkite fono medžiagą, naudojamą už programos.</value>
@@ -4143,7 +4143,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Apsaugos tipas</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Atidaryti</value>
+    <value>Atviras</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (oportunistinis belaidis šifravimas)</value>

@@ -34,7 +34,7 @@
     <value>Foundry OSD je moderna aplikacija za kreiranje medija za primenu Windows koju pokreće WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
 Licencirano pod MIT licencom.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@ Licencirano pod MIT licencom.</value>
     <value>Licence trećih strana</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>O Foundry OSD</value>
+    <value>O programu Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Korisne veze</value>
@@ -614,7 +614,7 @@ Licencirano pod MIT licencom.</value>
     <value>Otkaži</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Jasno</value>
+    <value>Očisti</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Izaberite koji profili zakupca treba da se uvezu u Foundry.</value>
@@ -3346,13 +3346,13 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Mrežna konfiguracija nije spremna.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nije izabrana meta USB.</value>
+    <value>Nije izabran USB disk.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Potrebne medijske tajne nisu spremne.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Izabrani cilj USB je premali. Koristite taster USB od najmanje 16 GB.</value>
+    <value>Izabrani USB disk je premali. Koristite USB disk od najmanje 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Izabrani jezik za pokretanje WinPE nije dostupan za izabranu arhitekturu.</value>
@@ -3397,7 +3397,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Formatirajte i kreirajte USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Format USB cilj</value>
+    <value>Formatiraj USB disk</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ne može da pročita volumene na ovom disku. Na njemu i dalje mogu da se nalaze podaci.</value>
@@ -3412,7 +3412,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Volumeni na ovom disku:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Sve na ovom disku biće izgubljeno. Nastavite samo ako je ovo namenjeni USB disk.</value>
+    <value>Svi podaci na ovom disku biće izgubljeni. Nastavite samo ako je ovo pravi USB disk.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Kreiraj USB</value>
@@ -3460,7 +3460,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Povežite obezbeđivanje</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Deploi configuration</value>
+    <value>Konfiguracija primene</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Vozači</value>
@@ -3484,7 +3484,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Režim potpisa</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB meta</value>
+    <value>Ciljni USB disk</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE jezik pokretanja</value>
@@ -3502,7 +3502,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Kreiranje medija je dostupno kada prođu sve provere spremnosti.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Pun format</value>
+    <value>Potpuno formatiranje</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Brzo formatiranje</value>
@@ -3772,7 +3772,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Pregledajte spremnost, izaberite ISO ili USB izlaz i pokrenite kreiranje medija.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Pregled</value>
+    <value>Pregledaj</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Spreman</value>
@@ -3828,7 +3828,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Ažuriraj USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB mete se mogu osvežiti nakon što je ADK spremnost završena.</value>
+    <value>Lista USB diskova može da se osveži kada se završe ADK provere spremnosti.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB pronađeni diskovi: {0}</value>
@@ -3837,22 +3837,22 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Skeniranje USB ciljeva.</value>
+    <value>Traženje USB diskova…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nije pronađen nijedan disk USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB ciljano osvežavanje nije uspelo.</value>
+    <value>Osvežavanje liste USB diskova nije uspelo.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Ponašanje formata korišćeno pre kopiranja konačnog medija USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Šema particije koja se koristi prilikom pripreme izabranog USB cilja.</value>
+    <value>Šema particija koja se koristi pri pripremi izabranog USB diska.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB meta</value>
+    <value>Ciljni USB disk</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Jezik koji koristi WinPE okruženje za pokretanje.</value>
@@ -3897,7 +3897,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Sistem</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Svetlost</value>
+    <value>Svetlo</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Izaberite materijal za pozadinu koji se koristi iza aplikacije.</value>
@@ -4143,7 +4143,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Tip bezbednosti</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Otvori</value>
+    <value>Otvorena</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OVE (oportunističko bežično šifrovanje)</value>

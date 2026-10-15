@@ -19,7 +19,7 @@
     <value>Este software se proporciona tal cual. Confirme el acceso a la red antes de continuar con la implementación.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Derechos de autor (c) 2026 Mickaël CHAVE y los colaboradores de Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE y los colaboradores de Foundry Project.
 Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -56,7 +56,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Cancelar</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Cerrar ventana</value>
+    <value>Cerrar</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configuración: valores predeterminados integrados</value>
@@ -306,7 +306,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Oscuro</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Luz</value>
+    <value>Claro</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>

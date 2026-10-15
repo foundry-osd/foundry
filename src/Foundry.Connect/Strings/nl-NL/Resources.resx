@@ -19,7 +19,7 @@
     <value>Deze software wordt geleverd zoals deze is. Bevestig de netwerktoegang voordat u doorgaat met de implementatie.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Auteursrecht (c) 2026 Mickaël CHAVE en de bijdragers aan Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE en de bijdragers aan Foundry Project.
 Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -132,7 +132,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>DHCP-lease gedetecteerd</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Poort</value>
+    <value>Gateway</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -354,7 +354,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>Voorzien Wi-Fi · {0}</value>
+    <value>Ingerichte Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Enterprise-profiel</value>
@@ -381,7 +381,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Voor dit netwerk is een ingericht Wi-Fi-profiel vereist.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>Voorzien Wi-Fi</value>
+    <value>Ingerichte Wi-Fi</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Ververs Wi-Fi netwerken</value>
@@ -396,7 +396,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>{0} (machine of gebruiker)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Openen</value>
+    <value>Open</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Persoonlijk</value>

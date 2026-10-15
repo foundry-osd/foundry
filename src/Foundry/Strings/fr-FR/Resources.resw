@@ -34,7 +34,7 @@
     <value>Foundry OSD est une application moderne pour créer des médias de déploiement Windows basés sur WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Droits d’auteur (c) 2026 Mickaël CHAVE et les contributeurs de Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE et les contributeurs de Foundry Project.
 Sous licence MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -410,7 +410,7 @@ Sous licence MIT.</value>
     <value>Enregistrer le PFX Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Empreinte</value>
+    <value>Empreinte numérique</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Aucun certificat n’est provisionné.</value>
@@ -3346,13 +3346,13 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>La configuration réseau n'est pas prête.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Aucune cible USB n'est sélectionnée.</value>
+    <value>Aucune clé USB n’est sélectionnée.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Les secrets média requis ne sont pas prêts.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>La cible USB sélectionnée est trop petite. Utilisez une clé USB d'au moins 16 GB.</value>
+    <value>La clé USB sélectionnée est trop petite. Utilisez une clé USB d’au moins 16 Go.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>La langue de démarrage WinPE sélectionnée n'est pas disponible pour l'architecture sélectionnée.</value>
@@ -3397,7 +3397,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Formater et créer l'USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formater la cible USB</value>
+    <value>Formater la clé USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ne peut pas lire les volumes de ce disque. Il peut quand même contenir des données.</value>
@@ -3412,7 +3412,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Volumes sur ce disque :</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Tout ce qui se trouve sur ce disque sera perdu. Continuez uniquement s’il s’agit du disque USB prévu.</value>
+    <value>Toutes les données de ce disque seront perdues. Continuez uniquement s’il s’agit bien de la clé USB prévue.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Créer l'USB</value>
@@ -3484,7 +3484,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Mode de signature</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>Cible USB</value>
+    <value>Clé USB cible</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>Langue de démarrage WinPE</value>
@@ -3828,7 +3828,7 @@ L’application de la mise à jour redémarre Foundry OSD.</value>
     <value>Mettre à jour USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Les cibles USB peuvent être actualisées après la validation de l'ADK.</value>
+    <value>La liste des clés USB pourra être actualisée une fois l’ADK prêt.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Clés USB trouvées : {0}</value>
@@ -3837,22 +3837,22 @@ L’application de la mise à jour redémarre Foundry OSD.</value>
     <value>Disque {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Recherche des cibles USB.</value>
+    <value>Recherche de clés USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Aucune clé USB n’a été trouvée.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>L'actualisation des cibles USB a échoué.</value>
+    <value>L’actualisation des clés USB a échoué.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Comportement de formatage utilisé avant la copie du média USB final.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Schéma de partition utilisé lors de la préparation de la cible USB sélectionnée.</value>
+    <value>Schéma de partition utilisé lors de la préparation de la clé USB sélectionnée.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>Cible USB</value>
+    <value>Clé USB cible</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Langue utilisée par l'environnement de démarrage WinPE.</value>

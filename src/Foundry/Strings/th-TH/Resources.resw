@@ -34,7 +34,7 @@
     <value>Foundry OSD เป็นแอปที่ทันสมัยสำหรับการเขียน Windows สื่อการปรับใช้ที่ขับเคลื่อนโดย WinPE</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>ลิขสิทธิ์ (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
+    <value>Copyright (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
 ได้รับอนุญาตภายใต้ใบอนุญาต MIT</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -410,7 +410,7 @@
     <value>บันทึก Autopilot ใบรับรอง PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>รอยนิ้วหัวแม่มือ</value>
+    <value>ลายนิ้วมือ</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>ไม่มีการจัดเตรียมใบรับรอง</value>
@@ -533,7 +533,7 @@
     <value>ชื่อ</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>ความคุ้มค่า</value>
+    <value>ค่า</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
     <value>เชื่อมต่อกับ Microsoft Graph สำหรับเซสชันแอปนี้เพื่อจัดการการตั้งค่าการอัปโหลดแฮช</value>
@@ -614,7 +614,7 @@
     <value>ยกเลิก</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>ชัดเจน</value>
+    <value>ล้าง</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>เลือกโปรไฟล์ผู้เช่าที่ควรนำเข้าไปที่ Foundry</value>
@@ -2423,7 +2423,7 @@
     <value>Foundry OSD บ้าน</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>บ้าน</value>
+    <value>หน้าแรก</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>ขอข้อมูลประจำตัวของโดเมนจากช่างเทคนิคระหว่างการปรับใช้</value>
@@ -3346,13 +3346,13 @@
     <value>การกำหนดค่าเครือข่ายไม่พร้อม</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>ไม่ได้เลือกเป้าหมาย USB</value>
+    <value>ไม่ได้เลือกไดรฟ์ USB</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>ข้อมูลลับของสื่อที่จำเป็นยังไม่พร้อม</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>เป้าหมาย USB ที่เลือกมีขนาดเล็กเกินไป ใช้คีย์ USB ขนาดอย่างน้อย 16 GB</value>
+    <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไป ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 16 GB</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>ภาษาสำหรับบูต WinPE ที่เลือกไม่พร้อมใช้งานสำหรับสถาปัตยกรรมที่เลือก</value>
@@ -3364,7 +3364,7 @@
     <value>รูปภาพ WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>บี</value>
+    <value>ไบต์</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3397,7 +3397,7 @@
     <value>จัดรูปแบบและสร้าง USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>รูปแบบเป้าหมาย USB</value>
+    <value>ฟอร์แมตไดรฟ์ USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ไม่สามารถอ่านโวลุ่มบนดิสก์นี้ได้ ดิสก์อาจยังมีข้อมูลอยู่</value>
@@ -3412,7 +3412,7 @@
     <value>วอลุ่มบนดิสก์นี้:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>ข้อมูลทั้งหมดบนดิสก์นี้จะสูญหาย ดำเนินการต่อหากนี่คือดิสก์ USB ที่ต้องการ</value>
+    <value>ข้อมูลทั้งหมดบนดิสก์นี้จะสูญหาย ดำเนินการต่อเฉพาะเมื่อนี่คือไดรฟ์ USB ที่ต้องการเท่านั้น</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>สร้าง USB</value>
@@ -3460,7 +3460,7 @@
     <value>เชื่อมต่อการจัดเตรียม</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>ปรับใช้การกำหนดค่า</value>
+    <value>การกำหนดค่าการปรับใช้</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>ไดรเวอร์</value>
@@ -3484,7 +3484,7 @@
     <value>โหมดลายเซ็น</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB เป้าหมาย</value>
+    <value>เป้าหมาย USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE ภาษาสำหรับบูต</value>
@@ -3502,10 +3502,10 @@
     <value>การสร้างสื่อจะพร้อมใช้งานเมื่อผ่านการตรวจสอบความพร้อมทั้งหมด</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>รูปแบบเต็ม</value>
+    <value>ฟอร์แมตแบบเต็ม</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>รูปแบบด่วน</value>
+    <value>ฟอร์แมตด่วน</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>เลือกตำแหน่งที่จะเขียน Foundry ISO ที่สร้างขึ้น</value>
@@ -3772,7 +3772,7 @@
     <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>รีวิว</value>
+    <value>ตรวจสอบ</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>พร้อม</value>
@@ -3828,7 +3828,7 @@
     <value>อัปเดต USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB เป้าหมายสามารถรีเฟรชได้หลังจากที่ความพร้อม ADK เสร็จสมบูรณ์</value>
+    <value>สามารถรีเฟรชไดรฟ์ USB ได้หลังจากการตรวจสอบความพร้อมของ ADK เสร็จสมบูรณ์</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>พบไดรฟ์ USB: {0}</value>
@@ -3837,22 +3837,22 @@
     <value>ดิสก์ {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>กำลังสแกนเป้าหมาย USB</value>
+    <value>กำลังสแกนหาไดรฟ์ USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>ไม่พบไดรฟ์ USB</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB การรีเฟรชเป้าหมายล้มเหลว</value>
+    <value>รีเฟรชไดรฟ์ USB ไม่สำเร็จ</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>รูปแบบพฤติกรรมที่ใช้ก่อนที่จะคัดลอกสื่อ USB สุดท้าย</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>รูปแบบพาร์ติชันที่ใช้ในการเตรียมเป้าหมาย USB ที่เลือก</value>
+    <value>รูปแบบพาร์ติชันที่ใช้เมื่อเตรียมไดรฟ์ USB ที่เลือก</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB เป้าหมาย</value>
+    <value>เป้าหมาย USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>ภาษาที่ใช้โดยสภาพแวดล้อมการบูต WinPE</value>
@@ -3897,7 +3897,7 @@
     <value>ระบบ</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>เบา</value>
+    <value>สว่าง</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>เลือกวัสดุฉากหลังที่ใช้เบื้องหลังแอป</value>
@@ -4143,7 +4143,7 @@
     <value>ประเภทการรักษาความปลอดภัย</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>เปิด</value>
+    <value>แบบเปิด</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (การเข้ารหัสไร้สายแบบฉวยโอกาส)</value>

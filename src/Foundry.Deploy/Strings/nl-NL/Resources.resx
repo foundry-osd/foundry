@@ -19,7 +19,7 @@
     <value>Deze software wordt geleverd zoals deze is. Controleer uw implementatie-instellingen vóór gebruik.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Auteursrecht (c) 2026 Mickaël CHAVE en de bijdragers aan Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE en de bijdragers aan Foundry Project.
 Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -586,7 +586,7 @@ Doorgaan met de implementatie?</value>
     <value>_Over</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debuggen</value>
+    <value>_Foutopsporing</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Taal</value>

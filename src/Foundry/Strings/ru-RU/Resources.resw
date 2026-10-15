@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>О</value>
+    <value>О программе</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Создан и поддерживается Микаэлем ШАВЕ.</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD — это современное приложение для создания носителей развертывания Windows на базе WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Авторские права (c) 2026 Mickaël CHAVE и участники Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE и участники Foundry Project.
 Лицензировано по лицензии MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@
     <value>Лицензии сторонних компонентов</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>О Foundry OSD</value>
+    <value>О программе Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Полезные ссылки</value>
@@ -410,7 +410,7 @@
     <value>Сохранить Autopilot сертификат PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Отпечаток пальца</value>
+    <value>Отпечаток</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Никакие сертификаты не предоставляются.</value>
@@ -1169,7 +1169,7 @@
     <value>Позволяет Windows использовать диагностические данные для персонализированных советов, рекламы и рекомендаций.</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
-    <value>Индивидуальный опыт</value>
+    <value>Персонализированные возможности</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
     <value>Выберите выпуски, предлагаемые во время развертывания. Оставьте поле пустым, чтобы предлагать все поддерживаемые выпуски Windows.</value>
@@ -2177,7 +2177,7 @@
     <value>Требуется ADK</value>
   </data>
   <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
-    <value>Настраиваемые</value>
+    <value>Пользовательские</value>
   </data>
   <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
     <value>Нет</value>
@@ -2348,7 +2348,7 @@
     <value>Информация о продукте и версии.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>О</value>
+    <value>О программе</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK готовность и установка.</value>
@@ -2435,7 +2435,7 @@
     <value>Настройте имена развернутых устройств.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Имя компьютера</value>
+    <value>Именование компьютеров</value>
   </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Сеть</value>
@@ -3346,13 +3346,13 @@
     <value>Конфигурация сети не готова.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Цель USB не выбрана.</value>
+    <value>USB-накопитель не выбран.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Требуемые медиа-секреты не готовы.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Выбранная цель USB слишком мала. Используйте ключ USB размером не менее 16 GB.</value>
+    <value>Выбранный USB-накопитель слишком мал. Используйте USB-накопитель объемом не менее 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Выбранный язык загрузки WinPE недоступен для выбранной архитектуры.</value>
@@ -3397,7 +3397,7 @@
     <value>Отформатируйте и создайте USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Формат цели USB</value>
+    <value>Форматировать USB-накопитель</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows не может прочитать тома на этом диске. На нём всё ещё могут быть данные.</value>
@@ -3412,7 +3412,7 @@
     <value>Тома на этом диске:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Всё на этом диске будет потеряно. Продолжайте, только если это предполагаемый диск USB.</value>
+    <value>Все данные на этом диске будут потеряны. Продолжайте, только если это нужный USB-накопитель.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Создать USB</value>
@@ -3460,7 +3460,7 @@
     <value>Подключить подготовку</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Развертывание конфигурации</value>
+    <value>Конфигурация развертывания</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Драйверы</value>
@@ -3484,7 +3484,7 @@
     <value>Режим подписи</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB цель</value>
+    <value>Целевой USB-накопитель</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE язык загрузки</value>
@@ -3502,7 +3502,7 @@
     <value>Создание носителя доступно после прохождения всех проверок готовности.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Полный формат</value>
+    <value>Полное форматирование</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Быстрое форматирование</value>
@@ -3772,7 +3772,7 @@
     <value>Проверьте готовность, выберите вывод ISO или USB и запустите создание носителя.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Обзор</value>
+    <value>Проверить</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Готово</value>
@@ -3828,7 +3828,7 @@
     <value>Обновить USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Цели USB могут быть обновлены после завершения готовности ADK.</value>
+    <value>Список USB-накопителей можно обновить после завершения проверок готовности ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB найдены диски: {0}</value>
@@ -3837,22 +3837,22 @@
     <value>Диск {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Сканирование целей USB.</value>
+    <value>Поиск USB-накопителей…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Диски USB не найдены.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB целевое обновление не удалось.</value>
+    <value>Не удалось обновить список USB-накопителей.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Поведение формата, используемое перед копированием окончательного носителя USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Схема разделов, используемая при подготовке выбранной цели USB.</value>
+    <value>Схема разделов, используемая при подготовке выбранного USB-накопителя.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB цель</value>
+    <value>Целевой USB-накопитель</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Язык, используемый средой загрузки WinPE.</value>
@@ -3894,10 +3894,10 @@
     <value>Темный</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
-    <value>Система</value>
+    <value>Системный</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Свет</value>
+    <value>Светлый</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Выберите материал фона, используемый в приложении.</value>
@@ -4143,7 +4143,7 @@
     <value>Тип безопасности</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Открыть</value>
+    <value>Открытая</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (оппортунистическое беспроводное шифрование)</value>

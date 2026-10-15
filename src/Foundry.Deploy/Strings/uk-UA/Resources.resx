@@ -19,7 +19,7 @@
     <value>Це програмне забезпечення надається як є. Перегляньте налаштування розгортання перед використанням.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Авторські права (c) 2026 Mickaël CHAVE та учасники Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE та учасники Foundry Project.
 Ліцензовано згідно з ліцензією MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -122,7 +122,7 @@
     <value>N/A</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Попередній</value>
+    <value>Назад</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недоступний</value>
@@ -583,7 +583,7 @@ ErrorCode=0x80070005
     <value>Підтвердити стирання диска</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_Про</value>
+    <value>_Про програму</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
@@ -1483,7 +1483,7 @@ ErrorCode=0x80070005
     <value>Цей комп’ютер перезавантажиться через {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Перезавантаження</value>
+    <value>Перезавантажити</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Додаткові локальні облікові записи</value>
@@ -1738,10 +1738,10 @@ ErrorCode=0x80070005
     <value>Темний</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>світло</value>
+    <value>Світлий</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
-    <value>система</value>
+    <value>Системний</value>
   </data>
   <data name="Tools.OpenLogFile" xml:space="preserve">
     <value>Відкрити файл журналу</value>

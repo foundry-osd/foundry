@@ -34,7 +34,7 @@
     <value>Foundry OSD, WinPE tarafından desteklenen Windows dağıtım ortamının yazılmasına yönelik modern bir uygulamadır.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Telif hakkı (c) 2026 Mickaël CHAVE ve Foundry Project’e katkıda bulunanlar.
+    <value>Copyright (c) 2026 Mickaël CHAVE ve Foundry Project’e katkıda bulunanlar.
 MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -620,7 +620,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Foundry'ye hangi kiracı profillerinin aktarılması gerektiğini seçin.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>İthalat</value>
+    <value>İçe aktar</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
     <value>Tümünü seç</value>
@@ -2420,7 +2420,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Genel</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD ev</value>
+    <value>Foundry OSD ana sayfası</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Ana sayfa</value>
@@ -3346,13 +3346,13 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Ağ yapılandırması hazır değil.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Hiçbir USB hedefi seçilmedi.</value>
+    <value>Hiçbir USB sürücüsü seçilmedi.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Gerekli medya sırları hazır değil.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Seçilen USB hedefi çok küçük. En az 16 GB boyutunda bir USB anahtarı kullanın.</value>
+    <value>Seçilen USB sürücüsü çok küçük. En az 16 GB boyutunda bir USB sürücüsü kullanın.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Seçilen WinPE önyükleme dili seçilen mimari için mevcut değil.</value>
@@ -3397,7 +3397,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>USB'yi biçimlendirin ve oluşturun</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>USB hedefini biçimlendir</value>
+    <value>USB sürücüsünü biçimlendir</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows bu diskteki birimleri okuyamıyor. Disk hâlâ veri içeriyor olabilir.</value>
@@ -3412,7 +3412,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Bu diskteki birimler:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Bu diskteki her şey kaybolacak. Yalnızca amaçlanan USB diski ise devam edin.</value>
+    <value>Bu diskteki her şey silinecek. Yalnızca doğru USB sürücüsü buysa devam edin.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB oluştur</value>
@@ -3448,7 +3448,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>ADK</value>
   </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
-    <value>Mimarlık</value>
+    <value>Mimari</value>
   </data>
   <data name="StartMedia.Field.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
@@ -3460,7 +3460,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Temel hazırlığı bağlayın</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Yapılandırmayı dağıtma</value>
+    <value>Dağıtım yapılandırması</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Sürücüler</value>
@@ -3484,7 +3484,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>İmza modu</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB hedef</value>
+    <value>Hedef USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE önyükleme dili</value>
@@ -3502,10 +3502,10 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Medya oluşturma, tüm hazırlık kontrolleri geçtiğinde kullanılabilir.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Tam format</value>
+    <value>Tam biçimlendirme</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Hızlı format</value>
+    <value>Hızlı biçimlendirme</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Oluşturulan Foundry ISO'nin nereye yazılacağını seçin.</value>
@@ -3828,7 +3828,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>USB güncelle</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB hedefleri, ADK hazırlığı tamamlandıktan sonra yenilenebilir.</value>
+    <value>USB sürücüleri, ADK hazırlık denetimleri tamamlandıktan sonra yenilenebilir.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB sürücüler bulundu: {0}</value>
@@ -3837,22 +3837,22 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB hedefleri taranıyor.</value>
+    <value>USB sürücüleri aranıyor…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Hiçbir USB sürücüsü bulunamadı.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB hedef yenileme başarısız oldu.</value>
+    <value>USB sürücüleri yenilenemedi.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Son USB ortamı kopyalanmadan önce kullanılan biçimlendirme davranışı.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Seçilen USB hedefi hazırlanırken kullanılan bölümleme şeması.</value>
+    <value>Seçilen USB sürücüsü hazırlanırken kullanılan bölümleme şeması.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB hedef</value>
+    <value>Hedef USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE önyükleme ortamı tarafından kullanılan dil.</value>
@@ -3870,7 +3870,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Başlat</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Açık</value>
+    <value>Aç</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Vurgu rengini değiştirmek için Windows renk ayarlarını açın.</value>
@@ -3891,13 +3891,13 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Uygulama teması</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Karanlık</value>
+    <value>Koyu</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>Sistem</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Işık</value>
+    <value>Açık</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Uygulamanın arkasında kullanılan arka plan malzemesini seçin.</value>

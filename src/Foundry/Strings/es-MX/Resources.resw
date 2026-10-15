@@ -34,7 +34,7 @@
     <value>Foundry OSD es una aplicación moderna para crear medios de implementación Windows con tecnología de WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Derechos de autor (c) 2026 Mickaël CHAVE y los colaboradores de Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE y los colaboradores de Foundry Project.
 Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -410,7 +410,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Guardar Autopilot certificado PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Impresión del pulgar</value>
+    <value>Huella digital</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>No se proporcionan certificados.</value>
@@ -614,7 +614,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Cancelar</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Claro</value>
+    <value>Borrar</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Elija qué perfiles de inquilinos deben importarse a Foundry.</value>
@@ -665,7 +665,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Cancelar</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Cerca</value>
+    <value>Cerrar</value>
   </data>
   <data name="Common.Disable" xml:space="preserve">
     <value>Deshabilitar</value>
@@ -890,7 +890,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Paquetes</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>Costumbre</value>
+    <value>Personalizado</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>Seleccione una o más categorías del catálogo para preseleccionar paquetes.</value>
@@ -2420,10 +2420,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>General</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD casa</value>
+    <value>Inicio de Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Hogar</value>
+    <value>Inicio</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Solicite al técnico las credenciales de dominio durante la implementación.</value>
@@ -3346,13 +3346,13 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>La configuración de red no está lista.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>No se ha seleccionado ningún objetivo USB.</value>
+    <value>No se ha seleccionado ninguna unidad USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Los secretos de medios requeridos no están listos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>El objetivo USB seleccionado es demasiado pequeño. Utilice una clave USB de al menos 16 GB.</value>
+    <value>La unidad USB seleccionada es demasiado pequeña. Use una unidad USB de al menos 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>El idioma de inicio WinPE seleccionado no está disponible para la arquitectura seleccionada.</value>
@@ -3397,7 +3397,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Formatear y crear USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formato USB destino</value>
+    <value>Formatear unidad USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows no puede leer los volúmenes de este disco. Es posible que aún contenga datos.</value>
@@ -3412,7 +3412,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Volúmenes en este disco:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Todo lo que hay en este disco se perderá. Continúe solo si este es el disco USB deseado.</value>
+    <value>Se perderá todo el contenido de este disco. Continúe solo si esta es la unidad USB correcta.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Crear USB</value>
@@ -3457,13 +3457,13 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Fuente de la imagen de arranque</value>
   </data>
   <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Conectar aprovisionamiento</value>
+    <value>Aprovisionamiento de Connect</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Implementar configuración</value>
+    <value>Configuración de Deploy</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Conductores</value>
+    <value>Controladores</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB modo de formato</value>
@@ -3484,7 +3484,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Modo de firma</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB objetivo</value>
+    <value>Destino USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE idioma de arranque</value>
@@ -3502,10 +3502,10 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>La creación de medios está disponible cuando se pasan todas las comprobaciones de preparación.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>formato completo</value>
+    <value>Formato completo</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>formato rápido</value>
+    <value>Formato rápido</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Elija dónde se escribirá el Foundry ISO generado.</value>
@@ -3828,7 +3828,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Actualizar USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Los objetivos USB se pueden actualizar una vez que ADK esté completo.</value>
+    <value>La lista de unidades USB se podrá actualizar cuando se complete la preparación de ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB unidades encontradas: {0}</value>
@@ -3837,22 +3837,22 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Disco {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Escaneando objetivos USB.</value>
+    <value>Buscando unidades USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>No se encontraron unidades USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB falló la actualización del objetivo.</value>
+    <value>No se pudo actualizar la lista de unidades USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Comportamiento de formato utilizado antes de copiar el medio USB final.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Esquema de partición utilizado al preparar el objetivo USB seleccionado.</value>
+    <value>Esquema de partición que se usa al preparar la unidad USB seleccionada.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB objetivo</value>
+    <value>Destino USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Idioma utilizado por el entorno de arranque WinPE.</value>
@@ -3870,7 +3870,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Comenzar</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Abierto</value>
+    <value>Abrir</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Abra Windows configuración de color para cambiar el color de acento.</value>
@@ -3897,7 +3897,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Sistema</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Luz</value>
+    <value>Claro</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Elija el material de fondo utilizado detrás de la aplicación.</value>

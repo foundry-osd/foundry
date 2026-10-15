@@ -19,7 +19,7 @@
     <value>Ovaj softver je obezbeđen takav kakav jeste. Pregledajte podešavanja primene pre upotrebe.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
 Licencirano pod MIT licencom.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -89,7 +89,7 @@ Licencirano pod MIT licencom.</value>
     <value>Otkaži</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Zatvori prozor</value>
+    <value>Zatvori</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Kopiraj u međuspremnik</value>
@@ -110,7 +110,7 @@ Licencirano pod MIT licencom.</value>
     <value>Omogućeno</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Sledeće</value>
+    <value>Dalje</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>br</value>
@@ -122,7 +122,7 @@ Licencirano pod MIT licencom.</value>
     <value>N/A</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Prethodno</value>
+    <value>Nazad</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nedostupno</value>
@@ -583,7 +583,7 @@ Operativni sistem: {4}
     <value>Potvrdite brisanje diska</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_O</value>
+    <value>_O programu</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
@@ -1477,7 +1477,7 @@ Operativni sistem: {4}
     <value>Primena je završena</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Uklonite medijum za pokretanje, a zatim izaberite Ponovo pokreni.</value>
+    <value>Uklonite medijum za pokretanje, a zatim izaberite „Ponovo pokreni“.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Ovaj računar će se ponovo pokrenuti za {0}s.</value>
@@ -1738,7 +1738,7 @@ Operativni sistem: {4}
     <value>Dark</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Svetlost</value>
+    <value>Svetlo</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>

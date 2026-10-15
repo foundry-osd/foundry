@@ -19,7 +19,7 @@
     <value>To oprogramowanie jest dostarczane w stanie takim, w jakim jest. Przed użyciem przejrzyj ustawienia wdrożenia.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Prawa autorskie (c) 2026 Mickaël CHAVE i współtwórcy Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i współtwórcy Foundry Project.
 Licencjonowany na licencji MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -110,7 +110,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Włączone</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Następny</value>
+    <value>Dalej</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>Nie</value>
@@ -122,7 +122,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie dotyczy</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Poprzedni</value>
+    <value>Wstecz</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Niedostępne</value>
@@ -583,7 +583,7 @@ Kontynuować wdrażanie?</value>
     <value>Potwierdź usunięcie dysku</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_O</value>
+    <value>_Informacje</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debugowanie</value>
@@ -592,7 +592,7 @@ Kontynuować wdrażanie?</value>
     <value>_Język</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>_Temat</value>
+    <value>_Motyw</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Narzędzia</value>
@@ -1477,7 +1477,7 @@ Kontynuować wdrażanie?</value>
     <value>Wdrożenie zakończone</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Usuń nośnik rozruchowy, a następnie wybierz Uruchom ponownie.</value>
+    <value>Wyjmij nośnik rozruchowy, a następnie wybierz pozycję „Uruchom ponownie”.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Ten komputer zostanie ponownie uruchomiony za {0}s.</value>
@@ -1738,10 +1738,10 @@ Kontynuować wdrażanie?</value>
     <value>Ciemny</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Światło</value>
+    <value>Jasny</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
-    <value>Systemu</value>
+    <value>Systemowy</value>
   </data>
   <data name="Tools.OpenLogFile" xml:space="preserve">
     <value>Otwórz plik dziennika</value>

@@ -34,7 +34,7 @@
     <value>Foundry OSD er en moderne app til at oprette Windows implementeringsmedier drevet af WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Ophavsret (c) 2026 Mickaël CHAVE og bidragyderne til Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE og bidragyderne til Foundry Project.
 Licenseret under MIT-licensen.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -410,7 +410,7 @@ Licenseret under MIT-licensen.</value>
     <value>Gem Autopilot certifikat PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Tommelfingeraftryk</value>
+    <value>Aftryk</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Der leveres ingen certifikater.</value>
@@ -2423,7 +2423,7 @@ Licenseret under MIT-licensen.</value>
     <value>Foundry OSD hjem</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Hjem</value>
+    <value>Startside</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Bed teknikeren om domænelegitimationsoplysninger under udrulning.</value>
@@ -3346,13 +3346,13 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Netværkskonfigurationen er ikke klar.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Intet USB mål er valgt.</value>
+    <value>Der er ikke valgt noget USB-drev.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nødvendige mediehemmeligheder er ikke klar.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Det valgte USB mål er for lille. Brug en USB nøgle på mindst 16 GB.</value>
+    <value>Det valgte USB-drev er for lille. Brug et USB-drev på mindst 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Det valgte WinPE bootsprog er ikke tilgængeligt for den valgte arkitektur.</value>
@@ -3397,7 +3397,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Formater og opret USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formater USB mål</value>
+    <value>Formatér USB-drev</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows kan ikke læse diskenhederne på denne disk. Den kan stadig indeholde data.</value>
@@ -3412,7 +3412,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Diskenheder på denne disk:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Alt på denne disk går tabt. Fortsæt kun, hvis dette er den tilsigtede USB-disk.</value>
+    <value>Alt på denne disk går tabt. Fortsæt kun, hvis dette er det tilsigtede USB-drev.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Opret USB</value>
@@ -3460,7 +3460,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Tilslut klargøring</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Implementer konfiguration</value>
+    <value>Deploy-konfiguration</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Chauffører</value>
@@ -3484,7 +3484,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Signaturtilstand</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB mål</value>
+    <value>USB-mål</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE bootsprog</value>
@@ -3502,10 +3502,10 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Medieoprettelse er tilgængelig, når alle beredskabskontroller er bestået.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Fuldt format</value>
+    <value>Fuld formatering</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Hurtigt format</value>
+    <value>Hurtig formatering</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Vælg, hvor den genererede Foundry ISO vil blive skrevet.</value>
@@ -3828,7 +3828,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Opdater USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB mål kan genopfriskes, når ADK er klargjort.</value>
+    <value>USB-drev kan opdateres, når ADK-kontrollerne er fuldført.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB fundet drev: {0}</value>
@@ -3837,22 +3837,22 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Scanner USB mål.</value>
+    <value>Søger efter USB-drev…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Der blev ikke fundet nogen USB-drev.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB målopdatering mislykkedes.</value>
+    <value>Opdatering af USB-drev mislykkedes.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formateringsadfærd brugt før kopiering af det endelige USB-medie.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Partitionsskema brugt ved forberedelse af det valgte USB mål.</value>
+    <value>Partitionsskema, der bruges ved klargøring af det valgte USB-drev.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB mål</value>
+    <value>USB-mål</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Sprog, der bruges af WinPE boot-miljøet.</value>
@@ -4143,7 +4143,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Sikkerhedstype</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Åbn</value>
+    <value>Åben</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (Opportunistic Wireless Encryption)</value>

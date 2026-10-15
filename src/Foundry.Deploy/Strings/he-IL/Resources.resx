@@ -19,7 +19,7 @@
     <value>תוכנה זו מסופקת כפי שהיא. סקור את הגדרות הפריסה שלך לפני השימוש.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>זכויות יוצרים (c) 2026 Mickaël CHAVE והתורמים ל־Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE והתורמים ל־Foundry Project.
 מורשה תחת רישיון MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -583,7 +583,7 @@ ErrorCode=0x80070005
     <value>אשר את מחיקת הדיסק</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_בערך</value>
+    <value>_אודות</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_ניפוי באגים</value>
@@ -592,7 +592,7 @@ ErrorCode=0x80070005
     <value>_שפה</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>_נושא</value>
+    <value>_ערכת נושא</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_כלים</value>
@@ -1477,13 +1477,13 @@ ErrorCode=0x80070005
     <value>הפריסה הושלמה</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>הסר את מדיית האתחול ולאחר מכן בחר הפעל מחדש.</value>
+    <value>הסר את מדיית האתחול ולאחר מכן בחר "הפעל מחדש".</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>מחשב זה יופעל מחדש בעוד {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>אתחול מחדש</value>
+    <value>הפעל מחדש</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>חשבונות מקומיים נוספים</value>
@@ -1585,7 +1585,7 @@ ErrorCode=0x80070005
     <value>גישת מיקום</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>Forced Off</value>
+    <value>כבוי בכפייה</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>User controlled</value>
@@ -1615,7 +1615,7 @@ ErrorCode=0x80070005
     <value>OOBE</value>
   </data>
   <data name="Summary.PrivateKeyMaterial" xml:space="preserve">
-    <value>Private - key material</value>
+    <value>חומר מפתח פרטי</value>
   </data>
   <data name="Summary.ProvisioningMethod" xml:space="preserve">
     <value>שיטת אספקה</value>
@@ -1639,7 +1639,7 @@ ErrorCode=0x80070005
     <value>דלג על יצירת חשבון</value>
   </data>
   <data name="Summary.SkipLicenseTerms" xml:space="preserve">
-    <value>תנאי רישיון דילוג</value>
+    <value>דלג על תנאי הרישיון</value>
   </data>
   <data name="Summary.Status" xml:space="preserve">
     <value>סטטוס</value>
@@ -1738,7 +1738,7 @@ ErrorCode=0x80070005
     <value>כהה</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>אור</value>
+    <value>בהיר</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>מערכת</value>

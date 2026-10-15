@@ -19,7 +19,7 @@
     <value>Denna programvara tillhandahålls i befintligt skick. Bekräfta nätverksåtkomst innan du fortsätter driftsättningen.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Upphovsrätt (c) 2026 Mickaël CHAVE och bidragsgivarna till Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE och bidragsgivarna till Foundry Project.
 Licensierad under MIT-licensen.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -306,7 +306,7 @@ Licensierad under MIT-licensen.</value>
     <value>Mörkt</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Ljus</value>
+    <value>Ljust</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>System</value>
@@ -396,7 +396,7 @@ Licensierad under MIT-licensen.</value>
     <value>{0} (maskin eller användare)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Öppna</value>
+    <value>Öppen</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Personligt</value>

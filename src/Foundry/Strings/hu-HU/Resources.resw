@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>Körülbelül</value>
+    <value>Névjegy</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Készítette és karbantartja: Mickaël CHAVE.</value>
@@ -34,7 +34,7 @@
     <value>A Foundry OSD egy modern alkalmazás az Windows telepítési adathordozók készítésére, amelyet WinPE üzemeltet.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Szerzői jog (c) 2026 Mickaël CHAVE és a Foundry Project közreműködői.
+    <value>Copyright (c) 2026 Mickaël CHAVE és a Foundry Project közreműködői.
 Licenc az MIT licenc alatt.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Harmadik féltől származó licencek</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Körülbelül Foundry OSD</value>
+    <value>A Foundry OSD névjegye</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Hasznos linkek</value>
@@ -614,7 +614,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Mégsem</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Világos</value>
+    <value>Törlés</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Válassza ki, hogy mely bérlői profilokat kívánja importálni a Foundry mappába.</value>
@@ -890,7 +890,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Csomagok</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>Egyedi</value>
+    <value>Egyéni</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>Válasszon ki egy vagy több katalóguskategóriát a csomagok előzetes kiválasztásához.</value>
@@ -2348,7 +2348,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Termék- és verzióinformáció.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>Körülbelül</value>
+    <value>Névjegy</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK készenlét és telepítés.</value>
@@ -2423,7 +2423,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Foundry OSD otthon</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Otthon</value>
+    <value>Kezdőlap</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>A telepítés során kérje be a technikustól a tartományi hitelesítő adatokat.</value>
@@ -3193,7 +3193,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Username</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
-    <value>Beállítások elemre</value>
+    <value>Beállítások</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
     <value>Kezelje az indítást, a nyelvet, a diagnosztikát és az alkalmazás viselkedését.</value>
@@ -3346,13 +3346,13 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A hálózati konfiguráció nincs készen.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nincs USB cél kiválasztva.</value>
+    <value>Nincs kiválasztva USB-meghajtó.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>A szükséges médiatitkok nincsenek készen.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>A kiválasztott USB cél túl kicsi. Használjon legalább 16 GB-os USB billentyűt.</value>
+    <value>A kiválasztott USB-meghajtó túl kicsi. Használjon legalább 16 GB-os USB-meghajtót.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>A kiválasztott WinPE rendszerindítási nyelv nem érhető el a kiválasztott architektúrához.</value>
@@ -3397,7 +3397,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Formázza és hozzon létre USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formázza a USB célt</value>
+    <value>USB-meghajtó formázása</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>A Windows nem tudja beolvasni a lemez köteteit. Továbbra is tartalmazhat adatokat.</value>
@@ -3412,7 +3412,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A lemez kötetei:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>A lemezen lévő minden adat elvész. Csak akkor folytassa, ha ez a tervezett USB-lemez.</value>
+    <value>A lemezen lévő összes adat elvész. Csak akkor folytassa, ha ez a kívánt USB-meghajtó.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB létrehozása</value>
@@ -3460,7 +3460,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Csatlakoztassa a kiépítést</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Telepítse a konfigurációt</value>
+    <value>Telepítési konfiguráció</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Drivers</value>
@@ -3484,7 +3484,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Aláírás mód</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB cél</value>
+    <value>Cél USB-meghajtó</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE rendszerindítási nyelv</value>
@@ -3502,7 +3502,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A média létrehozása akkor érhető el, ha minden készenléti ellenőrzés sikeres.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Teljes formátum</value>
+    <value>Teljes formázás</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Gyors formázás</value>
@@ -3828,7 +3828,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>USB frissítése</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Az USB célpontok az ADK készenléti állapot befejezése után frissíthetők.</value>
+    <value>Az USB-meghajtók listája az ADK készenléti ellenőrzésének befejezése után frissíthető.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB meghajtók találhatók: {0}</value>
@@ -3837,22 +3837,22 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Lemez {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB célpontok pásztázása.</value>
+    <value>USB-meghajtók keresése…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nem található USB meghajtó.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB a cél frissítése nem sikerült.</value>
+    <value>Nem sikerült frissíteni az USB-meghajtók listáját.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>A végső USB adathordozó másolása előtt használt formázási viselkedés.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>A kiválasztott USB cél előkészítésekor használt partíciós séma.</value>
+    <value>A kiválasztott USB-meghajtó előkészítésekor használt partícióséma.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB cél</value>
+    <value>Cél USB-meghajtó</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>A WinPE rendszerindítási környezet által használt nyelv.</value>
@@ -3870,7 +3870,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Indítsa el</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Nyissa meg</value>
+    <value>Megnyitás</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Nyissa meg a Windows színbeállításokat a kiemelő szín megváltoztatásához.</value>
@@ -3897,7 +3897,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Rendszer</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Fény</value>
+    <value>Világos</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Válassza ki az alkalmazás mögött használt háttéranyagot.</value>
@@ -4143,7 +4143,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Biztonsági típus</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Nyissa meg</value>
+    <value>Nyílt</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (Opportunista vezeték nélküli titkosítás)</value>

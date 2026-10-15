@@ -19,7 +19,7 @@
     <value>Diese Software wird so bereitgestellt, wie sie ist. Bestätigen Sie den Netzwerkzugriff, bevor Sie mit der Bereitstellung fortfahren.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Urheberrecht (c) 2026 Mickaël CHAVE und die Mitwirkenden von Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE und die Mitwirkenden von Foundry Project.
 Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -270,7 +270,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Ukrainisch (Ukraine)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Über</value>
+    <value>Info</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Debuggen</value>
@@ -279,7 +279,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Sprache</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Thema</value>
+    <value>Design</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>Werkzeuge</value>
@@ -306,7 +306,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Dunkel</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Licht</value>
+    <value>Hell</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>System</value>

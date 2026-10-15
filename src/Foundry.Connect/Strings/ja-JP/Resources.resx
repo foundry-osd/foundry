@@ -19,7 +19,7 @@
     <value>このソフトウェアは現状のまま提供されます。導入を続行する前に、ネットワーク アクセスを確認してください。</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>著作権 (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
+    <value>Copyright (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
 MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -270,7 +270,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ウクライナ語 (ウクライナ)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>について</value>
+    <value>バージョン情報</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>デバッグ</value>
@@ -303,7 +303,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ネットワークを待っています</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>暗い</value>
+    <value>ダーク</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
     <value>ライト</value>
@@ -396,7 +396,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>{0} (マシンまたはユーザー)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>開く</value>
+    <value>オープン</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>個人的な</value>

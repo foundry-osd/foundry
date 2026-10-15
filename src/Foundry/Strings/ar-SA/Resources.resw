@@ -34,7 +34,7 @@
     <value>Foundry OSD هو تطبيق حديث لتأليف وسائط النشر Windows المدعومة بواسطة WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>حقوق الطبع والنشر (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
 مرخص بموجب ترخيص MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -614,7 +614,7 @@
     <value>إلغاء</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>واضح</value>
+    <value>مسح</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>اختر ملفات تعريف المستأجر التي يجب استيرادها إلى Foundry.</value>
@@ -2360,7 +2360,7 @@
     <value>قم بإزالة مكونات الذكاء الاصطناعي في Windows أو تعطيلها.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>مكونات AI</value>
+    <value>مكونات الذكاء الاصطناعي</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>حدد التطبيقات المُزوَّدة المراد إزالتها.</value>
@@ -3226,7 +3226,7 @@
     <value>تمكين القياس عن بعد</value>
   </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
-    <value>قم بتغيير تفضيلات السمة والخلفية ولون التمييز.</value>
+    <value>قم بتغيير تفضيلات النسق والخلفية ولون التمييز.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
     <value>المظهر</value>
@@ -3346,13 +3346,13 @@
     <value>تكوين الشبكة غير جاهز.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>لم يتم تحديد هدف USB.</value>
+    <value>لم يتم تحديد محرك أقراص USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>أسرار الوسائط المطلوبة ليست جاهزة.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>الهدف USB المحدد صغير جدًا. استخدم مفتاح USB بسعة 16 GB على الأقل.</value>
+    <value>محرك أقراص USB المحدد صغير جدًا. استخدم محرك أقراص USB بسعة 16 GB على الأقل.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>لغة التمهيد WinPE المحددة غير متوفرة للبنية المحددة.</value>
@@ -3364,7 +3364,7 @@
     <value>صورة WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>ب</value>
+    <value>بايت</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3397,7 +3397,7 @@
     <value>تنسيق وإنشاء USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>تنسيق USB الهدف</value>
+    <value>تنسيق محرك أقراص USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>لا يستطيع Windows قراءة وحدات التخزين على هذا القرص. قد لا يزال يحتوي على بيانات.</value>
@@ -3412,7 +3412,7 @@
     <value>وحدات التخزين على هذا القرص:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>سيتم فقدان كل شيء على هذا القرص. تابع فقط إذا كان هذا هو قرص USB المقصود.</value>
+    <value>سيتم فقدان كل البيانات الموجودة على هذا القرص. لا تتابع إلا إذا كان هذا هو محرك أقراص USB المقصود.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>إنشاء USB</value>
@@ -3457,10 +3457,10 @@
     <value>مصدر صورة التمهيد</value>
   </data>
   <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>ربط التزويد</value>
+    <value>تزويد Connect</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>نشر التكوين</value>
+    <value>تكوين Deploy</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>السائقين</value>
@@ -3484,7 +3484,7 @@
     <value>وضع التوقيع</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB الهدف</value>
+    <value>هدف USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE لغة التمهيد</value>
@@ -3828,7 +3828,7 @@
     <value>تحديث USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>يمكن تحديث أهداف USB بعد اكتمال الاستعداد ADK.</value>
+    <value>يمكن تحديث قائمة محركات أقراص USB بعد اكتمال التحقق من جاهزية ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB تم العثور على محركات الأقراص: {0}</value>
@@ -3837,22 +3837,22 @@
     <value>القرص {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>مسح الأهداف USB.</value>
+    <value>جارٍ البحث عن محركات أقراص USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>لم يتم العثور على محركات أقراص USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB فشل تحديث الهدف.</value>
+    <value>فشل تحديث محركات أقراص USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>سلوك التنسيق المستخدم قبل نسخ الوسائط USB النهائية.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>مخطط التقسيم المستخدم عند إعداد الهدف USB المحدد.</value>
+    <value>مخطط التقسيم المستخدم عند تجهيز محرك أقراص USB المحدد.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB الهدف</value>
+    <value>هدف USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>اللغة المستخدمة بواسطة بيئة التمهيد WinPE.</value>
@@ -3870,7 +3870,7 @@
     <value>ابدأ</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>مفتوح</value>
+    <value>فتح</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>افتح إعدادات الألوان Windows لتغيير لون التمييز.</value>
@@ -3885,19 +3885,19 @@
     <value>أكريليك رقيق</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
-    <value>حدد موضوع التطبيق.</value>
+    <value>حدد نسق التطبيق.</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
-    <value>موضوع التطبيق</value>
+    <value>نسق التطبيق</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>الظلام</value>
+    <value>داكن</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>النظام</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>ضوء</value>
+    <value>فاتح</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>اختر مادة الخلفية المستخدمة خلف التطبيق.</value>

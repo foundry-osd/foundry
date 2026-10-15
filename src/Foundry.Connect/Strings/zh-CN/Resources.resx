@@ -19,7 +19,7 @@
     <value>该软件按原样提供。在继续部署之前确认网络访问。</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>版权所有 (c) 2026 Mickaël CHAVE 和 Foundry Project 贡献者。
+    <value>Copyright (c) 2026 Mickaël CHAVE 和 Foundry Project 贡献者。
 根据 MIT 许可证获得许可。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -303,10 +303,10 @@
     <value>等待网络</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>黑暗</value>
+    <value>深色</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>光</value>
+    <value>浅色</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>系统</value>
@@ -396,7 +396,7 @@
     <value>{0}（机器或用户）</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>打开</value>
+    <value>开放</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>个人</value>

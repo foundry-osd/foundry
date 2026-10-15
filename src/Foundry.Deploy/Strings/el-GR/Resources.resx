@@ -19,7 +19,7 @@
     <value>Αυτό το λογισμικό παρέχεται ως έχει. Ελέγξτε τις ρυθμίσεις ανάπτυξης πριν από τη χρήση.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Πνευματικά δικαιώματα (c) 2026 Mickaël CHAVE και οι συνεισφέροντες στο Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE και οι συνεισφέροντες στο Foundry Project.
 Άδεια χρήσης βάσει της άδειας MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -583,7 +583,7 @@
     <value>Επιβεβαιώστε τη διαγραφή του δίσκου</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_Σχετικά</value>
+    <value>_Πληροφορίες</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Εντοπισμός σφαλμάτων</value>
@@ -1735,10 +1735,10 @@
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Σκοτεινό</value>
+    <value>Σκούρο</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Φως</value>
+    <value>Ανοιχτό</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Σύστημα</value>

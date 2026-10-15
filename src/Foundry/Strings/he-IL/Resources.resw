@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>בערך</value>
+    <value>אודות</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>נוצר ומתוחזק על ידי Mickaël CHAVE.</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD היא אפליקציה מודרנית ליצירת מדיה לפריסה Windows המופעלת על ידי WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>זכויות יוצרים (c) 2026 Mickaël CHAVE והתורמים ל־Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE והתורמים ל־Foundry Project.
 מורשה תחת רישיון MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@
     <value>רישיונות של צד שלישי</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>על Foundry OSD</value>
+    <value>אודות Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>קישורים שימושיים</value>
@@ -614,7 +614,7 @@
     <value>בטל</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>ברור</value>
+    <value>נקה</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>בחר אילו פרופילי דיירים יש לייבא אל Foundry.</value>
@@ -2348,7 +2348,7 @@
     <value>מידע על המוצר והגרסה.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>בערך</value>
+    <value>אודות</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK מוכנות והתקנה.</value>
@@ -3346,13 +3346,13 @@
     <value>תצורת הרשת אינה מוכנה.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>לא נבחר יעד USB.</value>
+    <value>לא נבחר כונן USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>סודות התקשורת הנדרשים אינם מוכנים.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>היעד USB שנבחר קטן מדי. השתמש במפתח USB של לפחות 16 GB.</value>
+    <value>כונן ה-USB שנבחר קטן מדי. השתמש בכונן USB בנפח 16 GB לפחות.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>שפת האתחול WinPE שנבחרה אינה זמינה עבור הארכיטקטורה שנבחרה.</value>
@@ -3364,7 +3364,7 @@
     <value>WinRE Wi-Fi תמונה</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>ב</value>
+    <value>בתים</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3397,7 +3397,7 @@
     <value>עיצוב וצור USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>פורמט USB יעד</value>
+    <value>פרמוט כונן USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows אינו יכול לקרוא את אמצעי האחסון בדיסק זה. ייתכן שהוא עדיין מכיל נתונים.</value>
@@ -3412,7 +3412,7 @@
     <value>אמצעי אחסון בדיסק זה:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>כל מה שבדיסק זה יאבד. המשך רק אם זהו דיסק ה-USB המיועד.</value>
+    <value>כל התוכן בדיסק זה יאבד. המשך רק אם זהו כונן ה-USB המיועד.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>צור USB</value>
@@ -3457,10 +3457,10 @@
     <value>מקור תמונת אתחול</value>
   </data>
   <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>חיבור תצורה</value>
+    <value>הקצאת Connect</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>פרוס תצורה</value>
+    <value>תצורת Deploy</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>נהגים</value>
@@ -3484,7 +3484,7 @@
     <value>מצב חתימה</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB יעד</value>
+    <value>יעד USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE שפת האתחול</value>
@@ -3502,10 +3502,10 @@
     <value>יצירת מדיה זמינה כאשר כל בדיקות המוכנות עוברות.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>פורמט מלא</value>
+    <value>פרמוט מלא</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>פורמט מהיר</value>
+    <value>פרמוט מהיר</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>בחר היכן ייכתב ה-Foundry ISO שנוצר.</value>
@@ -3772,7 +3772,7 @@
     <value>בדוק מוכנות, בחר פלט ISO או USB והתחל ביצירת המדיה.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>סקירה</value>
+    <value>סקור</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>מוכן</value>
@@ -3828,7 +3828,7 @@
     <value>עדכן USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>ניתן לרענן יעדים USB לאחר השלמת המוכנות של ADK.</value>
+    <value>ניתן לרענן את רשימת כונני ה-USB לאחר השלמת בדיקות המוכנות של ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>נמצאו כוננים USB: {0}</value>
@@ -3837,22 +3837,22 @@
     <value>דיסק {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>סורק יעדים USB.</value>
+    <value>סורק אחר כונני USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>לא נמצאו כוננים USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB רענון היעד נכשל.</value>
+    <value>רענון כונני ה-USB נכשל.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>התנהגות פורמט בשימוש לפני העתקת המדיה הסופית USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>סכימת מחיצות המשמשת בעת הכנת היעד USB שנבחר.</value>
+    <value>סכימת המחיצות שבה נעשה שימוש בעת הכנת כונן ה-USB שנבחר.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB יעד</value>
+    <value>יעד USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>שפה המשמשת את סביבת האתחול WinPE.</value>
@@ -3870,7 +3870,7 @@
     <value>התחל</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>פתוח</value>
+    <value>פתח</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>פתח את הגדרות הצבע Windows כדי לשנות את צבע המבטא.</value>
@@ -3885,10 +3885,10 @@
     <value>דק אקרילי</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
-    <value>בחר את נושא היישום.</value>
+    <value>בחר את ערכת הנושא של האפליקציה.</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
-    <value>נושא האפליקציה</value>
+    <value>ערכת הנושא של האפליקציה</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
     <value>כהה</value>
@@ -3897,7 +3897,7 @@
     <value>מערכת</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>אור</value>
+    <value>בהיר</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>בחר את חומר הרקע המשמש מאחורי האפליקציה.</value>

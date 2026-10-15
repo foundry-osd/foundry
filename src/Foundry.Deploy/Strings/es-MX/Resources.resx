@@ -19,7 +19,7 @@
     <value>Este software se proporciona tal cual. Revise la configuración de implementación antes de usarla.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Derechos de autor (c) 2026 Mickaël CHAVE y los colaboradores de Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE y los colaboradores de Foundry Project.
 Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -89,7 +89,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Cancelar</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Cerrar ventana</value>
+    <value>Cerrar</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Copiar al portapapeles</value>
@@ -110,7 +110,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Activado</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Próximo</value>
+    <value>Siguiente</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>No</value>
@@ -1477,7 +1477,7 @@ Sistema operativo: {4}
     <value>Implementación completada</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Retire el medio de arranque y seleccione Reiniciar.</value>
+    <value>Retire el medio de arranque y, a continuación, seleccione “Reiniciar”.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Esta computadora se reiniciará en {0}s.</value>
@@ -1738,7 +1738,7 @@ Sistema operativo: {4}
     <value>Oscuro</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Luz</value>
+    <value>Claro</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>

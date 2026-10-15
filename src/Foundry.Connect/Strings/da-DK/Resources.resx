@@ -19,7 +19,7 @@
     <value>Denne software leveres som den er. Bekræft netværksadgang, før du fortsætter implementeringen.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Ophavsret (c) 2026 Mickaël CHAVE og bidragyderne til Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE og bidragyderne til Foundry Project.
 Licenseret under MIT-licensen.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -354,7 +354,7 @@ Licenseret under MIT-licensen.</value>
     <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>Forsynet Wi-Fi · {0}</value>
+    <value>Klargjort Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Virksomhedsprofil</value>
@@ -381,7 +381,7 @@ Licenseret under MIT-licensen.</value>
     <value>Dette netværk kræver en klargjort Wi-Fi profil.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>Forsynet Wi-Fi</value>
+    <value>Klargjort Wi-Fi</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Opdater Wi-Fi netværk</value>
@@ -396,7 +396,7 @@ Licenseret under MIT-licensen.</value>
     <value>{0} (maskine eller bruger)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Åbn</value>
+    <value>Åben</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Personligt</value>

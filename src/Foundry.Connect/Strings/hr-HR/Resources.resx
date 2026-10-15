@@ -19,7 +19,7 @@
     <value>Ovaj softver je dostupan takav kakav jest. Prije nastavka implementacije potvrdite pristup mreži.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
 Licenciran prema MIT licenci.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -56,7 +56,7 @@ Licenciran prema MIT licenci.</value>
     <value>Odustani</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Zatvori prozor</value>
+    <value>Zatvori</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfiguracija: ugrađene zadane postavke</value>
@@ -270,7 +270,7 @@ Licenciran prema MIT licenci.</value>
     <value>ukrajinski (Ukrajina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Oko</value>
+    <value>O aplikaciji</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Debug</value>
@@ -303,10 +303,10 @@ Licenciran prema MIT licenci.</value>
     <value>Čeka se mreža</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>tamno</value>
+    <value>Tamno</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Svjetlo</value>
+    <value>Svijetlo</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>sustav</value>
@@ -396,7 +396,7 @@ Licenciran prema MIT licenci.</value>
     <value>{0} (stroj ili korisnik)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Otvoriti</value>
+    <value>Otvoreno</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Osobno</value>

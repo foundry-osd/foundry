@@ -19,7 +19,7 @@
     <value>Ovaj softver je dostupan takav kakav jest. Pregledajte svoje postavke implementacije prije upotrebe.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
 Licenciran prema MIT licenci.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -89,7 +89,7 @@ Licenciran prema MIT licenci.</value>
     <value>Odustani</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Zatvori prozor</value>
+    <value>Zatvori</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Kopiraj u međuspremnik</value>
@@ -110,7 +110,7 @@ Licenciran prema MIT licenci.</value>
     <value>Omogućeno</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Sljedeći</value>
+    <value>Dalje</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>Ne</value>
@@ -122,7 +122,7 @@ Licenciran prema MIT licenci.</value>
     <value>N/A</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Prethodno</value>
+    <value>Natrag</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nedostupan</value>
@@ -583,7 +583,7 @@ Nastaviti s implementacijom?</value>
     <value>Potvrdite brisanje diska</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_Oko</value>
+    <value>_O aplikaciji</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
@@ -1483,7 +1483,7 @@ Nastaviti s implementacijom?</value>
     <value>Ovo će se računalo ponovno pokrenuti za {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Ponovno pokretanje</value>
+    <value>Ponovno pokreni</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Dodatni lokalni računi</value>
@@ -1591,7 +1591,7 @@ Nastaviti s implementacijom?</value>
     <value>Korisnički upravljano</value>
   </data>
   <data name="Summary.Manual" xml:space="preserve">
-    <value>Priručnik</value>
+    <value>Ručno</value>
   </data>
   <data name="Summary.ManualRestart" xml:space="preserve">
     <value>Ručno ponovno pokretanje</value>
@@ -1735,13 +1735,13 @@ Nastaviti s implementacijom?</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>tamno</value>
+    <value>Tamno</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Svjetlo</value>
+    <value>Svijetlo</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
-    <value>sustav</value>
+    <value>Sustav</value>
   </data>
   <data name="Tools.OpenLogFile" xml:space="preserve">
     <value>Otvori datoteku dnevnika</value>

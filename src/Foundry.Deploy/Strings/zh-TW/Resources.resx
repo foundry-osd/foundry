@@ -19,7 +19,7 @@
     <value>該軟體按原樣提供。使用前檢查您的部署設定。</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>著作權所有 (c) 2026 Mickaël CHAVE 與 Foundry Project 貢獻者。
+    <value>Copyright (c) 2026 Mickaël CHAVE 與 Foundry Project 貢獻者。
 根據 MIT 許可證獲得許可。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -122,7 +122,7 @@
     <value>不適用</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>上一頁</value>
+    <value>上一步</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>不可用</value>
@@ -583,19 +583,19 @@
     <value>確認磁碟清除</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_關於</value>
+    <value>關於(_A)</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_偵錯</value>
+    <value>偵錯(_D)</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>_語言</value>
+    <value>語言(_L)</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>_主題</value>
+    <value>主題(_T)</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>_工具</value>
+    <value>工具(_T)</value>
   </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>選擇 Windows 發行版本、語言、版本與授權通道。</value>
@@ -1735,10 +1735,10 @@
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>黑暗</value>
+    <value>深色</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>光</value>
+    <value>淺色</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>系統</value>

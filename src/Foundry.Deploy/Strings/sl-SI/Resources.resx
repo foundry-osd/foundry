@@ -19,7 +19,7 @@
     <value>Ta programska oprema je na voljo takšna, kot je. Pred uporabo preglejte nastavitve uvajanja.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Avtorske pravice (c) 2026 Mickaël CHAVE in sodelavci projekta Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE in sodelavci projekta Foundry Project.
 Licencirano pod licenco MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -89,7 +89,7 @@ Licencirano pod licenco MIT.</value>
     <value>Prekliči</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Zapri okno</value>
+    <value>Zapri</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Kopiraj v odložišče</value>
@@ -122,7 +122,7 @@ Licencirano pod licenco MIT.</value>
     <value>N/A</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Prejšnja</value>
+    <value>Nazaj</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ni na voljo</value>
@@ -583,7 +583,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Potrdite brisanje diska</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_O</value>
+    <value>_O programu</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
@@ -1477,13 +1477,13 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Namestitev zaključena</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Odstranite zagonski medij in nato izberite Ponovni zagon.</value>
+    <value>Odstranite zagonski medij in nato izberite Znova zaženi.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Ta računalnik se bo znova zagnal čez {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Znova zaženite</value>
+    <value>Znova zaženi</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Dodatni lokalni računi</value>
@@ -1591,7 +1591,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Uporabniško nadzorovano</value>
   </data>
   <data name="Summary.Manual" xml:space="preserve">
-    <value>Priročnik</value>
+    <value>Ročno</value>
   </data>
   <data name="Summary.ManualRestart" xml:space="preserve">
     <value>Ročni ponovni zagon</value>
@@ -1738,7 +1738,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Temno</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Svetloba</value>
+    <value>Svetlo</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>

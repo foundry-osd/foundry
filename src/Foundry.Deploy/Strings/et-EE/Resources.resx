@@ -19,7 +19,7 @@
     <value>See tarkvara tarnitakse sellisena, nagu see on. Enne kasutamist vaadake üle juurutamise seaded.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autoriõigus (c) 2026 Mickaël CHAVE ja Foundry Projecti kaasautorid.
+    <value>Copyright (c) 2026 Mickaël CHAVE ja Foundry Projecti kaasautorid.
 Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -89,7 +89,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Loobu</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Sule aken</value>
+    <value>Sule</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Kopeeri lõikelauale</value>
@@ -583,7 +583,7 @@ Kas jätkata juurutamisega?</value>
     <value>Kinnitage ketta kustutamine</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_Umbes</value>
+    <value>_Teave</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Silumine</value>
@@ -595,7 +595,7 @@ Kas jätkata juurutamisega?</value>
     <value>_Teema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>_ Tööriistad</value>
+    <value>_Tööriistad</value>
   </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Valige Windowsi versioon, keel, väljaanne ja litsentsikanal.</value>
@@ -1483,7 +1483,7 @@ Kas jätkata juurutamisega?</value>
     <value>See arvuti taaskäivitub {0}s pärast.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Taaskäivitage</value>
+    <value>Taaskäivita</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Täiendavad kohalikud kontod</value>
@@ -1738,7 +1738,7 @@ Kas jätkata juurutamisega?</value>
     <value>Tume</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Valgus</value>
+    <value>Hele</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Süsteem</value>

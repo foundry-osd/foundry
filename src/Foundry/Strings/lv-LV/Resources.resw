@@ -34,7 +34,7 @@
     <value>Foundry OSD ir mūsdienīga lietotne Windows izvietošanas datu nesēja autorēšanai, ko nodrošina WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autortiesības (c) 2026 Mickaël CHAVE un Foundry Project līdzautori.
+    <value>Copyright (c) 2026 Mickaël CHAVE un Foundry Project līdzautori.
 Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -410,7 +410,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Saglabājiet Autopilot sertifikātu PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Īkšķa nospiedums</value>
+    <value>Nospiedums</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Sertifikāti netiek nodrošināti.</value>
@@ -614,7 +614,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atcelt</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Skaidrs</value>
+    <value>Notīrīt</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Izvēlieties, kuri nomnieku profili jāimportē Foundry.</value>
@@ -3346,13 +3346,13 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Tīkla konfigurācija nav gatava.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nav atlasīts neviens USB mērķis.</value>
+    <value>Nav atlasīts neviens USB disks.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nepieciešamie mediju noslēpumi nav gatavi.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Atlasītais USB mērķis ir pārāk mazs. Izmantojiet USB taustiņu, kura ietilpība ir vismaz 16 GB.</value>
+    <value>Atlasītais USB disks ir pārāk mazs. Izmantojiet USB disku, kura ietilpība ir vismaz 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Atlasītā WinPE sāknēšanas valoda atlasītajai arhitektūrai nav pieejama.</value>
@@ -3397,7 +3397,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Formatējiet un izveidojiet USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatējiet USB mērķi</value>
+    <value>Formatēt USB disku</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Sistēma Windows nevar nolasīt šī diska sējumus. Tajā joprojām var būt dati.</value>
@@ -3412,7 +3412,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Šī diska sējumi:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Viss, kas atrodas šajā diskā, tiks zaudēts. Turpiniet tikai tad, ja šis ir paredzētais USB disks.</value>
+    <value>Visi šajā diskā esošie dati tiks zaudēti. Turpiniet tikai tad, ja šis ir paredzētais USB disks.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Izveidot USB</value>
@@ -3460,7 +3460,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Savienot nodrošinājumu</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Izvietot konfigurāciju</value>
+    <value>Izvietošanas konfigurācija</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Šoferi</value>
@@ -3484,7 +3484,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Paraksta režīms</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB mērķis</value>
+    <value>Mērķa USB disks</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE sāknēšanas valoda</value>
@@ -3502,10 +3502,10 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Multivides izveide ir pieejama, kad visas gatavības pārbaudes ir izietas.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Pilns formāts</value>
+    <value>Pilnā formatēšana</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Ātrs formāts</value>
+    <value>Ātrā formatēšana</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Izvēlieties, kur tiks rakstīts ģenerētais Foundry ISO.</value>
@@ -3772,7 +3772,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Pārskatiet gatavību, izvēlieties ISO vai USB izvadi un sāciet datu nesēja izveidi.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Pārskats</value>
+    <value>Pārskatīt</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Gatavs</value>
@@ -3828,7 +3828,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Atjaunināt USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB mērķus var atsvaidzināt pēc ADK gatavības pabeigšanas.</value>
+    <value>USB diskus var atsvaidzināt pēc ADK gatavības pārbaudes pabeigšanas.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB diskdziņi atrasti: {0}</value>
@@ -3837,22 +3837,22 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Disks {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB mērķu skenēšana.</value>
+    <value>Notiek USB disku meklēšana…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Netika atrasts neviens USB disks.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB mērķa atsvaidzināšana neizdevās.</value>
+    <value>Neizdevās atsvaidzināt USB diskus.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formāta darbība, kas izmantota pirms pēdējā USB datu nesēja kopēšanas.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Sadalījuma shēma, kas izmantota, sagatavojot atlasīto USB mērķi.</value>
+    <value>Nodalījumu shēma, kas tiek izmantota, sagatavojot atlasīto USB disku.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB mērķis</value>
+    <value>Mērķa USB disks</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE sāknēšanas vides izmantotā valoda.</value>
@@ -3897,7 +3897,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Sistēma</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Gaisma</value>
+    <value>Gaišs</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Izvēlieties fona materiālu, kas tiek izmantots aiz lietotnes.</value>
@@ -4143,7 +4143,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Drošības veids</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Atvērt</value>
+    <value>Atvērts</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (oportūnistiskā bezvadu šifrēšana)</value>

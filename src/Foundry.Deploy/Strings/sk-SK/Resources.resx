@@ -19,7 +19,7 @@
     <value>Tento softvér sa poskytuje tak, ako je. Pred použitím skontrolujte nastavenia nasadenia.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorské práva (c) 2026 Mickaël CHAVE a prispievatelia do Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE a prispievatelia do Foundry Project.
 Licencované podľa licencie MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -122,7 +122,7 @@ Licencované podľa licencie MIT.</value>
     <value>N/A</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Predchádzajúce</value>
+    <value>Späť</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>nedostupné</value>
@@ -583,7 +583,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Potvrďte vymazanie disku</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_O</value>
+    <value>_O aplikácii</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
@@ -592,7 +592,7 @@ Pokračovať v nasadzovaní?</value>
     <value>_Jazyk</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>_Téma</value>
+    <value>_Motív</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Nástroje</value>
@@ -1477,13 +1477,13 @@ Pokračovať v nasadzovaní?</value>
     <value>Nasadenie dokončené</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Odstráňte zavádzacie médium a potom vyberte položku Reštartovať.</value>
+    <value>Odpojte zavádzacie médium a potom vyberte položku „Reštartovať“.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Tento počítač sa reštartuje o {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Reštartujte</value>
+    <value>Reštartovať</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Ďalšie lokálne kontá</value>
@@ -1738,7 +1738,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Tmavý</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Svetlo</value>
+    <value>Svetlý</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Systém</value>

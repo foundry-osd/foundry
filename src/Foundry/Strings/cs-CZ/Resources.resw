@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>O</value>
+    <value>O aplikaci</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Vytvořil a spravuje Mickaël CHAVE.</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD je moderní aplikace pro vytváření médií pro nasazení Windows poháněná WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autorská práva (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
 Licencováno pod licencí MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@ Licencováno pod licencí MIT.</value>
     <value>Licence třetích stran</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>O Foundry OSD</value>
+    <value>O aplikaci Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Užitečné odkazy</value>
@@ -410,7 +410,7 @@ Licencováno pod licencí MIT.</value>
     <value>Uložit Autopilot certifikát PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Otisk palce</value>
+    <value>Kryptografický otisk</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Nejsou poskytovány žádné certifikáty.</value>
@@ -614,7 +614,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zrušit</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Jasný</value>
+    <value>Vymazat</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Vyberte, které profily tenanta se mají importovat do Foundry.</value>
@@ -2348,7 +2348,7 @@ Licencováno pod licencí MIT.</value>
     <value>Informace o produktu a verzi.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>O</value>
+    <value>O aplikaci</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK připravenost a instalace.</value>
@@ -3346,13 +3346,13 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Konfigurace sítě není připravena.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Není vybrán žádný cíl USB.</value>
+    <value>Není vybrána žádná jednotka USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Požadovaná tajemství médií nejsou připravena.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Vybraný cíl USB je příliš malý. Použijte klíč USB o velikosti alespoň 16 GB.</value>
+    <value>Vybraná jednotka USB je příliš malá. Použijte jednotku USB s kapacitou alespoň 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Vybraný spouštěcí jazyk WinPE není pro vybranou architekturu dostupný.</value>
@@ -3397,7 +3397,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Naformátujte a vytvořte USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formát USB cíl</value>
+    <value>Formátovat jednotku USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Systém Windows nemůže přečíst svazky na tomto disku. Může stále obsahovat data.</value>
@@ -3412,7 +3412,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Svazky na tomto disku:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Všechna data na tomto disku budou ztracena. Pokračujte pouze v případě, že se jedná o zamýšlený disk USB.</value>
+    <value>Všechna data na tomto disku budou ztracena. Pokračujte pouze v případě, že jde o správnou jednotku USB.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Vytvořit USB</value>
@@ -3460,7 +3460,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Zřizování připojení</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Nasadit konfiguraci</value>
+    <value>Konfigurace nasazení</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Ovladače</value>
@@ -3484,7 +3484,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Režim podpisu</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB cíl</value>
+    <value>Cílová jednotka USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE spouštěcí jazyk</value>
@@ -3502,7 +3502,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Vytvoření médií je k dispozici, když projdou všechny kontroly připravenosti.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Plný formát</value>
+    <value>Úplné formátování</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Rychlé formátování</value>
@@ -3772,7 +3772,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Zkontrolujte připravenost, vyberte výstup ISO nebo USB a spusťte vytvoření média.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Recenze</value>
+    <value>Zkontrolovat</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Připraveno</value>
@@ -3828,7 +3828,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Aktualizovat USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Cíle USB lze obnovit po dokončení připravenosti ADK.</value>
+    <value>Seznam jednotek USB lze aktualizovat po dokončení kontroly připravenosti ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Nalezené disky USB: {0}</value>
@@ -3837,22 +3837,22 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Skenování cílů USB.</value>
+    <value>Vyhledávání jednotek USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nebyly nalezeny žádné jednotky USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB cílové obnovení se nezdařilo.</value>
+    <value>Aktualizace seznamu jednotek USB se nezdařila.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Chování formátu použité před zkopírováním finálního média USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Schéma rozdělení použité při přípravě vybraného cíle USB.</value>
+    <value>Schéma oddílů použité při přípravě vybrané jednotky USB.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB cíl</value>
+    <value>Cílová jednotka USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Jazyk používaný spouštěcím prostředím WinPE.</value>
@@ -3897,7 +3897,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Systém</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Světlo</value>
+    <value>Světlý</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Vyberte materiál pozadí použitý za aplikací.</value>
@@ -4143,7 +4143,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Typ zabezpečení</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Otevřít</value>
+    <value>Otevřené</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (oportunistické bezdrátové šifrování)</value>

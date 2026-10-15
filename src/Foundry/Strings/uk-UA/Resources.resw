@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>про</value>
+    <value>Про програму</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Створено та підтримується Mickaël CHAVE.</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD — це сучасна програма для створення носіїв для розгортання Windows на основі WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Авторські права (c) 2026 Mickaël CHAVE та учасники Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE та учасники Foundry Project.
 Ліцензовано згідно з ліцензією MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@
     <value>Ліцензії сторонніх компонентів</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Про Foundry OSD</value>
+    <value>Про програму Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Корисні посилання</value>
@@ -410,7 +410,7 @@
     <value>Збережіть Autopilot сертифікат PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Відбиток великого пальця</value>
+    <value>Відбиток</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Сертифікати не надаються.</value>
@@ -614,7 +614,7 @@
     <value>Скасувати</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>ясно</value>
+    <value>Очистити</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Виберіть, які профілі орендарів слід імпортувати в Foundry.</value>
@@ -2177,7 +2177,7 @@
     <value>Потрібен ADK</value>
   </data>
   <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
-    <value>Настроювані</value>
+    <value>Користувацькі</value>
   </data>
   <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
     <value>Немає</value>
@@ -2348,7 +2348,7 @@
     <value>Інформація про продукт і версію.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>про</value>
+    <value>Про програму</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK Готовність та встановлення.</value>
@@ -2423,7 +2423,7 @@
     <value>Foundry OSD додому</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>додому</value>
+    <value>Головна</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Запитувати в технічного спеціаліста облікові дані домену під час розгортання.</value>
@@ -2435,7 +2435,7 @@
     <value>Налаштуйте імена розгорнутих пристроїв.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Ім’я комп’ютера</value>
+    <value>Іменування комп’ютерів</value>
   </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Мережа</value>
@@ -3346,13 +3346,13 @@
     <value>Конфігурація мережі не готова.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Ціль USB не вибрано.</value>
+    <value>USB-накопичувач не вибрано.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Необхідні медіасекрети не готові.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Вибрана ціль USB замала. Використовуйте клавішу USB розміром не менше 16 GB.</value>
+    <value>Вибраний USB-накопичувач замалий. Використовуйте USB-накопичувач обсягом щонайменше 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Вибрана мова завантаження WinPE недоступна для вибраної архітектури.</value>
@@ -3397,7 +3397,7 @@
     <value>Відформатуйте та створіть USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Формат USB target</value>
+    <value>Форматувати USB-накопичувач</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows не може прочитати томи на цьому диску. На ньому все ще можуть бути дані.</value>
@@ -3412,7 +3412,7 @@
     <value>Томи на цьому диску:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Усе на цьому диску буде втрачено. Продовжуйте, лише якщо це призначений диск USB.</value>
+    <value>Усі дані на цьому диску буде втрачено. Продовжуйте, лише якщо це потрібний USB-накопичувач.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Створити USB</value>
@@ -3484,7 +3484,7 @@
     <value>Режим підпису</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB ціль</value>
+    <value>Цільовий USB-накопичувач</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE мова завантаження</value>
@@ -3502,7 +3502,7 @@
     <value>Створення носія доступне, коли всі перевірки готовності пройдено.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Повний формат</value>
+    <value>Повне форматування</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Швидке форматування</value>
@@ -3772,7 +3772,7 @@
     <value>Перевірте готовність, виберіть вихід ISO або USB і запустіть створення носія.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>огляд</value>
+    <value>Переглянути</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Готовий</value>
@@ -3828,7 +3828,7 @@
     <value>Оновити USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Цілі USB можна оновити після повної готовності ADK.</value>
+    <value>Список USB-накопичувачів можна оновити після завершення перевірок готовності ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Знайдено диски USB: {0}</value>
@@ -3837,22 +3837,22 @@
     <value>Диск {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Сканування цілей USB.</value>
+    <value>Пошук USB-накопичувачів…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Дисків USB не знайдено.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB не вдалося оновити ціль.</value>
+    <value>Не вдалося оновити список USB-накопичувачів.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Поведінка формату, яка використовується перед копіюванням остаточного носія USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Схема розділення, яка використовується під час підготовки вибраної цілі USB.</value>
+    <value>Схема розділів, яка використовується під час підготовки вибраного USB-накопичувача.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB ціль</value>
+    <value>Цільовий USB-накопичувач</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Мова, яка використовується середовищем завантаження WinPE.</value>
@@ -3870,7 +3870,7 @@
     <value>старт</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>відкритий</value>
+    <value>Відкрити</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Відкрийте параметри кольору Windows, щоб змінити колір акценту.</value>
@@ -3894,10 +3894,10 @@
     <value>Темний</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
-    <value>система</value>
+    <value>Системний</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>світло</value>
+    <value>Світлий</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Виберіть фоновий матеріал, який використовується для додатка.</value>
@@ -4143,7 +4143,7 @@
     <value>Тип безпеки</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>відкритий</value>
+    <value>Відкрита</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (оппортуністичне бездротове шифрування)</value>

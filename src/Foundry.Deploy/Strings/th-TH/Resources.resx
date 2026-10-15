@@ -19,7 +19,7 @@
     <value>ซอฟต์แวร์นี้มีให้ตามที่เป็นอยู่ ตรวจสอบการตั้งค่าการปรับใช้ของคุณก่อนใช้งาน</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>ลิขสิทธิ์ (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
+    <value>Copyright (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
 ได้รับอนุญาตภายใต้ใบอนุญาต MIT</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -1477,13 +1477,13 @@
     <value>การปรับใช้เสร็จสมบูรณ์</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>นำสื่อสำหรับบูตออก แล้วเลือก รีสตาร์ต</value>
+    <value>นำสื่อสำหรับบูตออก แล้วเลือก “รีสตาร์ต”</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>คอมพิวเตอร์เครื่องนี้จะรีสตาร์ตใน {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>รีบูต</value>
+    <value>รีสตาร์ต</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>บัญชีภายในเครื่องเพิ่มเติม</value>
@@ -1738,7 +1738,7 @@
     <value>มืด</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>เบา</value>
+    <value>สว่าง</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>ระบบ</value>

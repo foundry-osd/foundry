@@ -19,7 +19,7 @@
     <value>Это программное обеспечение предоставляется как есть. Подтвердите доступ к сети перед продолжением развертывания.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Авторские права (c) 2026 Mickaël CHAVE и участники Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE и участники Foundry Project.
 Лицензировано по лицензии MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -270,7 +270,7 @@
     <value>Украинский (Украина)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>О</value>
+    <value>О программе</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Отладка</value>
@@ -306,7 +306,7 @@
     <value>Темный</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Свет</value>
+    <value>Светлый</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Система</value>
@@ -396,7 +396,7 @@
     <value>{0} (машина или пользователь)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Открыть</value>
+    <value>Открытая</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Персональный</value>

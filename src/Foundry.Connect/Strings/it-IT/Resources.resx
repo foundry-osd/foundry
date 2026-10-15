@@ -19,7 +19,7 @@
     <value>Questo software viene fornito così com'è. Conferma l'accesso alla rete prima di continuare la distribuzione.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Diritto d’autore (c) 2026 Mickaël CHAVE e i collaboratori di Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE e i collaboratori di Foundry Project.
 Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -56,7 +56,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Annulla</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Chiudi la finestra</value>
+    <value>Chiudi</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configurazione: impostazioni predefinite integrate</value>
@@ -270,7 +270,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Ucraino (Ucraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Circa</value>
+    <value>Informazioni</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Debug</value>
@@ -303,10 +303,10 @@ Concesso in licenza con la licenza MIT.</value>
     <value>In attesa della rete</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Buio</value>
+    <value>Scuro</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Luce</value>
+    <value>Chiaro</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>

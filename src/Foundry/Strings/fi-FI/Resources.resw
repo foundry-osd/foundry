@@ -34,7 +34,7 @@
     <value>Foundry OSD on nykyaikainen sovellus Windows -käyttöönottomedian luomiseen, jota käyttää WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Tekijänoikeus (c) 2026 Mickaël CHAVE ja Foundry Project -projektin avustajat.
+    <value>Copyright (c) 2026 Mickaël CHAVE ja Foundry Project -projektin avustajat.
 Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -83,7 +83,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kolmannen osapuolen lisenssit</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Tietoja Foundry OSD</value>
+    <value>Tietoja Foundry OSD:stä</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Hyödyllisiä linkkejä</value>
@@ -410,7 +410,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tallenna Autopilot-sertifikaatti PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Peukalonjälki</value>
+    <value>Tunnistearvo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Varmenteita ei ole varattu.</value>
@@ -614,7 +614,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Peruuta</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Selkeä</value>
+    <value>Tyhjennä</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Valitse, mitkä vuokralaisen profiilit tuodaan Foundry:aan.</value>
@@ -2423,7 +2423,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Foundry OSD kotiin</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Kotiin</value>
+    <value>Aloitus</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Pyydä teknikolta toimialueen tunnistetiedot käyttöönoton aikana.</value>
@@ -3346,13 +3346,13 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Verkkomääritys ei ole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>USB-kohdetta ei ole valittu.</value>
+    <value>USB-asemaa ei ole valittu.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Vaaditut mediasalaisuudet eivät ole valmiita.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Valittu USB-kohde on liian pieni. Käytä USB-näppäintä, jonka koko on vähintään 16 GB.</value>
+    <value>Valittu USB-asema on liian pieni. Käytä vähintään 16 GB:n USB-asemaa.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Valittu WinPE käynnistyskieli ei ole käytettävissä valitulle arkkitehtuurille.</value>
@@ -3397,7 +3397,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Muotoile ja luo USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Muotoile USB kohde</value>
+    <value>Alusta USB-asema</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ei voi lukea tämän levyn taltioita. Levyllä voi silti olla tietoja.</value>
@@ -3412,7 +3412,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Tämän levyn taltiot:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Kaikki tämän levyn tiedot menetetään. Jatka vain, jos tämä on tarkoitettu USB-levy.</value>
+    <value>Kaikki tämän levyn tiedot menetetään. Jatka vain, jos tämä on oikea USB-asema.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Luo USB</value>
@@ -3460,7 +3460,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Yhdistä hallinta</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Ota kokoonpano käyttöön</value>
+    <value>Käyttöönoton määritys</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Kuljettajat</value>
@@ -3484,7 +3484,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Allekirjoitustila</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB kohde</value>
+    <value>USB-kohde</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE käynnistyskieli</value>
@@ -3502,10 +3502,10 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Median luonti on käytettävissä, kun kaikki valmiustarkastukset ovat läpäisseet.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Täysi muoto</value>
+    <value>Täydellinen alustus</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Nopea muotoilu</value>
+    <value>Pika-alustus</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Valitse, mihin luotu Foundry ISO kirjoitetaan.</value>
@@ -3828,7 +3828,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Päivitä USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB-kohteet voidaan päivittää, kun ADK-valmius on valmis.</value>
+    <value>USB-asemat voi päivittää, kun ADK-valmiustarkistukset on suoritettu.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB asemat löydetty: {0}</value>
@@ -3837,22 +3837,22 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Levy {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Etsitään USB kohteita.</value>
+    <value>Etsitään USB-asemia…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>USB-asemia ei löytynyt.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB kohteen päivitys epäonnistui.</value>
+    <value>USB-asemien päivitys epäonnistui.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Muotoilu, jota käytettiin ennen lopullisen USB -median kopioimista.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Osiokaavio, jota käytetään valmisteltaessa valittua USB kohdetta.</value>
+    <value>Osiointityyli, jota käytetään valitun USB-aseman valmistelussa.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB kohde</value>
+    <value>USB-kohde</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE käynnistysympäristön käyttämä kieli.</value>
@@ -3897,7 +3897,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Järjestelmä</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Kevyt</value>
+    <value>Vaalea</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Valitse sovelluksen takana käytettävä taustamateriaali.</value>
@@ -4143,7 +4143,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Turvallisuustyyppi</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Avaa</value>
+    <value>Avoin</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (opportunistinen langaton salaus)</value>

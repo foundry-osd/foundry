@@ -19,7 +19,7 @@
     <value>Este software é fornecido como está. Confirme o acesso à rede antes de continuar a implantação.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Direitos de autor (c) 2026 Mickaël CHAVE e os colaboradores do Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE e os colaboradores do Foundry Project.
 Licenciado sob a licença MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -56,7 +56,7 @@ Licenciado sob a licença MIT.</value>
     <value>Cancelar</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Fechar janela</value>
+    <value>Fechar</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configuração: padrões integrados</value>
@@ -270,7 +270,7 @@ Licenciado sob a licença MIT.</value>
     <value>Ucraniano (Ucrânia)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Sobre</value>
+    <value>Acerca de</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Depurar</value>
@@ -306,7 +306,7 @@ Licenciado sob a licença MIT.</value>
     <value>Escuro</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Luz</value>
+    <value>Claro</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>
@@ -396,7 +396,7 @@ Licenciado sob a licença MIT.</value>
     <value>{0} (máquina ou usuário)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Abrir</value>
+    <value>Aberta</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Pessoal</value>

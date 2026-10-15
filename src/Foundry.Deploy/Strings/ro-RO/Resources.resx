@@ -19,7 +19,7 @@
     <value>Acest software este furnizat ca atare. Examinați setările de implementare înainte de utilizare.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Drepturi de autor (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
 Licențiat sub licența MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -89,7 +89,7 @@ Licențiat sub licența MIT.</value>
     <value>Anulați</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Închide fereastra</value>
+    <value>Închide</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Copiați în clipboard</value>
@@ -110,7 +110,7 @@ Licențiat sub licența MIT.</value>
     <value>Activat</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>În continuare</value>
+    <value>Înainte</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>Nu</value>
@@ -122,7 +122,7 @@ Licențiat sub licența MIT.</value>
     <value>N/A</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Anterior</value>
+    <value>Înapoi</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponibil</value>
@@ -595,7 +595,7 @@ Continuați cu implementarea?</value>
     <value>_Temă</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>_Unelte</value>
+    <value>_Instrumente</value>
   </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Alegeți versiunea Windows, limba, ediția și canalul de licențiere.</value>
@@ -1477,7 +1477,7 @@ Continuați cu implementarea?</value>
     <value>Implementare finalizată</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Scoateți suportul de pornire, apoi selectați Repornire.</value>
+    <value>Scoateți suportul de pornire, apoi selectați „Reporniți”.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Acest computer va reporni în {0}s.</value>
@@ -1735,10 +1735,10 @@ Continuați cu implementarea?</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Întuneric</value>
+    <value>Întunecat</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Lumină</value>
+    <value>Luminos</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>

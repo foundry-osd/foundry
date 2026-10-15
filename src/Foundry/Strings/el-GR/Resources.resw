@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>Περίπου</value>
+    <value>Πληροφορίες</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Δημιουργήθηκε και συντηρήθηκε από τον Mickaël CHAVE.</value>
@@ -34,7 +34,7 @@
     <value>Το Foundry OSD είναι μια σύγχρονη εφαρμογή για τη δημιουργία μέσων ανάπτυξης Windows που υποστηρίζεται από το WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Πνευματικά δικαιώματα (c) 2026 Mickaël CHAVE και οι συνεισφέροντες στο Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE και οι συνεισφέροντες στο Foundry Project.
 Άδεια χρήσης βάσει της άδειας MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -533,7 +533,7 @@
     <value>Όνομα</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>Αξία</value>
+    <value>Τιμή</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
     <value>Συνδεθείτε στο Microsoft Graph για αυτήν την περίοδο λειτουργίας εφαρμογής για να διαχειριστείτε τις ρυθμίσεις μεταφόρτωσης κατακερματισμού.</value>
@@ -614,7 +614,7 @@
     <value>Ακύρωση</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Καθαρό</value>
+    <value>Απαλοιφή</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Επιλέξτε ποια προφίλ ενοικιαστών θα εισαχθούν στο Foundry.</value>
@@ -2348,7 +2348,7 @@
     <value>Πληροφορίες προϊόντος και έκδοσης.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>Περίπου</value>
+    <value>Πληροφορίες</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK ετοιμότητα και εγκατάσταση.</value>
@@ -2360,7 +2360,7 @@
     <value>Καταργήστε ή απενεργοποιήστε στοιχεία AI των Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Συστατικά AI</value>
+    <value>Στοιχεία AI</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Επιλέξτε προβλεπόμενες εφαρμογές για κατάργηση.</value>
@@ -2420,10 +2420,10 @@
     <value>Γενικά</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD σπίτι</value>
+    <value>Αρχική σελίδα του Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Σπίτι</value>
+    <value>Αρχική</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Ζητήστε από τον τεχνικό διαπιστευτήρια τομέα κατά την ανάπτυξη.</value>
@@ -2450,7 +2450,7 @@
     <value>Ενεργοποιήστε ή απενεργοποιήστε προαιρετικές δυνατότητες των Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Προαιρετικές λειτουργίες</value>
+    <value>Προαιρετικές δυνατότητες</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Περιορίστε τις επιλογές λειτουργικού συστήματος για την ανάπτυξη.</value>
@@ -3346,13 +3346,13 @@
     <value>Η διαμόρφωση δικτύου δεν είναι έτοιμη.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Δεν έχει επιλεγεί στόχος USB.</value>
+    <value>Δεν έχει επιλεγεί μονάδα USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Τα απαραίτητα μυστικά των μέσων ενημέρωσης δεν είναι έτοιμα.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Ο επιλεγμένος στόχος USB είναι πολύ μικρός. Χρησιμοποιήστε ένα κλειδί USB τουλάχιστον 16 GB.</value>
+    <value>Η επιλεγμένη μονάδα USB είναι πολύ μικρή. Χρησιμοποιήστε μονάδα USB τουλάχιστον 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Η επιλεγμένη γλώσσα εκκίνησης WinPE δεν είναι διαθέσιμη για την επιλεγμένη αρχιτεκτονική.</value>
@@ -3364,7 +3364,7 @@
     <value>WinRE Wi-Fi εικόνα</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>Β</value>
+    <value>B</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3397,7 +3397,7 @@
     <value>Μορφοποίηση και δημιουργία USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Μορφοποίηση USB στόχο</value>
+    <value>Μορφοποίηση μονάδας USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Τα Windows δεν μπορούν να διαβάσουν τους τόμους σε αυτόν τον δίσκο. Ενδέχεται να περιέχει ακόμα δεδομένα.</value>
@@ -3412,7 +3412,7 @@
     <value>Τόμοι σε αυτόν τον δίσκο:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Όλα τα δεδομένα σε αυτόν τον δίσκο θα χαθούν. Συνεχίστε μόνο εάν αυτός είναι ο προβλεπόμενος δίσκος USB.</value>
+    <value>Όλα τα δεδομένα σε αυτόν τον δίσκο θα χαθούν. Συνεχίστε μόνο εάν αυτή είναι η σωστή μονάδα USB.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Δημιουργία USB</value>
@@ -3460,7 +3460,7 @@
     <value>Συνδέστε την παροχή</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Ανάπτυξη διαμόρφωσης</value>
+    <value>Διαμόρφωση ανάπτυξης</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Οδηγοί</value>
@@ -3484,7 +3484,7 @@
     <value>Λειτουργία υπογραφής</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB στόχος</value>
+    <value>Στόχος USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE γλώσσα εκκίνησης</value>
@@ -3502,10 +3502,10 @@
     <value>Η δημιουργία πολυμέσων είναι διαθέσιμη όταν περάσουν όλοι οι έλεγχοι ετοιμότητας.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Πλήρης μορφή</value>
+    <value>Πλήρης μορφοποίηση</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Γρήγορη μορφή</value>
+    <value>Γρήγορη μορφοποίηση</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Επιλέξτε πού θα γραφτεί το δημιουργημένο Foundry ISO.</value>
@@ -3772,7 +3772,7 @@
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Επανεξέταση</value>
+    <value>Έλεγχος</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Έτοιμοι</value>
@@ -3828,7 +3828,7 @@
     <value>Ενημέρωση USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Οι στόχοι USB μπορούν να ανανεωθούν αφού ολοκληρωθεί η ετοιμότητα ADK.</value>
+    <value>Οι μονάδες USB μπορούν να ανανεωθούν μετά την ολοκλήρωση των ελέγχων ετοιμότητας του ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Βρέθηκαν δίσκοι USB: {0}</value>
@@ -3837,22 +3837,22 @@
     <value>Δίσκος {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Σάρωση στόχων USB.</value>
+    <value>Αναζήτηση μονάδων USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Δεν βρέθηκαν μονάδες δίσκου USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>Η ανανέωση στόχου USB απέτυχε.</value>
+    <value>Η ανανέωση των μονάδων USB απέτυχε.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Χρησιμοποιείται συμπεριφορά μορφοποίησης πριν από την αντιγραφή του τελικού μέσου USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Σχέδιο διαμερισμάτων που χρησιμοποιείται κατά την προετοιμασία του επιλεγμένου στόχου USB.</value>
+    <value>Σχήμα διαμερισμάτων που χρησιμοποιείται κατά την προετοιμασία της επιλεγμένης μονάδας USB.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB στόχος</value>
+    <value>Στόχος USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Γλώσσα που χρησιμοποιείται από το περιβάλλον εκκίνησης WinPE.</value>
@@ -3870,7 +3870,7 @@
     <value>Έναρξη</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Ανοίξτε</value>
+    <value>Άνοιγμα</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Ανοίξτε τις ρυθμίσεις χρωμάτων Windows για να αλλάξετε το χρώμα έμφασης.</value>
@@ -3891,13 +3891,13 @@
     <value>Θέμα εφαρμογής</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Σκοτεινό</value>
+    <value>Σκούρο</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>Σύστημα</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Φως</value>
+    <value>Ανοιχτό</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Επιλέξτε το υλικό φόντου που χρησιμοποιείται πίσω από την εφαρμογή.</value>
@@ -4143,7 +4143,7 @@
     <value>Τύπος ασφαλείας</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Ανοίξτε</value>
+    <value>Ανοιχτό</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (Ευκαιριακή ασύρματη κρυπτογράφηση)</value>

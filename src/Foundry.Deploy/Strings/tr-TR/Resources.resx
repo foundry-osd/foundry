@@ -19,7 +19,7 @@
     <value>Bu yazılım olduğu gibi sağlanmaktadır. Kullanmadan önce dağıtım ayarlarınızı gözden geçirin.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Telif hakkı (c) 2026 Mickaël CHAVE ve Foundry Project’e katkıda bulunanlar.
+    <value>Copyright (c) 2026 Mickaël CHAVE ve Foundry Project’e katkıda bulunanlar.
 MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -89,7 +89,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>İptal</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Pencereyi kapat</value>
+    <value>Kapat</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Panoya kopyala</value>
@@ -110,7 +110,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Etkin</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Sonraki</value>
+    <value>İleri</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>Hayır</value>
@@ -122,7 +122,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Yok</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Önceki</value>
+    <value>Geri</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Kullanılamıyor</value>
@@ -721,7 +721,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>{0} | TPM: {1} | Güç: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>klima</value>
+    <value>AC güç</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Pil</value>
@@ -1477,7 +1477,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Dağıtım tamamlandı</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Önyükleme medyasını çıkarın ve ardından Yeniden Başlat'ı seçin.</value>
+    <value>Önyükleme medyasını çıkarın ve ardından Yeniden başlat'ı seçin.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Bu bilgisayar {0}s içinde yeniden başlatılacak.</value>
@@ -1735,10 +1735,10 @@ Dağıtıma devam edilsin mi?</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Karanlık</value>
+    <value>Koyu</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Işık</value>
+    <value>Açık</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>

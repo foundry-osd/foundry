@@ -19,7 +19,7 @@
     <value>このソフトウェアは現状のまま提供されます。使用する前に展開設定を確認してください。</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>著作権 (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
+    <value>Copyright (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
 MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -583,7 +583,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ディスク消去の確認</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_概要</value>
+    <value>_バージョン情報</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_デバッグ</value>
@@ -1735,7 +1735,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>暗い</value>
+    <value>ダーク</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
     <value>ライト</value>

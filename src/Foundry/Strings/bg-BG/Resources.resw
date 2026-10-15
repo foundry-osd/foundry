@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>За</value>
+    <value>Относно</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Създаден и поддържан от Mickaël CHAVE.</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD е модерно приложение за създаване на носители за внедряване на Windows, захранвани от WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Авторско право (c) 2026 Mickaël CHAVE и сътрудниците на Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE и сътрудниците на Foundry Project.
 Лицензирано съгласно лиценза на MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -410,7 +410,7 @@
     <value>Запазете Autopilot сертификат PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Отпечатък от палец</value>
+    <value>Отпечатък</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Не се предоставят сертификати.</value>
@@ -614,7 +614,7 @@
     <value>Отказ</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>ясно</value>
+    <value>Изчисти</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Изберете кои профили на наематели да бъдат импортирани в Foundry.</value>
@@ -665,7 +665,7 @@
     <value>Отказ</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>затвори</value>
+    <value>Затвори</value>
   </data>
   <data name="Common.Disable" xml:space="preserve">
     <value>Изключване</value>
@@ -890,7 +890,7 @@
     <value>Пакети</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>По поръчка</value>
+    <value>Потребителски</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>Изберете една или повече каталожни категории, за да изберете предварително пакети.</value>
@@ -2177,7 +2177,7 @@
     <value>Изисква ADK</value>
   </data>
   <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
-    <value>По избор</value>
+    <value>Потребителски</value>
   </data>
   <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
     <value>Няма</value>
@@ -2348,7 +2348,7 @@
     <value>Информация за продукта и версията.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>За</value>
+    <value>Относно</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK готовност и монтаж.</value>
@@ -2435,7 +2435,7 @@
     <value>Конфигурирайте имената на внедрените устройства.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Именуване на машината</value>
+    <value>Именуване на компютри</value>
   </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>мрежа</value>
@@ -2456,7 +2456,7 @@
     <value>Ограничете възможностите за избор на операционна система при разполагане.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Избор на OS</value>
+    <value>Избор на ОС</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
     <value>Изпълнявайте персонализирани действия преди OOBE, след вградените задачи на Foundry.</value>
@@ -3346,13 +3346,13 @@
     <value>Мрежовата конфигурация не е готова.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Не е избрана цел USB.</value>
+    <value>Не е избран USB диск.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Необходимите медийни тайни не са готови.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Избраната цел USB е твърде малка. Използвайте ключ USB с поне 16 GB.</value>
+    <value>Избраният USB диск е твърде малък. Използвайте USB диск с капацитет поне 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Избраният WinPE език за стартиране не е наличен за избраната архитектура.</value>
@@ -3364,7 +3364,7 @@
     <value>WinRE Wi-Fi изображение</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>б</value>
+    <value>Б</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3397,7 +3397,7 @@
     <value>Форматирайте и създайте USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Форматирайте целта USB</value>
+    <value>Форматиране на USB диска</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows не може да чете томовете на този диск. Той все още може да съдържа данни.</value>
@@ -3412,7 +3412,7 @@
     <value>Томове на този диск:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Всичко на този диск ще бъде загубено. Продължете само ако това е желаният USB диск.</value>
+    <value>Всички данни на този диск ще бъдат загубени. Продължете само ако това е желаният USB диск.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Създаване на USB</value>
@@ -3484,7 +3484,7 @@
     <value>Режим на подпис</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB цел</value>
+    <value>Целеви USB диск</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE език за стартиране</value>
@@ -3502,10 +3502,10 @@
     <value>Създаването на мултимедия е достъпно, когато всички проверки за готовност преминат.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Пълен формат</value>
+    <value>Пълно форматиране</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Бърз формат</value>
+    <value>Бързо форматиране</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Изберете къде ще бъде записан генерираният Foundry ISO.</value>
@@ -3828,7 +3828,7 @@
     <value>Актуализиране на USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB целите могат да бъдат опреснявани след завършване на ADK готовността.</value>
+    <value>Списъкът с USB дискове може да бъде обновен след завършване на проверките за готовност на ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB намерени устройства: {0}</value>
@@ -3837,22 +3837,22 @@
     <value>Диск {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Сканиране на USB цели.</value>
+    <value>Търсене на USB дискове…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Не са намерени USB устройства.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>Опресняването на целта USB не бе успешно.</value>
+    <value>Неуспешно обновяване на списъка с USB дискове.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Поведение на форматиране, използвано преди копиране на крайния USB носител.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Схема на разделяне, използвана при подготовката на избраната цел USB.</value>
+    <value>Схема на дяловете, използвана при подготовката на избрания USB диск.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB цел</value>
+    <value>Целеви USB диск</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Език, използван от среда за стартиране на WinPE.</value>
@@ -3870,7 +3870,7 @@
     <value>Започнете</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Отворете</value>
+    <value>Отвори</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Отворете цветовите настройки Windows, за да промените цвета на акцента.</value>
@@ -3891,13 +3891,13 @@
     <value>Тема на приложението</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Тъмно</value>
+    <value>Тъмен</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
-    <value>система</value>
+    <value>Системен</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>светлина</value>
+    <value>Светъл</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Изберете фоновия материал, използван зад приложението.</value>
@@ -4143,7 +4143,7 @@
     <value>Тип сигурност</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Отворете</value>
+    <value>Отворена</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (опортюнистично безжично криптиране)</value>

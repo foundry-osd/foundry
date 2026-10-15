@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>Oko</value>
+    <value>O aplikaciji</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Kreirao i održava Mickaël CHAVE.</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD je moderna aplikacija za izradu Windows medija za implementaciju koju pokreće WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
 Licenciran prema MIT licenci.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -614,13 +614,13 @@ Licenciran prema MIT licenci.</value>
     <value>Otkazati</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Jasan</value>
+    <value>Očisti</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Odaberite koje profile stanara treba uvesti u Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>Uvoz</value>
+    <value>Uvezi</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
     <value>Odaberite sve</value>
@@ -665,7 +665,7 @@ Licenciran prema MIT licenci.</value>
     <value>Otkazati</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Zatvoriti</value>
+    <value>Zatvori</value>
   </data>
   <data name="Common.Disable" xml:space="preserve">
     <value>Onemogući</value>
@@ -890,7 +890,7 @@ Licenciran prema MIT licenci.</value>
     <value>Paketi</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>Običaj</value>
+    <value>Prilagođeno</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>Odaberite jednu ili više kategorija kataloga za predodabir paketa.</value>
@@ -2348,7 +2348,7 @@ Licenciran prema MIT licenci.</value>
     <value>Informacije o proizvodu i verziji.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>Oko</value>
+    <value>O aplikaciji</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK spremnost i montaža.</value>
@@ -2420,10 +2420,10 @@ Licenciran prema MIT licenci.</value>
     <value>Općenito</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD kući</value>
+    <value>Polazna stranica aplikacije Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Dom</value>
+    <value>Polazno</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Zatražite od tehničara vjerodajnice domene tijekom implementacije.</value>
@@ -2450,7 +2450,7 @@ Licenciran prema MIT licenci.</value>
     <value>Omogućite ili onemogućite izborne značajke sustava Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Neobavezne značajke</value>
+    <value>Izborne značajke</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Ograničite mogućnosti odabira operativnog sustava za implementaciju.</value>
@@ -3193,7 +3193,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Username</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
-    <value>postavke</value>
+    <value>Postavke</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
     <value>Upravljajte pokretanjem, jezikom, dijagnostikom i ponašanjem aplikacije.</value>
@@ -3346,13 +3346,13 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Konfiguracija mreže nije spremna.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nije odabran cilj USB.</value>
+    <value>Nije odabran nijedan USB pogon.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Potrebne medijske tajne nisu spremne.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Odabrani cilj USB je premali. Koristite tipku USB od najmanje 16 GB.</value>
+    <value>Odabrani USB pogon je premalen. Koristite USB pogon od najmanje 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Odabrani WinPE jezik pokretanja nije dostupan za odabranu arhitekturu.</value>
@@ -3397,7 +3397,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Formatiraj i stvori USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatiraj cilj USB</value>
+    <value>Formatiraj USB pogon</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ne može pročitati volumene na ovom disku. Na njemu i dalje mogu biti podaci.</value>
@@ -3412,7 +3412,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Volumeni na ovom disku:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Sve na ovom disku bit će izgubljeno. Nastavite samo ako je ovo željeni USB disk.</value>
+    <value>Sve na ovom disku bit će izgubljeno. Nastavite samo ako je ovo željeni USB pogon.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Stvori USB</value>
@@ -3484,7 +3484,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Način potpisa</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB meta</value>
+    <value>Ciljni USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE jezik pokretanja</value>
@@ -3502,10 +3502,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Izrada medija dostupna je kada prođu sve provjere spremnosti.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Puni format</value>
+    <value>Potpuno formatiranje</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Brzi format</value>
+    <value>Brzo formatiranje</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Odaberite gdje će biti zapisan generirani Foundry ISO.</value>
@@ -3772,7 +3772,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Pregledajte spremnost, odaberite ISO ili USB izlaz i pokrenite stvaranje medija.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Pregled</value>
+    <value>Pregledaj</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Spreman</value>
@@ -3828,7 +3828,7 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Ažuriraj USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB mete se mogu osvježiti nakon završetka ADK spremnosti.</value>
+    <value>USB pogoni mogu se osvježiti nakon dovršetka provjera spremnosti ADK-a.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB diskovi pronađeni: {0}</value>
@@ -3837,22 +3837,22 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Skeniranje USB ciljeva.</value>
+    <value>Traženje USB pogona…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nije pronađen nijedan USB pogon.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB ciljno osvježavanje nije uspjelo.</value>
+    <value>Osvježavanje USB pogona nije uspjelo.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Ponašanje formata korišteno prije kopiranja konačnog USB medija.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Shema dijeljenja koja se koristi prilikom pripreme odabranog USB cilja.</value>
+    <value>Shema particija koja se koristi pri pripremi odabranog USB pogona.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB meta</value>
+    <value>Ciljni USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Jezik koji koristi okruženje za pokretanje WinPE.</value>
@@ -3870,7 +3870,7 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Start</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Otvoriti</value>
+    <value>Otvori</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Otvorite Windows postavke boja za promjenu boje naglaska.</value>
@@ -3891,13 +3891,13 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Tema aplikacije</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>tamno</value>
+    <value>Tamno</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
-    <value>sustav</value>
+    <value>Sustav</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Svjetlo</value>
+    <value>Svijetlo</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Odaberite materijal pozadine koji se koristi iza aplikacije.</value>
@@ -4143,7 +4143,7 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Vrsta sigurnosti</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Otvoriti</value>
+    <value>Otvoreno</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (oportunistička bežična enkripcija)</value>
