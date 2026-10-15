@@ -125,7 +125,10 @@
     <value>Η εγκατάσταση του Windows ADK απέτυχε</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Εγκατάσταση Windows ADK</value>
+    <value>Προετοιμασία της εγκατάστασης…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Εγκατάσταση του Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Εγκατάσταση Windows ADK Εργαλεία ανάπτυξης</value>
@@ -3246,6 +3249,12 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Ενημέρωση εφαρμογής</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Διακοπή λειτουργίας</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Επιλέξτε «Διακοπή λειτουργίας» για επιβεβαίωση. Ένα βήμα που εκτελείται στον δίσκο ή στην εικόνα ολοκληρώνεται πρώτα.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Χρόνος που πέρασε: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Η επιλεγμένη γλώσσα εκκίνησης WinPE δεν είναι διαθέσιμη για την επιλεγμένη αρχιτεκτονική.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Τυπικό WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi εικόνα</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>Β</value>
@@ -3523,7 +3526,7 @@
     <value>{0} από {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Η δημιουργία μέσου ακυρώθηκε. Τα προσωρινά αρχεία καταργήθηκαν.</value>
+    <value>Η δημιουργία μέσου ακυρώθηκε.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Έλεγχος ότι η μονάδα USB μπορεί να διαγραφεί με ασφάλεια…</value>
@@ -3839,9 +3842,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Στοιχεία που χρειάζονται προσοχή:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Δημιουργία ούτως ή άλλως</value>

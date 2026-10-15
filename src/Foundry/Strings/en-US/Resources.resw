@@ -125,6 +125,9 @@ Licensed under the MIT License.</value>
     <value>Windows ADK installation failed</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Preparing the installation…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Installing Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -3246,6 +3249,12 @@ Passwords and access keys included: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Update app</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Stop operation</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Select Stop operation to confirm. A disk or image step that is running finishes first.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Elapsed time: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Selected WinPE boot language is not available for the selected architecture.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi image</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Passwords and access keys included: {2}</value>
     <value>{0} of {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Media creation was canceled. Temporary files were removed.</value>
+    <value>Media creation was canceled.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Making sure the USB drive is safe to erase…</value>
@@ -3839,9 +3842,6 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Items needing attention:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Create anyway</value>

@@ -125,7 +125,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Windows ADK 설치 실패</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Windows ADK 설치</value>
+    <value>설치 준비 중…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Windows ADK 설치 중</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Windows ADK 배포 도구 설치</value>
@@ -3246,6 +3249,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>앱 업데이트</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>작업 중지</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>확인하려면 [작업 중지]를 선택하세요. 실행 중인 디스크 또는 이미지 단계가 먼저 완료됩니다.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>경과 시간: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>선택한 WinPE 부팅 언어는 선택한 아키텍처에 사용할 수 없습니다.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>표준 WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi 이미지</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>비</value>
@@ -3523,7 +3526,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>{0}/{1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>미디어 만들기가 취소되었습니다. 임시 파일이 제거되었습니다.</value>
+    <value>미디어 만들기가 취소되었습니다.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>USB 드라이브를 안전하게 지울 수 있는지 확인하는 중…</value>
@@ -3839,9 +3842,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>주의가 필요한 항목:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>계속 만들기</value>

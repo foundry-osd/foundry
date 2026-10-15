@@ -125,6 +125,9 @@ Lisensiert under MIT-lisensen.</value>
     <value>Installasjonen av Windows ADK mislyktes</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Forbereder installasjonen…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Installerer Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -3246,6 +3249,12 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Oppdater appen</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Stopp operasjonen</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Velg Stopp operasjonen for å bekrefte. Et pågående trinn på disken eller diskavbildningen fullføres først.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Medgått tid: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Valgt WinPE oppstartsspråk er ikke tilgjengelig for den valgte arkitekturen.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi bilde</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>{0} av {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Medieopprettingen ble avbrutt. Midlertidige filer ble fjernet.</value>
+    <value>Medieopprettingen ble avbrutt.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrollerer at USB-stasjonen trygt kan slettes…</value>
@@ -3839,9 +3842,6 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Elementer som trenger oppmerksomhet:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Opprett likevel</value>

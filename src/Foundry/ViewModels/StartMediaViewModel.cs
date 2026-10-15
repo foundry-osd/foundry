@@ -66,6 +66,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private IReadOnlyList<string> availableWinPeLanguages = [];
     private bool isLoadingConfiguration = true;
     private MediaCreationProgressPlan? progressPlan;
+    private int lastFinalMediaPercent = -1;
     private string? lastCustomizationLogStatus;
     private int lastCustomizationLogBucket = -1;
     private string? lastDownloadLogStatus;
@@ -592,6 +593,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         CancellationToken cancellationToken = operationCancellation.Token;
         ResetProgressLogSampling();
         progressPlan = MediaCreationProgressPlan.For(ToMediaCreationKind(target));
+        lastFinalMediaPercent = -1;
         RefreshEvaluation();
         // Final media operations can format disks or overwrite ISO output, so the shell remains locked until completion.
         shellNavigationGuardService.SetState(ShellNavigationState.InteractionPending);
@@ -942,11 +944,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private string BuildCancelledMessage(FinalMediaTarget target)
     {
         string message = localizationService.GetString("StartMedia.Operation.CancelledMessage");
-        bool usbWasModified = target != FinalMediaTarget.Iso
-            && progressPlan?.Current.Phase is MediaCreationPhase.FormattingUsbDrive
-                or MediaCreationPhase.CopyingToUsbDrive
-                or MediaCreationPhase.UpdatingUsbDrive
-                or MediaCreationPhase.Finishing;
+        // USB creation partitions the disk from 20%; an update writes the cache partition from 22%.
+        bool usbWasModified = target switch
+        {
+            FinalMediaTarget.Usb => lastFinalMediaPercent >= 20,
+            FinalMediaTarget.UsbUpdate => lastFinalMediaPercent >= 22,
+            _ => false
+        };
         return usbWasModified
             ? message + Environment.NewLine + Environment.NewLine + localizationService.GetString("StartMedia.Operation.UsbMayBeIncomplete")
             : message;
@@ -1132,6 +1136,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 cancellationToken);
 
             EnsureSuccess(result);
+            ReportPhase(MediaCreationPhase.Finishing, 0, localizationService.GetString("StartMedia.Operation.RemovingTemporaryFiles"));
             cancellationToken.ThrowIfCancellationRequested();
             logger.Debug("ISO media service completed. OutputIsoPath={OutputIsoPath}", options.IsoOutputPath);
             return options.IsoOutputPath;
@@ -1245,6 +1250,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 cancellationToken);
 
             EnsureSuccess(result);
+            ReportPhase(MediaCreationPhase.Finishing, 0, localizationService.GetString("StartMedia.Operation.RemovingTemporaryFiles"));
             logger.Debug(
                 "USB media service completed. DiskNumber={DiskNumber}, BootVolume={BootVolume}, CacheVolume={CacheVolume}",
                 selectedDisk.DiskNumber,
@@ -1315,6 +1321,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 cancellationToken);
 
             EnsureSuccess(result);
+            ReportPhase(MediaCreationPhase.Finishing, 0, localizationService.GetString("StartMedia.Operation.RemovingTemporaryFiles"));
             logger.Debug(
                 "USB boot partition update service completed. DiskNumber={DiskNumber}, BootVolume={BootVolume}, CacheVolume={CacheVolume}",
                 selectedDisk.DiskNumber,
@@ -1676,6 +1683,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
+        lastFinalMediaPercent = Math.Max(lastFinalMediaPercent, progress.Percent);
         MediaCreationProgress overall = progressPlan.ReportFinalMedia(progress.Percent);
         ReportProgress(overall, LocalizeFinalMediaStatus(progress.Status), null);
 

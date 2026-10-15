@@ -125,7 +125,10 @@
     <value>Windows ADK 安装失败</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>安装Windows ADK</value>
+    <value>正在准备安装…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>正在安装 Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>安装Windows ADK 部署工具</value>
@@ -3246,6 +3249,12 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新应用程序</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>停止操作</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>选择“停止操作”以确认。正在运行的磁盘或映像步骤会先完成。</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>已用时间：{0}</value>
   </data>
@@ -3368,12 +3377,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>所选 WinPE 引导语言不可用于所选架构。</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>标准WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi 图像</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>乙</value>
@@ -3523,7 +3526,7 @@
     <value>{0}/{1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>介质创建已取消。临时文件已删除。</value>
+    <value>介质创建已取消。</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>正在确认可以安全擦除 USB 驱动器…</value>
@@ -3839,9 +3842,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>需要注意的事项：</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>仍然创建</value>

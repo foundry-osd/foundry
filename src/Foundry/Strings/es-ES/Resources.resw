@@ -125,6 +125,9 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Error en la instalación de Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Preparando la instalación…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Instalando Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -3246,6 +3249,12 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizar aplicación</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Detener operación</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Selecciona Detener operación para confirmar. Primero finaliza el paso en curso con el disco o la imagen.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Tiempo transcurrido: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>El idioma de inicio WinPE seleccionado no está disponible para la arquitectura seleccionada.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Estándar WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi imagen</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>{0} de {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Se ha cancelado la creación del medio. Se han quitado los archivos temporales.</value>
+    <value>Se ha cancelado la creación del medio.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Comprobando que la unidad USB se puede borrar de forma segura…</value>
@@ -3839,9 +3842,6 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Artículos que necesitan atención:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Crear de todos modos</value>

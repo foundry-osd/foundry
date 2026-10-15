@@ -125,7 +125,10 @@ Licenciran prema MIT licenci.</value>
     <value>Instalacija Windows ADK-a nije uspjela</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Instaliranje Windows ADK</value>
+    <value>Priprema instalacije…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Instaliranje Windows ADK-a</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Instaliranje Windows ADK alata za implementaciju</value>
@@ -3246,6 +3249,12 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Ažurirajte aplikaciju</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Zaustavi operaciju</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Odaberite „Zaustavi operaciju” da biste potvrdili. Korak na disku ili slici koji je u tijeku najprije se dovršava.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Proteklo vrijeme: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Odabrani WinPE jezik pokretanja nije dostupan za odabranu arhitekturu.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standardno WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi slika</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>{0} od {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Stvaranje medija je otkazano. Privremene datoteke su uklonjene.</value>
+    <value>Stvaranje medija je otkazano.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Provjera može li se USB disk sigurno izbrisati…</value>
@@ -3839,9 +3842,6 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Predmeti kojima je potrebna pažnja:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Svejedno izradi</value>

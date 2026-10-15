@@ -125,7 +125,10 @@ Licenc az MIT licenc alatt.</value>
     <value>A Windows ADK telepítése sikertelen</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Windows ADK telepítése</value>
+    <value>A telepítés előkészítése…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>A Windows ADK telepítése</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>A Windows ADK Telepítési eszközök telepítése</value>
@@ -3246,6 +3249,12 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Frissítse az alkalmazást</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Művelet leállítása</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>A megerősítéshez válassza a „Művelet leállítása” lehetőséget. A lemezen vagy lemezképen éppen futó lépés előbb befejeződik.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Eltelt idő: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>A kiválasztott WinPE rendszerindítási nyelv nem érhető el a kiválasztott architektúrához.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Normál WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi kép</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>{0} / {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Az adathordozó létrehozása megszakadt. Az ideiglenes fájlok eltávolítva.</value>
+    <value>Az adathordozó létrehozása megszakadt.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Annak ellenőrzése, hogy az USB-meghajtó biztonságosan törölhető-e…</value>
@@ -3839,9 +3842,6 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Figyelmet igénylő elemek:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Létrehozás mindenképpen</value>

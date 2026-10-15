@@ -125,7 +125,10 @@ Licențiat sub licența MIT.</value>
     <value>Instalarea Windows ADK a eșuat</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Instalarea Windows ADK</value>
+    <value>Se pregătește instalarea…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Se instalează Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Instalarea Windows ADK Instrumente de implementare</value>
@@ -3246,6 +3249,12 @@ Parole și chei de acces incluse: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizați aplicația</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Oprește operația</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Selectați „Oprește operația” pentru a confirma. Un pas în desfășurare pe disc sau pe imagine se încheie mai întâi.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Timp scurs: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Limba de pornire WinPE selectată nu este disponibilă pentru arhitectura selectată.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi imagine</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>{0} din {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Crearea suportului a fost anulată. Fișierele temporare au fost eliminate.</value>
+    <value>Crearea suportului a fost anulată.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Se verifică dacă unitatea USB poate fi ștearsă în siguranță…</value>
@@ -3839,9 +3842,6 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Elemente care necesită atenție:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Creați oricum</value>

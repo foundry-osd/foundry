@@ -634,7 +634,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                  $bootDriveLetter = '{{normalizedBootDriveLetter}}'
                  $fullFormat = {{fullFormatValue}}
 
-                 Write-FoundryUsbProgress 35 'Formatting BOOT partition.'
+                 Write-FoundryUsbProgress 35 '{{WinPeProgressStatuses.FormattingUsbBootPartition}}'
                  {{CreateUsbDiskGuard(expectedIdentity)}}
                  $bootPartition = Get-Partition -Disk $foundryConfirmedDisk -ErrorAction Stop |
                      Where-Object { $_.DriveLetter -eq $bootDriveLetter } |

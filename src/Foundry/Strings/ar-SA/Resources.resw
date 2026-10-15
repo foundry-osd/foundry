@@ -125,7 +125,10 @@
     <value>فشل تثبيت Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>تثبيت Windows ADK</value>
+    <value>جارٍ تحضير التثبيت…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>جارٍ تثبيت Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>تثبيت Windows ADK أدوات النشر</value>
@@ -3246,6 +3249,12 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>تحديث التطبيق</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>إيقاف العملية</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>حدد "إيقاف العملية" للتأكيد. تكتمل أولاً خطوة القرص أو الصورة قيد التشغيل.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>الوقت المنقضي: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>لغة التمهيد WinPE المحددة غير متوفرة للبنية المحددة.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>قياسي WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>صورة WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>ب</value>
@@ -3523,7 +3526,7 @@
     <value>{0} من {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>تم إلغاء إنشاء الوسائط. تمت إزالة الملفات المؤقتة.</value>
+    <value>تم إلغاء إنشاء الوسائط.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>جارٍ التأكد من أن مسح قرص USB آمن…</value>
@@ -3839,9 +3842,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>العناصر التي تحتاج إلى الاهتمام:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>إنشاء على أي حال</value>

@@ -125,6 +125,9 @@ Licensierad under MIT-licensen.</value>
     <value>Installationen av Windows ADK misslyckades</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Förbereder installationen…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Installerar Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -3246,6 +3249,12 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Uppdatera appen</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Stoppa åtgärden</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Välj Stoppa åtgärden för att bekräfta. Ett pågående steg på disken eller avbildningen slutförs först.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Förfluten tid: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Valt WinPE startspråk är inte tillgängligt för den valda arkitekturen.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi bild</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>{0} av {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Skapandet av media avbröts. Tillfälliga filer har tagits bort.</value>
+    <value>Skapandet av media avbröts.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrollerar att USB-enheten kan raderas på ett säkert sätt…</value>
@@ -3839,9 +3842,6 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Föremål som behöver uppmärksamhet:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Skapa ändå</value>

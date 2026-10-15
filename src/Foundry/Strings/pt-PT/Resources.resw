@@ -125,7 +125,10 @@ Licenciado sob a licença MIT.</value>
     <value>Falha na instalação do Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Instalando Windows ADK</value>
+    <value>A preparar a instalação…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>A instalar o Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Instalando Windows ADK Ferramentas de implantação</value>
@@ -3246,6 +3249,12 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atualizar aplicativo</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Parar operação</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Selecione Parar operação para confirmar. Um passo em curso no disco ou na imagem termina primeiro.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Tempo decorrido: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>O idioma de inicialização WinPE selecionado não está disponível para a arquitetura selecionada.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Padrão WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi imagem</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>{0} de {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>A criação do suporte foi cancelada. Os ficheiros temporários foram removidos.</value>
+    <value>A criação do suporte foi cancelada.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>A verificar se a unidade USB pode ser apagada em segurança…</value>
@@ -3839,9 +3842,6 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Itens que precisam de atenção:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Criar mesmo assim</value>

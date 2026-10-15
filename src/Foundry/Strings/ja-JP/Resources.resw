@@ -125,7 +125,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Windows ADK のインストールに失敗しました</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>インストール中 Windows ADK</value>
+    <value>インストールを準備しています…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Windows ADK をインストールしています</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Windows ADK 導入ツールのインストール</value>
@@ -3246,6 +3249,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>アプリを更新する</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>操作を停止</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>確認するには [操作を停止] を選択してください。実行中のディスクまたはイメージの手順が先に完了します。</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>経過時間: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>選択された WinPE ブート言語は、選択されたアーキテクチャでは使用できません。</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>標準 WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi 画像</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>{0} / {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>メディアの作成はキャンセルされました。一時ファイルは削除されました。</value>
+    <value>メディアの作成はキャンセルされました。</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>USB ドライブを安全に消去できることを確認しています…</value>
@@ -3839,9 +3842,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>注意が必要な項目:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>このまま作成</value>

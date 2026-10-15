@@ -125,6 +125,9 @@
     <value>การติดตั้ง Windows ADK ล้มเหลว</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>กำลังเตรียมการติดตั้ง…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>กำลังติดตั้ง Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -3246,6 +3249,12 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>อัปเดตแอป</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>หยุดการดำเนินการ</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>เลือก "หยุดการดำเนินการ" เพื่อยืนยัน ขั้นตอนของดิสก์หรืออิมเมจที่กำลังทำงานอยู่จะเสร็จสิ้นก่อน</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>เวลาที่ผ่านไป: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>ภาษาสำหรับบูต WinPE ที่เลือกไม่พร้อมใช้งานสำหรับสถาปัตยกรรมที่เลือก</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>มาตรฐาน WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>รูปภาพ WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>บี</value>
@@ -3523,7 +3526,7 @@
     <value>{0} จาก {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>ยกเลิกการสร้างสื่อแล้ว และลบไฟล์ชั่วคราวแล้ว</value>
+    <value>ยกเลิกการสร้างสื่อแล้ว</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>กำลังตรวจสอบว่าสามารถลบข้อมูลในไดรฟ์ USB ได้อย่างปลอดภัย…</value>
@@ -3839,9 +3842,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>รายการที่ต้องให้ความสนใจ:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>สร้างต่อไป</value>

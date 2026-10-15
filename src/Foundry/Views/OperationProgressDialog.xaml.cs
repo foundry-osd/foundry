@@ -21,6 +21,9 @@ public sealed partial class OperationProgressDialog : ContentDialog
     private readonly IOperationProgressService operationProgressService;
     private readonly IApplicationLocalizationService localizationService;
     private readonly DispatcherQueueTimer elapsedTimer;
+    private static readonly TimeSpan CancelConfirmationWindow = TimeSpan.FromSeconds(10);
+    private DateTimeOffset? cancelRequestedAt;
+    private bool isDetached;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OperationProgressDialog"/> class.
@@ -40,6 +43,11 @@ public sealed partial class OperationProgressDialog : ContentDialog
         Apply(operationProgressService.State);
         elapsedTimer.Start();
     }
+
+    /// <summary>
+    /// Gets the warning shown while the user confirms a cancellation.
+    /// </summary>
+    public string ConfirmStopHint => localizationService.GetString("Shell.Operation.ConfirmStopHint");
 
     private bool IsFinished => operationProgressService.State is { IsFinished: true } or { IsRunning: false };
 
@@ -84,9 +92,9 @@ public sealed partial class OperationProgressDialog : ContentDialog
     {
         (string? glyph, string brushKey) = outcome switch
         {
-            OperationOutcome.Success => ("", "SystemFillColorSuccessBrush"),
-            OperationOutcome.Error => ("", "SystemFillColorCriticalBrush"),
-            OperationOutcome.Cancelled => ("", "TextFillColorSecondaryBrush"),
+            OperationOutcome.Success => ("\uE73E", "SystemFillColorSuccessBrush"),
+            OperationOutcome.Error => ("\uEA39", "SystemFillColorCriticalBrush"),
+            OperationOutcome.Cancelled => ("\uE946", "TextFillColorSecondaryBrush"),
             _ => ((string?)null, string.Empty)
         };
 
@@ -108,14 +116,26 @@ public sealed partial class OperationProgressDialog : ContentDialog
             return;
         }
 
-        // While running, Enter must not cancel a long operation, so no button is the default.
+        // While running, Enter must not cancel a long operation, so no button is the default. Cancel needs a second
+        // selection, so a single Escape key press cannot stop a long disk or image step.
+        bool isConfirmingCancel = state.CanCancel && cancelRequestedAt is not null;
         PrimaryButtonText = string.Empty;
-        CloseButtonText = state.CanCancel ? localizationService.GetString("Common.Cancel") : string.Empty;
+        CloseButtonText = !state.CanCancel
+            ? string.Empty
+            : localizationService.GetString(isConfirmingCancel ? "Shell.Operation.ConfirmStop" : "Common.Cancel");
         DefaultButton = ContentDialogButton.None;
+        CancelConfirmationText.Visibility = isConfirmingCancel ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private void OnElapsedTimerTick(DispatcherQueueTimer sender, object args)
     {
+        if (cancelRequestedAt is DateTimeOffset requestedAt && DateTimeOffset.Now - requestedAt > CancelConfirmationWindow)
+        {
+            cancelRequestedAt = null;
+            Apply(operationProgressService.State);
+            return;
+        }
+
         UpdateElapsedText(operationProgressService.State, IsFinished);
     }
 
@@ -152,6 +172,14 @@ public sealed partial class OperationProgressDialog : ContentDialog
         }
 
         args.Cancel = true;
+        if (cancelRequestedAt is null)
+        {
+            cancelRequestedAt = DateTimeOffset.Now;
+            Apply(operationProgressService.State);
+            return;
+        }
+
+        cancelRequestedAt = null;
         operationProgressService.RequestCancellation();
     }
 
@@ -171,6 +199,20 @@ public sealed partial class OperationProgressDialog : ContentDialog
 
     private void OnClosed(ContentDialog sender, ContentDialogClosedEventArgs args)
     {
+        Detach();
+    }
+
+    /// <summary>
+    /// Stops following the operation. Safe to call more than once, including when the dialog never opened.
+    /// </summary>
+    public void Detach()
+    {
+        if (isDetached)
+        {
+            return;
+        }
+
+        isDetached = true;
         elapsedTimer.Stop();
         elapsedTimer.Tick -= OnElapsedTimerTick;
         operationProgressService.StateChanged -= OnStateChanged;

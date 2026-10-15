@@ -125,7 +125,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Windows ADK installimine nurjus</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Installimine Windows ADK</value>
+    <value>Installimise ettevalmistamine…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Windows ADK installimine</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Windows ADK juurutustööriistade installimine</value>
@@ -3246,6 +3249,12 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Värskendage rakendust</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Peata toiming</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Kinnitamiseks valige „Peata toiming“. Käimasolev ketta või tõmmise etapp viiakse esmalt lõpule.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Kulunud aeg: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Valitud WinPE alglaadimiskeel pole valitud arhitektuuri jaoks saadaval.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standardne WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi pilt</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>{0} / {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Meediumi loomine tühistati. Ajutised failid eemaldati.</value>
+    <value>Meediumi loomine tühistati.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrollimine, kas USB-ketast saab ohutult kustutada…</value>
@@ -3839,9 +3842,6 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Tähelepanu vajavad esemed:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Loo ikkagi</value>

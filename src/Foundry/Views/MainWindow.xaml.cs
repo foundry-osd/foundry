@@ -278,6 +278,7 @@ namespace Foundry.Views
             }
             finally
             {
+                dialog.Detach();
                 if (ReferenceEquals(operationDialog, dialog))
                 {
                     operationDialog = null;

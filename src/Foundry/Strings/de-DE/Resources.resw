@@ -125,7 +125,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Installation von Windows ADK fehlgeschlagen</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Installieren von Windows ADK</value>
+    <value>Installation wird vorbereitet…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Windows ADK wird installiert</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Installieren von Windows ADK Bereitstellungstools</value>
@@ -3246,6 +3249,12 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>App aktualisieren</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Vorgang beenden</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Wählen Sie „Vorgang beenden“ aus, um zu bestätigen. Ein laufender Datenträger- oder Abbildschritt wird zuerst abgeschlossen.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Verstrichene Zeit: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Die ausgewählte WinPE Boot-Sprache ist für die ausgewählte Architektur nicht verfügbar.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi Bild</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>{0} von {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Die Medienerstellung wurde abgebrochen. Temporäre Dateien wurden entfernt.</value>
+    <value>Die Medienerstellung wurde abgebrochen.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Es wird geprüft, ob das USB-Laufwerk sicher gelöscht werden kann…</value>
@@ -3839,9 +3842,6 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Punkte, die Aufmerksamkeit erfordern:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Trotzdem erstellen</value>

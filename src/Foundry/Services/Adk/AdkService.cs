@@ -343,7 +343,7 @@ internal sealed class AdkService(
     {
         return operationKind == OperationKind.AdkUpgrade
             ? localizationService.GetString("Adk.Operation.UpgradeTitle")
-            : localizationService.GetString("Adk.Operation.InstallStarted");
+            : localizationService.GetString("Adk.Operation.InstallTitle");
     }
 
     private string GetOperationStartText(OperationKind operationKind)

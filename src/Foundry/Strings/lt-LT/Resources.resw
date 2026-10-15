@@ -125,7 +125,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepavyko įdiegti Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Diegimas Windows ADK</value>
+    <value>Ruošiamas diegimas…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Diegiamas Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Diegiami Windows ADK Diegimo įrankiai</value>
@@ -3246,6 +3249,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atnaujinti programą</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Stabdyti operaciją</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Norėdami patvirtinti, pasirinkite „Stabdyti operaciją“. Pirmiausia bus baigtas vykdomas disko arba atvaizdo veiksmas.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Praėjęs laikas: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Pasirinkta WinPE įkrovos kalba nepasiekiama pasirinktai architektūrai.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standartinis WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi vaizdas</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>{0} iš {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Laikmenos kūrimas atšauktas. Laikinieji failai pašalinti.</value>
+    <value>Laikmenos kūrimas atšauktas.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Tikrinama, ar USB diską galima saugiai ištrinti…</value>
@@ -3839,9 +3842,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Daiktai, kuriems reikia dėmesio:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Vis tiek kurti</value>

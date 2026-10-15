@@ -125,6 +125,9 @@ Sous licence MIT.</value>
     <value>Échec de l’installation de Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Préparation de l’installation…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Installation de Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -3246,6 +3249,12 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Mettre à jour l'application</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Arrêter l’opération</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Sélectionnez « Arrêter l’opération » pour confirmer. Une étape en cours sur le disque ou l’image se termine d’abord.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Temps écoulé : {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Mots de passe et clés d’accès inclus : {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>La langue de démarrage WinPE sélectionnée n'est pas disponible pour l'architecture sélectionnée.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Norme WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi image</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>{0} sur {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>La création du support a été annulée. Les fichiers temporaires ont été supprimés.</value>
+    <value>La création du support a été annulée.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Vérification que la clé USB peut être effacée sans risque…</value>
@@ -3839,9 +3842,6 @@ Mots de passe et clés d’accès inclus : {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Éléments nécessitant une attention particulière:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Créer quand même</value>

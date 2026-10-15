@@ -125,6 +125,9 @@ Licencjonowany na licencji MIT.</value>
     <value>Instalacja Windows ADK nie powiodła się</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Przygotowywanie instalacji…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Instalowanie Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -3246,6 +3249,12 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Zaktualizuj aplikację</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Zatrzymaj operację</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Wybierz pozycję „Zatrzymaj operację”, aby potwierdzić. Trwający krok na dysku lub obrazie zostanie najpierw ukończony.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Czas, który upłynął: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Wybrany język rozruchowy WinPE nie jest dostępny dla wybranej architektury.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standardowy WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>Obraz WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>{0} z {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Tworzenie nośnika zostało anulowane. Pliki tymczasowe zostały usunięte.</value>
+    <value>Tworzenie nośnika zostało anulowane.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Sprawdzanie, czy dysk USB można bezpiecznie wymazać…</value>
@@ -3839,9 +3842,6 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Elementy wymagające uwagi:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Utwórz mimo to</value>

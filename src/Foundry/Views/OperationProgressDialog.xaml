@@ -66,6 +66,12 @@
                     TextAlignment="Right" />
             </Grid>
         </StackPanel>
+        <TextBlock x:Name="CancelConfirmationText"
+            Foreground="{ThemeResource SystemFillColorCautionBrush}"
+            Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+            Text="{x:Bind ConfirmStopHint}"
+            TextWrapping="Wrap"
+            Visibility="Collapsed" />
         <TextBlock x:Name="ElapsedText"
             Foreground="{ThemeResource TextFillColorTertiaryBrush}"
             Style="{ThemeResource FoundryCaptionTextBlockStyle}" />

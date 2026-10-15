@@ -125,6 +125,9 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Installatie van Windows ADK mislukt</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Installatie voorbereiden…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Windows ADK installeren</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -3246,6 +3249,12 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>App bijwerken</value>
   </data>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Bewerking stoppen</value>
+  </data>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Selecteer Bewerking stoppen om te bevestigen. Een schijf- of imagestap die wordt uitgevoerd, wordt eerst voltooid.</value>
+  </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Verstreken tijd: {0}</value>
   </data>
@@ -3368,12 +3377,6 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>De geselecteerde WinPE opstarttaal is niet beschikbaar voor de geselecteerde architectuur.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standaard WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi afbeelding</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3523,7 +3526,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>{0} van {1}</value>
   </data>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
-    <value>Het maken van media is geannuleerd. Tijdelijke bestanden zijn verwijderd.</value>
+    <value>Het maken van media is geannuleerd.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Controleren of de USB-schijf veilig kan worden gewist…</value>
@@ -3839,9 +3842,6 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Punten die aandacht behoeven:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Toch maken</value>
