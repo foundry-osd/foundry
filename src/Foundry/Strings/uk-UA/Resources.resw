@@ -77,10 +77,10 @@
     <value>Підтримка</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Ліцензії пакетів сторонніх розробників відстежуються через репозиторій проекту та маніфести залежностей.</value>
+    <value>Foundry OSD використовує наведені нижче бібліотеки та інструменти. Їхні ліцензії та сторінки проєктів указано нижче.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Залежності третіх сторін</value>
+    <value>Ліцензії сторонніх компонентів</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Про Foundry OSD</value>
@@ -221,19 +221,19 @@
     <value>Оновіть доповнення Windows ADK і Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Видаліть компоненти ШІ</value>
+    <value>Увімкнути налаштування компонентів ШІ</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Видаліть або вимкніть вибрані компоненти штучного інтелекту Windows перед OOBE.</value>
+    <value>Виберіть компоненти та функції ШІ Windows, які потрібно видалити або вимкнути.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Видалення компонента AI</value>
+    <value>Компоненти ШІ</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Видаліть підготовлені програми Windows</value>
+    <value>Увімкнути видалення пакетів AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Видаліть вибрані надані Windows програми перед OOBE.</value>
+    <value>Виберіть підготовлені програми Windows, які потрібно видалити з розгорнутих пристроїв.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Видалення пакетів AppX</value>
@@ -638,10 +638,10 @@
     <value>Інтерактивне завантаження апаратного хешу</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Створіть офлайн-профіль Autopilot у застосованому зображенні Windows.</value>
+    <value>Імпортуйте або завантажте профіль Autopilot, який вбудовується в носій розгортання.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>надання профілю JSON</value>
+    <value>Профіль JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Налаштуйте автоматичне завантаження апаратного хешу з підтримкою орендаря.</value>
@@ -2051,10 +2051,10 @@
     <value>Виберіть сертифікат 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Налаштувати дротовий 802.1X</value>
+    <value>Увімкнути налаштування Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Стандартне підключення Ethernet доступне за замовчуванням. Налаштуйте цей розділ, лише якщо ваша дротова мережа потребує корпоративної автентифікації 802.1X.</value>
+    <value>Налаштуйте дротову автентифікацію 802.1X і роумінг профілів Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@
     <value>Перемістити компонент угору</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Увімкнути правила іменування машин</value>
+    <value>Увімкнути налаштування іменування комп’ютерів</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Налаштуйте автоматичне та кероване техніком найменування пристроїв.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Ім'я комп'ютера</value>
+    <value>Іменування комп’ютерів</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Попередній перегляд</value>
@@ -2357,13 +2357,13 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Видаліть або вимкніть вибрані компоненти штучного інтелекту Windows перед OOBE.</value>
+    <value>Видаліть або вимкніть компоненти ШІ Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>Компоненти ШІ</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Видаліть вибрані надані Windows програми перед OOBE.</value>
+    <value>Виберіть підготовлені програми для видалення.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Видалення пакетів AppX</value>
@@ -2405,7 +2405,7 @@
     <value>Приєднання до домену</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Стандартне підключення Ethernet доступне за замовчуванням. Налаштуйте цей розділ, лише якщо ваша дротова мережа потребує корпоративної автентифікації 802.1X.</value>
+    <value>Налаштуйте дротову автентифікацію 802.1X.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@
     <value>Мережа</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Налаштуйте Windows 11 екранів першого запуску та параметри конфіденційності за замовчуванням.</value>
+    <value>Налаштуйте екрани першого запуску Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Увімкніть або вимкніть компоненти Windows у розгорнутій операційній системі.</value>
+    <value>Увімкніть або вимкніть додаткові компоненти Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Додаткові компоненти</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Визначте версії Windows, рівні оновлень, мови та випуски, доступні під час розгортання.</value>
+    <value>Обмежте варіанти операційних систем, доступні під час розгортання.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Вибір ОС</value>
@@ -2489,7 +2489,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Автоматично приєднувати до домену за допомогою облікових даних, захищених паролем розгортання.</value>
@@ -2597,31 +2597,31 @@
     <value>Роумінг профілів Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Налаштувати OOBE</value>
+    <value>Увімкнути налаштування OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Налаштуйте Windows 11 екранів першого запуску та параметри конфіденційності за замовчуванням.</value>
+    <value>Налаштуйте параметри конфіденційності та інсталяції для екранів першого запуску Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Налаштування додаткових функцій Windows</value>
+    <value>Увімкнути налаштування додаткових компонентів</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Увімкніть або вимкніть компоненти Windows у розгорнутій операційній системі.</value>
+    <value>Виберіть додаткові компоненти Windows, які потрібно ввімкнути або вимкнути.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Додаткові функції Windows</value>
+    <value>Додаткові компоненти</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Параметри розгортання Windows</value>
+    <value>Увімкнути налаштування вибору операційної системи</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Визначте версії Windows, рівні оновлень, мови та випуски, доступні під час розгортання.</value>
+    <value>Налаштуйте дозволені версії операційної системи, мови, канали та редакції.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Параметри розгортання Windows</value>
+    <value>Вибір ОС</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Додайте ввімкнену дію або вимкніть налаштування після інсталяції.</value>
@@ -4155,7 +4155,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Підтримка Wi-Fi в образі завантаження</value>
+    <value>Увімкнути підготовку Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Налаштуйте підготовку Wi-Fi, вбудовані профілі та роумінг профілів Windows.</value>

@@ -688,7 +688,7 @@
     <value>Интерактивно качване на хардуерен хеш</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>Осигуряване на профил JSON</value>
+    <value>JSON профил</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Профил</value>

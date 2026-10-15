@@ -77,10 +77,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atbalsts</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Trešās puses pakotņu licences tiek izsekotas, izmantojot projektu repozitoriju un atkarības manifestus.</value>
+    <value>Foundry OSD izmanto šīs bibliotēkas un rīkus. To licences un projektu lapas ir norādītas tālāk.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Trešo pušu atkarības</value>
+    <value>Trešo pušu licences</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Par Foundry OSD</value>
@@ -221,19 +221,19 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Jauniniet Windows ADK un Windows PE papildinājumu</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Noņemiet AI komponentus</value>
+    <value>Iespējot AI komponentu konfigurāciju</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Pirms OOBE noņemiet vai atspējojiet atlasītos Windows AI komponentus.</value>
+    <value>Izvēlieties Windows AI komponentus un funkcijas, ko noņemt vai atspējot.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI komponentu noņemšana</value>
+    <value>AI komponenti</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Noņemiet nodrošinātās Windows lietotnes</value>
+    <value>Iespējot AppX noņemšanu</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Pirms OOBE noņemiet atlasītās nodrošinātās Windows lietotnes.</value>
+    <value>Izvēlieties nodrošinātās Windows lietotnes, kas jānoņem no izvietotajām ierīcēm.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX noņemšanas</value>
@@ -638,10 +638,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Interaktīva aparatūras jaucējkoda augšupielāde</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Iestatiet bezsaistes Autopilot profilu lietotajā Windows attēlā.</value>
+    <value>Importējiet vai lejupielādējiet izvietošanas datu nesējā iegulto Autopilot profilu.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profila nodrošināšana</value>
+    <value>JSON profils</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurējiet nomnieka atbalstītu automātisku aparatūras jaucējvērtības augšupielādi.</value>
@@ -2051,10 +2051,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atlasiet 802.1X sertifikātu</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurējiet vadu 802.1X</value>
+    <value>Iespējot Ethernet 802.1X konfigurāciju</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standarta Ethernet savienojums ir pieejams pēc noklusējuma. Konfigurējiet šo sadaļu tikai tad, ja jūsu vadu tīklam ir nepieciešama 802.1X uzņēmuma autentifikācija.</value>
+    <value>Konfigurējiet vadu tīkla 802.1X autentifikāciju un Windows profilu viesabonēšanu.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pārvietot komponentu augšup</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Iespējot mašīnu nosaukumu piešķiršanas noteikumus</value>
+    <value>Iespējot ierīces nosaukšanas konfigurāciju</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurējiet automātisku un tehniķa atbalstītu ierīču nosaukšanu.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Datora nosaukums</value>
+    <value>Ierīces nosaukšana</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Priekšskatījums</value>
@@ -2357,13 +2357,13 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Pirms OOBE noņemiet vai atspējojiet atlasītos Windows AI komponentus.</value>
+    <value>Noņemiet vai atspējojiet Windows AI komponentus.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>MI komponenti</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Pirms OOBE noņemiet atlasītās nodrošinātās Windows lietotnes.</value>
+    <value>Atlasiet noņemamās nodrošinātās lietotnes.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX noņemšanas</value>
@@ -2405,7 +2405,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pievienošanās domēnam</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standarta Ethernet savienojums ir pieejams pēc noklusējuma. Konfigurējiet šo sadaļu tikai tad, ja jūsu vadu tīklam ir nepieciešama 802.1X uzņēmuma autentifikācija.</value>
+    <value>Konfigurējiet vadu tīkla 802.1X autentifikāciju.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Tīkls</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigurējiet Windows 11 pirmās palaišanas ekrānus un privātuma noklusējuma iestatījumus.</value>
+    <value>Konfigurējiet Windows sākotnējās iestatīšanas pieredzi.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Iespējot vai atspējot Windows komponentus izvietotajā operētājsistēmā.</value>
+    <value>Iespējojiet vai atspējojiet Windows papildu līdzekļus.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Papildu līdzekļi</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, atjauninājumu līmeņus, valodas un izdevumus.</value>
+    <value>Ierobežojiet izvietošanai pieejamās operētājsistēmas izvēles.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS atlase</value>
@@ -2489,7 +2489,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Automātiski pievienoties domēnam, izmantojot akreditācijas datus, ko aizsargā izvietošanas parole.</value>
@@ -2597,31 +2597,31 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Windows profilu viesabonēšana</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Pielāgot OOBE</value>
+    <value>Iespējot OOBE konfigurāciju</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigurējiet Windows 11 pirmās palaišanas ekrānus un privātuma noklusējuma iestatījumus.</value>
+    <value>Konfigurējiet Windows sākotnējās iestatīšanas pieredzes konfidencialitātes un iestatīšanas izvēles.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurējiet Windows papildu līdzekļus</value>
+    <value>Iespējot papildu līdzekļu konfigurāciju</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Iespējot vai atspējot Windows komponentus izvietotajā operētājsistēmā.</value>
+    <value>Izvēlieties Windows papildu līdzekļus, ko iespējot vai atspējot.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows papildu līdzekļi</value>
+    <value>Papildu līdzekļi</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows izvietošanas opcijas</value>
+    <value>Iespējot operētājsistēmas atlases konfigurāciju</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, atjauninājumu līmeņus, valodas un izdevumus.</value>
+    <value>Konfigurējiet atļautos operētājsistēmas laidienus, valodas, kanālus un izdevumus.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows izvietošanas opcijas</value>
+    <value>OS atlase</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Pievienojiet iespējotu darbību vai atspējojiet konfigurēšanu pēc instalēšanas.</value>
@@ -4155,7 +4155,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Nodrošiniet Wi-Fi atbalstu sāknēšanas attēlā</value>
+    <value>Iespējot Wi-Fi nodrošināšanu</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurējiet Wi-Fi nodrošināšanu, iegultos profilus un Windows profilu viesabonēšanu.</value>

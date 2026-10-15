@@ -77,10 +77,10 @@
     <value>Υποστήριξη</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Οι άδειες χρήσης πακέτων τρίτων παρακολουθούνται μέσω του αποθετηρίου έργου και των δηλώσεων εξάρτησης.</value>
+    <value>Το Foundry OSD χρησιμοποιεί τις παρακάτω βιβλιοθήκες και εργαλεία. Οι άδειες χρήσης και οι σελίδες έργου τους παρατίθενται παρακάτω.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Εξαρτήσεις τρίτων</value>
+    <value>Άδειες χρήσης τρίτων</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Σχετικά με Foundry OSD</value>
@@ -221,19 +221,19 @@
     <value>Αναβάθμιση Windows ADK και Windows PE πρόσθετο</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Αφαιρέστε στοιχεία AI</value>
+    <value>Ενεργοποίηση διαμόρφωσης στοιχείων AI</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Καταργήστε ή απενεργοποιήστε τα επιλεγμένα στοιχεία Windows AI πριν από το OOBE.</value>
+    <value>Επιλέξτε στοιχεία και εμπειρίες AI των Windows για κατάργηση ή απενεργοποίηση.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Αφαίρεση εξαρτημάτων AI</value>
+    <value>Στοιχεία AI</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Καταργήστε τις προβλεπόμενες εφαρμογές Windows</value>
+    <value>Ενεργοποίηση καταργήσεων AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Καταργήστε τις επιλεγμένες προβλεπόμενες εφαρμογές Windows πριν από το OOBE.</value>
+    <value>Επιλέξτε προβλεπόμενες εφαρμογές Windows για κατάργηση από τις αναπτυγμένες συσκευές.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Αφαιρέσεις AppX</value>
@@ -638,10 +638,10 @@
     <value>Διαδραστική αποστολή κατακερματισμού υλικού</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Δημιουργήστε ένα προφίλ εκτός σύνδεσης Autopilot στην εφαρμοσμένη εικόνα Windows.</value>
+    <value>Εισαγάγετε ή κάντε λήψη του προφίλ Autopilot που είναι ενσωματωμένο στα μέσα ανάπτυξης.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>Προμήθεια προφίλ JSON</value>
+    <value>Προφίλ JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Διαμορφώστε το αυτόματο ανέβασμα του hardware hash με υποστήριξη tenant.</value>
@@ -2051,10 +2051,10 @@
     <value>Επιλέξτε πιστοποιητικό 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Διαμόρφωση ενσύρματου 802.1X</value>
+    <value>Ενεργοποίηση διαμόρφωσης Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Η τυπική συνδεσιμότητα Ethernet είναι διαθέσιμη από προεπιλογή. Διαμορφώστε αυτήν την ενότητα μόνο εάν το ενσύρματο δίκτυό σας απαιτεί εταιρικό έλεγχο ταυτότητας 802.1X.</value>
+    <value>Διαμορφώστε τον ενσύρματο έλεγχο ταυτότητας 802.1X και τη μεταφορά προφίλ Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@
     <value>Μετακίνηση στοιχείου προς τα επάνω</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Ενεργοποίηση κανόνων ονομασίας μηχανών</value>
+    <value>Ενεργοποίηση διαμόρφωσης ονομασίας υπολογιστή</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Διαμορφώστε την αυτόματη και τεχνική ονοματοδοσία συσκευών.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Όνομα υπολογιστή</value>
+    <value>Ονομασία υπολογιστή</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Προεπισκόπηση</value>
@@ -2357,13 +2357,13 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Καταργήστε ή απενεργοποιήστε τα επιλεγμένα στοιχεία Windows AI πριν από το OOBE.</value>
+    <value>Καταργήστε ή απενεργοποιήστε στοιχεία AI των Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>Συστατικά AI</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Καταργήστε τις επιλεγμένες προβλεπόμενες εφαρμογές Windows πριν από το OOBE.</value>
+    <value>Επιλέξτε προβλεπόμενες εφαρμογές για κατάργηση.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Αφαιρέσεις AppX</value>
@@ -2405,7 +2405,7 @@
     <value>Σύνδεση σε τομέα</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Η τυπική συνδεσιμότητα Ethernet είναι διαθέσιμη από προεπιλογή. Διαμορφώστε αυτήν την ενότητα μόνο εάν το ενσύρματο δίκτυό σας απαιτεί εταιρικό έλεγχο ταυτότητας 802.1X.</value>
+    <value>Διαμορφώστε τον ενσύρματο έλεγχο ταυτότητας 802.1X.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@
     <value>Δίκτυο</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Διαμορφώστε τις παραμέτρους Windows 11 οθόνες πρώτης εκτέλεσης και προεπιλογές απορρήτου.</value>
+    <value>Διαμορφώστε την εμπειρία αρχικής ρύθμισης των Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Ενεργοποιήστε ή απενεργοποιήστε τα στοιχεία των Windows στο αναπτυγμένο λειτουργικό σύστημα.</value>
+    <value>Ενεργοποιήστε ή απενεργοποιήστε προαιρετικές δυνατότητες των Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Προαιρετικές λειτουργίες</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Καθορίστε τις εκδόσεις Windows, τα επίπεδα ενημέρωσης, τις γλώσσες και τις εκδόσεις προϊόντος που προσφέρονται κατά την ανάπτυξη.</value>
+    <value>Περιορίστε τις επιλογές λειτουργικού συστήματος για την ανάπτυξη.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Επιλογή OS</value>
@@ -2489,7 +2489,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Συνδεθείτε στον τομέα αυτόματα με διαπιστευτήρια που προστατεύονται από τον κωδικό πρόσβασης ανάπτυξης.</value>
@@ -2597,31 +2597,31 @@
     <value>Περιαγωγή προφίλ Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Προσαρμογή OOBE</value>
+    <value>Ενεργοποίηση διαμόρφωσης OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Διαμορφώστε τις παραμέτρους Windows 11 οθόνες πρώτης εκτέλεσης και προεπιλογές απορρήτου.</value>
+    <value>Διαμορφώστε τις επιλογές απορρήτου και ρύθμισης για την εμπειρία αρχικής ρύθμισης των Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Διαμόρφωση προαιρετικών δυνατοτήτων των Windows</value>
+    <value>Ενεργοποίηση διαμόρφωσης προαιρετικών δυνατοτήτων</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Ενεργοποιήστε ή απενεργοποιήστε τα στοιχεία των Windows στο αναπτυγμένο λειτουργικό σύστημα.</value>
+    <value>Επιλέξτε προαιρετικές δυνατότητες των Windows για ενεργοποίηση ή απενεργοποίηση.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Προαιρετικές δυνατότητες των Windows</value>
+    <value>Προαιρετικές δυνατότητες</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Επιλογές ανάπτυξης Windows</value>
+    <value>Ενεργοποίηση διαμόρφωσης επιλογής λειτουργικού συστήματος</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Καθορίστε τις εκδόσεις Windows, τα επίπεδα ενημέρωσης, τις γλώσσες και τις εκδόσεις προϊόντος που προσφέρονται κατά την ανάπτυξη.</value>
+    <value>Διαμορφώστε τις επιτρεπόμενες εκδόσεις, γλώσσες, κανάλια και εκδόσεις προϊόντος του λειτουργικού συστήματος.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Επιλογές ανάπτυξης Windows</value>
+    <value>Επιλογή λειτουργικού συστήματος</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Προσθέστε μια ενεργοποιημένη ενέργεια ή απενεργοποιήστε τη διαμόρφωση μετά την εγκατάσταση.</value>
@@ -4155,7 +4155,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Παροχή υποστήριξης Wi-Fi στην εικόνα εκκίνησης</value>
+    <value>Ενεργοποίηση παροχής Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Διαμορφώστε την παροχή Wi-Fi, ενσωματωμένα προφίλ και τη μεταφορά προφίλ Windows.</value>

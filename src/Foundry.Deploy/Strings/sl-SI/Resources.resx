@@ -688,7 +688,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>Omogočanje profila JSON</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

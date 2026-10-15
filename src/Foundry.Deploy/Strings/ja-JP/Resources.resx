@@ -688,7 +688,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>対話型ハードウェア ハッシュ アップロード</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON プロファイルのプロビジョニング</value>
+    <value>JSON プロファイル</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>プロフィール</value>

@@ -688,7 +688,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profiilin hallinta</value>
+    <value>JSON-profiili</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profiili</value>

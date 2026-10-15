@@ -688,7 +688,7 @@ Pokračovat v nasazování?</value>
     <value>Interaktivní nahrání hardwarového hashe</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON zřizování profilu</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

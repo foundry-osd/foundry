@@ -77,10 +77,10 @@ Licencované podľa licencie MIT.</value>
     <value>Podpora</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Licencie balíkov tretích strán sa sledujú prostredníctvom archívu projektu a manifestov závislostí.</value>
+    <value>Foundry OSD používa nasledujúce knižnice a nástroje. Ich licencie a stránky projektov sú uvedené nižšie.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Závislosti tretích strán</value>
+    <value>Licencie tretích strán</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>O Foundry OSD</value>
@@ -221,19 +221,19 @@ Licencované podľa licencie MIT.</value>
     <value>Inovujte doplnok Windows ADK a Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Odstráňte komponenty AI</value>
+    <value>Povoliť konfiguráciu komponentov AI</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Odstráňte alebo deaktivujte vybrané komponenty Windows AI pred OOBE.</value>
+    <value>Vyberte komponenty a funkcie AI systému Windows, ktoré chcete odstrániť alebo vypnúť.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Odstránenie komponentov AI</value>
+    <value>Komponenty AI</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Odstráňte poskytnuté aplikácie Windows</value>
+    <value>Povoliť odstránenie balíkov AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Odstráňte vybraté zabezpečené aplikácie Windows pred OOBE.</value>
+    <value>Vyberte zriadené aplikácie Windows, ktoré chcete odstrániť z nasadených zariadení.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Odstránenie balíkov AppX</value>
@@ -638,10 +638,10 @@ Licencované podľa licencie MIT.</value>
     <value>Interaktívne nahratie hardvérového hashu</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Vytvorte offline profil Autopilot v použitom obrázku Windows.</value>
+    <value>Importujte alebo stiahnite profil Autopilot vložený do nasadzovacieho média.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON poskytovanie profilu</value>
+    <value>Profil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Nakonfigurujte automatické nahrávanie hardvérového hashu podporované nájomníkom.</value>
@@ -2051,10 +2051,10 @@ Licencované podľa licencie MIT.</value>
     <value>Vyberte certifikát 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Nakonfigurujte káblové 802.1X</value>
+    <value>Povoliť konfiguráciu Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Štandardne je k dispozícii štandardné pripojenie Ethernet. Túto časť nakonfigurujte len vtedy, ak vaša káblová sieť vyžaduje podnikové overenie 802.1X.</value>
+    <value>Nakonfigurujte káblové overovanie 802.1X a roaming profilov Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ Licencované podľa licencie MIT.</value>
     <value>Presunúť súčasť nahor</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Povoliť pravidlá pomenovávania stroja</value>
+    <value>Povoliť konfiguráciu pomenovania počítača</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Nakonfigurujte automatické a technikom podporované pomenovanie zariadení.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Názov počítača</value>
+    <value>Pomenovanie počítača</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Ukážka</value>
@@ -2357,13 +2357,13 @@ Licencované podľa licencie MIT.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Odstráňte alebo deaktivujte vybrané komponenty Windows AI pred OOBE.</value>
+    <value>Odstráňte alebo vypnite komponenty AI systému Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>Komponenty AI</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Odstráňte vybraté zabezpečené aplikácie Windows pred OOBE.</value>
+    <value>Vyberte zriadené aplikácie, ktoré chcete odstrániť.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Odstránenie balíkov AppX</value>
@@ -2405,7 +2405,7 @@ Licencované podľa licencie MIT.</value>
     <value>Pripojenie k doméne</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Štandardne je k dispozícii štandardné pripojenie Ethernet. Túto časť nakonfigurujte len vtedy, ak vaša káblová sieť vyžaduje podnikové overenie 802.1X.</value>
+    <value>Nakonfigurujte káblové overovanie 802.1X.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ Licencované podľa licencie MIT.</value>
     <value>sieť</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Nakonfigurujte Windows 11 obrazoviek prvého spustenia a predvolené nastavenia ochrany osobných údajov.</value>
+    <value>Nakonfigurujte prostredie prvého spustenia systému Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Povoliť alebo zakázať súčasti systému Windows v nasadzovanom operačnom systéme.</value>
+    <value>Zapnite alebo vypnite voliteľné funkcie systému Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Voliteľné funkcie</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definujte verzie Windows, úrovne aktualizácií, jazyky a edície ponúkané počas nasadenia.</value>
+    <value>Obmedzte ponuku operačných systémov pri nasadení.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Výber OS</value>
@@ -2489,7 +2489,7 @@ Licencované podľa licencie MIT.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Pripojte sa k doméne automaticky pomocou poverení chránených heslom nasadenia.</value>
@@ -2597,31 +2597,31 @@ Licencované podľa licencie MIT.</value>
     <value>Roaming profilov Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Prispôsobiť OOBE</value>
+    <value>Povoliť konfiguráciu OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Nakonfigurujte Windows 11 obrazoviek prvého spustenia a predvolené nastavenia ochrany osobných údajov.</value>
+    <value>Nakonfigurujte ochranu osobných údajov a možnosti inštalácie v prostredí prvého spustenia systému Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Nakonfigurujte voliteľné funkcie systému Windows</value>
+    <value>Povoliť konfiguráciu voliteľných funkcií</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Povoliť alebo zakázať súčasti systému Windows v nasadzovanom operačnom systéme.</value>
+    <value>Vyberte voliteľné funkcie systému Windows, ktoré chcete zapnúť alebo vypnúť.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Voliteľné funkcie systému Windows</value>
+    <value>Voliteľné funkcie</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Možnosti nasadenia Windows</value>
+    <value>Povoliť konfiguráciu výberu operačného systému</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definujte verzie Windows, úrovne aktualizácií, jazyky a edície ponúkané počas nasadenia.</value>
+    <value>Nakonfigurujte povolené vydania, jazyky, kanály a edície operačného systému.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Možnosti nasadenia Windows</value>
+    <value>Výber OS</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Pridajte povolenú akciu alebo vypnite poinštalačnú konfiguráciu.</value>
@@ -4155,7 +4155,7 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Podpora poskytovania Wi-Fi v zavádzacom obraze</value>
+    <value>Povoliť zriaďovanie Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Nakonfigurujte poskytovanie Wi-Fi, vložené profily a roaming profilov Windows.</value>

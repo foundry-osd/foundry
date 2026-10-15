@@ -77,10 +77,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Destek</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Üçüncü taraf paket lisansları, proje deposu ve bağımlılık bildirimleri aracılığıyla izlenir.</value>
+    <value>Foundry OSD aşağıdaki kitaplıkları ve araçları kullanır. Lisansları ve proje sayfaları aşağıda listelenmiştir.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Üçüncü taraf bağımlılıkları</value>
+    <value>Üçüncü taraf lisansları</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Foundry OSD Hakkında</value>
@@ -221,19 +221,19 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Windows ADK ve Windows PE Eklentisini Yükseltme</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>AI bileşenlerini kaldırın</value>
+    <value>Yapay zeka bileşenleri yapılandırmasını etkinleştir</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>OOBE'den önce seçilen Windows AI bileşenlerini kaldırın veya devre dışı bırakın.</value>
+    <value>Kaldırılacak veya devre dışı bırakılacak Windows yapay zeka bileşenlerini ve deneyimlerini seçin.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI bileşeninin kaldırılması</value>
+    <value>Yapay zeka bileşenleri</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Temel hazırlığı yapılan Windows uygulamaları kaldırın</value>
+    <value>AppX kaldırmalarını etkinleştir</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>OOBE'den önce seçilen temel hazırlığı yapılmış Windows uygulamalarını kaldırın.</value>
+    <value>Dağıtılan cihazlardan kaldırılacak, temel hazırlığı yapılmış Windows uygulamalarını seçin.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX kaldırmaları</value>
@@ -638,10 +638,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Etkileşimli donanım karması yükleme</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Uygulanan Windows görüntüsünde çevrimdışı bir Autopilot profili oluşturun.</value>
+    <value>Dağıtım medyasına gömülü Autopilot profilini içe aktarın veya indirin.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profil temel hazırlığı</value>
+    <value>JSON profili</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Kiracı destekli otomatik donanım karması yüklemeyi yapılandırın.</value>
@@ -2051,10 +2051,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>802.1X sertifikasını seçin</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Kablolu 802.1X'i yapılandırın</value>
+    <value>Ethernet 802.1X yapılandırmasını etkinleştir</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standart Ethernet bağlantısı varsayılan olarak mevcuttur. Bu bölümü yalnızca kablolu ağınız 802.1X kurumsal kimlik doğrulaması gerektiriyorsa yapılandırın.</value>
+    <value>Kablolu 802.1X kimlik doğrulamasını ve Windows profil dolaşımını yapılandırın.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bileşeni yukarı taşı</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Makine adlandırma kurallarını etkinleştir</value>
+    <value>Makine adlandırma yapılandırmasını etkinleştir</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Otomatik ve teknisyen destekli cihaz adlandırmayı yapılandırın.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Bilgisayar adı</value>
+    <value>Makine adlandırma</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Önizleme</value>
@@ -2357,13 +2357,13 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>OOBE'den önce seçilen Windows AI bileşenlerini kaldırın veya devre dışı bırakın.</value>
+    <value>Windows yapay zeka bileşenlerini kaldırın veya devre dışı bırakın.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>Yapay zeka bileşenleri</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>OOBE'den önce seçilen temel hazırlığı yapılmış Windows uygulamalarını kaldırın.</value>
+    <value>Kaldırılacak, temel hazırlığı yapılmış uygulamaları seçin.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX kaldırmaları</value>
@@ -2405,7 +2405,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Etki alanına katılma</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standart Ethernet bağlantısı varsayılan olarak mevcuttur. Bu bölümü yalnızca kablolu ağınız 802.1X kurumsal kimlik doğrulaması gerektiriyorsa yapılandırın.</value>
+    <value>Kablolu 802.1X kimlik doğrulamasını yapılandırın.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Ağ</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Windows 11 ilk çalıştırma ekranını ve gizlilik varsayılanlarını yapılandırın.</value>
+    <value>Windows kullanıma hazır deneyimini yapılandırın.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Dağıtılan işletim sistemindeki Windows bileşenlerini etkinleştirin veya devre dışı bırakın.</value>
+    <value>Windows isteğe bağlı özelliklerini etkinleştirin veya devre dışı bırakın.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>İsteğe bağlı özellikler</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Dağıtım sırasında sunulan Windows sürümlerini, güncelleştirme düzeylerini, dilleri ve edisyonları belirleyin.</value>
+    <value>Dağıtımda sunulan işletim sistemi seçeneklerini sınırlandırın.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>İşletim sistemi seçimi</value>
@@ -2489,7 +2489,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Dağıtım parolasıyla korunan kimlik bilgilerini kullanarak etki alanına otomatik olarak katılın.</value>
@@ -2597,31 +2597,31 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Windows profil dolaşımı</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>OOBE özelleştirin</value>
+    <value>OOBE yapılandırmasını etkinleştir</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Windows 11 ilk çalıştırma ekranını ve gizlilik varsayılanlarını yapılandırın.</value>
+    <value>Windows kullanıma hazır deneyimi için gizlilik ve kurulum seçeneklerini yapılandırın.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows İsteğe Bağlı Özelliklerini Yapılandırma</value>
+    <value>İsteğe bağlı özellikler yapılandırmasını etkinleştir</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Dağıtılan işletim sistemindeki Windows bileşenlerini etkinleştirin veya devre dışı bırakın.</value>
+    <value>Etkinleştirilecek veya devre dışı bırakılacak Windows isteğe bağlı özelliklerini seçin.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows İsteğe Bağlı Özellikleri</value>
+    <value>İsteğe bağlı özellikler</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows dağıtım seçenekleri</value>
+    <value>İşletim sistemi seçimi yapılandırmasını etkinleştir</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Dağıtım sırasında sunulan Windows sürümlerini, güncelleştirme düzeylerini, dilleri ve edisyonları belirleyin.</value>
+    <value>İzin verilen işletim sistemi sürümlerini, dillerini, kanallarını ve edisyonlarını yapılandırın.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows dağıtım seçenekleri</value>
+    <value>İşletim sistemi seçimi</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Etkin bir eylem ekleyin veya kurulum sonrası yapılandırmayı devre dışı bırakın.</value>
@@ -4155,7 +4155,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Önyükleme görüntüsünde Wi-Fi desteği sağlayın</value>
+    <value>Wi-Fi hazırlığını etkinleştir</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Wi-Fi hazırlığını, gömülü profilleri ve Windows profil dolaşımını yapılandırın.</value>

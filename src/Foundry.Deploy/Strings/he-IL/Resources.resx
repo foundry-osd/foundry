@@ -688,7 +688,7 @@ ErrorCode=0x80070005
     <value>העלאה אינטראקטיבית של hash חומרה</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON הקצאת פרופיל</value>
+    <value>פרופיל JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>פרופיל</value>

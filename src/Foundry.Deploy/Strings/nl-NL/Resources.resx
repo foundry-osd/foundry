@@ -688,7 +688,7 @@ Doorgaan met de implementatie?</value>
     <value>Interactieve hardware-hash-upload</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profielinrichting</value>
+    <value>JSON-profiel</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profiel</value>

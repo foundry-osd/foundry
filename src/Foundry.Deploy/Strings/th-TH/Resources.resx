@@ -688,7 +688,7 @@
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON การจัดสรรโปรไฟล์</value>
+    <value>โปรไฟล์ JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>โปรไฟล์</value>
@@ -772,7 +772,7 @@
     <value>ได้รับคำขอยกเลิกแล้ว กำลังรอให้การดำเนินการปัจจุบันเสร็จสิ้นอย่างปลอดภัย</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>ยกเลิกการทำให้ใช้งานได้แล้ว</value>
+    <value>ยกเลิกการปรับใช้แล้ว</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>หยุดการทำให้ใช้งานได้แล้ว ดิสก์เป้าหมายอาจมีการติดตั้งที่ยังไม่สมบูรณ์</value>

@@ -688,7 +688,7 @@ Kontynuować wdrażanie?</value>
     <value>Interaktywne przesyłanie skrótu sprzętowego</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>Udostępnianie profilu JSON</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

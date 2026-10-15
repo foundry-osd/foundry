@@ -77,10 +77,10 @@ Licenciado sob a licença MIT.</value>
     <value>Suporte</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Licenças de pacotes de terceiros são rastreadas por meio do repositório do projeto e dos manifestos de dependência.</value>
+    <value>O Foundry OSD utiliza as seguintes bibliotecas e ferramentas. As respetivas licenças e páginas de projeto são indicadas abaixo.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Dependências de terceiros</value>
+    <value>Licenças de terceiros</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Sobre Foundry OSD</value>
@@ -221,19 +221,19 @@ Licenciado sob a licença MIT.</value>
     <value>Atualizar Windows ADK e Windows PE complemento</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Remover componentes de IA</value>
+    <value>Ativar a configuração dos componentes de IA</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Remova ou desative os componentes Windows AI selecionados antes de OOBE.</value>
+    <value>Escolha os componentes e as experiências de IA do Windows a remover ou desativar.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Remoção de componentes de IA</value>
+    <value>Componentes de IA</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Remover aplicativos Windows provisionados</value>
+    <value>Ativar as remoções de AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Remova aplicativos Windows provisionados selecionados antes de OOBE.</value>
+    <value>Escolha as aplicações do Windows aprovisionadas a remover dos dispositivos implementados.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Remoções de AppX</value>
@@ -638,10 +638,10 @@ Licenciado sob a licença MIT.</value>
     <value>Carregamento interativo do hash de hardware</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Prepare um perfil Autopilot offline na imagem Windows aplicada.</value>
+    <value>Importe ou transfira o perfil do Autopilot incorporado no suporte de implementação.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON provisionamento de perfil</value>
+    <value>Perfil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Configure o carregamento automático de hashes de hardware suportado pelo inquilino.</value>
@@ -2051,10 +2051,10 @@ Licenciado sob a licença MIT.</value>
     <value>Selecione o certificado 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configurar 802.1X com fio</value>
+    <value>Ativar a configuração de Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>A conectividade padrão Ethernet está disponível por padrão. Configure esta seção somente se sua rede com fio exigir autenticação empresarial 802.1X.</value>
+    <value>Configure a autenticação 802.1X com fios e o roaming de perfis do Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ Licenciado sob a licença MIT.</value>
     <value>Mover componente para cima</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Habilitar regras de nomenclatura de máquinas</value>
+    <value>Ativar a configuração da atribuição de nomes</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Configure a atribuição automática de nomes e assistida por técnico aos dispositivos.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Nome do computador</value>
+    <value>Atribuição de nomes</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Pré-visualização</value>
@@ -2357,13 +2357,13 @@ Licenciado sob a licença MIT.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Remova ou desative os componentes Windows AI selecionados antes de OOBE.</value>
+    <value>Remova ou desative componentes de IA do Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>Componentes de IA</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Remova aplicativos Windows provisionados selecionados antes de OOBE.</value>
+    <value>Selecione as aplicações aprovisionadas a remover.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Remoções de AppX</value>
@@ -2405,7 +2405,7 @@ Licenciado sob a licença MIT.</value>
     <value>Associação ao domínio</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>A conectividade padrão Ethernet está disponível por padrão. Configure esta seção somente se sua rede com fio exigir autenticação empresarial 802.1X.</value>
+    <value>Configure a autenticação 802.1X com fios.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ Licenciado sob a licença MIT.</value>
     <value>Rede</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Configure Windows 11 telas de primeira execução e padrões de privacidade.</value>
+    <value>Configure a experiência inicial (OOBE) do Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Ative ou desative os componentes do Windows no sistema operativo implantado.</value>
+    <value>Ative ou desative funcionalidades opcionais do Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Funcionalidades opcionais</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Defina as versões do Windows, os níveis de atualização, os idiomas e as edições disponibilizados durante a implementação.</value>
+    <value>Limite as opções de sistema operativo disponíveis na implementação.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Seleção do SO</value>
@@ -2597,31 +2597,31 @@ Licenciado sob a licença MIT.</value>
     <value>Roaming de perfis do Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Personalizar OOBE</value>
+    <value>Ativar a configuração da OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Configure Windows 11 telas de primeira execução e padrões de privacidade.</value>
+    <value>Configure as opções de privacidade e de configuração da experiência inicial (OOBE) do Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configurar as funcionalidades opcionais do Windows</value>
+    <value>Ativar a configuração das funcionalidades opcionais</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Ative ou desative os componentes do Windows no sistema operativo implantado.</value>
+    <value>Escolha as funcionalidades opcionais do Windows a ativar ou desativar.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Recursos opcionais do Windows</value>
+    <value>Funcionalidades opcionais</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Opções de implementação do Windows</value>
+    <value>Ativar a configuração da seleção do sistema operativo</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Defina as versões do Windows, os níveis de atualização, os idiomas e as edições disponibilizados durante a implementação.</value>
+    <value>Configure as versões, os idiomas, os canais e as edições do sistema operativo permitidos.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Opções de implementação do Windows</value>
+    <value>Seleção do SO</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Adicione uma ação ativada ou desative a pós-instalação.</value>
@@ -4155,7 +4155,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Provisione suporte Wi-Fi na imagem de inicialização</value>
+    <value>Ativar o aprovisionamento de Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Configure o aprovisionamento de Wi-Fi, os perfis incorporados e o roaming de perfis do Windows.</value>

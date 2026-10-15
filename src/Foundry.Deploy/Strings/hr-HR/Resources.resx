@@ -688,7 +688,7 @@ Nastaviti s implementacijom?</value>
     <value>Interaktivni prijenos hardverskog hasha</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON dodjela profila</value>
+    <value>JSON profil</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

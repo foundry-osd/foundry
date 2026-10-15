@@ -688,7 +688,7 @@ ErrorCode=0x80070005
     <value>Інтерактивне завантаження апаратного хешу</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>надання профілю JSON</value>
+    <value>Профіль JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Профіль</value>

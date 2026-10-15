@@ -688,7 +688,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Interaktiver Hardware-Hash-Upload</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON Profilbereitstellung</value>
+    <value>JSON-Profil</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

@@ -77,10 +77,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Toetus</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Kolmanda osapoole pakettide litsentse jälgitakse projekti hoidla ja sõltuvusmanifestide kaudu.</value>
+    <value>Foundry OSD kasutab järgmisi teeke ja tööriistu. Nende litsentsid ja projektilehed on loetletud allpool.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Kolmandate osapoolte sõltuvused</value>
+    <value>Kolmandate osapoolte litsentsid</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Teave Foundry OSD kohta</value>
@@ -221,19 +221,19 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Täiendage Windows ADK ja Windows PE pistikprogrammi</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Eemaldage AI komponendid</value>
+    <value>Luba AI-komponentide konfiguratsioon</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Eemaldage või keelake valitud Windows AI komponendid enne OOBE.</value>
+    <value>Valige Windowsi AI-komponendid ja -funktsioonid, mida eemaldada või keelata.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI komponentide eemaldamine</value>
+    <value>AI komponendid</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Eemaldage ette nähtud Windows rakendused</value>
+    <value>Luba AppX-i eemaldamised</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Eemaldage valitud etteantud Windows rakendused enne OOBE.</value>
+    <value>Valige ettevalmistatud Windowsi rakendused, mis juurutatud seadmetest eemaldatakse.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-i eemaldamised</value>
@@ -638,10 +638,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Interaktiivne riistvararäsi üleslaadimine</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Looge rakendatud Windows pildil võrguühenduseta Autopilot profiil.</value>
+    <value>Importige või laadige alla juurutusmeediumisse manustatud Autopilot profiil.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profiili ettevalmistamine</value>
+    <value>JSON profiil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Seadistage üürniku toetatud automaatne riistvara räsi üleslaadimine.</value>
@@ -2051,10 +2051,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Valige 802.1X sertifikaat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Seadistage juhtmega 802.1X</value>
+    <value>Luba Ethernet 802.1X konfiguratsioon</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standardne Ethernet ühenduvus on vaikimisi saadaval. Seadistage see jaotis ainult siis, kui teie traadiga võrk nõuab 802.1X ettevõtte autentimist.</value>
+    <value>Konfigureerige juhtmega võrgu 802.1X autentimine ja Windowsi profiilide rändlus.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Teisalda komponent üles</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Luba masina nimetamise reeglid</value>
+    <value>Luba masina nimetamise konfiguratsioon</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Seadistage automaatne ja tehniku abiga seadme nimetamine.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Arvuti nimi</value>
+    <value>Masina nimetamine</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Eelvaade</value>
@@ -2357,13 +2357,13 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Eemaldage või keelake valitud Windows AI komponendid enne OOBE.</value>
+    <value>Eemaldage või keelake Windowsi AI-komponendid.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI komponendid</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Eemaldage valitud etteantud Windows rakendused enne OOBE.</value>
+    <value>Valige eemaldatavad ettevalmistatud rakendused.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-i eemaldamised</value>
@@ -2405,7 +2405,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Domeeniga liitumine</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standardne Ethernet ühenduvus on vaikimisi saadaval. Seadistage see jaotis ainult siis, kui teie traadiga võrk nõuab 802.1X ettevõtte autentimist.</value>
+    <value>Konfigureerige juhtmega võrgu 802.1X autentimine.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Võrk</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Seadistage Windows 11 esmakordset ekraani ja privaatsuse vaikeseadeid.</value>
+    <value>Konfigureerige Windowsi esmahäälestus.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Lubage või keelake juurutatud operatsioonisüsteemis Windowsi komponendid.</value>
+    <value>Lubage või keelake Windowsi valikulisi funktsioone.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Valikulised funktsioonid</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Määrake juurutamise ajal pakutavad Windowsi versioonid, värskendustasemed, keeled ja väljaanded.</value>
+    <value>Piirake juurutamisel valitavaid operatsioonisüsteeme.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS valik</value>
@@ -2489,7 +2489,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Liituge domeeniga automaatselt identimisteabe abil, mida kaitseb juurutusparool.</value>
@@ -2597,31 +2597,31 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Windowsi profiilide rändlus</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Kohanda OOBE</value>
+    <value>Luba OOBE konfiguratsioon</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Seadistage Windows 11 esmakordset ekraani ja privaatsuse vaikeseadeid.</value>
+    <value>Konfigureerige Windowsi esmahäälestuse privaatsus- ja häälestusvalikud.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windowsi valikuliste funktsioonide konfigureerimine</value>
+    <value>Luba valikuliste funktsioonide konfiguratsioon</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Lubage või keelake juurutatud operatsioonisüsteemis Windowsi komponendid.</value>
+    <value>Valige Windowsi valikulised funktsioonid, mida lubada või keelata.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windowsi valikulised funktsioonid</value>
+    <value>Valikulised funktsioonid</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windowsi juurutussuvandid</value>
+    <value>Luba operatsioonisüsteemi valiku konfiguratsioon</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Määrake juurutamise ajal pakutavad Windowsi versioonid, värskendustasemed, keeled ja väljaanded.</value>
+    <value>Konfigureerige lubatud operatsioonisüsteemi väljalasked, keeled, kanalid ja väljaanded.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windowsi juurutussuvandid</value>
+    <value>OS valik</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Lisa lubatud toiming või keela installijärgne seadistus.</value>
@@ -4155,7 +4155,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Tagage alglaadimispildis Wi-Fi tugi</value>
+    <value>Luba Wi-Fi juurutus</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Seadistage Wi-Fi juurutus, kaasatud profiilid ja Windowsi profiilide rändamine.</value>

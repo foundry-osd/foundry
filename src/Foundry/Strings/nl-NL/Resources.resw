@@ -77,10 +77,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Ondersteuning</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Pakketlicenties van derden worden bijgehouden via de projectrepository en afhankelijkheidsmanifesten.</value>
+    <value>Foundry OSD gebruikt de volgende bibliotheken en hulpprogramma's. Hieronder vindt u de licenties en projectpagina's.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Afhankelijkheden van derden</value>
+    <value>Licenties van derden</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Over Foundry OSD</value>
@@ -221,19 +221,19 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Upgrade Windows ADK en Windows PE Add-on</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Verwijder AI-componenten</value>
+    <value>Configuratie van AI-componenten inschakelen</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Verwijder of schakel geselecteerde Windows AI-componenten vóór OOBE uit.</value>
+    <value>Kies Windows AI-componenten en -ervaringen die u wilt verwijderen of uitschakelen.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Verwijdering van AI-componenten</value>
+    <value>AI-componenten</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Verwijder ingerichte Windows-apps</value>
+    <value>AppX-verwijderingen inschakelen</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Verwijder geselecteerde ingerichte Windows-apps vóór OOBE.</value>
+    <value>Kies ingerichte Windows-apps die u van geïmplementeerde apparaten wilt verwijderen.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-verwijderingen</value>
@@ -638,10 +638,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Interactieve hardware-hash-upload</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Plaats een offline Autopilot-profiel in de toegepaste Windows-afbeelding.</value>
+    <value>Importeer of download het Autopilot-profiel dat in de implementatiemedia wordt ingesloten.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profielinrichting</value>
+    <value>JSON-profiel</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Configureer automatische upload van hardwarehashes via de tenant.</value>
@@ -2051,10 +2051,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Selecteer 802.1X-certificaat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configureer bekabeld 802.1X</value>
+    <value>Configuratie van Ethernet 802.1X inschakelen</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standaard Ethernet-connectiviteit is standaard beschikbaar. Configureer deze sectie alleen als uw bekabelde netwerk 802.1X bedrijfsverificatie vereist.</value>
+    <value>Configureer bekabelde 802.1X-verificatie en roaming van Windows-profielen.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Onderdeel omhoog verplaatsen</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Schakel naamgevingsregels voor machines in</value>
+    <value>Configuratie van computernaamgeving inschakelen</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Configureer automatische en door technici ondersteunde apparaatnaamgeving.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Computernaam</value>
+    <value>Computernaamgeving</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Voorbeeld</value>
@@ -2357,13 +2357,13 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Verwijder of schakel geselecteerde Windows AI-componenten vóór OOBE uit.</value>
+    <value>Verwijder of schakel Windows AI-componenten uit.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI-onderdelen</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Verwijder geselecteerde ingerichte Windows-apps vóór OOBE.</value>
+    <value>Selecteer ingerichte apps om te verwijderen.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-verwijderingen</value>
@@ -2405,7 +2405,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Domeintoetreding</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standaard Ethernet-connectiviteit is standaard beschikbaar. Configureer deze sectie alleen als uw bekabelde netwerk 802.1X bedrijfsverificatie vereist.</value>
+    <value>Configureer bekabelde 802.1X-verificatie.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Netwerk</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Configureer Windows 11 eerste-run-schermen en privacy-standaardinstellingen.</value>
+    <value>Configureer de out-of-box-ervaring van Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Schakel Windows-componenten in het geïmplementeerde besturingssysteem in of uit.</value>
+    <value>Schakel optionele Windows-functies in of uit.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Optionele functies</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definieer de Windows-versies, updateniveaus, talen en edities die tijdens de implementatie worden aangeboden.</value>
+    <value>Beperk de keuzes voor het besturingssysteem tijdens de implementatie.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-selectie</value>
@@ -2597,31 +2597,31 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Roaming van Windows-profielen</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>OOBE aanpassen</value>
+    <value>OOBE-configuratie inschakelen</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Configureer Windows 11 eerste-run-schermen en privacy-standaardinstellingen.</value>
+    <value>Configureer privacy- en installatieopties voor de out-of-box-ervaring van Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configureer optionele Windows-functies</value>
+    <value>Configuratie van optionele functies inschakelen</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Schakel Windows-componenten in het geïmplementeerde besturingssysteem in of uit.</value>
+    <value>Kies optionele Windows-functies die u wilt in- of uitschakelen.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Optionele Windows-functies</value>
+    <value>Optionele functies</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows-implementatieopties</value>
+    <value>Configuratie van besturingssysteemselectie inschakelen</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definieer de Windows-versies, updateniveaus, talen en edities die tijdens de implementatie worden aangeboden.</value>
+    <value>Configureer toegestane besturingssysteemreleases, talen, kanalen en edities.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows-implementatieopties</value>
+    <value>OS-selectie</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Voeg een ingeschakelde actie toe of schakel de na-installatie uit.</value>
@@ -4155,7 +4155,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Zorg voor Wi-Fi-ondersteuning in de opstartimage</value>
+    <value>Wi-Fi-inrichting inschakelen</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Configureer Wi-Fi-inrichting, ingesloten profielen en roaming van Windows-profielen.</value>

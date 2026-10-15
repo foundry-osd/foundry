@@ -688,7 +688,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Interaktiv upload af hardwarehash</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profilklargøring</value>
+    <value>JSON-profil</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

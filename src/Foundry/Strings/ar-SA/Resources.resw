@@ -77,10 +77,10 @@
     <value>الدعم</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>يتم تعقب تراخيص حزمة الطرف الثالث من خلال مستودع المشروع وبيانات التبعية.</value>
+    <value>يستخدم Foundry OSD المكتبات والأدوات التالية. ترد تراخيصها وصفحات مشاريعها أدناه.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>تبعيات الطرف الثالث</value>
+    <value>تراخيص الجهات الخارجية</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>حول Foundry OSD</value>
@@ -221,19 +221,19 @@
     <value>قم بترقية Windows ADK وWindows PE الوظيفة الإضافية</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>إزالة مكونات الذكاء الاصطناعي</value>
+    <value>تمكين تكوين مكونات الذكاء الاصطناعي</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>قم بإزالة أو تعطيل مكونات Windows AI المحددة قبل OOBE.</value>
+    <value>اختر مكونات الذكاء الاصطناعي وتجاربه في Windows لإزالتها أو تعطيلها.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>إزالة مكون الذكاء الاصطناعي</value>
+    <value>مكونات الذكاء الاصطناعي</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>قم بإزالة التطبيقات Windows المتوفرة</value>
+    <value>تمكين إزالة تطبيقات AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>قم بإزالة تطبيقات Windows المتوفرة قبل OOBE.</value>
+    <value>اختر تطبيقات Windows المُزوَّدة لإزالتها من الأجهزة التي يتم نشرها.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>إزالة تطبيقات AppX</value>
@@ -638,10 +638,10 @@
     <value>تحميل تجزئة الأجهزة التفاعلي</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>قم بإعداد ملف تعريف Autopilot دون اتصال في الصورة Windows المطبقة.</value>
+    <value>استورد ملف تعريف Autopilot المضمّن في وسائط النشر أو قم بتنزيله.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON توفير الملف الشخصي</value>
+    <value>ملف تعريف JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>قم بتكوين تحميل هاش الأجهزة التلقائي المستند إلى tenant.</value>
@@ -2051,10 +2051,10 @@
     <value>حدد شهادة 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>قم بتكوين 802.1X السلكي</value>
+    <value>تمكين تكوين Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>يتوفر الاتصال القياسي Ethernet بشكل افتراضي. قم بتكوين هذا القسم فقط إذا كانت شبكتك السلكية تتطلب مصادقة مؤسسة 802.1X.</value>
+    <value>قم بتكوين مصادقة 802.1X السلكية وتجوال ملفات تعريف Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@
     <value>نقل المكون لأعلى</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>تمكين قواعد تسمية الجهاز</value>
+    <value>تمكين تكوين تسمية الجهاز</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>قم بتكوين التسمية التلقائية والتسمية بمساعدة فني.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>اسم الكمبيوتر</value>
+    <value>تسمية الجهاز</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>معاينة</value>
@@ -2357,13 +2357,13 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>قم بإزالة أو تعطيل مكونات Windows AI المحددة قبل OOBE.</value>
+    <value>قم بإزالة مكونات الذكاء الاصطناعي في Windows أو تعطيلها.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>مكونات AI</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>قم بإزالة تطبيقات Windows المتوفرة قبل OOBE.</value>
+    <value>حدد التطبيقات المُزوَّدة المراد إزالتها.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>إزالة تطبيقات AppX</value>
@@ -2405,7 +2405,7 @@
     <value>الانضمام إلى النطاق</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>يتوفر الاتصال القياسي Ethernet بشكل افتراضي. قم بتكوين هذا القسم فقط إذا كانت شبكتك السلكية تتطلب مصادقة مؤسسة 802.1X.</value>
+    <value>قم بتكوين مصادقة 802.1X السلكية.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@
     <value>الشبكة</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>قم بتكوين Windows 11 شاشة يتم تشغيلها لأول مرة وإعدادات الخصوصية الافتراضية.</value>
+    <value>قم بتكوين تجربة التشغيل الأول في Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>تمكين أو تعطيل مكونات Windows في نظام التشغيل المنشور.</value>
+    <value>قم بتمكين ميزات Windows الاختيارية أو تعطيلها.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>الميزات الاختيارية</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>حدد إصدارات Windows ومستويات التحديث واللغات والنسخ التي يتم تقديمها أثناء النشر.</value>
+    <value>قم بتقييد خيارات نظام التشغيل المتاحة أثناء النشر.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>اختيار نظام التشغيل</value>
@@ -2489,7 +2489,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>الانضمام إلى النطاق تلقائياً باستخدام بيانات اعتماد تحميها كلمة مرور النشر.</value>
@@ -2597,31 +2597,31 @@
     <value>تجوال ملفات تعريف Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>تخصيص OOBE</value>
+    <value>تمكين تكوين OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>قم بتكوين Windows 11 شاشة يتم تشغيلها لأول مرة وإعدادات الخصوصية الافتراضية.</value>
+    <value>قم بتكوين خيارات الخصوصية والإعداد لتجربة التشغيل الأول في Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>تكوين ميزات Windows الاختيارية</value>
+    <value>تمكين تكوين الميزات الاختيارية</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>تمكين أو تعطيل مكونات Windows في نظام التشغيل المنشور.</value>
+    <value>اختر ميزات Windows الاختيارية لتمكينها أو تعطيلها.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>ميزات Windows الاختيارية</value>
+    <value>الميزات الاختيارية</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>خيارات نشر Windows</value>
+    <value>تمكين تكوين اختيار نظام التشغيل</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>حدد إصدارات Windows ومستويات التحديث واللغات والنسخ التي يتم تقديمها أثناء النشر.</value>
+    <value>قم بتكوين إصدارات نظام التشغيل واللغات والقنوات والنسخ المسموح بها.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>خيارات نشر Windows</value>
+    <value>اختيار نظام التشغيل</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>أضف إجراءً مفعّلًا أو عطّل إعدادات ما بعد التثبيت.</value>
@@ -4155,7 +4155,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>توفير الدعم Wi-Fi في صورة التمهيد</value>
+    <value>تمكين تهيئة Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>قم بتكوين تهيئة Wi-Fi والملفات التعريفية المضمنة وتدويل ملف تعريف Windows.</value>

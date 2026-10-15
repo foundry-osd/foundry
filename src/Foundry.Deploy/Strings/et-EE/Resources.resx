@@ -688,7 +688,7 @@ Kas jätkata juurutamisega?</value>
     <value>Interaktiivne riistvararäsi üleslaadimine</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profiili ettevalmistamine</value>
+    <value>JSON profiil</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profiil</value>

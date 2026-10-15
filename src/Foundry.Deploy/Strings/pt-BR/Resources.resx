@@ -688,7 +688,7 @@ Continuar com a implantação?</value>
     <value>Upload interativo do hash de hardware</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON provisionamento de perfil</value>
+    <value>Perfil JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Perfil</value>

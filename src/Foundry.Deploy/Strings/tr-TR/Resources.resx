@@ -688,7 +688,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Etkileşimli donanım karması yükleme</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profil temel hazırlığı</value>
+    <value>JSON profili</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

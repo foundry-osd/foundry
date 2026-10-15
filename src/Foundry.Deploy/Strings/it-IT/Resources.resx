@@ -688,7 +688,7 @@ Continuare con la distribuzione?</value>
     <value>Caricamento interattivo dell’hash hardware</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON provisioning del profilo</value>
+    <value>Profilo JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profilo</value>

@@ -688,7 +688,7 @@ Tęsti diegimą?</value>
     <value>Interaktyvus aparatūros maišos įkėlimas</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profilio sudarymas</value>
+    <value>JSON profilis</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profilis</value>

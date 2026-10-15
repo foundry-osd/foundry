@@ -77,10 +77,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Støtte</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Tredjeparts pakkelisenser spores gjennom prosjektlageret og avhengighetsmanifester.</value>
+    <value>Foundry OSD bruker følgende biblioteker og verktøy. Lisensene og prosjektsidene deres er oppført nedenfor.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Tredjepartsavhengigheter</value>
+    <value>Tredjepartslisenser</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Om Foundry OSD</value>
@@ -221,19 +221,19 @@ Lisensiert under MIT-lisensen.</value>
     <value>Oppgrader Windows ADK og Windows PE tillegg</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Fjern AI-komponenter</value>
+    <value>Aktiver konfigurasjon av AI-komponenter</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Fjern eller deaktiver valgte Windows AI-komponenter før OOBE.</value>
+    <value>Velg Windows AI-komponenter og -opplevelser som skal fjernes eller deaktiveres.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Fjerning av AI-komponenter</value>
+    <value>AI-komponenter</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Fjern klargjorte Windows-apper</value>
+    <value>Aktiver AppX-fjerninger</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Fjern valgte klargjorte Windows-apper før OOBE.</value>
+    <value>Velg klargjorte Windows-apper som skal fjernes fra distribuerte enheter.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-fjerninger</value>
@@ -638,10 +638,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Interaktiv opplasting av maskinvarehash</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Lag en offline Autopilot-profil i det brukte Windows-bildet.</value>
+    <value>Importer eller last ned Autopilot-profilen som bygges inn i distribusjonsmediene.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profilklargjøring</value>
+    <value>JSON-profil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurer leietakerstøttet automatisk opplasting av maskinvarehash.</value>
@@ -2051,10 +2051,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Velg 802.1X-sertifikat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurer kablet 802.1X</value>
+    <value>Aktiver konfigurasjon av Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standard Ethernet-tilkobling er tilgjengelig som standard. Konfigurer denne delen bare hvis det kablede nettverket ditt krever 802.1X enterprise-autentisering.</value>
+    <value>Konfigurer kablet 802.1X-autentisering og roaming av Windows-profiler.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ Lisensiert under MIT-lisensen.</value>
     <value>Flytt komponent opp</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Aktiver maskinnavnsregler</value>
+    <value>Aktiver konfigurasjon av maskinnavngiving</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurer automatisk og teknikerassistert navngivning av enheter.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Datamaskinnavn</value>
+    <value>Maskinnavngiving</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Forhåndsvisning</value>
@@ -2357,13 +2357,13 @@ Lisensiert under MIT-lisensen.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Fjern eller deaktiver valgte Windows AI-komponenter før OOBE.</value>
+    <value>Fjern eller deaktiver Windows AI-komponenter.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>KI-komponenter</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Fjern valgte klargjorte Windows-apper før OOBE.</value>
+    <value>Velg klargjorte apper som skal fjernes.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-fjerninger</value>
@@ -2405,7 +2405,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Domenetilknytning</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standard Ethernet-tilkobling er tilgjengelig som standard. Konfigurer denne delen bare hvis det kablede nettverket ditt krever 802.1X enterprise-autentisering.</value>
+    <value>Konfigurer kablet 802.1X-autentisering.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ Lisensiert under MIT-lisensen.</value>
     <value>Nettverk</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigurer Windows 11 førstegangsskjermer og standardinnstillinger for personvern.</value>
+    <value>Konfigurer out-of-box-opplevelsen i Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Aktiver eller deaktiver Windows-komponenter i det distribuerte operativsystemet.</value>
+    <value>Aktiver eller deaktiver valgfrie Windows-funksjoner.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Valgfrie funksjoner</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definer Windows-versjonene, oppdateringsnivåene, språkene og utgavene som tilbys under utrulling.</value>
+    <value>Begrens valgene av operativsystem under distribusjon.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-valg</value>
@@ -2597,31 +2597,31 @@ Lisensiert under MIT-lisensen.</value>
     <value>Roaming av Windows-profiler</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Tilpass OOBE</value>
+    <value>Aktiver OOBE-konfigurasjon</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigurer Windows 11 førstegangsskjermer og standardinnstillinger for personvern.</value>
+    <value>Konfigurer personvern- og oppsettsvalg for out-of-box-opplevelsen i Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurer valgfrie Windows-funksjoner</value>
+    <value>Aktiver konfigurasjon av valgfrie funksjoner</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Aktiver eller deaktiver Windows-komponenter i det distribuerte operativsystemet.</value>
+    <value>Velg valgfrie Windows-funksjoner som skal aktiveres eller deaktiveres.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows valgfrie funksjoner</value>
+    <value>Valgfrie funksjoner</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Alternativer for Windows-utrulling</value>
+    <value>Aktiver konfigurasjon av valg av operativsystem</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definer Windows-versjonene, oppdateringsnivåene, språkene og utgavene som tilbys under utrulling.</value>
+    <value>Konfigurer tillatte operativsystemversjoner, språk, kanaler og utgaver.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Alternativer for Windows-utrulling</value>
+    <value>OS-valg</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Legg til en aktivert handling, eller deaktiver etterinstallasjon.</value>
@@ -4155,7 +4155,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Gi Wi-Fi støtte i oppstartsbildet</value>
+    <value>Aktiver Wi-Fi-klargjøring</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurer Wi-Fi-klargjøring, innebygde profiler og roaming av Windows-profiler.</value>

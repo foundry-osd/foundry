@@ -77,10 +77,10 @@
     <value>支援</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>透過專案儲存庫和相依性清單追蹤第三方包許可證。</value>
+    <value>Foundry OSD 使用下列程式庫和工具。其授權條款和專案頁面列於下方。</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>第三方依賴項</value>
+    <value>第三方授權條款</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>關於Foundry OSD</value>
@@ -221,19 +221,19 @@
     <value>升級Windows ADK 和Windows PE 附加元件</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>刪除AI組件</value>
+    <value>啟用 AI 元件設定</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>刪除或停用OOBE之前選定的Windows AI組件。</value>
+    <value>選擇要移除或停用的 Windows AI 元件和體驗。</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI組件移除</value>
+    <value>AI 元件</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>刪除配置的Windows應用程式</value>
+    <value>啟用 AppX 移除</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>刪除 OOBE 之前選定的已配置 Windows 應用程式。</value>
+    <value>選擇要從已部署裝置中移除的已佈建 Windows 應用程式。</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX 應用程式移除</value>
@@ -638,10 +638,10 @@
     <value>互動式硬體雜湊上傳</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>在套用的 Windows 映像中暫存離線 Autopilot 設定檔。</value>
+    <value>匯入或下載內嵌於部署媒體中的 Autopilot 設定檔。</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON 設定檔配置</value>
+    <value>JSON 設定檔</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>設定由租用戶支援的自動硬體雜湊上傳。</value>
@@ -2051,10 +2051,10 @@
     <value>選擇802.1X證書</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>配置有線 802.1X</value>
+    <value>啟用 Ethernet 802.1X 設定</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>預設情況下，標準 Ethernet 連線可用。僅當您的有線網路需要 802.1X 企業身份驗證時才配置此部分。</value>
+    <value>設定有線 802.1X 驗證和 Windows 設定檔漫遊。</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@
     <value>向上移動元件</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>啟用機器命名規則</value>
+    <value>啟用電腦命名設定</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>設定自動與技術人員輔助的裝置命名。</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>電腦名稱</value>
+    <value>電腦命名</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>預覽</value>
@@ -2357,13 +2357,13 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>刪除或停用OOBE之前選定的Windows AI組件。</value>
+    <value>移除或停用 Windows AI 元件。</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI 元件</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>刪除 OOBE 之前選定的已配置 Windows 應用程式。</value>
+    <value>選取要移除的已佈建應用程式。</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX 應用程式移除</value>
@@ -2405,7 +2405,7 @@
     <value>網域加入</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>預設情況下，標準 Ethernet 連線可用。僅當您的有線網路需要 802.1X 企業身份驗證時才配置此部分。</value>
+    <value>設定有線 802.1X 驗證。</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@
     <value>網路</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>配置Windows 11個首次運行螢幕和隱私預設值。</value>
+    <value>設定 Windows 全新體驗。</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>在已部署的作業系統中啟用或停用 Windows 元件。</value>
+    <value>啟用或停用 Windows 選用功能。</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>選用功能</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>定義部署期間提供的 Windows 版本、更新層級、語言和版本類型。</value>
+    <value>限制部署時可選擇的作業系統。</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>作業系統選擇</value>
@@ -2489,7 +2489,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>使用受部署密碼保護的認證自動加入網域。</value>
@@ -2597,31 +2597,31 @@
     <value>Windows 設定檔漫遊</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>自訂OOBE</value>
+    <value>啟用 OOBE 設定</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>配置Windows 11個首次運行螢幕和隱私預設值。</value>
+    <value>設定 Windows 全新體驗的隱私權和安裝選項。</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>配置 Windows 選用功能</value>
+    <value>啟用選用功能設定</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>在已部署的作業系統中啟用或停用 Windows 元件。</value>
+    <value>選擇要啟用或停用的 Windows 選用功能。</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows 選用功能</value>
+    <value>選用功能</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows 部署選項</value>
+    <value>啟用作業系統選擇設定</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>定義部署期間提供的 Windows 版本、更新層級、語言和版本類型。</value>
+    <value>設定允許的作業系統發行版本、語言、通道和版本類型。</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows 部署選項</value>
+    <value>作業系統選擇</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>新增一個已啟用的動作，或停用安裝後設定。</value>
@@ -4155,7 +4155,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>在啟動映像中提供 Wi-Fi 支持</value>
+    <value>啟用 Wi-Fi 佈建</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>設定 Wi-Fi 佈建、內嵌設定檔與 Windows 設定檔漫遊。</value>

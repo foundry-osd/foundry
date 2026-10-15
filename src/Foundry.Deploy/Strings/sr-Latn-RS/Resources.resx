@@ -688,7 +688,7 @@ Operativni sistem: {4}
     <value>Interaktivno otpremanje hardverskog heša</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON dodeljivanje profila</value>
+    <value>JSON profil</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

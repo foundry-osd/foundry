@@ -688,7 +688,7 @@
     <value>تحميل تفاعلي لتجزئة الأجهزة</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON توفير الملف الشخصي</value>
+    <value>ملف تعريف JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>الملف الشخصي</value>

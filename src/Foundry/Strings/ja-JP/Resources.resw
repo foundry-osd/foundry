@@ -77,10 +77,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>サポート</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>サードパーティのパッケージ ライセンスは、プロジェクト リポジトリと依存関係マニフェストを通じて追跡されます。</value>
+    <value>Foundry OSD は、次のライブラリとツールを使用しています。それぞれのライセンスとプロジェクト ページを以下に示します。</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>サードパーティの依存関係</value>
+    <value>サードパーティ ライセンス</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Foundry OSDについて</value>
@@ -221,19 +221,19 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Windows ADK および Windows PE アドオンをアップグレードする</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>AI コンポーネントを削除する</value>
+    <value>AI コンポーネントの構成を有効にする</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>OOBE の前に選択した Windows AI コンポーネントを削除または無効にします。</value>
+    <value>削除または無効にする Windows AI コンポーネントとエクスペリエンスを選択します。</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI コンポーネントの削除</value>
+    <value>AI コンポーネント</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>プロビジョニングされた Windows アプリを削除する</value>
+    <value>AppX アプリの削除を有効にする</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>OOBE の前に、選択したプロビジョニング済みの Windows アプリを削除します。</value>
+    <value>展開したデバイスから削除する、プロビジョニング済みの Windows アプリを選択します。</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX アプリの削除</value>
@@ -638,10 +638,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>対話型ハードウェア ハッシュのアップロード</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>適用された Windows イメージにオフライン Autopilot プロファイルをステージングします。</value>
+    <value>展開メディアに埋め込む Autopilot プロファイルをインポートまたはダウンロードします。</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON プロファイルのプロビジョニング</value>
+    <value>JSON プロファイル</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>テナントによるハードウェア ハッシュの自動アップロードを構成します。</value>
@@ -2051,10 +2051,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>802.1X証明書を選択します</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>有線 802.1X を構成する</value>
+    <value>Ethernet 802.1X の構成を有効にする</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>標準の Ethernet 接続はデフォルトで利用可能です。このセクションは、有線ネットワークで 802.1X エンタープライズ認証が必要な場合にのみ設定します。</value>
+    <value>有線 802.1X 認証と Windows プロファイルのローミングを構成します。</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>コンポーネントを上へ移動</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>マシンの命名規則を有効にする</value>
+    <value>コンピューターの命名の構成を有効にする</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>自動または技術者の支援によるデバイスの命名を構成します。</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>コンピュータ名</value>
+    <value>コンピューターの命名</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>プレビュー</value>
@@ -2357,13 +2357,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>OOBE の前に選択した Windows AI コンポーネントを削除または無効にします。</value>
+    <value>Windows AI コンポーネントを削除または無効にします。</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI コンポーネント</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>OOBE の前に、選択したプロビジョニング済みの Windows アプリを削除します。</value>
+    <value>削除するプロビジョニング済みアプリを選択します。</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX アプリの削除</value>
@@ -2405,7 +2405,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ドメイン参加</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>標準の Ethernet 接続はデフォルトで利用可能です。このセクションは、有線ネットワークで 802.1X エンタープライズ認証が必要な場合にのみ設定します。</value>
+    <value>有線 802.1X 認証を構成します。</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ネットワーク</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Windows 11 の初回実行画面とプライバシーのデフォルトを構成します。</value>
+    <value>Windows の OOBE (Out-of-Box Experience) を構成します。</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>導入されたオペレーティング システムで Windows コンポーネントを有効または無効にします。</value>
+    <value>Windows のオプション機能を有効または無効にします。</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>オプション機能</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>展開時に提供する Windows のバージョン、更新レベル、言語、エディションを定義します。</value>
+    <value>展開で選択できるオペレーティング システムを制限します。</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS の選択</value>
@@ -2597,31 +2597,31 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Windows プロファイルのローミング</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>OOBE をカスタマイズします</value>
+    <value>OOBE の構成を有効にする</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Windows 11 の初回実行画面とプライバシーのデフォルトを構成します。</value>
+    <value>Windows の OOBE (Out-of-Box Experience) で使用するプライバシーとセットアップの設定を構成します。</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows のオプション機能を構成する</value>
+    <value>オプション機能の構成を有効にする</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>導入されたオペレーティング システムで Windows コンポーネントを有効または無効にします。</value>
+    <value>有効または無効にする Windows のオプション機能を選択します。</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windowsのオプション機能</value>
+    <value>オプション機能</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows 展開オプション</value>
+    <value>OS の選択の構成を有効にする</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>展開時に提供する Windows のバージョン、更新レベル、言語、エディションを定義します。</value>
+    <value>許可するオペレーティング システムのリリース、言語、チャネル、エディションを構成します。</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows 展開オプション</value>
+    <value>OS の選択</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>有効なアクションを追加するか、インストール後の構成を無効にしてください。</value>
@@ -4155,7 +4155,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>ブート イメージで Wi-Fi サポートをプロビジョニングします</value>
+    <value>Wi-Fi のプロビジョニングを有効にする</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Wi-Fi のプロビジョニング、埋め込みプロファイル、Windows プロファイルのローミングを構成します。</value>

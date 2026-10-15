@@ -77,10 +77,10 @@ Licencirano pod MIT licencom.</value>
     <value>Podrška</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Licence za pakete trećih strana se prate kroz repozitorijum projekta i manifeste zavisnosti.</value>
+    <value>Foundry OSD koristi sledeće biblioteke i alatke. Njihove licence i stranice projekata navedene su u nastavku.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Zavisnosti trećih strana</value>
+    <value>Licence trećih strana</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>O Foundry OSD</value>
@@ -221,19 +221,19 @@ Licencirano pod MIT licencom.</value>
     <value>Nadogradite Windows ADK i Windows PE dodatak</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Uklonite AI komponente</value>
+    <value>Omogući konfiguraciju AI komponenti</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Uklonite ili onemogućite izabrane Windows AI komponente pre OOBE.</value>
+    <value>Izaberite Windows AI komponente i funkcije koje treba ukloniti ili onemogućiti.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Uklanjanje AI komponente</value>
+    <value>AI komponente</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Uklonite obezbeđene Windows aplikacije</value>
+    <value>Omogući uklanjanje AppX paketa</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Uklonite izabrane obezbeđene Windows aplikacije pre OOBE.</value>
+    <value>Izaberite obezbeđene Windows aplikacije koje treba ukloniti sa uređaja na koje se sistem primenjuje.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Uklanjanja AppX paketa</value>
@@ -638,10 +638,10 @@ Licencirano pod MIT licencom.</value>
     <value>Interaktivno otpremanje hardverskog heša</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Postavite oflajn Autopilot profil na primenjenoj Windows slici.</value>
+    <value>Uvezite ili preuzmite Autopilot profil koji se ugrađuje u medij za primenu.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON dodeljivanje profila</value>
+    <value>JSON profil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurišite automatsko otpremanje hardverskog heša uz podršku zakupca.</value>
@@ -2051,10 +2051,10 @@ Licencirano pod MIT licencom.</value>
     <value>Izaberite 802.1X sertifikat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurišite žičani 802.1X</value>
+    <value>Omogući konfiguraciju za Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standardno Ethernet povezivanje je podrazumevano dostupno. Konfigurišite ovaj odeljak samo ako vaša žičana mreža zahteva 802.1X autentifikaciju preduzeća.</value>
+    <value>Konfigurišite žičanu 802.1X autentifikaciju i roming Windows profila.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ Licencirano pod MIT licencom.</value>
     <value>Pomeri komponentu nagore</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Omogućite pravila imenovanja mašina</value>
+    <value>Omogući konfiguraciju imenovanja računara</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurišite automatsko imenovanje uređaja i imenovanje uz pomoć tehničara.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Ime računara</value>
+    <value>Imenovanje računara</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Pregled</value>
@@ -2357,13 +2357,13 @@ Licencirano pod MIT licencom.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Uklonite ili onemogućite izabrane Windows AI komponente pre OOBE.</value>
+    <value>Uklonite ili onemogućite Windows AI komponente.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI komponente</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Uklonite izabrane obezbeđene Windows aplikacije pre OOBE.</value>
+    <value>Izaberite obezbeđene aplikacije za uklanjanje.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Uklanjanja AppX paketa</value>
@@ -2405,7 +2405,7 @@ Licencirano pod MIT licencom.</value>
     <value>Pridruživanje domenu</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standardno Ethernet povezivanje je podrazumevano dostupno. Konfigurišite ovaj odeljak samo ako vaša žičana mreža zahteva 802.1X autentifikaciju preduzeća.</value>
+    <value>Konfigurišite žičanu 802.1X autentifikaciju.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ Licencirano pod MIT licencom.</value>
     <value>Mreža</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigurišite Windows 11 ekrana za prvo pokretanje i podrazumevane postavke privatnosti.</value>
+    <value>Konfigurišite ekrane prvog pokretanja sistema Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Omogućite ili onemogućite Windows komponente u primenjenom operativnom sistemu.</value>
+    <value>Omogućite ili onemogućite opcione funkcije sistema Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Opcione funkcije</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definišite verzije sistema Windows, nivoe ažuriranja, jezike i izdanja koja se nude tokom primene.</value>
+    <value>Ograničite izbor operativnih sistema tokom primene.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Izbor OS-a</value>
@@ -2489,7 +2489,7 @@ Licencirano pod MIT licencom.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Pridružite se domenu automatski pomoću akreditiva zaštićenih lozinkom za primenu.</value>
@@ -2597,31 +2597,31 @@ Licencirano pod MIT licencom.</value>
     <value>Roming Windows profila</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Prilagodite OOBE</value>
+    <value>Omogući konfiguraciju za OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigurišite Windows 11 ekrana za prvo pokretanje i podrazumevane postavke privatnosti.</value>
+    <value>Konfigurišite izbore privatnosti i podešavanja za ekrane prvog pokretanja sistema Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurišite opcionalne funkcije operativnog sistema Windows</value>
+    <value>Omogući konfiguraciju opcionih funkcija</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Omogućite ili onemogućite Windows komponente u primenjenom operativnom sistemu.</value>
+    <value>Izaberite opcione funkcije sistema Windows koje treba omogućiti ili onemogućiti.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows opcione funkcije</value>
+    <value>Opcione funkcije</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Opcije primene operativnog sistema Windows</value>
+    <value>Omogući konfiguraciju izbora operativnog sistema</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definišite verzije sistema Windows, nivoe ažuriranja, jezike i izdanja koja se nude tokom primene.</value>
+    <value>Konfigurišite dozvoljene verzije, jezike, kanale i izdanja operativnog sistema.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Opcije primene operativnog sistema Windows</value>
+    <value>Izbor OS-a</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Dodajte omogućenu radnju ili onemogućite konfiguraciju nakon instalacije.</value>
@@ -4155,7 +4155,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Obezbedite podršku Wi-Fi u imidžu za pokretanje</value>
+    <value>Omogući Wi-Fi obezbeđivanje</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurišite Wi-Fi obezbeđivanje, ugrađene profile i roaming profila Windows.</value>

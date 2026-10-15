@@ -688,7 +688,7 @@
     <value>Διαδραστική αποστολή κατακερματισμού υλικού</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>Προμήθεια προφίλ JSON</value>
+    <value>Προφίλ JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Προφίλ</value>

@@ -688,7 +688,7 @@ Sistema operativo: {4}
     <value>Carga interactiva del hash de hardware</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON aprovisionamiento de perfil</value>
+    <value>Perfil JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Perfil</value>

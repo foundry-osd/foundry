@@ -688,7 +688,7 @@ Continuer le déploiement ?</value>
     <value>Envoi interactif du hash matériel</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>Provisionnement par profil JSON</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

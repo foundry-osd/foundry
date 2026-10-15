@@ -688,7 +688,7 @@ Continuer le déploiement?</value>
     <value>Téléversement interactif du hachage matériel</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON provisionnement du profil</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>
@@ -874,7 +874,7 @@ Continuer le déploiement?</value>
     <value>Télécharger le paquet de pilotes</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Télécharger le micrologiciel</value>
+    <value>Télécharger la mise à jour du micrologiciel</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
     <value>Télécharger l’image Windows</value>

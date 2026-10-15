@@ -77,10 +77,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>지원</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>타사 패키지 라이센스는 프로젝트 저장소 및 종속성 매니페스트를 통해 추적됩니다.</value>
+    <value>Foundry OSD는 다음 라이브러리와 도구를 사용합니다. 각 라이선스와 프로젝트 페이지는 아래에 나와 있습니다.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>타사 종속성</value>
+    <value>타사 라이선스</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Foundry OSD 소개</value>
@@ -221,19 +221,19 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Windows ADK 및 Windows PE 추가 기능 업그레이드</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>AI 구성 요소 제거</value>
+    <value>AI 구성 요소 구성 활성화</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>OOBE 이전에 선택한 Windows AI 구성 요소를 제거하거나 비활성화합니다.</value>
+    <value>제거하거나 비활성화할 Windows AI 구성 요소 및 환경을 선택합니다.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI 구성 요소 제거</value>
+    <value>AI 구성 요소</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>프로비저닝된 Windows 앱 제거</value>
+    <value>AppX 앱 제거 활성화</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>OOBE 전에 선택한 프로비저닝된 Windows 앱을 제거합니다.</value>
+    <value>배포된 장치에서 제거할 프로비저닝된 Windows 앱을 선택합니다.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX 앱 제거</value>
@@ -638,10 +638,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>대화형 하드웨어 해시 업로드</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>적용된 Windows 이미지에 오프라인 Autopilot 프로필을 준비합니다.</value>
+    <value>배포 미디어에 포함되는 Autopilot 프로필을 가져오거나 다운로드합니다.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON 프로필 프로비저닝</value>
+    <value>JSON 프로필</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>테넌트 기반 자동 하드웨어 해시 업로드를 구성합니다.</value>
@@ -2051,10 +2051,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>802.1X 인증서 선택</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>유선 802.1X 구성</value>
+    <value>Ethernet 802.1X 구성 활성화</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>기본적으로 표준 Ethernet 연결을 사용할 수 있습니다. 유선 네트워크에 802.1X 기업 인증이 필요한 경우에만 이 섹션을 구성하십시오.</value>
+    <value>유선 802.1X 인증 및 Windows 프로필 로밍을 구성합니다.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>구성 요소를 위로 이동</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>머신 명명 규칙 활성화</value>
+    <value>컴퓨터 이름 지정 구성 활성화</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>자동 및 기술자 지원 장치 이름 지정을 구성합니다.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>컴퓨터 이름</value>
+    <value>컴퓨터 이름 지정</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>미리 보기</value>
@@ -2357,13 +2357,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>OOBE 이전에 선택한 Windows AI 구성 요소를 제거하거나 비활성화합니다.</value>
+    <value>Windows AI 구성 요소를 제거하거나 비활성화합니다.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI 구성 요소</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>OOBE 전에 선택한 프로비저닝된 Windows 앱을 제거합니다.</value>
+    <value>제거할 프로비저닝된 앱을 선택합니다.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX 앱 제거</value>
@@ -2405,7 +2405,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>도메인 가입</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>기본적으로 표준 Ethernet 연결을 사용할 수 있습니다. 유선 네트워크에 802.1X 기업 인증이 필요한 경우에만 이 섹션을 구성하십시오.</value>
+    <value>유선 802.1X 인증을 구성합니다.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>네트워크</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Windows 11개의 첫 실행 화면과 개인 정보 기본값을 구성합니다.</value>
+    <value>Windows OOBE(첫 실행 환경)를 구성합니다.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>배포된 운영 체제에서 Windows 구성 요소를 활성화하거나 비활성화합니다.</value>
+    <value>Windows 선택적 기능을 활성화하거나 비활성화합니다.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>선택적 기능</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>배포 중 제공할 Windows 버전, 업데이트 수준, 언어 및 에디션을 정의합니다.</value>
+    <value>배포 시 선택할 수 있는 운영 체제를 제한합니다.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS 선택</value>
@@ -2597,31 +2597,31 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Windows 프로필 로밍</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>OOBE 사용자 정의</value>
+    <value>OOBE 구성 활성화</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Windows 11개의 첫 실행 화면과 개인 정보 기본값을 구성합니다.</value>
+    <value>Windows OOBE(첫 실행 환경)의 개인 정보 및 설정 옵션을 구성합니다.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows 선택적 기능 구성</value>
+    <value>선택적 기능 구성 활성화</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>배포된 운영 체제에서 Windows 구성 요소를 활성화하거나 비활성화합니다.</value>
+    <value>활성화하거나 비활성화할 Windows 선택적 기능을 선택합니다.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows 선택적 기능</value>
+    <value>선택적 기능</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows 배포 옵션</value>
+    <value>OS 선택 구성 활성화</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>배포 중 제공할 Windows 버전, 업데이트 수준, 언어 및 에디션을 정의합니다.</value>
+    <value>허용할 운영 체제 릴리스, 언어, 채널 및 에디션을 구성합니다.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows 배포 옵션</value>
+    <value>OS 선택</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>사용하도록 설정된 작업을 추가하거나 설치 후 구성을 사용하지 않도록 설정하세요.</value>
@@ -4155,7 +4155,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>부팅 이미지에서 Wi-Fi 지원 제공</value>
+    <value>Wi-Fi 프로비저닝 활성화</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Wi-Fi 프로비저닝, 포함된 프로필 및 Windows 프로필 로밍을 구성합니다.</value>

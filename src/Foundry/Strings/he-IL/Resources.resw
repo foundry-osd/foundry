@@ -77,10 +77,10 @@
     <value>תמיכה</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>מעקב אחר רישיונות חבילות של צד שלישי מתבצע דרך מאגר הפרויקט ומניפסטי התלות.</value>
+    <value>Foundry OSD משתמשת בספריות ובכלים הבאים. הרישיונות ודפי הפרויקט שלהם מפורטים להלן.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>תלות של צד שלישי</value>
+    <value>רישיונות של צד שלישי</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>על Foundry OSD</value>
@@ -221,19 +221,19 @@
     <value>שדרג את התוסף Windows ADK ו-Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>הסר רכיבי AI</value>
+    <value>הפעלת תצורת רכיבי AI</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>הסר או השבת את רכיבי בינה מלאכותית Windows שנבחרו לפני OOBE.</value>
+    <value>בחר רכיבי AI וחוויות AI של Windows להסרה או להשבתה.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>הסרת רכיבי AI</value>
+    <value>רכיבי AI</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>הסר אפליקציות Windows שהוגדרו</value>
+    <value>הפעלת הסרת יישומי AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>הסר יישומי Windows שנבחרו לפני OOBE.</value>
+    <value>בחר יישומי Windows שהוקצו להסרה מהמכשירים שנפרסו.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>הסרת יישומי AppX</value>
@@ -638,10 +638,10 @@
     <value>העלאה אינטראקטיבית של Hash חומרה</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>שלב פרופיל Autopilot לא מקוון בתמונה Windows המוחלת.</value>
+    <value>ייבא או הורד את פרופיל Autopilot המוטמע במדיית הפריסה.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON הקצאת פרופיל</value>
+    <value>פרופיל JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>הגדר העלאה אוטומטית של גיבוב החומרה בגיבוי הדייר.</value>
@@ -2051,10 +2051,10 @@
     <value>בחר אישור 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>קבע תצורה קווית 802.1X</value>
+    <value>הפעלת תצורת Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>קישוריות Ethernet סטנדרטית זמינה כברירת מחדל. הגדר את הסעיף הזה רק אם הרשת הקווית שלך דורשת אימות ארגוני 802.1X.</value>
+    <value>הגדר אימות 802.1X קווי ונדידת פרופילים של Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@
     <value>העבר רכיב למעלה</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>אפשר כללי מתן שמות למכונה</value>
+    <value>הפעלת תצורת מתן שמות למחשבים</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>הגדר מתן שמות למכשירים באופן אוטומטי ובסיוע טכנאי.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>שם המחשב</value>
+    <value>מתן שמות למחשבים</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>תצוגה מקדימה</value>
@@ -2357,13 +2357,13 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>הסר או השבת את רכיבי בינה מלאכותית Windows שנבחרו לפני OOBE.</value>
+    <value>הסר או השבת רכיבי AI של Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>רכיבי AI</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>הסר יישומי Windows שנבחרו לפני OOBE.</value>
+    <value>בחר יישומים שהוקצו להסרה.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>הסרת יישומי AppX</value>
@@ -2405,7 +2405,7 @@
     <value>הצטרפות לתחום</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>קישוריות Ethernet סטנדרטית זמינה כברירת מחדל. הגדר את הסעיף הזה רק אם הרשת הקווית שלך דורשת אימות ארגוני 802.1X.</value>
+    <value>הגדר אימות 802.1X קווי.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@
     <value>רשת</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>הגדר Windows 11 מסכים בהפעלה ראשונה וברירות מחדל לפרטיות.</value>
+    <value>הגדר את חוויית ההפעלה הראשונה של Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>הפעל או השבת את רכיבי Windows במערכת ההפעלה שנפרסה.</value>
+    <value>הפעל או השבת תכונות אופציונליות של Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>תכונות אופציונליות</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>הגדר את גרסאות Windows, רמות העדכון, השפות והמהדורות שיוצעו במהלך הפריסה.</value>
+    <value>הגבל את אפשרויות מערכת ההפעלה בפריסה.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>בחירת מערכת הפעלה</value>
@@ -2489,7 +2489,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>הצטרף לתחום באופן אוטומטי באמצעות פרטי כניסה המוגנים בסיסמת הפריסה.</value>
@@ -2597,31 +2597,31 @@
     <value>נדידת פרופילי Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>התאמה אישית של OOBE</value>
+    <value>הפעלת תצורת OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>הגדר Windows 11 מסכים בהפעלה ראשונה וברירות מחדל לפרטיות.</value>
+    <value>הגדר אפשרויות פרטיות והתקנה עבור חוויית ההפעלה הראשונה של Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>הגדר תכונות אופציונליות של Windows</value>
+    <value>הפעלת תצורת תכונות אופציונליות</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>הפעל או השבת את רכיבי Windows במערכת ההפעלה שנפרסה.</value>
+    <value>בחר תכונות אופציונליות של Windows להפעלה או להשבתה.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>תכונות אופציונליות של Windows</value>
+    <value>תכונות אופציונליות</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>אפשרויות פריסת Windows</value>
+    <value>הפעלת תצורת בחירת מערכת ההפעלה</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>הגדר את גרסאות Windows, רמות העדכון, השפות והמהדורות שיוצעו במהלך הפריסה.</value>
+    <value>הגדר את גרסאות מערכת ההפעלה, השפות, הערוצים והמהדורות המותרים.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>אפשרויות פריסת Windows</value>
+    <value>בחירת מערכת הפעלה</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>הוסף פעולה מופעלת או השבת את ההגדרות שלאחר ההתקנה.</value>
@@ -4155,7 +4155,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>ספק תמיכה Wi-Fi בתמונת האתחול</value>
+    <value>הפעלת הקצאת Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>הגדר הקצאת Wi-Fi, פרופילים מוטמעים ונדידת פרופילים של Windows.</value>

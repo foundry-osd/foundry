@@ -77,10 +77,10 @@ Licensierad under MIT-licensen.</value>
     <value>Support</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Tredjepartspaketlicenser spåras genom projektförrådet och beroendemanifest.</value>
+    <value>Foundry OSD använder följande bibliotek och verktyg. Deras licenser och projektsidor visas nedan.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Tredjepartsberoende</value>
+    <value>Licenser från tredje part</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Om Foundry OSD</value>
@@ -221,19 +221,19 @@ Licensierad under MIT-licensen.</value>
     <value>Uppgradera Windows ADK och Windows PE tillägg</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Ta bort AI-komponenter</value>
+    <value>Aktivera konfiguration av AI-komponenter</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Ta bort eller inaktivera valda Windows AI-komponenter före OOBE.</value>
+    <value>Välj Windows AI-komponenter och -upplevelser som ska tas bort eller inaktiveras.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Borttagning av AI-komponenter</value>
+    <value>AI-komponenter</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Ta bort tillhandahållna Windows appar</value>
+    <value>Aktivera AppX-borttagningar</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Ta bort valda provisionerade Windows-appar före OOBE.</value>
+    <value>Välj tillhandahållna Windows-appar som ska tas bort från distribuerade enheter.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-borttagningar</value>
@@ -638,10 +638,10 @@ Licensierad under MIT-licensen.</value>
     <value>Interaktiv uppladdning av maskinvaruhash</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Skapa en offline Autopilot-profil i den applicerade Windows-bilden.</value>
+    <value>Importera eller ladda ned Autopilot-profilen som bäddas in i distributionsmedia.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profilprovisionering</value>
+    <value>JSON-profil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurera automatisk uppladdning av maskinvaruhash med klientorganisation som stöd.</value>
@@ -2051,10 +2051,10 @@ Licensierad under MIT-licensen.</value>
     <value>Välj 802.1X-certifikat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurera trådbunden 802.1X</value>
+    <value>Aktivera konfiguration av Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standard Ethernet-anslutning är tillgänglig som standard. Konfigurera detta avsnitt endast om ditt trådbundna nätverk kräver 802.1X företagsautentisering.</value>
+    <value>Konfigurera trådbunden 802.1X-autentisering och roaming av Windows-profiler.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2063,7 +2063,7 @@ Licensierad under MIT-licensen.</value>
     <value>Ange fördröjningen innan enheten startas om. Använd 0 för att starta om omedelbart.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Fördröjning före omstart</value>
+    <value>Omstartsfördröjning</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
     <value>Välj om enheten ska startas om automatiskt efter en lyckad distribution.</value>
@@ -2330,13 +2330,13 @@ Licensierad under MIT-licensen.</value>
     <value>Flytta komponenten uppåt</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Aktivera regler för maskinnamn</value>
+    <value>Aktivera konfiguration av datornamngivning</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurera automatisk enhetsnamngivning och namngivning med hjälp av tekniker.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Datornamn</value>
+    <value>Datornamngivning</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Förhandsgranskning</value>
@@ -2357,13 +2357,13 @@ Licensierad under MIT-licensen.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Ta bort eller inaktivera valda Windows AI-komponenter före OOBE.</value>
+    <value>Ta bort eller inaktivera Windows AI-komponenter.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI-komponenter</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Ta bort valda provisionerade Windows-appar före OOBE.</value>
+    <value>Välj tillhandahållna appar som ska tas bort.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-borttagningar</value>
@@ -2405,7 +2405,7 @@ Licensierad under MIT-licensen.</value>
     <value>Domänanslutning</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standard Ethernet-anslutning är tillgänglig som standard. Konfigurera detta avsnitt endast om ditt trådbundna nätverk kräver 802.1X företagsautentisering.</value>
+    <value>Konfigurera trådbunden 802.1X-autentisering.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ Licensierad under MIT-licensen.</value>
     <value>Nätverk</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigurera Windows 11 förstagångsskärmar och sekretessinställningar.</value>
+    <value>Konfigurera out-of-box-upplevelsen i Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Aktivera eller inaktivera Windows-komponenter i det distribuerade operativsystemet.</value>
+    <value>Aktivera eller inaktivera valfria Windows-funktioner.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Valfria funktioner</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Ange Windows-versioner, uppdateringsnivåer, språk och utgåvor som erbjuds under distributionen.</value>
+    <value>Begränsa valen av operativsystem vid distribution.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-val</value>
@@ -2597,31 +2597,31 @@ Licensierad under MIT-licensen.</value>
     <value>Roaming av Windows-profiler</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Anpassa OOBE</value>
+    <value>Aktivera OOBE-konfiguration</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigurera Windows 11 förstagångsskärmar och sekretessinställningar.</value>
+    <value>Konfigurera sekretess- och installationsval för out-of-box-upplevelsen i Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurera Windows tillvalsfunktioner</value>
+    <value>Aktivera konfiguration av valfria funktioner</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Aktivera eller inaktivera Windows-komponenter i det distribuerade operativsystemet.</value>
+    <value>Välj valfria Windows-funktioner som ska aktiveras eller inaktiveras.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows tillvalsfunktioner</value>
+    <value>Valfria funktioner</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Distributionsalternativ för Windows</value>
+    <value>Aktivera konfiguration av val av operativsystem</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Ange Windows-versioner, uppdateringsnivåer, språk och utgåvor som erbjuds under distributionen.</value>
+    <value>Konfigurera tillåtna operativsystemversioner, språk, kanaler och utgåvor.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Distributionsalternativ för Windows</value>
+    <value>OS-val</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Lägg till en aktiverad åtgärd eller inaktivera efterinstallationen.</value>
@@ -4155,7 +4155,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Tillhandahåll Wi-Fi stöd i startbilden</value>
+    <value>Aktivera Wi-Fi-provisionering</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurera Wi-Fi-provisionering, inbäddade profiler och roaming av Windows-profiler.</value>

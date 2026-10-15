@@ -688,7 +688,7 @@ Continuați cu implementarea?</value>
     <value>Încărcare interactivă a hashului hardware</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON furnizarea profilului</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

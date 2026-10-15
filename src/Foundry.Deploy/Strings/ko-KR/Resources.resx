@@ -688,7 +688,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>대화형 하드웨어 해시 업로드</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON 프로필 프로비저닝</value>
+    <value>JSON 프로필</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>프로필</value>

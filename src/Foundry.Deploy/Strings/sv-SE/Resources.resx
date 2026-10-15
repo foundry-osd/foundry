@@ -688,7 +688,7 @@ Fortsätt med implementeringen?</value>
     <value>Interaktiv uppladdning av maskinvaruhash</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profilprovisionering</value>
+    <value>JSON-profil</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>

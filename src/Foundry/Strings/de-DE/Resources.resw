@@ -77,10 +77,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Unterstützung</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Paketlizenzen von Drittanbietern werden über das Projekt-Repository und die Abhängigkeitsmanifeste nachverfolgt.</value>
+    <value>Foundry OSD verwendet die folgenden Bibliotheken und Tools. Ihre Lizenzen und Projektseiten sind unten aufgeführt.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Abhängigkeiten von Drittanbietern</value>
+    <value>Drittanbieterlizenzen</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Über Foundry OSD</value>
@@ -221,19 +221,19 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Aktualisieren Sie das Add-on Windows ADK und Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Entfernen Sie KI-Komponenten</value>
+    <value>Konfiguration der KI-Komponenten aktivieren</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Entfernen oder deaktivieren Sie ausgewählte Windows AI-Komponenten vor OOBE.</value>
+    <value>Wählen Sie Windows-KI-Komponenten und -Funktionen aus, die entfernt oder deaktiviert werden sollen.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Entfernung von KI-Komponenten</value>
+    <value>KI-Komponenten</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Entfernen Sie bereitgestellte Windows Apps</value>
+    <value>Entfernen von AppX-Paketen aktivieren</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Entfernen Sie ausgewählte bereitgestellte Windows Apps vor OOBE.</value>
+    <value>Wählen Sie bereitgestellte Windows-Apps aus, die auf den Zielgeräten entfernt werden sollen.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-Entfernungen</value>
@@ -638,10 +638,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Interaktiver Hardware-Hash-Upload</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Stellen Sie ein Offline-Autopilot-Profil im angewendeten Windows-Bild bereit.</value>
+    <value>Importieren Sie das in Bereitstellungsmedien eingebettete Autopilot-Profil, oder laden Sie es herunter.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON Profilbereitstellung</value>
+    <value>JSON-Profil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurieren Sie den mandantenunterstützten automatischen Upload des Hardware-Hash.</value>
@@ -2051,10 +2051,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Wählen Sie das 802.1X-Zertifikat aus</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurieren Sie kabelgebundenes 802.1X</value>
+    <value>Ethernet-802.1X-Konfiguration aktivieren</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Die standardmäßige Ethernet-Konnektivität ist standardmäßig verfügbar. Konfigurieren Sie diesen Abschnitt nur, wenn Ihr kabelgebundenes Netzwerk eine 802.1X-Unternehmensauthentifizierung erfordert.</value>
+    <value>Konfigurieren Sie die kabelgebundene 802.1X-Authentifizierung und das Roaming von Windows-Profilen.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2330,13 +2330,13 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Komponente nach oben verschieben</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Aktivieren Sie Regeln zur Maschinenbenennung</value>
+    <value>Konfiguration der Computerbenennung aktivieren</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurieren Sie die automatische und technikerunterstützte Gerätebenennung.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Computername</value>
+    <value>Computerbenennung</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Vorschau</value>
@@ -2357,13 +2357,13 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Entfernen oder deaktivieren Sie ausgewählte Windows AI-Komponenten vor OOBE.</value>
+    <value>Entfernen oder deaktivieren Sie Windows-KI-Komponenten.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>KI-Komponenten</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Entfernen Sie ausgewählte bereitgestellte Windows Apps vor OOBE.</value>
+    <value>Wählen Sie bereitgestellte Apps zum Entfernen aus.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-Entfernungen</value>
@@ -2405,7 +2405,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Domänenbeitritt</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Die standardmäßige Ethernet-Konnektivität ist standardmäßig verfügbar. Konfigurieren Sie diesen Abschnitt nur, wenn Ihr kabelgebundenes Netzwerk eine 802.1X-Unternehmensauthentifizierung erfordert.</value>
+    <value>Konfigurieren Sie die kabelgebundene 802.1X-Authentifizierung.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2441,19 +2441,19 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Netzwerk</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigurieren Sie Windows 11 Erstausführungsbildschirme und Datenschutzstandards.</value>
+    <value>Konfigurieren Sie die Windows-Out-of-Box-Experience.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Aktivieren oder deaktivieren Sie Windows-Komponenten im bereitgestellten Betriebssystem.</value>
+    <value>Aktivieren oder deaktivieren Sie optionale Windows-Funktionen.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Optionale Funktionen</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Legen Sie die Windows-Versionen, Updatestände, Sprachen und Editionen fest, die während der Bereitstellung angeboten werden.</value>
+    <value>Schränken Sie die Betriebssystemauswahl für die Bereitstellung ein.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-Auswahl</value>
@@ -2489,7 +2489,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Der Domäne automatisch mit Anmeldeinformationen beitreten, die durch das Bereitstellungskennwort geschützt sind.</value>
@@ -2597,31 +2597,31 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Roaming von Windows-Profilen</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Anpassen OOBE</value>
+    <value>OOBE-Konfiguration aktivieren</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigurieren Sie Windows 11 Erstausführungsbildschirme und Datenschutzstandards.</value>
+    <value>Konfigurieren Sie Datenschutz- und Einrichtungsoptionen für die Windows-Out-of-Box-Experience.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurieren Sie optionale Windows-Funktionen</value>
+    <value>Konfiguration optionaler Funktionen aktivieren</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Aktivieren oder deaktivieren Sie Windows-Komponenten im bereitgestellten Betriebssystem.</value>
+    <value>Wählen Sie optionale Windows-Funktionen aus, die aktiviert oder deaktiviert werden sollen.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Optionale Windows-Funktionen</value>
+    <value>Optionale Funktionen</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows-Bereitstellungsoptionen</value>
+    <value>Konfiguration der Betriebssystemauswahl aktivieren</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Legen Sie die Windows-Versionen, Updatestände, Sprachen und Editionen fest, die während der Bereitstellung angeboten werden.</value>
+    <value>Konfigurieren Sie zulässige Betriebssystemversionen, Sprachen, Kanäle und Editionen.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows-Bereitstellungsoptionen</value>
+    <value>OS-Auswahl</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Fügen Sie eine aktivierte Aktion hinzu oder deaktivieren Sie die Nachinstallation.</value>
@@ -4155,7 +4155,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Stellen Sie Wi-Fi-Unterstützung im Boot-Image bereit</value>
+    <value>Wi-Fi-Bereitstellung aktivieren</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurieren Sie das Wi-Fi Provisioning, integrierte Profile und das Windows-Profil-Roaming.</value>
