@@ -494,16 +494,25 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Eemalda sertifikaat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry eemaldab hallatud rakenduse registreerimisest ainult valitud sertifikaadi. Muud rakenduse mandaadid säilitatakse.</value>
+    <value>Valitud sertifikaat eemaldatakse teie üürniku hallatud rakenduse registreerimisest. Muud rakenduse mandaadid säilitatakse.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Eemalda sertifikaat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Kas eemaldada valitud sertifikaat?</value>
+    <value>Kas eemaldada sertifikaat üürnikult?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Seda toimingut ei saa tagasi võtta. Alglaadimismeediumid, mis kasutavad eemaldatud sertifikaati, ei saa enam riistvararäsisid üles laadida.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry eemaldab hallatud rakenduse registreerimisest ainult {0} valitud sertifikaadid. Muud rakenduse mandaadid säilitatakse.</value>
+    <value>{0} valitud sertifikaati eemaldatakse teie üürniku hallatud rakenduse registreerimisest. Muud rakenduse mandaadid säilitatakse.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Eemalda sertifikaadid</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Kas eemaldada sertifikaadid üürnikult?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Ühendatud</value>
@@ -587,7 +596,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Eemalda valitud</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Kas eemaldada "{0}" imporditud Autopilot profiilidest?</value>
+    <value>„{0}“ eemaldatakse selle konfiguratsiooni Autopilot profiilidest.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Eemalda profiil</value>
@@ -596,7 +605,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Kas eemaldada Autopilot profiil?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Kas eemaldada {0} valitud Autopilot profiilid?</value>
+    <value>{0} valitud Autopilot profiili eemaldatakse sellest konfiguratsioonist.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Eemalda profiilid</value>
@@ -604,14 +613,14 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Kas eemaldada Autopilot profiilid?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Eemaldatud profiili uuesti kasutamiseks importige see või laadige see üürnikult uuesti alla.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Autopilot profiilide allalaadimiseks logige brauseris sisse.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Logige sisse aadressil Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Tühista</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Selge</value>
@@ -685,6 +694,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Värskenda</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Pole saadaval</value>
   </data>
@@ -696,9 +708,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Sirvi</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Loobu</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importimine tühistatud</value>
@@ -787,17 +796,23 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Värskenda</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Kas eemaldada see tõmmis praegusest profiilist ja kustutada selle kohalik koopia? Teistes sellele viitavates profiilides kuvatakse see puuduvana. Algfailid ja olemasolevad andmekandjad jäävad muutmata.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Eemalda tõmmis</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) eemaldatakse praegusest profiilist ja selle kohalik koopia kustutatakse.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Eemalda</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Kas eemaldada kohandatud tõmmis?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Teistes seda tõmmist kasutavates profiilides kuvatakse see puuduvana. Algfaili ja olemasolevaid andmekandjaid ei muudeta.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Muuda</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Salvesta</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Määra vaiketõmmis</value>
@@ -1825,8 +1840,14 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Töötlemata logid võivad sisaldada mandaate, identifikaatoreid, teid, võrgunimesid ja muid tundlikke andmeid. Ekspordi need ainult siis, kui usaldusväärne tugikontakt seda sõnaselgelt taotleb.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Tugiarhiiv salvestati asukohta:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostika eksporditud</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Ava kaust</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ei saanud teie brauseris dokumentatsiooni avada. Kasutage selle asemel URL.</value>
@@ -2833,6 +2854,15 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Mõnda vana salvestatud parooli või juurdepääsuvõtit ei saanud eemaldada. Proovige uuesti, kui Windowsi identimisteabe haldur on saadaval.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Sule salvestamata</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Teie viimaseid muudatusi ei saanud salvestada ja need lähevad kaotsi.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Kas sulgeda sätteid salvestamata?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Kinnitage parool</value>
   </data>
@@ -2869,8 +2899,17 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Kustuta sellest arvutist</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Kustuta</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Kustuta ka kõigi teiste jaoks</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Kustuta kõigi jaoks</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Kas kustutada kõigi jaoks?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Kas kustutada need jagatud sätted kõigi jaoks? Kõik, kellel on sünkroonimata muudatusi, peavad nende säilitamiseks oma sätted dubleerima.</value>
@@ -2910,6 +2949,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Kustuta salvestatud paroolid ja juurdepääsud</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Kustuta</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Kas eemaldada nende sätete salvestatud paroolid, Foundry salvestatud konfidentsiaalsed failid ja sünkroonimise juurdepääs sellest arvutist? Sünkroonimiseks peate lisama puuduvad andmed ja uuesti ühenduse looma. Juba loodud andmekandjad ei muutu.</value>
@@ -3031,7 +3073,13 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Kasutage igas arvutis sama võrgukausta. See peab kasutama SMB 3 protokolli koos kohustusliku krüptimisega. Pilvega sünkroonitud kaustu ei toetata.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Kas lõpetada selle konfiguratsiooni paroolide meelespidamine selles arvutis?</value>
+    <value>Foundry lõpetab selle konfiguratsiooni paroolide salvestamise selles arvutis.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Lõpeta meelespidamine</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Kas lõpetada paroolide meelespidamine?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sünkrooni</value>

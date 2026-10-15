@@ -9,6 +9,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
+using Foundry.Services.Application;
 using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
@@ -507,7 +508,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             logger.Error(ex, "Autopilot profile import failed.");
             await dialogService.ShowMessageAsync(new DialogRequest(
                 localizationService.GetString("Autopilot.ImportFailedTitle"),
-                localizationService.FormatString("Autopilot.ImportFailedMessage", ex.Message)));
+                localizationService.FormatString("Autopilot.ImportFailedMessage", ex.Message),
+                localizationService.GetString("Common.Close")));
         }
         finally
         {
@@ -537,7 +539,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 logger.Information("Autopilot tenant download completed. ProfileCount=0");
                 await dialogService.ShowMessageAsync(new DialogRequest(
                     localizationService.GetString("Autopilot.DownloadNoProfilesTitle"),
-                    localizationService.GetString("Autopilot.DownloadCompletedNoProfiles")));
+                    localizationService.GetString("Autopilot.DownloadCompletedNoProfiles"),
+                    localizationService.GetString("Common.Close")));
                 return;
             }
 
@@ -570,7 +573,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             logger.Error(ex, "Autopilot tenant download failed.");
             await dialogService.ShowMessageAsync(new DialogRequest(
                 localizationService.GetString("Autopilot.DownloadFailedTitle"),
-                failureMessage));
+                failureMessage,
+                localizationService.GetString("Common.Close")));
             return;
         }
         finally
@@ -591,11 +595,14 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         bool isSingleProfileRemoval = profilesToRemove.Length == 1;
         bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
             isSingleProfileRemoval ? RemoveProfileConfirmationTitle : RemoveProfilesConfirmationTitle,
-            isSingleProfileRemoval
-                ? localizationService.FormatString("Autopilot.RemoveConfirmationMessageFormat", profilesToRemove[0].DisplayName)
-                : localizationService.FormatString("Autopilot.RemoveProfilesConfirmationMessageFormat", profilesToRemove.Length),
+            DialogText.JoinParagraphs(
+                isSingleProfileRemoval
+                    ? localizationService.FormatString("Autopilot.RemoveConfirmationMessageFormat", profilesToRemove[0].DisplayName)
+                    : localizationService.FormatString("Autopilot.RemoveProfilesConfirmationMessageFormat", profilesToRemove.Length),
+                localizationService.GetString("Autopilot.RemoveProfilesConfirmationWarning")),
             isSingleProfileRemoval ? RemoveProfileConfirmationPrimaryButton : RemoveProfilesConfirmationPrimaryButton,
-            localizationService.GetString("Common.Cancel")));
+            localizationService.GetString("Common.Cancel"),
+            PreferCancel: true));
         if (!confirmed)
         {
             return;
@@ -663,7 +670,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             {
                 await dialogService.ShowMessageAsync(new DialogRequest(
                     GetTenantOnboardingDialogTitle(),
-                    CreateTenantOnboardingResultMessage(result.Status)));
+                    CreateTenantOnboardingResultMessage(result.Status),
+                    localizationService.GetString("Common.Close")));
             }
         }
         catch (AuthenticationFailedException ex) when (ex.InnerException is MsalClientException { ErrorCode: MsalError.AuthenticationCanceledError })
@@ -675,7 +683,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             logger.Error(ex, "Autopilot hardware hash tenant onboarding failed.");
             await dialogService.ShowMessageAsync(new DialogRequest(
                 localizationService.GetString("Autopilot.HardwareHashOnboardingFailedTitle"),
-                localizationService.FormatString("Autopilot.HardwareHashOnboardingFailedMessageFormat", ex.Message)));
+                localizationService.FormatString("Autopilot.HardwareHashOnboardingFailedMessageFormat", ex.Message),
+                localizationService.GetString("Common.Close")));
         }
         finally
         {
@@ -729,7 +738,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             logger.Error(ex, "Autopilot hardware hash certificate creation failed. ErrorType={ErrorType}", ex.GetType().Name);
             await dialogService.ShowMessageAsync(new DialogRequest(
                 localizationService.GetString("Autopilot.HardwareHashCertificateCreateFailedTitle"),
-                localizationService.FormatString("Autopilot.HardwareHashCertificateCreateFailedMessageFormat", ex.Message)));
+                localizationService.FormatString("Autopilot.HardwareHashCertificateCreateFailedMessageFormat", ex.Message),
+                localizationService.GetString("Common.Close")));
         }
         finally
         {
@@ -746,13 +756,21 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             return;
         }
 
+        bool isSingleCertificateRemoval = certificatesToRemove.Length == 1;
         bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
-            localizationService.GetString("Autopilot.HardwareHashRetireCertificateConfirmationTitle"),
-            certificatesToRemove.Length == 1
-                ? localizationService.GetString("Autopilot.HardwareHashRetireCertificateConfirmationMessage")
-                : localizationService.FormatString("Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat", certificatesToRemove.Length),
-            localizationService.GetString("Autopilot.HardwareHashRetireCertificateConfirmationPrimary"),
-            localizationService.GetString("Common.Cancel")));
+            localizationService.GetString(isSingleCertificateRemoval
+                ? "Autopilot.HardwareHashRetireCertificateConfirmationTitle"
+                : "Autopilot.HardwareHashRetireCertificatesConfirmationTitle"),
+            DialogText.JoinParagraphs(
+                isSingleCertificateRemoval
+                    ? localizationService.GetString("Autopilot.HardwareHashRetireCertificateConfirmationMessage")
+                    : localizationService.FormatString("Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat", certificatesToRemove.Length),
+                localizationService.GetString("Autopilot.HardwareHashRetireCertificateConfirmationWarning")),
+            localizationService.GetString(isSingleCertificateRemoval
+                ? "Autopilot.HardwareHashRetireCertificateConfirmationPrimary"
+                : "Autopilot.HardwareHashRetireCertificatesConfirmationPrimary"),
+            localizationService.GetString("Common.Cancel"),
+            PreferCancel: true));
         if (!confirmed)
         {
             return;
@@ -796,7 +814,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             logger.Error(ex, "Autopilot hardware hash certificate retirement failed.");
             await dialogService.ShowMessageAsync(new DialogRequest(
                 localizationService.GetString("Autopilot.HardwareHashCertificateRetireFailedTitle"),
-                localizationService.FormatString("Autopilot.HardwareHashCertificateRetireFailedMessageFormat", ex.Message)));
+                localizationService.FormatString("Autopilot.HardwareHashCertificateRetireFailedMessageFormat", ex.Message),
+                localizationService.GetString("Common.Close")));
         }
         finally
         {

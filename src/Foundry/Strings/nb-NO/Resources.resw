@@ -494,16 +494,25 @@ Lisensiert under MIT-lisensen.</value>
     <value>Fjern sertifikatet</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry vil fjerne bare det valgte sertifikatet fra den administrerte appregistreringen. Annen applegitimasjon vil bli bevart.</value>
+    <value>Det valgte sertifikatet fjernes fra den administrerte appregistreringen i leietakeren. Annen applegitimasjon beholdes.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Fjern sertifikatet</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Vil du fjerne det valgte sertifikatet?</value>
+    <value>Vil du fjerne sertifikatet fra leietakeren?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Dette kan ikke angres. Oppstartsmedier som bruker et fjernet sertifikat, kan ikke lenger laste opp maskinvarehasher.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry vil fjerne bare de {0} valgte sertifikatene fra den administrerte appregistreringen. Annen applegitimasjon vil bli bevart.</value>
+    <value>De {0} valgte sertifikatene fjernes fra den administrerte appregistreringen i leietakeren. Annen applegitimasjon beholdes.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Fjern sertifikatene</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Vil du fjerne sertifikatene fra leietakeren?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Tilkoblet</value>
@@ -587,7 +596,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Fjern valgte</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Vil du fjerne "{0}" fra de importerte Autopilot-profilene?</value>
+    <value>«{0}» fjernes fra Autopilot-profilene i denne konfigurasjonen.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Fjern profilen</value>
@@ -596,7 +605,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Vil du fjerne Autopilot-profilen?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Vil du fjerne {0} valgte Autopilot profiler?</value>
+    <value>{0} valgte Autopilot-profiler fjernes fra denne konfigurasjonen.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Fjern profiler</value>
@@ -604,14 +613,14 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Vil du fjerne Autopilot-profiler?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Hvis du vil bruke en fjernet profil igjen, må du importere den eller laste den ned fra leietakeren på nytt.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Fullfør påloggingen i nettleseren for å laste ned Autopilot-profiler.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Logg på Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Avbryt</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Klart</value>
@@ -685,6 +694,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Oppdater</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Utilgjengelig</value>
   </data>
@@ -696,9 +708,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Bla gjennom</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Avbryt</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Import avbrutt</value>
@@ -787,17 +796,23 @@ Lisensiert under MIT-lisensen.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Oppdater</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Vil du fjerne dette bildet fra den gjeldende profilen og slette den lokale kopien? Andre profiler som refererer til det, vil vise det som manglende. Originalfiler og eksisterende medier endres ikke.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Fjern avbildningen</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) fjernes fra gjeldende profil, og den lokale kopien slettes.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Fjern</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Vil du fjerne den tilpassede avbildningen?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Andre profiler som bruker denne avbildningen, vil vise den som manglende. Originalfilen og eksisterende medier endres ikke.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Rediger</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Lagre</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Angi standardavbildning</value>
@@ -1825,8 +1840,14 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Rålogger kan inneholde legitimasjon, identifikatorer, stier, nettverksnavn og andre sensitive data. Eksporter dem bare når det uttrykkelig er bedt om det av en betrodd støttekontakt.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Støttearkivet ble lagret i:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostikk eksportert</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Åpne mappe</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry kunne ikke åpne dokumentasjonen i nettleseren din. Bruk denne URL i stedet.</value>
@@ -2833,6 +2854,15 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Noen gamle lagrede passord eller tilgangsnøkler kunne ikke fjernes. Prøv igjen når Windows Legitimasjonsbehandling er tilgjengelig.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Lukk uten å lagre</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>De siste endringene dine kunne ikke lagres og vil gå tapt.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Vil du lukke uten å lagre innstillingene?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Bekreft passord</value>
   </data>
@@ -2869,8 +2899,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Slett fra denne PC-en</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Slett</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Slett også for alle andre</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Slett for alle</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Vil du slette for alle?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Slette disse delte innstillingene for alle? Alle med usynkroniserte endringer må duplisere innstillingene sine for å beholde dem.</value>
@@ -2910,6 +2949,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Fjern lagrede passord og tilganger</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Fjern</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Fjerne lagrede passord, fortrolige filer lagret av Foundry og synkroniseringstilgang for disse innstillingene på denne PC-en? Du må legge til de manglende opplysningene og koble til på nytt for å synkronisere. Medier du allerede har opprettet, endres ikke.</value>
@@ -3031,7 +3073,13 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Bruk samme nettverksmappe på alle PC-er. Den må bruke SMB 3 med påkrevd kryptering. Mapper som synkroniseres med skyen, støttes ikke.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Slutte å huske passord for denne konfigurasjonen på denne PC-en?</value>
+    <value>Foundry slutter å lagre passordene for denne konfigurasjonen på denne PC-en.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Slutt å huske</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Vil du slutte å huske passord?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synkroniser</value>

@@ -494,16 +494,25 @@
     <value>Удалить сертификат</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry удалит только выбранный сертификат из регистрации управляемого приложения. Другие учетные данные приложения будут сохранены.</value>
+    <value>Выбранный сертификат будет удалён из управляемой регистрации приложения в вашем арендаторе. Другие учётные данные приложения сохранятся.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Удалить сертификат</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Удалить выбранный сертификат?</value>
+    <value>Удалить сертификат из арендатора?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Это действие нельзя отменить. Загрузочные носители, использующие удалённый сертификат, больше не смогут загружать аппаратные хеши.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry удалит из регистрации управляемого приложения только {0} выбранные сертификаты. Другие учетные данные приложения будут сохранены.</value>
+    <value>Выбранные сертификаты ({0}) будут удалены из управляемой регистрации приложения в вашем арендаторе. Другие учётные данные приложения сохранятся.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Удалить сертификаты</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Удалить сертификаты из арендатора?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Подключено</value>
@@ -587,7 +596,7 @@
     <value>Удалить выбранное</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Удалить "{0}" из импортированных профилей Autopilot?</value>
+    <value>«{0}» будет удалён из профилей Autopilot в этой конфигурации.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Удалить профиль</value>
@@ -596,7 +605,7 @@
     <value>Удалить профиль Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Удалить {0} выбранные профили Autopilot?</value>
+    <value>Выбранные профили Autopilot ({0}) будут удалены из этой конфигурации.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Удаление профилей</value>
@@ -604,14 +613,14 @@
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Удалить профили Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Чтобы снова использовать удалённый профиль, импортируйте его или повторно скачайте с арендатора.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Завершите вход в браузер, чтобы загрузить профили Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Войдите в Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Отмена</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Очистить</value>
@@ -685,6 +694,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Обновить</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недоступно</value>
   </data>
@@ -696,9 +708,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Обзор</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Отмена</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Импорт отменён</value>
@@ -787,17 +796,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Обновить</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Удалить этот образ из текущего профиля и удалить его локальную копию? В других профилях, ссылающихся на него, образ будет отображаться как отсутствующий. Исходные файлы и существующие носители останутся без изменений.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Удалить образ</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>Образ {0} ({1}) будет удалён из текущего профиля, а его локальная копия будет стёрта.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Удалить пользовательский образ?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>В других профилях, использующих этот образ, он будет отображаться как отсутствующий. Исходный файл и уже созданные носители не изменятся.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Изменить</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Сохранить</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Задать образ по умолчанию</value>
@@ -1825,8 +1840,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Необработанные журналы могут содержать учетные данные, идентификаторы, пути, имена сетей и другие конфиденциальные данные. Экспортируйте их только по явному запросу доверенного сотрудника поддержки.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Архив поддержки сохранён в следующем расположении:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Диагностика экспортирована</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Открыть папку</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry не удалось открыть документацию в вашем браузере. Вместо этого используйте URL.</value>
@@ -2833,6 +2854,15 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Не удалось удалить некоторые старые сохранённые пароли или ключи доступа. Повторите попытку, когда Диспетчер учётных данных Windows станет доступен.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Закрыть без сохранения</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Не удалось сохранить последние изменения, и они будут потеряны.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Закрыть без сохранения настроек?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Подтвердите пароль</value>
   </data>
@@ -2869,8 +2899,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Удалить с этого компьютера</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Также удалить для всех</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Удалить для всех</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Удалить для всех?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Удалить эти общие настройки для всех? Пользователям с несинхронизированными изменениями нужно создать копию своих настроек, чтобы сохранить их.</value>
@@ -2910,6 +2949,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Удалить сохранённые пароли и данные доступа</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Очистить</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Удалить сохранённые пароли, конфиденциальные файлы, сохранённые Foundry, и доступ к синхронизации этих настроек на этом компьютере? Для синхронизации потребуется добавить недостающие данные и подключиться заново. Уже созданные носители не изменятся.</value>
@@ -3031,7 +3073,13 @@
     <value>Используйте одну и ту же сетевую папку на всех компьютерах. Она должна использовать SMB 3 с обязательным шифрованием. Папки, синхронизируемые с облаком, не поддерживаются.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Больше не запоминать пароли этой конфигурации на этом компьютере?</value>
+    <value>Foundry больше не будет сохранять пароли этой конфигурации на этом компьютере.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Больше не запоминать</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Больше не запоминать пароли?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Синхронизировать</value>

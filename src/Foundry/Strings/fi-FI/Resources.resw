@@ -494,16 +494,25 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Poista varmenne</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry poistaa vain valitun varmenteen hallitun sovelluksen rekisteröinnistä. Muut sovelluksen kirjautumistiedot säilytetään.</value>
+    <value>Valittu varmenne poistetaan vuokraajasi hallitun sovelluksen rekisteröinnistä. Muut sovelluksen kirjautumistiedot säilytetään.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Poista varmenne</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Poistetaanko valittu varmenne?</value>
+    <value>Poistetaanko varmenne vuokraajalta?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Tätä toimintoa ei voi kumota. Käynnistysmediat, jotka käyttävät poistettua varmennetta, eivät voi enää ladata laitteiston hajautusarvoja.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry poistaa vain {0} valitut varmenteet hallitun sovelluksen rekisteröinnistä. Muut sovelluksen kirjautumistiedot säilytetään.</value>
+    <value>{0} valittua varmennetta poistetaan vuokraajasi hallitun sovelluksen rekisteröinnistä. Muut sovelluksen kirjautumistiedot säilytetään.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Poista varmenteet</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Poistetaanko varmenteet vuokraajalta?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Yhdistetty</value>
@@ -587,7 +596,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Poista valitut</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Poistetaanko "{0}" tuoduista Autopilot-profiileista?</value>
+    <value>”{0}” poistetaan tämän määrityksen Autopilot-profiileista.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Poista profiili</value>
@@ -596,7 +605,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Poistetaanko Autopilot profiili?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Poistetaanko {0} valitut Autopilot-profiilit?</value>
+    <value>{0} valittua Autopilot-profiilia poistetaan tästä määrityksestä.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Poista profiilit</value>
@@ -604,14 +613,14 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Poistetaanko Autopilot -profiilit?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Jos haluat käyttää poistettua profiilia uudelleen, tuo se tai lataa se uudelleen vuokraajalta.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Viimeistele sisäänkirjautuminen selaimessa ladataksesi Autopilot-profiilit.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Kirjaudu sisään Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Peruuta</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Selkeä</value>
@@ -685,6 +694,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Päivitä</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ei saatavilla</value>
   </data>
@@ -696,9 +708,6 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Selaa</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Peruuta</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Tuonti peruutettu</value>
@@ -787,17 +796,23 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Päivitä</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Poistetaanko tämä näköistiedosto nykyisestä profiilista ja sen paikallinen kopio levyltä? Muissa siihen viittaavissa profiileissa se näkyy puuttuvana. Alkuperäiset tiedostot ja olemassa olevat tallennusvälineet säilyvät ennallaan.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Poista näköistiedosto</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) poistetaan nykyisestä profiilista, ja sen paikallinen kopio poistetaan.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Poista</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Poistetaanko mukautettu näköistiedosto?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Muissa tätä näköistiedostoa käyttävissä profiileissa se näkyy puuttuvana. Alkuperäistä tiedostoa ja olemassa olevia tallennusvälineitä ei muuteta.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Muokkaa</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Tallenna</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Aseta oletusnäköistiedosto</value>
@@ -1825,8 +1840,14 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Raakalokit voivat sisältää tunnistetietoja, tunnisteita, polkuja, verkkojen nimiä ja muita arkaluonteisia tietoja. Vie ne vain, kun luotettu tukihenkilö pyytää sitä nimenomaisesti.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Tukipaketti tallennettiin sijaintiin:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostiikka viety</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Avaa kansio</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ei voinut avata dokumentaatiota selaimessasi. Käytä sen sijaan tätä URL.</value>
@@ -2833,6 +2854,15 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Joitakin vanhoja tallennettuja salasanoja tai käyttöavaimia ei voitu poistaa. Yritä uudelleen, kun Windowsin tunnistetietojen hallinta on käytettävissä.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Sulje tallentamatta</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Viimeisimpiä muutoksiasi ei voitu tallentaa, ja ne menetetään.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Suljetaanko tallentamatta asetuksia?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Vahvista salasana</value>
   </data>
@@ -2869,8 +2899,17 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Poista tältä tietokoneelta</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Poista</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Poista myös kaikilta muilta</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Poista kaikilta</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Poistetaanko kaikilta?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Poistetaanko nämä jaetut asetukset kaikilta? Jokaisen, jolla on synkronoimattomia muutoksia, on monistettava asetuksensa säilyttääkseen ne.</value>
@@ -2910,6 +2949,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Poista tallennetut salasanat ja käyttöoikeudet</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Tyhjennä</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Poistetaanko näiden asetusten tallennetut salasanat, Foundryn tallentamat luottamukselliset tiedostot ja synkronoinnin käyttöoikeus tältä tietokoneelta? Sinun on lisättävä puuttuvat tiedot ja muodostettava yhteys uudelleen synkronointia varten. Aiemmin luomasi tietovälineet eivät muutu.</value>
@@ -3031,7 +3073,13 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Käytä samaa verkkokansiota kaikilla tietokoneilla. Sen on käytettävä SMB 3:a ja pakollista salausta. Pilveen synkronoituja kansioita ei tueta.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Lopetetaanko tämän määrityksen salasanojen muistaminen tällä tietokoneella?</value>
+    <value>Foundry lopettaa tämän määrityksen salasanojen tallentamisen tälle tietokoneelle.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Lopeta muistaminen</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Lopetetaanko salasanojen muistaminen?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synkronoi</value>

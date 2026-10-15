@@ -494,16 +494,25 @@
     <value>刪除證書</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry 將僅從託管應用程式註冊中刪除選定的憑證。其他應用程式憑證將被保留。</value>
+    <value>選取的憑證將從您租用戶中受管理的應用程式註冊中刪除。應用程式的其他認證將會保留。</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>刪除證書</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>刪除選定的憑證？</value>
+    <value>要從租用戶刪除憑證嗎？</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>此動作無法復原。使用已刪除憑證的啟動媒體將無法再上傳硬體雜湊。</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry 將僅從託管應用程式註冊中刪除{0} 選定的憑證。其他應用程式憑證將被保留。</value>
+    <value>選取的 {0} 個憑證將從您租用戶中受管理的應用程式註冊中刪除。應用程式的其他認證將會保留。</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>刪除選取的憑證</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>要從租用戶刪除這些憑證嗎？</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>已連接</value>
@@ -587,7 +596,7 @@
     <value>刪除選定的</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>從導入的Autopilot 設定檔中刪除“{0}”嗎？</value>
+    <value>「{0}」將從此設定的 Autopilot 設定檔中刪除。</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>刪除個人資料</value>
@@ -596,7 +605,7 @@
     <value>刪除Autopilot個人資料嗎？</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>刪除 {0} 選定的 Autopilot 設定檔嗎？</value>
+    <value>將從此設定中刪除 {0} 個選取的 Autopilot 設定檔。</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>刪除設定檔</value>
@@ -604,14 +613,14 @@
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>刪除 Autopilot 設定檔？</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>若要再次使用已刪除的設定檔，請匯入該設定檔，或從租用戶重新下載。</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>在瀏覽器中完成登入即可下載Autopilot設定檔。</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>登入Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>取消</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>清除</value>
@@ -685,6 +694,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>重新整理</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>儲存</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>不可用</value>
   </data>
@@ -696,9 +708,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>瀏覽</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>取消</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>匯入已取消</value>
@@ -787,17 +796,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>重新整理</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>要從目前的設定檔中移除此映像並刪除其本機複本嗎？參照此映像的其他設定檔會將其顯示為遺失。原始檔案及現有媒體維持不變。</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>移除映像</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) 將從目前的設定檔中移除，其本機複本也會被刪除。</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>移除</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>要移除自訂映像嗎？</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>使用此映像的其他設定檔會將其顯示為遺失。原始檔案及現有媒體不會變更。</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>編輯</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>儲存</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>設為預設映像</value>
@@ -1825,8 +1840,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>原始記錄可能包含認證資料、識別碼、路徑、網路名稱及其他敏感資料。只有在可信任的支援聯絡人明確要求時才匯出。</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>支援封存檔已儲存至以下位置：</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>診斷資訊已匯出</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>開啟資料夾</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry 無法在您的瀏覽器中開啟文件。請改用URL。</value>
@@ -2833,6 +2854,15 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>部分舊的已儲存密碼或存取金鑰無法移除。請在 Windows 認證管理員可用時重試。</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>不儲存並關閉</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>無法儲存您最近的變更，這些變更將會遺失。</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>要關閉而不儲存設定嗎？</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>確認密碼</value>
   </data>
@@ -2869,8 +2899,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>從這部電腦刪除</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>刪除</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>也為所有人刪除</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>為所有人刪除</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>要為所有人刪除嗎？</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>要為所有人刪除這些共用設定嗎？有未同步變更的使用者必須建立設定複本，才能保留變更。</value>
@@ -2910,6 +2949,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>清除已儲存的密碼與存取認證</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>清除</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>要從這部電腦移除這些設定的已儲存密碼、Foundry 儲存的機密檔案及同步存取權限嗎？您需要補上缺少的資料並重新連線，才能同步。已建立的媒體不會變更。</value>
@@ -3031,7 +3073,13 @@
     <value>所有電腦都應使用同一個網路資料夾。該資料夾必須使用 SMB 3 並強制加密。不支援與雲端同步的資料夾。</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>停止在此電腦上記住此設定的密碼？</value>
+    <value>Foundry 將停止在這部電腦上儲存此設定的密碼。</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>停止記住</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>要停止記住密碼嗎？</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>同步</value>

@@ -494,16 +494,25 @@ Licensierad under MIT-licensen.</value>
     <value>Ta bort certifikat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry tar endast bort det valda certifikatet från den hanterade appregistreringen. Andra appuppgifter kommer att bevaras.</value>
+    <value>Det valda certifikatet tas bort från den hanterade appregistreringen i din hyresgäst. Andra autentiseringsuppgifter för appen behålls.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Ta bort certifikat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Ta bort det valda certifikatet?</value>
+    <value>Vill du ta bort certifikatet från hyresgästen?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Det går inte att ångra. Startmedia som använder ett borttaget certifikat kan inte längre ladda upp hårdvaruhashar.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry tar endast bort de {0} valda certifikaten från den hanterade appregistreringen. Andra appuppgifter kommer att bevaras.</value>
+    <value>De {0} valda certifikaten tas bort från den hanterade appregistreringen i din hyresgäst. Andra autentiseringsuppgifter för appen behålls.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Ta bort certifikat</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Vill du ta bort certifikaten från hyresgästen?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Ansluten</value>
@@ -587,7 +596,7 @@ Licensierad under MIT-licensen.</value>
     <value>Ta bort markerade</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Ta bort "{0}" från de importerade Autopilot-profilerna?</value>
+    <value>”{0}” tas bort från Autopilot-profilerna i den här konfigurationen.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Ta bort profilen</value>
@@ -596,7 +605,7 @@ Licensierad under MIT-licensen.</value>
     <value>Vill du ta bort profilen Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Ta bort {0} valda Autopilot profiler?</value>
+    <value>{0} valda Autopilot-profiler tas bort från den här konfigurationen.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Ta bort profiler</value>
@@ -604,14 +613,14 @@ Licensierad under MIT-licensen.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Ta bort Autopilot profiler?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Om du vill använda en borttagen profil igen importerar du den eller laddar ner den från hyresgästen igen.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Slutför inloggningen i webbläsaren för att ladda ner Autopilot profiler.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Logga in på Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Avbryt</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Rensa</value>
@@ -685,6 +694,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Uppdatera</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ej tillgänglig</value>
   </data>
@@ -696,9 +708,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Bläddra</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Avbryt</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Import avbruten</value>
@@ -787,17 +796,23 @@ Licensierad under MIT-licensen.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Uppdatera</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Vill du ta bort den här avbildningen från den aktuella profilen och radera dess lokala kopia? Andra profiler som hänvisar till den kommer att visa den som saknad. Originalfiler och befintliga medier förblir oförändrade.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Ta bort avbildning</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) tas bort från den aktuella profilen och dess lokala kopia raderas.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Ta bort</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Vill du ta bort den anpassade avbildningen?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Andra profiler som använder den här avbildningen visar den som saknad. Originalfilen och befintliga medier ändras inte.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Redigera</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Spara</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Ange standardavbildning</value>
@@ -1825,8 +1840,14 @@ Licensierad under MIT-licensen.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Råa loggar kan innehålla autentiseringsuppgifter, identifierare, sökvägar, nätverksnamn och andra känsliga data. Exportera dem endast när det uttryckligen begärs av en betrodd supportkontakt.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Supportarkivet sparades på följande plats:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostik exporterad</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Öppna mapp</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry kunde inte öppna dokumentationen i din webbläsare. Använd detta URL istället.</value>
@@ -2833,6 +2854,15 @@ Licensierad under MIT-licensen.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Vissa gamla sparade lösenord eller åtkomstnycklar kunde inte tas bort. Försök igen när Autentiseringshanteraren i Windows är tillgänglig.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Stäng utan att spara</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Dina senaste ändringar kunde inte sparas och går förlorade.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Vill du stänga utan att spara inställningarna?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Bekräfta lösenord</value>
   </data>
@@ -2869,8 +2899,17 @@ Licensierad under MIT-licensen.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Ta bort från den här datorn</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Ta även bort för alla</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Ta bort för alla</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Vill du ta bort för alla?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Vill du ta bort de här delade inställningarna för alla? Alla som har osynkroniserade ändringar måste duplicera sina inställningar för att behålla dem.</value>
@@ -2910,6 +2949,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Rensa sparade lösenord och åtkomster</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Rensa</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Vill du ta bort sparade lösenord, konfidentiella filer som Foundry har sparat och åtkomst till synkronisering för de här inställningarna på den här datorn? Du måste lägga till uppgifterna som saknas och ansluta igen för att synkronisera. Media som du redan har skapat ändras inte.</value>
@@ -3031,7 +3073,13 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Använd samma nätverksmapp på alla datorer. Den måste använda SMB 3 med obligatorisk kryptering. Mappar som synkroniseras med molnet stöds inte.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Sluta komma ihåg lösenord för den här konfigurationen på den här datorn?</value>
+    <value>Foundry slutar spara lösenorden för den här konfigurationen på den här datorn.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Sluta komma ihåg</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Vill du sluta komma ihåg lösenord?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synkronisera</value>

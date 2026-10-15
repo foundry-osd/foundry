@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Images;
+using Foundry.Services.Application;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 
@@ -107,10 +108,9 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public string EditionLabel => Text("EditionLabel");
     public string VersionLabel => Text("VersionLabel");
     public string LanguagesLabel => Text("LanguagesLabel");
-    public string SaveLabel => Text("SaveLabel");
+    public string SaveLabel => localization.GetString("Common.Save");
     public string RemoveLabel => Text("RemoveLabel");
-    public string CancelLabel => Text("CancelLabel");
-    public string RemoveDescription => Text("RemoveDescription");
+    public string CancelLabel => localization.GetString("Common.Cancel");
     public string DefaultSourceLabel => Text("DefaultSourceLabel");
     public string DefaultSourceDescription => Text("DefaultSourceDescription");
     public string IndexLabel => Text("IndexLabel");
@@ -312,8 +312,12 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
         CustomImagesSettings settings = state.Current.CustomImages;
         try
         {
-            if (!await dialogs.ConfirmAsync(new ConfirmationDialogRequest(RemoveLabel,
-                row.Name + " (" + row.Size + ")" + Environment.NewLine + RemoveDescription, RemoveLabel, CancelLabel)) ||
+            if (!await dialogs.ConfirmAsync(new ConfirmationDialogRequest(
+                Text("RemoveTitle"),
+                DialogText.JoinParagraphs(localization.FormatString("CustomImages.RemoveConfirmationFormat", row.Name, row.Size), Text("RemoveWarning")),
+                Text("RemoveConfirm"),
+                CancelLabel,
+                PreferCancel: true)) ||
                 disposed || !ReferenceEquals(settings, state.Current.CustomImages)) return;
             await library.DeleteAsync(row.Reference.ContentHash);
             if (!disposed && ReferenceEquals(settings, state.Current.CustomImages))

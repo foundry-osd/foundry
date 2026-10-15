@@ -137,8 +137,7 @@ public sealed class AutopilotTenantOperationDialogService(
                 new TextBlock
                 {
                     Text = message,
-                    TextWrapping = TextWrapping.Wrap,
-                    TextAlignment = TextAlignment.Center
+                    TextWrapping = TextWrapping.Wrap
                 }
             }
         };

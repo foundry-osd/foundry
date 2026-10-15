@@ -494,16 +494,25 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Quitar certificado</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry eliminará solo el certificado seleccionado del registro de la aplicación administrada. Se conservarán otras credenciales de la aplicación.</value>
+    <value>El certificado seleccionado se quitará del registro de la aplicación administrada en su inquilino. Se conservarán las demás credenciales de la aplicación.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Quitar certificado</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>¿Eliminar el certificado seleccionado?</value>
+    <value>¿Quitar el certificado del inquilino?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Esta acción no se puede deshacer. Los medios de arranque que usen un certificado quitado ya no podrán cargar hashes de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry eliminará solo los certificados {0} seleccionados del registro de la aplicación administrada. Se conservarán otras credenciales de la aplicación.</value>
+    <value>Los {0} certificados seleccionados se quitarán del registro de la aplicación administrada en su inquilino. Se conservarán las demás credenciales de la aplicación.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Quitar certificados</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>¿Quitar los certificados del inquilino?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Conectado</value>
@@ -587,7 +596,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Eliminar seleccionado</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>¿Eliminar "{0}" de los perfiles Autopilot importados?</value>
+    <value>"{0}" se eliminará de los perfiles Autopilot de esta configuración.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Eliminar perfil</value>
@@ -596,7 +605,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>¿Eliminar el perfil Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>¿Eliminar {0} perfiles Autopilot seleccionados?</value>
+    <value>Se eliminarán {0} perfiles Autopilot seleccionados de esta configuración.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Eliminar perfiles</value>
@@ -604,14 +613,14 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>¿Eliminar perfiles Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Para volver a usar un perfil eliminado, impórtelo o vuelva a descargarlo del inquilino.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Complete el inicio de sesión en el navegador para descargar perfiles Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Inicia sesión en Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Cancelar</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Claro</value>
@@ -685,6 +694,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Refrescar</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponible</value>
   </data>
@@ -696,9 +708,6 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Examinar</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Cancelar</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importación cancelada</value>
@@ -787,17 +796,23 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Actualizar</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>¿Quieres quitar esta imagen del perfil actual y eliminar su copia local? En los otros perfiles que hagan referencia a ella aparecerá como no disponible. Los archivos originales y los medios existentes no se modificarán.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Quitar imagen</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) se quitará del perfil actual y se eliminará su copia local.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Quitar</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>¿Quitar la imagen personalizada?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Los otros perfiles que usan esta imagen la mostrarán como no disponible. El archivo original y los medios existentes no se modifican.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Editar</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Guardar</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Fijar imagen predeterminada</value>
@@ -1825,8 +1840,14 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Los registros sin procesar pueden contener credenciales, identificadores, rutas, nombres de red y otros datos confidenciales. Expórtelos solo cuando lo solicite explícitamente un contacto de soporte de confianza.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>El archivo de soporte se guardó en:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnósticos exportados</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Abrir carpeta</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry no pudo abrir la documentación en su navegador. Utilice este URL en su lugar.</value>
@@ -2833,6 +2854,15 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>No se pudieron eliminar algunas contraseñas o claves de acceso antiguas guardadas. Inténtalo de nuevo cuando el Administrador de credenciales de Windows esté disponible.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Cerrar sin guardar</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>No se pudieron guardar los cambios más recientes y se perderán.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>¿Cerrar sin guardar la configuración?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Confirmar contraseña</value>
   </data>
@@ -2869,8 +2899,17 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Eliminar de esta PC</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Eliminar también para todos</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Eliminar para todos</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>¿Eliminar para todos?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>¿Eliminar esta configuración compartida para todos? Quien tenga cambios sin sincronizar debe duplicar su configuración para conservarlos.</value>
@@ -2910,6 +2949,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Borrar las contraseñas y los accesos guardados</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Borrar</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>¿Eliminar las contraseñas guardadas, los archivos confidenciales guardados por Foundry y el acceso a la sincronización de esta configuración en esta PC? Tendrás que agregar los datos que falten y volver a conectarte para sincronizar. Los medios que ya creaste no cambiarán.</value>
@@ -3031,7 +3073,13 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Usa la misma carpeta de red en todas las PC. Debe usar SMB 3 con cifrado obligatorio. No se admiten carpetas sincronizadas con la nube.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>¿Dejar de recordar las contraseñas de esta configuración en este PC?</value>
+    <value>Foundry dejará de guardar las contraseñas de esta configuración en esta PC.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Dejar de recordar</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>¿Dejar de recordar las contraseñas?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sincronizar</value>

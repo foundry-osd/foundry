@@ -494,16 +494,25 @@ Licencované podľa licencie MIT.</value>
     <value>Odstrániť certifikát</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry odstráni z registrácie spravovanej aplikácie iba vybratý certifikát. Ostatné poverenia aplikácie zostanú zachované.</value>
+    <value>Vybratý certifikát sa odstráni zo spravovanej registrácie aplikácie vo vašom nájomcovi. Ostatné poverenia aplikácie sa zachovajú.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Odstrániť certifikát</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Odstrániť vybratý certifikát?</value>
+    <value>Odstrániť certifikát z nájomcu?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Túto akciu nie je možné vrátiť späť. Zavádzacie médiá, ktoré používajú odstránený certifikát, už nebudú môcť nahrávať hardvérové hodnoty hash.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry odstráni iba {0} vybrané certifikáty z registrácie spravovanej aplikácie. Ostatné poverenia aplikácie zostanú zachované.</value>
+    <value>Vybraté certifikáty ({0}) sa odstránia zo spravovanej registrácie aplikácie vo vašom nájomcovi. Ostatné poverenia aplikácie sa zachovajú.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Odstrániť certifikáty</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Odstrániť certifikáty z nájomcu?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Pripojené</value>
@@ -587,7 +596,7 @@ Licencované podľa licencie MIT.</value>
     <value>Odstrániť vybraté</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Odstrániť "{0}" z importovaných profilov Autopilot?</value>
+    <value>„{0}“ sa odstráni z profilov Autopilot v tejto konfigurácii.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Odstrániť profil</value>
@@ -596,7 +605,7 @@ Licencované podľa licencie MIT.</value>
     <value>Odstrániť profil Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Odstrániť {0} vybraté Autopilot profily?</value>
+    <value>Vybraté profily Autopilot ({0}) sa odstránia z tejto konfigurácie.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Odstráňte profily</value>
@@ -604,14 +613,14 @@ Licencované podľa licencie MIT.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Chcete odstrániť profily Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Ak chcete odstránený profil znova použiť, importujte ho alebo ho znova stiahnite od nájomcu.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Ak chcete stiahnuť profily Autopilot, dokončite prihlásenie v prehliadači.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Prihláste sa do Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Zrušiť</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Jasné</value>
@@ -685,6 +694,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Obnoviť</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>nedostupné</value>
   </data>
@@ -696,9 +708,6 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Prehľadávať</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Zrušiť</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Import zrušený</value>
@@ -787,17 +796,23 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Obnoviť</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Odstrániť tento obraz z aktuálneho profilu a vymazať jeho lokálnu kópiu? V ostatných profiloch, ktoré naň odkazujú, sa zobrazí ako chýbajúci. Pôvodné súbory a existujúce médiá zostanú nezmenené.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Odstrániť obraz</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>Obraz {0} ({1}) sa odstráni z aktuálneho profilu a jeho lokálna kópia sa vymaže.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Odstrániť</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Odstrániť vlastný obraz?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Ostatné profily, ktoré tento obraz používajú, ho zobrazia ako chýbajúci. Pôvodný súbor a existujúce médiá sa nezmenia.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Upraviť</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Uložiť</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Nastaviť predvolený obraz</value>
@@ -1825,8 +1840,14 @@ Licencované podľa licencie MIT.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Nespracované denníky môžu obsahovať poverenia, identifikátory, cesty, názvy sietí a ďalšie citlivé údaje. Exportujte ich iba vtedy, keď ich výslovne vyžiada dôveryhodný kontakt podpory.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Archív podpory sa uložil do tohto umiestnenia:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostika bola exportovaná</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Otvoriť priečinok</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nemohol otvoriť dokumentáciu vo vašom prehliadači. Namiesto toho použite toto URL.</value>
@@ -2833,6 +2854,15 @@ Licencované podľa licencie MIT.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Niektoré staré uložené heslá alebo prístupové kľúče sa nepodarilo odstrániť. Skúste to znova, keď bude k dispozícii Správca poverení systému Windows.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Zavrieť bez uloženia</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Najnovšie zmeny sa nepodarilo uložiť a budú stratené.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Zavrieť bez uloženia nastavení?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Potvrďte heslo</value>
   </data>
@@ -2869,8 +2899,17 @@ Licencované podľa licencie MIT.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Odstrániť z tohto počítača</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Odstrániť</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Odstrániť aj pre všetkých</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Odstrániť pre všetkých</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Odstrániť pre všetkých?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Odstrániť tieto zdieľané nastavenia pre všetkých? Každý, kto má nesynchronizované zmeny, si musí vytvoriť kópiu svojich nastavení, aby si ich ponechal.</value>
@@ -2910,6 +2949,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Vymazať uložené heslá a prístupy</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Vymazať</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Odstrániť uložené heslá, dôverné súbory uložené aplikáciou Foundry a prístup k synchronizácii týchto nastavení v tomto počítači? Bude potrebné doplniť chýbajúce údaje a znova sa pripojiť na synchronizáciu. Už vytvorené médiá sa nezmenia.</value>
@@ -3031,7 +3073,13 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Používajte rovnaký sieťový priečinok vo všetkých počítačoch. Musí používať SMB 3 s povinným šifrovaním. Priečinky synchronizované s cloudom nie sú podporované.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Prestať si pamätať heslá tejto konfigurácie v tomto počítači?</value>
+    <value>Foundry prestane ukladať heslá tejto konfigurácie v tomto počítači.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Prestať si pamätať</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Prestať si pamätať heslá?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synchronizovať</value>

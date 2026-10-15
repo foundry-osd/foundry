@@ -494,16 +494,25 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Certificaat verwijderen</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry verwijdert alleen het geselecteerde certificaat uit de beheerde app-registratie. Andere app-inloggegevens blijven behouden.</value>
+    <value>Het geselecteerde certificaat wordt verwijderd uit de beheerde app-registratie in je huurder. Andere app-inloggegevens blijven behouden.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Certificaat verwijderen</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Geselecteerd certificaat verwijderen?</value>
+    <value>Certificaat verwijderen uit de huurder?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Dit kan niet ongedaan worden gemaakt. Bootmedia die een verwijderd certificaat gebruiken, kunnen geen hardware-hashes meer uploaden.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry verwijdert alleen de {0} geselecteerde certificaten uit de beheerde app-registratie. Andere app-inloggegevens blijven behouden.</value>
+    <value>De {0} geselecteerde certificaten worden verwijderd uit de beheerde app-registratie in je huurder. Andere app-inloggegevens blijven behouden.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Certificaten verwijderen</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Certificaten verwijderen uit de huurder?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Verbonden</value>
@@ -587,7 +596,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Geselecteerde verwijderen</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>"{0}" verwijderen uit de geïmporteerde Autopilot-profielen?</value>
+    <value>“{0}” wordt verwijderd uit de Autopilot-profielen in deze configuratie.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Profiel verwijderen</value>
@@ -596,7 +605,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Autopilot profiel verwijderen?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>{0} geselecteerde Autopilot profielen verwijderen?</value>
+    <value>{0} geselecteerde Autopilot-profielen worden verwijderd uit deze configuratie.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Profielen verwijderen</value>
@@ -604,14 +613,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Autopilot profielen verwijderen?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Als je een verwijderd profiel opnieuw wilt gebruiken, importeer je het of download je het opnieuw van de huurder.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Voltooi de aanmelding in de browser om Autopilot-profielen te downloaden.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Meld u aan bij Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Annuleer</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Duidelijk</value>
@@ -685,6 +694,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Vernieuwen</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Niet beschikbaar</value>
   </data>
@@ -696,9 +708,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Bladeren</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Annuleren</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importeren geannuleerd</value>
@@ -787,17 +796,23 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Vernieuwen</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Deze image uit het huidige profiel verwijderen en de lokale kopie verwijderen? Andere profielen die ernaar verwijzen, geven de image als ontbrekend weer. De oorspronkelijke bestanden en bestaande media blijven ongewijzigd.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Installatiekopie verwijderen</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) wordt verwijderd uit het huidige profiel en de lokale kopie wordt gewist.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Verwijderen</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Aangepaste installatiekopie verwijderen?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Andere profielen die deze installatiekopie gebruiken, geven deze als ontbrekend weer. Het oorspronkelijke bestand en bestaande media blijven ongewijzigd.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Bewerken</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Opslaan</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Standaardinstallatiekopie instellen</value>
@@ -1825,8 +1840,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Ruwe logboeken kunnen referenties, id's, paden, netwerknamen en andere gevoelige gegevens bevatten. Exporteer ze alleen wanneer hier expliciet om wordt gevraagd door een vertrouwd ondersteuningscontact.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Het ondersteuningsarchief is opgeslagen in:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostiek geëxporteerd</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Map openen</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry kan de documentatie niet openen in uw browser. Gebruik in plaats daarvan URL.</value>
@@ -2833,6 +2854,15 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Sommige oude opgeslagen wachtwoorden of toegangssleutels konden niet worden verwijderd. Probeer het opnieuw wanneer Windows Referentiebeheer beschikbaar is.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Sluiten zonder opslaan</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Je laatste wijzigingen konden niet worden opgeslagen en gaan verloren.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Sluiten zonder de instellingen op te slaan?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Wachtwoord bevestigen</value>
   </data>
@@ -2869,8 +2899,17 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Van deze pc verwijderen</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Ook voor iedereen verwijderen</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Voor iedereen verwijderen</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Voor iedereen verwijderen?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Deze gedeelde instellingen voor iedereen verwijderen? Iedereen met niet-gesynchroniseerde wijzigingen moet de instellingen dupliceren om die wijzigingen te behouden.</value>
@@ -2910,6 +2949,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Opgeslagen wachtwoorden en toegang wissen</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Wissen</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Opgeslagen wachtwoorden, vertrouwelijke bestanden die Foundry heeft opgeslagen en toegang tot synchronisatie voor deze instellingen van deze pc verwijderen? Je moet de ontbrekende gegevens toevoegen en opnieuw verbinding maken om te synchroniseren. Media die je al hebt gemaakt, veranderen niet.</value>
@@ -3031,7 +3073,13 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Gebruik op elke pc dezelfde netwerkmap. Deze moet SMB 3 gebruiken met verplichte versleuteling. Mappen die met de cloud worden gesynchroniseerd, worden niet ondersteund.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Wachtwoorden voor deze configuratie niet meer onthouden op deze pc?</value>
+    <value>Foundry slaat de wachtwoorden voor deze configuratie niet meer op deze pc op.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Niet meer onthouden</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Wachtwoorden niet meer onthouden?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synchroniseren</value>

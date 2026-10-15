@@ -494,16 +494,25 @@ Licencirano pod licenco MIT.</value>
     <value>Odstrani potrdilo</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry bo iz registracije upravljane aplikacije odstranil samo izbrano potrdilo. Druge poverilnice aplikacije bodo ohranjene.</value>
+    <value>Izbrano potrdilo bo odstranjeno iz upravljane registracije aplikacije v vašem najemniku. Druge poverilnice aplikacije se ohranijo.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Odstrani potrdilo</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Odstraniti izbrano potrdilo?</value>
+    <value>Odstraniti potrdilo iz najemnika?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Tega ni mogoče razveljaviti. Zagonski mediji, ki uporabljajo odstranjeno potrdilo, ne bodo več mogli nalagati zgoščenih vrednosti strojne opreme.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry bo odstranil samo {0} izbrana potrdila iz registracije upravljane aplikacije. Druge poverilnice aplikacije bodo ohranjene.</value>
+    <value>Izbrana potrdila ({0}) bodo odstranjena iz upravljane registracije aplikacije v vašem najemniku. Druge poverilnice aplikacije se ohranijo.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Odstrani potrdila</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Odstraniti potrdila iz najemnika?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Povezan</value>
@@ -587,7 +596,7 @@ Licencirano pod licenco MIT.</value>
     <value>Odstrani izbrano</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Ali želite odstraniti "{0}" iz uvoženih profilov Autopilot?</value>
+    <value>„{0}“ bo odstranjen iz profilov Autopilot v tej konfiguraciji.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Odstrani profil</value>
@@ -596,7 +605,7 @@ Licencirano pod licenco MIT.</value>
     <value>Odstraniti profil Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Odstraniti {0} izbrane Autopilot profile?</value>
+    <value>Izbrani profili Autopilot ({0}) bodo odstranjeni iz te konfiguracije.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Odstrani profile</value>
@@ -604,14 +613,14 @@ Licencirano pod licenco MIT.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Odstraniti profile Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Če želite odstranjeni profil znova uporabiti, ga uvozite ali ga znova prenesite iz najemnika.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Za prenos profilov Autopilot se vpišite v brskalnik.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Prijavite se v Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Prekliči</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>jasno</value>
@@ -685,6 +694,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Osveži</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ni na voljo</value>
   </data>
@@ -696,9 +708,6 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Prebrskaj</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Prekliči</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Uvoz je preklican</value>
@@ -787,17 +796,23 @@ Licencirano pod licenco MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Osveži</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Želite odstraniti to sliko iz trenutnega profila in izbrisati njeno lokalno kopijo? V drugih profilih, ki se sklicujejo nanjo, bo prikazana kot manjkajoča. Izvirne datoteke in obstoječi nosilci ostanejo nespremenjeni.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Odstrani sliko</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>Slika {0} ({1}) bo odstranjena iz trenutnega profila, njena lokalna kopija pa bo izbrisana.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Odstrani</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Odstraniti prilagojeno sliko?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>V drugih profilih, ki uporabljajo to sliko, bo prikazana kot manjkajoča. Izvirna datoteka in obstoječi nosilci se ne spremenijo.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Uredi</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Shrani</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Nastavi privzeto sliko</value>
@@ -1825,8 +1840,14 @@ Licencirano pod licenco MIT.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Neobdelani dnevniki lahko vsebujejo poverilnice, identifikatorje, poti, imena omrežij in druge občutljive podatke. Izvozite jih samo, ko to izrecno zahteva zaupanja vreden stik za podporo.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Arhiv za podporo je bil shranjen na to mesto:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostika izvožena</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Odpri mapo</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ni mogel odpreti dokumentacije v vašem brskalniku. Namesto tega uporabite URL.</value>
@@ -2833,6 +2854,15 @@ Licencirano pod licenco MIT.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Nekaterih starih shranjenih gesel ali ključev za dostop ni bilo mogoče odstraniti. Poskusite znova, ko bo na voljo Upravitelj poverilnic sistema Windows.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Zapri brez shranjevanja</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Zadnjih sprememb ni bilo mogoče shraniti, zato bodo izgubljene.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Želite zapreti brez shranjevanja nastavitev?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Potrdite geslo</value>
   </data>
@@ -2869,8 +2899,17 @@ Licencirano pod licenco MIT.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Izbriši iz tega računalnika</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Izbriši tudi za vse druge</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Izbriši za vse</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Želite izbrisati za vse?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Želite te nastavitve v skupni rabi izbrisati za vse? Kdor ima nesinhronizirane spremembe, mora podvojiti svoje nastavitve, da jih obdrži.</value>
@@ -2910,6 +2949,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Počisti shranjena gesla in dostope</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Počisti</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Želite odstraniti shranjena gesla, zaupne datoteke, ki jih je shranil Foundry, in dostop do sinhronizacije teh nastavitev v tem računalniku? Za sinhronizacijo boste morali dodati manjkajoče podatke in znova vzpostaviti povezavo. Že ustvarjeni mediji se ne bodo spremenili.</value>
@@ -3031,7 +3073,13 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>V vseh računalnikih uporabljajte isto omrežno mapo. Uporabljati mora SMB 3 z obveznim šifriranjem. Mape, sinhronizirane z oblakom, niso podprte.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Želite prenehati pomniti gesla za to konfiguracijo v tem računalniku?</value>
+    <value>Foundry ne bo več shranjeval gesel za to konfiguracijo v tem računalniku.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Prenehaj pomniti</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Želite prenehati pomniti gesla?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sinhroniziraj</value>

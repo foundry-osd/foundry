@@ -494,16 +494,25 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pašalinti sertifikatą</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry pašalins tik pasirinktą sertifikatą iš valdomos programos registracijos. Kiti programos kredencialai bus išsaugoti.</value>
+    <value>Pasirinktas sertifikatas bus pašalintas iš valdomos programos registracijos jūsų nuomininke. Kiti programos kredencialai bus išsaugoti.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Pašalinti sertifikatą</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Pašalinti pasirinktą sertifikatą?</value>
+    <value>Pašalinti sertifikatą iš nuomininko?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Šio veiksmo anuliuoti negalima. Įkrovos laikmenos, kuriose naudojamas pašalintas sertifikatas, nebegalės įkelti aparatinės įrangos maišų.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry pašalins tik {0} pasirinktus sertifikatus iš valdomos programos registracijos. Kiti programos kredencialai bus išsaugoti.</value>
+    <value>Pasirinkti sertifikatai ({0}) bus pašalinti iš valdomos programos registracijos jūsų nuomininke. Kiti programos kredencialai bus išsaugoti.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Pašalinti sertifikatus</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Pašalinti sertifikatus iš nuomininko?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Prisijungta</value>
@@ -587,7 +596,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pašalinti pasirinktą</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Pašalinti „{0}“ iš importuotų Autopilot profilių?</value>
+    <value>„{0}“ bus pašalintas iš šios konfigūracijos Autopilot profilių.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Pašalinti profilį</value>
@@ -596,7 +605,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pašalinti Autopilot profilį?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Pašalinti {0} pasirinktus Autopilot profilius?</value>
+    <value>Pasirinkti Autopilot profiliai ({0}) bus pašalinti iš šios konfigūracijos.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Pašalinti profilius</value>
@@ -604,14 +613,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Pašalinti Autopilot profilius?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Norėdami vėl naudoti pašalintą profilį, importuokite jį arba dar kartą atsisiųskite iš nuomininko.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Užbaikite prisijungimą naršyklėje, kad atsisiųstumėte Autopilot profilius.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Prisijunkite prie Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Atšaukti</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Aišku</value>
@@ -685,6 +694,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atnaujinti</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Įrašyti</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nepasiekiamas</value>
   </data>
@@ -696,9 +708,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Naršyti</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Atšaukti</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importavimas atšauktas</value>
@@ -787,17 +796,23 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atnaujinti</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Pašalinti šį atvaizdą iš dabartinio profilio ir ištrinti jo vietinę kopiją? Kituose profiliuose, kuriuose jis nurodytas, atvaizdas bus rodomas kaip trūkstamas. Pradiniai failai ir esamos laikmenos liks nepakeisti.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Pašalinti atvaizdą</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) bus pašalintas iš dabartinio profilio, o jo vietinė kopija bus ištrinta.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Pašalinti</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Pašalinti pasirinktinį atvaizdą?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Kituose profiliuose, kuriuose naudojamas šis atvaizdas, jis bus rodomas kaip trūkstamas. Pradinis failas ir esamos laikmenos nebus pakeisti.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Redaguoti</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Įrašyti</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Nustatyti numatytąjį atvaizdą</value>
@@ -1825,8 +1840,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Neapdorotuose žurnaluose gali būti prisijungimo duomenų, identifikatorių, kelių, tinklų pavadinimų ir kitų jautrių duomenų. Eksportuokite juos tik tada, kai to aiškiai paprašo patikimas palaikymo kontaktas.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Palaikymo archyvas išsaugotas čia:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostika eksportuota</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Atidaryti aplanką</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nepavyko atidaryti dokumentacijos jūsų naršyklėje. Vietoj to naudokite URL.</value>
@@ -2833,6 +2854,15 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Nepavyko pašalinti kai kurių senų įrašytų slaptažodžių ar prieigos raktų. Bandykite dar kartą, kai bus pasiekiama „Windows“ kredencialų tvarkytuvė.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Uždaryti neišsaugojus</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Naujausių pakeitimų nepavyko išsaugoti, todėl jie bus prarasti.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Uždaryti neišsaugojus nustatymų?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Patvirtinkite slaptažodį</value>
   </data>
@@ -2869,8 +2899,17 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Ištrinti iš šio kompiuterio</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Ištrinti</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Taip pat ištrinti visiems</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Ištrinti visiems</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Ištrinti visiems?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Ištrinti šiuos bendrinamus nustatymus visiems? Turintys nesinchronizuotų pakeitimų turi dubliuoti savo nustatymus, kad juos išsaugotų.</value>
@@ -2910,6 +2949,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Išvalyti išsaugotus slaptažodžius ir prieigos duomenis</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Išvalyti</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Pašalinti šiame kompiuteryje šių nustatymų įrašytus slaptažodžius, „Foundry“ įrašytus konfidencialius failus ir sinchronizavimo prieigą? Norėdami sinchronizuoti, turėsite pridėti trūkstamą informaciją ir prisijungti iš naujo. Jau sukurtos laikmenos nesikeis.</value>
@@ -3031,7 +3073,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Visuose kompiuteriuose naudokite tą patį tinklo aplanką. Jis turi naudoti SMB 3 su privalomu šifravimu. Su debesimi sinchronizuojami aplankai nepalaikomi.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Nebesaugoti šios konfigūracijos slaptažodžių šiame kompiuteryje?</value>
+    <value>Foundry nebesaugos šios konfigūracijos slaptažodžių šiame kompiuteryje.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Nebeįsiminti</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Nebeįsiminti slaptažodžių?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sinchronizuoti</value>

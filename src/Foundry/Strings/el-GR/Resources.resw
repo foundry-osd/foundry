@@ -494,16 +494,25 @@
     <value>Κατάργηση πιστοποιητικού</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Το Foundry θα αφαιρέσει μόνο το επιλεγμένο πιστοποιητικό από την εγγραφή διαχειριζόμενης εφαρμογής. Άλλα διαπιστευτήρια εφαρμογής θα διατηρηθούν.</value>
+    <value>Το επιλεγμένο πιστοποιητικό θα καταργηθεί από τη διαχειριζόμενη εγγραφή εφαρμογής στον ενοικιαστή σας. Τα άλλα διαπιστευτήρια εφαρμογής διατηρούνται.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Κατάργηση πιστοποιητικού</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Κατάργηση επιλεγμένου πιστοποιητικού;</value>
+    <value>Κατάργηση πιστοποιητικού από τον ενοικιαστή;</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Τα μέσα εκκίνησης που χρησιμοποιούν πιστοποιητικό που καταργήθηκε δεν θα μπορούν πλέον να αποστέλλουν τιμές κατακερματισμού υλικού.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Το Foundry θα αφαιρέσει μόνο τα επιλεγμένα πιστοποιητικά {0} από την εγγραφή διαχειριζόμενης εφαρμογής. Άλλα διαπιστευτήρια εφαρμογής θα διατηρηθούν.</value>
+    <value>Τα {0} επιλεγμένα πιστοποιητικά θα καταργηθούν από τη διαχειριζόμενη εγγραφή εφαρμογής στον ενοικιαστή σας. Τα άλλα διαπιστευτήρια εφαρμογής διατηρούνται.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Κατάργηση πιστοποιητικών</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Κατάργηση πιστοποιητικών από τον ενοικιαστή;</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Συνδεδεμένος</value>
@@ -587,7 +596,7 @@
     <value>Κατάργηση επιλεγμένων</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Να καταργηθεί το "{0}" από τα εισηγμένα προφίλ Autopilot;</value>
+    <value>Το «{0}» θα καταργηθεί από τα προφίλ Autopilot σε αυτήν τη διαμόρφωση.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Κατάργηση προφίλ</value>
@@ -596,7 +605,7 @@
     <value>Κατάργηση προφίλ Autopilot;</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Κατάργηση {0} επιλεγμένων προφίλ Autopilot;</value>
+    <value>{0} επιλεγμένα προφίλ Autopilot θα καταργηθούν από αυτήν τη διαμόρφωση.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Κατάργηση προφίλ</value>
@@ -604,14 +613,14 @@
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Κατάργηση προφίλ Autopilot;</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Για να χρησιμοποιήσετε ξανά ένα προφίλ που καταργήθηκε, εισαγάγετέ το ή κάντε ξανά λήψη του από τον ενοικιαστή.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Ολοκληρώστε τη σύνδεση στο πρόγραμμα περιήγησης για λήψη προφίλ Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Συνδεθείτε στο Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Ακύρωση</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Καθαρό</value>
@@ -685,6 +694,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Ανανέωση</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Μη διαθέσιμο</value>
   </data>
@@ -696,9 +708,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Αναζήτηση</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Ακύρωση</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Η εισαγωγή ακυρώθηκε</value>
@@ -787,17 +796,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Ανανέωση</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Να καταργηθεί αυτό το είδωλο από το τρέχον προφίλ και να διαγραφεί το τοπικό του αντίγραφο; Στα άλλα προφίλ που αναφέρονται σε αυτό θα εμφανίζεται ως απόν. Τα αρχικά αρχεία και τα υπάρχοντα μέσα παραμένουν αμετάβλητα.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Κατάργηση ειδώλου</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>Το {0} ({1}) θα καταργηθεί από το τρέχον προφίλ και το τοπικό του αντίγραφο θα διαγραφεί.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Κατάργηση</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Κατάργηση προσαρμοσμένου ειδώλου;</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Στα άλλα προφίλ που χρησιμοποιούν αυτό το είδωλο θα εμφανίζεται ως απόν. Το αρχικό αρχείο και τα υπάρχοντα μέσα δεν αλλάζουν.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Επεξεργασία</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Αποθήκευση</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Ορισμός προεπιλεγμένης εικόνας</value>
@@ -1825,8 +1840,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Τα ακατέργαστα αρχεία καταγραφής μπορεί να περιέχουν διαπιστευτήρια, αναγνωριστικά, διαδρομές, ονόματα δικτύων και άλλα ευαίσθητα δεδομένα. Εξαγάγετέ τα μόνο όταν ζητηθούν ρητά από έμπιστο εκπρόσωπο υποστήριξης.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Το αρχείο υποστήριξης αποθηκεύτηκε στη θέση:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Τα διαγνωστικά εξήχθησαν</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Άνοιγμα φακέλου</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Το Foundry δεν μπόρεσε να ανοίξει την τεκμηρίωση στο πρόγραμμα περιήγησής σας. Χρησιμοποιήστε αυτό το URL αντ 'αυτού.</value>
@@ -2833,6 +2854,15 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Δεν ήταν δυνατή η κατάργηση ορισμένων παλιών αποθηκευμένων κωδικών πρόσβασης ή κλειδιών πρόσβασης. Δοκιμάστε ξανά όταν είναι διαθέσιμη η Διαχείριση διαπιστευτηρίων των Windows.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Κλείσιμο χωρίς αποθήκευση</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η αποθήκευση των πιο πρόσφατων αλλαγών σας και θα χαθούν.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Κλείσιμο χωρίς αποθήκευση των ρυθμίσεων;</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Επιβεβαίωση κωδικού</value>
   </data>
@@ -2869,8 +2899,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Διαγραφή από αυτόν τον υπολογιστή</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Διαγραφή και για όλους τους άλλους</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Διαγραφή για όλους</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Διαγραφή για όλους;</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Να διαγραφούν αυτές οι κοινόχρηστες ρυθμίσεις για όλους; Όποιος έχει μη συγχρονισμένες αλλαγές πρέπει να δημιουργήσει αντίγραφο των ρυθμίσεών του για να τις κρατήσει.</value>
@@ -2910,6 +2949,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Εκκαθάριση αποθηκευμένων κωδικών και στοιχείων πρόσβασης</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Εκκαθάριση</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Να καταργηθούν οι αποθηκευμένοι κωδικοί πρόσβασης, τα εμπιστευτικά αρχεία που αποθήκευσε το Foundry και η πρόσβαση συγχρονισμού για αυτές τις ρυθμίσεις σε αυτόν τον υπολογιστή; Θα χρειαστεί να προσθέσετε τα στοιχεία που λείπουν και να συνδεθείτε ξανά για συγχρονισμό. Τα μέσα που έχετε ήδη δημιουργήσει δεν θα αλλάξουν.</value>
@@ -3031,7 +3073,13 @@
     <value>Χρησιμοποιήστε τον ίδιο φάκελο δικτύου σε κάθε υπολογιστή. Πρέπει να χρησιμοποιεί SMB 3 με υποχρεωτική κρυπτογράφηση. Δεν υποστηρίζονται φάκελοι που συγχρονίζονται με το cloud.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Να σταματήσει η απομνημόνευση κωδικών για αυτήν τη διαμόρφωση σε αυτόν τον υπολογιστή;</value>
+    <value>Το Foundry θα σταματήσει να αποθηκεύει τους κωδικούς για αυτήν τη διαμόρφωση σε αυτόν τον υπολογιστή.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Διακοπή απομνημόνευσης</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Διακοπή απομνημόνευσης κωδικών;</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Συγχρονισμός</value>

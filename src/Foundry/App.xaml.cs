@@ -230,9 +230,11 @@ namespace Foundry
                     {
                         Style = ContentDialogStyleProvider.DefaultStyle,
                         XamlRoot = ((FrameworkElement)MainWindow.Content).XamlRoot,
-                        Title = localization.GetString("Profiles.Heading"),
-                        Content = localization.GetString(coordinator.StatusKey == "Profiles.Incomplete" ? "Profiles.Incomplete" : "Profiles.Failed"),
-                        PrimaryButtonText = localization.GetString("Common.Close"),
+                        Title = localization.GetString("Profiles.CloseWithoutSavingTitle"),
+                        Content = WinUiDialogService.CreateMessageContent(DialogText.JoinParagraphs(
+                            localization.GetString("Profiles.CloseWithoutSavingMessage"),
+                            localization.GetString(coordinator.StatusKey == "Profiles.Incomplete" ? "Profiles.Incomplete" : "Profiles.Failed"))),
+                        PrimaryButtonText = localization.GetString("Profiles.CloseWithoutSaving"),
                         CloseButtonText = localization.GetString("Common.Cancel"),
                         DefaultButton = ContentDialogButton.Close
                     };

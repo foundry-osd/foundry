@@ -494,16 +494,25 @@
     <value>إزالة الشهادة</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>سيؤدي Foundry إلى إزالة الشهادة المحددة فقط من تسجيل التطبيق المُدار. سيتم الاحتفاظ ببيانات اعتماد التطبيق الأخرى.</value>
+    <value>ستتم إزالة الشهادة المحددة من تسجيل التطبيق المُدار في المستأجر لديك. سيتم الاحتفاظ ببيانات اعتماد التطبيق الأخرى.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>إزالة الشهادة</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>هل تريد إزالة الشهادة المحددة؟</value>
+    <value>هل تريد إزالة الشهادة من المستأجر؟</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>لا يمكن التراجع عن هذا الإجراء. لن تتمكن وسائط التمهيد التي تستخدم شهادة تمت إزالتها من تحميل تجزئات الأجهزة بعد الآن.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry سيزيل فقط الشهادات المحددة {0} من تسجيل التطبيق المُدار. سيتم الاحتفاظ ببيانات اعتماد التطبيق الأخرى.</value>
+    <value>ستتم إزالة الشهادات المحددة وعددها {0} من تسجيل التطبيق المُدار في المستأجر لديك. سيتم الاحتفاظ ببيانات اعتماد التطبيق الأخرى.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>إزالة الشهادات</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>هل تريد إزالة الشهادات من المستأجر؟</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>متصل</value>
@@ -587,7 +596,7 @@
     <value>إزالة المحدد</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>هل تريد إزالة "{0}" من ملفات التعريف Autopilot المستوردة؟</value>
+    <value>ستتم إزالة "{0}" من ملفات تعريف Autopilot في هذا التكوين.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>إزالة الملف الشخصي</value>
@@ -596,7 +605,7 @@
     <value>هل تريد إزالة الملف الشخصي Autopilot؟</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>هل تريد إزالة ملفات تعريف {0} Autopilot المحددة؟</value>
+    <value>ستتم إزالة {0} من ملفات تعريف Autopilot المحددة من هذا التكوين.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>إزالة الملفات الشخصية</value>
@@ -604,14 +613,14 @@
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>هل تريد إزالة الملفات الشخصية Autopilot؟</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>لاستخدام ملف تعريف تمت إزالته مرة أخرى، قم باستيراده أو تنزيله من المستأجر مرة أخرى.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>أكمل تسجيل الدخول في المتصفح لتنزيل ملفات تعريف Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>قم بتسجيل الدخول إلى Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>إلغاء</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>واضح</value>
@@ -685,6 +694,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>تحديث</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>غير متاح</value>
   </data>
@@ -696,9 +708,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>استعراض</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>إلغاء</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>تم إلغاء الاستيراد</value>
@@ -787,17 +796,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>تحديث</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>هل تريد إزالة هذه الصورة من ملف التعريف الحالي وحذف نسختها المحلية؟ ستظهر كمفقودة في ملفات التعريف الأخرى التي تشير إليها. لن تتغير الملفات الأصلية والوسائط الموجودة.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>إزالة الصورة</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>ستتم إزالة {0} ({1}) من ملف التعريف الحالي، وسيتم حذف نسختها المحلية.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>إزالة</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>هل تريد إزالة الصورة المخصصة؟</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>ستظهر هذه الصورة كمفقودة في ملفات التعريف الأخرى التي تستخدمها. لن يتغير الملف الأصلي والوسائط الموجودة.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>تحرير</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>حفظ</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>تعيين الصورة الافتراضية</value>
@@ -1825,8 +1840,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>قد تحتوي السجلات الخام على بيانات اعتماد ومعرفات ومسارات وأسماء شبكات وبيانات حساسة أخرى. قم بتصديرها فقط عند طلب ذلك صراحةً من جهة دعم موثوقة.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>تم حفظ أرشيف الدعم في:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>تم تصدير التشخيصات</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>فتح المجلد</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>تعذر على Foundry فتح الوثائق في المستعرض الخاص بك. استخدم هذا URL بدلاً من ذلك.</value>
@@ -2833,6 +2854,15 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>تعذرت إزالة بعض كلمات المرور أو مفاتيح الوصول القديمة المحفوظة. حاول مرة أخرى عندما يكون مدير بيانات اعتماد Windows متاحًا.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>إغلاق دون حفظ</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>تعذر حفظ آخر التغييرات التي أجريتها، وستُفقد.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>هل تريد الإغلاق دون حفظ الإعدادات؟</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>تأكيد كلمة المرور</value>
   </data>
@@ -2869,8 +2899,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>حذف من هذا الكمبيوتر</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>حذف</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>الحذف للجميع أيضًا</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>الحذف للجميع</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>هل تريد الحذف للجميع؟</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>هل تريد حذف هذه الإعدادات المشتركة للجميع؟ يجب على أي شخص لديه تغييرات لم تتم مزامنتها إنشاء نسخة من إعداداته للاحتفاظ بها.</value>
@@ -2910,6 +2949,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>مسح كلمات المرور وبيانات الوصول المحفوظة</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>مسح</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>هل تريد إزالة كلمات المرور المحفوظة والملفات السرية التي حفظها Foundry وإمكانية المزامنة لهذه الإعدادات على هذا الكمبيوتر؟ ستحتاج إلى إضافة البيانات الناقصة وإعادة الاتصال للمزامنة. لن تتغير الوسائط التي أنشأتها سابقًا.</value>
@@ -3031,7 +3073,13 @@
     <value>استخدم مجلد الشبكة نفسه على كل كمبيوتر. يجب أن يستخدم SMB 3 مع اشتراط التشفير. المجلدات التي تتم مزامنتها مع السحابة غير مدعومة.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>هل تريد التوقف عن تذكر كلمات المرور لهذا التكوين على هذا الكمبيوتر؟</value>
+    <value>سيتوقف Foundry عن حفظ كلمات المرور لهذا التكوين على هذا الكمبيوتر.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>التوقف عن التذكر</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>هل تريد التوقف عن تذكر كلمات المرور؟</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>مزامنة</value>

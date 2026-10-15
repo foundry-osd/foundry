@@ -494,16 +494,25 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați certificatul</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry va elimina numai certificatul selectat din înregistrarea aplicației gestionate. Alte acreditări ale aplicației vor fi păstrate.</value>
+    <value>Certificatul selectat va fi eliminat din înregistrarea aplicației gestionate din chiriașul dvs. Alte acreditări ale aplicației sunt păstrate.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Eliminați certificatul</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Eliminați certificatul selectat?</value>
+    <value>Eliminați certificatul din chiriaș?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Această acțiune nu poate fi anulată. Mediile de pornire care utilizează un certificat eliminat nu mai pot încărca hash-uri hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry va elimina numai certificatele {0} selectate din înregistrarea aplicației gestionate. Alte acreditări ale aplicației vor fi păstrate.</value>
+    <value>Certificatele selectate ({0}) vor fi eliminate din înregistrarea aplicației gestionate din chiriașul dvs. Alte acreditări ale aplicației sunt păstrate.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Eliminați certificatele</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Eliminați certificatele din chiriaș?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Conectat</value>
@@ -587,7 +596,7 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați selectat</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Eliminați „{0}” din profilurile Autopilot importate?</value>
+    <value>„{0}” va fi eliminat din profilurile Autopilot din această configurație.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Eliminați profilul</value>
@@ -596,7 +605,7 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați profilul Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Eliminați {0} profilurile Autopilot selectate?</value>
+    <value>Profilurile Autopilot selectate ({0}) vor fi eliminate din această configurație.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Eliminați profilurile</value>
@@ -604,14 +613,14 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Eliminați profilurile Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Pentru a utiliza din nou un profil eliminat, importați-l sau descărcați-l din nou de la chiriaș.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Completați autentificarea în browser pentru a descărca profilurile Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Conectați-vă la Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Anulează</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Clar</value>
@@ -685,6 +694,9 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Reîmprospătați</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponibil</value>
   </data>
@@ -696,9 +708,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Răsfoiți</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Anulați</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Import anulat</value>
@@ -787,17 +796,23 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Reîmprospătați</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Eliminați această imagine din profilul curent și ștergeți copia sa locală? În celelalte profiluri care fac referire la ea, imaginea va apărea ca lipsă. Fișierele originale și suporturile existente rămân neschimbate.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Elimină imaginea</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) va fi eliminată din profilul curent, iar copia sa locală va fi ștearsă.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Elimină</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Eliminați imaginea personalizată?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Celelalte profiluri care utilizează această imagine o vor afișa ca lipsă. Fișierul original și suporturile existente nu sunt modificate.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Editează</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Salvează</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Setează imaginea implicită</value>
@@ -1825,8 +1840,14 @@ Licențiat sub licența MIT.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Jurnalele brute pot conține acreditări, identificatori, căi, nume de rețea și alte date sensibile. Exportați-le numai când sunt solicitate explicit de un contact de suport de încredere.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Arhiva de asistență a fost salvată în:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostice exportate</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Deschide folderul</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nu a putut deschide documentația în browser. Folosiți acest URL în schimb.</value>
@@ -2833,6 +2854,15 @@ Licențiat sub licența MIT.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Unele parole sau chei de acces vechi nu au putut fi eliminate. Încercați din nou când Managerul de acreditări Windows este disponibil.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Închide fără a salva</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Cele mai recente modificări nu au putut fi salvate și se vor pierde.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Închideți fără a salva setările?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Confirmați parola</value>
   </data>
@@ -2869,8 +2899,17 @@ Licențiat sub licența MIT.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Șterge de pe acest PC</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Șterge și pentru toată lumea</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Șterge pentru toată lumea</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Ștergi pentru toată lumea?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Ștergeți aceste setări partajate pentru toată lumea? Cei care au modificări nesincronizate trebuie să își duplice setările pentru a le păstra.</value>
@@ -2910,6 +2949,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Șterge parolele și accesul salvate</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Șterge</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Eliminați parolele salvate, fișierele confidențiale salvate de Foundry și accesul la sincronizare pentru aceste setări de pe acest PC? Va trebui să adăugați datele lipsă și să vă reconectați pentru sincronizare. Suporturile create deja nu se vor modifica.</value>
@@ -3031,7 +3073,13 @@ Parole și chei de acces incluse: {2}</value>
     <value>Folosiți același folder din rețea pe toate PC-urile. Acesta trebuie să folosească SMB 3 cu criptare obligatorie. Folderele sincronizate în cloud nu sunt acceptate.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Oprești memorarea parolelor acestei configurații pe acest PC?</value>
+    <value>Foundry nu va mai salva parolele acestei configurații pe acest PC.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Oprește memorarea</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Oprești memorarea parolelor?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sincronizează</value>

@@ -494,16 +494,25 @@ Licenc az MIT licenc alatt.</value>
     <value>Tanúsítvány eltávolítása</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Az Foundry csak a kiválasztott tanúsítványt távolítja el a kezelt alkalmazásregisztrációból. A többi alkalmazás hitelesítő adatai megmaradnak.</value>
+    <value>A rendszer eltávolítja a kiválasztott tanúsítványt a bérlő felügyelt alkalmazásregisztrációjából. Az alkalmazás többi hitelesítő adata megmarad.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Tanúsítvány eltávolítása</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Eltávolítja a kiválasztott tanúsítványt?</value>
+    <value>Eltávolítja a tanúsítványt a bérlőből?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Ez a művelet nem vonható vissza. Az eltávolított tanúsítványt használó rendszerindító adathordozók többé nem tudnak hardveres hasheket feltölteni.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Az Foundry csak a {0} kiválasztott tanúsítványokat távolítja el a kezelt alkalmazásregisztrációból. A többi alkalmazás hitelesítő adatai megmaradnak.</value>
+    <value>A rendszer eltávolítja a kiválasztott {0} tanúsítványt a bérlő felügyelt alkalmazásregisztrációjából. Az alkalmazás többi hitelesítő adata megmarad.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Tanúsítványok eltávolítása</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Eltávolítja a tanúsítványokat a bérlőből?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Csatlakozva</value>
@@ -587,7 +596,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A kiválasztott eltávolítása</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Eltávolítja a „{0}” elemet az importált Autopilot profilokból?</value>
+    <value>A rendszer eltávolítja a(z) „{0}” profilt a konfiguráció Autopilot-profiljai közül.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Profil eltávolítása</value>
@@ -596,7 +605,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Eltávolítja a Autopilot profilt?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Eltávolítja a {0} kiválasztott Autopilot profilokat?</value>
+    <value>A rendszer eltávolítja a kiválasztott {0} Autopilot-profilt ebből a konfigurációból.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Profilok eltávolítása</value>
@@ -604,14 +613,14 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Eltávolítja a Autopilot profilokat?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Egy eltávolított profil ismételt használatához importálja, vagy töltse le újra a bérlőtől.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>A Autopilot profilok letöltéséhez fejezze be a bejelentkezést a böngészőben.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Bejelentkezés a Microsoft Graph címre</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Mégsem</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Világos</value>
@@ -685,6 +694,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Frissítés</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nem elérhető</value>
   </data>
@@ -696,9 +708,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Tallózás</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Mégse</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importálás megszakítva</value>
@@ -787,17 +796,23 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Frissítés</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Eltávolítja ezt a lemezképet az aktuális profilból, és törli a helyi másolatát? A rá hivatkozó többi profilban hiányzóként jelenik meg. Az eredeti fájlok és a meglévő adathordozók változatlanok maradnak.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Lemezkép eltávolítása</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>A rendszer eltávolítja a(z) {0} ({1}) lemezképet az aktuális profilból, és törli a helyi másolatát.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Eltávolítás</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Eltávolítja az egyéni lemezképet?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>A lemezképet használó többi profilban hiányzóként jelenik meg. Az eredeti fájl és a meglévő adathordozók nem változnak.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Szerkesztés</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Mentés</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Alapértelmezett lemezkép beállítása</value>
@@ -1825,8 +1840,14 @@ Licenc az MIT licenc alatt.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>A nyers naplók hitelesítő adatokat, azonosítókat, elérési utakat, hálózatneveket és egyéb érzékeny adatokat tartalmazhatnak. Csak akkor exportálja őket, ha ezt egy megbízható támogatási kapcsolattartó kifejezetten kéri.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>A támogatási archívum mentési helye:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnosztika exportálva</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Mappa megnyitása</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nem tudta megnyitni a dokumentációt a böngészőben. Használja helyette ezt a URL-t.</value>
@@ -2833,6 +2854,15 @@ Licenc az MIT licenc alatt.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Néhány régi mentett jelszót vagy hozzáférési kulcsot nem sikerült eltávolítani. Próbálja újra, amikor a Windows Hitelesítőadat-kezelő elérhető.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Bezárás mentés nélkül</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>A legutóbbi módosításokat nem sikerült menteni, és elvesznek.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Bezárja a beállítások mentése nélkül?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Jelszó megerősítése</value>
   </data>
@@ -2869,8 +2899,17 @@ Licenc az MIT licenc alatt.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Törlés erről a számítógépről</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Törlés mindenki számára is</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Törlés mindenki számára</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Törli mindenki számára?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Törli ezeket a megosztott beállításokat mindenki számára? Akinek nem szinkronizált módosításai vannak, a megőrzésükhöz másolatot kell készítenie a beállításairól.</value>
@@ -2910,6 +2949,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Mentett jelszavak és hozzáférések törlése</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Törlés</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Eltávolítja ezekhez a beállításokhoz a mentett jelszavakat, a Foundry által mentett bizalmas fájlokat és a szinkronizálási hozzáférést erről a számítógépről? A szinkronizáláshoz meg kell adnia a hiányzó adatokat, és újra csatlakoznia kell. A már létrehozott adathordozók nem változnak.</value>
@@ -3031,7 +3073,13 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Minden számítógépen ugyanazt a hálózati mappát használja. A mappának SMB 3-at kell használnia kötelező titkosítással. A felhővel szinkronizált mappák nem támogatottak.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Ne jegyezze meg többé a konfiguráció jelszavait ezen a számítógépen?</value>
+    <value>A Foundry nem menti többé a konfiguráció jelszavait ezen a számítógépen.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Megjegyzés leállítása</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Leállítja a jelszavak megjegyzését?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Szinkronizálás</value>
