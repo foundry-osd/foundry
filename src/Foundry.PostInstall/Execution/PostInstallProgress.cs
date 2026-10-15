@@ -24,6 +24,7 @@ public sealed record PostInstallProgress(IReadOnlyList<PostInstallActionProgress
         PreOobeBuiltInKind.Cleanup => "Cleanup",
         PreOobeBuiltInKind.DomainJoinAndPlacement => "Join domain and place computer",
         PreOobeBuiltInKind.VerifyDomainMembership => "Verify domain membership",
+        PreOobeBuiltInKind.AutopilotRegistration => "Upload hardware hash to Windows Autopilot",
         _ => action.Name
     };
 }

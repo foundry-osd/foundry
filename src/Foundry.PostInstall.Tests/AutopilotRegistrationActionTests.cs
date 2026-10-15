@@ -75,6 +75,11 @@ public sealed class AutopilotRegistrationActionTests : IDisposable
         Assert.False(outcome.TerminationUncertain);
     }
 
+    [Fact]
+    public void ConsoleLabel_NamesTheAssistantForTechnicians() =>
+        Assert.Equal("Upload hardware hash to Windows Autopilot", PostInstallProgress.GetActionName(new PreOobeExecutionAction
+        { Id = "autopilot-registration", Name = "autopilot-registration", BuiltInKind = PreOobeBuiltInKind.AutopilotRegistration }));
+
     public void Dispose() => Directory.Delete(root, true);
 
     private Task<ActionStepOutcome> Execute(RecordingProcesses processes) =>
