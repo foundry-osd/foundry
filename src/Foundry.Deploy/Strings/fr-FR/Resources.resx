@@ -38,7 +38,7 @@ Sous licence MIT.</value>
     <value>Vérifiez les paramètres de provisionnement Autopilot pour cet appareil.</value>
   </data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
-    <value>Envoie le hash matériel de cet appareil à Windows Autopilot pendant le déploiement.</value>
+    <value>Envoie le hachage matériel de cet appareil à Windows Autopilot pendant le déploiement.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Ajoute un profil Autopilot hors connexion à l'installation de Windows.</value>
@@ -191,7 +191,7 @@ Sous licence MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Envoi zero-touch du hash matériel</value>
+    <value>Envoi zero-touch du hachage matériel</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
     <value>Certificat expiré</value>
@@ -661,31 +661,31 @@ Continuer le déploiement ?</value>
     <value>Expiration du certificat</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>Le certificat Autopilot a expiré. Le déploiement peut continuer sans envoyer le hash matériel.</value>
+    <value>Le certificat Autopilot a expiré. Le déploiement peut continuer sans envoyer le hachage matériel.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Balise de groupe</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>Les informations de certificat requises sont manquantes. Le déploiement peut continuer sans envoyer le hash matériel.</value>
+    <value>Les informations de certificat requises sont manquantes. Le déploiement peut continuer sans envoyer le hachage matériel.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Prêt pour l'envoi du hash matériel</value>
+    <value>Prêt pour l'envoi du hachage matériel</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
     <value>ID du tenant</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
-    <value>Envoi du hash matériel indisponible</value>
+    <value>Envoi du hachage matériel indisponible</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>État de l'envoi du hash matériel</value>
+    <value>État de l'envoi du hachage matériel</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>Envoi zero-touch du hash matériel</value>
+    <value>Envoi zero-touch du hachage matériel</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Envoi interactif du hash matériel</value>
+    <value>Envoi interactif du hachage matériel</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
     <value>Profil JSON</value>
@@ -943,10 +943,10 @@ Continuer le déploiement ?</value>
     <value>Application des modifications de fonctionnalités...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Authentification de l'envoi du hash matériel Autopilot...</value>
+    <value>Authentification de l'envoi du hachage matériel Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>Capture du hash matériel Autopilot...</value>
+    <value>Capture du hachage matériel Autopilot...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Vérification de l'espace disponible...</value>
@@ -1030,7 +1030,7 @@ Continuer le déploiement ?</value>
     <value>Finalisation du déploiement...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
-    <value>Import du hash matériel dans Microsoft Graph...</value>
+    <value>Import du hachage matériel dans Microsoft Graph...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Injection du contenu firmware dans Windows hors ligne...</value>
@@ -1048,7 +1048,7 @@ Continuer le déploiement ?</value>
     <value>Partitionnement du disque cible...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Préparation de l'envoi du hash matériel Autopilot...</value>
+    <value>Préparation de l'envoi du hachage matériel Autopilot...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>Préparation du téléchargement...</value>
@@ -1120,7 +1120,7 @@ Continuer le déploiement ?</value>
     <value>Mise à jour de la balise de groupe Windows Autopilot dans Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Envoi du hash matériel Autopilot...</value>
+    <value>Envoi du hachage matériel Autopilot...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Validation de la configuration cible...</value>
@@ -1141,7 +1141,7 @@ Continuer le déploiement ?</value>
     <value>Écriture du résumé de déploiement...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>Écriture du manifeste de hash Autopilot simulé...</value>
+    <value>Écriture du manifeste de hachage Autopilot simulé...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>Écriture du manifeste Autopilot de simulation...</value>
@@ -1195,28 +1195,28 @@ Continuer le déploiement ?</value>
     <value>La mise à jour de la balise de groupe de l'appareil Windows Autopilot n'a pas été confirmée avant l'expiration du délai.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Hash matériel Autopilot importé et visible dans les appareils Windows Autopilot.</value>
+    <value>Hachage matériel Autopilot importé et visible dans les appareils Windows Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>La capture du hash matériel Autopilot a échoué : {0}</value>
+    <value>La capture du hachage matériel Autopilot a échoué : {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>L'import du hash matériel Autopilot a échoué : {0}</value>
+    <value>L'import du hachage matériel Autopilot a échoué : {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Envoi du hash matériel Autopilot préparé pour la simulation.</value>
+    <value>Envoi du hachage matériel Autopilot préparé pour la simulation.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Envoi du hash matériel Autopilot préparé (simulation).</value>
+    <value>Envoi du hachage matériel Autopilot préparé (simulation).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Envoi du hash matériel Autopilot ignoré car le certificat intégré a expiré.</value>
+    <value>Envoi du hachage matériel Autopilot ignoré car le certificat intégré a expiré.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Envoi du hash matériel Autopilot ignoré : {0}</value>
+    <value>Envoi du hachage matériel Autopilot ignoré : {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Envoi du hash matériel Autopilot ignoré car les informations de certificat du média sont incomplètes.</value>
+    <value>Envoi du hachage matériel Autopilot ignoré car les informations de certificat du média sont incomplètes.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot est activé mais aucun profil n'a été sélectionné.</value>
@@ -1435,7 +1435,7 @@ Continuer le déploiement ?</value>
     <value>La partition Windows cible est indisponible pour la préparation Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>La partition Windows cible est indisponible pour l'envoi du hash matériel Autopilot.</value>
+    <value>La partition Windows cible est indisponible pour l'envoi du hachage matériel Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>La partition Windows cible n'est pas disponible pour préparer l'assistant d'enregistrement Autopilot interactif.</value>
@@ -1753,7 +1753,7 @@ Continuer le déploiement ?</value>
     <value>Les commandes personnalisées peuvent entrer en conflit avec Foundry. Testez cette configuration.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>L'envoi du hash ne garantit pas l'inscription à Autopilot.</value>
+    <value>L'envoi du hachage ne garantit pas l'inscription à Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>Testez ce fichier de réponses avec l'image Windows et la configuration Foundry sélectionnées.</value>

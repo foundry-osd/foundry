@@ -461,7 +461,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pārvaldītās lietotnes reģistrāciju nevarēja atrast. Atkārtoti izveidojiet savienojumu, lai ļautu Foundry to izveidot vai pieņemt.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>Pārvaldītajam pakalpojuma galvenajam lietotājam trūkst administratora piekrišanas nepieciešamajai Microsoft Graph atļaujai. Piešķiriet administratora piekrišanu un atkārtoti izveidojiet savienojumu.</value>
+    <value>Pārvaldītajam service principal trūkst administratora piekrišanas nepieciešamajai Microsoft Graph atļaujai. Piešķiriet administratora piekrišanu un atkārtoti izveidojiet savienojumu.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>Pārvaldītās lietotnes reģistrācija nav gatava. Pārskatiet nomnieka gatavību un atkārtoti izveidojiet savienojumu.</value>
@@ -470,7 +470,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pārvaldītās lietotnes reģistrācijai trūkst nepieciešamās Microsoft Graph lietojumprogrammas atļaujas. Atkārtoti izveidojiet savienojumu ar kontu, kas var atjaunināt lietotņu reģistrāciju.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>Trūkst pārvaldītā pakalpojuma principa vai tas ir atspējots. Atkārtoti izveidojiet savienojumu ar kontu, kas var izveidot vai pārvaldīt uzņēmuma lietojumprogrammas.</value>
+    <value>Trūkst pārvaldītā service principal vai tas ir atspējots. Atkārtoti izveidojiet savienojumu ar kontu, kas var izveidot vai pārvaldīt uzņēmuma lietojumprogrammas.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
     <value>Nomnieka uzņemšanai ir jāpievērš uzmanība</value>
@@ -3298,7 +3298,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst lietotnes klienta ID. Atkārtoti izveidojiet savienojumu ar nomnieku sadaļā Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst vai nav gatavs lietotnes pakalpojuma galvenais nosaukums.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst vai nav gatavs lietotnes service principal.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
     <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst iestatījumu.</value>

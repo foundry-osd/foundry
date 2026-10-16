@@ -461,7 +461,7 @@
     <value>Δεν ήταν δυνατή η εύρεση της εγγραφής διαχειριζόμενης εφαρμογής. Επανασυνδεθείτε για να επιτρέψετε στον Foundry να το δημιουργήσει ή να το υιοθετήσει.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>Από τον κύριο της διαχειριζόμενης υπηρεσίας λείπει η συναίνεση του διαχειριστή για την απαιτούμενη άδεια Microsoft Graph. Παραχωρήστε τη συγκατάθεση του διαχειριστή και επανασυνδέστε.</value>
+    <value>Από το διαχειριζόμενο service principal λείπει η συναίνεση του διαχειριστή για την απαιτούμενη άδεια Microsoft Graph. Παραχωρήστε τη συγκατάθεση του διαχειριστή και επανασυνδέστε.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>Η εγγραφή διαχειριζόμενης εφαρμογής δεν είναι έτοιμη. Ελέγξτε την ετοιμότητα του μισθωτή και επανασυνδεθείτε.</value>
@@ -470,7 +470,7 @@
     <value>Από την εγγραφή διαχειριζόμενης εφαρμογής λείπει η απαιτούμενη άδεια εφαρμογής Microsoft Graph. Επανασυνδεθείτε με έναν λογαριασμό που μπορεί να ενημερώσει τις εγγραφές εφαρμογών.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>Ο κύριος της διαχειριζόμενης υπηρεσίας λείπει ή είναι απενεργοποιημένος. Επανασυνδεθείτε με έναν λογαριασμό που μπορεί να δημιουργήσει ή να διαχειριστεί εταιρικές εφαρμογές.</value>
+    <value>Το διαχειριζόμενο service principal λείπει ή είναι απενεργοποιημένο. Επανασυνδεθείτε με έναν λογαριασμό που μπορεί να δημιουργήσει ή να διαχειριστεί εταιρικές εφαρμογές.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
     <value>Η ενσωμάτωση του μισθωτή απαιτεί προσοχή</value>
@@ -3298,7 +3298,7 @@
     <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το αναγνωριστικό πελάτη εφαρμογής λείπει. Επανασυνδεθείτε με τον μισθωτή από το Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά η κύρια υπηρεσία της εφαρμογής λείπει ή δεν είναι έτοιμη.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το service principal της εφαρμογής λείπει ή δεν είναι έτοιμο.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
     <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά οι ρυθμίσεις λείπουν.</value>

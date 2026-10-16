@@ -38,7 +38,7 @@ Licenciado sob a licença MIT.</value>
     <value>Revise as configurações de provisionamento do Autopilot para este dispositivo.</value>
   </data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
-    <value>Faz upload do hash de hardware deste dispositivo para o Windows Autopilot durante a implantação.</value>
+    <value>Carrega o hash de hardware deste dispositivo para o Windows Autopilot durante a implantação.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Adiciona um perfil offline do Autopilot à instalação do Windows.</value>
@@ -661,16 +661,16 @@ Continuar com a implantação?</value>
     <value>Expiração do certificado</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>O certificado Autopilot expirou. A implantação pode continuar sem fazer upload do hash de hardware.</value>
+    <value>O certificado Autopilot expirou. A implantação pode continuar sem carregar o hash de hardware.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Etiqueta de grupo</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>As informações necessárias do certificado estão ausentes. A implantação pode continuar sem fazer upload do hash de hardware.</value>
+    <value>As informações necessárias do certificado estão ausentes. A implantação pode continuar sem carregar o hash de hardware.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Pronto para fazer upload de hash de hardware</value>
+    <value>Pronto para carregar o hash de hardware</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
     <value>ID do locatário</value>
@@ -1120,7 +1120,7 @@ Continuar com a implantação?</value>
     <value>Atualizando a tag do grupo Windows Autopilot em Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Fazendo upload do hash de hardware Autopilot...</value>
+    <value>Carregando o hash de hardware Autopilot...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Validando configuração de destino...</value>

@@ -320,7 +320,7 @@ Sous licence MIT.</value>
     <value>Sélectionnez un PFX qui correspond à un certificat de l'inscription d'application.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>PFX protégé par mot de passe copié dans le média de démarrage pour l'envoi du hash matériel.</value>
+    <value>PFX protégé par mot de passe copié dans le média de démarrage pour l'envoi du hachage matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Le fichier PFX sélectionné n'existe plus.</value>
@@ -377,7 +377,7 @@ Sous licence MIT.</value>
     <value>Copier le mot de passe</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Enregistrez maintenant ce fichier PFX et ce mot de passe dans un emplacement sécurisé. Foundry n'enregistre le mot de passe avec votre configuration sur ce PC que si « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres ». Ces deux éléments seront nécessaires pour générer le média de démarrage avec envoi du hash matériel.</value>
+    <value>Enregistrez maintenant ce fichier PFX et ce mot de passe dans un emplacement sécurisé. Foundry n'enregistre le mot de passe avec votre configuration sur ce PC que si « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres ». Ces deux éléments seront nécessaires pour générer le média de démarrage avec envoi du hachage matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Mot de passe copié.</value>
@@ -434,13 +434,13 @@ Sous licence MIT.</value>
     <value>Se déconnecter du tenant</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Balise de groupe facultative présélectionnée dans Foundry Deploy pendant l'envoi du hash matériel.</value>
+    <value>Balise de groupe facultative présélectionnée dans Foundry Deploy pendant l'envoi du hachage matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Balise de groupe par défaut</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Envoi zero-touch du hash matériel</value>
+    <value>Envoi zero-touch du hachage matériel</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
     <value>Foundry n'a pas pu configurer l'inscription d'application Autopilot. {0}</value>
@@ -509,7 +509,7 @@ Sous licence MIT.</value>
     <value>Connecté</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Terminez la connexion dans le navigateur pour configurer l'envoi du hash matériel Autopilot.</value>
+    <value>Terminez la connexion dans le navigateur pour configurer l'envoi du hachage matériel Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
     <value>Connexion à Microsoft Graph</value>
@@ -524,7 +524,7 @@ Sous licence MIT.</value>
     <value>Non connecté</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Informations du tenant, de l'inscription d'application et de l'état de préparation pour l'envoi du hash matériel.</value>
+    <value>Informations du tenant, de l'inscription d'application et de l'état de préparation pour l'envoi du hachage matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
     <value>État du tenant</value>
@@ -536,7 +536,7 @@ Sous licence MIT.</value>
     <value>Valeur</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Connectez-vous à Microsoft Graph pour cette session de l'application afin de gérer les paramètres d'envoi du hash matériel.</value>
+    <value>Connectez-vous à Microsoft Graph pour cette session de l'application afin de gérer les paramètres d'envoi du hachage matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>Connexion au tenant</value>
@@ -557,10 +557,10 @@ Sous licence MIT.</value>
     <value>Import du profil Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Lorsqu'elle est activée, le technicien se connecte avec un code d'appareil Microsoft pendant l'installation de Windows et envoie le hash matériel de l'appareil.</value>
+    <value>Lorsqu'elle est activée, le technicien se connecte avec un code d'appareil Microsoft pendant l'installation de Windows et envoie le hachage matériel de l'appareil.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
-    <value>Envoi interactif du hash matériel</value>
+    <value>Envoi interactif du hachage matériel</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>Provisionnement par profil JSON</value>
@@ -632,10 +632,10 @@ Sous licence MIT.</value>
     <value>Sélectionner les profils Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Permet au technicien d'envoyer le hash matériel de l'appareil pendant le déploiement.</value>
+    <value>Permet au technicien d'envoyer le hachage matériel de l'appareil pendant le déploiement.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>Envoi interactif du hash matériel</value>
+    <value>Envoi interactif du hachage matériel</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importez ou téléchargez le profil Autopilot intégré au média de déploiement.</value>
@@ -644,10 +644,10 @@ Sous licence MIT.</value>
     <value>Profil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Configurer l'envoi automatique du hash matériel basé sur le tenant.</value>
+    <value>Configurer l'envoi automatique du hachage matériel basé sur le tenant.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>Envoi zero-touch du hash matériel</value>
+    <value>Envoi zero-touch du hachage matériel</value>
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry n'a pas pu ouvrir le formulaire de signalement de bug. Copiez ce lien et ouvrez-le dans votre navigateur.</value>
@@ -914,10 +914,10 @@ Sous licence MIT.</value>
     <value>Packages sélectionnés : {0} sur {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Attribuer à l'appareil Windows Autopilot le nom définitif de l'ordinateur confirmé dans Foundry Deploy lors de l'envoi du hash matériel.</value>
+    <value>Attribuer à l'appareil Windows Autopilot le nom définitif de l'ordinateur confirmé dans Foundry Deploy lors de l'envoi du hachage matériel.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Activer le nommage des appareils et l'envoi zero-touch ou interactif du hash matériel pour attribuer le nom définitif de déploiement dans Autopilot.</value>
+    <value>Activer le nommage des appareils et l'envoi zero-touch ou interactif du hachage matériel pour attribuer le nom définitif de déploiement dans Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Ajouter un composant</value>
@@ -2369,7 +2369,7 @@ Sous licence MIT.</value>
     <value>Suppressions d'AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Envoie les hash matériels de manière interactive pendant le déploiement.</value>
+    <value>Envoie les hachages matériels de manière interactive pendant le déploiement.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interactif</value>
@@ -2381,7 +2381,7 @@ Sous licence MIT.</value>
     <value>Profil JSON</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Envoie les hash matériels via Microsoft Graph.</value>
+    <value>Envoie les hachages matériels via Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3220,7 +3220,7 @@ Mots de passe et clés d'accès inclus : {2}</value>
     <value>Activer les diagnostics à distance</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Envoyez des données de télémétrie d'utilisation anonymes pour contribuer à l'amélioration de Foundry. Les secrets et les identifiants directs de l'appareil, notamment les numéros de série et les hash matériels, sont exclus. La télémétrie utilise un identifiant d'installation anonyme et peut inclure le fabricant et le modèle de l'appareil.</value>
+    <value>Envoyez des données de télémétrie d'utilisation anonymes pour contribuer à l'amélioration de Foundry. Les secrets et les identifiants directs de l'appareil, notamment les numéros de série et les hachages matériels, sont exclus. La télémétrie utilise un identifiant d'installation anonyme et peut inclure le fabricant et le modèle de l'appareil.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Activer la télémétrie</value>
@@ -3253,58 +3253,58 @@ Mots de passe et clés d'accès inclus : {2}</value>
     <value>Architecture et signature</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Activé : envoi zero-touch du hash matériel</value>
+    <value>Activé : envoi zero-touch du hachage matériel</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Activé : envoi interactif du hash matériel</value>
+    <value>Activé : envoi interactif du hachage matériel</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
     <value>Activé : {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais l'expiration du certificat sélectionné est manquante.</value>
+    <value>L'envoi du hachage matériel est activé mais l'expiration du certificat sélectionné est manquante.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais le certificat sélectionné a expiré. Sélectionnez un certificat valide avant de créer le média de démarrage.</value>
+    <value>L'envoi du hachage matériel est activé mais le certificat sélectionné a expiré. Sélectionnez un certificat valide avant de créer le média de démarrage.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais le PFX sélectionné ne correspond à aucun certificat de l'inscription d'application.</value>
+    <value>L'envoi du hachage matériel est activé mais le PFX sélectionné ne correspond à aucun certificat de l'inscription d'application.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais l'empreinte du certificat sélectionné est manquante.</value>
+    <value>L'envoi du hachage matériel est activé mais l'empreinte du certificat sélectionné est manquante.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais l'inscription d'application n'est pas configurée. Connectez-vous au tenant depuis Autopilot.</value>
+    <value>L'envoi du hachage matériel est activé mais l'inscription d'application n'est pas configurée. Connectez-vous au tenant depuis Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais l'expiration du PFX de média de démarrage n'a pas pu être validée.</value>
+    <value>L'envoi du hachage matériel est activé mais l'expiration du PFX de média de démarrage n'a pas pu être validée.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais le PFX de média de démarrage sélectionné a expiré.</value>
+    <value>L'envoi du hachage matériel est activé mais le PFX de média de démarrage sélectionné a expiré.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais le PFX de média de démarrage n'a pas été validé.</value>
+    <value>L'envoi du hachage matériel est activé mais le PFX de média de démarrage n'a pas été validé.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais le PFX sélectionné ne correspond pas au certificat actif.</value>
+    <value>L'envoi du hachage matériel est activé mais le PFX sélectionné ne correspond pas au certificat actif.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais aucun PFX de média de démarrage n'est sélectionné.</value>
+    <value>L'envoi du hachage matériel est activé mais aucun PFX de média de démarrage n'est sélectionné.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais le mot de passe du PFX de média de démarrage est manquant.</value>
+    <value>L'envoi du hachage matériel est activé mais le mot de passe du PFX de média de démarrage est manquant.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais l'ID client de l'application est manquant. Reconnectez-vous au tenant depuis Autopilot.</value>
+    <value>L'envoi du hachage matériel est activé mais l'ID client de l'application est manquant. Reconnectez-vous au tenant depuis Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais le principal de service de l'application est manquant ou n'est pas prêt.</value>
+    <value>L'envoi du hachage matériel est activé mais le principal de service de l'application est manquant ou n'est pas prêt.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais les paramètres sont manquants.</value>
+    <value>L'envoi du hachage matériel est activé mais les paramètres sont manquants.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>L'envoi du hash matériel est activé mais la connexion au tenant est manquante. Connectez-vous au tenant depuis Autopilot.</value>
+    <value>L'envoi du hachage matériel est activé mais la connexion au tenant est manquante. Connectez-vous au tenant depuis Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Le mode profil JSON Autopilot est activé mais aucun profil par défaut valide n'est sélectionné.</value>

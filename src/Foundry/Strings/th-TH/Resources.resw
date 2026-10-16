@@ -461,7 +461,7 @@
     <value>ไม่พบการลงทะเบียนแอปที่มีการจัดการ เชื่อมต่อใหม่เพื่อให้ Foundry สร้างหรือนำไปใช้</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>บริการหลักที่ได้รับการจัดการไม่ได้รับความยินยอมจากผู้ดูแลระบบสำหรับสิทธิ์ Microsoft Graph ที่จำเป็น ให้ความยินยอมของผู้ดูแลระบบและเชื่อมต่อใหม่</value>
+    <value>service principal ที่ได้รับการจัดการไม่ได้รับความยินยอมจากผู้ดูแลระบบสำหรับสิทธิ์ Microsoft Graph ที่จำเป็น ให้ความยินยอมของผู้ดูแลระบบและเชื่อมต่อใหม่</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>การลงทะเบียนแอปที่มีการจัดการยังไม่พร้อม ตรวจสอบความพร้อมของผู้เช่าและเชื่อมต่อใหม่</value>
@@ -470,7 +470,7 @@
     <value>การลงทะเบียนแอปที่ได้รับการจัดการขาดสิทธิ์ของแอปพลิเคชัน Microsoft Graph ที่จำเป็น เชื่อมต่อกับบัญชีที่สามารถอัปเดตการลงทะเบียนแอปได้</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>บริการหลักที่มีการจัดการหายไปหรือปิดใช้งาน เชื่อมต่อกับบัญชีที่สามารถสร้างหรือจัดการแอปพลิเคชันระดับองค์กรได้อีกครั้ง</value>
+    <value>service principal ที่มีการจัดการหายไปหรือปิดใช้งาน เชื่อมต่อกับบัญชีที่สามารถสร้างหรือจัดการแอปพลิเคชันระดับองค์กรได้อีกครั้ง</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
     <value>การเริ่มต้นใช้งานผู้เช่าต้องได้รับการดูแลเอาใจใส่</value>
@@ -3298,7 +3298,7 @@
     <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ไม่มีรหัสไคลเอ็นต์ของแอป เชื่อมต่อกับผู้เช่าอีกครั้งจาก Autopilot</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่บริการหลักของแอปหายไปหรือไม่พร้อม</value>
+    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ service principal ของแอปหายไปหรือไม่พร้อม</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
     <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่การตั้งค่าหายไป</value>

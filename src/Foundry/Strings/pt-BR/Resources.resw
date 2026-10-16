@@ -557,7 +557,7 @@ Licenciado sob a licença MIT.</value>
     <value>Importando perfil Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Quando habilitado, o técnico entra com um código de dispositivo da Microsoft durante a configuração do Windows e faz upload do hash de hardware do dispositivo.</value>
+    <value>Quando habilitado, o técnico entra com um código de dispositivo da Microsoft durante a configuração do Windows e carrega o hash de hardware do dispositivo.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Upload interativo do hash de hardware</value>
@@ -632,7 +632,7 @@ Licenciado sob a licença MIT.</value>
     <value>Selecione perfis Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Permite que o técnico faça upload do hash de hardware do dispositivo durante a implantação.</value>
+    <value>Permite que o técnico carregue o hash de hardware do dispositivo durante a implantação.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Upload interativo do hash de hardware</value>
@@ -2312,10 +2312,10 @@ Licenciado sob a licença MIT.</value>
     <value>Ucraniano (Ucrânia)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Fazer upload do nome do computador para o Autopilot</value>
+    <value>Carregar o nome do computador para o Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Fazer upload do nome do computador para o Autopilot</value>
+    <value>Carregar o nome do computador para o Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Manter caracteres da esquerda</value>
@@ -2369,7 +2369,7 @@ Licenciado sob a licença MIT.</value>
     <value>Remoções de AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Faz upload de hashes de hardware de forma interativa durante a implantação.</value>
+    <value>Carrega hashes de hardware de forma interativa durante a implantação.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interativo</value>
@@ -2381,7 +2381,7 @@ Licenciado sob a licença MIT.</value>
     <value>Perfil JSON</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Faz upload de hashes de hardware pelo Microsoft Graph.</value>
+    <value>Carrega hashes de hardware pelo Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>

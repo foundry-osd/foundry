@@ -461,7 +461,7 @@
     <value>לא ניתן למצוא את רישום האפליקציה המנוהלת. התחבר מחדש כדי לאפשר ל-Foundry ליצור או לאמץ אותו.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>למנהל השירות המנוהל חסרה הסכמה של מנהל המערכת להרשאת Microsoft Graph הנדרשת. הענק הסכמת מנהל המערכת והתחבר מחדש.</value>
+    <value>ל-service principal המנוהל חסרה הסכמה של מנהל המערכת להרשאת Microsoft Graph הנדרשת. הענק הסכמת מנהל המערכת והתחבר מחדש.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>רישום האפליקציה המנוהלת אינו מוכן. בדוק את מוכנות הדייר והתחבר מחדש.</value>
@@ -470,7 +470,7 @@
     <value>ברישום האפליקציה המנוהלת חסרה הרשאת האפליקציה הנדרשת Microsoft Graph. התחבר מחדש לחשבון שיכול לעדכן רישומי אפליקציות.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>מנהל השירות המנוהל חסר או מושבת. התחבר מחדש לחשבון שיכול ליצור או לנהל יישומים ארגוניים.</value>
+    <value>ה-service principal המנוהל חסר או מושבת. התחבר מחדש לחשבון שיכול ליצור או לנהל יישומים ארגוניים.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
     <value>קליטת הדייר דורשת תשומת לב</value>
@@ -3298,7 +3298,7 @@
     <value>העלאת גיבוב חומרה מופעלת אך מזהה הלקוח של האפליקציה חסר. התחבר מחדש לדייר מדף Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>העלאת גיבוב חומרה מופעלת אך מנהל שירות האפליקציה חסר או אינו מוכן.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך ה-service principal של האפליקציה חסר או אינו מוכן.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
     <value>העלאת גיבוב חומרה מופעלת אך חסרות הגדרות.</value>
