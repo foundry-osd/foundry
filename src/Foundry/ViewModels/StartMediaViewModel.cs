@@ -24,6 +24,7 @@ using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Services.Updates;
 using Foundry.Telemetry;
+using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Storage;
 using Serilog;
 using Serilog.Context;
@@ -63,6 +64,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IAppDispatcher appDispatcher;
     private readonly ILogger logger;
     private IReadOnlyList<string> availableWinPeLanguages = [];
+    private IReadOnlyList<KeyboardLayout> installedKeyboardLayouts = [];
     private bool isLoadingConfiguration = true;
     private string? lastCustomizationLogStatus;
     private int lastCustomizationLogBucket = -1;
@@ -635,7 +637,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options = options with
             {
                 DriverVendors = options.DriverVendors.ToArray(),
-                AvailableWinPeLanguages = options.AvailableWinPeLanguages.ToArray()
+                AvailableWinPeLanguages = options.AvailableWinPeLanguages.ToArray(),
+                AvailableKeyboardLayoutIds = options.AvailableKeyboardLayoutIds.ToArray()
             };
             var storagePaths = new List<string>
             {
@@ -1373,6 +1376,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                         DriverVendors = options.DriverVendors,
                         CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
                         WinPeLanguage = options.WinPeLanguage,
+                        WinPeKeyboardLayout = KeyboardLayoutSelection.Find(installedKeyboardLayouts, options.WinPeKeyboardLayoutId),
                         AssetProvisioning = assetProvisioning,
                         RuntimePayloadProvisioning = artifactRuntimePayloadProvisioning with
                         {
@@ -1943,6 +1947,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         WinPeLanguage = NormalizeCultureName(foundryConfigurationStateService.Current.General.WinPeLanguage);
         availableWinPeLanguages = GetAvailableWinPeLanguages();
+        if (installedKeyboardLayouts.Count == 0)
+        {
+            installedKeyboardLayouts = KeyboardLayoutCatalog.LoadInstalled();
+        }
+
         MediaPreflightOptions options = CreatePreflightOptions();
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
         IsSelectedUsbFoundryMedia = options.SelectedUsbDisk?.IsFoundryMedia == true;
@@ -2013,6 +2022,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             UsbFormatMode = SelectedFormatMode?.Value ?? UsbFormatMode.Quick,
             WinPeLanguage = WinPeLanguage,
             AvailableWinPeLanguages = availableWinPeLanguages,
+            WinPeKeyboardLayoutId = foundryConfigurationStateService.Current.General.WinPeKeyboardLayoutId,
+            AvailableKeyboardLayoutIds = installedKeyboardLayouts.Select(layout => layout.Id).ToArray(),
             BootImageSource = ResolveBootImageSource(),
             DriverVendors = vendors,
             CustomDriverDirectoryPath = CustomDriverDirectoryPath,
@@ -2193,7 +2204,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         MediaPreflightBlockingReason? languageReason = GetFirstReason(
             mediaEvaluation,
             MediaPreflightBlockingReason.MissingWinPeLanguage,
-            MediaPreflightBlockingReason.WinPeLanguageUnavailable);
+            MediaPreflightBlockingReason.WinPeLanguageUnavailable,
+            MediaPreflightBlockingReason.WinPeKeyboardLayoutUnavailable);
         MediaPreflightBlockingReason? driverReason = GetFirstReason(
             mediaEvaluation,
             MediaPreflightBlockingReason.CustomDriverDirectoryNotFound,
@@ -2588,9 +2600,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
 
         logger.Information(
-            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, AutopilotEnabled={AutopilotEnabled}, AutopilotReady={AutopilotReady}, HasAutopilotProfile={HasAutopilotProfile}, HasAutopilotFolder={HasAutopilotFolder}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
+            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, WinPeKeyboardLayout={WinPeKeyboardLayout}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, AutopilotEnabled={AutopilotEnabled}, AutopilotReady={AutopilotReady}, HasAutopilotProfile={HasAutopilotProfile}, HasAutopilotFolder={HasAutopilotFolder}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
             options.Architecture,
             NormalizeCultureName(options.WinPeLanguage),
+            options.WinPeKeyboardLayoutId ?? "default",
             options.BootImageSource,
             options.IsoOutputPath,
             options.SelectedUsbDisk is not null,
