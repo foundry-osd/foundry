@@ -40,9 +40,8 @@
 
             <Menu Grid.Column="0">
                 <Menu.Resources>
-                    <!-- Applies to every level so language groups open their layouts; group entries have no layout and stay uncheckable. -->
-                    <Style
-                        x:Key="KeyboardMenuItemStyle"
+                    <!--  Applies to every level so language groups open their layouts; group entries have no layout and stay uncheckable.  -->
+                    <Style x:Key="KeyboardMenuItemStyle"
                         TargetType="{x:Type MenuItem}">
                         <Setter
                             Property="Header"
