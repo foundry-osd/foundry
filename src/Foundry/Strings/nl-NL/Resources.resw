@@ -2096,7 +2096,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Voer overeenkomende wachtwoorden van minimaal 8 tekens in.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
-    <value>Configureer de mediabasis, WinPE-taal, opstartsignatuur, stuurprogramma’s en tijdzone van Windows PE.</value>
+    <value>Configureer de mediabasis, WinPE-taal, opstartsignatuur, stuurprogramma's en tijdzone van Windows PE.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
     <value>Kies het ondertekeningsbeleid voor veilig opstarten dat wordt gebruikt voor gegenereerde media.</value>
@@ -2732,7 +2732,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Selecteer een script of installatieprogramma uit de geïmporteerde inhoud.</value>
   </data>
   <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
-    <value>Voer maximaal 32 unieke, niet-negatieve afsluitcodes in, gescheiden door komma’s. Gebruik geen 1641.</value>
+    <value>Voer maximaal 32 unieke, niet-negatieve afsluitcodes in, gescheiden door komma's. Gebruik geen 1641.</value>
   </data>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Voer een naam van 1–256 tekens zonder besturingstekens in.</value>
@@ -2855,7 +2855,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Verbindingswachtwoord</value>
   </data>
   <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Andere pc’s hebben dit wachtwoord nodig om verbinding te maken.</value>
+    <value>Andere pc's hebben dit wachtwoord nodig om verbinding te maken.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Doorgaan</value>
@@ -2885,7 +2885,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Verbinding verbreken</value>
   </data>
   <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Stoppen met het synchroniseren van deze configuratie op deze pc? Je huidige instellingen blijven behouden. De gedeelde configuratie en andere pc’s worden niet gewijzigd.</value>
+    <value>Stoppen met het synchroniseren van deze configuratie op deze pc? Je huidige instellingen blijven behouden. De gedeelde configuratie en andere pc's worden niet gewijzigd.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exporteren</value>
@@ -3070,7 +3070,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Synchroniseren</value>
   </data>
   <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Deze configuratie op de pc’s van uw team actueel houden.</value>
+    <value>Deze configuratie op de pc's van uw team actueel houden.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>De instellingen zijn bijgewerkt</value>
@@ -3220,7 +3220,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Diagnostiek op afstand inschakelen</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Verzend anonieme gebruikstelemetrie om Foundry te helpen verbeteren. Geheimen en directe apparaat-id’s, waaronder serienummers en hardwarehashes, worden uitgesloten. Telemetrie gebruikt een anonieme installatie-id en kan de fabrikant en het model van het apparaat bevatten.</value>
+    <value>Verzend anonieme gebruikstelemetrie om Foundry te helpen verbeteren. Geheimen en directe apparaat-id's, waaronder serienummers en hardwarehashes, worden uitgesloten. Telemetrie gebruikt een anonieme installatie-id en kan de fabrikant en het model van het apparaat bevatten.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Schakel telemetrie in</value>
@@ -3571,7 +3571,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Cachepartitie maken.</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
-    <value>De aangepaste stuurprogramma’s nemen minstens {0} in beslag; het maximum is {1}. Selecteer alleen de netwerk- en opslagstuurprogramma’s die Windows PE nodig heeft.</value>
+    <value>De aangepaste stuurprogramma's nemen minstens {0} in beslag; het maximum is {1}. Selecteer alleen de netwerk- en opslagstuurprogramma's die Windows PE nodig heeft.</value>
   </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Het opstartimage aanpassen.</value>
@@ -3736,7 +3736,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>USB-media bijwerken.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
-    <value>De USB-BOOT-partitie heeft ongeveer {0} nodig, maar de capaciteit is {1}. Er is niets gewist of geformatteerd. Verminder de aanpassingen of stuurprogramma’s, of maak een ISO.</value>
+    <value>De USB-BOOT-partitie heeft ongeveer {0} nodig, maar de capaciteit is {1}. Er is niets gewist of geformatteerd. Verminder de aanpassingen of stuurprogramma's, of maak een ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
     <value>De capaciteit van de USB-BOOT-partitie kon niet worden gecontroleerd. Er is niets gewist of geformatteerd. Controleer het USB-station, sluit het opnieuw aan en probeer het opnieuw. Controleer ook of de bronbestanden toegankelijk zijn.</value>

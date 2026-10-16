@@ -287,10 +287,10 @@ Licencované podľa licencie MIT.</value>
     <value>Predvolený profil</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Stiahnuť od nájomcu</value>
+    <value>Stiahnuť od nájomníka</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Nájomca nevrátil žiadne profily Autopilot.</value>
+    <value>Nájomník nevrátil žiadne profily Autopilot.</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Sťahovanie profilu Autopilot zlyhalo: {0}</value>
@@ -320,7 +320,7 @@ Licencované podľa licencie MIT.</value>
     <value>Vyberte PFX, ktorý sa zhoduje s certifikátom registrácie aplikácie.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Heslom chránené PFX skopírované do zavádzacieho média na nahranie hardvérového hash.</value>
+    <value>Heslom chránený PFX skopírovaný do zavádzacieho média na nahrávanie hardvérového hashu.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Vybraný súbor PFX už neexistuje.</value>
@@ -332,7 +332,7 @@ Licencované podľa licencie MIT.</value>
     <value>Certifikát zavádzacieho média</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
-    <value>PFX heslo</value>
+    <value>Heslo PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
     <value>Zadajte heslo PFX.</value>
@@ -341,10 +341,10 @@ Licencované podľa licencie MIT.</value>
     <value>Pred vytvorením zavádzacieho média vyberte zodpovedajúci PFX chránený heslom.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
-    <value>súbor PFX</value>
+    <value>Súbor PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Vyberte Autopilot certifikát PFX</value>
+    <value>Vyberte súbor PFX certifikátu Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>Vybraný PFX neobsahuje materiál súkromného kľúča.</value>
@@ -377,16 +377,16 @@ Licencované podľa licencie MIT.</value>
     <value>Skopírujte heslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Uložte tento súbor PFX a heslo na bezpečnom mieste. Foundry ukladá heslo spolu s konfiguráciou v tomto počítači iba vtedy, keď je v časti „Zálohovanie a synchronizácia nastavení“ zapnutá možnosť „Zapamätať heslá“. Na vygenerovanie zavádzacieho média na nahrávanie hardvérového hash budete potrebovať obe hodnoty.</value>
+    <value>Uložte tento súbor PFX a heslo na bezpečnom mieste. Foundry ukladá heslo spolu s konfiguráciou v tomto počítači iba vtedy, keď je v časti „Zálohovanie a synchronizácia nastavení“ zapnutá možnosť „Zapamätať heslá“. Na vygenerovanie zavádzacieho média na nahrávanie hardvérového hashu budete potrebovať obe hodnoty.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Heslo bolo skopírované.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
-    <value>PFX heslo</value>
+    <value>Heslo PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
-    <value>súbor PFX</value>
+    <value>Súbor PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
     <value>Certifikát pripravený</value>
@@ -398,7 +398,7 @@ Licencované podľa licencie MIT.</value>
     <value>ID certifikátu</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>PFX certifikát</value>
+    <value>Certifikát PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
     <value>Foundry sa nepodarilo odstrániť vybratý certifikát registrácie aplikácie. {0}</value>
@@ -407,7 +407,7 @@ Licencované podľa licencie MIT.</value>
     <value>Odstránenie certifikátu zlyhalo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Uložiť Autopilot certifikát PFX</value>
+    <value>Uložiť súbor PFX certifikátu Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Kryptografický odtlačok</value>
@@ -416,10 +416,10 @@ Licencované podľa licencie MIT.</value>
     <value>Nie sú poskytované žiadne certifikáty.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Pripojte nájomcu</value>
+    <value>Pripojiť nájomníka</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Pripája sa nájomník…</value>
+    <value>Pripája sa k nájomníkovi…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Vytvorte certifikát</value>
@@ -431,10 +431,10 @@ Licencované podľa licencie MIT.</value>
     <value>Nie je vybratá žiadna predvolená značka skupiny.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Odpojiť nájomcu</value>
+    <value>Odpojiť nájomníka</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Voliteľná značka skupiny predvolená v Foundry Deploy počas nahrávania hardvérového hash.</value>
+    <value>Voliteľná značka skupiny predvolená v Foundry Deploy počas nahrávania hardvérového hashu.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Predvolená značka skupiny</value>
@@ -449,10 +449,10 @@ Licencované podľa licencie MIT.</value>
     <value>Registrácia nájomníka zlyhala</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>Platnosť vybratého certifikátu vypršala. Vytvorte nový certifikát, uložte jeho PFX a heslo a potom ho vyberte ako zavádzacie médium.</value>
+    <value>Platnosť vybratého certifikátu vypršala. Vytvorte nový certifikát, uložte jeho PFX a heslo a potom ho vyberte pre zavádzacie médium.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
-    <value>Predtým vybratý certifikát už v registrácii spravovanej aplikácie neexistuje. Vyberte platný PFX, ktorý sa zhoduje s poskytnutým certifikátom.</value>
+    <value>Predtým vybratý certifikát už v registrácii spravovanej aplikácie neexistuje. Vyberte platný PFX, ktorý sa zhoduje so zriadeným certifikátom.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
     <value>Našla sa existujúca registrácia aplikácie s názvom Foundry. Znova pripojte, aby ste ho prijali do konfigurácie Foundry.</value>
@@ -464,7 +464,7 @@ Licencované podľa licencie MIT.</value>
     <value>Principál spravovanej služby nemá súhlas správcu pre požadované povolenie Microsoft Graph. Udeľte súhlas správcu a znova sa pripojte.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Registrácia spravovanej aplikácie nie je pripravená. Skontrolujte pripravenosť nájomcu a znova sa pripojte.</value>
+    <value>Registrácia spravovanej aplikácie nie je pripravená. Skontrolujte pripravenosť nájomníka a znova sa pripojte.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Registrácii spravovanej aplikácie chýba požadované oprávnenie aplikácie Microsoft Graph. Znova sa pripojte k účtu, ktorý môže aktualizovať registrácie aplikácií.</value>
@@ -473,7 +473,7 @@ Licencované podľa licencie MIT.</value>
     <value>Principál riadenej služby chýba alebo je zakázaný. Znova sa pripojte k účtu, ktorý môže vytvárať alebo spravovať podnikové aplikácie.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Nájomca si vyžaduje pozornosť</value>
+    <value>Registrácia nájomníka si vyžaduje pozornosť</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Stav</value>
@@ -518,16 +518,16 @@ Licencované podľa licencie MIT.</value>
     <value>ID klienta</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>ID nájomcu</value>
+    <value>ID nájomníka</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nepripojené</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Informácie o nájomníkovi, registrácii aplikácie a pripravenosti na nahrávanie hardvérového hash.</value>
+    <value>Informácie o nájomníkovi, registrácii aplikácie a pripravenosti na nahrávanie hardvérového hashu.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Pripravenosť nájomcu</value>
+    <value>Pripravenosť nájomníka</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Názov</value>
@@ -536,10 +536,10 @@ Licencované podľa licencie MIT.</value>
     <value>Hodnota</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Ak chcete spravovať nastavenia nahrávania hash, pripojte sa k Microsoft Graph pre túto reláciu aplikácie.</value>
+    <value>Ak chcete spravovať nastavenia nahrávania hashu, pripojte sa k Microsoft Graph pre túto reláciu aplikácie.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Pripojenie nájomníka</value>
+    <value>Pripojenie k nájomníkovi</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importovať profil</value>
@@ -617,7 +617,7 @@ Licencované podľa licencie MIT.</value>
     <value>Vymazať</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Vyberte, ktoré profily nájomníkov sa majú importovať do Foundry.</value>
+    <value>Vyberte, ktoré profily nájomníka sa majú importovať do Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Importovať</value>
@@ -2381,7 +2381,7 @@ Licencované podľa licencie MIT.</value>
     <value>Profil JSON</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Nahrajte hardvérové hashy cez Microsoft Graph.</value>
+    <value>Nahrajte hardvérové hashe cez Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3262,49 +3262,49 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Povolené: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale chýba vybratý certifikát.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale chýba dátum vypršania platnosti vybratého certifikátu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale platnosť vybratého certifikátu vypršala. Pred vytvorením zavádzacieho média vyberte platný certifikát.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale platnosť vybratého certifikátu vypršala. Pred vytvorením zavádzacieho média vyberte platný certifikát.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale vybraný PFX nezodpovedá registračnému certifikátu aplikácie.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale vybraný PFX nezodpovedá certifikátu registrácie aplikácie.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale chýba kryptografický odtlačok vybratého certifikátu.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale chýba kryptografický odtlačok vybratého certifikátu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale registrácia aplikácie nie je nakonfigurovaná. Pripojte sa k nájomcovi z Autopilot.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale registrácia aplikácie nie je nakonfigurovaná. Pripojte sa k nájomníkovi z Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Odovzdávanie hardvérového hash je povolené, ale nebolo možné overiť platnosť spúšťacieho média PFX.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale nebolo možné overiť dátum vypršania platnosti súboru PFX zavádzacieho média.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale platnosť vybratého súboru PFX zavádzacieho média vypršala.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale platnosť vybratého súboru PFX zavádzacieho média vypršala.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale súbor PFX zavádzacieho média nebol overený.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale súbor PFX zavádzacieho média nebol overený.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale vybratý súbor PFX nezodpovedá aktívnemu certifikátu.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale vybratý súbor PFX nezodpovedá aktívnemu certifikátu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale nie je vybratý žiadny súbor PFX zavádzacieho média.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale nie je vybratý žiadny súbor PFX zavádzacieho média.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Odovzdávanie hardvérového hash je povolené, ale chýba heslo PFX zavádzacieho média.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale chýba heslo PFX zavádzacieho média.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale chýba ID klienta aplikácie. Znovu sa pripojte k nájomcovi z Autopilot.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale chýba ID klienta aplikácie. Znovu sa pripojte k nájomníkovi z Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale principál služby aplikácie chýba alebo nie je pripravený.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale principál služby aplikácie chýba alebo nie je pripravený.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Hardvérové ​​nahrávanie hash je povolené, ale chýbajú nastavenia.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale chýbajú nastavenia.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash je povolené, ale pripojenie nájomníka chýba. Pripojte sa k nájomcovi z Autopilot.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale chýba pripojenie k nájomníkovi. Pripojte sa k nájomníkovi z Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Režim profilu Autopilot JSON je povolený, ale nie je vybratý žiadny platný predvolený profil.</value>

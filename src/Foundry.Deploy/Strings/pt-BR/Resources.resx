@@ -38,7 +38,7 @@ Licenciado sob a licença MIT.</value>
     <value>Revise as configurações de provisionamento do Autopilot para este dispositivo.</value>
   </data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
-    <value>Carrega o hash de hardware deste dispositivo no Windows Autopilot durante a implantação.</value>
+    <value>Faz upload do hash de hardware deste dispositivo para o Windows Autopilot durante a implantação.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Adiciona um perfil offline do Autopilot à instalação do Windows.</value>
@@ -1030,7 +1030,7 @@ Continuar com a implantação?</value>
     <value>Finalizando a implantação...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
-    <value>Importando hash de hardware para Microsoft Graph...</value>
+    <value>Importando hash de hardware para o Microsoft Graph...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Injetando conteúdo de firmware off-line Windows...</value>
@@ -1195,28 +1195,28 @@ Continuar com a implantação?</value>
     <value>A atualização da etiqueta do grupo de dispositivos Windows Autopilot não foi confirmada antes do tempo limite.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Autopilot hash de hardware importado e visível em dispositivos Windows Autopilot.</value>
+    <value>Hash de hardware do Autopilot importado e visível em dispositivos do Windows Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot falha na captura de hash de hardware: {0}</value>
+    <value>Falha na captura do hash de hardware do Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot importação de hash de hardware falhou: {0}</value>
+    <value>Falha na importação do hash de hardware do Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot upload de hash de hardware preparado para simulação.</value>
+    <value>Upload do hash de hardware do Autopilot preparado para simulação.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot upload de hash de hardware preparado (simulação).</value>
+    <value>Upload do hash de hardware do Autopilot preparado (simulação).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Autopilot upload de hash de hardware ignorado porque o certificado incorporado expirou.</value>
+    <value>Upload do hash de hardware do Autopilot ignorado porque o certificado incorporado expirou.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot upload de hash de hardware ignorado: {0}</value>
+    <value>Upload do hash de hardware do Autopilot ignorado: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot upload de hash de hardware ignorado porque as informações necessárias do certificado de mídia estão incompletas.</value>
+    <value>Upload do hash de hardware do Autopilot ignorado porque as informações necessárias do certificado de mídia estão incompletas.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot está habilitado, mas nenhum perfil foi selecionado.</value>
@@ -1435,7 +1435,7 @@ Continuar com a implantação?</value>
     <value>A partição de destino Windows não está disponível para teste Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>A partição de destino Windows não está disponível para upload de hash de hardware Autopilot.</value>
+    <value>A partição do Windows de destino não está disponível para upload de hash de hardware do Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>A partição Windows de destino não está disponível para preparar o assistente de registro interativo do Autopilot.</value>
@@ -1753,7 +1753,7 @@ Continuar com a implantação?</value>
     <value>Comandos personalizados podem entrar em conflito com o Foundry. Teste esta configuração.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>O envio do hash não garante a inscrição no Autopilot.</value>
+    <value>O upload do hash não garante a inscrição no Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>Teste este arquivo de resposta com a imagem do Windows e a configuração do Foundry selecionadas.</value>

@@ -661,25 +661,25 @@ Pokračovať v nasadzovaní?</value>
     <value>Platnosť certifikátu</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>Platnosť certifikátu Autopilot vypršala. Nasadzovanie môže pokračovať bez nahrania hardvérového hash.</value>
+    <value>Platnosť certifikátu Autopilot vypršala. Nasadzovanie môže pokračovať bez nahrania hardvérového hashu.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Skupinová značka</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>Chýbajú požadované informácie o certifikáte. Nasadzovanie môže pokračovať bez nahrania hardvérového hash.</value>
+    <value>Chýbajú požadované informácie o certifikáte. Nasadzovanie môže pokračovať bez nahrania hardvérového hashu.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Hardvérový hash je pripravený na odovzdanie</value>
+    <value>Hardvérový hash je pripravený na nahratie</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
-    <value>ID nájomcu</value>
+    <value>ID nájomníka</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
-    <value>Nahrávanie hardvérového hash nie je k dispozícii</value>
+    <value>Nahrávanie hardvérového hashu nie je k dispozícii</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>Stav nahrávania hardvérového hash</value>
+    <value>Stav nahrávania hardvérového hashu</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
     <value>Zero-touch nahratie hardvérového hashu</value>
@@ -943,7 +943,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Aplikujú sa zmeny funkcií...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Overuje sa nahranie hardvérového hash Autopilot...</value>
+    <value>Overuje sa nahrávanie hardvérového hashu Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Zachytáva sa hardvérový hash Autopilot...</value>
@@ -1141,7 +1141,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Píše sa súhrn nasadenia...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>Zapisuje sa simulovaný hash manifest Autopilot...</value>
+    <value>Zapisuje sa simulovaný manifest hashu Autopilot...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>Zápis simulovaného manifestu Autopilot...</value>
@@ -1195,28 +1195,28 @@ Pokračovať v nasadzovaní?</value>
     <value>Aktualizácia značky skupiny zariadení Windows Autopilot nebola potvrdená pred vypršaním časového limitu.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Hardvérový hash Autopilot importovaný a viditeľný v zariadeniach Windows Autopilot.</value>
+    <value>Hardvérový hash Autopilot bol importovaný a je viditeľný v zozname zariadení Windows Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Zachytenie hardvérového hash Autopilot zlyhalo: {0}</value>
+    <value>Zachytenie hardvérového hashu Autopilot zlyhalo: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Import hardvérového hash Autopilot zlyhal: {0}</value>
+    <value>Import hardvérového hashu Autopilot zlyhal: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot nahranie hardvérového hashu pripraveného na simuláciu.</value>
+    <value>Nahrávanie hardvérového hashu Autopilot je pripravené na simuláciu.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot je pripravené odovzdanie hardvérového hashu (simulácia).</value>
+    <value>Nahrávanie hardvérového hashu Autopilot je pripravené (simulácia).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Odovzdávanie hardvérového hashu Autopilot bolo preskočené, pretože platnosť vloženého certifikátu vypršala.</value>
+    <value>Nahrávanie hardvérového hashu Autopilot bolo preskočené, pretože platnosť vloženého certifikátu vypršala.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot nahranie hardvérového hash preskočené: {0}</value>
+    <value>Nahrávanie hardvérového hashu Autopilot bolo preskočené: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Odovzdávanie hardvérového hashu Autopilot bolo preskočené, pretože požadované informácie o certifikáte média nie sú úplné.</value>
+    <value>Nahrávanie hardvérového hashu Autopilot bolo preskočené, pretože požadované informácie o certifikáte média nie sú úplné.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot je povolený, ale nebol vybratý žiadny profil.</value>

@@ -290,7 +290,7 @@
     <value>הורד מהדייר</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>לא הוחזרו פרופילים של Autopilot על ידי השוכר.</value>
+    <value>לא הוחזרו פרופילים של Autopilot על ידי הדייר.</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>הורדת הפרופיל Autopilot נכשלה: {0}</value>
@@ -320,7 +320,7 @@
     <value>בחר PFX התואם אישור רישום אפליקציה.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>PFX מוגן בסיסמה הועתק למדיית האתחול להעלאת גיבוב חומרה.</value>
+    <value>PFX מוגן בסיסמה המועתק למדיית האתחול להעלאת גיבוב חומרה.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>קובץ ה-PFX שנבחר כבר לא קיים.</value>
@@ -344,7 +344,7 @@
     <value>קובץ PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>בחר Autopilot אישור PFX</value>
+    <value>בחר PFX של אישור Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>ה-PFX שנבחר אינו מכיל חומר מפתח פרטי.</value>
@@ -398,7 +398,7 @@
     <value>מזהה תעודה</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>תעודת PFX</value>
+    <value>אישור PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
     <value>Foundry לא הצליח להסיר את אישור הרישום של האפליקציה שנבחרה. {0}</value>
@@ -407,7 +407,7 @@
     <value>הסרת האישור נכשלה</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>שמור Autopilot אישור PFX</value>
+    <value>שמור PFX של אישור Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>טביעת אצבע</value>
@@ -431,22 +431,22 @@
     <value>לא נבחר תג ברירת מחדל לקבוצה.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>ניתוק דייר</value>
+    <value>נתק דייר</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>תג קבוצתי אופציונלי שנבחר מראש ב-Foundry Deploy במהלך העלאת hash של חומרה.</value>
+    <value>תג קבוצתי אופציונלי שנבחר מראש ב-Foundry Deploy במהלך העלאת גיבוב חומרה.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>תג ברירת מחדל לקבוצה</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>העלאת zero-touch של hash חומרה</value>
+    <value>העלאת גיבוב חומרה ב-zero-touch</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
     <value>Foundry לא הצליח להגדיר את רישום האפליקציה Autopilot. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>הכניסה לדייר נכשלה</value>
+    <value>קליטת הדייר נכשלה</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>פג תוקף האישור שנבחר. צור אישור חדש, שמור את ה-PFX והסיסמה שלו, ולאחר מכן בחר אותו עבור מדיית האתחול.</value>
@@ -464,7 +464,7 @@
     <value>למנהל השירות המנוהל חסרה הסכמה של מנהל המערכת להרשאת Microsoft Graph הנדרשת. הענק הסכמת מנהל המערכת והתחבר מחדש.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>רישום האפליקציה המנוהלת אינו מוכן. בדקו את מוכנות הדיירים והתחברו מחדש.</value>
+    <value>רישום האפליקציה המנוהלת אינו מוכן. בדוק את מוכנות הדייר והתחבר מחדש.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>ברישום האפליקציה המנוהלת חסרה הרשאת האפליקציה הנדרשת Microsoft Graph. התחבר מחדש לחשבון שיכול לעדכן רישומי אפליקציות.</value>
@@ -473,7 +473,7 @@
     <value>מנהל השירות המנוהל חסר או מושבת. התחבר מחדש לחשבון שיכול ליצור או לנהל יישומים ארגוניים.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>הכנסת דיירים למטוס דורשת תשומת לב</value>
+    <value>קליטת הדייר דורשת תשומת לב</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>סטטוס</value>
@@ -509,7 +509,7 @@
     <value>מחובר</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>השלם את הכניסה בדפדפן כדי להגדיר את Autopilot העלאת hash של החומרה.</value>
+    <value>השלם את הכניסה בדפדפן כדי להגדיר העלאת גיבוב חומרה של Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
     <value>היכנס אל Microsoft Graph</value>
@@ -518,7 +518,7 @@
     <value>מזהה לקוח</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>זיהוי דייר</value>
+    <value>מזהה דייר</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>לא מחובר</value>
@@ -527,7 +527,7 @@
     <value>מידע על דייר, רישום אפליקציה ומוכנות להעלאת גיבוב חומרה.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>מוכנות הדיירים</value>
+    <value>מוכנות הדייר</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>שם</value>
@@ -536,7 +536,7 @@
     <value>ערך</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>התחבר אל Microsoft Graph עבור הפעלת האפליקציה הזו כדי לנהל את הגדרות העלאת ה-hash.</value>
+    <value>התחבר אל Microsoft Graph עבור הפעלת האפליקציה הזו כדי לנהל את הגדרות העלאת הגיבוב.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>חיבור דייר</value>
@@ -557,10 +557,10 @@
     <value>מייבא פרופיל Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>כשהאפשרות מופעלת, הטכנאי נכנס באמצעות קוד מכשיר של Microsoft במהלך התקנת Windows ומעלה את hash החומרה של המכשיר.</value>
+    <value>כשהאפשרות מופעלת, הטכנאי נכנס באמצעות קוד מכשיר של Microsoft במהלך התקנת Windows ומעלה את גיבוב החומרה של המכשיר.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
-    <value>העלאה אינטראקטיבית של hash חומרה</value>
+    <value>העלאה אינטראקטיבית של גיבוב חומרה</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON הקצאת פרופיל</value>
@@ -617,7 +617,7 @@
     <value>נקה</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>בחר אילו פרופילי דיירים יש לייבא אל Foundry.</value>
+    <value>בחר אילו פרופילי דייר יש לייבא אל Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>ייבוא</value>
@@ -632,10 +632,10 @@
     <value>בחר Autopilot פרופילים</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>מאפשר לטכנאי להעלות את hash החומרה של המכשיר במהלך הפריסה.</value>
+    <value>מאפשר לטכנאי להעלות את גיבוב החומרה של המכשיר במהלך הפריסה.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>העלאה אינטראקטיבית של Hash חומרה</value>
+    <value>העלאה אינטראקטיבית של גיבוב חומרה</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>ייבא או הורד את פרופיל Autopilot המוטמע במדיית הפריסה.</value>
@@ -644,10 +644,10 @@
     <value>פרופיל JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>הגדר העלאה אוטומטית של גיבוב החומרה בגיבוי הדייר.</value>
+    <value>הגדר העלאה אוטומטית של גיבוב החומרה המבוססת על הדייר.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>העלאת Hash חומרה ב-Zero-touch</value>
+    <value>העלאת גיבוב חומרה ב-zero-touch</value>
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry לא הצליח לפתוח את טופס הדיווח על הבאג. העתק את הקישור הזה ופתח אותו בדפדפן שלך.</value>
@@ -914,10 +914,10 @@
     <value>חבילות נבחרות: {0} מתוך {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>הקצה למכשיר Windows Autopilot את שם המחשב הסופי שאושר ב-Foundry Deploy במהלך העלאת hash החומרה.</value>
+    <value>הקצה למכשיר Windows Autopilot את שם המחשב הסופי שאושר ב-Foundry Deploy במהלך העלאת גיבוב החומרה.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>אפשר מתן שמות למחשבים והעלאת hash חומרה במצב zero-touch או במצב אינטראקטיבי כדי להקצות את שם הפריסה הסופי ב-Autopilot.</value>
+    <value>אפשר מתן שמות למחשבים והעלאת גיבוב חומרה במצב zero-touch או במצב אינטראקטיבי כדי להקצות את שם הפריסה הסופי ב-Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>הוסף רכיב</value>
@@ -2369,7 +2369,7 @@
     <value>הסרת יישומי AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>העלאה אינטראקטיבית של hash חומרה במהלך הפריסה.</value>
+    <value>העלאה אינטראקטיבית של גיבובי חומרה במהלך הפריסה.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>אינטראקטיבי</value>
@@ -3253,58 +3253,58 @@
     <value>אדריכלות וחתימה</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>מופעל: העלאת zero-touch של hash חומרה</value>
+    <value>מופעל: העלאת גיבוב חומרה ב-zero-touch</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
-    <value>מופעל: העלאה אינטראקטיבית של hash חומרה</value>
+    <value>מופעל: העלאה אינטראקטיבית של גיבוב חומרה</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
     <value>מופעל: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך תפוגת האישור שנבחר חסרה.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך תאריך התפוגה של האישור שנבחר חסר.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך פג תוקף האישור שנבחר. בחר אישור חוקי לפני יצירת מדיה אתחול.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך פג תוקף האישור שנבחר. בחר אישור חוקי לפני יצירת מדיית אתחול.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך ה-PFX שנבחר אינו תואם לאישור רישום אפליקציה.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך ה-PFX שנבחר אינו תואם לאישור רישום אפליקציה.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך טביעת האצבע של האישור שנבחר חסרה.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך טביעת האצבע של האישור שנבחר חסרה.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>העלאת חשיש של חומרה מופעלת אך רישום האפליקציה אינו מוגדר. התחבר לשוכר מ-Autopilot.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך רישום האפליקציה אינו מוגדר. התחבר לדייר מדף Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך לא ניתן היה לאמת את תפוגת PFX של מדיה האתחול.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך לא ניתן היה לאמת את תפוגת ה-PFX של מדיית האתחול.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>העלאת גיבוב חומרה מופעלת אך פג תוקף אמצעי האתחול שנבחר PFX.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך פג תוקף ה-PFX של מדיית האתחול שנבחר.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך מדיה האתחול PFX לא אומתה.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך ה-PFX של מדיית האתחול לא אומת.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>העלאת גיבוב חומרה מופעלת אך ה-PFX שנבחר אינו תואם לאישור הפעיל.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך לא נבחרה מדיה אתחול PFX.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך לא נבחר PFX למדיית האתחול.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך חסרה סיסמת PFX של מדיה האתחול.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך חסרה סיסמת ה-PFX של מדיית האתחול.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך מזהה הלקוח של האפליקציה חסר. התחבר מחדש לדייר מ-Autopilot.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך מזהה הלקוח של האפליקציה חסר. התחבר מחדש לדייר מדף Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך מנהל שירות האפליקציה חסר או אינו מוכן.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך מנהל שירות האפליקציה חסר או אינו מוכן.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך חסרות הגדרות.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך חסרות הגדרות.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך חיבור הדייר חסר. התחבר לשוכר מ-Autopilot.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך חיבור הדייר חסר. התחבר לדייר מדף Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON מצב הפרופיל מופעל אך לא נבחר פרופיל ברירת מחדל חוקי.</value>

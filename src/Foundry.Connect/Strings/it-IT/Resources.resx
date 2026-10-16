@@ -41,7 +41,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Foundry Connect</value>
   </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
-    <value>Non è possibile determinare la versione di Foundry OSD usata per creare questo supporto di avvio. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l’ISO o aggiorna il supporto di avvio USB.</value>
+    <value>Non è possibile determinare la versione di Foundry OSD usata per creare questo supporto di avvio. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l'ISO o aggiorna il supporto di avvio USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
     <value>Nuova versione disponibile. Aggiorna Foundry OSD e ricrea il supporto di avvio.</value>
@@ -50,7 +50,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Aggiorna Foundry OSD e ricrea il supporto di avvio.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Questo supporto di avvio è stato creato con una versione precedente di Foundry OSD. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l’ISO o aggiorna il supporto di avvio USB.</value>
+    <value>Questo supporto di avvio è stato creato con una versione precedente di Foundry OSD. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l'ISO o aggiorna il supporto di avvio USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Annulla</value>
@@ -264,7 +264,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Tailandese (Thailandia)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turco (Türkiye)</value>
+    <value>Turco (Turchia)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ucraino (Ucraina)</value>

@@ -440,7 +440,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Tag di gruppo predefinito</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Caricamento zero-touch dell’hash hardware</value>
+    <value>Caricamento zero-touch dell'hash hardware</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
     <value>Foundry non è riuscito a configurare la registrazione dell'app Autopilot. {0}</value>
@@ -557,10 +557,10 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Importazione profilo Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Quando è abilitato, il tecnico accede con un codice dispositivo Microsoft durante l’installazione di Windows e carica l’hash hardware del dispositivo.</value>
+    <value>Quando è abilitato, il tecnico accede con un codice dispositivo Microsoft durante l'installazione di Windows e carica l'hash hardware del dispositivo.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
-    <value>Caricamento interattivo dell’hash hardware</value>
+    <value>Caricamento interattivo dell'hash hardware</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON provisioning del profilo</value>
@@ -632,10 +632,10 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Selezionare i profili Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Consente al tecnico di caricare l’hash hardware del dispositivo durante la distribuzione.</value>
+    <value>Consente al tecnico di caricare l'hash hardware del dispositivo durante la distribuzione.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>Caricamento interattivo dell’hash hardware</value>
+    <value>Caricamento interattivo dell'hash hardware</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importa o scarica il profilo Autopilot incorporato nel supporto di distribuzione.</value>
@@ -647,7 +647,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Configura il caricamento automatico degli hash hardware supportato dal tenant.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>Caricamento zero-touch dell’hash hardware</value>
+    <value>Caricamento zero-touch dell'hash hardware</value>
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry non è riuscito ad aprire il modulo di segnalazione del bug. Copia questo link e aprilo nel browser.</value>
@@ -725,7 +725,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Immagine selezionata</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>In questo profilo esiste già un’immagine con questo nome.</value>
+    <value>In questo profilo esiste già un'immagine con questo nome.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Edizione</value>
@@ -776,13 +776,13 @@ Concesso in licenza con la licenza MIT.</value>
     <value>No</value>
   </data>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
-    <value>Operazione sull’immagine non riuscita. Controlla l’origine, lo spazio disponibile e i registri di Foundry.</value>
+    <value>Operazione sull'immagine non riuscita. Controlla l'origine, lo spazio disponibile e i registri di Foundry.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Non disponibile con l’avvio PXE. Le immagini personalizzate richiedono il supporto ISO o USB completo.</value>
+    <value>Non disponibile con l'avvio PXE. Le immagini personalizzate richiedono il supporto ISO o USB completo.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Includi almeno un’immagine Windows disponibile in questo profilo. Ripristina le immagini incluse mancanti e correggi o cancella la selezione dell’immagine o dell’indice preferito prima di creare o aggiornare i supporti.</value>
+    <value>Includi almeno un'immagine Windows disponibile in questo profilo. Ripristina le immagini incluse mancanti e correggi o cancella la selezione dell'immagine o dell'indice preferito prima di creare o aggiornare i supporti.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Aggiorna</value>
@@ -809,7 +809,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Dimensione</value>
   </data>
   <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
-    <value>Scegli l’immagine di installazione in questa ISO.</value>
+    <value>Scegli l'immagine di installazione in questa ISO.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Origine ISO o WIM</value>
@@ -818,16 +818,16 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Importazione completata</value>
   </data>
   <data name="CustomImages.StageCopying" xml:space="preserve">
-    <value>Copia dell’immagine…</value>
+    <value>Copia dell'immagine…</value>
   </data>
   <data name="CustomImages.StageExporting" xml:space="preserve">
-    <value>Esportazione degli indici dell’immagine…</value>
+    <value>Esportazione degli indici dell'immagine…</value>
   </data>
   <data name="CustomImages.StageInspecting" xml:space="preserve">
-    <value>Lettura degli indici dell’immagine…</value>
+    <value>Lettura degli indici dell'immagine…</value>
   </data>
   <data name="CustomImages.StageVerifying" xml:space="preserve">
-    <value>Verifica delle origini dell’immagine personalizzata…</value>
+    <value>Verifica delle origini dell'immagine personalizzata…</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Stato</value>
@@ -914,10 +914,10 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Pacchetti selezionati: {0} di {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assegna il nome definitivo del computer confermato in Foundry Deploy al dispositivo Windows Autopilot durante il caricamento dell’hash hardware.</value>
+    <value>Assegna il nome definitivo del computer confermato in Foundry Deploy al dispositivo Windows Autopilot durante il caricamento dell'hash hardware.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Abilita la denominazione del computer e il caricamento zero-touch o interattivo dell’hash hardware per assegnare il nome definitivo della distribuzione in Autopilot.</value>
+    <value>Abilita la denominazione del computer e il caricamento zero-touch o interattivo dell'hash hardware per assegnare il nome definitivo della distribuzione in Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Aggiungi componente</value>
@@ -1040,7 +1040,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Immetti un nome di account locale.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
-    <value>Il nome dell’account non può superare i 256 caratteri.</value>
+    <value>Il nome dell'account non può superare i 256 caratteri.</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>Configura gli account locali creati durante la configurazione iniziale di Windows.</value>
@@ -1049,7 +1049,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Account</value>
   </data>
   <data name="Customization.OobeAccountsSecurityWarning" xml:space="preserve">
-    <value>L’abilitazione degli account locali, in particolare dell’account Administrator predefinito, può ridurre la sicurezza. Usa password univoche e proteggi il supporto di distribuzione.</value>
+    <value>L'abilitazione degli account locali, in particolare dell'account Administrator predefinito, può ridurre la sicurezza. Usa password univoche e proteggi il supporto di distribuzione.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountDialog.AccountTypeLabel" xml:space="preserve">
     <value>Tipo di account</value>
@@ -1058,7 +1058,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Aggiungi account locale</value>
   </data>
   <data name="Customization.OobeAdditionalAccountDialog.Description" xml:space="preserve">
-    <value>Configura l’account e la password predefinita facoltativa.</value>
+    <value>Configura l'account e la password predefinita facoltativa.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountDialog.EditTitle" xml:space="preserve">
     <value>Modifica account locale</value>
@@ -1157,13 +1157,13 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Salta i termini della licenza</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Aggiungi almeno un account locale aggiuntivo per ignorare la creazione dell’account durante la configurazione guidata.</value>
+    <value>Aggiungi almeno un account locale aggiuntivo per ignorare la creazione dell'account durante la configurazione guidata.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
-    <value>Ignora la creazione dell’account durante l’OOBE</value>
+    <value>Ignora la creazione dell'account durante l'OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
-    <value>Abilitato automaticamente perché gli account locali aggiuntivi ignorano la fase di creazione dell’account.</value>
+    <value>Abilitato automaticamente perché gli account locali aggiuntivi ignorano la fase di creazione dell'account.</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
     <value>Consente a Windows di utilizzare dati diagnostici per suggerimenti, annunci e consigli personalizzati.</value>
@@ -2054,7 +2054,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Abilita la configurazione Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Configura l’autenticazione 802.1X cablata e il roaming dei profili Windows.</value>
+    <value>Configura l'autenticazione 802.1X cablata e il roaming dei profili Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2306,7 +2306,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Tailandese (Thailandia)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turco (Türkiye)</value>
+    <value>Turco (Turchia)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ucraino (Ucraina)</value>
@@ -2405,7 +2405,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Aggiunta al dominio</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Configura l’autenticazione 802.1X cablata.</value>
+    <value>Configura l'autenticazione 802.1X cablata.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2567,7 +2567,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Importa un certificato CA radice attendibile</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Copia i certificati client PFX configurati in Windows e li importa nell’archivio certificati personale LocalMachine prima di OOBE.</value>
+    <value>Copia i certificati client PFX configurati in Windows e li importa nell'archivio certificati personale LocalMachine prima di OOBE.</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
     <value>Includi materiale del certificato con chiave privata</value>
@@ -2624,7 +2624,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Selezione sistema operativo</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
-    <value>Aggiungi un’azione abilitata o disabilita la post-installazione.</value>
+    <value>Aggiungi un'azione abilitata o disabilita la post-installazione.</value>
   </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Aggiungi azione</value>
@@ -2654,7 +2654,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Anteprima del comando</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
-    <value>Seleziona uno script o un programma di installazione oppure inserisci un comando per visualizzare l’anteprima della riga di comando.</value>
+    <value>Seleziona uno script o un programma di installazione oppure inserisci un comando per visualizzare l'anteprima della riga di comando.</value>
   </data>
   <data name="PostInstallation.CommandRequired" xml:space="preserve">
     <value>Inserisci il comando da eseguire.</value>
@@ -2681,7 +2681,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Continua in caso di errore</value>
   </data>
   <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
-    <value>Passa all’azione successiva se questa azione non riesce. Un’esecuzione con esito incerto interrompe comunque la sequenza.</value>
+    <value>Passa all'azione successiva se questa azione non riesce. Un'esecuzione con esito incerto interrompe comunque la sequenza.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
     <value>Posticipa il riavvio</value>
@@ -2693,7 +2693,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Modifica azione</value>
   </data>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
-    <value>La configurazione è cambiata durante la modifica. Riapri l’azione.</value>
+    <value>La configurazione è cambiata durante la modifica. Riapri l'azione.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
     <value>Nessuna azione aggiunta.</value>
@@ -2702,7 +2702,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Percorso dello script o del programma di installazione (relativo al contenuto)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Viene eseguito come SYSTEM. Configura gli argomenti per l’esecuzione automatica e i riavvii controllati.</value>
+    <value>Viene eseguito come SYSTEM. Configura gli argomenti per l'esecuzione automatica e i riavvii controllati.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Impostazioni di esecuzione</value>
@@ -2783,7 +2783,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Argomenti PowerShell</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Le azioni che usano file importati non sono disponibili con l’avvio PXE. Richiedono il supporto ISO o USB completo.</value>
+    <value>Le azioni che usano file importati non sono disponibili con l'avvio PXE. Richiedono il supporto ISO o USB completo.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Impossibile rimuovere l'azione. Riprovare.</value>
@@ -2801,7 +2801,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Usare 0 per riavviare immediatamente.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
-    <value>Riavvia Windows, quindi continua con l’azione successiva.</value>
+    <value>Riavvia Windows, quindi continua con l'azione successiva.</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Argomenti dello script</value>
@@ -3019,7 +3019,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Chiunque possa importare o sincronizzare queste impostazioni può leggere le password e le chiavi private dei certificati incluse.</value>
   </data>
   <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Un’altra operazione sta usando questa cartella condivisa. Riprova tra poco. Le modifiche vengono conservate su questo PC.</value>
+    <value>Un'altra operazione sta usando questa cartella condivisa. Riprova tra poco. Le modifiche vengono conservate su questo PC.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Cartella condivisa</value>
@@ -3106,7 +3106,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Connessione riuscita</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Immetti un nome utente e una password per l’autenticazione esplicita del proxy.</value>
+    <value>Immetti un nome utente e una password per l'autenticazione esplicita del proxy.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3154,7 +3154,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Dominio (facoltativo)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Immetti l’indirizzo e la porta del proxy.</value>
+    <value>Immetti l'indirizzo e la porta del proxy.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
     <value>Server proxy</value>
@@ -3220,7 +3220,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Abilita diagnostica remota</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Invia dati anonimi di telemetria sull’utilizzo per contribuire a migliorare Foundry. I segreti e gli identificatori diretti del dispositivo, inclusi i numeri di serie e gli hash hardware, sono esclusi. La telemetria utilizza un identificatore di installazione anonimo e può includere il produttore e il modello del dispositivo.</value>
+    <value>Invia dati anonimi di telemetria sull'utilizzo per contribuire a migliorare Foundry. I segreti e gli identificatori diretti del dispositivo, inclusi i numeri di serie e gli hash hardware, sono esclusi. La telemetria utilizza un identificatore di installazione anonimo e può includere il produttore e il modello del dispositivo.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Abilita la telemetria</value>
@@ -3244,7 +3244,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Operazione in corso</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
-    <value>Arresto in sicurezza. Potrebbe essere necessario attendere il termine dell’operazione corrente sul disco o sull’immagine prima che la pulizia possa essere completata.</value>
+    <value>Arresto in sicurezza. Potrebbe essere necessario attendere il termine dell'operazione corrente sul disco o sull'immagine prima che la pulizia possa essere completata.</value>
   </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>Seleziona l'architettura di avvio e la modalità di firma di avvio.</value>
@@ -3253,10 +3253,10 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Architettura e firma</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Abilitato: caricamento zero-touch dell’hash hardware</value>
+    <value>Abilitato: caricamento zero-touch dell'hash hardware</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Abilitato: caricamento interattivo dell’hash hardware</value>
+    <value>Abilitato: caricamento interattivo dell'hash hardware</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
     <value>Abilitato: {0} ({1})</value>
@@ -3352,7 +3352,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>I segreti multimediali richiesti non sono pronti.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>L’unità USB selezionata è troppo piccola. Usa un’unità USB di almeno 16 GB.</value>
+    <value>L'unità USB selezionata è troppo piccola. Usa un'unità USB di almeno 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>La lingua di avvio WinPE selezionata non è disponibile per l'architettura selezionata.</value>
@@ -3412,7 +3412,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Volumi su questo disco:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Tutto il contenuto di questo disco andrà perso. Continua solo se questa è l’unità USB corretta.</value>
+    <value>Tutto il contenuto di questo disco andrà perso. Continua solo se questa è l'unità USB corretta.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Crea USB</value>
@@ -3577,10 +3577,10 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Personalizzazione dell'immagine di avvio.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>L’identità dell’unità USB è mancante, ambigua o è cambiata. Aggiorna l’elenco delle unità USB e seleziona nuovamente l’unità.</value>
+    <value>L'identità dell'unità USB è mancante, ambigua o è cambiata. Aggiorna l'elenco delle unità USB e seleziona nuovamente l'unità.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>L’unità USB selezionata non può più essere modificata in sicurezza. Aggiorna l’elenco delle unità USB e seleziona un’altra unità USB.</value>
+    <value>L'unità USB selezionata non può più essere modificata in sicurezza. Aggiorna l'elenco delle unità USB e seleziona un'altra unità USB.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Applicazione delle impostazioni internazionali con DISM.</value>
@@ -3739,10 +3739,10 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>La partizione BOOT USB richiede circa {0}, ma la sua capacità è {1}. Nulla è stato cancellato o formattato. Ridurre le personalizzazioni o i driver, oppure creare una ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
-    <value>Impossibile verificare la capacità della partizione BOOT USB. Nulla è stato cancellato o formattato. Controllare e ricollegare l’unità USB, quindi riprovare. Verificare anche che i file di origine siano accessibili.</value>
+    <value>Impossibile verificare la capacità della partizione BOOT USB. Nulla è stato cancellato o formattato. Controllare e ricollegare l'unità USB, quindi riprovare. Verificare anche che i file di origine siano accessibili.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
-    <value>Un file del supporto di avvio occupa {0}; FAT32 supporta al massimo {1} per file. Ridurre le dimensioni dell’immagine di avvio o creare una ISO.</value>
+    <value>Un file del supporto di avvio occupa {0}; FAT32 supporta al massimo {1} per file. Ridurre le dimensioni dell'immagine di avvio o creare una ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>Partizione di avvio USB aggiornata.</value>
@@ -3766,7 +3766,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Verifica del supporto di avvio USB.</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
-    <value>Windows ha bloccato l’accesso ai file dell’immagine WinPE. È possibile che un software di sicurezza o un altro strumento li stia bloccando. Aggiungere un’esclusione per {0} nel software di sicurezza, chiudere gli strumenti che montano immagini, riavviare il computer e riprovare. I dettagli sono disponibili in {1} e {2}.</value>
+    <value>Windows ha bloccato l'accesso ai file dell'immagine WinPE. È possibile che un software di sicurezza o un altro strumento li stia bloccando. Aggiungere un'esclusione per {0} nel software di sicurezza, chiudere gli strumenti che montano immagini, riavviare il computer e riprovare. I dettagli sono disponibili in {1} e {2}.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Verifica la preparazione, scegli un output ISO o USB e avvia la creazione del supporto.</value>
@@ -3814,9 +3814,9 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Questo supporto verrà generato con Foundry OSD {0}.
 È disponibile la versione {1}.
 
-Applica prima l’aggiornamento, quindi crea o aggiorna il supporto di avvio.
+Applica prima l'aggiornamento, quindi crea o aggiorna il supporto di avvio.
 
-L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
+L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Aggiorna Foundry OSD prima di creare il supporto di avvio</value>
@@ -3828,7 +3828,7 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
     <value>Aggiorna USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>L’elenco delle unità USB potrà essere aggiornato al termine della preparazione di ADK.</value>
+    <value>L'elenco delle unità USB potrà essere aggiornato al termine della preparazione di ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB unità trovate: {0}</value>
@@ -3843,13 +3843,13 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
     <value>Non è stata trovata alcuna unità USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>Aggiornamento dell’elenco delle unità USB non riuscito.</value>
+    <value>Aggiornamento dell'elenco delle unità USB non riuscito.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Comportamento del formato utilizzato prima di copiare il supporto USB finale.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Schema di partizione utilizzato durante la preparazione dell’unità USB selezionata.</value>
+    <value>Schema di partizione utilizzato durante la preparazione dell'unità USB selezionata.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>Destinazione USB</value>
@@ -3978,7 +3978,7 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
     <value>Il file selezionato sostituisce il file di risposte generato da Foundry. Foundry conserva le impostazioni personalizzate e aggiunge il comando obbligatorio di post-installazione alla copia di distribuzione. Selezionare Usa le impostazioni di Foundry per utilizzare la configurazione salvata.</value>
   </data>
   <data name="Unattend.PostInstallationDescription" xml:space="preserve">
-    <value>Foundry conserva il file originale e aggiunge il proprio comando obbligatorio di post-installazione alla copia di distribuzione. La responsabilità delle impostazioni e dei comandi personalizzati rimane dell’utente.</value>
+    <value>Foundry conserva il file originale e aggiunge il proprio comando obbligatorio di post-installazione alla copia di distribuzione. La responsabilità delle impostazioni e dei comandi personalizzati rimane dell'utente.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>I file personalizzati richiedono la protezione del supporto di distribuzione tramite password nella configurazione generale. L'XML può contenere credenziali o script. Foundry conserva una copia di ogni file con la configurazione su questo PC solo quando «Memorizza password» è attivo in «Backup e sincronizzazione delle impostazioni»; in caso contrario salva solo il percorso. L'immagine di avvio contiene copie crittografate.</value>
@@ -4053,25 +4053,25 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
     <value>Download: {0}%</value>
   </data>
   <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
-    <value>L’aggiornamento viene scaricato in background. Apri le impostazioni degli aggiornamenti per vedere l’avanzamento.</value>
+    <value>L'aggiornamento viene scaricato in background. Apri le impostazioni degli aggiornamenti per vedere l'avanzamento.</value>
   </data>
   <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
-    <value>Applica l’aggiornamento e riavvia Foundry OSD. Verrà installato automaticamente anche alla chiusura dell’applicazione.</value>
+    <value>Applica l'aggiornamento e riavvia Foundry OSD. Verrà installato automaticamente anche alla chiusura dell'applicazione.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Non controllato</value>
   </data>
   <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Impossibile applicare l’aggiornamento: {0}</value>
+    <value>Impossibile applicare l'aggiornamento: {0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controllo degli aggiornamenti</value>
   </data>
   <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Download dell’aggiornamento non riuscito: {0}</value>
+    <value>Download dell'aggiornamento non riuscito: {0}</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
-    <value>Download dell’aggiornamento</value>
+    <value>Download dell'aggiornamento</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Controllo aggiornamento non riuscito: {0}</value>
@@ -4092,13 +4092,13 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
     <value>È disponibile un aggiornamento Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Scarica l’aggiornamento quando sei pronto.</value>
+    <value>Scarica l'aggiornamento quando sei pronto.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} è disponibile.</value>
   </data>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
-    <value>Impossibile applicare l’aggiornamento</value>
+    <value>Impossibile applicare l'aggiornamento</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Il controllo dell'aggiornamento non è riuscito</value>

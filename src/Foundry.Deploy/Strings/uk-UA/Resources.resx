@@ -38,7 +38,7 @@
     <value>Перегляньте параметри підготовки Autopilot для цього пристрою.</value>
   </data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
-    <value>Під час розгортання завантажує апаратний хеш цього пристрою до Windows Autopilot.</value>
+    <value>Під час розгортання передає апаратний хеш цього пристрою до Windows Autopilot.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Додає автономний профіль Autopilot до інсталяції Windows.</value>
@@ -47,7 +47,7 @@
     <value>Autopilot</value>
   </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
-    <value>Неможливо визначити версію Foundry OSD, використану для створення цього завантажувального носія. Спочатку оновіть Foundry OSD на комп’ютері для створення носіїв, потім створіть ISO заново або оновіть завантажувальний USB-носій.</value>
+    <value>Неможливо визначити версію Foundry OSD, використану для створення цього завантажувального носія. Спочатку оновіть Foundry OSD на комп'ютері для створення носіїв, потім створіть ISO заново або оновіть завантажувальний USB-носій.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
     <value>Доступна нова версія. Оновіть Foundry OSD і створіть завантажувальний носій заново.</value>
@@ -56,7 +56,7 @@
     <value>Оновіть Foundry OSD і створіть завантажувальний носій заново.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Цей завантажувальний носій створено за допомогою старішої версії Foundry OSD. Спочатку оновіть Foundry OSD на комп’ютері для створення носіїв, потім створіть ISO заново або оновіть завантажувальний USB-носій.</value>
+    <value>Цей завантажувальний носій створено за допомогою старішої версії Foundry OSD. Спочатку оновіть Foundry OSD на комп'ютері для створення носіїв, потім створіть ISO заново або оновіть завантажувальний USB-носій.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Архітектура: {0}</value>
@@ -191,7 +191,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Zero-touch завантаження апаратного хешу</value>
+    <value>Zero-touch передавання апаратного хешу</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
     <value>Термін дії сертифіката закінчився</value>
@@ -373,22 +373,22 @@ ErrorCode=0x80070005
     <value>Розташування домену за замовчуванням</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Укажіть дані для приєднання цього комп’ютера до домену. Приєднання виконується після інсталяції Windows.</value>
+    <value>Укажіть дані для приєднання цього комп'ютера до домену. Приєднання виконується після інсталяції Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Організаційна одиниця</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Введіть дійсне розрізнювальне ім’я OU в цьому домені або залиште поле порожнім.</value>
+    <value>Введіть дійсне розрізнювальне ім'я OU в цьому домені або залиште поле порожнім.</value>
   </data>
   <data name="DomainJoin.DoNotJoin" xml:space="preserve">
     <value>Не приєднувати до домену</value>
   </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
-    <value>Ім’я домену</value>
+    <value>Ім'я домену</value>
   </data>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
-    <value>Введіть дійсне ім’я домену, наприклад corp.contoso.com.</value>
+    <value>Введіть дійсне ім'я домену, наприклад corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Дані для приєднання до домену відсутні або недійсні. Розгортання не розпочато.</value>
@@ -397,7 +397,7 @@ ErrorCode=0x80070005
     <value>Приєднати до домену</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
-    <value>Розрізнювальне ім’я OU (необов’язково)</value>
+    <value>Розрізнювальне ім'я OU (необов'язково)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
     <value>Залиште порожнім, щоб використовувати розташування домену за замовчуванням.</value>
@@ -442,7 +442,7 @@ ErrorCode=0x80070005
     <value>Невдалий крок: {0}</value>
   </data>
   <data name="Error.SecureConnectionFailed" xml:space="preserve">
-    <value>Не вдалося встановити захищене з’єднання. Перевірте дату й час на пристрої та довірені сертифікати на завантажувальному носії, зокрема сертифікат HTTPS-проксі, якщо він використовується.</value>
+    <value>Не вдалося встановити захищене з'єднання. Перевірте дату й час на пристрої та довірені сертифікати на завантажувальному носії, зокрема сертифікат HTTPS-проксі, якщо він використовується.</value>
   </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Відомості про помилку</value>
@@ -661,31 +661,31 @@ ErrorCode=0x80070005
     <value>Термін дії сертифіката</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>Термін дії сертифіката Autopilot минув. Розгортання можна продовжити без завантаження апаратного хешу.</value>
+    <value>Термін дії сертифіката Autopilot минув. Розгортання можна продовжити без передавання апаратного хешу.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Тег групи</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>Відсутня необхідна інформація про сертифікат. Розгортання можна продовжити без завантаження апаратного хешу.</value>
+    <value>Відсутня необхідна інформація про сертифікат. Розгортання можна продовжити без передавання апаратного хешу.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Готовий до завантаження апаратного хешу</value>
+    <value>Готово до передавання апаратного хешу</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
     <value>ID клієнта</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
-    <value>Завантаження апаратного хешу недоступне</value>
+    <value>Передавання апаратного хешу недоступне</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>Статус завантаження апаратного хешу</value>
+    <value>Статус передавання апаратного хешу</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>Zero-touch завантаження апаратного хешу</value>
+    <value>Zero-touch передавання апаратного хешу</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Інтерактивне завантаження апаратного хешу</value>
+    <value>Інтерактивне передавання апаратного хешу</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
     <value>Профіль JSON</value>
@@ -703,7 +703,7 @@ ErrorCode=0x80070005
     <value>1-15 символів. A–Z, a–z, 0–9 і лише дефіс.</value>
   </data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve">
-    <value>Ім’я комп’ютера має містити від 1 до 15 дійсних символів (літери, цифри або дефіс).</value>
+    <value>Ім'я комп'ютера має містити від 1 до 15 дійсних символів (літери, цифри або дефіс).</value>
   </data>
   <data name="Preparation.DetectingHardware" xml:space="preserve">
     <value>Виявлення обладнання...</value>
@@ -820,7 +820,7 @@ ErrorCode=0x80070005
     <value>Перезавантаження системи</value>
   </data>
   <data name="Status.TransferTimedOut" xml:space="preserve">
-    <value>Час очікування передавання минув. Перевірте з’єднання та спробуйте ще раз.</value>
+    <value>Час очікування передавання минув. Перевірте з'єднання та спробуйте ще раз.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Невідомий крок</value>
@@ -859,7 +859,7 @@ ErrorCode=0x80070005
     <value>Налаштування відновлення Windows</value>
   </data>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
-    <value>Налаштування імені комп’ютера</value>
+    <value>Налаштування імені комп'ютера</value>
   </data>
   <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
     <value>Налаштувати завантаження Windows</value>
@@ -943,10 +943,10 @@ ErrorCode=0x80070005
     <value>Застосування змін функцій...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Автентифікація завантаження хешу апаратного забезпечення Autopilot...</value>
+    <value>Автентифікація передавання апаратного хешу Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>Запис апаратного хешу Autopilot...</value>
+    <value>Отримання апаратного хешу Autopilot...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Перевірка доступного місця...</value>
@@ -988,7 +988,7 @@ ErrorCode=0x80070005
     <value>Налаштування середовища відновлення...</value>
   </data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve">
-    <value>Налаштування імені цільового комп’ютера...</value>
+    <value>Налаштування імені цільового комп'ютера...</value>
   </data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve">
     <value>Налаштування додаткових функцій Windows...</value>
@@ -1030,7 +1030,7 @@ ErrorCode=0x80070005
     <value>Завершення розгортання...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
-    <value>Імпорт хешу обладнання в Microsoft Graph...</value>
+    <value>Імпорт апаратного хешу в Microsoft Graph...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Введення вмісту прошивки в офлайн Windows...</value>
@@ -1048,7 +1048,7 @@ ErrorCode=0x80070005
     <value>Розбиття цільового диска...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Підготовка завантаження хешу апаратного забезпечення Autopilot...</value>
+    <value>Підготовка передавання апаратного хешу Autopilot...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>Підготовка завантаження...</value>
@@ -1120,7 +1120,7 @@ ErrorCode=0x80070005
     <value>Оновлення тегу групи Windows Autopilot у Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Завантаження апаратного хешу Autopilot...</value>
+    <value>Передавання апаратного хешу Autopilot...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Перевірка цільової конфігурації...</value>
@@ -1141,7 +1141,7 @@ ErrorCode=0x80070005
     <value>Написання підсумку розгортання...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>Написання змодельованого хеш-маніфесту Autopilot...</value>
+    <value>Запис змодельованого маніфесту хешу Autopilot...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>Написання змодельованого маніфесту Autopilot...</value>
@@ -1159,7 +1159,7 @@ ErrorCode=0x80070005
     <value>Написання офлайн-політик AI...</value>
   </data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve">
-    <value>Введення назви автономного комп’ютера...</value>
+    <value>Введення назви автономного комп'ютера...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
     <value>Подача заявки</value>
@@ -1186,7 +1186,7 @@ ErrorCode=0x80070005
     <value>Індекс застосованого образу Windows недоступний.</value>
   </data>
   <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
-    <value>Імпортований пристрій Autopilot не з’явився в пристроях Windows Autopilot до закінчення часу очікування.</value>
+    <value>Імпортований пристрій Autopilot не з'явився в пристроях Windows Autopilot до закінчення часу очікування.</value>
   </data>
   <data name="StepResult.AutopilotDisabled" xml:space="preserve">
     <value>Autopilot вимкнено.</value>
@@ -1195,28 +1195,28 @@ ErrorCode=0x80070005
     <value>Оновлення тегу групи пристроїв Windows Autopilot не було підтверджено до закінчення часу очікування.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Хеш апаратного забезпечення Autopilot імпортований і видимий на пристроях Windows Autopilot.</value>
+    <value>Апаратний хеш Autopilot імпортовано, і він відображається в списку пристроїв Windows Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot Помилка апаратного захоплення хешу: {0}</value>
+    <value>Не вдалося отримати апаратний хеш Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot Не вдалося імпортувати хеш апаратного забезпечення: {0}</value>
+    <value>Не вдалося імпортувати апаратний хеш Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot Завантаження апаратного хешу підготовлено для симуляції.</value>
+    <value>Передавання апаратного хешу Autopilot підготовлено для симуляції.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot Підготовлено завантаження хешу апаратного забезпечення (симуляція).</value>
+    <value>Передавання апаратного хешу Autopilot підготовлено (симуляція).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Autopilot Завантаження хешу апаратного забезпечення пропущено, оскільки термін дії вбудованого сертифіката минув.</value>
+    <value>Передавання апаратного хешу Autopilot пропущено, оскільки термін дії вбудованого сертифіката минув.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot завантаження апаратного хешу пропущено: {0}</value>
+    <value>Передавання апаратного хешу Autopilot пропущено: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot Завантаження хешу апаратного забезпечення пропущено, оскільки необхідна інформація медіасертифікату неповна.</value>
+    <value>Передавання апаратного хешу Autopilot пропущено, оскільки необхідна інформація про сертифікат носія неповна.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot увімкнено, але профіль не вибрано.</value>
@@ -1405,10 +1405,10 @@ ErrorCode=0x80070005
     <value>Не вдалося вирішити цільовий каталог Autopilot.</value>
   </data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve">
-    <value>Ім’я цільового комп’ютера налаштовано.</value>
+    <value>Ім'я цільового комп'ютера налаштовано.</value>
   </data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve">
-    <value>Ім’я цільового комп’ютера налаштоване (симуляція).</value>
+    <value>Ім'я цільового комп'ютера налаштоване (симуляція).</value>
   </data>
   <data name="StepResult.TargetConfigurationValidated" xml:space="preserve">
     <value>Цільова конфігурація перевірена.</value>
@@ -1435,7 +1435,7 @@ ErrorCode=0x80070005
     <value>Цільовий розділ Windows недоступний для проміжної обробки Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>Цільовий розділ Windows недоступний для завантаження апаратного хешу Autopilot.</value>
+    <value>Цільовий розділ Windows недоступний для передавання апаратного хешу Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>Цільовий розділ Windows недоступний для підготовки інтерактивного помічника реєстрації Autopilot.</value>
@@ -1480,7 +1480,7 @@ ErrorCode=0x80070005
     <value>Вийміть завантажувальний носій, а потім виберіть «Перезавантажити».</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
-    <value>Цей комп’ютер перезавантажиться через {0}s.</value>
+    <value>Цей комп'ютер перезавантажиться через {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
     <value>Перезавантажити</value>
@@ -1687,7 +1687,7 @@ ErrorCode=0x80070005
     <value>Параметри розгортання</value>
   </data>
   <data name="TargetDevice.Description" xml:space="preserve">
-    <value>Виберіть ім’я комп’ютера й цільовий диск, а потім перегляньте відомості про виявлене обладнання.</value>
+    <value>Виберіть ім'я комп'ютера й цільовий диск, а потім перегляньте відомості про виявлене обладнання.</value>
   </data>
   <data name="TargetDevice.DeviceIdentity" xml:space="preserve">
     <value>Ідентифікація пристрою</value>

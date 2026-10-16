@@ -3283,16 +3283,16 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Odesílání hardwarového hash je povoleno, ale platnost vybraného spouštěcího média PFX vypršela.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Hardwarový hash upload je povolen, ale spouštěcí médium PFX nebylo ověřeno.</value>
+    <value>Nahrávání hardwarového hash je povoleno, ale spouštěcí médium PFX nebylo ověřeno.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Hardwarový hash upload je povolen, ale vybraný PFX neodpovídá aktivnímu certifikátu.</value>
+    <value>Nahrávání hardwarového hash je povoleno, ale vybraný PFX neodpovídá aktivnímu certifikátu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Hardwarový hash upload je povolen, ale není vybráno žádné spouštěcí médium PFX.</value>
+    <value>Nahrávání hardwarového hash je povoleno, ale není vybráno žádné spouštěcí médium PFX.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Hardwarový hash upload je povolen, ale chybí heslo PFX spouštěcího média.</value>
+    <value>Nahrávání hardwarového hash je povoleno, ale chybí heslo PFX spouštěcího média.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
     <value>Nahrávání hardwarového hash je povoleno, ale chybí ID klienta aplikace. Znovu se připojte k tenantovi z Autopilot.</value>

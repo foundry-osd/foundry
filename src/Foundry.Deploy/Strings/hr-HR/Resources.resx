@@ -562,7 +562,7 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
     <value>Tajlandski (Tajland)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turski (Türkiye)</value>
+    <value>Turski (Turska)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ukrajinski (Ukrajina)</value>
@@ -670,7 +670,7 @@ Nastaviti s implementacijom?</value>
     <value>Nedostaju potrebni podaci o certifikatu. Implementacija se može nastaviti bez prijenosa hash hardvera.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Spremno za učitavanje hash hardvera</value>
+    <value>Spremno za prijenos hash hardvera</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
     <value>ID stanara</value>
@@ -1207,7 +1207,7 @@ Nastaviti s implementacijom?</value>
     <value>Autopilot Prijenos hash hardvera pripremljen za simulaciju.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot Spremno učitavanje hash hardvera (simulacija).</value>
+    <value>Autopilot Prijenos hash hardvera pripremljen (simulacija).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
     <value>Autopilot Prijenos hash hardvera preskočen jer je ugrađeni certifikat istekao.</value>

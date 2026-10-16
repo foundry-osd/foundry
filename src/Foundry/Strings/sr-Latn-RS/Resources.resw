@@ -317,46 +317,46 @@ Licencirano pod MIT licencom.</value>
     <value>Izabrani sertifikat je istekao. Kreirajte ili izaberite važeći sertifikat pre kreiranja medija za pokretanje.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
-    <value>Izaberite PFKS koji odgovara sertifikatu o registraciji aplikacije.</value>
+    <value>Izaberite PFX koji odgovara sertifikatu o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>PFKS zaštićen lozinkom kopiran u medijum za pokretanje radi hardverskog heš otpremanja.</value>
+    <value>PFX zaštićen lozinkom kopiran u medijum za pokretanje radi hardverskog heš otpremanja.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
-    <value>Izabrana PFKS datoteka više ne postoji.</value>
+    <value>Izabrana PFX datoteka više ne postoji.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
-    <value>Izabrani PFKS nije mogao da se otvori sa datom lozinkom.</value>
+    <value>Izabrani PFX nije mogao da se otvori sa datom lozinkom.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
     <value>Sertifikat medija za pokretanje</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
-    <value>PFKS lozinka</value>
+    <value>PFX lozinka</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
-    <value>Unesite PFKS lozinku.</value>
+    <value>Unesite PFX lozinku.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
-    <value>Izaberite odgovarajući PFKS zaštićen lozinkom pre kreiranja medijuma za pokretanje.</value>
+    <value>Izaberite odgovarajući PFX zaštićen lozinkom pre kreiranja medijuma za pokretanje.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
-    <value>PFKS fajl</value>
+    <value>PFX fajl</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Izaberite Autopilot sertifikat PFKS</value>
+    <value>Izaberite Autopilot sertifikat PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
-    <value>Izabrani PFKS ne sadrži materijal privatnog ključa.</value>
+    <value>Izabrani PFX ne sadrži materijal privatnog ključa.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
     <value>Sertifikat spreman za generisanje medija za pokretanje.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
-    <value>Izaberite PFKS</value>
+    <value>Izaberite PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Otisak PFKS sertifikata se ne podudara sa izabranim sertifikatom o registraciji aplikacije.</value>
+    <value>Otisak PFX sertifikata se ne podudara sa izabranim sertifikatom o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
     <value>Kreirajte ili uklonite akreditive sertifikata za registraciju aplikacije.</value>
@@ -377,16 +377,16 @@ Licencirano pod MIT licencom.</value>
     <value>Kopiraj lozinku</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Sačuvajte ovu PFKS datoteku i lozinku sada na bezbednoj lokaciji. Foundry čuva lozinku sa vašom konfiguracijom na ovom računaru samo kada je opcija „Zapamti lozinke“ uključena u odeljku „Rezervne kopije i sinhronizacija podešavanja“. Biće vam potrebne obe vrednosti da biste generisali medijum za pokretanje za hardverski heš upload.</value>
+    <value>Sačuvajte ovu PFX datoteku i lozinku sada na bezbednoj lokaciji. Foundry čuva lozinku sa vašom konfiguracijom na ovom računaru samo kada je opcija „Zapamti lozinke“ uključena u odeljku „Rezervne kopije i sinhronizacija podešavanja“. Biće vam potrebne obe vrednosti da biste generisali medijum za pokretanje za otpremanje hardverskog heša.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Lozinka je kopirana.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
-    <value>PFKS lozinka</value>
+    <value>PFX lozinka</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
-    <value>PFKS fajl</value>
+    <value>PFX fajl</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
     <value>Sertifikat spreman</value>
@@ -398,7 +398,7 @@ Licencirano pod MIT licencom.</value>
     <value>ID sertifikata</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>PFKS sertifikat</value>
+    <value>PFX sertifikat</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
     <value>Foundry nije mogao da ukloni izabrani sertifikat o registraciji aplikacije. {0}</value>
@@ -407,7 +407,7 @@ Licencirano pod MIT licencom.</value>
     <value>Uklanjanje sertifikata nije uspelo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Sačuvaj Autopilot sertifikat PFKS</value>
+    <value>Sačuvaj Autopilot sertifikat PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Otisak</value>
@@ -449,10 +449,10 @@ Licencirano pod MIT licencom.</value>
     <value>Uključivanje zakupca nije uspelo</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>Izabrani sertifikat je istekao. Kreirajte novi sertifikat, sačuvajte njegov PFKS i lozinku, a zatim ga izaberite za medijum za pokretanje.</value>
+    <value>Izabrani sertifikat je istekao. Kreirajte novi sertifikat, sačuvajte njegov PFX i lozinku, a zatim ga izaberite za medijum za pokretanje.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
-    <value>Prethodno izabrani sertifikat više ne postoji u registraciji upravljane aplikacije. Izaberite važeći PFKS koji odgovara obezbeđenom sertifikatu.</value>
+    <value>Prethodno izabrani sertifikat više ne postoji u registraciji upravljane aplikacije. Izaberite važeći PFX koji odgovara obezbeđenom sertifikatu.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
     <value>Pronađena je postojeća registracija aplikacije sa imenom Foundry. Ponovo se povežite da biste ga usvojili u Foundry konfiguraciji.</value>
@@ -3268,7 +3268,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Otpremanje hardverskog heš-a je omogućeno, ali je izabrani sertifikat istekao. Izaberite važeći sertifikat pre kreiranja medija za pokretanje.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali izabrani PFKS ne odgovara sertifikatu o registraciji aplikacije.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali izabrani PFX ne odgovara sertifikatu o registraciji aplikacije.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
     <value>Otpremanje hardverskog heš-a je omogućeno, ali nedostaje izabrani otisak sertifikata.</value>
@@ -3277,22 +3277,22 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Otpremanje hardverskog heš-a je omogućeno, ali registracija aplikacije nije konfigurisana. Povežite se sa zakupcem sa Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali nije moguće potvrditi istek PFKS medija za pokretanje.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali nije moguće potvrditi istek PFX medija za pokretanje.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali je izabrani PFKS medijum za pokretanje istekao.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali je izabrani PFX medijum za pokretanje istekao.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali PFKS medijuma za pokretanje nije potvrđen.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali PFX medijuma za pokretanje nije potvrđen.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali izabrani PFKS se ne podudara sa aktivnim sertifikatom.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali izabrani PFX se ne podudara sa aktivnim sertifikatom.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali nije izabran PFKS medijum za pokretanje.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali nije izabran PFX medijum za pokretanje.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali nedostaje PFKS lozinka za medijum za pokretanje.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali nedostaje PFX lozinka za medijum za pokretanje.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
     <value>Hardversko heš otpremanje je omogućeno, ali nedostaje ID klijenta aplikacije. Ponovo se povežite sa zakupcem sa Autopilot.</value>

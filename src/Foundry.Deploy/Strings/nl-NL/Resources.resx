@@ -433,7 +433,7 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
     <value>Versie</value>
   </data>
   <data name="Drivers.Description" xml:space="preserve">
-    <value>Kies de bron voor stuurprogramma’s en, indien nodig, het bijbehorende model en de bijbehorende versie.</value>
+    <value>Kies de bron voor stuurprogramma's en, indien nodig, het bijbehorende model en de bijbehorende versie.</value>
   </data>
   <data name="Drivers.Title" xml:space="preserve">
     <value>Apparaatstuurprogramma's</value>
@@ -835,7 +835,7 @@ Doorgaan met de implementatie?</value>
     <value>wpeutil.exe mislukt met afsluitcode {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Windows-stuurprogramma’s installeren</value>
+    <value>Windows-stuurprogramma's installeren</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
     <value>Firmware-update klaarzetten</value>
@@ -844,7 +844,7 @@ Doorgaan met de implementatie?</value>
     <value>Windows-installatiekopie toepassen</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Herstelstuurprogramma’s installeren</value>
+    <value>Herstelstuurprogramma's installeren</value>
   </data>
   <data name="Step.CheckWindowsImage" xml:space="preserve">
     <value>Windows-installatiekopie controleren</value>
@@ -1240,7 +1240,7 @@ Doorgaan met de implementatie?</value>
     <value>Er is een fasering van het driverpakket voor het eerst opstarten aangevraagd zonder een ondersteunde opdracht.</value>
   </data>
   <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
-    <value>Installatieprogramma voor stuurprogramma’s klaargezet.</value>
+    <value>Installatieprogramma voor stuurprogramma's klaargezet.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Driverpakket toegepast.</value>

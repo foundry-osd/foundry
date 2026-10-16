@@ -320,7 +320,7 @@ Licenciran prema MIT licenci.</value>
     <value>Odaberite PFX koji odgovara potvrdi o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>PFX zaštićen lozinkom kopiran u medij za pokretanje radi učitavanja hash hardvera.</value>
+    <value>PFX zaštićen lozinkom kopiran u medij za pokretanje radi prijenosa hash hardvera.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Odabrana PFX datoteka više ne postoji.</value>
@@ -524,7 +524,7 @@ Licenciran prema MIT licenci.</value>
     <value>Nije povezano</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Zakupnik, registracija aplikacije i informacije o spremnosti za učitavanje hash hardvera.</value>
+    <value>Zakupnik, registracija aplikacije i informacije o spremnosti za prijenos hash hardvera.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
     <value>Spremnost zakupca</value>
@@ -2306,7 +2306,7 @@ Licenciran prema MIT licenci.</value>
     <value>Tajlandski (Tajland)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turski (Türkiye)</value>
+    <value>Turski (Turska)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ukrajinski (Ukrajina)</value>

@@ -38,7 +38,7 @@
     <value>Просмотрите параметры подготовки Autopilot для этого устройства.</value>
   </data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
-    <value>Отправляет аппаратный хеш этого устройства в Windows Autopilot во время развертывания.</value>
+    <value>Отправляет аппаратный хэш этого устройства в Windows Autopilot во время развертывания.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Добавляет автономный профиль Autopilot в установку Windows.</value>
@@ -191,7 +191,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Zero-touch отправка аппаратного хеша</value>
+    <value>Zero-touch отправка аппаратного хэша</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
     <value>Сертификат с истекшим сроком действия</value>
@@ -631,7 +631,7 @@
     <value>Не удается подготовить кэш образа. Проверьте свободное место и доступ на запись в кэш.</value>
   </data>
   <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
-    <value>Не удалось проверить хеш скачанного образа Windows. Проверьте сетевое подключение и устройство хранения и повторите попытку.</value>
+    <value>Не удалось проверить хэш скачанного образа Windows. Проверьте сетевое подключение и устройство хранения и повторите попытку.</value>
   </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>На целевом диске недостаточно места для известных требований развертывания. Выберите диск большей емкости.</value>
@@ -643,7 +643,7 @@
     <value>Размер образа после применения недоступен или недействителен. Выберите другой образ.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Метаданные размера или хеша образа в каталоге недействительны. Выберите другой образ или перезапустите устройство с носителя для развёртывания, чтобы заново загрузить каталог.</value>
+    <value>Метаданные размера или хэша образа в каталоге недействительны. Выберите другой образ или перезапустите устройство с носителя для развёртывания, чтобы заново загрузить каталог.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>URL образа должен использовать HTTP или HTTPS. Выберите другой образ или перезапустите устройство с носителя для развёртывания, чтобы заново загрузить каталог.</value>
@@ -661,31 +661,31 @@
     <value>Срок действия сертификата</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>Срок действия сертификата Autopilot истек. Развертывание можно продолжить без загрузки аппаратного хеша.</value>
+    <value>Срок действия сертификата Autopilot истек. Развертывание можно продолжить без отправки аппаратного хэша.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Тег группы</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>Отсутствует необходимая информация о сертификате. Развертывание можно продолжить без загрузки аппаратного хеша.</value>
+    <value>Отсутствует необходимая информация о сертификате. Развертывание можно продолжить без отправки аппаратного хэша.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Готово загрузить аппаратный хэш</value>
+    <value>Готово к отправке аппаратного хэша</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
     <value>Идентификатор клиента</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
-    <value>Загрузка аппаратного хеша недоступна</value>
+    <value>Отправка аппаратного хэша недоступна</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>Статус загрузки аппаратного хеша</value>
+    <value>Статус отправки аппаратного хэша</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>Zero-touch отправка аппаратного хеша</value>
+    <value>Zero-touch отправка аппаратного хэша</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Интерактивная отправка аппаратного хеша</value>
+    <value>Интерактивная отправка аппаратного хэша</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
     <value>Профиль JSON</value>
@@ -943,10 +943,10 @@
     <value>Применение изменений функций...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Аутентификация загрузки аппаратного хеша Autopilot...</value>
+    <value>Аутентификация отправки аппаратного хэша Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>Захват аппаратного хеша Autopilot...</value>
+    <value>Захват аппаратного хэша Autopilot...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Проверка доступного места...</value>
@@ -1030,7 +1030,7 @@
     <value>Завершение развертывания...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
-    <value>Импорт аппаратного хеша в Microsoft Graph...</value>
+    <value>Импорт аппаратного хэша в Microsoft Graph...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Внедрение содержимого прошивки в оффлайн Windows...</value>
@@ -1048,7 +1048,7 @@
     <value>Разбиение целевого диска...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Подготовка Autopilot к загрузке аппаратного хеша...</value>
+    <value>Подготовка отправки аппаратного хэша Autopilot...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>Подготовка загрузки...</value>
@@ -1120,7 +1120,7 @@
     <value>Обновление группового тега Windows Autopilot в Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Загрузка аппаратного хеша Autopilot...</value>
+    <value>Отправка аппаратного хэша Autopilot...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Проверка целевой конфигурации...</value>
@@ -1141,7 +1141,7 @@
     <value>Написание сводки по развертыванию...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>Написание смоделированного манифеста хеша Autopilot...</value>
+    <value>Запись смоделированного манифеста хэша Autopilot...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>Написание смоделированного манифеста Autopilot...</value>
@@ -1195,28 +1195,28 @@
     <value>Обновление тега группы устройств Windows Autopilot не было подтверждено до истечения времени ожидания.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Аппаратный хеш Autopilot импортирован и виден на устройствах Windows Autopilot.</value>
+    <value>Аппаратный хэш Autopilot импортирован и отображается в списке устройств Windows Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot не удалось получить аппаратный хэш: {0}</value>
+    <value>Не удалось получить аппаратный хэш Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot не удалось импортировать аппаратный хэш: {0}</value>
+    <value>Не удалось импортировать аппаратный хэш Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot аппаратная загрузка хеша, подготовленная для моделирования.</value>
+    <value>Отправка аппаратного хэша Autopilot подготовлена для моделирования.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot аппаратная загрузка хеша подготовлена (симуляция).</value>
+    <value>Отправка аппаратного хэша Autopilot подготовлена (симуляция).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Загрузка аппаратного хэша Autopilot пропущена, поскольку срок действия встроенного сертификата истек.</value>
+    <value>Отправка аппаратного хэша Autopilot пропущена, поскольку срок действия встроенного сертификата истек.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot загрузка аппаратного хеша пропущена: {0}</value>
+    <value>Отправка аппаратного хэша Autopilot пропущена: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot Загрузка хэша оборудования пропущена, поскольку необходимая информация о сертификате носителя неполная.</value>
+    <value>Отправка аппаратного хэша Autopilot пропущена, поскольку необходимая информация о сертификате носителя неполная.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot включен, но профиль не выбран.</value>
@@ -1435,7 +1435,7 @@
     <value>Целевой раздел Windows недоступен для промежуточного хранения Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>Целевой раздел Windows недоступен для загрузки аппаратного хеша Autopilot.</value>
+    <value>Целевой раздел Windows недоступен для отправки аппаратного хэша Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>Целевой раздел Windows недоступен для подготовки интерактивного помощника регистрации Autopilot.</value>

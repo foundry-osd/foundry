@@ -562,7 +562,7 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
     <value>Taju (Taizeme)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turku (Türkiye)</value>
+    <value>Turku (Turcija)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ukraiņu (Ukraina)</value>
@@ -631,7 +631,7 @@ Vai turpināt izvietošanu?</value>
     <value>Attēla kešatmiņu nevar sagatavot. Pārbaudiet tās brīvo vietu un rakstīšanas piekļuvi.</value>
   </data>
   <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
-    <value>Lejupielādētā Windows attēla jaucējvērtības pārbaude neizdevās. Pārbaudiet tīkla savienojumu un krātuves ierīci un mēģiniet vēlreiz.</value>
+    <value>Lejupielādētā Windows attēla jaucējkoda pārbaude neizdevās. Pārbaudiet tīkla savienojumu un krātuves ierīci un mēģiniet vēlreiz.</value>
   </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Mērķa diskā nepietiek vietas zināmajām izvietošanas prasībām. Atlasiet disku ar lielāku ietilpību.</value>
@@ -643,7 +643,7 @@ Vai turpināt izvietošanu?</value>
     <value>Attēla aizņemtās vietas apjoms diskā pēc tā izvietošanas nav pieejams vai nav derīgs. Atlasiet citu attēlu.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Kataloga attēla lieluma vai jaucējvērtības metadati nav derīgi. Atlasiet citu attēlu vai restartējiet ierīci no izvietošanas datu nesēja, lai atkārtoti ielādētu katalogu.</value>
+    <value>Kataloga attēla lieluma vai jaucējkoda metadati nav derīgi. Atlasiet citu attēlu vai restartējiet ierīci no izvietošanas datu nesēja, lai atkārtoti ielādētu katalogu.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Attēla URL jāizmanto HTTP vai HTTPS. Atlasiet citu attēlu vai restartējiet ierīci no izvietošanas datu nesēja, lai atkārtoti ielādētu katalogu.</value>
@@ -661,25 +661,25 @@ Vai turpināt izvietošanu?</value>
     <value>Sertifikāta derīguma termiņš</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>Autopilot sertifikāta derīguma termiņš ir beidzies. Izvietošanu var turpināt, neaugšupielādējot aparatūras hash.</value>
+    <value>Autopilot sertifikāta derīguma termiņš ir beidzies. Izvietošanu var turpināt, neaugšupielādējot aparatūras jaucējkodu.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Grupas atzīme</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>Trūkst nepieciešamās sertifikāta informācijas. Izvietošanu var turpināt, neaugšupielādējot aparatūras hash.</value>
+    <value>Trūkst nepieciešamās sertifikāta informācijas. Izvietošanu var turpināt, neaugšupielādējot aparatūras jaucējkodu.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Gatavs aparatūras hash augšupielādei</value>
+    <value>Gatavs aparatūras jaucējkoda augšupielādei</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
-    <value>Īrnieka ID</value>
+    <value>Nomnieka ID</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
-    <value>Aparatūras hash augšupielāde nav pieejama</value>
+    <value>Aparatūras jaucējkoda augšupielāde nav pieejama</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>Aparatūras hash augšupielādes statuss</value>
+    <value>Aparatūras jaucējkoda augšupielādes statuss</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
     <value>Zero-touch aparatūras jaucējkoda augšupielāde</value>
@@ -943,10 +943,10 @@ Vai turpināt izvietošanu?</value>
     <value>Notiek funkciju izmaiņu piemērošana...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Notiek Autopilot aparatūras hash augšupielādes autentifikācija...</value>
+    <value>Notiek Autopilot aparatūras jaucējkoda augšupielādes autentifikācija...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>Notiek Autopilot aparatūras hash tveršana...</value>
+    <value>Notiek Autopilot aparatūras jaucējkoda tveršana...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Pārbauda pieejamo vietu...</value>
@@ -1030,7 +1030,7 @@ Vai turpināt izvietošanu?</value>
     <value>Notiek izvietošanas pabeigšana...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
-    <value>Notiek aparatūras hash importēšana uz Microsoft Graph...</value>
+    <value>Notiek aparatūras jaucējkoda importēšana pakalpojumā Microsoft Graph...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Programmaparatūras satura ievadīšana bezsaistē Windows...</value>
@@ -1048,7 +1048,7 @@ Vai turpināt izvietošanu?</value>
     <value>Notiek mērķa diska sadalīšana...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Notiek Autopilot aparatūras hash augšupielādes sagatavošana...</value>
+    <value>Notiek Autopilot aparatūras jaucējkoda augšupielādes sagatavošana...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>Notiek lejupielādes sagatavošana...</value>
@@ -1120,7 +1120,7 @@ Vai turpināt izvietošanu?</value>
     <value>Notiek Windows Autopilot grupas taga atjaunināšana pakalpojumā Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Notiek Autopilot aparatūras hash augšupielāde...</value>
+    <value>Notiek Autopilot aparatūras jaucējkoda augšupielāde...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Notiek mērķa konfigurācijas apstiprināšana...</value>
@@ -1141,7 +1141,7 @@ Vai turpināt izvietošanu?</value>
     <value>Notiek izvietošanas kopsavilkuma rakstīšana...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>Notiek simulēta Autopilot jaukšanas manifesta rakstīšana...</value>
+    <value>Notiek simulēta Autopilot jaucējkoda manifesta rakstīšana...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>Notiek simulēta Autopilot manifesta rakstīšana...</value>
@@ -1195,28 +1195,28 @@ Vai turpināt izvietošanu?</value>
     <value>Windows Autopilot ierīču grupas taga atjauninājums netika apstiprināts pirms taimauta.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Autopilot aparatūras hash ir importēts un redzams Windows Autopilot ierīcēs.</value>
+    <value>Autopilot aparatūras jaucējkods ir importēts un redzams Windows Autopilot ierīcēs.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot aparatūras jaucējfunkcijas tveršana neizdevās: {0}</value>
+    <value>Autopilot aparatūras jaucējkoda tveršana neizdevās: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
     <value>Autopilot aparatūras jaucējkoda importēšana neizdevās: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot aparatūras hash augšupielāde, kas sagatavota simulācijai.</value>
+    <value>Autopilot aparatūras jaucējkoda augšupielāde ir sagatavota simulācijai.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot sagatavota aparatūras jaucējkrāna augšupielāde (simulācija).</value>
+    <value>Autopilot aparatūras jaucējkoda augšupielāde ir sagatavota (simulācija).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Autopilot aparatūras jauktā augšupielāde tika izlaista, jo ir beidzies iegultā sertifikāta derīguma termiņš.</value>
+    <value>Autopilot aparatūras jaucējkoda augšupielāde tika izlaista, jo ir beidzies iegultā sertifikāta derīguma termiņš.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot aparatūras hash augšupielāde ir izlaista: {0}</value>
+    <value>Autopilot aparatūras jaucējkoda augšupielāde ir izlaista: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot aparatūras jauktā augšupielāde tika izlaista, jo nepieciešamā multivides sertifikāta informācija ir nepilnīga.</value>
+    <value>Autopilot aparatūras jaucējkoda augšupielāde tika izlaista, jo nepieciešamā datu nesēja sertifikāta informācija ir nepilnīga.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot ir iespējots, taču nav atlasīts neviens profils.</value>
@@ -1435,7 +1435,7 @@ Vai turpināt izvietošanu?</value>
     <value>Mērķa Windows nodalījums nav pieejams Autopilot inscenēšanai.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>Mērķa Windows nodalījums nav pieejams Autopilot aparatūras hash augšupielādei.</value>
+    <value>Mērķa Windows nodalījums nav pieejams Autopilot aparatūras jaucējkoda augšupielādei.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>Mērķa Windows nodalījums nav pieejams interaktīvā Autopilot reģistrācijas palīga sagatavošanai.</value>
@@ -1753,7 +1753,7 @@ Vai turpināt izvietošanu?</value>
     <value>Pielāgotas komandas var konfliktēt ar Foundry. Testējiet šo konfigurāciju.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Jaucējvērtības augšupielāde negarantē reģistrāciju pakalpojumā Autopilot.</value>
+    <value>Jaucējkoda augšupielāde negarantē reģistrāciju pakalpojumā Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>Testējiet šo atbilžu failu ar atlasīto Windows attēlu un Foundry konfigurāciju.</value>

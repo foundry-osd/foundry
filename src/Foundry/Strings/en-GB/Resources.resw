@@ -3070,7 +3070,7 @@ Passwords and access keys included: {2}</value>
     <value>Synchronise</value>
   </data>
   <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Keep this configuration up to date across your team’s PCs.</value>
+    <value>Keep this configuration up to date across your team's PCs.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Settings are up to date</value>

@@ -679,10 +679,10 @@
     <value>การอัปโหลดแฮชฮาร์ดแวร์ไม่พร้อมใช้งาน</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>สถานะการอัปโหลดแฮชของฮาร์ดแวร์</value>
+    <value>สถานะการอัปโหลดแฮชฮาร์ดแวร์</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ Zero-touch</value>
+    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
@@ -946,7 +946,7 @@
     <value>กำลังตรวจสอบสิทธิ์การอัปโหลดแฮชฮาร์ดแวร์ Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>กำลังจับภาพ Autopilot ฮาร์ดแวร์แฮช...</value>
+    <value>กำลังรวบรวมแฮชฮาร์ดแวร์ Autopilot...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>กำลังตรวจสอบพื้นที่ว่าง...</value>
@@ -1141,7 +1141,7 @@
     <value>กำลังเขียนสรุปการทำให้ใช้งานได้...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>การเขียนจำลอง Autopilot รายการแฮช...</value>
+    <value>กำลังเขียนไฟล์รายการแฮช Autopilot แบบจำลอง...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>การเขียนจำลอง Autopilot รายการ...</value>
@@ -1195,28 +1195,28 @@
     <value>Windows Autopilot การอัปเดตแท็กกลุ่มอุปกรณ์ไม่ได้รับการยืนยันก่อนหมดเวลา</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Autopilot แฮชฮาร์ดแวร์ที่นำเข้าและมองเห็นได้ในอุปกรณ์ Windows Autopilot</value>
+    <value>นำเข้าแฮชฮาร์ดแวร์ Autopilot แล้ว และมองเห็นได้ในอุปกรณ์ Windows Autopilot</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot การจับแฮชฮาร์ดแวร์ล้มเหลว: {0}</value>
+    <value>การรวบรวมแฮชฮาร์ดแวร์ Autopilot ล้มเหลว: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot การนำเข้าแฮชฮาร์ดแวร์ล้มเหลว: {0}</value>
+    <value>การนำเข้าแฮชฮาร์ดแวร์ Autopilot ล้มเหลว: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot อัปโหลดแฮชฮาร์ดแวร์ที่เตรียมไว้สำหรับการจำลอง</value>
+    <value>เตรียมการอัปโหลดแฮชฮาร์ดแวร์ Autopilot สำหรับการจำลองแล้ว</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot อัปโหลดแฮชฮาร์ดแวร์ที่เตรียมไว้ (การจำลอง)</value>
+    <value>เตรียมการอัปโหลดแฮชฮาร์ดแวร์ Autopilot แล้ว (การจำลอง)</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Autopilot การอัปโหลดแฮชฮาร์ดแวร์ถูกข้ามเนื่องจากใบรับรองที่ฝังไว้หมดอายุแล้ว</value>
+    <value>ข้ามการอัปโหลดแฮชฮาร์ดแวร์ Autopilot เนื่องจากใบรับรองที่ฝังไว้หมดอายุแล้ว</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot การอัพโหลดแฮชฮาร์ดแวร์ถูกข้าม: {0}</value>
+    <value>ข้ามการอัปโหลดแฮชฮาร์ดแวร์ Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot การอัปโหลดแฮชฮาร์ดแวร์ถูกข้ามเนื่องจากข้อมูลใบรับรองสื่อที่จำเป็นไม่สมบูรณ์</value>
+    <value>ข้ามการอัปโหลดแฮชฮาร์ดแวร์ Autopilot เนื่องจากข้อมูลใบรับรองสื่อที่จำเป็นไม่สมบูรณ์</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot เปิดใช้งานอยู่แต่ไม่ได้เลือกโปรไฟล์</value>
@@ -1435,7 +1435,7 @@
     <value>พาร์ติชันเป้าหมาย Windows ไม่พร้อมใช้งานสำหรับการจัดเตรียม Autopilot</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>พาร์ติชันเป้าหมาย Windows ไม่พร้อมใช้งานสำหรับการอัปโหลดแฮชฮาร์ดแวร์ Autopilot</value>
+    <value>พาร์ติชัน Windows เป้าหมายไม่พร้อมใช้งานสำหรับการอัปโหลดแฮชฮาร์ดแวร์ Autopilot</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>พาร์ติชัน Windows เป้าหมายไม่พร้อมใช้งานสำหรับการจัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบ</value>

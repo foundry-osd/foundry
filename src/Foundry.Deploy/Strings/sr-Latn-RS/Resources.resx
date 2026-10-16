@@ -1204,10 +1204,10 @@ Operativni sistem: {4}
     <value>Autopilot hardverski heš uvoz nije uspeo: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot hardverski heš upload pripremljen za simulaciju.</value>
+    <value>Autopilot otpremanje hardverskog heša pripremljeno za simulaciju.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot pripremljen hardverski heš upload (simulacija).</value>
+    <value>Autopilot pripremljeno otpremanje hardverskog heša (simulacija).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
     <value>Autopilot hardverski heš otpremanje je preskočeno jer je ugrađeni sertifikat istekao.</value>

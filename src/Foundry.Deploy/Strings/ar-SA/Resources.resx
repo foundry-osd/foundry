@@ -1753,7 +1753,7 @@
     <value>قد تتعارض الأوامر المخصصة مع Foundry. اختبر هذا التكوين.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>رفع التجزئة لا يضمن التسجيل في Autopilot.</value>
+    <value>تحميل التجزئة لا يضمن التسجيل في Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>اختبر ملف الإجابات هذا مع صورة Windows وتكوين Foundry المحددين.</value>

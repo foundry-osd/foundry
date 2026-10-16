@@ -287,7 +287,7 @@ Licenciado sob a licença MIT.</value>
     <value>Perfil padrão</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Baixar do inquilino</value>
+    <value>Baixar do locatário</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Nenhum perfil Autopilot foi retornado pelo locatário.</value>
@@ -341,10 +341,10 @@ Licenciado sob a licença MIT.</value>
     <value>Selecione o PFX protegido por senha correspondente antes de criar a mídia de inicialização.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
-    <value>arquivo PFX</value>
+    <value>Arquivo PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Selecione Autopilot certificado PFX</value>
+    <value>Selecionar PFX do certificado do Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>O PFX selecionado não contém material de chave privada.</value>
@@ -353,7 +353,7 @@ Licenciado sob a licença MIT.</value>
     <value>Certificado pronto para geração de mídia de inicialização.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
-    <value>Selecione PFX</value>
+    <value>Selecionar PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>A impressão digital do certificado PFX não corresponde ao certificado de registro do aplicativo selecionado.</value>
@@ -386,7 +386,7 @@ Licenciado sob a licença MIT.</value>
     <value>Senha PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
-    <value>arquivo PFX</value>
+    <value>Arquivo PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
     <value>Certificado pronto</value>
@@ -407,7 +407,7 @@ Licenciado sob a licença MIT.</value>
     <value>Falha na remoção do certificado</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Salvar Autopilot certificado PFX</value>
+    <value>Salvar PFX do certificado do Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Impressão digital</value>
@@ -416,10 +416,10 @@ Licenciado sob a licença MIT.</value>
     <value>Nenhum certificado é provisionado.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Conectar inquilino</value>
+    <value>Conectar locatário</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Conectando inquilino…</value>
+    <value>Conectando locatário…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Criar certificado</value>
@@ -431,10 +431,10 @@ Licenciado sob a licença MIT.</value>
     <value>Nenhuma tag de grupo padrão selecionada.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Desconectar inquilino</value>
+    <value>Desconectar locatário</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Tag de grupo opcional pré-selecionada em Foundry Deploy durante o upload de hash de hardware.</value>
+    <value>Tag de grupo opcional pré-selecionada no Foundry Deploy durante o upload de hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Tag de grupo padrão</value>
@@ -473,7 +473,7 @@ Licenciado sob a licença MIT.</value>
     <value>A entidade de serviço gerenciado está ausente ou desabilitada. Reconecte-se com uma conta que possa criar ou gerenciar aplicativos empresariais.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>A integração do inquilino requer atenção</value>
+    <value>A integração do locatário requer atenção</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Estado</value>
@@ -512,7 +512,7 @@ Licenciado sob a licença MIT.</value>
     <value>Conclua o login no navegador para configurar o upload de hash de hardware Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
-    <value>Faça login em Microsoft Graph</value>
+    <value>Faça login no Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
     <value>ID do cliente</value>
@@ -527,7 +527,7 @@ Licenciado sob a licença MIT.</value>
     <value>Informações sobre locatário, registro de aplicativo e preparação para upload de hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Prontidão do inquilino</value>
+    <value>Preparação do locatário</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Nome</value>
@@ -536,7 +536,7 @@ Licenciado sob a licença MIT.</value>
     <value>Valor</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Conecte-se a Microsoft Graph para esta sessão do aplicativo para gerenciar as configurações de upload de hash.</value>
+    <value>Conecte-se ao Microsoft Graph nesta sessão do aplicativo para gerenciar as configurações de upload de hash.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>Conexão de locatário</value>
@@ -557,7 +557,7 @@ Licenciado sob a licença MIT.</value>
     <value>Importando perfil Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Quando habilitado, o técnico entra com um código de dispositivo da Microsoft durante a configuração do Windows e carrega o hash de hardware do dispositivo.</value>
+    <value>Quando habilitado, o técnico entra com um código de dispositivo da Microsoft durante a configuração do Windows e faz upload do hash de hardware do dispositivo.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Upload interativo do hash de hardware</value>
@@ -608,7 +608,7 @@ Licenciado sob a licença MIT.</value>
     <value>Conclua o login no navegador para baixar os perfis Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
-    <value>Faça login em Microsoft Graph</value>
+    <value>Faça login no Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
     <value>Cancelar</value>
@@ -617,7 +617,7 @@ Licenciado sob a licença MIT.</value>
     <value>Limpar</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Escolha quais perfis de locatário devem ser importados para Foundry.</value>
+    <value>Escolha quais perfis de locatário devem ser importados para o Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Importar</value>
@@ -632,7 +632,7 @@ Licenciado sob a licença MIT.</value>
     <value>Selecione perfis Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Permite que o técnico carregue o hash de hardware do dispositivo durante a implantação.</value>
+    <value>Permite que o técnico faça upload do hash de hardware do dispositivo durante a implantação.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Upload interativo do hash de hardware</value>
@@ -644,7 +644,7 @@ Licenciado sob a licença MIT.</value>
     <value>Perfil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Configure o carregamento automático de hashes de hardware baseado no locatário.</value>
+    <value>Configure o upload automático do hash de hardware baseado no locatário.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Upload zero-touch do hash de hardware</value>
@@ -2312,10 +2312,10 @@ Licenciado sob a licença MIT.</value>
     <value>Ucraniano (Ucrânia)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Carregar nome do computador no Autopilot</value>
+    <value>Fazer upload do nome do computador para o Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Carregar nome do computador no Autopilot</value>
+    <value>Fazer upload do nome do computador para o Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Manter caracteres da esquerda</value>
@@ -2369,7 +2369,7 @@ Licenciado sob a licença MIT.</value>
     <value>Remoções de AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Carrega hashes de hardware de forma interativa durante a implantação.</value>
+    <value>Faz upload de hashes de hardware de forma interativa durante a implantação.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interativo</value>
@@ -2381,7 +2381,7 @@ Licenciado sob a licença MIT.</value>
     <value>Perfil JSON</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Carregue hashes de hardware pelo Microsoft Graph.</value>
+    <value>Faz upload de hashes de hardware pelo Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3274,13 +3274,13 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>O upload de hash de hardware está ativado, mas a impressão digital do certificado selecionado está ausente.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas o registro do aplicativo não está configurado. Conecte-se ao locatário de Autopilot.</value>
+    <value>O upload de hash de hardware está habilitado, mas o registro do aplicativo não está configurado. Conecte-se ao locatário a partir do Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
     <value>O upload de hash de hardware está ativado, mas a expiração do PFX da mídia de inicialização não pôde ser validada.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas o PFX da mídia de inicialização selecionada expirou.</value>
+    <value>O upload de hash de hardware está habilitado, mas o PFX selecionado da mídia de inicialização expirou.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
     <value>O upload de hash de hardware está habilitado, mas o PFX da mídia de inicialização não foi validado.</value>
@@ -3295,7 +3295,7 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>O upload de hash de hardware está ativado, mas a senha PFX da mídia de inicialização está ausente.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está ativado, mas o ID do cliente do aplicativo está ausente. Reconecte-se ao locatário de Autopilot.</value>
+    <value>O upload de hash de hardware está ativado, mas o ID do cliente do aplicativo está ausente. Reconecte-se ao locatário a partir do Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
     <value>O upload de hash de hardware está habilitado, mas a entidade de serviço do aplicativo está ausente ou não está pronta.</value>
@@ -3304,7 +3304,7 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>O upload de hash de hardware está ativado, mas as configurações estão faltando.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas a conexão do locatário está ausente. Conecte-se ao locatário de Autopilot.</value>
+    <value>O upload de hash de hardware está habilitado, mas a conexão do locatário está ausente. Conecte-se ao locatário a partir do Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON o modo de perfil está ativado, mas nenhum perfil padrão válido está selecionado.</value>

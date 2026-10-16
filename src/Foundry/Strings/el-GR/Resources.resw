@@ -287,10 +287,10 @@
     <value>Προεπιλεγμένο προφίλ</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Λήψη από τον ενοικιαστή</value>
+    <value>Λήψη από τον μισθωτή</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Δεν επιστράφηκαν προφίλ Autopilot από τον ενοικιαστή.</value>
+    <value>Δεν επιστράφηκαν προφίλ Autopilot από τον μισθωτή.</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Η λήψη του προφίλ Autopilot απέτυχε: {0}</value>
@@ -320,7 +320,7 @@
     <value>Επιλέξτε ένα PFX που ταιριάζει με ένα πιστοποιητικό εγγραφής εφαρμογής.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Το PFX με προστασία κωδικού πρόσβασης αντιγράφηκε σε μέσα εκκίνησης για μεταφόρτωση κατακερματισμού υλικού.</value>
+    <value>PFX με προστασία κωδικού πρόσβασης που αντιγράφεται στα μέσα εκκίνησης για αποστολή κατακερματισμού υλικού.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Το επιλεγμένο αρχείο PFX δεν υπάρχει πλέον.</value>
@@ -344,7 +344,7 @@
     <value>Αρχείο PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Επιλέξτε Autopilot πιστοποιητικό PFX</value>
+    <value>Επιλέξτε PFX πιστοποιητικού Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>Το επιλεγμένο PFX δεν περιέχει υλικό ιδιωτικού κλειδιού.</value>
@@ -377,7 +377,7 @@
     <value>Αντιγραφή κωδικού πρόσβασης</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Αποθηκεύστε αυτό το αρχείο PFX και τον κωδικό πρόσβασης τώρα σε ασφαλή τοποθεσία. Το Foundry αποθηκεύει τον κωδικό πρόσβασης με τη διαμόρφωσή σας σε αυτόν τον υπολογιστή μόνο όταν είναι ενεργοποιημένη η επιλογή «Απομνημόνευση κωδικών» στο «Αντίγραφα ασφαλείας και συγχρονισμός ρυθμίσεων». Θα χρειαστείτε και τις δύο τιμές για να δημιουργήσετε μέσα εκκίνησης για μεταφόρτωση κατακερματισμού υλικού.</value>
+    <value>Αποθηκεύστε αυτό το αρχείο PFX και τον κωδικό πρόσβασης τώρα σε ασφαλή τοποθεσία. Το Foundry αποθηκεύει τον κωδικό πρόσβασης με τη διαμόρφωσή σας σε αυτόν τον υπολογιστή μόνο όταν είναι ενεργοποιημένη η επιλογή «Απομνημόνευση κωδικών» στο «Αντίγραφα ασφαλείας και συγχρονισμός ρυθμίσεων». Θα χρειαστείτε και τις δύο τιμές για να δημιουργήσετε μέσα εκκίνησης για αποστολή κατακερματισμού υλικού.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Αντιγράφηκε ο κωδικός πρόσβασης.</value>
@@ -407,7 +407,7 @@
     <value>Η αφαίρεση του πιστοποιητικού απέτυχε</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Αποθήκευση Autopilot πιστοποιητικού PFX</value>
+    <value>Αποθήκευση PFX πιστοποιητικού Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Αποτύπωμα</value>
@@ -416,10 +416,10 @@
     <value>Δεν παρέχονται πιστοποιητικά.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Συνδέστε τον ενοικιαστή</value>
+    <value>Συνδέστε τον μισθωτή</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Σύνδεση ενοικιαστή…</value>
+    <value>Σύνδεση μισθωτή…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Δημιουργία πιστοποιητικού</value>
@@ -431,10 +431,10 @@
     <value>Δεν έχει επιλεγεί προεπιλεγμένη ετικέτα ομάδας.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Αποσυνδέστε τον ενοικιαστή</value>
+    <value>Αποσυνδέστε τον μισθωτή</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Προαιρετική ετικέτα ομάδας προεπιλεγμένη στο Foundry Deploy κατά τη μεταφόρτωση κατακερματισμού υλικού.</value>
+    <value>Προαιρετική ετικέτα ομάδας προεπιλεγμένη στο Foundry Deploy κατά την αποστολή κατακερματισμού υλικού.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Προεπιλεγμένη ετικέτα ομάδας</value>
@@ -464,7 +464,7 @@
     <value>Από τον κύριο της διαχειριζόμενης υπηρεσίας λείπει η συναίνεση του διαχειριστή για την απαιτούμενη άδεια Microsoft Graph. Παραχωρήστε τη συγκατάθεση του διαχειριστή και επανασυνδέστε.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Η εγγραφή διαχειριζόμενης εφαρμογής δεν είναι έτοιμη. Ελέγξτε την ετοιμότητα των ενοικιαστών και επανασυνδεθείτε.</value>
+    <value>Η εγγραφή διαχειριζόμενης εφαρμογής δεν είναι έτοιμη. Ελέγξτε την ετοιμότητα του μισθωτή και επανασυνδεθείτε.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Από την εγγραφή διαχειριζόμενης εφαρμογής λείπει η απαιτούμενη άδεια εφαρμογής Microsoft Graph. Επανασυνδεθείτε με έναν λογαριασμό που μπορεί να ενημερώσει τις εγγραφές εφαρμογών.</value>
@@ -473,7 +473,7 @@
     <value>Ο κύριος της διαχειριζόμενης υπηρεσίας λείπει ή είναι απενεργοποιημένος. Επανασυνδεθείτε με έναν λογαριασμό που μπορεί να δημιουργήσει ή να διαχειριστεί εταιρικές εφαρμογές.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Η είσοδος ενοικιαστή απαιτεί προσοχή</value>
+    <value>Η ενσωμάτωση του μισθωτή απαιτεί προσοχή</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Κατάσταση</value>
@@ -509,7 +509,7 @@
     <value>Συνδεδεμένος</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Ολοκληρώστε τη σύνδεση στο πρόγραμμα περιήγησης για να διαμορφώσετε τη μεταφόρτωση κατακερματισμού υλικού Autopilot.</value>
+    <value>Ολοκληρώστε τη σύνδεση στο πρόγραμμα περιήγησης για να διαμορφώσετε την αποστολή κατακερματισμού υλικού Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
     <value>Συνδεθείτε στο Microsoft Graph</value>
@@ -518,16 +518,16 @@
     <value>Αναγνωριστικό πελάτη</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>Ταυτότητα μισθωτή</value>
+    <value>Αναγνωριστικό μισθωτή</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Δεν είναι συνδεδεμένο</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Πληροφορίες ενοικιαστή, εγγραφής εφαρμογής και ετοιμότητας για μεταφόρτωση κατακερματισμού υλικού.</value>
+    <value>Πληροφορίες μισθωτή, εγγραφής εφαρμογής και ετοιμότητας για αποστολή κατακερματισμού υλικού.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Ετοιμότητα ενοικιαστών</value>
+    <value>Ετοιμότητα μισθωτή</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Όνομα</value>
@@ -536,10 +536,10 @@
     <value>Τιμή</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Συνδεθείτε στο Microsoft Graph για αυτήν την περίοδο λειτουργίας εφαρμογής για να διαχειριστείτε τις ρυθμίσεις μεταφόρτωσης κατακερματισμού.</value>
+    <value>Συνδεθείτε στο Microsoft Graph για αυτήν την περίοδο λειτουργίας εφαρμογής για να διαχειριστείτε τις ρυθμίσεις αποστολής κατακερματισμού.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Σύνδεση ενοικιαστή</value>
+    <value>Σύνδεση μισθωτή</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Εισαγωγή προφίλ</value>
@@ -617,7 +617,7 @@
     <value>Απαλοιφή</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Επιλέξτε ποια προφίλ ενοικιαστών θα εισαχθούν στο Foundry.</value>
+    <value>Επιλέξτε ποια προφίλ μισθωτή θα εισαχθούν στο Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Εισαγωγή</value>
@@ -644,7 +644,7 @@
     <value>Προφίλ JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Διαμορφώστε το αυτόματο ανέβασμα του hardware hash με υποστήριξη tenant.</value>
+    <value>Διαμορφώστε την αυτόματη αποστολή κατακερματισμού υλικού με υποστήριξη μισθωτή.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Zero-touch αποστολή κατακερματισμού υλικού</value>
@@ -2306,7 +2306,7 @@
     <value>Ταϊλανδικά (Ταϊλάνδη)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Τουρκικά (Türkiye)</value>
+    <value>Τουρκικά (Τουρκία)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ουκρανικά (Ουκρανία)</value>
@@ -2381,7 +2381,7 @@
     <value>Προφίλ JSON</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Ανεβάστε hardware hashes μέσω Microsoft Graph.</value>
+    <value>Αποστολή κατακερματισμών υλικού μέσω του Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3262,49 +3262,49 @@
     <value>Ενεργοποιημένο: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά λείπει η λήξη του επιλεγμένου πιστοποιητικού.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά λείπει η λήξη του επιλεγμένου πιστοποιητικού.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο πιστοποιητικό έχει λήξει. Επιλέξτε ένα έγκυρο πιστοποιητικό πριν δημιουργήσετε μέσα εκκίνησης.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο πιστοποιητικό έχει λήξει. Επιλέξτε ένα έγκυρο πιστοποιητικό πριν δημιουργήσετε μέσα εκκίνησης.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο PFX δεν ταιριάζει με ένα πιστοποιητικό εγγραφής εφαρμογής.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο PFX δεν ταιριάζει με ένα πιστοποιητικό εγγραφής εφαρμογής.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο αποτύπωμα πιστοποιητικού λείπει.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά λείπει το αποτύπωμα του επιλεγμένου πιστοποιητικού.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά η εγγραφή της εφαρμογής δεν έχει διαμορφωθεί. Συνδεθείτε με τον ενοικιαστή από Autopilot.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά η εγγραφή της εφαρμογής δεν έχει διαμορφωθεί. Συνδεθείτε με τον μισθωτή από το Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά δεν ήταν δυνατή η επικύρωση της λήξης του μέσου εκκίνησης PFX.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά δεν ήταν δυνατή η επικύρωση της λήξης του PFX του μέσου εκκίνησης.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο μέσο εκκίνησης PFX έχει λήξει.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο PFX του μέσου εκκίνησης έχει λήξει.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το μέσο εκκίνησης PFX δεν έχει επικυρωθεί.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το PFX του μέσου εκκίνησης δεν έχει επικυρωθεί.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο PFX δεν ταιριάζει με το ενεργό πιστοποιητικό.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο PFX δεν ταιριάζει με το ενεργό πιστοποιητικό.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά δεν έχει επιλεγεί μέσο εκκίνησης PFX.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά δεν έχει επιλεγεί PFX μέσου εκκίνησης.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά ο κωδικός πρόσβασης PFX του μέσου εκκίνησης λείπει.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά ο κωδικός πρόσβασης PFX του μέσου εκκίνησης λείπει.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το αναγνωριστικό πελάτη εφαρμογής λείπει. Επανασυνδεθείτε με τον ενοικιαστή από το Autopilot.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το αναγνωριστικό πελάτη εφαρμογής λείπει. Επανασυνδεθείτε με τον μισθωτή από το Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά η κύρια υπηρεσία της εφαρμογής λείπει ή δεν είναι έτοιμη.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά η κύρια υπηρεσία της εφαρμογής λείπει ή δεν είναι έτοιμη.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά οι ρυθμίσεις λείπουν.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά οι ρυθμίσεις λείπουν.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά η σύνδεση μισθωτή λείπει. Συνδεθείτε με τον ενοικιαστή από Autopilot.</value>
+    <value>Η αποστολή κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά λείπει η σύνδεση με τον μισθωτή. Συνδεθείτε με τον μισθωτή από το Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Η λειτουργία προφίλ Autopilot JSON είναι ενεργοποιημένη αλλά δεν έχει επιλεγεί έγκυρο προεπιλεγμένο προφίλ.</value>

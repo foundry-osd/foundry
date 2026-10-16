@@ -38,7 +38,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Vaadake üle selle seadme Autopiloti ettevalmistamise sätted.</value>
   </data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
-    <value>Laadib selle seadme riistvararäsi juurutamise ajal Windows Autopiloti.</value>
+    <value>Laadib selle seadme riistvararäsi juurutamise ajal Windows Autopiloti üles.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Lisab Windowsi installi võrguühenduseta Autopiloti profiili.</value>
@@ -562,7 +562,7 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
     <value>Tai (Tai)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Türgi (Türkiye)</value>
+    <value>Türgi (Türgi)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ukraina (Ukraina)</value>

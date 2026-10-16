@@ -320,7 +320,7 @@
     <value>Выберите PFX, соответствующий сертификату регистрации приложения.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Защищенный паролем PFX копируется на загрузочный носитель для загрузки аппаратного хеша.</value>
+    <value>Защищенный паролем PFX копируется на загрузочный носитель для отправки аппаратного хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Выбранный файл PFX больше не существует.</value>
@@ -344,7 +344,7 @@
     <value>PFX-файл</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Выберите сертификат Autopilot PFX.</value>
+    <value>Выберите PFX сертификата Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>Выбранный PFX не содержит материала закрытого ключа.</value>
@@ -377,7 +377,7 @@
     <value>Скопировать пароль</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Сохраните этот PFX-файл и пароль в безопасном месте. Foundry сохраняет пароль вместе с конфигурацией на этом компьютере только в том случае, если в разделе «Резервное копирование и синхронизация настроек» включён параметр «Запомнить пароли». Оба значения потребуются вам для создания загрузочного носителя для загрузки аппаратного хеша.</value>
+    <value>Сохраните этот PFX-файл и пароль в безопасном месте. Foundry сохраняет пароль вместе с конфигурацией на этом компьютере только в том случае, если в разделе «Резервное копирование и синхронизация настроек» включён параметр «Запомнить пароли». Оба значения потребуются вам для создания загрузочного носителя для отправки аппаратного хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Пароль скопирован.</value>
@@ -398,7 +398,7 @@
     <value>Идентификатор сертификата</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>Сертификат ПФХ</value>
+    <value>Сертификат PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
     <value>Foundry не удалось удалить выбранный сертификат регистрации приложения. {0}</value>
@@ -407,7 +407,7 @@
     <value>Удаление сертификата не удалось</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Сохранить Autopilot сертификат PFX</value>
+    <value>Сохранить PFX сертификата Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Отпечаток</value>
@@ -419,7 +419,7 @@
     <value>Подключить клиент</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Подключение клиента…</value>
+    <value>Подключение к клиенту…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Создать сертификат</value>
@@ -434,13 +434,13 @@
     <value>Отключить клиент</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Дополнительный групповой тег, предварительно выбранный в Foundry Deploy во время загрузки аппаратного хеша.</value>
+    <value>Дополнительный групповой тег, предварительно выбранный в Foundry Deploy во время отправки аппаратного хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Тег группы по умолчанию</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Zero-touch отправка аппаратного хеша</value>
+    <value>Zero-touch отправка аппаратного хэша</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
     <value>Foundry не удалось настроить регистрацию приложения Autopilot. {0}</value>
@@ -449,10 +449,10 @@
     <value>Регистрация клиента не удалась</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>Срок действия выбранного сертификата истек. Создайте новый сертификат, сохраните его PFX и пароль, затем выберите его в качестве загрузочного носителя.</value>
+    <value>Срок действия выбранного сертификата истек. Создайте новый сертификат, сохраните его PFX и пароль, затем выберите его для загрузочного носителя.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
-    <value>Ранее выбранный сертификат больше не существует в регистрации управляемого приложения. Выберите действительный PFX, соответствующий предоставленному сертификату.</value>
+    <value>Ранее выбранный сертификат больше не существует в регистрации управляемого приложения. Выберите действительный PFX, соответствующий подготовленному сертификату.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
     <value>Обнаружена существующая регистрация приложения с именем Foundry. Подключитесь повторно, чтобы включить его в конфигурацию Foundry.</value>
@@ -509,7 +509,7 @@
     <value>Подключено</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Завершите вход в браузер, чтобы настроить загрузку аппаратного хеша Autopilot.</value>
+    <value>Завершите вход в браузере, чтобы настроить отправку аппаратного хэша Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
     <value>Войдите в Microsoft Graph</value>
@@ -524,7 +524,7 @@
     <value>Не подключено</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Информация о клиенте, регистрации приложения и готовности к загрузке хэша оборудования.</value>
+    <value>Информация о клиенте, регистрации приложения и готовности к отправке аппаратного хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
     <value>Готовность клиента</value>
@@ -536,10 +536,10 @@
     <value>Значение</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Подключитесь к Microsoft Graph для этого сеанса приложения, чтобы управлять настройками загрузки хеша.</value>
+    <value>Подключитесь к Microsoft Graph для этого сеанса приложения, чтобы управлять настройками отправки хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Подключение клиента</value>
+    <value>Подключение к клиенту</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Импортировать профиль</value>
@@ -557,10 +557,10 @@
     <value>Импорт профиля Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>При включении технический специалист входит в систему с кодом устройства Microsoft во время установки Windows и отправляет аппаратный хеш устройства.</value>
+    <value>При включении технический специалист входит в систему с кодом устройства Microsoft во время установки Windows и отправляет аппаратный хэш устройства.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
-    <value>Интерактивная отправка аппаратного хеша</value>
+    <value>Интерактивная отправка аппаратного хэша</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON подготовка профиля</value>
@@ -632,10 +632,10 @@
     <value>Выберите профили Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Позволяет техническому специалисту отправить аппаратный хеш устройства во время развертывания.</value>
+    <value>Позволяет техническому специалисту отправить аппаратный хэш устройства во время развертывания.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>Интерактивная отправка аппаратного хеша</value>
+    <value>Интерактивная отправка аппаратного хэша</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Импортируйте или скачайте профиль Autopilot, встраиваемый в носитель развертывания.</value>
@@ -644,10 +644,10 @@
     <value>Профиль JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Настройте автоматическую отправку аппаратного хеша, привязанную к клиенту.</value>
+    <value>Настройте автоматическую отправку аппаратного хэша, привязанную к клиенту.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>Zero-touch отправка аппаратного хеша</value>
+    <value>Zero-touch отправка аппаратного хэша</value>
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry не удалось открыть форму сообщения об ошибке. Скопируйте эту ссылку и откройте ее в браузере.</value>
@@ -914,10 +914,10 @@
     <value>Выбранные пакеты: {0} из {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Назначьте устройству Windows Autopilot итоговое имя компьютера, подтвержденное в Foundry Deploy, во время отправки аппаратного хеша.</value>
+    <value>Назначьте устройству Windows Autopilot итоговое имя компьютера, подтвержденное в Foundry Deploy, во время отправки аппаратного хэша.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Включите именование компьютеров и zero-touch или интерактивную отправку аппаратного хеша, чтобы назначить итоговое имя развертывания в Autopilot.</value>
+    <value>Включите именование компьютеров и zero-touch или интерактивную отправку аппаратного хэша, чтобы назначить итоговое имя развертывания в Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Добавить компонент</value>
@@ -2369,7 +2369,7 @@
     <value>Удаление пакетов AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Интерактивная отправка аппаратных хешей во время развертывания.</value>
+    <value>Интерактивная отправка аппаратных хэшей во время развертывания.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Интерактивно</value>
@@ -2381,7 +2381,7 @@
     <value>Профиль JSON</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Отправляйте аппаратные хеши через Microsoft Graph.</value>
+    <value>Отправляйте аппаратные хэши через Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3220,7 +3220,7 @@
     <value>Включить удалённую диагностику</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Отправляйте анонимные телеметрические данные об использовании, чтобы помочь улучшить Foundry. Секреты и прямые идентификаторы устройства, включая серийные номера и хеши оборудования, исключаются. Телеметрия использует анонимный идентификатор установки и может включать производителя и модель устройства.</value>
+    <value>Отправляйте анонимные телеметрические данные об использовании, чтобы помочь улучшить Foundry. Секреты и прямые идентификаторы устройства, включая серийные номера и аппаратные хэши, исключаются. Телеметрия использует анонимный идентификатор установки и может включать производителя и модель устройства.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Включить телеметрию</value>
@@ -3253,58 +3253,58 @@
     <value>Архитектура и подпись</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Включено: zero-touch отправка аппаратного хеша</value>
+    <value>Включено: zero-touch отправка аппаратного хэша</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Включено: интерактивная отправка аппаратного хеша</value>
+    <value>Включено: интерактивная отправка аппаратного хэша</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
     <value>Включено: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Загрузка хэша оборудования включена, но срок действия выбранного сертификата отсутствует.</value>
+    <value>Отправка аппаратного хэша включена, но не указан срок действия выбранного сертификата.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Загрузка хэша оборудования включена, но срок действия выбранного сертификата истек. Прежде чем создавать загрузочный носитель, выберите действительный сертификат.</value>
+    <value>Отправка аппаратного хэша включена, но срок действия выбранного сертификата истек. Прежде чем создавать загрузочный носитель, выберите действительный сертификат.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но выбранный PFX не соответствует сертификату регистрации приложения.</value>
+    <value>Отправка аппаратного хэша включена, но выбранный PFX не соответствует сертификату регистрации приложения.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Загрузка хэша оборудования включена, но отпечаток выбранного сертификата отсутствует.</value>
+    <value>Отправка аппаратного хэша включена, но отпечаток выбранного сертификата отсутствует.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но регистрация приложения не настроена. Подключитесь к клиенту из Autopilot.</value>
+    <value>Отправка аппаратного хэша включена, но регистрация приложения не настроена. Подключитесь к клиенту из Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но срок действия PFX загрузочного носителя не может быть проверен.</value>
+    <value>Отправка аппаратного хэша включена, но срок действия PFX загрузочного носителя не может быть проверен.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но срок действия PFX выбранного загрузочного носителя истек.</value>
+    <value>Отправка аппаратного хэша включена, но срок действия выбранного PFX загрузочного носителя истек.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но PFX загрузочного носителя не проверен.</value>
+    <value>Отправка аппаратного хэша включена, но PFX загрузочного носителя не проверен.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но выбранный PFX не соответствует активному сертификату.</value>
+    <value>Отправка аппаратного хэша включена, но выбранный PFX не соответствует активному сертификату.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но загрузочный носитель PFX не выбран.</value>
+    <value>Отправка аппаратного хэша включена, но PFX загрузочного носителя не выбран.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но пароль PFX загрузочного носителя отсутствует.</value>
+    <value>Отправка аппаратного хэша включена, но пароль PFX загрузочного носителя отсутствует.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но идентификатор приложения (клиента) отсутствует. Повторно подключитесь к клиенту из Autopilot.</value>
+    <value>Отправка аппаратного хэша включена, но идентификатор приложения (клиента) отсутствует. Повторно подключитесь к клиенту из Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но субъект службы приложения отсутствует или не готов.</value>
+    <value>Отправка аппаратного хэша включена, но субъект службы приложения отсутствует или не готов.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Аппаратная загрузка хеша включена, но настройки отсутствуют.</value>
+    <value>Отправка аппаратного хэша включена, но настройки отсутствуют.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но подключение клиента отсутствует. Подключитесь к клиенту из Autopilot.</value>
+    <value>Отправка аппаратного хэша включена, но подключение к клиенту отсутствует. Подключитесь к клиенту из Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Режим профиля Autopilot JSON включен, но действительный профиль по умолчанию не выбран.</value>

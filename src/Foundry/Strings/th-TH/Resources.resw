@@ -344,7 +344,7 @@
     <value>ไฟล์ PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>เลือก Autopilot ใบรับรอง PFX</value>
+    <value>เลือก PFX ของใบรับรอง Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>PFX ที่เลือกไม่มีเนื้อหาคีย์ส่วนตัว</value>
@@ -356,7 +356,7 @@
     <value>เลือก PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>รหัสประจำตัวใบรับรอง PFX ไม่ตรงกับใบรับรองการลงทะเบียนแอปที่เลือก</value>
+    <value>ลายนิ้วมือของใบรับรอง PFX ไม่ตรงกับใบรับรองการลงทะเบียนแอปที่เลือก</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
     <value>สร้างหรือลบข้อมูลรับรองใบรับรองการลงทะเบียนแอป</value>
@@ -407,7 +407,7 @@
     <value>การนำใบรับรองออกล้มเหลว</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>บันทึก Autopilot ใบรับรอง PFX</value>
+    <value>บันทึก PFX ของใบรับรอง Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>ลายนิ้วมือ</value>
@@ -509,7 +509,7 @@
     <value>เชื่อมต่อแล้ว</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>ลงชื่อเข้าใช้เบราว์เซอร์ให้เสร็จสิ้นเพื่อกำหนดค่าการอัปโหลดแฮชฮาร์ดแวร์ Autopilot</value>
+    <value>ลงชื่อเข้าใช้ในเบราว์เซอร์ให้เสร็จสิ้นเพื่อกำหนดค่าการอัปโหลดแฮชฮาร์ดแวร์ Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
     <value>ลงชื่อเข้าใช้ Microsoft Graph</value>
@@ -647,7 +647,7 @@
     <value>กำหนดค่าการอัปโหลดแฮชฮาร์ดแวร์อัตโนมัติที่รองรับโดยผู้เช่า</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ Zero-touch</value>
+    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ไม่สามารถเปิดแบบฟอร์มรายงานข้อบกพร่องได้ คัดลอกลิงก์นี้แล้วเปิดในเบราว์เซอร์ของคุณ</value>
@@ -3262,7 +3262,7 @@
     <value>เปิดใช้งาน: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่การหมดอายุของใบรับรองที่เลือกหายไป</value>
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ไม่มีวันหมดอายุของใบรับรองที่เลือก</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
     <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ใบรับรองที่เลือกหมดอายุแล้ว เลือกใบรับรองที่ถูกต้องก่อนที่จะสร้างสื่อสำหรับบูต</value>
@@ -3271,7 +3271,7 @@
     <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ PFX ที่เลือกไม่ตรงกับใบรับรองการลงทะเบียนแอป</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่รหัสประจำตัวใบรับรองที่เลือกหายไป</value>
+    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ไม่มีลายนิ้วมือของใบรับรองที่เลือก</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
     <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ไม่ได้กำหนดค่าการลงทะเบียนแอป เชื่อมต่อกับผู้เช่าจาก Autopilot</value>

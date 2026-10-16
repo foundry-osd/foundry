@@ -562,7 +562,7 @@
     <value>Ταϊλανδικά (Ταϊλάνδη)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Τουρκικά (Türkiye)</value>
+    <value>Τουρκικά (Τουρκία)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ουκρανικά (Ουκρανία)</value>
@@ -661,25 +661,25 @@
     <value>Λήξη πιστοποιητικού</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>Το πιστοποιητικό Autopilot έχει λήξει. Η ανάπτυξη μπορεί να συνεχιστεί χωρίς μεταφόρτωση του κατακερματισμού υλικού.</value>
+    <value>Το πιστοποιητικό Autopilot έχει λήξει. Η ανάπτυξη μπορεί να συνεχιστεί χωρίς αποστολή του κατακερματισμού υλικού.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Ετικέτα ομάδας</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>Λείπουν οι απαιτούμενες πληροφορίες πιστοποιητικού. Η ανάπτυξη μπορεί να συνεχιστεί χωρίς μεταφόρτωση του κατακερματισμού υλικού.</value>
+    <value>Λείπουν οι απαιτούμενες πληροφορίες πιστοποιητικού. Η ανάπτυξη μπορεί να συνεχιστεί χωρίς αποστολή του κατακερματισμού υλικού.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Έτοιμο για μεταφόρτωση κατακερματισμού υλικού</value>
+    <value>Έτοιμο για αποστολή κατακερματισμού υλικού</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
-    <value>Ταυτότητα μισθωτή</value>
+    <value>Αναγνωριστικό μισθωτή</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
-    <value>Η μεταφόρτωση κατακερματισμού υλικού δεν είναι διαθέσιμη</value>
+    <value>Η αποστολή κατακερματισμού υλικού δεν είναι διαθέσιμη</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>Κατάσταση μεταφόρτωσης κατακερματισμού υλικού</value>
+    <value>Κατάσταση αποστολής κατακερματισμού υλικού</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
     <value>Zero-touch αποστολή κατακερματισμού υλικού</value>
@@ -943,10 +943,10 @@
     <value>Εφαρμογή αλλαγών χαρακτηριστικών...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Έλεγχος ταυτότητας Autopilot μεταφόρτωση κατακερματισμού υλικού...</value>
+    <value>Έλεγχος ταυτότητας αποστολής κατακερματισμού υλικού Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>Λήψη κατακερματισμού υλικού Autopilot...</value>
+    <value>Καταγραφή κατακερματισμού υλικού Autopilot...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Έλεγχος διαθέσιμου χώρου...</value>
@@ -1048,7 +1048,7 @@
     <value>Διαμέριση δίσκου προορισμού...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Προετοιμασία μεταφόρτωσης κατακερματισμού υλικού Autopilot...</value>
+    <value>Προετοιμασία αποστολής κατακερματισμού υλικού Autopilot...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>Προετοιμασία λήψης...</value>
@@ -1120,7 +1120,7 @@
     <value>Ενημέρωση της ετικέτας ομάδας Windows Autopilot στο Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Μεταφόρτωση κατακερματισμού υλικού Autopilot...</value>
+    <value>Αποστολή κατακερματισμού υλικού Autopilot...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Επικύρωση διαμόρφωσης στόχου...</value>
@@ -1141,7 +1141,7 @@
     <value>Γράψιμο περίληψης ανάπτυξης...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>Προσομοίωση εγγραφής Autopilot κατακερματισμένης δήλωσης...</value>
+    <value>Εγγραφή προσομοιωμένης δήλωσης κατακερματισμού Autopilot...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>Προσομοίωση γραφής Autopilot manifest...</value>
@@ -1195,28 +1195,28 @@
     <value>Η ενημέρωση της ετικέτας ομάδας συσκευών Windows Autopilot δεν επιβεβαιώθηκε πριν από το χρονικό όριο.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Κατακερματισμός υλικού Autopilot έχει εισαχθεί και είναι ορατός σε συσκευές Windows Autopilot.</value>
+    <value>Ο κατακερματισμός υλικού Autopilot εισήχθη και είναι ορατός στις συσκευές Windows Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot η κατακερματισμός υλικού απέτυχε: {0}</value>
+    <value>Η καταγραφή του κατακερματισμού υλικού Autopilot απέτυχε: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot η εισαγωγή κατακερματισμού υλικού απέτυχε: {0}</value>
+    <value>Η εισαγωγή του κατακερματισμού υλικού Autopilot απέτυχε: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot η μεταφόρτωση κατακερματισμού υλικού προετοιμάστηκε για προσομοίωση.</value>
+    <value>Η αποστολή κατακερματισμού υλικού Autopilot προετοιμάστηκε για προσομοίωση.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Έτοιμη μεταφόρτωση κατακερματισμού υλικού Autopilot (προσομοίωση).</value>
+    <value>Η αποστολή κατακερματισμού υλικού Autopilot προετοιμάστηκε (προσομοίωση).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Autopilot η μεταφόρτωση κατακερματισμού υλικού παραβλέφθηκε επειδή το ενσωματωμένο πιστοποιητικό έχει λήξει.</value>
+    <value>Η αποστολή κατακερματισμού υλικού Autopilot παραλείφθηκε επειδή το ενσωματωμένο πιστοποιητικό έχει λήξει.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot η μεταφόρτωση κατακερματισμού υλικού παραβλέφθηκε: {0}</value>
+    <value>Η αποστολή κατακερματισμού υλικού Autopilot παραλείφθηκε: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot η μεταφόρτωση κατακερματισμού υλικού παραβλέφθηκε επειδή οι απαιτούμενες πληροφορίες πιστοποιητικού πολυμέσων δεν είναι πλήρεις.</value>
+    <value>Η αποστολή κατακερματισμού υλικού Autopilot παραλείφθηκε επειδή οι απαιτούμενες πληροφορίες πιστοποιητικού του μέσου δεν είναι πλήρεις.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Το Autopilot είναι ενεργοποιημένο αλλά δεν επιλέχθηκε κανένα προφίλ.</value>
@@ -1435,7 +1435,7 @@
     <value>Το διαμέρισμα Target Windows δεν είναι διαθέσιμο για σταδιοποίηση Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>Το διαμέρισμα Target Windows δεν είναι διαθέσιμο για τη μεταφόρτωση κατακερματισμού υλικού Autopilot.</value>
+    <value>Το διαμέρισμα Windows προορισμού δεν είναι διαθέσιμο για την αποστολή κατακερματισμού υλικού Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>Το διαμέρισμα προορισμού των Windows δεν είναι διαθέσιμο για την προετοιμασία του διαδραστικού βοηθού εγγραφής Autopilot.</value>

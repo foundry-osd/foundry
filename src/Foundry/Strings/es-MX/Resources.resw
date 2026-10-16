@@ -1145,7 +1145,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Solo se han configurado cuentas estándar. Asegúrese de que haya otra cuenta de administrador o un método de administración disponible.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
-    <value>Permite Microsoft servicios de reconocimiento de voz basados ​​en la nube.</value>
+    <value>Permite Microsoft servicios de reconocimiento de voz basados en la nube.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
     <value>reconocimiento de voz en línea</value>
@@ -2306,7 +2306,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Tailandés (Tailandia)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turco (Türkiye)</value>
+    <value>Turco (Turquía)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ucraniano (Ucrania)</value>

@@ -2306,7 +2306,7 @@ Licenseret under MIT-licensen.</value>
     <value>Thai (Thailand)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Tyrkisk (Türkiye)</value>
+    <value>Tyrkisk (Tyrkiet)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ukrainsk (Ukraine)</value>
@@ -2855,7 +2855,7 @@ Licenseret under MIT-licensen.</value>
     <value>Adgangskode til forbindelse</value>
   </data>
   <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Andre pc’er skal bruge denne adgangskode for at oprette forbindelse.</value>
+    <value>Andre pc'er skal bruge denne adgangskode for at oprette forbindelse.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Fortsæt</value>
@@ -2885,7 +2885,7 @@ Licenseret under MIT-licensen.</value>
     <value>Afbryd forbindelsen</value>
   </data>
   <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Vil du stoppe synkroniseringen af denne konfiguration på denne pc? Dine aktuelle indstillinger bevares. Den delte konfiguration og andre pc’er ændres ikke.</value>
+    <value>Vil du stoppe synkroniseringen af denne konfiguration på denne pc? Dine aktuelle indstillinger bevares. Den delte konfiguration og andre pc'er ændres ikke.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Eksportér</value>
@@ -2942,7 +2942,7 @@ Licenseret under MIT-licensen.</value>
     <value>Opret forbindelse til en delt konfiguration</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Brug denne pc’s version</value>
+    <value>Brug denne pc's version</value>
   </data>
   <data name="Profiles.LearnMore" xml:space="preserve">
     <value>Læs mere</value>
@@ -3028,7 +3028,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Den delte mappe kan ikke nås. Kontrollér dens adresse og din netværksadgang. Dine ændringer gemmes på denne pc.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Brug den samme netværksmappe på alle pc’er. Den skal bruge SMB 3 med obligatorisk kryptering. Mapper, der synkroniseres med skyen, understøttes ikke.</value>
+    <value>Brug den samme netværksmappe på alle pc'er. Den skal bruge SMB 3 med obligatorisk kryptering. Mapper, der synkroniseres med skyen, understøttes ikke.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>Vil du stoppe med at huske adgangskoder til denne konfiguration på denne pc?</value>
@@ -3070,7 +3070,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Synkroniser</value>
   </data>
   <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Hold denne konfiguration opdateret på dit teams pc’er.</value>
+    <value>Hold denne konfiguration opdateret på dit teams pc'er.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Indstillingerne er opdaterede</value>

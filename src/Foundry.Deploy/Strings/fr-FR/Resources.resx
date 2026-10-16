@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.DescriptionLine1" xml:space="preserve">
-    <value>Foundry Deploy est l’expérience de déploiement WinPE pour Foundry.</value>
+    <value>Foundry Deploy est l'expérience de déploiement WinPE pour Foundry.</value>
   </data>
   <data name="About.DescriptionLine2" xml:space="preserve">
     <value>Ce logiciel est fourni tel quel. Vérifiez vos paramètres de déploiement avant utilisation.</value>
@@ -41,13 +41,13 @@ Sous licence MIT.</value>
     <value>Envoie le hash matériel de cet appareil à Windows Autopilot pendant le déploiement.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
-    <value>Ajoute un profil Autopilot hors connexion à l’installation de Windows.</value>
+    <value>Ajoute un profil Autopilot hors connexion à l'installation de Windows.</value>
   </data>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
-    <value>La version de Foundry OSD utilisée pour créer ce média de démarrage ne peut pas être déterminée. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le média de démarrage USB.</value>
+    <value>La version de Foundry OSD utilisée pour créer ce média de démarrage ne peut pas être déterminée. Mettez d'abord à jour Foundry OSD sur votre PC de création, puis recréez l'ISO ou mettez à jour le média de démarrage USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
     <value>Nouvelle version disponible. Mettez à jour Foundry OSD et recréez le média de démarrage.</value>
@@ -56,7 +56,7 @@ Sous licence MIT.</value>
     <value>Mettez à jour Foundry OSD et recréez le média de démarrage.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ce média de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le média de démarrage USB.</value>
+    <value>Ce média de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d'abord à jour Foundry OSD sur votre PC de création, puis recréez l'ISO ou mettez à jour le média de démarrage USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Architecture : {0}</value>
@@ -74,7 +74,7 @@ Sous licence MIT.</value>
     <value>Échec du chargement du catalogue : {0}</value>
   </data>
   <data name="Catalog.LoadedFormat" xml:space="preserve">
-    <value>Catalogues chargés : {0} entrées de système d’exploitation, {1} packs de pilotes.</value>
+    <value>Catalogues chargés : {0} entrées de système d'exploitation, {1} packs de pilotes.</value>
   </data>
   <data name="Catalog.Media" xml:space="preserve">
     <value>Mise à jour Windows</value>
@@ -137,7 +137,7 @@ Sous licence MIT.</value>
     <value>Oui</value>
   </data>
   <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
-    <value>L’image par défaut existe sur plusieurs volumes connectés. Choisissez explicitement le volume source.</value>
+    <value>L'image par défaut existe sur plusieurs volumes connectés. Choisissez explicitement le volume source.</value>
   </data>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Catalogue Windows</value>
@@ -149,43 +149,43 @@ Sous licence MIT.</value>
     <value>Image</value>
   </data>
   <data name="CustomImages.Index" xml:space="preserve">
-    <value>Index de l’image</value>
+    <value>Index de l'image</value>
   </data>
   <data name="CustomImages.Inspecting" xml:space="preserve">
-    <value>Inspection et vérification de l’image…</value>
+    <value>Inspection et vérification de l'image…</value>
   </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Le manifeste des images personnalisées est manquant, endommagé ou ne correspond pas à ce média de démarrage. Recréez le média ou choisissez une autre source.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>L’image ne peut pas être lue, ou son index sélectionné ou ses métadonnées ont changé. Sélectionnez à nouveau l’image et réessayez.</value>
+    <value>L'image ne peut pas être lue, ou son index sélectionné ou ses métadonnées ont changé. Sélectionnez à nouveau l'image et réessayez.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
-    <value>L’image ou l’index par défaut configuré n’est pas disponible. Choisissez explicitement une image et un index.</value>
+    <value>L'image ou l'index par défaut configuré n'est pas disponible. Choisissez explicitement une image et un index.</value>
   </data>
   <data name="CustomImages.NoImages" xml:space="preserve">
     <value>Aucune image personnalisée trouvée. Connectez le média approprié ou ajoutez un fichier WIM au dossier de la clé USB indiqué dans la documentation.</value>
   </data>
   <data name="CustomImages.NotReady" xml:space="preserve">
-    <value>L’image personnalisée n’est pas prête.</value>
+    <value>L'image personnalisée n'est pas prête.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Image personnalisée et index exact vérifiés.</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
-    <value>Résoudre l’image personnalisée</value>
+    <value>Résoudre l'image personnalisée</value>
   </data>
   <data name="CustomImages.Resolved" xml:space="preserve">
     <value>Image personnalisée résolue depuis le média de déploiement.</value>
   </data>
   <data name="CustomImages.Source" xml:space="preserve">
-    <value>Source de l’image</value>
+    <value>Source de l'image</value>
   </data>
   <data name="CustomImages.UnsafeSource" xml:space="preserve">
     <value>Il est impossible de confirmer que le disque source est distinct du disque de destination. Sélectionnez une autre source.</value>
   </data>
   <data name="CustomImages.Verifying" xml:space="preserve">
-    <value>Vérification de l’image personnalisée…</value>
+    <value>Vérification de l'image personnalisée…</value>
   </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
@@ -209,7 +209,7 @@ Sous licence MIT.</value>
     <value>Profil JSON</value>
   </data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
-    <value>Pas d’Autopilot</value>
+    <value>Pas d'Autopilot</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Page du déploiement annulé</value>
@@ -263,13 +263,13 @@ Sous licence MIT.</value>
     <value>Zero-Touch</value>
   </data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve">
-    <value>Page d’erreur</value>
+    <value>Page d'erreur</value>
   </data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve">
-    <value>Aperçu de débogage : l’application DISM a échoué car la partition cible est en lecture seule.
+    <value>Aperçu de débogage : l'application DISM a échoué car la partition cible est en lecture seule.
 
 ErrorCode=0x80070005
-Détails : accès refusé lors du montage de l’image sur le chemin cible.
+Détails : accès refusé lors du montage de l'image sur le chemin cible.
 Action : vérifiez les attributs du disque puis relancez le déploiement.</value>
   </data>
   <data name="Debug.ProgressPageCommand" xml:space="preserve">
@@ -303,10 +303,10 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
     <value>Choisissez où exporter les diagnostics Foundry</value>
   </data>
   <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
-    <value>Les diagnostics n’ont pas pu être exportés. Consultez le journal pour plus de détails.</value>
+    <value>Les diagnostics n'ont pas pu être exportés. Consultez le journal pour plus de détails.</value>
   </data>
   <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
-    <value>Échec de l’exportation des diagnostics</value>
+    <value>Échec de l'exportation des diagnostics</value>
   </data>
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>Exporter les diagnostics...</value>
@@ -321,7 +321,7 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
     <value>Exporter les diagnostics bruts ?</value>
   </data>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
-    <value>Les journaux bruts peuvent contenir des identifiants, des informations d’authentification, des chemins, des noms de réseau et d’autres données sensibles. Exportez-les uniquement lorsqu’un contact de support de confiance le demande explicitement.</value>
+    <value>Les journaux bruts peuvent contenir des identifiants, des informations d'authentification, des chemins, des noms de réseau et d'autres données sensibles. Exportez-les uniquement lorsqu'un contact de support de confiance le demande explicitement.</value>
   </data>
   <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
     <value>Les diagnostics ont été exportés vers :
@@ -349,13 +349,13 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
     <value>Disque {0} | {1} | {2} | {3}{4}</value>
   </data>
   <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
-    <value>L’identité du disque est absente, ambiguë ou a changé. Redémarrez Foundry Deploy et sélectionnez à nouveau le disque.</value>
+    <value>L'identité du disque est absente, ambiguë ou a changé. Redémarrez Foundry Deploy et sélectionnez à nouveau le disque.</value>
   </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Le disque cible {0} est bloqué : {1}</value>
   </data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve">
-    <value>Le disque cible {0} n’est plus présent.</value>
+    <value>Le disque cible {0} n'est plus présent.</value>
   </data>
   <data name="Disk.UnknownSize" xml:space="preserve">
     <value>Taille inconnue</value>
@@ -373,13 +373,13 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
     <value>Emplacement par défaut du domaine</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Indiquez les informations de jonction au domaine pour cet ordinateur. La jonction a lieu après l’installation de Windows.</value>
+    <value>Indiquez les informations de jonction au domaine pour cet ordinateur. La jonction a lieu après l'installation de Windows.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
-    <value>Unité d’organisation</value>
+    <value>Unité d'organisation</value>
   </data>
   <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
-    <value>Saisissez un nom distinctif d’OU valide dans ce domaine, ou laissez le champ vide.</value>
+    <value>Saisissez un nom distinctif d'OU valide dans ce domaine, ou laissez le champ vide.</value>
   </data>
   <data name="DomainJoin.DoNotJoin" xml:space="preserve">
     <value>Ne pas joindre de domaine</value>
@@ -391,16 +391,16 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
     <value>Saisissez un nom de domaine valide, par exemple corp.contoso.com.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
-    <value>Les informations de jonction au domaine sont manquantes ou non valides. Le déploiement n’a pas commencé.</value>
+    <value>Les informations de jonction au domaine sont manquantes ou non valides. Le déploiement n'a pas commencé.</value>
   </data>
   <data name="DomainJoin.JoinDomain" xml:space="preserve">
     <value>Joindre un domaine</value>
   </data>
   <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
-    <value>Nom distinctif de l’OU (facultatif)</value>
+    <value>Nom distinctif de l'OU (facultatif)</value>
   </data>
   <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
-    <value>Laissez vide pour utiliser l’emplacement par défaut du domaine.</value>
+    <value>Laissez vide pour utiliser l'emplacement par défaut du domaine.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Mot de passe</value>
@@ -409,7 +409,7 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
     <value>Jonction au domaine</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
-    <value>Cette édition de Windows ne peut pas joindre un domaine. L’installation de Windows se poursuit sans jonction.</value>
+    <value>Cette édition de Windows ne peut pas joindre un domaine. L'installation de Windows se poursuit sans jonction.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -442,16 +442,16 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
     <value>Étape en échec : {0}</value>
   </data>
   <data name="Error.SecureConnectionFailed" xml:space="preserve">
-    <value>Impossible d’établir une connexion sécurisée. Vérifiez la date et l’heure de l’appareil ainsi que les certificats de confiance du média de démarrage, y compris le certificat d’un éventuel proxy HTTPS.</value>
+    <value>Impossible d'établir une connexion sécurisée. Vérifiez la date et l'heure de l'appareil ainsi que les certificats de confiance du média de démarrage, y compris le certificat d'un éventuel proxy HTTPS.</value>
   </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
-    <value>Détails de l’erreur</value>
+    <value>Détails de l'erreur</value>
   </data>
   <data name="Error.Title" xml:space="preserve">
     <value>Le déploiement a échoué</value>
   </data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
-    <value>Afficher les détails de l’erreur</value>
+    <value>Afficher les détails de l'erreur</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabe (Arabie saoudite)</value>
@@ -562,25 +562,25 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
     <value>Thaï (Thaïlande)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turc (Türkiye)</value>
+    <value>Turc (Turquie)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ukrainien (Ukraine)</value>
   </data>
   <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
-    <value>Cela effacera toutes les données du disque sélectionné et installera le système d’exploitation sélectionné.
+    <value>Cela effacera toutes les données du disque sélectionné et installera le système d'exploitation sélectionné.
 
 Disque : {0}
 Modèle : {1}
 Bus : {2}
 Taille : {3}
 
-Système d’exploitation : {4}
+Système d'exploitation : {4}
 
 Continuer le déploiement ?</value>
   </data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve">
-    <value>Confirmer l’effacement du disque</value>
+    <value>Confirmer l'effacement du disque</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_À propos</value>
@@ -598,13 +598,13 @@ Continuer le déploiement ?</value>
     <value>_Outils</value>
   </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
-    <value>Choisissez la version de Windows, la langue, l’édition et le canal de licence.</value>
+    <value>Choisissez la version de Windows, la langue, l'édition et le canal de licence.</value>
   </data>
   <data name="OperatingSystem.Title" xml:space="preserve">
-    <value>Système d’exploitation</value>
+    <value>Système d'exploitation</value>
   </data>
   <data name="PostInstall.NoTasks" xml:space="preserve">
-    <value>Aucune tâche de post-installation n’est nécessaire.</value>
+    <value>Aucune tâche de post-installation n'est nécessaire.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>La préparation de la post-installation a échoué. Consultez le journal de déploiement pour plus de détails.</value>
@@ -613,7 +613,7 @@ Continuer le déploiement ?</value>
     <value>Préparation des composants de post-installation...</value>
   </data>
   <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
-    <value>Les composants de post-installation n’ont pas pu être préparés. Vérifiez votre connexion et réessayez, ou recréez le média de démarrage. Consultez le journal de déploiement pour plus de détails.</value>
+    <value>Les composants de post-installation n'ont pas pu être préparés. Vérifiez votre connexion et réessayez, ou recréez le média de démarrage. Consultez le journal de déploiement pour plus de détails.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Préparation de la post-installation terminée (simulation).</value>
@@ -628,34 +628,34 @@ Continuer le déploiement ?</value>
     <value>Échec de la préparation de la post-installation. Vérifiez le programme, les fichiers et le fichier de réponses Windows avant de réessayer.</value>
   </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
-    <value>Le cache de l’image ne peut pas être préparé. Vérifiez son espace libre et les droits d’écriture.</value>
+    <value>Le cache de l'image ne peut pas être préparé. Vérifiez son espace libre et les droits d'écriture.</value>
   </data>
   <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
-    <value>La vérification du hachage de l’image Windows téléchargée a échoué. Vérifiez la connexion réseau et le périphérique de stockage, puis réessayez.</value>
+    <value>La vérification du hachage de l'image Windows téléchargée a échoué. Vérifiez la connexion réseau et le périphérique de stockage, puis réessayez.</value>
   </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
-    <value>Le disque cible ne dispose pas d’assez d’espace pour les besoins de déploiement connus. Sélectionnez un disque de plus grande capacité.</value>
+    <value>Le disque cible ne dispose pas d'assez d'espace pour les besoins de déploiement connus. Sélectionnez un disque de plus grande capacité.</value>
   </data>
   <data name="Preflight.InvalidEdition" xml:space="preserve">
-    <value>L’édition de Windows sélectionnée est indisponible ou ne peut pas être identifiée de façon univoque. Sélectionnez une autre image.</value>
+    <value>L'édition de Windows sélectionnée est indisponible ou ne peut pas être identifiée de façon univoque. Sélectionnez une autre image.</value>
   </data>
   <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
-    <value>La taille de l’image après son application est indisponible ou invalide. Sélectionnez une autre image.</value>
+    <value>La taille de l'image après son application est indisponible ou invalide. Sélectionnez une autre image.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Les métadonnées de taille ou de hachage de l’image dans le catalogue sont invalides. Sélectionnez une autre image ou redémarrez l’appareil depuis le média de déploiement pour recharger le catalogue.</value>
+    <value>Les métadonnées de taille ou de hachage de l'image dans le catalogue sont invalides. Sélectionnez une autre image ou redémarrez l'appareil depuis le média de déploiement pour recharger le catalogue.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>L’URL de l’image doit utiliser HTTP ou HTTPS. Sélectionnez une autre image ou redémarrez l’appareil depuis le média de déploiement pour recharger le catalogue.</value>
+    <value>L'URL de l'image doit utiliser HTTP ou HTTPS. Sélectionnez une autre image ou redémarrez l'appareil depuis le média de déploiement pour recharger le catalogue.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
-    <value>L’état de préparation du déploiement n’a pas pu être confirmé. Relancez le déploiement avant de préparer le disque.</value>
+    <value>L'état de préparation du déploiement n'a pas pu être confirmé. Relancez le déploiement avant de préparer le disque.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>La source de l’image est indisponible. Vérifiez la connexion réseau et réessayez.</value>
+    <value>La source de l'image est indisponible. Vérifiez la connexion réseau et réessayez.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
-    <value>L’espace libre du volume cible n’a pas pu être vérifié. Vérifiez le disque cible avant de réessayer le déploiement.</value>
+    <value>L'espace libre du volume cible n'a pas pu être vérifié. Vérifiez le disque cible avant de réessayer le déploiement.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Expiration du certificat</value>
@@ -670,7 +670,7 @@ Continuer le déploiement ?</value>
     <value>Les informations de certificat requises sont manquantes. Le déploiement peut continuer sans envoyer le hash matériel.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Prêt pour l’envoi du hash matériel</value>
+    <value>Prêt pour l'envoi du hash matériel</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
     <value>ID du tenant</value>
@@ -679,10 +679,10 @@ Continuer le déploiement ?</value>
     <value>Envoi du hash matériel indisponible</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>État de l’envoi du hash matériel</value>
+    <value>État de l'envoi du hash matériel</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>Téléversement zero-touch du hash matériel</value>
+    <value>Envoi zero-touch du hash matériel</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
     <value>Envoi interactif du hash matériel</value>
@@ -694,16 +694,16 @@ Continuer le déploiement ?</value>
     <value>Profil</value>
   </data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve">
-    <value>Aucun profil Autopilot intégré n’a été trouvé sur ce média.</value>
+    <value>Aucun profil Autopilot intégré n'a été trouvé sur ce média.</value>
   </data>
   <data name="Preparation.ComputerName" xml:space="preserve">
-    <value>Nom de l’ordinateur</value>
+    <value>Nom de l'ordinateur</value>
   </data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve">
     <value>1 à 15 caractères. A-Z, a-z, 0-9 et tiret uniquement.</value>
   </data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve">
-    <value>Le nom de l’ordinateur doit contenir 1 à 15 caractères valides (lettres, chiffres ou tiret).</value>
+    <value>Le nom de l'ordinateur doit contenir 1 à 15 caractères valides (lettres, chiffres ou tiret).</value>
   </data>
   <data name="Preparation.DetectingHardware" xml:space="preserve">
     <value>Détection du matériel...</value>
@@ -769,7 +769,7 @@ Continuer le déploiement ?</value>
     <value>Une autre opération est déjà en cours.</value>
   </data>
   <data name="Status.CancellationPending" xml:space="preserve">
-    <value>Annulation demandée. En attente de la fin de l’opération en cours pour un arrêt en toute sécurité.</value>
+    <value>Annulation demandée. En attente de la fin de l'opération en cours pour un arrêt en toute sécurité.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Déploiement annulé</value>
@@ -781,16 +781,16 @@ Continuer le déploiement ?</value>
     <value>En cours...</value>
   </data>
   <data name="Status.NoErrorDetails" xml:space="preserve">
-    <value>Aucun détail d’erreur n’a été fourni.</value>
+    <value>Aucun détail d'erreur n'a été fourni.</value>
   </data>
   <data name="Status.PreparingDeployment" xml:space="preserve">
     <value>Préparation du déploiement...</value>
   </data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve">
-    <value>L’exécutable de redémarrage requis « wpeutil.exe » est introuvable.</value>
+    <value>L'exécutable de redémarrage requis « wpeutil.exe » est introuvable.</value>
   </data>
   <data name="Status.StartingStep" xml:space="preserve">
-    <value>Démarrage de l’étape...</value>
+    <value>Démarrage de l'étape...</value>
   </data>
   <data name="Status.StartingStepFormat" xml:space="preserve">
     <value>Démarrage de {0}.</value>
@@ -820,7 +820,7 @@ Continuer le déploiement ?</value>
     <value>Redémarrage système</value>
   </data>
   <data name="Status.TransferTimedOut" xml:space="preserve">
-    <value>Le délai d’attente du transfert est dépassé. Vérifiez votre connexion et réessayez.</value>
+    <value>Le délai d'attente du transfert est dépassé. Vérifiez votre connexion et réessayez.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Étape inconnue</value>
@@ -841,25 +841,25 @@ Continuer le déploiement ?</value>
     <value>Préparer la mise à jour du micrologiciel</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Appliquer l’image Windows</value>
+    <value>Appliquer l'image Windows</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
     <value>Installer les pilotes de récupération</value>
   </data>
   <data name="Step.CheckWindowsImage" xml:space="preserve">
-    <value>Vérifier l’image Windows</value>
+    <value>Vérifier l'image Windows</value>
   </data>
   <data name="Step.ConfigureAiPolicies" xml:space="preserve">
-    <value>Configurer les stratégies d’IA</value>
+    <value>Configurer les stratégies d'IA</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Configurer l’installation de Windows</value>
+    <value>Configurer l'installation de Windows</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Configurer la récupération Windows</value>
   </data>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
-    <value>Définir le nom de l’ordinateur</value>
+    <value>Définir le nom de l'ordinateur</value>
   </data>
   <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
     <value>Configurer le démarrage Windows</value>
@@ -877,7 +877,7 @@ Continuer le déploiement ?</value>
     <value>Télécharger le micrologiciel</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Télécharger l’image Windows</value>
+    <value>Télécharger l'image Windows</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
     <value>Extraire le pack de pilotes</value>
@@ -892,7 +892,7 @@ Continuer le déploiement ?</value>
     <value>Vérifier si le déploiement est prêt</value>
   </data>
   <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
-    <value>Préparer l’assistant Autopilot</value>
+    <value>Préparer l'assistant Autopilot</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Préparer le disque cible</value>
@@ -901,7 +901,7 @@ Continuer le déploiement ?</value>
     <value>Provisionner Autopilot</value>
   </data>
   <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
-    <value>Inscrire l’appareil Autopilot</value>
+    <value>Inscrire l'appareil Autopilot</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Vérifier le cache</value>
@@ -913,10 +913,10 @@ Continuer le déploiement ?</value>
     <value>Copier le fichier de réponses</value>
   </data>
   <data name="Step.StageDriverInstaller" xml:space="preserve">
-    <value>Préparer l’installateur de pilotes</value>
+    <value>Préparer l'installateur de pilotes</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Préparer les tâches d’installation</value>
+    <value>Préparer les tâches d'installation</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
     <value>Valider le fichier de réponses</value>
@@ -928,10 +928,10 @@ Continuer le déploiement ?</value>
     <value>Application du pack de pilotes...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Application de l’image...</value>
+    <value>Application de l'image...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
-    <value>Application de l’image du système d’exploitation...</value>
+    <value>Application de l'image du système d'exploitation...</value>
   </data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
     <value>Application des pilotes WinRE...</value>
@@ -943,13 +943,13 @@ Continuer le déploiement ?</value>
     <value>Application des modifications de fonctionnalités...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Authentification de l’envoi du hash matériel Autopilot...</value>
+    <value>Authentification de l'envoi du hash matériel Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Capture du hash matériel Autopilot...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
-    <value>Vérification de l’espace disponible...</value>
+    <value>Vérification de l'espace disponible...</value>
   </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Vérification du cache...</value>
@@ -958,10 +958,10 @@ Continuer le déploiement ?</value>
     <value>Vérification des conflits disque/cache...</value>
   </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
-    <value>Vérification de l’état de préparation du déploiement...</value>
+    <value>Vérification de l'état de préparation du déploiement...</value>
   </data>
   <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
-    <value>Vérification de l’accès à la source...</value>
+    <value>Vérification de l'accès à la source...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Vérification des appareils Windows Autopilot ({0} restant)...</value>
@@ -970,7 +970,7 @@ Continuer le déploiement ?</value>
     <value>Vérification de la balise de groupe Windows Autopilot ({0} restant)...</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
-    <value>Nettoyage de l’espace de travail temporaire...</value>
+    <value>Nettoyage de l'espace de travail temporaire...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Configuration de la suppression des composants IA...</value>
@@ -985,10 +985,10 @@ Continuer le déploiement ?</value>
     <value>Configuration des paramètres OOBE...</value>
   </data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve">
-    <value>Configuration de l’environnement de récupération...</value>
+    <value>Configuration de l'environnement de récupération...</value>
   </data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve">
-    <value>Configuration du nom de l’ordinateur cible...</value>
+    <value>Configuration du nom de l'ordinateur cible...</value>
   </data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve">
     <value>Configuration des fonctionnalités facultatives Windows...</value>
@@ -1000,7 +1000,7 @@ Continuer le déploiement ?</value>
     <value>Copie du paquet de pilotes...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Copie des fichiers d’enregistrement interactif...</value>
+    <value>Copie des fichiers d'enregistrement interactif...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Création des partitions simulées...</value>
@@ -1018,7 +1018,7 @@ Continuer le déploiement ?</value>
     <value>Téléchargement de la mise à jour firmware...</value>
   </data>
   <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
-    <value>Téléchargement de l’image du système d’exploitation...</value>
+    <value>Téléchargement de l'image du système d'exploitation...</value>
   </data>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Extraction du pack de pilotes...</value>
@@ -1036,10 +1036,10 @@ Continuer le déploiement ?</value>
     <value>Injection du contenu firmware dans Windows hors ligne...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Inspection de l’image...</value>
+    <value>Inspection de l'image...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
-    <value>Inspection de l’état des fonctionnalités...</value>
+    <value>Inspection de l'état des fonctionnalités...</value>
   </data>
   <data name="StepMessage.MountingWinRe" xml:space="preserve">
     <value>Montage de WinRE...</value>
@@ -1048,13 +1048,13 @@ Continuer le déploiement ?</value>
     <value>Partitionnement du disque cible...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Préparation de l’envoi du hash matériel Autopilot...</value>
+    <value>Préparation de l'envoi du hash matériel Autopilot...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>Préparation du téléchargement...</value>
   </data>
   <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve">
-    <value>Préparation de l’import Microsoft Graph...</value>
+    <value>Préparation de l'import Microsoft Graph...</value>
   </data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve">
     <value>Préparation de la recherche Microsoft Update Catalog...</value>
@@ -1063,13 +1063,13 @@ Continuer le déploiement ?</value>
     <value>Préparation du partitionnement cible...</value>
   </data>
   <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve">
-    <value>Préparation de l’espace de travail cible...</value>
+    <value>Préparation de l'espace de travail cible...</value>
   </data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve">
-    <value>Préparation des sources correspondantes du média d’installation...</value>
+    <value>Préparation des sources correspondantes du média d'installation...</value>
   </data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve">
-    <value>Préparation de l’environnement de récupération Windows...</value>
+    <value>Préparation de l'environnement de récupération Windows...</value>
   </data>
   <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve">
     <value>Suppression de la lettre du lecteur de récupération...</value>
@@ -1078,7 +1078,7 @@ Continuer le déploiement ?</value>
     <value>Demande du jeton Microsoft Graph...</value>
   </data>
   <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve">
-    <value>Résolution de l’emplacement du cache...</value>
+    <value>Résolution de l'emplacement du cache...</value>
   </data>
   <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve">
     <value>Vérification du cache de déploiement...</value>
@@ -1099,7 +1099,7 @@ Continuer le déploiement ?</value>
     <value>Préparation du profil Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
-    <value>Préparation de l’assistant d’enregistrement Autopilot...</value>
+    <value>Préparation de l'assistant d'enregistrement Autopilot...</value>
   </data>
   <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
     <value>Préparation de la mise à jour du micrologiciel...</value>
@@ -1108,13 +1108,13 @@ Continuer le déploiement ?</value>
     <value>Préparation du package...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
-    <value>Envoi de la demande d’import à Microsoft Graph...</value>
+    <value>Envoi de la demande d'import à Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UnmountingWinRe" xml:space="preserve">
     <value>Démontage de WinRE...</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
-    <value>Mise à jour de l’appareil Autopilot existant...</value>
+    <value>Mise à jour de l'appareil Autopilot existant...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Mise à jour de la balise de groupe Windows Autopilot dans Microsoft Graph...</value>
@@ -1126,10 +1126,10 @@ Continuer le déploiement ?</value>
     <value>Validation de la configuration cible...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Vérification de l’image...</value>
+    <value>Vérification de l'image...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
-    <value>Attente de la visibilité de l’appareil Autopilot...</value>
+    <value>Attente de la visibilité de l'appareil Autopilot...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Attente de la mise à jour de la balise de groupe Autopilot...</value>
@@ -1141,13 +1141,13 @@ Continuer le déploiement ?</value>
     <value>Écriture du résumé de déploiement...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>Écriture du manifeste Autopilot simulé...</value>
+    <value>Écriture du manifeste de hash Autopilot simulé...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>Écriture du manifeste Autopilot de simulation...</value>
   </data>
   <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
-    <value>Écriture du manifeste d’enregistrement interactif en simulation...</value>
+    <value>Écriture du manifeste d'enregistrement interactif en simulation...</value>
   </data>
   <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve">
     <value>Écriture des valeurs du premier démarrage...</value>
@@ -1159,7 +1159,7 @@ Continuer le déploiement ?</value>
     <value>Écriture des stratégies IA hors ligne...</value>
   </data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve">
-    <value>Écriture du nom hors ligne de l’ordinateur...</value>
+    <value>Écriture du nom hors ligne de l'ordinateur...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
     <value>Application</value>
@@ -1183,16 +1183,16 @@ Continuer le déploiement ?</value>
     <value>Préparation</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
-    <value>L’index de l’image Windows appliquée est indisponible.</value>
+    <value>L'index de l'image Windows appliquée est indisponible.</value>
   </data>
   <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
-    <value>L’appareil Autopilot importé n’est pas apparu dans les appareils Windows Autopilot avant l’expiration du délai.</value>
+    <value>L'appareil Autopilot importé n'est pas apparu dans les appareils Windows Autopilot avant l'expiration du délai.</value>
   </data>
   <data name="StepResult.AutopilotDisabled" xml:space="preserve">
     <value>Autopilot est désactivé.</value>
   </data>
   <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve">
-    <value>La mise à jour de la balise de groupe de l’appareil Windows Autopilot n’a pas été confirmée avant l’expiration du délai.</value>
+    <value>La mise à jour de la balise de groupe de l'appareil Windows Autopilot n'a pas été confirmée avant l'expiration du délai.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
     <value>Hash matériel Autopilot importé et visible dans les appareils Windows Autopilot.</value>
@@ -1201,7 +1201,7 @@ Continuer le déploiement ?</value>
     <value>La capture du hash matériel Autopilot a échoué : {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>L’import du hash matériel Autopilot a échoué : {0}</value>
+    <value>L'import du hash matériel Autopilot a échoué : {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
     <value>Envoi du hash matériel Autopilot préparé pour la simulation.</value>
@@ -1219,7 +1219,7 @@ Continuer le déploiement ?</value>
     <value>Envoi du hash matériel Autopilot ignoré car les informations de certificat du média sont incomplètes.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
-    <value>Autopilot est activé mais aucun profil n’a été sélectionné.</value>
+    <value>Autopilot est activé mais aucun profil n'a été sélectionné.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
     <value>Profil Autopilot préparé.</value>
@@ -1264,7 +1264,7 @@ Continuer le déploiement ?</value>
     <value>Pack de pilotes extrait (simulation).</value>
   </data>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
-    <value>Le pack de pilotes n’a pas été téléchargé.</value>
+    <value>Le pack de pilotes n'a pas été téléchargé.</value>
   </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Pack de pilotes réutilisé depuis le cache.</value>
@@ -1273,7 +1273,7 @@ Continuer le déploiement ?</value>
     <value>Le contenu source du pack de pilotes est indisponible pour la préparation au premier démarrage.</value>
   </data>
   <data name="StepResult.ExternalStorageReady" xml:space="preserve">
-    <value>Stockage externe de l’image et capacité connue vérifiés.</value>
+    <value>Stockage externe de l'image et capacité connue vérifiés.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Mise à jour firmware téléchargée.</value>
@@ -1297,31 +1297,31 @@ Continuer le déploiement ?</value>
     <value>Les mises à jour firmware sont désactivées pour les machines virtuelles.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve">
-    <value>Les mises à jour firmware sont ignorées lorsque l’appareil fonctionne sur batterie.</value>
+    <value>Les mises à jour firmware sont ignorées lorsque l'appareil fonctionne sur batterie.</value>
   </data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
-    <value>Assistant d’enregistrement Autopilot interactif préparé.</value>
+    <value>Assistant d'enregistrement Autopilot interactif préparé.</value>
   </data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
-    <value>Assistant d’enregistrement Autopilot interactif préparé (simulation).</value>
+    <value>Assistant d'enregistrement Autopilot interactif préparé (simulation).</value>
   </data>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
-    <value>Microsoft Update Catalog n’a produit aucun contenu de pilote.</value>
+    <value>Microsoft Update Catalog n'a produit aucun contenu de pilote.</value>
   </data>
   <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
-    <value>Aucun installateur de pilotes différé n’est nécessaire.</value>
+    <value>Aucun installateur de pilotes différé n'est nécessaire.</value>
   </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Aucun téléchargement de pack de pilotes requis.</value>
   </data>
   <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve">
-    <value>Aucune opération sur le pack de pilotes n’est requise.</value>
+    <value>Aucune opération sur le pack de pilotes n'est requise.</value>
   </data>
   <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve">
-    <value>Aucun contenu firmware extrait n’est disponible.</value>
+    <value>Aucun contenu firmware extrait n'est disponible.</value>
   </data>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
-    <value>Aucun contenu de pilote INF extrait n’est disponible.</value>
+    <value>Aucun contenu de pilote INF extrait n'est disponible.</value>
   </data>
   <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
     <value>Le contenu firmware extrait ne contient aucun fichier CAB.</value>
@@ -1330,10 +1330,10 @@ Continuer le déploiement ?</value>
     <value>Le contenu firmware extrait ne contient aucun fichier INF.</value>
   </data>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
-    <value>Aucun contenu de mise à jour du micrologiciel n’est disponible.</value>
+    <value>Aucun contenu de mise à jour du micrologiciel n'est disponible.</value>
   </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
-    <value>Le mode pack de pilotes OEM est sélectionné mais aucun pack de pilotes n’a été fourni.</value>
+    <value>Le mode pack de pilotes OEM est sélectionné mais aucun pack de pilotes n'a été fourni.</value>
   </data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve">
     <value>Personnalisation hors ligne configurée.</value>
@@ -1345,31 +1345,31 @@ Continuer le déploiement ?</value>
     <value>Personnalisation hors ligne désactivée.</value>
   </data>
   <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
-    <value>Image du système d’exploitation appliquée.</value>
+    <value>Image du système d'exploitation appliquée.</value>
   </data>
   <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
-    <value>Image du système d’exploitation appliquée (simulation).</value>
+    <value>Image du système d'exploitation appliquée (simulation).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Image du système d’exploitation téléchargée.</value>
+    <value>Image du système d'exploitation téléchargée.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
-    <value>L’image du système d’exploitation n’a pas été téléchargée.</value>
+    <value>L'image du système d'exploitation n'a pas été téléchargée.</value>
   </data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
-    <value>Image du système d’exploitation prête (simulation).</value>
+    <value>Image du système d'exploitation prête (simulation).</value>
   </data>
   <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
-    <value>Image du système d’exploitation réutilisée depuis le cache.</value>
+    <value>Image du système d'exploitation réutilisée depuis le cache.</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
-    <value>L’URL du système d’exploitation est manquante.</value>
+    <value>L'URL du système d'exploitation est manquante.</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
-    <value>L’état de préparation du déploiement a été vérifié (simulation).</value>
+    <value>L'état de préparation du déploiement a été vérifié (simulation).</value>
   </data>
   <data name="StepResult.PreflightTargetReady" xml:space="preserve">
-    <value>L’accès à la source et les besoins en capacité connus ont été vérifiés. La validation complète de l’image se termine après la préparation du disque.</value>
+    <value>L'accès à la source et les besoins en capacité connus ont été vérifiés. La validation complète de l'image se termine après la préparation du disque.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Environnement de récupération configuré.</value>
@@ -1399,16 +1399,16 @@ Continuer le déploiement ?</value>
     <value>{0} (simulation).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
-    <value>L’identifiant matériel du firmware système est indisponible.</value>
+    <value>L'identifiant matériel du firmware système est indisponible.</value>
   </data>
   <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve">
     <value>Impossible de résoudre le répertoire Autopilot cible.</value>
   </data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve">
-    <value>Nom de l’ordinateur cible configuré.</value>
+    <value>Nom de l'ordinateur cible configuré.</value>
   </data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve">
-    <value>Nom de l’ordinateur cible configuré (simulation).</value>
+    <value>Nom de l'ordinateur cible configuré (simulation).</value>
   </data>
   <data name="StepResult.TargetConfigurationValidated" xml:space="preserve">
     <value>Configuration cible validée.</value>
@@ -1417,7 +1417,7 @@ Continuer le déploiement ?</value>
     <value>Configuration cible validée (simulation).</value>
   </data>
   <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve">
-    <value>Le partitionnement cible n’a pas été préparé.</value>
+    <value>Le partitionnement cible n'a pas été préparé.</value>
   </data>
   <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve">
     <value>Partitionnement cible prêt.</value>
@@ -1435,13 +1435,13 @@ Continuer le déploiement ?</value>
     <value>La partition Windows cible est indisponible pour la préparation Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>La partition Windows cible est indisponible pour l’envoi du hash matériel Autopilot.</value>
+    <value>La partition Windows cible est indisponible pour l'envoi du hash matériel Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
-    <value>La partition Windows cible n’est pas disponible pour préparer l’assistant d’enregistrement Autopilot interactif.</value>
+    <value>La partition Windows cible n'est pas disponible pour préparer l'assistant d'enregistrement Autopilot interactif.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
-    <value>Mode d’installation du pack de pilotes non pris en charge.</value>
+    <value>Mode d'installation du pack de pilotes non pris en charge.</value>
   </data>
   <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
     <value>Démarrage Windows configuré.</value>
@@ -1450,25 +1450,25 @@ Continuer le déploiement ?</value>
     <value>Image Windows et capacité connue vérifiées.</value>
   </data>
   <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
-    <value>L’image Windows n’a pas été appliquée.</value>
+    <value>L'image Windows n'a pas été appliquée.</value>
   </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Configuration des fonctionnalités facultatives Windows désactivée.</value>
   </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve">
-    <value>La configuration des fonctionnalités facultatives Windows n’est pas valide.</value>
+    <value>La configuration des fonctionnalités facultatives Windows n'est pas valide.</value>
   </data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve">
     <value>La source NetFx3 correspondante est indisponible. {0}</value>
   </data>
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve">
-    <value>La charge utile de la fonctionnalité facultative Windows « {0} » a été supprimée et aucun mappage de source locale n’est pris en charge.</value>
+    <value>La charge utile de la fonctionnalité facultative Windows « {0} » a été supprimée et aucun mappage de source locale n'est pris en charge.</value>
   </data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve">
     <value>La vérification de la fonctionnalité facultative Windows « {0} » a échoué.</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve">
-    <value>Fonctionnalités facultatives Windows configurées ({0} modifiées, {1} déjà dans l’état demandé, {2} indisponibles).</value>
+    <value>Fonctionnalités facultatives Windows configurées ({0} modifiées, {1} déjà dans l'état demandé, {2} indisponibles).</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Configuration des fonctionnalités facultatives Windows simulée ({0} actions).</value>
@@ -1492,10 +1492,10 @@ Continuer le déploiement ?</value>
     <value>Identifiant publicitaire</value>
   </data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve">
-    <value>Suppression des composants d’IA</value>
+    <value>Suppression des composants d'IA</value>
   </data>
   <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
-    <value>Suppression des applications et de l’IA</value>
+    <value>Suppression des applications et de l'IA</value>
   </data>
   <data name="Summary.AppxRemoval" xml:space="preserve">
     <value>Suppression des applications AppX</value>
@@ -1534,7 +1534,7 @@ Continuer le déploiement ?</value>
     <value>Réseau</value>
   </data>
   <data name="Summary.Category.OperatingSystem" xml:space="preserve">
-    <value>Système d’exploitation</value>
+    <value>Système d'exploitation</value>
   </data>
   <data name="Summary.Category.TargetDevice" xml:space="preserve">
     <value>Appareil cible</value>
@@ -1588,7 +1588,7 @@ Continuer le déploiement ?</value>
     <value>Désactivé de force</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
-    <value>Contrôlé par l’utilisateur</value>
+    <value>Contrôlé par l'utilisateur</value>
   </data>
   <data name="Summary.Manual" xml:space="preserve">
     <value>Manuel</value>
@@ -1633,7 +1633,7 @@ Continuer le déploiement ?</value>
     <value>{0} secondes</value>
   </data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve">
-    <value>Système d’exploitation</value>
+    <value>Système d'exploitation</value>
   </data>
   <data name="Summary.SkipAccountCreation" xml:space="preserve">
     <value>Ignorer la création de compte</value>
@@ -1666,7 +1666,7 @@ Continuer le déploiement ?</value>
     <value>Total configuré</value>
   </data>
   <data name="Summary.WarningDetails" xml:space="preserve">
-    <value>Détails de l’avertissement</value>
+    <value>Détails de l'avertissement</value>
   </data>
   <data name="Summary.Wifi" xml:space="preserve">
     <value>Wi-Fi</value>
@@ -1681,19 +1681,19 @@ Continuer le déploiement ?</value>
     <value>Architecture</value>
   </data>
   <data name="TargetDevice.AssetTag" xml:space="preserve">
-    <value>Numéro d’inventaire</value>
+    <value>Numéro d'inventaire</value>
   </data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve">
     <value>Paramètres de déploiement</value>
   </data>
   <data name="TargetDevice.Description" xml:space="preserve">
-    <value>Choisissez le nom de l’ordinateur et le disque cible, puis vérifiez le matériel détecté.</value>
+    <value>Choisissez le nom de l'ordinateur et le disque cible, puis vérifiez le matériel détecté.</value>
   </data>
   <data name="TargetDevice.DeviceIdentity" xml:space="preserve">
-    <value>Identité de l’appareil</value>
+    <value>Identité de l'appareil</value>
   </data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve">
-    <value>Inventaire de l’appareil</value>
+    <value>Inventaire de l'appareil</value>
   </data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve">
     <value>Le disque cible sélectionné sera effacé au démarrage du déploiement.</value>
@@ -1717,7 +1717,7 @@ Continuer le déploiement ?</value>
     <value>Plateforme</value>
   </data>
   <data name="TargetDevice.PowerSource" xml:space="preserve">
-    <value>Source d’alimentation</value>
+    <value>Source d'alimentation</value>
   </data>
   <data name="TargetDevice.Product" xml:space="preserve">
     <value>Produit</value>
@@ -1747,19 +1747,19 @@ Continuer le déploiement ?</value>
     <value>Ouvrir le fichier journal</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>Ce fichier de réponses est incompatible avec le mode d’inscription Autopilot configuré. Choisissez un autre fichier ou modifiez la configuration du média.</value>
+    <value>Ce fichier de réponses est incompatible avec le mode d'inscription Autopilot configuré. Choisissez un autre fichier ou modifiez la configuration du média.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Les commandes personnalisées peuvent entrer en conflit avec Foundry. Testez cette configuration.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>L’envoi du hash ne garantit pas l’inscription à Autopilot.</value>
+    <value>L'envoi du hash ne garantit pas l'inscription à Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>Testez ce fichier de réponses avec l’image Windows et la configuration Foundry sélectionnées.</value>
+    <value>Testez ce fichier de réponses avec l'image Windows et la configuration Foundry sélectionnées.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>Le fichier de réponses sélectionné est indisponible, invalide ou incompatible avec l’architecture Windows sélectionnée. Choisissez un autre fichier ou recréez le média.</value>
+    <value>Le fichier de réponses sélectionné est indisponible, invalide ou incompatible avec l'architecture Windows sélectionnée. Choisissez un autre fichier ou recréez le média.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
     <value>Géré par le fichier de réponses</value>
@@ -1786,7 +1786,7 @@ Continuer le déploiement ?</value>
     <value>Pilotes</value>
   </data>
   <data name="Wizard.Step.OperatingSystem" xml:space="preserve">
-    <value>Système d’exploitation</value>
+    <value>Système d'exploitation</value>
   </data>
   <data name="Wizard.Step.Summary" xml:space="preserve">
     <value>Récapitulatif</value>

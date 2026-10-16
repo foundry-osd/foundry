@@ -3268,13 +3268,13 @@
     <value>Качването на хардуерен хеш е разрешено, но избраният сертификат е изтекъл. Изберете валиден сертификат, преди да създадете носител за зареждане.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но избраният PFX не съответства на сертификат за регистрация на приложение.</value>
+    <value>Качването на хардуерен хеш е активирано, но избраният PFX не съответства на сертификат за регистрация на приложение.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
     <value>Качването на хардуерен хеш е активирано, но избраният отпечатък на сертификата липсва.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но регистрацията на приложението не е конфигурирана. Свържете се с клиента от Autopilot.</value>
+    <value>Качването на хардуерен хеш е активирано, но регистрацията на приложението не е конфигурирана. Свържете се с клиента от Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
     <value>Качването на хардуерен хеш е активирано, но PFX изтичането на носителя за зареждане не може да бъде потвърдено.</value>
@@ -3289,19 +3289,19 @@
     <value>Качването на хардуерен хеш е разрешено, но избраният PFX не съответства на активния сертификат.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но не е избран PFX носител за зареждане.</value>
+    <value>Качването на хардуерен хеш е активирано, но не е избран PFX носител за зареждане.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
     <value>Качването на хардуерен хеш е активирано, но PFX паролата за стартиращ носител липсва.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но идентификаторът на приложението (клиента) липсва. Свържете се отново с клиента от Autopilot.</value>
+    <value>Качването на хардуерен хеш е активирано, но идентификаторът на приложението (клиента) липсва. Свържете се отново с клиента от Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но принципалът на услугата на приложението липсва или не е готов.</value>
+    <value>Качването на хардуерен хеш е активирано, но принципалът на услугата на приложението липсва или не е готов.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но липсват настройки.</value>
+    <value>Качването на хардуерен хеш е активирано, но липсват настройки.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
     <value>Качването на хардуерен хеш е активирано, но връзката на клиента липсва. Свържете се с клиента от Autopilot.</value>

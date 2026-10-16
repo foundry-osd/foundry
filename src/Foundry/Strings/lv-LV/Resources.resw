@@ -290,7 +290,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Lejupielādēt no nomnieka</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Īrnieks neatgrieza nevienu Autopilot profilu.</value>
+    <value>Nomnieks neatgrieza nevienu Autopilot profilu.</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Autopilot profila lejupielāde neizdevās: {0}</value>
@@ -320,7 +320,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atlasiet PFX, kas atbilst lietotnes reģistrācijas sertifikātam.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Ar paroli aizsargāts PFX, kas kopēts sāknēšanas datu nesējā aparatūras jaucējfaila augšupielādei.</value>
+    <value>Ar paroli aizsargāts PFX, kas kopēts sāknēšanas datu nesējā aparatūras jaucējkoda augšupielādei.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Atlasītais PFX fails vairs nepastāv.</value>
@@ -344,7 +344,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>PFX fails</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Atlasiet Autopilot sertifikātu PFX</value>
+    <value>Atlasiet Autopilot sertifikāta PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>Atlasītais PFX nesatur privātās atslēgas materiālu.</value>
@@ -377,7 +377,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Kopēt paroli</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Saglabājiet šo PFX failu un paroli tagad drošā vietā. Foundry šajā datorā saglabā paroli kopā ar konfigurāciju tikai tad, ja sadaļā „Iestatījumu dublēšana un sinhronizēšana“ ir ieslēgta opcija „Atcerēties paroles“. Jums būs nepieciešamas abas vērtības, lai ģenerētu sāknēšanas datu nesēju aparatūras hash augšupielādei.</value>
+    <value>Saglabājiet šo PFX failu un paroli tagad drošā vietā. Foundry šajā datorā saglabā paroli kopā ar konfigurāciju tikai tad, ja sadaļā „Iestatījumu dublēšana un sinhronizēšana“ ir ieslēgta opcija „Atcerēties paroles“. Jums būs nepieciešamas abas vērtības, lai ģenerētu sāknēšanas datu nesēju aparatūras jaucējkoda augšupielādei.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parole nokopēta.</value>
@@ -407,7 +407,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Sertifikāta noņemšana neizdevās</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Saglabājiet Autopilot sertifikātu PFX</value>
+    <value>Saglabājiet Autopilot sertifikāta PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Nospiedums</value>
@@ -416,7 +416,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Sertifikāti netiek nodrošināti.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Pievienojiet īrnieku</value>
+    <value>Pievienot nomnieku</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
     <value>Notiek nomnieka pievienošana…</value>
@@ -431,10 +431,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nav atlasīts neviens noklusējuma grupas tags.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Atvienot īrnieku</value>
+    <value>Atvienot nomnieku</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Izvēles grupas tags, kas iepriekš atlasīts Foundry Deploy aparatūras jaukšanas augšupielādes laikā.</value>
+    <value>Izvēles grupas tags, kas iepriekš atlasīts Foundry Deploy aparatūras jaucējkoda augšupielādes laikā.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Noklusējuma grupas atzīme</value>
@@ -446,10 +446,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Foundry nevarēja konfigurēt Autopilot lietotnes reģistrāciju. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Īrnieka uzņemšana neizdevās</value>
+    <value>Nomnieka uzņemšana neizdevās</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>Atlasītā sertifikāta derīguma termiņš ir beidzies. Izveidojiet jaunu sertifikātu, saglabājiet tā PFX un paroli, pēc tam atlasiet to sāknēšanas datu nesējai.</value>
+    <value>Atlasītā sertifikāta derīguma termiņš ir beidzies. Izveidojiet jaunu sertifikātu, saglabājiet tā PFX un paroli, pēc tam atlasiet to sāknēšanas datu nesējam.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
     <value>Iepriekš atlasītais sertifikāts pārvaldītajā lietotnes reģistrācijā vairs nepastāv. Atlasiet derīgu PFX, kas atbilst nodrošinātajam sertifikātam.</value>
@@ -464,7 +464,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pārvaldītajam pakalpojuma galvenajam lietotājam trūkst administratora piekrišanas nepieciešamajai Microsoft Graph atļaujai. Piešķiriet administratora piekrišanu un atkārtoti izveidojiet savienojumu.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Pārvaldītās lietotnes reģistrācija nav gatava. Pārskatiet īrnieka gatavību un atkārtoti izveidojiet savienojumu.</value>
+    <value>Pārvaldītās lietotnes reģistrācija nav gatava. Pārskatiet nomnieka gatavību un atkārtoti izveidojiet savienojumu.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Pārvaldītās lietotnes reģistrācijai trūkst nepieciešamās Microsoft Graph lietojumprogrammas atļaujas. Atkārtoti izveidojiet savienojumu ar kontu, kas var atjaunināt lietotņu reģistrāciju.</value>
@@ -473,7 +473,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Trūkst pārvaldītā pakalpojuma principa vai tas ir atspējots. Atkārtoti izveidojiet savienojumu ar kontu, kas var izveidot vai pārvaldīt uzņēmuma lietojumprogrammas.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Īrnieka uzņemšanai ir jāpievērš uzmanība</value>
+    <value>Nomnieka uzņemšanai ir jāpievērš uzmanība</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Statuss</value>
@@ -509,25 +509,25 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Savienots</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Pabeidziet pierakstīšanos pārlūkprogrammā, lai konfigurētu Autopilot aparatūras hash augšupielādi.</value>
+    <value>Pabeidziet pierakstīšanos pārlūkprogrammā, lai konfigurētu Autopilot aparatūras jaucējkoda augšupielādi.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
-    <value>Pierakstieties Microsoft Graph</value>
+    <value>Pierakstieties pakalpojumā Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
     <value>Klienta ID</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>Īrnieka ID</value>
+    <value>Nomnieka ID</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nav savienots</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Informācija par īrnieku, lietotņu reģistrāciju un gatavību aparatūras jaucējkrāna augšupielādei.</value>
+    <value>Informācija par nomnieku, lietotnes reģistrāciju un gatavību aparatūras jaucējkoda augšupielādei.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Īrnieku gatavība</value>
+    <value>Nomnieka gatavība</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Vārds</value>
@@ -536,10 +536,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Vērtība</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Šajā lietotnes sesijā izveidojiet savienojumu ar Microsoft Graph, lai pārvaldītu jauktās augšupielādes iestatījumus.</value>
+    <value>Šajā lietotnes sesijā izveidojiet savienojumu ar Microsoft Graph, lai pārvaldītu jaucējkoda augšupielādes iestatījumus.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Īrnieka savienojums</value>
+    <value>Nomnieka savienojums</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importēt profilu</value>
@@ -608,7 +608,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pabeidziet pierakstīšanos pārlūkprogrammā, lai lejupielādētu Autopilot profilus.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
-    <value>Pierakstieties Microsoft Graph</value>
+    <value>Pierakstieties pakalpojumā Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
     <value>Atcelt</value>
@@ -617,7 +617,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Notīrīt</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Izvēlieties, kuri nomnieku profili jāimportē Foundry.</value>
+    <value>Izvēlieties, kuri nomnieka profili jāimportē programmā Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Importēt</value>
@@ -644,7 +644,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>JSON profils</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Konfigurējiet nomnieka atbalstītu automātisku aparatūras jaucējvērtības augšupielādi.</value>
+    <value>Konfigurējiet nomnieka atbalstītu automātisku aparatūras jaucējkoda augšupielādi.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Zero-touch aparatūras jaucējkoda augšupielāde</value>
@@ -2306,7 +2306,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Taju (Taizeme)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turku (Türkiye)</value>
+    <value>Turku (Turcija)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ukraiņu (Ukraina)</value>
@@ -2381,7 +2381,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>JSON profils</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Augšupielādējiet aparatūras jaucējvērtības, izmantojot Microsoft Graph.</value>
+    <value>Augšupielādē aparatūras jaucējkodus, izmantojot Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3220,7 +3220,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Iespējot attālo diagnostiku</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Nosūtiet anonīmu lietojuma telemetriju, lai palīdzētu uzlabot Foundry. Noslēpumi un tiešie ierīces identifikatori, tostarp sērijas numuri un aparatūras jaucējvērtības, netiek iekļauti. Telemetrija izmanto anonīmu instalācijas identifikatoru un var ietvert ierīces ražotāju un modeli.</value>
+    <value>Nosūtiet anonīmu lietojuma telemetriju, lai palīdzētu uzlabot Foundry. Noslēpumi un tiešie ierīces identifikatori, tostarp sērijas numuri un aparatūras jaucējkodi, netiek iekļauti. Telemetrija izmanto anonīmu instalācijas identifikatoru un var ietvert ierīces ražotāju un modeli.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Iespējot telemetriju</value>
@@ -3262,49 +3262,49 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Iespējots: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču nav atlasītā sertifikāta derīguma termiņa beigām.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst atlasītā sertifikāta derīguma termiņa beigu datuma.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, bet atlasītajam sertifikātam ir beidzies derīguma termiņš. Pirms sāknēšanas datu nesēja izveides atlasiet derīgu sertifikātu.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, bet atlasītajam sertifikātam ir beidzies derīguma termiņš. Pirms sāknēšanas datu nesēja izveides atlasiet derīgu sertifikātu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču atlasītais PFX neatbilst lietotnes reģistrācijas sertifikātam.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču atlasītais PFX neatbilst lietotnes reģistrācijas sertifikātam.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst atlasītā sertifikāta nospieduma.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst atlasītā sertifikāta īkšķa nospieduma.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, bet lietotnes reģistrācija nav konfigurēta. Izveidojiet savienojumu ar nomnieku no Autopilot.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, bet lietotnes reģistrācija nav konfigurēta. Izveidojiet savienojumu ar nomnieku sadaļā Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču nevarēja apstiprināt sāknēšanas datu nesēja PFX derīguma termiņu.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču nevarēja apstiprināt sāknēšanas datu nesēja PFX derīguma termiņu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, bet atlasītā sāknēšanas datu nesēja PFX derīguma termiņš ir beidzies.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, bet atlasītā sāknēšanas datu nesēja PFX derīguma termiņš ir beidzies.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, bet sāknēšanas datu nesējs PFX nav apstiprināts.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, bet sāknēšanas datu nesēja PFX nav apstiprināts.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču atlasītais PFX neatbilst aktīvajam sertifikātam.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču atlasītais PFX neatbilst aktīvajam sertifikātam.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Aparatūras hash augšupielāde ir iespējota, bet nav atlasīts sāknēšanas datu nesēja PFX.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, bet nav atlasīts sāknēšanas datu nesēja PFX.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst sāknēšanas datu nesēja PFX paroles.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst sāknēšanas datu nesēja PFX paroles.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst lietotnes klienta ID. Atkārtoti izveidojiet savienojumu ar nomnieku no Autopilot.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst lietotnes klienta ID. Atkārtoti izveidojiet savienojumu ar nomnieku sadaļā Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst vai nav gatavs lietotnes pakalpojuma galvenais nosaukums.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst vai nav gatavs lietotnes pakalpojuma galvenais nosaukums.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst iestatījumu.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst iestatījumu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst nomnieka savienojuma. Izveidojiet savienojumu ar nomnieku no Autopilot.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst nomnieka savienojuma. Izveidojiet savienojumu ar nomnieku sadaļā Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON profila režīms ir iespējots, bet nav atlasīts derīgs noklusējuma profils.</value>

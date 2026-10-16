@@ -191,7 +191,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Autopilot</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Zero-touch-laitteiston hajautusarvon lataus</value>
+    <value>Laitteiston hajautusarvon zero-touch-lataus palvelimeen</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
     <value>Vanhentunut todistus</value>
@@ -562,7 +562,7 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
     <value>Thai (Thaimaa)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turkki (Türkiye)</value>
+    <value>Turkki (Turkki)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ukraina (Ukraina)</value>
@@ -631,7 +631,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Näköistiedoston välimuistia ei voida valmistella. Tarkista sen vapaa tila ja kirjoitusoikeudet.</value>
   </data>
   <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
-    <value>Ladatun Windows-näköistiedoston tiivisteen vahvistus epäonnistui. Tarkista verkkoyhteys ja tallennuslaite ja yritä uudelleen.</value>
+    <value>Ladatun Windows-näköistiedoston hajautusarvon vahvistus epäonnistui. Tarkista verkkoyhteys ja tallennuslaite ja yritä uudelleen.</value>
   </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Kohdelevyllä ei ole riittävästi tilaa tiedossa oleviin käyttöönottovaatimuksiin. Valitse suurempi levy.</value>
@@ -643,7 +643,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Näköistiedoston koko levylle asentamisen jälkeen ei ole saatavilla tai on virheellinen. Valitse toinen näköistiedosto.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Luettelon näköistiedoston koon tai tiivisteen metatiedot ovat virheellisiä. Valitse toinen näköistiedosto tai käynnistä laite uudelleen käyttöönottotietovälineeltä, jotta luettelo ladataan uudelleen.</value>
+    <value>Luettelon näköistiedoston koon tai hajautusarvon metatiedot ovat virheellisiä. Valitse toinen näköistiedosto tai käynnistä laite uudelleen käyttöönottotietovälineeltä, jotta luettelo ladataan uudelleen.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Näköistiedoston URL-osoitteen on käytettävä HTTP- tai HTTPS-protokollaa. Valitse toinen näköistiedosto tai käynnistä laite uudelleen käyttöönottotietovälineeltä, jotta luettelo ladataan uudelleen.</value>
@@ -661,31 +661,31 @@ Jatketaanko käyttöönottoa?</value>
     <value>Varmenteen voimassaolo päättyy</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>Autopilot-varmenne on vanhentunut. Käyttöönottoa voidaan jatkaa lataamatta laitteiston hash-arvoa.</value>
+    <value>Autopilot-varmenne on vanhentunut. Käyttöönottoa voidaan jatkaa lataamatta laitteiston hajautusarvoa palvelimeen.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Ryhmätunniste</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>Vaaditut varmennetiedot puuttuvat. Käyttöönottoa voidaan jatkaa lataamatta laitteiston hash-arvoa.</value>
+    <value>Vaaditut varmennetiedot puuttuvat. Käyttöönottoa voidaan jatkaa lataamatta laitteiston hajautusarvoa palvelimeen.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Valmiina lataamaan laitteiston hash</value>
+    <value>Valmis lataamaan laitteiston hajautusarvon palvelimeen</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
-    <value>Vuokralaisen tunnus</value>
+    <value>Vuokraajan tunnus</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
-    <value>Laitteiston hash-lataus ei ole käytettävissä</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen ei ole käytettävissä</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>Laitteiston hajautuslatauksen tila</value>
+    <value>Laitteiston hajautusarvon palvelimeen lataamisen tila</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>Zero-touch-laitteiston hajautusarvon lataus</value>
+    <value>Laitteiston hajautusarvon zero-touch-lataus palvelimeen</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value>
+    <value>Vuorovaikutteinen laitteiston hajautusarvon lataus palvelimeen</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
     <value>JSON-profiili</value>
@@ -943,10 +943,10 @@ Jatketaanko käyttöönottoa?</value>
     <value>Otetaan ominaisuuden muutoksia käyttöön...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Todennetaan Autopilot laitteiston hash-latausta...</value>
+    <value>Todennetaan Autopilotin laitteiston hajautusarvon latausta palvelimeen...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>Kaapataan Autopilot laitteistotiivistettä...</value>
+    <value>Kaapataan Autopilotin laitteiston hajautusarvoa...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Tarkistetaan käytettävissä olevaa tilaa...</value>
@@ -1030,7 +1030,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Käyttöönottoa viimeistellään...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
-    <value>Tuodaan laitteiston tiivistettä Microsoft Graph...</value>
+    <value>Tuodaan laitteiston hajautusarvoa Microsoft Graphiin...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Laiteohjelmiston sisällön lisääminen offline-tilaan Windows...</value>
@@ -1048,7 +1048,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Osioidaan kohdelevyä...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Valmistellaan Autopilot laitteiston hash-latausta...</value>
+    <value>Valmistellaan Autopilotin laitteiston hajautusarvon latausta palvelimeen...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>Valmistellaan latausta...</value>
@@ -1120,7 +1120,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Päivitetään Windows Autopilot ryhmätunnistetta Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Ladataan Autopilot laitteistotiivistettä...</value>
+    <value>Ladataan Autopilotin laitteiston hajautusarvoa palvelimeen...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Vahvistetaan kohdemääritystä...</value>
@@ -1141,7 +1141,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Kirjoitetaan käyttöönoton yhteenvetoa...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>Kirjoitetaan simuloitua Autopilot hash-luetteloa...</value>
+    <value>Kirjoitetaan simuloitua Autopilot-hajautusarvoluetteloa...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>Kirjoitetaan simuloitua Autopilot manifestia...</value>
@@ -1195,28 +1195,28 @@ Jatketaanko käyttöönottoa?</value>
     <value>Windows Autopilot laiteryhmän tunnisteen päivitystä ei vahvistettu ennen aikakatkaisua.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Autopilot laitteiston hash tuotu ja näkyvissä Windows Autopilot laitteissa.</value>
+    <value>Autopilotin laitteiston hajautusarvo tuotu ja näkyvissä Windows Autopilot -laitteissa.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot laitteiston hajautus epäonnistui: {0}</value>
+    <value>Autopilotin laitteiston hajautusarvon kaappaus epäonnistui: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot laitteiston hash-tuonti epäonnistui: {0}</value>
+    <value>Autopilotin laitteiston hajautusarvon tuonti epäonnistui: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot laitteiston hash-lataus valmis simulaatiota varten.</value>
+    <value>Autopilotin laitteiston hajautusarvon lataus palvelimeen valmisteltu simulaatiota varten.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot laitteiston hash-lataus valmis (simulaatio).</value>
+    <value>Autopilotin laitteiston hajautusarvon lataus palvelimeen valmisteltu (simulaatio).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Autopilot laitteiston hash-lataus ohitettiin, koska upotettu varmenne on vanhentunut.</value>
+    <value>Autopilotin laitteiston hajautusarvon lataus palvelimeen ohitettiin, koska upotettu varmenne on vanhentunut.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot laitteiston hash-lataus ohitettu: {0}</value>
+    <value>Autopilotin laitteiston hajautusarvon lataus palvelimeen ohitettu: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot laitteiston hash-lataus ohitettiin, koska vaaditut mediavarmennetiedot ovat puutteelliset.</value>
+    <value>Autopilotin laitteiston hajautusarvon lataus palvelimeen ohitettiin, koska vaaditut mediavarmennetiedot ovat puutteelliset.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot on käytössä, mutta profiilia ei ole valittu.</value>
@@ -1435,7 +1435,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Kohdeosio Windows ei ole käytettävissä Autopilot lavastusta varten.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>Kohdeosio Windows ei ole käytettävissä Autopilot laitteiston hajautuslataukseen.</value>
+    <value>Windowsin kohdeosio ei ole käytettävissä Autopilotin laitteiston hajautusarvon palvelimeen lataamiseen.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>Windows-kohdeosio ei ole käytettävissä vuorovaikutteisen Autopilot-rekisteröintiavustajan valmisteluun.</value>
@@ -1753,7 +1753,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Mukautetut komennot voivat olla ristiriidassa Foundryn kanssa. Testaa tämä kokoonpano.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Tiivisteen lataaminen ei takaa Autopilot-rekisteröintiä.</value>
+    <value>Hajautusarvon lataaminen palvelimeen ei takaa Autopilot-rekisteröintiä.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>Testaa tätä vastaustiedostoa valitulla Windows-näköistiedostolla ja Foundry-kokoonpanolla.</value>

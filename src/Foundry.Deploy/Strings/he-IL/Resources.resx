@@ -38,7 +38,7 @@
     <value>בדוק את הגדרות ההקצאה של Autopilot עבור מכשיר זה.</value>
   </data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
-    <value>מעלה את ה-hash של חומרת המכשיר ל-Windows Autopilot במהלך הפריסה.</value>
+    <value>מעלה את גיבוב החומרה של המכשיר ל-Windows Autopilot במהלך הפריסה.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>מוסיף פרופיל Autopilot לא מקוון להתקנת Windows.</value>
@@ -191,7 +191,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>העלאת zero-touch של hash חומרה</value>
+    <value>העלאת גיבוב חומרה ב-zero-touch</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
     <value>תעודה שפג תוקפו</value>
@@ -670,22 +670,22 @@ ErrorCode=0x80070005
     <value>מידע האישור הנדרש חסר. ניתן להמשיך בפריסה בלי להעלות את גיבוב החומרה.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>מוכן להעלות hash של חומרה</value>
+    <value>מוכן להעלות גיבוב חומרה</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
-    <value>זיהוי דייר</value>
+    <value>מזהה דייר</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
     <value>העלאת גיבוב החומרה אינה זמינה</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>סטטוס העלאת גיבוב של חומרה</value>
+    <value>סטטוס העלאת גיבוב חומרה</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>העלאת Hash חומרה ב-Zero-touch</value>
+    <value>העלאת גיבוב חומרה ב-zero-touch</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
-    <value>העלאה אינטראקטיבית של hash חומרה</value>
+    <value>העלאה אינטראקטיבית של גיבוב חומרה</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
     <value>פרופיל JSON</value>
@@ -943,10 +943,10 @@ ErrorCode=0x80070005
     <value>מחיל שינויים בתכונות...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>מאמת Autopilot העלאת גיבוב חומרה...</value>
+    <value>מאמת את העלאת גיבוב החומרה של Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>לוכד Autopilot hash חומרה...</value>
+    <value>לוכד את גיבוב החומרה של Autopilot...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>בדיקת השטח הזמין...</value>
@@ -1030,7 +1030,7 @@ ErrorCode=0x80070005
     <value>מסיים את הפריסה...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
-    <value>מייבא hash חומרה אל Microsoft Graph...</value>
+    <value>מייבא גיבוב חומרה אל Microsoft Graph...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>הזרקת תוכן קושחה לא מקוון Windows...</value>
@@ -1048,7 +1048,7 @@ ErrorCode=0x80070005
     <value>מחלק את דיסק היעד...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>מכין Autopilot העלאת גיבוב חומרה...</value>
+    <value>מכין את העלאת גיבוב החומרה של Autopilot...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>מכין הורדה...</value>
@@ -1120,7 +1120,7 @@ ErrorCode=0x80070005
     <value>מעדכן את תג הקבוצה Windows Autopilot ב-Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>מעלה Autopilot hash חומרה...</value>
+    <value>מעלה את גיבוב החומרה של Autopilot...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>מאמת את תצורת היעד...</value>
@@ -1141,7 +1141,7 @@ ErrorCode=0x80070005
     <value>כותב סיכום פריסה...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>כתיבת מניפסט hash מדומה Autopilot...</value>
+    <value>כותב מניפסט גיבוב מדומה של Autopilot...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>כתיבת מניפסט מדומה של Autopilot...</value>
@@ -1195,28 +1195,28 @@ ErrorCode=0x80070005
     <value>Windows Autopilot עדכון תג קבוצת המכשירים לא אושר לפני הזמן הקצוב.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Autopilot hash חומרה מיובא וגלוי במכשירי Windows Autopilot.</value>
+    <value>גיבוב החומרה של Autopilot יובא וגלוי במכשירי Windows Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot לכידת hash חומרה נכשלה: {0}</value>
+    <value>לכידת גיבוב החומרה של Autopilot נכשלה: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot ייבוא גיבוב חומרה נכשל: {0}</value>
+    <value>ייבוא גיבוב החומרה של Autopilot נכשל: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot העלאת גיבוב חומרה שהוכנה לסימולציה.</value>
+    <value>העלאת גיבוב החומרה של Autopilot הוכנה לסימולציה.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot העלאת גיבוב חומרה הוכנה (סימולציה).</value>
+    <value>העלאת גיבוב החומרה של Autopilot הוכנה (סימולציה).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Autopilot העלאת ה-hash של החומרה דילגה כי פג תוקף האישור המוטבע.</value>
+    <value>בוצע דילוג על העלאת גיבוב החומרה של Autopilot כי פג תוקף האישור המוטבע.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot העלאת גיבוב חומרה דילגה: {0}</value>
+    <value>בוצע דילוג על העלאת גיבוב החומרה של Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot העלאת ה-hash של החומרה דילגה מכיוון שהמידע הנדרש על אישור המדיה אינו שלם.</value>
+    <value>בוצע דילוג על העלאת גיבוב החומרה של Autopilot מכיוון שהמידע הנדרש על אישור המדיה אינו שלם.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot מופעל אך לא נבחר פרופיל.</value>
@@ -1435,7 +1435,7 @@ ErrorCode=0x80070005
     <value>מחיצת יעד Windows אינה זמינה עבור Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>מחיצת יעד Windows אינה זמינה להעלאת גיבוב חומרה Autopilot.</value>
+    <value>מחיצת היעד של Windows אינה זמינה להעלאת גיבוב החומרה של Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>מחיצת ה-Windows היעד אינה זמינה להכנת מסייע הרישום האינטראקטיבי של Autopilot.</value>
