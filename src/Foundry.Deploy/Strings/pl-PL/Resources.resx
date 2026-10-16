@@ -453,6 +453,9 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Wyświetl szczegóły błędu</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Inne języki</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabski (Arabia Saudyjska)</value>
   </data>
@@ -587,6 +590,12 @@ Kontynuować wdrażanie?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debugowanie</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Klawiatura</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Klawiatura ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Język</value>

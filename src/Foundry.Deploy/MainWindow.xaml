@@ -39,6 +39,34 @@
             </Grid.ColumnDefinitions>
 
             <Menu Grid.Column="0">
+                <Menu.Resources>
+                    <!-- Applies to every level so language groups open their layouts; group entries have no layout and stay uncheckable. -->
+                    <Style
+                        x:Key="KeyboardMenuItemStyle"
+                        TargetType="{x:Type MenuItem}">
+                        <Setter
+                            Property="Header"
+                            Value="{Binding Header}" />
+                        <Setter
+                            Property="ItemsSource"
+                            Value="{Binding Children}" />
+                        <Setter
+                            Property="ItemContainerStyle"
+                            Value="{DynamicResource KeyboardMenuItemStyle}" />
+                        <Setter
+                            Property="Command"
+                            Value="{Binding DataContext.SetKeyboardLayoutCommand, RelativeSource={RelativeSource AncestorType={x:Type Menu}}}" />
+                        <Setter
+                            Property="CommandParameter"
+                            Value="{Binding LayoutId}" />
+                        <Setter
+                            Property="IsCheckable"
+                            Value="{Binding IsCheckable}" />
+                        <Setter
+                            Property="IsChecked"
+                            Value="{Binding IsSelected, Mode=OneWay}" />
+                    </Style>
+                </Menu.Resources>
                 <MenuItem Header="{Binding Strings[Menu.Theme]}">
                     <MenuItem
                         Command="{Binding SetSystemThemeCommand}"
@@ -73,6 +101,10 @@
                         </Style>
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
+                <MenuItem
+                    Header="{Binding KeyboardMenuHeader}"
+                    ItemContainerStyle="{StaticResource KeyboardMenuItemStyle}"
+                    ItemsSource="{Binding KeyboardMenuEntries}" />
                 <MenuItem Header="{Binding Strings[Menu.Tools]}">
                     <MenuItem
                         Command="{Binding Session.OpenLogFileCommand}"

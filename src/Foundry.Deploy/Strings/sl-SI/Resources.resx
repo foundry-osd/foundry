@@ -453,6 +453,9 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Prikaži podrobnosti napake</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Drugi jeziki</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabščina (Saudova Arabija)</value>
   </data>
@@ -587,6 +590,12 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Tipkovnica</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Tipkovnica ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jezik</value>

@@ -453,6 +453,9 @@ ErrorCode=0x80070005
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Переглянути відомості про помилку</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Інші мови</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>арабська (Саудівська Аравія)</value>
   </data>
@@ -587,6 +590,12 @@ ErrorCode=0x80070005
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Клавіатура</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Клавіатура ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Мова</value>
