@@ -215,7 +215,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _deploymentOrchestrator.CompletionStarting += OnDeploymentCompletionStarting;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
         RefreshSupportedCultures();
-        RestoreKeyboardLayoutHandoff();
         RefreshKeyboardMenu();
     }
 
@@ -284,20 +283,27 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         KeyboardLayoutSwitchResult result = _keyboardLayoutSwitcher.Apply(layout);
-        if (result.Succeeded)
+        if (!result.Succeeded)
         {
-            _logger.LogInformation("Keyboard layout changed. LayoutId={LayoutId}", layout.Id);
+            _logger.LogWarning("Keyboard layout change failed. LayoutId={LayoutId}, Error={Error}", layout.Id, result.Error);
+        }
+        else if (result.Error is not null)
+        {
+            _logger.LogWarning("Keyboard layout changed with a warning. LayoutId={LayoutId}, Warning={Warning}", layout.Id, result.Error);
         }
         else
         {
-            _logger.LogWarning("Keyboard layout change failed. LayoutId={LayoutId}, Error={Error}", layout.Id, result.Error);
+            _logger.LogInformation("Keyboard layout changed. LayoutId={LayoutId}", layout.Id);
         }
 
         RefreshKeyboardMenu();
     }
 
-    // Foundry Connect runs first; re-apply its keyboard choice before the technician types anything here.
-    private void RestoreKeyboardLayoutHandoff()
+    /// <summary>
+    /// Re-applies the keyboard layout chosen in Foundry Connect, which runs first.
+    /// Call it once the window is active: Windows ignores layout activation for a process that does not own the focused window.
+    /// </summary>
+    public void RestoreKeyboardLayoutHandoff()
     {
         KeyboardLayoutSwitchResult? result = _keyboardLayoutSwitcher.RestoreHandoff();
         if (result is null)
@@ -305,14 +311,20 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return;
         }
 
-        if (result.Succeeded)
-        {
-            _logger.LogInformation("Keyboard layout restored from Foundry Connect. LayoutId={LayoutId}", result.LayoutId);
-        }
-        else
+        if (!result.Succeeded)
         {
             _logger.LogWarning("Keyboard layout hand-off was not applied. LayoutId={LayoutId}, Error={Error}", result.LayoutId, result.Error);
         }
+        else if (result.Error is not null)
+        {
+            _logger.LogWarning("Keyboard layout restored from Foundry Connect with a warning. LayoutId={LayoutId}, Warning={Warning}", result.LayoutId, result.Error);
+        }
+        else
+        {
+            _logger.LogInformation("Keyboard layout restored from Foundry Connect. LayoutId={LayoutId}", result.LayoutId);
+        }
+
+        RefreshKeyboardMenu();
     }
 
     private void RefreshKeyboardMenu()

@@ -1947,11 +1947,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         WinPeLanguage = NormalizeCultureName(foundryConfigurationStateService.Current.General.WinPeLanguage);
         availableWinPeLanguages = GetAvailableWinPeLanguages();
-        if (installedKeyboardLayouts.Count == 0)
-        {
-            installedKeyboardLayouts = KeyboardLayoutCatalog.LoadInstalled();
-        }
-
+        installedKeyboardLayouts = KeyboardLayoutCatalog.GetInstalled();
         MediaPreflightOptions options = CreatePreflightOptions();
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
         IsSelectedUsbFoundryMedia = options.SelectedUsbDisk?.IsFoundryMedia == true;

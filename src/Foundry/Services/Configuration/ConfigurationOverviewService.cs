@@ -126,7 +126,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
     private static bool IsWinPeKeyboardLayoutInstalled(string? layoutId)
     {
         return string.IsNullOrWhiteSpace(layoutId) ||
-            KeyboardLayoutSelection.Find(KeyboardLayoutCatalog.LoadInstalled(), layoutId) is not null;
+            !KeyboardLayoutSelection.IsUnavailable(KeyboardLayoutCatalog.GetInstalled(), layoutId);
     }
 
     private static bool IsCustomDriverConfigurationReady(GeneralSettings settings)

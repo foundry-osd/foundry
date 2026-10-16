@@ -425,13 +425,17 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         KeyboardLayoutSwitchResult result = _keyboardLayoutSwitcher.Apply(layout);
-        if (result.Succeeded)
+        if (!result.Succeeded)
         {
-            _logger.LogInformation("Keyboard layout changed. LayoutId={LayoutId}", layout.Id);
+            _logger.LogWarning("Keyboard layout change failed. LayoutId={LayoutId}, Error={Error}", layout.Id, result.Error);
+        }
+        else if (result.Error is not null)
+        {
+            _logger.LogWarning("Keyboard layout changed with a warning. LayoutId={LayoutId}, Warning={Warning}", layout.Id, result.Error);
         }
         else
         {
-            _logger.LogWarning("Keyboard layout change failed. LayoutId={LayoutId}, Error={Error}", layout.Id, result.Error);
+            _logger.LogInformation("Keyboard layout changed. LayoutId={LayoutId}", layout.Id);
         }
 
         RefreshKeyboardMenu();
