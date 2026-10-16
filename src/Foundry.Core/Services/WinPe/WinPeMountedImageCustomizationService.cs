@@ -147,6 +147,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 Architecture = artifact.Architecture,
                 Tools = tools,
                 WinPeLanguage = options.WinPeLanguage,
+                WinPeKeyboardLayout = options.WinPeKeyboardLayout,
                 WorkingDirectoryPath = artifact.WorkingDirectoryPath,
                 DismProgress = CreateDismProgress(options.Progress, 65, "Applying language and optional components.")
             },
