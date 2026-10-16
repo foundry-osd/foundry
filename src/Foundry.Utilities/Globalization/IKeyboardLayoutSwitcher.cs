@@ -7,9 +7,9 @@ namespace Foundry.Utilities.Globalization;
 /// <summary>
 /// Outcome of a keyboard layout switch. Callers log it; the switcher itself never throws for switching failures.
 /// </summary>
-/// <param name="Succeeded">Whether the layout is now active.</param>
+/// <param name="Succeeded">Whether the layout is now active in this process.</param>
 /// <param name="LayoutId">KLID that was requested, when known.</param>
-/// <param name="Error">Failure description, or <see langword="null"/> on success.</param>
+/// <param name="Error">Failure description; on success, a warning that later processes may not inherit the layout.</param>
 public sealed record KeyboardLayoutSwitchResult(bool Succeeded, string? LayoutId, string? Error);
 
 /// <summary>

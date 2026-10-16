@@ -87,6 +87,14 @@ public static class KeyboardLayoutSelection
     }
 
     /// <summary>
+    /// Returns whether a layout is stored but not installed here, for example after importing a profile from another computer.
+    /// </summary>
+    public static bool IsUnavailable(IReadOnlyList<KeyboardLayout> layouts, string? storedLayoutId)
+    {
+        return !string.IsNullOrWhiteSpace(storedLayoutId) && Find(layouts, storedLayoutId) is null;
+    }
+
+    /// <summary>
     /// Finds an installed layout by KLID, ignoring case and surrounding whitespace.
     /// </summary>
     public static KeyboardLayout? Find(IReadOnlyList<KeyboardLayout> layouts, string? layoutId)

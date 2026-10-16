@@ -23,31 +23,54 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
     private static readonly TimeSpan WpeUtilTimeout = TimeSpan.FromSeconds(30);
 
     private readonly string handoffPath;
-    private IReadOnlyList<KeyboardLayout>? layouts;
+    private readonly Func<IReadOnlyList<KeyboardLayout>> loadLayouts;
+    private readonly Func<string, bool> activateLayout;
+    private readonly Func<string> getActiveLayoutId;
+    private readonly Func<bool> isWinPe;
+    private readonly Func<string, string?> setWinPeSessionLayout;
 
     /// <summary>
     /// Initializes a switcher that persists choices to <paramref name="handoffPath"/>.
     /// </summary>
     /// <param name="handoffPath">Hand-off file path, normally <see cref="KeyboardLayoutHandoff.DefaultPath"/>.</param>
     public WindowsKeyboardLayoutSwitcher(string handoffPath)
+        : this(
+            handoffPath,
+            KeyboardLayoutCatalog.GetInstalled,
+            ActivateForProcess,
+            ReadActiveLayoutId,
+            WinPeRuntimeDetector.IsWinPeRuntime,
+            SetWinPeSessionLayout)
+    {
+    }
+
+    internal WindowsKeyboardLayoutSwitcher(
+        string handoffPath,
+        Func<IReadOnlyList<KeyboardLayout>> loadLayouts,
+        Func<string, bool> activateLayout,
+        Func<string> getActiveLayoutId,
+        Func<bool> isWinPe,
+        Func<string, string?> setWinPeSessionLayout)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(handoffPath);
         this.handoffPath = handoffPath;
+        this.loadLayouts = loadLayouts;
+        this.activateLayout = activateLayout;
+        this.getActiveLayoutId = getActiveLayoutId;
+        this.isWinPe = isWinPe;
+        this.setWinPeSessionLayout = setWinPeSessionLayout;
     }
 
     /// <inheritdoc />
     public IReadOnlyList<KeyboardLayout> GetLayouts()
     {
-        return layouts ??= KeyboardLayoutCatalog.LoadInstalled();
+        return loadLayouts();
     }
 
     /// <inheritdoc />
     public string GetActiveLayoutId()
     {
-        var name = new StringBuilder(KeyboardLayoutNameLength);
-        return GetKeyboardLayoutName(name) && KeyboardLayoutCatalog.TryNormalizeId(name.ToString(), out string id)
-            ? id
-            : string.Empty;
+        return getActiveLayoutId();
     }
 
     /// <inheritdoc />
@@ -55,32 +78,35 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
     {
         ArgumentNullException.ThrowIfNull(layout);
 
-        if (LoadKeyboardLayout(layout.Id, KlfActivate | KlfSetForProcess) == IntPtr.Zero)
+        // LoadKeyboardLayout falls back to the default layout instead of failing, so check what is actually active.
+        if (!activateLayout(layout.Id) || getActiveLayoutId() != layout.Id)
         {
-            return new KeyboardLayoutSwitchResult(false, layout.Id, new Win32Exception(Marshal.GetLastWin32Error()).Message);
+            return new KeyboardLayoutSwitchResult(false, layout.Id, "The keyboard layout could not be activated.");
         }
 
-        if (!WinPeRuntimeDetector.IsWinPeRuntime())
+        if (!isWinPe())
         {
             return new KeyboardLayoutSwitchResult(true, layout.Id, null);
         }
 
-        string? error = SetWinPeSessionLayout(layout.InputLocale);
-        if (error is not null)
-        {
-            return new KeyboardLayoutSwitchResult(false, layout.Id, error);
-        }
-
+        // The hand-off backs up wpeutil inheritance, so it is written even when wpeutil fails.
+        var warnings = new List<string>();
         try
         {
             KeyboardLayoutHandoff.Write(handoffPath, layout.Id);
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            return new KeyboardLayoutSwitchResult(false, layout.Id, $"The layout is active but could not be handed off: {exception.Message}");
+            warnings.Add($"The keyboard layout could not be handed off: {exception.Message}");
         }
 
-        return new KeyboardLayoutSwitchResult(true, layout.Id, null);
+        string? wpeUtilError = setWinPeSessionLayout(layout.InputLocale);
+        if (wpeUtilError is not null)
+        {
+            warnings.Add(wpeUtilError);
+        }
+
+        return new KeyboardLayoutSwitchResult(true, layout.Id, warnings.Count == 0 ? null : string.Join(" ", warnings));
     }
 
     /// <inheritdoc />
@@ -100,6 +126,19 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
         return layout is null
             ? new KeyboardLayoutSwitchResult(false, layoutId, "The handed-off keyboard layout is not installed.")
             : Apply(layout);
+    }
+
+    private static bool ActivateForProcess(string layoutId)
+    {
+        return LoadKeyboardLayout(layoutId, KlfActivate | KlfSetForProcess) != IntPtr.Zero;
+    }
+
+    private static string ReadActiveLayoutId()
+    {
+        var name = new StringBuilder(KeyboardLayoutNameLength);
+        return GetKeyboardLayoutName(name) && KeyboardLayoutCatalog.TryNormalizeId(name.ToString(), out string id)
+            ? id
+            : string.Empty;
     }
 
     private static string? SetWinPeSessionLayout(string inputLocale)

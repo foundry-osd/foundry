@@ -48,6 +48,18 @@ public static class KeyboardLayoutCatalog
             .ToArray();
     }
 
+    private static readonly Lazy<IReadOnlyList<KeyboardLayout>> Installed = new(LoadInstalled);
+
+    /// <summary>
+    /// Gets the installed keyboard layouts, read once per process. Layouts do not change while Foundry runs,
+    /// and each read resolves every localized layout name, so repeated callers share this list.
+    /// </summary>
+    /// <returns>The cached installed layouts.</returns>
+    public static IReadOnlyList<KeyboardLayout> GetInstalled()
+    {
+        return Installed.Value;
+    }
+
     /// <summary>
     /// Reads the keyboard layouts installed on the running Windows or Windows PE system.
     /// </summary>
@@ -155,7 +167,7 @@ public static class KeyboardLayoutCatalog
         try
         {
             CultureInfo culture = CultureInfo.GetCultureInfo(languageId);
-            if (culture.Equals(CultureInfo.InvariantCulture) || culture.TwoLetterISOLanguageName.Length != 2)
+            if (culture.Equals(CultureInfo.InvariantCulture) || string.IsNullOrEmpty(culture.TwoLetterISOLanguageName))
             {
                 return false;
             }

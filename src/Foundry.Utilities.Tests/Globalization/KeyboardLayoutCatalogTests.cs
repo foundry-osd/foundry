@@ -71,6 +71,23 @@ public sealed class KeyboardLayoutCatalogTests
         Assert.Equal("Royaume-Uni", Single(layouts, "00000809").DisplayName);
     }
 
+    [Fact]
+    public void FromEntries_KeepsLayoutsOfThreeLetterLanguages()
+    {
+        KeyboardLayout layout = Assert.Single(KeyboardLayoutCatalog.FromEntries(
+        [
+            Entry("00000475", "KBDHAW.DLL", "Hawaiian")
+        ]));
+
+        Assert.Equal("haw", layout.BaseLanguage);
+    }
+
+    [Fact]
+    public void GetInstalled_ReturnsTheSameCachedList()
+    {
+        Assert.Same(KeyboardLayoutCatalog.GetInstalled(), KeyboardLayoutCatalog.GetInstalled());
+    }
+
     [Theory]
     [InlineData("00000813", "00000813")]
     [InlineData("0000080c", "0000080C")]

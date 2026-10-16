@@ -38,6 +38,16 @@ public sealed class KeyboardLayoutSelectionTests
     }
 
     [Theory]
+    [InlineData("00000407", true)]
+    [InlineData("0000080C", false)]
+    [InlineData(null, false)]
+    [InlineData("", false)]
+    public void IsUnavailable_OnlyForStoredLayoutsThatAreNotInstalled(string? storedLayoutId, bool expected)
+    {
+        Assert.Equal(expected, KeyboardLayoutSelection.IsUnavailable(Layouts, storedLayoutId));
+    }
+
+    [Theory]
     [InlineData("fr", "fr-FR", true)]
     [InlineData("fr", "fr-CA", true)]
     [InlineData("nl", "en-US", false)]

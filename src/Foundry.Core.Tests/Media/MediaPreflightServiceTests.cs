@@ -170,6 +170,19 @@ public sealed class MediaPreflightServiceTests
     }
 
     [Fact]
+    public void Evaluate_WhenKeyboardLayoutIsSetButNoLayoutIsKnown_BlocksMedia()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                WinPeKeyboardLayoutId = "00000813",
+                AvailableKeyboardLayoutIds = []
+            });
+
+        Assert.Contains(MediaPreflightBlockingReason.WinPeKeyboardLayoutUnavailable, evaluation.IsoBlockingReasons);
+    }
+
+    [Fact]
     public void Evaluate_WhenKeyboardLayoutIsNull_DoesNotBlock()
     {
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
