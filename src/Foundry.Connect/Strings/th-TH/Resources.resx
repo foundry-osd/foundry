@@ -155,6 +155,9 @@
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>กำลังรอ DHCP หรือการกำหนดค่าเครือข่ายแบบคงที่</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>ภาษาอื่นๆ</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>อาหรับ (ซาอุดีอาระเบีย)</value>
   </data>
@@ -274,6 +277,12 @@
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>ดีบัก</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>แป้นพิมพ์</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>แป้นพิมพ์ ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>ภาษา</value>

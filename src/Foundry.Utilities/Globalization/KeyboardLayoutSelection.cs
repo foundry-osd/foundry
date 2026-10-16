@@ -22,6 +22,21 @@ public sealed record KeyboardLayoutMenu(IReadOnlyList<KeyboardLayout> Suggested,
 public sealed record KeyboardLanguageGroup(string BaseLanguage, string DisplayName, IReadOnlyList<KeyboardLayout> Layouts);
 
 /// <summary>
+/// One entry of a data-bound keyboard menu: a selectable layout, or a group whose children are entries.
+/// </summary>
+/// <param name="LayoutId">KLID of a selectable layout, or <see langword="null"/> for a group.</param>
+/// <param name="Header">Text shown in the menu.</param>
+/// <param name="IsSelected">Whether this layout is the active one.</param>
+/// <param name="Children">Child entries of a group; empty for a layout.</param>
+public sealed record KeyboardMenuEntry(string? LayoutId, string Header, bool IsSelected, IReadOnlyList<KeyboardMenuEntry> Children)
+{
+    /// <summary>
+    /// Gets whether the entry is a layout that can be checked.
+    /// </summary>
+    public bool IsCheckable => LayoutId is not null;
+}
+
+/// <summary>
 /// Selection rules shared by the authoring keyboard setting and the WinPE keyboard menus.
 /// </summary>
 public static class KeyboardLayoutSelection
@@ -100,6 +115,38 @@ public static class KeyboardLayoutSelection
             .ToArray();
 
         return new KeyboardLayoutMenu(suggested, otherLanguages);
+    }
+
+    /// <summary>
+    /// Builds hierarchical menu entries: the active language's layouts, then one group holding every other language.
+    /// The group is omitted when there is no other language.
+    /// </summary>
+    public static IReadOnlyList<KeyboardMenuEntry> BuildMenuEntries(
+        IReadOnlyList<KeyboardLayout> layouts,
+        string? activeLayoutId,
+        string otherLanguagesHeader)
+    {
+        KeyboardLayoutMenu menu = BuildMenu(layouts, activeLayoutId);
+        string activeId = Find(layouts, activeLayoutId)?.Id ?? string.Empty;
+        var entries = menu.Suggested.Select(layout => CreateLayoutEntry(layout, activeId)).ToList();
+        if (menu.OtherLanguages.Count > 0)
+        {
+            KeyboardMenuEntry[] languages = menu.OtherLanguages
+                .Select(group => new KeyboardMenuEntry(
+                    null,
+                    group.DisplayName,
+                    false,
+                    group.Layouts.Select(layout => CreateLayoutEntry(layout, activeId)).ToArray()))
+                .ToArray();
+            entries.Add(new KeyboardMenuEntry(null, otherLanguagesHeader, false, languages));
+        }
+
+        return entries;
+    }
+
+    private static KeyboardMenuEntry CreateLayoutEntry(KeyboardLayout layout, string activeId)
+    {
+        return new KeyboardMenuEntry(layout.Id, layout.DisplayName, layout.Id == activeId, []);
     }
 
     /// <summary>

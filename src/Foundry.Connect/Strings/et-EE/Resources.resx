@@ -155,6 +155,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>DHCP või staatilise võrgukonfiguratsiooni ootamine</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Muud keeled</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>araabia (Saudi Araabia)</value>
   </data>
@@ -274,6 +277,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Silumine</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Klaviatuur</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Klaviatuur ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Keel</value>

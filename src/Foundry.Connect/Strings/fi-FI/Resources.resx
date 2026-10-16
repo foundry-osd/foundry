@@ -155,6 +155,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>Odotetaan DHCP tai staattista verkkomääritystä</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Muut kielet</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabia (Saudi-Arabia)</value>
   </data>
@@ -274,6 +277,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Debug</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Näppäimistö</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Näppäimistö ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Kieli</value>

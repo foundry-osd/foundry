@@ -155,6 +155,9 @@
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>ממתין ל-DHCP או לתצורת רשת סטטית</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>שפות אחרות</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>ערבית (ערב הסעודית)</value>
   </data>
@@ -274,6 +277,12 @@
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>ניפוי באגים</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>מקלדת</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>מקלדת ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>שפה</value>

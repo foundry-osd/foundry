@@ -155,6 +155,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>DHCP 또는 정적 네트워크 구성을 기다리는 중</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>기타 언어</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>아랍어(사우디아라비아)</value>
   </data>
@@ -274,6 +277,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>디버그</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>키보드</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>키보드({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>언어</value>

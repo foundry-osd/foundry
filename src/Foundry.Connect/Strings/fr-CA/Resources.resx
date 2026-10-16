@@ -155,6 +155,9 @@ Sous licence MIT.</value>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>En attente de DHCP ou d'une configuration réseau statique</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Autres langues</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabe (Arabie Saoudite)</value>
   </data>
@@ -274,6 +277,12 @@ Sous licence MIT.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Débogage</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Clavier</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Clavier ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Langue</value>

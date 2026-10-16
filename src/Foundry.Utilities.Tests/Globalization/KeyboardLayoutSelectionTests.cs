@@ -75,6 +75,33 @@ public sealed class KeyboardLayoutSelectionTests
     }
 
     [Fact]
+    public void BuildMenuEntries_ListsSuggestedLayoutsThenOtherLanguages()
+    {
+        IReadOnlyList<KeyboardMenuEntry> entries = KeyboardLayoutSelection.BuildMenuEntries(Layouts, "0000040C", "Other languages");
+
+        Assert.Equal(["0000080C", "0000040C", null], entries.Select(entry => entry.LayoutId));
+        Assert.True(entries[1].IsSelected);
+        Assert.False(entries[0].IsSelected);
+        KeyboardMenuEntry other = entries[2];
+        Assert.Equal("Other languages", other.Header);
+        Assert.False(other.IsCheckable);
+        KeyboardMenuEntry dutch = Assert.Single(other.Children);
+        Assert.Equal("Nederlands", dutch.Header);
+        Assert.Equal(["00000813", "00000413"], dutch.Children.Select(entry => entry.LayoutId));
+    }
+
+    [Fact]
+    public void BuildMenuEntries_WhenNoOtherLanguage_OmitsOtherLanguagesEntry()
+    {
+        IReadOnlyList<KeyboardMenuEntry> entries = KeyboardLayoutSelection.BuildMenuEntries(
+            KeyboardLayoutSelection.GetLayouts(Layouts, "fr"),
+            "0000040C",
+            "Other languages");
+
+        Assert.All(entries, entry => Assert.NotNull(entry.LayoutId));
+    }
+
+    [Fact]
     public void BuildMenu_WhenActiveLayoutIsUnknown_ListsEveryLanguageAsOther()
     {
         KeyboardLayoutMenu menu = KeyboardLayoutSelection.BuildMenu(Layouts, "E0010411");

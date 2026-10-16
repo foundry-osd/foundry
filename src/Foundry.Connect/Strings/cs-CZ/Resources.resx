@@ -155,6 +155,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>Čekání na DHCP nebo statickou konfiguraci sítě</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Další jazyky</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabština (Saúdská Arábie)</value>
   </data>
@@ -274,6 +277,12 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Ladit</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Klávesnice</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Klávesnice ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Jazyk</value>

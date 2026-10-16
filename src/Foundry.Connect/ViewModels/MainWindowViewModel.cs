@@ -27,6 +27,7 @@ using Foundry.Localization;
 using Foundry.Telemetry;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Diagnostics;
+using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Runtime;
 using Foundry.Utilities.Storage;
 using Microsoft.Win32;
@@ -59,6 +60,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly INetworkBootstrapService _networkBootstrapService;
     private readonly INetworkStatusService _networkStatusService;
     private readonly ITelemetryService _telemetryService;
+    private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
     private readonly SemaphoreSlim _refreshGate = new(1, 1);
@@ -170,9 +172,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         INetworkBootstrapService networkBootstrapService,
         INetworkStatusService networkStatusService,
         ITelemetryService telemetryService,
+        IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
         ILogger<MainWindowViewModel> logger)
         : base(localizationService)
     {
+        _keyboardLayoutSwitcher = keyboardLayoutSwitcher;
         _themeService = themeService;
         _applicationShellService = applicationShellService;
         _applicationLifetimeService = applicationLifetimeService;
@@ -187,6 +191,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         LayoutMode = NetworkLayoutMode.EthernetOnly;
         LocalizationService.LanguageChanged += OnLanguageChanged;
         RefreshSupportedCultures();
+        RefreshKeyboardMenu();
         ApplyLocalizedDefaults();
     }
 
@@ -199,6 +204,16 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// Gets the supported UI cultures.
     /// </summary>
     public ObservableCollection<SupportedCultureOption> SupportedCultures { get; } = [];
+
+    /// <summary>
+    /// Gets the keyboard menu entries: the active language's layouts, then the other languages.
+    /// </summary>
+    public ObservableCollection<KeyboardMenuEntry> KeyboardMenuEntries { get; } = [];
+
+    /// <summary>
+    /// Gets the keyboard menu header, including the active layout's short name when it is known.
+    /// </summary>
+    public string KeyboardMenuHeader { get; private set; } = string.Empty;
 
     /// <summary>
     /// Gets the current UI culture.
@@ -398,6 +413,45 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void SetCulture(string cultureName)
     {
         LocalizationService.SetCulture(new CultureInfo(cultureName));
+    }
+
+    [RelayCommand]
+    private void SetKeyboardLayout(string? layoutId)
+    {
+        KeyboardLayout? layout = KeyboardLayoutSelection.Find(_keyboardLayoutSwitcher.GetLayouts(), layoutId);
+        if (layout is null)
+        {
+            return;
+        }
+
+        KeyboardLayoutSwitchResult result = _keyboardLayoutSwitcher.Apply(layout);
+        if (result.Succeeded)
+        {
+            _logger.LogInformation("Keyboard layout changed. LayoutId={LayoutId}", layout.Id);
+        }
+        else
+        {
+            _logger.LogWarning("Keyboard layout change failed. LayoutId={LayoutId}, Error={Error}", layout.Id, result.Error);
+        }
+
+        RefreshKeyboardMenu();
+    }
+
+    private void RefreshKeyboardMenu()
+    {
+        IReadOnlyList<KeyboardLayout> layouts = _keyboardLayoutSwitcher.GetLayouts();
+        string activeLayoutId = _keyboardLayoutSwitcher.GetActiveLayoutId();
+        KeyboardMenuEntries.Clear();
+        foreach (KeyboardMenuEntry entry in KeyboardLayoutSelection.BuildMenuEntries(layouts, activeLayoutId, GetString("Keyboard.OtherLanguages")))
+        {
+            KeyboardMenuEntries.Add(entry);
+        }
+
+        KeyboardLayout? activeLayout = KeyboardLayoutSelection.Find(layouts, activeLayoutId);
+        KeyboardMenuHeader = activeLayout is null
+            ? GetString("Menu.Keyboard")
+            : Format("Menu.KeyboardFormat", activeLayout.ShortName);
+        OnPropertyChanged(nameof(KeyboardMenuHeader));
     }
 
     private void RefreshSupportedCultures()
@@ -1188,6 +1242,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         RunOnUiThread(() =>
         {
             RefreshSupportedCultures();
+            RefreshKeyboardMenu();
             ApplyPrimaryStatus(HasInternetAccess);
             CurrentConnectionChipText = BuildCurrentConnectionChipText(IsEthernetConnected);
             OnPropertyChanged(nameof(CurrentCulture));

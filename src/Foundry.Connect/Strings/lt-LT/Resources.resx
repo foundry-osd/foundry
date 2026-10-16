@@ -155,6 +155,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>Laukiama DHCP arba statinės tinklo konfigūracijos</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Kitos kalbos</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabų (Saudo Arabija)</value>
   </data>
@@ -274,6 +277,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Derinimas</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Klaviatūra</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Klaviatūra ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Kalba</value>

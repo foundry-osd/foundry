@@ -155,6 +155,9 @@
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>Ожидание DHCP или статической конфигурации сети</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Другие языки</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Арабский (Саудовская Аравия)</value>
   </data>
@@ -274,6 +277,12 @@
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Отладка</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Клавиатура</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Клавиатура ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Язык</value>

@@ -155,6 +155,9 @@
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>等待DHCP或静态网络配置</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>其他语言</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>阿拉伯语（沙特阿拉伯）</value>
   </data>
@@ -274,6 +277,12 @@
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>调试</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>键盘</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>键盘 ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>语言</value>
