@@ -121,6 +121,13 @@ public static class MediaPreflightService
             reasons.Add(MediaPreflightBlockingReason.WinPeLanguageUnavailable);
         }
 
+        if (!string.IsNullOrWhiteSpace(options.WinPeKeyboardLayoutId)
+            && options.AvailableKeyboardLayoutIds.Count > 0
+            && !options.AvailableKeyboardLayoutIds.Contains(options.WinPeKeyboardLayoutId, StringComparer.OrdinalIgnoreCase))
+        {
+            reasons.Add(MediaPreflightBlockingReason.WinPeKeyboardLayoutUnavailable);
+        }
+
         if (!options.IsFinalExecutionEnabled)
         {
             reasons.Add(MediaPreflightBlockingReason.FinalExecutionDeferred);

@@ -156,6 +156,32 @@ public sealed class MediaPreflightServiceTests
     }
 
     [Fact]
+    public void Evaluate_WhenKeyboardLayoutNotInstalled_BlocksMedia()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                WinPeKeyboardLayoutId = "00000813",
+                AvailableKeyboardLayoutIds = ["0000040C"]
+            });
+
+        Assert.Contains(MediaPreflightBlockingReason.WinPeKeyboardLayoutUnavailable, evaluation.IsoBlockingReasons);
+        Assert.Contains(MediaPreflightBlockingReason.WinPeKeyboardLayoutUnavailable, evaluation.UsbBlockingReasons);
+    }
+
+    [Fact]
+    public void Evaluate_WhenKeyboardLayoutIsNull_DoesNotBlock()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                AvailableKeyboardLayoutIds = ["0000040C"]
+            });
+
+        Assert.DoesNotContain(MediaPreflightBlockingReason.WinPeKeyboardLayoutUnavailable, evaluation.IsoBlockingReasons);
+    }
+
+    [Fact]
     public void Evaluate_WhenArchitectureIsArm64_EnforcesGptPartitionStyle()
     {
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
