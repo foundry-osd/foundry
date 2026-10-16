@@ -11,7 +11,7 @@ namespace Foundry.Utilities.Globalization;
 /// </summary>
 /// <param name="Suggested">Layouts of the active layout's base language; empty when the active layout is unknown.</param>
 /// <param name="OtherLanguages">Every other base language with its layouts.</param>
-public sealed record KeyboardLayoutMenu(IReadOnlyList<KeyboardLayout> Suggested, IReadOnlyList<KeyboardLanguageGroup> OtherLanguages);
+internal sealed record KeyboardLayoutMenu(IReadOnlyList<KeyboardLayout> Suggested, IReadOnlyList<KeyboardLanguageGroup> OtherLanguages);
 
 /// <summary>
 /// Layouts of one base language.
@@ -19,7 +19,7 @@ public sealed record KeyboardLayoutMenu(IReadOnlyList<KeyboardLayout> Suggested,
 /// <param name="BaseLanguage">Two-letter base language.</param>
 /// <param name="DisplayName">Native language name with an uppercase first letter.</param>
 /// <param name="Layouts">Layouts of the language.</param>
-public sealed record KeyboardLanguageGroup(string BaseLanguage, string DisplayName, IReadOnlyList<KeyboardLayout> Layouts);
+internal sealed record KeyboardLanguageGroup(string BaseLanguage, string DisplayName, IReadOnlyList<KeyboardLayout> Layouts);
 
 /// <summary>
 /// One entry of a data-bound keyboard menu: a selectable layout, or a group whose children are entries.
@@ -101,7 +101,7 @@ public static class KeyboardLayoutSelection
     /// <summary>
     /// Builds a keyboard menu around the active layout.
     /// </summary>
-    public static KeyboardLayoutMenu BuildMenu(IReadOnlyList<KeyboardLayout> layouts, string? activeLayoutId)
+    internal static KeyboardLayoutMenu BuildMenu(IReadOnlyList<KeyboardLayout> layouts, string? activeLayoutId)
     {
         ArgumentNullException.ThrowIfNull(layouts);
 
