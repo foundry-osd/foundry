@@ -243,7 +243,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>러시아어(러시아)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>세르비아어 라틴어(세르비아)</value>
+    <value>세르비아어 라틴 문자(세르비아)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>슬로바키아어(슬로바키아)</value>
@@ -264,7 +264,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>태국어(태국)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>터키어(터키어)</value>
+    <value>튀르키예어(튀르키예)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>우크라이나어(우크라이나)</value>

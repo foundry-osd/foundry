@@ -320,7 +320,7 @@ Sous licence MIT.</value>
     <value>Sélectionnez un PFX qui correspond à un certificat d’enregistrement d’application.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>PFX protégé par mot de passe copié sur le support de démarrage pour le téléchargement du hachage matériel.</value>
+    <value>PFX protégé par mot de passe copié sur le support de démarrage pour le téléversement du hachage matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Le fichier PFX sélectionné n’existe plus.</value>
@@ -377,7 +377,7 @@ Sous licence MIT.</value>
     <value>Copier le mot de passe</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Enregistrez ce fichier PFX et ce mot de passe maintenant dans un emplacement sécurisé. Foundry enregistre le mot de passe avec votre configuration sur cet ordinateur seulement lorsque « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres ». Vous aurez besoin des deux valeurs pour générer un support de démarrage pour le téléchargement du hachage matériel.</value>
+    <value>Enregistrez ce fichier PFX et ce mot de passe maintenant dans un emplacement sécurisé. Foundry enregistre le mot de passe avec votre configuration sur cet ordinateur seulement lorsque « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres ». Vous aurez besoin des deux valeurs pour générer un support de démarrage pour le téléversement du hachage matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Mot de passe copié.</value>
@@ -434,7 +434,7 @@ Sous licence MIT.</value>
     <value>Déconnecter le locataire</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Balise de groupe facultative présélectionnée dans Foundry Deploy lors du téléchargement du hachage matériel.</value>
+    <value>Balise de groupe facultative présélectionnée dans Foundry Deploy lors du téléversement du hachage matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Balise de groupe par défaut</value>
@@ -509,7 +509,7 @@ Sous licence MIT.</value>
     <value>Connecté</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Connectez-vous dans le navigateur pour configurer le téléchargement du hachage matériel Autopilot.</value>
+    <value>Connectez-vous dans le navigateur pour configurer le téléversement du hachage matériel Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
     <value>Connectez-vous à Microsoft Graph</value>
@@ -524,7 +524,7 @@ Sous licence MIT.</value>
     <value>Non connecté</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Informations sur le locataire, l’enregistrement de l’application et la préparation au téléchargement de hachage matériel.</value>
+    <value>Informations sur le locataire, l’enregistrement de l’application et la préparation au téléversement de hachage matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
     <value>Préparation des locataires</value>
@@ -536,7 +536,7 @@ Sous licence MIT.</value>
     <value>Valeur</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Connectez-vous à Microsoft Graph pour cette session d’application afin de gérer les paramètres de téléchargement de hachage.</value>
+    <value>Connectez-vous à Microsoft Graph pour cette session d’application afin de gérer les paramètres de téléversement de hachage.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>Connexion du locataire</value>
@@ -644,7 +644,7 @@ Sous licence MIT.</value>
     <value>Profil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Configurer le chargement automatique du hachage matériel basé sur le tenant.</value>
+    <value>Configurer le téléversement automatique du hachage matériel basé sur le locataire.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Téléversement zero-touch du hachage matériel</value>
@@ -2198,7 +2198,7 @@ Sous licence MIT.</value>
     <value>Jonction au domaine interactive</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>Arabe (Arabie Saoudite)</value>
+    <value>Arabe (Arabie saoudite)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>Bulgare (Bulgarie)</value>
@@ -2228,10 +2228,10 @@ Sous licence MIT.</value>
     <value>Anglais (États-Unis)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estonien (Estonie)</value>
+    <value>Estonien (Estonie)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>finnois (Finlande)</value>
+    <value>Finnois (Finlande)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Français (Canada)</value>
@@ -2267,7 +2267,7 @@ Sous licence MIT.</value>
     <value>Lituanien (Lituanie)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal norvégien (Norvège)</value>
+    <value>Norvégien bokmål (Norvège)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polonais (Pologne)</value>
@@ -2285,7 +2285,7 @@ Sous licence MIT.</value>
     <value>Russe (Russie)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latin serbe (Serbie)</value>
+    <value>Serbe latin (Serbie)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovaque (Slovaquie)</value>
@@ -2381,7 +2381,7 @@ Sous licence MIT.</value>
     <value>Profil JSON</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Télécharger les hachages matériels via Microsoft Graph.</value>
+    <value>Téléverser les hachages matériels via Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -3262,49 +3262,49 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Activé : {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais l’expiration du certificat sélectionné est manquante.</value>
+    <value>Le téléversement du hachage matériel est activé mais l’expiration du certificat sélectionné est manquante.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais le certificat sélectionné a expiré. Sélectionnez un certificat valide avant de créer un support de démarrage.</value>
+    <value>Le téléversement du hachage matériel est activé mais le certificat sélectionné a expiré. Sélectionnez un certificat valide avant de créer un support de démarrage.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais le PFX sélectionné ne correspond pas à un certificat d’enregistrement d’application.</value>
+    <value>Le téléversement du hachage matériel est activé mais le PFX sélectionné ne correspond pas à un certificat d’enregistrement d’application.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais l’empreinte numérique du certificat sélectionné est manquante.</value>
+    <value>Le téléversement du hachage matériel est activé mais l’empreinte numérique du certificat sélectionné est manquante.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais l’enregistrement de l’application n’est pas configuré. Connectez-vous au locataire depuis Autopilot.</value>
+    <value>Le téléversement du hachage matériel est activé mais l’enregistrement de l’application n’est pas configuré. Connectez-vous au locataire depuis Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais l’expiration du PFX du support de démarrage n’a pas pu être validée.</value>
+    <value>Le téléversement du hachage matériel est activé mais l’expiration du PFX du support de démarrage n’a pas pu être validée.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais le PFX du support de démarrage sélectionné a expiré.</value>
+    <value>Le téléversement du hachage matériel est activé mais le PFX du support de démarrage sélectionné a expiré.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais le PFX du support de démarrage n’a pas été validé.</value>
+    <value>Le téléversement du hachage matériel est activé mais le PFX du support de démarrage n’a pas été validé.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais le PFX sélectionné ne correspond pas au certificat actif.</value>
+    <value>Le téléversement du hachage matériel est activé mais le PFX sélectionné ne correspond pas au certificat actif.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais aucun PFX de support de démarrage n’est sélectionné.</value>
+    <value>Le téléversement du hachage matériel est activé mais aucun PFX de support de démarrage n’est sélectionné.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais le mot de passe PFX du support de démarrage est manquant.</value>
+    <value>Le téléversement du hachage matériel est activé mais le mot de passe PFX du support de démarrage est manquant.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais l’ID client de l’application est manquant. Reconnectez-vous au locataire à partir de Autopilot.</value>
+    <value>Le téléversement du hachage matériel est activé mais l’ID client de l’application est manquant. Reconnectez-vous au locataire à partir de Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé, mais le principal du service d’application est manquant ou n’est pas prêt.</value>
+    <value>Le téléversement du hachage matériel est activé, mais le principal du service d’application est manquant ou n’est pas prêt.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais les paramètres sont manquants.</value>
+    <value>Le téléversement du hachage matériel est activé mais les paramètres sont manquants.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Le téléchargement du hachage matériel est activé mais la connexion du locataire est manquante. Connectez-vous au locataire depuis Autopilot.</value>
+    <value>Le téléversement du hachage matériel est activé mais la connexion du locataire est manquante. Connectez-vous au locataire depuis Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON Le mode profil est activé mais aucun profil par défaut valide n’est sélectionné.</value>
@@ -3382,7 +3382,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>ISO la création est bloquée</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>Créer ISO</value>
+    <value>Créer l’ISO</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>La création du média USB est bloquée</value>

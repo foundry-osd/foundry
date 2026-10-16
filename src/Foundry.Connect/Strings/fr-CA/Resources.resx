@@ -156,7 +156,7 @@ Sous licence MIT.</value>
     <value>En attente de DHCP ou d’une configuration réseau statique</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>Arabe (Arabie Saoudite)</value>
+    <value>Arabe (Arabie saoudite)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>Bulgare (Bulgarie)</value>
@@ -186,10 +186,10 @@ Sous licence MIT.</value>
     <value>Anglais (États-Unis)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estonien (Estonie)</value>
+    <value>Estonien (Estonie)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>finnois (Finlande)</value>
+    <value>Finnois (Finlande)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Français (Canada)</value>
@@ -225,7 +225,7 @@ Sous licence MIT.</value>
     <value>Lituanien (Lituanie)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal norvégien (Norvège)</value>
+    <value>Norvégien bokmål (Norvège)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polonais (Pologne)</value>
@@ -243,7 +243,7 @@ Sous licence MIT.</value>
     <value>Russe (Russie)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latin serbe (Serbie)</value>
+    <value>Serbe latin (Serbie)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovaque (Slovaquie)</value>

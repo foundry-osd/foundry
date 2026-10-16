@@ -416,10 +416,10 @@ Licencirano pod MIT licencom.</value>
     <value>Nisu obezbeđeni nikakvi sertifikati.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Povežite stanara</value>
+    <value>Povežite zakupca</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Povezivanje stanara…</value>
+    <value>Povezivanje zakupca…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Kreirajte sertifikat</value>
@@ -431,7 +431,7 @@ Licencirano pod MIT licencom.</value>
     <value>Nije izabrana podrazumevana oznaka grupe.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Isključite stanara</value>
+    <value>Isključite zakupca</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
     <value>Opciona oznaka grupe unapred izabrana u Foundry Deploy tokom hardverskog heš otpremanja.</value>
@@ -446,7 +446,7 @@ Licencirano pod MIT licencom.</value>
     <value>Foundry nije mogao da konfiguriše registraciju aplikacije Autopilot. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Uključivanje stanara nije uspelo</value>
+    <value>Uključivanje zakupca nije uspelo</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>Izabrani sertifikat je istekao. Kreirajte novi sertifikat, sačuvajte njegov PFKS i lozinku, a zatim ga izaberite za medijum za pokretanje.</value>
@@ -464,7 +464,7 @@ Licencirano pod MIT licencom.</value>
     <value>Direktoru upravljane usluge nedostaje saglasnost administratora za potrebnu dozvolu Microsoft Graph. Dajte saglasnost administratora i ponovo se povežite.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Registracija upravljane aplikacije nije spremna. Pregledajte spremnost stanara i ponovo se povežite.</value>
+    <value>Registracija upravljane aplikacije nije spremna. Pregledajte spremnost zakupca i ponovo se povežite.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Registraciji upravljane aplikacije nedostaje potrebna dozvola za aplikaciju Microsoft Graph. Ponovo se povežite sa nalogom koji može da ažurira registracije aplikacija.</value>
@@ -473,7 +473,7 @@ Licencirano pod MIT licencom.</value>
     <value>Principal upravljane usluge nedostaje ili je onemogućen. Ponovo se povežite sa nalogom koji može da kreira ili upravlja poslovnim aplikacijama.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Uključivanje stanara zahteva pažnju</value>
+    <value>Uključivanje zakupca zahteva pažnju</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Status</value>
@@ -518,7 +518,7 @@ Licencirano pod MIT licencom.</value>
     <value>ID klijenta</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>ID stanara</value>
+    <value>ID zakupca</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nije povezan</value>
@@ -527,7 +527,7 @@ Licencirano pod MIT licencom.</value>
     <value>Informacije o zakupcu, registraciji aplikacije i spremnosti za otpremanje hardverskog heš-a.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Spremnost stanara</value>
+    <value>Spremnost zakupca</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Ime</value>
@@ -539,7 +539,7 @@ Licencirano pod MIT licencom.</value>
     <value>Povežite se sa Microsoft Graph za ovu sesiju aplikacije da biste upravljali podešavanjima heš otpremanja.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Veza stanara</value>
+    <value>Veza sa zakupcem</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Uvezi profil</value>
@@ -2204,7 +2204,7 @@ Licencirano pod MIT licencom.</value>
     <value>bugarski (Bugarska)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>kineski pojednostavljeni (Kina)</value>
+    <value>pojednostavljeni kineski (Kina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicionalni kineski (Tajvan)</value>
@@ -2249,7 +2249,7 @@ Licencirano pod MIT licencom.</value>
     <value>hebrejski (Izrael)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>mađarski (mađarska)</value>
+    <value>mađarski (Mađarska)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
     <value>italijanski (Italija)</value>
@@ -2267,7 +2267,7 @@ Licencirano pod MIT licencom.</value>
     <value>litvanski (Litvanija)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norveški bokmal (Norveška)</value>
+    <value>norveški bukmol (Norveška)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poljski (Poljska)</value>
@@ -2285,7 +2285,7 @@ Licencirano pod MIT licencom.</value>
     <value>ruski (Rusija)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srpska latinica (Srbija)</value>
+    <value>srpski, latinica (Srbija)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>slovački (Slovačka)</value>
@@ -2306,7 +2306,7 @@ Licencirano pod MIT licencom.</value>
     <value>tajlandski (Tajland)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turski (Turkiie)</value>
+    <value>turski (Turska)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinski (Ukrajina)</value>

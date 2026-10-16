@@ -2285,10 +2285,10 @@
     <value>俄语（俄罗斯）</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>塞尔维亚拉丁语（塞尔维亚）</value>
+    <value>塞尔维亚语拉丁文（塞尔维亚）</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>斯洛伐克（斯洛伐克）</value>
+    <value>斯洛伐克语（斯洛伐克）</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>斯洛文尼亚语（斯洛文尼亚）</value>
@@ -2306,7 +2306,7 @@
     <value>泰语（泰国）</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>土耳其语（Türkiye）</value>
+    <value>土耳其语（土耳其）</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>乌克兰语（乌克兰）</value>
@@ -3382,7 +3382,7 @@
     <value>ISO 创建被阻止</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>创建ISO</value>
+    <value>创建 ISO</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB 创建被阻止</value>
@@ -3415,7 +3415,7 @@
     <value>此磁盘上的所有内容都将丢失。仅当这是要使用的 USB 驱动器时才继续。</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>创建USB</value>
+    <value>创建 USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>包含附加 .inf 驱动程序的可选文件夹。</value>

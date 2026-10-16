@@ -2285,7 +2285,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>러시아어(러시아)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>세르비아어 라틴어(세르비아)</value>
+    <value>세르비아어 라틴 문자(세르비아)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>슬로바키아어(슬로바키아)</value>
@@ -2306,7 +2306,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>태국어(태국)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>터키어(터키어)</value>
+    <value>튀르키예어(튀르키예)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>우크라이나어(우크라이나)</value>
@@ -3382,7 +3382,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>ISO 생성이 차단되었습니다.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>ISO 생성</value>
+    <value>ISO 만들기</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB 생성이 차단되었습니다.</value>
@@ -3415,7 +3415,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>이 디스크의 모든 데이터가 손실됩니다. 사용하려는 USB 드라이브인 경우에만 계속하세요.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>USB 생성</value>
+    <value>USB 만들기</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>추가 .inf 드라이버가 포함된 선택적 폴더입니다.</value>

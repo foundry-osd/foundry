@@ -460,10 +460,10 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
     <value>bulharština (Bulharsko)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Zjednodušená čínština (Čína)</value>
+    <value>zjednodušená čínština (Čína)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Tradiční čínština (Tchaj-wan)</value>
+    <value>tradiční čínština (Tchaj-wan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>chorvatština (Chorvatsko)</value>
@@ -475,7 +475,7 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
     <value>dánština (Dánsko)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>holandština (Nizozemsko)</value>
+    <value>nizozemština (Nizozemsko)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angličtina (Spojené království)</value>
@@ -523,7 +523,7 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
     <value>litevština (Litva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norský Bokmal (Norsko)</value>
+    <value>norský bokmal (Norsko)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>polština (Polsko)</value>
@@ -541,7 +541,7 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
     <value>ruština (Rusko)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srbská latina (Srbsko)</value>
+    <value>srbština – latinka (Srbsko)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>slovenština (Slovensko)</value>
@@ -562,7 +562,7 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
     <value>thajština (Thajsko)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turečtina (Türkiye)</value>
+    <value>turečtina (Turecko)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinština (Ukrajina)</value>

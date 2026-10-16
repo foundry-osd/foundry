@@ -177,7 +177,7 @@
     <value>датски (Дания)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>холандски (Холандия)</value>
+    <value>нидерландски (Нидерландия)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>английски (Великобритания)</value>
@@ -225,7 +225,7 @@
     <value>литовски (Литва)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>норвежки бокмал (Норвегия)</value>
+    <value>норвежки букмол (Норвегия)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>полски (Полша)</value>
@@ -243,7 +243,7 @@
     <value>руски (Русия)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>сръбска латиница (Сърбия)</value>
+    <value>сръбски, латиница (Сърбия)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>словашки (Словакия)</value>
@@ -264,7 +264,7 @@
     <value>тайландски (Тайланд)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>турски (Türkiye)</value>
+    <value>турски (Турция)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>украински (Украйна)</value>

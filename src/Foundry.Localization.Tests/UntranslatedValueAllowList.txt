@@ -54,7 +54,7 @@ Foundry Nav_GeneralSection.Title es-ES es-MX ro-RO
 Foundry Nav_HomeKey.Title it-IT
 Foundry Nav_OobeKey.Title
 Foundry Nav_PostInstallationKey.Title fr-CA fr-FR
-Foundry Nav_StartKey.Title da-DK hr-HR nb-NO
+Foundry Nav_StartKey.Title cs-CZ da-DK hr-HR nb-NO pl-PL
 Foundry Nav_UnattendKey.Title
 Foundry Nav_WifiKey.Title
 Foundry Nav_WindowsAutopilotSection.Title ar-SA bg-BG cs-CZ de-DE el-GR es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT lt-LT lv-LV pl-PL pt-BR ro-RO ru-RU sk-SK sl-SI sr-Latn-RS tr-TR uk-UA zh-TW

@@ -287,10 +287,10 @@
     <value>Профіль за замовчуванням</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Завантажити з орендаря</value>
+    <value>Завантажити з клієнта</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Орендар не повернув профілі Autopilot.</value>
+    <value>Клієнт не повернув профілі Autopilot.</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Помилка завантаження профілю Autopilot: {0}</value>
@@ -416,10 +416,10 @@
     <value>Сертифікати не надаються.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Підключити орендаря</value>
+    <value>Підключити клієнт</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Підключення орендаря…</value>
+    <value>Підключення клієнта…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Створити сертифікат</value>
@@ -431,7 +431,7 @@
     <value>Тег групи за замовчуванням не вибрано.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Відключити орендаря</value>
+    <value>Відключити клієнт</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
     <value>Додатковий груповий тег, попередньо вибраний у Foundry Deploy під час завантаження апаратного хешу.</value>
@@ -446,7 +446,7 @@
     <value>Foundry не вдалося налаштувати реєстрацію програми Autopilot. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Помилка реєстрації орендаря</value>
+    <value>Помилка реєстрації клієнта</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>Термін дії вибраного сертифіката закінчився. Створіть новий сертифікат, збережіть його PFX і пароль, а потім виберіть його для завантажувального носія.</value>
@@ -464,7 +464,7 @@
     <value>Принципал керованої служби не має згоди адміністратора для необхідного дозволу Microsoft Graph. Надайте згоду адміністратора та повторно підключіться.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Реєстрація керованої програми не готова. Перегляньте готовність орендаря та повторно підключіться.</value>
+    <value>Реєстрація керованої програми не готова. Перегляньте готовність клієнта та повторно підключіться.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Для реєстрації керованої програми відсутній необхідний дозвіл програми Microsoft Graph. Повторно підключіться до облікового запису, який може оновлювати реєстрацію програм.</value>
@@ -473,7 +473,7 @@
     <value>Принципал керованої служби відсутній або вимкнений. Знову зв’яжіться з обліковим записом, який може створювати корпоративні програми або керувати ними.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Реєстрація орендаря вимагає уваги</value>
+    <value>Реєстрація клієнта вимагає уваги</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Статус</value>
@@ -515,19 +515,19 @@
     <value>Увійдіть на Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
-    <value>ID клієнта</value>
+    <value>ID програми (клієнта)</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>ID орендаря</value>
+    <value>ID клієнта</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Не підключено</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Орендар, реєстрація програми та інформація про готовність до завантаження хешу обладнання.</value>
+    <value>Клієнт, реєстрація програми та інформація про готовність до завантаження хешу обладнання.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Готовність орендаря</value>
+    <value>Готовність клієнта</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Ім'я</value>
@@ -539,7 +539,7 @@
     <value>Підключіться до Microsoft Graph для цього сеансу програми, щоб керувати налаштуваннями завантаження хешу.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Підключення орендаря</value>
+    <value>Підключення клієнта</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Імпорт профілю</value>
@@ -617,7 +617,7 @@
     <value>Очистити</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Виберіть, які профілі орендарів слід імпортувати в Foundry.</value>
+    <value>Виберіть, які профілі клієнта слід імпортувати в Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Імпорт</value>
@@ -644,7 +644,7 @@
     <value>Профіль JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Налаштуйте автоматичне завантаження апаратного хешу з підтримкою орендаря.</value>
+    <value>Налаштуйте автоматичне завантаження апаратного хешу, прив’язане до клієнта.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Zero-touch завантаження апаратного хешу</value>
@@ -2198,7 +2198,7 @@
     <value>Інтерактивне приєднання до домену</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>арабська (Саудівська Аравія)</value>
+    <value>Арабська (Саудівська Аравія)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>Болгарська (Болгарія)</value>
@@ -2216,43 +2216,43 @@
     <value>Чеська (Чехія)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>датська (Данія)</value>
+    <value>Датська (Данія)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>голландська (Нідерланди)</value>
+    <value>Нідерландська (Нідерланди)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>англійська (Великобританія)</value>
+    <value>Англійська (Великобританія)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>англійська (Сполучені Штати)</value>
+    <value>Англійська (Сполучені Штати)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>естонська (Естонія)</value>
+    <value>Естонська (Естонія)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>фінська (Фінляндія)</value>
+    <value>Фінська (Фінляндія)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>французька (Канада)</value>
+    <value>Французька (Канада)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>французька (Франція)</value>
+    <value>Французька (Франція)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>німецька (Німеччина)</value>
+    <value>Німецька (Німеччина)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>грецька (Греція)</value>
+    <value>Грецька (Греція)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>іврит (Ізраїль)</value>
+    <value>Іврит (Ізраїль)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>угорська (Угорщина)</value>
+    <value>Угорська (Угорщина)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>італійська (Італія)</value>
+    <value>Італійська (Італія)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
     <value>Японська (Японія)</value>
@@ -2261,52 +2261,52 @@
     <value>Корейська (Корея)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>латиська (Латвія)</value>
+    <value>Латиська (Латвія)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>литовська (Литва)</value>
+    <value>Литовська (Литва)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>норвезька букмаль (Норвегія)</value>
+    <value>Норвезька букмол (Норвегія)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>польська (Польща)</value>
+    <value>Польська (Польща)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>португальська (Бразилія)</value>
+    <value>Португальська (Бразилія)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>португальська (Португалія)</value>
+    <value>Португальська (Португалія)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>румунська (Румунія)</value>
+    <value>Румунська (Румунія)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>російська (Росія)</value>
+    <value>Російська (Росія)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Сербська латиниця (Сербія)</value>
+    <value>Сербська, латиниця (Сербія)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>словацька (Словаччина)</value>
+    <value>Словацька (Словаччина)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>словенська (Словенія)</value>
+    <value>Словенська (Словенія)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>іспанська (Мексика)</value>
+    <value>Іспанська (Мексика)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
     <value>Іспанська (Іспанія)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>шведська (Швеція)</value>
+    <value>Шведська (Швеція)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>тайська (Таїланд)</value>
+    <value>Тайська (Таїланд)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Турецька (Türkiye)</value>
+    <value>Турецька (Туреччина)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Українська (Україна)</value>
@@ -3295,7 +3295,7 @@
     <value>Завантаження апаратних хешів увімкнено, але пароль PFX завантажувального носія відсутній.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Завантаження апаратних хешів увімкнено, але відсутній ідентифікатор клієнта програми. Повторно підключіться до клієнта з Autopilot.</value>
+    <value>Завантаження апаратних хешів увімкнено, але відсутній ідентифікатор програми (клієнта). Повторно підключіться до клієнта з Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
     <value>Завантаження апаратних хешів увімкнено, але принципал служби програми відсутній або не готовий.</value>

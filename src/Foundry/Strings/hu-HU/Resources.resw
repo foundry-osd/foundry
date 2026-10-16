@@ -2204,7 +2204,7 @@ Licenc az MIT licenc alatt.</value>
     <value>bolgár (Bulgária)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Egyszerűsített kínai (Kína)</value>
+    <value>egyszerűsített kínai (Kína)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>hagyományos kínai (Tajvan)</value>
@@ -2213,7 +2213,7 @@ Licenc az MIT licenc alatt.</value>
     <value>horvát (Horvátország)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>cseh (cseh)</value>
+    <value>cseh (Csehország)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>dán (Dánia)</value>
@@ -2306,7 +2306,7 @@ Licenc az MIT licenc alatt.</value>
     <value>thai (Thaiföld)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>török (Türkiye)</value>
+    <value>török (Törökország)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrán (Ukrajna)</value>
@@ -2474,7 +2474,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Tekintse át és indítsa el a médiakészítést.</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
-    <value>Indítsa el</value>
+    <value>Indítás</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
     <value>Importáljon Windows-válaszfájlokat, és válassza ki a központi telepítéshez használt beállításokat.</value>

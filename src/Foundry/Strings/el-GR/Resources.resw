@@ -2207,13 +2207,13 @@
     <value>Απλοποιημένα Κινεζικά (Κίνα)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Παραδοσιακό Κινέζικο (Ταϊβάν)</value>
+    <value>Παραδοσιακά Κινεζικά (Ταϊβάν)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>Κροατικά (Κροατία)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Τσεχία (Τσεχία)</value>
+    <value>Τσεχικά (Τσεχία)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>Δανικά (Δανία)</value>
@@ -2228,7 +2228,7 @@
     <value>Αγγλικά (Ηνωμένες Πολιτείες)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>Εσθονία (Εσθονία)</value>
+    <value>Εσθονικά (Εσθονία)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Φινλανδικά (Φινλανδία)</value>
@@ -2258,16 +2258,16 @@
     <value>Ιαπωνικά (Ιαπωνία)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>Κορεάτικα (Κορέα)</value>
+    <value>Κορεατικά (Κορέα)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>Λετονικά (Λετονία)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>Λιθουανία (Λιθουανία)</value>
+    <value>Λιθουανικά (Λιθουανία)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norwegian Bokmal (Νορβηγία)</value>
+    <value>Νορβηγικά Bokmål (Νορβηγία)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Πολωνικά (Πολωνία)</value>
@@ -2285,7 +2285,7 @@
     <value>Ρωσικά (Ρωσία)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Σερβικά Λατινικά (Σερβία)</value>
+    <value>Σερβικά, Λατινικά (Σερβία)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Σλοβακικά (Σλοβακία)</value>
@@ -2303,7 +2303,7 @@
     <value>Σουηδικά (Σουηδία)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>Ταϊλάνδης (Ταϊλάνδη)</value>
+    <value>Ταϊλανδικά (Ταϊλάνδη)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
     <value>Τουρκικά (Türkiye)</value>

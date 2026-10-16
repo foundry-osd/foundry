@@ -168,7 +168,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Chino tradicional (Taiwán)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>croata (Croacia)</value>
+    <value>Croata (Croacia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>Checo (Chequia)</value>
@@ -177,7 +177,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Danés (Dinamarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holandés (Países Bajos)</value>
+    <value>Neerlandés (Países Bajos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglés (Reino Unido)</value>
@@ -186,7 +186,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Inglés (Estados Unidos)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estonio (Estonia)</value>
+    <value>Estonio (Estonia)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finlandés (Finlandia)</value>
@@ -222,10 +222,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Letón (Letonia)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>lituano (Lituania)</value>
+    <value>Lituano (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal noruego (Noruega)</value>
+    <value>Noruego bokmål (Noruega)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polaco (Polonia)</value>
@@ -237,13 +237,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Portugués (Portugal)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>Rumano (Rumania)</value>
+    <value>Rumano (Rumanía)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>Ruso (Rusia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latín serbio (Serbia)</value>
+    <value>Serbio latino (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Eslovaco (Eslovaquia)</value>
@@ -258,7 +258,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Español (España)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>sueco (suecia)</value>
+    <value>Sueco (Suecia)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
     <value>Tailandés (Tailandia)</value>

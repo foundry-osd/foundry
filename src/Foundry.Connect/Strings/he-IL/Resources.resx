@@ -171,7 +171,7 @@
     <value>קרואטית (קרואטיה)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>צ'כיה (צ'כיה)</value>
+    <value>צ'כית (צ'כיה)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>דנית (דנמרק)</value>
@@ -219,13 +219,13 @@
     <value>קוריאנית (קוריאה)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>לטביה (לטביה)</value>
+    <value>לטבית (לטביה)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
     <value>ליטאית (ליטא)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>בוקמאל הנורבגי (נורווגיה)</value>
+    <value>נורווגית בוקמול (נורווגיה)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>פולנית (פולין)</value>
@@ -243,7 +243,7 @@
     <value>רוסית (רוסיה)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>לטינית סרבית (סרביה)</value>
+    <value>סרבית לטינית (סרביה)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>סלובקית (סלובקיה)</value>
@@ -258,10 +258,10 @@
     <value>ספרדית (ספרד)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>שוודית (שבדיה)</value>
+    <value>שוודית (שוודיה)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>תאילנד (תאילנד)</value>
+    <value>תאית (תאילנד)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
     <value>טורקית (טורקיה)</value>

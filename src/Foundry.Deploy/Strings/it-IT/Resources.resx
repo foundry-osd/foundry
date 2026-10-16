@@ -469,7 +469,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Croato (Croazia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Ceco (Repubblica Ceca)</value>
+    <value>Ceco (Cechia)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>Danese (Danimarca)</value>
@@ -523,7 +523,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Lituano (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal norvegese (Norvegia)</value>
+    <value>Norvegese bokmål (Norvegia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polacco (Polonia)</value>
@@ -541,7 +541,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Russo (Russia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latino serbo (Serbia)</value>
+    <value>Serbo latino (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovacco (Slovacchia)</value>

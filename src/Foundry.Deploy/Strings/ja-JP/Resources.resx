@@ -541,7 +541,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ロシア語 (ロシア)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>セルビア語ラテン語 (セルビア)</value>
+    <value>セルビア語ラテン文字 (セルビア)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>スロバキア語 (スロバキア)</value>
@@ -562,7 +562,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>タイ語 (タイ)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>トルコ語 (トゥルキエ)</value>
+    <value>トルコ語 (トルコ)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ウクライナ語 (ウクライナ)</value>

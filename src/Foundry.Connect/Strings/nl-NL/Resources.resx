@@ -225,7 +225,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Litouws (Litouwen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Noors Bokmal (Noorwegen)</value>
+    <value>Noors, Bokmål (Noorwegen)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Pools (Polen)</value>
@@ -243,7 +243,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Russisch (Rusland)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Servisch Latijn (Servië)</value>
+    <value>Servisch, Latijns (Servië)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slowaaks (Slowakije)</value>

@@ -287,10 +287,10 @@
     <value>Профиль по умолчанию</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Скачать с арендатора</value>
+    <value>Скачать из клиента</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Арендатор не вернул ни одного профиля Autopilot.</value>
+    <value>Клиент не вернул ни одного профиля Autopilot.</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Autopilot не удалось загрузить профиль: {0}</value>
@@ -416,10 +416,10 @@
     <value>Никакие сертификаты не предоставляются.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Подключить арендатора</value>
+    <value>Подключить клиент</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Подключение арендатора…</value>
+    <value>Подключение клиента…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Создать сертификат</value>
@@ -431,7 +431,7 @@
     <value>Тег группы по умолчанию не выбран.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Отключить арендатора</value>
+    <value>Отключить клиент</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
     <value>Дополнительный групповой тег, предварительно выбранный в Foundry Deploy во время загрузки аппаратного хеша.</value>
@@ -464,7 +464,7 @@
     <value>У управляемого субъекта-службы отсутствует согласие администратора на необходимое разрешение Microsoft Graph. Предоставьте согласие администратора и повторно подключитесь.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Регистрация управляемого приложения не готова. Проверьте готовность арендатора и повторно подключитесь.</value>
+    <value>Регистрация управляемого приложения не готова. Проверьте готовность клиента и повторно подключитесь.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>При регистрации управляемого приложения отсутствует необходимое разрешение приложения Microsoft Graph. Повторно подключитесь к учетной записи, которая может обновлять регистрации приложений.</value>
@@ -473,7 +473,7 @@
     <value>Управляемый субъект-служба отсутствует или отключен. Повторно подключитесь к учетной записи, которая может создавать корпоративные приложения или управлять ими.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Регистрация арендаторов требует внимания</value>
+    <value>Регистрация клиента требует внимания</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Статус</value>
@@ -515,10 +515,10 @@
     <value>Войдите в Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
-    <value>Идентификатор клиента</value>
+    <value>Идентификатор приложения (клиента)</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>Идентификатор арендатора</value>
+    <value>Идентификатор клиента</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Не подключено</value>
@@ -527,7 +527,7 @@
     <value>Информация о клиенте, регистрации приложения и готовности к загрузке хэша оборудования.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Готовность арендатора</value>
+    <value>Готовность клиента</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Имя</value>
@@ -539,7 +539,7 @@
     <value>Подключитесь к Microsoft Graph для этого сеанса приложения, чтобы управлять настройками загрузки хеша.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Подключение арендатора</value>
+    <value>Подключение клиента</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Импортировать профиль</value>
@@ -617,7 +617,7 @@
     <value>Очистить</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Выберите, какие профили арендаторов следует импортировать в Foundry.</value>
+    <value>Выберите, какие профили клиента следует импортировать в Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Импорт</value>
@@ -644,7 +644,7 @@
     <value>Профиль JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Настройте автоматическую отправку аппаратного хеша с поддержкой арендатора.</value>
+    <value>Настройте автоматическую отправку аппаратного хеша, привязанную к клиенту.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Zero-touch отправка аппаратного хеша</value>
@@ -2219,7 +2219,7 @@
     <value>Датский (Дания)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Голландский (Нидерланды)</value>
+    <value>Нидерландский (Нидерланды)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Английский (Великобритания)</value>
@@ -2267,7 +2267,7 @@
     <value>Литовский (Литва)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Норвежский букмал (Норвегия)</value>
+    <value>Норвежский букмол (Норвегия)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Польский (Польша)</value>
@@ -2285,7 +2285,7 @@
     <value>Русский (Россия)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Сербская латынь (Сербия)</value>
+    <value>Сербский, латиница (Сербия)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Словацкий (Словакия)</value>
@@ -2306,7 +2306,7 @@
     <value>Тайский (Таиланд)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Турецкий (Türkiye)</value>
+    <value>Турецкий (Турция)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Украинский (Украина)</value>
@@ -3274,7 +3274,7 @@
     <value>Загрузка хэша оборудования включена, но отпечаток выбранного сертификата отсутствует.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но регистрация приложения не настроена. Подключитесь к арендатору от Autopilot.</value>
+    <value>Загрузка аппаратного хеша включена, но регистрация приложения не настроена. Подключитесь к клиенту из Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
     <value>Загрузка аппаратного хэша включена, но срок действия PFX загрузочного носителя не может быть проверен.</value>
@@ -3295,7 +3295,7 @@
     <value>Загрузка аппаратного хеша включена, но пароль PFX загрузочного носителя отсутствует.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но идентификатор клиента приложения отсутствует. Повторно подключитесь к арендатору из Autopilot.</value>
+    <value>Загрузка аппаратного хэша включена, но идентификатор приложения (клиента) отсутствует. Повторно подключитесь к клиенту из Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
     <value>Загрузка аппаратного хэша включена, но субъект службы приложения отсутствует или не готов.</value>
@@ -3304,7 +3304,7 @@
     <value>Аппаратная загрузка хеша включена, но настройки отсутствуют.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но подключение клиента отсутствует. Подключитесь к арендатору от Autopilot.</value>
+    <value>Загрузка аппаратного хеша включена, но подключение клиента отсутствует. Подключитесь к клиенту из Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Режим профиля Autopilot JSON включен, но действительный профиль по умолчанию не выбран.</value>

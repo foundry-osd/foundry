@@ -287,10 +287,10 @@
     <value>Профил по подразбиране</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Изтегляне от наемател</value>
+    <value>Изтегляне от клиента</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Няма Autopilot профили, върнати от наемателя.</value>
+    <value>Няма Autopilot профили, върнати от клиента.</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Неуспешно изтегляне на Autopilot профил: {0}</value>
@@ -416,10 +416,10 @@
     <value>Не се предоставят сертификати.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Свържете наемател</value>
+    <value>Свържете клиента</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Наемател се свързва…</value>
+    <value>Свързване с клиента…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Създаване на сертификат</value>
@@ -431,7 +431,7 @@
     <value>Няма избран групов маркер по подразбиране.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Прекъснете връзката с наемателя</value>
+    <value>Прекъснете връзката с клиента</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
     <value>Незадължителен групов таг, предварително избран в Foundry Deploy по време на качване на хардуерен хеш.</value>
@@ -446,7 +446,7 @@
     <value>Foundry не можа да конфигурира регистрацията на приложението Autopilot. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Включването на наемател не бе успешно</value>
+    <value>Включването на клиента не бе успешно</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>Избраният сертификат е изтекъл. Създайте нов сертификат, запазете неговия PFX и парола, след което го изберете за носител за зареждане.</value>
@@ -464,7 +464,7 @@
     <value>Липсва администраторското съгласие на управлявания принципал за необходимото Microsoft Graph разрешение. Дайте съгласие на администратора и се свържете отново.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Регистрацията на управляваното приложение не е готова. Прегледайте готовността на наемателя и се свържете отново.</value>
+    <value>Регистрацията на управляваното приложение не е готова. Прегледайте готовността на клиента и се свържете отново.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>В регистрацията на управляваното приложение липсва необходимото разрешение за Microsoft Graph приложение. Свържете се отново с акаунт, който може да актуализира регистрациите на приложения.</value>
@@ -473,7 +473,7 @@
     <value>Главният управляван сервиз липсва или е деактивиран. Свържете се отново с акаунт, който може да създава или управлява корпоративни приложения.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Включването на наемателя изисква внимание</value>
+    <value>Включването на клиента изисква внимание</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Статус</value>
@@ -515,19 +515,19 @@
     <value>Влезте в Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
-    <value>ID на клиента</value>
+    <value>ID на приложението (клиента)</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>ID на наемателя</value>
+    <value>ID на клиента</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Не е свързан</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Наемател, регистрация на приложение и информация за готовност за качване на хардуерен хеш.</value>
+    <value>Клиент, регистрация на приложение и информация за готовност за качване на хардуерен хеш.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Готовност на наемателя</value>
+    <value>Готовност на клиента</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Име</value>
@@ -539,7 +539,7 @@
     <value>Свържете се с Microsoft Graph за тази сесия на приложението, за да управлявате настройките за качване на хеш.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Връзка с наемател</value>
+    <value>Връзка с клиента</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Импортиране на профил</value>
@@ -617,7 +617,7 @@
     <value>Изчисти</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Изберете кои профили на наематели да бъдат импортирани в Foundry.</value>
+    <value>Изберете кои профили на клиента да бъдат импортирани в Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Импортиране</value>
@@ -644,7 +644,7 @@
     <value>JSON профил</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Конфигурирайте автоматичното качване на хардуерен хеш със съдействие на tenant.</value>
+    <value>Конфигурирайте автоматичното качване на хардуерен хеш, свързано с клиента.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Zero-touch качване на хардуерен хеш</value>
@@ -2219,7 +2219,7 @@
     <value>датски (Дания)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>холандски (Холандия)</value>
+    <value>нидерландски (Нидерландия)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>английски (Великобритания)</value>
@@ -2267,7 +2267,7 @@
     <value>литовски (Литва)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>норвежки бокмал (Норвегия)</value>
+    <value>норвежки букмол (Норвегия)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>полски (Полша)</value>
@@ -2285,7 +2285,7 @@
     <value>руски (Русия)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>сръбска латиница (Сърбия)</value>
+    <value>сръбски, латиница (Сърбия)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>словашки (Словакия)</value>
@@ -2306,7 +2306,7 @@
     <value>тайландски (Тайланд)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>турски (Türkiye)</value>
+    <value>турски (Турция)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>украински (Украйна)</value>
@@ -3295,7 +3295,7 @@
     <value>Качването на хардуерен хеш е активирано, но PFX паролата за стартиращ носител липсва.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но клиентският идентификатор на приложението липсва. Свържете се отново с клиента от Autopilot.</value>
+    <value>Хардуерното хеширане е активирано, но идентификаторът на приложението (клиента) липсва. Свържете се отново с клиента от Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
     <value>Хардуерното хеширане е активирано, но принципалът на услугата на приложението липсва или не е готов.</value>

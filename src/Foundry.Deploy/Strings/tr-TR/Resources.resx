@@ -523,7 +523,7 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
     <value>Litvanyaca (Litvanya)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norveç Bokmal (Norveç)</value>
+    <value>Norveççe Bokmål (Norveç)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Lehçe (Polonya)</value>
@@ -541,7 +541,7 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
     <value>Rusça (Rusya)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Sırpça Latince (Sırbistan)</value>
+    <value>Sırpça, Latin (Sırbistan)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovakça (Slovakya)</value>

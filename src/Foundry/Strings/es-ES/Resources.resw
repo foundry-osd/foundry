@@ -2210,7 +2210,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Chino tradicional (Taiwán)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>croata (Croacia)</value>
+    <value>Croata (Croacia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>Checo (Chequia)</value>
@@ -2219,7 +2219,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Danés (Dinamarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holandés (Países Bajos)</value>
+    <value>Neerlandés (Países Bajos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglés (Reino Unido)</value>
@@ -2228,7 +2228,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Inglés (Estados Unidos)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estonio (Estonia)</value>
+    <value>Estonio (Estonia)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finlandés (Finlandia)</value>
@@ -2264,10 +2264,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Letón (Letonia)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>lituano (Lituania)</value>
+    <value>Lituano (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal noruego (Noruega)</value>
+    <value>Noruego bokmål (Noruega)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polaco (Polonia)</value>
@@ -2279,13 +2279,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Portugués (Portugal)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>Rumano (Rumania)</value>
+    <value>Rumano (Rumanía)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>Ruso (Rusia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latín serbio (Serbia)</value>
+    <value>Serbio latino (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Eslovaco (Eslovaquia)</value>
@@ -2300,7 +2300,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Español (España)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>sueco (suecia)</value>
+    <value>Sueco (Suecia)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
     <value>Tailandés (Tailandia)</value>
@@ -2831,7 +2831,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Elegir otro nombre</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>No se han podido eliminar algunas contraseñas o claves de acceso antiguas guardadas. Inténtalo de nuevo cuando el Administrador de credenciales de Windows esté disponible.</value>
+    <value>No se han podido eliminar algunas contraseñas o claves de acceso antiguas guardadas. Inténtelo de nuevo cuando el Administrador de credenciales de Windows esté disponible.</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Confirmar contraseña</value>
@@ -2840,10 +2840,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Confirmar contraseña del archivo</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Esta configuración se ha modificado en este PC y por otra persona. Elige qué versión conservar.</value>
+    <value>Esta configuración se ha modificado en este PC y por otra persona. Elija qué versión conservar.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>La versión que elijas sustituirá a la otra. Elige primero Duplicar si quieres conservar una copia independiente.</value>
+    <value>La versión que elija sustituirá a la otra. Elija primero Duplicar si quiere conservar una copia independiente.</value>
   </data>
   <data name="Profiles.ConnectAction" xml:space="preserve">
     <value>Conectar</value>
@@ -2876,16 +2876,16 @@ Licenciado bajo la Licencia MIT.</value>
     <value>¿Eliminar esta configuración compartida para todos? Quien tenga cambios sin sincronizar debe duplicar su configuración para conservarlos.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>¿Eliminar esta configuración de este PC? Expórtala primero si quieres una copia de seguridad.</value>
+    <value>¿Eliminar esta configuración de este PC? Expórtela primero si quiere una copia de seguridad.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Esta configuración compartida se ha eliminado. Elige Duplicar para conservar tus cambios en este PC.</value>
+    <value>Esta configuración compartida se ha eliminado. Elija Duplicar para conservar sus cambios en este PC.</value>
   </data>
   <data name="Profiles.Disconnect" xml:space="preserve">
     <value>Desconectar</value>
   </data>
   <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>¿Dejar de sincronizar esta configuración en este PC? Se conservará tu configuración actual. La configuración compartida y los demás PC no se modificarán.</value>
+    <value>¿Dejar de sincronizar esta configuración en este PC? Se conservará su configuración actual. La configuración compartida y los demás PC no se modificarán.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportar</value>
@@ -2900,19 +2900,19 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Guardar archivo de conexión</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>No se ha podido completar esta acción. Comprueba el archivo, su contraseña, tus permisos de acceso y tu conexión de red.</value>
+    <value>No se ha podido completar esta acción. Compruebe el archivo, su contraseña, sus permisos de acceso y su conexión de red.</value>
   </data>
   <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>Este nombre de carpeta ya está en uso. Conéctate usando un archivo de conexión o vuelve atrás y elige otro nombre.</value>
+    <value>Este nombre de carpeta ya está en uso. Conéctese usando un archivo de conexión o vuelva atrás y elija otro nombre.</value>
   </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Elige una subcarpeta nueva y vacía dentro de la carpeta compartida. Los archivos existentes no se modificarán.</value>
+    <value>Elija una subcarpeta nueva y vacía dentro de la carpeta compartida. Los archivos existentes no se modificarán.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Borrar las contraseñas y los accesos guardados</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>¿Eliminar las contraseñas guardadas, los archivos confidenciales guardados por Foundry y el acceso a la sincronización de esta configuración en este PC? Tendrás que añadir los datos que falten y volver a conectarte para sincronizar. Los medios que ya hayas creado no cambiarán.</value>
+    <value>¿Eliminar las contraseñas guardadas, los archivos confidenciales guardados por Foundry y el acceso a la sincronización de esta configuración en este PC? Tendrá que añadir los datos que falten y volver a conectarse para sincronizar. Los medios que ya haya creado no cambiarán.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Configuración de Foundry</value>
@@ -2930,13 +2930,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Las personas que usen esta configuración podrán leer las contraseñas y los archivos confidenciales incluidos.</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Faltan algunas contraseñas o archivos de origen. Añádelos antes de guardar o compartir contraseñas.</value>
+    <value>Faltan algunas contraseñas o archivos de origen. Añádalos antes de guardar o compartir contraseñas.</value>
   </data>
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Usa un nombre sin caracteres especiales y sin punto ni espacio al final.</value>
+    <value>Use un nombre sin caracteres especiales y sin punto ni espacio al final.</value>
   </data>
   <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>La configuración compartida ha cambiado. Revisa la versión más reciente antes de conectarte.</value>
+    <value>La configuración compartida ha cambiado. Revise la versión más reciente antes de conectarse.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Conectarse a una configuración compartida</value>
@@ -2951,13 +2951,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Guardar las contraseñas de su cuenta de Windows en este PC.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows no puede desbloquear esta configuración guardada ni su acceso a la sincronización para tu cuenta en este PC.</value>
+    <value>Windows no puede desbloquear esta configuración guardada ni su acceso a la sincronización para su cuenta en este PC.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>Más opciones</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Faltan {0} archivos o no se han incluido. Selecciona sus ubicaciones antes de crear medios.</value>
+    <value>Faltan {0} archivos o no se han incluido. Seleccione sus ubicaciones antes de crear medios.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Nombre de la configuración</value>
@@ -2977,7 +2977,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Listo</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Elige una contraseña para proteger el archivo de conexión. Comparte la contraseña por separado. Guarda el archivo fuera de la carpeta de la configuración compartida.</value>
+    <value>Elija una contraseña para proteger el archivo de conexión. Comparta la contraseña por separado. Guarde el archivo fuera de la carpeta de la configuración compartida.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Recordar contraseñas</value>
@@ -2989,19 +2989,19 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Cambiar nombre</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Esto sustituirá la configuración que estás usando. Para conservar antes una copia, cancela y elige Duplicar.</value>
+    <value>Esto sustituirá la configuración que está usando. Para conservar antes una copia, cancele y elija Duplicar.</value>
   </data>
   <data name="Profiles.RestoreAccess" xml:space="preserve">
     <value>Restablecer acceso</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Las versiones guardadas en la carpeta compartida han cambiado de forma inesperada. Restáuralas desde una copia de seguridad de confianza.</value>
+    <value>Las versiones guardadas en la carpeta compartida han cambiado de forma inesperada. Restáurelas desde una copia de seguridad de confianza.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplicar</value>
   </data>
   <data name="Profiles.Select" xml:space="preserve">
-    <value>Elige una configuración</value>
+    <value>Elija una configuración</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Configurar</value>
@@ -3019,16 +3019,16 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Cualquier persona que pueda importar o sincronizar esta configuración puede leer las contraseñas y las claves privadas de certificados incluidas.</value>
   </data>
   <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Otra operación está usando esta carpeta compartida. Inténtalo de nuevo en unos instantes. Tus cambios se conservan en este PC.</value>
+    <value>Otra operación está usando esta carpeta compartida. Inténtelo de nuevo en unos instantes. Sus cambios se conservan en este PC.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Carpeta compartida</value>
   </data>
   <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>No se puede acceder a la carpeta compartida. Comprueba su dirección y tu acceso a la red. Tus cambios se conservan en este PC.</value>
+    <value>No se puede acceder a la carpeta compartida. Compruebe su dirección y su acceso a la red. Sus cambios se conservan en este PC.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Usa la misma carpeta de red en todos los PC. Debe usar SMB 3 con cifrado obligatorio. No se admiten carpetas sincronizadas con la nube.</value>
+    <value>Use la misma carpeta de red en todos los PC. Debe usar SMB 3 con cifrado obligatorio. No se admiten carpetas sincronizadas con la nube.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>¿Dejar de recordar las contraseñas de esta configuración en este PC?</value>
@@ -3040,7 +3040,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Sincronizando…</value>
   </data>
   <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Elige una versión</value>
+    <value>Elija una versión</value>
   </data>
   <data name="Profiles.SyncStatusError" xml:space="preserve">
     <value>No se puede sincronizar</value>
@@ -3076,16 +3076,16 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>La configuración está al día</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry no puede abrir este formato de configuración. Actualiza Foundry e inténtalo de nuevo.</value>
+    <value>Foundry no puede abrir este formato de configuración. Actualice Foundry e inténtelo de nuevo.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Hay cambios disponibles de otro PC. Selecciona Sincronizar para aplicarlos.</value>
+    <value>Hay cambios disponibles de otro PC. Seleccione Sincronizar para aplicarlos.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Usar la versión compartida</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>Comprueba los campos obligatorios. Si se solicita una carpeta de red, usa una ruta como \\server\share\folder. Si introduces dos veces la contraseña de un archivo, asegúrate de que ambas coincidan.</value>
+    <value>Compruebe los campos obligatorios. Si se solicita una carpeta de red, use una ruta como \\server\share\folder. Si introduce dos veces la contraseña de un archivo, asegúrese de que ambas coincidan.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Error de conexión</value>

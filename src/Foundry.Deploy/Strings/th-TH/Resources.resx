@@ -523,7 +523,7 @@
     <value>ลิทัวเนีย (ลิทัวเนีย)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>บ็อกมาลนอร์เวย์ (นอร์เวย์)</value>
+    <value>นอร์เวย์ บ็อกมาล (นอร์เวย์)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>โปแลนด์ (โปแลนด์)</value>
@@ -541,7 +541,7 @@
     <value>รัสเซีย (รัสเซีย)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>ละตินเซอร์เบีย (เซอร์เบีย)</value>
+    <value>เซอร์เบีย ละติน (เซอร์เบีย)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>สโลวัก (สโลวาเกีย)</value>
@@ -559,10 +559,10 @@
     <value>สวีเดน (สวีเดน)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>ไทย (ประเทศไทย)</value>
+    <value>ไทย (ไทย)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>ตุรกี (Türkiye)</value>
+    <value>ตุรกี (ตุรกี)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ยูเครน (ยูเครน)</value>

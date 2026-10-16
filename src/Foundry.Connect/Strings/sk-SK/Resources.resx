@@ -162,7 +162,7 @@ Licencované podľa licencie MIT.</value>
     <value>bulharčina (Bulharsko)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Zjednodušená čínština (Čína)</value>
+    <value>zjednodušená čínština (Čína)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradičná čínština (Taiwan)</value>
@@ -243,7 +243,7 @@ Licencované podľa licencie MIT.</value>
     <value>ruština (Rusko)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srbská latinčina (Srbsko)</value>
+    <value>srbčina – latinka (Srbsko)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>slovenčina (Slovensko)</value>
@@ -264,7 +264,7 @@ Licencované podľa licencie MIT.</value>
     <value>thajčina (Thajsko)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turečtina (Türkiye)</value>
+    <value>turečtina (Turecko)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinčina (Ukrajina)</value>

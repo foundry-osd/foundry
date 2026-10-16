@@ -2198,118 +2198,118 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Vuorovaikutteinen toimialueeseen liittyminen</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>arabia (Saudi-Arabia)</value>
+    <value>Arabia (Saudi-Arabia)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
-    <value>bulgaria (Bulgaria)</value>
+    <value>Bulgaria (Bulgaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>yksinkertaistettu kiina (Kiina)</value>
+    <value>Yksinkertaistettu kiina (Kiina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>perinteinen kiina (Taiwan)</value>
+    <value>Perinteinen kiina (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>kroatia (Kroatia)</value>
+    <value>Kroatia (Kroatia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>tšekki (Tšekki)</value>
+    <value>Tšekki (Tšekki)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>tanska (Tanska)</value>
+    <value>Tanska (Tanska)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>hollanti (Alankomaat)</value>
+    <value>Hollanti (Alankomaat)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>englanti (Iso-Britannia)</value>
+    <value>Englanti (Iso-Britannia)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>englanti (Yhdysvallat)</value>
+    <value>Englanti (Yhdysvallat)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>Viro (Viro)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>suomi (Suomi)</value>
+    <value>Suomi (Suomi)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>ranska (Kanada)</value>
+    <value>Ranska (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>ranska (Ranska)</value>
+    <value>Ranska (Ranska)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>saksa (Saksa)</value>
+    <value>Saksa (Saksa)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>kreikka (Kreikka)</value>
+    <value>Kreikka (Kreikka)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>heprea (Israel)</value>
+    <value>Heprea (Israel)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>unkari (Unkari)</value>
+    <value>Unkari (Unkari)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>italia (Italia)</value>
+    <value>Italia (Italia)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>japani (Japani)</value>
+    <value>Japani (Japani)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>korea (Korea)</value>
+    <value>Korea (Korea)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>latvia (Latvia)</value>
+    <value>Latvia (Latvia)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
     <value>Liettua (Liettua)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norjalainen bokmal (Norja)</value>
+    <value>Norja, bokmål (Norja)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>puola (Puola)</value>
+    <value>Puola (Puola)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>portugali (Brasilia)</value>
+    <value>Portugali (Brasilia)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>portugali (Portugali)</value>
+    <value>Portugali (Portugali)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>romania (Romania)</value>
+    <value>Romania (Romania)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>venäjä (Venäjä)</value>
+    <value>Venäjä (Venäjä)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>serbia latina (Serbia)</value>
+    <value>Serbia, latinalainen (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>slovakki (Slovakia)</value>
+    <value>Slovakki (Slovakia)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>slovenia (Slovenia)</value>
+    <value>Slovenia (Slovenia)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>espanja (Meksiko)</value>
+    <value>Espanja (Meksiko)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>espanja (Espanja)</value>
+    <value>Espanja (Espanja)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>ruotsi (Ruotsi)</value>
+    <value>Ruotsi (Ruotsi)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>thaimaa (Thaimaa)</value>
+    <value>Thai (Thaimaa)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turkki (Türkiye)</value>
+    <value>Turkki (Türkiye)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukraina (Ukraina)</value>
+    <value>Ukraina (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
     <value>Lataa tietokoneen nimi Autopilot-palveluun</value>

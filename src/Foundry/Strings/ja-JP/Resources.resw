@@ -2285,7 +2285,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ロシア語 (ロシア)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>セルビア語ラテン語 (セルビア)</value>
+    <value>セルビア語ラテン文字 (セルビア)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>スロバキア語 (スロバキア)</value>
@@ -2306,7 +2306,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>タイ語 (タイ)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>トルコ語 (トゥルキエ)</value>
+    <value>トルコ語 (トルコ)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ウクライナ語 (ウクライナ)</value>
@@ -3382,7 +3382,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ISO の作成はブロックされています</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>ISO を作成します</value>
+    <value>ISO を作成</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB の作成はブロックされています</value>
@@ -3415,7 +3415,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>このディスク上のすべてのデータが失われます。目的の USB ドライブである場合にのみ続行してください。</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>USB を作成します</value>
+    <value>USB を作成</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>追加の .inf ドライバーを含むオプションのフォルダー。</value>

@@ -460,7 +460,7 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
     <value>bolgár (Bulgária)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Egyszerűsített kínai (Kína)</value>
+    <value>egyszerűsített kínai (Kína)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>hagyományos kínai (Tajvan)</value>
@@ -469,7 +469,7 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
     <value>horvát (Horvátország)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>cseh (cseh)</value>
+    <value>cseh (Csehország)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>dán (Dánia)</value>
@@ -562,7 +562,7 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
     <value>thai (Thaiföld)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>török (Türkiye)</value>
+    <value>török (Törökország)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrán (Ukrajna)</value>

@@ -162,7 +162,7 @@ Licencirano pod MIT licencom.</value>
     <value>bugarski (Bugarska)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>kineski pojednostavljeni (Kina)</value>
+    <value>pojednostavljeni kineski (Kina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicionalni kineski (Tajvan)</value>
@@ -207,7 +207,7 @@ Licencirano pod MIT licencom.</value>
     <value>hebrejski (Izrael)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>mađarski (mađarska)</value>
+    <value>mađarski (Mađarska)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
     <value>italijanski (Italija)</value>
@@ -225,7 +225,7 @@ Licencirano pod MIT licencom.</value>
     <value>litvanski (Litvanija)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norveški bokmal (Norveška)</value>
+    <value>norveški bukmol (Norveška)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poljski (Poljska)</value>
@@ -243,7 +243,7 @@ Licencirano pod MIT licencom.</value>
     <value>ruski (Rusija)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srpska latinica (Srbija)</value>
+    <value>srpski, latinica (Srbija)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>slovački (Slovačka)</value>
@@ -264,7 +264,7 @@ Licencirano pod MIT licencom.</value>
     <value>tajlandski (Tajland)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turski (Turkiie)</value>
+    <value>turski (Turska)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinski (Ukrajina)</value>

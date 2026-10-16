@@ -460,10 +460,10 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>bułgarski (Bułgaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chiński uproszczony (Chiny)</value>
+    <value>chiński uproszczony (Chiny)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chiński tradycyjny (Tajwan)</value>
+    <value>chiński tradycyjny (Tajwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>chorwacki (Chorwacja)</value>
@@ -475,13 +475,13 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>duński (Dania)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holenderski (Holandia)</value>
+    <value>holenderski (Holandia)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>Angielski (Wielka Brytania)</value>
+    <value>angielski (Wielka Brytania)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>Angielski (Stany Zjednoczone)</value>
+    <value>angielski (Stany Zjednoczone)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>estoński (Estonia)</value>
@@ -490,7 +490,7 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>fiński (Finlandia)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>Francuski (Kanada)</value>
+    <value>francuski (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
     <value>francuski (Francja)</value>
@@ -508,10 +508,10 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>węgierski (Węgry)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>Włoski (Włochy)</value>
+    <value>włoski (Włochy)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>Japoński (Japonia)</value>
+    <value>japoński (Japonia)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
     <value>koreański (Korea)</value>
@@ -523,10 +523,10 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>litewski (Litwa)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norweski bokmal (Norwegia)</value>
+    <value>norweski bokmal (Norwegia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>Polski (Polska)</value>
+    <value>polski (Polska)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
     <value>portugalski (Brazylia)</value>
@@ -538,10 +538,10 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>rumuński (Rumunia)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>Rosyjski (Rosja)</value>
+    <value>rosyjski (Rosja)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Serbski łaciński (Serbia)</value>
+    <value>serbski łaciński (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>słowacki (Słowacja)</value>
@@ -559,13 +559,13 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>szwedzki (Szwecja)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>Tajski (Tajlandia)</value>
+    <value>tajski (Tajlandia)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turecki (Türkiye)</value>
+    <value>turecki (Turcja)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>Ukraiński (Ukraina)</value>
+    <value>ukraiński (Ukraina)</value>
   </data>
   <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
     <value>Spowoduje to usunięcie wszystkich danych z wybranego dysku i zainstalowanie wybranego systemu operacyjnego.
@@ -673,7 +673,7 @@ Kontynuować wdrażanie?</value>
     <value>Gotowy do przesłania skrótu sprzętowego</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
-    <value>Identyfikator najemcy</value>
+    <value>Identyfikator dzierżawy</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
     <value>Przesyłanie skrótu sprzętowego jest niedostępne</value>

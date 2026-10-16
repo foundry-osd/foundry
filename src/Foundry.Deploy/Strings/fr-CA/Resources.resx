@@ -454,7 +454,7 @@ Action : vérifiez les attributs du disque et réessayez le déploiement.</value
     <value>Afficher les détails de l’erreur</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>Arabe (Arabie Saoudite)</value>
+    <value>Arabe (Arabie saoudite)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>Bulgare (Bulgarie)</value>
@@ -484,10 +484,10 @@ Action : vérifiez les attributs du disque et réessayez le déploiement.</value
     <value>Anglais (États-Unis)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estonien (Estonie)</value>
+    <value>Estonien (Estonie)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>finnois (Finlande)</value>
+    <value>Finnois (Finlande)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Français (Canada)</value>
@@ -523,7 +523,7 @@ Action : vérifiez les attributs du disque et réessayez le déploiement.</value
     <value>Lituanien (Lituanie)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal norvégien (Norvège)</value>
+    <value>Norvégien bokmål (Norvège)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polonais (Pologne)</value>
@@ -541,7 +541,7 @@ Action : vérifiez les attributs du disque et réessayez le déploiement.</value
     <value>Russe (Russie)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latin serbe (Serbie)</value>
+    <value>Serbe latin (Serbie)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovaque (Slovaquie)</value>
@@ -661,25 +661,25 @@ Continuer le déploiement?</value>
     <value>Expiration du certificat</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>Le certificat Autopilot a expiré. Le déploiement peut continuer sans télécharger le hachage matériel.</value>
+    <value>Le certificat Autopilot a expiré. Le déploiement peut continuer sans téléverser le hachage matériel.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Balise de groupe</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>Les informations de certificat requises sont manquantes. Le déploiement peut continuer sans télécharger le hachage matériel.</value>
+    <value>Les informations de certificat requises sont manquantes. Le déploiement peut continuer sans téléverser le hachage matériel.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Prêt à télécharger le hachage matériel</value>
+    <value>Prêt à téléverser le hachage matériel</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
     <value>ID du locataire</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
-    <value>Téléchargement du hachage matériel non disponible</value>
+    <value>Téléversement du hachage matériel non disponible</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>État du téléchargement du hachage matériel</value>
+    <value>État du téléversement du hachage matériel</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
     <value>Téléversement zero-touch du hachage matériel</value>
@@ -943,7 +943,7 @@ Continuer le déploiement?</value>
     <value>Application des modifications de fonctionnalités...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Authentification du téléchargement de hachage matériel Autopilot...</value>
+    <value>Authentification du téléversement de hachage matériel Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Capture du hachage matériel Autopilot...</value>
@@ -1048,7 +1048,7 @@ Continuer le déploiement?</value>
     <value>Partitionnement du disque cible...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Préparation du téléchargement du hachage matériel Autopilot...</value>
+    <value>Préparation du téléversement du hachage matériel Autopilot...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>Préparation du téléchargement...</value>
@@ -1120,7 +1120,7 @@ Continuer le déploiement?</value>
     <value>Mise à jour de la balise de groupe Windows Autopilot dans Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Téléchargement du hachage matériel Autopilot...</value>
+    <value>Téléversement du hachage matériel Autopilot...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Validation de la configuration cible...</value>
@@ -1204,19 +1204,19 @@ Continuer le déploiement?</value>
     <value>Échec de l’importation du hachage matériel Autopilot : {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Téléchargement du hachage matériel Autopilot préparé pour la simulation.</value>
+    <value>Téléversement du hachage matériel Autopilot préparé pour la simulation.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Téléchargement du hachage matériel Autopilot préparé (simulation).</value>
+    <value>Téléversement du hachage matériel Autopilot préparé (simulation).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Téléchargement du hachage matériel Autopilot ignoré, car le certificat intégré a expiré.</value>
+    <value>Téléversement du hachage matériel Autopilot ignoré, car le certificat intégré a expiré.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Téléchargement du hachage matériel Autopilot ignoré : {0}</value>
+    <value>Téléversement du hachage matériel Autopilot ignoré : {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Téléchargement du hachage matériel Autopilot ignoré, car les informations requises sur le certificat du support sont incomplètes.</value>
+    <value>Téléversement du hachage matériel Autopilot ignoré, car les informations requises sur le certificat du support sont incomplètes.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot est activé mais aucun profil n’a été sélectionné.</value>
@@ -1435,7 +1435,7 @@ Continuer le déploiement?</value>
     <value>La partition cible Windows n’est pas disponible pour la préparation Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>La partition cible Windows n’est pas disponible pour le téléchargement de hachage matériel Autopilot.</value>
+    <value>La partition cible Windows n’est pas disponible pour le téléversement de hachage matériel Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>La partition Windows cible n’est pas disponible pour préparer l’assistant d’enregistrement Autopilot interactif.</value>
@@ -1753,7 +1753,7 @@ Continuer le déploiement?</value>
     <value>Les commandes personnalisées peuvent entrer en conflit avec Foundry. Testez cette configuration.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>L’envoi du hachage ne garantit pas l’inscription à Autopilot.</value>
+    <value>Le téléversement du hachage ne garantit pas l’inscription à Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>Testez ce fichier de réponses avec l’image Windows et la configuration Foundry sélectionnées.</value>

@@ -287,10 +287,10 @@ Licențiat sub licența MIT.</value>
     <value>Profil implicit</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Descărcați de la chiriaș</value>
+    <value>Descărcați de la entitatea găzduită</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Niciun profil Autopilot nu a fost returnat de chiriaș.</value>
+    <value>Niciun profil Autopilot nu a fost returnat de entitatea găzduită.</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Descărcarea profilului Autopilot a eșuat: {0}</value>
@@ -416,10 +416,10 @@ Licențiat sub licența MIT.</value>
     <value>Nu sunt furnizate certificate.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Conectați chiriașul</value>
+    <value>Conectați entitatea găzduită</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Se conectează chiriașul…</value>
+    <value>Se conectează entitatea găzduită…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Creați certificat</value>
@@ -431,7 +431,7 @@ Licențiat sub licența MIT.</value>
     <value>Nu a fost selectată nicio etichetă implicită de grup.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Deconectați chiriașul</value>
+    <value>Deconectați entitatea găzduită</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
     <value>Etichetă opțională de grup preselectată în Foundry Deploy în timpul încărcării hash hardware.</value>
@@ -446,7 +446,7 @@ Licențiat sub licența MIT.</value>
     <value>Foundry nu a putut configura înregistrarea aplicației Autopilot. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Înregistrarea chiriașului a eșuat</value>
+    <value>Înregistrarea entității găzduite a eșuat</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>Certificatul selectat a expirat. Creați un nou certificat, salvați-i PFX și parola, apoi selectați-l pentru mediul de pornire.</value>
@@ -464,7 +464,7 @@ Licențiat sub licența MIT.</value>
     <value>Principalului serviciu gestionat îi lipsește consimțământul de administrator pentru permisiunea Microsoft Graph necesară. Acordați consimțământul administratorului și reconectați-vă.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Înregistrarea aplicației gestionate nu este gata. Examinați pregătirea chiriașilor și reconectați-vă.</value>
+    <value>Înregistrarea aplicației gestionate nu este gata. Examinați pregătirea entității găzduite și reconectați-vă.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Înregistrarea aplicației gestionate lipsește permisiunea necesară pentru aplicație Microsoft Graph. Reconectați-vă cu un cont care poate actualiza înregistrările aplicațiilor.</value>
@@ -473,7 +473,7 @@ Licențiat sub licența MIT.</value>
     <value>Principalul serviciu gestionat lipsește sau este dezactivat. Reconectați-vă cu un cont care poate crea sau gestiona aplicații de întreprindere.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Integrarea chiriașului necesită atenție</value>
+    <value>Integrarea entității găzduite necesită atenție</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Stare</value>
@@ -518,16 +518,16 @@ Licențiat sub licența MIT.</value>
     <value>ID client</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>ID locatar</value>
+    <value>ID entitate găzduită</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nu este conectat</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Informații privind locatarul, înregistrarea aplicației și pregătirea pentru încărcarea hash hardware.</value>
+    <value>Informații privind entitatea găzduită, înregistrarea aplicației și pregătirea pentru încărcarea hash hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Pregătirea chiriașului</value>
+    <value>Pregătirea entității găzduite</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Nume</value>
@@ -539,7 +539,7 @@ Licențiat sub licența MIT.</value>
     <value>Conectați-vă la Microsoft Graph pentru această sesiune de aplicație pentru a gestiona setările de încărcare hash.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Conexiunea chiriașului</value>
+    <value>Conexiunea entității găzduite</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importați profilul</value>
@@ -617,7 +617,7 @@ Licențiat sub licența MIT.</value>
     <value>Ștergeți</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Alegeți ce profiluri de chiriași trebuie importate în Foundry.</value>
+    <value>Alegeți ce profiluri ale entității găzduite trebuie importate în Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Importați</value>
@@ -644,7 +644,7 @@ Licențiat sub licența MIT.</value>
     <value>Profil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Configurați încărcarea automată a hashului hardware susținută de tenant.</value>
+    <value>Configurați încărcarea automată a hashului hardware susținută de entitatea găzduită.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Încărcare zero-touch a hashului hardware</value>
@@ -2204,22 +2204,22 @@ Licențiat sub licența MIT.</value>
     <value>bulgară (Bulgaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chineză simplificată (China)</value>
+    <value>chineză simplificată (China)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chineză tradițională (Taiwan)</value>
+    <value>chineză tradițională (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>croată (Croația)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Cehia (Cehia)</value>
+    <value>cehă (Cehia)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>daneză (Danemarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>olandeză (Olanda)</value>
+    <value>olandeză (Țările de Jos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engleză (Regatul Unit)</value>
@@ -2228,16 +2228,16 @@ Licențiat sub licența MIT.</value>
     <value>engleză (Statele Unite)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>Estonă (Estonia)</value>
+    <value>estonă (Estonia)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finlandeză (Finlanda)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>franceza (Canada)</value>
+    <value>franceză (Canada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>franceza (Franta)</value>
+    <value>franceză (Franța)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
     <value>germană (Germania)</value>
@@ -2267,7 +2267,7 @@ Licențiat sub licența MIT.</value>
     <value>lituaniană (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norvegiana Bokmal (Norvegia)</value>
+    <value>norvegiană bokmal (Norvegia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poloneză (Polonia)</value>
@@ -2279,16 +2279,16 @@ Licențiat sub licența MIT.</value>
     <value>portugheză (Portugalia)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>romana (Romania)</value>
+    <value>română (România)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>rusă (Rusia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Sârbă latină (Serbia)</value>
+    <value>sârbă latină (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>Slovacă (Slovacia)</value>
+    <value>slovacă (Slovacia)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>slovenă (Slovenia)</value>
@@ -2306,7 +2306,7 @@ Licențiat sub licența MIT.</value>
     <value>thailandeză (Thailanda)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turcă (Turkia)</value>
+    <value>turcă (Turcia)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ucraineană (Ucraina)</value>
@@ -3274,7 +3274,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Încărcarea hash hardware este activată, dar amprenta digitală a certificatului selectată lipsește.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Încărcarea hash hardware este activată, dar înregistrarea aplicației nu este configurată. Conectați-vă la chiriaș de la Autopilot.</value>
+    <value>Încărcarea hash hardware este activată, dar înregistrarea aplicației nu este configurată. Conectați-vă la entitatea găzduită de la Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
     <value>Încărcarea hash hardware este activată, dar expirarea PFX a suportului de pornire nu a putut fi validată.</value>
@@ -3295,7 +3295,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Încărcarea hash hardware este activată, dar parola PFX pentru mediul de pornire lipsește.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Încărcarea hash hardware este activată, dar ID-ul clientului aplicației lipsește. Reconectați-vă la chiriaș de la Autopilot.</value>
+    <value>Încărcarea hash hardware este activată, dar ID-ul clientului aplicației lipsește. Reconectați-vă la entitatea găzduită de la Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
     <value>Încărcarea hash hardware este activată, dar principalul serviciului aplicației lipsește sau nu este gata.</value>
@@ -3304,7 +3304,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Încărcarea hash hardware este activată, dar setările lipsesc.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Încărcarea hash hardware este activată, dar conexiunea locatarului lipsește. Conectați-vă la chiriaș de la Autopilot.</value>
+    <value>Încărcarea hash hardware este activată, dar conexiunea entității găzduite lipsește. Conectați-vă la entitatea găzduită de la Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON Modul profil este activat, dar nu este selectat niciun profil implicit valid.</value>

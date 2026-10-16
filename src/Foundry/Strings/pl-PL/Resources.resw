@@ -275,7 +275,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Importowane</value>
   </data>
   <data name="Autopilot.ColumnName" xml:space="preserve">
-    <value>Imię</value>
+    <value>Nazwa</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Źródło</value>
@@ -287,10 +287,10 @@ Licencjonowany na licencji MIT.</value>
     <value>Profil domyślny</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Pobierz od najemcy</value>
+    <value>Pobierz z dzierżawy</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Najemca nie zwrócił żadnych profili Autopilot.</value>
+    <value>Dzierżawa nie zwróciła żadnych profili Autopilot.</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Autopilot pobieranie profilu nie powiodło się: {0}</value>
@@ -416,10 +416,10 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie udostępnia się żadnych certyfikatów.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Połącz najemcę</value>
+    <value>Połącz dzierżawę</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Łączę najemcę…</value>
+    <value>Łączenie z dzierżawą…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Utwórz certyfikat</value>
@@ -431,7 +431,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie wybrano domyślnego tagu grupy.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Odłącz najemcę</value>
+    <value>Odłącz dzierżawę</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
     <value>Opcjonalny tag grupowy wybrany wstępnie w Foundry Deploy podczas przesyłania skrótu sprzętowego.</value>
@@ -446,7 +446,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Foundry nie mógł skonfigurować rejestracji aplikacji Autopilot. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Dołączenie najemcy nie powiodło się</value>
+    <value>Dołączenie dzierżawy nie powiodło się</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>Wybrany certyfikat wygasł. Utwórz nowy certyfikat, zapisz jego plik PFX i hasło, a następnie wybierz go jako nośnik startowy.</value>
@@ -464,7 +464,7 @@ Licencjonowany na licencji MIT.</value>
     <value>W jednostce usługi zarządzanej brakuje zgody administratora na wymagane uprawnienie Microsoft Graph. Udziel zgody administratora i połącz się ponownie.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Rejestracja aplikacji zarządzanej nie jest gotowa. Sprawdź gotowość najemcy i połącz się ponownie.</value>
+    <value>Rejestracja aplikacji zarządzanej nie jest gotowa. Sprawdź gotowość dzierżawy i połącz się ponownie.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>W rejestracji aplikacji zarządzanej brakuje wymaganych uprawnień aplikacji Microsoft Graph. Połącz się ponownie z kontem, które może aktualizować rejestracje aplikacji.</value>
@@ -473,7 +473,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Brak jednostki usługi zarządzanej lub jest ona wyłączona. Połącz się ponownie z kontem, które umożliwia tworzenie aplikacji dla przedsiębiorstw lub zarządzanie nimi.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Wdrażanie najemców wymaga uwagi</value>
+    <value>Wdrażanie dzierżawy wymaga uwagi</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Stan</value>
@@ -518,7 +518,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Identyfikator klienta</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>Identyfikator najemcy</value>
+    <value>Identyfikator dzierżawy</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nie podłączony</value>
@@ -527,10 +527,10 @@ Licencjonowany na licencji MIT.</value>
     <value>Informacje o dzierżawie, rejestracji aplikacji i gotowości do przesyłania skrótu sprzętowego.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Gotowość najemcy</value>
+    <value>Gotowość dzierżawy</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
-    <value>Imię</value>
+    <value>Nazwa</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
     <value>Wartość</value>
@@ -539,7 +539,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Połącz się z Microsoft Graph w tej sesji aplikacji, aby zarządzać ustawieniami przesyłania skrótu.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Połączenie najemcy</value>
+    <value>Połączenie z dzierżawą</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importuj profil</value>
@@ -617,7 +617,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Wyczyść</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Wybierz, które profile najemców mają zostać zaimportowane do Foundry.</value>
+    <value>Wybierz, które profile dzierżawy mają zostać zaimportowane do Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Importuj</value>
@@ -2204,10 +2204,10 @@ Licencjonowany na licencji MIT.</value>
     <value>bułgarski (Bułgaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chiński uproszczony (Chiny)</value>
+    <value>chiński uproszczony (Chiny)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chiński tradycyjny (Tajwan)</value>
+    <value>chiński tradycyjny (Tajwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>chorwacki (Chorwacja)</value>
@@ -2219,13 +2219,13 @@ Licencjonowany na licencji MIT.</value>
     <value>duński (Dania)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holenderski (Holandia)</value>
+    <value>holenderski (Holandia)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>Angielski (Wielka Brytania)</value>
+    <value>angielski (Wielka Brytania)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>Angielski (Stany Zjednoczone)</value>
+    <value>angielski (Stany Zjednoczone)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>estoński (Estonia)</value>
@@ -2234,7 +2234,7 @@ Licencjonowany na licencji MIT.</value>
     <value>fiński (Finlandia)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>Francuski (Kanada)</value>
+    <value>francuski (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
     <value>francuski (Francja)</value>
@@ -2252,10 +2252,10 @@ Licencjonowany na licencji MIT.</value>
     <value>węgierski (Węgry)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>Włoski (Włochy)</value>
+    <value>włoski (Włochy)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>Japoński (Japonia)</value>
+    <value>japoński (Japonia)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
     <value>koreański (Korea)</value>
@@ -2267,10 +2267,10 @@ Licencjonowany na licencji MIT.</value>
     <value>litewski (Litwa)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norweski bokmal (Norwegia)</value>
+    <value>norweski bokmal (Norwegia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>Polski (Polska)</value>
+    <value>polski (Polska)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
     <value>portugalski (Brazylia)</value>
@@ -2282,10 +2282,10 @@ Licencjonowany na licencji MIT.</value>
     <value>rumuński (Rumunia)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>Rosyjski (Rosja)</value>
+    <value>rosyjski (Rosja)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Serbski łaciński (Serbia)</value>
+    <value>serbski łaciński (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>słowacki (Słowacja)</value>
@@ -2303,13 +2303,13 @@ Licencjonowany na licencji MIT.</value>
     <value>szwedzki (Szwecja)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>Tajski (Tajlandia)</value>
+    <value>tajski (Tajlandia)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turecki (Türkiye)</value>
+    <value>turecki (Turcja)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>Ukraiński (Ukraina)</value>
+    <value>ukraiński (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
     <value>Prześlij nazwę komputera do Autopilot</value>
@@ -2474,7 +2474,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Przejrzyj i rozpocznij tworzenie multimediów.</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
-    <value>Zacznij</value>
+    <value>Start</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
     <value>Importuj pliki odpowiedzi systemu Windows i wybierz ustawienia używane podczas wdrażania.</value>
@@ -3274,7 +3274,7 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Przesyłanie skrótu sprzętowego jest włączone, ale brakuje odcisku palca wybranego certyfikatu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Przesyłanie skrótu sprzętowego jest włączone, ale rejestracja aplikacji nie jest skonfigurowana. Połącz się z dzierżawcą z Autopilot.</value>
+    <value>Przesyłanie skrótu sprzętowego jest włączone, ale rejestracja aplikacji nie jest skonfigurowana. Połącz się z dzierżawą z Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
     <value>Przesyłanie skrótu sprzętowego jest włączone, ale nie można sprawdzić ważności PFX nośnika startowego.</value>
@@ -3295,7 +3295,7 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Przesyłanie skrótu sprzętowego jest włączone, ale brakuje hasła PFX nośnika startowego.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Przesyłanie skrótu sprzętowego jest włączone, ale brakuje identyfikatora klienta aplikacji. Połącz się ponownie z dzierżawcą z Autopilot.</value>
+    <value>Przesyłanie skrótu sprzętowego jest włączone, ale brakuje identyfikatora klienta aplikacji. Połącz się ponownie z dzierżawą z Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
     <value>Przesyłanie skrótu sprzętowego jest włączone, ale brakuje jednostki usługi aplikacji lub nie jest ona gotowa.</value>
@@ -3304,7 +3304,7 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Przesyłanie skrótu sprzętowego jest włączone, ale brakuje ustawień.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Przesyłanie skrótu sprzętowego jest włączone, ale brakuje połączenia z dzierżawcą. Połącz się z dzierżawcą z Autopilot.</value>
+    <value>Przesyłanie skrótu sprzętowego jest włączone, ale brakuje połączenia z dzierżawą. Połącz się z dzierżawą z Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Tryb profilu Autopilot JSON jest włączony, ale nie wybrano prawidłowego profilu domyślnego.</value>
@@ -3463,7 +3463,7 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Konfiguracja wdrażania</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Kierowcy</value>
+    <value>Sterowniki</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB tryb formatu</value>

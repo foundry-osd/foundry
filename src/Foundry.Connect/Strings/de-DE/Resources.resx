@@ -225,7 +225,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Litauisch (Litauen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norwegisches Bokmal (Norwegen)</value>
+    <value>Norwegisch, Bokmål (Norwegen)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polnisch (Polen)</value>
@@ -243,7 +243,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Russisch (Russland)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Serbisches Latein (Serbien)</value>
+    <value>Serbisch, Lateinisch (Serbien)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slowakisch (Slowakei)</value>

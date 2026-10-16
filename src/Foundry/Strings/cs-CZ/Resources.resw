@@ -275,7 +275,7 @@ Licencováno pod licencí MIT.</value>
     <value>Importováno</value>
   </data>
   <data name="Autopilot.ColumnName" xml:space="preserve">
-    <value>Jméno</value>
+    <value>Název</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Zdroj</value>
@@ -530,7 +530,7 @@ Licencováno pod licencí MIT.</value>
     <value>Připravenost nájemníka</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
-    <value>Jméno</value>
+    <value>Název</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
     <value>Hodnota</value>
@@ -2204,10 +2204,10 @@ Licencováno pod licencí MIT.</value>
     <value>bulharština (Bulharsko)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Zjednodušená čínština (Čína)</value>
+    <value>zjednodušená čínština (Čína)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Tradiční čínština (Tchaj-wan)</value>
+    <value>tradiční čínština (Tchaj-wan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>chorvatština (Chorvatsko)</value>
@@ -2219,7 +2219,7 @@ Licencováno pod licencí MIT.</value>
     <value>dánština (Dánsko)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>holandština (Nizozemsko)</value>
+    <value>nizozemština (Nizozemsko)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angličtina (Spojené království)</value>
@@ -2267,7 +2267,7 @@ Licencováno pod licencí MIT.</value>
     <value>litevština (Litva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norský Bokmal (Norsko)</value>
+    <value>norský bokmal (Norsko)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>polština (Polsko)</value>
@@ -2285,7 +2285,7 @@ Licencováno pod licencí MIT.</value>
     <value>ruština (Rusko)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srbská latina (Srbsko)</value>
+    <value>srbština – latinka (Srbsko)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>slovenština (Slovensko)</value>
@@ -2306,7 +2306,7 @@ Licencováno pod licencí MIT.</value>
     <value>thajština (Thajsko)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turečtina (Türkiye)</value>
+    <value>turečtina (Turecko)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinština (Ukrajina)</value>
@@ -2474,7 +2474,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zkontrolujte a začněte vytvářet média.</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
-    <value>Začněte</value>
+    <value>Start</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
     <value>Importujte soubory odpovědí systému Windows a zvolte nastavení použitá při nasazení.</value>

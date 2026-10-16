@@ -162,22 +162,22 @@ Licenciado sob a licença MIT.</value>
     <value>Búlgaro (Bulgária)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chinês Simplificado (China)</value>
+    <value>Chinês simplificado (China)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chinês Tradicional (Taiwan)</value>
+    <value>Chinês tradicional (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>Croata (Croácia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Tcheco (Tcheca)</value>
+    <value>Tcheco (Tchéquia)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>Dinamarquês (Dinamarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holandês (Holanda)</value>
+    <value>Holandês (Países Baixos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglês (Reino Unido)</value>
@@ -216,7 +216,7 @@ Licenciado sob a licença MIT.</value>
     <value>Japonês (Japão)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>Coreano (Coréia)</value>
+    <value>Coreano (Coreia)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>Letão (Letônia)</value>
@@ -225,7 +225,7 @@ Licenciado sob a licença MIT.</value>
     <value>Lituano (Lituânia)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norueguês Bokmal (Noruega)</value>
+    <value>Norueguês bokmål (Noruega)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polonês (Polônia)</value>
@@ -243,7 +243,7 @@ Licenciado sob a licença MIT.</value>
     <value>Russo (Rússia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latim sérvio (Sérvia)</value>
+    <value>Sérvio latino (Sérvia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Eslovaco (Eslováquia)</value>

@@ -2267,7 +2267,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Litouws (Litouwen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Noors Bokmal (Noorwegen)</value>
+    <value>Noors, Bokmål (Noorwegen)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Pools (Polen)</value>
@@ -2285,7 +2285,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Russisch (Rusland)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Servisch Latijn (Servië)</value>
+    <value>Servisch, Latijns (Servië)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slowaaks (Slowakije)</value>
@@ -3382,7 +3382,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Het maken van ISO is geblokkeerd</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>Maak ISO aan</value>
+    <value>ISO maken</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Het maken van USB is geblokkeerd</value>
@@ -3415,7 +3415,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Alles op deze schijf gaat verloren. Ga alleen door als dit het juiste USB-station is.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>Maak USB aan</value>
+    <value>USB maken</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Optionele map met extra .inf-stuurprogramma's.</value>
