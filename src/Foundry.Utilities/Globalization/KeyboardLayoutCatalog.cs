@@ -60,11 +60,8 @@ public static class KeyboardLayoutCatalog
         return Installed.Value;
     }
 
-    /// <summary>
-    /// Reads the keyboard layouts installed on the running Windows or Windows PE system.
-    /// </summary>
-    /// <returns>The installed layouts, or an empty list when the registry cannot be read.</returns>
-    public static IReadOnlyList<KeyboardLayout> LoadInstalled()
+    // Reads the layouts installed on the running Windows or Windows PE system; a missing registry key yields an empty list.
+    private static IReadOnlyList<KeyboardLayout> LoadInstalled()
     {
         using RegistryKey? root = Registry.LocalMachine.OpenSubKey(KeyboardLayoutsRegistryPath);
         if (root is null)
