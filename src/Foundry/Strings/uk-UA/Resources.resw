@@ -3085,13 +3085,13 @@
     <value>Використовуйте ту саму мережеву папку на всіх комп’ютерах. Вона має використовувати SMB 3 з обов’язковим шифруванням. Папки, синхронізовані з хмарою, не підтримуються.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry більше не зберігатиме паролі цієї конфігурації на цьому комп’ютері.</value>
+    <value>Foundry більше не зберігатиме паролі цієї конфігурації на цьому комп'ютері.</value>
   </data>
   <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Не запам’ятовувати</value>
+    <value>Не запам'ятовувати</value>
   </data>
   <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Більше не запам’ятовувати паролі?</value>
+    <value>Більше не запам'ятовувати паролі?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Синхронізувати</value>

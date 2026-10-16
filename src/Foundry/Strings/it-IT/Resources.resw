@@ -812,13 +812,13 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Rimuovi immagine</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>L’immagine {0} ({1}) verrà rimossa dal profilo corrente e la relativa copia locale verrà eliminata.</value>
+    <value>L'immagine {0} ({1}) verrà rimossa dal profilo corrente e la relativa copia locale verrà eliminata.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Rimuovi</value>
   </data>
   <data name="CustomImages.RemoveTitle" xml:space="preserve">
-    <value>Rimuovere l’immagine personalizzata?</value>
+    <value>Rimuovere l'immagine personalizzata?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
     <value>Negli altri profili che usano questa immagine risulterà mancante. Il file originale e i supporti esistenti non vengono modificati.</value>
@@ -1853,7 +1853,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>I log non elaborati possono contenere credenziali, identificatori, percorsi, nomi di rete e altri dati sensibili. Esportali solo quando vengono richiesti esplicitamente da un contatto di supporto attendibile.</value>
   </data>
   <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
-    <value>L’archivio di supporto è stato salvato in:</value>
+    <value>L'archivio di supporto è stato salvato in:</value>
   </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostica esportata</value>
@@ -3154,10 +3154,10 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Impostazioni proxy non applicate</value>
   </data>
   <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
-    <value>Il proxy ha rifiutato l’accesso. Controlla le impostazioni di autenticazione del proxy e riprova.</value>
+    <value>Il proxy ha rifiutato l'accesso. Controlla le impostazioni di autenticazione del proxy e riprova.</value>
   </data>
   <data name="Proxy.Status.FailedMessage" xml:space="preserve">
-    <value>Foundry OSD non è riuscito a raggiungere i servizi GitHub e Microsoft con queste impostazioni. Controlla l’indirizzo e la porta del proxy e la connessione di rete. I dettagli sono disponibili nel log.</value>
+    <value>Foundry OSD non è riuscito a raggiungere i servizi GitHub e Microsoft con queste impostazioni. Controlla l'indirizzo e la porta del proxy e la connessione di rete. I dettagli sono disponibili nel log.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
@@ -3178,7 +3178,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Connection successful</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
-    <value>Immetti l’indirizzo del server proxy.</value>
+    <value>Immetti l'indirizzo del server proxy.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
@@ -4143,7 +4143,7 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
     <value>Non controllato</value>
   </data>
   <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
-    <value>Foundry OSD non è riuscito ad avviare l’aggiornamento. Prova ad applicarlo di nuovo. I dettagli sono disponibili nel log.</value>
+    <value>Foundry OSD non è riuscito ad avviare l'aggiornamento. Prova ad applicarlo di nuovo. I dettagli sono disponibili nel log.</value>
   </data>
   <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
     <value>Foundry OSD non è riuscito a verificare la disponibilità di aggiornamenti. Controlla la connessione di rete e riprova. I dettagli sono disponibili nel log.</value>
@@ -4152,7 +4152,7 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
     <value>Controllo degli aggiornamenti</value>
   </data>
   <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
-    <value>Impossibile scaricare l’aggiornamento. Controlla la connessione di rete e riprova. I dettagli sono disponibili nel log.</value>
+    <value>Impossibile scaricare l'aggiornamento. Controlla la connessione di rete e riprova. I dettagli sono disponibili nel log.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Download dell’aggiornamento</value>
@@ -4182,7 +4182,7 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
     <value>Impossibile applicare l’aggiornamento</value>
   </data>
   <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
-    <value>Download dell’aggiornamento non riuscito</value>
+    <value>Download dell'aggiornamento non riuscito</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Il controllo dell'aggiornamento non è riuscito</value>
@@ -4191,7 +4191,7 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
     <value>Aggiornato</value>
   </data>
   <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
-    <value>Aggiornamento pronto per l’installazione</value>
+    <value>Aggiornamento pronto per l'installazione</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Controllo dell'aggiornamento saltato</value>

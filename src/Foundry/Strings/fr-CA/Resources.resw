@@ -293,7 +293,7 @@ Sous licence MIT.</value>
     <value>Aucun profil Autopilot n'a été renvoyé par le locataire.</value>
   </data>
   <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
-    <value>Les profils Autopilot n’ont pas pu être téléchargés depuis le locataire.</value>
+    <value>Les profils Autopilot n'ont pas pu être téléchargés depuis le locataire.</value>
   </data>
   <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
     <value>Vérifiez votre connexion réseau et assurez-vous que votre compte peut lire les profils Autopilot dans Intune, puis réessayez. Les détails figurent dans le journal.</value>
@@ -368,10 +368,10 @@ Sous licence MIT.</value>
     <value>Actions de certificat</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
-    <value>Foundry n’a pas pu créer le certificat d’enregistrement de l’application.</value>
+    <value>Foundry n'a pas pu créer le certificat d'enregistrement de l'application.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
-    <value>Vérifiez que le dossier sélectionné est accessible en écriture et que votre compte peut gérer l’enregistrement de l’application, puis réessayez. Les détails figurent dans le journal.</value>
+    <value>Vérifiez que le dossier sélectionné est accessible en écriture et que votre compte peut gérer l'enregistrement de l'application, puis réessayez. Les détails figurent dans le journal.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>La création du certificat a échoué</value>
@@ -407,7 +407,7 @@ Sous licence MIT.</value>
     <value>Certificat PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
-    <value>Foundry n’a pas pu supprimer le certificat d’enregistrement de l’application sélectionné.</value>
+    <value>Foundry n'a pas pu supprimer le certificat d'enregistrement de l'application sélectionné.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Échec de la suppression du certificat</value>
@@ -449,7 +449,7 @@ Sous licence MIT.</value>
     <value>Téléversement zero-touch du hachage matériel</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
-    <value>Foundry n’a pas pu configurer l’enregistrement de l’application Autopilot.</value>
+    <value>Foundry n'a pas pu configurer l'enregistrement de l'application Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>L'intégration du locataire a échoué</value>
@@ -500,7 +500,7 @@ Sous licence MIT.</value>
     <value>Supprimer le certificat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Le certificat sélectionné sera supprimé de l’enregistrement de l’application gérée dans votre locataire. Les autres informations d’identification de l’application sont conservées.</value>
+    <value>Le certificat sélectionné sera supprimé de l'enregistrement de l'application gérée dans votre locataire. Les autres informations d'identification de l'application sont conservées.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Supprimer le certificat</value>
@@ -512,7 +512,7 @@ Sous licence MIT.</value>
     <value>Cette action est irréversible. Les supports de démarrage qui utilisent un certificat supprimé ne pourront plus téléverser de hachages matériels.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Les {0} certificats sélectionnés seront supprimés de l’enregistrement de l’application gérée dans votre locataire. Les autres informations d’identification de l’application sont conservées.</value>
+    <value>Les {0} certificats sélectionnés seront supprimés de l'enregistrement de l'application gérée dans votre locataire. Les autres informations d'identification de l'application sont conservées.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
     <value>Supprimer les certificats</value>
@@ -536,7 +536,7 @@ Sous licence MIT.</value>
     <value>ID du locataire</value>
   </data>
   <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
-    <value>Vérifiez votre connexion réseau et assurez-vous que votre compte peut gérer les enregistrements d’applications dans le locataire, puis réessayez. Les détails figurent dans le journal.</value>
+    <value>Vérifiez votre connexion réseau et assurez-vous que votre compte peut gérer les enregistrements d'applications dans le locataire, puis réessayez. Les détails figurent dans le journal.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Non connecté</value>
@@ -563,7 +563,7 @@ Sous licence MIT.</value>
     <value>Profil d'importation</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>Le profil Autopilot n’a pas pu être importé.</value>
+    <value>Le profil Autopilot n'a pas pu être importé.</value>
   </data>
   <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
     <value>Vérifiez que le fichier est un fichier JSON de profil Autopilot valide, puis réessayez. Les détails figurent dans le journal.</value>
@@ -809,19 +809,19 @@ Sous licence MIT.</value>
     <value>Actualiser</value>
   </data>
   <data name="CustomImages.RemoveConfirm" xml:space="preserve">
-    <value>Supprimer l’image</value>
+    <value>Supprimer l'image</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>L’image {0} ({1}) sera supprimée du profil actuel, et sa copie locale sera effacée.</value>
+    <value>L'image {0} ({1}) sera supprimée du profil actuel, et sa copie locale sera effacée.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Supprimer</value>
   </data>
   <data name="CustomImages.RemoveTitle" xml:space="preserve">
-    <value>Supprimer l’image personnalisée?</value>
+    <value>Supprimer l'image personnalisée?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>Les autres profils qui utilisent cette image l’afficheront comme manquante. Le fichier d’origine et les supports existants ne sont pas modifiés.</value>
+    <value>Les autres profils qui utilisent cette image l'afficheront comme manquante. Le fichier d'origine et les supports existants ne sont pas modifiés.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Modifier</value>
@@ -1853,7 +1853,7 @@ Sous licence MIT.</value>
     <value>Les journaux bruts peuvent contenir des informations d’identification, des identifiants, des chemins, des noms de réseau et d’autres données sensibles. Exportez-les uniquement lorsqu’un contact de support de confiance le demande explicitement.</value>
   </data>
   <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
-    <value>L’archive de support a été enregistrée dans :</value>
+    <value>L'archive de support a été enregistrée dans :</value>
   </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostics exportés</value>
@@ -2870,7 +2870,7 @@ Sous licence MIT.</value>
     <value>Fermer sans enregistrer</value>
   </data>
   <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Vos dernières modifications n’ont pas pu être enregistrées et seront perdues.</value>
+    <value>Vos dernières modifications n'ont pas pu être enregistrées et seront perdues.</value>
   </data>
   <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
     <value>Fermer sans enregistrer les paramètres?</value>
@@ -3085,7 +3085,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Utilisez le même dossier réseau sur chaque PC. Il doit utiliser SMB 3 avec le chiffrement obligatoire. Les dossiers synchronisés dans le nuage ne sont pas pris en charge.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry cessera d’enregistrer les mots de passe de cette configuration sur ce PC.</value>
+    <value>Foundry cessera d'enregistrer les mots de passe de cette configuration sur ce PC.</value>
   </data>
   <data name="Profiles.StopRememberingAction" xml:space="preserve">
     <value>Ne plus mémoriser</value>
@@ -3148,16 +3148,16 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Vérifiez les champs obligatoires. Si un dossier réseau est demandé, utilisez un chemin tel que \\server\share\folder. Si vous entrez deux fois le mot de passe d’un fichier, assurez-vous que les deux entrées correspondent.</value>
   </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
-    <value>Foundry OSD n’a pas pu enregistrer les paramètres du proxy. Réessayez. Les détails figurent dans le journal.</value>
+    <value>Foundry OSD n'a pas pu enregistrer les paramètres du proxy. Réessayez. Les détails figurent dans le journal.</value>
   </data>
   <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
     <value>Paramètres du proxy non appliqués</value>
   </data>
   <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
-    <value>Le proxy a refusé les identifiants. Vérifiez les paramètres d’authentification du proxy, puis réessayez.</value>
+    <value>Le proxy a refusé les identifiants. Vérifiez les paramètres d'authentification du proxy, puis réessayez.</value>
   </data>
   <data name="Proxy.Status.FailedMessage" xml:space="preserve">
-    <value>Foundry OSD n’a pas pu joindre les services GitHub et Microsoft avec ces paramètres. Vérifiez l’adresse et le port du proxy, ainsi que votre connexion réseau. Les détails figurent dans le journal.</value>
+    <value>Foundry OSD n'a pas pu joindre les services GitHub et Microsoft avec ces paramètres. Vérifiez l'adresse et le port du proxy, ainsi que votre connexion réseau. Les détails figurent dans le journal.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Échec de la connexion</value>
@@ -3178,7 +3178,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Connexion réussie</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
-    <value>Saisissez l’adresse du serveur proxy.</value>
+    <value>Saisissez l'adresse du serveur proxy.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Saisissez un nom d’utilisateur et un mot de passe pour l’authentification explicite du proxy.</value>
@@ -4143,16 +4143,16 @@ L’application de la mise à jour redémarre Foundry OSD.</value>
     <value>Non vérifié</value>
   </data>
   <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
-    <value>Foundry OSD n’a pas pu lancer la mise à jour. Essayez de l’appliquer de nouveau. Les détails figurent dans le journal.</value>
+    <value>Foundry OSD n'a pas pu lancer la mise à jour. Essayez de l'appliquer de nouveau. Les détails figurent dans le journal.</value>
   </data>
   <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
-    <value>Foundry OSD n’a pas pu rechercher les mises à jour. Vérifiez votre connexion réseau, puis réessayez. Les détails figurent dans le journal.</value>
+    <value>Foundry OSD n'a pas pu rechercher les mises à jour. Vérifiez votre connexion réseau, puis réessayez. Les détails figurent dans le journal.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Vérification des mises à jour</value>
   </data>
   <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
-    <value>La mise à jour n’a pas pu être téléchargée. Vérifiez votre connexion réseau, puis réessayez. Les détails figurent dans le journal.</value>
+    <value>La mise à jour n'a pas pu être téléchargée. Vérifiez votre connexion réseau, puis réessayez. Les détails figurent dans le journal.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Téléchargement de la mise à jour</value>
