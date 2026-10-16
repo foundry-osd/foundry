@@ -3613,7 +3613,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Partitietabel maken…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Stuurprogramma’s toevoegen aan de opstartimage…</value>
+    <value>Stuurprogramma's toevoegen aan de opstartimage…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
     <value>Indeling van de USB-schijf lezen…</value>
@@ -3661,7 +3661,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Opstartimage aanpassen</value>
   </data>
   <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
-    <value>Stuurprogramma’s ophalen</value>
+    <value>Stuurprogramma's ophalen</value>
   </data>
   <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
     <value>Voltooien</value>
@@ -3715,7 +3715,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Opstartimage vervangen door Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Bepalen welke stuurprogramma’s moeten worden toegevoegd…</value>
+    <value>Bepalen welke stuurprogramma's moeten worden toegevoegd…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
     <value>Windows-editie selecteren…</value>

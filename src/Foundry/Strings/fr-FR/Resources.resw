@@ -98,7 +98,7 @@ Sous licence MIT.</value>
     <value>Capacité de création de médias</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>L’installation a été annulée.</value>
+    <value>L'installation a été annulée.</value>
   </data>
   <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
     <value>Installation de Windows ADK annulée</value>
@@ -119,13 +119,13 @@ Sous licence MIT.</value>
     <value>Téléchargement du programme d'installation ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>L’installation n’a pas abouti. Les détails figurent dans le journal.</value>
+    <value>L'installation n'a pas abouti. Les détails figurent dans le journal.</value>
   </data>
   <data name="Adk.Operation.FailedTitle" xml:space="preserve">
-    <value>Échec de l’installation de Windows ADK</value>
+    <value>Échec de l'installation de Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Préparation de l’installation…</value>
+    <value>Préparation de l'installation…</value>
   </data>
   <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Installation de Windows ADK</value>
@@ -3250,10 +3250,10 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Mettre à jour l'application</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
-    <value>Arrêter l’opération</value>
+    <value>Arrêter l'opération</value>
   </data>
   <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
-    <value>Sélectionnez « Arrêter l’opération » pour confirmer. Une étape en cours sur le disque ou l’image se termine d’abord.</value>
+    <value>Sélectionnez « Arrêter l'opération » pour confirmer. Une étape en cours sur le disque ou l'image se termine d'abord.</value>
   </data>
   <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
     <value>Temps écoulé : {0}</value>
@@ -3520,7 +3520,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Ajout de la langue et des composants optionnels…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Création de l’espace de travail WinPE…</value>
+    <value>Création de l'espace de travail WinPE…</value>
   </data>
   <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
     <value>{0} sur {1}</value>
@@ -3532,13 +3532,13 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Vérification que la clé USB peut être effacée sans risque…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Nettoyage des fichiers d’une exécution précédente…</value>
+    <value>Nettoyage des fichiers d'une exécution précédente…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
     <value>Effacement de la clé USB…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Enregistrement de l’image de démarrage…</value>
+    <value>Enregistrement de l'image de démarrage…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Copie des images Windows personnalisées…</value>
@@ -3577,7 +3577,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Ajout des composants optionnels…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Abandon d’une image restée montée lors d’une exécution précédente…</value>
+    <value>Abandon d'une image restée montée lors d'une exécution précédente…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Téléchargement</value>
@@ -3595,10 +3595,10 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Vérification de la prise en charge de la signature de démarrage…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Extraction de l’image Windows…</value>
+    <value>Extraction de l'image Windows…</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
-    <value>L’échec s’est produit à l’étape {0} sur {1} : {2}.</value>
+    <value>L'échec s'est produit à l'étape {0} sur {1} : {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
     <value>Enregistrement du fichier ISO…</value>
@@ -3613,7 +3613,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Création de la table de partitions…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Ajout des pilotes à l’image de démarrage…</value>
+    <value>Ajout des pilotes à l'image de démarrage…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
     <value>Lecture de la disposition de la clé USB…</value>
@@ -3634,10 +3634,10 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>L'espace disque disponible pour créer l'image de démarrage n'a pas pu être vérifié sur {0}. Vérifiez que l'emplacement est accessible et réessayez.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Ouverture de l’image de démarrage…</value>
+    <value>Ouverture de l'image de démarrage…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Ouverture de l’image Windows…</value>
+    <value>Ouverture de l'image Windows…</value>
   </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Ouvrir le dossier</value>
@@ -3658,7 +3658,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Création du fichier ISO</value>
   </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
-    <value>Personnalisation de l’image de démarrage</value>
+    <value>Personnalisation de l'image de démarrage</value>
   </data>
   <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
     <value>Récupération des pilotes</value>
@@ -3670,13 +3670,13 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Formatage de la clé USB</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
-    <value>Préparation de l’espace de travail</value>
+    <value>Préparation de l'espace de travail</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Mise à jour de la clé USB</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Préparation de l’image de démarrage…</value>
+    <value>Préparation de l'image de démarrage…</value>
   </data>
   <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
     <value>Préparation des composants Foundry…</value>
@@ -3712,13 +3712,13 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Suppression des fichiers temporaires…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Remplacement de l’image de démarrage par Windows RE…</value>
+    <value>Remplacement de l'image de démarrage par Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>Identification des pilotes à ajouter…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Sélection de l’édition de Windows…</value>
+    <value>Sélection de l'édition de Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
     <value>Recherche du package source Windows…</value>
@@ -3727,7 +3727,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Les détails figurent dans le journal.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Copie des fichiers requis depuis l’image Windows…</value>
+    <value>Copie des fichiers requis depuis l'image Windows…</value>
   </data>
   <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
     <value>Étape {0} sur {1} : {2}</value>
@@ -3736,13 +3736,13 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Détails techniques : {0}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
-    <value>Création de l’image ISO annulée</value>
+    <value>Création de l'image ISO annulée</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
-    <value>Échec de la création de l’image ISO</value>
+    <value>Échec de la création de l'image ISO</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
-    <value>Création de l’image ISO</value>
+    <value>Création de l'image ISO</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>Image ISO créée</value>
@@ -3787,7 +3787,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Un fichier du support de démarrage occupe {0} ; FAT32 prend en charge au maximum {1} par fichier. Réduisez la taille de l’image de démarrage ou créez un ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
-    <value>Il est possible que la clé USB ne permette plus de démarrer un appareil. Recréez-la ou mettez-la à jour avant de l’utiliser.</value>
+    <value>Il est possible que la clé USB ne permette plus de démarrer un appareil. Recréez-la ou mettez-la à jour avant de l'utiliser.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Volume de démarrage : {0}. Volume de cache : {1}.</value>
