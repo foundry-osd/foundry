@@ -19,7 +19,7 @@
     <value>Acest software este furnizat ca atare. Confirmați accesul la rețea înainte de a continua implementarea.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Drepturi de autor (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
 Licențiat sub licența MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -56,7 +56,7 @@ Licențiat sub licența MIT.</value>
     <value>Anulați</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Închide fereastra</value>
+    <value>Închide</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configurație: setări implicite încorporate</value>
@@ -165,22 +165,22 @@ Licențiat sub licența MIT.</value>
     <value>bulgară (Bulgaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chineză simplificată (China)</value>
+    <value>chineză simplificată (China)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chineză tradițională (Taiwan)</value>
+    <value>chineză tradițională (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>croată (Croația)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Cehia (Cehia)</value>
+    <value>cehă (Cehia)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>daneză (Danemarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>olandeză (Olanda)</value>
+    <value>olandeză (Țările de Jos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engleză (Regatul Unit)</value>
@@ -189,16 +189,16 @@ Licențiat sub licența MIT.</value>
     <value>engleză (Statele Unite)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>Estonă (Estonia)</value>
+    <value>estonă (Estonia)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finlandeză (Finlanda)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>franceza (Canada)</value>
+    <value>franceză (Canada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>franceza (Franta)</value>
+    <value>franceză (Franța)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
     <value>germană (Germania)</value>
@@ -228,7 +228,7 @@ Licențiat sub licența MIT.</value>
     <value>lituaniană (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norvegiana Bokmal (Norvegia)</value>
+    <value>norvegiană bokmal (Norvegia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poloneză (Polonia)</value>
@@ -240,16 +240,16 @@ Licențiat sub licența MIT.</value>
     <value>portugheză (Portugalia)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>romana (Romania)</value>
+    <value>română (România)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>rusă (Rusia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Sârbă latină (Serbia)</value>
+    <value>sârbă latină (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>Slovacă (Slovacia)</value>
+    <value>slovacă (Slovacia)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>slovenă (Slovenia)</value>
@@ -267,7 +267,7 @@ Licențiat sub licența MIT.</value>
     <value>thailandeză (Thailanda)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turcă (Turkia)</value>
+    <value>turcă (Turcia)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ucraineană (Ucraina)</value>
@@ -276,7 +276,7 @@ Licențiat sub licența MIT.</value>
     <value>Despre</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Depanați</value>
+    <value>Depanare</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
     <value>Tastatură</value>
@@ -312,10 +312,10 @@ Licențiat sub licența MIT.</value>
     <value>În așteptarea rețelei</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Întuneric</value>
+    <value>Întunecat</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Lumină</value>
+    <value>Luminos</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>
@@ -408,7 +408,7 @@ Licențiat sub licența MIT.</value>
     <value>{0} (mașină sau utilizator)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Deschide</value>
+    <value>Deschis</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Personal</value>

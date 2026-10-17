@@ -19,7 +19,7 @@
     <value>Този софтуер се предоставя такъв, какъвто е. Потвърдете достъпа до мрежата, преди да продължите внедряването.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Авторско право (c) 2026 Mickaël CHAVE и сътрудниците на Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE и сътрудниците на Foundry Project.
 Лицензирано съгласно лиценза на MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -180,7 +180,7 @@
     <value>датски (Дания)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>холандски (Холандия)</value>
+    <value>нидерландски (Нидерландия)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>английски (Великобритания)</value>
@@ -228,7 +228,7 @@
     <value>литовски (Литва)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>норвежки бокмал (Норвегия)</value>
+    <value>норвежки букмол (Норвегия)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>полски (Полша)</value>
@@ -246,7 +246,7 @@
     <value>руски (Русия)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>сръбска латиница (Сърбия)</value>
+    <value>сръбски, латиница (Сърбия)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>словашки (Словакия)</value>
@@ -267,13 +267,13 @@
     <value>тайландски (Тайланд)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>турски (Türkiye)</value>
+    <value>турски (Турция)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>украински (Украйна)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>За</value>
+    <value>Относно</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Отстраняване на грешки</value>
@@ -312,10 +312,10 @@
     <value>Изчакване на мрежа</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Тъмно</value>
+    <value>Тъмен</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>светлина</value>
+    <value>Светъл</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>система</value>
@@ -408,7 +408,7 @@
     <value>{0} (машина или потребител)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Отворете</value>
+    <value>Отворена</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Лична</value>

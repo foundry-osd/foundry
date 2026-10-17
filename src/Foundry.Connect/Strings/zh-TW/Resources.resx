@@ -13,26 +13,26 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.DescriptionLine1" xml:space="preserve">
-    <value>Foundry Connect 在 Foundry 部署繼續之前驗證 WinPE 中的網路準備。</value>
+    <value>Foundry Connect 會在 Foundry 部署繼續之前，驗證 WinPE 中的網路就緒狀態。</value>
   </data>
   <data name="About.DescriptionLine2" xml:space="preserve">
-    <value>該軟體按原樣提供。在繼續部署之前確認網路存取。</value>
+    <value>本軟體依「現狀」提供。繼續部署之前，請確認網路存取。</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>著作權所有 (c) 2026 Mickaël CHAVE 與 Foundry Project 貢獻者。
-根據 MIT 許可證獲得許可。</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE 與 Foundry Project 貢獻者。
+依據 MIT 授權條款授權。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
-    <value>關於Foundry Connect</value>
+    <value>關於 Foundry Connect</value>
   </data>
   <data name="Action.Connect" xml:space="preserve">
-    <value>連接</value>
+    <value>連線</value>
   </data>
   <data name="Action.Continue" xml:space="preserve">
     <value>繼續</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
-    <value>斷開連接</value>
+    <value>中斷連線</value>
   </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
@@ -59,43 +59,43 @@
     <value>關閉</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>配置：內建預設值</value>
+    <value>設定：內建預設值</value>
   </data>
   <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>配置：{0}</value>
+    <value>設定：{0}</value>
   </data>
   <data name="Common.Connected" xml:space="preserve">
-    <value>已連接</value>
+    <value>已連線</value>
   </data>
   <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>最後更新：{0:HH:mm:ss}</value>
+    <value>上次更新：{0:HH:mm:ss}</value>
   </data>
   <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>最後更新：待定</value>
+    <value>上次更新：等候中</value>
   </data>
   <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>每{0} 秒刷新一次</value>
+    <value>每 {0} 秒重新整理一次</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
-    <value>不可用</value>
+    <value>無法使用</value>
   </data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>版本：{0}</value>
   </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>僅顯示Ethernet</value>
+    <value>僅顯示 Ethernet</value>
   </data>
   <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>顯示Ethernet + Wi-Fi</value>
+    <value>顯示 Ethernet + Wi-Fi</value>
   </data>
   <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>使用偵測到的佈局</value>
+    <value>使用偵測到的配置</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>選擇要將 Foundry 診斷資訊匯出到何處</value>
   </data>
   <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
-    <value>無法匯出診斷資訊。請檢查記錄以取得詳細資料。</value>
+    <value>無法匯出診斷資訊。如需詳細資料，請查看記錄。</value>
   </data>
   <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
     <value>匯出診斷資訊失敗</value>
@@ -123,10 +123,10 @@
     <value>診斷資訊已匯出</value>
   </data>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
-    <value>適配器</value>
+    <value>介面卡</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>檢查電纜連接</value>
+    <value>檢查網路線連接</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>偵測到 DHCP 租約</value>
@@ -138,31 +138,31 @@
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>沒有活動連結</value>
+    <value>沒有作用中的連結</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>未偵測到 Ethernet 適配器。</value>
+    <value>未偵測到 Ethernet 介面卡。</value>
   </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
-    <value>偵測到靜態網路配置</value>
+    <value>偵測到靜態網路設定</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
-    <value>等待網路配置</value>
+    <value>正在等待網路設定</value>
   </data>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>等待DHCP或靜態網路配置</value>
+    <value>正在等待 DHCP 或靜態網路設定</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>其他語言</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>阿拉伯語（沙烏地阿拉伯）</value>
+    <value>阿拉伯文（沙烏地阿拉伯）</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
-    <value>保加利亞語（保加利亞語）</value>
+    <value>保加利亞文（保加利亞）</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
     <value>簡體中文（中國）</value>
@@ -171,106 +171,106 @@
     <value>繁體中文（台灣）</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>克羅埃西亞語（克羅埃西亞）</value>
+    <value>克羅埃西亞文（克羅埃西亞）</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>捷克語（捷克）</value>
+    <value>捷克文（捷克）</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>丹麥語（丹麥）</value>
+    <value>丹麥文（丹麥）</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>荷蘭語（荷蘭）</value>
+    <value>荷蘭文（荷蘭）</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>英語（英國）</value>
+    <value>英文（英國）</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>英語（美國）</value>
+    <value>英文（美國）</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>愛沙尼亞語（愛沙尼亞）</value>
+    <value>愛沙尼亞文（愛沙尼亞）</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>芬蘭語（芬蘭）</value>
+    <value>芬蘭文（芬蘭）</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>法語（加拿大）</value>
+    <value>法文（加拿大）</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>法語（法國）</value>
+    <value>法文（法國）</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>德語（德國）</value>
+    <value>德文（德國）</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>希臘文（希臘文）</value>
+    <value>希臘文（希臘）</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
     <value>希伯來文（以色列）</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>匈牙利語（匈牙利）</value>
+    <value>匈牙利文（匈牙利）</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>義大利語（義大利）</value>
+    <value>義大利文（義大利）</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
     <value>日文（日本）</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>韓語（韓國）</value>
+    <value>韓文（韓國）</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>拉脫維亞語（拉脫維亞）</value>
+    <value>拉脫維亞文（拉脫維亞）</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>立陶宛語（立陶宛）</value>
+    <value>立陶宛文（立陶宛）</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>挪威博克馬爾語（挪威）</value>
+    <value>挪威博克馬爾文（挪威）</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>波蘭語（波蘭）</value>
+    <value>波蘭文（波蘭）</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>葡萄牙語（巴西）</value>
+    <value>葡萄牙文（巴西）</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>葡萄牙語（葡萄牙）</value>
+    <value>葡萄牙文（葡萄牙）</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>羅馬尼亞語（羅馬尼亞）</value>
+    <value>羅馬尼亞文（羅馬尼亞）</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>俄語（俄羅斯）</value>
+    <value>俄文（俄羅斯）</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>塞爾維亞拉丁語（塞爾維亞）</value>
+    <value>塞爾維亞拉丁文（塞爾維亞）</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>斯洛伐克（斯洛伐克）</value>
+    <value>斯洛伐克文（斯洛伐克）</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>斯洛維尼亞語（斯洛維尼亞）</value>
+    <value>斯洛維尼亞文（斯洛維尼亞）</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>西班牙語（墨西哥）</value>
+    <value>西班牙文（墨西哥）</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>西班牙語（西班牙）</value>
+    <value>西班牙文（西班牙）</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
     <value>瑞典文（瑞典）</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>泰語（泰國）</value>
+    <value>泰文（泰國）</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>土耳其語（Türkiye）</value>
+    <value>土耳其文（土耳其）</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>烏克蘭語（烏克蘭）</value>
+    <value>烏克蘭文（烏克蘭）</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>關於</value>
@@ -294,28 +294,28 @@
     <value>工具</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
-    <value>在{0}s中自動繼續</value>
+    <value>將在 {0} 秒後自動繼續</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>互聯網訪問已得到驗證。您現在可以繼續。</value>
+    <value>已驗證網際網路存取。您現在可以繼續。</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>網路就緒</value>
   </data>
   <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>網路刷新失敗</value>
+    <value>網路重新整理失敗</value>
   </data>
   <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>互聯網訪問尚未經過驗證。</value>
+    <value>尚未驗證網際網路存取。</value>
   </data>
   <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>等待網路</value>
+    <value>正在等待網路</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>黑暗</value>
+    <value>深色</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>光</value>
+    <value>淺色</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>系統</value>
@@ -324,156 +324,156 @@
     <value>打開日誌文件</value>
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
-    <value>刷新狀態</value>
+    <value>重新整理狀態</value>
   </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
-    <value>無法套用配置的網路設定。</value>
+    <value>無法套用已佈建的網路設定。</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
-    <value>無法連接。檢查密碼或網路設置，然後重試。</value>
+    <value>無法連線。請檢查密碼或網路設定，然後再試一次。</value>
   </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
-    <value>無法斷開連線。再試一次。</value>
+    <value>無法中斷連線。請再試一次。</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
-    <value>無法連接配置的 Wi-Fi 設定檔。再試一次。</value>
+    <value>無法連線已佈建的 Wi-Fi 設定檔。請再試一次。</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
-    <value>無法斷開配置的 Wi-Fi 設定檔。再試一次。</value>
+    <value>無法中斷已佈建 Wi-Fi 設定檔的連線。請再試一次。</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
-    <value>所配置的 Wi-Fi 設定檔不可用。</value>
+    <value>無法使用已佈建的 Wi-Fi 設定檔。</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
-    <value>此版本不支援Wi-Fi 網路。</value>
+    <value>此組建不支援這個 Wi-Fi 網路。</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
-    <value>無法完成Wi-Fi 操作。再試一次。</value>
+    <value>無法完成 Wi-Fi 動作。請再試一次。</value>
   </data>
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>認證</value>
+    <value>驗證</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>啟動映像設定</value>
+    <value>開機映像設定</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
-    <value>配置的安全性</value>
+    <value>已設定的安全性</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
-    <value>Wi-Fi·{0}</value>
+    <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>已配置 Wi-Fi · {0}</value>
+    <value>已佈建的 Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>企業簡介</value>
+    <value>企業設定檔</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>隱藏網路</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>沒有可用的 Wi-Fi 適配器。</value>
+    <value>沒有可用的 Wi-Fi 介面卡。</value>
   </data>
   <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>目前未偵測到 Wi-Fi 適配器。</value>
+    <value>目前未偵測到 Wi-Fi 介面卡。</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
-    <value>目前沒有Wi-Fi 網路可見。</value>
+    <value>目前看不到任何 Wi-Fi 網路。</value>
   </data>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>此啟動映像中沒有可用的預先配置 Wi-Fi 設定檔。</value>
+    <value>此開機映像中沒有可用的已佈建 Wi-Fi 設定檔。</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>公司簡介</value>
+    <value>設定檔</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
-    <value>此網路需要配置Wi-Fi設定檔。</value>
+    <value>此網路需要已佈建的 Wi-Fi 設定檔。</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>已配置Wi-Fi</value>
+    <value>已佈建的 Wi-Fi</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
-    <value>刷新Wi-Fi網絡</value>
+    <value>重新整理 Wi-Fi 網路</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
-    <value>企業</value>
+    <value>企業版</value>
   </data>
   <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0}（機器）</value>
+    <value>{0}（電腦）</value>
   </data>
   <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0}（機器或使用者）</value>
+    <value>{0}（電腦或使用者）</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>打開</value>
+    <value>開放</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>個人</value>
+    <value>個人版</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
-    <value>特定於供應商</value>
+    <value>廠商專用</value>
   </data>
   <data name="Wifi.SecurityWep" xml:space="preserve">
-    <value>韋普</value>
+    <value>WEP</value>
   </data>
   <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
     <value>WPA2 企業版</value>
   </data>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
-    <value>WPA2 個人</value>
+    <value>WPA2 個人版</value>
   </data>
   <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
     <value>WPA2/WPA3 企業版</value>
   </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
-    <value>WPA2/WPA3 個人</value>
+    <value>WPA2/WPA3 個人版</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 企業版</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 企業版 192 位</value>
+    <value>WPA3 企業版 192 位元</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
-    <value>WPA3 個人</value>
+    <value>WPA3 個人版</value>
   </data>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
-    <value>WPA企業</value>
+    <value>WPA 企業版</value>
   </data>
   <data name="Wifi.SecurityWpaNone" xml:space="preserve">
     <value>WPA 無</value>
   </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
-    <value>WPA個人</value>
+    <value>WPA 個人版</value>
   </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · 憑證包含在啟動映像中</value>
+    <value>{0} · 憑證已包含在開機映像中</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
-    <value>另一個 Wi-Fi 網路處於活動狀態</value>
+    <value>另一個 Wi-Fi 網路正在使用中</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>沒有可用的 Wi-Fi 適配器</value>
+    <value>沒有可用的 Wi-Fi 介面卡</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
-    <value>準備連接</value>
+    <value>可以連線</value>
   </data>
   <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi 不可用</value>
+    <value>Wi-Fi 無法使用</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
-    <value>顯示或隱藏Wi-Fi密碼</value>
+    <value>顯示或隱藏 Wi-Fi 密碼</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi 支援在此引導環境中不可用。</value>
+    <value>此開機環境不支援 Wi-Fi。</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
-    <value>未命名的設定檔</value>
+    <value>未命名的已佈建設定檔</value>
   </data>
 </root>

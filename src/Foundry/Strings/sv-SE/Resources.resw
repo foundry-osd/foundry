@@ -25,7 +25,7 @@
     <value>Bidragsgivare kunde inte laddas från GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Läser in bidragsgivare...</value>
+    <value>Läser in bidragsgivare…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Bidragsgivare</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD är en modern app för att skapa Windows distributionsmedia som drivs av WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Upphovsrätt (c) 2026 Mickaël CHAVE och bidragsgivarna till Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE och bidragsgivarna till Foundry Project.
 Licensierad under MIT-licensen.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,10 +62,10 @@ Licensierad under MIT-licensen.</value>
     <value>Det gick inte att läsa in releasenotes i den inbäddade webbläsaren.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Laddar versionsinformation...</value>
+    <value>Laddar versionsinformation…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Versionsinformation</value>
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Förvar</value>
@@ -77,10 +77,10 @@ Licensierad under MIT-licensen.</value>
     <value>Support</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Tredjepartspaketlicenser spåras genom projektförrådet och beroendemanifest.</value>
+    <value>Foundry OSD använder följande bibliotek och verktyg. Deras licenser och projektsidor visas nedan.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Tredjepartsberoende</value>
+    <value>Licenser från tredje part</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Om Foundry OSD</value>
@@ -242,19 +242,19 @@ Licensierad under MIT-licensen.</value>
     <value>Uppgradera Windows ADK och Windows PE tillägg</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Ta bort AI-komponenter</value>
+    <value>Aktivera konfiguration av AI-komponenter</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Ta bort eller inaktivera valda Windows AI-komponenter före OOBE.</value>
+    <value>Välj Windows AI-komponenter och -upplevelser som ska tas bort eller inaktiveras.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Borttagning av AI-komponenter</value>
+    <value>AI-komponenter</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Ta bort tillhandahållna Windows appar</value>
+    <value>Aktivera AppX-borttagningar</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Ta bort valda provisionerade Windows-appar före OOBE.</value>
+    <value>Välj tillhandahållna Windows-appar som ska tas bort från distribuerade enheter.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-borttagningar</value>
@@ -281,7 +281,7 @@ Licensierad under MIT-licensen.</value>
     <value>Sök efter uppdateringar</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Versionsinformation</value>
   </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Standard</value>
@@ -317,7 +317,7 @@ Licensierad under MIT-licensen.</value>
     <value>Inga Autopilot-profiler hittades</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Laddar ned Autopilot profiler...</value>
+    <value>Laddar ned Autopilot profiler…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} är konfigurerad.</value>
@@ -443,7 +443,7 @@ Licensierad under MIT-licensen.</value>
     <value>Anslut hyresgäst</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Ansluter hyresgäst...</value>
+    <value>Ansluter hyresgäst…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Skapa certifikat</value>
@@ -593,7 +593,7 @@ Licensierad under MIT-licensen.</value>
     <value>Importera Autopilot profil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importerar Autopilot profil...</value>
+    <value>Importerar Autopilot profil…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>När funktionen är aktiverad loggar teknikern in med en Microsoft-enhetskod under Windows-installationen och laddar upp enhetens maskinvaruhash.</value>
@@ -680,10 +680,10 @@ Licensierad under MIT-licensen.</value>
     <value>Interaktiv uppladdning av maskinvaruhash</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Skapa en offline Autopilot-profil i den applicerade Windows-bilden.</value>
+    <value>Importera eller ladda ned Autopilot-profilen som bäddas in i distributionsmedia.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profilprovisionering</value>
+    <value>JSON-profil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurera automatisk uppladdning av maskinvaruhash med klientorganisation som stöd.</value>
@@ -1847,7 +1847,7 @@ Licensierad under MIT-licensen.</value>
     <value>Sök efter visningsnamn eller DISM-funktionsnamn</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportera...</value>
+    <value>Exportera…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Skapa ett rensat supportarkiv utan att ändra de ursprungliga loggarna.</value>
@@ -1865,7 +1865,7 @@ Licensierad under MIT-licensen.</value>
     <value>Export av diagnostik misslyckades</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avancerat: exportera råa loggar...</value>
+    <value>Avancerat: exportera råa loggar…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Exportera råa loggar</value>
@@ -1928,7 +1928,7 @@ Licensierad under MIT-licensen.</value>
     <value>Ja</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Söker efter OU:er i domänen...</value>
+    <value>Söker efter OU:er i domänen…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Sökningen avbröts.</value>
@@ -2108,10 +2108,10 @@ Licensierad under MIT-licensen.</value>
     <value>Välj 802.1X-certifikat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurera trådbunden 802.1X</value>
+    <value>Aktivera konfiguration av Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standard Ethernet-anslutning är tillgänglig som standard. Konfigurera detta avsnitt endast om ditt trådbundna nätverk kräver 802.1X företagsautentisering.</value>
+    <value>Konfigurera trådbunden 802.1X-autentisering och roaming av Windows-profiler.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2120,7 +2120,7 @@ Licensierad under MIT-licensen.</value>
     <value>Ange fördröjningen innan enheten startas om. Använd 0 för att starta om omedelbart.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Fördröjning före omstart</value>
+    <value>Omstartsfördröjning</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
     <value>Välj om enheten ska startas om automatiskt efter en lyckad distribution.</value>
@@ -2276,112 +2276,112 @@ Licensierad under MIT-licensen.</value>
     <value>Bulgariska (Bulgarien)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Kinesiska förenklad (Kina)</value>
+    <value>Förenklad kinesiska (Kina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Traditionell kinesisk (Taiwan)</value>
+    <value>Traditionell kinesiska (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>kroatiska (Kroatien)</value>
+    <value>Kroatiska (Kroatien)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Tjeckien (Tjeckien)</value>
+    <value>Tjeckiska (Tjeckien)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>danska (Danmark)</value>
+    <value>Danska (Danmark)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holländska (Nederländerna)</value>
+    <value>Nederländska (Nederländerna)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>engelska (Storbritannien)</value>
+    <value>Engelska (Storbritannien)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>engelska (USA)</value>
+    <value>Engelska (USA)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estniska (Estland)</value>
+    <value>Estniska (Estland)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>finska (Finland)</value>
+    <value>Finska (Finland)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>franska (Kanada)</value>
+    <value>Franska (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>franska (Frankrike)</value>
+    <value>Franska (Frankrike)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>tyska (Tyskland)</value>
+    <value>Tyska (Tyskland)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>grekiska (Grekland)</value>
+    <value>Grekiska (Grekland)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>hebreiska (Israel)</value>
+    <value>Hebreiska (Israel)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
     <value>Ungerska (Ungern)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>italienska (Italien)</value>
+    <value>Italienska (Italien)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
     <value>Japanska (Japan)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>koreanska (Korea)</value>
+    <value>Koreanska (Korea)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>lettiska (Lettland)</value>
+    <value>Lettiska (Lettland)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
     <value>Litauiska (Litauen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norskt bokmål (Norge)</value>
+    <value>Norska, bokmål (Norge)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>polska (Polen)</value>
+    <value>Polska (Polen)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>portugisiska (Brasilien)</value>
+    <value>Portugisiska (Brasilien)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
     <value>Portugisiska (Portugal)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>rumänska (Rumänien)</value>
+    <value>Rumänska (Rumänien)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>ryska (Ryssland)</value>
+    <value>Ryska (Ryssland)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Serbiskt latin (Serbien)</value>
+    <value>Serbiska, latinsk (Serbien)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovakiska (Slovakien)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>slovenska (Slovenien)</value>
+    <value>Slovenska (Slovenien)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>spanska (Mexiko)</value>
+    <value>Spanska (Mexiko)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
     <value>Spanska (Spanien)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>svenska (Sverige)</value>
+    <value>Svenska (Sverige)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>Thai (Thailand)</value>
+    <value>Thailändska (Thailand)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turkiska (Türkiye)</value>
+    <value>Turkiska (Turkiet)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukrainska (Ukraina)</value>
+    <value>Ukrainska (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
     <value>Ladda upp datornamn till Autopilot</value>
@@ -2402,13 +2402,13 @@ Licensierad under MIT-licensen.</value>
     <value>Flytta komponenten uppåt</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Aktivera regler för maskinnamn</value>
+    <value>Aktivera konfiguration av datornamngivning</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurera automatisk enhetsnamngivning och namngivning med hjälp av tekniker.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Datornamn</value>
+    <value>Datornamngivning</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Förhandsgranskning</value>
@@ -2429,13 +2429,13 @@ Licensierad under MIT-licensen.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Ta bort eller inaktivera valda Windows AI-komponenter före OOBE.</value>
+    <value>Ta bort eller inaktivera Windows AI-komponenter.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI-komponenter</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Ta bort valda provisionerade Windows-appar före OOBE.</value>
+    <value>Välj tillhandahållna appar som ska tas bort.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-borttagningar</value>
@@ -2477,7 +2477,7 @@ Licensierad under MIT-licensen.</value>
     <value>Domänanslutning</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standard Ethernet-anslutning är tillgänglig som standard. Konfigurera detta avsnitt endast om ditt trådbundna nätverk kräver 802.1X företagsautentisering.</value>
+    <value>Konfigurera trådbunden 802.1X-autentisering.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2495,7 +2495,7 @@ Licensierad under MIT-licensen.</value>
     <value>Foundry OSD hem</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Hem</value>
+    <value>Startsida</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Be teknikern om domänens autentiseringsuppgifter under distributionen.</value>
@@ -2507,25 +2507,25 @@ Licensierad under MIT-licensen.</value>
     <value>Konfigurera namn på utrullade enheter.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Datornamn</value>
+    <value>Datornamngivning</value>
   </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Nätverk</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigurera Windows 11 förstagångsskärmar och sekretessinställningar.</value>
+    <value>Konfigurera out-of-box-upplevelsen i Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Aktivera eller inaktivera Windows-komponenter i det distribuerade operativsystemet.</value>
+    <value>Aktivera eller inaktivera valfria Windows-funktioner.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Valfria funktioner</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Ange Windows-versioner, uppdateringsnivåer, språk och utgåvor som erbjuds under distributionen.</value>
+    <value>Begränsa valen av operativsystem vid distribution.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-val</value>
@@ -2669,31 +2669,31 @@ Licensierad under MIT-licensen.</value>
     <value>Roaming av Windows-profiler</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Anpassa OOBE</value>
+    <value>Aktivera OOBE-konfiguration</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigurera Windows 11 förstagångsskärmar och sekretessinställningar.</value>
+    <value>Konfigurera sekretess- och installationsval för out-of-box-upplevelsen i Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurera Windows tillvalsfunktioner</value>
+    <value>Aktivera konfiguration av valfria funktioner</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Aktivera eller inaktivera Windows-komponenter i det distribuerade operativsystemet.</value>
+    <value>Välj valfria Windows-funktioner som ska aktiveras eller inaktiveras.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows tillvalsfunktioner</value>
+    <value>Valfria funktioner</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Distributionsalternativ för Windows</value>
+    <value>Aktivera konfiguration av val av operativsystem</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Ange Windows-versioner, uppdateringsnivåer, språk och utgåvor som erbjuds under distributionen.</value>
+    <value>Konfigurera tillåtna operativsystemversioner, språk, kanaler och utgåvor.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Distributionsalternativ för Windows</value>
+    <value>OS-val</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Lägg till en aktiverad åtgärd eller inaktivera efterinstallationen.</value>
@@ -2789,7 +2789,7 @@ Licensierad under MIT-licensen.</value>
     <value>Importera mapp</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importerar innehåll...</value>
+    <value>Importerar innehåll…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Den här åtgärden är ogiltig. Kontrollera konfigurationen.</value>
@@ -2819,7 +2819,7 @@ Licensierad under MIT-licensen.</value>
     <value>Ange en mapp från det importerade innehållet eller lämna fältet tomt.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Läser in innehåll...</value>
+    <value>Läser in innehåll…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importera det saknade innehållet för ”{0}”.</value>
@@ -3193,28 +3193,28 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Foundry OSD kunde inte nå GitHub- och Microsoft-tjänster med de här inställningarna. Kontrollera proxyadressen, porten och nätverksanslutningen. Information finns i loggen.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Anslutningen misslyckades</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Kontrollera proxyinställningarna</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nya anslutningar från Foundry OSD använder nu de här inställningarna.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Proxyinställningarna har tillämpats</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD nådde GitHub- och Microsoft-tjänster med de valda inställningarna.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Anslutningen lyckades</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Ange proxyserverns adress.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Ange ett användarnamn och lösenord för explicit proxyautentisering.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Ange en giltig HTTP- eller HTTPS-proxyadress, till exempel proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Tillämpa</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Använd aktuella Windows-autentiseringsuppgifter</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Välj hur proxyn autentiserar Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentisering</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Användarnamn och lösenord</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Ingen autentisering</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Valfria värdnamn eller jokerteckenmönster avgränsade med semikolon.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Undantagslista</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Anslut direkt till värdnamn som inte innehåller någon punkt.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Kringgå lokala adresser</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Autentiseringsuppgifterna lagras säkert i Autentiseringshanteraren i Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Autentiseringsuppgifter för proxy</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domän (valfritt)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Ange proxyadressen och porten.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxyserver</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Välj hur Foundry OSD ansluter till internet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Proxymetod</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Ingen proxy (direktanslutning)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Manuell proxy</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Använd Windows-inställningar (rekommenderas)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Lösenord</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>De här inställningarna gäller bara för den här appen. De läggs inte till i distributionsmedia och påverkar inte Foundry Connect eller Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Endast Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Testa anslutningen</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Användarnamn</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Inställningar</value>
@@ -3322,7 +3322,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Säkerhetskopiering och synkronisering av inställningar</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigurera hur Foundry OSD ansluter till onlinetjänster.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3469,13 +3469,13 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Nätverkskonfigurationen är inte klar.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Inget USB mål är valt.</value>
+    <value>Ingen USB-enhet har valts.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nödvändiga mediehemligheter är inte klara.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Det valda USB målet är för litet. Använd en USB-nyckel på minst 16 GB.</value>
+    <value>Den valda USB-enheten är för liten. Använd en USB-enhet på minst 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Den valda tangentbordslayouten för WinPE är inte installerad på den här datorn.</value>
@@ -3517,7 +3517,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Formatera och skapa USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatera USB mål</value>
+    <value>Formatera USB-enhet</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows kan inte läsa volymerna på den här disken. Den kan fortfarande innehålla data.</value>
@@ -3532,7 +3532,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Volymer på den här disken:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Allt på den här disken går förlorat. Fortsätt endast om detta är den avsedda USB-disken.</value>
+    <value>Allt på den här disken går förlorat. Fortsätt bara om detta är rätt USB-enhet.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Skapa USB</value>
@@ -3595,7 +3595,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Välj ISO- eller USB-utdata nedan för att komma igång.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Fullformat</value>
+    <value>Fullständig formatering</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Snabbformatering</value>
@@ -3972,7 +3972,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Uppdatera USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB mål kan uppdateras efter ADK beredskap är klar.</value>
+    <value>USB-enheter kan uppdateras när ADK-kontrollerna har slutförts.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB enheter hittades: {0}</value>
@@ -3981,22 +3981,22 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Skanna USB mål.</value>
+    <value>Söker efter USB-enheter…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Inga USB-enheter hittades.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB måluppdatering misslyckades.</value>
+    <value>Det gick inte att uppdatera USB-enheterna.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formatbeteende som används innan det slutliga USB-mediet kopieras.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Partitionsschema som används när du förbereder det valda USB målet.</value>
+    <value>Partitionsschema som används när den valda USB-enheten förbereds.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB mål</value>
+    <value>USB-mål</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Språk som används av startmiljön WinPE.</value>
@@ -4050,7 +4050,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>System</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Ljus</value>
+    <value>Ljust</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Välj det bakgrundsmaterial som används bakom appen.</value>
@@ -4302,7 +4302,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Säkerhetstyp</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Öppna</value>
+    <value>Öppen</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (Opportunistic Wireless Encryption)</value>
@@ -4314,7 +4314,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Tillhandahåll Wi-Fi stöd i startbilden</value>
+    <value>Aktivera Wi-Fi-provisionering</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurera Wi-Fi-provisionering, inbäddade profiler och roaming av Windows-profiler.</value>

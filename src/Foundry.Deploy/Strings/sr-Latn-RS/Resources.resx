@@ -19,7 +19,7 @@
     <value>Ovaj softver je obezbeđen takav kakav jeste. Pregledajte podešavanja primene pre upotrebe.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
 Licencirano pod MIT licencom.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -83,13 +83,13 @@ Licencirano pod MIT licencom.</value>
     <value>{0} (Najnovije)</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Verzija</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Otkaži</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Zatvori prozor</value>
+    <value>Zatvori</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Kopiraj u međuspremnik</value>
@@ -98,7 +98,7 @@ Licencirano pod MIT licencom.</value>
     <value>Deploi</value>
   </data>
   <data name="Common.Detected" xml:space="preserve">
-    <value>Detected</value>
+    <value>Otkriveno</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
     <value>Onemogućeno</value>
@@ -110,7 +110,7 @@ Licencirano pod MIT licencom.</value>
     <value>Omogućeno</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Sledeće</value>
+    <value>Dalje</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>br</value>
@@ -119,10 +119,10 @@ Licencirano pod MIT licencom.</value>
     <value>Nijedan</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>N/D</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Prethodno</value>
+    <value>Nazad</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nedostupno</value>
@@ -343,7 +343,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
     <value>Blokirano: sistemski disk</value>
   </data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve">
-    <value>DEBUG VIRTUAL TARGET</value>
+    <value>VIRTUELNI CILJ ZA OTKLANJANJE GREŠAKA</value>
   </data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disk {0} | {1} | {2} | {3}{4}</value>
@@ -430,7 +430,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
     <value>Izvor drajvera</value>
   </data>
   <data name="DriverPack.Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Verzija</value>
   </data>
   <data name="Drivers.Description" xml:space="preserve">
     <value>Izaberite izvor upravljačkih programa i, kada je potrebno, odgovarajući model i verziju.</value>
@@ -463,7 +463,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
     <value>bugarski (Bugarska)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>kineski pojednostavljeni (Kina)</value>
+    <value>pojednostavljeni kineski (Kina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicionalni kineski (Tajvan)</value>
@@ -508,7 +508,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
     <value>hebrejski (Izrael)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>mađarski (mađarska)</value>
+    <value>mađarski (Mađarska)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
     <value>italijanski (Italija)</value>
@@ -526,7 +526,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
     <value>litvanski (Litvanija)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norveški bokmal (Norveška)</value>
+    <value>norveški bukmol (Norveška)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poljski (Poljska)</value>
@@ -544,7 +544,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
     <value>ruski (Rusija)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srpska latinica (Srbija)</value>
+    <value>srpski, latinica (Srbija)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>slovački (Slovačka)</value>
@@ -565,7 +565,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
     <value>tajlandski (Tajland)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turski (Turkiie)</value>
+    <value>turski (Turska)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinski (Ukrajina)</value>
@@ -586,10 +586,10 @@ Operativni sistem: {4}
     <value>Potvrdite brisanje diska</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_O</value>
+    <value>_O programu</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Otklanjanje grešaka</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
     <value>Tastatura</value>
@@ -682,7 +682,7 @@ Operativni sistem: {4}
     <value>Spreman za otpremanje hardverskog heša</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
-    <value>ID stanara</value>
+    <value>ID zakupca</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
     <value>Otpremanje hardverskog heša nije dostupno</value>
@@ -697,7 +697,7 @@ Operativni sistem: {4}
     <value>Interaktivno otpremanje hardverskog heša</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON dodeljivanje profila</value>
+    <value>JSON profil</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>
@@ -730,7 +730,7 @@ Operativni sistem: {4}
     <value>{0} | TPM: {1} | Snaga: {2} | Firmver: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>Mrežno napajanje</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Baterija</value>
@@ -1213,10 +1213,10 @@ Operativni sistem: {4}
     <value>Autopilot hardverski heš uvoz nije uspeo: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot hardverski heš upload pripremljen za simulaciju.</value>
+    <value>Autopilot otpremanje hardverskog heša pripremljeno za simulaciju.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot pripremljen hardverski heš upload (simulacija).</value>
+    <value>Autopilot pripremljeno otpremanje hardverskog heša (simulacija).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
     <value>Autopilot hardverski heš otpremanje je preskočeno jer je ugrađeni sertifikat istekao.</value>
@@ -1486,7 +1486,7 @@ Operativni sistem: {4}
     <value>Primena je završena</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Uklonite medijum za pokretanje, a zatim izaberite Ponovo pokreni.</value>
+    <value>Uklonite medijum za pokretanje, a zatim izaberite „Ponovo pokreni“.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Ovaj računar će se ponovo pokrenuti za {0}s.</value>
@@ -1525,7 +1525,7 @@ Operativni sistem: {4}
     <value>Autopilot Profil</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Bild</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Ugrađeni administratorski nalog</value>
@@ -1744,10 +1744,10 @@ Operativni sistem: {4}
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Tamno</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Svetlost</value>
+    <value>Svetlo</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>

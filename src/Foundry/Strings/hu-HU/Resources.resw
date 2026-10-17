@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>Körülbelül</value>
+    <value>Névjegy</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Készítette és karbantartja: Mickaël CHAVE.</value>
@@ -25,7 +25,7 @@
     <value>A közreműködőket nem lehetett betölteni a GitHubból.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Közreműködők betöltése...</value>
+    <value>Közreműködők betöltése…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Közreműködők</value>
@@ -34,7 +34,7 @@
     <value>A Foundry OSD egy modern alkalmazás az Windows telepítési adathordozók készítésére, amelyet WinPE üzemeltet.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Szerzői jog (c) 2026 Mickaël CHAVE és a Foundry Project közreműködői.
+    <value>Copyright (c) 2026 Mickaël CHAVE és a Foundry Project közreműködői.
 Licenc az MIT licenc alatt.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A kibocsátási megjegyzések nem tölthetők be a beágyazott böngészőbe.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Kiadási megjegyzések betöltése...</value>
+    <value>Kiadási megjegyzések betöltése…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Kiadási megjegyzések</value>
@@ -77,13 +77,13 @@ Licenc az MIT licenc alatt.</value>
     <value>Támogatás</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>A harmadik féltől származó csomaglicencek nyomon követése a projektlerakaton és a függőségi jegyzékeken keresztül történik.</value>
+    <value>A Foundry OSD a következő kódtárakat és eszközöket használja. Ezek licencei és projektoldalai alább láthatók.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Harmadik féltől származó függőségek</value>
+    <value>Harmadik féltől származó licencek</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Körülbelül Foundry OSD</value>
+    <value>A Foundry OSD névjegye</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Hasznos linkek</value>
@@ -242,19 +242,19 @@ Licenc az MIT licenc alatt.</value>
     <value>Frissítés Windows ADK és Windows PE bővítmény</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Távolítsa el az AI összetevőket</value>
+    <value>MI-összetevők konfigurációjának engedélyezése</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Távolítsa el vagy tiltsa le a kiválasztott Windows AI-komponenseket OOBE előtt.</value>
+    <value>Válassza ki az eltávolítandó vagy letiltandó Windows MI-összetevőket és -funkciókat.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI alkatrész eltávolítása</value>
+    <value>MI-összetevők</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Távolítsa el a kiépített Windows alkalmazásokat</value>
+    <value>AppX-eltávolítások engedélyezése</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Távolítsa el a kijelölt Windows alkalmazásokat OOBE előtt.</value>
+    <value>Válassza ki a telepített eszközökről eltávolítandó kiépített Windows-alkalmazásokat.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-eltávolítások</value>
@@ -317,7 +317,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Nem található Autopilot profil</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot profilok letöltése...</value>
+    <value>Autopilot profilok letöltése…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} be van állítva.</value>
@@ -443,7 +443,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Csatlakoztassa a bérlőt</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Bérlő csatlakoztatása...</value>
+    <value>Bérlő csatlakoztatása…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Hozzon létre tanúsítványt</value>
@@ -593,7 +593,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Autopilot profil importálása JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot profil importálása...</value>
+    <value>Autopilot profil importálása…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Ha engedélyezve van, a technikus a Windows telepítése során Microsoft-eszközkóddal jelentkezik be, és feltölti az eszköz hardverhashét.</value>
@@ -656,7 +656,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Bejelentkezés a Microsoft Graph címre</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Világos</value>
+    <value>Törlés</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Válassza ki, hogy mely bérlői profilokat kívánja importálni a Foundry mappába.</value>
@@ -680,10 +680,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Interaktív hardverhash-feltöltés</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Hozzon létre egy offline Autopilot profilt az alkalmazott Windows képben.</value>
+    <value>Importálja vagy töltse le a telepítési adathordozóba ágyazott Autopilot-profilt.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profil létrehozása</value>
+    <value>JSON-profil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurálja a bérlő által támogatott automatikus hardverkivonat-feltöltést.</value>
@@ -941,7 +941,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Csomagok</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>Egyedi</value>
+    <value>Egyéni</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>Válasszon ki egy vagy több katalóguskategóriát a csomagok előzetes kiválasztásához.</value>
@@ -1067,7 +1067,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Rendszergazda</value>
   </data>
   <data name="Customization.OobeAccountTypeStandard" xml:space="preserve">
-    <value>Standard</value>
+    <value>Normál felhasználó</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.DuplicateUserName" xml:space="preserve">
     <value>Válasszon másik helyi fióknevet.</value>
@@ -1847,7 +1847,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Keresés megjelenített név vagy DISM funkció neve alapján</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportálás...</value>
+    <value>Exportálás…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Hozzon létre megtisztított támogatási archívumot az eredeti naplók módosítása nélkül.</value>
@@ -1865,7 +1865,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A diagnosztika exportálása nem sikerült</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Speciális: nyers naplók exportálása...</value>
+    <value>Speciális: nyers naplók exportálása…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Nyers naplók exportálása</value>
@@ -1928,7 +1928,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Igen</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>OU-k keresése a tartományban...</value>
+    <value>OU-k keresése a tartományban…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>A keresés megszakítva.</value>
@@ -2108,10 +2108,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Válassza a 802.1X tanúsítványt</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurálja a vezetékes 802.1X-et</value>
+    <value>Ethernet 802.1X-konfiguráció engedélyezése</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>A szabványos Ethernet kapcsolat alapértelmezés szerint elérhető. Ezt a szakaszt csak akkor konfigurálja, ha vezetékes hálózata 802.1X vállalati hitelesítést igényel.</value>
+    <value>Konfigurálja a vezetékes 802.1X-hitelesítést és a Windows-profilok barangolását.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2276,7 +2276,7 @@ Licenc az MIT licenc alatt.</value>
     <value>bolgár (Bulgária)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Egyszerűsített kínai (Kína)</value>
+    <value>egyszerűsített kínai (Kína)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>hagyományos kínai (Tajvan)</value>
@@ -2285,7 +2285,7 @@ Licenc az MIT licenc alatt.</value>
     <value>horvát (Horvátország)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>cseh (cseh)</value>
+    <value>cseh (Csehország)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>dán (Dánia)</value>
@@ -2378,7 +2378,7 @@ Licenc az MIT licenc alatt.</value>
     <value>thai (Thaiföld)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>török (Türkiye)</value>
+    <value>török (Törökország)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrán (Ukrajna)</value>
@@ -2402,13 +2402,13 @@ Licenc az MIT licenc alatt.</value>
     <value>Összetevő mozgatása felfelé</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Gépelnevezési szabályok engedélyezése</value>
+    <value>Gépelnevezési konfiguráció engedélyezése</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurálja az automatikus és a technikus által támogatott eszközelnevezést.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Számítógép neve</value>
+    <value>Gép elnevezése</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Előnézet</value>
@@ -2420,7 +2420,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Termék- és verzióinformáció.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>Körülbelül</value>
+    <value>Névjegy</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK készenlét és telepítés.</value>
@@ -2429,13 +2429,13 @@ Licenc az MIT licenc alatt.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Távolítsa el vagy tiltsa le a kiválasztott Windows AI-komponenseket OOBE előtt.</value>
+    <value>Távolítsa el vagy tiltsa le a Windows MI-összetevőit.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>MI-összetevők</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Távolítsa el a kijelölt Windows alkalmazásokat OOBE előtt.</value>
+    <value>Válassza ki az eltávolítandó kiépített alkalmazásokat.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-eltávolítások</value>
@@ -2477,7 +2477,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Tartományhoz csatlakozás</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>A szabványos Ethernet kapcsolat alapértelmezés szerint elérhető. Ezt a szakaszt csak akkor konfigurálja, ha vezetékes hálózata 802.1X vállalati hitelesítést igényel.</value>
+    <value>Konfigurálja a vezetékes 802.1X-hitelesítést.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2495,7 +2495,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Foundry OSD otthon</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Otthon</value>
+    <value>Kezdőlap</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>A telepítés során kérje be a technikustól a tartományi hitelesítő adatokat.</value>
@@ -2513,19 +2513,19 @@ Licenc az MIT licenc alatt.</value>
     <value>Hálózat</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Windows 11 első futtatási képernyő és adatvédelmi alapbeállítások konfigurálása.</value>
+    <value>Konfigurálja a Windows első indításkor futó beállítási folyamatát.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Engedélyezze vagy tiltsa le a Windows összetevőket a telepített operációs rendszerben.</value>
+    <value>Engedélyezze vagy tiltsa le a Windows választható funkcióit.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Választható funkciók</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Adja meg a telepítés során felkínált Windows-verziókat, frissítési szinteket, nyelveket és kiadásokat.</value>
+    <value>Korlátozza a telepítéskor választható operációs rendszereket.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Operációsrendszer-választás</value>
@@ -2546,7 +2546,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Tekintse át és indítsa el a médiakészítést.</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
-    <value>Indítsa el</value>
+    <value>Indítás</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
     <value>Importáljon Windows-válaszfájlokat, és válassza ki a központi telepítéshez használt beállításokat.</value>
@@ -2561,7 +2561,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Automatikus csatlakozás a tartományhoz a telepítési jelszóval védett hitelesítő adatokkal.</value>
@@ -2669,31 +2669,31 @@ Licenc az MIT licenc alatt.</value>
     <value>Windows-profilok barangolása</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>OOBE testreszabása</value>
+    <value>OOBE-konfiguráció engedélyezése</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Windows 11 első futtatási képernyő és adatvédelmi alapbeállítások konfigurálása.</value>
+    <value>Konfigurálja az adatvédelmi és beállítási lehetőségeket a Windows első indításkor futó beállítási folyamatához.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>A Windows opcionális szolgáltatásainak konfigurálása</value>
+    <value>Választható funkciók konfigurációjának engedélyezése</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Engedélyezze vagy tiltsa le a Windows összetevőket a telepített operációs rendszerben.</value>
+    <value>Válassza ki az engedélyezendő vagy letiltandó választható Windows-funkciókat.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>A Windows opcionális szolgáltatásai</value>
+    <value>Választható funkciók</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows-telepítési lehetőségek</value>
+    <value>Operációsrendszer-választás konfigurációjának engedélyezése</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Adja meg a telepítés során felkínált Windows-verziókat, frissítési szinteket, nyelveket és kiadásokat.</value>
+    <value>Konfigurálja az operációs rendszer engedélyezett verzióit, nyelveit, csatornáit és kiadásait.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows-telepítési lehetőségek</value>
+    <value>Operációsrendszer-választás</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Adjon hozzá egy engedélyezett műveletet, vagy tiltsa le a telepítés utáni konfigurációt.</value>
@@ -2789,7 +2789,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Mappa importálása</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Tartalom importálása...</value>
+    <value>Tartalom importálása…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ez a művelet érvénytelen. Ellenőrizze a konfigurációját.</value>
@@ -2819,7 +2819,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Adjon meg egy mappát az importált tartalomból, vagy hagyja üresen ezt a mezőt.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Tartalom betöltése...</value>
+    <value>Tartalom betöltése…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importálja a(z) „{0}” hiányzó tartalmát.</value>
@@ -3193,28 +3193,28 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A Foundry OSD ezekkel a beállításokkal nem érte el a GitHub és a Microsoft szolgáltatásait. Ellenőrizze a proxy címét, portját és a hálózati kapcsolatot. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Sikertelen kapcsolódás</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Ellenőrizze a proxybeállításokat</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>A Foundry OSD új kapcsolatai mostantól ezeket a beállításokat használják.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Proxybeállítások alkalmazva</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>A Foundry OSD a kiválasztott beállításokkal elérte a GitHub és a Microsoft szolgáltatásait.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Sikeres kapcsolódás</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Adja meg a proxykiszolgáló címét.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Adjon meg felhasználónevet és jelszót az explicit proxyhitelesítéshez.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Adjon meg érvényes HTTP- vagy HTTPS-proxycímet, például: proxy.contoso.com.</value>
@@ -3226,88 +3226,88 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Alkalmaz</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Az aktuális Windows-hitelesítő adatok használata</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Válassza ki, hogyan hitelesítse a proxy a Foundry OSD-t.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Hitelesítés</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Felhasználónév és jelszó</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Nincs hitelesítés</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Nem kötelező, pontosvesszővel elválasztott állomásnevek vagy helyettesítő karakteres minták.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Kivétellista</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Közvetlen kapcsolódás azokhoz az állomásnevekhez, amelyek nem tartalmaznak pontot.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Proxy mellőzése helyi címeknél</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>A hitelesítő adatokat a Windows Hitelesítőadat-kezelő biztonságosan tárolja.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Proxy hitelesítő adatai</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Tartomány (nem kötelező)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Adja meg a proxy címét és portját.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxykiszolgáló</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Válassza ki, hogyan csatlakozzon a Foundry OSD az internethez.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Proxymód</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Nincs proxy (közvetlen kapcsolat)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Manuális proxybeállítás</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Windows-beállítások használata (ajánlott)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Jelszó</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Ezek a beállítások csak erre az alkalmazásra vonatkoznak. Nem kerülnek a telepítési adathordozóra, és nem befolyásolják a Foundry Connect vagy a Foundry Deploy működését.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Csak a Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Kapcsolat tesztelése</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Felhasználónév</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
-    <value>Beállítások elemre</value>
+    <value>Beállítások</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
     <value>Kezelje az indítást, a nyelvet, a diagnosztikát és az alkalmazás viselkedését.</value>
@@ -3322,7 +3322,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Beállítások biztonsági mentése és szinkronizálása</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigurálja, hogyan csatlakozzon a Foundry OSD az online szolgáltatásokhoz.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3469,13 +3469,13 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A hálózati konfiguráció nincs készen.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nincs USB cél kiválasztva.</value>
+    <value>Nincs kiválasztva USB-meghajtó.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>A szükséges médiatitkok nincsenek készen.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>A kiválasztott USB cél túl kicsi. Használjon legalább 16 GB-os USB billentyűt.</value>
+    <value>A kiválasztott USB-meghajtó túl kicsi. Használjon legalább 16 GB-os USB-meghajtót.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>A kiválasztott WinPE billentyűzetkiosztás nincs telepítve ezen a számítógépen.</value>
@@ -3517,7 +3517,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Formázza és hozzon létre USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formázza a USB célt</value>
+    <value>USB-meghajtó formázása</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>A Windows nem tudja beolvasni a lemez köteteit. Továbbra is tartalmazhat adatokat.</value>
@@ -3532,7 +3532,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A lemez kötetei:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>A lemezen lévő minden adat elvész. Csak akkor folytassa, ha ez a tervezett USB-lemez.</value>
+    <value>A lemezen lévő összes adat elvész. Csak akkor folytassa, ha ez a kívánt USB-meghajtó.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB létrehozása</value>
@@ -3568,7 +3568,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Építészet</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Drivers</value>
+    <value>Illesztőprogramok</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formátum mód</value>
@@ -3595,7 +3595,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A kezdéshez válasszon lent egy ISO- vagy USB-kimenetet.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Teljes formátum</value>
+    <value>Teljes formázás</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Gyors formázás</value>
@@ -3972,7 +3972,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>USB frissítése</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Az USB célpontok az ADK készenléti állapot befejezése után frissíthetők.</value>
+    <value>Az USB-meghajtók listája az ADK készenléti ellenőrzésének befejezése után frissíthető.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB meghajtók találhatók: {0}</value>
@@ -3981,22 +3981,22 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Lemez {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB célpontok pásztázása.</value>
+    <value>USB-meghajtók keresése…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nem található USB meghajtó.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB a cél frissítése nem sikerült.</value>
+    <value>Nem sikerült frissíteni az USB-meghajtók listáját.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>A végső USB adathordozó másolása előtt használt formázási viselkedés.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>A kiválasztott USB cél előkészítésekor használt partíciós séma.</value>
+    <value>A kiválasztott USB-meghajtó előkészítésekor használt partícióséma.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB cél</value>
+    <value>Cél USB-meghajtó</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>A WinPE rendszerindítási környezet által használt nyelv.</value>
@@ -4023,7 +4023,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Indítsa el</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Nyissa meg</value>
+    <value>Megnyitás</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Nyissa meg a Windows színbeállításokat a kiemelő szín megváltoztatásához.</value>
@@ -4050,7 +4050,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Rendszer</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Fény</value>
+    <value>Világos</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Válassza ki az alkalmazás mögött használt háttéranyagot.</value>
@@ -4302,7 +4302,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Biztonsági típus</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Nyissa meg</value>
+    <value>Nyílt</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (Opportunista vezeték nélküli titkosítás)</value>
@@ -4314,7 +4314,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>A Wi-Fi támogatás biztosítása a rendszerindító lemezképben</value>
+    <value>Wi-Fi-kiépítés engedélyezése</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurálja a Wi-Fi kiépítését, a beágyazott profilokat és a Windows-profilok barangolását.</value>

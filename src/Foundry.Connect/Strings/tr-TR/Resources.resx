@@ -19,7 +19,7 @@
     <value>Bu yazılım olduğu gibi sağlanmaktadır. Dağıtıma devam etmeden önce ağ erişimini onaylayın.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Telif hakkı (c) 2026 Mickaël CHAVE ve Foundry Project’e katkıda bulunanlar.
+    <value>Copyright (c) 2026 Mickaël CHAVE ve Foundry Project'e katkıda bulunanlar.
 MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -41,22 +41,22 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Foundry Connect</value>
   </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
-    <value>Bu önyükleme medyasını oluşturmak için kullanılan Foundry OSD sürümü belirlenemiyor. Önce medya oluşturma bilgisayarınızda Foundry OSD’yi güncelleyin, ardından ISO’yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
+    <value>Bu önyükleme medyasını oluşturmak için kullanılan Foundry OSD sürümü belirlenemiyor. Önce medya oluşturma bilgisayarınızda Foundry OSD'yi güncelleyin, ardından ISO'yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Yeni sürüm mevcut. Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
+    <value>Yeni sürüm mevcut. Foundry OSD'yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
+    <value>Foundry OSD'yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Bu önyükleme medyası Foundry OSD’nin eski bir sürümüyle oluşturuldu. Önce medya oluşturma bilgisayarınızda Foundry OSD’yi güncelleyin, ardından ISO’yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
+    <value>Bu önyükleme medyası Foundry OSD'nin eski bir sürümüyle oluşturuldu. Önce medya oluşturma bilgisayarınızda Foundry OSD'yi güncelleyin, ardından ISO'yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>İptal</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Pencereyi kapat</value>
+    <value>Kapat</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Yapılandırma: yerleşik varsayılanlar</value>
@@ -228,7 +228,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Litvanyaca (Litvanya)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norveç Bokmal (Norveç)</value>
+    <value>Norveççe Bokmål (Norveç)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Lehçe (Polonya)</value>
@@ -246,7 +246,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Rusça (Rusya)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Sırpça Latince (Sırbistan)</value>
+    <value>Sırpça, Latin (Sırbistan)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovakça (Slovakya)</value>
@@ -312,10 +312,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Ağ bekleniyor</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Karanlık</value>
+    <value>Koyu</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Işık</value>
+    <value>Açık</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>

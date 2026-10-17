@@ -19,7 +19,7 @@
     <value>ซอฟต์แวร์นี้มีให้ตามที่เป็นอยู่ ยืนยันการเข้าถึงเครือข่ายก่อนที่จะปรับใช้ต่อไป</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>ลิขสิทธิ์ (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
+    <value>Copyright (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
 ได้รับอนุญาตภายใต้ใบอนุญาต MIT</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -228,7 +228,7 @@
     <value>ลิทัวเนีย (ลิทัวเนีย)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>บ็อกมาลนอร์เวย์ (นอร์เวย์)</value>
+    <value>นอร์เวย์ บ็อกมาล (นอร์เวย์)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>โปแลนด์ (โปแลนด์)</value>
@@ -246,7 +246,7 @@
     <value>รัสเซีย (รัสเซีย)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>ละตินเซอร์เบีย (เซอร์เบีย)</value>
+    <value>เซอร์เบีย ละติน (เซอร์เบีย)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>สโลวัก (สโลวาเกีย)</value>
@@ -264,10 +264,10 @@
     <value>สวีเดน (สวีเดน)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>ไทย (ประเทศไทย)</value>
+    <value>ไทย (ไทย)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>ตุรกี (Türkiye)</value>
+    <value>ตุรกี (ตุรกี)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ยูเครน (ยูเครน)</value>
@@ -315,7 +315,7 @@
     <value>มืด</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>เบา</value>
+    <value>สว่าง</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>ระบบ</value>
@@ -408,7 +408,7 @@
     <value>{0} (เครื่องหรือผู้ใช้)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>เปิด</value>
+    <value>แบบเปิด</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>ส่วนตัว</value>

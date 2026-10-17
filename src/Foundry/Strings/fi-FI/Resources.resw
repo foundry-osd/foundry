@@ -25,7 +25,7 @@
     <value>Osallistujia ei voitu ladata GitHubista.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Ladataan osallistujia...</value>
+    <value>Ladataan osallistujia…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Osallistujat</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD on nykyaikainen sovellus Windows -käyttöönottomedian luomiseen, jota käyttää WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Tekijänoikeus (c) 2026 Mickaël CHAVE ja Foundry Project -projektin avustajat.
+    <value>Copyright (c) 2026 Mickaël CHAVE ja Foundry Project -projektin avustajat.
 Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Julkaisutietoja ei voitu ladata upotettuun selaimeen.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Ladataan julkaisutietoja...</value>
+    <value>Ladataan julkaisutietoja…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Julkaisutiedot</value>
@@ -77,13 +77,13 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tuki</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Kolmannen osapuolen pakettilisenssejä seurataan projektivaraston ja riippuvuusluetteloiden kautta.</value>
+    <value>Foundry OSD käyttää seuraavia kirjastoja ja työkaluja. Niiden lisenssit ja projektisivut luetellaan alla.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Kolmannen osapuolen riippuvuudet</value>
+    <value>Kolmannen osapuolen lisenssit</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Tietoja Foundry OSD</value>
+    <value>Tietoja Foundry OSD:stä</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Hyödyllisiä linkkejä</value>
@@ -242,19 +242,19 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Päivitä Windows ADK ja Windows PE -lisäosa</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Poista AI-komponentit</value>
+    <value>Ota AI-komponenttien määritys käyttöön</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Poista tai poista käytöstä valitut Windows AI-komponentit ennen OOBE.</value>
+    <value>Valitse Windowsin AI-komponentit ja -kokemukset, jotka poistetaan tai poistetaan käytöstä.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI-komponenttien poisto</value>
+    <value>AI-komponentit</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Poista varustetut Windows-sovellukset</value>
+    <value>Ota AppX-poistot käyttöön</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Poista valitut varustetut Windows-sovellukset ennen OOBE.</value>
+    <value>Valitse esiasennetut Windows-sovellukset, jotka poistetaan käyttöön otetuista laitteista.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-poistot</value>
@@ -302,7 +302,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Lataa vuokraajalta</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Vuokralainen ei palauttanut Autopilot-profiileja.</value>
+    <value>Vuokraaja ei palauttanut Autopilot-profiileja.</value>
   </data>
   <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
     <value>Autopilot-profiileja ei voitu ladata vuokraajalta.</value>
@@ -317,7 +317,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Autopilot-profiileja ei löytynyt</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Ladataan Autopilot profiileja...</value>
+    <value>Ladataan Autopilot profiileja…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} on määritetty.</value>
@@ -332,10 +332,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Valittu varmenne on vanhentunut. Luo tai valitse kelvollinen varmenne ennen käynnistysmedian luomista.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
-    <value>Valitse PFX, joka vastaa sovelluksen rekisteröintitodistusta.</value>
+    <value>Valitse PFX, joka vastaa sovelluksen rekisteröintivarmennetta.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Salasanasuojattu PFX kopioitu käynnistysmediaan laitteiston hash-latausta varten.</value>
+    <value>Salasanasuojattu PFX, joka kopioidaan käynnistysmediaan laitteiston hajautusarvon palvelimeen lataamista varten.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Valittua PFX-tiedostoa ei ole enää olemassa.</value>
@@ -347,7 +347,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Käynnistysmediasertifikaatti</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
-    <value>PFX salasana</value>
+    <value>PFX-salasana</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
     <value>Anna PFX-salasana.</value>
@@ -356,10 +356,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Valitse vastaava salasanalla suojattu PFX ennen käynnistysmedian luomista.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
-    <value>PFX tiedosto</value>
+    <value>PFX-tiedosto</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Valitse Autopilot varmenne PFX</value>
+    <value>Valitse Autopilot-varmenteen PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>Valittu PFX ei sisällä yksityisen avaimen materiaalia.</value>
@@ -389,16 +389,16 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kopioi salasana</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Tallenna tämä PFX-tiedosto ja salasana nyt turvalliseen paikkaan. Foundry tallentaa salasanan kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”. Tarvitset molemmat arvot käynnistysmedian luomiseen laitteiston hash-latausta varten.</value>
+    <value>Tallenna tämä PFX-tiedosto ja salasana nyt turvalliseen paikkaan. Foundry tallentaa salasanan kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”. Tarvitset molemmat arvot käynnistysmedian luomiseen laitteiston hajautusarvon palvelimeen lataamista varten.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Salasana kopioitu.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
-    <value>PFX salasana</value>
+    <value>PFX-salasana</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
-    <value>PFX tiedosto</value>
+    <value>PFX-tiedosto</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
     <value>Todistus valmis</value>
@@ -410,7 +410,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Varmenteen tunnus</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>PFX-sertifikaatti</value>
+    <value>PFX-varmenne</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
     <value>Foundry ei voinut poistaa valittua sovelluksen rekisteröinnin varmennetta.</value>
@@ -419,10 +419,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Varmenteen poisto epäonnistui</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Tallenna Autopilot-sertifikaatti PFX</value>
+    <value>Tallenna Autopilot-varmenteen PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Peukalonjälki</value>
+    <value>Tunnistearvo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
     <value>Voimassa 12 kuukautta</value>
@@ -440,10 +440,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Varmenteita ei ole varattu.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Yhdistä vuokralainen</value>
+    <value>Yhdistä vuokraaja</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Yhdistetään vuokralaista...</value>
+    <value>Yhdistetään vuokraajaan…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Luo sertifikaatti</value>
@@ -455,22 +455,22 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Oletusryhmätunnistetta ei ole valittu.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Irrota vuokralainen</value>
+    <value>Irrota vuokraaja</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Valinnainen ryhmätunniste esivalittu Foundry Deploy laitteiston hajautuslatauksen aikana.</value>
+    <value>Valinnainen ryhmätunniste, joka esivalitaan Foundry Deployssa laitteiston hajautusarvon palvelimeen lataamisen aikana.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Ryhmän oletustunniste</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Zero-touch-laitteiston hajautusarvon lataus</value>
+    <value>Laitteiston hajautusarvon zero-touch-lataus palvelimeen</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
     <value>Foundry ei voinut määrittää Autopilot-sovelluksen rekisteröintiä.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Vuokralaisen käyttöönotto epäonnistui</value>
+    <value>Vuokraajan käyttöönotto epäonnistui</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>Valittu varmenne on vanhentunut. Luo uusi varmenne, tallenna sen PFX ja salasana ja valitse se käynnistysmediaa varten.</value>
@@ -488,7 +488,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Hallitun palvelun pääkäyttäjältä puuttuu järjestelmänvalvojan suostumus vaaditulle Microsoft Graph-luvalla. Anna järjestelmänvalvojan suostumus ja yhdistä uudelleen.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Hallitun sovelluksen rekisteröinti ei ole valmis. Tarkista vuokralaisen valmius ja muodosta yhteys uudelleen.</value>
+    <value>Hallitun sovelluksen rekisteröinti ei ole valmis. Tarkista vuokraajan valmius ja muodosta yhteys uudelleen.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Hallitun sovelluksen rekisteröinnistä puuttuu vaadittu Microsoft Graph-sovelluslupa. Yhdistä uudelleen tiliin, joka voi päivittää sovellusten rekisteröinnit.</value>
@@ -497,7 +497,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Hallittu palvelun periaate puuttuu tai on poistettu käytöstä. Yhdistä uudelleen tiliin, jolla voi luoda tai hallita yrityssovelluksia.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Vuokralaisen perehdytys vaatii huomiota</value>
+    <value>Vuokraajan käyttöönotto vaatii huomiota</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Tila</value>
@@ -542,16 +542,16 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Yhdistetty</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Viimeistele sisäänkirjautuminen selaimessa määrittääksesi Autopilot laitteiston hash-latauksen.</value>
+    <value>Viimeistele sisäänkirjautuminen selaimessa määrittääksesi Autopilotin laitteiston hajautusarvon latauksen palvelimeen.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
-    <value>Kirjaudu sisään Microsoft Graph</value>
+    <value>Kirjaudu sisään Microsoft Graphiin</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
     <value>Asiakastunnus</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>Vuokralaisen tunnus</value>
+    <value>Vuokraajan tunnus</value>
   </data>
   <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
     <value>Tarkista verkkoyhteys ja varmista, että tilisi voi hallita sovellusten rekisteröintejä vuokraajassa, ja yritä sitten uudelleen. Lisätietoja on lokissa.</value>
@@ -560,10 +560,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Ei yhdistetty</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Vuokralainen, sovelluksen rekisteröinti ja valmiustiedot laitteiston hash-latausta varten.</value>
+    <value>Vuokraaja, sovelluksen rekisteröinti ja valmiustiedot laitteiston hajautusarvon palvelimeen lataamista varten.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Vuokralaisen valmius</value>
+    <value>Vuokraajan valmius</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Nimi</value>
@@ -572,10 +572,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Arvo</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Yhdistä Microsoft Graph tätä sovellusistuntoa varten hallitaksesi hajautusasetuksia.</value>
+    <value>Muodosta yhteys Microsoft Graphiin tämän sovellusistunnon ajaksi hallitaksesi hajautusarvon palvelimeen lataamisen asetuksia.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Vuokralaisen yhteys</value>
+    <value>Vuokraajan yhteys</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Tuo profiili</value>
@@ -593,13 +593,13 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tuo Autopilot profiili JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Tuodaan Autopilot profiilia...</value>
+    <value>Tuodaan Autopilot profiilia…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Kun tämä on käytössä, teknikko kirjautuu Windowsin asennuksen aikana Microsoftin laitekoodilla ja lataa laitteen laitteiston hajautusarvon.</value>
+    <value>Kun tämä on käytössä, teknikko kirjautuu Windowsin asennuksen aikana Microsoftin laitekoodilla ja lataa laitteen laitteiston hajautusarvon palvelimeen.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
-    <value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value>
+    <value>Vuorovaikutteinen laitteiston hajautusarvon lataus palvelimeen</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON profiilin hallinta</value>
@@ -653,13 +653,13 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Viimeistele sisäänkirjautuminen selaimessa ladataksesi Autopilot-profiilit.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
-    <value>Kirjaudu sisään Microsoft Graph</value>
+    <value>Kirjaudu sisään Microsoft Graphiin</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Selkeä</value>
+    <value>Tyhjennä</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Valitse, mitkä vuokralaisen profiilit tuodaan Foundry:aan.</value>
+    <value>Valitse, mitkä vuokraajan profiilit tuodaan Foundryyn.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Tuo</value>
@@ -674,22 +674,22 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Valitse Autopilot -profiilit</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Anna teknikon ladata laitteen laitteiston hajautusarvo käyttöönoton aikana.</value>
+    <value>Anna teknikon ladata laitteen laitteiston hajautusarvo palvelimeen käyttöönoton aikana.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value>
+    <value>Vuorovaikutteinen laitteiston hajautusarvon lataus palvelimeen</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Luo offline- Autopilot -profiili käytetyssä Windows-kuvassa.</value>
+    <value>Tuo tai lataa käyttöönottomediaan upotettava Autopilot-profiili.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profiilin hallinta</value>
+    <value>JSON-profiili</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Määritä vuokralaisen tukema automaattinen laitteiston hajauksen lähetys.</value>
+    <value>Määritä vuokraajan tukema automaattinen laitteiston hajautusarvon lataus palvelimeen.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>Zero-touch-laitteiston hajautusarvon lataus</value>
+    <value>Laitteiston hajautusarvon zero-touch-lataus palvelimeen</value>
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ei voinut avata virheraporttilomaketta. Kopioi tämä linkki ja avaa se selaimessasi.</value>
@@ -965,10 +965,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Valitut paketit: {0} / {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Määritä Foundry Deploy -sovelluksessa vahvistettu lopullinen tietokoneen nimi Windows Autopilot -laitteelle laitteiston hajautusarvon latauksen yhteydessä.</value>
+    <value>Määritä Foundry Deploy -sovelluksessa vahvistettu lopullinen tietokoneen nimi Windows Autopilot -laitteelle laitteiston hajautusarvon palvelimeen lataamisen yhteydessä.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Ota käyttöön laitteiden nimeäminen ja laitteiston hajautusarvon zero-touch-lataus tai vuorovaikutteinen lataus, jotta käyttöönotossa käytettävä lopullinen nimi voidaan määrittää Autopilot-palvelussa.</value>
+    <value>Ota käyttöön laitteiden nimeäminen ja laitteiston hajautusarvon zero-touch-lataus tai vuorovaikutteinen lataus palvelimeen, jotta käyttöönotossa käytettävä lopullinen nimi voidaan määrittää Autopilot-palvelussa.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Lisää osa</value>
@@ -1847,7 +1847,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Hae näyttönimellä tai DISM-ominaisuuden nimellä</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Vie...</value>
+    <value>Vie…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Luo puhdistettu tukipaketti muuttamatta alkuperäisiä lokeja.</value>
@@ -1865,7 +1865,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Diagnostiikan vienti epäonnistui</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Lisäasetukset: vie raakalokit...</value>
+    <value>Lisäasetukset: vie raakalokit…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Vie raakalokit</value>
@@ -1928,7 +1928,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kyllä</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Etsitään OU:ita toimialueesta...</value>
+    <value>Etsitään OU:ita toimialueesta…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Haku peruutettiin.</value>
@@ -2108,10 +2108,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Valitse 802.1X-sertifikaatti</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Määritä langallinen 802.1X</value>
+    <value>Ota Ethernet 802.1X -määritys käyttöön</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Normaali Ethernet-yhteys on käytettävissä oletuksena. Määritä tämä osio vain, jos kiinteä verkkosi vaatii 802.1X yritystodennusta.</value>
+    <value>Määritä kiinteän verkon 802.1X-todennus ja Windows-profiilien siirto.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2270,118 +2270,118 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Vuorovaikutteinen toimialueeseen liittyminen</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>arabia (Saudi-Arabia)</value>
+    <value>Arabia (Saudi-Arabia)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
-    <value>bulgaria (Bulgaria)</value>
+    <value>Bulgaria (Bulgaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>yksinkertaistettu kiina (Kiina)</value>
+    <value>Yksinkertaistettu kiina (Kiina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>perinteinen kiina (Taiwan)</value>
+    <value>Perinteinen kiina (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>kroatia (Kroatia)</value>
+    <value>Kroatia (Kroatia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>tšekki (Tšekki)</value>
+    <value>Tšekki (Tšekki)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>tanska (Tanska)</value>
+    <value>Tanska (Tanska)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>hollanti (Alankomaat)</value>
+    <value>Hollanti (Alankomaat)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>englanti (Iso-Britannia)</value>
+    <value>Englanti (Iso-Britannia)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>englanti (Yhdysvallat)</value>
+    <value>Englanti (Yhdysvallat)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>Viro (Viro)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>suomi (Suomi)</value>
+    <value>Suomi (Suomi)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>ranska (Kanada)</value>
+    <value>Ranska (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>ranska (Ranska)</value>
+    <value>Ranska (Ranska)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>saksa (Saksa)</value>
+    <value>Saksa (Saksa)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>kreikka (Kreikka)</value>
+    <value>Kreikka (Kreikka)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>heprea (Israel)</value>
+    <value>Heprea (Israel)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>unkari (Unkari)</value>
+    <value>Unkari (Unkari)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>italia (Italia)</value>
+    <value>Italia (Italia)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>japani (Japani)</value>
+    <value>Japani (Japani)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>korea (Korea)</value>
+    <value>Korea (Korea)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>latvia (Latvia)</value>
+    <value>Latvia (Latvia)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
     <value>Liettua (Liettua)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norjan bokmål (Norja)</value>
+    <value>Norja, bokmål (Norja)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>puola (Puola)</value>
+    <value>Puola (Puola)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>portugali (Brasilia)</value>
+    <value>Portugali (Brasilia)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>portugali (Portugali)</value>
+    <value>Portugali (Portugali)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>romania (Romania)</value>
+    <value>Romania (Romania)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>venäjä (Venäjä)</value>
+    <value>Venäjä (Venäjä)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>serbia latina (Serbia)</value>
+    <value>Serbia, latinalainen (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>slovakki (Slovakia)</value>
+    <value>Slovakki (Slovakia)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>slovenia (Slovenia)</value>
+    <value>Slovenia (Slovenia)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>espanja (Meksiko)</value>
+    <value>Espanja (Meksiko)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>espanja (Espanja)</value>
+    <value>Espanja (Espanja)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>ruotsi (Ruotsi)</value>
+    <value>Ruotsi (Ruotsi)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>thaimaa (Thaimaa)</value>
+    <value>Thai (Thaimaa)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turkki (Türkiye)</value>
+    <value>Turkki (Turkki)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukraina (Ukraina)</value>
+    <value>Ukraina (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
     <value>Lataa tietokoneen nimi Autopilot-palveluun</value>
@@ -2402,13 +2402,13 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Siirrä osa ylöspäin</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Ota koneen nimeämissäännöt käyttöön</value>
+    <value>Ota koneen nimeämisen määritys käyttöön</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Määritä automaattinen ja teknikko-avusteinen laitteen nimeäminen.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Tietokoneen nimi</value>
+    <value>Koneen nimeäminen</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Esikatselu</value>
@@ -2429,19 +2429,19 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Poista tai poista käytöstä valitut Windows AI-komponentit ennen OOBE.</value>
+    <value>Poista Windowsin AI-komponentit tai poista ne käytöstä.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI-komponentit</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Poista valitut varustetut Windows-sovellukset ennen OOBE.</value>
+    <value>Valitse poistettavat esiasennetut sovellukset.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-poistot</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Lataa laitteiston hajautusarvot interaktiivisesti käyttöönoton aikana.</value>
+    <value>Lataa laitteiston hajautusarvot palvelimeen interaktiivisesti käyttöönoton aikana.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Interaktiivinen</value>
@@ -2453,7 +2453,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>JSON-profiili</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Lataa laitteistohajakkeet Microsoft Graphin kautta.</value>
+    <value>Lataa laitteiston hajautusarvot palvelimeen Microsoft Graphin kautta.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -2477,7 +2477,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Toimialueeseen liittyminen</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Normaali Ethernet-yhteys on käytettävissä oletuksena. Määritä tämä osio vain, jos kiinteä verkkosi vaatii 802.1X yritystodennusta.</value>
+    <value>Määritä kiinteän verkon 802.1X-todennus.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2495,7 +2495,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Foundry OSD kotiin</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Kotiin</value>
+    <value>Aloitus</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Pyydä teknikolta toimialueen tunnistetiedot käyttöönoton aikana.</value>
@@ -2513,19 +2513,19 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Verkko</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Määritä Windows 11 ensikertalaista näyttöä ja yksityisyyden oletusasetuksia.</value>
+    <value>Määritä Windowsin käyttöönottokokemus.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Ota käyttöön tai poista käytöstä Windows-komponentit käyttöönotetussa käyttöjärjestelmässä.</value>
+    <value>Ota Windowsin valinnaisia ominaisuuksia käyttöön tai poista niitä käytöstä.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Valinnaiset ominaisuudet</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Määritä käyttöönoton aikana tarjottavat Windows-versiot, päivitystasot, kielet ja versiot.</value>
+    <value>Rajoita käyttöönotossa valittavissa olevia käyttöjärjestelmiä.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-valinta</value>
@@ -2561,7 +2561,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Liity toimialueeseen automaattisesti käyttöönoton salasanalla suojatuilla tunnistetiedoilla.</value>
@@ -2669,31 +2669,31 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Windows-profiilien siirto</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Mukauta OOBE</value>
+    <value>Ota OOBE-määritys käyttöön</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Määritä Windows 11 ensikertalaista näyttöä ja yksityisyyden oletusasetuksia.</value>
+    <value>Määritä Windowsin käyttöönottokokemuksen tietosuoja- ja asetusvalinnat.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Määritä Windowsin valinnaiset ominaisuudet</value>
+    <value>Ota valinnaisten ominaisuuksien määritys käyttöön</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Ota käyttöön tai poista käytöstä Windows-komponentit käyttöönotetussa käyttöjärjestelmässä.</value>
+    <value>Valitse Windowsin valinnaiset ominaisuudet, jotka otetaan käyttöön tai poistetaan käytöstä.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windowsin valinnaiset ominaisuudet</value>
+    <value>Valinnaiset ominaisuudet</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windowsin käyttöönottoasetukset</value>
+    <value>Ota käyttöjärjestelmän valinnan määritys käyttöön</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Määritä käyttöönoton aikana tarjottavat Windows-versiot, päivitystasot, kielet ja versiot.</value>
+    <value>Määritä sallitut käyttöjärjestelmän julkaisut, kielet, kanavat ja versiot.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windowsin käyttöönottoasetukset</value>
+    <value>OS-valinta</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Lisää käytössä oleva toiminto tai poista jälkiasennus käytöstä.</value>
@@ -2789,7 +2789,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tuo kansio</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Tuodaan sisältöä...</value>
+    <value>Tuodaan sisältöä…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Tämä toiminto on virheellinen. Tarkista sen määritykset.</value>
@@ -2819,7 +2819,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kirjoita tuodun sisällön kansio tai jätä kenttä tyhjäksi.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Ladataan sisältöä...</value>
+    <value>Ladataan sisältöä…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Tuo puuttuva sisältö toiminnolle ”{0}”.</value>
@@ -3193,28 +3193,28 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Foundry OSD ei saanut näillä asetuksilla yhteyttä GitHub- ja Microsoft-palveluihin. Tarkista välityspalvelimen osoite, portti ja verkkoyhteys. Lisätietoja on lokissa.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Yhteys epäonnistui</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Tarkista välityspalvelimen asetukset</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Foundry OSD:n uudet yhteydet käyttävät nyt näitä asetuksia.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Välityspalvelimen asetukset otettu käyttöön</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD tavoitti GitHubin ja Microsoftin palvelut valituilla asetuksilla.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Yhteys onnistui</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Anna välityspalvelimen osoite.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Anna käyttäjänimi ja salasana välityspalvelimen todentamista varten.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Anna kelvollinen HTTP- tai HTTPS-välityspalvelimen osoite, kuten proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Käytä</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Käytä nykyisiä Windows-tunnistetietoja</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Valitse, miten välityspalvelin todentaa Foundry OSD:n.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Todennus</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Käyttäjänimi ja salasana</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Ei todennusta</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Valinnaiset isäntänimet tai yleismerkkejä sisältävät mallit puolipisteillä erotettuina.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Ohitusluettelo</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Muodosta suora yhteys isäntänimiin, joissa ei ole pistettä.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Ohita paikalliset osoitteet</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Tunnistetiedot tallennetaan turvallisesti Windowsin tunnistetietojen hallintaan.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Välityspalvelimen tunnistetiedot</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Toimialue (valinnainen)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Anna välityspalvelimen osoite ja portti.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Välityspalvelin</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Valitse, miten Foundry OSD muodostaa yhteyden Internetiin.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Välityspalvelinmenetelmä</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Ei välityspalvelinta (suora yhteys)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Manuaalinen välityspalvelin</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Käytä Windowsin asetuksia (suositus)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Salasana</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Nämä asetukset koskevat vain tätä sovellusta. Niitä ei lisätä käyttöönottomediaan, eivätkä ne vaikuta Foundry Connect- tai Foundry Deploy -sovellukseen.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Vain Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Testaa yhteys</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Käyttäjänimi</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Asetukset</value>
@@ -3322,7 +3322,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Asetusten varmuuskopiointi ja synkronointi</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Määritä, miten Foundry OSD muodostaa yhteyden verkkopalveluihin.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3334,7 +3334,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Ota etädiagnostiikka käyttöön</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Auta parantamaan Foundrya lähettämällä anonyymiä käyttötelemetriaa. Salaisuudet ja suorat laitetunnisteet, kuten sarjanumerot ja laitteistotiivisteet, jätetään pois. Telemetria käyttää anonyymiä asennustunnistetta ja voi sisältää laitteen valmistajan ja mallin.</value>
+    <value>Auta parantamaan Foundrya lähettämällä anonyymiä käyttötelemetriaa. Salaisuudet ja suorat laitetunnisteet, kuten sarjanumerot ja laitteiston hajautusarvot, jätetään pois. Telemetria käyttää anonyymiä asennustunnistetta ja voi sisältää laitteen valmistajan ja mallin.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Ota telemetria käyttöön</value>
@@ -3370,58 +3370,58 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Arkkitehtuuri ja allekirjoitus</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Käytössä: zero-touch-laitteiston hajautusarvon lataus</value>
+    <value>Käytössä: laitteiston hajautusarvon zero-touch-lataus palvelimeen</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Käytössä: vuorovaikutteinen laitteiston hajautusarvon lataus</value>
+    <value>Käytössä: vuorovaikutteinen laitteiston hajautusarvon lataus palvelimeen</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
     <value>Käytössä: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta valitun varmenteen vanheneminen puuttuu.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta valitun varmenteen vanhenemispäivä puuttuu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta valittu varmenne on vanhentunut. Valitse kelvollinen varmenne ennen käynnistysmedian luomista.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta valittu varmenne on vanhentunut. Valitse kelvollinen varmenne ennen käynnistysmedian luomista.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta valittu PFX ei vastaa sovelluksen rekisteröintitodistusta.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta valittu PFX ei vastaa sovelluksen rekisteröintivarmennetta.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta valitun varmenteen peukalojälki puuttuu.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta valitun varmenteen peukalojälki puuttuu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta sovelluksen rekisteröintiä ei ole määritetty. Yhdistä vuokralaiseen Autopilot.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta sovelluksen rekisteröintiä ei ole määritetty. Muodosta yhteys vuokraajaan Autopilot-sivulla.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta käynnistysmedian PFX-vanhenemista ei voitu vahvistaa.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta käynnistysmedian PFX:n vanhenemista ei voitu vahvistaa.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta valittu käynnistysmedia PFX on vanhentunut.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta valittu käynnistysmedian PFX on vanhentunut.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta käynnistysmediaa PFX ei ole vahvistettu.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta käynnistysmedian PFX:ää ei ole vahvistettu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta valittu PFX ei vastaa aktiivista varmennetta.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta valittu PFX ei vastaa aktiivista varmennetta.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta käynnistysmedian PFX:tä ei ole valittu.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta käynnistysmedian PFX:ää ei ole valittu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta käynnistysmedian PFX-salasana puuttuu.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta käynnistysmedian PFX-salasana puuttuu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta sovelluksen asiakastunnus puuttuu. Yhdistä uudelleen vuokraajaan Autopilot.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta sovelluksen asiakastunnus puuttuu. Muodosta yhteys vuokraajaan uudelleen Autopilot-sivulla.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta sovelluksen palvelun päätunnus puuttuu tai ei ole valmis.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta sovelluksen palvelun päänimi puuttuu tai ei ole valmis.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta asetukset puuttuvat.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta asetukset puuttuvat.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Laitteiston hash-lataus on käytössä, mutta vuokralaisen yhteys puuttuu. Yhdistä vuokralaiseen Autopilot.</value>
+    <value>Laitteiston hajautusarvon lataus palvelimeen on käytössä, mutta vuokraajan yhteys puuttuu. Muodosta yhteys vuokraajaan Autopilot-sivulla.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON profiilitila on käytössä, mutta kelvollista oletusprofiilia ei ole valittu.</value>
@@ -3469,13 +3469,13 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Verkkomääritys ei ole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>USB-kohdetta ei ole valittu.</value>
+    <value>USB-asemaa ei ole valittu.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Vaaditut mediasalaisuudet eivät ole valmiita.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Valittu USB-kohde on liian pieni. Käytä USB-näppäintä, jonka koko on vähintään 16 GB.</value>
+    <value>Valittu USB-asema on liian pieni. Käytä vähintään 16 GB:n USB-asemaa.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Valittua WinPE-näppäimistöasettelua ei ole asennettu tähän tietokoneeseen.</value>
@@ -3517,7 +3517,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Muotoile ja luo USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Muotoile USB kohde</value>
+    <value>Alusta USB-asema</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ei voi lukea tämän levyn taltioita. Levyllä voi silti olla tietoja.</value>
@@ -3532,7 +3532,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Tämän levyn taltiot:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Kaikki tämän levyn tiedot menetetään. Jatka vain, jos tämä on tarkoitettu USB-levy.</value>
+    <value>Kaikki tämän levyn tiedot menetetään. Jatka vain, jos tämä on oikea USB-asema.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Luo USB</value>
@@ -3595,10 +3595,10 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Aloita valitsemalla alta ISO- tai USB-tuloste.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Täysi muoto</value>
+    <value>Täydellinen alustus</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Nopea muotoilu</value>
+    <value>Pika-alustus</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Valitse, mihin luotu Foundry ISO kirjoitetaan.</value>
@@ -3972,7 +3972,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Päivitä USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB-kohteet voidaan päivittää, kun ADK-valmius on valmis.</value>
+    <value>USB-asemat voi päivittää, kun ADK-valmiustarkistukset on suoritettu.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB asemat löydetty: {0}</value>
@@ -3981,22 +3981,22 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Levy {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Etsitään USB kohteita.</value>
+    <value>Etsitään USB-asemia…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>USB-asemia ei löytynyt.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB kohteen päivitys epäonnistui.</value>
+    <value>USB-asemien päivitys epäonnistui.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Muotoilu, jota käytettiin ennen lopullisen USB -median kopioimista.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Osiokaavio, jota käytetään valmisteltaessa valittua USB kohdetta.</value>
+    <value>Osiointityyli, jota käytetään valitun USB-aseman valmistelussa.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB kohde</value>
+    <value>USB-kohde</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE käynnistysympäristön käyttämä kieli.</value>
@@ -4050,7 +4050,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Järjestelmä</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Kevyt</value>
+    <value>Vaalea</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Valitse sovelluksen takana käytettävä taustamateriaali.</value>
@@ -4302,7 +4302,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Turvallisuustyyppi</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Avaa</value>
+    <value>Avoin</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (opportunistinen langaton salaus)</value>
@@ -4314,7 +4314,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Ota käyttöön Wi-Fi-tuki käynnistyskuvassa</value>
+    <value>Ota Wi-Fi-provisiointi käyttöön</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Määritä Wi-Fi-provisiointi, upotetut profiilit ja Windows-profiilin siirtyminen.</value>

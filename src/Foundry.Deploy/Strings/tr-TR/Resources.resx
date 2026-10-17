@@ -19,7 +19,7 @@
     <value>Bu yazılım olduğu gibi sağlanmaktadır. Kullanmadan önce dağıtım ayarlarınızı gözden geçirin.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Telif hakkı (c) 2026 Mickaël CHAVE ve Foundry Project’e katkıda bulunanlar.
+    <value>Copyright (c) 2026 Mickaël CHAVE ve Foundry Project'e katkıda bulunanlar.
 MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -38,7 +38,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bu cihazın Autopilot sağlama ayarlarını gözden geçirin.</value>
   </data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
-    <value>Dağıtım sırasında bu cihazın donanım karmasını Windows Autopilot'a yükler.</value>
+    <value>Dağıtım sırasında bu cihazın donanım karmasını Windows Autopilot'a karşıya yükler.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Çevrimdışı bir Autopilot profilini Windows yüklemesine ekler.</value>
@@ -47,16 +47,16 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot</value>
   </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
-    <value>Bu önyükleme medyasını oluşturmak için kullanılan Foundry OSD sürümü belirlenemiyor. Önce medya oluşturma bilgisayarınızda Foundry OSD’yi güncelleyin, ardından ISO’yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
+    <value>Bu önyükleme medyasını oluşturmak için kullanılan Foundry OSD sürümü belirlenemiyor. Önce medya oluşturma bilgisayarınızda Foundry OSD'yi güncelleyin, ardından ISO'yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Yeni sürüm mevcut. Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
+    <value>Yeni sürüm mevcut. Foundry OSD'yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
+    <value>Foundry OSD'yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Bu önyükleme medyası Foundry OSD’nin eski bir sürümüyle oluşturuldu. Önce medya oluşturma bilgisayarınızda Foundry OSD’yi güncelleyin, ardından ISO’yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
+    <value>Bu önyükleme medyası Foundry OSD'nin eski bir sürümüyle oluşturuldu. Önce medya oluşturma bilgisayarınızda Foundry OSD'yi güncelleyin, ardından ISO'yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Mimarlık: {0}</value>
@@ -89,7 +89,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>İptal</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Pencereyi kapat</value>
+    <value>Kapat</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Panoya kopyala</value>
@@ -110,7 +110,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Etkin</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Sonraki</value>
+    <value>İleri</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>Hayır</value>
@@ -122,7 +122,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Yok</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Önceki</value>
+    <value>Geri</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Kullanılamıyor</value>
@@ -191,7 +191,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Zero-touch donanım karması yükleme</value>
+    <value>Zero-touch donanım karması karşıya yükleme</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
     <value>Süresi dolmuş sertifika</value>
@@ -526,7 +526,7 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
     <value>Litvanyaca (Litvanya)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norveç Bokmal (Norveç)</value>
+    <value>Norveççe Bokmål (Norveç)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Lehçe (Polonya)</value>
@@ -544,7 +544,7 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
     <value>Rusça (Rusya)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Sırpça Latince (Sırbistan)</value>
+    <value>Sırpça, Latin (Sırbistan)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovakça (Slovakya)</value>
@@ -670,34 +670,34 @@ Dağıtıma devam edilsin mi?</value>
     <value>Sertifikanın geçerlilik süresi</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>Autopilot sertifikasının süresi doldu. Dağıtım, donanım karması yüklenmeden devam edebilir.</value>
+    <value>Autopilot sertifikasının süresi doldu. Dağıtım, donanım karması karşıya yüklenmeden devam edebilir.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Grup etiketi</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>Gerekli sertifika bilgileri eksik. Dağıtım, donanım karması yüklenmeden devam edebilir.</value>
+    <value>Gerekli sertifika bilgileri eksik. Dağıtım, donanım karması karşıya yüklenmeden devam edebilir.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Donanım karmasını yüklemeye hazır</value>
+    <value>Donanım karmasını karşıya yüklemeye hazır</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
     <value>Kiracı Kimliği</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
-    <value>Donanım karma yüklemesi kullanılamıyor</value>
+    <value>Donanım karması karşıya yükleme kullanılamıyor</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>Donanım karma yükleme durumu</value>
+    <value>Donanım karması karşıya yükleme durumu</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>Zero-touch donanım karması yükleme</value>
+    <value>Zero-touch donanım karması karşıya yükleme</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Etkileşimli donanım karması yükleme</value>
+    <value>Etkileşimli donanım karması karşıya yükleme</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profil temel hazırlığı</value>
+    <value>JSON profili</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>
@@ -730,7 +730,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>{0} | TPM: {1} | Güç: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>klima</value>
+    <value>AC güç</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Pil</value>
@@ -907,7 +907,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Hedef diski hazırla</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
-    <value>Autopilot’u hazırla</value>
+    <value>Autopilot'u hazırla</value>
   </data>
   <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
     <value>Autopilot cihazını kaydet</value>
@@ -952,10 +952,10 @@ Dağıtıma devam edilsin mi?</value>
     <value>Özellik değişiklikleri uygulanıyor...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Autopilot donanım karması yüklemesi doğrulanıyor...</value>
+    <value>Autopilot donanım karmasının karşıya yüklenmesi için kimlik doğrulanıyor...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>Autopilot donanım karma değeri yakalanıyor...</value>
+    <value>Autopilot donanım karması yakalanıyor...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Kullanılabilir alan denetleniyor...</value>
@@ -1057,7 +1057,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Hedef disk bölümleniyor...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Autopilot donanım karması yüklemesi hazırlanıyor...</value>
+    <value>Autopilot donanım karmasının karşıya yüklenmesi hazırlanıyor...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>İndirmeye hazırlanıyor...</value>
@@ -1129,7 +1129,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Microsoft Graph'deki Windows Autopilot grup etiketi güncelleniyor...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Autopilot donanım karması yükleniyor...</value>
+    <value>Autopilot donanım karması karşıya yükleniyor...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Hedef yapılandırma doğrulanıyor...</value>
@@ -1204,7 +1204,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Windows Autopilot cihaz grubu etiketi güncellemesi zaman aşımından önce onaylanmadı.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Autopilot donanım karması içe aktarıldı ve Windows Autopilot cihazlarda görünür.</value>
+    <value>Autopilot donanım karması içe aktarıldı ve Windows Autopilot cihazlarında görünür.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
     <value>Autopilot donanım karması yakalama başarısız oldu: {0}</value>
@@ -1213,19 +1213,19 @@ Dağıtıma devam edilsin mi?</value>
     <value>Autopilot donanım karmasını içe aktarma başarısız oldu: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot Simülasyon için hazırlanan donanım karma yüklemesi.</value>
+    <value>Autopilot donanım karmasının karşıya yüklenmesi simülasyon için hazırlandı.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot donanım karma yüklemesi hazırlandı (simülasyon).</value>
+    <value>Autopilot donanım karmasının karşıya yüklenmesi hazırlandı (simülasyon).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Autopilot Gömülü sertifikanın süresi dolduğundan donanım karma yüklemesi atlandı.</value>
+    <value>Gömülü sertifikanın süresi dolduğundan Autopilot donanım karmasının karşıya yüklenmesi atlandı.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot donanım karma yüklemesi atlandı: {0}</value>
+    <value>Autopilot donanım karmasının karşıya yüklenmesi atlandı: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot Gerekli medya sertifikası bilgileri eksik olduğundan donanım karması yüklemesi atlandı.</value>
+    <value>Gerekli medya sertifikası bilgileri eksik olduğundan Autopilot donanım karmasının karşıya yüklenmesi atlandı.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot etkinleştirildi ancak hiçbir profil seçilmedi.</value>
@@ -1444,7 +1444,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Hedef Windows bölümü Autopilot hazırlama için kullanılamaz.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>Hedef Windows bölümü, Autopilot donanım karma yüklemesi için kullanılamaz.</value>
+    <value>Hedef Windows bölümü, Autopilot donanım karmasını karşıya yüklemek için kullanılamıyor.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>Etkileşimli Autopilot kayıt yardımcısını hazırlamak için hedef Windows bölümü kullanılamıyor.</value>
@@ -1486,7 +1486,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Dağıtım tamamlandı</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Önyükleme medyasını çıkarın ve ardından Yeniden Başlat'ı seçin.</value>
+    <value>Önyükleme medyasını çıkarın ve ardından Yeniden başlat'ı seçin.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Bu bilgisayar {0}s içinde yeniden başlatılacak.</value>
@@ -1525,7 +1525,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Autopilot Profili</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Derleme</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Yerleşik Yönetici hesabı</value>
@@ -1744,10 +1744,10 @@ Dağıtıma devam edilsin mi?</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Karanlık</value>
+    <value>Koyu</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Işık</value>
+    <value>Açık</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>
@@ -1762,7 +1762,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Özel komutlar Foundry ile çakışabilir. Bu yapılandırmayı test edin.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Karma yüklemek Autopilot kaydını garanti etmez.</value>
+    <value>Karmayı karşıya yüklemek Autopilot kaydını garanti etmez.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>Bu yanıt dosyasını seçilen Windows görüntüsü ve Foundry yapılandırmasıyla test edin.</value>

@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>Umbes</value>
+    <value>Teave</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Looja ja hooldaja on Mickaël CHAVE.</value>
@@ -25,7 +25,7 @@
     <value>Kaasautoreid ei saanud GitHubist laadida.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Kaasautorite laadimine...</value>
+    <value>Kaasautorite laadimine…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Kaastöölised</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD on kaasaegne rakendus Windows juurutusmeediumi loomiseks, mida toetab WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autoriõigus (c) 2026 Mickaël CHAVE ja Foundry Projecti kaasautorid.
+    <value>Copyright (c) 2026 Mickaël CHAVE ja Foundry Projecti kaasautorid.
 Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Väljalaskemärkmeid ei saanud manustatud brauserisse laadida.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Väljalaskemärkmete laadimine...</value>
+    <value>Väljalaskemärkmete laadimine…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Väljalaske märkmed</value>
@@ -77,10 +77,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Toetus</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Kolmanda osapoole pakettide litsentse jälgitakse projekti hoidla ja sõltuvusmanifestide kaudu.</value>
+    <value>Foundry OSD kasutab järgmisi teeke ja tööriistu. Nende litsentsid ja projektilehed on loetletud allpool.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Kolmandate osapoolte sõltuvused</value>
+    <value>Kolmandate osapoolte litsentsid</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Teave Foundry OSD kohta</value>
@@ -242,19 +242,19 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Täiendage Windows ADK ja Windows PE pistikprogrammi</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Eemaldage AI komponendid</value>
+    <value>Luba AI-komponentide konfiguratsioon</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Eemaldage või keelake valitud Windows AI komponendid enne OOBE.</value>
+    <value>Valige Windowsi AI-komponendid ja -funktsioonid, mida eemaldada või keelata.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI komponentide eemaldamine</value>
+    <value>AI komponendid</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Eemaldage ette nähtud Windows rakendused</value>
+    <value>Luba AppX-i eemaldamised</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Eemaldage valitud etteantud Windows rakendused enne OOBE.</value>
+    <value>Valige ettevalmistatud Windowsi rakendused, mis juurutatud seadmetest eemaldatakse.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-i eemaldamised</value>
@@ -317,7 +317,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Autopilot profiile ei leitud</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot profiilide allalaadimine...</value>
+    <value>Autopilot profiilide allalaadimine…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} on konfigureeritud.</value>
@@ -443,7 +443,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Ühendage üürnik</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Üürniku ühendamine...</value>
+    <value>Üürniku ühendamine…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Looge sertifikaat</value>
@@ -593,7 +593,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Import Autopilot profiil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot profiili importimine...</value>
+    <value>Autopilot profiili importimine…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Kui see on lubatud, logib tehnik Windowsi seadistamise ajal sisse Microsofti seadmekoodiga ja laadib üles seadme riistvararäsi.</value>
@@ -656,13 +656,13 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Logige sisse aadressil Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Selge</value>
+    <value>Tühjenda</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Valige, millised üürniku profiilid importida kausta Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>Import</value>
+    <value>Impordi</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
     <value>Valige kõik</value>
@@ -680,10 +680,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Interaktiivne riistvararäsi üleslaadimine</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Looge rakendatud Windows pildil võrguühenduseta Autopilot profiil.</value>
+    <value>Importige või laadige alla juurutusmeediumisse manustatud Autopilot profiil.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profiili ettevalmistamine</value>
+    <value>JSON profiil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Seadistage üürniku toetatud automaatne riistvara räsi üleslaadimine.</value>
@@ -1847,7 +1847,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Otsige kuvatava nime või DISM-i funktsiooni nime järgi</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Ekspordi...</value>
+    <value>Ekspordi…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Loo puhastatud tugiarhiiv ilma algseid logisid muutmata.</value>
@@ -1865,7 +1865,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Diagnostika eksport ebaõnnestus</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Täpsemalt: ekspordi töötlemata logid...</value>
+    <value>Täpsemalt: ekspordi töötlemata logid…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Ekspordi töötlemata logid</value>
@@ -1928,7 +1928,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Jah</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>OU-de otsimine domeenist...</value>
+    <value>OU-de otsimine domeenist…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Otsing tühistati.</value>
@@ -2108,10 +2108,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Valige 802.1X sertifikaat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Seadistage juhtmega 802.1X</value>
+    <value>Luba Ethernet 802.1X konfiguratsioon</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standardne Ethernet ühenduvus on vaikimisi saadaval. Seadistage see jaotis ainult siis, kui teie traadiga võrk nõuab 802.1X ettevõtte autentimist.</value>
+    <value>Konfigureerige juhtmega võrgu 802.1X autentimine ja Windowsi profiilide rändlus.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2270,118 +2270,118 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Interaktiivne domeeniga liitumine</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>araabia (Saudi Araabia)</value>
+    <value>Araabia (Saudi Araabia)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
-    <value>bulgaaria (Bulgaaria)</value>
+    <value>Bulgaaria (Bulgaaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>lihtsustatud hiina keel (Hiina)</value>
+    <value>Lihtsustatud hiina (Hiina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>traditsiooniline hiina keel (Taiwan)</value>
+    <value>Traditsiooniline hiina (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>horvaadi (Horvaatia)</value>
+    <value>Horvaadi (Horvaatia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>tšehhi (tšehhi)</value>
+    <value>Tšehhi (Tšehhi)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>taani (Taani)</value>
+    <value>Taani (Taani)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>hollandi keel (Holland)</value>
+    <value>Hollandi (Holland)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>inglise keel (Ühendkuningriik)</value>
+    <value>Inglise (Ühendkuningriik)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>inglise keel (Ameerika Ühendriigid)</value>
+    <value>Inglise (Ameerika Ühendriigid)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>eesti keel (Eesti)</value>
+    <value>Eesti (Eesti)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>soome keel (Soome)</value>
+    <value>Soome (Soome)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>prantsuse keel (Kanada)</value>
+    <value>Prantsuse (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>prantsuse keel (Prantsusmaa)</value>
+    <value>Prantsuse (Prantsusmaa)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>saksa keel (Saksamaa)</value>
+    <value>Saksa (Saksamaa)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>kreeka (Kreeka)</value>
+    <value>Kreeka (Kreeka)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>heebrea (Iisrael)</value>
+    <value>Heebrea (Iisrael)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>ungari (Ungari)</value>
+    <value>Ungari (Ungari)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>itaalia (Itaalia)</value>
+    <value>Itaalia (Itaalia)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>jaapani keel (Jaapan)</value>
+    <value>Jaapani (Jaapan)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
     <value>Korea (Korea)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>läti (Läti)</value>
+    <value>Läti (Läti)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
     <value>Leedu (Leedu)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norra bokmål (Norra)</value>
+    <value>Norra bokmål (Norra)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>poola keel (Poola)</value>
+    <value>Poola (Poola)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>portugali keel (Brasiilia)</value>
+    <value>Portugali (Brasiilia)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>portugali keel (Portugal)</value>
+    <value>Portugali (Portugal)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>rumeenia (Rumeenia)</value>
+    <value>Rumeenia (Rumeenia)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>vene keel (Venemaa)</value>
+    <value>Vene (Venemaa)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>serbia ladina (Serbia)</value>
+    <value>Serbia, ladina (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>slovaki (Slovakkia)</value>
+    <value>Slovaki (Slovakkia)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>sloveeni keel (Sloveenia)</value>
+    <value>Sloveeni (Sloveenia)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>hispaania keel (Mehhiko)</value>
+    <value>Hispaania (Mehhiko)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>hispaania keel (Hispaania)</value>
+    <value>Hispaania (Hispaania)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>rootsi keel (Rootsi)</value>
+    <value>Rootsi (Rootsi)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
     <value>Tai (Tai)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>türgi (Türkiye)</value>
+    <value>Türgi (Türgi)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukraina (Ukraina)</value>
+    <value>Ukraina (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
     <value>Arvutinime üleslaadimine teenusesse Autopilot</value>
@@ -2402,13 +2402,13 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Teisalda komponent üles</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Luba masina nimetamise reeglid</value>
+    <value>Luba masina nimetamise konfiguratsioon</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Seadistage automaatne ja tehniku abiga seadme nimetamine.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Arvuti nimi</value>
+    <value>Masina nimetamine</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Eelvaade</value>
@@ -2420,7 +2420,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Toote- ja versiooniteave.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>Umbes</value>
+    <value>Teave</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK valmisolek ja paigaldus.</value>
@@ -2429,13 +2429,13 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Eemaldage või keelake valitud Windows AI komponendid enne OOBE.</value>
+    <value>Eemaldage või keelake Windowsi AI-komponendid.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI komponendid</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Eemaldage valitud etteantud Windows rakendused enne OOBE.</value>
+    <value>Valige eemaldatavad ettevalmistatud rakendused.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-i eemaldamised</value>
@@ -2477,7 +2477,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Domeeniga liitumine</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standardne Ethernet ühenduvus on vaikimisi saadaval. Seadistage see jaotis ainult siis, kui teie traadiga võrk nõuab 802.1X ettevõtte autentimist.</value>
+    <value>Konfigureerige juhtmega võrgu 802.1X autentimine.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2495,7 +2495,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Foundry OSD koju</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Kodu</value>
+    <value>Avaleht</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Küsige tehnikult juurutamise ajal domeeni identimisteavet.</value>
@@ -2513,19 +2513,19 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Võrk</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Seadistage Windows 11 esmakordset ekraani ja privaatsuse vaikeseadeid.</value>
+    <value>Konfigureerige Windowsi esmahäälestus.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Lubage või keelake juurutatud operatsioonisüsteemis Windowsi komponendid.</value>
+    <value>Lubage või keelake Windowsi valikulisi funktsioone.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Valikulised funktsioonid</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Määrake juurutamise ajal pakutavad Windowsi versioonid, värskendustasemed, keeled ja väljaanded.</value>
+    <value>Piirake juurutamisel valitavaid operatsioonisüsteeme.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS valik</value>
@@ -2561,7 +2561,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Liituge domeeniga automaatselt identimisteabe abil, mida kaitseb juurutusparool.</value>
@@ -2669,31 +2669,31 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Windowsi profiilide rändlus</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Kohanda OOBE</value>
+    <value>Luba OOBE konfiguratsioon</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Seadistage Windows 11 esmakordset ekraani ja privaatsuse vaikeseadeid.</value>
+    <value>Konfigureerige Windowsi esmahäälestuse privaatsus- ja häälestusvalikud.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windowsi valikuliste funktsioonide konfigureerimine</value>
+    <value>Luba valikuliste funktsioonide konfiguratsioon</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Lubage või keelake juurutatud operatsioonisüsteemis Windowsi komponendid.</value>
+    <value>Valige Windowsi valikulised funktsioonid, mida lubada või keelata.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windowsi valikulised funktsioonid</value>
+    <value>Valikulised funktsioonid</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windowsi juurutussuvandid</value>
+    <value>Luba operatsioonisüsteemi valiku konfiguratsioon</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Määrake juurutamise ajal pakutavad Windowsi versioonid, värskendustasemed, keeled ja väljaanded.</value>
+    <value>Konfigureerige lubatud operatsioonisüsteemi väljalasked, keeled, kanalid ja väljaanded.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windowsi juurutussuvandid</value>
+    <value>OS valik</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Lisa lubatud toiming või keela installijärgne seadistus.</value>
@@ -2789,7 +2789,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Impordi kaust</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Sisu importimine...</value>
+    <value>Sisu importimine…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>See toiming on vigane. Kontrolli selle seadistust.</value>
@@ -2819,7 +2819,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Sisesta imporditud sisu kaust või jäta see väli tühjaks.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Sisu laadimine...</value>
+    <value>Sisu laadimine…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Impordi puuduv sisu toimingu „{0}” jaoks.</value>
@@ -3193,28 +3193,28 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Foundry OSD ei saanud nende sätetega ühendust teenustega GitHub ja Microsoft. Kontrollige puhverserveri aadressi, porti ja võrguühendust. Üksikasjad leiate logist.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Ühendus nurjus</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Kontrollige puhverserveri sätteid</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Foundry OSD uued ühendused kasutavad nüüd neid sätteid.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Puhverserveri sätted on rakendatud</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD jõudis valitud sätetega GitHubi ja Microsofti teenusteni.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Ühendus õnnestus</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Sisestage puhverserveri aadress.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Sisestage puhverserveri autentimiseks kasutajanimi ja parool.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Sisestage kehtiv HTTP või HTTPS puhverserveri aadress, näiteks proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Rakenda</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Kasuta praegust Windowsi identimisteavet</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Valige, kuidas puhverserver Foundry OSD autendib.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentimine</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Kasutajanimi ja parool</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Autentimine puudub</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Valikulised hostinimed või metamärgimustrid, eraldatud semikoolonitega.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Erandite loend</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Loo otseühendus hostinimedega, mis ei sisalda punkti.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Jäta kohalikud aadressid vahele</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Identimisteave salvestatakse turvaliselt Windowsi identimisteabe haldurisse.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Puhverserveri identimisteave</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domeen (valikuline)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Sisestage puhverserveri aadress ja port.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Puhverserver</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Valige, kuidas Foundry OSD Internetiga ühenduse loob.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Puhverserveri meetod</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Puhverserverita (otseühendus)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Käsitsi seadistatud puhverserver</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Kasuta Windowsi sätteid (soovitatav)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Parool</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Need sätted kehtivad ainult selle rakenduse kohta. Neid ei lisata juurutusmeediumisse ega mõjuta need rakendusi Foundry Connect ja Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Ainult Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Testi ühendust</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Kasutajanimi</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Seaded</value>
@@ -3322,7 +3322,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Sätete varundamine ja sünkroonimine</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigureerige, kuidas Foundry OSD võrguteenustega ühenduse loob.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3469,13 +3469,13 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Võrgu konfiguratsioon pole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>USB sihtmärki pole valitud.</value>
+    <value>USB-ketast pole valitud.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nõutavad meediasaladused pole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Valitud USB sihtmärk on liiga väike. Kasutage klahvi USB, mille suurus on vähemalt 16 GB.</value>
+    <value>Valitud USB-ketas on liiga väike. Kasutage vähemalt 16 GB mahuga USB-ketast.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Valitud WinPE klaviatuuripaigutust pole selles arvutis installitud.</value>
@@ -3517,7 +3517,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Vorminda ja loo USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Vorming USB sihtmärk</value>
+    <value>Vorminda USB-ketas</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ei saa selle ketta köiteid lugeda. Sellel võib siiski olla andmeid.</value>
@@ -3532,7 +3532,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Selle ketta köited:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Kõik sellel kettal läheb kaotsi. Jätkake ainult siis, kui see on ettenähtud USB-ketas.</value>
+    <value>Kõik sellel kettal olevad andmed lähevad kaotsi. Jätkake ainult siis, kui see on õige USB-ketas.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Loo USB</value>
@@ -3595,10 +3595,10 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Alustamiseks valige allpool ISO- või USB-väljund.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Täielik formaat</value>
+    <value>Täielik vormindus</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Kiire vormindamine</value>
+    <value>Kiirvormindus</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Valige, kuhu genereeritud Foundry ISO kirjutatakse.</value>
@@ -3972,7 +3972,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Värskenda USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB sihtmärke saab värskendada pärast seda, kui ADK valmisolek on lõppenud.</value>
+    <value>USB-kettaid saab värskendada pärast ADK valmisoleku kontrolli lõpuleviimist.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Leiti USB draivid: {0}</value>
@@ -3981,22 +3981,22 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Ketas {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB sihtmärkide skannimine.</value>
+    <value>USB-ketaste otsimine…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>USB draive ei leitud.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB sihtmärgi värskendamine ebaõnnestus.</value>
+    <value>USB-ketaste värskendamine nurjus.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Enne lõpliku USB meediumi kopeerimist kasutatud vormingu käitumine.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Jaotusskeem, mida kasutatakse valitud USB sihtmärgi ettevalmistamisel.</value>
+    <value>Sektsiooniskeem, mida kasutatakse valitud USB-ketta ettevalmistamisel.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB sihtmärk</value>
+    <value>USB-sihtketas</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE alglaadimiskeskkonnas kasutatav keel.</value>
@@ -4023,7 +4023,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Alusta</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Avatud</value>
+    <value>Ava</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Aktsentvärvi muutmiseks avage Windows värviseaded.</value>
@@ -4050,7 +4050,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Süsteem</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Valgus</value>
+    <value>Hele</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Valige rakenduse taga kasutatav taustadekoratsiooni materjal.</value>
@@ -4314,7 +4314,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Tagage alglaadimispildis Wi-Fi tugi</value>
+    <value>Luba Wi-Fi juurutus</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Seadistage Wi-Fi juurutus, kaasatud profiilid ja Windowsi profiilide rändamine.</value>

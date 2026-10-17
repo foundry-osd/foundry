@@ -561,8 +561,8 @@ public sealed class DeploymentLaunchPreparationServiceTests
 
             service.Prepare(CreateRequest(selectedTargetDisk: targetDisk));
 
-            Assert.Equal("Confirmer l’effacement du disque", shell.LastConfirmationTitle);
-            Assert.Contains("Cela effacera toutes les données du disque sélectionné et installera le système d’exploitation sélectionné.", shell.LastConfirmationMessage);
+            Assert.Equal("Confirmer l'effacement du disque", shell.LastConfirmationTitle);
+            Assert.Contains("Cela effacera toutes les données du disque sélectionné et installera le système d'exploitation sélectionné.", shell.LastConfirmationMessage);
             Assert.Contains("Disque : 3", shell.LastConfirmationMessage);
             Assert.Contains("Taille : 256,0 GiB", shell.LastConfirmationMessage);
             Assert.Contains("Continuer le déploiement ?", shell.LastConfirmationMessage);

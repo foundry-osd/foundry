@@ -19,7 +19,7 @@
     <value>Ovaj softver je obezbeđen takav kakav jeste. Potvrdite pristup mreži pre nego što nastavite sa primenom.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
 Licencirano pod MIT licencom.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -56,7 +56,7 @@ Licencirano pod MIT licencom.</value>
     <value>Otkaži</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Zatvori prozor</value>
+    <value>Zatvori</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfiguracija: ugrađene podrazumevane vrednosti</value>
@@ -165,7 +165,7 @@ Licencirano pod MIT licencom.</value>
     <value>bugarski (Bugarska)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>kineski pojednostavljeni (Kina)</value>
+    <value>pojednostavljeni kineski (Kina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicionalni kineski (Tajvan)</value>
@@ -210,7 +210,7 @@ Licencirano pod MIT licencom.</value>
     <value>hebrejski (Izrael)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>mađarski (mađarska)</value>
+    <value>mađarski (Mađarska)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
     <value>italijanski (Italija)</value>
@@ -228,7 +228,7 @@ Licencirano pod MIT licencom.</value>
     <value>litvanski (Litvanija)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norveški bokmal (Norveška)</value>
+    <value>norveški bukmol (Norveška)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poljski (Poljska)</value>
@@ -246,7 +246,7 @@ Licencirano pod MIT licencom.</value>
     <value>ruski (Rusija)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srpska latinica (Srbija)</value>
+    <value>srpski, latinica (Srbija)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>slovački (Slovačka)</value>
@@ -267,13 +267,13 @@ Licencirano pod MIT licencom.</value>
     <value>tajlandski (Tajland)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turski (Turkiie)</value>
+    <value>turski (Turska)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinski (Ukrajina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>About</value>
+    <value>O programu</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Otklanjanje grešaka</value>
@@ -312,10 +312,10 @@ Licencirano pod MIT licencom.</value>
     <value>Čeka se mreža</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Tamno</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Svetlost</value>
+    <value>Svetlo</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>
@@ -399,7 +399,7 @@ Licencirano pod MIT licencom.</value>
     <value>Osvežite Wi-Fi mreže</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
-    <value>Enterprise</value>
+    <value>Preduzeće</value>
   </data>
   <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
     <value>{0} (mašina)</value>
@@ -408,7 +408,7 @@ Licencirano pod MIT licencom.</value>
     <value>{0} (mašina ili korisnik)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Otvori</value>
+    <value>Otvorena</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Lično</value>

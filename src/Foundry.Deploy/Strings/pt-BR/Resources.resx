@@ -19,7 +19,7 @@
     <value>Este software é fornecido como está. Revise suas configurações de implantação antes de usar.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Direitos autorais (c) 2026 Mickaël CHAVE e os colaboradores do Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE e os colaboradores do Foundry Project.
 Licenciado sob a licença MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -38,7 +38,7 @@ Licenciado sob a licença MIT.</value>
     <value>Revise as configurações de provisionamento do Autopilot para este dispositivo.</value>
   </data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
-    <value>Carrega o hash de hardware deste dispositivo no Windows Autopilot durante a implantação.</value>
+    <value>Carrega o hash de hardware deste dispositivo para o Windows Autopilot durante a implantação.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Adiciona um perfil offline do Autopilot à instalação do Windows.</value>
@@ -89,7 +89,7 @@ Licenciado sob a licença MIT.</value>
     <value>Cancelar</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Fechar janela</value>
+    <value>Fechar</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Copiar para a área de transferência</value>
@@ -110,7 +110,7 @@ Licenciado sob a licença MIT.</value>
     <value>Habilitado</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Próximo</value>
+    <value>Avançar</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>Não</value>
@@ -119,10 +119,10 @@ Licenciado sob a licença MIT.</value>
     <value>Nenhum</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>N/D</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Anterior</value>
+    <value>Voltar</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponível</value>
@@ -463,22 +463,22 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
     <value>Búlgaro (Bulgária)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chinês Simplificado (China)</value>
+    <value>Chinês simplificado (China)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chinês Tradicional (Taiwan)</value>
+    <value>Chinês tradicional (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>Croata (Croácia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Tcheco (Tcheca)</value>
+    <value>Tcheco (Tchéquia)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>Dinamarquês (Dinamarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holandês (Holanda)</value>
+    <value>Holandês (Países Baixos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglês (Reino Unido)</value>
@@ -517,7 +517,7 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
     <value>Japonês (Japão)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>Coreano (Coréia)</value>
+    <value>Coreano (Coreia)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>Letão (Letônia)</value>
@@ -526,7 +526,7 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
     <value>Lituano (Lituânia)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norueguês Bokmal (Noruega)</value>
+    <value>Norueguês bokmål (Noruega)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polonês (Polônia)</value>
@@ -544,7 +544,7 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
     <value>Russo (Rússia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latim sérvio (Sérvia)</value>
+    <value>Sérvio latino (Sérvia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Eslovaco (Eslováquia)</value>
@@ -670,16 +670,16 @@ Continuar com a implantação?</value>
     <value>Expiração do certificado</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>O certificado Autopilot expirou. A implantação pode continuar sem fazer upload do hash de hardware.</value>
+    <value>O certificado Autopilot expirou. A implantação pode continuar sem carregar o hash de hardware.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Etiqueta de grupo</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>As informações necessárias do certificado estão ausentes. A implantação pode continuar sem fazer upload do hash de hardware.</value>
+    <value>As informações necessárias do certificado estão ausentes. A implantação pode continuar sem carregar o hash de hardware.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Pronto para fazer upload de hash de hardware</value>
+    <value>Pronto para carregar o hash de hardware</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
     <value>ID do locatário</value>
@@ -697,7 +697,7 @@ Continuar com a implantação?</value>
     <value>Upload interativo do hash de hardware</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON provisionamento de perfil</value>
+    <value>Perfil JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Perfil</value>
@@ -730,7 +730,7 @@ Continuar com a implantação?</value>
     <value>{0} | TPM: {1} | Potência: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>CA</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Bateria</value>
@@ -1039,7 +1039,7 @@ Continuar com a implantação?</value>
     <value>Finalizando a implantação...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
-    <value>Importando hash de hardware para Microsoft Graph...</value>
+    <value>Importando hash de hardware para o Microsoft Graph...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Injetando conteúdo de firmware off-line Windows...</value>
@@ -1129,7 +1129,7 @@ Continuar com a implantação?</value>
     <value>Atualizando a tag do grupo Windows Autopilot em Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Fazendo upload do hash de hardware Autopilot...</value>
+    <value>Carregando o hash de hardware Autopilot...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Validando configuração de destino...</value>
@@ -1204,28 +1204,28 @@ Continuar com a implantação?</value>
     <value>A atualização da etiqueta do grupo de dispositivos Windows Autopilot não foi confirmada antes do tempo limite.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Autopilot hash de hardware importado e visível em dispositivos Windows Autopilot.</value>
+    <value>Hash de hardware do Autopilot importado e visível em dispositivos do Windows Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot falha na captura de hash de hardware: {0}</value>
+    <value>Falha na captura do hash de hardware do Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot importação de hash de hardware falhou: {0}</value>
+    <value>Falha na importação do hash de hardware do Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot upload de hash de hardware preparado para simulação.</value>
+    <value>Upload do hash de hardware do Autopilot preparado para simulação.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot upload de hash de hardware preparado (simulação).</value>
+    <value>Upload do hash de hardware do Autopilot preparado (simulação).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Autopilot upload de hash de hardware ignorado porque o certificado incorporado expirou.</value>
+    <value>Upload do hash de hardware do Autopilot ignorado porque o certificado incorporado expirou.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot upload de hash de hardware ignorado: {0}</value>
+    <value>Upload do hash de hardware do Autopilot ignorado: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot upload de hash de hardware ignorado porque as informações necessárias do certificado de mídia estão incompletas.</value>
+    <value>Upload do hash de hardware do Autopilot ignorado porque as informações necessárias do certificado de mídia estão incompletas.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot está habilitado, mas nenhum perfil foi selecionado.</value>
@@ -1444,7 +1444,7 @@ Continuar com a implantação?</value>
     <value>A partição de destino Windows não está disponível para teste Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>A partição de destino Windows não está disponível para upload de hash de hardware Autopilot.</value>
+    <value>A partição do Windows de destino não está disponível para upload de hash de hardware do Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>A partição Windows de destino não está disponível para preparar o assistente de registro interativo do Autopilot.</value>
@@ -1486,7 +1486,7 @@ Continuar com a implantação?</value>
     <value>Implantação concluída</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Remova a mídia de inicialização e selecione Reiniciar.</value>
+    <value>Remova a mídia de inicialização e selecione “Reiniciar”.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Este computador será reiniciado em {0}s.</value>
@@ -1525,7 +1525,7 @@ Continuar com a implantação?</value>
     <value>Autopilot Perfil</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Compilação</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Conta interna de Administrador</value>
@@ -1747,7 +1747,7 @@ Continuar com a implantação?</value>
     <value>Escuro</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Luz</value>
+    <value>Claro</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>
@@ -1762,7 +1762,7 @@ Continuar com a implantação?</value>
     <value>Comandos personalizados podem entrar em conflito com o Foundry. Teste esta configuração.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>O envio do hash não garante a inscrição no Autopilot.</value>
+    <value>O upload do hash não garante a inscrição no Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>Teste este arquivo de resposta com a imagem do Windows e a configuração do Foundry selecionadas.</value>

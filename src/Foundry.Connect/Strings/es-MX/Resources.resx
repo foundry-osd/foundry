@@ -19,7 +19,7 @@
     <value>Este software se proporciona tal cual. Confirme el acceso a la red antes de continuar con la implementación.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Derechos de autor (c) 2026 Mickaël CHAVE y los colaboradores de Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE y los colaboradores de Foundry Project.
 Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -56,7 +56,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Cancelar</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Cerrar ventana</value>
+    <value>Cerrar</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configuración: valores predeterminados integrados</value>
@@ -171,7 +171,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Chino tradicional (Taiwán)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>croata (Croacia)</value>
+    <value>Croata (Croacia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>Checo (Chequia)</value>
@@ -180,7 +180,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Danés (Dinamarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holandés (Países Bajos)</value>
+    <value>Neerlandés (Países Bajos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglés (Reino Unido)</value>
@@ -189,7 +189,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Inglés (Estados Unidos)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estonio (Estonia)</value>
+    <value>Estonio (Estonia)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finlandés (Finlandia)</value>
@@ -225,10 +225,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Letón (Letonia)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>lituano (Lituania)</value>
+    <value>Lituano (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal noruego (Noruega)</value>
+    <value>Noruego bokmål (Noruega)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polaco (Polonia)</value>
@@ -246,7 +246,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Ruso (Rusia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latín serbio (Serbia)</value>
+    <value>Serbio latino (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Eslovaco (Eslovaquia)</value>
@@ -261,13 +261,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Español (España)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>sueco (suecia)</value>
+    <value>Sueco (Suecia)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
     <value>Tailandés (Tailandia)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turco (Türkiye)</value>
+    <value>Turco (Turquía)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ucraniano (Ucrania)</value>
@@ -315,7 +315,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Oscuro</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Luz</value>
+    <value>Claro</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>

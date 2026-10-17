@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>について</value>
+    <value>バージョン情報</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Mickaël CHAVE によって作成および保守されています。</value>
@@ -25,7 +25,7 @@
     <value>コントリビューターを GitHub からロードできませんでした。</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>寄稿者を読み込んでいます...</value>
+    <value>寄稿者を読み込んでいます…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>貢献者</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD は、WinPE を利用した Windows 展開メディアを作成するための最新のアプリです。</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>著作権 (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
+    <value>Copyright (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
 MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>リリース ノートを組み込みブラウザにロードできませんでした。</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>リリースノートを読み込んでいます...</value>
+    <value>リリースノートを読み込んでいます…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>リリースノート</value>
@@ -77,13 +77,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>サポート</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>サードパーティのパッケージ ライセンスは、プロジェクト リポジトリと依存関係マニフェストを通じて追跡されます。</value>
+    <value>Foundry OSD は、次のライブラリとツールを使用しています。それぞれのライセンスとプロジェクト ページを以下に示します。</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>サードパーティの依存関係</value>
+    <value>サードパーティ ライセンス</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Foundry OSDについて</value>
+    <value>Foundry OSD のバージョン情報</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>役立つリンク</value>
@@ -242,19 +242,19 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Windows ADK および Windows PE アドオンをアップグレードする</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>AI コンポーネントを削除する</value>
+    <value>AI コンポーネントの構成を有効にする</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>OOBE の前に選択した Windows AI コンポーネントを削除または無効にします。</value>
+    <value>削除または無効にする Windows AI コンポーネントとエクスペリエンスを選択します。</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI コンポーネントの削除</value>
+    <value>AI コンポーネント</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>プロビジョニングされた Windows アプリを削除する</value>
+    <value>AppX アプリの削除を有効にする</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>OOBE の前に、選択したプロビジョニング済みの Windows アプリを削除します。</value>
+    <value>展開したデバイスから削除する、プロビジョニング済みの Windows アプリを選択します。</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX アプリの削除</value>
@@ -317,7 +317,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot プロフィールが見つかりませんでした</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot プロファイルをダウンロードしています...</value>
+    <value>Autopilot プロファイルをダウンロードしています…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} が設定されています。</value>
@@ -443,7 +443,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>テナントを接続する</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>テナントを接続中...</value>
+    <value>テナントを接続中…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>証明書の作成</value>
@@ -593,7 +593,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot プロフィール JSON をインポート</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot プロフィールをインポートしています...</value>
+    <value>Autopilot プロフィールをインポートしています…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>有効にすると、技術者は Windows セットアップ中に Microsoft のデバイス コードでサインインし、デバイスのハードウェア ハッシュをアップロードします。</value>
@@ -680,10 +680,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>対話型ハードウェア ハッシュのアップロード</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>適用された Windows イメージにオフライン Autopilot プロファイルをステージングします。</value>
+    <value>展開メディアに埋め込む Autopilot プロファイルをインポートまたはダウンロードします。</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON プロファイルのプロビジョニング</value>
+    <value>JSON プロファイル</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>テナントによるハードウェア ハッシュの自動アップロードを構成します。</value>
@@ -1847,7 +1847,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>表示名または DISM 機能名で検索する</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>エクスポート...</value>
+    <value>エクスポート…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>元のログを変更せずに、サニタイズ済みのサポート アーカイブを作成します。</value>
@@ -1865,7 +1865,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>診断のエクスポートに失敗しました</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>詳細設定: 生ログをエクスポート...</value>
+    <value>詳細設定: 生ログをエクスポート…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>生ログをエクスポート</value>
@@ -1928,7 +1928,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>はい</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>ドメインでOUを検索しています...</value>
+    <value>ドメインでOUを検索しています…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>検索をキャンセルしました。</value>
@@ -2108,10 +2108,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>802.1X証明書を選択します</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>有線 802.1X を構成する</value>
+    <value>Ethernet 802.1X の構成を有効にする</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>標準の Ethernet 接続はデフォルトで利用可能です。このセクションは、有線ネットワークで 802.1X エンタープライズ認証が必要な場合にのみ設定します。</value>
+    <value>有線 802.1X 認証と Windows プロファイルのローミングを構成します。</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2357,7 +2357,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ロシア語 (ロシア)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>セルビア語ラテン語 (セルビア)</value>
+    <value>セルビア語ラテン文字 (セルビア)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>スロバキア語 (スロバキア)</value>
@@ -2378,7 +2378,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>タイ語 (タイ)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>トルコ語 (トゥルキエ)</value>
+    <value>トルコ語 (トルコ)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ウクライナ語 (ウクライナ)</value>
@@ -2402,13 +2402,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>コンポーネントを上へ移動</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>マシンの命名規則を有効にする</value>
+    <value>コンピューターの命名の構成を有効にする</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>自動または技術者の支援によるデバイスの命名を構成します。</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>コンピュータ名</value>
+    <value>コンピューターの命名</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>プレビュー</value>
@@ -2420,7 +2420,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>製品とバージョンの情報。</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>について</value>
+    <value>バージョン情報</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK の準備とインストール。</value>
@@ -2429,13 +2429,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>OOBE の前に選択した Windows AI コンポーネントを削除または無効にします。</value>
+    <value>Windows AI コンポーネントを削除または無効にします。</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI コンポーネント</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>OOBE の前に、選択したプロビジョニング済みの Windows アプリを削除します。</value>
+    <value>削除するプロビジョニング済みアプリを選択します。</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX アプリの削除</value>
@@ -2477,7 +2477,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ドメイン参加</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>標準の Ethernet 接続はデフォルトで利用可能です。このセクションは、有線ネットワークで 802.1X エンタープライズ認証が必要な場合にのみ設定します。</value>
+    <value>有線 802.1X 認証を構成します。</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2513,19 +2513,19 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ネットワーク</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Windows 11 の初回実行画面とプライバシーのデフォルトを構成します。</value>
+    <value>Windows の OOBE (Out-of-Box Experience) を構成します。</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>導入されたオペレーティング システムで Windows コンポーネントを有効または無効にします。</value>
+    <value>Windows のオプション機能を有効または無効にします。</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>オプション機能</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>展開時に提供する Windows のバージョン、更新レベル、言語、エディションを定義します。</value>
+    <value>展開で選択できるオペレーティング システムを制限します。</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS の選択</value>
@@ -2669,31 +2669,31 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Windows プロファイルのローミング</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>OOBE をカスタマイズします</value>
+    <value>OOBE の構成を有効にする</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Windows 11 の初回実行画面とプライバシーのデフォルトを構成します。</value>
+    <value>Windows の OOBE (Out-of-Box Experience) で使用するプライバシーとセットアップの設定を構成します。</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows のオプション機能を構成する</value>
+    <value>オプション機能の構成を有効にする</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>導入されたオペレーティング システムで Windows コンポーネントを有効または無効にします。</value>
+    <value>有効または無効にする Windows のオプション機能を選択します。</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windowsのオプション機能</value>
+    <value>オプション機能</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows 展開オプション</value>
+    <value>OS の選択の構成を有効にする</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>展開時に提供する Windows のバージョン、更新レベル、言語、エディションを定義します。</value>
+    <value>許可するオペレーティング システムのリリース、言語、チャネル、エディションを構成します。</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows 展開オプション</value>
+    <value>OS の選択</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>有効なアクションを追加するか、インストール後の構成を無効にしてください。</value>
@@ -2789,7 +2789,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>フォルダーをインポート</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>コンテンツをインポートしています...</value>
+    <value>コンテンツをインポートしています…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>このアクションは無効です。構成を確認してください。</value>
@@ -2819,7 +2819,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>インポートしたコンテンツ内のフォルダーを入力するか、空欄のままにしてください。</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>コンテンツを読み込んでいます...</value>
+    <value>コンテンツを読み込んでいます…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>「{0}」の不足しているコンテンツをインポートしてください。</value>
@@ -3193,28 +3193,28 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Foundry OSD は、これらの設定で GitHub および Microsoft のサービスに接続できませんでした。プロキシのアドレス、ポート、ネットワーク接続を確認してください。詳細はログに記録されています。</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>接続に失敗しました</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>プロキシ設定を確認してください</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Foundry OSD からの新しい接続では、これらの設定が使用されます。</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>プロキシ設定を適用しました</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD は、選択した設定を使用して GitHub と Microsoft のサービスに接続できました。</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>接続に成功しました</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>プロキシ サーバーのアドレスを入力してください。</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>明示的なプロキシ認証に使用するユーザー名とパスワードを入力してください。</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>有効な HTTP または HTTPS のプロキシ アドレス (proxy.contoso.com など) を入力してください。</value>
@@ -3226,85 +3226,85 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>適用</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>現在の Windows 資格情報を使用する</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>プロキシで Foundry OSD を認証する方法を選択します。</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>認証</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>ユーザー名とパスワード</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>認証なし</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>セミコロンで区切ったホスト名またはワイルドカード パターン (省略可能)。</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>バイパス リスト</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>ピリオドを含まないホスト名には直接接続します。</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>ローカル アドレスにはプロキシを使用しない</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>資格情報は Windows 資格情報マネージャーに安全に保存されます。</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>プロキシの資格情報</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>ドメイン (省略可能)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>プロキシのアドレスとポートを入力してください。</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>プロキシ サーバー</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Foundry OSD がインターネットに接続する方法を選択します。</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>プロキシの方式</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>プロキシなし (直接接続)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>手動プロキシ</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Windows の設定を使用する (推奨)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>パスワード</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>ポート</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>これらの設定はこのアプリにのみ適用されます。展開メディアには追加されず、Foundry Connect と Foundry Deploy にも影響しません。</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Foundry OSD のみ</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>接続をテスト</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>ユーザー名</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>設定</value>
@@ -3322,10 +3322,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>設定のバックアップと同期</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Foundry OSD がオンライン サービスに接続する方法を構成します。</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>プロキシ</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
     <value>認証情報の秘密をマスクし、すべてのログレベルと技術的なコンテキスト、および個別の例外レポートを PostHog に送信します。ログは 7 日後に自動削除されます。</value>
@@ -3469,13 +3469,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ネットワーク構成の準備ができていません。</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>USB ターゲットが選択されていません。</value>
+    <value>USB ドライブが選択されていません。</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>必要なメディア シークレットの準備ができていません。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>選択された USB ターゲットは小さすぎます。少なくとも 16 GB の USB キーを使用してください。</value>
+    <value>選択した USB ドライブの容量が不足しています。16 GB 以上の USB ドライブを使用してください。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>選択した WinPE キーボード レイアウトはこのコンピューターにインストールされていません。</value>
@@ -3502,7 +3502,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ISO の作成はブロックされています</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>ISO を作成します</value>
+    <value>ISO を作成</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB の作成はブロックされています</value>
@@ -3517,7 +3517,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>USB をフォーマットして作成します</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>USB ターゲットの形式</value>
+    <value>USB ドライブのフォーマット</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows はこのディスク上のボリュームを読み取れません。データが残っている可能性があります。</value>
@@ -3532,10 +3532,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>このディスク上のボリューム:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>このディスク上のすべてが失われます。これが目的の USB ディスクである場合にのみ続行してください。</value>
+    <value>このディスク上のすべてのデータが失われます。目的の USB ドライブである場合にのみ続行してください。</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>USB を作成します</value>
+    <value>USB を作成</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>追加の .inf ドライバーを含むオプションのフォルダー。</value>
@@ -3595,10 +3595,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>開始するには、下で ISO または USB の出力を選択してください。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>フルフォーマット</value>
+    <value>フル フォーマット</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>クイックフォーマット</value>
+    <value>クイック フォーマット</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>生成された Foundry ISO を書き込む場所を選択します。</value>
@@ -3972,7 +3972,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>USB を更新</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB ターゲットは、ADK の準備が完了した後に更新できます。</value>
+    <value>ADK の準備が完了すると、USB ドライブの一覧を更新できます。</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB ドライブが見つかりました: {0}</value>
@@ -3981,19 +3981,19 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ディスク {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB ターゲットをスキャンしています。</value>
+    <value>USB ドライブをスキャンしています…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>USB ドライブが見つかりませんでした。</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB ターゲットの更新に失敗しました。</value>
+    <value>USB ドライブの一覧を更新できませんでした。</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>最終的な USB メディアをコピーする前に使用されるフォーマット動作。</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>選択した USB ターゲットを準備するときに使用されるパーティション スキーム。</value>
+    <value>選択した USB ドライブの準備時に使用するパーティション スキーム。</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>USB ターゲット</value>
@@ -4044,7 +4044,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>アプリのテーマ</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>暗い</value>
+    <value>ダーク</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>システム</value>
@@ -4302,7 +4302,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>セキュリティの種類</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>開く</value>
+    <value>オープン</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (日和見無線暗号化)</value>
@@ -4314,7 +4314,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>ブート イメージで Wi-Fi サポートをプロビジョニングします</value>
+    <value>Wi-Fi のプロビジョニングを有効にする</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Wi-Fi のプロビジョニング、埋め込みプロファイル、Windows プロファイルのローミングを構成します。</value>

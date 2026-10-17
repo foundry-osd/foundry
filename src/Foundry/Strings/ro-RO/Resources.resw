@@ -25,7 +25,7 @@
     <value>Colaboratorii nu au putut fi încărcați din GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Se încarcă colaboratorii...</value>
+    <value>Se încarcă colaboratorii…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Colaboratori</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD este o aplicație modernă pentru crearea media de implementare Windows, alimentată de WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Drepturi de autor (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
 Licențiat sub licența MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Licențiat sub licența MIT.</value>
     <value>Notele de lansare nu au putut fi încărcate în browserul încorporat.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Se încarcă notele de lansare...</value>
+    <value>Se încarcă notele de lansare…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Note de lansare</value>
@@ -77,10 +77,10 @@ Licențiat sub licența MIT.</value>
     <value>Sprijin</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Licențele de pachete de la terți sunt urmărite prin intermediul depozitului de proiect și al manifestelor de dependență.</value>
+    <value>Foundry OSD utilizează următoarele biblioteci și instrumente. Licențele și paginile de proiect ale acestora sunt listate mai jos.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Dependențe de la terți</value>
+    <value>Licențe de la terți</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Despre Foundry OSD</value>
@@ -242,19 +242,19 @@ Licențiat sub licența MIT.</value>
     <value>Upgrade Windows ADK și Windows PE Add-on</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Eliminați componentele AI</value>
+    <value>Activați configurarea componentelor IA</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Eliminați sau dezactivați componentele AI Windows selectate înainte de OOBE.</value>
+    <value>Alegeți componentele și experiențele IA Windows de eliminat sau de dezactivat.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Îndepărtarea componentelor AI</value>
+    <value>Componente IA</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Eliminați aplicațiile Windows furnizate</value>
+    <value>Activați eliminările AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Eliminați aplicațiile selectate pentru Windows înainte de OOBE.</value>
+    <value>Alegeți aplicațiile Windows furnizate de eliminat de pe dispozitivele implementate.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Eliminări AppX</value>
@@ -299,10 +299,10 @@ Licențiat sub licența MIT.</value>
     <value>Sursa</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Descărcați de la chiriaș</value>
+    <value>Descărcați de la entitatea găzduită</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Niciun profil Autopilot nu a fost returnat de chiriaș.</value>
+    <value>Niciun profil Autopilot nu a fost returnat de entitatea găzduită.</value>
   </data>
   <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
     <value>Profilurile Autopilot nu au putut fi descărcate de la chiriaș.</value>
@@ -317,7 +317,7 @@ Licențiat sub licența MIT.</value>
     <value>Nu au fost găsite profiluri Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Se descarcă profilurile Autopilot...</value>
+    <value>Se descarcă profilurile Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} este configurat.</value>
@@ -422,7 +422,7 @@ Licențiat sub licența MIT.</value>
     <value>Salvați certificatul Autopilot PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Amprenta degetului mare</value>
+    <value>Amprentă</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
     <value>Valabil 12 luni</value>
@@ -440,10 +440,10 @@ Licențiat sub licența MIT.</value>
     <value>Nu sunt furnizate certificate.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Conectați chiriașul</value>
+    <value>Conectați entitatea găzduită</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Se conectează chiriașul...</value>
+    <value>Se conectează entitatea găzduită…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Creați certificat</value>
@@ -455,7 +455,7 @@ Licențiat sub licența MIT.</value>
     <value>Nu a fost selectată nicio etichetă implicită de grup.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Deconectați chiriașul</value>
+    <value>Deconectați entitatea găzduită</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
     <value>Etichetă opțională de grup preselectată în Foundry Deploy în timpul încărcării hash hardware.</value>
@@ -470,7 +470,7 @@ Licențiat sub licența MIT.</value>
     <value>Foundry nu a putut configura înregistrarea aplicației Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Înregistrarea chiriașului a eșuat</value>
+    <value>Înregistrarea entității găzduite a eșuat</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>Certificatul selectat a expirat. Creați un nou certificat, salvați-i PFX și parola, apoi selectați-l pentru mediul de pornire.</value>
@@ -488,7 +488,7 @@ Licențiat sub licența MIT.</value>
     <value>Principalului serviciu gestionat îi lipsește consimțământul de administrator pentru permisiunea Microsoft Graph necesară. Acordați consimțământul administratorului și reconectați-vă.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Înregistrarea aplicației gestionate nu este gata. Examinați pregătirea chiriașilor și reconectați-vă.</value>
+    <value>Înregistrarea aplicației gestionate nu este gata. Examinați pregătirea entității găzduite și reconectați-vă.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Înregistrarea aplicației gestionate lipsește permisiunea necesară pentru aplicație Microsoft Graph. Reconectați-vă cu un cont care poate actualiza înregistrările aplicațiilor.</value>
@@ -497,7 +497,7 @@ Licențiat sub licența MIT.</value>
     <value>Principalul serviciu gestionat lipsește sau este dezactivat. Reconectați-vă cu un cont care poate crea sau gestiona aplicații de întreprindere.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Integrarea chiriașului necesită atenție</value>
+    <value>Integrarea entității găzduite necesită atenție</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Stare</value>
@@ -551,7 +551,7 @@ Licențiat sub licența MIT.</value>
     <value>ID client</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>ID locatar</value>
+    <value>ID entitate găzduită</value>
   </data>
   <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
     <value>Verificați conexiunea la rețea și asigurați-vă că acest cont poate gestiona înregistrările de aplicații din chiriaș, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
@@ -560,10 +560,10 @@ Licențiat sub licența MIT.</value>
     <value>Nu este conectat</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Informații privind locatarul, înregistrarea aplicației și pregătirea pentru încărcarea hash hardware.</value>
+    <value>Informații privind entitatea găzduită, înregistrarea aplicației și pregătirea pentru încărcarea hash hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Pregătirea chiriașului</value>
+    <value>Pregătirea entității găzduite</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Nume</value>
@@ -575,7 +575,7 @@ Licențiat sub licența MIT.</value>
     <value>Conectați-vă la Microsoft Graph pentru această sesiune de aplicație pentru a gestiona setările de încărcare hash.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Conexiunea chiriașului</value>
+    <value>Conexiunea entității găzduite</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importați profilul</value>
@@ -593,7 +593,7 @@ Licențiat sub licența MIT.</value>
     <value>Importați profilul Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Se importă profilul Autopilot...</value>
+    <value>Se importă profilul Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Când este activată, tehnicianul se conectează cu un cod de dispozitiv Microsoft în timpul configurării Windows și încarcă hashul hardware al dispozitivului.</value>
@@ -656,13 +656,13 @@ Licențiat sub licența MIT.</value>
     <value>Conectați-vă la Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Clar</value>
+    <value>Ștergeți</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Alegeți ce profiluri de chiriași trebuie importate în Foundry.</value>
+    <value>Alegeți ce profiluri ale entității găzduite trebuie importate în Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>Import</value>
+    <value>Importați</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
     <value>Selectați toate</value>
@@ -680,13 +680,13 @@ Licențiat sub licența MIT.</value>
     <value>Încărcare interactivă a hashului hardware</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Creați un profil offline Autopilot în imaginea Windows aplicată.</value>
+    <value>Importați sau descărcați profilul Autopilot încorporat în mediul de implementare.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON furnizarea profilului</value>
+    <value>Profil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Configurați încărcarea automată a hashului hardware susținută de tenant.</value>
+    <value>Configurați încărcarea automată a hashului hardware susținută de entitatea găzduită.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Încărcare zero-touch a hashului hardware</value>
@@ -782,13 +782,13 @@ Licențiat sub licența MIT.</value>
     <value>Activați imaginile Windows personalizate</value>
   </data>
   <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
-    <value>Exclude</value>
+    <value>Excludeți</value>
   </data>
   <data name="CustomImages.ImportLabel" xml:space="preserve">
     <value>Importă ISO/WIM</value>
   </data>
   <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
-    <value>Include</value>
+    <value>Includeți</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Inclusă</value>
@@ -1370,7 +1370,7 @@ Licențiat sub licența MIT.</value>
     <value>Instrumente de management</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
-    <value>Media</value>
+    <value>Multimedia</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
     <value>Mesaje în coadă</value>
@@ -1847,7 +1847,7 @@ Licențiat sub licența MIT.</value>
     <value>Căutați după numele afișat sau numele caracteristicii DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportă...</value>
+    <value>Exportă…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Creează o arhivă de asistență sanitizată fără a modifica jurnalele originale.</value>
@@ -1865,7 +1865,7 @@ Licențiat sub licența MIT.</value>
     <value>Exportul diagnosticelor a eșuat</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avansat: exportă jurnalele brute...</value>
+    <value>Avansat: exportă jurnalele brute…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Exportă jurnalele brute</value>
@@ -1928,7 +1928,7 @@ Licențiat sub licența MIT.</value>
     <value>Da</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Se caută OU-uri în domeniu...</value>
+    <value>Se caută OU-uri în domeniu…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Căutare anulată.</value>
@@ -2108,10 +2108,10 @@ Licențiat sub licența MIT.</value>
     <value>Selectați certificatul 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configurați 802.1X cu fir</value>
+    <value>Activați configurarea Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Conectivitatea standard Ethernet este disponibilă implicit. Configurați această secțiune numai dacă rețeaua dvs. cu fir necesită autentificare de întreprindere 802.1X.</value>
+    <value>Configurați autentificarea 802.1X cu fir și roamingul profilurilor Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2276,22 +2276,22 @@ Licențiat sub licența MIT.</value>
     <value>bulgară (Bulgaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chineză simplificată (China)</value>
+    <value>chineză simplificată (China)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chineză tradițională (Taiwan)</value>
+    <value>chineză tradițională (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>croată (Croația)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Cehia (Cehia)</value>
+    <value>cehă (Cehia)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>daneză (Danemarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>olandeză (Olanda)</value>
+    <value>olandeză (Țările de Jos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engleză (Regatul Unit)</value>
@@ -2300,16 +2300,16 @@ Licențiat sub licența MIT.</value>
     <value>engleză (Statele Unite)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>Estonă (Estonia)</value>
+    <value>estonă (Estonia)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finlandeză (Finlanda)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>franceza (Canada)</value>
+    <value>franceză (Canada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>franceza (Franta)</value>
+    <value>franceză (Franța)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
     <value>germană (Germania)</value>
@@ -2339,7 +2339,7 @@ Licențiat sub licența MIT.</value>
     <value>lituaniană (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norvegiană Bokmål (Norvegia)</value>
+    <value>norvegiană bokmal (Norvegia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poloneză (Polonia)</value>
@@ -2351,16 +2351,16 @@ Licențiat sub licența MIT.</value>
     <value>portugheză (Portugalia)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>romana (Romania)</value>
+    <value>română (România)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>rusă (Rusia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Sârbă latină (Serbia)</value>
+    <value>sârbă latină (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>Slovacă (Slovacia)</value>
+    <value>slovacă (Slovacia)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>slovenă (Slovenia)</value>
@@ -2378,7 +2378,7 @@ Licențiat sub licența MIT.</value>
     <value>thailandeză (Thailanda)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turcă (Turkia)</value>
+    <value>turcă (Turcia)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ucraineană (Ucraina)</value>
@@ -2402,13 +2402,13 @@ Licențiat sub licența MIT.</value>
     <value>Mutați componenta în sus</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Activați regulile de denumire a mașinii</value>
+    <value>Activați configurarea denumirii computerelor</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Configurați denumirea automată și asistată de tehnician a dispozitivelor.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Numele computerului</value>
+    <value>Denumirea computerului</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Previzualizare</value>
@@ -2429,13 +2429,13 @@ Licențiat sub licența MIT.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Eliminați sau dezactivați componentele AI Windows selectate înainte de OOBE.</value>
+    <value>Eliminați sau dezactivați componentele IA Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>Componente IA</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Eliminați aplicațiile selectate pentru Windows înainte de OOBE.</value>
+    <value>Selectați aplicațiile furnizate de eliminat.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Eliminări AppX</value>
@@ -2477,7 +2477,7 @@ Licențiat sub licența MIT.</value>
     <value>Asociere la domeniu</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Conectivitatea standard Ethernet este disponibilă implicit. Configurați această secțiune numai dacă rețeaua dvs. cu fir necesită autentificare de întreprindere 802.1X.</value>
+    <value>Configurați autentificarea 802.1X cu fir.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2492,10 +2492,10 @@ Licențiat sub licența MIT.</value>
     <value>General</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD acasă</value>
+    <value>Pagina de pornire Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Acasă</value>
+    <value>Pagina de pornire</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Solicitați tehnicianului acreditările de domeniu în timpul implementării.</value>
@@ -2513,19 +2513,19 @@ Licențiat sub licența MIT.</value>
     <value>Rețea</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Configurați Windows 11 ecrane de prima rulare și setări implicite de confidențialitate.</value>
+    <value>Configurați experiența inițială Windows (OOBE).</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Activați sau dezactivați componentele Windows în sistemul de operare implementat.</value>
+    <value>Activați sau dezactivați caracteristicile opționale Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Caracteristici opționale</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definiți versiunile Windows, nivelurile de actualizare, limbile și edițiile oferite în timpul implementării.</value>
+    <value>Restricționați opțiunile de sistem de operare disponibile la implementare.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Selectare sistem de operare</value>
@@ -2561,7 +2561,7 @@ Licențiat sub licența MIT.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Asociați automat la domeniu folosind acreditări protejate de parola de implementare.</value>
@@ -2669,31 +2669,31 @@ Licențiat sub licența MIT.</value>
     <value>Roaming pentru profilurile Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Personalizează OOBE</value>
+    <value>Activați configurarea OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Configurați Windows 11 ecrane de prima rulare și setări implicite de confidențialitate.</value>
+    <value>Configurați opțiunile de confidențialitate și de configurare pentru experiența inițială Windows (OOBE).</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configurați caracteristicile opționale Windows</value>
+    <value>Activați configurarea caracteristicilor opționale</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Activați sau dezactivați componentele Windows în sistemul de operare implementat.</value>
+    <value>Alegeți caracteristicile opționale Windows de activat sau de dezactivat.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Caracteristici opționale Windows</value>
+    <value>Caracteristici opționale</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Opțiuni de implementare Windows</value>
+    <value>Activați configurarea selecției sistemului de operare</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definiți versiunile Windows, nivelurile de actualizare, limbile și edițiile oferite în timpul implementării.</value>
+    <value>Configurați versiunile, limbile, canalele și edițiile de sistem de operare permise.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Opțiuni de implementare Windows</value>
+    <value>Selectare sistem de operare</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Adaugă o acțiune activată sau dezactivează post-instalarea.</value>
@@ -2789,7 +2789,7 @@ Licențiat sub licența MIT.</value>
     <value>Importați un folder</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Se importă conținutul...</value>
+    <value>Se importă conținutul…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Această acțiune nu este validă. Verifică-i configurația.</value>
@@ -2819,7 +2819,7 @@ Licențiat sub licența MIT.</value>
     <value>Introdu un folder din conținutul importat sau lasă acest câmp gol.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Se încarcă conținutul...</value>
+    <value>Se încarcă conținutul…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importă conținutul lipsă pentru „{0}”.</value>
@@ -3193,28 +3193,28 @@ Parole și chei de acces incluse: {2}</value>
     <value>Foundry OSD nu a putut accesa serviciile GitHub și Microsoft cu aceste setări. Verificați adresa proxy, portul și conexiunea la rețea. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Conexiunea nu a reușit</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Verificați setările proxy</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Conexiunile noi din Foundry OSD folosesc acum aceste setări.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Setările proxy au fost aplicate</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD a accesat serviciile GitHub și Microsoft folosind setările selectate.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Conexiune reușită</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Introduceți adresa serverului proxy.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Introduceți un nume de utilizator și o parolă pentru autentificarea explicită la proxy.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Introduceți o adresă proxy HTTP sau HTTPS validă, de exemplu proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@ Parole și chei de acces incluse: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Aplicați</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Utilizați acreditările Windows curente</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Alegeți modul în care proxy-ul autentifică Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentificare</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Nume de utilizator și parolă</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Fără autentificare</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Nume de gazdă sau modele cu metacaractere opționale, separate prin punct și virgulă.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Listă de excepții</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Conectare directă la numele de gazdă care nu conțin un punct.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Ocolire adrese locale</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Acreditările sunt stocate în siguranță în Manager acreditări Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Acreditări proxy</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domeniu (opțional)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Introduceți adresa și portul proxy-ului.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Server proxy</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Alegeți modul în care Foundry OSD se conectează la internet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Metodă proxy</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Fără proxy (conexiune directă)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Proxy manual</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Utilizați setările Windows (recomandat)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Parolă</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Aceste setări se aplică doar acestei aplicații. Nu sunt adăugate în mediile de implementare și nu afectează Foundry Connect sau Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Doar Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Testați conexiunea</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Nume de utilizator</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Setări</value>
@@ -3322,7 +3322,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Copiere de rezervă și sincronizare a setărilor</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Configurați modul în care Foundry OSD se conectează la serviciile online.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3391,7 +3391,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Încărcarea hash hardware este activată, dar amprenta digitală a certificatului selectată lipsește.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Încărcarea hash hardware este activată, dar înregistrarea aplicației nu este configurată. Conectați-vă la chiriaș de la Autopilot.</value>
+    <value>Încărcarea hash hardware este activată, dar înregistrarea aplicației nu este configurată. Conectați-vă la entitatea găzduită de la Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
     <value>Încărcarea hash hardware este activată, dar expirarea PFX a suportului de pornire nu a putut fi validată.</value>
@@ -3412,7 +3412,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Încărcarea hash hardware este activată, dar parola PFX pentru mediul de pornire lipsește.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Încărcarea hash hardware este activată, dar ID-ul clientului aplicației lipsește. Reconectați-vă la chiriaș de la Autopilot.</value>
+    <value>Încărcarea hash hardware este activată, dar ID-ul clientului aplicației lipsește. Reconectați-vă la entitatea găzduită de la Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
     <value>Încărcarea hash hardware este activată, dar principalul serviciului aplicației lipsește sau nu este gata.</value>
@@ -3421,7 +3421,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Încărcarea hash hardware este activată, dar setările lipsesc.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Încărcarea hash hardware este activată, dar conexiunea locatarului lipsește. Conectați-vă la chiriaș de la Autopilot.</value>
+    <value>Încărcarea hash hardware este activată, dar conexiunea entității găzduite lipsește. Conectați-vă la entitatea găzduită de la Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON Modul profil este activat, dar nu este selectat niciun profil implicit valid.</value>
@@ -3469,13 +3469,13 @@ Parole și chei de acces incluse: {2}</value>
     <value>Configurarea rețelei nu este pregătită.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nu este selectată nicio țintă USB.</value>
+    <value>Nu este selectată nicio unitate USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Secretele media necesare nu sunt gata.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Ținta USB selectată este prea mică. Utilizați o cheie USB de cel puțin 16 GB.</value>
+    <value>Unitatea USB selectată este prea mică. Utilizați o unitate USB de cel puțin 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Aspectul de tastatură WinPE selectat nu este instalat pe acest computer.</value>
@@ -3517,7 +3517,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Formatați și creați USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatați USB țintă</value>
+    <value>Formatați unitatea USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows nu poate citi volumele de pe acest disc. Este posibil să conțină încă date.</value>
@@ -3532,7 +3532,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Volumele de pe acest disc:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Tot ce se află pe acest disc va fi pierdut. Continuați numai dacă acesta este discul USB intenționat.</value>
+    <value>Tot conținutul acestui disc va fi pierdut. Continuați numai dacă aceasta este unitatea USB dorită.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Creați USB</value>
@@ -3568,7 +3568,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Arhitectura</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Șoferii</value>
+    <value>Drivere</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>Modul format USB</value>
@@ -3595,10 +3595,10 @@ Parole și chei de acces incluse: {2}</value>
     <value>Alegeți mai jos o ieșire ISO sau USB pentru a începe.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Format complet</value>
+    <value>Formatare completă</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Format rapid</value>
+    <value>Formatare rapidă</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Alegeți unde va fi scris Foundry ISO generat.</value>
@@ -3972,7 +3972,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Actualizare USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Țintele USB pot fi reîmprospătate după finalizarea pregătirii ADK.</value>
+    <value>Lista unităților USB poate fi reîmprospătată după finalizarea pregătirii ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Unități USB găsite: {0}</value>
@@ -3981,19 +3981,19 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Disc {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Scanarea țintelor USB.</value>
+    <value>Se caută unități USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nu au fost găsite unități USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>Reîmprospătarea destinației USB nu a reușit.</value>
+    <value>Reîmprospătarea listei de unități USB nu a reușit.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Comportamentul de format folosit înainte de a copia mediul final USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Schema de partiție utilizată la pregătirea țintei USB selectate.</value>
+    <value>Schema de partiție utilizată la pregătirea unității USB selectate.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>USB țintă</value>
@@ -4044,13 +4044,13 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Tema aplicației</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Întuneric</value>
+    <value>Întunecat</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>Sistem</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Lumină</value>
+    <value>Luminos</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Alegeți materialul de fundal folosit în spatele aplicației.</value>
@@ -4302,7 +4302,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Tip de securitate</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Deschide</value>
+    <value>Deschis</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (Opportunistic Wireless Encryption)</value>
@@ -4314,7 +4314,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Furnizați suport Wi-Fi în imaginea de pornire</value>
+    <value>Activați furnizarea Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Configurați furnizarea Wi-Fi, profilurile încorporate și roamingul profilurilor Windows.</value>

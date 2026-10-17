@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>Sobre</value>
+    <value>Acerca de</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Criado e mantido por Mickaël CHAVE.</value>
@@ -22,23 +22,23 @@
     <value>Contribuições: {0}</value>
   </data>
   <data name="AboutDialog.ContributorsError" xml:space="preserve">
-    <value>Os colaboradores não puderam ser carregados do GitHub.</value>
+    <value>Não foi possível carregar os colaboradores a partir do GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Carregando colaboradores...</value>
+    <value>A carregar colaboradores…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Colaboradores</value>
   </data>
   <data name="AboutDialog.Description" xml:space="preserve">
-    <value>Foundry OSD é um aplicativo moderno para criação de mídia de implantação Windows desenvolvido por WinPE.</value>
+    <value>O Foundry OSD é uma aplicação moderna para criar suportes de implementação do Windows baseados no WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Direitos de autor (c) 2026 Mickaël CHAVE e os colaboradores do Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE e os colaboradores do Foundry Project.
 Licenciado sob a licença MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
-    <value>O código-fonte Foundry é distribuído sob a licença MIT.</value>
+    <value>O código-fonte do Foundry é distribuído ao abrigo da licença MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
     <value>Foundry OSD</value>
@@ -56,37 +56,37 @@ Licenciado sob a licença MIT.</value>
     <value>Perfil</value>
   </data>
   <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
-    <value>Abra as notas de versão no navegador</value>
+    <value>Abrir as notas de versão no browser</value>
   </data>
   <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
-    <value>As notas de versão não puderam ser carregadas no navegador incorporado.</value>
+    <value>Não foi possível carregar as notas de versão no browser incorporado.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Carregando notas de versão...</value>
+    <value>A carregar as notas de versão…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
-    <value>Notas de lançamento</value>
+    <value>Notas de versão</value>
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Repositório</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
-    <value>Windows criação de mídia de implantação</value>
+    <value>Criação de suportes de implementação do Windows</value>
   </data>
   <data name="AboutDialog.SupportLink" xml:space="preserve">
     <value>Suporte</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Licenças de pacotes de terceiros são rastreadas por meio do repositório do projeto e dos manifestos de dependência.</value>
+    <value>O Foundry OSD utiliza as seguintes bibliotecas e ferramentas. As respetivas licenças e páginas de projeto são indicadas abaixo.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Dependências de terceiros</value>
+    <value>Licenças de terceiros</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Sobre Foundry OSD</value>
+    <value>Acerca do Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
-    <value>Links úteis</value>
+    <value>Ligações úteis</value>
   </data>
   <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
     <value>A criação de ISO e USB permanece bloqueada.</value>
@@ -95,7 +95,7 @@ Licenciado sob a licença MIT.</value>
     <value>A criação de ISO e USB está disponível.</value>
   </data>
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
-    <value>Capacidade de criação de mídia</value>
+    <value>Capacidade de criação de suportes</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
     <value>A instalação foi cancelada.</value>
@@ -110,13 +110,13 @@ Licenciado sob a licença MIT.</value>
     <value>Windows ADK instalado</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
-    <value>Usando o instalador ADK em cache</value>
+    <value>A utilizar o instalador do ADK em cache</value>
   </data>
   <data name="Adk.Operation.Downloaded" xml:space="preserve">
-    <value>ADK instalador baixado</value>
+    <value>Instalador do ADK transferido</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
-    <value>Baixando o instalador ADK</value>
+    <value>A transferir o instalador do ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
     <value>A instalação não foi concluída. Consulte o registo para obter detalhes.</value>
@@ -131,10 +131,10 @@ Licenciado sob a licença MIT.</value>
     <value>A instalar o Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
-    <value>Instalando Windows ADK Ferramentas de implantação</value>
+    <value>A instalar as Ferramentas de Implementação do Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
-    <value>Instalando o complemento Windows PE</value>
+    <value>A instalar o suplemento Windows PE</value>
   </data>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>A instalação foi concluída. Reveja os requisitos restantes do ADK.</value>
@@ -143,10 +143,10 @@ Licenciado sob a licença MIT.</value>
     <value>O Windows ADK requer atenção</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
-    <value>Removendo Windows ADK existente</value>
+    <value>A remover o Windows ADK existente</value>
   </data>
   <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
-    <value>Removendo o complemento Windows PE existente</value>
+    <value>A remover o suplemento Windows PE existente</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>A preparar a instalação do Windows ADK 24H2</value>
@@ -155,7 +155,7 @@ Licenciado sob a licença MIT.</value>
     <value>A atualizar o Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
-    <value>Verificando a instalação ADK</value>
+    <value>A verificar a instalação do ADK</value>
   </data>
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Reveja a preparação do Windows ADK e do suplemento Windows PE antes de criar suportes de implementação.</value>
@@ -167,46 +167,46 @@ Licenciado sob a licença MIT.</value>
     <value>Detalhes de preparação</value>
   </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
-    <value>Instale ou atualize as ferramentas de implantação Windows ADK e o complemento Windows PE necessários para a criação de mídia.</value>
+    <value>Instale ou atualize as Ferramentas de Implementação do Windows ADK e o suplemento Windows PE necessários para criar suportes.</value>
   </data>
   <data name="Adk.SetupAction.Title" xml:space="preserve">
-    <value>Configuração ADK</value>
+    <value>Configuração do ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
     <value>Instale a versão suportada do Windows ADK 24H2 (10.1.26100.9457).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
-    <value>A versão ADK não é suportada</value>
+    <value>A versão do ADK não é suportada</value>
   </data>
   <data name="Adk.Status.MissingDescription" xml:space="preserve">
-    <value>Instale as ferramentas de implantação Windows ADK e o complemento Windows PE antes de configurar a criação de mídia.</value>
+    <value>Instale as Ferramentas de Implementação do Windows ADK e o suplemento Windows PE antes de configurar a criação de suportes.</value>
   </data>
   <data name="Adk.Status.MissingTitle" xml:space="preserve">
-    <value>ADK não está instalado</value>
+    <value>O ADK não está instalado</value>
   </data>
   <data name="Adk.Status.ReadyDescription" xml:space="preserve">
-    <value>Foundry OSD pode criar mídia ISO e USB.</value>
+    <value>O Foundry OSD pode criar suportes ISO e USB.</value>
   </data>
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
-    <value>ADK está pronto</value>
+    <value>O ADK está pronto</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Repare o complemento Windows PE correspondente através do respetivo instalador. Se a versão for diferente da versão do ADK, desinstale primeiro o complemento e instale a versão correspondente. Reinicie o Foundry depois de reparar ou substituir o complemento.</value>
+    <value>Repare o suplemento Windows PE correspondente através do respetivo instalador. Se a versão for diferente da versão do ADK, desinstale primeiro o suplemento e instale a versão correspondente. Reinicie o Foundry depois de reparar ou substituir o suplemento.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
-    <value>O complemento Windows PE precisa de reparação</value>
+    <value>O suplemento Windows PE precisa de ser reparado</value>
   </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
-    <value>Instale o complemento Windows PE para o Windows ADK instalado.</value>
+    <value>Instale o suplemento Windows PE para o Windows ADK instalado.</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
-    <value>O complemento Windows PE está faltando</value>
+    <value>O suplemento Windows PE está em falta</value>
   </data>
   <data name="Adk.Version.InstalledTitle" xml:space="preserve">
     <value>Versão instalada</value>
   </data>
   <data name="Adk.Version.NotDetected" xml:space="preserve">
-    <value>Versão não detectada</value>
+    <value>Versão não detetada</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
     <value>Requer Windows ADK 24H2 (10.1.26100.9457).</value>
@@ -230,31 +230,31 @@ Licenciado sob a licença MIT.</value>
     <value>Não instalado</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
-    <value>Windows PE Complemento</value>
+    <value>Suplemento Windows PE</value>
   </data>
   <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
-    <value>Reverter o Windows ADK e o Windows PE Add-on para uma versão anterior</value>
+    <value>Reverter o Windows ADK e o suplemento Windows PE para uma versão anterior</value>
   </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
-    <value>Instale Windows ADK e Windows PE complemento</value>
+    <value>Instalar o Windows ADK e o suplemento Windows PE</value>
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
-    <value>Atualizar Windows ADK e Windows PE complemento</value>
+    <value>Atualizar o Windows ADK e o suplemento Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Remover componentes de IA</value>
+    <value>Ativar a configuração dos componentes de IA</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Remova ou desative os componentes Windows AI selecionados antes de OOBE.</value>
+    <value>Escolha os componentes e as experiências de IA do Windows a remover ou desativar.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Remoção de componentes de IA</value>
+    <value>Componentes de IA</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Remover aplicativos Windows provisionados</value>
+    <value>Ativar as remoções de AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Remova aplicativos Windows provisionados selecionados antes de OOBE.</value>
+    <value>Escolha as aplicações do Windows aprovisionadas a remover dos dispositivos implementados.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Remoções de AppX</value>
@@ -263,25 +263,25 @@ Licenciado sob a licença MIT.</value>
     <value>Versões beta</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
-    <value>Pré-visualização de lançamentos</value>
+    <value>Versões de pré-visualização</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
     <value>Versões estáveis</value>
   </data>
   <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
-    <value>Pista de liberação: {0}</value>
+    <value>Canal de versões: {0}</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
-    <value>Feed de atualização da Web</value>
+    <value>Feed de atualizações Web</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
-    <value>Fonte de atualização</value>
+    <value>Origem das atualizações</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
-    <value>Verifique se há atualizações</value>
+    <value>Verificar se há atualizações</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
-    <value>Notas de lançamento</value>
+    <value>Notas de versão</value>
   </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Predefinição</value>
@@ -296,13 +296,13 @@ Licenciado sob a licença MIT.</value>
     <value>Nome</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
-    <value>Fonte</value>
+    <value>Origem</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Baixar do inquilino</value>
+    <value>Transferir do inquilino</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Nenhum perfil Autopilot foi retornado pelo locatário.</value>
+    <value>O inquilino não devolveu nenhum perfil do Autopilot.</value>
   </data>
   <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
     <value>Não foi possível transferir os perfis do Autopilot a partir do inquilino.</value>
@@ -311,67 +311,67 @@ Licenciado sob a licença MIT.</value>
     <value>Verifique a ligação à rede e certifique-se de que a sua conta pode ler perfis do Autopilot no Intune. Em seguida, tente novamente. Os detalhes estão no registo.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
-    <value>Autopilot download falhou</value>
+    <value>A transferência do Autopilot falhou</value>
   </data>
   <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
-    <value>Nenhum perfil Autopilot encontrado</value>
+    <value>Não foram encontrados perfis do Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Baixando perfis Autopilot...</value>
+    <value>A transferir perfis do Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} está configurado.</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
-    <value>Registro de aplicativo gerenciado</value>
+    <value>Registo de aplicação gerido</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Foundry OSD Autopilot O registro não está configurado.</value>
+    <value>O registo Foundry OSD Autopilot Registration não está configurado.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
-    <value>O certificado selecionado expirou. Crie ou selecione um certificado válido antes de criar a mídia de inicialização.</value>
+    <value>O certificado selecionado expirou. Crie ou selecione um certificado válido antes de criar o suporte de arranque.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
-    <value>Selecione um PFX que corresponda a um certificado de registro de aplicativo.</value>
+    <value>Selecione um PFX que corresponda a um certificado do registo de aplicação.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>PFX protegido por senha copiado na mídia de inicialização para upload de hash de hardware.</value>
+    <value>PFX protegido por palavra-passe copiado para o suporte de arranque para o carregamento do hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
-    <value>O arquivo PFX selecionado não existe mais.</value>
+    <value>O ficheiro PFX selecionado já não existe.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
-    <value>O PFX selecionado não pôde ser aberto com a senha fornecida.</value>
+    <value>Não foi possível abrir o PFX selecionado com a palavra-passe fornecida.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
-    <value>Certificado de mídia de inicialização</value>
+    <value>Certificado do suporte de arranque</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
-    <value>Senha PFX</value>
+    <value>Palavra-passe do PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
-    <value>Digite a senha do PFX.</value>
+    <value>Introduza a palavra-passe do PFX.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
-    <value>Selecione o PFX protegido por senha correspondente antes de criar a mídia de inicialização.</value>
+    <value>Selecione o PFX protegido por palavra-passe correspondente antes de criar o suporte de arranque.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
-    <value>arquivo PFX</value>
+    <value>Ficheiro PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Selecione Autopilot certificado PFX</value>
+    <value>Selecionar o PFX do certificado do Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>O PFX selecionado não contém material de chave privada.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
-    <value>Certificado pronto para geração de mídia de inicialização.</value>
+    <value>Certificado pronto para gerar o suporte de arranque.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
-    <value>Selecione PFX</value>
+    <value>Selecionar PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>A impressão digital do certificado PFX não corresponde ao certificado de registro do aplicativo selecionado.</value>
+    <value>A impressão digital do certificado PFX não corresponde ao certificado do registo de aplicação selecionado.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>O Foundry não conseguiu criar o certificado do registo de aplicação.</value>
@@ -386,19 +386,19 @@ Licenciado sob a licença MIT.</value>
     <value>Criado</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
-    <value>Copiar senha</value>
+    <value>Copiar palavra-passe</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
     <value>Guarde agora este ficheiro PFX e a palavra-passe num local seguro. O Foundry guarda a palavra-passe com a sua configuração neste computador apenas quando «Memorizar palavras-passe» está ativado em «Cópia de segurança e sincronização de definições». Vai precisar de ambos os valores para gerar suportes de arranque para o carregamento do hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
-    <value>Senha copiada.</value>
+    <value>Palavra-passe copiada.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
-    <value>Senha PFX</value>
+    <value>Palavra-passe do PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
-    <value>arquivo PFX</value>
+    <value>Ficheiro PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
     <value>Certificado pronto</value>
@@ -419,7 +419,7 @@ Licenciado sob a licença MIT.</value>
     <value>Falha na remoção do certificado</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Salvar Autopilot certificado PFX</value>
+    <value>Guardar o PFX do certificado do Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Impressão digital</value>
@@ -437,13 +437,13 @@ Licenciado sob a licença MIT.</value>
     <value>Válido durante 6 meses</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
-    <value>Nenhum certificado é provisionado.</value>
+    <value>Não existem certificados aprovisionados.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Conectar inquilino</value>
+    <value>Ligar inquilino</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Conectando inquilino...</value>
+    <value>A ligar ao inquilino…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Criar certificado</value>
@@ -452,16 +452,16 @@ Licenciado sob a licença MIT.</value>
     <value>Nenhum</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
-    <value>Nenhuma tag de grupo padrão selecionada.</value>
+    <value>Nenhuma etiqueta de grupo predefinida selecionada.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Desconectar inquilino</value>
+    <value>Desligar inquilino</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Tag de grupo opcional pré-selecionada em Foundry Deploy durante o upload de hash de hardware.</value>
+    <value>Etiqueta de grupo opcional pré-selecionada no Foundry Deploy durante o carregamento do hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
-    <value>Tag de grupo padrão</value>
+    <value>Etiqueta de grupo predefinida</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Carregamento zero-touch do hash de hardware</value>
@@ -470,31 +470,31 @@ Licenciado sob a licença MIT.</value>
     <value>O Foundry não conseguiu configurar o registo de aplicação do Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Falha na integração do locatário</value>
+    <value>A integração do inquilino falhou</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>O certificado selecionado expirou. Crie um novo certificado, salve seu PFX e senha e selecione-o para mídia de inicialização.</value>
+    <value>O certificado selecionado expirou. Crie um novo certificado, guarde o respetivo PFX e a palavra-passe e, em seguida, selecione-o para o suporte de arranque.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
-    <value>O certificado selecionado anteriormente não existe mais no registro do aplicativo gerenciado. Selecione um PFX válido que corresponda a um certificado provisionado.</value>
+    <value>O certificado selecionado anteriormente já não existe no registo de aplicação gerido. Selecione um PFX válido que corresponda a um certificado aprovisionado.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
-    <value>Foi encontrado um registro de aplicativo existente com o nome Foundry. Reconecte para adotá-lo na configuração Foundry.</value>
+    <value>Foi encontrado um registo de aplicação existente com o nome Foundry. Volte a ligar para o adotar na configuração do Foundry.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
-    <value>Não foi possível encontrar o registro do aplicativo gerenciado. Reconecte-se para permitir que Foundry crie ou adote.</value>
+    <value>Não foi possível encontrar o registo de aplicação gerido. Volte a ligar para permitir que o Foundry o crie ou adote.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>A entidade de serviço gerenciado não tem consentimento do administrador para a permissão Microsoft Graph necessária. Conceda consentimento do administrador e reconecte-se.</value>
+    <value>O principal de serviço gerido não tem o consentimento de administrador para a permissão do Microsoft Graph necessária. Conceda o consentimento de administrador e volte a ligar.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>O registro do aplicativo gerenciado não está pronto. Revise a preparação do locatário e reconecte-se.</value>
+    <value>O registo de aplicação gerido não está pronto. Reveja a preparação do inquilino e volte a ligar.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
-    <value>O registro do aplicativo gerenciado não possui a permissão necessária do aplicativo Microsoft Graph. Reconecte-se com uma conta que possa atualizar registros de aplicativos.</value>
+    <value>O registo de aplicação gerido não tem a permissão de aplicação do Microsoft Graph necessária. Volte a ligar com uma conta que possa atualizar registos de aplicações.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>A entidade de serviço gerenciado está ausente ou desabilitada. Reconecte-se com uma conta que possa criar ou gerenciar aplicativos empresariais.</value>
+    <value>O principal de serviço gerido está em falta ou desativado. Volte a ligar com uma conta que possa criar ou gerir aplicações empresariais.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
     <value>A integração do inquilino requer atenção</value>
@@ -509,10 +509,10 @@ Licenciado sob a licença MIT.</value>
     <value>Pronto</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
-    <value>Certificados de registro de aplicativos confiáveis para autenticação WinPE Graph.</value>
+    <value>Certificados do registo de aplicação considerados fidedignos para a autenticação do Graph no WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
-    <value>Certificados provisionados</value>
+    <value>Certificados aprovisionados</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
     <value>Remover certificado</value>
@@ -539,31 +539,31 @@ Licenciado sob a licença MIT.</value>
     <value>Remover os certificados do inquilino?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
-    <value>Conectado</value>
+    <value>Ligado</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Conclua o login no navegador para configurar o upload de hash de hardware Autopilot.</value>
+    <value>Conclua o início de sessão no browser para configurar o carregamento do hash de hardware do Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
-    <value>Faça login em Microsoft Graph</value>
+    <value>Iniciar sessão no Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
     <value>ID do cliente</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>ID do locatário</value>
+    <value>ID do inquilino</value>
   </data>
   <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
     <value>Verifique a ligação à rede e certifique-se de que a sua conta pode gerir registos de aplicações no inquilino. Em seguida, tente novamente. Os detalhes estão no registo.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
-    <value>Não conectado</value>
+    <value>Não ligado</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Informações sobre locatário, registro de aplicativo e preparação para upload de hash de hardware.</value>
+    <value>Informações sobre o inquilino, o registo de aplicação e a preparação para o carregamento do hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Prontidão do inquilino</value>
+    <value>Preparação do inquilino</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Nome</value>
@@ -572,13 +572,13 @@ Licenciado sob a licença MIT.</value>
     <value>Valor</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Conecte-se a Microsoft Graph para esta sessão do aplicativo para gerenciar as configurações de upload de hash.</value>
+    <value>Ligue-se ao Microsoft Graph nesta sessão da aplicação para gerir as definições de carregamento do hash.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Conexão de locatário</value>
+    <value>Ligação ao inquilino</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
-    <value>Perfil de importação</value>
+    <value>Importar perfil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
     <value>Não foi possível importar o perfil do Autopilot.</value>
@@ -587,13 +587,13 @@ Licenciado sob a licença MIT.</value>
     <value>Verifique se o ficheiro é um ficheiro JSON de perfil do Autopilot válido e tente novamente. Os detalhes estão no registo.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
-    <value>Falha na importação Autopilot</value>
+    <value>A importação do Autopilot falhou</value>
   </data>
   <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
-    <value>Importar perfil Autopilot JSON</value>
+    <value>Importar perfil JSON do Autopilot</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importando perfil Autopilot...</value>
+    <value>A importar o perfil do Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Quando ativado, o técnico inicia sessão com um código de dispositivo Microsoft durante a configuração do Windows e carrega o hash de hardware do dispositivo.</value>
@@ -602,7 +602,7 @@ Licenciado sob a licença MIT.</value>
     <value>Carregamento interativo do hash de hardware</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
-    <value>JSON provisionamento de perfil</value>
+    <value>Aprovisionamento com perfil JSON</value>
   </data>
   <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
     <value>{0} está atualmente ativo. Se continuar, será desativado e {1} será ativado.</value>
@@ -617,22 +617,22 @@ Licenciado sob a licença MIT.</value>
     <value>Sim</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
-    <value>Nenhum perfil Autopilot importado.</value>
+    <value>Nenhum perfil do Autopilot importado.</value>
   </data>
   <data name="Autopilot.ProfilesLabel" xml:space="preserve">
     <value>Perfis importados</value>
   </data>
   <data name="Autopilot.RemoveButton" xml:space="preserve">
-    <value>Remover selecionado</value>
+    <value>Remover selecionados</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>“{0}” será removido dos perfis do Autopilot nesta configuração.</value>
+    <value>"{0}" será removido dos perfis do Autopilot nesta configuração.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Remover perfil</value>
   </data>
   <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
-    <value>Remover perfil Autopilot?</value>
+    <value>Remover o perfil do Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
     <value>Os {0} perfis do Autopilot selecionados serão removidos desta configuração.</value>
@@ -641,7 +641,7 @@ Licenciado sob a licença MIT.</value>
     <value>Remover perfis</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
-    <value>Remover perfis Autopilot?</value>
+    <value>Remover perfis do Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>Para voltar a utilizar um perfil removido, importe-o ou transfira-o novamente a partir do inquilino.</value>
@@ -650,16 +650,16 @@ Licenciado sob a licença MIT.</value>
     <value>Definir como predefinição</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
-    <value>Conclua o login no navegador para baixar os perfis Autopilot.</value>
+    <value>Conclua o início de sessão no browser para transferir os perfis do Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
-    <value>Faça login em Microsoft Graph</value>
+    <value>Iniciar sessão no Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Limpar</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Escolha quais perfis de locatário devem ser importados para Foundry.</value>
+    <value>Escolha os perfis do inquilino que devem ser importados para o Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Importar</value>
@@ -671,7 +671,7 @@ Licenciado sob a licença MIT.</value>
     <value>Perfis selecionados: {0} de {1}</value>
   </data>
   <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
-    <value>Selecione perfis Autopilot</value>
+    <value>Selecionar perfis do Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
     <value>Permite que o técnico carregue o hash de hardware do dispositivo durante a implementação.</value>
@@ -680,10 +680,10 @@ Licenciado sob a licença MIT.</value>
     <value>Carregamento interativo do hash de hardware</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Prepare um perfil Autopilot offline na imagem Windows aplicada.</value>
+    <value>Importe ou transfira o perfil do Autopilot incorporado no suporte de implementação.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON provisionamento de perfil</value>
+    <value>Perfil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Configure o carregamento automático de hashes de hardware suportado pelo inquilino.</value>
@@ -701,7 +701,7 @@ Licenciado sob a licença MIT.</value>
     <value>Automático</value>
   </data>
   <data name="Common.Browse" xml:space="preserve">
-    <value>Navegar</value>
+    <value>Procurar</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Cancelar</value>
@@ -719,7 +719,7 @@ Licenciado sob a licença MIT.</value>
     <value>Ativar</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
-    <value>Habilitado</value>
+    <value>Ativado</value>
   </data>
   <data name="Common.LabelValueFormat" xml:space="preserve">
     <value>{0}: {1}</value>
@@ -890,49 +890,49 @@ Licenciado sob a licença MIT.</value>
     <value>Sim</value>
   </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
-    <value>Configure WSAIFabricSvc para inicialização manual em vez de inicialização automática.</value>
+    <value>Configure o WSAIFabricSvc para arranque manual em vez de arranque automático.</value>
   </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
-    <value>Impedir a inicialização automática do serviço Windows AI</value>
+    <value>Impedir o arranque automático do serviço de IA do Windows</value>
   </data>
   <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
-    <value>Defina Windows políticas de IA que desativem Click to Do.</value>
+    <value>Defina as políticas de IA do Windows que desativam o Click to Do.</value>
   </data>
   <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
     <value>Desativar Click to Do</value>
   </data>
   <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
-    <value>Defina políticas Edge que desativem Copilot, barra lateral, redação e recursos de pesquisa de IA.</value>
+    <value>Defina as políticas do Edge que desativam o Copilot, a barra lateral, a redação e as funcionalidades de pesquisa com IA.</value>
   </data>
   <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
-    <value>Desativar recursos de IA Microsoft Edge</value>
+    <value>Desativar as funcionalidades de IA do Microsoft Edge</value>
   </data>
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
-    <value>Defina a política Notepad que desativa os recursos de IA.</value>
+    <value>Defina a política do Bloco de Notas que desativa as funcionalidades de IA.</value>
   </data>
   <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
-    <value>Desativar recursos de IA Notepad</value>
+    <value>Desativar as funcionalidades de IA do Bloco de Notas</value>
   </data>
   <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
-    <value>Defina políticas Paint que desativem o Cocriador, a edição generativa, o criador de imagens e a remoção de plano de fundo.</value>
+    <value>Defina as políticas do Paint que desativam o Cocriador, a edição generativa, o criador de imagens e a remoção do fundo.</value>
   </data>
   <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
-    <value>Desativar recursos de IA Paint</value>
+    <value>Desativar as funcionalidades de IA do Paint</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
-    <value>Defina políticas de IA Windows que impeçam a ativação de Recall e o salvamento de snapshots.</value>
+    <value>Defina as políticas de IA do Windows que impedem a ativação do Recall e a gravação de instantâneos.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Desative o Windows Recall por política</value>
+    <value>Desativar o Windows Recall por política</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
-    <value>Remova o pacote de aplicativo Windows provisionado do AI Hub, quando presente.</value>
+    <value>Remova o pacote de aplicação aprovisionado Windows AI Hub, se estiver presente.</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
     <value>Remover Copilot+ AI Hub</value>
   </data>
   <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
-    <value>Remova o pacote do aplicativo Copilot e desative a política Windows Copilot.</value>
+    <value>Remova o pacote da aplicação Copilot e desative a política Windows Copilot.</value>
   </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Remover Microsoft Copilot</value>
@@ -1151,13 +1151,13 @@ Licenciado sob a licença MIT.</value>
     <value>Conta Administrador incorporada</value>
   </data>
   <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
-    <value>Permite que os aplicativos usem o ID de publicidade Windows em todos os aplicativos.</value>
+    <value>Permite que as aplicações utilizem o ID de publicidade do Windows entre aplicações.</value>
   </data>
   <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
     <value>ID de publicidade</value>
   </data>
   <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
-    <value>Seleciona o nível de dados de diagnóstico Windows configurado antes do primeiro login. Off só é honrado por edições Windows suportadas; edições não suportadas voltam para Obrigatório.</value>
+    <value>Seleciona o nível de dados de diagnóstico do Windows configurado antes do primeiro início de sessão. A opção Desligado só é respeitada pelas edições do Windows suportadas; as edições não suportadas revertem para Obrigatório.</value>
   </data>
   <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
     <value>Dados de diagnóstico</value>
@@ -1172,40 +1172,40 @@ Licenciado sob a licença MIT.</value>
     <value>Obrigatório</value>
   </data>
   <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
-    <value>Impede que Windows mostre a página de opções de privacidade durante o primeiro login.</value>
+    <value>Impede que o Windows mostre a página de opções de privacidade durante o primeiro início de sessão.</value>
   </data>
   <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
     <value>Ocultar configuração de privacidade</value>
   </data>
   <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
-    <value>Permite a coleta opcional de dados de diagnóstico de tinta e digitação.</value>
+    <value>Permite a recolha opcional de dados de diagnóstico de escrita manual e digitação.</value>
   </data>
   <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
-    <value>Diagnóstico de tinta e digitação</value>
+    <value>Diagnóstico de escrita manual e digitação</value>
   </data>
   <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
-    <value>Controla se Windows e aplicativos podem usar serviços de localização.</value>
+    <value>Controla se o Windows e as aplicações podem utilizar os serviços de localização.</value>
   </data>
   <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
     <value>Acesso à localização</value>
   </data>
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
-    <value>Forçar</value>
+    <value>Forçar desativação</value>
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
-    <value>Controlado pelo usuário</value>
+    <value>Controlado pelo utilizador</value>
   </data>
   <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
     <value>Apenas estão configuradas contas padrão. Certifique-se de que está disponível outra conta de administrador ou outro método de gestão.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
-    <value>Permite serviços de reconhecimento de fala baseados em nuvem Microsoft.</value>
+    <value>Permite os serviços de reconhecimento de voz da Microsoft baseados na cloud.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
-    <value>Reconhecimento de fala on-line</value>
+    <value>Reconhecimento de voz online</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
-    <value>Ignora a página Microsoft Termos de Licença de Software durante OOBE.</value>
+    <value>Ignora a página dos Termos de Licença para Software Microsoft durante a OOBE.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Ignorar os termos da licença</value>
@@ -1220,7 +1220,7 @@ Licenciado sob a licença MIT.</value>
     <value>Ativado automaticamente porque as contas locais adicionais ignoram a fase de criação de conta.</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
-    <value>Permite que Windows use dados de diagnóstico para dicas, anúncios e recomendações personalizadas.</value>
+    <value>Permite que o Windows utilize dados de diagnóstico para sugestões, anúncios e recomendações personalizados.</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
     <value>Experiências personalizadas</value>
@@ -1355,7 +1355,7 @@ Licenciado sob a licença MIT.</value>
     <value>Serviços de diretório</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
-    <value>Serviços de arquivo</value>
+    <value>Serviços de ficheiros</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
     <value>Sistemas de ficheiros</value>
@@ -1394,10 +1394,10 @@ Licenciado sob a licença MIT.</value>
     <value>Serviços de informação da Web e da Internet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
-    <value>Disponível para todos os alvos selecionados</value>
+    <value>Disponível para todos os destinos selecionados</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
-    <value>Disponível para alguns alvos selecionados</value>
+    <value>Disponível para alguns destinos selecionados</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
     <value>A disponibilidade será verificada em relação à imagem do Windows aplicada</value>
@@ -1415,16 +1415,16 @@ Licenciado sob a licença MIT.</value>
     <value>Bloqueio de dispositivos</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
-    <value>arranque sem marca</value>
+    <value>Arranque sem marca</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
-    <value>Logon personalizado</value>
+    <value>Início de sessão personalizado</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
     <value>Shell Launcher</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
-    <value>Filtro de Teclado</value>
+    <value>Filtro de teclado</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_ProjFS" xml:space="preserve">
     <value>Windows Projected File System</value>
@@ -1433,7 +1433,7 @@ Licenciado sob a licença MIT.</value>
     <value>Filtro de gravação unificado</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
-    <value>contentores</value>
+    <value>Contentores</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
     <value>Windows Sandbox</value>
@@ -1472,10 +1472,10 @@ Licenciado sob a licença MIT.</value>
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
-    <value>Recursos de desenvolvimento de aplicações</value>
+    <value>Funcionalidades de desenvolvimento de aplicações</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
-    <value>inicialização da aplicação</value>
+    <value>Inicialização de aplicações</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
     <value>Autenticação básica</value>
@@ -1490,13 +1490,13 @@ Licenciado sob a licença MIT.</value>
     <value>Autenticação de mapeamento de certificados de cliente</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
-    <value>Recursos HTTP comuns</value>
+    <value>Funcionalidades HTTP comuns</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
-    <value>registo personalizado</value>
+    <value>Registo personalizado</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
-    <value>documento padrão</value>
+    <value>Documento predefinido</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
     <value>Autenticação Digest</value>
@@ -1514,25 +1514,25 @@ Licenciado sob a licença MIT.</value>
     <value>Serviço FTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
-    <value>Integridade e Diagnóstico</value>
+    <value>Estado de funcionamento e diagnóstico</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
     <value>IIS Hostable Web Core</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
-    <value>compressão dinâmica de conteúdos</value>
+    <value>Compressão de conteúdo dinâmico</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
-    <value>compressão de conteúdo estático</value>
+    <value>Compressão de conteúdo estático</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
-    <value>erros HTTP</value>
+    <value>Erros HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
-    <value>registo HTTP</value>
+    <value>Registo HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
-    <value>Redireccionamento HTTP</value>
+    <value>Redirecionamento HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
     <value>Rastreamento</value>
@@ -1580,28 +1580,28 @@ Licenciado sob a licença MIT.</value>
     <value>Extensibilidade .NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
-    <value>registo ODBC</value>
+    <value>Registo ODBC</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
-    <value>Características de desempenho</value>
+    <value>Funcionalidades de desempenho</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
-    <value>Filtragem de Pedidos</value>
+    <value>Filtragem de pedidos</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
     <value>Monitor de pedidos</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
-    <value>Características de segurança</value>
+    <value>Funcionalidades de segurança</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
     <value>Inclusões do lado do servidor</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
-    <value>Conteúdo Estático</value>
+    <value>Conteúdo estático</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
-    <value>autorização de URL</value>
+    <value>Autorização de URL</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
     <value>Compatibilidade WMI com IIS 6</value>
@@ -1625,7 +1625,7 @@ Licenciado sob a licença MIT.</value>
     <value>Autenticação do Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
-    <value>componentes herdados</value>
+    <value>Componentes legados</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
     <value>Integração de serviços de diretório</value>
@@ -1646,13 +1646,13 @@ Licenciado sob a licença MIT.</value>
     <value>Microsoft Message Queue (MSMQ) Server Core</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
-    <value>acionadores de enfileiramento de mensagens</value>
+    <value>Acionadores do Enfileiramento de Mensagens</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
     <value>Suporte da API de compressão diferencial remota</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
-    <value>Recursos de multimédia</value>
+    <value>Funcionalidades de multimédia</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
     <value>Plataforma Hyper-V</value>
@@ -1709,7 +1709,7 @@ Licenciado sob a licença MIT.</value>
     <value>Serviço de impressão LPD</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>monitor de porta LPR</value>
+    <value>Monitor de porta LPR</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
     <value>Microsoft Print to PDF</value>
@@ -1790,7 +1790,7 @@ Licenciado sob a licença MIT.</value>
     <value>Ativação TCP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
-    <value>partilha de porta TCP</value>
+    <value>Partilha de porta TCP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
     <value>Windows Media Player Legacy</value>
@@ -1829,7 +1829,7 @@ Licenciado sob a licença MIT.</value>
     <value>Requer um adaptador de rede compatível com RDMA.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
-    <value>Este estado do componente é independente da configuração separada da política Recall.</value>
+    <value>Este estado do componente é independente da definição separada da política do Recall.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
     <value>Isto configura apenas o componente do Windows; não instala uma distribuição Linux.</value>
@@ -1838,19 +1838,19 @@ Licenciado sob a licença MIT.</value>
     <value>Nenhuma funcionalidade opcional do Windows corresponde a esta pesquisa.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>As alterações são aplicadas offline após a instalação do Windows e antes do OOBE. A ativação das operações utiliza apenas a imagem instalada ou as fontes de média de configuração correspondentes; não é utilizado nenhum substituto da Internet.</value>
+    <value>As alterações são aplicadas offline após a instalação do Windows e antes da OOBE. As operações de ativação utilizam apenas a imagem instalada ou as origens correspondentes do suporte de instalação; não é utilizada nenhuma alternativa através da Internet.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
     <value>Pesquisar funcionalidades</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
-    <value>Pesquise por nome de visualização ou nome de recurso DISM</value>
+    <value>Pesquisar por nome a apresentar ou nome da funcionalidade DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportar...</value>
+    <value>Exportar…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Criar um arquivo de suporte anonimizado sem modificar os registos originais.</value>
+    <value>Crie um arquivo de suporte anonimizado sem modificar os registos originais.</value>
   </data>
   <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
     <value>Exportar diagnósticos</value>
@@ -1865,7 +1865,7 @@ Licenciado sob a licença MIT.</value>
     <value>Falha na exportação dos diagnósticos</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avançado: exportar registos em bruto...</value>
+    <value>Avançado: exportar registos em bruto…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Exportar registos em bruto</value>
@@ -1886,7 +1886,7 @@ Licenciado sob a licença MIT.</value>
     <value>Abrir pasta</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
-    <value>Foundry não conseguiu abrir a documentação no seu navegador. Use este URL em vez disso.</value>
+    <value>O Foundry não conseguiu abrir a documentação no browser. Utilize este URL.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Não foi possível abrir a documentação</value>
@@ -1928,7 +1928,7 @@ Licenciado sob a licença MIT.</value>
     <value>Sim</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>A procurar OU no domínio...</value>
+    <value>A procurar OU no domínio…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Procura cancelada.</value>
@@ -2102,16 +2102,16 @@ Licenciado sob a licença MIT.</value>
     <value>Conta de associação partilhada</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Arquivo de certificado de CA raiz confiável</value>
+    <value>Ficheiro de certificado de AC de raiz fidedigna</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Selecione o certificado 802.1X</value>
+    <value>Selecionar o certificado 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configurar 802.1X com fio</value>
+    <value>Ativar a configuração de Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>A conectividade padrão Ethernet está disponível por padrão. Configure esta seção somente se sua rede com fio exigir autenticação empresarial 802.1X.</value>
+    <value>Configure a autenticação 802.1X com fios e o roaming de perfis do Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2159,7 +2159,7 @@ Licenciado sob a licença MIT.</value>
     <value>Escolha a política de assinatura de Arranque Seguro utilizada para o suporte gerado.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
-    <value>Arranque seguro</value>
+    <value>Arranque Seguro</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>Escolha o fuso horário utilizado no Windows PE.</value>
@@ -2183,25 +2183,25 @@ Licenciado sob a licença MIT.</value>
     <value>Esquema</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
-    <value>Instale Windows ADK e o complemento Windows PE antes de selecionar o idioma de inicialização WinPE.</value>
+    <value>Instale o Windows ADK e o suplemento Windows PE antes de selecionar o idioma de arranque do WinPE.</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
-    <value>Nenhum pacote de idiomas WinPE foi detectado para a arquitetura selecionada.</value>
+    <value>Não foram detetados pacotes de idioma do WinPE para a arquitetura selecionada.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
     <value>Geral</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
-    <value>Revise e comece</value>
+    <value>Rever e iniciar</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Reveja a prontidão e escolha as saídas de suporte.</value>
+    <value>Reveja a preparação e escolha os suportes a criar.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Criação de suporte</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
-    <value>Altere o idioma do aplicativo sem reiniciar Foundry OSD.</value>
+    <value>Altere o idioma da aplicação sem reiniciar o Foundry OSD.</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Idioma</value>
@@ -2210,34 +2210,34 @@ Licenciado sob a licença MIT.</value>
     <value>Opções de arranque.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
-    <value>Configurar mídia</value>
+    <value>Configurar suporte</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Prontidão ADK.</value>
+    <value>Preparação do ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
-    <value>Abra ADK</value>
+    <value>Abrir ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
     <value>Documentação do produto.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
-    <value>Documentação aberta</value>
+    <value>Abrir documentação</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
     <value>Resumo final do suporte.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
-    <value>Revise e comece</value>
+    <value>Rever e iniciar</value>
   </data>
   <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
     <value>Versão instalada</value>
   </data>
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
-    <value>Windows PE Complemento</value>
+    <value>Suplemento Windows PE</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Da criação da mídia à instalação do Windows</value>
+    <value>Da criação do suporte à instalação do Windows</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve">
     <value>Deslocar para a esquerda</value>
@@ -2261,7 +2261,7 @@ Licenciado sob a licença MIT.</value>
     <value>Configuração</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Estado de preparação do suporte de dados</value>
+    <value>Estado de preparação do suporte</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
     <value>Solicite ao técnico as credenciais do domínio durante a implementação.</value>
@@ -2276,22 +2276,22 @@ Licenciado sob a licença MIT.</value>
     <value>Búlgaro (Bulgária)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chinês Simplificado (China)</value>
+    <value>Chinês simplificado (China)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chinês Tradicional (Taiwan)</value>
+    <value>Chinês tradicional (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>Croata (Croácia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Tcheco (Tcheca)</value>
+    <value>Checo (Chéquia)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>Dinamarquês (Dinamarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holandês (Holanda)</value>
+    <value>Neerlandês (Países Baixos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglês (Reino Unido)</value>
@@ -2300,7 +2300,7 @@ Licenciado sob a licença MIT.</value>
     <value>Inglês (Estados Unidos)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>Estoniano (Estônia)</value>
+    <value>Estónio (Estónia)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finlandês (Finlândia)</value>
@@ -2330,19 +2330,19 @@ Licenciado sob a licença MIT.</value>
     <value>Japonês (Japão)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>Coreano (Coréia)</value>
+    <value>Coreano (Coreia)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>Letão (Letônia)</value>
+    <value>Letão (Letónia)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
     <value>Lituano (Lituânia)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norueguês Bokmål (Noruega)</value>
+    <value>Norueguês bokmål (Noruega)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>Polonês (Polônia)</value>
+    <value>Polaco (Polónia)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
     <value>Português (Brasil)</value>
@@ -2351,19 +2351,19 @@ Licenciado sob a licença MIT.</value>
     <value>Português (Portugal)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>Romeno (Romênia)</value>
+    <value>Romeno (Roménia)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>Russo (Rússia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latim sérvio (Sérvia)</value>
+    <value>Sérvio latino (Sérvia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Eslovaco (Eslováquia)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>Esloveno (Eslovênia)</value>
+    <value>Esloveno (Eslovénia)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
     <value>Espanhol (México)</value>
@@ -2402,13 +2402,13 @@ Licenciado sob a licença MIT.</value>
     <value>Mover componente para cima</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Habilitar regras de nomenclatura de máquinas</value>
+    <value>Ativar a configuração da atribuição de nomes</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Configure a atribuição automática de nomes e assistida por técnico aos dispositivos.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Nome do computador</value>
+    <value>Atribuição de nomes</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Pré-visualização</value>
@@ -2420,22 +2420,22 @@ Licenciado sob a licença MIT.</value>
     <value>Informações sobre produto e versão.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>Sobre</value>
+    <value>Acerca de</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
-    <value>ADK prontidão e instalação.</value>
+    <value>Preparação e instalação do ADK.</value>
   </data>
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Remova ou desative os componentes Windows AI selecionados antes de OOBE.</value>
+    <value>Remova ou desative componentes de IA do Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>Componentes de IA</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Remova aplicativos Windows provisionados selecionados antes de OOBE.</value>
+    <value>Selecione as aplicações aprovisionadas a remover.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Remoções de AppX</value>
@@ -2447,7 +2447,7 @@ Licenciado sob a licença MIT.</value>
     <value>Interativo</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
-    <value>Aprovisione dispositivos com um perfil Autopilot JSON.</value>
+    <value>Aprovisione dispositivos com um perfil JSON do Autopilot.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
     <value>Perfil JSON</value>
@@ -2468,7 +2468,7 @@ Licenciado sob a licença MIT.</value>
     <value>Personalização</value>
   </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
-    <value>Foundry documentação e links de projetos.</value>
+    <value>Documentação do Foundry e ligações do projeto.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Documentação</value>
@@ -2477,7 +2477,7 @@ Licenciado sob a licença MIT.</value>
     <value>Associação ao domínio</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>A conectividade padrão Ethernet está disponível por padrão. Configure esta seção somente se sua rede com fio exigir autenticação empresarial 802.1X.</value>
+    <value>Configure a autenticação 802.1X com fios.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2492,7 +2492,7 @@ Licenciado sob a licença MIT.</value>
     <value>Geral</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD casa</value>
+    <value>Página inicial do Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Página inicial</value>
@@ -2513,19 +2513,19 @@ Licenciado sob a licença MIT.</value>
     <value>Rede</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Configure Windows 11 telas de primeira execução e padrões de privacidade.</value>
+    <value>Configure a experiência inicial (OOBE) do Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Ative ou desative os componentes do Windows no sistema operativo implantado.</value>
+    <value>Ative ou desative funcionalidades opcionais do Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Funcionalidades opcionais</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Defina as versões do Windows, os níveis de atualização, os idiomas e as edições disponibilizados durante a implementação.</value>
+    <value>Limite as opções de sistema operativo disponíveis na implementação.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Seleção do SO</value>
@@ -2543,10 +2543,10 @@ Licenciado sob a licença MIT.</value>
     <value>Comunicar um erro</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
-    <value>Revise e inicie a criação de mídia.</value>
+    <value>Reveja e inicie a criação de suportes.</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
-    <value>Começar</value>
+    <value>Iniciar</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
     <value>Importe ficheiros de resposta do Windows e escolha as definições usadas nas implementações.</value>
@@ -2585,115 +2585,115 @@ Licenciado sob a licença MIT.</value>
     <value>Não configurado</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
-    <value>O comportamento empresarial é orientado pelo modelo de perfil nesta compilação. As credenciais 802.1X inseridas durante a implantação não são provisionadas aqui.</value>
+    <value>Nesta compilação, o comportamento empresarial é determinado pelo modelo de perfil. As credenciais 802.1X introduzidas durante a implementação não são aprovisionadas aqui.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Tipo de segurança Wi-Fi não suportado '{0}'.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
-    <value>O tipo de segurança corporativo Wi-Fi selecionado não corresponde à autenticação do modelo de perfil ({0}).</value>
+    <value>O tipo de segurança Wi-Fi empresarial selecionado não corresponde à autenticação do modelo de perfil ({0}).</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
-    <value>O modelo de perfil empresarial Wi-Fi deve conter um valor de autenticação empresarial compatível.</value>
+    <value>O modelo de perfil Wi-Fi empresarial tem de conter um valor de autenticação empresarial suportado.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>O arquivo de certificado CA raiz confiável corporativo Wi-Fi não foi encontrado.</value>
+    <value>O ficheiro de certificado de AC de raiz fidedigna para Wi-Fi empresarial não foi encontrado.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi requer um arquivo de certificado de CA raiz confiável quando a confiança do certificado está habilitada.</value>
+    <value>A rede Wi-Fi empresarial requer um ficheiro de certificado de AC de raiz fidedigna quando a confiança no certificado está ativada.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
-    <value>O arquivo de modelo de perfil empresarial Wi-Fi não foi encontrado.</value>
+    <value>O ficheiro de modelo de perfil Wi-Fi empresarial não foi encontrado.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi requer um modelo de perfil.</value>
+    <value>A rede Wi-Fi empresarial requer um modelo de perfil.</value>
   </data>
   <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
-    <value>Pessoal Wi-Fi requer uma senha longa de 8 a 63 caracteres.</value>
+    <value>A rede Wi-Fi pessoal requer uma frase de acesso com 8 a 63 carateres.</value>
   </data>
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
-    <value>A configuração Wi-Fi requer que o suporte Wi-Fi seja provisionado na imagem de inicialização.</value>
+    <value>A configuração Wi-Fi requer que o suporte de Wi-Fi seja aprovisionado na imagem de arranque.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>A configuração Wi-Fi requer um SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>O arquivo de certificado CA raiz confiável 802.1X com fio não foi encontrado.</value>
+    <value>O ficheiro de certificado de AC de raiz fidedigna para 802.1X com fios não foi encontrado.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>O 802.1X com fio requer um arquivo de certificado de CA raiz confiável quando a confiança do certificado está habilitada.</value>
+    <value>O 802.1X com fios requer um ficheiro de certificado de AC de raiz fidedigna quando a confiança no certificado está ativada.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
-    <value>O arquivo de modelo de perfil 802.1X com fio não foi encontrado.</value>
+    <value>O ficheiro de modelo de perfil 802.1X com fios não foi encontrado.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
-    <value>O 802.1X com fio requer um modelo de perfil com fio.</value>
+    <value>O 802.1X com fios requer um modelo de perfil com fios.</value>
   </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
-    <value>Arquivo de modelo de perfil</value>
+    <value>Ficheiro de modelo de perfil</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
-    <value>Selecione um modelo de perfil de rede</value>
+    <value>Selecionar um modelo de perfil de rede</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importe um certificado CA raiz confiável</value>
+    <value>Importar um certificado de AC de raiz fidedigna</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Copia os certificados de cliente PFX configurados para o Windows e importa-os para o arquivo pessoal de certificados LocalMachine antes do OOBE.</value>
+    <value>Copia os certificados de cliente PFX configurados para o Windows e importa-os para o arquivo de certificados pessoais LocalMachine antes da OOBE.</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
     <value>Incluir material de certificado com chave privada</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
-    <value>Migrar perfis de rede para o Windows</value>
+    <value>Transferir os perfis de rede para o Windows</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
-    <value>Empresa avançada Wi-Fi</value>
+    <value>Wi-Fi empresarial avançado</value>
   </data>
   <data name="Network.WifiEnterpriseTemplateLabel" xml:space="preserve">
-    <value>Provisionar um modelo de perfil empresarial Wi-Fi</value>
+    <value>Aprovisionar um modelo de perfil Wi-Fi empresarial</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>A senha é guardada com a sua configuração neste computador apenas quando «Memorizar palavras-passe» está ativado em «Cópia de segurança e sincronização de definições». Caso contrário, não é guardada e tem de ser introduzida novamente, por exemplo, depois de reiniciar o Foundry OSD.</value>
+    <value>A frase de acesso é guardada com a sua configuração neste computador apenas quando «Memorizar palavras-passe» está ativado em «Cópia de segurança e sincronização de definições». Caso contrário, não é guardada e tem de ser introduzida novamente, por exemplo, depois de reiniciar o Foundry OSD.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importa para o Windows o perfil Wi-Fi gerido pelo Foundry antes do OOBE para preservar a conectividade de implementação após o WinPE.</value>
+    <value>Importa para o Windows o perfil Wi-Fi gerido pelo Foundry antes da OOBE para manter a conectividade de implementação após o WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming de perfis do Windows</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importa para o Windows o perfil 802.1X com fios gerido pelo Foundry antes do OOBE para preservar a conectividade de implementação após o WinPE.</value>
+    <value>Importa para o Windows o perfil 802.1X com fios gerido pelo Foundry antes da OOBE para manter a conectividade de implementação após o WinPE.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming de perfis do Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Personalizar OOBE</value>
+    <value>Ativar a configuração da OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Configure Windows 11 telas de primeira execução e padrões de privacidade.</value>
+    <value>Configure as opções de privacidade e de configuração da experiência inicial (OOBE) do Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configurar as funcionalidades opcionais do Windows</value>
+    <value>Ativar a configuração das funcionalidades opcionais</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Ative ou desative os componentes do Windows no sistema operativo implantado.</value>
+    <value>Escolha as funcionalidades opcionais do Windows a ativar ou desativar.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Recursos opcionais do Windows</value>
+    <value>Funcionalidades opcionais</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Opções de implementação do Windows</value>
+    <value>Ativar a configuração da seleção do sistema operativo</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Defina as versões do Windows, os níveis de atualização, os idiomas e as edições disponibilizados durante a implementação.</value>
+    <value>Configure as versões, os idiomas, os canais e as edições do sistema operativo permitidos.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Opções de implementação do Windows</value>
+    <value>Seleção do SO</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Adicione uma ação ativada ou desative a pós-instalação.</value>
@@ -2789,7 +2789,7 @@ Licenciado sob a licença MIT.</value>
     <value>Importar pasta</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>A importar conteúdo...</value>
+    <value>A importar conteúdo…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Esta ação é inválida. Verifique a configuração.</value>
@@ -2819,7 +2819,7 @@ Licenciado sob a licença MIT.</value>
     <value>Introduza uma pasta do conteúdo importado ou deixe este campo vazio.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>A carregar conteúdo...</value>
+    <value>A carregar conteúdo…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importe o conteúdo em falta para "{0}".</value>
@@ -2999,7 +2999,7 @@ Licenciado sob a licença MIT.</value>
     <value>Limpar</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Remover as palavras-passe guardadas, os ficheiros confidenciais guardados pelo Foundry e o acesso à sincronização destas definições neste PC? Terá de voltar a adicionar os dados em falta e restabelecer a ligação para sincronizar. Os suportes de dados já criados não serão alterados.</value>
+    <value>Remover as palavras-passe guardadas, os ficheiros confidenciais guardados pelo Foundry e o acesso à sincronização destas definições neste PC? Terá de voltar a adicionar os dados em falta e restabelecer a ligação para sincronizar. Os suportes já criados não serão alterados.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Definições do Foundry</value>
@@ -3044,7 +3044,7 @@ Licenciado sob a licença MIT.</value>
     <value>Mais opções</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Ficheiros em falta ou não incluídos: {0}. Selecione as suas localizações antes de criar os suportes de dados.</value>
+    <value>Ficheiros em falta ou não incluídos: {0}. Selecione as suas localizações antes de criar os suportes.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Nome da configuração</value>
@@ -3115,7 +3115,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Não é possível aceder à pasta partilhada. Verifique o endereço da pasta e o seu acesso à rede. As suas alterações são mantidas neste PC.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Use a mesma pasta de rede em todos os PCs. A pasta tem de usar SMB 3 com encriptação obrigatória. Não são suportadas pastas sincronizadas com a nuvem.</value>
+    <value>Utilize a mesma pasta de rede em todos os PCs. A pasta tem de utilizar SMB 3 com encriptação obrigatória. Não são suportadas pastas sincronizadas com a cloud.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>O Foundry deixará de guardar as palavras-passe desta configuração neste PC.</value>
@@ -3193,28 +3193,28 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>O Foundry OSD não conseguiu aceder aos serviços do GitHub e da Microsoft com estas definições. Verifique o endereço do proxy, a porta e a ligação à rede. Os detalhes estão no registo.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Falha na ligação</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Verifique as definições do proxy</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>As novas ligações do Foundry OSD passam a utilizar estas definições.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Definições do proxy aplicadas</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>O Foundry OSD acedeu ao GitHub e aos serviços Microsoft com as definições selecionadas.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Ligação bem-sucedida</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Introduza o endereço do servidor proxy.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Introduza um nome de utilizador e uma palavra-passe para a autenticação explícita no proxy.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Introduza um endereço de proxy HTTP ou HTTPS válido, como proxy.contoso.com.</value>
@@ -3226,91 +3226,91 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Aplicar</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Utilizar as credenciais atuais do Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Escolha a forma como o proxy autentica o Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autenticação</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Nome de utilizador e palavra-passe</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Sem autenticação</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Nomes de anfitrião ou padrões com carateres universais opcionais, separados por ponto e vírgula.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Lista de exceções</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Ligar diretamente aos nomes de anfitrião que não contêm um ponto.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Ignorar o proxy para endereços locais</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>As credenciais são armazenadas de forma segura no Gestor de Credenciais do Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Credenciais do proxy</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domínio (opcional)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Introduza o endereço e a porta do proxy.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Servidor proxy</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Escolha a forma como o Foundry OSD se liga à Internet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Método de proxy</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Sem proxy (ligação direta)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Proxy manual</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Utilizar as definições do Windows (recomendado)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Palavra-passe</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Porta</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Estas definições aplicam-se apenas a esta aplicação. Não são adicionadas aos suportes de implementação e não afetam o Foundry Connect nem o Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Apenas Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Testar ligação</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Nome de utilizador</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
-    <value>Configurações</value>
+    <value>Definições</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
-    <value>Gerencie inicialização, idioma, diagnóstico e comportamento do aplicativo.</value>
+    <value>Gira o arranque, o idioma, o diagnóstico e o comportamento da aplicação.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Geral</value>
@@ -3322,7 +3322,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Cópia de segurança e sincronização de definições</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Configure a forma como o Foundry OSD se liga aos serviços online.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3337,19 +3337,19 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Envie telemetria de utilização anónima para ajudar a melhorar o Foundry. Os segredos e os identificadores diretos do dispositivo, incluindo números de série e hashes de hardware, são excluídos. A telemetria utiliza um identificador de instalação anónimo e pode incluir o fabricante e o modelo do dispositivo.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
-    <value>Habilitar telemetria</value>
+    <value>Ativar telemetria</value>
   </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
-    <value>Altere as preferências de tema, plano de fundo e cores de destaque.</value>
+    <value>Altere as preferências de tema, fundo e cor de destaque.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
     <value>Aparência</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
-    <value>Verifique se há atualizações Foundry OSD e revise as notas de lançamento.</value>
+    <value>Verifique se há atualizações do Foundry OSD e reveja as notas de versão.</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
-    <value>Atualizar aplicativo</value>
+    <value>Atualizar aplicação</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Parar operação</value>
@@ -3364,7 +3364,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>A parar em segurança. A operação atual no disco ou na imagem poderá ter de terminar antes de a limpeza ser concluída.</value>
   </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
-    <value>Selecione a arquitetura de inicialização e o modo de assinatura de inicialização.</value>
+    <value>Selecione a arquitetura de arranque e o modo de assinatura de arranque.</value>
   </data>
   <data name="StartMedia.Architecture.Header" xml:space="preserve">
     <value>Arquitetura e assinatura</value>
@@ -3379,55 +3379,55 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Ativado: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está ativado, mas a expiração do certificado selecionado está faltando.</value>
+    <value>O carregamento do hash de hardware está ativado, mas a data de expiração do certificado selecionado está em falta.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>O upload de hash de hardware está ativado, mas o certificado selecionado expirou. Selecione um certificado válido antes de criar a mídia de inicialização.</value>
+    <value>O carregamento do hash de hardware está ativado, mas o certificado selecionado expirou. Selecione um certificado válido antes de criar o suporte de arranque.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas o PFX selecionado não corresponde a um certificado de registro de aplicativo.</value>
+    <value>O carregamento do hash de hardware está ativado, mas o PFX selecionado não corresponde a um certificado do registo de aplicação.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está ativado, mas a impressão digital do certificado selecionado está ausente.</value>
+    <value>O carregamento do hash de hardware está ativado, mas a impressão digital do certificado selecionado está em falta.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas o registro do aplicativo não está configurado. Conecte-se ao locatário de Autopilot.</value>
+    <value>O carregamento do hash de hardware está ativado, mas o registo de aplicação não está configurado. Ligue-se ao inquilino a partir da página Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está ativado, mas a expiração do PFX da mídia de inicialização não pôde ser validada.</value>
+    <value>O carregamento do hash de hardware está ativado, mas não foi possível validar a expiração do PFX do suporte de arranque.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas o PFX da mídia de inicialização selecionada expirou.</value>
+    <value>O carregamento do hash de hardware está ativado, mas o PFX do suporte de arranque selecionado expirou.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas o PFX da mídia de inicialização não foi validado.</value>
+    <value>O carregamento do hash de hardware está ativado, mas o PFX do suporte de arranque não foi validado.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas o PFX selecionado não corresponde ao certificado ativo.</value>
+    <value>O carregamento do hash de hardware está ativado, mas o PFX selecionado não corresponde ao certificado ativo.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas nenhum PFX de mídia de inicialização está selecionado.</value>
+    <value>O carregamento do hash de hardware está ativado, mas não está selecionado nenhum PFX do suporte de arranque.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está ativado, mas a senha PFX da mídia de inicialização está ausente.</value>
+    <value>O carregamento do hash de hardware está ativado, mas a palavra-passe do PFX do suporte de arranque está em falta.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está ativado, mas o ID do cliente do aplicativo está ausente. Reconecte-se ao locatário de Autopilot.</value>
+    <value>O carregamento do hash de hardware está ativado, mas o ID de cliente da aplicação está em falta. Volte a ligar-se ao inquilino a partir da página Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas a entidade de serviço do aplicativo está ausente ou não está pronta.</value>
+    <value>O carregamento do hash de hardware está ativado, mas o principal de serviço da aplicação está em falta ou não está pronto.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está ativado, mas as configurações estão faltando.</value>
+    <value>O carregamento do hash de hardware está ativado, mas faltam definições.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>O upload de hash de hardware está habilitado, mas a conexão do locatário está ausente. Conecte-se ao locatário de Autopilot.</value>
+    <value>O carregamento do hash de hardware está ativado, mas a ligação ao inquilino está em falta. Ligue-se ao inquilino a partir da página Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
-    <value>Autopilot JSON o modo de perfil está ativado, mas nenhum perfil padrão válido está selecionado.</value>
+    <value>O modo de perfil JSON do Autopilot está ativado, mas não está selecionado nenhum perfil predefinido válido.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
-    <value>Autopilot usa um modo de provisionamento não suportado.</value>
+    <value>O Autopilot utiliza um modo de aprovisionamento não suportado.</value>
   </data>
   <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
     <value>Resolva o seguinte antes de criar o suporte:</value>
@@ -3436,52 +3436,52 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Não é possível iniciar a criação do suporte. Verifique os itens de preparação na página Começar.</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
-    <value>ADK ou WinPE O complemento não está pronto.</value>
+    <value>O ADK ou o suplemento WinPE não está pronto.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
-    <value>A mídia ARM64 requer estilo de partição GPT.</value>
+    <value>O suporte ARM64 requer o estilo de partição GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>O Windows Autopilot está habilitado, mas a configuração dele não está pronta.</value>
+    <value>O Windows Autopilot está ativado, mas a respetiva configuração não está pronta.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
-    <value>O provisionamento do Connect não está pronto.</value>
+    <value>O aprovisionamento do Connect não está pronto.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
-    <value>A pasta do driver personalizado não contém arquivos .inf.</value>
+    <value>A pasta de controladores personalizados não contém ficheiros .inf.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
-    <value>A pasta do driver personalizado não existe.</value>
+    <value>A pasta de controladores personalizados não existe.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
-    <value>A geração de configuração de implantação não está pronta.</value>
+    <value>A geração da configuração do Deploy não está pronta.</value>
   </data>
   <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
-    <value>A criação de mídia não está habilitada nesta compilação.</value>
+    <value>A criação de suportes não está ativada nesta compilação.</value>
   </data>
   <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
-    <value>O caminho de saída ISO deve terminar com.iso.</value>
+    <value>O caminho de saída ISO tem de terminar em .iso.</value>
   </data>
   <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
-    <value>O idioma de inicialização WinPE não está selecionado.</value>
+    <value>O idioma de arranque do WinPE não está selecionado.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
     <value>A configuração da rede não está pronta.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nenhum alvo USB está selecionado.</value>
+    <value>Não foi selecionada nenhuma unidade USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
-    <value>Os segredos de mídia necessários não estão prontos.</value>
+    <value>Os segredos necessários do suporte não estão prontos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>O alvo USB selecionado é muito pequeno. Use uma chave USB de pelo menos 16 GB.</value>
+    <value>A unidade USB selecionada é demasiado pequena. Utilize uma unidade USB com, pelo menos, 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>O esquema de teclado do WinPE selecionado não está instalado neste computador.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
-    <value>O idioma de inicialização WinPE selecionado não está disponível para a arquitetura selecionada.</value>
+    <value>O idioma de arranque do WinPE selecionado não está disponível para a arquitetura selecionada.</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3502,25 +3502,25 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>A criação de ISO está bloqueada</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>Crie ISO</value>
+    <value>Criar ISO</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>A criação de USB está bloqueada</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Isso apagará o disco {0}: {1} ({2}).</value>
+    <value>Esta ação irá apagar o disco {0}: {1} ({2}).</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
     <value>Este disco não tem nenhuma partição.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
-    <value>Formate e crie USB</value>
+    <value>Formatar e criar USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatar USB destino</value>
+    <value>Formatar a unidade USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
-    <value>O Windows não consegue ler os volumes deste disco. Ele ainda pode conter dados.</value>
+    <value>O Windows não consegue ler os volumes deste disco. O disco ainda pode conter dados.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmVolumeLine" xml:space="preserve">
     <value>{0} {1} ({2}), {3} utilizados de {4}</value>
@@ -3532,28 +3532,28 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Volumes neste disco:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Tudo neste disco será perdido. Continue apenas se este for o disco USB pretendido.</value>
+    <value>Todo o conteúdo deste disco será perdido. Continue apenas se esta for a unidade USB pretendida.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>Crie USB</value>
+    <value>Criar USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Pasta opcional contendo drivers .inf adicionais.</value>
+    <value>Pasta opcional com controladores .inf adicionais.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Pasta de driver personalizada</value>
+    <value>Pasta de controladores personalizados</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
-    <value>Selecione a pasta do driver personalizado</value>
+    <value>Selecionar a pasta de controladores personalizados</value>
   </data>
   <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Selecione drivers opcionais do fornecedor e uma pasta de driver personalizada.</value>
+    <value>Selecione controladores opcionais do fabricante e uma pasta de controladores personalizados.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Opções de driver</value>
+    <value>Opções de controladores</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3568,49 +3568,49 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Arquitetura</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Motoristas</value>
+    <value>Controladores</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>Modo de formato USB</value>
   </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
-    <value>USB estilo de partição</value>
+    <value>Estilo de partição USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
-    <value>WinPE idioma de inicialização</value>
+    <value>Idioma de arranque do WinPE</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Crie mídia ISO ou USB depois que todas as verificações de prontidão forem aprovadas.</value>
+    <value>Crie suportes ISO ou USB depois de todas as verificações de preparação serem concluídas com êxito.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
-    <value>Criar mídia</value>
+    <value>Criar suporte</value>
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
-    <value>A criação de mídia não está habilitada nesta compilação.</value>
+    <value>A criação de suportes não está ativada nesta compilação.</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
-    <value>A criação de mídia estará disponível quando todas as verificações de prontidão forem aprovadas.</value>
+    <value>A criação de suportes estará disponível quando todas as verificações de preparação forem concluídas com êxito.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
     <value>Escolha uma saída ISO ou USB abaixo para começar.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Formato completo</value>
+    <value>Formatação completa</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Formatação rápida</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
-    <value>Escolha onde será escrito o Foundry ISO gerado.</value>
+    <value>Escolha onde será escrita a ISO do Foundry gerada.</value>
   </data>
   <data name="StartMedia.IsoPath.Header" xml:space="preserve">
-    <value>ISO saída</value>
+    <value>Saída ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO imagem</value>
+    <value>Imagem ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
-    <value>Selecione ISO caminho de saída</value>
+    <value>Selecionar o caminho de saída ISO</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
     <value>Contas locais adicionais: {0}</value>
@@ -3928,16 +3928,16 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Itens de preparação que precisam de ação: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
-    <value>Pronto para criar mídia ISO</value>
+    <value>Pronto para criar o suporte ISO</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
-    <value>Pronto para criar mídia ISO e USB</value>
+    <value>Pronto para criar os suportes ISO e USB</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
-    <value>Pronto para criar mídia USB</value>
+    <value>Pronto para criar o suporte USB</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
-    <value>Revise os avisos de saída de mídia</value>
+    <value>Reveja os avisos sobre os suportes a criar</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>
@@ -3972,7 +3972,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Atualizar USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Os alvos USB podem ser atualizados após a conclusão da prontidão ADK.</value>
+    <value>A lista de unidades USB pode ser atualizada depois de concluídas as verificações de preparação do ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Unidades USB encontradas: {0}</value>
@@ -3981,28 +3981,28 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Disco {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Verificando alvos USB.</value>
+    <value>A procurar unidades USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nenhuma unidade USB foi encontrada.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>Falha na atualização do destino USB.</value>
+    <value>Não foi possível atualizar a lista de unidades USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
-    <value>Comportamento de formato usado antes de copiar a mídia USB final.</value>
+    <value>Tipo de formatação utilizado antes de copiar o suporte USB final.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Esquema de partição usado ao preparar o destino USB selecionado.</value>
+    <value>Esquema de partições utilizado ao preparar a unidade USB selecionada.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB alvo</value>
+    <value>Unidade USB de destino</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
-    <value>Idioma usado pelo ambiente de inicialização WinPE.</value>
+    <value>Idioma utilizado pelo ambiente de arranque do WinPE.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
-    <value>WinPE idioma de inicialização</value>
+    <value>Idioma de arranque do WinPE</value>
   </data>
   <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
     <value>Pacotes: {0}</value>
@@ -4020,13 +4020,13 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Não selecionado</value>
   </data>
   <data name="StartPage_Title.Text" xml:space="preserve">
-    <value>Começar</value>
+    <value>Iniciar</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Abrir</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
-    <value>Abra as configurações de cores Windows para alterar a cor de destaque.</value>
+    <value>Abra as definições de cores do Windows para alterar a cor de destaque.</value>
   </data>
   <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
     <value>Cor de destaque</value>
@@ -4035,13 +4035,13 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Acrílico</value>
   </data>
   <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
-    <value>Acrílico Fino</value>
+    <value>Acrílico fino</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
-    <value>Selecione o tema do aplicativo.</value>
+    <value>Selecione o tema da aplicação.</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
-    <value>Tema do aplicativo</value>
+    <value>Tema da aplicação</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
     <value>Escuro</value>
@@ -4050,13 +4050,13 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Sistema</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Luz</value>
+    <value>Claro</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
-    <value>Escolha o material de fundo usado por trás do aplicativo.</value>
+    <value>Escolha o material de fundo utilizado por trás da aplicação.</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
-    <value>Materiais</value>
+    <value>Material de fundo</value>
   </data>
   <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
     <value>Mica Alt</value>
@@ -4221,7 +4221,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>O Foundry OSD não conseguiu procurar atualizações. Verifique a ligação à rede e tente novamente. Os detalhes estão no registo.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
-    <value>Verificando atualizações</value>
+    <value>A verificar se há atualizações</value>
   </data>
   <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
     <value>Não foi possível transferir a atualização. Verifique a ligação à rede e tente novamente. Os detalhes estão no registo.</value>
@@ -4230,10 +4230,10 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>A transferir atualização</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
-    <value>Foundry OSD está atualizado.</value>
+    <value>O Foundry OSD está atualizado.</value>
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
-    <value>A verificação de atualização foi ignorada porque Foundry OSD não está sendo executado em uma instalação do Velopack.</value>
+    <value>A verificação de atualizações foi ignorada porque o Foundry OSD não está a ser executado a partir de uma instalação do Velopack.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Pronto</value>
@@ -4242,13 +4242,13 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>A verificação de atualização foi ignorada porque um depurador está anexado.</value>
   </data>
   <data name="Update.Status.UpdateAvailable" xml:space="preserve">
-    <value>Uma atualização Foundry OSD está disponível.</value>
+    <value>Está disponível uma atualização do Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
     <value>Transfira a atualização quando estiver pronto.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
-    <value>Foundry OSD {0} está disponível.</value>
+    <value>O Foundry OSD {0} está disponível.</value>
   </data>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Não foi possível aplicar a atualização</value>
@@ -4272,22 +4272,22 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Atualização disponível</value>
   </data>
   <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
-    <value>Foundry OSD {0} está disponível</value>
+    <value>O Foundry OSD {0} está disponível</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Atualizar</value>
   </data>
   <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Arquivo de certificado de CA raiz confiável</value>
+    <value>Ficheiro de certificado de AC de raiz fidedigna</value>
   </data>
   <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Selecione o certificado Wi-Fi</value>
+    <value>Selecionar o certificado Wi-Fi</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
-    <value>Pré-provisionar um perfil Wi-Fi</value>
+    <value>Pré-aprovisionar um perfil Wi-Fi</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
-    <value>Senha</value>
+    <value>Frase de acesso</value>
   </data>
   <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
     <value>WPA2/WPA3 Empresarial</value>
@@ -4302,10 +4302,10 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Tipo de segurança</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Abrir</value>
+    <value>Aberta</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
-    <value>OWE (criptografia sem fio oportunista)</value>
+    <value>OWE (Encriptação Sem Fios Oportunista)</value>
   </data>
   <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
     <value>WPA2/WPA3 Pessoal</value>
@@ -4314,7 +4314,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Provisione suporte Wi-Fi na imagem de inicialização</value>
+    <value>Ativar o aprovisionamento de Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Configure o aprovisionamento de Wi-Fi, os perfis incorporados e o roaming de perfis do Windows.</value>

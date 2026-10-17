@@ -19,7 +19,7 @@
     <value>このソフトウェアは現状のまま提供されます。使用する前に展開設定を確認してください。</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>著作権 (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
+    <value>Copyright (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
 MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -544,7 +544,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ロシア語 (ロシア)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>セルビア語ラテン語 (セルビア)</value>
+    <value>セルビア語ラテン文字 (セルビア)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>スロバキア語 (スロバキア)</value>
@@ -565,7 +565,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>タイ語 (タイ)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>トルコ語 (トゥルキエ)</value>
+    <value>トルコ語 (トルコ)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ウクライナ語 (ウクライナ)</value>
@@ -586,7 +586,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ディスク消去の確認</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_概要</value>
+    <value>_バージョン情報</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_デバッグ</value>
@@ -697,7 +697,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>対話型ハードウェア ハッシュ アップロード</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON プロファイルのプロビジョニング</value>
+    <value>JSON プロファイル</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>プロフィール</value>
@@ -1744,7 +1744,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>暗い</value>
+    <value>ダーク</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
     <value>ライト</value>

@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>Oko</value>
+    <value>O aplikaciji</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Kreirao i održava Mickaël CHAVE.</value>
@@ -25,7 +25,7 @@
     <value>Suradnike nije bilo moguće učitati s GitHuba.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Učitavanje suradnika...</value>
+    <value>Učitavanje suradnika…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Suradnici</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD je moderna aplikacija za izradu Windows medija za implementaciju koju pokreće WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
 Licenciran prema MIT licenci.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Licenciran prema MIT licenci.</value>
     <value>Napomene o izdanju nisu se mogle učitati u ugrađeni preglednik.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Učitavanje napomena o izdanju...</value>
+    <value>Učitavanje napomena o izdanju…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Bilješke o izdanju</value>
@@ -77,10 +77,10 @@ Licenciran prema MIT licenci.</value>
     <value>podrška</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Licence paketa treće strane prate se kroz repozitorij projekta i manifeste ovisnosti.</value>
+    <value>Foundry OSD koristi sljedeće biblioteke i alate. Njihove licence i stranice projekata navedene su u nastavku.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Ovisnosti trećih strana</value>
+    <value>Licence trećih strana</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>O Foundry OSD</value>
@@ -242,19 +242,19 @@ Licenciran prema MIT licenci.</value>
     <value>Nadogradite dodatke Windows ADK i Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Uklonite AI komponente</value>
+    <value>Omogući konfiguraciju AI komponenti</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Uklonite ili onemogućite odabrane Windows AI komponente prije OOBE.</value>
+    <value>Odaberite Windows AI komponente i značajke koje želite ukloniti ili onemogućiti.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Uklanjanje AI komponente</value>
+    <value>AI komponente</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Uklonite osigurane Windows aplikacije</value>
+    <value>Omogući uklanjanje AppX aplikacija</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Ukloni odabrane dodijeljene Windows aplikacije prije OOBE.</value>
+    <value>Odaberite dodijeljene Windows aplikacije koje želite ukloniti s implementiranih uređaja.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Uklanjanja AppX-a</value>
@@ -317,7 +317,7 @@ Licenciran prema MIT licenci.</value>
     <value>Nije pronađen nijedan Autopilot profil</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Preuzimanje Autopilot profila...</value>
+    <value>Preuzimanje Autopilot profila…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} je konfiguriran.</value>
@@ -335,7 +335,7 @@ Licenciran prema MIT licenci.</value>
     <value>Odaberite PFX koji odgovara potvrdi o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>PFX zaštićen lozinkom kopiran u medij za pokretanje radi učitavanja hash hardvera.</value>
+    <value>PFX zaštićen lozinkom kopiran u medij za pokretanje radi prijenosa hash hardvera.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Odabrana PFX datoteka više ne postoji.</value>
@@ -443,7 +443,7 @@ Licenciran prema MIT licenci.</value>
     <value>Povežite stanara</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Povezivanje stanara...</value>
+    <value>Povezivanje stanara…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Izradi certifikat</value>
@@ -560,7 +560,7 @@ Licenciran prema MIT licenci.</value>
     <value>Nije povezano</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Zakupnik, registracija aplikacije i informacije o spremnosti za učitavanje hash hardvera.</value>
+    <value>Zakupnik, registracija aplikacije i informacije o spremnosti za prijenos hash hardvera.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
     <value>Spremnost zakupca</value>
@@ -593,7 +593,7 @@ Licenciran prema MIT licenci.</value>
     <value>Uvezi Autopilot profil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Uvoz Autopilot profila...</value>
+    <value>Uvoz Autopilot profila…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Kada je omogućeno, tehničar se tijekom postavljanja sustava Windows prijavljuje pomoću Microsoftova koda uređaja i prenosi hardverski hash uređaja.</value>
@@ -656,13 +656,13 @@ Licenciran prema MIT licenci.</value>
     <value>Prijavite se na Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Jasan</value>
+    <value>Očisti</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Odaberite koje profile stanara treba uvesti u Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>Uvoz</value>
+    <value>Uvezi</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
     <value>Odaberite sve</value>
@@ -680,10 +680,10 @@ Licenciran prema MIT licenci.</value>
     <value>Interaktivni prijenos hardverskog hasha</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Postavite offline Autopilot profil u primijenjenu Windows sliku.</value>
+    <value>Uvezite ili preuzmite Autopilot profil ugrađen u medij za implementaciju.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON dodjela profila</value>
+    <value>JSON profil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurirajte automatski prijenos sažetka hardvera uz podršku klijentskog okruženja.</value>
@@ -707,7 +707,7 @@ Licenciran prema MIT licenci.</value>
     <value>Otkazati</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Zatvoriti</value>
+    <value>Zatvori</value>
   </data>
   <data name="Common.Disable" xml:space="preserve">
     <value>Onemogući</value>
@@ -941,7 +941,7 @@ Licenciran prema MIT licenci.</value>
     <value>Paketi</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>Običaj</value>
+    <value>Prilagođeno</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>Odaberite jednu ili više kategorija kataloga za predodabir paketa.</value>
@@ -1847,7 +1847,7 @@ Licenciran prema MIT licenci.</value>
     <value>Pretražujte prema nazivu za prikaz ili nazivu značajke DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Izvezi...</value>
+    <value>Izvezi…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Stvorite pročišćenu arhivu podrške bez mijenjanja izvornih zapisnika.</value>
@@ -1865,7 +1865,7 @@ Licenciran prema MIT licenci.</value>
     <value>Izvoz dijagnostike nije uspio</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Napredno: izvezi neobrađene zapisnike...</value>
+    <value>Napredno: izvezi neobrađene zapisnike…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Izvezi neobrađene zapisnike</value>
@@ -1928,7 +1928,7 @@ Licenciran prema MIT licenci.</value>
     <value>Da</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Pretraživanje OU-ova u domeni...</value>
+    <value>Pretraživanje OU-ova u domeni…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Pretraživanje je otkazano.</value>
@@ -2108,10 +2108,10 @@ Licenciran prema MIT licenci.</value>
     <value>Odaberite 802.1X certifikat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurirajte žičani 802.1X</value>
+    <value>Omogući konfiguraciju za Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standardno Ethernet povezivanje dostupno je prema zadanim postavkama. Konfigurirajte ovaj odjeljak samo ako vaša žična mreža zahtijeva 802.1X provjeru autentičnosti poduzeća.</value>
+    <value>Konfigurirajte žičnu 802.1X provjeru autentičnosti i roaming profila sustava Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2270,118 +2270,118 @@ Licenciran prema MIT licenci.</value>
     <value>Interaktivno pridruživanje domeni</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>arapski (Saudijska Arabija)</value>
+    <value>Arapski (Saudijska Arabija)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
-    <value>bugarski (Bugarska)</value>
+    <value>Bugarski (Bugarska)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>kineski pojednostavljeni (Kina)</value>
+    <value>Pojednostavljeni kineski (Kina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>kineski tradicionalni (Tajvan)</value>
+    <value>Tradicionalni kineski (Tajvan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>hrvatski (Hrvatska)</value>
+    <value>Hrvatski (Hrvatska)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>češki (Češka)</value>
+    <value>Češki (Češka)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>danski (Danska)</value>
+    <value>Danski (Danska)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>nizozemski (Nizozemska)</value>
+    <value>Nizozemski (Nizozemska)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>engleski (Ujedinjeno Kraljevstvo)</value>
+    <value>Engleski (Ujedinjeno Kraljevstvo)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>engleski (Sjedinjene Države)</value>
+    <value>Engleski (Sjedinjene Države)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estonski (Estonija)</value>
+    <value>Estonski (Estonija)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>finski (Finska)</value>
+    <value>Finski (Finska)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>francuski (Kanada)</value>
+    <value>Francuski (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>francuski (Francuska)</value>
+    <value>Francuski (Francuska)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>njemački (Njemačka)</value>
+    <value>Njemački (Njemačka)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>grčki (Grčka)</value>
+    <value>Grčki (Grčka)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>hebrejski (Izrael)</value>
+    <value>Hebrejski (Izrael)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>mađarski (Mađarska)</value>
+    <value>Mađarski (Mađarska)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>talijanski (Italija)</value>
+    <value>Talijanski (Italija)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>japanski (Japan)</value>
+    <value>Japanski (Japan)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>korejski (Koreja)</value>
+    <value>Korejski (Koreja)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>latvijski (Latvija)</value>
+    <value>Latvijski (Latvija)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>litvanski (Litva)</value>
+    <value>Litvanski (Litva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norveški bokmål (Norveška)</value>
+    <value>Norveški bokmål (Norveška)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>poljski (Poljska)</value>
+    <value>Poljski (Poljska)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>portugalski (Brazil)</value>
+    <value>Portugalski (Brazil)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>portugalski (Portugal)</value>
+    <value>Portugalski (Portugal)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>rumunjski (Rumunjska)</value>
+    <value>Rumunjski (Rumunjska)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>ruski (Rusija)</value>
+    <value>Ruski (Rusija)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srpska latinica (Srbija)</value>
+    <value>Srpski, latinica (Srbija)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>slovački (Slovačka)</value>
+    <value>Slovački (Slovačka)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>slovenski (Slovenija)</value>
+    <value>Slovenski (Slovenija)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>španjolski (Meksiko)</value>
+    <value>Španjolski (Meksiko)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>španjolski (Španjolska)</value>
+    <value>Španjolski (Španjolska)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>švedski (Švedska)</value>
+    <value>Švedski (Švedska)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>tajlandski (Tajland)</value>
+    <value>Tajlandski (Tajland)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turski (Türkiye)</value>
+    <value>Turski (Turska)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukrajinski (Ukrajina)</value>
+    <value>Ukrajinski (Ukrajina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
     <value>Prenesi naziv računala u Autopilot</value>
@@ -2402,13 +2402,13 @@ Licenciran prema MIT licenci.</value>
     <value>Pomakni komponentu gore</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Omogući pravila za imenovanje stroja</value>
+    <value>Omogući konfiguraciju imenovanja računala</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurirajte automatsko imenovanje uređaja i imenovanje uz pomoć tehničara.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Naziv računala</value>
+    <value>Imenovanje računala</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Pretpregled</value>
@@ -2420,7 +2420,7 @@ Licenciran prema MIT licenci.</value>
     <value>Informacije o proizvodu i verziji.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>Oko</value>
+    <value>O aplikaciji</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK spremnost i montaža.</value>
@@ -2429,13 +2429,13 @@ Licenciran prema MIT licenci.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Uklonite ili onemogućite odabrane Windows AI komponente prije OOBE.</value>
+    <value>Uklonite ili onemogućite Windows AI komponente.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI komponente</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Ukloni odabrane dodijeljene Windows aplikacije prije OOBE.</value>
+    <value>Odaberite dodijeljene aplikacije za uklanjanje.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Uklanjanja AppX-a</value>
@@ -2477,7 +2477,7 @@ Licenciran prema MIT licenci.</value>
     <value>Pridruživanje domeni</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standardno Ethernet povezivanje dostupno je prema zadanim postavkama. Konfigurirajte ovaj odjeljak samo ako vaša žična mreža zahtijeva 802.1X provjeru autentičnosti poduzeća.</value>
+    <value>Konfigurirajte žičnu 802.1X provjeru autentičnosti.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2492,10 +2492,10 @@ Licenciran prema MIT licenci.</value>
     <value>Općenito</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD kući</value>
+    <value>Polazna stranica aplikacije Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Dom</value>
+    <value>Polazno</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Zatražite od tehničara vjerodajnice domene tijekom implementacije.</value>
@@ -2513,19 +2513,19 @@ Licenciran prema MIT licenci.</value>
     <value>Mreža</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigurirajte Windows 11 zaslona za prvo pokretanje i zadane postavke privatnosti.</value>
+    <value>Konfigurirajte početno postavljanje sustava Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Omogućite ili onemogućite Windows komponente u implementiranom operativnom sustavu.</value>
+    <value>Omogućite ili onemogućite izborne značajke sustava Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Neobavezne značajke</value>
+    <value>Izborne značajke</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Odredite verzije sustava Windows, razine ažuriranja, jezike i izdanja koja se nude tijekom implementacije.</value>
+    <value>Ograničite mogućnosti odabira operativnog sustava za implementaciju.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Odabir OS-a</value>
@@ -2561,7 +2561,7 @@ Licenciran prema MIT licenci.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Automatski se pridružite domeni pomoću vjerodajnica zaštićenih lozinkom za implementaciju.</value>
@@ -2669,31 +2669,31 @@ Licenciran prema MIT licenci.</value>
     <value>Roaming Windows profila</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Prilagodi OOBE</value>
+    <value>Omogući konfiguraciju OOBE-a</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigurirajte Windows 11 zaslona za prvo pokretanje i zadane postavke privatnosti.</value>
+    <value>Konfigurirajte mogućnosti privatnosti i postavljanja za početno postavljanje sustava Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurirajte dodatne značajke sustava Windows</value>
+    <value>Omogući konfiguraciju izbornih značajki</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Omogućite ili onemogućite Windows komponente u implementiranom operativnom sustavu.</value>
+    <value>Odaberite izborne značajke sustava Windows koje želite omogućiti ili onemogućiti.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Izborne značajke sustava Windows</value>
+    <value>Izborne značajke</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Mogućnosti implementacije sustava Windows</value>
+    <value>Omogući konfiguraciju odabira operativnog sustava</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Odredite verzije sustava Windows, razine ažuriranja, jezike i izdanja koja se nude tijekom implementacije.</value>
+    <value>Konfigurirajte dopuštene verzije, jezike, kanale i izdanja operativnog sustava.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Mogućnosti implementacije sustava Windows</value>
+    <value>Odabir OS-a</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Dodajte omogućenu radnju ili onemogućite konfiguraciju nakon instalacije.</value>
@@ -2789,7 +2789,7 @@ Licenciran prema MIT licenci.</value>
     <value>Uvezi mapu</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Uvoz sadržaja...</value>
+    <value>Uvoz sadržaja…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ova radnja nije valjana. Provjerite njezinu konfiguraciju.</value>
@@ -2819,7 +2819,7 @@ Licenciran prema MIT licenci.</value>
     <value>Unesite mapu iz uvezenog sadržaja ili ostavite ovo polje praznim.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Učitavanje sadržaja...</value>
+    <value>Učitavanje sadržaja…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Uvezite sadržaj koji nedostaje za „{0}”.</value>
@@ -3193,28 +3193,28 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Foundry OSD s ovim postavkama nije mogao pristupiti servisima GitHub i Microsoft. Provjerite adresu i priključak proxy poslužitelja te mrežnu vezu. Detalji su u zapisniku.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Povezivanje nije uspjelo</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Provjerite postavke proxy poslužitelja</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nove veze iz aplikacije Foundry OSD sada koriste ove postavke.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Postavke proxy poslužitelja su primijenjene</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD pristupio je GitHubu i uslugama tvrtke Microsoft pomoću odabranih postavki.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Povezivanje je uspjelo</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Unesite adresu proxy poslužitelja.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Unesite korisničko ime i lozinku za eksplicitnu provjeru autentičnosti na proxy poslužitelju.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Unesite valjanu HTTP ili HTTPS adresu proxy poslužitelja, npr. proxy.contoso.com.</value>
@@ -3226,88 +3226,88 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Primijeni</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Koristi trenutne vjerodajnice sustava Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Odaberite kako proxy poslužitelj provjerava autentičnost aplikacije Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Provjera autentičnosti</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Korisničko ime i lozinka</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Bez provjere autentičnosti</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Neobavezni nazivi glavnih računala ili uzorci sa zamjenskim znakovima, odvojeni točkom sa zarezom.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Popis iznimaka</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Izravno se poveži s nazivima glavnih računala koji ne sadrže točku.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Zaobiđi lokalne adrese</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Vjerodajnice su sigurno pohranjene u Upravitelju vjerodajnica sustava Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Vjerodajnice proxy poslužitelja</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domena (neobavezno)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Unesite adresu i priključak proxy poslužitelja.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxy poslužitelj</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Odaberite kako se Foundry OSD povezuje s internetom.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Način korištenja proxy poslužitelja</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Bez proxy poslužitelja (izravna veza)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Ručno postavljanje proxy poslužitelja</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Koristi postavke sustava Windows (preporučeno)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Lozinka</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Ove se postavke primjenjuju samo na ovu aplikaciju. Ne dodaju se na medij za implementaciju i ne utječu na Foundry Connect ni Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Samo Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Testiraj vezu</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Korisničko ime</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
-    <value>postavke</value>
+    <value>Postavke</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
     <value>Upravljajte pokretanjem, jezikom, dijagnostikom i ponašanjem aplikacije.</value>
@@ -3322,7 +3322,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Sigurnosno kopiranje i sinkronizacija postavki</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigurirajte kako se Foundry OSD povezuje s internetskim uslugama.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3469,13 +3469,13 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Konfiguracija mreže nije spremna.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nije odabran cilj USB.</value>
+    <value>Nije odabran nijedan USB pogon.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Potrebne medijske tajne nisu spremne.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Odabrani cilj USB je premali. Koristite tipku USB od najmanje 16 GB.</value>
+    <value>Odabrani USB pogon je premalen. Koristite USB pogon od najmanje 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Odabrani raspored tipkovnice za WinPE nije instaliran na ovom računalu.</value>
@@ -3517,7 +3517,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Formatiraj i stvori USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatiraj cilj USB</value>
+    <value>Formatiraj USB pogon</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ne može pročitati volumene na ovom disku. Na njemu i dalje mogu biti podaci.</value>
@@ -3532,7 +3532,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Volumeni na ovom disku:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Sve na ovom disku bit će izgubljeno. Nastavite samo ako je ovo željeni USB disk.</value>
+    <value>Sve na ovom disku bit će izgubljeno. Nastavite samo ako je ovo željeni USB pogon.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Stvori USB</value>
@@ -3595,10 +3595,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Za početak u nastavku odaberite izlaz ISO ili USB.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Puni format</value>
+    <value>Potpuno formatiranje</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Brzi format</value>
+    <value>Brzo formatiranje</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Odaberite gdje će biti zapisan generirani Foundry ISO.</value>
@@ -3972,7 +3972,7 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Ažuriraj USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB mete se mogu osvježiti nakon završetka ADK spremnosti.</value>
+    <value>USB pogoni mogu se osvježiti nakon dovršetka provjera spremnosti ADK-a.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB diskovi pronađeni: {0}</value>
@@ -3981,22 +3981,22 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Skeniranje USB ciljeva.</value>
+    <value>Traženje USB pogona…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nije pronađen nijedan USB pogon.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB ciljno osvježavanje nije uspjelo.</value>
+    <value>Osvježavanje USB pogona nije uspjelo.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Ponašanje formata korišteno prije kopiranja konačnog USB medija.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Shema dijeljenja koja se koristi prilikom pripreme odabranog USB cilja.</value>
+    <value>Shema particija koja se koristi pri pripremi odabranog USB pogona.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB meta</value>
+    <value>Ciljni USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Jezik koji koristi okruženje za pokretanje WinPE.</value>
@@ -4023,7 +4023,7 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Start</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Otvoriti</value>
+    <value>Otvori</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Otvorite Windows postavke boja za promjenu boje naglaska.</value>
@@ -4044,13 +4044,13 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Tema aplikacije</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>tamno</value>
+    <value>Tamno</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
-    <value>sustav</value>
+    <value>Sustav</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Svjetlo</value>
+    <value>Svijetlo</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Odaberite materijal pozadine koji se koristi iza aplikacije.</value>
@@ -4302,7 +4302,7 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Vrsta sigurnosti</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Otvoriti</value>
+    <value>Otvoreno</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (oportunistička bežična enkripcija)</value>
@@ -4314,7 +4314,7 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Pružanje Wi-Fi podrške u slici za pokretanje</value>
+    <value>Omogući dodjelu resursa za Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurirajte dodjelu resursa za Wi-Fi, ugrađene profile i roaming profila sustava Windows.</value>

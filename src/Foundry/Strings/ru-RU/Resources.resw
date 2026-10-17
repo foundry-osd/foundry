@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>О</value>
+    <value>О программе</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Создан и поддерживается Микаэлем ШАВЕ.</value>
@@ -25,7 +25,7 @@
     <value>Не удалось загрузить участников с GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Загрузка участников...</value>
+    <value>Загрузка участников…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Авторы</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD — это современное приложение для создания носителей развертывания Windows на базе WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Авторские права (c) 2026 Mickaël CHAVE и участники Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE и участники Foundry Project.
 Лицензировано по лицензии MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@
     <value>Примечания к выпуску не удалось загрузить во встроенный браузер.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Загрузка примечаний к выпуску...</value>
+    <value>Загрузка примечаний к выпуску…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Примечания к выпуску</value>
@@ -77,13 +77,13 @@
     <value>Поддержка</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Лицензии сторонних пакетов отслеживаются через репозиторий проекта и манифесты зависимостей.</value>
+    <value>Foundry OSD использует следующие библиотеки и инструменты. Их лицензии и страницы проектов перечислены ниже.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Сторонние зависимости</value>
+    <value>Лицензии сторонних компонентов</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>О Foundry OSD</value>
+    <value>О программе Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Полезные ссылки</value>
@@ -242,19 +242,19 @@
     <value>Обновите Windows ADK и дополнение Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Удалить компоненты ИИ</value>
+    <value>Включить настройку компонентов ИИ</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Удалите или отключите выбранные компоненты AI Windows до OOBE.</value>
+    <value>Выберите компоненты и функции ИИ Windows, которые нужно удалить или отключить.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Удаление компонентов ИИ</value>
+    <value>Компоненты ИИ</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Удалить подготовленные приложения Windows</value>
+    <value>Включить удаление пакетов AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Удалите выбранные подготовленные приложения Windows до OOBE.</value>
+    <value>Выберите подготовленные приложения Windows, которые нужно удалить с развертываемых устройств.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Удаление пакетов AppX</value>
@@ -299,10 +299,10 @@
     <value>Источник</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Скачать с арендатора</value>
+    <value>Скачать из клиента</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Арендатор не вернул ни одного профиля Autopilot.</value>
+    <value>Клиент не вернул ни одного профиля Autopilot.</value>
   </data>
   <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
     <value>Не удалось скачать профили Autopilot с арендатора.</value>
@@ -317,7 +317,7 @@
     <value>Профили Autopilot не найдены</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Загрузка профилей Autopilot...</value>
+    <value>Загрузка профилей Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} настроен.</value>
@@ -335,7 +335,7 @@
     <value>Выберите PFX, соответствующий сертификату регистрации приложения.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Защищенный паролем PFX копируется на загрузочный носитель для загрузки аппаратного хеша.</value>
+    <value>Защищенный паролем PFX копируется на загрузочный носитель для отправки аппаратного хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Выбранный файл PFX больше не существует.</value>
@@ -359,7 +359,7 @@
     <value>PFX-файл</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Выберите сертификат Autopilot PFX.</value>
+    <value>Выберите PFX сертификата Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>Выбранный PFX не содержит материала закрытого ключа.</value>
@@ -389,7 +389,7 @@
     <value>Скопировать пароль</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Сохраните этот PFX-файл и пароль в безопасном месте. Foundry сохраняет пароль вместе с конфигурацией на этом компьютере только в том случае, если в разделе «Резервное копирование и синхронизация настроек» включён параметр «Запомнить пароли». Оба значения потребуются вам для создания загрузочного носителя для загрузки аппаратного хеша.</value>
+    <value>Сохраните этот PFX-файл и пароль в безопасном месте. Foundry сохраняет пароль вместе с конфигурацией на этом компьютере только в том случае, если в разделе «Резервное копирование и синхронизация настроек» включён параметр «Запомнить пароли». Оба значения потребуются вам для создания загрузочного носителя для отправки аппаратного хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Пароль скопирован.</value>
@@ -410,7 +410,7 @@
     <value>Идентификатор сертификата</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>Сертификат ПФХ</value>
+    <value>Сертификат PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
     <value>Foundry не удалось удалить выбранный сертификат регистрации приложения.</value>
@@ -419,10 +419,10 @@
     <value>Удаление сертификата не удалось</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Сохранить Autopilot сертификат PFX</value>
+    <value>Сохранить PFX сертификата Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Отпечаток пальца</value>
+    <value>Отпечаток</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
     <value>Действителен 12 месяцев</value>
@@ -440,10 +440,10 @@
     <value>Никакие сертификаты не предоставляются.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Подключить арендатора</value>
+    <value>Подключить клиент</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Подключение арендатора...</value>
+    <value>Подключение к клиенту…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Создать сертификат</value>
@@ -455,16 +455,16 @@
     <value>Тег группы по умолчанию не выбран.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Отключить арендатора</value>
+    <value>Отключить клиент</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Дополнительный групповой тег, предварительно выбранный в Foundry Deploy во время загрузки аппаратного хеша.</value>
+    <value>Дополнительный групповой тег, предварительно выбранный в Foundry Deploy во время отправки аппаратного хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Тег группы по умолчанию</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Zero-touch отправка аппаратного хеша</value>
+    <value>Zero-touch отправка аппаратного хэша</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
     <value>Foundry не удалось настроить регистрацию приложения Autopilot.</value>
@@ -473,10 +473,10 @@
     <value>Регистрация клиента не удалась</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>Срок действия выбранного сертификата истек. Создайте новый сертификат, сохраните его PFX и пароль, затем выберите его в качестве загрузочного носителя.</value>
+    <value>Срок действия выбранного сертификата истек. Создайте новый сертификат, сохраните его PFX и пароль, затем выберите его для загрузочного носителя.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
-    <value>Ранее выбранный сертификат больше не существует в регистрации управляемого приложения. Выберите действительный PFX, соответствующий предоставленному сертификату.</value>
+    <value>Ранее выбранный сертификат больше не существует в регистрации управляемого приложения. Выберите действительный PFX, соответствующий подготовленному сертификату.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
     <value>Обнаружена существующая регистрация приложения с именем Foundry. Подключитесь повторно, чтобы включить его в конфигурацию Foundry.</value>
@@ -488,7 +488,7 @@
     <value>У управляемого субъекта-службы отсутствует согласие администратора на необходимое разрешение Microsoft Graph. Предоставьте согласие администратора и повторно подключитесь.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Регистрация управляемого приложения не готова. Проверьте готовность арендатора и повторно подключитесь.</value>
+    <value>Регистрация управляемого приложения не готова. Проверьте готовность клиента и повторно подключитесь.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>При регистрации управляемого приложения отсутствует необходимое разрешение приложения Microsoft Graph. Повторно подключитесь к учетной записи, которая может обновлять регистрации приложений.</value>
@@ -497,7 +497,7 @@
     <value>Управляемый субъект-служба отсутствует или отключен. Повторно подключитесь к учетной записи, которая может создавать корпоративные приложения или управлять ими.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Регистрация арендаторов требует внимания</value>
+    <value>Регистрация клиента требует внимания</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Статус</value>
@@ -542,16 +542,16 @@
     <value>Подключено</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Завершите вход в браузер, чтобы настроить загрузку аппаратного хеша Autopilot.</value>
+    <value>Завершите вход в браузере, чтобы настроить отправку аппаратного хэша Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
     <value>Войдите в Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
-    <value>Идентификатор клиента</value>
+    <value>Идентификатор приложения (клиента)</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>Идентификатор арендатора</value>
+    <value>Идентификатор клиента</value>
   </data>
   <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
     <value>Проверьте подключение к сети и убедитесь, что у вашей учётной записи есть права на управление регистрациями приложений в арендаторе, затем повторите попытку. Подробности см. в журнале.</value>
@@ -560,10 +560,10 @@
     <value>Не подключено</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Информация о клиенте, регистрации приложения и готовности к загрузке хэша оборудования.</value>
+    <value>Информация о клиенте, регистрации приложения и готовности к отправке аппаратного хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Готовность арендатора</value>
+    <value>Готовность клиента</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Имя</value>
@@ -572,10 +572,10 @@
     <value>Значение</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Подключитесь к Microsoft Graph для этого сеанса приложения, чтобы управлять настройками загрузки хеша.</value>
+    <value>Подключитесь к Microsoft Graph для этого сеанса приложения, чтобы управлять настройками отправки хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Подключение арендатора</value>
+    <value>Подключение к клиенту</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Импортировать профиль</value>
@@ -593,13 +593,13 @@
     <value>Импортировать профиль Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Импорт профиля Autopilot...</value>
+    <value>Импорт профиля Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>При включении технический специалист входит в систему с кодом устройства Microsoft во время установки Windows и отправляет аппаратный хеш устройства.</value>
+    <value>При включении технический специалист входит в систему с кодом устройства Microsoft во время установки Windows и отправляет аппаратный хэш устройства.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
-    <value>Интерактивная отправка аппаратного хеша</value>
+    <value>Интерактивная отправка аппаратного хэша</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON подготовка профиля</value>
@@ -659,7 +659,7 @@
     <value>Очистить</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Выберите, какие профили арендаторов следует импортировать в Foundry.</value>
+    <value>Выберите, какие профили клиента следует импортировать в Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Импорт</value>
@@ -674,22 +674,22 @@
     <value>Выберите профили Autopilot</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Позволяет техническому специалисту отправить аппаратный хеш устройства во время развертывания.</value>
+    <value>Позволяет техническому специалисту отправить аппаратный хэш устройства во время развертывания.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>Интерактивная отправка аппаратного хеша</value>
+    <value>Интерактивная отправка аппаратного хэша</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Создайте автономный профиль Autopilot в примененном изображении Windows.</value>
+    <value>Импортируйте или скачайте профиль Autopilot, встраиваемый в носитель развертывания.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON подготовка профиля</value>
+    <value>Профиль JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Настройте автоматическую отправку аппаратного хеша с поддержкой арендатора.</value>
+    <value>Настройте автоматическую отправку аппаратного хэша, привязанную к клиенту.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>Zero-touch отправка аппаратного хеша</value>
+    <value>Zero-touch отправка аппаратного хэша</value>
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry не удалось открыть форму сообщения об ошибке. Скопируйте эту ссылку и откройте ее в браузере.</value>
@@ -965,10 +965,10 @@
     <value>Выбранные пакеты: {0} из {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Назначьте устройству Windows Autopilot итоговое имя компьютера, подтвержденное в Foundry Deploy, во время отправки аппаратного хеша.</value>
+    <value>Назначьте устройству Windows Autopilot итоговое имя компьютера, подтвержденное в Foundry Deploy, во время отправки аппаратного хэша.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Включите именование компьютеров и zero-touch или интерактивную отправку аппаратного хеша, чтобы назначить итоговое имя развертывания в Autopilot.</value>
+    <value>Включите именование компьютеров и zero-touch или интерактивную отправку аппаратного хэша, чтобы назначить итоговое имя развертывания в Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Добавить компонент</value>
@@ -1223,7 +1223,7 @@
     <value>Позволяет Windows использовать диагностические данные для персонализированных советов, рекламы и рекомендаций.</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
-    <value>Индивидуальный опыт</value>
+    <value>Персонализированные возможности</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
     <value>Выберите выпуски, предлагаемые во время развертывания. Оставьте поле пустым, чтобы предлагать все поддерживаемые выпуски Windows.</value>
@@ -1847,7 +1847,7 @@
     <value>Поиск по отображаемому имени или названию функции DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Экспорт...</value>
+    <value>Экспорт…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Создать очищенный архив поддержки без изменения исходных журналов.</value>
@@ -1865,7 +1865,7 @@
     <value>Не удалось экспортировать диагностику</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Дополнительно: экспорт необработанных журналов...</value>
+    <value>Дополнительно: экспорт необработанных журналов…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Экспортировать необработанные журналы</value>
@@ -1928,7 +1928,7 @@
     <value>Да</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Поиск OU в домене...</value>
+    <value>Поиск OU в домене…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Поиск отменен.</value>
@@ -2108,10 +2108,10 @@
     <value>Выберите сертификат 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Настройка проводного 802.1X</value>
+    <value>Включить настройку Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Стандартное подключение Ethernet доступно по умолчанию. Настройте этот раздел только в том случае, если ваша проводная сеть требует корпоративной аутентификации 802.1X.</value>
+    <value>Настройте проводную аутентификацию 802.1X и перенос профилей Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2249,7 +2249,7 @@
     <value>Требуется ADK</value>
   </data>
   <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
-    <value>Настраиваемые</value>
+    <value>Пользовательские</value>
   </data>
   <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
     <value>Нет</value>
@@ -2291,7 +2291,7 @@
     <value>Датский (Дания)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Голландский (Нидерланды)</value>
+    <value>Нидерландский (Нидерланды)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Английский (Великобритания)</value>
@@ -2339,7 +2339,7 @@
     <value>Литовский (Литва)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Норвежский букмал (Норвегия)</value>
+    <value>Норвежский букмол (Норвегия)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Польский (Польша)</value>
@@ -2357,7 +2357,7 @@
     <value>Русский (Россия)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Сербская латынь (Сербия)</value>
+    <value>Сербский, латиница (Сербия)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Словацкий (Словакия)</value>
@@ -2378,7 +2378,7 @@
     <value>Тайский (Таиланд)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Турецкий (Türkiye)</value>
+    <value>Турецкий (Турция)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Украинский (Украина)</value>
@@ -2402,13 +2402,13 @@
     <value>Переместить компонент вверх</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Включить правила именования компьютеров</value>
+    <value>Включить настройку именования компьютеров</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Настройте автоматическое и выполняемое техником именование устройств.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Имя компьютера</value>
+    <value>Именование компьютеров</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Предварительный просмотр</value>
@@ -2420,7 +2420,7 @@
     <value>Информация о продукте и версии.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>О</value>
+    <value>О программе</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK готовность и установка.</value>
@@ -2429,19 +2429,19 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Удалите или отключите выбранные компоненты AI Windows до OOBE.</value>
+    <value>Удалите или отключите компоненты ИИ Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>Компоненты ИИ</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Удалите выбранные подготовленные приложения Windows до OOBE.</value>
+    <value>Выберите подготовленные приложения для удаления.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Удаление пакетов AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Интерактивная отправка аппаратных хешей во время развертывания.</value>
+    <value>Интерактивная отправка аппаратных хэшей во время развертывания.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Интерактивно</value>
@@ -2453,7 +2453,7 @@
     <value>Профиль JSON</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Отправляйте аппаратные хеши через Microsoft Graph.</value>
+    <value>Отправляйте аппаратные хэши через Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -2477,7 +2477,7 @@
     <value>Присоединение к домену</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Стандартное подключение Ethernet доступно по умолчанию. Настройте этот раздел только в том случае, если ваша проводная сеть требует корпоративной аутентификации 802.1X.</value>
+    <value>Настройте проводную аутентификацию 802.1X.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2507,25 +2507,25 @@
     <value>Настройте имена развернутых устройств.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Имя компьютера</value>
+    <value>Именование компьютеров</value>
   </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Сеть</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Настройте Windows 11 экранов первого запуска и настройки конфиденциальности по умолчанию.</value>
+    <value>Настройте экраны первого запуска Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Включите или отключите компоненты Windows в развернутой операционной системе.</value>
+    <value>Включите или отключите дополнительные компоненты Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Дополнительные компоненты</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Укажите версии Windows, уровни обновления, языки и выпуски, предлагаемые во время развертывания.</value>
+    <value>Ограничьте варианты операционных систем, доступные при развертывании.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Выбор ОС</value>
@@ -2561,7 +2561,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Присоединять к домену автоматически с использованием учетных данных, защищенных паролем развертывания.</value>
@@ -2669,31 +2669,31 @@
     <value>Перенос профилей Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Настроить OOBE</value>
+    <value>Включить настройку OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Настройте Windows 11 экранов первого запуска и настройки конфиденциальности по умолчанию.</value>
+    <value>Настройте параметры конфиденциальности и установки для экранов первого запуска Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Настройка дополнительных функций Windows</value>
+    <value>Включить настройку дополнительных компонентов</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Включите или отключите компоненты Windows в развернутой операционной системе.</value>
+    <value>Выберите дополнительные компоненты Windows, которые нужно включить или отключить.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Дополнительные функции Windows</value>
+    <value>Дополнительные компоненты</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Параметры развертывания Windows</value>
+    <value>Включить настройку выбора операционной системы</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Укажите версии Windows, уровни обновления, языки и выпуски, предлагаемые во время развертывания.</value>
+    <value>Настройте разрешенные версии операционной системы, языки, каналы и редакции.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Параметры развертывания Windows</value>
+    <value>Выбор ОС</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Добавьте включённое действие или отключите настройку после установки.</value>
@@ -2789,7 +2789,7 @@
     <value>Импортировать папку</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Импорт содержимого...</value>
+    <value>Импорт содержимого…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Это действие недопустимо. Проверьте его конфигурацию.</value>
@@ -2819,7 +2819,7 @@
     <value>Введите папку из импортированного содержимого или оставьте поле пустым.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Загрузка содержимого...</value>
+    <value>Загрузка содержимого…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Импортируйте недостающее содержимое для «{0}».</value>
@@ -3193,28 +3193,28 @@
     <value>Foundry OSD не удалось подключиться к службам GitHub и Microsoft с этими параметрами. Проверьте адрес и порт прокси-сервера, а также подключение к сети. Подробности см. в журнале.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Сбой подключения</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Проверьте параметры прокси-сервера</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Новые подключения Foundry OSD теперь используют эти параметры.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Параметры прокси-сервера применены</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD подключился к службам GitHub и Microsoft с выбранными параметрами.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Подключение установлено</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Введите адрес прокси-сервера.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Введите имя пользователя и пароль для явной аутентификации на прокси-сервере.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Введите допустимый адрес прокси-сервера HTTP или HTTPS, например proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Применить</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Использовать текущие учетные данные Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Выберите способ аутентификации Foundry OSD на прокси-сервере.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Аутентификация</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Имя пользователя и пароль</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Без аутентификации</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Необязательные имена узлов или шаблоны с подстановочными знаками, разделенные точкой с запятой.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Список исключений</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Подключаться напрямую к именам узлов, не содержащим точку.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Не использовать прокси-сервер для локальных адресов</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Учетные данные надежно хранятся в диспетчере учетных данных Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Учетные данные прокси-сервера</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Домен (необязательно)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Введите адрес и порт прокси-сервера.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Прокси-сервер</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Выберите способ подключения Foundry OSD к Интернету.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Способ использования прокси-сервера</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Без прокси-сервера (прямое подключение)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Настройка прокси-сервера вручную</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Использовать параметры Windows (рекомендуется)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Пароль</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Порт</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Эти параметры применяются только к этому приложению. Они не добавляются на носитель развертывания и не влияют на Foundry Connect и Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Только Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Проверить подключение</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Имя пользователя</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Настройки</value>
@@ -3322,10 +3322,10 @@
     <value>Резервное копирование и синхронизация настроек</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Настройте способ подключения Foundry OSD к веб-службам.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Прокси-сервер</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
     <value>Отправлять в PostHog журналы всех уровней и технический контекст с маскированием секретов аутентификации, а также отдельные отчёты об исключениях. Журналы автоматически удаляются через 7 дней.</value>
@@ -3334,7 +3334,7 @@
     <value>Включить удалённую диагностику</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Отправляйте анонимные телеметрические данные об использовании, чтобы помочь улучшить Foundry. Секреты и прямые идентификаторы устройства, включая серийные номера и хеши оборудования, исключаются. Телеметрия использует анонимный идентификатор установки и может включать производителя и модель устройства.</value>
+    <value>Отправляйте анонимные телеметрические данные об использовании, чтобы помочь улучшить Foundry. Секреты и прямые идентификаторы устройства, включая серийные номера и аппаратные хэши, исключаются. Телеметрия использует анонимный идентификатор установки и может включать производителя и модель устройства.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Включить телеметрию</value>
@@ -3370,58 +3370,58 @@
     <value>Архитектура и подпись</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Включено: zero-touch отправка аппаратного хеша</value>
+    <value>Включено: zero-touch отправка аппаратного хэша</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Включено: интерактивная отправка аппаратного хеша</value>
+    <value>Включено: интерактивная отправка аппаратного хэша</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
     <value>Включено: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Загрузка хэша оборудования включена, но срок действия выбранного сертификата отсутствует.</value>
+    <value>Отправка аппаратного хэша включена, но не указан срок действия выбранного сертификата.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Загрузка хэша оборудования включена, но срок действия выбранного сертификата истек. Прежде чем создавать загрузочный носитель, выберите действительный сертификат.</value>
+    <value>Отправка аппаратного хэша включена, но срок действия выбранного сертификата истек. Прежде чем создавать загрузочный носитель, выберите действительный сертификат.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но выбранный PFX не соответствует сертификату регистрации приложения.</value>
+    <value>Отправка аппаратного хэша включена, но выбранный PFX не соответствует сертификату регистрации приложения.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Загрузка хэша оборудования включена, но отпечаток выбранного сертификата отсутствует.</value>
+    <value>Отправка аппаратного хэша включена, но отпечаток выбранного сертификата отсутствует.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но регистрация приложения не настроена. Подключитесь к арендатору от Autopilot.</value>
+    <value>Отправка аппаратного хэша включена, но регистрация приложения не настроена. Подключитесь к клиенту из Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но срок действия PFX загрузочного носителя не может быть проверен.</value>
+    <value>Отправка аппаратного хэша включена, но срок действия PFX загрузочного носителя не может быть проверен.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но срок действия PFX выбранного загрузочного носителя истек.</value>
+    <value>Отправка аппаратного хэша включена, но срок действия выбранного PFX загрузочного носителя истек.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но PFX загрузочного носителя не проверен.</value>
+    <value>Отправка аппаратного хэша включена, но PFX загрузочного носителя не проверен.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но выбранный PFX не соответствует активному сертификату.</value>
+    <value>Отправка аппаратного хэша включена, но выбранный PFX не соответствует активному сертификату.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но загрузочный носитель PFX не выбран.</value>
+    <value>Отправка аппаратного хэша включена, но PFX загрузочного носителя не выбран.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но пароль PFX загрузочного носителя отсутствует.</value>
+    <value>Отправка аппаратного хэша включена, но пароль PFX загрузочного носителя отсутствует.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но идентификатор клиента приложения отсутствует. Повторно подключитесь к арендатору из Autopilot.</value>
+    <value>Отправка аппаратного хэша включена, но идентификатор приложения (клиента) отсутствует. Повторно подключитесь к клиенту из Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хэша включена, но субъект службы приложения отсутствует или не готов.</value>
+    <value>Отправка аппаратного хэша включена, но субъект службы приложения отсутствует или не готов.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Аппаратная загрузка хеша включена, но настройки отсутствуют.</value>
+    <value>Отправка аппаратного хэша включена, но настройки отсутствуют.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Загрузка аппаратного хеша включена, но подключение клиента отсутствует. Подключитесь к арендатору от Autopilot.</value>
+    <value>Отправка аппаратного хэша включена, но подключение к клиенту отсутствует. Подключитесь к клиенту из Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Режим профиля Autopilot JSON включен, но действительный профиль по умолчанию не выбран.</value>
@@ -3469,13 +3469,13 @@
     <value>Конфигурация сети не готова.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Цель USB не выбрана.</value>
+    <value>USB-накопитель не выбран.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Требуемые медиа-секреты не готовы.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Выбранная цель USB слишком мала. Используйте ключ USB размером не менее 16 GB.</value>
+    <value>Выбранный USB-накопитель слишком мал. Используйте USB-накопитель объемом не менее 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Выбранная раскладка клавиатуры WinPE не установлена на этом компьютере.</value>
@@ -3517,7 +3517,7 @@
     <value>Отформатируйте и создайте USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Формат цели USB</value>
+    <value>Форматировать USB-накопитель</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows не может прочитать тома на этом диске. На нём всё ещё могут быть данные.</value>
@@ -3532,7 +3532,7 @@
     <value>Тома на этом диске:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Всё на этом диске будет потеряно. Продолжайте, только если это предполагаемый диск USB.</value>
+    <value>Все данные на этом диске будут потеряны. Продолжайте, только если это нужный USB-накопитель.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Создать USB</value>
@@ -3595,7 +3595,7 @@
     <value>Чтобы начать, выберите ниже вывод ISO или USB.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Полный формат</value>
+    <value>Полное форматирование</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Быстрое форматирование</value>
@@ -3972,7 +3972,7 @@
     <value>Обновить USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Цели USB могут быть обновлены после завершения готовности ADK.</value>
+    <value>Список USB-накопителей можно обновить после завершения проверок готовности ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB найдены диски: {0}</value>
@@ -3981,22 +3981,22 @@
     <value>Диск {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Сканирование целей USB.</value>
+    <value>Поиск USB-накопителей…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Диски USB не найдены.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB целевое обновление не удалось.</value>
+    <value>Не удалось обновить список USB-накопителей.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Поведение формата, используемое перед копированием окончательного носителя USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Схема разделов, используемая при подготовке выбранной цели USB.</value>
+    <value>Схема разделов, используемая при подготовке выбранного USB-накопителя.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB цель</value>
+    <value>Целевой USB-накопитель</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Язык, используемый средой загрузки WinPE.</value>
@@ -4047,10 +4047,10 @@
     <value>Темный</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
-    <value>Система</value>
+    <value>Системный</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Свет</value>
+    <value>Светлый</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Выберите материал фона, используемый в приложении.</value>
@@ -4302,7 +4302,7 @@
     <value>Тип безопасности</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Открыть</value>
+    <value>Открытая</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (оппортунистическое беспроводное шифрование)</value>
@@ -4314,7 +4314,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Обеспечить поддержку Wi-Fi в загрузочном образе.</value>
+    <value>Включить подготовку Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Настройте подготовку Wi-Fi, встроенные профили и перемещение профилей Windows.</value>

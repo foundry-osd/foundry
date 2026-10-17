@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>בערך</value>
+    <value>אודות</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>נוצר ומתוחזק על ידי Mickaël CHAVE.</value>
@@ -25,7 +25,7 @@
     <value>לא ניתן היה לטעון תורמים מ-GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>טוען תורמים...</value>
+    <value>טוען תורמים…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>תורמים</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD היא אפליקציה מודרנית ליצירת מדיה לפריסה Windows המופעלת על ידי WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>זכויות יוצרים (c) 2026 Mickaël CHAVE והתורמים ל־Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE והתורמים ל־Foundry Project.
 מורשה תחת רישיון MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@
     <value>לא ניתן היה לטעון הערות גרסה בדפדפן המוטמע.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>טוען הערות שחרור...</value>
+    <value>טוען הערות שחרור…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>הערות שחרור</value>
@@ -77,13 +77,13 @@
     <value>תמיכה</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>מעקב אחר רישיונות חבילות של צד שלישי מתבצע דרך מאגר הפרויקט ומניפסטי התלות.</value>
+    <value>Foundry OSD משתמשת בספריות ובכלים הבאים. הרישיונות ודפי הפרויקט שלהם מפורטים להלן.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>תלות של צד שלישי</value>
+    <value>רישיונות של צד שלישי</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>על Foundry OSD</value>
+    <value>אודות Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>קישורים שימושיים</value>
@@ -242,19 +242,19 @@
     <value>שדרג את התוסף Windows ADK ו-Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>הסר רכיבי AI</value>
+    <value>הפעלת תצורת רכיבי AI</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>הסר או השבת את רכיבי בינה מלאכותית Windows שנבחרו לפני OOBE.</value>
+    <value>בחר רכיבי AI וחוויות AI של Windows להסרה או להשבתה.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>הסרת רכיבי AI</value>
+    <value>רכיבי AI</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>הסר אפליקציות Windows שהוגדרו</value>
+    <value>הפעלת הסרת יישומי AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>הסר יישומי Windows שנבחרו לפני OOBE.</value>
+    <value>בחר יישומי Windows שהוקצו להסרה מהמכשירים שנפרסו.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>הסרת יישומי AppX</value>
@@ -302,7 +302,7 @@
     <value>הורד מהדייר</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>לא הוחזרו פרופילים של Autopilot על ידי השוכר.</value>
+    <value>לא הוחזרו פרופילים של Autopilot על ידי הדייר.</value>
   </data>
   <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
     <value>לא ניתן היה להוריד את פרופילי Autopilot מהדייר.</value>
@@ -317,7 +317,7 @@
     <value>לא נמצאו פרופילים של Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>מוריד פרופילים של Autopilot...</value>
+    <value>מוריד פרופילים של Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} מוגדר.</value>
@@ -335,7 +335,7 @@
     <value>בחר PFX התואם אישור רישום אפליקציה.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>PFX מוגן בסיסמה הועתק למדיית האתחול להעלאת גיבוב חומרה.</value>
+    <value>PFX מוגן בסיסמה המועתק למדיית האתחול להעלאת גיבוב חומרה.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>קובץ ה-PFX שנבחר כבר לא קיים.</value>
@@ -359,7 +359,7 @@
     <value>קובץ PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>בחר Autopilot אישור PFX</value>
+    <value>בחר PFX של אישור Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>ה-PFX שנבחר אינו מכיל חומר מפתח פרטי.</value>
@@ -410,7 +410,7 @@
     <value>מזהה תעודה</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>תעודת PFX</value>
+    <value>אישור PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
     <value>Foundry לא הצליח להסיר את האישור שנבחר של רישום האפליקציה.</value>
@@ -419,7 +419,7 @@
     <value>הסרת האישור נכשלה</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>שמור Autopilot אישור PFX</value>
+    <value>שמור PFX של אישור Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>טביעת אצבע</value>
@@ -443,7 +443,7 @@
     <value>חבר דייר</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>מחבר דייר...</value>
+    <value>מחבר דייר…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>צור תעודה</value>
@@ -455,22 +455,22 @@
     <value>לא נבחר תג ברירת מחדל לקבוצה.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>ניתוק דייר</value>
+    <value>נתק דייר</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>תג קבוצתי אופציונלי שנבחר מראש ב-Foundry Deploy במהלך העלאת hash של חומרה.</value>
+    <value>תג קבוצתי אופציונלי שנבחר מראש ב-Foundry Deploy במהלך העלאת גיבוב חומרה.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>תג ברירת מחדל לקבוצה</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>העלאת zero-touch של hash חומרה</value>
+    <value>העלאת גיבוב חומרה ב-zero-touch</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
     <value>Foundry לא הצליח להגדיר את רישום האפליקציה של Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>הכניסה לדייר נכשלה</value>
+    <value>קליטת הדייר נכשלה</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>פג תוקף האישור שנבחר. צור אישור חדש, שמור את ה-PFX והסיסמה שלו, ולאחר מכן בחר אותו עבור מדיית האתחול.</value>
@@ -485,19 +485,19 @@
     <value>לא ניתן למצוא את רישום האפליקציה המנוהלת. התחבר מחדש כדי לאפשר ל-Foundry ליצור או לאמץ אותו.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>למנהל השירות המנוהל חסרה הסכמה של מנהל המערכת להרשאת Microsoft Graph הנדרשת. הענק הסכמת מנהל המערכת והתחבר מחדש.</value>
+    <value>ל-service principal המנוהל חסרה הסכמה של מנהל המערכת להרשאת Microsoft Graph הנדרשת. הענק הסכמת מנהל המערכת והתחבר מחדש.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>רישום האפליקציה המנוהלת אינו מוכן. בדקו את מוכנות הדיירים והתחברו מחדש.</value>
+    <value>רישום האפליקציה המנוהלת אינו מוכן. בדוק את מוכנות הדייר והתחבר מחדש.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>ברישום האפליקציה המנוהלת חסרה הרשאת האפליקציה הנדרשת Microsoft Graph. התחבר מחדש לחשבון שיכול לעדכן רישומי אפליקציות.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>מנהל השירות המנוהל חסר או מושבת. התחבר מחדש לחשבון שיכול ליצור או לנהל יישומים ארגוניים.</value>
+    <value>ה-service principal המנוהל חסר או מושבת. התחבר מחדש לחשבון שיכול ליצור או לנהל יישומים ארגוניים.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>הכנסת דיירים למטוס דורשת תשומת לב</value>
+    <value>קליטת הדייר דורשת תשומת לב</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>סטטוס</value>
@@ -542,7 +542,7 @@
     <value>מחובר</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>השלם את הכניסה בדפדפן כדי להגדיר את Autopilot העלאת hash של החומרה.</value>
+    <value>השלם את הכניסה בדפדפן כדי להגדיר העלאת גיבוב חומרה של Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
     <value>היכנס אל Microsoft Graph</value>
@@ -551,7 +551,7 @@
     <value>מזהה לקוח</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>זיהוי דייר</value>
+    <value>מזהה דייר</value>
   </data>
   <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
     <value>בדוק את החיבור לרשת וודא שהחשבון שלך יכול לנהל רישומי אפליקציות בדייר, ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
@@ -563,7 +563,7 @@
     <value>מידע על דייר, רישום אפליקציה ומוכנות להעלאת גיבוב חומרה.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>מוכנות הדיירים</value>
+    <value>מוכנות הדייר</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>שם</value>
@@ -572,7 +572,7 @@
     <value>ערך</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>התחבר אל Microsoft Graph עבור הפעלת האפליקציה הזו כדי לנהל את הגדרות העלאת ה-hash.</value>
+    <value>התחבר אל Microsoft Graph עבור הפעלת האפליקציה הזו כדי לנהל את הגדרות העלאת הגיבוב.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>חיבור דייר</value>
@@ -593,13 +593,13 @@
     <value>ייבוא פרופיל Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>מייבא פרופיל Autopilot...</value>
+    <value>מייבא פרופיל Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>כשהאפשרות מופעלת, הטכנאי נכנס באמצעות קוד מכשיר של Microsoft במהלך התקנת Windows ומעלה את hash החומרה של המכשיר.</value>
+    <value>כשהאפשרות מופעלת, הטכנאי נכנס באמצעות קוד מכשיר של Microsoft במהלך התקנת Windows ומעלה את גיבוב החומרה של המכשיר.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
-    <value>העלאה אינטראקטיבית של hash חומרה</value>
+    <value>העלאה אינטראקטיבית של גיבוב חומרה</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON הקצאת פרופיל</value>
@@ -656,10 +656,10 @@
     <value>היכנס אל Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>ברור</value>
+    <value>נקה</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>בחר אילו פרופילי דיירים יש לייבא אל Foundry.</value>
+    <value>בחר אילו פרופילי דייר יש לייבא אל Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>ייבוא</value>
@@ -674,22 +674,22 @@
     <value>בחר Autopilot פרופילים</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>מאפשר לטכנאי להעלות את hash החומרה של המכשיר במהלך הפריסה.</value>
+    <value>מאפשר לטכנאי להעלות את גיבוב החומרה של המכשיר במהלך הפריסה.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>העלאה אינטראקטיבית של Hash חומרה</value>
+    <value>העלאה אינטראקטיבית של גיבוב חומרה</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>שלב פרופיל Autopilot לא מקוון בתמונה Windows המוחלת.</value>
+    <value>ייבא או הורד את פרופיל Autopilot המוטמע במדיית הפריסה.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON הקצאת פרופיל</value>
+    <value>פרופיל JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>הגדר העלאה אוטומטית של גיבוב החומרה בגיבוי הדייר.</value>
+    <value>הגדר העלאה אוטומטית של גיבוב החומרה המבוססת על הדייר.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>העלאת Hash חומרה ב-Zero-touch</value>
+    <value>העלאת גיבוב חומרה ב-zero-touch</value>
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry לא הצליח לפתוח את טופס הדיווח על הבאג. העתק את הקישור הזה ופתח אותו בדפדפן שלך.</value>
@@ -965,10 +965,10 @@
     <value>חבילות נבחרות: {0} מתוך {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>הקצה למכשיר Windows Autopilot את שם המחשב הסופי שאושר ב-Foundry Deploy במהלך העלאת hash החומרה.</value>
+    <value>הקצה למכשיר Windows Autopilot את שם המחשב הסופי שאושר ב-Foundry Deploy במהלך העלאת גיבוב החומרה.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>אפשר מתן שמות למחשבים והעלאת hash חומרה במצב zero-touch או במצב אינטראקטיבי כדי להקצות את שם הפריסה הסופי ב-Autopilot.</value>
+    <value>אפשר מתן שמות למחשבים והעלאת גיבוב חומרה במצב zero-touch או במצב אינטראקטיבי כדי להקצות את שם הפריסה הסופי ב-Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>הוסף רכיב</value>
@@ -1847,7 +1847,7 @@
     <value>חפש לפי שם תצוגה או שם תכונה DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>ייצוא...</value>
+    <value>ייצוא…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>צור ארכיון תמיכה מחוטא בלי לשנות את היומנים המקוריים.</value>
@@ -1865,7 +1865,7 @@
     <value>ייצוא האבחון נכשל</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>מתקדם: ייצוא יומנים גולמיים...</value>
+    <value>מתקדם: ייצוא יומנים גולמיים…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>ייצוא יומנים גולמיים</value>
@@ -1928,7 +1928,7 @@
     <value>כן</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>מחפש יחידות OU בתחום...</value>
+    <value>מחפש יחידות OU בתחום…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>החיפוש בוטל.</value>
@@ -2108,10 +2108,10 @@
     <value>בחר אישור 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>קבע תצורה קווית 802.1X</value>
+    <value>הפעלת תצורת Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>קישוריות Ethernet סטנדרטית זמינה כברירת מחדל. הגדר את הסעיף הזה רק אם הרשת הקווית שלך דורשת אימות ארגוני 802.1X.</value>
+    <value>הגדר אימות 802.1X קווי ונדידת פרופילים של Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2285,7 +2285,7 @@
     <value>קרואטית (קרואטיה)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>צ'כיה (צ'כיה)</value>
+    <value>צ'כית (צ'כיה)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>דנית (דנמרק)</value>
@@ -2333,13 +2333,13 @@
     <value>קוריאנית (קוריאה)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>לטביה (לטביה)</value>
+    <value>לטבית (לטביה)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
     <value>ליטאית (ליטא)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>בוקמאל הנורבגי (נורווגיה)</value>
+    <value>נורווגית בוקמול (נורווגיה)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>פולנית (פולין)</value>
@@ -2357,7 +2357,7 @@
     <value>רוסית (רוסיה)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>לטינית סרבית (סרביה)</value>
+    <value>סרבית לטינית (סרביה)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>סלובקית (סלובקיה)</value>
@@ -2372,10 +2372,10 @@
     <value>ספרדית (ספרד)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>שוודית (שבדיה)</value>
+    <value>שוודית (שוודיה)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>תאילנד (תאילנד)</value>
+    <value>תאית (תאילנד)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
     <value>טורקית (טורקיה)</value>
@@ -2402,13 +2402,13 @@
     <value>העבר רכיב למעלה</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>אפשר כללי מתן שמות למכונה</value>
+    <value>הפעלת תצורת מתן שמות למחשבים</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>הגדר מתן שמות למכשירים באופן אוטומטי ובסיוע טכנאי.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>שם המחשב</value>
+    <value>מתן שמות למחשבים</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>תצוגה מקדימה</value>
@@ -2420,7 +2420,7 @@
     <value>מידע על המוצר והגרסה.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>בערך</value>
+    <value>אודות</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK מוכנות והתקנה.</value>
@@ -2429,19 +2429,19 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>הסר או השבת את רכיבי בינה מלאכותית Windows שנבחרו לפני OOBE.</value>
+    <value>הסר או השבת רכיבי AI של Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>רכיבי AI</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>הסר יישומי Windows שנבחרו לפני OOBE.</value>
+    <value>בחר יישומים שהוקצו להסרה.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>הסרת יישומי AppX</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>העלאה אינטראקטיבית של hash חומרה במהלך הפריסה.</value>
+    <value>העלאה אינטראקטיבית של גיבובי חומרה במהלך הפריסה.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>אינטראקטיבי</value>
@@ -2477,7 +2477,7 @@
     <value>הצטרפות לתחום</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>קישוריות Ethernet סטנדרטית זמינה כברירת מחדל. הגדר את הסעיף הזה רק אם הרשת הקווית שלך דורשת אימות ארגוני 802.1X.</value>
+    <value>הגדר אימות 802.1X קווי.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2513,19 +2513,19 @@
     <value>רשת</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>הגדר Windows 11 מסכים בהפעלה ראשונה וברירות מחדל לפרטיות.</value>
+    <value>הגדר את חוויית ההפעלה הראשונה של Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>הפעל או השבת את רכיבי Windows במערכת ההפעלה שנפרסה.</value>
+    <value>הפעל או השבת תכונות אופציונליות של Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>תכונות אופציונליות</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>הגדר את גרסאות Windows, רמות העדכון, השפות והמהדורות שיוצעו במהלך הפריסה.</value>
+    <value>הגבל את אפשרויות מערכת ההפעלה בפריסה.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>בחירת מערכת הפעלה</value>
@@ -2561,7 +2561,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>הצטרף לתחום באופן אוטומטי באמצעות פרטי כניסה המוגנים בסיסמת הפריסה.</value>
@@ -2669,31 +2669,31 @@
     <value>נדידת פרופילי Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>התאמה אישית של OOBE</value>
+    <value>הפעלת תצורת OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>הגדר Windows 11 מסכים בהפעלה ראשונה וברירות מחדל לפרטיות.</value>
+    <value>הגדר אפשרויות פרטיות והתקנה עבור חוויית ההפעלה הראשונה של Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>הגדר תכונות אופציונליות של Windows</value>
+    <value>הפעלת תצורת תכונות אופציונליות</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>הפעל או השבת את רכיבי Windows במערכת ההפעלה שנפרסה.</value>
+    <value>בחר תכונות אופציונליות של Windows להפעלה או להשבתה.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>תכונות אופציונליות של Windows</value>
+    <value>תכונות אופציונליות</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>אפשרויות פריסת Windows</value>
+    <value>הפעלת תצורת בחירת מערכת ההפעלה</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>הגדר את גרסאות Windows, רמות העדכון, השפות והמהדורות שיוצעו במהלך הפריסה.</value>
+    <value>הגדר את גרסאות מערכת ההפעלה, השפות, הערוצים והמהדורות המותרים.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>אפשרויות פריסת Windows</value>
+    <value>בחירת מערכת הפעלה</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>הוסף פעולה מופעלת או השבת את ההגדרות שלאחר ההתקנה.</value>
@@ -2789,7 +2789,7 @@
     <value>ייבא תיקייה</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>מייבא תוכן...</value>
+    <value>מייבא תוכן…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>פעולה זו אינה תקינה. בדוק את התצורה שלה.</value>
@@ -2819,7 +2819,7 @@
     <value>הזן תיקייה מתוך התוכן שיובא, או השאר שדה זה ריק.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>טוען תוכן...</value>
+    <value>טוען תוכן…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>ייבא את התוכן החסר עבור "{0}".</value>
@@ -3193,28 +3193,28 @@
     <value>Foundry OSD לא הצליח להתחבר לשירותי GitHub ו-Microsoft עם הגדרות אלה. בדוק את כתובת ה-Proxy, את היציאה ואת החיבור לרשת. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>החיבור נכשל</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>בדוק את הגדרות ה-Proxy</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>חיבורים חדשים מ-Foundry OSD משתמשים כעת בהגדרות אלה.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>הגדרות ה-Proxy הוחלו</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD התחברה לשירותי GitHub ו-Microsoft באמצעות ההגדרות שנבחרו.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>החיבור הצליח</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>הזן את הכתובת של שרת ה-Proxy.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>הזן שם משתמש וסיסמה לאימות Proxy מפורש.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>הזן כתובת Proxy חוקית מסוג HTTP או HTTPS, לדוגמה proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>החל</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>השתמש באישורי Windows הנוכחיים</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>בחר כיצד שרת ה-Proxy יאמת את Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>אימות</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>שם משתמש וסיסמה</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>ללא אימות</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>שמות מארחים או תבניות עם תווים כלליים (אופציונלי), מופרדים בנקודה ופסיק.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>רשימת עקיפה</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>התחבר ישירות לשמות מארחים שאינם מכילים נקודה.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>עקיפת כתובות מקומיות</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>האישורים מאוחסנים באופן מאובטח במנהל האישורים של Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>אישורי Proxy</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>תחום (אופציונלי)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>הזן את הכתובת והיציאה של שרת ה-Proxy.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>שרת Proxy</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>בחר כיצד Foundry OSD מתחברת לאינטרנט.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>שיטת Proxy</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>ללא Proxy (חיבור ישיר)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Proxy ידני</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>השתמש בהגדרות Windows (מומלץ)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>סיסמה</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>יציאה</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>הגדרות אלה חלות רק על אפליקציה זו. הן אינן מתווספות למדיית הפריסה ואינן משפיעות על Foundry Connect או על Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Foundry OSD בלבד</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>בדוק את החיבור</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>שם משתמש</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>הגדרות</value>
@@ -3322,7 +3322,7 @@
     <value>גיבוי וסנכרון הגדרות</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>הגדר כיצד Foundry OSD מתחברת לשירותים מקוונים.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3370,58 +3370,58 @@
     <value>אדריכלות וחתימה</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>מופעל: העלאת zero-touch של hash חומרה</value>
+    <value>מופעל: העלאת גיבוב חומרה ב-zero-touch</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
-    <value>מופעל: העלאה אינטראקטיבית של hash חומרה</value>
+    <value>מופעל: העלאה אינטראקטיבית של גיבוב חומרה</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
     <value>מופעל: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך תפוגת האישור שנבחר חסרה.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך תאריך התפוגה של האישור שנבחר חסר.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך פג תוקף האישור שנבחר. בחר אישור חוקי לפני יצירת מדיה אתחול.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך פג תוקף האישור שנבחר. בחר אישור חוקי לפני יצירת מדיית אתחול.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך ה-PFX שנבחר אינו תואם לאישור רישום אפליקציה.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך ה-PFX שנבחר אינו תואם לאישור רישום אפליקציה.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך טביעת האצבע של האישור שנבחר חסרה.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך טביעת האצבע של האישור שנבחר חסרה.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>העלאת חשיש של חומרה מופעלת אך רישום האפליקציה אינו מוגדר. התחבר לשוכר מ-Autopilot.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך רישום האפליקציה אינו מוגדר. התחבר לדייר מדף Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך לא ניתן היה לאמת את תפוגת PFX של מדיה האתחול.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך לא ניתן היה לאמת את תפוגת ה-PFX של מדיית האתחול.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>העלאת גיבוב חומרה מופעלת אך פג תוקף אמצעי האתחול שנבחר PFX.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך פג תוקף ה-PFX של מדיית האתחול שנבחר.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך מדיה האתחול PFX לא אומתה.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך ה-PFX של מדיית האתחול לא אומת.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>העלאת גיבוב חומרה מופעלת אך ה-PFX שנבחר אינו תואם לאישור הפעיל.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך לא נבחרה מדיה אתחול PFX.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך לא נבחר PFX למדיית האתחול.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך חסרה סיסמת PFX של מדיה האתחול.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך חסרה סיסמת ה-PFX של מדיית האתחול.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך מזהה הלקוח של האפליקציה חסר. התחבר מחדש לדייר מ-Autopilot.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך מזהה הלקוח של האפליקציה חסר. התחבר מחדש לדייר מדף Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך מנהל שירות האפליקציה חסר או אינו מוכן.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך ה-service principal של האפליקציה חסר או אינו מוכן.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך חסרות הגדרות.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך חסרות הגדרות.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>העלאת גיבוב של חומרה מופעלת אך חיבור הדייר חסר. התחבר לשוכר מ-Autopilot.</value>
+    <value>העלאת גיבוב חומרה מופעלת אך חיבור הדייר חסר. התחבר לדייר מדף Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON מצב הפרופיל מופעל אך לא נבחר פרופיל ברירת מחדל חוקי.</value>
@@ -3469,13 +3469,13 @@
     <value>תצורת הרשת אינה מוכנה.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>לא נבחר יעד USB.</value>
+    <value>לא נבחר כונן USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>סודות התקשורת הנדרשים אינם מוכנים.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>היעד USB שנבחר קטן מדי. השתמש במפתח USB של לפחות 16 GB.</value>
+    <value>כונן ה-USB שנבחר קטן מדי. השתמש בכונן USB בנפח 16 GB לפחות.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>פריסת המקלדת של WinPE שנבחרה אינה מותקנת במחשב זה.</value>
@@ -3484,7 +3484,7 @@
     <value>שפת האתחול WinPE שנבחרה אינה זמינה עבור הארכיטקטורה שנבחרה.</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>ב</value>
+    <value>בתים</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3517,7 +3517,7 @@
     <value>עיצוב וצור USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>פורמט USB יעד</value>
+    <value>פרמוט כונן USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows אינו יכול לקרוא את אמצעי האחסון בדיסק זה. ייתכן שהוא עדיין מכיל נתונים.</value>
@@ -3532,7 +3532,7 @@
     <value>אמצעי אחסון בדיסק זה:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>כל מה שבדיסק זה יאבד. המשך רק אם זהו דיסק ה-USB המיועד.</value>
+    <value>כל התוכן בדיסק זה יאבד. המשך רק אם זהו כונן ה-USB המיועד.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>צור USB</value>
@@ -3595,10 +3595,10 @@
     <value>בחר פלט ISO או USB למטה כדי להתחיל.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>פורמט מלא</value>
+    <value>פרמוט מלא</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>פורמט מהיר</value>
+    <value>פרמוט מהיר</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>בחר היכן ייכתב ה-Foundry ISO שנוצר.</value>
@@ -3972,7 +3972,7 @@
     <value>עדכן USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>ניתן לרענן יעדים USB לאחר השלמת המוכנות של ADK.</value>
+    <value>ניתן לרענן את רשימת כונני ה-USB לאחר השלמת בדיקות המוכנות של ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>נמצאו כוננים USB: {0}</value>
@@ -3981,22 +3981,22 @@
     <value>דיסק {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>סורק יעדים USB.</value>
+    <value>סורק אחר כונני USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>לא נמצאו כוננים USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB רענון היעד נכשל.</value>
+    <value>רענון כונני ה-USB נכשל.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>התנהגות פורמט בשימוש לפני העתקת המדיה הסופית USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>סכימת מחיצות המשמשת בעת הכנת היעד USB שנבחר.</value>
+    <value>סכימת המחיצות שבה נעשה שימוש בעת הכנת כונן ה-USB שנבחר.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB יעד</value>
+    <value>יעד USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>שפה המשמשת את סביבת האתחול WinPE.</value>
@@ -4023,7 +4023,7 @@
     <value>התחל</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>פתוח</value>
+    <value>פתח</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>פתח את הגדרות הצבע Windows כדי לשנות את צבע המבטא.</value>
@@ -4038,10 +4038,10 @@
     <value>דק אקרילי</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
-    <value>בחר את נושא היישום.</value>
+    <value>בחר את ערכת הנושא של האפליקציה.</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
-    <value>נושא האפליקציה</value>
+    <value>ערכת הנושא של האפליקציה</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
     <value>כהה</value>
@@ -4050,7 +4050,7 @@
     <value>מערכת</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>אור</value>
+    <value>בהיר</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>בחר את חומר הרקע המשמש מאחורי האפליקציה.</value>
@@ -4314,7 +4314,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>ספק תמיכה Wi-Fi בתמונת האתחול</value>
+    <value>הפעלת הקצאת Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>הגדר הקצאת Wi-Fi, פרופילים מוטמעים ונדידת פרופילים של Windows.</value>

@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>O</value>
+    <value>O aplikaci</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Vytvořil a spravuje Mickaël CHAVE.</value>
@@ -25,7 +25,7 @@
     <value>Přispěvatele nebylo možné načíst z GitHubu.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Načítání přispěvatelů...</value>
+    <value>Načítání přispěvatelů…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Přispěvatelé</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD je moderní aplikace pro vytváření médií pro nasazení Windows poháněná WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autorská práva (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
 Licencováno pod licencí MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Licencováno pod licencí MIT.</value>
     <value>Poznámky k vydání se nepodařilo načíst ve vloženém prohlížeči.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Načítání poznámek k vydání...</value>
+    <value>Načítání poznámek k vydání…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Poznámky k vydání</value>
@@ -77,13 +77,13 @@ Licencováno pod licencí MIT.</value>
     <value>Podpora</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Licence balíčků třetích stran jsou sledovány prostřednictvím úložiště projektu a manifestů závislostí.</value>
+    <value>Foundry OSD používá následující knihovny a nástroje. Jejich licence a stránky projektů jsou uvedeny níže.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Závislosti třetích stran</value>
+    <value>Licence třetích stran</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>O Foundry OSD</value>
+    <value>O aplikaci Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Užitečné odkazy</value>
@@ -242,19 +242,19 @@ Licencováno pod licencí MIT.</value>
     <value>Upgradujte doplněk Windows ADK a Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Odstraňte komponenty AI</value>
+    <value>Povolit konfiguraci komponent AI</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Odeberte nebo deaktivujte vybrané komponenty Windows AI před OOBE.</value>
+    <value>Vyberte komponenty a funkce AI systému Windows, které chcete odebrat nebo zakázat.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Odstranění komponent AI</value>
+    <value>Komponenty AI</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Odeberte zřízené aplikace Windows</value>
+    <value>Povolit odebrání balíčků AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Odeberte vybrané zřízené aplikace Windows před OOBE.</value>
+    <value>Vyberte zřízené aplikace Windows, které chcete odebrat z nasazených zařízení.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Odebrání balíčků AppX</value>
@@ -293,7 +293,7 @@ Licencováno pod licencí MIT.</value>
     <value>Importováno</value>
   </data>
   <data name="Autopilot.ColumnName" xml:space="preserve">
-    <value>Jméno</value>
+    <value>Název</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Zdroj</value>
@@ -317,7 +317,7 @@ Licencováno pod licencí MIT.</value>
     <value>Nebyly nalezeny žádné profily Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Stahování profilů Autopilot...</value>
+    <value>Stahování profilů Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} je nakonfigurován.</value>
@@ -422,7 +422,7 @@ Licencováno pod licencí MIT.</value>
     <value>Uložit Autopilot certifikát PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Otisk palce</value>
+    <value>Kryptografický otisk</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
     <value>Platnost 12 měsíců</value>
@@ -443,7 +443,7 @@ Licencováno pod licencí MIT.</value>
     <value>Připojte nájemce</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Připojování nájemníka...</value>
+    <value>Připojování nájemníka…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Vytvořte certifikát</value>
@@ -566,7 +566,7 @@ Licencováno pod licencí MIT.</value>
     <value>Připravenost nájemníka</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
-    <value>Jméno</value>
+    <value>Název</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
     <value>Hodnota</value>
@@ -593,7 +593,7 @@ Licencováno pod licencí MIT.</value>
     <value>Importovat profil Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Import profilu Autopilot...</value>
+    <value>Import profilu Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Je-li povoleno, technik se během instalace Windows přihlásí pomocí kódu zařízení Microsoft a nahraje hardwarový hash zařízení.</value>
@@ -656,7 +656,7 @@ Licencováno pod licencí MIT.</value>
     <value>Přihlaste se do Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Jasný</value>
+    <value>Vymazat</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Vyberte, které profily tenanta se mají importovat do Foundry.</value>
@@ -680,10 +680,10 @@ Licencováno pod licencí MIT.</value>
     <value>Interaktivní nahrání hardwarového hashe</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Vytvořte offline profil Autopilot v použitém obrázku Windows.</value>
+    <value>Importujte nebo stáhněte profil Autopilot vložený do média pro nasazení.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON zřizování profilu</value>
+    <value>Profil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurujte automatické nahrávání hardwarového hashu podporované tenantem.</value>
@@ -1847,7 +1847,7 @@ Licencováno pod licencí MIT.</value>
     <value>Vyhledávejte podle zobrazovaného názvu nebo názvu funkce DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportovat...</value>
+    <value>Exportovat…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Vytvořte očištěný archiv podpory bez úpravy původních protokolů.</value>
@@ -1865,7 +1865,7 @@ Licencováno pod licencí MIT.</value>
     <value>Export diagnostiky se nezdařil</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Upřesnit: exportovat nezpracované protokoly...</value>
+    <value>Upřesnit: exportovat nezpracované protokoly…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Exportovat nezpracované protokoly</value>
@@ -1928,7 +1928,7 @@ Licencováno pod licencí MIT.</value>
     <value>Ano</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Vyhledávání jednotek OU v doméně...</value>
+    <value>Vyhledávání jednotek OU v doméně…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Vyhledávání bylo zrušeno.</value>
@@ -2108,10 +2108,10 @@ Licencováno pod licencí MIT.</value>
     <value>Vyberte certifikát 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurace drátového 802.1X</value>
+    <value>Povolit konfiguraci Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Ve výchozím nastavení je k dispozici standardní připojení Ethernet. Tuto část nakonfigurujte pouze v případě, že vaše kabelová síť vyžaduje podnikové ověřování 802.1X.</value>
+    <value>Nakonfigurujte kabelové ověřování 802.1X a roaming profilů Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2276,10 +2276,10 @@ Licencováno pod licencí MIT.</value>
     <value>bulharština (Bulharsko)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Zjednodušená čínština (Čína)</value>
+    <value>zjednodušená čínština (Čína)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Tradiční čínština (Tchaj-wan)</value>
+    <value>tradiční čínština (Tchaj-wan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>chorvatština (Chorvatsko)</value>
@@ -2291,7 +2291,7 @@ Licencováno pod licencí MIT.</value>
     <value>dánština (Dánsko)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>holandština (Nizozemsko)</value>
+    <value>nizozemština (Nizozemsko)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angličtina (Spojené království)</value>
@@ -2339,7 +2339,7 @@ Licencováno pod licencí MIT.</value>
     <value>litevština (Litva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norský bokmål (Norsko)</value>
+    <value>norský bokmal (Norsko)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>polština (Polsko)</value>
@@ -2357,7 +2357,7 @@ Licencováno pod licencí MIT.</value>
     <value>ruština (Rusko)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srbská latina (Srbsko)</value>
+    <value>srbština – latinka (Srbsko)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>slovenština (Slovensko)</value>
@@ -2378,7 +2378,7 @@ Licencováno pod licencí MIT.</value>
     <value>thajština (Thajsko)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turečtina (Türkiye)</value>
+    <value>turečtina (Turecko)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinština (Ukrajina)</value>
@@ -2402,13 +2402,13 @@ Licencováno pod licencí MIT.</value>
     <value>Přesunout součást nahoru</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Povolit pravidla pro pojmenování strojů</value>
+    <value>Povolit konfiguraci pojmenování počítače</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurujte automatické a technikem podporované pojmenovávání zařízení.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Název počítače</value>
+    <value>Pojmenování počítače</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Náhled</value>
@@ -2420,7 +2420,7 @@ Licencováno pod licencí MIT.</value>
     <value>Informace o produktu a verzi.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>O</value>
+    <value>O aplikaci</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK připravenost a instalace.</value>
@@ -2429,13 +2429,13 @@ Licencováno pod licencí MIT.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Odeberte nebo deaktivujte vybrané komponenty Windows AI před OOBE.</value>
+    <value>Odeberte nebo zakažte komponenty AI systému Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI komponenty</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Odeberte vybrané zřízené aplikace Windows před OOBE.</value>
+    <value>Vyberte zřízené aplikace, které chcete odebrat.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Odebrání balíčků AppX</value>
@@ -2477,7 +2477,7 @@ Licencováno pod licencí MIT.</value>
     <value>Připojení k doméně</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Ve výchozím nastavení je k dispozici standardní připojení Ethernet. Tuto část nakonfigurujte pouze v případě, že vaše kabelová síť vyžaduje podnikové ověřování 802.1X.</value>
+    <value>Nakonfigurujte kabelové ověřování 802.1X.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2513,19 +2513,19 @@ Licencováno pod licencí MIT.</value>
     <value>Síť</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Nakonfigurujte Windows 11 úvodní obrazovky a výchozí nastavení ochrany osobních údajů.</value>
+    <value>Nakonfigurujte prostředí prvního spuštění systému Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Povolte nebo zakažte součásti systému Windows v nasazeném operačním systému.</value>
+    <value>Povolte nebo zakažte volitelné funkce systému Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Volitelné funkce</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definujte verze Windows, úrovně aktualizací, jazyky a edice nabízené během nasazení.</value>
+    <value>Omezte nabídku operačních systémů pro nasazení.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Výběr OS</value>
@@ -2546,7 +2546,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zkontrolujte a začněte vytvářet média.</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
-    <value>Začněte</value>
+    <value>Start</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
     <value>Importujte soubory odpovědí systému Windows a zvolte nastavení použitá při nasazení.</value>
@@ -2561,7 +2561,7 @@ Licencováno pod licencí MIT.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Připojit k doméně automaticky pomocí přihlašovacích údajů chráněných heslem pro nasazení.</value>
@@ -2669,31 +2669,31 @@ Licencováno pod licencí MIT.</value>
     <value>Roaming profilů Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Přizpůsobit OOBE</value>
+    <value>Povolit konfiguraci OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Nakonfigurujte Windows 11 úvodní obrazovky a výchozí nastavení ochrany osobních údajů.</value>
+    <value>Nakonfigurujte ochranu osobních údajů a možnosti instalace v prostředí prvního spuštění systému Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurace volitelných funkcí systému Windows</value>
+    <value>Povolit konfiguraci volitelných funkcí</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Povolte nebo zakažte součásti systému Windows v nasazeném operačním systému.</value>
+    <value>Vyberte volitelné funkce systému Windows, které chcete povolit nebo zakázat.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Volitelné funkce systému Windows</value>
+    <value>Volitelné funkce</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Možnosti nasazení Windows</value>
+    <value>Povolit konfiguraci výběru operačního systému</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definujte verze Windows, úrovně aktualizací, jazyky a edice nabízené během nasazení.</value>
+    <value>Nakonfigurujte povolené verze, jazyky, kanály a edice operačního systému.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Možnosti nasazení Windows</value>
+    <value>Výběr OS</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Přidejte povolenou akci nebo zakažte poinstalační konfiguraci.</value>
@@ -2789,7 +2789,7 @@ Licencováno pod licencí MIT.</value>
     <value>Importovat složku</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importování obsahu...</value>
+    <value>Importování obsahu…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Tato akce je neplatná. Zkontrolujte její konfiguraci.</value>
@@ -2819,7 +2819,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zadejte složku z importovaného obsahu nebo ponechte toto pole prázdné.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Načítání obsahu...</value>
+    <value>Načítání obsahu…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importujte chybějící obsah pro „{0}“.</value>
@@ -3193,28 +3193,28 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Foundry OSD se s tímto nastavením nemohl připojit ke službám GitHub a Microsoft. Zkontrolujte adresu a port proxy serveru a síťové připojení. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Připojení se nezdařilo</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Zkontrolujte nastavení proxy serveru</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nová připojení aplikace Foundry OSD teď používají tato nastavení.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Nastavení proxy serveru bylo použito</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Aplikace Foundry OSD se pomocí vybraných nastavení připojila ke službám GitHub a Microsoft.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Připojení bylo úspěšné</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Zadejte adresu proxy serveru.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Zadejte uživatelské jméno a heslo pro explicitní ověřování na proxy serveru.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Zadejte platnou adresu proxy serveru HTTP nebo HTTPS, například proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Použít</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Použít aktuální přihlašovací údaje Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Zvolte, jak se aplikace Foundry OSD ověřuje na proxy serveru.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Ověřování</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Uživatelské jméno a heslo</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Bez ověřování</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Volitelné názvy hostitelů nebo vzory se zástupnými znaky oddělené středníky.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Seznam výjimek</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Připojovat se přímo k hostitelům, jejichž název neobsahuje tečku.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Nepoužívat proxy server pro místní adresy</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Přihlašovací údaje jsou bezpečně uloženy ve Správci pověření systému Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Přihlašovací údaje proxy serveru</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Doména (volitelné)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Zadejte adresu a port proxy serveru.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
     <value>Proxy server</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Zvolte, jak se aplikace Foundry OSD připojuje k internetu.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Režim proxy serveru</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Bez proxy serveru (přímé připojení)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Ruční nastavení proxy serveru</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Použít nastavení Windows (doporučeno)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Heslo</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Tato nastavení platí jen pro tuto aplikaci. Nepřidávají se do média pro nasazení a nemají vliv na Foundry Connect ani Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Pouze Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Otestovat připojení</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Uživatelské jméno</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Nastavení</value>
@@ -3322,7 +3322,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Zálohování a synchronizace nastavení</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Nakonfigurujte, jak se aplikace Foundry OSD připojuje k online službám.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3400,16 +3400,16 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Odesílání hardwarového hash je povoleno, ale platnost vybraného spouštěcího média PFX vypršela.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Hardwarový hash upload je povolen, ale spouštěcí médium PFX nebylo ověřeno.</value>
+    <value>Nahrávání hardwarového hash je povoleno, ale spouštěcí médium PFX nebylo ověřeno.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Hardwarový hash upload je povolen, ale vybraný PFX neodpovídá aktivnímu certifikátu.</value>
+    <value>Nahrávání hardwarového hash je povoleno, ale vybraný PFX neodpovídá aktivnímu certifikátu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Hardwarový hash upload je povolen, ale není vybráno žádné spouštěcí médium PFX.</value>
+    <value>Nahrávání hardwarového hash je povoleno, ale není vybráno žádné spouštěcí médium PFX.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Hardwarový hash upload je povolen, ale chybí heslo PFX spouštěcího média.</value>
+    <value>Nahrávání hardwarového hash je povoleno, ale chybí heslo PFX spouštěcího média.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
     <value>Nahrávání hardwarového hash je povoleno, ale chybí ID klienta aplikace. Znovu se připojte k tenantovi z Autopilot.</value>
@@ -3469,13 +3469,13 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Konfigurace sítě není připravena.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Není vybrán žádný cíl USB.</value>
+    <value>Není vybrána žádná jednotka USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Požadovaná tajemství médií nejsou připravena.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Vybraný cíl USB je příliš malý. Použijte klíč USB o velikosti alespoň 16 GB.</value>
+    <value>Vybraná jednotka USB je příliš malá. Použijte jednotku USB s kapacitou alespoň 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Vybrané rozložení klávesnice WinPE není v tomto počítači nainstalováno.</value>
@@ -3517,7 +3517,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Naformátujte a vytvořte USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formát USB cíl</value>
+    <value>Formátovat jednotku USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Systém Windows nemůže přečíst svazky na tomto disku. Může stále obsahovat data.</value>
@@ -3532,7 +3532,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Svazky na tomto disku:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Všechna data na tomto disku budou ztracena. Pokračujte pouze v případě, že se jedná o zamýšlený disk USB.</value>
+    <value>Všechna data na tomto disku budou ztracena. Pokračujte pouze v případě, že jde o správnou jednotku USB.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Vytvořit USB</value>
@@ -3595,7 +3595,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Začněte výběrem výstupu ISO nebo USB níže.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Plný formát</value>
+    <value>Úplné formátování</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Rychlé formátování</value>
@@ -3972,7 +3972,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Aktualizovat USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Cíle USB lze obnovit po dokončení připravenosti ADK.</value>
+    <value>Seznam jednotek USB lze aktualizovat po dokončení kontroly připravenosti ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>Nalezené disky USB: {0}</value>
@@ -3981,22 +3981,22 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Skenování cílů USB.</value>
+    <value>Vyhledávání jednotek USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nebyly nalezeny žádné jednotky USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB cílové obnovení se nezdařilo.</value>
+    <value>Aktualizace seznamu jednotek USB se nezdařila.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Chování formátu použité před zkopírováním finálního média USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Schéma rozdělení použité při přípravě vybraného cíle USB.</value>
+    <value>Schéma oddílů použité při přípravě vybrané jednotky USB.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB cíl</value>
+    <value>Cílová jednotka USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Jazyk používaný spouštěcím prostředím WinPE.</value>
@@ -4050,7 +4050,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Systém</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Světlo</value>
+    <value>Světlý</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Vyberte materiál pozadí použitý za aplikací.</value>
@@ -4302,7 +4302,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Typ zabezpečení</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Otevřít</value>
+    <value>Otevřené</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (oportunistické bezdrátové šifrování)</value>
@@ -4314,7 +4314,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Podpora ustanovení Wi-Fi v zaváděcím obrazu</value>
+    <value>Povolit zřizování Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurujte zřizování Wi-Fi, vložené profily a roaming profilů Windows.</value>

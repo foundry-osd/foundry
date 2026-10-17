@@ -25,7 +25,7 @@
     <value>Līdzautorus nevarēja ielādēt no GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Notiek līdzautoru ielāde...</value>
+    <value>Notiek līdzautoru ielāde…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Līdzstrādnieki</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD ir mūsdienīga lietotne Windows izvietošanas datu nesēja autorēšanai, ko nodrošina WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autortiesības (c) 2026 Mickaël CHAVE un Foundry Project līdzautori.
+    <value>Copyright (c) 2026 Mickaël CHAVE un Foundry Project līdzautori.
 Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Piezīmes par laidienu nevarēja ielādēt iegultajā pārlūkprogrammā.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Notiek izlaiduma piezīmju ielāde...</value>
+    <value>Notiek izlaiduma piezīmju ielāde…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Izlaiduma piezīmes</value>
@@ -77,10 +77,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atbalsts</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Trešās puses pakotņu licences tiek izsekotas, izmantojot projektu repozitoriju un atkarības manifestus.</value>
+    <value>Foundry OSD izmanto šīs bibliotēkas un rīkus. To licences un projektu lapas ir norādītas tālāk.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Trešo pušu atkarības</value>
+    <value>Trešo pušu licences</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Par Foundry OSD</value>
@@ -242,19 +242,19 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Jauniniet Windows ADK un Windows PE papildinājumu</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Noņemiet AI komponentus</value>
+    <value>Iespējot AI komponentu konfigurāciju</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Pirms OOBE noņemiet vai atspējojiet atlasītos Windows AI komponentus.</value>
+    <value>Izvēlieties Windows AI komponentus un funkcijas, ko noņemt vai atspējot.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI komponentu noņemšana</value>
+    <value>AI komponenti</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Noņemiet nodrošinātās Windows lietotnes</value>
+    <value>Iespējot AppX noņemšanu</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Pirms OOBE noņemiet atlasītās nodrošinātās Windows lietotnes.</value>
+    <value>Izvēlieties nodrošinātās Windows lietotnes, kas jānoņem no izvietotajām ierīcēm.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX noņemšanas</value>
@@ -302,7 +302,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Lejupielādēt no nomnieka</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Īrnieks neatgrieza nevienu Autopilot profilu.</value>
+    <value>Nomnieks neatgrieza nevienu Autopilot profilu.</value>
   </data>
   <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
     <value>Autopilot profilus neizdevās lejupielādēt no nomnieka.</value>
@@ -317,7 +317,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nav atrasts neviens Autopilot profils</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Notiek Autopilot profilu lejupielāde...</value>
+    <value>Notiek Autopilot profilu lejupielāde…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} ir konfigurēts.</value>
@@ -335,7 +335,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atlasiet PFX, kas atbilst lietotnes reģistrācijas sertifikātam.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Ar paroli aizsargāts PFX, kas kopēts sāknēšanas datu nesējā aparatūras jaucējfaila augšupielādei.</value>
+    <value>Ar paroli aizsargāts PFX, kas kopēts sāknēšanas datu nesējā aparatūras jaucējkoda augšupielādei.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Atlasītais PFX fails vairs nepastāv.</value>
@@ -359,7 +359,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>PFX fails</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Atlasiet Autopilot sertifikātu PFX</value>
+    <value>Atlasiet Autopilot sertifikāta PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>Atlasītais PFX nesatur privātās atslēgas materiālu.</value>
@@ -389,7 +389,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Kopēt paroli</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Saglabājiet šo PFX failu un paroli tagad drošā vietā. Foundry šajā datorā saglabā paroli kopā ar konfigurāciju tikai tad, ja sadaļā „Iestatījumu dublēšana un sinhronizēšana“ ir ieslēgta opcija „Atcerēties paroles“. Jums būs nepieciešamas abas vērtības, lai ģenerētu sāknēšanas datu nesēju aparatūras hash augšupielādei.</value>
+    <value>Saglabājiet šo PFX failu un paroli tagad drošā vietā. Foundry šajā datorā saglabā paroli kopā ar konfigurāciju tikai tad, ja sadaļā „Iestatījumu dublēšana un sinhronizēšana“ ir ieslēgta opcija „Atcerēties paroles“. Jums būs nepieciešamas abas vērtības, lai ģenerētu sāknēšanas datu nesēju aparatūras jaucējkoda augšupielādei.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parole nokopēta.</value>
@@ -419,10 +419,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Sertifikāta noņemšana neizdevās</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Saglabājiet Autopilot sertifikātu PFX</value>
+    <value>Saglabājiet Autopilot sertifikāta PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Īkšķa nospiedums</value>
+    <value>Nospiedums</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
     <value>Derīgs 12 mēnešus</value>
@@ -440,10 +440,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Sertifikāti netiek nodrošināti.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Pievienojiet īrnieku</value>
+    <value>Pievienot nomnieku</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Notiek nomnieka pievienošana...</value>
+    <value>Notiek nomnieka pievienošana…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Izveidot sertifikātu</value>
@@ -455,10 +455,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nav atlasīts neviens noklusējuma grupas tags.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Atvienot īrnieku</value>
+    <value>Atvienot nomnieku</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Izvēles grupas tags, kas iepriekš atlasīts Foundry Deploy aparatūras jaukšanas augšupielādes laikā.</value>
+    <value>Izvēles grupas tags, kas iepriekš atlasīts Foundry Deploy aparatūras jaucējkoda augšupielādes laikā.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Noklusējuma grupas atzīme</value>
@@ -470,10 +470,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Foundry nevarēja konfigurēt Autopilot lietotnes reģistrāciju.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Īrnieka uzņemšana neizdevās</value>
+    <value>Nomnieka uzņemšana neizdevās</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>Atlasītā sertifikāta derīguma termiņš ir beidzies. Izveidojiet jaunu sertifikātu, saglabājiet tā PFX un paroli, pēc tam atlasiet to sāknēšanas datu nesējai.</value>
+    <value>Atlasītā sertifikāta derīguma termiņš ir beidzies. Izveidojiet jaunu sertifikātu, saglabājiet tā PFX un paroli, pēc tam atlasiet to sāknēšanas datu nesējam.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
     <value>Iepriekš atlasītais sertifikāts pārvaldītajā lietotnes reģistrācijā vairs nepastāv. Atlasiet derīgu PFX, kas atbilst nodrošinātajam sertifikātam.</value>
@@ -485,19 +485,19 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pārvaldītās lietotnes reģistrāciju nevarēja atrast. Atkārtoti izveidojiet savienojumu, lai ļautu Foundry to izveidot vai pieņemt.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>Pārvaldītajam pakalpojuma galvenajam lietotājam trūkst administratora piekrišanas nepieciešamajai Microsoft Graph atļaujai. Piešķiriet administratora piekrišanu un atkārtoti izveidojiet savienojumu.</value>
+    <value>Pārvaldītajam service principal trūkst administratora piekrišanas nepieciešamajai Microsoft Graph atļaujai. Piešķiriet administratora piekrišanu un atkārtoti izveidojiet savienojumu.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Pārvaldītās lietotnes reģistrācija nav gatava. Pārskatiet īrnieka gatavību un atkārtoti izveidojiet savienojumu.</value>
+    <value>Pārvaldītās lietotnes reģistrācija nav gatava. Pārskatiet nomnieka gatavību un atkārtoti izveidojiet savienojumu.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Pārvaldītās lietotnes reģistrācijai trūkst nepieciešamās Microsoft Graph lietojumprogrammas atļaujas. Atkārtoti izveidojiet savienojumu ar kontu, kas var atjaunināt lietotņu reģistrāciju.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>Trūkst pārvaldītā pakalpojuma principa vai tas ir atspējots. Atkārtoti izveidojiet savienojumu ar kontu, kas var izveidot vai pārvaldīt uzņēmuma lietojumprogrammas.</value>
+    <value>Trūkst pārvaldītā service principal vai tas ir atspējots. Atkārtoti izveidojiet savienojumu ar kontu, kas var izveidot vai pārvaldīt uzņēmuma lietojumprogrammas.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Īrnieka uzņemšanai ir jāpievērš uzmanība</value>
+    <value>Nomnieka uzņemšanai ir jāpievērš uzmanība</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Statuss</value>
@@ -542,16 +542,16 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Savienots</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Pabeidziet pierakstīšanos pārlūkprogrammā, lai konfigurētu Autopilot aparatūras hash augšupielādi.</value>
+    <value>Pabeidziet pierakstīšanos pārlūkprogrammā, lai konfigurētu Autopilot aparatūras jaucējkoda augšupielādi.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
-    <value>Pierakstieties Microsoft Graph</value>
+    <value>Pierakstieties pakalpojumā Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
     <value>Klienta ID</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>Īrnieka ID</value>
+    <value>Nomnieka ID</value>
   </data>
   <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
     <value>Pārbaudiet tīkla savienojumu un pārliecinieties, vai jūsu konts var pārvaldīt lietotņu reģistrācijas nomniekā, pēc tam mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
@@ -560,10 +560,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nav savienots</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Informācija par īrnieku, lietotņu reģistrāciju un gatavību aparatūras jaucējkrāna augšupielādei.</value>
+    <value>Informācija par nomnieku, lietotnes reģistrāciju un gatavību aparatūras jaucējkoda augšupielādei.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Īrnieku gatavība</value>
+    <value>Nomnieka gatavība</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Vārds</value>
@@ -572,10 +572,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Vērtība</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Šajā lietotnes sesijā izveidojiet savienojumu ar Microsoft Graph, lai pārvaldītu jauktās augšupielādes iestatījumus.</value>
+    <value>Šajā lietotnes sesijā izveidojiet savienojumu ar Microsoft Graph, lai pārvaldītu jaucējkoda augšupielādes iestatījumus.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Īrnieka savienojums</value>
+    <value>Nomnieka savienojums</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importēt profilu</value>
@@ -593,7 +593,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Importēt Autopilot profilu JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Notiek Autopilot profila importēšana...</value>
+    <value>Notiek Autopilot profila importēšana…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Kad iespējots, tehniķis Windows iestatīšanas laikā pierakstās ar Microsoft ierīces kodu un augšupielādē ierīces aparatūras jaucējkodu.</value>
@@ -653,13 +653,13 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pabeidziet pierakstīšanos pārlūkprogrammā, lai lejupielādētu Autopilot profilus.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
-    <value>Pierakstieties Microsoft Graph</value>
+    <value>Pierakstieties pakalpojumā Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Skaidrs</value>
+    <value>Notīrīt</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Izvēlieties, kuri nomnieku profili jāimportē Foundry.</value>
+    <value>Izvēlieties, kuri nomnieka profili jāimportē programmā Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Importēt</value>
@@ -680,13 +680,13 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Interaktīva aparatūras jaucējkoda augšupielāde</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Iestatiet bezsaistes Autopilot profilu lietotajā Windows attēlā.</value>
+    <value>Importējiet vai lejupielādējiet izvietošanas datu nesējā iegulto Autopilot profilu.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profila nodrošināšana</value>
+    <value>JSON profils</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Konfigurējiet nomnieka atbalstītu automātisku aparatūras jaucējvērtības augšupielādi.</value>
+    <value>Konfigurējiet nomnieka atbalstītu automātisku aparatūras jaucējkoda augšupielādi.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Zero-touch aparatūras jaucējkoda augšupielāde</value>
@@ -1847,7 +1847,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Meklējiet pēc parādāmā nosaukuma vai DISM līdzekļa nosaukuma</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksportēt...</value>
+    <value>Eksportēt…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Izveidojiet sanitizētu atbalsta arhīvu, nemainot sākotnējos žurnālus.</value>
@@ -1865,7 +1865,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Diagnostikas eksportēšana neizdevās</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Papildu: eksportēt neapstrādātus žurnālus...</value>
+    <value>Papildu: eksportēt neapstrādātus žurnālus…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Eksportēt neapstrādātus žurnālus</value>
@@ -1928,7 +1928,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Jā</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Tiek meklētas OU domēnā...</value>
+    <value>Tiek meklētas OU domēnā…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Meklēšana atcelta.</value>
@@ -2108,10 +2108,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atlasiet 802.1X sertifikātu</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurējiet vadu 802.1X</value>
+    <value>Iespējot Ethernet 802.1X konfigurāciju</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standarta Ethernet savienojums ir pieejams pēc noklusējuma. Konfigurējiet šo sadaļu tikai tad, ja jūsu vadu tīklam ir nepieciešama 802.1X uzņēmuma autentifikācija.</value>
+    <value>Konfigurējiet vadu tīkla 802.1X autentifikāciju un Windows profilu viesabonēšanu.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2270,118 +2270,118 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Interaktīva pievienošanās domēnam</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>arābu (Saūda Arābija)</value>
+    <value>Arābu (Saūda Arābija)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
-    <value>bulgāru (Bulgārija)</value>
+    <value>Bulgāru (Bulgārija)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Vienkāršotā ķīniešu valoda (Ķīna)</value>
+    <value>Ķīniešu, vienkāršotā (Ķīna)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Ķīniešu tradicionālā (Taivāna)</value>
+    <value>Ķīniešu, tradicionālā (Taivāna)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>horvātu (Horvātija)</value>
+    <value>Horvātu (Horvātija)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>čehu (čehu)</value>
+    <value>Čehu (Čehija)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>dāņu (Dānija)</value>
+    <value>Dāņu (Dānija)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>holandiešu (Nīderlande)</value>
+    <value>Holandiešu (Nīderlande)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>angļu (Apvienotā Karaliste)</value>
+    <value>Angļu (Apvienotā Karaliste)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>angļu (Amerikas Savienotās Valstis)</value>
+    <value>Angļu (Amerikas Savienotās Valstis)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>igauņu (Igaunija)</value>
+    <value>Igauņu (Igaunija)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>somu (Somija)</value>
+    <value>Somu (Somija)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>franču (Kanāda)</value>
+    <value>Franču (Kanāda)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>franču (Francija)</value>
+    <value>Franču (Francija)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>vācu (Vācija)</value>
+    <value>Vācu (Vācija)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>grieķu valoda (Grieķija)</value>
+    <value>Grieķu (Grieķija)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>ebreju (Izraēla)</value>
+    <value>Ebreju (Izraēla)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>ungāru (Ungārija)</value>
+    <value>Ungāru (Ungārija)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>itāļu (Itālija)</value>
+    <value>Itāļu (Itālija)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>japāņu (Japāna)</value>
+    <value>Japāņu (Japāna)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>korejiešu (koreja)</value>
+    <value>Korejiešu (Koreja)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>latviešu (Latvija)</value>
+    <value>Latviešu (Latvija)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>lietuviešu (Lietuva)</value>
+    <value>Lietuviešu (Lietuva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
     <value>Norvēģu bukmols (Norvēģija)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>poļu (Polija)</value>
+    <value>Poļu (Polija)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>portugāļu (Brazīlija)</value>
+    <value>Portugāļu (Brazīlija)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>portugāļu (Portugāle)</value>
+    <value>Portugāļu (Portugāle)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>rumāņu (Rumānija)</value>
+    <value>Rumāņu (Rumānija)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>krievu valoda (Krievija)</value>
+    <value>Krievu (Krievija)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>serbu latīņu (Serbija)</value>
+    <value>Serbu, latīņu (Serbija)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>slovāku (Slovākija)</value>
+    <value>Slovāku (Slovākija)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>slovēņu (Slovēnija)</value>
+    <value>Slovēņu (Slovēnija)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>spāņu (Meksika)</value>
+    <value>Spāņu (Meksika)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>spāņu (Spānija)</value>
+    <value>Spāņu (Spānija)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>zviedru (Zviedrija)</value>
+    <value>Zviedru (Zviedrija)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>taju (Taizeme)</value>
+    <value>Taju (Taizeme)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turku (Türkiye)</value>
+    <value>Turku (Turcija)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukraiņu (Ukraina)</value>
+    <value>Ukraiņu (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
     <value>Augšupielādēt datora nosaukumu pakalpojumā Autopilot</value>
@@ -2402,13 +2402,13 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pārvietot komponentu augšup</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Iespējot mašīnu nosaukumu piešķiršanas noteikumus</value>
+    <value>Iespējot ierīces nosaukšanas konfigurāciju</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurējiet automātisku un tehniķa atbalstītu ierīču nosaukšanu.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Datora nosaukums</value>
+    <value>Ierīces nosaukšana</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Priekšskatījums</value>
@@ -2429,13 +2429,13 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Pirms OOBE noņemiet vai atspējojiet atlasītos Windows AI komponentus.</value>
+    <value>Noņemiet vai atspējojiet Windows AI komponentus.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>MI komponenti</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Pirms OOBE noņemiet atlasītās nodrošinātās Windows lietotnes.</value>
+    <value>Atlasiet noņemamās nodrošinātās lietotnes.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX noņemšanas</value>
@@ -2453,7 +2453,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>JSON profils</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Augšupielādējiet aparatūras jaucējvērtības, izmantojot Microsoft Graph.</value>
+    <value>Augšupielādē aparatūras jaucējkodus, izmantojot Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -2477,7 +2477,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pievienošanās domēnam</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standarta Ethernet savienojums ir pieejams pēc noklusējuma. Konfigurējiet šo sadaļu tikai tad, ja jūsu vadu tīklam ir nepieciešama 802.1X uzņēmuma autentifikācija.</value>
+    <value>Konfigurējiet vadu tīkla 802.1X autentifikāciju.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2513,19 +2513,19 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Tīkls</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigurējiet Windows 11 pirmās palaišanas ekrānus un privātuma noklusējuma iestatījumus.</value>
+    <value>Konfigurējiet Windows sākotnējās iestatīšanas pieredzi.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Iespējot vai atspējot Windows komponentus izvietotajā operētājsistēmā.</value>
+    <value>Iespējojiet vai atspējojiet Windows papildu līdzekļus.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Papildu līdzekļi</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, atjauninājumu līmeņus, valodas un izdevumus.</value>
+    <value>Ierobežojiet izvietošanai pieejamās operētājsistēmas izvēles.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS atlase</value>
@@ -2561,7 +2561,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Automātiski pievienoties domēnam, izmantojot akreditācijas datus, ko aizsargā izvietošanas parole.</value>
@@ -2669,31 +2669,31 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Windows profilu viesabonēšana</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Pielāgot OOBE</value>
+    <value>Iespējot OOBE konfigurāciju</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigurējiet Windows 11 pirmās palaišanas ekrānus un privātuma noklusējuma iestatījumus.</value>
+    <value>Konfigurējiet Windows sākotnējās iestatīšanas pieredzes konfidencialitātes un iestatīšanas izvēles.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurējiet Windows papildu līdzekļus</value>
+    <value>Iespējot papildu līdzekļu konfigurāciju</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Iespējot vai atspējot Windows komponentus izvietotajā operētājsistēmā.</value>
+    <value>Izvēlieties Windows papildu līdzekļus, ko iespējot vai atspējot.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows papildu līdzekļi</value>
+    <value>Papildu līdzekļi</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows izvietošanas opcijas</value>
+    <value>Iespējot operētājsistēmas atlases konfigurāciju</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, atjauninājumu līmeņus, valodas un izdevumus.</value>
+    <value>Konfigurējiet atļautos operētājsistēmas laidienus, valodas, kanālus un izdevumus.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows izvietošanas opcijas</value>
+    <value>OS atlase</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Pievienojiet iespējotu darbību vai atspējojiet konfigurēšanu pēc instalēšanas.</value>
@@ -2789,7 +2789,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Importēt mapi</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Satura importēšana...</value>
+    <value>Satura importēšana…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Šī darbība nav derīga. Pārbaudiet tās konfigurāciju.</value>
@@ -2819,7 +2819,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Ievadiet mapi no importētā satura vai atstājiet šo lauku tukšu.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Satura ielāde...</value>
+    <value>Satura ielāde…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importējiet trūkstošo saturu darbībai “{0}”.</value>
@@ -3193,28 +3193,28 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Ar šiem iestatījumiem Foundry OSD nevarēja sasniegt GitHub un Microsoft pakalpojumus. Pārbaudiet starpniekservera adresi, portu un tīkla savienojumu. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Savienojums neizdevās</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Pārbaudiet starpniekservera iestatījumus</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Jaunie Foundry OSD savienojumi tagad izmanto šos iestatījumus.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Starpniekservera iestatījumi ir lietoti</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD, izmantojot atlasītos iestatījumus, sasniedza GitHub un Microsoft pakalpojumus.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Savienojums izdevās</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Ievadiet starpniekservera adresi.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Ievadiet lietotājvārdu un paroli starpniekservera autentifikācijai.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Ievadiet derīgu HTTP vai HTTPS starpniekservera adresi, piemēram, proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Lietot</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Izmantot pašreizējos Windows akreditācijas datus</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Izvēlieties, kā starpniekserveris autentificē Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentifikācija</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Lietotājvārds un parole</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Bez autentifikācijas</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Neobligāti resursdatoru nosaukumi vai aizstājējzīmju šabloni, atdalīti ar semikolu.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Izņēmumu saraksts</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Tieši izveidot savienojumu ar resursdatoru nosaukumiem, kuros nav punkta.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Apiet lokālās adreses</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Akreditācijas dati tiek droši glabāti Windows akreditācijas datu pārvaldniekā.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Starpniekservera akreditācijas dati</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domēns (neobligāti)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Ievadiet starpniekservera adresi un portu.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Starpniekserveris</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Izvēlieties, kā Foundry OSD izveido savienojumu ar internetu.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Starpniekservera metode</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Bez starpniekservera (tiešs savienojums)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Manuāli iestatīts starpniekserveris</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Izmantot Windows iestatījumus (ieteicams)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Parole</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Šie iestatījumi attiecas tikai uz šo lietotni. Tie netiek pievienoti izvietošanas datu nesējam un neietekmē Foundry Connect vai Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Tikai Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Pārbaudīt savienojumu</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Lietotājvārds</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Iestatījumi</value>
@@ -3322,7 +3322,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Iestatījumu dublēšana un sinhronizēšana</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigurējiet, kā Foundry OSD izveido savienojumu ar tiešsaistes pakalpojumiem.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3334,7 +3334,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Iespējot attālo diagnostiku</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Nosūtiet anonīmu lietojuma telemetriju, lai palīdzētu uzlabot Foundry. Noslēpumi un tiešie ierīces identifikatori, tostarp sērijas numuri un aparatūras jaucējvērtības, netiek iekļauti. Telemetrija izmanto anonīmu instalācijas identifikatoru un var ietvert ierīces ražotāju un modeli.</value>
+    <value>Nosūtiet anonīmu lietojuma telemetriju, lai palīdzētu uzlabot Foundry. Noslēpumi un tiešie ierīces identifikatori, tostarp sērijas numuri un aparatūras jaucējkodi, netiek iekļauti. Telemetrija izmanto anonīmu instalācijas identifikatoru un var ietvert ierīces ražotāju un modeli.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Iespējot telemetriju</value>
@@ -3379,49 +3379,49 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Iespējots: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču nav atlasītā sertifikāta derīguma termiņa beigām.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst atlasītā sertifikāta derīguma termiņa beigu datuma.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, bet atlasītajam sertifikātam ir beidzies derīguma termiņš. Pirms sāknēšanas datu nesēja izveides atlasiet derīgu sertifikātu.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, bet atlasītajam sertifikātam ir beidzies derīguma termiņš. Pirms sāknēšanas datu nesēja izveides atlasiet derīgu sertifikātu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču atlasītais PFX neatbilst lietotnes reģistrācijas sertifikātam.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču atlasītais PFX neatbilst lietotnes reģistrācijas sertifikātam.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst atlasītā sertifikāta nospieduma.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst atlasītā sertifikāta īkšķa nospieduma.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, bet lietotnes reģistrācija nav konfigurēta. Izveidojiet savienojumu ar nomnieku no Autopilot.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, bet lietotnes reģistrācija nav konfigurēta. Izveidojiet savienojumu ar nomnieku sadaļā Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču nevarēja apstiprināt sāknēšanas datu nesēja PFX derīguma termiņu.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču nevarēja apstiprināt sāknēšanas datu nesēja PFX derīguma termiņu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, bet atlasītā sāknēšanas datu nesēja PFX derīguma termiņš ir beidzies.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, bet atlasītā sāknēšanas datu nesēja PFX derīguma termiņš ir beidzies.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, bet sāknēšanas datu nesējs PFX nav apstiprināts.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, bet sāknēšanas datu nesēja PFX nav apstiprināts.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču atlasītais PFX neatbilst aktīvajam sertifikātam.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču atlasītais PFX neatbilst aktīvajam sertifikātam.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Aparatūras hash augšupielāde ir iespējota, bet nav atlasīts sāknēšanas datu nesēja PFX.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, bet nav atlasīts sāknēšanas datu nesēja PFX.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst sāknēšanas datu nesēja PFX paroles.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst sāknēšanas datu nesēja PFX paroles.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst lietotnes klienta ID. Atkārtoti izveidojiet savienojumu ar nomnieku no Autopilot.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst lietotnes klienta ID. Atkārtoti izveidojiet savienojumu ar nomnieku sadaļā Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst vai nav gatavs lietotnes pakalpojuma galvenais nosaukums.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst vai nav gatavs lietotnes service principal.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst iestatījumu.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst iestatījumu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst nomnieka savienojuma. Izveidojiet savienojumu ar nomnieku no Autopilot.</value>
+    <value>Aparatūras jaucējkoda augšupielāde ir iespējota, taču trūkst nomnieka savienojuma. Izveidojiet savienojumu ar nomnieku sadaļā Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON profila režīms ir iespējots, bet nav atlasīts derīgs noklusējuma profils.</value>
@@ -3469,13 +3469,13 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Tīkla konfigurācija nav gatava.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nav atlasīts neviens USB mērķis.</value>
+    <value>Nav atlasīts neviens USB disks.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nepieciešamie mediju noslēpumi nav gatavi.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Atlasītais USB mērķis ir pārāk mazs. Izmantojiet USB taustiņu, kura ietilpība ir vismaz 16 GB.</value>
+    <value>Atlasītais USB disks ir pārāk mazs. Izmantojiet USB disku, kura ietilpība ir vismaz 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Atlasītais WinPE tastatūras izkārtojums šajā datorā nav instalēts.</value>
@@ -3517,7 +3517,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Formatējiet un izveidojiet USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatējiet USB mērķi</value>
+    <value>Formatēt USB disku</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Sistēma Windows nevar nolasīt šī diska sējumus. Tajā joprojām var būt dati.</value>
@@ -3532,7 +3532,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Šī diska sējumi:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Viss, kas atrodas šajā diskā, tiks zaudēts. Turpiniet tikai tad, ja šis ir paredzētais USB disks.</value>
+    <value>Visi šajā diskā esošie dati tiks zaudēti. Turpiniet tikai tad, ja šis ir paredzētais USB disks.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Izveidot USB</value>
@@ -3595,10 +3595,10 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Lai sāktu, tālāk izvēlieties ISO vai USB izvadi.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Pilns formāts</value>
+    <value>Pilnā formatēšana</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Ātrs formāts</value>
+    <value>Ātrā formatēšana</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Izvēlieties, kur tiks rakstīts ģenerētais Foundry ISO.</value>
@@ -3972,7 +3972,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Atjaunināt USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB mērķus var atsvaidzināt pēc ADK gatavības pabeigšanas.</value>
+    <value>USB diskus var atsvaidzināt pēc ADK gatavības pārbaudes pabeigšanas.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB diskdziņi atrasti: {0}</value>
@@ -3981,22 +3981,22 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Disks {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB mērķu skenēšana.</value>
+    <value>Notiek USB disku meklēšana…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Netika atrasts neviens USB disks.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB mērķa atsvaidzināšana neizdevās.</value>
+    <value>Neizdevās atsvaidzināt USB diskus.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formāta darbība, kas izmantota pirms pēdējā USB datu nesēja kopēšanas.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Sadalījuma shēma, kas izmantota, sagatavojot atlasīto USB mērķi.</value>
+    <value>Nodalījumu shēma, kas tiek izmantota, sagatavojot atlasīto USB disku.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB mērķis</value>
+    <value>Mērķa USB disks</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE sāknēšanas vides izmantotā valoda.</value>
@@ -4050,7 +4050,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Sistēma</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Gaisma</value>
+    <value>Gaišs</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Izvēlieties fona materiālu, kas tiek izmantots aiz lietotnes.</value>
@@ -4302,7 +4302,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Drošības veids</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Atvērt</value>
+    <value>Atvērts</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (oportūnistiskā bezvadu šifrēšana)</value>
@@ -4314,7 +4314,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Nodrošiniet Wi-Fi atbalstu sāknēšanas attēlā</value>
+    <value>Iespējot Wi-Fi nodrošināšanu</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurējiet Wi-Fi nodrošināšanu, iegultos profilus un Windows profilu viesabonēšanu.</value>

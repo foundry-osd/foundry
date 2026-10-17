@@ -19,7 +19,7 @@
     <value>ซอฟต์แวร์นี้มีให้ตามที่เป็นอยู่ ตรวจสอบการตั้งค่าการปรับใช้ของคุณก่อนใช้งาน</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>ลิขสิทธิ์ (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
+    <value>Copyright (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
 ได้รับอนุญาตภายใต้ใบอนุญาต MIT</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -526,7 +526,7 @@
     <value>ลิทัวเนีย (ลิทัวเนีย)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>บ็อกมาลนอร์เวย์ (นอร์เวย์)</value>
+    <value>นอร์เวย์ บ็อกมาล (นอร์เวย์)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>โปแลนด์ (โปแลนด์)</value>
@@ -544,7 +544,7 @@
     <value>รัสเซีย (รัสเซีย)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>ละตินเซอร์เบีย (เซอร์เบีย)</value>
+    <value>เซอร์เบีย ละติน (เซอร์เบีย)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>สโลวัก (สโลวาเกีย)</value>
@@ -562,10 +562,10 @@
     <value>สวีเดน (สวีเดน)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>ไทย (ประเทศไทย)</value>
+    <value>ไทย (ไทย)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>ตุรกี (Türkiye)</value>
+    <value>ตุรกี (ตุรกี)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ยูเครน (ยูเครน)</value>
@@ -688,16 +688,16 @@
     <value>การอัปโหลดแฮชฮาร์ดแวร์ไม่พร้อมใช้งาน</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>สถานะการอัปโหลดแฮชของฮาร์ดแวร์</value>
+    <value>สถานะการอัปโหลดแฮชฮาร์ดแวร์</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ Zero-touch</value>
+    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON การจัดสรรโปรไฟล์</value>
+    <value>โปรไฟล์ JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>โปรไฟล์</value>
@@ -781,7 +781,7 @@
     <value>ได้รับคำขอยกเลิกแล้ว กำลังรอให้การดำเนินการปัจจุบันเสร็จสิ้นอย่างปลอดภัย</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>ยกเลิกการทำให้ใช้งานได้แล้ว</value>
+    <value>ยกเลิกการปรับใช้แล้ว</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>หยุดการทำให้ใช้งานได้แล้ว ดิสก์เป้าหมายอาจมีการติดตั้งที่ยังไม่สมบูรณ์</value>
@@ -955,7 +955,7 @@
     <value>กำลังตรวจสอบสิทธิ์การอัปโหลดแฮชฮาร์ดแวร์ Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>กำลังจับภาพ Autopilot ฮาร์ดแวร์แฮช...</value>
+    <value>กำลังรวบรวมแฮชฮาร์ดแวร์ Autopilot...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>กำลังตรวจสอบพื้นที่ว่าง...</value>
@@ -1150,7 +1150,7 @@
     <value>กำลังเขียนสรุปการทำให้ใช้งานได้...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>การเขียนจำลอง Autopilot รายการแฮช...</value>
+    <value>กำลังเขียนไฟล์รายการแฮช Autopilot แบบจำลอง...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>การเขียนจำลอง Autopilot รายการ...</value>
@@ -1204,28 +1204,28 @@
     <value>Windows Autopilot การอัปเดตแท็กกลุ่มอุปกรณ์ไม่ได้รับการยืนยันก่อนหมดเวลา</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Autopilot แฮชฮาร์ดแวร์ที่นำเข้าและมองเห็นได้ในอุปกรณ์ Windows Autopilot</value>
+    <value>นำเข้าแฮชฮาร์ดแวร์ Autopilot แล้ว และมองเห็นได้ในอุปกรณ์ Windows Autopilot</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot การจับแฮชฮาร์ดแวร์ล้มเหลว: {0}</value>
+    <value>การรวบรวมแฮชฮาร์ดแวร์ Autopilot ล้มเหลว: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot การนำเข้าแฮชฮาร์ดแวร์ล้มเหลว: {0}</value>
+    <value>การนำเข้าแฮชฮาร์ดแวร์ Autopilot ล้มเหลว: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot อัปโหลดแฮชฮาร์ดแวร์ที่เตรียมไว้สำหรับการจำลอง</value>
+    <value>เตรียมการอัปโหลดแฮชฮาร์ดแวร์ Autopilot สำหรับการจำลองแล้ว</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot อัปโหลดแฮชฮาร์ดแวร์ที่เตรียมไว้ (การจำลอง)</value>
+    <value>เตรียมการอัปโหลดแฮชฮาร์ดแวร์ Autopilot แล้ว (การจำลอง)</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Autopilot การอัปโหลดแฮชฮาร์ดแวร์ถูกข้ามเนื่องจากใบรับรองที่ฝังไว้หมดอายุแล้ว</value>
+    <value>ข้ามการอัปโหลดแฮชฮาร์ดแวร์ Autopilot เนื่องจากใบรับรองที่ฝังไว้หมดอายุแล้ว</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot การอัพโหลดแฮชฮาร์ดแวร์ถูกข้าม: {0}</value>
+    <value>ข้ามการอัปโหลดแฮชฮาร์ดแวร์ Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot การอัปโหลดแฮชฮาร์ดแวร์ถูกข้ามเนื่องจากข้อมูลใบรับรองสื่อที่จำเป็นไม่สมบูรณ์</value>
+    <value>ข้ามการอัปโหลดแฮชฮาร์ดแวร์ Autopilot เนื่องจากข้อมูลใบรับรองสื่อที่จำเป็นไม่สมบูรณ์</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot เปิดใช้งานอยู่แต่ไม่ได้เลือกโปรไฟล์</value>
@@ -1444,7 +1444,7 @@
     <value>พาร์ติชันเป้าหมาย Windows ไม่พร้อมใช้งานสำหรับการจัดเตรียม Autopilot</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>พาร์ติชันเป้าหมาย Windows ไม่พร้อมใช้งานสำหรับการอัปโหลดแฮชฮาร์ดแวร์ Autopilot</value>
+    <value>พาร์ติชัน Windows เป้าหมายไม่พร้อมใช้งานสำหรับการอัปโหลดแฮชฮาร์ดแวร์ Autopilot</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>พาร์ติชัน Windows เป้าหมายไม่พร้อมใช้งานสำหรับการจัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบ</value>
@@ -1486,13 +1486,13 @@
     <value>การปรับใช้เสร็จสมบูรณ์</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>นำสื่อสำหรับบูตออก แล้วเลือก รีสตาร์ต</value>
+    <value>นำสื่อสำหรับบูตออก แล้วเลือก “รีสตาร์ต”</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>คอมพิวเตอร์เครื่องนี้จะรีสตาร์ตใน {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>รีบูต</value>
+    <value>รีสตาร์ต</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>บัญชีภายในเครื่องเพิ่มเติม</value>
@@ -1747,7 +1747,7 @@
     <value>มืด</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>เบา</value>
+    <value>สว่าง</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>ระบบ</value>

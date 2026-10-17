@@ -19,7 +19,7 @@
     <value>Questo software viene fornito così com'è. Controlla le impostazioni di distribuzione prima dell'uso.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Diritto d’autore (c) 2026 Mickaël CHAVE e i collaboratori di Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE e i collaboratori di Foundry Project.
 Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -47,7 +47,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Autopilot</value>
   </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
-    <value>Non è possibile determinare la versione di Foundry OSD usata per creare questo supporto di avvio. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l’ISO o aggiorna il supporto di avvio USB.</value>
+    <value>Non è possibile determinare la versione di Foundry OSD usata per creare questo supporto di avvio. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l'ISO o aggiorna il supporto di avvio USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
     <value>Nuova versione disponibile. Aggiorna Foundry OSD e ricrea il supporto di avvio.</value>
@@ -56,7 +56,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Aggiorna Foundry OSD e ricrea il supporto di avvio.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Questo supporto di avvio è stato creato con una versione precedente di Foundry OSD. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l’ISO o aggiorna il supporto di avvio USB.</value>
+    <value>Questo supporto di avvio è stato creato con una versione precedente di Foundry OSD. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l'ISO o aggiorna il supporto di avvio USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Architettura: {0}</value>
@@ -89,7 +89,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Annulla</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Chiudi la finestra</value>
+    <value>Chiudi</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Copia negli appunti</value>
@@ -122,7 +122,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>N/D</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Precedente</value>
+    <value>Indietro</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Non disponibile</value>
@@ -137,7 +137,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Sì</value>
   </data>
   <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
-    <value>L’immagine predefinita è presente su più volumi collegati. Scegli esplicitamente il volume di origine.</value>
+    <value>L'immagine predefinita è presente su più volumi collegati. Scegli esplicitamente il volume di origine.</value>
   </data>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Catalogo Windows</value>
@@ -152,22 +152,22 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Indice immagine</value>
   </data>
   <data name="CustomImages.Inspecting" xml:space="preserve">
-    <value>Analisi e verifica dell’immagine…</value>
+    <value>Analisi e verifica dell'immagine…</value>
   </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
-    <value>Il manifesto delle immagini personalizzate è mancante, danneggiato o non corrisponde a questo supporto di avvio. Ricrea il supporto o scegli un’altra origine.</value>
+    <value>Il manifesto delle immagini personalizzate è mancante, danneggiato o non corrisponde a questo supporto di avvio. Ricrea il supporto o scegli un'altra origine.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Impossibile leggere l’immagine oppure l’indice selezionato o i metadati sono cambiati. Selezionare nuovamente l’immagine e riprovare.</value>
+    <value>Impossibile leggere l'immagine oppure l'indice selezionato o i metadati sono cambiati. Selezionare nuovamente l'immagine e riprovare.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
-    <value>L’immagine o l’indice predefiniti configurati non sono disponibili. Scegli esplicitamente un’immagine e un indice.</value>
+    <value>L'immagine o l'indice predefiniti configurati non sono disponibili. Scegli esplicitamente un'immagine e un indice.</value>
   </data>
   <data name="CustomImages.NoImages" xml:space="preserve">
     <value>Nessuna immagine personalizzata trovata. Collega il supporto corretto o aggiungi un WIM alla cartella USB indicata nella documentazione.</value>
   </data>
   <data name="CustomImages.NotReady" xml:space="preserve">
-    <value>L’immagine personalizzata non è pronta.</value>
+    <value>L'immagine personalizzata non è pronta.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Immagine personalizzata e indice esatto verificati.</value>
@@ -182,16 +182,16 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Origine immagine</value>
   </data>
   <data name="CustomImages.UnsafeSource" xml:space="preserve">
-    <value>Non è possibile confermare che il disco di origine sia distinto dal disco di destinazione. Seleziona un’altra origine.</value>
+    <value>Non è possibile confermare che il disco di origine sia distinto dal disco di destinazione. Seleziona un'altra origine.</value>
   </data>
   <data name="CustomImages.Verifying" xml:space="preserve">
-    <value>Verifica dell’immagine personalizzata…</value>
+    <value>Verifica dell'immagine personalizzata…</value>
   </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Caricamento zero-touch dell’hash hardware</value>
+    <value>Caricamento zero-touch dell'hash hardware</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
     <value>Certificato scaduto</value>
@@ -209,7 +209,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>JSON profilo</value>
   </data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
-    <value>No Autopilot</value>
+    <value>Senza Autopilot</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Pagina di distribuzione annullata</value>
@@ -349,7 +349,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Disco {0} | {1} | {2} | {3}{4}</value>
   </data>
   <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
-    <value>L’identità del disco è mancante, ambigua o è cambiata. Riavvia Foundry Deploy e seleziona nuovamente il disco.</value>
+    <value>L'identità del disco è mancante, ambigua o è cambiata. Riavvia Foundry Deploy e seleziona nuovamente il disco.</value>
   </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Il disco di destinazione {0} è bloccato: {1}</value>
@@ -433,7 +433,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Versione</value>
   </data>
   <data name="Drivers.Description" xml:space="preserve">
-    <value>Scegliere l’origine dei driver e, quando necessario, il modello e la versione corrispondenti.</value>
+    <value>Scegliere l'origine dei driver e, quando necessario, il modello e la versione corrispondenti.</value>
   </data>
   <data name="Drivers.Title" xml:space="preserve">
     <value>Driver del dispositivo</value>
@@ -442,7 +442,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Passaggio non riuscito: {0}</value>
   </data>
   <data name="Error.SecureConnectionFailed" xml:space="preserve">
-    <value>Impossibile stabilire una connessione sicura. Verificare la data e l’ora del dispositivo e i certificati attendibili nel supporto di avvio, incluso il certificato di un eventuale proxy HTTPS.</value>
+    <value>Impossibile stabilire una connessione sicura. Verificare la data e l'ora del dispositivo e i certificati attendibili nel supporto di avvio, incluso il certificato di un eventuale proxy HTTPS.</value>
   </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Dettagli errore</value>
@@ -472,7 +472,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Croato (Croazia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Ceco (Repubblica Ceca)</value>
+    <value>Ceco (Cechia)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>Danese (Danimarca)</value>
@@ -526,7 +526,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Lituano (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal norvegese (Norvegia)</value>
+    <value>Norvegese bokmål (Norvegia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polacco (Polonia)</value>
@@ -544,7 +544,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Russo (Russia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latino serbo (Serbia)</value>
+    <value>Serbo latino (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovacco (Slovacchia)</value>
@@ -565,7 +565,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Tailandese (Thailandia)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turco (Türkiye)</value>
+    <value>Turco (Turchia)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ucraino (Ucraina)</value>
@@ -586,7 +586,7 @@ Continuare con la distribuzione?</value>
     <value>Conferma la cancellazione del disco</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_Circa</value>
+    <value>_Informazioni</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
@@ -607,7 +607,7 @@ Continuare con la distribuzione?</value>
     <value>_Strumenti</value>
   </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
-    <value>Scegliere la versione di Windows, la lingua, l’edizione e il canale di licenza.</value>
+    <value>Scegliere la versione di Windows, la lingua, l'edizione e il canale di licenza.</value>
   </data>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Sistema operativo</value>
@@ -616,7 +616,7 @@ Continuare con la distribuzione?</value>
     <value>Non sono necessarie attività di post-installazione.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Preparazione della fase successiva all’installazione non riuscita. Consultare il registro di distribuzione per i dettagli.</value>
+    <value>Preparazione della fase successiva all'installazione non riuscita. Consultare il registro di distribuzione per i dettagli.</value>
   </data>
   <data name="PostInstall.RuntimePreparing" xml:space="preserve">
     <value>Preparazione dei componenti post-installazione...</value>
@@ -637,31 +637,31 @@ Continuare con la distribuzione?</value>
     <value>Preparazione della post-installazione non riuscita. Verifica runtime, file e file di risposte di Windows prima di riprovare.</value>
   </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
-    <value>Impossibile preparare la cache dell’immagine. Controllare lo spazio libero e l’accesso in scrittura alla cache.</value>
+    <value>Impossibile preparare la cache dell'immagine. Controllare lo spazio libero e l'accesso in scrittura alla cache.</value>
   </data>
   <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
-    <value>La verifica dell’hash dell’immagine di Windows scaricata non è riuscita. Controllare la connessione di rete e il dispositivo di archiviazione, quindi riprovare.</value>
+    <value>La verifica dell'hash dell'immagine di Windows scaricata non è riuscita. Controllare la connessione di rete e il dispositivo di archiviazione, quindi riprovare.</value>
   </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>Il disco di destinazione non dispone di spazio sufficiente per i requisiti di distribuzione noti. Selezionare un disco più capiente.</value>
   </data>
   <data name="Preflight.InvalidEdition" xml:space="preserve">
-    <value>L’edizione di Windows selezionata non è disponibile o non è identificabile in modo univoco. Selezionare un’altra immagine.</value>
+    <value>L'edizione di Windows selezionata non è disponibile o non è identificabile in modo univoco. Selezionare un'altra immagine.</value>
   </data>
   <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
-    <value>La dimensione dell’immagine dopo l’applicazione non è disponibile o non è valida. Selezionare un’altra immagine.</value>
+    <value>La dimensione dell'immagine dopo l'applicazione non è disponibile o non è valida. Selezionare un'altra immagine.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>I metadati della dimensione o dell’hash dell’immagine nel catalogo non sono validi. Selezionare un’altra immagine oppure riavviare il dispositivo dal supporto di distribuzione per ricaricare il catalogo.</value>
+    <value>I metadati della dimensione o dell'hash dell'immagine nel catalogo non sono validi. Selezionare un'altra immagine oppure riavviare il dispositivo dal supporto di distribuzione per ricaricare il catalogo.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
-    <value>L’URL dell’immagine deve usare HTTP o HTTPS. Selezionare un’altra immagine oppure riavviare il dispositivo dal supporto di distribuzione per ricaricare il catalogo.</value>
+    <value>L'URL dell'immagine deve usare HTTP o HTTPS. Selezionare un'altra immagine oppure riavviare il dispositivo dal supporto di distribuzione per ricaricare il catalogo.</value>
   </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Impossibile confermare lo stato di preparazione alla distribuzione. Riavviare la distribuzione prima di preparare il disco.</value>
   </data>
   <data name="Preflight.SourceUnavailable" xml:space="preserve">
-    <value>L’origine dell’immagine non è disponibile. Controllare la connessione di rete e riprovare.</value>
+    <value>L'origine dell'immagine non è disponibile. Controllare la connessione di rete e riprovare.</value>
   </data>
   <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
     <value>Impossibile verificare lo spazio libero sul volume di destinazione. Controllare il disco di destinazione prima di riprovare la distribuzione.</value>
@@ -691,13 +691,13 @@ Continuare con la distribuzione?</value>
     <value>Stato di caricamento dell'hash hardware</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>Caricamento zero-touch dell’hash hardware</value>
+    <value>Caricamento zero-touch dell'hash hardware</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Caricamento interattivo dell’hash hardware</value>
+    <value>Caricamento interattivo dell'hash hardware</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON provisioning del profilo</value>
+    <value>Profilo JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profilo</value>
@@ -730,7 +730,7 @@ Continuare con la distribuzione?</value>
     <value>{0} | TPM: {1} | Potenza: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>CA</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Batteria</value>
@@ -778,13 +778,13 @@ Continuare con la distribuzione?</value>
     <value>Un'altra operazione è già in corso.</value>
   </data>
   <data name="Status.CancellationPending" xml:space="preserve">
-    <value>Annullamento richiesto. In attesa che l’operazione corrente termini in sicurezza.</value>
+    <value>Annullamento richiesto. In attesa che l'operazione corrente termini in sicurezza.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Distribuzione annullata</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
-    <value>Distribuzione arrestata. Il disco di destinazione potrebbe contenere un’installazione incompleta.</value>
+    <value>Distribuzione arrestata. Il disco di destinazione potrebbe contenere un'installazione incompleta.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>In corso...</value>
@@ -970,7 +970,7 @@ Continuare con la distribuzione?</value>
     <value>Verifica dello stato di preparazione alla distribuzione...</value>
   </data>
   <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
-    <value>Verifica dell’accesso all’origine...</value>
+    <value>Verifica dell'accesso all'origine...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Controllo dei dispositivi Windows Autopilot ({0} rimanenti)...</value>
@@ -1033,7 +1033,7 @@ Continuare con la distribuzione?</value>
     <value>Estrazione pacchetto driver...</value>
   </data>
   <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
-    <value>Estrazione dell’aggiornamento firmware...</value>
+    <value>Estrazione dell'aggiornamento firmware...</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Finalizzazione della distribuzione in corso...</value>
@@ -1111,7 +1111,7 @@ Continuare con la distribuzione?</value>
     <value>Preparazione dell'assistente di registrazione Autopilot...</value>
   </data>
   <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
-    <value>Preparazione dell’aggiornamento firmware...</value>
+    <value>Preparazione dell'aggiornamento firmware...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Pacchetto di allestimento...</value>
@@ -1282,7 +1282,7 @@ Continuare con la distribuzione?</value>
     <value>Il contenuto di origine del pacchetto driver non è disponibile per la gestione temporanea al primo avvio.</value>
   </data>
   <data name="StepResult.ExternalStorageReady" xml:space="preserve">
-    <value>Archiviazione esterna dell’immagine e capacità nota verificate.</value>
+    <value>Archiviazione esterna dell'immagine e capacità nota verificate.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Aggiornamento del firmware scaricato.</value>
@@ -1297,7 +1297,7 @@ Continuare con la distribuzione?</value>
     <value>Aggiornamento firmware recuperato dalla cache.</value>
   </data>
   <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
-    <value>Aggiornamento firmware preparato per l’installazione in Windows.</value>
+    <value>Aggiornamento firmware preparato per l'installazione in Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Gli aggiornamenti del firmware sono disabilitati.</value>
@@ -1378,7 +1378,7 @@ Continuare con la distribuzione?</value>
     <value>Stato di preparazione alla distribuzione verificato (simulazione).</value>
   </data>
   <data name="StepResult.PreflightTargetReady" xml:space="preserve">
-    <value>Accesso all’origine e requisiti di capacità noti verificati. La convalida completa dell’immagine termina dopo la preparazione del disco.</value>
+    <value>Accesso all'origine e requisiti di capacità noti verificati. La convalida completa dell'immagine termina dopo la preparazione del disco.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Ambiente di ripristino configurato.</value>
@@ -1459,7 +1459,7 @@ Continuare con la distribuzione?</value>
     <value>Immagine Windows e capacità nota verificate.</value>
   </data>
   <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
-    <value>L’immagine Windows non è stata applicata.</value>
+    <value>L'immagine Windows non è stata applicata.</value>
   </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Configurazione delle funzionalità facoltative di Windows disabilitata.</value>
@@ -1486,13 +1486,13 @@ Continuare con la distribuzione?</value>
     <value>Distribuzione completata</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Rimuovere il supporto di avvio, quindi selezionare Riavvia.</value>
+    <value>Rimuovere il supporto di avvio, quindi selezionare «Riavvia».</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Questo computer verrà riavviato tra {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Riavviare</value>
+    <value>Riavvia</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Account locali aggiuntivi</value>
@@ -1558,7 +1558,7 @@ Continuare con la distribuzione?</value>
     <value>Dati diagnostici</value>
   </data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Disattivato</value>
   </data>
   <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
     <value>Facoltativo</value>
@@ -1696,7 +1696,7 @@ Continuare con la distribuzione?</value>
     <value>Impostazioni di distribuzione</value>
   </data>
   <data name="TargetDevice.Description" xml:space="preserve">
-    <value>Scegliere il nome del computer e il disco di destinazione, quindi esaminare l’hardware rilevato.</value>
+    <value>Scegliere il nome del computer e il disco di destinazione, quindi esaminare l'hardware rilevato.</value>
   </data>
   <data name="TargetDevice.DeviceIdentity" xml:space="preserve">
     <value>Identità del dispositivo</value>
@@ -1744,10 +1744,10 @@ Continuare con la distribuzione?</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Buio</value>
+    <value>Scuro</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Luce</value>
+    <value>Chiaro</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>

@@ -19,7 +19,7 @@
     <value>Ezt a szoftvert úgy szállítjuk, ahogy van. A telepítés folytatása előtt erősítse meg a hálózati hozzáférést.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Szerzői jog (c) 2026 Mickaël CHAVE és a Foundry Project közreműködői.
+    <value>Copyright (c) 2026 Mickaël CHAVE és a Foundry Project közreműködői.
 Licenc az MIT licenc alatt.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -165,7 +165,7 @@ Licenc az MIT licenc alatt.</value>
     <value>bolgár (Bulgária)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Egyszerűsített kínai (Kína)</value>
+    <value>egyszerűsített kínai (Kína)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>hagyományos kínai (Tajvan)</value>
@@ -174,7 +174,7 @@ Licenc az MIT licenc alatt.</value>
     <value>horvát (Horvátország)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>cseh (cseh)</value>
+    <value>cseh (Csehország)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>dán (Dánia)</value>
@@ -267,13 +267,13 @@ Licenc az MIT licenc alatt.</value>
     <value>thai (Thaiföld)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>török (Türkiye)</value>
+    <value>török (Törökország)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrán (Ukrajna)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Körülbelül</value>
+    <value>Névjegy</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Hibakeresés</value>
@@ -288,7 +288,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Nyelv</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>téma</value>
+    <value>Téma</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>Eszközök</value>
@@ -315,7 +315,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Sötét</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Fény</value>
+    <value>Világos</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Rendszer</value>
@@ -408,7 +408,7 @@ Licenc az MIT licenc alatt.</value>
     <value>{0} (gép vagy felhasználó)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Nyissa meg</value>
+    <value>Nyílt</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Személyes</value>

@@ -25,7 +25,7 @@
     <value>No se pudieron cargar los contribuyentes desde GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Cargando colaboradores...</value>
+    <value>Cargando colaboradores…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Colaboradores</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD es una aplicación moderna para crear medios de implementación Windows con tecnología de WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Derechos de autor (c) 2026 Mickaël CHAVE y los colaboradores de Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE y los colaboradores de Foundry Project.
 Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Las notas de la versión no se pudieron cargar en el navegador integrado.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Cargando notas de la versión...</value>
+    <value>Cargando notas de la versión…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Notas de la versión</value>
@@ -77,10 +77,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Apoyo</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Las licencias de paquetes de terceros se rastrean a través del repositorio del proyecto y los manifiestos de dependencia.</value>
+    <value>Foundry OSD usa las siguientes bibliotecas y herramientas. Sus licencias y páginas de proyecto se indican a continuación.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Dependencias de terceros</value>
+    <value>Licencias de terceros</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Acerca de Foundry OSD</value>
@@ -242,19 +242,19 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Actualizar el complemento Windows ADK y Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Eliminar componentes de IA</value>
+    <value>Habilitar la configuración de componentes de IA</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Elimine o deshabilite los componentes de IA Windows seleccionados antes de OOBE.</value>
+    <value>Elija los componentes y las experiencias de IA de Windows que desea eliminar o deshabilitar.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Eliminación de componentes de IA</value>
+    <value>Componentes de IA</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Eliminar aplicaciones Windows aprovisionadas</value>
+    <value>Habilitar eliminaciones de AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Elimine las aplicaciones Windows aprovisionadas seleccionadas antes de OOBE.</value>
+    <value>Elija las aplicaciones de Windows aprovisionadas que desea eliminar de los dispositivos implementados.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Eliminaciones de AppX</value>
@@ -317,7 +317,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>No se encontraron perfiles Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Descargando perfiles Autopilot...</value>
+    <value>Descargando perfiles Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} está configurado.</value>
@@ -422,7 +422,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Guardar Autopilot certificado PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Impresión del pulgar</value>
+    <value>Huella digital</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
     <value>Válido por 12 meses</value>
@@ -443,7 +443,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Conectar inquilino</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Conexión de inquilino...</value>
+    <value>Conexión de inquilino…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Crear certificado</value>
@@ -593,7 +593,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Importar Autopilot perfil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importando perfil Autopilot...</value>
+    <value>Importando perfil Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Cuando está habilitado, el técnico inicia sesión con un código de dispositivo de Microsoft durante la configuración de Windows y carga el hash de hardware del dispositivo.</value>
@@ -656,7 +656,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Inicia sesión en Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Claro</value>
+    <value>Borrar</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Elija qué perfiles de inquilinos deben importarse a Foundry.</value>
@@ -680,10 +680,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Carga interactiva del hash de hardware</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Organice un perfil Autopilot sin conexión en la imagen Windows aplicada.</value>
+    <value>Importe o descargue el perfil de Autopilot incrustado en el medio de implementación.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON aprovisionamiento de perfil</value>
+    <value>Perfil JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Configure la carga automática de hash de hardware con respaldo de tenant.</value>
@@ -707,7 +707,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Cancelar</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Cerca</value>
+    <value>Cerrar</value>
   </data>
   <data name="Common.Disable" xml:space="preserve">
     <value>Deshabilitar</value>
@@ -941,7 +941,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Paquetes</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>Costumbre</value>
+    <value>Personalizado</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>Seleccione una o más categorías del catálogo para preseleccionar paquetes.</value>
@@ -1199,7 +1199,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Solo se han configurado cuentas estándar. Asegúrese de que haya otra cuenta de administrador o un método de administración disponible.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
-    <value>Permite Microsoft servicios de reconocimiento de voz basados ​​en la nube.</value>
+    <value>Permite Microsoft servicios de reconocimiento de voz basados en la nube.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
     <value>reconocimiento de voz en línea</value>
@@ -1847,7 +1847,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Buscar por nombre para mostrar o nombre de función DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportar...</value>
+    <value>Exportar…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Cree un archivo de soporte saneado sin modificar los registros originales.</value>
@@ -1865,7 +1865,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Error al exportar los diagnósticos</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avanzado: exportar registros sin procesar...</value>
+    <value>Avanzado: exportar registros sin procesar…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Exportar registros sin procesar</value>
@@ -1928,7 +1928,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Sí</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Buscando OU en el dominio...</value>
+    <value>Buscando OU en el dominio…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Búsqueda cancelada.</value>
@@ -2108,10 +2108,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Seleccione el certificado 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configurar 802.1X cableado</value>
+    <value>Habilitar la configuración de Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>La conectividad estándar Ethernet está disponible de forma predeterminada. Configure esta sección solo si su red cableada requiere autenticación empresarial 802.1X.</value>
+    <value>Configure la autenticación 802.1X cableada y la itinerancia de perfiles de Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2282,7 +2282,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Chino tradicional (Taiwán)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>croata (Croacia)</value>
+    <value>Croata (Croacia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>Checo (Chequia)</value>
@@ -2291,7 +2291,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Danés (Dinamarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holandés (Países Bajos)</value>
+    <value>Neerlandés (Países Bajos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglés (Reino Unido)</value>
@@ -2300,7 +2300,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Inglés (Estados Unidos)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estonio (Estonia)</value>
+    <value>Estonio (Estonia)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>Finlandés (Finlandia)</value>
@@ -2336,10 +2336,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Letón (Letonia)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>lituano (Lituania)</value>
+    <value>Lituano (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmål noruego (Noruega)</value>
+    <value>Noruego bokmål (Noruega)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polaco (Polonia)</value>
@@ -2357,7 +2357,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Ruso (Rusia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latín serbio (Serbia)</value>
+    <value>Serbio latino (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Eslovaco (Eslovaquia)</value>
@@ -2372,13 +2372,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Español (España)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>sueco (suecia)</value>
+    <value>Sueco (Suecia)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
     <value>Tailandés (Tailandia)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turco (Türkiye)</value>
+    <value>Turco (Turquía)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ucraniano (Ucrania)</value>
@@ -2402,13 +2402,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Mover componente hacia arriba</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Habilitar reglas de nombres de máquinas</value>
+    <value>Habilitar la configuración de nombres de equipo</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Configure la denominación automática y asistida por técnico de dispositivos.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Nombre de la computadora</value>
+    <value>Nombre de equipo</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Vista previa</value>
@@ -2429,13 +2429,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Elimine o deshabilite los componentes de IA Windows seleccionados antes de OOBE.</value>
+    <value>Elimine o deshabilite componentes de IA de Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>Componentes de IA</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Elimine las aplicaciones Windows aprovisionadas seleccionadas antes de OOBE.</value>
+    <value>Seleccione las aplicaciones aprovisionadas que desea eliminar.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Eliminaciones de AppX</value>
@@ -2477,7 +2477,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Unión al dominio</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>La conectividad estándar Ethernet está disponible de forma predeterminada. Configure esta sección solo si su red cableada requiere autenticación empresarial 802.1X.</value>
+    <value>Configure la autenticación 802.1X cableada.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2492,10 +2492,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>General</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD casa</value>
+    <value>Inicio de Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Hogar</value>
+    <value>Inicio</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Solicite al técnico las credenciales de dominio durante la implementación.</value>
@@ -2513,19 +2513,19 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Red</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Configure Windows 11 pantallas de primera ejecución y valores predeterminados de privacidad.</value>
+    <value>Configure la experiencia de configuración rápida de Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Habilite o deshabilite los componentes de Windows en el sistema operativo implementado.</value>
+    <value>Habilite o deshabilite las funciones opcionales de Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Funciones opcionales</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Defina las versiones de Windows, los niveles de actualización, los idiomas y las ediciones que se ofrecen durante la implementación.</value>
+    <value>Limite las opciones de sistema operativo disponibles durante la implementación.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Selección de SO</value>
@@ -2561,7 +2561,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Una el equipo al dominio automáticamente con credenciales protegidas por la contraseña de implementación.</value>
@@ -2669,31 +2669,31 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Itinerancia de perfiles de Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Personalizar OOBE</value>
+    <value>Habilitar la configuración de OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Configure Windows 11 pantallas de primera ejecución y valores predeterminados de privacidad.</value>
+    <value>Configure las opciones de privacidad y de instalación de la experiencia de configuración rápida de Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configurar las características opcionales de Windows</value>
+    <value>Habilitar la configuración de funciones opcionales</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Habilite o deshabilite los componentes de Windows en el sistema operativo implementado.</value>
+    <value>Elija las funciones opcionales de Windows que desea habilitar o deshabilitar.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Funciones opcionales de Windows</value>
+    <value>Funciones opcionales</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Opciones de implementación de Windows</value>
+    <value>Habilitar la configuración de selección del sistema operativo</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Defina las versiones de Windows, los niveles de actualización, los idiomas y las ediciones que se ofrecen durante la implementación.</value>
+    <value>Configure las versiones, los idiomas, los canales y las ediciones del sistema operativo permitidos.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Opciones de implementación de Windows</value>
+    <value>Selección de SO</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Agregue una acción habilitada o deshabilite la posinstalación.</value>
@@ -2789,7 +2789,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Importar carpeta</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importando contenido...</value>
+    <value>Importando contenido…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Esta acción no es válida. Revise su configuración.</value>
@@ -2819,7 +2819,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Ingrese una carpeta del contenido importado o deje este campo vacío.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Cargando contenido...</value>
+    <value>Cargando contenido…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importe el contenido que falta para "{0}".</value>
@@ -3193,28 +3193,28 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Foundry OSD no pudo conectarse a los servicios de GitHub y Microsoft con esta configuración. Verifique la dirección y el puerto del proxy, y su conexión de red. Encontrará los detalles en el registro.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Error de conexión</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Revise la configuración del proxy</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Las nuevas conexiones de Foundry OSD ahora usan esta configuración.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Configuración del proxy aplicada</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD se conectó a los servicios de GitHub y Microsoft con la configuración seleccionada.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Conexión correcta</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Escriba la dirección del servidor proxy.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Escriba un nombre de usuario y una contraseña para la autenticación explícita del proxy.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Escriba una dirección de proxy HTTP o HTTPS válida, como proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Aplicar</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Usar las credenciales actuales de Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Elija cómo autentica el proxy a Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autenticación</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Nombre de usuario y contraseña</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Sin autenticación</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Nombres de host o patrones con caracteres comodín opcionales, separados por punto y coma.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Lista de excepciones</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Conectarse directamente a los nombres de host que no contienen un punto.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Omitir direcciones locales</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Las credenciales se almacenan de forma segura en el Administrador de credenciales de Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Credenciales del proxy</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Dominio (opcional)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Escriba la dirección y el puerto del proxy.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Servidor proxy</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Elija cómo se conecta Foundry OSD a Internet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Método de proxy</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Sin proxy (conexión directa)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Proxy manual</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Usar la configuración de Windows (recomendado)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Contraseña</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Puerto</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Esta configuración solo se aplica a esta aplicación. No se agrega a los medios de implementación y no afecta a Foundry Connect ni a Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Solo Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Probar conexión</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Nombre de usuario</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Ajustes</value>
@@ -3322,7 +3322,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Respaldo y sincronización de ajustes</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Configure cómo se conecta Foundry OSD a los servicios en línea.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3469,13 +3469,13 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>La configuración de red no está lista.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>No se ha seleccionado ningún objetivo USB.</value>
+    <value>No se ha seleccionado ninguna unidad USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Los secretos de medios requeridos no están listos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>El objetivo USB seleccionado es demasiado pequeño. Utilice una clave USB de al menos 16 GB.</value>
+    <value>La unidad USB seleccionada es demasiado pequeña. Use una unidad USB de al menos 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>La distribución de teclado de WinPE seleccionada no está instalada en esta computadora.</value>
@@ -3517,7 +3517,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Formatear y crear USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formato USB destino</value>
+    <value>Formatear unidad USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows no puede leer los volúmenes de este disco. Es posible que aún contenga datos.</value>
@@ -3532,7 +3532,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Volúmenes en este disco:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Todo lo que hay en este disco se perderá. Continúe solo si este es el disco USB deseado.</value>
+    <value>Se perderá todo el contenido de este disco. Continúe solo si esta es la unidad USB correcta.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Crear USB</value>
@@ -3568,7 +3568,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Arquitectura</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Conductores</value>
+    <value>Controladores</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB modo de formato</value>
@@ -3595,10 +3595,10 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Elija una salida ISO o USB a continuación para comenzar.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>formato completo</value>
+    <value>Formato completo</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>formato rápido</value>
+    <value>Formato rápido</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Elija dónde se escribirá el Foundry ISO generado.</value>
@@ -3972,7 +3972,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Actualizar USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>Los objetivos USB se pueden actualizar una vez que ADK esté completo.</value>
+    <value>La lista de unidades USB se podrá actualizar cuando se complete la preparación de ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB unidades encontradas: {0}</value>
@@ -3981,22 +3981,22 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Disco {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Escaneando objetivos USB.</value>
+    <value>Buscando unidades USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>No se encontraron unidades USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB falló la actualización del objetivo.</value>
+    <value>No se pudo actualizar la lista de unidades USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Comportamiento de formato utilizado antes de copiar el medio USB final.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Esquema de partición utilizado al preparar el objetivo USB seleccionado.</value>
+    <value>Esquema de partición que se usa al preparar la unidad USB seleccionada.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB objetivo</value>
+    <value>Destino USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Idioma utilizado por el entorno de arranque WinPE.</value>
@@ -4023,7 +4023,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Comenzar</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Abierto</value>
+    <value>Abrir</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Abra Windows configuración de color para cambiar el color de acento.</value>
@@ -4050,7 +4050,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Sistema</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Luz</value>
+    <value>Claro</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Elija el material de fondo utilizado detrás de la aplicación.</value>
@@ -4314,7 +4314,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Proporcionar soporte Wi-Fi en la imagen de arranque</value>
+    <value>Habilitar el aprovisionamiento de Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Configure el aprovisionamiento de Wi-Fi, perfiles incrustados y roaming de perfil de Windows.</value>

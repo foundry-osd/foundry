@@ -19,7 +19,7 @@
     <value>Denne software leveres som den er. Bekræft netværksadgang, før du fortsætter implementeringen.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Ophavsret (c) 2026 Mickaël CHAVE og bidragyderne til Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE og bidragyderne til Foundry Project.
 Licenseret under MIT-licensen.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -171,16 +171,16 @@ Licenseret under MIT-licensen.</value>
     <value>Traditionel kinesisk (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>kroatisk (Kroatien)</value>
+    <value>Kroatisk (Kroatien)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Tjekkiet (Tjekkiet)</value>
+    <value>Tjekkisk (Tjekkiet)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>Dansk (Danmark)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>hollandsk (Holland)</value>
+    <value>Nederlandsk (Nederlandene)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Engelsk (Storbritannien)</value>
@@ -189,25 +189,25 @@ Licenseret under MIT-licensen.</value>
     <value>Engelsk (USA)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estisk (Estland)</value>
+    <value>Estisk (Estland)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>finsk (Finland)</value>
+    <value>Finsk (Finland)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>fransk (Canada)</value>
+    <value>Fransk (Canada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>fransk (Frankrig)</value>
+    <value>Fransk (Frankrig)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>tysk (Tyskland)</value>
+    <value>Tysk (Tyskland)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>græsk (Grækenland)</value>
+    <value>Græsk (Grækenland)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>hebraisk (Israel)</value>
+    <value>Hebraisk (Israel)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
     <value>Ungarsk (Ungarn)</value>
@@ -216,10 +216,10 @@ Licenseret under MIT-licensen.</value>
     <value>Italiensk (Italien)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>japansk (Japan)</value>
+    <value>Japansk (Japan)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>koreansk (Korea)</value>
+    <value>Koreansk (Korea)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>Lettisk (Letland)</value>
@@ -228,10 +228,10 @@ Licenseret under MIT-licensen.</value>
     <value>Litauisk (Litauen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norsk Bokmal (Norge)</value>
+    <value>Norsk, bokmål (Norge)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>polsk (Polen)</value>
+    <value>Polsk (Polen)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
     <value>Portugisisk (Brasilien)</value>
@@ -243,10 +243,10 @@ Licenseret under MIT-licensen.</value>
     <value>Rumænsk (Rumænien)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>russisk (Rusland)</value>
+    <value>Russisk (Rusland)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Serbisk latin (Serbien)</value>
+    <value>Serbisk, latinsk (Serbien)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovakisk (Slovakiet)</value>
@@ -261,22 +261,22 @@ Licenseret under MIT-licensen.</value>
     <value>Spansk (Spanien)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>svensk (Sverige)</value>
+    <value>Svensk (Sverige)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
     <value>Thai (Thailand)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Tyrkisk (Türkiye)</value>
+    <value>Tyrkisk (Tyrkiet)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukrainsk (ukrainsk)</value>
+    <value>Ukrainsk (Ukraine)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>Om</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>Fejlretning</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
     <value>Tastatur</value>
@@ -366,7 +366,7 @@ Licenseret under MIT-licensen.</value>
     <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>Forsynet Wi-Fi · {0}</value>
+    <value>Klargjort Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Virksomhedsprofil</value>
@@ -393,7 +393,7 @@ Licenseret under MIT-licensen.</value>
     <value>Dette netværk kræver en klargjort Wi-Fi profil.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>Forsynet Wi-Fi</value>
+    <value>Klargjort Wi-Fi</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Opdater Wi-Fi netværk</value>
@@ -408,7 +408,7 @@ Licenseret under MIT-licensen.</value>
     <value>{0} (maskine eller bruger)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Åbn</value>
+    <value>Åben</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Personligt</value>

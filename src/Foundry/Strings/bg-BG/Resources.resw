@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>За</value>
+    <value>Относно</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Създаден и поддържан от Mickaël CHAVE.</value>
@@ -25,7 +25,7 @@
     <value>Сътрудниците не можаха да бъдат заредени от GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Сътрудниците се зареждат...</value>
+    <value>Сътрудниците се зареждат…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Сътрудници</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD е модерно приложение за създаване на носители за внедряване на Windows, захранвани от WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Авторско право (c) 2026 Mickaël CHAVE и сътрудниците на Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE и сътрудниците на Foundry Project.
 Лицензирано съгласно лиценза на MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@
     <value>Бележките по изданието не можаха да бъдат заредени във вградения браузър.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Бележките по версията се зареждат...</value>
+    <value>Бележките по версията се зареждат…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Бележки по изданието</value>
@@ -77,10 +77,10 @@
     <value>поддръжка</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Лицензите за пакети на трети страни се проследяват чрез хранилището на проекта и манифестите на зависимостите.</value>
+    <value>Foundry OSD използва следните библиотеки и инструменти. Техните лицензи и страници на проектите са изброени по-долу.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Зависимости от трети страни</value>
+    <value>Лицензи на трети страни</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Относно Foundry OSD</value>
@@ -242,19 +242,19 @@
     <value>Надстройте добавката Windows ADK и Windows PE</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Премахнете AI компонентите</value>
+    <value>Активиране на конфигурацията на AI компонентите</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Премахнете или деактивирайте избрани Windows AI компоненти преди OOBE.</value>
+    <value>Изберете AI компонентите и функциите на Windows, които да бъдат премахнати или деактивирани.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Премахване на AI компонент</value>
+    <value>AI компоненти</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Премахнете осигурените Windows приложения</value>
+    <value>Активиране на премахването на AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Премахнете избраните предоставени Windows приложения преди OOBE.</value>
+    <value>Изберете осигурените приложения на Windows, които да бъдат премахнати от устройствата при разполагането.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Премахвания на AppX</value>
@@ -299,10 +299,10 @@
     <value>Източник</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Изтегляне от наемател</value>
+    <value>Изтегляне от клиента</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Няма Autopilot профили, върнати от наемателя.</value>
+    <value>Няма Autopilot профили, върнати от клиента.</value>
   </data>
   <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
     <value>Autopilot профилите не можаха да бъдат изтеглени от наемателя.</value>
@@ -317,7 +317,7 @@
     <value>Няма намерени Autopilot профили</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Изтеглят се Autopilot профили...</value>
+    <value>Изтеглят се Autopilot профили…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} е конфигуриран.</value>
@@ -422,7 +422,7 @@
     <value>Запазете Autopilot сертификат PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Отпечатък от палец</value>
+    <value>Отпечатък</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
     <value>Валиден 12 месеца</value>
@@ -440,10 +440,10 @@
     <value>Не се предоставят сертификати.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Свържете наемател</value>
+    <value>Свържете клиента</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Наемател се свързва...</value>
+    <value>Свързване с клиента…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Създаване на сертификат</value>
@@ -455,7 +455,7 @@
     <value>Няма избран групов маркер по подразбиране.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Прекъснете връзката с наемателя</value>
+    <value>Прекъснете връзката с клиента</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
     <value>Незадължителен групов таг, предварително избран в Foundry Deploy по време на качване на хардуерен хеш.</value>
@@ -470,7 +470,7 @@
     <value>Foundry не можа да конфигурира регистрацията на приложението Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Включването на наемател не бе успешно</value>
+    <value>Включването на клиента не бе успешно</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>Избраният сертификат е изтекъл. Създайте нов сертификат, запазете неговия PFX и парола, след което го изберете за носител за зареждане.</value>
@@ -488,7 +488,7 @@
     <value>Липсва администраторското съгласие на управлявания принципал за необходимото Microsoft Graph разрешение. Дайте съгласие на администратора и се свържете отново.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Регистрацията на управляваното приложение не е готова. Прегледайте готовността на наемателя и се свържете отново.</value>
+    <value>Регистрацията на управляваното приложение не е готова. Прегледайте готовността на клиента и се свържете отново.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>В регистрацията на управляваното приложение липсва необходимото разрешение за Microsoft Graph приложение. Свържете се отново с акаунт, който може да актуализира регистрациите на приложения.</value>
@@ -497,7 +497,7 @@
     <value>Главният управляван сервиз липсва или е деактивиран. Свържете се отново с акаунт, който може да създава или управлява корпоративни приложения.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Включването на наемателя изисква внимание</value>
+    <value>Включването на клиента изисква внимание</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Статус</value>
@@ -548,10 +548,10 @@
     <value>Влезте в Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
-    <value>ID на клиента</value>
+    <value>ID на приложението (клиента)</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>ID на наемателя</value>
+    <value>ID на клиента</value>
   </data>
   <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
     <value>Проверете мрежовата си връзка и се уверете, че акаунтът ви може да управлява регистрации на приложения в наемателя, след което опитайте отново. Подробностите са в регистрационния файл.</value>
@@ -560,10 +560,10 @@
     <value>Не е свързан</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Наемател, регистрация на приложение и информация за готовност за качване на хардуерен хеш.</value>
+    <value>Клиент, регистрация на приложение и информация за готовност за качване на хардуерен хеш.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Готовност на наемателя</value>
+    <value>Готовност на клиента</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Име</value>
@@ -575,7 +575,7 @@
     <value>Свържете се с Microsoft Graph за тази сесия на приложението, за да управлявате настройките за качване на хеш.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Връзка с наемател</value>
+    <value>Връзка с клиента</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Импортиране на профил</value>
@@ -593,7 +593,7 @@
     <value>Импортиране на Autopilot профил JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Импортиране на Autopilot профил...</value>
+    <value>Импортиране на Autopilot профил…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Когато е разрешено, техникът влиза с код за устройство на Microsoft по време на настройката на Windows и качва хардуерния хеш на устройството.</value>
@@ -656,10 +656,10 @@
     <value>Влезте в Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>ясно</value>
+    <value>Изчисти</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Изберете кои профили на наематели да бъдат импортирани в Foundry.</value>
+    <value>Изберете кои профили на клиента да бъдат импортирани в Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
     <value>Импортиране</value>
@@ -680,13 +680,13 @@
     <value>Интерактивно качване на хардуерен хеш</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Създайте офлайн Autopilot профил в приложеното Windows изображение.</value>
+    <value>Импортирайте или изтеглете профила на Autopilot, вграден в носителя за разполагане.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>Осигуряване на профил JSON</value>
+    <value>JSON профил</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Конфигурирайте автоматичното качване на хардуерен хеш със съдействие на tenant.</value>
+    <value>Конфигурирайте автоматичното качване на хардуерен хеш, свързано с клиента.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
     <value>Zero-touch качване на хардуерен хеш</value>
@@ -707,7 +707,7 @@
     <value>Отказ</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>затвори</value>
+    <value>Затвори</value>
   </data>
   <data name="Common.Disable" xml:space="preserve">
     <value>Изключване</value>
@@ -941,7 +941,7 @@
     <value>Пакети</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>По поръчка</value>
+    <value>Потребителски</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>Изберете една или повече каталожни категории, за да изберете предварително пакети.</value>
@@ -1847,7 +1847,7 @@
     <value>Търсене по показвано име или име на DISM функция</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Експортиране...</value>
+    <value>Експортиране…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Създайте саниран архив за поддръжка, без да променяте оригиналните регистрационни файлове.</value>
@@ -1865,7 +1865,7 @@
     <value>Неуспешно експортиране на диагностика</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Разширено: експортиране на необработени регистрационни файлове...</value>
+    <value>Разширено: експортиране на необработени регистрационни файлове…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Експортиране на необработени регистрационни файлове</value>
@@ -1928,7 +1928,7 @@
     <value>Да</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Търсене на OU в домейна...</value>
+    <value>Търсене на OU в домейна…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Търсенето е отменено.</value>
@@ -2108,10 +2108,10 @@
     <value>Изберете сертификат 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Конфигурирайте кабелен 802.1X</value>
+    <value>Активиране на конфигурацията на Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Стандартната Ethernet връзка е налична по подразбиране. Конфигурирайте този раздел само ако вашата кабелна мрежа изисква 802.1X корпоративно удостоверяване.</value>
+    <value>Конфигурирайте кабелното удостоверяване 802.1X и роуминга на профили на Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2249,7 +2249,7 @@
     <value>Изисква ADK</value>
   </data>
   <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
-    <value>По избор</value>
+    <value>Потребителски</value>
   </data>
   <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
     <value>Няма</value>
@@ -2291,7 +2291,7 @@
     <value>датски (Дания)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>холандски (Холандия)</value>
+    <value>нидерландски (Нидерландия)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>английски (Великобритания)</value>
@@ -2339,7 +2339,7 @@
     <value>литовски (Литва)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>норвежки бокмал (Норвегия)</value>
+    <value>норвежки букмол (Норвегия)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>полски (Полша)</value>
@@ -2357,7 +2357,7 @@
     <value>руски (Русия)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>сръбска латиница (Сърбия)</value>
+    <value>сръбски, латиница (Сърбия)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>словашки (Словакия)</value>
@@ -2378,7 +2378,7 @@
     <value>тайландски (Тайланд)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>турски (Türkiye)</value>
+    <value>турски (Турция)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>украински (Украйна)</value>
@@ -2402,13 +2402,13 @@
     <value>Преместване на компонента нагоре</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Активирайте правилата за именуване на машината</value>
+    <value>Активиране на конфигурацията за именуване на компютри</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Конфигурирайте автоматичното и техник-асистирано именуване на устройства.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Име на компютъра</value>
+    <value>Именуване на компютри</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Визуализация</value>
@@ -2420,7 +2420,7 @@
     <value>Информация за продукта и версията.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>За</value>
+    <value>Относно</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK готовност и монтаж.</value>
@@ -2429,13 +2429,13 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Премахнете или деактивирайте избрани Windows AI компоненти преди OOBE.</value>
+    <value>Премахнете или деактивирайте AI компонентите на Windows.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI компоненти</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Премахнете избраните предоставени Windows приложения преди OOBE.</value>
+    <value>Изберете осигурени приложения за премахване.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Премахвания на AppX</value>
@@ -2477,7 +2477,7 @@
     <value>Присъединяване към домейн</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Стандартната Ethernet връзка е налична по подразбиране. Конфигурирайте този раздел само ако вашата кабелна мрежа изисква 802.1X корпоративно удостоверяване.</value>
+    <value>Конфигурирайте кабелното удостоверяване 802.1X.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2507,28 +2507,28 @@
     <value>Конфигурирайте имената на внедрените устройства.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Именуване на машината</value>
+    <value>Именуване на компютри</value>
   </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>мрежа</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Конфигурирайте Windows 11 екрани за първо стартиране и настройки по подразбиране за поверителност.</value>
+    <value>Конфигурирайте екраните за първо стартиране на Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Активиране или деактивиране на компоненти на Windows в внедрената операционна система.</value>
+    <value>Активирайте или деактивирайте допълнителни функции на Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Допълнителни функции</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Определете версиите на Windows, нивата на актуализация, езиците и изданията, предлагани по време на разполагането.</value>
+    <value>Ограничете възможностите за избор на операционна система при разполагане.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Избор на OS</value>
+    <value>Избор на ОС</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
     <value>Изпълнявайте персонализирани действия преди OOBE, след вградените задачи на Foundry.</value>
@@ -2561,7 +2561,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Автоматично присъединяване към домейна с идентификационни данни, защитени с паролата за разполагане.</value>
@@ -2669,31 +2669,31 @@
     <value>Роуминг на профили на Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Персонализиране на OOBE</value>
+    <value>Активиране на конфигурацията на OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Конфигурирайте Windows 11 екрани за първо стартиране и настройки по подразбиране за поверителност.</value>
+    <value>Конфигурирайте настройките за поверителност и инсталиране за екраните за първо стартиране на Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Конфигуриране на допълнителни функции на Windows</value>
+    <value>Активиране на конфигурацията на допълнителните функции</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Активиране или деактивиране на компоненти на Windows в внедрената операционна система.</value>
+    <value>Изберете допълнителните функции на Windows, които да бъдат активирани или деактивирани.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Допълнителни функции на Windows</value>
+    <value>Допълнителни функции</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Опции за разполагане на Windows</value>
+    <value>Активиране на конфигурацията за избор на операционна система</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Определете версиите на Windows, нивата на актуализация, езиците и изданията, предлагани по време на разполагането.</value>
+    <value>Конфигурирайте разрешените версии, езици, канали и издания на операционната система.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Опции за разполагане на Windows</value>
+    <value>Избор на ОС</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Добавете разрешено действие или изключете конфигурацията след инсталиране.</value>
@@ -2789,7 +2789,7 @@
     <value>Импортиране на папка</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Импортиране на съдържание...</value>
+    <value>Импортиране на съдържание…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Това действие е невалидно. Проверете конфигурацията му.</value>
@@ -2819,7 +2819,7 @@
     <value>Въведете папка от импортираното съдържание или оставете полето празно.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Зареждане на съдържание...</value>
+    <value>Зареждане на съдържание…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Импортирайте липсващото съдържание за „{0}“.</value>
@@ -3193,28 +3193,28 @@
     <value>Foundry OSD не можа да се свърже с услугите на GitHub и Microsoft с тези настройки. Проверете адреса и порта на прокси сървъра и мрежовата си връзка. Подробностите са в регистрационния файл.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Неуспешно свързване</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Проверете настройките на прокси сървъра</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Новите връзки от Foundry OSD вече използват тези настройки.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Настройките на прокси сървъра са приложени</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD се свърза с услугите на GitHub и Microsoft с избраните настройки.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Успешно свързване</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Въведете адреса на прокси сървъра.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Въведете потребителско име и парола за изрично удостоверяване пред прокси сървъра.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Въведете валиден HTTP или HTTPS адрес на прокси сървър, например proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Приложи</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Използване на текущите идентификационни данни на Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Изберете как прокси сървърът да удостоверява Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Удостоверяване</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Потребителско име и парола</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Без удостоверяване</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Незадължителни имена на хостове или шаблони със заместващи символи, разделени с точка и запетая.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Списък с изключения</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Директно свързване с имена на хостове, които не съдържат точка.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Без прокси сървър за локални адреси</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Идентификационните данни се съхраняват защитено в диспечера на идентификационни данни на Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Идентификационни данни за прокси сървъра</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Домейн (незадължително)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Въведете адреса и порта на прокси сървъра.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Прокси сървър</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Изберете как Foundry OSD да се свързва с интернет.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Метод за прокси сървър</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Без прокси сървър (директна връзка)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Ръчна настройка на прокси сървър</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Използване на настройките на Windows (препоръчително)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Парола</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Порт</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Тези настройки се прилагат само за това приложение. Те не се добавят към носителя за разполагане и не засягат Foundry Connect или Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Само Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Тестване на връзката</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Потребителско име</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Настройки</value>
@@ -3322,10 +3322,10 @@
     <value>Архивиране и синхронизиране на настройки</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Конфигурирайте как Foundry OSD се свързва с онлайн услуги.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Прокси сървър</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
     <value>Изпращане до PostHog на всички нива на регистрационни записи и техническия контекст със скрити тайни за удостоверяване, както и отделни отчети за изключения. Записите се изтриват автоматично след 7 дни.</value>
@@ -3385,13 +3385,13 @@
     <value>Качването на хардуерен хеш е разрешено, но избраният сертификат е изтекъл. Изберете валиден сертификат, преди да създадете носител за зареждане.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но избраният PFX не съответства на сертификат за регистрация на приложение.</value>
+    <value>Качването на хардуерен хеш е активирано, но избраният PFX не съответства на сертификат за регистрация на приложение.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
     <value>Качването на хардуерен хеш е активирано, но избраният отпечатък на сертификата липсва.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но регистрацията на приложението не е конфигурирана. Свържете се с клиента от Autopilot.</value>
+    <value>Качването на хардуерен хеш е активирано, но регистрацията на приложението не е конфигурирана. Свържете се с клиента от Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
     <value>Качването на хардуерен хеш е активирано, но PFX изтичането на носителя за зареждане не може да бъде потвърдено.</value>
@@ -3406,19 +3406,19 @@
     <value>Качването на хардуерен хеш е разрешено, но избраният PFX не съответства на активния сертификат.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но не е избран PFX носител за зареждане.</value>
+    <value>Качването на хардуерен хеш е активирано, но не е избран PFX носител за зареждане.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
     <value>Качването на хардуерен хеш е активирано, но PFX паролата за стартиращ носител липсва.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но клиентският идентификатор на приложението липсва. Свържете се отново с клиента от Autopilot.</value>
+    <value>Качването на хардуерен хеш е активирано, но идентификаторът на приложението (клиента) липсва. Свържете се отново с клиента от Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но принципалът на услугата на приложението липсва или не е готов.</value>
+    <value>Качването на хардуерен хеш е активирано, но принципалът на услугата на приложението липсва или не е готов.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Хардуерното хеширане е активирано, но липсват настройки.</value>
+    <value>Качването на хардуерен хеш е активирано, но липсват настройки.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
     <value>Качването на хардуерен хеш е активирано, но връзката на клиента липсва. Свържете се с клиента от Autopilot.</value>
@@ -3469,13 +3469,13 @@
     <value>Мрежовата конфигурация не е готова.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Не е избрана цел USB.</value>
+    <value>Не е избран USB диск.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Необходимите медийни тайни не са готови.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Избраната цел USB е твърде малка. Използвайте ключ USB с поне 16 GB.</value>
+    <value>Избраният USB диск е твърде малък. Използвайте USB диск с капацитет поне 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Избраната клавиатурна подредба за WinPE не е инсталирана на този компютър.</value>
@@ -3484,7 +3484,7 @@
     <value>Избраният WinPE език за стартиране не е наличен за избраната архитектура.</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>б</value>
+    <value>Б</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3517,7 +3517,7 @@
     <value>Форматирайте и създайте USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Форматирайте целта USB</value>
+    <value>Форматиране на USB диска</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows не може да чете томовете на този диск. Той все още може да съдържа данни.</value>
@@ -3532,7 +3532,7 @@
     <value>Томове на този диск:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Всичко на този диск ще бъде загубено. Продължете само ако това е желаният USB диск.</value>
+    <value>Всички данни на този диск ще бъдат загубени. Продължете само ако това е желаният USB диск.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Създаване на USB</value>
@@ -3595,10 +3595,10 @@
     <value>За да започнете, изберете ISO или USB изход по-долу.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Пълен формат</value>
+    <value>Пълно форматиране</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Бърз формат</value>
+    <value>Бързо форматиране</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Изберете къде ще бъде записан генерираният Foundry ISO.</value>
@@ -3972,7 +3972,7 @@
     <value>Актуализиране на USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB целите могат да бъдат опреснявани след завършване на ADK готовността.</value>
+    <value>Списъкът с USB дискове може да бъде обновен след завършване на проверките за готовност на ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB намерени устройства: {0}</value>
@@ -3981,22 +3981,22 @@
     <value>Диск {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Сканиране на USB цели.</value>
+    <value>Търсене на USB дискове…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Не са намерени USB устройства.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>Опресняването на целта USB не бе успешно.</value>
+    <value>Неуспешно обновяване на списъка с USB дискове.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Поведение на форматиране, използвано преди копиране на крайния USB носител.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Схема на разделяне, използвана при подготовката на избраната цел USB.</value>
+    <value>Схема на дяловете, използвана при подготовката на избрания USB диск.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB цел</value>
+    <value>Целеви USB диск</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Език, използван от среда за стартиране на WinPE.</value>
@@ -4023,7 +4023,7 @@
     <value>Започнете</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Отворете</value>
+    <value>Отвори</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Отворете цветовите настройки Windows, за да промените цвета на акцента.</value>
@@ -4044,13 +4044,13 @@
     <value>Тема на приложението</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Тъмно</value>
+    <value>Тъмен</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
-    <value>система</value>
+    <value>Системен</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>светлина</value>
+    <value>Светъл</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Изберете фоновия материал, използван зад приложението.</value>
@@ -4302,7 +4302,7 @@
     <value>Тип сигурност</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Отворете</value>
+    <value>Отворена</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (опортюнистично безжично криптиране)</value>
@@ -4314,7 +4314,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Поддръжка на Wi-Fi в изображението за зареждане</value>
+    <value>Активиране на осигуряването на Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Конфигурирайте предоставянето на Wi-Fi, вградените профили и преноса на профила на Windows.</value>

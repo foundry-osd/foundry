@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>About</value>
+    <value>O programu</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Kreirao i održava Mickael CHAVE.</value>
@@ -25,7 +25,7 @@
     <value>Saradnici nisu mogli da se učitaju sa GitHub-a.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Učitavanje saradnika...</value>
+    <value>Učitavanje saradnika…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Saradnici</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD je moderna aplikacija za kreiranje medija za primenu Windows koju pokreće WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
 Licencirano pod MIT licencom.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Licencirano pod MIT licencom.</value>
     <value>Napomene o izdanju nisu mogle da se učitaju u ugrađeni pregledač.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Učitavanje napomena o izdanju...</value>
+    <value>Učitavanje napomena o izdanju…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Napomene o izdanju</value>
@@ -77,13 +77,13 @@ Licencirano pod MIT licencom.</value>
     <value>Podrška</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Licence za pakete trećih strana se prate kroz repozitorijum projekta i manifeste zavisnosti.</value>
+    <value>Foundry OSD koristi sledeće biblioteke i alatke. Njihove licence i stranice projekata navedene su u nastavku.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Zavisnosti trećih strana</value>
+    <value>Licence trećih strana</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>O Foundry OSD</value>
+    <value>O programu Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Korisne veze</value>
@@ -242,19 +242,19 @@ Licencirano pod MIT licencom.</value>
     <value>Nadogradite Windows ADK i Windows PE dodatak</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Uklonite AI komponente</value>
+    <value>Omogući konfiguraciju AI komponenti</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Uklonite ili onemogućite izabrane Windows AI komponente pre OOBE.</value>
+    <value>Izaberite Windows AI komponente i funkcije koje treba ukloniti ili onemogućiti.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Uklanjanje AI komponente</value>
+    <value>AI komponente</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Uklonite obezbeđene Windows aplikacije</value>
+    <value>Omogući uklanjanje AppX paketa</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Uklonite izabrane obezbeđene Windows aplikacije pre OOBE.</value>
+    <value>Izaberite obezbeđene Windows aplikacije koje treba ukloniti sa uređaja na koje se sistem primenjuje.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>Uklanjanja AppX paketa</value>
@@ -287,7 +287,7 @@ Licencirano pod MIT licencom.</value>
     <value>Podrazumevano</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
-    <value>Folder</value>
+    <value>Fascikla</value>
   </data>
   <data name="Autopilot.ColumnImported" xml:space="preserve">
     <value>Uvezeno</value>
@@ -317,7 +317,7 @@ Licencirano pod MIT licencom.</value>
     <value>Nije pronađen nijedan Autopilot profil</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Preuzimanje Autopilot profila...</value>
+    <value>Preuzimanje Autopilot profila…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} je konfigurisan.</value>
@@ -332,46 +332,46 @@ Licencirano pod MIT licencom.</value>
     <value>Izabrani sertifikat je istekao. Kreirajte ili izaberite važeći sertifikat pre kreiranja medija za pokretanje.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
-    <value>Izaberite PFKS koji odgovara sertifikatu o registraciji aplikacije.</value>
+    <value>Izaberite PFX koji odgovara sertifikatu o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>PFKS zaštićen lozinkom kopiran u medijum za pokretanje radi hardverskog heš otpremanja.</value>
+    <value>PFX zaštićen lozinkom kopiran u medijum za pokretanje radi hardverskog heš otpremanja.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
-    <value>Izabrana PFKS datoteka više ne postoji.</value>
+    <value>Izabrana PFX datoteka više ne postoji.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
-    <value>Izabrani PFKS nije mogao da se otvori sa datom lozinkom.</value>
+    <value>Izabrani PFX nije mogao da se otvori sa datom lozinkom.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
     <value>Sertifikat medija za pokretanje</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
-    <value>PFKS lozinka</value>
+    <value>PFX lozinka</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
-    <value>Unesite PFKS lozinku.</value>
+    <value>Unesite PFX lozinku.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
-    <value>Izaberite odgovarajući PFKS zaštićen lozinkom pre kreiranja medijuma za pokretanje.</value>
+    <value>Izaberite odgovarajući PFX zaštićen lozinkom pre kreiranja medijuma za pokretanje.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
-    <value>PFKS fajl</value>
+    <value>PFX fajl</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Izaberite Autopilot sertifikat PFKS</value>
+    <value>Izaberite Autopilot sertifikat PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
-    <value>Izabrani PFKS ne sadrži materijal privatnog ključa.</value>
+    <value>Izabrani PFX ne sadrži materijal privatnog ključa.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
     <value>Sertifikat spreman za generisanje medija za pokretanje.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
-    <value>Izaberite PFKS</value>
+    <value>Izaberite PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Otisak PFKS sertifikata se ne podudara sa izabranim sertifikatom o registraciji aplikacije.</value>
+    <value>Otisak PFX sertifikata se ne podudara sa izabranim sertifikatom o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry nije mogao da kreira sertifikat o registraciji aplikacije.</value>
@@ -383,22 +383,22 @@ Licencirano pod MIT licencom.</value>
     <value>Kreiranje sertifikata nije uspelo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
-    <value>Created</value>
+    <value>Kreirano</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
     <value>Kopiraj lozinku</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Sačuvajte ovu PFKS datoteku i lozinku sada na bezbednoj lokaciji. Foundry čuva lozinku sa vašom konfiguracijom na ovom računaru samo kada je opcija „Zapamti lozinke“ uključena u odeljku „Rezervne kopije i sinhronizacija podešavanja“. Biće vam potrebne obe vrednosti da biste generisali medijum za pokretanje za hardverski heš upload.</value>
+    <value>Sačuvajte ovu PFX datoteku i lozinku sada na bezbednoj lokaciji. Foundry čuva lozinku sa vašom konfiguracijom na ovom računaru samo kada je opcija „Zapamti lozinke“ uključena u odeljku „Rezervne kopije i sinhronizacija podešavanja“. Biće vam potrebne obe vrednosti da biste generisali medijum za pokretanje za otpremanje hardverskog heša.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Lozinka je kopirana.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
-    <value>PFKS lozinka</value>
+    <value>PFX lozinka</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
-    <value>PFKS fajl</value>
+    <value>PFX fajl</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
     <value>Sertifikat spreman</value>
@@ -410,7 +410,7 @@ Licencirano pod MIT licencom.</value>
     <value>ID sertifikata</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>PFKS sertifikat</value>
+    <value>PFX sertifikat</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
     <value>Foundry nije mogao da ukloni izabrani sertifikat o registraciji aplikacije.</value>
@@ -419,10 +419,10 @@ Licencirano pod MIT licencom.</value>
     <value>Uklanjanje sertifikata nije uspelo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Sačuvaj Autopilot sertifikat PFKS</value>
+    <value>Sačuvaj Autopilot sertifikat PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Thumbprint</value>
+    <value>Otisak</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
     <value>Važi 12 meseci</value>
@@ -440,10 +440,10 @@ Licencirano pod MIT licencom.</value>
     <value>Nisu obezbeđeni nikakvi sertifikati.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Povežite stanara</value>
+    <value>Povežite zakupca</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Povezivanje stanara...</value>
+    <value>Povezivanje zakupca…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Kreirajte sertifikat</value>
@@ -455,7 +455,7 @@ Licencirano pod MIT licencom.</value>
     <value>Nije izabrana podrazumevana oznaka grupe.</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Isključite stanara</value>
+    <value>Isključite zakupca</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
     <value>Opciona oznaka grupe unapred izabrana u Foundry Deploy tokom hardverskog heš otpremanja.</value>
@@ -470,13 +470,13 @@ Licencirano pod MIT licencom.</value>
     <value>Foundry nije mogao da konfiguriše registraciju aplikacije Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Uključivanje stanara nije uspelo</value>
+    <value>Uključivanje zakupca nije uspelo</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>Izabrani sertifikat je istekao. Kreirajte novi sertifikat, sačuvajte njegov PFKS i lozinku, a zatim ga izaberite za medijum za pokretanje.</value>
+    <value>Izabrani sertifikat je istekao. Kreirajte novi sertifikat, sačuvajte njegov PFX i lozinku, a zatim ga izaberite za medijum za pokretanje.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
-    <value>Prethodno izabrani sertifikat više ne postoji u registraciji upravljane aplikacije. Izaberite važeći PFKS koji odgovara obezbeđenom sertifikatu.</value>
+    <value>Prethodno izabrani sertifikat više ne postoji u registraciji upravljane aplikacije. Izaberite važeći PFX koji odgovara obezbeđenom sertifikatu.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
     <value>Pronađena je postojeća registracija aplikacije sa imenom Foundry. Ponovo se povežite da biste ga usvojili u Foundry konfiguraciji.</value>
@@ -488,7 +488,7 @@ Licencirano pod MIT licencom.</value>
     <value>Direktoru upravljane usluge nedostaje saglasnost administratora za potrebnu dozvolu Microsoft Graph. Dajte saglasnost administratora i ponovo se povežite.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>Registracija upravljane aplikacije nije spremna. Pregledajte spremnost stanara i ponovo se povežite.</value>
+    <value>Registracija upravljane aplikacije nije spremna. Pregledajte spremnost zakupca i ponovo se povežite.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
     <value>Registraciji upravljane aplikacije nedostaje potrebna dozvola za aplikaciju Microsoft Graph. Ponovo se povežite sa nalogom koji može da ažurira registracije aplikacija.</value>
@@ -497,7 +497,7 @@ Licencirano pod MIT licencom.</value>
     <value>Principal upravljane usluge nedostaje ili je onemogućen. Ponovo se povežite sa nalogom koji može da kreira ili upravlja poslovnim aplikacijama.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Uključivanje stanara zahteva pažnju</value>
+    <value>Uključivanje zakupca zahteva pažnju</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Status</value>
@@ -551,7 +551,7 @@ Licencirano pod MIT licencom.</value>
     <value>ID klijenta</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>ID stanara</value>
+    <value>ID zakupca</value>
   </data>
   <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
     <value>Proverite mrežnu vezu i uverite se da vaš nalog može da upravlja registracijama aplikacija u zakupcu, pa pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
@@ -563,19 +563,19 @@ Licencirano pod MIT licencom.</value>
     <value>Informacije o zakupcu, registraciji aplikacije i spremnosti za otpremanje hardverskog heš-a.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Spremnost stanara</value>
+    <value>Spremnost zakupca</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Ime</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>Value</value>
+    <value>Vrednost</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
     <value>Povežite se sa Microsoft Graph za ovu sesiju aplikacije da biste upravljali podešavanjima heš otpremanja.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Veza stanara</value>
+    <value>Veza sa zakupcem</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Uvezi profil</value>
@@ -593,7 +593,7 @@ Licencirano pod MIT licencom.</value>
     <value>Uvezi Autopilot profil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Uvoz Autopilot profila...</value>
+    <value>Uvoz Autopilot profila…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Kada je omogućeno, tehničar se tokom Windows podešavanja prijavljuje pomoću Microsoft koda uređaja i otprema hardverski heš uređaja.</value>
@@ -656,7 +656,7 @@ Licencirano pod MIT licencom.</value>
     <value>Prijavite se na Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Jasno</value>
+    <value>Očisti</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Izaberite koji profili zakupca treba da se uvezu u Foundry.</value>
@@ -680,10 +680,10 @@ Licencirano pod MIT licencom.</value>
     <value>Interaktivno otpremanje hardverskog heša</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Postavite oflajn Autopilot profil na primenjenoj Windows slici.</value>
+    <value>Uvezite ili preuzmite Autopilot profil koji se ugrađuje u medij za primenu.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON dodeljivanje profila</value>
+    <value>JSON profil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurišite automatsko otpremanje hardverskog heša uz podršku zakupca.</value>
@@ -941,7 +941,7 @@ Licencirano pod MIT licencom.</value>
     <value>Paketi</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>Custom</value>
+    <value>Prilagođeno</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>Izaberite jednu ili više kataloških kategorija da biste unapred izabrali pakete.</value>
@@ -1163,7 +1163,7 @@ Licencirano pod MIT licencom.</value>
     <value>Dijagnostički podaci</value>
   </data>
   <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
-    <value>Off</value>
+    <value>Isključeno</value>
   </data>
   <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
     <value>Opciono</value>
@@ -1847,7 +1847,7 @@ Licencirano pod MIT licencom.</value>
     <value>Pretražujte po nazivu za prikaz ili nazivu funkcije DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Izvezi...</value>
+    <value>Izvezi…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Napravi saniranu arhivu za podršku bez izmene originalnih dnevnika.</value>
@@ -1865,7 +1865,7 @@ Licencirano pod MIT licencom.</value>
     <value>Izvoz dijagnostike nije uspeo</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Napredno: izvezi neobrađene dnevnike...</value>
+    <value>Napredno: izvezi neobrađene dnevnike…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Izvezi neobrađene dnevnike</value>
@@ -1928,7 +1928,7 @@ Licencirano pod MIT licencom.</value>
     <value>Da</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Pretraga OU u domenu...</value>
+    <value>Pretraga OU u domenu…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Pretraga je otkazana.</value>
@@ -2108,10 +2108,10 @@ Licencirano pod MIT licencom.</value>
     <value>Izaberite 802.1X sertifikat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurišite žičani 802.1X</value>
+    <value>Omogući konfiguraciju za Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standardno Ethernet povezivanje je podrazumevano dostupno. Konfigurišite ovaj odeljak samo ako vaša žičana mreža zahteva 802.1X autentifikaciju preduzeća.</value>
+    <value>Konfigurišite žičanu 802.1X autentifikaciju i roming Windows profila.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2276,7 +2276,7 @@ Licencirano pod MIT licencom.</value>
     <value>bugarski (Bugarska)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>kineski pojednostavljeni (Kina)</value>
+    <value>pojednostavljeni kineski (Kina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicionalni kineski (Tajvan)</value>
@@ -2321,7 +2321,7 @@ Licencirano pod MIT licencom.</value>
     <value>hebrejski (Izrael)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>mađarski (mađarska)</value>
+    <value>mađarski (Mađarska)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
     <value>italijanski (Italija)</value>
@@ -2339,7 +2339,7 @@ Licencirano pod MIT licencom.</value>
     <value>litvanski (Litvanija)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norveški bokmål (Norveška)</value>
+    <value>norveški bukmol (Norveška)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poljski (Poljska)</value>
@@ -2357,7 +2357,7 @@ Licencirano pod MIT licencom.</value>
     <value>ruski (Rusija)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srpska latinica (Srbija)</value>
+    <value>srpski, latinica (Srbija)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>slovački (Slovačka)</value>
@@ -2378,7 +2378,7 @@ Licencirano pod MIT licencom.</value>
     <value>tajlandski (Tajland)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turski (Turkiie)</value>
+    <value>turski (Turska)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinski (Ukrajina)</value>
@@ -2402,13 +2402,13 @@ Licencirano pod MIT licencom.</value>
     <value>Pomeri komponentu nagore</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Omogućite pravila imenovanja mašina</value>
+    <value>Omogući konfiguraciju imenovanja računara</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurišite automatsko imenovanje uređaja i imenovanje uz pomoć tehničara.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Ime računara</value>
+    <value>Imenovanje računara</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Pregled</value>
@@ -2420,7 +2420,7 @@ Licencirano pod MIT licencom.</value>
     <value>Informacije o proizvodu i verziji.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>About</value>
+    <value>O programu</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK spremnost i montaža.</value>
@@ -2429,13 +2429,13 @@ Licencirano pod MIT licencom.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Uklonite ili onemogućite izabrane Windows AI komponente pre OOBE.</value>
+    <value>Uklonite ili onemogućite Windows AI komponente.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI komponente</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Uklonite izabrane obezbeđene Windows aplikacije pre OOBE.</value>
+    <value>Izaberite obezbeđene aplikacije za uklanjanje.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>Uklanjanja AppX paketa</value>
@@ -2477,7 +2477,7 @@ Licencirano pod MIT licencom.</value>
     <value>Pridruživanje domenu</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standardno Ethernet povezivanje je podrazumevano dostupno. Konfigurišite ovaj odeljak samo ako vaša žičana mreža zahteva 802.1X autentifikaciju preduzeća.</value>
+    <value>Konfigurišite žičanu 802.1X autentifikaciju.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2495,7 +2495,7 @@ Licencirano pod MIT licencom.</value>
     <value>Foundry OSD kući</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Home</value>
+    <value>Početna</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Zatražite od tehničara akreditive domena tokom primene.</value>
@@ -2513,19 +2513,19 @@ Licencirano pod MIT licencom.</value>
     <value>Mreža</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigurišite Windows 11 ekrana za prvo pokretanje i podrazumevane postavke privatnosti.</value>
+    <value>Konfigurišite ekrane prvog pokretanja sistema Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Omogućite ili onemogućite Windows komponente u primenjenom operativnom sistemu.</value>
+    <value>Omogućite ili onemogućite opcione funkcije sistema Windows.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Opcione funkcije</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definišite verzije sistema Windows, nivoe ažuriranja, jezike i izdanja koja se nude tokom primene.</value>
+    <value>Ograničite izbor operativnih sistema tokom primene.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Izbor OS-a</value>
@@ -2561,7 +2561,7 @@ Licencirano pod MIT licencom.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Pridružite se domenu automatski pomoću akreditiva zaštićenih lozinkom za primenu.</value>
@@ -2669,31 +2669,31 @@ Licencirano pod MIT licencom.</value>
     <value>Roming Windows profila</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Prilagodite OOBE</value>
+    <value>Omogući konfiguraciju za OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigurišite Windows 11 ekrana za prvo pokretanje i podrazumevane postavke privatnosti.</value>
+    <value>Konfigurišite izbore privatnosti i podešavanja za ekrane prvog pokretanja sistema Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurišite opcionalne funkcije operativnog sistema Windows</value>
+    <value>Omogući konfiguraciju opcionih funkcija</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Omogućite ili onemogućite Windows komponente u primenjenom operativnom sistemu.</value>
+    <value>Izaberite opcione funkcije sistema Windows koje treba omogućiti ili onemogućiti.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows opcione funkcije</value>
+    <value>Opcione funkcije</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Opcije primene operativnog sistema Windows</value>
+    <value>Omogući konfiguraciju izbora operativnog sistema</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definišite verzije sistema Windows, nivoe ažuriranja, jezike i izdanja koja se nude tokom primene.</value>
+    <value>Konfigurišite dozvoljene verzije, jezike, kanale i izdanja operativnog sistema.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Opcije primene operativnog sistema Windows</value>
+    <value>Izbor OS-a</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Dodajte omogućenu radnju ili onemogućite konfiguraciju nakon instalacije.</value>
@@ -2789,7 +2789,7 @@ Licencirano pod MIT licencom.</value>
     <value>Uvezi fasciklu</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Uvoz sadržaja...</value>
+    <value>Uvoz sadržaja…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ova radnja nije ispravna. Proverite njenu konfiguraciju.</value>
@@ -2819,7 +2819,7 @@ Licencirano pod MIT licencom.</value>
     <value>Unesite fasciklu iz uvezenog sadržaja ili ostavite ovo polje prazno.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Učitavanje sadržaja...</value>
+    <value>Učitavanje sadržaja…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Uvezite sadržaj koji nedostaje za „{0}”.</value>
@@ -3193,28 +3193,28 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Foundry OSD nije mogao da pristupi uslugama GitHub i Microsoft uz ova podešavanja. Proverite adresu i port proksi servera, kao i mrežnu vezu. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Povezivanje nije uspelo</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Proverite podešavanja proksi servera</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nove veze iz programa Foundry OSD sada koriste ova podešavanja.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Podešavanja proksi servera su primenjena</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD je pristupio uslugama GitHub i Microsoft pomoću izabranih podešavanja.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Povezivanje je uspelo</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Unesite adresu proksi servera.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Unesite korisničko ime i lozinku za eksplicitnu autentifikaciju na proksi serveru.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Unesite važeću HTTP ili HTTPS adresu proksi servera, na primer proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Primeni</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Koristi trenutne Windows akreditive</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Izaberite način na koji proksi server autentifikuje Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentifikacija</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Korisničko ime i lozinka</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Bez autentifikacije</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Opcionalni nazivi hostova ili džoker obrasci razdvojeni tačkom i zarezom.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Lista izuzetaka</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Povezuj se direktno sa nazivima hostova koji ne sadrže tačku.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Zaobiđi lokalne adrese</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Akreditivi se bezbedno čuvaju u Windows upravljaču akreditivima.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Akreditivi proksi servera</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domen (opcionalno)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Unesite adresu i port proksi servera.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proksi server</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Izaberite kako se Foundry OSD povezuje na internet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Način korišćenja proksija</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Bez proksija (direktna veza)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Ručno podešen proksi</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Koristi Windows podešavanja (preporučeno)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Lozinka</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Ova podešavanja se primenjuju samo na ovu aplikaciju. Ne dodaju se na medij za primenu i ne utiču na Foundry Connect ni Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Samo Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Testiraj vezu</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Korisničko ime</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Podešavanja</value>
@@ -3322,10 +3322,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Rezervne kopije i sinhronizacija podešavanja</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigurišite kako se Foundry OSD povezuje sa onlajn uslugama.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Proksi</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
     <value>Šaljite sve nivoe evidencije i tehnički kontekst u PostHog uz maskirane tajne za autentifikaciju i zasebne izveštaje o izuzecima. Evidencije se automatski brišu posle 7 dana.</value>
@@ -3385,7 +3385,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Otpremanje hardverskog heš-a je omogućeno, ali je izabrani sertifikat istekao. Izaberite važeći sertifikat pre kreiranja medija za pokretanje.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali izabrani PFKS ne odgovara sertifikatu o registraciji aplikacije.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali izabrani PFX ne odgovara sertifikatu o registraciji aplikacije.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
     <value>Otpremanje hardverskog heš-a je omogućeno, ali nedostaje izabrani otisak sertifikata.</value>
@@ -3394,22 +3394,22 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Otpremanje hardverskog heš-a je omogućeno, ali registracija aplikacije nije konfigurisana. Povežite se sa zakupcem sa Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali nije moguće potvrditi istek PFKS medija za pokretanje.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali nije moguće potvrditi istek PFX medija za pokretanje.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali je izabrani PFKS medijum za pokretanje istekao.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali je izabrani PFX medijum za pokretanje istekao.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali PFKS medijuma za pokretanje nije potvrđen.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali PFX medijuma za pokretanje nije potvrđen.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali izabrani PFKS se ne podudara sa aktivnim sertifikatom.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali izabrani PFX se ne podudara sa aktivnim sertifikatom.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali nije izabran PFKS medijum za pokretanje.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali nije izabran PFX medijum za pokretanje.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Otpremanje hardverskog heš-a je omogućeno, ali nedostaje PFKS lozinka za medijum za pokretanje.</value>
+    <value>Otpremanje hardverskog heš-a je omogućeno, ali nedostaje PFX lozinka za medijum za pokretanje.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
     <value>Hardversko heš otpremanje je omogućeno, ali nedostaje ID klijenta aplikacije. Ponovo se povežite sa zakupcem sa Autopilot.</value>
@@ -3469,13 +3469,13 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Mrežna konfiguracija nije spremna.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nije izabrana meta USB.</value>
+    <value>Nije izabran USB disk.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Potrebne medijske tajne nisu spremne.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Izabrani cilj USB je premali. Koristite taster USB od najmanje 16 GB.</value>
+    <value>Izabrani USB disk je premali. Koristite USB disk od najmanje 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Izabrani raspored tastature za WinPE nije instaliran na ovom računaru.</value>
@@ -3517,7 +3517,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Formatirajte i kreirajte USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Format USB cilj</value>
+    <value>Formatiraj USB disk</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ne može da pročita volumene na ovom disku. Na njemu i dalje mogu da se nalaze podaci.</value>
@@ -3532,7 +3532,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Volumeni na ovom disku:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Sve na ovom disku biće izgubljeno. Nastavite samo ako je ovo namenjeni USB disk.</value>
+    <value>Svi podaci na ovom disku biće izgubljeni. Nastavite samo ako je ovo pravi USB disk.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Kreiraj USB</value>
@@ -3595,7 +3595,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Da biste započeli, izaberite ISO ili USB izlaz u nastavku.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Pun format</value>
+    <value>Potpuno formatiranje</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Brzo formatiranje</value>
@@ -3972,7 +3972,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Ažuriraj USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB mete se mogu osvežiti nakon što je ADK spremnost završena.</value>
+    <value>Lista USB diskova može da se osveži kada se završe ADK provere spremnosti.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB pronađeni diskovi: {0}</value>
@@ -3981,22 +3981,22 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Skeniranje USB ciljeva.</value>
+    <value>Traženje USB diskova…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nije pronađen nijedan disk USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB ciljano osvežavanje nije uspelo.</value>
+    <value>Osvežavanje liste USB diskova nije uspelo.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Ponašanje formata korišćeno pre kopiranja konačnog medija USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Šema particije koja se koristi prilikom pripreme izabranog USB cilja.</value>
+    <value>Šema particija koja se koristi pri pripremi izabranog USB diska.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB meta</value>
+    <value>Ciljni USB disk</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Jezik koji koristi WinPE okruženje za pokretanje.</value>
@@ -4044,13 +4044,13 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Tema aplikacije</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>Tamno</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>Sistem</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Svetlost</value>
+    <value>Svetlo</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Izaberite materijal za pozadinu koji se koristi iza aplikacije.</value>
@@ -4287,7 +4287,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Prethodno obezbedite Wi-Fi profil</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
-    <value>Passphrase</value>
+    <value>Pristupna fraza</value>
   </data>
   <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
     <value>VPA2/VPA3 Enterprise</value>
@@ -4302,7 +4302,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Tip bezbednosti</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Otvori</value>
+    <value>Otvorena</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OVE (oportunističko bežično šifrovanje)</value>
@@ -4314,7 +4314,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Obezbedite podršku Wi-Fi u imidžu za pokretanje</value>
+    <value>Omogući Wi-Fi obezbeđivanje</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurišite Wi-Fi obezbeđivanje, ugrađene profile i roaming profila Windows.</value>

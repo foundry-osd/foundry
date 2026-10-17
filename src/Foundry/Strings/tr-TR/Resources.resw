@@ -25,7 +25,7 @@
     <value>Katkıda bulunanlar GitHub'dan yüklenemedi.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Katkıda bulunanlar yükleniyor...</value>
+    <value>Katkıda bulunanlar yükleniyor…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Katkıda Bulunanlar</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD, WinPE tarafından desteklenen Windows dağıtım ortamının yazılmasına yönelik modern bir uygulamadır.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Telif hakkı (c) 2026 Mickaël CHAVE ve Foundry Project’e katkıda bulunanlar.
+    <value>Copyright (c) 2026 Mickaël CHAVE ve Foundry Project'e katkıda bulunanlar.
 MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sürüm notları yerleşik tarayıcıya yüklenemedi.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Sürüm notları yükleniyor...</value>
+    <value>Sürüm notları yükleniyor…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Sürüm notları</value>
@@ -77,10 +77,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Destek</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Üçüncü taraf paket lisansları, proje deposu ve bağımlılık bildirimleri aracılığıyla izlenir.</value>
+    <value>Foundry OSD aşağıdaki kitaplıkları ve araçları kullanır. Lisansları ve proje sayfaları aşağıda listelenmiştir.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Üçüncü taraf bağımlılıkları</value>
+    <value>Üçüncü taraf lisansları</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Foundry OSD Hakkında</value>
@@ -242,19 +242,19 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Windows ADK ve Windows PE Eklentisini Yükseltme</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>AI bileşenlerini kaldırın</value>
+    <value>Yapay zeka bileşenleri yapılandırmasını etkinleştir</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>OOBE'den önce seçilen Windows AI bileşenlerini kaldırın veya devre dışı bırakın.</value>
+    <value>Kaldırılacak veya devre dışı bırakılacak Windows yapay zeka bileşenlerini ve deneyimlerini seçin.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI bileşeninin kaldırılması</value>
+    <value>Yapay zeka bileşenleri</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Temel hazırlığı yapılan Windows uygulamaları kaldırın</value>
+    <value>AppX kaldırmalarını etkinleştir</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>OOBE'den önce seçilen temel hazırlığı yapılmış Windows uygulamalarını kaldırın.</value>
+    <value>Dağıtılan cihazlardan kaldırılacak, temel hazırlığı yapılmış Windows uygulamalarını seçin.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX kaldırmaları</value>
@@ -299,7 +299,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kaynak</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Kiracıdan indirme</value>
+    <value>Kiracıdan indir</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Kiracı tarafından hiçbir Autopilot profili döndürülmedi.</value>
@@ -317,7 +317,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot profili bulunamadı</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot profilleri indiriliyor...</value>
+    <value>Autopilot profilleri indiriliyor…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} yapılandırıldı.</value>
@@ -335,22 +335,22 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Uygulama kayıt sertifikasıyla eşleşen bir PFX seçin.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Parola korumalı PFX, donanım karma yüklemesi için önyükleme ortamına kopyalandı.</value>
+    <value>Donanım karmasını karşıya yüklemek için önyükleme ortamına kopyalanan parola korumalı PFX.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
     <value>Seçilen PFX dosyası artık mevcut değil.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
-    <value>Seçilen PFX, sağlanan şifreyle açılamadı.</value>
+    <value>Seçilen PFX, sağlanan parolayla açılamadı.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
     <value>Önyükleme ortamı sertifikası</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
-    <value>PFX şifresi</value>
+    <value>PFX parolası</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
-    <value>PFX şifresini girin.</value>
+    <value>PFX parolasını girin.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
     <value>Önyükleme ortamı oluşturmadan önce eşleşen parola korumalı PFX'i seçin.</value>
@@ -389,13 +389,13 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Şifreyi kopyala</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Bu PFX dosyasını ve parolasını şimdi güvenli bir konuma kaydedin. Foundry, parolayı yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydeder. Donanım karma yüklemesi için önyükleme ortamı oluşturmak amacıyla her iki değere de ihtiyacınız olacak.</value>
+    <value>Bu PFX dosyasını ve parolasını şimdi güvenli bir konuma kaydedin. Foundry, parolayı yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydeder. Donanım karmasını karşıya yüklemek üzere önyükleme ortamı oluşturmak için her iki değere de ihtiyacınız olacak.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Şifre kopyalandı.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
-    <value>PFX şifresi</value>
+    <value>PFX parolası</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
     <value>PFX dosyası</value>
@@ -419,7 +419,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sertifika kaldırılamadı</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Autopilot sertifikasını kaydet PFX</value>
+    <value>Autopilot sertifikası PFX'ini kaydedin</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Parmak izi</value>
@@ -443,7 +443,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kiracıyı bağlayın</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Kiracı bağlanıyor...</value>
+    <value>Kiracı bağlanıyor…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Sertifika oluştur</value>
@@ -458,19 +458,19 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kiracının bağlantısını kesin</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Donanım karma yüklemesi sırasında Foundry Deploy'de önceden seçilen isteğe bağlı grup etiketi.</value>
+    <value>Donanım karması karşıya yüklenirken Foundry Deploy'da önceden seçilen isteğe bağlı grup etiketi.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>Varsayılan grup etiketi</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Zero-touch donanım karması yükleme</value>
+    <value>Zero-touch donanım karması karşıya yükleme</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
     <value>Foundry, Autopilot uygulama kaydını yapılandıramadı.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Kiracının katılımı başarısız oldu</value>
+    <value>Kiracı ekleme başarısız oldu</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
     <value>Seçilen sertifikanın süresi doldu. Yeni bir sertifika oluşturun, PFX'ini ve parolasını kaydedin ve ardından önyükleme ortamı için seçin.</value>
@@ -497,7 +497,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Yönetilen hizmet sorumlusu eksik veya devre dışı. Kurumsal uygulamalar oluşturabilen veya yönetebilen bir hesapla yeniden bağlanın.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Kiracının katılımı dikkat gerektirir</value>
+    <value>Kiracı ekleme işlemi dikkat gerektiriyor</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Durum</value>
@@ -542,7 +542,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bağlı</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Autopilot donanım karma yüklemesini yapılandırmak için tarayıcıda oturum açmayı tamamlayın.</value>
+    <value>Autopilot donanım karmasını karşıya yüklemeyi yapılandırmak için tarayıcıda oturum açmayı tamamlayın.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
     <value>Microsoft Graph'da oturum açın</value>
@@ -560,7 +560,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bağlı değil</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Kiracı, uygulama kaydı ve donanım karma yüklemesine hazırlık bilgileri.</value>
+    <value>Kiracı, uygulama kaydı ve donanım karmasını karşıya yüklemeye hazırlık bilgileri.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
     <value>Kiracı hazırlığı</value>
@@ -572,7 +572,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Değer</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Karma yükleme ayarlarını yönetmek üzere bu uygulama oturumu için Microsoft Graph adresine bağlanın.</value>
+    <value>Karma karşıya yükleme ayarlarını yönetmek üzere bu uygulama oturumu için Microsoft Graph'a bağlanın.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>Kiracı bağlantısı</value>
@@ -593,13 +593,13 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot profilini içe aktar JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot profili içe aktarılıyor...</value>
+    <value>Autopilot profili içe aktarılıyor…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Etkinleştirildiğinde teknisyen, Windows kurulumu sırasında Microsoft cihaz koduyla oturum açar ve cihazın donanım karmasını yükler.</value>
+    <value>Etkinleştirildiğinde teknisyen, Windows kurulumu sırasında Microsoft cihaz koduyla oturum açar ve cihazın donanım karmasını karşıya yükler.</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
-    <value>Etkileşimli donanım karması yükleme</value>
+    <value>Etkileşimli donanım karması karşıya yükleme</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON profil temel hazırlığı</value>
@@ -662,7 +662,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Foundry'ye hangi kiracı profillerinin aktarılması gerektiğini seçin.</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>İthalat</value>
+    <value>İçe aktar</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
     <value>Tümünü seç</value>
@@ -674,22 +674,22 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot profillerini seçin</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Teknisyenin dağıtım sırasında cihazın donanım karmasını yüklemesini sağlar.</value>
+    <value>Teknisyenin dağıtım sırasında cihazın donanım karmasını karşıya yüklemesini sağlar.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>Etkileşimli donanım karması yükleme</value>
+    <value>Etkileşimli donanım karması karşıya yükleme</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Uygulanan Windows görüntüsünde çevrimdışı bir Autopilot profili oluşturun.</value>
+    <value>Dağıtım medyasına gömülü Autopilot profilini içe aktarın veya indirin.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profil temel hazırlığı</value>
+    <value>JSON profili</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Kiracı destekli otomatik donanım karması yüklemeyi yapılandırın.</value>
+    <value>Kiracı destekli otomatik donanım karması karşıya yüklemeyi yapılandırın.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>Zero-touch donanım karması yükleme</value>
+    <value>Zero-touch donanım karması karşıya yükleme</value>
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry hata bildirim formunu açamadı. Bu bağlantıyı kopyalayıp tarayıcınızda açın.</value>
@@ -965,10 +965,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Seçilen paketler: {0} / {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Donanım karması yüklenirken Foundry Deploy'da onaylanan nihai bilgisayar adını Windows Autopilot cihazına atayın.</value>
+    <value>Donanım karması karşıya yüklenirken Foundry Deploy'da onaylanan nihai bilgisayar adını Windows Autopilot cihazına atayın.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Nihai dağıtım adını Autopilot'ta atamak için bilgisayar adlandırmayı ve zero-touch veya etkileşimli donanım karması yüklemeyi etkinleştirin.</value>
+    <value>Nihai dağıtım adını Autopilot'ta atamak için bilgisayar adlandırmayı ve zero-touch veya etkileşimli donanım karması karşıya yüklemeyi etkinleştirin.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Bileşen ekle</value>
@@ -1847,7 +1847,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Görünen ada veya DISM özellik adına göre arayın</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Dışa aktar...</value>
+    <value>Dışa aktar…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Özgün günlükleri değiştirmeden temizlenmiş bir destek arşivi oluştur.</value>
@@ -1865,7 +1865,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Tanılama dışa aktarılamadı</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Gelişmiş: ham günlükleri dışa aktar...</value>
+    <value>Gelişmiş: ham günlükleri dışa aktar…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Ham günlükleri dışa aktar</value>
@@ -1901,7 +1901,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Etki alanı</value>
   </data>
   <data name="DomainJoin.ColumnOuCount" xml:space="preserve">
-    <value>OU’lar</value>
+    <value>OU'lar</value>
   </data>
   <data name="DomainJoin.ColumnStatus" xml:space="preserve">
     <value>Durum</value>
@@ -1928,7 +1928,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Evet</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Etki alanında OU aranıyor...</value>
+    <value>Etki alanında OU aranıyor…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Arama iptal edildi.</value>
@@ -1937,16 +1937,16 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bu etki alanında OU bulunamadı.</value>
   </data>
   <data name="DomainJoin.DiscoveryIncomplete" xml:space="preserve">
-    <value>OU’ların yalnızca bir kısmı listelenebildi. Gösterilenleri yine de ekleyebilirsiniz.</value>
+    <value>OU'ların yalnızca bir kısmı listelenebildi. Gösterilenleri yine de ekleyebilirsiniz.</value>
   </data>
   <data name="DomainJoin.DiscoveryNothingNew" xml:space="preserve">
-    <value>Bu etki alanındaki tüm OU’lar zaten listede.</value>
+    <value>Bu etki alanındaki tüm OU'lar zaten listede.</value>
   </data>
   <data name="DomainJoin.DiscoveryTimeout" xml:space="preserve">
-    <value>Arama zaman aşımına uğradı. OU’ları el ile ekleyebilirsiniz.</value>
+    <value>Arama zaman aşımına uğradı. OU'ları el ile ekleyebilirsiniz.</value>
   </data>
   <data name="DomainJoin.DiscoveryUnavailable" xml:space="preserve">
-    <value>Etki alanında arama yapılamadı. Bu bilgisayarın etki alanına erişebildiğini ve Windows hesabınızın etki alanını okuyabildiğini denetleyin veya OU’ları el ile ekleyin.</value>
+    <value>Etki alanında arama yapılamadı. Bu bilgisayarın etki alanına erişebildiğini ve Windows hesabınızın etki alanını okuyabildiğini denetleyin veya OU'ları el ile ekleyin.</value>
   </data>
   <data name="DomainJoin.DomainDialogAdd" xml:space="preserve">
     <value>Etki alanı ekle</value>
@@ -1970,7 +1970,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Hazır</value>
   </data>
   <data name="DomainJoin.DomainRenameBlocked" xml:space="preserve">
-    <value>Adını değiştirmeden önce bu etki alanının OU’larını kaldırın.</value>
+    <value>Adını değiştirmeden önce bu etki alanının OU'larını kaldırın.</value>
   </data>
   <data name="DomainJoin.EmptyDomains" xml:space="preserve">
     <value>Etki alanı eklenmedi.</value>
@@ -1979,10 +1979,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>OU eklenmedi.</value>
   </data>
   <data name="DomainJoin.ImportDomainMismatch" xml:space="preserve">
-    <value>OU’lar eklenmedi. Seçilen etki alanından farklı bir etki alanına aitler.</value>
+    <value>OU'lar eklenmedi. Seçilen etki alanından farklı bir etki alanına aitler.</value>
   </data>
   <data name="DomainJoin.NoDomainYet" xml:space="preserve">
-    <value>Önce bir etki alanı ekleyin, ardından OU’larını listeleyin.</value>
+    <value>Önce bir etki alanı ekleyin, ardından OU'larını listeleyin.</value>
   </data>
   <data name="DomainJoin.OrganizationalUnitInputInvalid" xml:space="preserve">
     <value>OU eklenmedi. Görünen adı ve ayırt edici adı denetleyin. OU seçilen etki alanına ait olmalıdır.</value>
@@ -1994,10 +1994,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>{0} kuruluş birimleri</value>
   </data>
   <data name="DomainJoin.SelectDomain" xml:space="preserve">
-    <value>OU’larını listelemek için bir etki alanı seçin.</value>
+    <value>OU'larını listelemek için bir etki alanı seçin.</value>
   </data>
   <data name="DomainJoin.SelectedCountFormat" xml:space="preserve">
-    <value>Seçilen OU’lar: {0} / {1}</value>
+    <value>Seçilen OU'lar: {0} / {1}</value>
   </data>
   <data name="DomainJoin.SharedAccount" xml:space="preserve">
     <value>Paylaşılan</value>
@@ -2015,7 +2015,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>corp.contoso.com gibi geçerli bir etki alanı adı girin.</value>
   </data>
   <data name="DomainJoin.Validation.InvalidOuDisplayName" xml:space="preserve">
-    <value>Her OU’nun en fazla 120 karakterlik bir görünen adı olmalıdır.</value>
+    <value>Her OU'nun en fazla 120 karakterlik bir görünen adı olmalıdır.</value>
   </data>
   <data name="DomainJoin.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>"Genel" sayfasında parola korumasını etkinleştirin ve dağıtım parolasını belirleyin.</value>
@@ -2060,10 +2060,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Etki alanından içe aktar</value>
   </data>
   <data name="DomainJoinDiscovery.Description" xml:space="preserve">
-    <value>Windows hesabınızı kullanarak seçilen etki alanındaki OU’ları listeler. Eklenecek olanları seçin.</value>
+    <value>Windows hesabınızı kullanarak seçilen etki alanındaki OU'ları listeler. Eklenecek olanları seçin.</value>
   </data>
   <data name="DomainJoinDiscovery.Header" xml:space="preserve">
-    <value>OU’ları etki alanından içe aktar</value>
+    <value>OU'ları etki alanından içe aktar</value>
   </data>
   <data name="DomainJoinDomains.Description" xml:space="preserve">
     <value>Bu medyanın katılabileceği etki alanları. Birden fazla etki alanı listelendiğinde teknisyenler dağıtım sırasında birini seçer; varsayılan etki alanı önceden seçilidir.</value>
@@ -2072,7 +2072,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Etki alanları</value>
   </data>
   <data name="DomainJoinImportSelected.Content" xml:space="preserve">
-    <value>Seçilen OU’ları ekle</value>
+    <value>Seçilen OU'ları ekle</value>
   </data>
   <data name="DomainJoinManualDestination.Description" xml:space="preserve">
     <value>OU için bir görünen ad ve ayırt edici adı girin. OU seçilen etki alanına ait olmalıdır.</value>
@@ -2090,13 +2090,13 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Görünen ad</value>
   </data>
   <data name="DomainJoinOuCard.Description" xml:space="preserve">
-    <value>İsteğe bağlı. Seçilen etki alanında bilgisayarların yerleştirilebileceği OU’ları listeleyin. Tek bir OU listelenmişse her zaman o kullanılır; birden fazla listelendiğinde teknisyenler dağıtım sırasında birini seçer. Mevcut bir bilgisayar hesabı seçilen OU’ya taşınır.</value>
+    <value>İsteğe bağlı. Seçilen etki alanında bilgisayarların yerleştirilebileceği OU'ları listeleyin. Tek bir OU listelenmişse her zaman o kullanılır; birden fazla listelendiğinde teknisyenler dağıtım sırasında birini seçer. Mevcut bir bilgisayar hesabı seçilen OU'ya taşınır.</value>
   </data>
   <data name="DomainJoinPassword.Header" xml:space="preserve">
     <value>Parola</value>
   </data>
   <data name="DomainJoinSharedAccount.Description" xml:space="preserve">
-    <value>Kendi hesabı olmayan her etki alanının kullandığı hesap. Bilgisayarları etki alanına katma ve seçtiğiniz OU’lara taşıma izni olmalıdır.</value>
+    <value>Kendi hesabı olmayan her etki alanının kullandığı hesap. Bilgisayarları etki alanına katma ve seçtiğiniz OU'lara taşıma izni olmalıdır.</value>
   </data>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Paylaşılan katılma hesabı</value>
@@ -2108,10 +2108,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>802.1X sertifikasını seçin</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Kablolu 802.1X'i yapılandırın</value>
+    <value>Ethernet 802.1X yapılandırmasını etkinleştir</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standart Ethernet bağlantısı varsayılan olarak mevcuttur. Bu bölümü yalnızca kablolu ağınız 802.1X kurumsal kimlik doğrulaması gerektiriyorsa yapılandırın.</value>
+    <value>Kablolu 802.1X kimlik doğrulamasını ve Windows profil dolaşımını yapılandırın.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2357,7 +2357,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Rusça (Rusya)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Sırpça Latince (Sırbistan)</value>
+    <value>Sırpça, Latin (Sırbistan)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovakça (Slovakya)</value>
@@ -2384,10 +2384,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Ukraynaca (Ukrayna)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Bilgisayar adını Autopilot'a yükle</value>
+    <value>Bilgisayar adını Autopilot'a karşıya yükle</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Bilgisayar adını Autopilot'a yükle</value>
+    <value>Bilgisayar adını Autopilot'a karşıya yükle</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Soldaki karakterleri koru</value>
@@ -2402,13 +2402,13 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bileşeni yukarı taşı</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Makine adlandırma kurallarını etkinleştir</value>
+    <value>Makine adlandırma yapılandırmasını etkinleştir</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Otomatik ve teknisyen destekli cihaz adlandırmayı yapılandırın.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Bilgisayar adı</value>
+    <value>Makine adlandırma</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Önizleme</value>
@@ -2429,19 +2429,19 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>OOBE'den önce seçilen Windows AI bileşenlerini kaldırın veya devre dışı bırakın.</value>
+    <value>Windows yapay zeka bileşenlerini kaldırın veya devre dışı bırakın.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>Yapay zeka bileşenleri</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>OOBE'den önce seçilen temel hazırlığı yapılmış Windows uygulamalarını kaldırın.</value>
+    <value>Kaldırılacak, temel hazırlığı yapılmış uygulamaları seçin.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX kaldırmaları</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Donanım karmalarını dağıtım sırasında etkileşimli olarak yükler.</value>
+    <value>Donanım karmalarını dağıtım sırasında etkileşimli olarak karşıya yükler.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
     <value>Etkileşimli</value>
@@ -2453,7 +2453,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>JSON profili</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Donanım karmalarını Microsoft Graph üzerinden yükleyin.</value>
+    <value>Donanım karmalarını Microsoft Graph üzerinden karşıya yükler.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
@@ -2477,7 +2477,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Etki alanına katılma</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standart Ethernet bağlantısı varsayılan olarak mevcuttur. Bu bölümü yalnızca kablolu ağınız 802.1X kurumsal kimlik doğrulaması gerektiriyorsa yapılandırın.</value>
+    <value>Kablolu 802.1X kimlik doğrulamasını yapılandırın.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2492,7 +2492,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Genel</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD ev</value>
+    <value>Foundry OSD ana sayfası</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Ana sayfa</value>
@@ -2513,25 +2513,25 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Ağ</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Windows 11 ilk çalıştırma ekranını ve gizlilik varsayılanlarını yapılandırın.</value>
+    <value>Windows kullanıma hazır deneyimini yapılandırın.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Dağıtılan işletim sistemindeki Windows bileşenlerini etkinleştirin veya devre dışı bırakın.</value>
+    <value>Windows isteğe bağlı özelliklerini etkinleştirin veya devre dışı bırakın.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>İsteğe bağlı özellikler</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Dağıtım sırasında sunulan Windows sürümlerini, güncelleştirme düzeylerini, dilleri ve edisyonları belirleyin.</value>
+    <value>Dağıtımda sunulan işletim sistemi seçeneklerini sınırlandırın.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>İşletim sistemi seçimi</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Özel eylemleri OOBE’den önce, Foundry’nin yerleşik görevlerinden sonra çalıştırın.</value>
+    <value>Özel eylemleri OOBE'den önce, Foundry'nin yerleşik görevlerinden sonra çalıştırın.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Kurulum sonrası</value>
@@ -2561,7 +2561,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Dağıtım parolasıyla korunan kimlik bilgilerini kullanarak etki alanına otomatik olarak katılın.</value>
@@ -2639,13 +2639,13 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Güvenilen bir kök CA sertifikasını içe aktarın</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Yapılandırılmış PFX istemci sertifikalarını Windows’a kopyalar ve OOBE öncesinde LocalMachine kişisel sertifika deposuna içe aktarır.</value>
+    <value>Yapılandırılmış PFX istemci sertifikalarını Windows'a kopyalar ve OOBE öncesinde LocalMachine kişisel sertifika deposuna içe aktarır.</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
     <value>Özel anahtar sertifika malzemesini dahil et</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
-    <value>Ağ profillerini Windows’a taşı</value>
+    <value>Ağ profillerini Windows'a taşı</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Gelişmiş kurumsal Wi-Fi</value>
@@ -2654,46 +2654,46 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kurumsal bir Wi-Fi profil şablonu sağlayın</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Parola, yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydedilir. Aksi takdirde kaydedilmez ve örneğin Foundry OSD’yi yeniden başlattıktan sonra tekrar girilmesi gerekir.</value>
+    <value>Parola, yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydedilir. Aksi takdirde kaydedilmez ve örneğin Foundry OSD'yi yeniden başlattıktan sonra tekrar girilmesi gerekir.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Foundry tarafından yönetilen Wi-Fi profilini OOBE öncesinde Windows’a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
+    <value>Foundry tarafından yönetilen Wi-Fi profilini OOBE öncesinde Windows'a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profil dolaşımı</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
-    <value>Foundry tarafından yönetilen kablolu 802.1X profilini OOBE öncesinde Windows’a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
+    <value>Foundry tarafından yönetilen kablolu 802.1X profilini OOBE öncesinde Windows'a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profil dolaşımı</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>OOBE özelleştirin</value>
+    <value>OOBE yapılandırmasını etkinleştir</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Windows 11 ilk çalıştırma ekranını ve gizlilik varsayılanlarını yapılandırın.</value>
+    <value>Windows kullanıma hazır deneyimi için gizlilik ve kurulum seçeneklerini yapılandırın.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows İsteğe Bağlı Özelliklerini Yapılandırma</value>
+    <value>İsteğe bağlı özellikler yapılandırmasını etkinleştir</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Dağıtılan işletim sistemindeki Windows bileşenlerini etkinleştirin veya devre dışı bırakın.</value>
+    <value>Etkinleştirilecek veya devre dışı bırakılacak Windows isteğe bağlı özelliklerini seçin.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows İsteğe Bağlı Özellikleri</value>
+    <value>İsteğe bağlı özellikler</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows dağıtım seçenekleri</value>
+    <value>İşletim sistemi seçimi yapılandırmasını etkinleştir</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Dağıtım sırasında sunulan Windows sürümlerini, güncelleştirme düzeylerini, dilleri ve edisyonları belirleyin.</value>
+    <value>İzin verilen işletim sistemi sürümlerini, dillerini, kanallarını ve edisyonlarını yapılandırın.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows dağıtım seçenekleri</value>
+    <value>İşletim sistemi seçimi</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Etkin bir eylem ekleyin veya kurulum sonrası yapılandırmayı devre dışı bırakın.</value>
@@ -2789,7 +2789,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Klasör içeri aktar</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>İçerik içe aktarılıyor...</value>
+    <value>İçerik içe aktarılıyor…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Bu eylem geçersiz. Yapılandırmasını denetleyin.</value>
@@ -2819,7 +2819,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>İçeri aktarılan içerikten bir klasör girin veya bu alanı boş bırakın.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>İçerik yükleniyor...</value>
+    <value>İçerik yükleniyor…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>“{0}” için eksik içeriği içeri aktarın.</value>
@@ -2858,7 +2858,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Eylem kaldırılamadı. Yeniden deneyin.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Windows’u yeniden başlat</value>
+    <value>Windows'u yeniden başlat</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Yeniden başlatma gerektiren çıkış kodları (virgülle ayrılmış)</value>
@@ -2870,7 +2870,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Hemen yeniden başlatmak için 0 kullanın.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
-    <value>Windows’u yeniden başlatın, ardından sonraki eylemle devam edin.</value>
+    <value>Windows'u yeniden başlatın, ardından sonraki eylemle devam edin.</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Betik bağımsız değişkenleri</value>
@@ -3193,28 +3193,28 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Foundry OSD bu ayarlarla GitHub ve Microsoft hizmetlerine ulaşamadı. Proxy adresini, bağlantı noktasını ve ağ bağlantınızı denetleyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Bağlantı başarısız oldu</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Proxy ayarlarını kontrol edin</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Foundry OSD'den yapılan yeni bağlantılar artık bu ayarları kullanır.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Proxy ayarları uygulandı</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD, seçilen ayarları kullanarak GitHub ve Microsoft hizmetlerine erişti.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Bağlantı başarılı</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>Proxy sunucusu adresini girin.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Açık proxy kimlik doğrulaması için bir kullanıcı adı ve parola girin.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>Geçerli bir HTTP veya HTTPS proxy adresi girin (örneğin, proxy.contoso.com).</value>
@@ -3226,85 +3226,85 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Uygula</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Geçerli Windows kimlik bilgilerini kullan</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Proxy'nin Foundry OSD kimliğini nasıl doğrulayacağını seçin.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Kimlik doğrulama</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Kullanıcı adı ve parola</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Kimlik doğrulama yok</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Noktalı virgülle ayrılmış isteğe bağlı ana bilgisayar adları veya joker karakter desenleri.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Hariç tutma listesi</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Nokta içermeyen ana bilgisayar adlarına doğrudan bağlan.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Yerel adresler için proxy'yi atla</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Kimlik bilgileri Windows Kimlik Bilgisi Yöneticisi'nde güvenli bir şekilde depolanır.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Proxy kimlik bilgileri</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Etki alanı (isteğe bağlı)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Proxy adresini ve bağlantı noktasını girin.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxy sunucusu</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Foundry OSD'nin internete nasıl bağlanacağını seçin.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Proxy yöntemi</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Proxy yok (doğrudan bağlantı)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>El ile proxy kurulumu</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Windows ayarlarını kullan (önerilen)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Parola</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Bu ayarlar yalnızca bu uygulama için geçerlidir. Dağıtım medyasına eklenmez ve Foundry Connect veya Foundry Deploy'u etkilemez.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Yalnızca Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Bağlantıyı test et</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Kullanıcı adı</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Ayarlar</value>
@@ -3322,19 +3322,19 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Ayarları yedekleme ve eşitleme</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Foundry OSD'nin çevrimiçi hizmetlere nasıl bağlanacağını yapılandırın.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Tüm günlük düzeylerini ve teknik bağlamı, kimlik doğrulama sırları maskelenmiş olarak, ayrı özel durum raporlarıyla birlikte PostHog’a gönderin. Günlükler 7 gün sonra otomatik olarak silinir.</value>
+    <value>Tüm günlük düzeylerini ve teknik bağlamı, kimlik doğrulama sırları maskelenmiş olarak, ayrı özel durum raporlarıyla birlikte PostHog'a gönderin. Günlükler 7 gün sonra otomatik olarak silinir.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Uzaktan tanılamayı etkinleştir</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Foundry’nin iyileştirilmesine yardımcı olmak için anonim kullanım telemetrisi gönderin. Seri numaraları ve donanım karmaları dâhil olmak üzere sırlar ve doğrudan cihaz tanımlayıcıları hariç tutulur. Telemetri anonim bir yükleme kimliği kullanır ve cihaz üreticisini ve modelini içerebilir.</value>
+    <value>Foundry'nin iyileştirilmesine yardımcı olmak için anonim kullanım telemetrisi gönderin. Seri numaraları ve donanım karmaları dâhil olmak üzere sırlar ve doğrudan cihaz tanımlayıcıları hariç tutulur. Telemetri anonim bir yükleme kimliği kullanır ve cihaz üreticisini ve modelini içerebilir.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Telemetriyi etkinleştir</value>
@@ -3370,58 +3370,58 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Mimarlık ve imza</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Etkin: zero-touch donanım karması yükleme</value>
+    <value>Etkin: zero-touch donanım karması karşıya yükleme</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Etkin: etkileşimli donanım karması yükleme</value>
+    <value>Etkin: etkileşimli donanım karması karşıya yükleme</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
     <value>Etkin: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkin ancak seçilen sertifikanın geçerlilik süresi eksik.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak seçilen sertifikanın sona erme tarihi eksik.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkin ancak seçilen sertifikanın süresi doldu. Önyükleme ortamı oluşturmadan önce geçerli bir sertifika seçin.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak seçilen sertifikanın süresi doldu. Önyükleme ortamı oluşturmadan önce geçerli bir sertifika seçin.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Donanım karması yüklemesi etkin ancak seçilen PFX bir uygulama kayıt sertifikasıyla eşleşmiyor.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak seçilen PFX bir uygulama kayıt sertifikasıyla eşleşmiyor.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkin ancak seçilen sertifika parmak izi eksik.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak seçilen sertifikanın parmak izi eksik.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkinleştirildi ancak uygulama kaydı yapılandırılmadı. Autopilot adresinden kiracıya bağlanın.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak uygulama kaydı yapılandırılmadı. Autopilot sayfasından kiracıya bağlanın.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkinleştirildi ancak önyükleme ortamı PFX'in geçerlilik süresi doğrulanamadı.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak önyükleme ortamı PFX'inin sona erme tarihi doğrulanamadı.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkinleştirildi ancak seçilen önyükleme ortamı PFX'in süresi doldu.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak seçilen önyükleme ortamı PFX'inin süresi doldu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkinleştirildi ancak önyükleme ortamı PFX doğrulanmadı.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak önyükleme ortamı PFX'i doğrulanmadı.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkin ancak seçilen PFX etkin sertifikayla eşleşmiyor.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak seçilen PFX etkin sertifikayla eşleşmiyor.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkin ancak önyükleme ortamı PFX seçili değil.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak önyükleme ortamı PFX'i seçilmedi.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkin ancak önyükleme ortamı PFX parolası eksik.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak önyükleme ortamı PFX parolası eksik.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkin ancak uygulama istemci kimliği eksik. Autopilot adresinden kiracıya yeniden bağlanın.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak uygulama istemci kimliği eksik. Autopilot sayfasından kiracıya yeniden bağlanın.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkin ancak uygulama hizmet sorumlusu eksik veya hazır değil.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak uygulama hizmet sorumlusu eksik veya hazır değil.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkin ancak ayarlar eksik.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak ayarlar eksik.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Donanım karma yüklemesi etkin ancak kiracı bağlantısı eksik. Autopilot adresinden kiracıya bağlanın.</value>
+    <value>Donanım karması karşıya yükleme etkin ancak kiracı bağlantısı eksik. Autopilot sayfasından kiracıya bağlanın.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON profil modu etkinleştirildi ancak geçerli bir varsayılan profil seçilmedi.</value>
@@ -3469,13 +3469,13 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Ağ yapılandırması hazır değil.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Hiçbir USB hedefi seçilmedi.</value>
+    <value>Hiçbir USB sürücüsü seçilmedi.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Gerekli medya sırları hazır değil.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Seçilen USB hedefi çok küçük. En az 16 GB boyutunda bir USB anahtarı kullanın.</value>
+    <value>Seçilen USB sürücüsü çok küçük. En az 16 GB boyutunda bir USB sürücüsü kullanın.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Seçilen WinPE klavye düzeni bu bilgisayarda yüklü değil.</value>
@@ -3517,7 +3517,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>USB'yi biçimlendirin ve oluşturun</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>USB hedefini biçimlendir</value>
+    <value>USB sürücüsünü biçimlendir</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows bu diskteki birimleri okuyamıyor. Disk hâlâ veri içeriyor olabilir.</value>
@@ -3532,7 +3532,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Bu diskteki birimler:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Bu diskteki her şey kaybolacak. Yalnızca amaçlanan USB diski ise devam edin.</value>
+    <value>Bu diskteki her şey silinecek. Yalnızca doğru USB sürücüsü buysa devam edin.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB oluştur</value>
@@ -3565,7 +3565,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>HP</value>
   </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
-    <value>Mimarlık</value>
+    <value>Mimari</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Sürücüler</value>
@@ -3595,10 +3595,10 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Başlamak için aşağıdan bir ISO veya USB çıktısı seçin.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Tam format</value>
+    <value>Tam biçimlendirme</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Hızlı format</value>
+    <value>Hızlı biçimlendirme</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Oluşturulan Foundry ISO'nin nereye yazılacağını seçin.</value>
@@ -3960,10 +3960,10 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
 
 Önce güncellemeyi uygulayın, ardından önyükleme medyanızı oluşturun veya güncelleyin.
 
-Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
+Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
-    <value>Önyükleme medyası oluşturmadan önce Foundry OSD’yi güncelleyin</value>
+    <value>Önyükleme medyası oluşturmadan önce Foundry OSD'yi güncelleyin</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
     <value>Güncellemeyi görüntüle</value>
@@ -3972,7 +3972,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>USB güncelle</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB hedefleri, ADK hazırlığı tamamlandıktan sonra yenilenebilir.</value>
+    <value>USB sürücüleri, ADK hazırlık denetimleri tamamlandıktan sonra yenilenebilir.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB sürücüler bulundu: {0}</value>
@@ -3981,22 +3981,22 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB hedefleri taranıyor.</value>
+    <value>USB sürücüleri aranıyor…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Hiçbir USB sürücüsü bulunamadı.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB hedef yenileme başarısız oldu.</value>
+    <value>USB sürücüleri yenilenemedi.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Son USB ortamı kopyalanmadan önce kullanılan biçimlendirme davranışı.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Seçilen USB hedefi hazırlanırken kullanılan bölümleme şeması.</value>
+    <value>Seçilen USB sürücüsü hazırlanırken kullanılan bölümleme şeması.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB hedef</value>
+    <value>Hedef USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE önyükleme ortamı tarafından kullanılan dil.</value>
@@ -4023,7 +4023,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Başlat</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Açık</value>
+    <value>Aç</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Vurgu rengini değiştirmek için Windows renk ayarlarını açın.</value>
@@ -4044,13 +4044,13 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Uygulama teması</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Karanlık</value>
+    <value>Koyu</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>Sistem</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Işık</value>
+    <value>Açık</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Uygulamanın arkasında kullanılan arka plan malzemesini seçin.</value>
@@ -4209,7 +4209,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Güncelleme arka planda indiriliyor. İlerlemeyi görmek için güncelleme ayarlarını açın.</value>
   </data>
   <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
-    <value>Güncellemeyi uygulayın ve Foundry OSD’yi yeniden başlatın. Uygulamayı kapattığınızda da otomatik olarak yüklenecektir.</value>
+    <value>Güncellemeyi uygulayın ve Foundry OSD'yi yeniden başlatın. Uygulamayı kapattığınızda da otomatik olarak yüklenecektir.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>İşaretlenmedi</value>
@@ -4314,7 +4314,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Önyükleme görüntüsünde Wi-Fi desteği sağlayın</value>
+    <value>Wi-Fi hazırlığını etkinleştir</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Wi-Fi hazırlığını, gömülü profilleri ve Windows profil dolaşımını yapılandırın.</value>

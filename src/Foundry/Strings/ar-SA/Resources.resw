@@ -25,7 +25,7 @@
     <value>لا يمكن تحميل المساهمين من GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>جارٍ تحميل المساهمين...</value>
+    <value>جارٍ تحميل المساهمين…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>المساهمين</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD هو تطبيق حديث لتأليف وسائط النشر Windows المدعومة بواسطة WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>حقوق الطبع والنشر (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
 مرخص بموجب ترخيص MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@
     <value>تعذر تحميل ملاحظات الإصدار في المتصفح المضمن.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>جارٍ تحميل ملاحظات الإصدار...</value>
+    <value>جارٍ تحميل ملاحظات الإصدار…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>ملاحظات الإصدار</value>
@@ -77,10 +77,10 @@
     <value>الدعم</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>يتم تعقب تراخيص حزمة الطرف الثالث من خلال مستودع المشروع وبيانات التبعية.</value>
+    <value>يستخدم Foundry OSD المكتبات والأدوات التالية. ترد تراخيصها وصفحات مشاريعها أدناه.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>تبعيات الطرف الثالث</value>
+    <value>تراخيص الجهات الخارجية</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>حول Foundry OSD</value>
@@ -242,19 +242,19 @@
     <value>قم بترقية Windows ADK وWindows PE الوظيفة الإضافية</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>إزالة مكونات الذكاء الاصطناعي</value>
+    <value>تمكين تكوين مكونات الذكاء الاصطناعي</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>قم بإزالة أو تعطيل مكونات Windows AI المحددة قبل OOBE.</value>
+    <value>اختر مكونات الذكاء الاصطناعي وتجاربه في Windows لإزالتها أو تعطيلها.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>إزالة مكون الذكاء الاصطناعي</value>
+    <value>مكونات الذكاء الاصطناعي</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>قم بإزالة التطبيقات Windows المتوفرة</value>
+    <value>تمكين إزالة تطبيقات AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>قم بإزالة تطبيقات Windows المتوفرة قبل OOBE.</value>
+    <value>اختر تطبيقات Windows المُزوَّدة لإزالتها من الأجهزة التي يتم نشرها.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>إزالة تطبيقات AppX</value>
@@ -317,7 +317,7 @@
     <value>لم يتم العثور على ملفات تعريف Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>جارٍ تنزيل الملفات الشخصية Autopilot...</value>
+    <value>جارٍ تنزيل الملفات الشخصية Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>تم تكوين {0}.</value>
@@ -443,7 +443,7 @@
     <value>ربط المستأجر</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>ربط المستأجر...</value>
+    <value>ربط المستأجر…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>إنشاء شهادة</value>
@@ -593,7 +593,7 @@
     <value>استيراد ملف تعريف Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>جارٍ استيراد ملف التعريف Autopilot...</value>
+    <value>جارٍ استيراد ملف التعريف Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>عند التمكين، يسجل الفني الدخول باستخدام رمز جهاز Microsoft أثناء إعداد Windows ويحمّل تجزئة أجهزة الجهاز.</value>
@@ -656,7 +656,7 @@
     <value>قم بتسجيل الدخول إلى Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>واضح</value>
+    <value>مسح</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>اختر ملفات تعريف المستأجر التي يجب استيرادها إلى Foundry.</value>
@@ -680,10 +680,10 @@
     <value>تحميل تجزئة الأجهزة التفاعلي</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>قم بإعداد ملف تعريف Autopilot دون اتصال في الصورة Windows المطبقة.</value>
+    <value>استورد ملف تعريف Autopilot المضمّن في وسائط النشر أو قم بتنزيله.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON توفير الملف الشخصي</value>
+    <value>ملف تعريف JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>قم بتكوين تحميل هاش الأجهزة التلقائي المستند إلى tenant.</value>
@@ -1847,7 +1847,7 @@
     <value>ابحث حسب اسم العرض أو اسم ميزة DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>تصدير...</value>
+    <value>تصدير…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>أنشئ أرشيف دعم منقحًا دون تعديل السجلات الأصلية.</value>
@@ -1865,7 +1865,7 @@
     <value>فشل تصدير التشخيصات</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>متقدم: تصدير السجلات الخام...</value>
+    <value>متقدم: تصدير السجلات الخام…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>تصدير السجلات الخام</value>
@@ -1928,7 +1928,7 @@
     <value>نعم</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>جارٍ البحث عن وحدات OU في النطاق...</value>
+    <value>جارٍ البحث عن وحدات OU في النطاق…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>تم إلغاء البحث.</value>
@@ -2108,10 +2108,10 @@
     <value>حدد شهادة 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>قم بتكوين 802.1X السلكي</value>
+    <value>تمكين تكوين Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>يتوفر الاتصال القياسي Ethernet بشكل افتراضي. قم بتكوين هذا القسم فقط إذا كانت شبكتك السلكية تتطلب مصادقة مؤسسة 802.1X.</value>
+    <value>قم بتكوين مصادقة 802.1X السلكية وتجوال ملفات تعريف Windows.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2339,7 +2339,7 @@
     <value>الليتوانية (ليتوانيا)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>النرويجية البوكمال (النرويج)</value>
+    <value>النرويجية بوكمال (النرويج)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>البولندية (بولندا)</value>
@@ -2357,7 +2357,7 @@
     <value>الروسية (روسيا)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>اللاتينية الصربية (صربيا)</value>
+    <value>الصربية اللاتينية (صربيا)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>السلوفاكية (سلوفاكيا)</value>
@@ -2402,13 +2402,13 @@
     <value>نقل المكون لأعلى</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>تمكين قواعد تسمية الجهاز</value>
+    <value>تمكين تكوين تسمية الجهاز</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>قم بتكوين التسمية التلقائية والتسمية بمساعدة فني.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>اسم الكمبيوتر</value>
+    <value>تسمية الجهاز</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>معاينة</value>
@@ -2429,13 +2429,13 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>قم بإزالة أو تعطيل مكونات Windows AI المحددة قبل OOBE.</value>
+    <value>قم بإزالة مكونات الذكاء الاصطناعي في Windows أو تعطيلها.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>مكونات AI</value>
+    <value>مكونات الذكاء الاصطناعي</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>قم بإزالة تطبيقات Windows المتوفرة قبل OOBE.</value>
+    <value>حدد التطبيقات المُزوَّدة المراد إزالتها.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>إزالة تطبيقات AppX</value>
@@ -2477,7 +2477,7 @@
     <value>الانضمام إلى النطاق</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>يتوفر الاتصال القياسي Ethernet بشكل افتراضي. قم بتكوين هذا القسم فقط إذا كانت شبكتك السلكية تتطلب مصادقة مؤسسة 802.1X.</value>
+    <value>قم بتكوين مصادقة 802.1X السلكية.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2513,19 +2513,19 @@
     <value>الشبكة</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>قم بتكوين Windows 11 شاشة يتم تشغيلها لأول مرة وإعدادات الخصوصية الافتراضية.</value>
+    <value>قم بتكوين تجربة التشغيل الأول في Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>تمكين أو تعطيل مكونات Windows في نظام التشغيل المنشور.</value>
+    <value>قم بتمكين ميزات Windows الاختيارية أو تعطيلها.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>الميزات الاختيارية</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>حدد إصدارات Windows ومستويات التحديث واللغات والنسخ التي يتم تقديمها أثناء النشر.</value>
+    <value>قم بتقييد خيارات نظام التشغيل المتاحة أثناء النشر.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>اختيار نظام التشغيل</value>
@@ -2561,7 +2561,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>الانضمام إلى النطاق تلقائياً باستخدام بيانات اعتماد تحميها كلمة مرور النشر.</value>
@@ -2669,31 +2669,31 @@
     <value>تجوال ملفات تعريف Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>تخصيص OOBE</value>
+    <value>تمكين تكوين OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>قم بتكوين Windows 11 شاشة يتم تشغيلها لأول مرة وإعدادات الخصوصية الافتراضية.</value>
+    <value>قم بتكوين خيارات الخصوصية والإعداد لتجربة التشغيل الأول في Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>تكوين ميزات Windows الاختيارية</value>
+    <value>تمكين تكوين الميزات الاختيارية</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>تمكين أو تعطيل مكونات Windows في نظام التشغيل المنشور.</value>
+    <value>اختر ميزات Windows الاختيارية لتمكينها أو تعطيلها.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>ميزات Windows الاختيارية</value>
+    <value>الميزات الاختيارية</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>خيارات نشر Windows</value>
+    <value>تمكين تكوين اختيار نظام التشغيل</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>حدد إصدارات Windows ومستويات التحديث واللغات والنسخ التي يتم تقديمها أثناء النشر.</value>
+    <value>قم بتكوين إصدارات نظام التشغيل واللغات والقنوات والنسخ المسموح بها.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>خيارات نشر Windows</value>
+    <value>اختيار نظام التشغيل</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>أضف إجراءً مفعّلًا أو عطّل إعدادات ما بعد التثبيت.</value>
@@ -2789,7 +2789,7 @@
     <value>استيراد مجلد</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>جارٍ استيراد المحتوى...</value>
+    <value>جارٍ استيراد المحتوى…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>هذا الإجراء غير صالح. تحقق من تكوينه.</value>
@@ -2819,7 +2819,7 @@
     <value>أدخل مجلدًا من المحتوى المستورد أو اترك هذا الحقل فارغًا.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>جارٍ تحميل المحتوى...</value>
+    <value>جارٍ تحميل المحتوى…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>استورد المحتوى المفقود لـ "{0}".</value>
@@ -3193,28 +3193,28 @@
     <value>تعذر على Foundry OSD الوصول إلى خدمات GitHub و Microsoft باستخدام هذه الإعدادات. تحقق من عنوان الخادم الوكيل والمنفذ واتصال الشبكة. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>فشل الاتصال</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>تحقق من إعدادات الوكيل</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>تستخدم الاتصالات الجديدة من Foundry OSD هذه الإعدادات الآن.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>تم تطبيق إعدادات الوكيل</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>تمكّن Foundry OSD من الوصول إلى خدمات GitHub وMicrosoft باستخدام الإعدادات المحددة.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>تم الاتصال بنجاح</value>
   </data>
   <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
     <value>أدخل عنوان الخادم الوكيل.</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>أدخل اسم مستخدم وكلمة مرور للمصادقة الصريحة على الوكيل.</value>
   </data>
   <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
     <value>أدخل عنوان خادم وكيل HTTP أو HTTPS صالحًا، مثل proxy.contoso.com.</value>
@@ -3226,85 +3226,85 @@
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>تطبيق</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>استخدام بيانات اعتماد Windows الحالية</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>اختر كيفية مصادقة الوكيل لـ Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>المصادقة</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>اسم المستخدم وكلمة المرور</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>بدون مصادقة</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>أسماء مضيفين أو أنماط أحرف بدل اختيارية مفصولة بفواصل منقوطة.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>قائمة التجاوز</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>الاتصال مباشرةً بأسماء المضيفين التي لا تحتوي على نقطة.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>تجاوز العناوين المحلية</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>يتم تخزين بيانات الاعتماد بشكل آمن في مدير بيانات اعتماد Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>بيانات اعتماد الوكيل</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>النطاق (اختياري)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>أدخل عنوان الوكيل والمنفذ.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>الخادم الوكيل</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>اختر كيفية اتصال Foundry OSD بالإنترنت.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>طريقة الوكيل</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>بدون وكيل (اتصال مباشر)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>وكيل يدوي</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>استخدام إعدادات Windows (موصى به)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>كلمة المرور</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>المنفذ</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>تنطبق هذه الإعدادات على هذا التطبيق فقط. ولا تتم إضافتها إلى وسائط النشر ولا تؤثر على Foundry Connect أو Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Foundry OSD فقط</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>اختبار الاتصال</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>اسم المستخدم</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>الإعدادات</value>
@@ -3322,10 +3322,10 @@
     <value>النسخ الاحتياطي للإعدادات ومزامنتها</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>قم بتكوين كيفية اتصال Foundry OSD بالخدمات عبر الإنترنت.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>الوكيل</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
     <value>إرسال جميع مستويات السجلات والسياق التقني إلى PostHog مع إخفاء أسرار المصادقة، بالإضافة إلى تقارير استثناءات منفصلة. تُحذف السجلات تلقائيًا بعد 7 أيام.</value>
@@ -3340,7 +3340,7 @@
     <value>تمكين القياس عن بعد</value>
   </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
-    <value>قم بتغيير تفضيلات السمة والخلفية ولون التمييز.</value>
+    <value>قم بتغيير تفضيلات النسق والخلفية ولون التمييز.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
     <value>المظهر</value>
@@ -3469,13 +3469,13 @@
     <value>تكوين الشبكة غير جاهز.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>لم يتم تحديد هدف USB.</value>
+    <value>لم يتم تحديد محرك أقراص USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>أسرار الوسائط المطلوبة ليست جاهزة.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>الهدف USB المحدد صغير جدًا. استخدم مفتاح USB بسعة 16 GB على الأقل.</value>
+    <value>محرك أقراص USB المحدد صغير جدًا. استخدم محرك أقراص USB بسعة 16 GB على الأقل.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>تخطيط لوحة مفاتيح WinPE المحدد غير مثبت على هذا الكمبيوتر.</value>
@@ -3484,7 +3484,7 @@
     <value>لغة التمهيد WinPE المحددة غير متوفرة للبنية المحددة.</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>ب</value>
+    <value>بايت</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3517,7 +3517,7 @@
     <value>تنسيق وإنشاء USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>تنسيق USB الهدف</value>
+    <value>تنسيق محرك أقراص USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>لا يستطيع Windows قراءة وحدات التخزين على هذا القرص. قد لا يزال يحتوي على بيانات.</value>
@@ -3532,7 +3532,7 @@
     <value>وحدات التخزين على هذا القرص:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>سيتم فقدان كل شيء على هذا القرص. تابع فقط إذا كان هذا هو قرص USB المقصود.</value>
+    <value>سيتم فقدان كل البيانات الموجودة على هذا القرص. لا تتابع إلا إذا كان هذا هو محرك أقراص USB المقصود.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>إنشاء USB</value>
@@ -3972,7 +3972,7 @@
     <value>تحديث USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>يمكن تحديث أهداف USB بعد اكتمال الاستعداد ADK.</value>
+    <value>يمكن تحديث قائمة محركات أقراص USB بعد اكتمال التحقق من جاهزية ADK.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB تم العثور على محركات الأقراص: {0}</value>
@@ -3981,22 +3981,22 @@
     <value>القرص {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>مسح الأهداف USB.</value>
+    <value>جارٍ البحث عن محركات أقراص USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>لم يتم العثور على محركات أقراص USB.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB فشل تحديث الهدف.</value>
+    <value>فشل تحديث محركات أقراص USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>سلوك التنسيق المستخدم قبل نسخ الوسائط USB النهائية.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>مخطط التقسيم المستخدم عند إعداد الهدف USB المحدد.</value>
+    <value>مخطط التقسيم المستخدم عند تجهيز محرك أقراص USB المحدد.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB الهدف</value>
+    <value>هدف USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>اللغة المستخدمة بواسطة بيئة التمهيد WinPE.</value>
@@ -4023,7 +4023,7 @@
     <value>ابدأ</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>مفتوح</value>
+    <value>فتح</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>افتح إعدادات الألوان Windows لتغيير لون التمييز.</value>
@@ -4038,19 +4038,19 @@
     <value>أكريليك رقيق</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
-    <value>حدد موضوع التطبيق.</value>
+    <value>حدد نسق التطبيق.</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
-    <value>موضوع التطبيق</value>
+    <value>نسق التطبيق</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>الظلام</value>
+    <value>داكن</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>النظام</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>ضوء</value>
+    <value>فاتح</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>اختر مادة الخلفية المستخدمة خلف التطبيق.</value>
@@ -4314,7 +4314,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>توفير الدعم Wi-Fi في صورة التمهيد</value>
+    <value>تمكين تهيئة Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>قم بتكوين تهيئة Wi-Fi والملفات التعريفية المضمنة وتدويل ملف تعريف Windows.</value>
