@@ -215,16 +215,19 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nepieciešamā versijas politika</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE faili ir pieejami</value>
+    <value>pieejami</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Trūkst WinPE failu</value>
+    <value>trūkst</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Instalēts papildinājums</value>
+    <value>Instalēts</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Instalēts (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Trūkst papildinājuma</value>
+    <value>Nav instalēts</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Papildinājums</value>
@@ -280,11 +283,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Izlaiduma piezīmes</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importējiet vietējos JSON profilus vai lejupielādējiet tos no Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profila darbības</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Noklusējums</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Mape</value>
@@ -297,12 +297,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Avots</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profils pēc noklusējuma ir iestatīts lietotajā Windows attēlā.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Noklusējuma profils</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Lejupielādēt no nomnieka</value>
@@ -379,12 +373,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX sertifikāta īkšķa nospiedums neatbilst atlasītajam lietotnes reģistrācijas sertifikātam.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Izveidojiet vai noņemiet lietotņu reģistrācijas sertifikāta akreditācijas datus.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Sertifikātu darbības</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry nevarēja izveidot lietotnes reģistrācijas sertifikātu.</value>
   </data>
@@ -435,6 +423,18 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Īkšķa nospiedums</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Derīgs 12 mēnešus</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Derīgs 1 mēnesi</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Derīgs 3 mēnešus</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Derīgs 6 mēnešus</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Sertifikāti netiek nodrošināti.</value>
@@ -613,8 +613,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Vai mainīt nodrošināšanas režīmu?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Bezsaistes Autopilot profili ir pieejami JSON profila nodrošināšanai.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Jā</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Nav importēts neviens Autopilot profils.</value>
@@ -645,6 +645,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>Lai atkal izmantotu noņemtu profilu, importējiet to vai vēlreiz lejupielādējiet no nomnieka.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Iestatīt kā noklusējumu</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Pabeidziet pierakstīšanos pārlūkprogrammā, lai lejupielādētu Autopilot profilus.</value>
@@ -717,6 +720,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Iespējots</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Jāpievērš uzmanība</value>
@@ -1048,6 +1054,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Pārskatiet komponentu iestatījumus. Maksimālais datora nosaukuma garums ir 15 rakstzīmes.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Lai izmantotu iepriekš definētu paroli, lapā Vispārīgi ieslēdziet aizsardzību ar paroli.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Iestata šim kontam iepriekš definētu paroli. Nepieciešams aizsargāts izvietošanas datu nesējs. Izslēdziet, lai izmantotu tukšu paroli.</value>
   </data>
@@ -1292,10 +1301,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Jaunākais pieejamais atjauninājums</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>Par {0} atjauninājumiem agrāks</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>Par 1 atjauninājumu agrāks</value>
+    <value>Atjauninājumi pirms jaunākā: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigurējiet izvietošanas laikā piedāvātās Windows 11 versijas.</value>
@@ -1805,7 +1811,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nemainīts</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} konfigurēts ({1} iespējot, {2} atspējot)</value>
+    <value>Konfigurēti: {0} (iespējot: {1}, atspējot: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Pieejamība ir atkarīga no Copilot+ datora aparatūras un instalētā Windows attēla.</value>
@@ -2333,7 +2339,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>lietuviešu (Lietuva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norwegian Bokmal (Norway)</value>
+    <value>Norvēģu bukmols (Norvēģija)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poļu (Polija)</value>
@@ -3038,7 +3044,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Vairāk opciju</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Trūkstošo vai neiekļauto failu skaits: {0}. Pirms datu nesēja izveides izvēlieties to atrašanās vietas.</value>
+    <value>Trūkstošie vai neiekļautie faili: {0}. Pirms datu nesēja izveides izvēlieties to atrašanās vietas.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfigurācijas nosaukums</value>
@@ -3607,7 +3613,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Izvēlieties ISO izvades ceļu</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} papildu lokālie konti</value>
+    <value>Papildu lokālie konti: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Iebūvētais administrators iespējots</value>
@@ -4086,7 +4092,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Parādāmais nosaukums</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Izlaisti {0} faili, kas jau ir katalogā.</value>
+    <value>Izlaistie faili, kas jau ir katalogā: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Lai izmantotu šo līdzekli, importējiet vismaz vienu atbilžu failu.</value>

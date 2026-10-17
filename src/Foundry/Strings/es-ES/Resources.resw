@@ -215,16 +215,19 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Política de versión requerida</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Archivos de WinPE disponibles</value>
+    <value>disponibles</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Faltan archivos de WinPE</value>
+    <value>faltan</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Complemento instalado</value>
+    <value>Instalado</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Instalado (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Falta el complemento</value>
+    <value>No instalado</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Complemento</value>
@@ -280,11 +283,8 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Notas de la versión</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importe perfiles JSON locales o descárguelos de Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Acciones de perfil</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Predeterminado</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Carpeta</value>
@@ -297,12 +297,6 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Fuente</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Perfil organizado de forma predeterminada en la imagen Windows aplicada.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Perfil predeterminado</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Descargar desde inquilino</value>
@@ -379,12 +373,6 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>La huella digital del certificado PFX no coincide con el certificado de registro de la aplicación seleccionada.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Cree o elimine las credenciales del certificado de registro de la aplicación.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Acciones de certificado</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry no pudo crear el certificado de registro de la aplicación.</value>
   </data>
@@ -435,6 +423,18 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Impresión del pulgar</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Válido durante 12 meses</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Válido durante 1 mes</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Válido durante 3 meses</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Válido durante 6 meses</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>No se proporcionan certificados.</value>
@@ -613,8 +613,8 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>¿Cambiar el modo de aprovisionamiento?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Perfiles Autopilot sin conexión disponibles para el aprovisionamiento de perfiles JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Sí</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>No se importaron perfiles Autopilot.</value>
@@ -645,6 +645,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>Para volver a usar un perfil eliminado, impórtelo o vuelva a descargarlo del inquilino.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Establecer como predeterminado</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Complete el inicio de sesión en el navegador para descargar perfiles Autopilot.</value>
@@ -717,6 +720,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Activado</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Requiere atención</value>
@@ -1048,6 +1054,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Revise la configuración de los componentes. La longitud máxima del nombre del equipo es de 15 caracteres.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Activa la protección con contraseña en la página General para usar una contraseña predefinida.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Establece una contraseña predefinida para esta cuenta. Se requiere un medio de implementación protegido. Desactive esta opción para usar una contraseña en blanco.</value>
   </data>
@@ -1292,10 +1301,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Actualización disponible más reciente</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} actualizaciones antes</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 actualización antes</value>
+    <value>Actualizaciones anteriores a la más reciente: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Configure las versiones de Windows 11 que se ofrecen durante la implementación.</value>
@@ -1805,7 +1811,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Sin cambios</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} configurado ({1} habilitar, {2} deshabilitar)</value>
+    <value>Configuradas: {0} (habilitar: {1}, deshabilitar: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>La disponibilidad depende del hardware de la PC Copilot+ y de la imagen de Windows instalada.</value>
@@ -2333,7 +2339,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>lituano (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal noruego (Noruega)</value>
+    <value>Bokmål noruego (Noruega)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polaco (Polonia)</value>
@@ -3038,7 +3044,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Más opciones</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Faltan {0} archivos o no se han incluido. Selecciona sus ubicaciones antes de crear medios.</value>
+    <value>Archivos que faltan o no se han incluido: {0}. Selecciona sus ubicaciones antes de crear medios.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Nombre de la configuración</value>
@@ -3607,7 +3613,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Seleccione ISO ruta de salida</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} cuenta(s) local(es) adicional(es)</value>
+    <value>Cuentas locales adicionales: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Administrador integrado habilitado</value>
@@ -4086,7 +4092,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Nombre para mostrar</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Se han omitido {0} archivos que ya estaban en el catálogo.</value>
+    <value>Archivos omitidos porque ya están en el catálogo: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Importe al menos un archivo de respuesta para usar esta característica.</value>

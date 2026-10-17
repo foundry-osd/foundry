@@ -215,16 +215,19 @@
     <value>מדיניות גרסה נדרשת</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>קובצי WinPE זמינים</value>
+    <value>זמינים</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>חסרים קובצי WinPE</value>
+    <value>חסרים</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE הותקן תוסף</value>
+    <value>מותקן</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>מותקן (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE חסר תוסף</value>
+    <value>לא מותקן</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE תוסף</value>
@@ -280,11 +283,8 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>הערות שחרור</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>ייבא פרופילי JSON מקומיים או הורד אותם מ-Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>פעולות פרופיל</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>ברירת מחדל</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>תיקיה</value>
@@ -297,12 +297,6 @@
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>מקור</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>פרופיל מבוים כברירת מחדל בתמונה Windows שהוחלה.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>פרופיל ברירת מחדל</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>הורד מהדייר</value>
@@ -379,12 +373,6 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>טביעת האצבע של אישור PFX אינה תואמת לאישור רישום האפליקציה שנבחר.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>צור או הסר אישורי אישור רישום אפליקציה.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>פעולות תעודה</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry לא הצליח ליצור את האישור של רישום האפליקציה.</value>
   </data>
@@ -435,6 +423,18 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>טביעת אצבע</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>בתוקף ל-12 חודשים</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>בתוקף לחודש אחד</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>בתוקף ל-3 חודשים</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>בתוקף ל-6 חודשים</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>אין תעודות מסופקות.</value>
@@ -613,8 +613,8 @@
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>לשנות את מצב ההקצאה?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>פרופילים לא מקוונים של Autopilot זמינים להקצאת פרופיל JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>כן</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>לא יובאו פרופילים Autopilot.</value>
@@ -645,6 +645,9 @@
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>כדי להשתמש שוב בפרופיל שהוסר, ייבא אותו או הורד אותו שוב מהדייר.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>הגדרה כברירת מחדל</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>השלם את הכניסה בדפדפן כדי להוריד פרופילים של Autopilot.</value>
@@ -717,6 +720,9 @@
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>מופעל</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>דורש טיפול</value>
@@ -1048,6 +1054,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>בדוק את הגדרות הרכיבים. האורך המרבי של שם המחשב הוא 15 תווים.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>כדי להשתמש בסיסמה מוגדרת מראש, יש להפעיל הגנה באמצעות סיסמה בדף "כללי".</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>הגדרת סיסמה מוגדרת מראש עבור חשבון זה. נדרשת מדיית פריסה מוגנת. כבה אפשרות זו כדי להשתמש בסיסמה ריקה.</value>
   </data>
@@ -1292,10 +1301,7 @@
     <value>העדכון הזמין העדכני ביותר</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} עדכונים קודם לכן</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>עדכון אחד קודם לכן</value>
+    <value>עדכונים לפני העדכני ביותר: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>הגדר את גרסאות Windows 11 שיוצעו במהלך הפריסה.</value>
@@ -1805,7 +1811,7 @@
     <value>ללא שינוי</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} מוגדר ({1} הפעל, {2} השבת)</value>
+    <value>מוגדרים: {0} (הפעלה: {1}, השבתה: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>הזמינות תלויה בחומרת PC Copilot+ ובתמונת Windows המותקנת.</value>
@@ -3038,7 +3044,7 @@
     <value>אפשרויות נוספות</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} קבצים חסרים או לא נכללו. יש לבחור את המיקומים שלהם לפני יצירת מדיה.</value>
+    <value>קבצים חסרים או שלא נכללו: {0}. יש לבחור את המיקומים שלהם לפני יצירת מדיה.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>שם התצורה</value>
@@ -4086,7 +4092,7 @@
     <value>שם תצוגה</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>דולגו {0} קבצים שכבר קיימים בקטלוג.</value>
+    <value>קבצים שדולגו כי הם כבר קיימים בקטלוג: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>ייבאו לפחות קובץ תשובות אחד כדי להשתמש בתכונה זו.</value>

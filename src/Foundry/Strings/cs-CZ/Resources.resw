@@ -215,16 +215,19 @@ Licencováno pod licencí MIT.</value>
     <value>Zásady požadované verze</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Soubory WinPE jsou k dispozici</value>
+    <value>k dispozici</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Soubory WinPE chybí</value>
+    <value>chybí</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Doplněk nainstalován</value>
+    <value>Nainstalováno</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Nainstalováno (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Chybí doplněk</value>
+    <value>Nenainstalováno</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE doplněk</value>
@@ -280,11 +283,8 @@ Licencováno pod licencí MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Poznámky k vydání</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importujte místní profily JSON nebo si je stáhněte z Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Akce profilu</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Výchozí</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Složka</value>
@@ -297,12 +297,6 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Zdroj</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profil vytvořený jako výchozí v použitém obrázku Windows.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Výchozí profil</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Stáhnout od nájemce</value>
@@ -379,12 +373,6 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Miniatura certifikátu PFX neodpovídá vybranému registračnímu certifikátu aplikace.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Vytvořte nebo odeberte přihlašovací údaje certifikátu registrace aplikace.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Akce certifikátu</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry nemohl vytvořit certifikát registrace aplikace.</value>
   </data>
@@ -435,6 +423,18 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Otisk palce</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Platnost 12 měsíců</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Platnost 1 měsíc</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Platnost 3 měsíce</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Platnost 6 měsíců</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Nejsou poskytovány žádné certifikáty.</value>
@@ -613,8 +613,8 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Změnit režim zřizování?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Offline Autopilot profily dostupné pro zřizování profilu JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Ano</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Nebyly importovány žádné profily Autopilot.</value>
@@ -645,6 +645,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>Pokud chcete odebraný profil znovu použít, importujte ho nebo ho znovu stáhněte z tenanta.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Nastavit jako výchozí</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Dokončete přihlášení v prohlížeči a stáhněte si profily Autopilot.</value>
@@ -717,6 +720,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Povoleno</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Vyžaduje pozornost</value>
@@ -1048,6 +1054,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Zkontrolujte nastavení součástí. Maximální délka názvu počítače je 15 znaků.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Pokud chcete použít předdefinované heslo, zapněte ochranu heslem na stránce Obecné.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Nastaví pro tento účet předdefinované heslo. Je vyžadováno chráněné instalační médium. Vypnutím použijete prázdné heslo.</value>
   </data>
@@ -1292,10 +1301,7 @@ Licencováno pod licencí MIT.</value>
     <value>Nejnovější dostupná aktualizace</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>O {0} aktualizací dříve</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>O 1 aktualizaci dříve</value>
+    <value>Aktualizace před nejnovější: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Nakonfigurujte verze Windows 11 nabízené během nasazení.</value>
@@ -1805,7 +1811,7 @@ Licencováno pod licencí MIT.</value>
     <value>Beze změny</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} nakonfigurováno ({1} povoleno, {2} zakázáno)</value>
+    <value>Nakonfigurováno: {0} (povolit: {1}, zakázat: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Dostupnost závisí na hardwaru počítače Copilot+ a nainstalovaném obrazu Windows.</value>
@@ -2333,7 +2339,7 @@ Licencováno pod licencí MIT.</value>
     <value>litevština (Litva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norský Bokmal (Norsko)</value>
+    <value>norský bokmål (Norsko)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>polština (Polsko)</value>
@@ -3038,7 +3044,7 @@ Licencováno pod licencí MIT.</value>
     <value>Další možnosti</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Chybí {0} souborů nebo nebyly zahrnuty. Před vytvořením média vyberte jejich umístění.</value>
+    <value>Chybějící nebo nezahrnuté soubory: {0}. Před vytvořením média vyberte jejich umístění.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Název konfigurace</value>
@@ -4086,7 +4092,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Zobrazovaný název</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Počet přeskočených souborů, které již jsou v katalogu: {0}.</value>
+    <value>Přeskočené soubory, které už jsou v katalogu: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Chcete-li používat tuto funkci, importujte alespoň jeden soubor odpovědí.</value>

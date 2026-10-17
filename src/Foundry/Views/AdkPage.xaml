@@ -50,7 +50,10 @@
                 </StackPanel>
             </wct:SettingsCard>
 
-            <wct:SettingsCard Header="{x:Bind ViewModel.ReadinessDetailsTitle, Mode=OneWay}">
+            <wct:SettingsCard
+                HorizontalContentAlignment="Stretch"
+                ContentAlignment="Vertical"
+                Header="{x:Bind ViewModel.ReadinessDetailsTitle, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xEC7A;" />
                 </wct:SettingsCard.HeaderIcon>

@@ -15,14 +15,18 @@ public sealed partial class AutopilotJsonProfilePage : Page
         ViewModel = App.GetService<AutopilotConfigurationViewModel>();
         InitializeComponent();
         TableViewDefaultSort.Attach(ProfilesTable, nameof(AutopilotProfileEntryViewModel.DisplayName));
+        ViewModel.ProfileRowsRemoving += OnProfileRowsRemoving;
         Unloaded += OnUnloaded;
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Unloaded -= OnUnloaded;
+        ViewModel.ProfileRowsRemoving -= OnProfileRowsRemoving;
         ViewModel.Dispose();
     }
+
+    private void OnProfileRowsRemoving(object? sender, EventArgs e) => ProfilesTable.DeselectAll();
 
     private async void OnModeActionClick(object sender, RoutedEventArgs e)
     {

@@ -215,16 +215,19 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Būtina versijos politika</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE failai pasiekiami</value>
+    <value>pasiekiami</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Trūksta WinPE failų</value>
+    <value>trūksta</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Įdiegtas priedas</value>
+    <value>Įdiegtas</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Įdiegtas (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Trūksta priedo</value>
+    <value>Neįdiegtas</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Priedas</value>
@@ -280,11 +283,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Išleidimo pastabos</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importuokite vietinius JSON profilius arba atsisiųskite juos iš Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profilio veiksmai</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Numatytasis</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Aplankas</value>
@@ -297,12 +297,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Šaltinis</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profilis nustatytas pagal numatytuosius nustatymus pritaikytame Windows vaizde.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Numatytasis profilis</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Atsisiųsti iš nuomininko</value>
@@ -379,12 +373,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX sertifikato nykščio atspaudas neatitinka pasirinktos programos registracijos sertifikato.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Sukurkite arba pašalinkite programos registracijos sertifikato kredencialus.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Veiksmai su sertifikatu</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry nepavyko sukurti programos registracijos sertifikato.</value>
   </data>
@@ -435,6 +423,18 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Nykščio atspaudas</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Galioja 12 mėnesių</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Galioja 1 mėnesį</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Galioja 3 mėnesius</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Galioja 6 mėnesius</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Jokie sertifikatai nepateikiami.</value>
@@ -613,8 +613,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Keisti parengimo režimą?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Neprisijungus pasiekiami Autopilot profiliai, skirti JSON profiliui teikti.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Taip</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Neimportuota jokių Autopilot profilių.</value>
@@ -645,6 +645,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>Norėdami vėl naudoti pašalintą profilį, importuokite jį arba dar kartą atsisiųskite iš nuomininko.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Nustatyti kaip numatytąjį</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Užbaikite prisijungimą naršyklėje, kad atsisiųstumėte Autopilot profilius.</value>
@@ -717,6 +720,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Įjungta</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Reikia dėmesio</value>
@@ -1048,6 +1054,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Peržiūrėkite komponentų parametrus. Didžiausias kompiuterio pavadinimo ilgis yra 15 simbolių.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Norėdami naudoti iš anksto nustatytą slaptažodį, puslapyje Bendra įjunkite apsaugą slaptažodžiu.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Nustato iš anksto apibrėžtą šios paskyros slaptažodį. Reikalinga apsaugota diegimo laikmena. Išjunkite, jei norite naudoti tuščią slaptažodį.</value>
   </data>
@@ -1292,10 +1301,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Naujausias pasiekiamas naujinimas</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} naujinimais ankstesnis</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 naujinimu ankstesnis</value>
+    <value>Naujinimai prieš naujausią: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigūruokite diegimo metu siūlomas Windows 11 versijas.</value>
@@ -1805,7 +1811,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepakitęs</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} sukonfigūruota ({1} įjungti, {2} išjungti)</value>
+    <value>Sukonfigūruota: {0} (įjungti: {1}, išjungti: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Prieinamumas priklauso nuo „Copilot+“ kompiuterio aparatinės įrangos ir įdiegto „Windows“ vaizdo.</value>
@@ -2333,7 +2339,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>lietuvių (Lietuva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norvegų bokmal (Norvegija)</value>
+    <value>norvegų bukmolas (Norvegija)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>lenkų (Lenkija)</value>
@@ -3038,7 +3044,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Daugiau parinkčių</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Trūkstamų arba neįtrauktų failų skaičius: {0}. Prieš kurdami laikmeną, pasirinkite jų vietas.</value>
+    <value>Trūkstami arba neįtraukti failai: {0}. Prieš kurdami laikmeną, pasirinkite jų vietas.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfigūracijos pavadinimas</value>
@@ -3607,7 +3613,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinkite ISO išvesties kelią</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} papildoma (-os) vietinė (-ės) paskyra (-os)</value>
+    <value>Papildomos vietinės paskyros: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Įtaisytasis administratorius įjungtas</value>
@@ -4086,7 +4092,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Rodomas pavadinimas</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Praleista kataloge jau esančių failų: {0}.</value>
+    <value>Praleisti failai, jau esantys kataloge: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Norėdami naudoti šią funkciją, importuokite bent vieną atsakymų failą.</value>

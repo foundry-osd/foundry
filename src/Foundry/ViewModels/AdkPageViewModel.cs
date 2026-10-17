@@ -233,13 +233,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         RequiredVersionPolicyTitle = localizationService.GetString("Adk.Version.RequiredPolicyTitle");
         RequiredVersionPolicy = localizationService.GetString("Adk.Version.RequiredPolicy");
         WinPeAddonTitle = localizationService.GetString("Adk.WinPeAddon.Title");
-        WinPeAddonStatus = status.IsWinPeAddonInstalled
-            ? localizationService.GetString("Adk.WinPeAddon.Installed")
-            : localizationService.GetString("Adk.WinPeAddon.Missing");
-        if (status.IsWinPeAddonCompatible)
-        {
-            WinPeAddonStatus += $" (x64: {FormatAvailability(status.IsX64Available)}, ARM64: {FormatAvailability(status.IsArm64Available)})";
-        }
+        WinPeAddonStatus = GetWinPeAddonStatus(status);
         MediaCapabilityTitle = localizationService.GetString("Adk.MediaCapability.Title");
         MediaCapabilityStatus = status.CanCreateMedia
             ? localizationService.GetString("Adk.MediaCapability.Ready")
@@ -249,6 +243,21 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         IsInstallButtonVisible = setupAction == AdkSetupAction.Install;
         IsSetupActionVisible = IsInstallButtonVisible || IsUpgradeButtonVisible;
         IsActionEnabled = !IsBusy;
+    }
+
+    private string GetWinPeAddonStatus(AdkInstallationStatus status)
+    {
+        if (!status.IsWinPeAddonInstalled)
+        {
+            return localizationService.GetString("Adk.WinPeAddon.Missing");
+        }
+
+        return status.IsWinPeAddonCompatible
+            ? localizationService.FormatString(
+                "Adk.WinPeAddon.InstalledArchitecturesFormat",
+                FormatAvailability(status.IsX64Available),
+                FormatAvailability(status.IsArm64Available))
+            : localizationService.GetString("Adk.WinPeAddon.Installed");
     }
 
     private string FormatAvailability(bool available) => localizationService.GetString(

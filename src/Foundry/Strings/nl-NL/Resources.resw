@@ -215,16 +215,19 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Vereist versiebeleid</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE-bestanden beschikbaar</value>
+    <value>beschikbaar</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE-bestanden ontbreken</value>
+    <value>ontbreken</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Add-on geïnstalleerd</value>
+    <value>Geïnstalleerd</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Geïnstalleerd (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Add-on ontbreekt</value>
+    <value>Niet geïnstalleerd</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE-add-on</value>
@@ -280,11 +283,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release-opmerkingen</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importeer lokale JSON-profielen of download ze van Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profielacties</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Standaard</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Map</value>
@@ -297,12 +297,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Bron</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profiel standaard geënsceneerd in de toegepaste Windows afbeelding.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Standaardprofiel</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Downloaden van huurder</value>
@@ -379,12 +373,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>De vingerafdruk van het PFX-certificaat komt niet overeen met het geselecteerde app-registratiecertificaat.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Maak of verwijder inloggegevens voor app-registratiecertificaten.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Certificaatacties</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry kan het app-registratiecertificaat niet maken.</value>
   </data>
@@ -435,6 +423,18 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Vingerafdruk</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>12 maanden geldig</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>1 maand geldig</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>3 maanden geldig</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>6 maanden geldig</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Er zijn geen certificaten ingericht.</value>
@@ -613,8 +613,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Provisioningsmodus wijzigen?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Offline Autopilot-profielen beschikbaar voor JSON-profielinrichting.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Ja</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Geen Autopilot profielen geïmporteerd.</value>
@@ -645,6 +645,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>Als je een verwijderd profiel opnieuw wilt gebruiken, importeer je het of download je het opnieuw van de huurder.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Als standaard instellen</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Voltooi de aanmelding in de browser om Autopilot-profielen te downloaden.</value>
@@ -717,6 +720,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Ingeschakeld</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Vereist aandacht</value>
@@ -1048,6 +1054,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Controleer de onderdeelinstellingen. De maximale lengte van een computernaam is 15 tekens.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Schakel wachtwoordbeveiliging in op de pagina Algemeen om een vooraf gedefinieerd wachtwoord te gebruiken.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Stelt een vooraf gedefinieerd wachtwoord in voor dit account. Beveiligde installatiemedia zijn vereist. Schakel dit uit om een leeg wachtwoord te gebruiken.</value>
   </data>
@@ -1292,10 +1301,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Meest recente beschikbare update</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} updates eerder</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 update eerder</value>
+    <value>Updates vóór de meest recente: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Configureer de Windows 11-versies die tijdens de implementatie worden aangeboden.</value>
@@ -1805,7 +1811,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Onveranderd</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} geconfigureerd ({1} inschakelen, {2} uitschakelen)</value>
+    <value>Geconfigureerd: {0} (inschakelen: {1}, uitschakelen: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>De beschikbaarheid is afhankelijk van de Copilot+ pc-hardware en de geïnstalleerde Windows-image.</value>
@@ -2333,7 +2339,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Litouws (Litouwen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Noors Bokmal (Noorwegen)</value>
+    <value>Noors Bokmål (Noorwegen)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Pools (Polen)</value>
@@ -3038,7 +3044,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Meer opties</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} bestanden ontbreken of zijn niet opgenomen. Selecteer hun locaties voordat je media maakt.</value>
+    <value>Ontbrekende of niet-opgenomen bestanden: {0}. Selecteer hun locaties voordat je media maakt.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Configuratienaam</value>
@@ -3607,7 +3613,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Selecteer ISO uitvoerpad</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} extra lokale account(s)</value>
+    <value>Extra lokale accounts: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Ingebouwde Administrator ingeschakeld</value>
@@ -4086,7 +4092,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Weergavenaam</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>{0} bestand(en) overgeslagen die al in de catalogus staan.</value>
+    <value>Overgeslagen bestanden die al in de catalogus staan: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Importeer ten minste één antwoordbestand om deze functie te gebruiken.</value>

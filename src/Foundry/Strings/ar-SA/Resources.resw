@@ -215,16 +215,19 @@
     <value>سياسة الإصدار المطلوبة</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>ملفات WinPE متاحة</value>
+    <value>متاحة</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>ملفات WinPE مفقودة</value>
+    <value>مفقودة</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE تم تثبيت الوظيفة الإضافية</value>
+    <value>مثبتة</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>مثبتة (x64: {0}، ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE الوظيفة الإضافية مفقودة</value>
+    <value>غير مثبتة</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE الوظيفة الإضافية</value>
@@ -280,11 +283,8 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>ملاحظات الإصدار</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>قم باستيراد ملفات تعريف JSON المحلية أو تنزيلها من Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>إجراءات الملف الشخصي</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>الافتراضي</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>مجلد</value>
@@ -297,12 +297,6 @@
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>المصدر</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>تم تنظيم الملف الشخصي افتراضيًا في الصورة Windows المطبقة.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>الملف الشخصي الافتراضي</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>تحميل من المستأجر</value>
@@ -379,12 +373,6 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>لا تتطابق بصمة شهادة PFX مع شهادة تسجيل التطبيق المحددة.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>إنشاء أو إزالة بيانات اعتماد شهادة تسجيل التطبيق.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>إجراءات الشهادة</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>تعذر على Foundry إنشاء شهادة تسجيل التطبيق.</value>
   </data>
@@ -435,6 +423,18 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>بصمة الإبهام</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>صالحة لمدة 12 شهرًا</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>صالحة لمدة شهر واحد</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>صالحة لمدة 3 أشهر</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>صالحة لمدة 6 أشهر</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>لا يتم توفير أي شهادات.</value>
@@ -613,8 +613,8 @@
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>تغيير وضع التهيئة؟</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>تتوفر ملفات تعريف Autopilot دون اتصال لتوفير ملف التعريف JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>نعم</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>لم يتم استيراد ملفات تعريف Autopilot.</value>
@@ -645,6 +645,9 @@
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>لاستخدام ملف تعريف تمت إزالته مرة أخرى، قم باستيراده أو تنزيله من المستأجر مرة أخرى.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>تعيين كافتراضي</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>أكمل تسجيل الدخول في المتصفح لتنزيل ملفات تعريف Autopilot.</value>
@@ -717,6 +720,9 @@
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>ممكّن</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>يحتاج إلى اهتمام</value>
@@ -1048,6 +1054,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>راجع إعدادات المكونات. الحد الأقصى لطول اسم الكمبيوتر هو 15 حرفًا.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>شغّل الحماية بكلمة مرور في صفحة "عام" لاستخدام كلمة مرور محددة مسبقًا.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>يعيّن كلمة مرور محددة مسبقًا لهذا الحساب. يلزم استخدام وسائط نشر محمية. أوقف تشغيل هذا الخيار لاستخدام كلمة مرور فارغة.</value>
   </data>
@@ -1292,10 +1301,7 @@
     <value>أحدث تحديث متاح</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} تحديثات سابقة</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>تحديث واحد سابق</value>
+    <value>عدد التحديثات السابقة لأحدث تحديث: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>قم بتكوين إصدارات Windows 11 المقدمة أثناء النشر.</value>
@@ -1805,7 +1811,7 @@
     <value>دون تغيير</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>تم تكوين {0} ({1} تمكين، {2} تعطيل)</value>
+    <value>تم التكوين: {0} (تمكين: {1}، تعطيل: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>يعتمد التوفر على أجهزة Copilot+ PC وصورة Windows المثبتة.</value>
@@ -3038,7 +3044,7 @@
     <value>المزيد من الخيارات</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>هناك {0} ملفات مفقودة أو لم يتم تضمينها. حدد مواقعها قبل إنشاء الوسائط.</value>
+    <value>الملفات المفقودة أو غير المضمنة: {0}. حدد مواقعها قبل إنشاء الوسائط.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>اسم التكوين</value>
@@ -4086,7 +4092,7 @@
     <value>اسم العرض</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>تم تخطي {0} من الملفات الموجودة بالفعل في الكتالوج.</value>
+    <value>الملفات التي تم تخطيها لأنها موجودة بالفعل في الكتالوج: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>استورد ملف إجابات واحدًا على الأقل لاستخدام هذه الميزة.</value>

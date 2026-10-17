@@ -215,16 +215,19 @@
     <value>所需版本政策</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE 檔案可用</value>
+    <value>可用</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE 檔案遺失</value>
+    <value>遺失</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE 已安裝附加元件</value>
+    <value>已安裝</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>已安裝（x64：{0}，ARM64：{1}）</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE 缺少附加元件</value>
+    <value>未安裝</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE 附加元件</value>
@@ -280,11 +283,8 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>發行說明</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>導入本地JSON設定檔或從Intune下載它們。</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>設定檔操作</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>預設</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>資料夾</value>
@@ -297,12 +297,6 @@
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>來源</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>預設情況下，設定檔在套用的 Windows 影像中暫存。</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>預設設定檔</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>從租用戶下載</value>
@@ -379,12 +373,6 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX 憑證指紋與所選的應用程式註冊憑證不符。</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>建立或刪除應用程式註冊證書憑證。</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>證書操作</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry 無法建立應用程式註冊憑證。</value>
   </data>
@@ -435,6 +423,18 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>指紋</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>有效期限 12 個月</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>有效期限 1 個月</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>有效期限 3 個月</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>有效期限 6 個月</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>沒有提供證書。</value>
@@ -613,8 +613,8 @@
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>變更配置模式？</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>離線Autopilot 設定檔可用於JSON 設定檔設定。</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>是</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>沒有導入 Autopilot 設定檔。</value>
@@ -645,6 +645,9 @@
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>若要再次使用已刪除的設定檔，請匯入該設定檔，或從租用戶重新下載。</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>設為預設</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>在瀏覽器中完成登入即可下載Autopilot設定檔。</value>
@@ -717,6 +720,9 @@
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>啟用</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}：{1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>需要注意</value>
@@ -1048,6 +1054,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>請檢查元件設定。電腦名稱的最大長度為 15 個字元。</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>若要使用預先定義的密碼，請在「一般」頁面上開啟密碼保護。</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>為此帳戶設定預先定義的密碼。需要受保護的部署媒體。關閉此選項可使用空白密碼。</value>
   </data>
@@ -1292,10 +1301,7 @@
     <value>最新可用更新</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>提前 {0} 個更新</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>提前 1 個更新</value>
+    <value>早於最新更新的更新數：{0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>設定部署期間提供的 Windows 11 版本。</value>
@@ -1805,7 +1811,7 @@
     <value>不變</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>已配置 {0}（{1} 啟用，{2} 停用）</value>
+    <value>已設定：{0}（啟用：{1}，停用：{2}）</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>可用性取決於 Copilot+ PC 硬體和安裝的 Windows 映像。</value>
@@ -3038,7 +3044,7 @@
     <value>更多選項</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>有 {0} 個檔案遺失或未包含在內。請在建立媒體前選擇這些檔案的位置。</value>
+    <value>遺失或未包含的檔案：{0}。請在建立媒體前選擇這些檔案的位置。</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>組態名稱</value>
@@ -4086,7 +4092,7 @@
     <value>顯示名稱</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>已略過目錄中現有的 {0} 個檔案。</value>
+    <value>因已在目錄中而略過的檔案：{0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>請至少匯入一個回應檔案以使用此功能。</value>

@@ -215,16 +215,19 @@ Licencirano pod licenco MIT.</value>
     <value>Politika zahtevane različice</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Datoteke WinPE so na voljo</value>
+    <value>na voljo</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Datoteke WinPE manjkajo</value>
+    <value>manjkajo</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Nameščen dodatek</value>
+    <value>Nameščeno</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Nameščeno (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Manjka dodatek</value>
+    <value>Ni nameščeno</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Dodatek</value>
@@ -280,11 +283,8 @@ Licencirano pod licenco MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Opombe ob izdaji</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Uvozite lokalne profile JSON ali jih prenesite iz Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Dejanja profila</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Privzeta</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Mapa</value>
@@ -297,12 +297,6 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Vir</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profil je privzeto postavljen na uporabljeni sliki Windows.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Privzeti profil</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Prenos iz najemnika</value>
@@ -379,12 +373,6 @@ Licencirano pod licenco MIT.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Odtis potrdila PFX se ne ujema z izbranim potrdilom o registraciji aplikacije.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Ustvarite ali odstranite poverilnice potrdila o registraciji aplikacije.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Dejanja potrdila</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry ni mogel ustvariti potrdila o registraciji aplikacije.</value>
   </data>
@@ -435,6 +423,18 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Odtis palca</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Velja 12 mesecev</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Velja 1 mesec</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Velja 3 mesece</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Velja 6 mesecev</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Certifikati niso na voljo.</value>
@@ -613,8 +613,8 @@ Licencirano pod licenco MIT.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Spremeniti način zagotavljanja?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Profili Autopilot brez povezave so na voljo za zagotavljanje profila JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Da</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Uvožen ni noben profil Autopilot.</value>
@@ -645,6 +645,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>Če želite odstranjeni profil znova uporabiti, ga uvozite ali ga znova prenesite iz najemnika.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Nastavi kot privzeto</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Za prenos profilov Autopilot se vpišite v brskalnik.</value>
@@ -717,6 +720,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Omogočeno</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Zahteva pozornost</value>
@@ -1048,6 +1054,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Preglejte nastavitve komponent. Največja dolžina imena računalnika je 15 znakov.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Če želite uporabiti vnaprej določeno geslo, na strani Splošno vklopite zaščito z geslom.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Nastavi vnaprej določeno geslo za ta račun. Potreben je zaščiten namestitveni medij. Izklopite za uporabo praznega gesla.</value>
   </data>
@@ -1292,10 +1301,7 @@ Licencirano pod licenco MIT.</value>
     <value>Najnovejša razpoložljiva posodobitev</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} posodobitev prej</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 posodobitev prej</value>
+    <value>Posodobitve pred najnovejšo: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigurirajte različice sistema Windows 11, ki so na voljo med uvajanjem.</value>
@@ -1805,7 +1811,7 @@ Licencirano pod licenco MIT.</value>
     <value>Nespremenjeno</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} konfigurirano ({1} omogoči, {2} onemogoči)</value>
+    <value>Konfigurirano: {0} (omogoči: {1}, onemogoči: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Razpoložljivost je odvisna od strojne opreme Copilot+ PC in nameščene slike Windows.</value>
@@ -2333,7 +2339,7 @@ Licencirano pod licenco MIT.</value>
     <value>litovščina (Litva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norveški bokmal (Norveška)</value>
+    <value>norveški bokmål (Norveška)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poljščina (Poljska)</value>
@@ -4086,7 +4092,7 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Prikazno ime</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Preskočene datoteke, ki so že v katalogu: {0}.</value>
+    <value>Preskočene datoteke, ki so že v katalogu: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Za uporabo te funkcije uvozite vsaj eno datoteko odgovorov.</value>

@@ -215,16 +215,19 @@
     <value>Правила за задължителна версия</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Файловете на WinPE са налични</value>
+    <value>налични</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Липсват файлове на WinPE</value>
+    <value>липсват</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Добавката е инсталирана</value>
+    <value>Инсталирана</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Инсталирана (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Липсва добавка</value>
+    <value>Не е инсталирана</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Добавка</value>
@@ -280,11 +283,8 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Бележки по изданието</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Импортирайте локални JSON профили или ги изтеглете от Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Действия в профила</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>По подразбиране</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Папка</value>
@@ -297,12 +297,6 @@
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Източник</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Профил, поставен по подразбиране в приложеното Windows изображение.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Профил по подразбиране</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Изтегляне от наемател</value>
@@ -379,12 +373,6 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Отпечатъкът на PFX сертификата не съответства на избрания сертификат за регистрация на приложение.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Създайте или премахнете идентификационни данни за сертификат за регистрация на приложение.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Сертификатни действия</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry не можа да създаде сертификат за регистрация на приложението.</value>
   </data>
@@ -435,6 +423,18 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Отпечатък от палец</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Валиден 12 месеца</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Валиден 1 месец</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Валиден 3 месеца</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Валиден 6 месеца</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Не се предоставят сертификати.</value>
@@ -613,8 +613,8 @@
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Промяна на режима на подготвяне?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Офлайн Autopilot профили, налични за предоставяне на JSON профил.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Да</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Няма импортирани Autopilot профили.</value>
@@ -645,6 +645,9 @@
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>За да използвате отново премахнат профил, импортирайте го или го изтеглете отново от наемателя.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Задаване по подразбиране</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Завършете влизане в браузъра, за да изтеглите Autopilot профили.</value>
@@ -717,6 +720,9 @@
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Активирано</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Изисква внимание</value>
@@ -1048,6 +1054,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Прегледайте настройките на компонентите. Максималната дължина на името на компютъра е 15 знака.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Включете защитата с парола на страницата „Общи“, за да използвате предварително зададена парола.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Задава предварително определена парола за този акаунт. Изисква се защитен носител за разполагане. Изключете тази опция, за да използвате празна парола.</value>
   </data>
@@ -1292,10 +1301,7 @@
     <value>Най-новата налична актуализация</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} актуализации по-рано</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 актуализация по-рано</value>
+    <value>Актуализации преди най-новата: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Конфигурирайте версиите на Windows 11, предлагани по време на разполагането.</value>
@@ -1805,7 +1811,7 @@
     <value>Непроменена</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} конфигуриран ({1} активиране, {2} деактивиране)</value>
+    <value>Конфигурирани: {0} (активиране: {1}, деактивиране: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Наличността зависи от хардуера на компютъра Copilot+ и инсталираното изображение на Windows.</value>
@@ -3038,7 +3044,7 @@
     <value>Още опции</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} файла липсват или не са включени. Изберете местоположенията им, преди да създадете носител.</value>
+    <value>Липсващи или невключени файлове: {0}. Изберете местоположенията им, преди да създадете носител.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Име на конфигурацията</value>
@@ -4086,7 +4092,7 @@
     <value>Показвано име</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Пропуснати са {0} файла, които вече присъстват в каталога.</value>
+    <value>Пропуснати файлове, които вече са в каталога: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Импортирайте поне един файл с отговори, за да използвате тази функция.</value>

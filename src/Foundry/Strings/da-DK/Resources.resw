@@ -215,16 +215,19 @@ Licenseret under MIT-licensen.</value>
     <value>Påkrævet versionspolitik</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE-filer er tilgængelige</value>
+    <value>tilgængelige</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE-filer mangler</value>
+    <value>mangler</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Tilføjelse installeret</value>
+    <value>Installeret</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Installeret (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Tilføjelse mangler</value>
+    <value>Ikke installeret</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Tilføjelse</value>
@@ -280,11 +283,8 @@ Licenseret under MIT-licensen.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Udgivelsesbemærkninger</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importer lokale JSON-profiler eller download dem fra Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profilhandlinger</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Standard</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Mappe</value>
@@ -297,12 +297,6 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Kilde</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profil iscenesat som standard i det anvendte Windows-billede.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Standard profil</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Download fra lejer</value>
@@ -379,12 +373,6 @@ Licenseret under MIT-licensen.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX-certifikatets tommelfingeraftryk stemmer ikke overens med det valgte app-registreringscertifikat.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Opret eller fjern legitimationsoplysninger for appregistreringscertifikater.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Certifikathandlinger</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry kunne ikke oprette appregistreringscertifikatet.</value>
   </data>
@@ -435,6 +423,18 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Tommelfingeraftryk</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Gyldig i 12 måneder</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Gyldig i 1 måned</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Gyldig i 3 måneder</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Gyldig i 6 måneder</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Der leveres ingen certifikater.</value>
@@ -613,8 +613,8 @@ Licenseret under MIT-licensen.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Skift provisioning-tilstand?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Offline Autopilot profiler er tilgængelige for JSON profilklarering.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Ja</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Ingen Autopilot-profiler importeret.</value>
@@ -645,6 +645,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>Hvis du vil bruge en fjernet profil igen, skal du importere den eller downloade den fra lejeren igen.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Angiv som standard</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Fuldfør login i browseren for at downloade Autopilot profiler.</value>
@@ -717,6 +720,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Aktiveret</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Kræver opmærksomhed</value>
@@ -1048,6 +1054,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Gennemgå komponentindstillingerne. Den maksimale længde på computernavnet er 15 tegn.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Slå adgangskodebeskyttelse til på siden Generelt for at bruge en foruddefineret adgangskode.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Angiver en foruddefineret adgangskode til denne konto. Der kræves beskyttede installationsmedier. Slå dette fra for at bruge en tom adgangskode.</value>
   </data>
@@ -1292,10 +1301,7 @@ Licenseret under MIT-licensen.</value>
     <value>Seneste tilgængelige opdatering</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} opdateringer tidligere</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 opdatering tidligere</value>
+    <value>Opdateringer før den seneste: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigurer de Windows 11-versioner, der tilbydes under udrulning.</value>
@@ -1805,7 +1811,7 @@ Licenseret under MIT-licensen.</value>
     <value>Uændret</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} konfigureret ({1} aktiver, {2} deaktiver)</value>
+    <value>Konfigureret: {0} (aktiver: {1}, deaktiver: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Tilgængeligheden afhænger af Copilot+ pc-hardware og det installerede Windows-image.</value>
@@ -2333,7 +2339,7 @@ Licenseret under MIT-licensen.</value>
     <value>Litauisk (Litauen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norsk Bokmal (Norge)</value>
+    <value>Norsk bokmål (Norge)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>polsk (Polen)</value>
@@ -3038,7 +3044,7 @@ Licenseret under MIT-licensen.</value>
     <value>Flere indstillinger</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} filer mangler eller blev ikke medtaget. Vælg deres placeringer, før du opretter medier.</value>
+    <value>Manglende eller udeladte filer: {0}. Vælg deres placeringer, før du opretter medier.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfigurationens navn</value>
@@ -3607,7 +3613,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Vælg ISO outputsti</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} ekstra lokal(e) konto/konti</value>
+    <value>Ekstra lokale konti: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Indbygget Administrator aktiveret</value>
@@ -4086,7 +4092,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Visningsnavn</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Sprang {0} fil(er) over, som allerede findes i kataloget.</value>
+    <value>Oversprungne filer, der allerede findes i kataloget: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Importér mindst én svarfil for at bruge denne funktion.</value>

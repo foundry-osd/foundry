@@ -215,16 +215,19 @@
     <value>Необхідна політика версії</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Файли WinPE доступні</value>
+    <value>доступні</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Файли WinPE відсутні</value>
+    <value>відсутні</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Надбудову встановлено</value>
+    <value>Установлено</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Установлено (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Відсутнє доповнення</value>
+    <value>Не встановлено</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Надбудова</value>
@@ -280,11 +283,8 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Примітки до випуску</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Імпортуйте локальні профілі JSON або завантажте їх із Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Дії в профілі</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>За замовчуванням</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Папка</value>
@@ -297,12 +297,6 @@
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Джерело</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Профіль, розміщений за замовчуванням у застосованому зображенні Windows.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Профіль за замовчуванням</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Завантажити з орендаря</value>
@@ -379,12 +373,6 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Відбиток сертифіката PFX не відповідає вибраному сертифікату реєстрації програми.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Створення або видалення облікових даних сертифіката реєстрації програми.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Сертифікаційні дії</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry не вдалося створити сертифікат реєстрації програми.</value>
   </data>
@@ -435,6 +423,18 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Відбиток великого пальця</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Дійсний 12 місяців</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Дійсний 1 місяць</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Дійсний 3 місяці</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Дійсний 6 місяців</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Сертифікати не надаються.</value>
@@ -613,8 +613,8 @@
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Змінити режим ініціалізації?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Офлайн-профілі Autopilot доступні для надання профілю JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Так</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Немає профілів Autopilot.</value>
@@ -645,6 +645,9 @@
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>Щоб знову використати видалений профіль, імпортуйте його або повторно завантажте з орендаря.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Установити за замовчуванням</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Увійдіть у веб-переглядач, щоб завантажити профілі Autopilot.</value>
@@ -717,6 +720,9 @@
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Увімкнено</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Потребує уваги</value>
@@ -1048,6 +1054,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Перевірте параметри компонентів. Максимальна довжина імені комп’ютера — 15 символів.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Щоб використовувати попередньо визначений пароль, увімкніть захист паролем на сторінці «Загальні».</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Установлює попередньо визначений пароль для цього облікового запису. Потрібен захищений носій розгортання. Вимкніть цей параметр, щоб використовувати порожній пароль.</value>
   </data>
@@ -1292,10 +1301,7 @@
     <value>Найновіше доступне оновлення</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>На {0} оновлень раніше</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>На 1 оновлення раніше</value>
+    <value>Оновлень раніше за найновіше: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Налаштуйте версії Windows 11, доступні під час розгортання.</value>
@@ -1805,7 +1811,7 @@
     <value>Без змін</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} налаштовано ({1} увімкнути, {2} вимкнути)</value>
+    <value>Налаштовано: {0} (увімкнути: {1}, вимкнути: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Доступність залежить від апаратного забезпечення ПК Copilot+ та встановленого образу Windows.</value>
@@ -4086,7 +4092,7 @@
     <value>Відображуване ім’я</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Пропущено файлів, які вже є в каталозі: {0}.</value>
+    <value>Пропущено файлів, які вже є в каталозі: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Імпортуйте принаймні один файл відповідей, щоб використовувати цю функцію.</value>

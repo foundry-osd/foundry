@@ -215,16 +215,19 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Nõutav versioonipoliitika</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE failid on saadaval</value>
+    <value>saadaval</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE failid puuduvad</value>
+    <value>puuduvad</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Lisandmoodul on installitud</value>
+    <value>Installitud</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Installitud (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Lisandmoodul puudub</value>
+    <value>Pole installitud</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Lisand</value>
@@ -280,11 +283,8 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Väljalaske märkmed</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importige kohalikud JSON profiilid või laadige need alla aadressilt Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profiilitoimingud</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Vaikimisi</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Kaust</value>
@@ -297,12 +297,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Allikas</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profiil on vaikimisi lavastatud rakendatud Windows pildil.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Vaikeprofiil</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Laadige üürnikult alla</value>
@@ -379,12 +373,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX-sertifikaadi pisijälg ei ühti valitud rakenduse registreerimissertifikaadiga.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Rakenduse registreerimissertifikaadi mandaatide loomine või eemaldamine.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Sertifikaadi toimingud</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry ei saanud rakenduse registreerimise sertifikaati luua.</value>
   </data>
@@ -435,6 +423,18 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Pöidlajälg</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Kehtib 12 kuud</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Kehtib 1 kuu</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Kehtib 3 kuud</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Kehtib 6 kuud</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Sertifikaate pole ette nähtud.</value>
@@ -613,8 +613,8 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Kas muuta juurutusrežiimi?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Võrguühenduseta Autopilot profiilid on saadaval JSON profiili pakkumiseks.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Jah</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Ühtegi Autopilot profiile ei imporditud.</value>
@@ -645,6 +645,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>Eemaldatud profiili uuesti kasutamiseks importige see või laadige see üürnikult uuesti alla.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Määra vaikevalikuks</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Autopilot profiilide allalaadimiseks logige brauseris sisse.</value>
@@ -717,6 +720,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Lubatud</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Vajab tähelepanu</value>
@@ -1048,6 +1054,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Kontrollige komponentide sätteid. Arvuti nime maksimaalne pikkus on 15 märki.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Eelmääratud parooli kasutamiseks lülitage lehel Üldine sisse paroolikaitse.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Määrab sellele kontole eelmääratud parooli. Nõutav on kaitstud juurutusmeedium. Tühja parooli kasutamiseks lülitage see välja.</value>
   </data>
@@ -1292,10 +1301,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Uusim saadaolev värskendus</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} värskendust varasem</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 värskendus varasem</value>
+    <value>Värskendused enne uusimat: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigureerige juurutamise ajal pakutavad Windows 11 versioonid.</value>
@@ -1805,7 +1811,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Muutmata</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} seadistatud ({1} luba, {2} keela)</value>
+    <value>Seadistatud: {0} (luba: {1}, keela: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Saadavus sõltub Copilot+ arvuti riistvarast ja installitud Windowsi pildist.</value>
@@ -2333,7 +2339,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Leedu (Leedu)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norra bokmal (Norra)</value>
+    <value>norra bokmål (Norra)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poola keel (Poola)</value>
@@ -3038,7 +3044,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Rohkem valikuid</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} faili on puudu või jäid lisamata. Valige enne andmekandja loomist nende asukohad.</value>
+    <value>Puuduvad või lisamata failid: {0}. Valige enne andmekandja loomist nende asukohad.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfiguratsiooni nimi</value>
@@ -3607,7 +3613,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Valige ISO väljundtee</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} täiendavat kohalikku kontot</value>
+    <value>Täiendavad kohalikud kontod: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Sisseehitatud administraator lubatud</value>
@@ -4086,7 +4092,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Kuvatav nimi</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Vahele jäeti {0} faili, mis on juba kataloogis.</value>
+    <value>Vahele jäetud failid, mis on juba kataloogis: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Selle funktsiooni kasutamiseks importige vähemalt üks vastusefail.</value>

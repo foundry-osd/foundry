@@ -215,16 +215,19 @@
     <value>นโยบายเวอร์ชันที่ต้องการ</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>มีไฟล์ WinPE พร้อมใช้งาน</value>
+    <value>พร้อมใช้งาน</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>ไฟล์ WinPE ขาดหายไป</value>
+    <value>ขาดหายไป</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE ติดตั้งส่วนเสริมแล้ว</value>
+    <value>ติดตั้งแล้ว</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>ติดตั้งแล้ว (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE ส่วนเสริมหายไป</value>
+    <value>ยังไม่ได้ติดตั้ง</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE ส่วนเสริม</value>
@@ -280,11 +283,8 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>บันทึกประจำรุ่น</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>นำเข้าโปรไฟล์ JSON ในเครื่องหรือดาวน์โหลดจาก Intune</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>การกระทำของโปรไฟล์</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>ค่าเริ่มต้น</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>โฟลเดอร์</value>
@@ -297,12 +297,6 @@
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>แหล่งที่มา</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>โปรไฟล์ถูกจัดฉากตามค่าเริ่มต้นในรูปภาพ Windows ที่ใช้</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>โปรไฟล์เริ่มต้น</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>ดาวน์โหลดจากผู้เช่า</value>
@@ -379,12 +373,6 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>รหัสประจำตัวใบรับรอง PFX ไม่ตรงกับใบรับรองการลงทะเบียนแอปที่เลือก</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>สร้างหรือลบข้อมูลรับรองใบรับรองการลงทะเบียนแอป</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>การดำเนินการของใบรับรอง</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
     <value>Foundry ไม่สามารถสร้างใบรับรองการลงทะเบียนแอปได้</value>
   </data>
@@ -435,6 +423,18 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>รอยนิ้วหัวแม่มือ</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>ใช้ได้ 12 เดือน</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>ใช้ได้ 1 เดือน</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>ใช้ได้ 3 เดือน</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>ใช้ได้ 6 เดือน</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>ไม่มีการจัดเตรียมใบรับรอง</value>
@@ -613,8 +613,8 @@
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>เปลี่ยนโหมดการจัดสรรหรือไม่</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>โปรไฟล์ Autopilot แบบออฟไลน์พร้อมใช้งานสำหรับการจัดเตรียมโปรไฟล์ JSON</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>ใช่</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>ไม่มีการนำเข้าโปรไฟล์ Autopilot</value>
@@ -645,6 +645,9 @@
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>หากต้องการใช้โปรไฟล์ที่ลบไปแล้วอีกครั้ง ให้นำเข้าหรือดาวน์โหลดจากผู้เช่าอีกครั้ง</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>ตั้งเป็นค่าเริ่มต้น</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>ลงชื่อเข้าใช้เบราว์เซอร์ให้เสร็จสิ้นเพื่อดาวน์โหลดโปรไฟล์ Autopilot</value>
@@ -717,6 +720,9 @@
   </data>
   <data name="Common.Enabled" xml:space="preserve">
     <value>เปิดใช้งานแล้ว</value>
+  </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>ต้องตรวจสอบ</value>
@@ -1048,6 +1054,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>ตรวจสอบการตั้งค่าส่วนประกอบ ชื่อคอมพิวเตอร์มีความยาวสูงสุด 15 อักขระ</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>เปิดการป้องกันด้วยรหัสผ่านในหน้า "ทั่วไป" เพื่อใช้รหัสผ่านที่กำหนดไว้ล่วงหน้า</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>ตั้งรหัสผ่านที่กำหนดไว้ล่วงหน้าสำหรับบัญชีนี้ จำเป็นต้องใช้สื่อการปรับใช้ที่มีการป้องกัน ปิดตัวเลือกนี้เพื่อใช้รหัสผ่านว่าง</value>
   </data>
@@ -1292,10 +1301,7 @@
     <value>การอัปเดตล่าสุดที่พร้อมใช้งาน</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>ย้อนหลัง {0} การอัปเดต</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>ย้อนหลัง 1 การอัปเดต</value>
+    <value>จำนวนการอัปเดตก่อนรายการล่าสุด: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>กำหนดค่าเวอร์ชัน Windows 11 ที่มีให้เลือกระหว่างการปรับใช้</value>
@@ -1805,7 +1811,7 @@
     <value>ไม่เปลี่ยนแปลง</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>กำหนดค่า {0} (เปิดใช้งาน {1}, {2} ปิดใช้งาน)</value>
+    <value>กำหนดค่าแล้ว: {0} (เปิดใช้งาน: {1}, ปิดใช้งาน: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>ความพร้อมใช้งานขึ้นอยู่กับฮาร์ดแวร์พีซี Copilot+ และอิมเมจ Windows ที่ติดตั้ง</value>
@@ -3038,7 +3044,7 @@
     <value>ตัวเลือกเพิ่มเติม</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>มีไฟล์ {0} รายการขาดหายไปหรือไม่ได้รวมไว้ เลือกตำแหน่งของไฟล์ก่อนสร้างสื่อ</value>
+    <value>ไฟล์ที่ขาดหายไปหรือไม่ได้รวมไว้: {0} เลือกตำแหน่งของไฟล์ก่อนสร้างสื่อ</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>ชื่อชุดการตั้งค่า</value>
@@ -4086,7 +4092,7 @@
     <value>ชื่อที่แสดง</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>ข้ามไฟล์ที่มีอยู่ในแค็ตตาล็อกแล้ว {0} ไฟล์</value>
+    <value>ไฟล์ที่ข้ามเนื่องจากมีอยู่ในแค็ตตาล็อกแล้ว: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>นำเข้าไฟล์คำตอบอย่างน้อยหนึ่งไฟล์เพื่อใช้คุณลักษณะนี้</value>

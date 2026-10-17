@@ -8,6 +8,9 @@ namespace Foundry.Views;
 
 public sealed partial class CustomImageImportDialog : ContentDialog
 {
+    private const double DialogChromeWidth = 96;
+    private const double PreferredContentWidth = 720;
+    private const double FallbackMinimumContentWidth = 560;
     private bool closeRequested;
     private bool closed;
     public CustomImageImportViewModel ViewModel { get; }
@@ -16,7 +19,25 @@ public sealed partial class CustomImageImportDialog : ContentDialog
     {
         ViewModel = viewModel;
         InitializeComponent();
+        TableViewFullWidth.Attach(PreviewTable);
+        ApplyContentWidth();
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+    }
+
+    /// <summary>
+    /// Widens the dialog beyond the default ContentDialog maximum so the index preview table has room for its columns,
+    /// while keeping it within the main window.
+    /// </summary>
+    private void ApplyContentWidth()
+    {
+        double minimumWidth = App.Current.Resources.TryGetValue("FoundryDialogMinWidth", out object value) && value is double width
+            ? width
+            : FallbackMinimumContentWidth;
+        double availableWidth = Math.Max(minimumWidth, App.MainWindow.AppWindow.Size.Width * 0.72);
+        double contentWidth = Math.Clamp(PreferredContentWidth, minimumWidth, availableWidth);
+
+        Resources["ContentDialogMaxWidth"] = contentWidth + DialogChromeWidth;
+        DialogContentRoot.Width = contentWidth;
     }
 
     private async void OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
