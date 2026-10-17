@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
 using Foundry.Utilities.Globalization;
 
 namespace Foundry.Utilities.Tests.Globalization;
@@ -75,19 +76,43 @@ public sealed class KeyboardLayoutSelectionTests
     [Fact]
     public void BuildMenu_PutsActiveLanguageFirst()
     {
-        KeyboardLayoutMenu menu = KeyboardLayoutSelection.BuildMenu(Layouts, "0000080c");
+        KeyboardLayoutMenu menu = WithUiCulture("en-US", () => KeyboardLayoutSelection.BuildMenu(Layouts, "0000080c"));
 
         Assert.All(menu.Suggested, layout => Assert.Equal("fr", layout.BaseLanguage));
         Assert.Equal(2, menu.Suggested.Count);
         KeyboardLanguageGroup other = Assert.Single(menu.OtherLanguages);
         Assert.Equal("nl", other.BaseLanguage);
-        Assert.Equal("Nederlands", other.DisplayName);
+        Assert.Equal("Dutch", other.DisplayName);
+    }
+
+    [Theory]
+    [InlineData("en-US", "Dutch")]
+    [InlineData("fr-FR", "Néerlandais")]
+    public void GetLanguageDisplayName_UsesTheUserInterfaceLanguage(string uiCulture, string expected)
+    {
+        Assert.Equal(expected, WithUiCulture(uiCulture, () => KeyboardLayoutSelection.GetLanguageDisplayName("nl")));
+    }
+
+    [Fact]
+    public void BuildMenu_SortsOtherLanguagesByDisplayName()
+    {
+        IReadOnlyList<KeyboardLayout> layouts =
+        [
+            .. Layouts,
+            .. KeyboardLayoutCatalog.FromEntries([new KeyboardLayoutRegistryEntry("00000407", "KBDGR.DLL", "German", null)])
+        ];
+
+        KeyboardLayoutMenu menu = WithUiCulture("en-US", () => KeyboardLayoutSelection.BuildMenu(layouts, "0000040C"));
+
+        Assert.Equal(["Dutch", "German"], menu.OtherLanguages.Select(group => group.DisplayName));
     }
 
     [Fact]
     public void BuildMenuEntries_ListsSuggestedLayoutsThenOtherLanguages()
     {
-        IReadOnlyList<KeyboardMenuEntry> entries = KeyboardLayoutSelection.BuildMenuEntries(Layouts, "0000040C", "Other languages");
+        IReadOnlyList<KeyboardMenuEntry> entries = WithUiCulture(
+            "en-US",
+            () => KeyboardLayoutSelection.BuildMenuEntries(Layouts, "0000040C", "Other languages"));
 
         Assert.Equal(["0000080C", "0000040C", null], entries.Select(entry => entry.LayoutId));
         Assert.True(entries[1].IsSelected);
@@ -96,7 +121,7 @@ public sealed class KeyboardLayoutSelectionTests
         Assert.Equal("Other languages", other.Header);
         Assert.False(other.IsCheckable);
         KeyboardMenuEntry dutch = Assert.Single(other.Children);
-        Assert.Equal("Nederlands", dutch.Header);
+        Assert.Equal("Dutch", dutch.Header);
         Assert.Equal(["00000813", "00000413"], dutch.Children.Select(entry => entry.LayoutId));
     }
 
@@ -109,6 +134,20 @@ public sealed class KeyboardLayoutSelectionTests
             "Other languages");
 
         Assert.All(entries, entry => Assert.NotNull(entry.LayoutId));
+    }
+
+    private static T WithUiCulture<T>(string cultureName, Func<T> action)
+    {
+        CultureInfo previous = CultureInfo.CurrentUICulture;
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(cultureName);
+        try
+        {
+            return action();
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = previous;
+        }
     }
 
     [Fact]

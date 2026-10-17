@@ -17,7 +17,7 @@ internal sealed record KeyboardLayoutMenu(IReadOnlyList<KeyboardLayout> Suggeste
 /// Layouts of one base language.
 /// </summary>
 /// <param name="BaseLanguage">Two-letter base language.</param>
-/// <param name="DisplayName">Native language name with an uppercase first letter.</param>
+/// <param name="DisplayName">Language name in the current UI language, with an uppercase first letter.</param>
 /// <param name="Layouts">Layouts of the language.</param>
 internal sealed record KeyboardLanguageGroup(string BaseLanguage, string DisplayName, IReadOnlyList<KeyboardLayout> Layouts);
 
@@ -119,7 +119,7 @@ public static class KeyboardLayoutSelection
             .Where(layout => !string.Equals(layout.BaseLanguage, activeLanguage, StringComparison.OrdinalIgnoreCase))
             .GroupBy(layout => layout.BaseLanguage, StringComparer.OrdinalIgnoreCase)
             .Select(group => new KeyboardLanguageGroup(group.Key, GetLanguageDisplayName(group.Key), group.ToArray()))
-            .OrderBy(group => group.BaseLanguage, StringComparer.Ordinal)
+            .OrderBy(group => group.DisplayName, StringComparer.CurrentCulture)
             .ToArray();
 
         return new KeyboardLayoutMenu(suggested, otherLanguages);
@@ -158,17 +158,18 @@ public static class KeyboardLayoutSelection
     }
 
     /// <summary>
-    /// Returns the native name of a base language with an uppercase first letter, or the language code when it is unknown.
+    /// Returns the name of a base language in the current UI language with an uppercase first letter,
+    /// or the language code when it is unknown. Native names are avoided because Windows PE has no fonts
+    /// for many scripts and would draw them as empty boxes.
     /// </summary>
     public static string GetLanguageDisplayName(string baseLanguage)
     {
         try
         {
-            CultureInfo culture = CultureInfo.GetCultureInfo(baseLanguage);
-            string name = culture.NativeName;
+            string name = CultureInfo.GetCultureInfo(baseLanguage).DisplayName;
             return string.IsNullOrEmpty(name)
                 ? baseLanguage
-                : culture.TextInfo.ToUpper(name[0]) + name[1..];
+                : CultureInfo.CurrentUICulture.TextInfo.ToUpper(name[0]) + name[1..];
         }
         catch (CultureNotFoundException)
         {
