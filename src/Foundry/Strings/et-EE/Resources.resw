@@ -2110,6 +2110,21 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Windows PE ajavöönd</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Vaikimisi</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>WinPE alglaadimiskeskkonnas kasutatav klaviatuur. Vaikimisi järgib see WinPE alglaadimiskeelt.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE klaviatuuripaigutus</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Klaviatuuri keel</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Paigutus</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Installige Windows ADK ja lisandmoodul Windows PE enne WinPE alglaadimiskeele valimist.</value>
   </data>
@@ -3353,6 +3368,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Valitud USB sihtmärk on liiga väike. Kasutage klahvi USB, mille suurus on vähemalt 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Valitud WinPE klaviatuuripaigutust pole selles arvutis installitud.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Valitud WinPE alglaadimiskeel pole valitud arhitektuuri jaoks saadaval.</value>

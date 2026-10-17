@@ -14,6 +14,7 @@ using Foundry.Connect.Services.Theme;
 using Foundry.Connect.ViewModels;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Foundry.Telemetry;
+using Foundry.Utilities.Globalization;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -397,13 +398,76 @@ public sealed class MainWindowViewModelTests
         Assert.Equal(viewModel.Strings[toolTipKey], viewModel.BootMediaUpdateRecommendedToolTip);
     }
 
+    [Fact]
+    public void OpenLogFileCommand_WhenLogFileIsUnavailable_LogsWarningWithoutThrowing()
+    {
+        var logger = new RecordingLogger<MainWindowViewModel>();
+        using MainWindowViewModel viewModel = CreateViewModel(
+            new RecordingTelemetryService(),
+            new QueueNetworkStatusService(CreateReadySnapshot()),
+            logger: logger);
+
+        viewModel.OpenLogFileCommand.Execute(null);
+
+        LogEntry entry = Assert.Single(logger.Entries, item => item.Level == LogLevel.Warning);
+        Assert.True(entry.Properties.ContainsKey("LogFilePath"));
+    }
+
+    [Fact]
+    public void KeyboardMenu_ListsActiveLanguageFirst()
+    {
+        using MainWindowViewModel viewModel = CreateViewModel(
+            new RecordingTelemetryService(),
+            new QueueNetworkStatusService(CreateReadySnapshot()),
+            keyboardLayoutSwitcher: new FakeKeyboardLayoutSwitcher("0000040C"));
+
+        Assert.Equal(["0000080C", "0000040C", null, null], viewModel.KeyboardMenuEntries.Select(entry => entry.LayoutId));
+        Assert.True(viewModel.KeyboardMenuEntries[1].IsSelected);
+        Assert.True(viewModel.KeyboardMenuEntries[2].IsSeparator);
+        KeyboardMenuEntry dutch = Assert.Single(viewModel.KeyboardMenuEntries[3].Children);
+        Assert.Equal(["00000413"], dutch.Children.Select(entry => entry.LayoutId));
+        Assert.Contains("FR", viewModel.KeyboardMenuHeader, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void SetKeyboardLayoutCommand_AppliesAndRefreshesSelection()
+    {
+        var switcher = new FakeKeyboardLayoutSwitcher("0000040C");
+        using MainWindowViewModel viewModel = CreateViewModel(
+            new RecordingTelemetryService(),
+            new QueueNetworkStatusService(CreateReadySnapshot()),
+            keyboardLayoutSwitcher: switcher);
+
+        viewModel.SetKeyboardLayoutCommand.Execute("0000080C");
+
+        Assert.Equal(["0000080C"], switcher.AppliedLayoutIds);
+        Assert.True(viewModel.KeyboardMenuEntries.Single(entry => entry.LayoutId == "0000080C").IsSelected);
+        Assert.Contains("BE", viewModel.KeyboardMenuHeader, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void SetKeyboardLayoutCommand_WhenApplyFails_KeepsPreviousSelection()
+    {
+        var switcher = new FakeKeyboardLayoutSwitcher("0000040C") { FailApply = true };
+        using MainWindowViewModel viewModel = CreateViewModel(
+            new RecordingTelemetryService(),
+            new QueueNetworkStatusService(CreateReadySnapshot()),
+            keyboardLayoutSwitcher: switcher);
+
+        viewModel.SetKeyboardLayoutCommand.Execute("0000080C");
+
+        Assert.True(viewModel.KeyboardMenuEntries.Single(entry => entry.LayoutId == "0000040C").IsSelected);
+        Assert.Contains("FR", viewModel.KeyboardMenuHeader, StringComparison.Ordinal);
+    }
+
     private static MainWindowViewModel CreateViewModel(
         RecordingTelemetryService telemetryService,
         INetworkStatusService networkStatusService,
         RecordingApplicationLifetimeService? lifetimeService = null,
         INetworkBootstrapService? networkBootstrapService = null,
         ILogger<MainWindowViewModel>? logger = null,
-        BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None)
+        BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None,
+        IKeyboardLayoutSwitcher? keyboardLayoutSwitcher = null)
     {
         lifetimeService ??= new RecordingApplicationLifetimeService(telemetryService);
         var configuration = new FoundryConnectConfiguration
@@ -428,6 +492,7 @@ public sealed class MainWindowViewModelTests
             networkBootstrapService ?? new FakeNetworkBootstrapService(),
             networkStatusService,
             telemetryService,
+            keyboardLayoutSwitcher ?? new FakeKeyboardLayoutSwitcher("0000040C"),
             logger ?? NullLogger<MainWindowViewModel>.Instance);
     }
 
@@ -554,6 +619,40 @@ public sealed class MainWindowViewModelTests
         {
             return Task.FromResult(snapshots.Count > 1 ? snapshots.Dequeue() : snapshots.Peek());
         }
+    }
+
+    private sealed class FakeKeyboardLayoutSwitcher(string activeLayoutId) : IKeyboardLayoutSwitcher
+    {
+        private static readonly IReadOnlyList<KeyboardLayout> Layouts = KeyboardLayoutCatalog.FromEntries(
+        [
+            new KeyboardLayoutRegistryEntry("0000040C", "KBDFR.DLL", "French (Legacy, AZERTY)", null),
+            new KeyboardLayoutRegistryEntry("0000080C", "KBDBE.DLL", "Belgian French", null),
+            new KeyboardLayoutRegistryEntry("00000413", "KBDNE.DLL", "Dutch", null)
+        ]);
+
+        private string activeLayoutId = activeLayoutId;
+
+        public bool FailApply { get; init; }
+
+        public List<string> AppliedLayoutIds { get; } = [];
+
+        public IReadOnlyList<KeyboardLayout> GetLayouts() => Layouts;
+
+        public string GetActiveLayoutId() => activeLayoutId;
+
+        public KeyboardLayoutSwitchResult Apply(KeyboardLayout layout)
+        {
+            if (FailApply)
+            {
+                return new KeyboardLayoutSwitchResult(false, layout.Id, "Simulated failure.");
+            }
+
+            AppliedLayoutIds.Add(layout.Id);
+            activeLayoutId = layout.Id;
+            return new KeyboardLayoutSwitchResult(true, layout.Id, null);
+        }
+
+        public KeyboardLayoutSwitchResult? RestoreHandoff() => null;
     }
 
     private sealed class FakeThemeService : IThemeService

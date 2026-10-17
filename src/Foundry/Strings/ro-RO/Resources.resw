@@ -2110,6 +2110,21 @@ Licențiat sub licența MIT.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Fus orar Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Implicit</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Tastatura folosită în mediul de boot WinPE. Implicit urmează limba de pornire WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>Aspect tastatură WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Limba tastaturii</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Aspect</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Instalați Windows ADK și programul de completare Windows PE înainte de a selecta limba de pornire WinPE.</value>
   </data>
@@ -3353,6 +3368,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Ținta USB selectată este prea mică. Utilizați o cheie USB de cel puțin 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Aspectul de tastatură WinPE selectat nu este instalat pe acest computer.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Limba de pornire WinPE selectată nu este disponibilă pentru arhitectura selectată.</value>

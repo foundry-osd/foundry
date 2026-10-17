@@ -453,6 +453,9 @@
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>檢視錯誤詳細資料</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>其他語言</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>阿拉伯語（沙烏地阿拉伯）</value>
   </data>
@@ -587,6 +590,12 @@
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_偵錯</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>鍵盤</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>鍵盤 ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_語言</value>

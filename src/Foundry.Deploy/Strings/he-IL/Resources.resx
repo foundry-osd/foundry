@@ -453,6 +453,9 @@ ErrorCode=0x80070005
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>הצג פרטי שגיאה</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>שפות אחרות</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>ערבית (ערב הסעודית)</value>
   </data>
@@ -587,6 +590,12 @@ ErrorCode=0x80070005
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_ניפוי באגים</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>מקלדת</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>מקלדת ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_שפה</value>

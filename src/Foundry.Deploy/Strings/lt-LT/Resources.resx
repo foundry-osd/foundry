@@ -453,6 +453,9 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Peržiūrėti klaidos informaciją</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Kitos kalbos</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabų (Saudo Arabija)</value>
   </data>
@@ -587,6 +590,12 @@ Tęsti diegimą?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Klaviatūra</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Klaviatūra ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Kalba</value>

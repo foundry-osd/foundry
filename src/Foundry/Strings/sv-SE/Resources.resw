@@ -2110,6 +2110,21 @@ Licensierad under MIT-licensen.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Tidszon för Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Tangentbord som används i startmiljön WinPE. Standard följer startspråket för WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>Tangentbordslayout för WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Tangentbordsspråk</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Installera Windows ADK och Windows PE tillägget innan du väljer WinPE startspråk.</value>
   </data>
@@ -3353,6 +3368,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Det valda USB målet är för litet. Använd en USB-nyckel på minst 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Den valda tangentbordslayouten för WinPE är inte installerad på den här datorn.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Valt WinPE startspråk är inte tillgängligt för den valda arkitekturen.</value>

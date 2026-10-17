@@ -2110,6 +2110,21 @@
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>אזור הזמן של Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>ברירת מחדל</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>המקלדת שבה נעשה שימוש בסביבת האתחול WinPE. ברירת המחדל תואמת לשפת האתחול של WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>פריסת המקלדת של WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>שפת המקלדת</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>פריסה</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>התקן את Windows ADK ואת התוסף Windows PE לפני בחירת שפת האתחול WinPE.</value>
   </data>
@@ -3353,6 +3368,9 @@
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>היעד USB שנבחר קטן מדי. השתמש במפתח USB של לפחות 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>פריסת המקלדת של WinPE שנבחרה אינה מותקנת במחשב זה.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>שפת האתחול WinPE שנבחרה אינה זמינה עבור הארכיטקטורה שנבחרה.</value>

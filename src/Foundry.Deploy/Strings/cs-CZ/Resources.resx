@@ -453,6 +453,9 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Zobrazit podrobnosti o chybě</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Další jazyky</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabština (Saúdská Arábie)</value>
   </data>
@@ -587,6 +590,12 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Ladit</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Klávesnice</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Klávesnice ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jazyk</value>

@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.Globalization;
+
 namespace Foundry.Core.Services.WinPe;
 
 public sealed record WinPeImageInternationalizationOptions
@@ -10,6 +12,11 @@ public sealed record WinPeImageInternationalizationOptions
     public WinPeArchitecture Architecture { get; init; }
     public WinPeToolPaths? Tools { get; init; }
     public string WinPeLanguage { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the optional keyboard layout applied instead of the WinPE language default input locale.
+    /// </summary>
+    public KeyboardLayout? WinPeKeyboardLayout { get; init; }
     public string WorkingDirectoryPath { get; init; } = string.Empty;
     public IProgress<WinPeDismProgress>? DismProgress { get; init; }
 }
