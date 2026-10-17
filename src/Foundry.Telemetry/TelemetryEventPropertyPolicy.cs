@@ -78,6 +78,7 @@ public static class TelemetryEventPropertyPolicy
                 "operation_id",
                 "boot_media_architecture",
                 "boot_media_winpe_language",
+                "boot_media_winpe_keyboard_layout",
                 "boot_media_boot_image_source",
                 "boot_media_signature_mode",
                 "boot_media_usb_partition_style",
@@ -266,7 +267,8 @@ public static class TelemetryEventPropertyPolicy
         foreach ((string key, object? value) in properties)
         {
             if (!allowedProperties.Contains(key) || IsSensitiveKey(key) || !IsAllowedUnattendValue(key, value) ||
-                !IsAllowedCustomImageValue(key, value) || !IsAllowedPostInstallationValue(key, value))
+                !IsAllowedCustomImageValue(key, value) || !IsAllowedPostInstallationValue(key, value) ||
+                !IsAllowedBootMediaValue(key, value))
             {
                 continue;
             }
@@ -325,6 +327,14 @@ public static class TelemetryEventPropertyPolicy
         "boot_media_custom_images_enabled" => value is bool,
         "boot_media_custom_images_count" => value is int and >= 0 and <= 256,
         "boot_media_default_os_source" or "deploy_os_source" => value is "catalog" or "custom",
+        _ => true
+    };
+
+    // A keyboard layout is either the language default or an eight-digit hexadecimal KLID; anything else is dropped.
+    private static bool IsAllowedBootMediaValue(string key, object? value) => key switch
+    {
+        "boot_media_winpe_keyboard_layout" => value is string text &&
+            (text == "default" || text.Length == 8 && text.All(char.IsAsciiHexDigit)),
         _ => true
     };
 

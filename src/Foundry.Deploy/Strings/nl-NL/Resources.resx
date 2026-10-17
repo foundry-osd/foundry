@@ -453,6 +453,9 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Foutdetails weergeven</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Andere talen</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabisch (Saoedi-Arabië)</value>
   </data>
@@ -587,6 +590,12 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debuggen</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Toetsenbord</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Toetsenbord ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Taal</value>

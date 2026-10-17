@@ -2143,6 +2143,21 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Tijdzone van Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Standaard</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Toetsenbord dat wordt gebruikt in de WinPE opstartomgeving. Standaard volgt de WinPE opstarttaal.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE-toetsenbordindeling</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Toetsenbordtaal</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Indeling</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Installeer Windows ADK en de Windows PE Add-on voordat u de WinPE opstarttaal selecteert.</value>
   </data>
@@ -3434,6 +3449,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Het geselecteerde USB doel is te klein. Gebruik een USB-sleutel van minimaal 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>De geselecteerde WinPE-toetsenbordindeling is niet geïnstalleerd op deze computer.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>De geselecteerde WinPE opstarttaal is niet beschikbaar voor de geselecteerde architectuur.</value>

@@ -453,6 +453,9 @@
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>ดูรายละเอียดข้อผิดพลาด</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>ภาษาอื่นๆ</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>อาหรับ (ซาอุดีอาระเบีย)</value>
   </data>
@@ -587,6 +590,12 @@
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_ดีบั๊ก</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>แป้นพิมพ์</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>แป้นพิมพ์ ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_ภาษา</value>

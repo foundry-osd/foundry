@@ -453,6 +453,9 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Skatīt informāciju par kļūdu</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Citas valodas</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arābu (Saūda Arābija)</value>
   </data>
@@ -587,6 +590,12 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Atkļūdot</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Tastatūra</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Tastatūra ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Valoda</value>

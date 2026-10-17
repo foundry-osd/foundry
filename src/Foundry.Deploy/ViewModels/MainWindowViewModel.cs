@@ -23,6 +23,7 @@ using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
@@ -44,6 +45,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly IApplicationShellService _applicationShellService;
     private readonly ILogger<MainWindowViewModel> _logger;
+    private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentRuntimeContext _deploymentRuntimeContext;
     private readonly DeploymentWizardContext _wizardContext;
@@ -174,10 +176,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IApplicationShellService applicationShellService,
         IDeploymentWizardContextFactory deploymentWizardContextFactory,
         IProcessRunner processRunner,
+        IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
         ILogger<MainWindowViewModel> logger,
         INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
         : base(localizationService)
     {
+        _keyboardLayoutSwitcher = keyboardLayoutSwitcher;
         _themeService = themeService;
         _deploymentAccessGate = deploymentAccessGate;
         _deploymentStartupCoordinator = deploymentStartupCoordinator;
@@ -211,7 +215,18 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _deploymentOrchestrator.CompletionStarting += OnDeploymentCompletionStarting;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
         RefreshSupportedCultures();
+        RefreshKeyboardMenu();
     }
+
+    /// <summary>
+    /// Gets the keyboard menu entries: the active language's layouts, then the other languages.
+    /// </summary>
+    public ObservableCollection<KeyboardMenuEntry> KeyboardMenuEntries { get; } = [];
+
+    /// <summary>
+    /// Gets the keyboard menu header, including the active layout's short name when it is known.
+    /// </summary>
+    public string KeyboardMenuHeader { get; private set; } = string.Empty;
 
     public Task InitializeAsync()
     {
@@ -256,6 +271,77 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void SetCulture(string cultureName)
     {
         LocalizationService.SetCulture(new CultureInfo(cultureName));
+    }
+
+    [RelayCommand]
+    private void SetKeyboardLayout(string? layoutId)
+    {
+        KeyboardLayout? layout = KeyboardLayoutSelection.Find(_keyboardLayoutSwitcher.GetLayouts(), layoutId);
+        if (layout is null)
+        {
+            return;
+        }
+
+        KeyboardLayoutSwitchResult result = _keyboardLayoutSwitcher.Apply(layout);
+        if (!result.Succeeded)
+        {
+            _logger.LogWarning("Keyboard layout change failed. LayoutId={LayoutId}, Error={Error}", layout.Id, result.Error);
+        }
+        else if (result.Error is not null)
+        {
+            _logger.LogWarning("Keyboard layout changed with a warning. LayoutId={LayoutId}, Warning={Warning}", layout.Id, result.Error);
+        }
+        else
+        {
+            _logger.LogInformation("Keyboard layout changed. LayoutId={LayoutId}", layout.Id);
+        }
+
+        RefreshKeyboardMenu();
+    }
+
+    /// <summary>
+    /// Re-applies the keyboard layout chosen in Foundry Connect, which runs first.
+    /// Call it once the window is active: Windows ignores layout activation for a process that does not own the focused window.
+    /// </summary>
+    public void RestoreKeyboardLayoutHandoff()
+    {
+        KeyboardLayoutSwitchResult? result = _keyboardLayoutSwitcher.RestoreHandoff();
+        if (result is null)
+        {
+            return;
+        }
+
+        if (!result.Succeeded)
+        {
+            _logger.LogWarning("Keyboard layout hand-off was not applied. LayoutId={LayoutId}, Error={Error}", result.LayoutId, result.Error);
+        }
+        else if (result.Error is not null)
+        {
+            _logger.LogWarning("Keyboard layout restored from Foundry Connect with a warning. LayoutId={LayoutId}, Warning={Warning}", result.LayoutId, result.Error);
+        }
+        else
+        {
+            _logger.LogInformation("Keyboard layout restored from Foundry Connect. LayoutId={LayoutId}", result.LayoutId);
+        }
+
+        RefreshKeyboardMenu();
+    }
+
+    private void RefreshKeyboardMenu()
+    {
+        IReadOnlyList<KeyboardLayout> layouts = _keyboardLayoutSwitcher.GetLayouts();
+        string activeLayoutId = _keyboardLayoutSwitcher.GetActiveLayoutId();
+        KeyboardMenuEntries.Clear();
+        foreach (KeyboardMenuEntry entry in KeyboardLayoutSelection.BuildMenuEntries(layouts, activeLayoutId, GetString("Keyboard.OtherLanguages")))
+        {
+            KeyboardMenuEntries.Add(entry);
+        }
+
+        KeyboardLayout? activeLayout = KeyboardLayoutSelection.Find(layouts, activeLayoutId);
+        KeyboardMenuHeader = activeLayout is null
+            ? GetString("Menu.Keyboard")
+            : Format("Menu.KeyboardFormat", activeLayout.ShortName);
+        OnPropertyChanged(nameof(KeyboardMenuHeader));
     }
 
     private void RefreshSupportedCultures()
@@ -1100,6 +1186,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         RunOnUiThread(() =>
         {
             RefreshSupportedCultures();
+            RefreshKeyboardMenu();
             OnPropertyChanged(nameof(CurrentCulture));
             OnPropertyChanged(nameof(WindowTitle));
             OnPropertyChanged(nameof(VersionDisplay));

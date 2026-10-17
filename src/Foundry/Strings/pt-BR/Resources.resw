@@ -2143,6 +2143,21 @@ Licenciado sob a licença MIT.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Fuso horário do Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Padrão</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Teclado usado no ambiente de inicialização WinPE. O padrão segue o idioma de inicialização do WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>Layout de teclado do WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Idioma do teclado</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Instale Windows ADK e o complemento Windows PE antes de selecionar o idioma de inicialização WinPE.</value>
   </data>
@@ -3434,6 +3449,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>O alvo USB selecionado é muito pequeno. Use uma chave USB de pelo menos 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>O layout de teclado do WinPE selecionado não está instalado neste computador.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>O idioma de inicialização WinPE selecionado não está disponível para a arquitetura selecionada.</value>

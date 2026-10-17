@@ -681,6 +681,31 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.False((bool)result["os_selection_any_configured"]!);
     }
 
+    [Theory]
+    [InlineData("00000813", "00000813")]
+    [InlineData("0000080C", "0000080c")]
+    [InlineData(null, "default")]
+    public void Build_ReportsKeyboardLayoutOrDefault(string? layoutId, string expected)
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings { WinPeKeyboardLayoutId = layoutId }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal(expected, result["boot_media_winpe_keyboard_layout"]);
+    }
+
     [Fact]
     public void Build_WhenOnlyTimeZoneIsConfigured_DoesNotReportOsSelectionConfigured()
     {

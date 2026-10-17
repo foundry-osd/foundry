@@ -2143,6 +2143,21 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Windows PE のタイム ゾーン</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>既定</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>WinPE ブート環境で使用されるキーボード。「既定」は WinPE ブート言語に従います。</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE キーボード レイアウト</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>キーボードの言語</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>レイアウト</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>WinPE ブート言語を選択する前に、Windows ADK と Windows PE アドオンをインストールします。</value>
   </data>
@@ -3434,6 +3449,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>選択された USB ターゲットは小さすぎます。少なくとも 16 GB の USB キーを使用してください。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>選択した WinPE キーボード レイアウトはこのコンピューターにインストールされていません。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>選択された WinPE ブート言語は、選択されたアーキテクチャでは使用できません。</value>

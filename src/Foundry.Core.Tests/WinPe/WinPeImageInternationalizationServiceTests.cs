@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
+using Foundry.Utilities.Globalization;
 
 namespace Foundry.Core.Tests.WinPe;
 
@@ -59,6 +60,60 @@ public sealed class WinPeImageInternationalizationServiceTests
                 execution => Assert.Contains($"/PackagePath:{WinPeProcessRunner.Quote(secureStartup)}", execution.Arguments),
                 execution => Assert.Equal($"/English /Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-AllIntl:{locale}", execution.Arguments),
                 execution => Assert.Equal($"/English /Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-InputLocale:{locale}", execution.Arguments));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task ApplyAsync_WithKeyboardLayout_SetsInputLocalePair()
+    {
+        string root = CreateMinimalLanguageRoot("en-us", out string mountedImagePath, out string workingDirectory);
+        string system32 = Path.Combine(mountedImagePath, "Windows", "System32");
+        Directory.CreateDirectory(system32);
+        File.WriteAllText(Path.Combine(system32, "KBDBE.DLL"), string.Empty);
+        var runner = new FakeInternationalizationRunner();
+        var service = new WinPeImageInternationalizationService(runner);
+
+        try
+        {
+            WinPeResult result = await service.ApplyAsync(
+                CreateMinimalOptions(root, mountedImagePath, workingDirectory, BelgianPeriodLayout),
+                CancellationToken.None);
+
+            Assert.True(result.IsSuccess, result.Error?.Details);
+            Assert.Equal(
+                $"/English /Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-AllIntl:en-US",
+                runner.Executions[^2].Arguments);
+            Assert.Equal(
+                $"/English /Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-InputLocale:0813:00000813",
+                runner.Executions[^1].Arguments);
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task ApplyAsync_WithKeyboardLayoutDllMissing_FailsNamingTheDll()
+    {
+        string root = CreateMinimalLanguageRoot("en-us", out string mountedImagePath, out string workingDirectory);
+        var runner = new FakeInternationalizationRunner();
+        var service = new WinPeImageInternationalizationService(runner);
+
+        try
+        {
+            WinPeResult result = await service.ApplyAsync(
+                CreateMinimalOptions(root, mountedImagePath, workingDirectory, BelgianPeriodLayout),
+                CancellationToken.None);
+
+            Assert.False(result.IsSuccess);
+            Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error!.Code);
+            Assert.Contains("KBDBE.DLL", result.Error.Details);
+            Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("/Set-InputLocale", StringComparison.Ordinal));
         }
         finally
         {
@@ -337,6 +392,43 @@ public sealed class WinPeImageInternationalizationServiceTests
         {
             Directory.Delete(root, recursive: true);
         }
+    }
+
+    private static readonly KeyboardLayout BelgianPeriodLayout = new("00000813", "nl", 0x0813, "KBDBE.DLL", "Belgian (Period)");
+
+    private static string CreateMinimalLanguageRoot(string packageLanguage, out string mountedImagePath, out string workingDirectory)
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-intl-{Guid.NewGuid():N}");
+        mountedImagePath = Path.Combine(root, "mount");
+        workingDirectory = Path.Combine(root, "work");
+        string ocRoot = CreateOptionalComponentRoot(root, "amd64", packageLanguage);
+        Directory.CreateDirectory(mountedImagePath);
+        Directory.CreateDirectory(workingDirectory);
+        File.WriteAllText(Path.Combine(ocRoot, packageLanguage, "lp.cab"), string.Empty);
+        File.WriteAllText(Path.Combine(ocRoot, "WinPE-WMI.cab"), string.Empty);
+        File.WriteAllText(Path.Combine(ocRoot, "WinPE-SecureStartup.cab"), string.Empty);
+        return root;
+    }
+
+    private static WinPeImageInternationalizationOptions CreateMinimalOptions(
+        string root,
+        string mountedImagePath,
+        string workingDirectory,
+        KeyboardLayout? keyboardLayout)
+    {
+        return new WinPeImageInternationalizationOptions
+        {
+            MountedImagePath = mountedImagePath,
+            Architecture = WinPeArchitecture.X64,
+            Tools = new WinPeToolPaths
+            {
+                KitsRootPath = root,
+                DismPath = "dism.exe"
+            },
+            WinPeLanguage = "en-US",
+            WinPeKeyboardLayout = keyboardLayout,
+            WorkingDirectoryPath = workingDirectory
+        };
     }
 
     private static string CreateOptionalComponentRoot(string kitsRootPath, string architecture, string language)

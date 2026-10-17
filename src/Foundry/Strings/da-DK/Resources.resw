@@ -2143,6 +2143,21 @@ Licenseret under MIT-licensen.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Tidszone for Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Tastatur, der bruges i WinPE boot-miljøet. Standard følger WinPE bootsproget.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE-tastaturlayout</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Tastatursprog</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Installer Windows ADK og Windows PE tilføjelsesprogrammet, før du vælger WinPE bootsproget.</value>
   </data>
@@ -3434,6 +3449,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Det valgte USB mål er for lille. Brug en USB nøgle på mindst 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Det valgte WinPE-tastaturlayout er ikke installeret på denne computer.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Det valgte WinPE bootsprog er ikke tilgængeligt for den valgte arkitektur.</value>
