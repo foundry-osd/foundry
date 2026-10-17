@@ -292,8 +292,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Kiracı tarafından hiçbir Autopilot profili döndürülmedi.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profil indirilemedi: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot profilleri kiracıdan indirilemedi.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Ağ bağlantınızı denetleyin, hesabınızın Intune içindeki Autopilot profillerini okuyabildiğinden emin olun ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot indirme işlemi başarısız oldu</value>
@@ -364,8 +367,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Sertifika eylemleri</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry uygulama kayıt sertifikasını oluşturamadı. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry uygulama kayıt sertifikasını oluşturamadı.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Seçilen klasöre yazılabildiğini ve hesabınızın uygulama kaydını yönetebildiğini denetleyin, ardından yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Sertifika oluşturulamadı</value>
@@ -400,8 +406,8 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX sertifikası</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry seçilen uygulama kayıt sertifikasını kaldıramadı. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry seçilen uygulama kayıt sertifikasını kaldıramadı.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Sertifika kaldırılamadı</value>
@@ -442,8 +448,8 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch donanım karması yükleme</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry, Autopilot uygulama kaydını yapılandıramadı. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry, Autopilot uygulama kaydını yapılandıramadı.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Kiracının katılımı başarısız oldu</value>
@@ -494,16 +500,25 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sertifikayı kaldır</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry, yönetilen uygulama kaydından yalnızca seçilen sertifikayı kaldıracaktır. Diğer uygulama kimlik bilgileri korunacaktır.</value>
+    <value>Seçilen sertifika, kiracınızdaki yönetilen uygulama kaydından kaldırılacak. Diğer uygulama kimlik bilgileri korunur.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Sertifikayı kaldır</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Seçilen sertifika kaldırılsın mı?</value>
+    <value>Sertifika kiracıdan kaldırılsın mı?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Bu işlem geri alınamaz. Kaldırılan bir sertifikayı kullanan önyükleme ortamları artık donanım karmalarını yükleyemez.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry, yönetilen uygulama kaydından yalnızca {0} seçilen sertifikaları kaldıracaktır. Diğer uygulama kimlik bilgileri korunacaktır.</value>
+    <value>Seçilen {0} sertifika, kiracınızdaki yönetilen uygulama kaydından kaldırılacak. Diğer uygulama kimlik bilgileri korunur.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Sertifikaları kaldır</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Sertifikalar kiracıdan kaldırılsın mı?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Bağlı</value>
@@ -519,6 +534,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Kiracı Kimliği</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Ağ bağlantınızı denetleyin, hesabınızın kiracıdaki uygulama kayıtlarını yönetebildiğinden emin olun ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Bağlı değil</value>
@@ -545,7 +563,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Profili içe aktar</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot profili içeri aktarılamadı.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Dosyanın geçerli bir Autopilot profili JSON dosyası olduğunu denetleyin ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot içe aktarma başarısız oldu</value>
@@ -587,7 +608,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Seçileni kaldır</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>İçe aktarılan Autopilot profillerinden "{0}" kaldırılsın mı?</value>
+    <value>“{0}”, bu yapılandırmadaki Autopilot profillerinden kaldırılacak.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Profili kaldır</value>
@@ -596,7 +617,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot profili kaldırılsın mı?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Seçilen {0} Autopilot profilleri kaldırılsın mı?</value>
+    <value>Seçilen {0} Autopilot profili bu yapılandırmadan kaldırılacak.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Profilleri kaldır</value>
@@ -604,14 +625,14 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Autopilot profilleri kaldırılsın mı?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Kaldırılan bir profili yeniden kullanmak için profili içeri aktarın veya kiracıdan yeniden indirin.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Autopilot profillerini indirmek için tarayıcıda oturum açma işlemini tamamlayın.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Microsoft Graph'da oturum açın</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>İptal</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Temizle</value>
@@ -685,6 +706,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Yenile</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Kullanılamıyor</value>
   </data>
@@ -696,9 +720,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Gözat</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>İptal</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>İçeri aktarma iptal edildi</value>
@@ -787,17 +808,23 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Yenile</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Bu imaj geçerli profilden kaldırılsın ve yerel kopyası silinsin mi? İmaja başvuran diğer profillerde imaj eksik olarak gösterilir. Özgün dosyalar ve mevcut medya değişmeden kalır.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Görüntüyü kaldır</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) geçerli profilden kaldırılacak ve yerel kopyası silinecek.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Kaldır</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Özel görüntü kaldırılsın mı?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Bu görüntüyü kullanan diğer profiller görüntüyü eksik olarak gösterir. Özgün dosya ve mevcut medya değiştirilmez.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Düzenle</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Kaydet</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Varsayılan görüntüyü ayarla</value>
@@ -1825,8 +1852,14 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Ham günlükler kimlik bilgileri, tanımlayıcılar, yollar, ağ adları ve diğer hassas verileri içerebilir. Bunları yalnızca güvenilir bir destek yetkilisi açıkça istediğinde dışa aktarın.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Destek arşivi şu konuma kaydedildi:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Tanılama dışa aktarıldı</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Klasörü aç</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry belgeleri tarayıcınızda açamadı. Bunun yerine bunu URL kullanın.</value>
@@ -2848,6 +2881,15 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Kaydedilmiş bazı eski parolalar veya erişim anahtarları kaldırılamadı. Windows Kimlik Bilgisi Yöneticisi kullanılabilir olduğunda yeniden deneyin.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Kaydetmeden kapat</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Son değişiklikleriniz kaydedilemedi ve kaybolacak.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Ayarlar kaydedilmeden kapatılsın mı?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Parolayı onaylayın</value>
   </data>
@@ -2884,8 +2926,17 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Bu bilgisayardan sil</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Sil</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Herkes için de sil</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Herkes için sil</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Herkes için silinsin mi?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Bu paylaşılan ayarlar herkes için silinsin mi? Eşitlenmemiş değişiklikleri olan kişiler, bunları saklamak için ayarlarını çoğaltmalıdır.</value>
@@ -2925,6 +2976,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Kaydedilen parolaları ve erişim bilgilerini temizle</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Temizle</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Bu bilgisayardaki bu ayarlar için kaydedilmiş parolalar, Foundry tarafından kaydedilmiş gizli dosyalar ve eşitleme erişimi kaldırılsın mı? Eşitlemek için eksik bilgileri eklemeniz ve yeniden bağlanmanız gerekecek. Önceden oluşturduğunuz medyalar değişmeyecek.</value>
@@ -3046,7 +3100,13 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Tüm bilgisayarlarda aynı ağ klasörünü kullanın. Klasör, şifrelemenin zorunlu olduğu SMB 3 kullanmalıdır. Bulutla eşitlenen klasörler desteklenmez.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Bu bilgisayarda bu yapılandırmanın parolaları artık hatırlanmasın mı?</value>
+    <value>Foundry, bu yapılandırmanın parolalarını bu bilgisayara kaydetmeyi bırakacak.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Hatırlamayı durdur</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Parolalar artık hatırlanmasın mı?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Eşitle</value>
@@ -3102,6 +3162,18 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Zorunlu alanları kontrol edin. Bir ağ klasörü isteniyorsa \\server\share\folder gibi bir yol kullanın. Dosya parolasını iki kez giriyorsanız her iki girişin de aynı olduğundan emin olun.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD proxy ayarlarını kaydedemedi. Yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Proxy ayarları uygulanmadı</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxy oturum açma isteğini reddetti. Proxy kimlik doğrulama ayarlarını denetleyip yeniden deneyin.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD bu ayarlarla GitHub ve Microsoft hizmetlerine ulaşamadı. Proxy adresini, bağlantı noktasını ve ağ bağlantınızı denetleyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3120,8 +3192,17 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Proxy sunucusu adresini girin.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Geçerli bir HTTP veya HTTPS proxy adresi girin (örneğin, proxy.contoso.com).</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>1 ile 65535 arasında bir bağlantı noktası numarası girin.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4079,20 +4160,20 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>İşaretlenmedi</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Güncelleme uygulanamadı: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD güncellemeyi başlatamadı. Güncellemeyi yeniden uygulamayı deneyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD güncellemeleri denetleyemedi. Ağ bağlantınızı denetleyin ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Güncellemeler kontrol ediliyor</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Güncelleme indirilemedi: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Güncelleme indirilemedi. Ağ bağlantınızı denetleyin ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Güncelleme indiriliyor</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Güncelleme kontrolü başarısız oldu: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD güncel.</value>
@@ -4118,11 +4199,17 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Güncelleme uygulanamadı</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Güncelleme indirilemedi</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Güncelleme kontrolü başarısız oldu</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>güncel</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Güncelleme yüklenmeye hazır</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Güncelleme kontrolü atlandı</value>

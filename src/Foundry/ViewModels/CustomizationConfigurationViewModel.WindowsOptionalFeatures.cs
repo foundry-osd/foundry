@@ -294,7 +294,8 @@ public sealed partial class CustomizationConfigurationViewModel
                     "Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat",
                     affectedIds.Count),
                 localizationService.GetString("Customization.WindowsOptionalFeatures.BulkConfirmationPrimary"),
-                localizationService.GetString("Common.Cancel"))))
+                localizationService.GetString("Common.Cancel"),
+                IsPrimaryButtonAccent: true)))
         {
             return;
         }

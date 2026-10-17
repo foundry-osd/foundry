@@ -292,8 +292,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>ไม่มีการส่งคืนโปรไฟล์ Autopilot โดยผู้เช่า</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot ดาวน์โหลดโปรไฟล์ล้มเหลว: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>ไม่สามารถดาวน์โหลดโปรไฟล์ Autopilot จากผู้เช่าได้</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>ตรวจสอบการเชื่อมต่อเครือข่ายของคุณ และตรวจสอบให้แน่ใจว่าบัญชีของคุณสามารถอ่านโปรไฟล์ Autopilot ใน Intune ได้ แล้วลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot ดาวน์โหลดล้มเหลว</value>
@@ -364,8 +367,11 @@
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>การดำเนินการของใบรับรอง</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry ไม่สามารถสร้างใบรับรองการลงทะเบียนแอปได้ {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry ไม่สามารถสร้างใบรับรองการลงทะเบียนแอปได้</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>ตรวจสอบว่าสามารถเขียนลงในโฟลเดอร์ที่เลือกได้ และบัญชีของคุณสามารถจัดการการลงทะเบียนแอปได้ แล้วลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>การสร้างใบรับรองล้มเหลว</value>
@@ -400,8 +406,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>ใบรับรอง PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry ไม่สามารถลบใบรับรองการลงทะเบียนแอปที่เลือกได้ {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry ไม่สามารถลบใบรับรองการลงทะเบียนแอปที่เลือกได้</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>การนำใบรับรองออกล้มเหลว</value>
@@ -442,8 +448,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry ไม่สามารถกำหนดค่าการลงทะเบียนแอป Autopilot ได้ {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry ไม่สามารถกำหนดค่าการลงทะเบียนแอป Autopilot ได้</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>การเริ่มต้นใช้งานผู้เช่าล้มเหลว</value>
@@ -494,16 +500,25 @@
     <value>ลบใบรับรอง</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry จะลบเฉพาะใบรับรองที่เลือกออกจากการลงทะเบียนแอปที่ได้รับการจัดการ ข้อมูลรับรองแอปอื่นๆ จะถูกเก็บรักษาไว้</value>
+    <value>ใบรับรองที่เลือกจะถูกลบออกจากการลงทะเบียนแอปที่มีการจัดการในผู้เช่าของคุณ ข้อมูลประจำตัวอื่นๆ ของแอปจะยังคงอยู่</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>ลบใบรับรอง</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>ลบใบรับรองที่เลือกใช่ไหม</value>
+    <value>ลบใบรับรองออกจากผู้เช่าใช่ไหม</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>การดำเนินการนี้ไม่สามารถเลิกทำได้ สื่อสำหรับบูตที่ใช้ใบรับรองที่ถูกลบจะไม่สามารถอัปโหลดแฮชฮาร์ดแวร์ได้อีก</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry จะลบเฉพาะใบรับรอง {0} ที่เลือกออกจากการลงทะเบียนแอปที่ได้รับการจัดการ ข้อมูลรับรองแอปอื่นๆ จะถูกเก็บรักษาไว้</value>
+    <value>ใบรับรองที่เลือก {0} รายการจะถูกลบออกจากการลงทะเบียนแอปที่มีการจัดการในผู้เช่าของคุณ ข้อมูลประจำตัวอื่นๆ ของแอปจะยังคงอยู่</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>ลบใบรับรองที่เลือก</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>ลบใบรับรองที่เลือกทั้งหมดออกจากผู้เช่าใช่ไหม</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>เชื่อมต่อแล้ว</value>
@@ -519,6 +534,9 @@
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>รหัสผู้เช่า</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>ตรวจสอบการเชื่อมต่อเครือข่ายของคุณ และตรวจสอบให้แน่ใจว่าบัญชีของคุณสามารถจัดการการลงทะเบียนแอปในผู้เช่าได้ แล้วลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>ไม่ได้เชื่อมต่อ</value>
@@ -545,7 +563,10 @@
     <value>นำเข้าโปรไฟล์</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>ไม่สามารถนำเข้าโปรไฟล์ Autopilot ได้</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>ตรวจสอบว่าไฟล์เป็นไฟล์ JSON ของโปรไฟล์ Autopilot ที่ถูกต้อง แล้วลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot การนำเข้าล้มเหลว</value>
@@ -587,7 +608,7 @@
     <value>ลบที่เลือกไว้</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>ลบ "{0}" ออกจากโปรไฟล์ Autopilot ที่นำเข้าหรือไม่</value>
+    <value>“{0}” จะถูกลบออกจากโปรไฟล์ Autopilot ในการกำหนดค่านี้</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>ลบโปรไฟล์</value>
@@ -596,7 +617,7 @@
     <value>ลบโปรไฟล์ Autopilot ออกไหม</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>ลบโปรไฟล์ {0} ที่เลือก Autopilot ออกหรือไม่</value>
+    <value>โปรไฟล์ Autopilot ที่เลือก {0} รายการจะถูกลบออกจากการกำหนดค่านี้</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>ลบโปรไฟล์</value>
@@ -604,14 +625,14 @@
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>ลบโปรไฟล์ Autopilot ออกไหม</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>หากต้องการใช้โปรไฟล์ที่ลบไปแล้วอีกครั้ง ให้นำเข้าหรือดาวน์โหลดจากผู้เช่าอีกครั้ง</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>ลงชื่อเข้าใช้เบราว์เซอร์ให้เสร็จสิ้นเพื่อดาวน์โหลดโปรไฟล์ Autopilot</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>ลงชื่อเข้าใช้ Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>ยกเลิก</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>ชัดเจน</value>
@@ -685,6 +706,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>รีเฟรช</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>ไม่พร้อมใช้งาน</value>
   </data>
@@ -696,9 +720,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>เรียกดู</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>ยกเลิก</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>ยกเลิกการนำเข้าแล้ว</value>
@@ -787,17 +808,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>รีเฟรช</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>นำอิมเมจนี้ออกจากโปรไฟล์ปัจจุบันและลบสำเนาในเครื่องหรือไม่? โปรไฟล์อื่นที่อ้างอิงอิมเมจนี้จะแสดงว่าอิมเมจหายไป ไฟล์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>นำอิมเมจออก</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) จะถูกนำออกจากโปรไฟล์ปัจจุบัน และสำเนาในเครื่องจะถูกลบ</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>นำออก</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>นำอิมเมจแบบกำหนดเองออกไหม</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>โปรไฟล์อื่นที่ใช้อิมเมจนี้จะแสดงว่าอิมเมจหายไป ไฟล์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>แก้ไข</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>บันทึก</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>ตั้งค่าอิมเมจเริ่มต้น</value>
@@ -1825,8 +1852,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>บันทึกดิบอาจมีข้อมูลรับรอง ตัวระบุ เส้นทาง ชื่อเครือข่าย และข้อมูลที่ละเอียดอ่อนอื่นๆ ส่งออกเฉพาะเมื่อมีการร้องขออย่างชัดเจนจากผู้ติดต่อฝ่ายสนับสนุนที่เชื่อถือได้เท่านั้น</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>บันทึกไฟล์เก็บถาวรสำหรับการสนับสนุนไว้ที่:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>ส่งออกข้อมูลการวินิจฉัยแล้ว</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>เปิดโฟลเดอร์</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ไม่สามารถเปิดเอกสารในเบราว์เซอร์ของคุณได้ ใช้ URL นี้แทน</value>
@@ -2848,6 +2881,15 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>ไม่สามารถลบรหัสผ่านหรือคีย์การเข้าถึงเก่าบางรายการที่บันทึกไว้ได้ ลองอีกครั้งเมื่อ Windows Credential Manager พร้อมใช้งาน</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>ปิดโดยไม่บันทึก</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>ไม่สามารถบันทึกการเปลี่ยนแปลงล่าสุดของคุณได้ และการเปลี่ยนแปลงเหล่านั้นจะสูญหาย</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>ปิดโดยไม่บันทึกการตั้งค่าใช่ไหม</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>ยืนยันรหัสผ่าน</value>
   </data>
@@ -2884,8 +2926,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>ลบออกจากพีซีเครื่องนี้</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>ลบสำหรับทุกคนด้วย</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>ลบสำหรับทุกคน</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>ลบสำหรับทุกคนใช่ไหม</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>ต้องการลบการตั้งค่าที่แชร์เหล่านี้สำหรับทุกคนหรือไม่ ผู้ที่มีการเปลี่ยนแปลงที่ยังไม่ได้ซิงค์ต้องทำสำเนาการตั้งค่าของตนเพื่อเก็บไว้</value>
@@ -2925,6 +2976,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>ล้างรหัสผ่านและข้อมูลการเข้าถึงที่บันทึกไว้</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>ล้าง</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>ต้องการลบรหัสผ่านที่บันทึกไว้ ไฟล์ลับที่ Foundry บันทึกไว้ และสิทธิ์เข้าถึงการซิงค์ของการตั้งค่าเหล่านี้บนพีซีเครื่องนี้หรือไม่ คุณจะต้องเพิ่มข้อมูลที่ขาดหายไปและเชื่อมต่อใหม่เพื่อซิงค์ สื่อที่สร้างไว้แล้วจะไม่เปลี่ยนแปลง</value>
@@ -3046,7 +3100,13 @@
     <value>ใช้โฟลเดอร์เครือข่ายเดียวกันบนพีซีทุกเครื่อง โฟลเดอร์ต้องใช้ SMB 3 โดยกำหนดให้ต้องเข้ารหัส ไม่รองรับโฟลเดอร์ที่ซิงค์กับคลาวด์</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>หยุดจดจำรหัสผ่านสำหรับการกำหนดค่านี้บนพีซีเครื่องนี้หรือไม่</value>
+    <value>Foundry จะหยุดบันทึกรหัสผ่านสำหรับการกำหนดค่านี้บนพีซีเครื่องนี้</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>หยุดจดจำ</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>หยุดจดจำรหัสผ่านใช่ไหม</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>ซิงโครไนซ์</value>
@@ -3102,6 +3162,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>ตรวจสอบช่องที่ต้องกรอก หากต้องระบุโฟลเดอร์เครือข่าย ให้ใช้เส้นทาง เช่น \\server\share\folder หากป้อนรหัสผ่านของไฟล์สองครั้ง ตรวจสอบให้แน่ใจว่าทั้งสองครั้งตรงกัน</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD ไม่สามารถบันทึกการตั้งค่าพร็อกซีได้ ลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>ไม่ได้ใช้การตั้งค่าพร็อกซี</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>พร็อกซีปฏิเสธการลงชื่อเข้าใช้ ตรวจสอบการตั้งค่าการรับรองความถูกต้องของพร็อกซี แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD ไม่สามารถเข้าถึงบริการของ GitHub และ Microsoft ด้วยการตั้งค่าเหล่านี้ได้ ตรวจสอบที่อยู่พร็อกซี พอร์ต และการเชื่อมต่อเครือข่ายของคุณ ดูรายละเอียดได้ในบันทึก</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3120,8 +3192,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>ใส่ที่อยู่พร็อกซีเซิร์ฟเวอร์</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>ใส่ที่อยู่พร็อกซี HTTP หรือ HTTPS ที่ถูกต้อง เช่น proxy.contoso.com</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>ใส่หมายเลขพอร์ตตั้งแต่ 1 ถึง 65535</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4079,20 +4160,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>ไม่ได้ตรวจสอบ</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>ไม่สามารถใช้การอัปเดตได้: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD ไม่สามารถเริ่มการอัปเดตได้ ลองใช้การอัปเดตอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD ไม่สามารถตรวจหาการอัปเดตได้ ตรวจสอบการเชื่อมต่อเครือข่ายของคุณแล้วลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>กำลังตรวจสอบการอัปเดต</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>ดาวน์โหลดการอัปเดตไม่สำเร็จ: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>ไม่สามารถดาวน์โหลดการอัปเดตได้ ตรวจสอบการเชื่อมต่อเครือข่ายของคุณแล้วลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>กำลังดาวน์โหลดการอัปเดต</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>การตรวจสอบการอัปเดตล้มเหลว: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD อัปเดตแล้ว</value>
@@ -4118,11 +4199,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>ไม่สามารถใช้การอัปเดตได้</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>ดาวน์โหลดการอัปเดตไม่สำเร็จ</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>การตรวจสอบการอัปเดตล้มเหลว</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>ถึงวันที่</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>การอัปเดตพร้อมติดตั้งแล้ว</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>ข้ามการตรวจสอบการอัปเดต</value>

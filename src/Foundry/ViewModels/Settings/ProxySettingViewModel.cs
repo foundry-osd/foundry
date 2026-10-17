@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Net;
+using Foundry.Core.Services.Networking;
 using Foundry.Services.Localization;
 using Foundry.Services.Networking;
 using Foundry.Services.Settings;
@@ -52,10 +54,19 @@ public sealed partial class ProxySettingViewModel : ObservableObject
 
     public void Apply()
     {
+        if (!TryCreateCandidate(out ProxyAppSettings settings, out ProxyCredential? credential))
+        {
+            return;
+        }
+
         try
         {
-            ApplySettings();
+            proxyService.ApplyAndSave(settings, credential);
             SetStatus("Proxy.Status.SavedTitle", "Proxy.Status.SavedMessage", InfoBarSeverity.Success);
+        }
+        catch (ApplicationProxyValidationException ex)
+        {
+            ShowValidationFailure(ex);
         }
         catch (Exception ex)
         {
@@ -64,19 +75,27 @@ public sealed partial class ProxySettingViewModel : ObservableObject
                 "Failed to apply proxy settings. Method={Method}, AuthenticationMode={AuthenticationMode}",
                 Method,
                 AuthenticationMode);
-            SetStatus("Proxy.Status.InvalidTitle", ex.Message, InfoBarSeverity.Error, false);
+            SetStatus("Proxy.Status.ApplyFailedTitle", "Proxy.Status.ApplyFailedMessage", InfoBarSeverity.Error);
         }
     }
 
     public async Task TestConnectionAsync()
     {
+        if (!TryCreateCandidate(out ProxyAppSettings settings, out ProxyCredential? credential))
+        {
+            return;
+        }
+
         IsBusy = true;
         IsStatusOpen = false;
         try
         {
-            (ProxyAppSettings settings, ProxyCredential? credential) = CreateCandidate();
             await proxyService.TestConnectionAsync(settings, credential);
             SetStatus("Proxy.Status.SuccessTitle", "Proxy.Status.SuccessMessage", InfoBarSeverity.Success);
+        }
+        catch (ApplicationProxyValidationException ex)
+        {
+            ShowValidationFailure(ex);
         }
         catch (Exception ex)
         {
@@ -85,7 +104,12 @@ public sealed partial class ProxySettingViewModel : ObservableObject
                 "Proxy connection test failed. Method={Method}, AuthenticationMode={AuthenticationMode}",
                 Method,
                 AuthenticationMode);
-            SetStatus("Proxy.Status.FailedTitle", ex.Message, InfoBarSeverity.Error, false);
+            SetStatus(
+                "Proxy.Status.FailedTitle",
+                ex is HttpRequestException { StatusCode: HttpStatusCode.ProxyAuthenticationRequired }
+                    ? "Proxy.Status.AuthenticationFailedMessage"
+                    : "Proxy.Status.FailedMessage",
+                InfoBarSeverity.Error);
         }
         finally
         {
@@ -93,26 +117,9 @@ public sealed partial class ProxySettingViewModel : ObservableObject
         }
     }
 
-    private void ApplySettings()
+    private bool TryCreateCandidate(out ProxyAppSettings settings, out ProxyCredential? credential)
     {
-        (ProxyAppSettings settings, ProxyCredential? credential) = CreateCandidate();
-        proxyService.ApplyAndSave(settings, credential);
-    }
-
-    private (ProxyAppSettings Settings, ProxyCredential? Credential) CreateCandidate()
-    {
-        ProxyCredential? credential = null;
-        if (Method == ProxyMethod.Manual && AuthenticationMode == ProxyAuthenticationMode.Explicit)
-        {
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrEmpty(Password))
-            {
-                throw new ArgumentException(localizationService.GetString("Proxy.Validation.CredentialsRequired"));
-            }
-
-            credential = new ProxyCredential(Username.Trim(), Domain.Trim(), Password);
-        }
-
-        return (new ProxyAppSettings
+        settings = new ProxyAppSettings
         {
             Method = Method,
             AuthenticationMode = AuthenticationMode,
@@ -120,13 +127,43 @@ public sealed partial class ProxySettingViewModel : ObservableObject
             Port = Port,
             BypassLocalAddresses = BypassLocalAddresses,
             BypassList = BypassList
-        }, credential);
+        };
+        credential = null;
+        if (Method != ProxyMethod.Manual || AuthenticationMode != ProxyAuthenticationMode.Explicit)
+        {
+            return true;
+        }
+
+        if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrEmpty(Password))
+        {
+            SetStatus("Proxy.Status.InvalidTitle", "Proxy.Validation.CredentialsRequired", InfoBarSeverity.Error);
+            return false;
+        }
+
+        credential = new ProxyCredential(Username.Trim(), Domain.Trim(), Password);
+        return true;
     }
 
-    private void SetStatus(string titleKey, string message, InfoBarSeverity severity, bool localizeMessage = true)
+    private void ShowValidationFailure(ApplicationProxyValidationException exception)
+    {
+        Log.ForContext<ProxySettingViewModel>().Warning(
+            "Proxy settings were rejected. Reason={Reason}, Method={Method}, AuthenticationMode={AuthenticationMode}",
+            exception.Reason,
+            Method,
+            AuthenticationMode);
+        string messageKey = exception.Reason switch
+        {
+            ApplicationProxyValidationReason.AddressRequired => "Proxy.Validation.AddressRequired",
+            ApplicationProxyValidationReason.InvalidPort => "Proxy.Validation.InvalidPort",
+            _ => "Proxy.Validation.InvalidAddress"
+        };
+        SetStatus("Proxy.Status.InvalidTitle", messageKey, InfoBarSeverity.Error);
+    }
+
+    private void SetStatus(string titleKey, string messageKey, InfoBarSeverity severity)
     {
         StatusTitle = localizationService.GetString(titleKey);
-        StatusMessage = localizeMessage ? localizationService.GetString(message) : message;
+        StatusMessage = localizationService.GetString(messageKey);
         StatusSeverity = severity;
         IsStatusOpen = true;
     }

@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Profiles;
+using Foundry.Services.Application;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 
@@ -147,14 +148,16 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     [RelayCommand]
     private Task SaveCopyAsync() => RunAsync(async () =>
     {
-        ProfileDialogResponse? result = await DialogAsync(new("Profiles.SaveCopy") { Name = coordinator.Active?.DisplayName ?? string.Empty });
+        ProfileDialogResponse? result = await DialogAsync(new("Profiles.SaveCopy")
+        { Name = coordinator.Active?.DisplayName ?? string.Empty, PrimaryButtonKey = "Profiles.SaveCopy" });
         if (result is not null) await coordinator.SaveAsCopyAsync(result.Name.Trim());
     });
 
     [RelayCommand]
     private Task RenameAsync() => RunAsync(async () =>
     {
-        ProfileDialogResponse? result = await DialogAsync(new("Profiles.Rename") { Name = coordinator.Active?.DisplayName ?? string.Empty });
+        ProfileDialogResponse? result = await DialogAsync(new("Profiles.Rename")
+        { Name = coordinator.Active?.DisplayName ?? string.Empty, PrimaryButtonKey = "Profiles.Rename" });
         if (result is not null) await coordinator.RenameAsync(result.Name.Trim());
     });
 
@@ -162,23 +165,25 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     private Task ToggleRememberAsync() => RunAsync(async () =>
     {
         bool remember = !RememberSecrets;
-        if (await ConfirmAsync("Profiles.Remember", remember ? "Profiles.LocalPrivacy" : "Profiles.StopRemembering", preferCancel: !remember))
-            await coordinator.SaveAsync(remember);
+        bool confirmed = remember
+            ? await ConfirmAsync("Profiles.Remember", "Profiles.LocalPrivacy", "Profiles.Remember", preferCancel: false)
+            : await ConfirmAsync("Profiles.StopRememberingTitle", "Profiles.StopRemembering", "Profiles.StopRememberingAction");
+        if (confirmed) await coordinator.SaveAsync(remember);
     });
 
     [RelayCommand]
     private Task ForgetAsync() => RunAsync(async () =>
     {
-        if (await ConfirmAsync("Profiles.Forget", "Profiles.ForgetWarning")) await coordinator.ForgetAsync();
+        if (await ConfirmAsync("Profiles.Forget", "Profiles.ForgetWarning", "Profiles.ForgetAction")) await coordinator.ForgetAsync();
     });
 
     [RelayCommand]
     private Task DeleteAsync() => RunAsync(async () =>
     {
         ProfileDialogResponse? result = await DialogAsync(new("Profiles.Delete")
-        { Message = Text("Profiles.DeleteWarning"), DeleteSharedOption = IsShared, PreferCancel = true });
+        { Message = Text("Profiles.DeleteWarning"), DeleteSharedOption = IsShared, PreferCancel = true, PrimaryButtonKey = "Profiles.DeleteAction" });
         if (result is null) return;
-        if (result.DeleteShared && !await ConfirmAsync("Profiles.DeleteShared", "Profiles.DeleteSharedWarning")) return;
+        if (result.DeleteShared && !await ConfirmAsync("Profiles.DeleteSharedTitle", "Profiles.DeleteSharedWarning", "Profiles.DeleteSharedAction")) return;
         await coordinator.DeleteAsync(result.DeleteShared);
     });
 
@@ -193,7 +198,8 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
         if (path is null) return;
         ProfileDialogResponse? result = await DialogAsync(new(title)
         {
-            Message = recovery ? Text("Profiles.RecoveryWarning") : Text("Profiles.ExportProtection") + "\n\n" + Text("Profiles.ShareWarning"),
+            Message = recovery ? Text("Profiles.RecoveryWarning") : DialogText.JoinParagraphs(Text("Profiles.ExportProtection"), Text("Profiles.ShareWarning")),
+            PrimaryButtonKey = title,
             Passphrase = true,
             ConfirmPassphrase = true,
             IncludeSecretsOption = !recovery
@@ -222,7 +228,8 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             }
             ProfileDialogResponse? result = await DialogAsync(new(title)
             {
-                Message = PreviewText(profile) + "\n\n" + Text("Profiles.ShareWarning") + (restore ? string.Empty : "\n\n" + Text("Profiles.ReplaceWarning")),
+                Message = DialogText.JoinParagraphs(PreviewText(profile), Text("Profiles.ShareWarning"), restore ? null : Text("Profiles.ReplaceWarning")),
+                PrimaryButtonKey = title,
                 PreferCancel = !restore,
                 RememberOption = !restore,
                 Remember = CanRemember(profile),
@@ -250,8 +257,9 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             using SharedProfilePreview preview = await coordinator.PreviewSharedAsync(invitation, rootPath);
             ProfileDialogResponse? result = await DialogAsync(new("Profiles.JoinShared")
             {
-                Message = (previous is null ? string.Empty : Text("Profiles.JoinChanged") + "\n\n") + PreviewText(preview.Profile) +
-                    "\n\n" + Text("Profiles.ShareWarning") + "\n\n" + Text("Profiles.ReplaceWarning"),
+                Message = DialogText.JoinParagraphs(previous is null ? null : Text("Profiles.JoinChanged"), PreviewText(preview.Profile),
+                    Text("Profiles.ShareWarning"), Text("Profiles.ReplaceWarning")),
+                PrimaryButtonKey = "Profiles.ConnectAction",
                 PreferCancel = true,
                 RememberOption = true,
                 Remember = CanRemember(preview.Profile) && (previous?.Remember ?? true),
@@ -270,7 +278,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
         int assets = profile.Assets.Count(asset => asset.State == ProfileValueState.Present);
         string preview = localization.FormatString("Profiles.Preview", profile.DisplayName, assets, secrets);
         int missingAssets = profile.Assets.Count(asset => asset.State is ProfileValueState.Omitted or ProfileValueState.Unavailable);
-        return missingAssets > 0 ? preview + "\n\n" + localization.FormatString("Profiles.MissingAssets", missingAssets) : preview;
+        return missingAssets > 0 ? DialogText.JoinParagraphs(preview, localization.FormatString("Profiles.MissingAssets", missingAssets)) : preview;
     }
 
     private static bool CanRemember(DeploymentProfileDocument profile) =>
@@ -337,7 +345,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     [RelayCommand]
     private Task DisconnectAsync() => RunAsync(async () =>
     {
-        if (IsShared && await ConfirmAsync("Profiles.Disconnect", "Profiles.DisconnectWarning"))
+        if (IsShared && await ConfirmAsync("Profiles.Disconnect", "Profiles.DisconnectWarning", "Profiles.Disconnect"))
             await coordinator.DisconnectAsync();
     });
 
@@ -356,12 +364,13 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
 
     private Task ResolveAsync(bool useRemote) => RunAsync(async () =>
     {
-        if (await ConfirmAsync(useRemote ? "Profiles.UseRemote" : "Profiles.KeepLocal", "Profiles.ConflictWarning"))
+        string choice = useRemote ? "Profiles.UseRemote" : "Profiles.KeepLocal";
+        if (await ConfirmAsync(choice, "Profiles.ConflictWarning", choice))
             await coordinator.ResolveConflictAsync(useRemote);
     });
 
-    private async Task<bool> ConfirmAsync(string title, string message, bool preferCancel = true) =>
-        await DialogAsync(new(title) { Message = Text(message), PreferCancel = preferCancel }) is not null;
+    private async Task<bool> ConfirmAsync(string title, string message, string primaryButtonKey, bool preferCancel = true) =>
+        await DialogAsync(new(title) { Message = Text(message), PrimaryButtonKey = primaryButtonKey, PreferCancel = preferCancel }) is not null;
 
     private async Task<ProfileDialogResponse?> DialogAsync(ProfileDialogRequest request)
     {
@@ -411,6 +420,7 @@ internal sealed record ProfileDialogRequest(string Title)
     public bool IncludeSecrets { get; init; }
     public bool RememberKey { get; init; }
     public bool Remember { get; init; } = true;
+    /// <summary>Resource key of the primary verb; Continue fits only intermediate steps that open another dialog.</summary>
     public string PrimaryButtonKey { get; init; } = "Profiles.Continue";
     public string CloseButtonKey { get; init; } = "Common.Cancel";
     public bool Passphrase { get; init; }

@@ -123,9 +123,9 @@ internal sealed class ApplicationProxyService : IApplicationProxyService
         {
             using var request = new HttpRequestMessage(HttpMethod.Head, endpoint);
             using HttpResponseMessage response = await client.SendAsync(request, cancellationToken).ConfigureAwait(false);
-            if ((int)response.StatusCode == 407)
+            if (response.StatusCode == HttpStatusCode.ProxyAuthenticationRequired)
             {
-                throw new HttpRequestException("The proxy rejected the configured authentication.");
+                throw new HttpRequestException("The proxy rejected the configured authentication.", null, HttpStatusCode.ProxyAuthenticationRequired);
             }
         }
     }

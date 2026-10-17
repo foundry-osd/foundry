@@ -292,8 +292,11 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Nuomininkas negrąžino jokių Autopilot profilių.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profilio atsisiuntimas nepavyko: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Nepavyko atsisiųsti Autopilot profilių iš nuomininko.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Patikrinkite tinklo ryšį ir įsitikinkite, kad jūsų paskyra gali skaityti Autopilot profilius Intune tarnyboje, tada bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot atsisiųsti nepavyko</value>
@@ -364,8 +367,11 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Veiksmai su sertifikatu</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nepavyko sukurti programos registracijos sertifikato. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nepavyko sukurti programos registracijos sertifikato.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Patikrinkite, ar į pasirinktą aplanką galima rašyti ir ar jūsų paskyra gali valdyti programos registraciją, tada bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Nepavyko sukurti sertifikato</value>
@@ -400,8 +406,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX sertifikatas</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nepavyko pašalinti pasirinktos programos registracijos sertifikato. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nepavyko pašalinti pasirinkto programos registracijos sertifikato.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Nepavyko pašalinti sertifikato</value>
@@ -442,8 +448,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch aparatūros maišos įkėlimas</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nepavyko sukonfigūruoti Autopilot programos registracijos. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nepavyko sukonfigūruoti Autopilot programos registracijos.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Nuomininko priėmimas nepavyko</value>
@@ -494,16 +500,25 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pašalinti sertifikatą</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry pašalins tik pasirinktą sertifikatą iš valdomos programos registracijos. Kiti programos kredencialai bus išsaugoti.</value>
+    <value>Pasirinktas sertifikatas bus pašalintas iš valdomos programos registracijos jūsų nuomininke. Kiti programos kredencialai bus išsaugoti.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Pašalinti sertifikatą</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Pašalinti pasirinktą sertifikatą?</value>
+    <value>Pašalinti sertifikatą iš nuomininko?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Šio veiksmo anuliuoti negalima. Įkrovos laikmenos, kuriose naudojamas pašalintas sertifikatas, nebegalės įkelti aparatinės įrangos maišų.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry pašalins tik {0} pasirinktus sertifikatus iš valdomos programos registracijos. Kiti programos kredencialai bus išsaugoti.</value>
+    <value>Pasirinkti sertifikatai ({0}) bus pašalinti iš valdomos programos registracijos jūsų nuomininke. Kiti programos kredencialai bus išsaugoti.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Pašalinti sertifikatus</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Pašalinti sertifikatus iš nuomininko?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Prisijungta</value>
@@ -519,6 +534,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Nuomininko ID</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Patikrinkite tinklo ryšį ir įsitikinkite, kad jūsų paskyra gali valdyti programų registracijas nuomininke, tada bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Neprisijungęs</value>
@@ -545,7 +563,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Importuoti profilį</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Nepavyko importuoti Autopilot profilio.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Patikrinkite, ar failas yra tinkamas Autopilot profilio JSON failas, ir bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot importuoti nepavyko</value>
@@ -587,7 +608,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pašalinti pasirinktą</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Pašalinti „{0}“ iš importuotų Autopilot profilių?</value>
+    <value>„{0}“ bus pašalintas iš šios konfigūracijos Autopilot profilių.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Pašalinti profilį</value>
@@ -596,7 +617,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pašalinti Autopilot profilį?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Pašalinti {0} pasirinktus Autopilot profilius?</value>
+    <value>Pasirinkti Autopilot profiliai ({0}) bus pašalinti iš šios konfigūracijos.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Pašalinti profilius</value>
@@ -604,14 +625,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Pašalinti Autopilot profilius?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Norėdami vėl naudoti pašalintą profilį, importuokite jį arba dar kartą atsisiųskite iš nuomininko.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Užbaikite prisijungimą naršyklėje, kad atsisiųstumėte Autopilot profilius.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Prisijunkite prie Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Atšaukti</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Aišku</value>
@@ -685,6 +706,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atnaujinti</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Įrašyti</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nepasiekiamas</value>
   </data>
@@ -696,9 +720,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Naršyti</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Atšaukti</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importavimas atšauktas</value>
@@ -787,17 +808,23 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atnaujinti</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Pašalinti šį atvaizdą iš dabartinio profilio ir ištrinti jo vietinę kopiją? Kituose profiliuose, kuriuose jis nurodytas, atvaizdas bus rodomas kaip trūkstamas. Pradiniai failai ir esamos laikmenos liks nepakeisti.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Pašalinti atvaizdą</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) bus pašalintas iš dabartinio profilio, o jo vietinė kopija bus ištrinta.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Pašalinti</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Pašalinti pasirinktinį atvaizdą?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Kituose profiliuose, kuriuose naudojamas šis atvaizdas, jis bus rodomas kaip trūkstamas. Pradinis failas ir esamos laikmenos nebus pakeisti.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Redaguoti</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Įrašyti</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Nustatyti numatytąjį atvaizdą</value>
@@ -1825,8 +1852,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Neapdorotuose žurnaluose gali būti prisijungimo duomenų, identifikatorių, kelių, tinklų pavadinimų ir kitų jautrių duomenų. Eksportuokite juos tik tada, kai to aiškiai paprašo patikimas palaikymo kontaktas.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Palaikymo archyvas išsaugotas čia:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostika eksportuota</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Atidaryti aplanką</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nepavyko atidaryti dokumentacijos jūsų naršyklėje. Vietoj to naudokite URL.</value>
@@ -2848,6 +2881,15 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Nepavyko pašalinti kai kurių senų įrašytų slaptažodžių ar prieigos raktų. Bandykite dar kartą, kai bus pasiekiama „Windows“ kredencialų tvarkytuvė.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Uždaryti neišsaugojus</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Naujausių pakeitimų nepavyko išsaugoti, todėl jie bus prarasti.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Uždaryti neišsaugojus nustatymų?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Patvirtinkite slaptažodį</value>
   </data>
@@ -2884,8 +2926,17 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Ištrinti iš šio kompiuterio</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Ištrinti</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Taip pat ištrinti visiems</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Ištrinti visiems</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Ištrinti visiems?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Ištrinti šiuos bendrinamus nustatymus visiems? Turintys nesinchronizuotų pakeitimų turi dubliuoti savo nustatymus, kad juos išsaugotų.</value>
@@ -2925,6 +2976,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Išvalyti išsaugotus slaptažodžius ir prieigos duomenis</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Išvalyti</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Pašalinti šiame kompiuteryje šių nustatymų įrašytus slaptažodžius, „Foundry“ įrašytus konfidencialius failus ir sinchronizavimo prieigą? Norėdami sinchronizuoti, turėsite pridėti trūkstamą informaciją ir prisijungti iš naujo. Jau sukurtos laikmenos nesikeis.</value>
@@ -3046,7 +3100,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Visuose kompiuteriuose naudokite tą patį tinklo aplanką. Jis turi naudoti SMB 3 su privalomu šifravimu. Su debesimi sinchronizuojami aplankai nepalaikomi.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Nebesaugoti šios konfigūracijos slaptažodžių šiame kompiuteryje?</value>
+    <value>Foundry nebesaugos šios konfigūracijos slaptažodžių šiame kompiuteryje.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Nebeįsiminti</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Nebeįsiminti slaptažodžių?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sinchronizuoti</value>
@@ -3102,6 +3162,18 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Patikrinkite privalomus laukus. Jei prašoma tinklo aplanko, naudokite kelią, pvz., \\server\share\folder. Jei failo slaptažodį įvedate du kartus, įsitikinkite, kad abu įrašai sutampa.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nepavyko išsaugoti tarpinio serverio nustatymų. Bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Tarpinio serverio nustatymai nepritaikyti</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Tarpinis serveris atmetė prisijungimą. Patikrinkite tarpinio serverio autentifikavimo nustatymus ir bandykite dar kartą.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Naudodama šiuos nustatymus Foundry OSD nepavyko pasiekti GitHub ir Microsoft paslaugų. Patikrinkite tarpinio serverio adresą, prievadą ir tinklo ryšį. Išsamesnės informacijos ieškokite žurnale.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3120,8 +3192,17 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Įveskite tarpinio serverio adresą.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Įveskite tinkamą HTTP arba HTTPS tarpinio serverio adresą, pvz., proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Įveskite prievado numerį nuo 1 iki 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4079,20 +4160,20 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nepatikrintas</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Nepavyko pritaikyti naujinimo: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nepavyko paleisti naujinimo. Pabandykite jį pritaikyti dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nepavyko patikrinti, ar yra naujinimų. Patikrinkite tinklo ryšį ir bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Tikrinama, ar nėra atnaujinimų</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Naujinimo atsisiųsti nepavyko: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Nepavyko atsisiųsti naujinimo. Patikrinkite tinklo ryšį ir bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Atsisiunčiamas naujinimas</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Atnaujinimo patikrinimas nepavyko: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD yra atnaujinta.</value>
@@ -4118,11 +4199,17 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Nepavyko pritaikyti naujinimo</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Nepavyko atsisiųsti naujinimo</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Nepavyko patikrinti atnaujinimo</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Naujausia</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Naujinimas paruoštas įdiegti</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Atnaujinimo patikra praleista</value>

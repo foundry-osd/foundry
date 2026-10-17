@@ -292,8 +292,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Арендатор не вернул ни одного профиля Autopilot.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot не удалось загрузить профиль: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Не удалось скачать профили Autopilot с арендатора.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Проверьте подключение к сети и убедитесь, что у вашей учётной записи есть права на чтение профилей Autopilot в Intune, затем повторите попытку. Подробности см. в журнале.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot загрузка не удалась</value>
@@ -364,8 +367,11 @@
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Действия с сертификатом</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не удалось создать сертификат регистрации приложения. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry не удалось создать сертификат регистрации приложения.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Убедитесь, что в выбранную папку можно записывать файлы и что у вашей учётной записи есть права на управление регистрацией приложения, затем повторите попытку. Подробности см. в журнале.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Создание сертификата не удалось</value>
@@ -400,8 +406,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>Сертификат ПФХ</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не удалось удалить выбранный сертификат регистрации приложения. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry не удалось удалить выбранный сертификат регистрации приложения.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Удаление сертификата не удалось</value>
@@ -442,8 +448,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch отправка аппаратного хеша</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не удалось настроить регистрацию приложения Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry не удалось настроить регистрацию приложения Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Регистрация клиента не удалась</value>
@@ -494,16 +500,25 @@
     <value>Удалить сертификат</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry удалит только выбранный сертификат из регистрации управляемого приложения. Другие учетные данные приложения будут сохранены.</value>
+    <value>Выбранный сертификат будет удалён из управляемой регистрации приложения в вашем арендаторе. Другие учётные данные приложения сохранятся.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Удалить сертификат</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Удалить выбранный сертификат?</value>
+    <value>Удалить сертификат из арендатора?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Это действие нельзя отменить. Загрузочные носители, использующие удалённый сертификат, больше не смогут загружать аппаратные хеши.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry удалит из регистрации управляемого приложения только {0} выбранные сертификаты. Другие учетные данные приложения будут сохранены.</value>
+    <value>Выбранные сертификаты ({0}) будут удалены из управляемой регистрации приложения в вашем арендаторе. Другие учётные данные приложения сохранятся.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Удалить сертификаты</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Удалить сертификаты из арендатора?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Подключено</value>
@@ -519,6 +534,9 @@
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Идентификатор арендатора</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Проверьте подключение к сети и убедитесь, что у вашей учётной записи есть права на управление регистрациями приложений в арендаторе, затем повторите попытку. Подробности см. в журнале.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Не подключено</value>
@@ -545,7 +563,10 @@
     <value>Импортировать профиль</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Не удалось импортировать профиль Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Убедитесь, что файл является допустимым JSON-файлом профиля Autopilot, и повторите попытку. Подробности см. в журнале.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot импорт не удался</value>
@@ -587,7 +608,7 @@
     <value>Удалить выбранное</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Удалить "{0}" из импортированных профилей Autopilot?</value>
+    <value>«{0}» будет удалён из профилей Autopilot в этой конфигурации.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Удалить профиль</value>
@@ -596,7 +617,7 @@
     <value>Удалить профиль Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Удалить {0} выбранные профили Autopilot?</value>
+    <value>Выбранные профили Autopilot ({0}) будут удалены из этой конфигурации.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Удаление профилей</value>
@@ -604,14 +625,14 @@
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Удалить профили Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Чтобы снова использовать удалённый профиль, импортируйте его или повторно скачайте с арендатора.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Завершите вход в браузер, чтобы загрузить профили Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Войдите в Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Отмена</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Очистить</value>
@@ -685,6 +706,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Обновить</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недоступно</value>
   </data>
@@ -696,9 +720,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Обзор</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Отмена</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Импорт отменён</value>
@@ -787,17 +808,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Обновить</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Удалить этот образ из текущего профиля и удалить его локальную копию? В других профилях, ссылающихся на него, образ будет отображаться как отсутствующий. Исходные файлы и существующие носители останутся без изменений.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Удалить образ</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>Образ {0} ({1}) будет удалён из текущего профиля, а его локальная копия будет стёрта.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Удалить пользовательский образ?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>В других профилях, использующих этот образ, он будет отображаться как отсутствующий. Исходный файл и уже созданные носители не изменятся.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Изменить</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Сохранить</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Задать образ по умолчанию</value>
@@ -1825,8 +1852,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Необработанные журналы могут содержать учетные данные, идентификаторы, пути, имена сетей и другие конфиденциальные данные. Экспортируйте их только по явному запросу доверенного сотрудника поддержки.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Архив поддержки сохранён в следующем расположении:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Диагностика экспортирована</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Открыть папку</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry не удалось открыть документацию в вашем браузере. Вместо этого используйте URL.</value>
@@ -2848,6 +2881,15 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Не удалось удалить некоторые старые сохранённые пароли или ключи доступа. Повторите попытку, когда Диспетчер учётных данных Windows станет доступен.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Закрыть без сохранения</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Не удалось сохранить последние изменения, и они будут потеряны.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Закрыть без сохранения настроек?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Подтвердите пароль</value>
   </data>
@@ -2884,8 +2926,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Удалить с этого компьютера</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Также удалить для всех</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Удалить для всех</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Удалить для всех?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Удалить эти общие настройки для всех? Пользователям с несинхронизированными изменениями нужно создать копию своих настроек, чтобы сохранить их.</value>
@@ -2925,6 +2976,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Удалить сохранённые пароли и данные доступа</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Очистить</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Удалить сохранённые пароли, конфиденциальные файлы, сохранённые Foundry, и доступ к синхронизации этих настроек на этом компьютере? Для синхронизации потребуется добавить недостающие данные и подключиться заново. Уже созданные носители не изменятся.</value>
@@ -3046,7 +3100,13 @@
     <value>Используйте одну и ту же сетевую папку на всех компьютерах. Она должна использовать SMB 3 с обязательным шифрованием. Папки, синхронизируемые с облаком, не поддерживаются.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Больше не запоминать пароли этой конфигурации на этом компьютере?</value>
+    <value>Foundry больше не будет сохранять пароли этой конфигурации на этом компьютере.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Больше не запоминать</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Больше не запоминать пароли?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Синхронизировать</value>
@@ -3102,6 +3162,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Проверьте обязательные поля. Если запрашивается сетевая папка, укажите путь вида \\server\share\folder. Если вы вводите пароль файла дважды, убедитесь, что оба значения совпадают.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не удалось сохранить параметры прокси-сервера. Повторите попытку. Подробности см. в журнале.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Параметры прокси-сервера не применены</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Прокси-сервер отклонил вход. Проверьте параметры проверки подлинности прокси-сервера и повторите попытку.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD не удалось подключиться к службам GitHub и Microsoft с этими параметрами. Проверьте адрес и порт прокси-сервера, а также подключение к сети. Подробности см. в журнале.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3120,8 +3192,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Введите адрес прокси-сервера.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Введите допустимый адрес прокси-сервера HTTP или HTTPS, например proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Введите номер порта от 1 до 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4079,20 +4160,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не проверено</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Не удалось применить обновление: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не удалось запустить обновление. Попробуйте применить его ещё раз. Подробности см. в журнале.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не удалось проверить наличие обновлений. Проверьте подключение к сети и повторите попытку. Подробности см. в журнале.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Проверка обновлений</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Не удалось скачать обновление: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Не удалось скачать обновление. Проверьте подключение к сети и повторите попытку. Подробности см. в журнале.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Загрузка обновления</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Проверка обновлений не удалась: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD обновлен.</value>
@@ -4118,11 +4199,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Не удалось применить обновление</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Не удалось скачать обновление</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Проверка обновлений не удалась</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Актуально</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Обновление готово к установке</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Проверка обновлений пропущена</value>
