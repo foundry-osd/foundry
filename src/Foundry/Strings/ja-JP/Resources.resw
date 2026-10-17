@@ -2114,7 +2114,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>既定</value>
   </data>
   <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
-    <value>WinPE ブート環境で使用されるキーボード。既定では WinPE ブート言語に従います。</value>
+    <value>WinPE ブート環境で使用されるキーボード。「既定」は WinPE ブート言語に従います。</value>
   </data>
   <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
     <value>WinPE キーボード レイアウト</value>

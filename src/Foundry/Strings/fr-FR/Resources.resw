@@ -2114,7 +2114,7 @@ Sous licence MIT.</value>
     <value>Par défaut</value>
   </data>
   <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
-    <value>Clavier utilisé dans l'environnement de démarrage WinPE. Par défaut, il suit la langue de démarrage WinPE.</value>
+    <value>Clavier utilisé dans l'environnement de démarrage WinPE. « Par défaut » suit la langue de démarrage WinPE.</value>
   </data>
   <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
     <value>Disposition du clavier WinPE</value>
