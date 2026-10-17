@@ -265,11 +265,8 @@ Licencirano pod MIT licencom.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Napomene o izdanju</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Uvezite lokalne JSON profile ili ih preuzmite sa Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Akcije profila</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Podrazumevano</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Folder</value>
@@ -282,12 +279,6 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Izvor</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profil je podrazumevano postavljen na primenjenoj slici Windows.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Podrazumevani profil</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Preuzmite od zakupca</value>
@@ -361,12 +352,6 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Otisak PFKS sertifikata se ne podudara sa izabranim sertifikatom o registraciji aplikacije.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Kreirajte ili uklonite akreditive sertifikata za registraciju aplikacije.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Akcije sertifikata</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
     <value>Foundry nije mogao da kreira sertifikat o registraciji aplikacije. {0}</value>
   </data>
@@ -414,6 +399,18 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Thumbprint</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Važi 12 meseci</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Važi 1 mesec</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Važi 3 meseca</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Važi 6 meseci</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Nisu obezbeđeni nikakvi sertifikati.</value>
@@ -577,8 +574,8 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Promeniti režim obezbeđivanja?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Offline Autopilot profili dostupni za dodelu profila JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Da</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Nema uvezenih profila Autopilot.</value>
@@ -606,6 +603,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Uklonite Autopilot profile?</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Postavi kao podrazumevano</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Završite prijavu u pregledaču da biste preuzeli Autopilot profile.</value>

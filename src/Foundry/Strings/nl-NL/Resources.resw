@@ -265,11 +265,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release-opmerkingen</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importeer lokale JSON-profielen of download ze van Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profielacties</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Standaard</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Map</value>
@@ -282,12 +279,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Bron</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profiel standaard geënsceneerd in de toegepaste Windows afbeelding.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Standaardprofiel</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Downloaden van huurder</value>
@@ -361,12 +352,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>De vingerafdruk van het PFX-certificaat komt niet overeen met het geselecteerde app-registratiecertificaat.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Maak of verwijder inloggegevens voor app-registratiecertificaten.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Certificaatacties</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
     <value>Foundry kan het app-registratiecertificaat niet maken. {0}</value>
   </data>
@@ -414,6 +399,18 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Vingerafdruk</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>12 maanden geldig</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>1 maand geldig</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>3 maanden geldig</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>6 maanden geldig</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Er zijn geen certificaten ingericht.</value>
@@ -577,8 +574,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Provisioningsmodus wijzigen?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Offline Autopilot-profielen beschikbaar voor JSON-profielinrichting.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Ja</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Geen Autopilot profielen geïmporteerd.</value>
@@ -606,6 +603,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Autopilot profielen verwijderen?</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Als standaard instellen</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Voltooi de aanmelding in de browser om Autopilot-profielen te downloaden.</value>

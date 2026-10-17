@@ -265,11 +265,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Utgivelsesnotater</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importer lokale JSON-profiler eller last dem ned fra Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profilhandlinger</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Standard</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Mappe</value>
@@ -282,12 +279,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Kilde</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profil iscenesatt som standard i det brukte Windows-bildet.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Standard profil</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Last ned fra leietaker</value>
@@ -361,12 +352,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX-sertifikatets tommelfingeravtrykk samsvarer ikke med det valgte appregistreringssertifikatet.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Opprett eller fjern legitimasjon for appregistreringssertifikat.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Sertifikathandlinger</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
     <value>Foundry kunne ikke opprette appregistreringssertifikatet. {0}</value>
   </data>
@@ -414,6 +399,18 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Tommelavtrykk</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Gyldig i 12 måneder</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Gyldig i 1 måned</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Gyldig i 3 måneder</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Gyldig i 6 måneder</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Ingen sertifikater leveres.</value>
@@ -577,8 +574,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Endre klargjøringsmodus?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Frakoblet Autopilot profiler tilgjengelig for JSON profilklargjøring.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Ja</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Ingen Autopilot-profiler importert.</value>
@@ -606,6 +603,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Vil du fjerne Autopilot-profiler?</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Angi som standard</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Fullfør påloggingen i nettleseren for å laste ned Autopilot-profiler.</value>

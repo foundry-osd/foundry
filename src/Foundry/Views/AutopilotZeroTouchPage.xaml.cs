@@ -32,6 +32,21 @@ public sealed partial class AutopilotZeroTouchPage : Page
     {
         await ViewModel.ToggleProvisioningModeAsync(AutopilotProvisioningMode.HardwareHashUpload);
     }
+    private void OnCertificateValidityMenuOpening(object sender, object e)
+    {
+        var menu = (MenuFlyout)sender;
+        menu.Items.Clear();
+        foreach (AutopilotConfigurationViewModel.CertificateValidityOptionViewModel option in ViewModel.CertificateValidityOptions)
+        {
+            menu.Items.Add(new MenuFlyoutItem
+            {
+                Text = option.DisplayName,
+                Command = ViewModel.CreateCertificateCommand,
+                CommandParameter = option
+            });
+        }
+    }
+
     private void CertificatesTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (sender is WinUI.TableView.TableView tableView)

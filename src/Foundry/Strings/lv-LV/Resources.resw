@@ -265,11 +265,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Izlaiduma piezīmes</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importējiet vietējos JSON profilus vai lejupielādējiet tos no Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profila darbības</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Noklusējums</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Mape</value>
@@ -282,12 +279,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Avots</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profils pēc noklusējuma ir iestatīts lietotajā Windows attēlā.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Noklusējuma profils</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Lejupielādēt no nomnieka</value>
@@ -361,12 +352,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX sertifikāta īkšķa nospiedums neatbilst atlasītajam lietotnes reģistrācijas sertifikātam.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Izveidojiet vai noņemiet lietotņu reģistrācijas sertifikāta akreditācijas datus.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Sertifikātu darbības</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
     <value>Foundry nevarēja izveidot lietotnes reģistrācijas sertifikātu. {0}</value>
   </data>
@@ -414,6 +399,18 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Īkšķa nospiedums</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Derīgs 12 mēnešus</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Derīgs 1 mēnesi</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Derīgs 3 mēnešus</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Derīgs 6 mēnešus</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Sertifikāti netiek nodrošināti.</value>
@@ -577,8 +574,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Vai mainīt nodrošināšanas režīmu?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Bezsaistes Autopilot profili ir pieejami JSON profila nodrošināšanai.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Jā</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Nav importēts neviens Autopilot profils.</value>
@@ -606,6 +603,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Vai noņemt Autopilot profilus?</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Iestatīt kā noklusējumu</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Pabeidziet pierakstīšanos pārlūkprogrammā, lai lejupielādētu Autopilot profilus.</value>

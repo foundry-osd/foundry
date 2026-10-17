@@ -10,24 +10,55 @@ namespace Foundry.ViewModels;
 /// <summary>
 /// Represents an imported Autopilot profile as displayed and persisted by the Foundry UI.
 /// </summary>
-/// <param name="Id">The stable Autopilot profile identifier.</param>
-/// <param name="DisplayName">The profile display name.</param>
-/// <param name="FolderName">The folder-safe profile name used when staging the JSON file.</param>
-/// <param name="Source">The import source shown to the user.</param>
-/// <param name="ImportedAtUtc">The UTC timestamp when the profile was imported.</param>
-/// <param name="JsonContent">The offline Autopilot profile JSON content.</param>
-public sealed record AutopilotProfileEntryViewModel(
-    string Id,
-    string DisplayName,
-    string FolderName,
-    string Source,
-    DateTimeOffset ImportedAtUtc,
-    string JsonContent)
+public sealed partial class AutopilotProfileEntryViewModel : ObservableObject
 {
+    /// <summary>
+    /// Initializes a profile entry.
+    /// </summary>
+    /// <param name="id">The stable Autopilot profile identifier.</param>
+    /// <param name="displayName">The profile display name.</param>
+    /// <param name="folderName">The folder-safe profile name used when staging the JSON file.</param>
+    /// <param name="source">The import source shown to the user.</param>
+    /// <param name="importedAtUtc">The UTC timestamp when the profile was imported.</param>
+    /// <param name="jsonContent">The offline Autopilot profile JSON content.</param>
+    public AutopilotProfileEntryViewModel(
+        string id,
+        string displayName,
+        string folderName,
+        string source,
+        DateTimeOffset importedAtUtc,
+        string jsonContent)
+    {
+        Id = id;
+        DisplayName = displayName;
+        FolderName = folderName;
+        Source = source;
+        ImportedAtUtc = importedAtUtc;
+        JsonContent = jsonContent;
+    }
+
+    public string Id { get; }
+
+    public string DisplayName { get; }
+
+    public string FolderName { get; }
+
+    public string Source { get; }
+
+    public DateTimeOffset ImportedAtUtc { get; }
+
+    public string JsonContent { get; }
+
     /// <summary>
     /// Gets the localized import timestamp shown in the profile grid.
     /// </summary>
     public string ImportedAtDisplay => ImportedAtUtc.ToLocalTime().ToString("g", CultureInfo.CurrentCulture);
+
+    /// <summary>
+    /// Gets or sets the localized marker shown in the profile grid for the profile staged by default; other rows are empty.
+    /// </summary>
+    [ObservableProperty]
+    public partial string DefaultText { get; set; } = string.Empty;
 
     /// <summary>
     /// Creates a profile entry from persisted configuration settings.

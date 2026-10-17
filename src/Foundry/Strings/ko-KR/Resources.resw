@@ -265,11 +265,8 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>릴리스 노트</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>로컬 JSON 프로필을 가져오거나 Intune에서 다운로드하세요.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>프로필 작업</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>기본값</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>폴더</value>
@@ -282,12 +279,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>소스</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>적용된 Windows 이미지에 기본적으로 프로필이 스테이징됩니다.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>기본 프로필</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>테넌트에서 다운로드</value>
@@ -361,12 +352,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX 인증서 지문이 선택한 앱 등록 인증서와 일치하지 않습니다.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>앱 등록 인증서 자격 증명을 생성하거나 제거합니다.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>인증서 작업</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
     <value>Foundry 앱 등록 인증서를 만들 수 없습니다. {0}</value>
   </data>
@@ -414,6 +399,18 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>지문</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>유효 기간 12개월</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>유효 기간 1개월</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>유효 기간 3개월</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>유효 기간 6개월</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>인증서가 프로비저닝되지 않습니다.</value>
@@ -577,8 +574,8 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>프로비저닝 모드를 변경하시겠습니까?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>JSON 프로필 프로비저닝에 오프라인 Autopilot 프로필을 사용할 수 있습니다.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>예</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Autopilot 프로필을 가져오지 않았습니다.</value>
@@ -606,6 +603,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Autopilot 프로필을 삭제하시겠습니까?</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>기본값으로 설정</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Autopilot 프로필을 다운로드하려면 브라우저에서 로그인을 완료하세요.</value>

@@ -265,11 +265,8 @@ Licenciado sob a licença MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Notas de lançamento</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importe perfis JSON locais ou baixe-os de Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Ações de perfil</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Predefinição</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Pasta</value>
@@ -282,12 +279,6 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Fonte</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Perfil preparado por padrão na imagem Windows aplicada.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Perfil padrão</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Baixar do inquilino</value>
@@ -361,12 +352,6 @@ Licenciado sob a licença MIT.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>A impressão digital do certificado PFX não corresponde ao certificado de registro do aplicativo selecionado.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Crie ou remova credenciais de certificado de registro de aplicativo.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Ações de certificado</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
     <value>Foundry não foi possível criar o certificado de registro do aplicativo. {0}</value>
   </data>
@@ -414,6 +399,18 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Impressão digital</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Válido durante 12 meses</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Válido durante 1 mês</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Válido durante 3 meses</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Válido durante 6 meses</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Nenhum certificado é provisionado.</value>
@@ -577,8 +574,8 @@ Licenciado sob a licença MIT.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Alterar o modo de aprovisionamento?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Perfis Autopilot off-line disponíveis para provisionamento de perfil JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Sim</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Nenhum perfil Autopilot importado.</value>
@@ -606,6 +603,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Remover perfis Autopilot?</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Definir como predefinição</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Conclua o login no navegador para baixar os perfis Autopilot.</value>

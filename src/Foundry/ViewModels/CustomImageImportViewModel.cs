@@ -61,18 +61,35 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
     public bool CanImport => CanEdit && preview is not null && DisplayName.Trim().Length is > 0 and <= CustomImageSettingsValidator.MaximumDisplayNameLength &&
         !DisplayName.Any(char.IsControl) && !existingNames.Contains(DisplayName.Trim());
     public string NameValidationMessage => existingNames.Contains(DisplayName.Trim()) ? Text("DuplicateName") : string.Empty;
-    public string PreviewSummary => preview is null ? string.Empty :
-        $"{LabelValue(Text("SizeLabel"), $"{preview.Length:N0} B")}\n{LabelValue(Text("IndexesLabel"), preview.Indexes.Count)}\n" +
-        string.Join("\n", preview.Indexes.Select(index =>
-            $"{index.Index}: {index.Name} | {index.Architecture} | {index.Version} | {string.Join(", ", index.Languages)}"));
+    public string PreviewSizeText => preview is null ? string.Empty :
+        LabelValue(Text("SizeLabel"), $"{preview.Length / 1073741824d:F2} GB");
+    public string PreviewIndexCountText => preview is null ? string.Empty :
+        LabelValue(Text("IndexesLabel"), preview.Indexes.Count);
+    public IReadOnlyList<CustomImageImportPreviewRow> PreviewIndexes => preview is null ? [] :
+        preview.Indexes
+            .Select(index => new CustomImageImportPreviewRow(
+                index.Index, index.Name, index.Architecture, index.Version ?? string.Empty, string.Join(", ", index.Languages)))
+            .ToArray();
     public CustomImageReference? Result { get; private set; }
     public string Title => Text("ImportLabel");
     public string CancelLabel => Text("CancelLabel");
+    public string IndexNumberLabel => Text("IndexNumberLabel");
+    public string ArchitectureLabel => Text("ArchitectureLabel");
+    public string VersionLabel => Text("VersionLabel");
+    public string LanguagesLabel => Text("LanguagesLabel");
+    public string IndexesLabel => Text("IndexesLabel");
     public string BrowseLabel => Text("BrowseLabel");
     public string SourceLabel => Text("SourceLabel");
     public string NameLabel => Text("NameLabel");
     public string SourceChoiceMessage => Text("SourceChoiceRequired");
     private string Text(string key) => localization.GetString("CustomImages." + key);
+    private void NotifyPreviewChanged()
+    {
+        OnPropertyChanged(nameof(PreviewSizeText));
+        OnPropertyChanged(nameof(PreviewIndexCountText));
+        OnPropertyChanged(nameof(PreviewIndexes));
+    }
+
     private string LabelValue(string label, object value) => localization.FormatString("Common.LabelValueFormat", label, value);
 
     [RelayCommand]
@@ -123,7 +140,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
     private void ResetPreview()
     {
         preview = null;
-        OnPropertyChanged(nameof(PreviewSummary));
+        NotifyPreviewChanged();
         OnPropertyChanged(nameof(CanImport));
         OnPropertyChanged(nameof(HasPreview));
     }
@@ -148,7 +165,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
             if (disposed || operation.IsCancellationRequested || revision != sourceRevision) return;
             preview = result;
             Status = string.Empty;
-            OnPropertyChanged(nameof(PreviewSummary));
+            NotifyPreviewChanged();
             OnPropertyChanged(nameof(HasPreview));
         }
         catch (CustomImageSourceChoiceRequiredException ex)
@@ -225,3 +242,6 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
         localization.LanguageChanged -= OnLanguageChanged;
     }
 }
+
+/// <summary>Displays one Windows image index found by the import preview.</summary>
+public sealed record CustomImageImportPreviewRow(int Index, string Name, string Architecture, string Version, string Languages);

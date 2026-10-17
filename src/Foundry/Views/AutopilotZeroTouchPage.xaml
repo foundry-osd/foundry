@@ -97,37 +97,38 @@
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
                         ContentAlignment="Vertical"
-                        Description="{x:Bind ViewModel.CertificateActionsDescription, Mode=OneWay}"
-                        Header="{x:Bind ViewModel.CertificateActionsLabel, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <ComboBox
-                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                DisplayMemberPath="DisplayName"
-                                ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}"
-                                SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
-                            <Button
-                                MinWidth="{StaticResource FoundryCompactActionMinWidth}"
-                                VerticalAlignment="Bottom"
-                                Command="{x:Bind ViewModel.CreateCertificateCommand}"
-                                Content="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}" />
-                            <Button
-                                MinWidth="{StaticResource FoundryCompactActionMinWidth}"
-                                VerticalAlignment="Bottom"
-                                Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
-                                Content="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
-                        </StackPanel>
-                    </wct:SettingsCard>
-
-                    <wct:SettingsCard
-                        HorizontalContentAlignment="Stretch"
-                        ContentAlignment="Vertical"
                         Description="{x:Bind ViewModel.ProvisionedCertificatesDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.ProvisionedCertificatesLabel, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <StackPanel Spacing="{ThemeResource FoundrySpace8}">
+                            <ScrollViewer
+                                HorizontalScrollBarVisibility="Auto"
+                                HorizontalScrollMode="Enabled"
+                                IsTabStop="False"
+                                VerticalScrollBarVisibility="Disabled"
+                                VerticalScrollMode="Disabled">
+                                <CommandBar
+                                    HorizontalAlignment="Left"
+                                    DefaultLabelPosition="Right"
+                                    IsDynamicOverflowEnabled="False"
+                                    OverflowButtonVisibility="Collapsed">
+                                    <CommandBar.PrimaryCommands>
+                                        <AppBarButton
+                                            Icon="Add"
+                                            IsEnabled="{x:Bind ViewModel.CanCreateCertificates, Mode=OneWay}"
+                                            Label="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}">
+                                            <AppBarButton.Flyout>
+                                                <!--  Items are built when the menu opens so their validity labels follow the UI language.  -->
+                                                <MenuFlyout Opening="OnCertificateValidityMenuOpening" />
+                                            </AppBarButton.Flyout>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
+                                            Icon="Delete"
+                                            Label="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
+                                    </CommandBar.PrimaryCommands>
+                                </CommandBar>
+                            </ScrollViewer>
                             <TextBlock
                                 Text="{x:Bind ViewModel.EmptyCertificatesText, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"

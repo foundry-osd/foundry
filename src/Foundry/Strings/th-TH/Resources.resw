@@ -265,11 +265,8 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>บันทึกประจำรุ่น</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>นำเข้าโปรไฟล์ JSON ในเครื่องหรือดาวน์โหลดจาก Intune</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>การกระทำของโปรไฟล์</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>ค่าเริ่มต้น</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>โฟลเดอร์</value>
@@ -282,12 +279,6 @@
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>แหล่งที่มา</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>โปรไฟล์ถูกจัดฉากตามค่าเริ่มต้นในรูปภาพ Windows ที่ใช้</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>โปรไฟล์เริ่มต้น</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>ดาวน์โหลดจากผู้เช่า</value>
@@ -361,12 +352,6 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>รหัสประจำตัวใบรับรอง PFX ไม่ตรงกับใบรับรองการลงทะเบียนแอปที่เลือก</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>สร้างหรือลบข้อมูลรับรองใบรับรองการลงทะเบียนแอป</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>การดำเนินการของใบรับรอง</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
     <value>Foundry ไม่สามารถสร้างใบรับรองการลงทะเบียนแอปได้ {0}</value>
   </data>
@@ -414,6 +399,18 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>รอยนิ้วหัวแม่มือ</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>ใช้ได้ 12 เดือน</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>ใช้ได้ 1 เดือน</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>ใช้ได้ 3 เดือน</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>ใช้ได้ 6 เดือน</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>ไม่มีการจัดเตรียมใบรับรอง</value>
@@ -577,8 +574,8 @@
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>เปลี่ยนโหมดการจัดสรรหรือไม่</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>โปรไฟล์ Autopilot แบบออฟไลน์พร้อมใช้งานสำหรับการจัดเตรียมโปรไฟล์ JSON</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>ใช่</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>ไม่มีการนำเข้าโปรไฟล์ Autopilot</value>
@@ -606,6 +603,9 @@
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>ลบโปรไฟล์ Autopilot ออกไหม</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>ตั้งเป็นค่าเริ่มต้น</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>ลงชื่อเข้าใช้เบราว์เซอร์ให้เสร็จสิ้นเพื่อดาวน์โหลดโปรไฟล์ Autopilot</value>

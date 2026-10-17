@@ -2,6 +2,7 @@
 <ContentDialog x:Class="Foundry.Views.CustomImageImportDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tv="using:WinUI.TableView"
     Title="{x:Bind ViewModel.Title, Mode=OneWay}"
     CloseButtonClick="OnCloseButtonClick"
     CloseButtonStyle="{ThemeResource DefaultButtonStyle}"
@@ -18,8 +19,7 @@
     <ScrollViewer
         MaxHeight="{ThemeResource FoundryDialogMaxHeight}"
         VerticalScrollBarVisibility="Auto">
-        <StackPanel
-            Width="{ThemeResource FoundryWideInputMinWidth}"
+        <StackPanel x:Name="DialogContentRoot"
             Spacing="{ThemeResource FoundryContentGroupSpacing}">
             <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                 <Grid.ColumnDefinitions>
@@ -59,21 +59,57 @@
                     TextWrapping="WrapWholeWords"
                     Visibility="{x:Bind ViewModel.HasNameValidation, Mode=OneWay}" />
             </StackPanel>
-            <Border
-                Padding="{ThemeResource FoundryDefaultContentPadding}"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                CornerRadius="{ThemeResource FoundryCardCornerRadius}"
+            <StackPanel
+                Spacing="{ThemeResource FoundryTextGroupSpacing}"
                 Visibility="{x:Bind ViewModel.HasPreview, Mode=OneWay}">
-                <ScrollViewer
-                    MaxHeight="{ThemeResource FoundryTableMaxHeight}"
-                    VerticalScrollBarVisibility="Auto">
+                <StackPanel
+                    Orientation="Horizontal"
+                    Spacing="{ThemeResource FoundryContentGroupSpacing}">
                     <TextBlock
-                        IsTextSelectionEnabled="True"
-                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.PreviewSummary, Mode=OneWay}"
-                        TextWrapping="WrapWholeWords" />
-                </ScrollViewer>
-            </Border>
+                        Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                        Text="{x:Bind ViewModel.PreviewSizeText, Mode=OneWay}" />
+                    <TextBlock
+                        Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                        Text="{x:Bind ViewModel.PreviewIndexCountText, Mode=OneWay}" />
+                </StackPanel>
+                <tv:TableView
+                    MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                    AutoGenerateColumns="False"
+                    AutomationProperties.Name="{x:Bind ViewModel.IndexesLabel, Mode=OneWay}"
+                    CanFilterColumns="False"
+                    CanReorderColumns="False"
+                    CanResizeColumns="True"
+                    CanSortColumns="False"
+                    CornerButtonMode="None"
+                    HeadersVisibility="Columns"
+                    IsReadOnly="True"
+                    ItemsSource="{x:Bind ViewModel.PreviewIndexes, Mode=OneWay}"
+                    SelectionMode="None"
+                    ShowExportOptions="False">
+                    <tv:TableView.Columns>
+                        <tv:TableViewTextColumn
+                            Width="Auto"
+                            Binding="{Binding Index}"
+                            Header="{x:Bind ViewModel.IndexNumberLabel, Mode=OneWay}" />
+                        <tv:TableViewTextColumn
+                            Width="3*"
+                            Binding="{Binding Name}"
+                            Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}" />
+                        <tv:TableViewTextColumn
+                            Width="*"
+                            Binding="{Binding Architecture}"
+                            Header="{x:Bind ViewModel.ArchitectureLabel, Mode=OneWay}" />
+                        <tv:TableViewTextColumn
+                            Width="2*"
+                            Binding="{Binding Version}"
+                            Header="{x:Bind ViewModel.VersionLabel, Mode=OneWay}" />
+                        <tv:TableViewTextColumn
+                            Width="2*"
+                            Binding="{Binding Languages}"
+                            Header="{x:Bind ViewModel.LanguagesLabel, Mode=OneWay}" />
+                    </tv:TableView.Columns>
+                </tv:TableView>
+            </StackPanel>
             <ProgressBar
                 IsIndeterminate="{x:Bind ViewModel.IsIndeterminate, Mode=OneWay}"
                 Maximum="100"

@@ -265,11 +265,8 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>הערות שחרור</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>ייבא פרופילי JSON מקומיים או הורד אותם מ-Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>פעולות פרופיל</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>ברירת מחדל</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>תיקיה</value>
@@ -282,12 +279,6 @@
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>מקור</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>פרופיל מבוים כברירת מחדל בתמונה Windows שהוחלה.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>פרופיל ברירת מחדל</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>הורד מהדייר</value>
@@ -361,12 +352,6 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>טביעת האצבע של אישור PFX אינה תואמת לאישור רישום האפליקציה שנבחר.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>צור או הסר אישורי אישור רישום אפליקציה.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>פעולות תעודה</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
     <value>Foundry לא הצליח ליצור את אישור הרישום של האפליקציה. {0}</value>
   </data>
@@ -414,6 +399,18 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>טביעת אצבע</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>בתוקף ל-12 חודשים</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>בתוקף לחודש אחד</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>בתוקף ל-3 חודשים</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>בתוקף ל-6 חודשים</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>אין תעודות מסופקות.</value>
@@ -577,8 +574,8 @@
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>לשנות את מצב ההקצאה?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>פרופילים לא מקוונים של Autopilot זמינים להקצאת פרופיל JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>כן</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>לא יובאו פרופילים Autopilot.</value>
@@ -606,6 +603,9 @@
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>להסיר פרופילים של Autopilot?</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>הגדרה כברירת מחדל</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>השלם את הכניסה בדפדפן כדי להוריד פרופילים של Autopilot.</value>

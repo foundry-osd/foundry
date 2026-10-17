@@ -265,11 +265,8 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Примітки до випуску</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Імпортуйте локальні профілі JSON або завантажте їх із Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Дії в профілі</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>За замовчуванням</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Папка</value>
@@ -282,12 +279,6 @@
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Джерело</value>
-  </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Профіль, розміщений за замовчуванням у застосованому зображенні Windows.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Профіль за замовчуванням</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Завантажити з орендаря</value>
@@ -361,12 +352,6 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Відбиток сертифіката PFX не відповідає вибраному сертифікату реєстрації програми.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Створення або видалення облікових даних сертифіката реєстрації програми.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Сертифікаційні дії</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
     <value>Foundry не вдалося створити сертифікат реєстрації програми. {0}</value>
   </data>
@@ -414,6 +399,18 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Відбиток великого пальця</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Дійсний 12 місяців</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Дійсний 1 місяць</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Дійсний 3 місяці</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Дійсний 6 місяців</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Сертифікати не надаються.</value>
@@ -577,8 +574,8 @@
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Змінити режим ініціалізації?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Офлайн-профілі Autopilot доступні для надання профілю JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Так</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Немає профілів Autopilot.</value>
@@ -606,6 +603,9 @@
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Видалити профілі Autopilot?</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Установити за замовчуванням</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Увійдіть у веб-переглядач, щоб завантажити профілі Autopilot.</value>
