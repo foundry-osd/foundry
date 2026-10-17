@@ -453,6 +453,9 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Hiba részleteinek megtekintése</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Egyéb nyelvek</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arab (Szaúd-Arábia)</value>
   </data>
@@ -587,6 +590,12 @@ Folytatja a telepítést?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Hibakeresés</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Billentyűzet</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Billentyűzet ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Nyelv</value>

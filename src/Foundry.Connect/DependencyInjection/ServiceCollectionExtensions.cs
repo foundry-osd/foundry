@@ -15,6 +15,7 @@ using Foundry.Connect.Services.Runtime;
 using Foundry.Connect.Services.Theme;
 using Foundry.Connect.ViewModels;
 using Foundry.Telemetry;
+using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Runtime;
 using Microsoft.Extensions.DependencyInjection;
@@ -69,6 +70,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkBootstrapService, NetworkBootstrapService>();
         services.AddSingleton<INetworkStatusService, NetworkStatusService>();
         services.AddSingleton<IThemeService, ThemeService>();
+        services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher(KeyboardLayoutHandoff.DefaultPath));
 
         return services;
     }

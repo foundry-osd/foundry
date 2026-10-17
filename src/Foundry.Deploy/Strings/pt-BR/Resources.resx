@@ -453,6 +453,9 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Exibir detalhes do erro</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Outros idiomas</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Árabe (Arábia Saudita)</value>
   </data>
@@ -587,6 +590,12 @@ Continuar com a implantação?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Depurar</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Teclado</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Teclado ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Idioma</value>

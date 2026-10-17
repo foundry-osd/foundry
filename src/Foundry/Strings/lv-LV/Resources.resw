@@ -2110,6 +2110,21 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Windows PE laika josla</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Noklusējums</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Tastatūra, kas tiek izmantota WinPE sāknēšanas vidē. Noklusējums atbilst WinPE sāknēšanas valodai.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE tastatūras izkārtojums</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Tastatūras valoda</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Izkārtojums</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Pirms WinPE sāknēšanas valodas atlases instalējiet Windows ADK un Windows PE papildinājumu.</value>
   </data>
@@ -3353,6 +3368,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Atlasītais USB disks ir pārāk mazs. Izmantojiet USB disku, kura ietilpība ir vismaz 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Atlasītais WinPE tastatūras izkārtojums šajā datorā nav instalēts.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Atlasītā WinPE sāknēšanas valoda atlasītajai arhitektūrai nav pieejama.</value>

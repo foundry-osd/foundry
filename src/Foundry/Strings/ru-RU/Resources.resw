@@ -2110,6 +2110,21 @@
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Часовой пояс Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Клавиатура, используемая в среде загрузки WinPE. По умолчанию соответствует языку загрузки WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>Раскладка клавиатуры WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Язык клавиатуры</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Раскладка</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Установите Windows ADK и надстройку Windows PE перед выбором языка загрузки WinPE.</value>
   </data>
@@ -3353,6 +3368,9 @@
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Выбранный USB-накопитель слишком мал. Используйте USB-накопитель объемом не менее 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Выбранная раскладка клавиатуры WinPE не установлена на этом компьютере.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Выбранный язык загрузки WinPE недоступен для выбранной архитектуры.</value>

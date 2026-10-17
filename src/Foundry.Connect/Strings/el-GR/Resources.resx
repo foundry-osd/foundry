@@ -155,6 +155,9 @@
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>Αναμονή για DHCP ή στατική διαμόρφωση δικτύου</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Άλλες γλώσσες</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Αραβικά (Σαουδική Αραβία)</value>
   </data>
@@ -275,6 +278,12 @@
   <data name="Menu.Debug" xml:space="preserve">
     <value>Εντοπισμός σφαλμάτων</value>
   </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Πληκτρολόγιο</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Πληκτρολόγιο ({0})</value>
+  </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Γλώσσα</value>
   </data>
@@ -310,6 +319,9 @@
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Σύστημα</value>
+  </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Ανοίξτε το αρχείο καταγραφής</value>
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Κατάσταση ανανέωσης</value>

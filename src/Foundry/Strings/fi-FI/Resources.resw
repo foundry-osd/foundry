@@ -2110,6 +2110,21 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Windows PE:n aikavyöhyke</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Oletus</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>WinPE käynnistysympäristössä käytettävä näppäimistö. Oletus noudattaa WinPE käynnistyskieltä.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE-näppäimistöasettelu</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Näppäimistön kieli</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Asettelu</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Asenna Windows ADK ja Windows PE -lisäosa ennen kuin valitset WinPE käynnistyskielen.</value>
   </data>
@@ -3353,6 +3368,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Valittu USB-asema on liian pieni. Käytä vähintään 16 GB:n USB-asemaa.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Valittua WinPE-näppäimistöasettelua ei ole asennettu tähän tietokoneeseen.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Valittu WinPE käynnistyskieli ei ole käytettävissä valitulle arkkitehtuurille.</value>

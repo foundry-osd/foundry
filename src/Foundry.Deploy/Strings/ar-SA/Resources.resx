@@ -453,6 +453,9 @@
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>عرض تفاصيل الخطأ</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>لغات أخرى</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>العربية (المملكة العربية السعودية)</value>
   </data>
@@ -587,6 +590,12 @@
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_تصحيح</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>لوحة المفاتيح</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>لوحة المفاتيح ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_اللغة</value>

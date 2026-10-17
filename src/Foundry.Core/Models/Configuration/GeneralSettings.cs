@@ -32,6 +32,11 @@ public sealed record GeneralSettings
     public string? WinPeLanguage { get; init; }
 
     /// <summary>
+    /// Gets the optional keyboard layout identifier (KLID) applied to the boot image. Null follows the WinPE language default.
+    /// </summary>
+    public string? WinPeKeyboardLayoutId { get; init; }
+
+    /// <summary>
     /// Gets a value indicating whether generated media should use the CA 2023 boot signature.
     /// </summary>
     public bool UseCa2023 { get; init; } = true;

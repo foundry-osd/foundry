@@ -453,6 +453,9 @@ Action : vérifiez les attributs du disque et réessayez le déploiement.</value
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Afficher les détails de l'erreur</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Autres langues</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabe (Arabie saoudite)</value>
   </data>
@@ -587,6 +590,12 @@ Continuer le déploiement?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Débogage</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Clavier</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Clavier ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Langue</value>

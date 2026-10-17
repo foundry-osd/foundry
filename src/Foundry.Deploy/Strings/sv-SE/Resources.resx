@@ -453,6 +453,9 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Visa felinformation</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Andra språk</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabiska (Saudiarabien)</value>
   </data>
@@ -587,6 +590,12 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Felsök</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Tangentbord</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Tangentbord ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Språk</value>

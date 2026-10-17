@@ -453,6 +453,9 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Visualizza dettagli errore</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Altre lingue</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabo (Arabia Saudita)</value>
   </data>
@@ -587,6 +590,12 @@ Continuare con la distribuzione?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Tastiera</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Tastiera ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Lingua</value>

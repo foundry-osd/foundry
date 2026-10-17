@@ -142,6 +142,10 @@ public sealed partial class GeneralConfigurationPage : Page
 
         WinPeLanguageCard.Header = localizationService.GetString("StartMedia.WinPeLanguage.Header");
         WinPeLanguageCard.Description = localizationService.GetString("StartMedia.WinPeLanguage.Description");
+        WinPeKeyboardCard.Header = localizationService.GetString("GeneralConfiguration.WinPeKeyboard.Header");
+        WinPeKeyboardCard.Description = localizationService.GetString("GeneralConfiguration.WinPeKeyboard.Description");
+        KeyboardLanguageComboBox.Header = localizationService.GetString("GeneralConfiguration.WinPeKeyboard.Language");
+        KeyboardLayoutComboBox.Header = localizationService.GetString("GeneralConfiguration.WinPeKeyboard.Layout");
         TimeZoneCard.Header = localizationService.GetString("GeneralConfiguration.TimeZone.Header");
         TimeZoneCard.Description = localizationService.GetString("GeneralConfiguration.TimeZone.Description");
         DeploymentCompletionCard.Header = localizationService.GetString("GeneralConfiguration.Completion.Header");

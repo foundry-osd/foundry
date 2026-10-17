@@ -2110,6 +2110,21 @@ Licencováno pod licencí MIT.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Časové pásmo Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Výchozí</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Klávesnice používaná ve spouštěcím prostředí WinPE. Výchozí hodnota se řídí spouštěcím jazykem WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>Rozložení klávesnice WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Jazyk klávesnice</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Rozložení</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Před výběrem spouštěcího jazyka WinPE nainstalujte Windows ADK a doplněk Windows PE.</value>
   </data>
@@ -3353,6 +3368,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Vybraná jednotka USB je příliš malá. Použijte jednotku USB s kapacitou alespoň 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Vybrané rozložení klávesnice WinPE není v tomto počítači nainstalováno.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Vybraný spouštěcí jazyk WinPE není pro vybranou architekturu dostupný.</value>

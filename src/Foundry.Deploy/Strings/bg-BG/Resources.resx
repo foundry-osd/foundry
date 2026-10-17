@@ -453,6 +453,9 @@
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Преглед на подробностите за грешката</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Други езици</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>арабски (Саудитска Арабия)</value>
   </data>
@@ -587,6 +590,12 @@
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Отстраняване на грешки</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Клавиатура</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Клавиатура ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Език</value>

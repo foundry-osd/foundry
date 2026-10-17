@@ -453,6 +453,9 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Näytä virheen tiedot</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Muut kielet</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabia (Saudi-Arabia)</value>
   </data>
@@ -587,6 +590,12 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Virheenkorjaus</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Näppäimistö</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Näppäimistö ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Kieli</value>

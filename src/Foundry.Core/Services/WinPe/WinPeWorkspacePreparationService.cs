@@ -82,6 +82,7 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
                 Tools = tools,
                 BootImageSource = options.BootImageSource,
                 WinPeLanguage = options.WinPeLanguage,
+                WinPeKeyboardLayout = options.WinPeKeyboardLayout,
                 DriverPackagePaths = drivers.Value!,
                 AssetProvisioning = options.AssetProvisioning,
                 RuntimePayloadProvisioning = options.RuntimePayloadProvisioning,

@@ -453,6 +453,9 @@ ErrorCode=0x80070005
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>檢視錯誤詳細資料</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>其他語言</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>阿拉伯文（沙烏地阿拉伯）</value>
   </data>
@@ -587,6 +590,12 @@ ErrorCode=0x80070005
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>偵錯(_D)</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>鍵盤</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>鍵盤 ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>語言(_L)</value>

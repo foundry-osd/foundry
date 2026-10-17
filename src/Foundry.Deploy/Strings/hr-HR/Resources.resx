@@ -453,6 +453,9 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Prikaži pojedinosti o pogrešci</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Ostali jezici</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arapski (Saudijska Arabija)</value>
   </data>
@@ -587,6 +590,12 @@ Nastaviti s implementacijom?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Otklanjanje pogrešaka</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Tipkovnica</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Tipkovnica ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jezik</value>

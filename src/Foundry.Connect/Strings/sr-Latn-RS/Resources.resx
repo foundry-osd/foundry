@@ -155,6 +155,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>Čeka se DHCP ili statička mrežna konfiguracija</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Drugi jezici</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arapski (Saudijska Arabija)</value>
   </data>
@@ -275,6 +278,12 @@ Licencirano pod MIT licencom.</value>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Otklanjanje grešaka</value>
   </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Tastatura</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Tastatura ({0})</value>
+  </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Jezik</value>
   </data>
@@ -310,6 +319,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>
+  </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Otvorite datoteku evidencije</value>
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Osveži status</value>

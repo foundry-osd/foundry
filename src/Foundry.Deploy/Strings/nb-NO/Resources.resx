@@ -453,6 +453,9 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Vis feildetaljer</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Andre språk</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabisk (Saudi-Arabia)</value>
   </data>
@@ -587,6 +590,12 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Feilsøk</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Tastatur</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Tastatur ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Språk</value>

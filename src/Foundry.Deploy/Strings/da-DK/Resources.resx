@@ -453,6 +453,9 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Vis fejldetaljer</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Andre sprog</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabisk (Saudi-Arabien)</value>
   </data>
@@ -587,6 +590,12 @@ Vil du fortsætte med implementeringen?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Fejlretning</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Tastatur</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Tastatur ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Sprog</value>

@@ -10,6 +10,7 @@ public enum MediaPreflightBlockingReason
     InvalidIsoPath,
     MissingWinPeLanguage,
     WinPeLanguageUnavailable,
+    WinPeKeyboardLayoutUnavailable,
     NetworkConfigurationNotReady,
     DeployConfigurationNotReady,
     ConnectProvisioningNotReady,

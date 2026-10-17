@@ -453,6 +453,9 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Ver detalles del error</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Otros idiomas</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Árabe (Arabia Saudita)</value>
   </data>
@@ -587,6 +590,12 @@ Sistema operativo: {4}
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Depurar</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Teclado</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Teclado ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Idioma</value>

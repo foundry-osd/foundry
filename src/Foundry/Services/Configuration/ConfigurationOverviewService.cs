@@ -6,6 +6,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
+using Foundry.Utilities.Globalization;
 using Foundry.Utilities.IO;
 
 namespace Foundry.Services.Configuration;
@@ -116,8 +117,15 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
                 Tools = toolsResult.Value,
                 Architecture = settings.Architecture
             });
-        return !languagesResult.IsSuccess || languagesResult.Value is null || languagesResult.Value.Count == 0 ||
+        bool isLanguageAvailable = !languagesResult.IsSuccess || languagesResult.Value is null || languagesResult.Value.Count == 0 ||
             languagesResult.Value.Contains(settings.WinPeLanguage, StringComparer.OrdinalIgnoreCase);
+        return isLanguageAvailable && IsWinPeKeyboardLayoutInstalled(settings.WinPeKeyboardLayoutId);
+    }
+
+    // A layout chosen on another computer may be missing here; media creation blocks on it, so the overview flags it too.
+    private static bool IsWinPeKeyboardLayoutInstalled(string? layoutId)
+    {
+        return !KeyboardLayoutSelection.IsUnavailable(KeyboardLayoutCatalog.GetInstalled(), layoutId);
     }
 
     private static bool IsCustomDriverConfigurationReady(GeneralSettings settings)

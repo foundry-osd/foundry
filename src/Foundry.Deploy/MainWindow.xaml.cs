@@ -27,6 +27,7 @@ public partial class MainWindow : Window
         DataContext = viewModel;
         _viewModel.Session.PropertyChanged += OnSessionPropertyChanged;
         Loaded += OnLoaded;
+        Activated += OnFirstActivated;
         ContentRendered += (_, _) => _rendered.TrySetResult();
     }
 
@@ -52,6 +53,12 @@ public partial class MainWindow : Window
         _viewModel.Dispose();
 
         base.OnClosed(e);
+    }
+
+    private void OnFirstActivated(object? sender, EventArgs e)
+    {
+        Activated -= OnFirstActivated;
+        _viewModel.RestoreKeyboardLayoutHandoff();
     }
 
     private async void OnLoaded(object sender, RoutedEventArgs e)

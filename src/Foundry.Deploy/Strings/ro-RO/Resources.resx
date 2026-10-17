@@ -453,6 +453,9 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>Vedeți detaliile erorii</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Alte limbi</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabă (Arabia Saudită)</value>
   </data>
@@ -587,6 +590,12 @@ Continuați cu implementarea?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Depanare</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Tastatură</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Tastatură ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Limba</value>
