@@ -98,10 +98,16 @@
     <value>Можливість створення медіа</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Операцію Windows ADK скасовано.</value>
+    <value>Інсталяцію скасовано.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Інсталяцію Windows ADK скасовано</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>Операція ADK завершена</value>
+    <value>Windows ADK і надбудова Windows PE готові. Тепер можна створити завантажувальний носій.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK інстальовано</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Використання кешованого інсталятора ADK</value>
@@ -113,10 +119,16 @@
     <value>Завантаження інсталятора ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>Помилка операції ADK</value>
+    <value>Інсталяцію не завершено. Докладні відомості див. у журналі.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Не вдалося інсталювати Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Встановлення Windows ADK</value>
+    <value>Підготовка до інсталяції…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Інсталяція Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Встановлення інструментів розгортання Windows ADK</value>
@@ -127,6 +139,9 @@
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Інсталяцію завершено. Перегляньте решту вимог ADK.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK потребує уваги</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Видалення існуючого Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Підготовка інсталяції Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Оновлення Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Перевірка встановлення ADK</value>
@@ -286,8 +304,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Орендар не повернув профілі Autopilot.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Помилка завантаження профілю Autopilot: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Не вдалося завантажити профілі Autopilot з орендаря.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Перевірте підключення до мережі та переконайтеся, що ваш обліковий запис має дозвіл на читання профілів Autopilot в Intune, а потім повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Помилка завантаження Autopilot</value>
@@ -352,8 +373,11 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Відбиток сертифіката PFX не відповідає вибраному сертифікату реєстрації програми.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не вдалося створити сертифікат реєстрації програми. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry не вдалося створити сертифікат реєстрації програми.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Переконайтеся, що у вибрану папку можна записувати і що ваш обліковий запис має дозвіл на керування реєстрацією програми, а потім повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Не вдалося створити сертифікат</value>
@@ -388,8 +412,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>Сертифікат PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не вдалося видалити вибраний сертифікат реєстрації програми. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry не вдалося видалити вибраний сертифікат реєстрації програми.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Не вдалося видалити сертифікат</value>
@@ -442,8 +466,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch завантаження апаратного хешу</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не вдалося налаштувати реєстрацію програми Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry не вдалося налаштувати реєстрацію програми Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Помилка реєстрації орендаря</value>
@@ -494,16 +518,25 @@
     <value>Видалити сертифікат</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry видалить із реєстрації керованої програми лише вибраний сертифікат. Інші облікові дані програми буде збережено.</value>
+    <value>Вибраний сертифікат буде видалено з керованої реєстрації програми у вашому орендарі. Інші облікові дані програми буде збережено.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Видалити сертифікат</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Видалити вибраний сертифікат?</value>
+    <value>Видалити сертифікат з орендаря?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Цю дію не можна скасувати. Завантажувальні носії, що використовують видалений сертифікат, більше не зможуть завантажувати апаратні хеші.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry видалить лише {0} вибрані сертифікати з реєстрації керованої програми. Інші облікові дані програми буде збережено.</value>
+    <value>Вибрані сертифікати ({0}) буде видалено з керованої реєстрації програми у вашому орендарі. Інші облікові дані програми буде збережено.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Видалити сертифікати</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Видалити сертифікати з орендаря?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Підключено</value>
@@ -519,6 +552,9 @@
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID орендаря</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Перевірте підключення до мережі та переконайтеся, що ваш обліковий запис має дозвіл на керування реєстраціями програм в орендарі, а потім повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Не підключено</value>
@@ -545,7 +581,10 @@
     <value>Імпорт профілю</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Не вдалося імпортувати профіль Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Переконайтеся, що файл є дійсним файлом JSON профілю Autopilot, і повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Помилка імпорту Autopilot</value>
@@ -587,7 +626,7 @@
     <value>Видалити вибране</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Видалити "{0}" з імпортованих профілів Autopilot?</value>
+    <value>«{0}» буде видалено з профілів Autopilot у цій конфігурації.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Видалити профіль</value>
@@ -596,13 +635,16 @@
     <value>Видалити профіль Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Видалити {0} вибрані Autopilot профілі?</value>
+    <value>Вибрані профілі Autopilot ({0}) буде видалено з цієї конфігурації.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Видаліть профілі</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Видалити профілі Autopilot?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Щоб знову використати видалений профіль, імпортуйте його або повторно завантажте з орендаря.</value>
   </data>
   <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
     <value>Установити за замовчуванням</value>
@@ -612,9 +654,6 @@
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Увійдіть на Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Скасувати</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>ясно</value>
@@ -691,6 +730,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Оновити</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недоступний</value>
   </data>
@@ -702,9 +744,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Огляд</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Скасувати</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Імпорт скасовано</value>
@@ -793,17 +832,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Оновити</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Видалити цей образ із поточного профілю та видалити його локальну копію? В інших профілях, які посилаються на нього, образ відображатиметься як відсутній. Вихідні файли та наявні носії залишаться без змін.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Видалити образ</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>Образ {0} ({1}) буде вилучено з поточного профілю, а його локальну копію буде видалено.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Видалити</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Видалити користувацький образ?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>В інших профілях, які використовують цей образ, він відображатиметься як відсутній. Вихідний файл і вже створені носії не зміняться.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Редагувати</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Зберегти</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Установити типовий образ</value>
@@ -1831,8 +1876,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Необроблені журнали можуть містити облікові дані, ідентифікатори, шляхи, назви мереж та інші чутливі дані. Експортуйте їх лише за явним запитом від довіреної контактної особи служби підтримки.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Архів підтримки збережено в такому розташуванні:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Діагностику експортовано</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Відкрити папку</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry не вдалося відкрити документацію у вашому браузері. Замість цього використовуйте URL.</value>
@@ -2695,9 +2746,6 @@
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Стан вмісту</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Вміст для етапу після інсталяції перевірено.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Продовжувати в разі помилки</value>
   </data>
@@ -2827,9 +2875,6 @@
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Аргументи скрипту</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Підготовка вмісту для етапу після інсталяції.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Коди успішного завершення (через кому)</value>
   </data>
@@ -2853,6 +2898,15 @@
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Не вдалося видалити деякі старі збережені паролі або ключі доступу. Спробуйте ще раз, коли Диспетчер облікових даних Windows стане доступним.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Закрити без збереження</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Не вдалося зберегти останні зміни, тому їх буде втрачено.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Закрити без збереження налаштувань?</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Підтвердьте пароль</value>
@@ -2890,8 +2944,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Видалити з цього комп’ютера</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Також видалити для всіх</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Видалити для всіх</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Видалити для всіх?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Видалити ці спільні налаштування для всіх? Усім, хто має несинхронізовані зміни, потрібно створити копію своїх налаштувань, щоб зберегти їх.</value>
@@ -2931,6 +2994,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Видалити збережені паролі й дані доступу</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Очистити</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Видалити збережені паролі, конфіденційні файли, збережені Foundry, і доступ до синхронізації цих налаштувань на цьому комп’ютері? Для синхронізації потрібно буде додати відсутні дані та підключитися знову. Уже створені носії не зміняться.</value>
@@ -3052,7 +3118,13 @@
     <value>Використовуйте ту саму мережеву папку на всіх комп’ютерах. Вона має використовувати SMB 3 з обов’язковим шифруванням. Папки, синхронізовані з хмарою, не підтримуються.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Більше не запам’ятовувати паролі цієї конфігурації на цьому комп’ютері?</value>
+    <value>Foundry більше не зберігатиме паролі цієї конфігурації на цьому комп'ютері.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Не запам'ятовувати</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Більше не запам'ятовувати паролі?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Синхронізувати</value>
@@ -3108,6 +3180,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Перевірте обов’язкові поля. Якщо потрібна мережева папка, укажіть шлях на зразок \\server\share\folder. Якщо ви вводите пароль файлу двічі, переконайтеся, що обидва значення збігаються.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не вдалося зберегти параметри проксі-сервера. Повторіть спробу. Докладні відомості див. у журналі.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Параметри проксі-сервера не застосовано</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Проксі-сервер відхилив вхід. Перевірте параметри автентифікації проксі-сервера та повторіть спробу.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD не вдалося підключитися до служб GitHub і Microsoft із цими параметрами. Перевірте адресу й порт проксі-сервера, а також підключення до мережі. Докладні відомості див. у журналі.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3126,8 +3210,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Введіть адресу проксі-сервера.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Введіть дійсну адресу проксі-сервера HTTP або HTTPS, наприклад proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Введіть номер порту від 1 до 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3258,11 +3351,14 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Оновити додаток</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Операція завершена</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Зупинити операцію</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Виконується операція</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Виберіть «Зупинити операцію», щоб підтвердити. Спочатку буде завершено поточний крок із диском або образом.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Минуло часу: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Виконується безпечне зупинення. Перш ніж завершиться очищення, може знадобитися дочекатися завершення поточної операції з диском або образом.</value>
@@ -3333,6 +3429,12 @@
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot використовує непідтримуваний режим ініціалізації.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Перш ніж створювати носій, усуньте такі проблеми:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Не вдається почати створення носія. Перевірте елементи готовності на сторінці «Старт».</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>Доповнення ADK або WinPE не готове.</value>
   </data>
@@ -3380,12 +3482,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Вибрана мова завантаження WinPE недоступна для вибраної архітектури.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Стандартний WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>Зображення WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>Б</value>
@@ -3468,23 +3564,8 @@
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Архітектура</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Джерело завантажувального образу</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Ініціалізація підключення</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Конфігурація розгортання</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Водії</value>
@@ -3492,23 +3573,8 @@
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>режим формату USB</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>вихідний шлях ISO</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Конфігурація мережі</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB стиль розділу</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Медійні секрети</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Режим підпису</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB ціль</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE мова завантаження</value>
@@ -3524,6 +3590,9 @@
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Створення носія доступне, коли всі перевірки готовності пройдено.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Щоб почати, виберіть нижче вихід ISO або USB.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Повний формат</value>
@@ -3553,52 +3622,49 @@
     <value>Створення облікового запису OOBE пропущено</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Застосування мови та додаткових компонентів.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Залежності завантажувального образу готові.</value>
+    <value>Додавання мови та додаткових компонентів…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Створення робочої області WinPE.</value>
+    <value>Створення робочої області WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} з {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Створення носія скасовано.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Перевірка безпеки цілі USB.</value>
+    <value>Перевірка можливості безпечно стерти USB-накопичувач…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Очищення робочої області WinPE.</value>
+    <value>Очищення файлів попереднього запуску…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Очищення таблиці розділів USB.</value>
+    <value>Стирання USB-накопичувача…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Внесення змін до образу завантаження.</value>
+    <value>Збереження завантажувального образу…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Остаточне створення медіафайлів завершено.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Копіювання користувацьких образів Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Копіювання вмісту для етапу після інсталяції…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Копіювання медіа WinPE на USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Створення носіїв ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Створення носіїв USB.</value>
+    <value>Копіювання файлів WinPE на USB-накопичувач…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Створення BOOT розділу.</value>
+    <value>Створення розділу BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Створення розділу кешу.</value>
+    <value>Створення розділу кешу…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Власні драйвери займають щонайменше {0}; допустимий максимум — {1}. Виберіть лише мережеві драйвери та драйвери сховища, потрібні для Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Налаштування образу завантаження.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>Ідентифікаційні дані USB-накопичувача відсутні, неоднозначні або змінилися. Оновіть список USB-накопичувачів і виберіть накопичувач повторно.</value>
@@ -3607,82 +3673,64 @@
     <value>Вибраний USB-накопичувач більше не можна безпечно змінювати. Оновіть список USB-накопичувачів і виберіть інший USB-накопичувач.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Застосування міжнародних налаштувань за допомогою DISM.</value>
+    <value>Застосування мовних параметрів…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Застосування мовного пакета за допомогою DISM.</value>
+    <value>Додавання мовного пакета…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Застосування додаткових компонентів за допомогою DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Внесення змін до зображення за допомогою DISM.</value>
+    <value>Додавання додаткових компонентів…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Скасування змін підключеного зображення за допомогою DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Експорт Windows зображення за допомогою DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Введення драйверів за допомогою DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Зображення монтування за допомогою DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Визначення індексу образу Windows за допомогою DISM.</value>
+    <value>Відключення образу, що залишився підключеним після попереднього запуску…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Завантаження вмісту.</value>
+    <value>Завантаження</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Завантаження пакета драйверів</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Завантаження пакета драйверів {2} {0} з {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Завантаження компонентів розгортання {0}.</value>
+    <value>Завантаження {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Завантаження вихідного пакета Windows.</value>
+    <value>Завантаження вихідного пакета Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Оцінка політики підпису завантаження.</value>
+    <value>Перевірка підтримки підпису завантаження…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Експорт образу Windows для підготовки завантажувального образу.</value>
+    <value>Видобування образу Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Остаточне створення медіа не вдалося.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Збій на кроці {0} з {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Завершення виведення ISO.</value>
+    <value>Збереження ISO-файлу…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Форматування BOOT розділу.</value>
+    <value>Форматування розділу BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Форматування розділу кешу.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Налаштування образу завантаження завершено.</value>
+    <value>Форматування розділу кешу…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Ініціалізація таблиці розділів USB.</value>
+    <value>Створення таблиці розділів…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Введення драйверів у завантажувальний образ.</value>
+    <value>Додавання драйверів до завантажувального образу…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Перевірка розмітки USB-носія.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO медіа завершено.</value>
+    <value>Читання розмітки USB-накопичувача…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry не вдалося замінити ISO-файл {0}. Можливо, файл підключено, приєднано до віртуальної машини, відкрито в іншій програмі або він доступний лише для читання. Відключіть або закрийте його чи виберіть інший шлях виводу, а потім повторіть спробу.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Носій ISO створено успішно.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO-файл збережено тут:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Розмір: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Недостатньо місця на диску для створення завантажувального образу. У розташуванні {2} потрібно щонайменше {0} вільного місця. Доступно: {1}. Звільніть місце та спробуйте ще раз.</value>
@@ -3691,73 +3739,148 @@
     <value>Не вдалося перевірити доступне місце на диску для створення завантажувального образу в розташуванні {0}. Переконайтеся, що розташування доступне, і спробуйте ще раз.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Монтаж завантажувального образу.</value>
+    <value>Відкриття завантажувального образу…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Монтування вихідного образу Windows.</value>
+    <value>Відкриття образу Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Відкрити папку</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Відкрити папку журналів</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Відкриття диска USB.</value>
+    <value>Відкриття USB-накопичувача…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Розбиття та форматування USB target.</value>
+    <value>Розбиття USB-накопичувача на розділи…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Копіювання файлів на USB-накопичувач</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Створення ISO-файлу</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Налаштування завантажувального образу</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Отримання драйверів</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Завершення</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Форматування USB-накопичувача</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Підготовка робочої області</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Оновлення USB-накопичувача</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Підготовка налаштування образу завантаження.</value>
+    <value>Підготовка завантажувального образу…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Підготовка компонентів Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Підготовка вихідного шляху ISO.</value>
+    <value>Підготовка вихідної папки ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Підготовка робочої області ISO.</value>
+    <value>Підготовка файлів ISO…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Підготовка вмісту для етапу після інсталяції…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Підготовка розділу кешу USB.</value>
+    <value>Підготовка розділу кешу…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Підготовка атрибутів диска USB.</value>
+    <value>Підготовка USB-накопичувача…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Підготовка вихідного пакета Windows.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Підготовка робочої області WinPE.</value>
+    <value>Отримання вихідного пакета Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Надання ресурсів завантаження Foundry.</value>
+    <value>Додавання файлів запуску Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Додавання компонентів розгортання Foundry.</value>
+    <value>Додавання компонентів Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Додавання компонентів Foundry до носія USB.</value>
+    <value>Додавання компонентів Foundry на USB-накопичувач…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Видалення тимчасових файлів…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Заміна завантажувального образу на WinRE.</value>
+    <value>Заміна завантажувального образу на Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Вирішення пакетів драйверів.</value>
+    <value>Визначення драйверів для додавання…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Визначення індексу образу Windows.</value>
+    <value>Вибір випуску Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Вирішення вихідного каталогу Windows.</value>
+    <value>Пошук вихідного пакета Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Запуск MakeWinPEMedia для ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Вибраний вихідний пакет Windows.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Докладні відомості див. у журналі.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Підготовка залежностей завантажувального образу.</value>
+    <value>Копіювання потрібних файлів з образу Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Крок {0} з {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Технічні відомості: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Створення ISO скасовано</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Не вдалося створити ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Створення ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO створено</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Створення USB-носія скасовано</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Не вдалося створити USB-носій</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Створення USB-носія</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB-носій створено</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Оновлення USB-носія скасовано</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Не вдалося оновити USB-носій</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Оновлення USB-носія</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB-носій оновлено</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Час очікування передавання минув. Перевірте з’єднання та спробуйте ще раз.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Оновлення USB-носія.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Створення носія зупинено через неочікувану помилку.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>Для розділу BOOT на USB потрібно приблизно {0}, але його місткість становить {1}. Видалення та форматування не виконувалися. Зменште обсяг налаштувань або драйверів чи створіть ISO.</value>
@@ -3768,35 +3891,35 @@
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Розмір файлу на завантажувальному носії становить {0}; FAT32 підтримує не більше ніж {1} на файл. Зменште розмір завантажувального образу або створіть ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>Розділ завантаження USB оновлено.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Можливо, з цього USB-накопичувача більше не вдасться запустити пристрій. Перш ніж використовувати його, створіть або оновіть його знову.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB медіа завершено.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB розділи відформатовано.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>Медіа USB створено успішно. Завантажувальний том: {0}. Обсяг кешу: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>Розділ завантаження USB успішно оновлено. Том завантаження: {0}. Том кешу: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Завантажувальний том: {0}. Том кешу: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Перевірка мети USB.</value>
+    <value>Перевірка USB-накопичувача…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Перевірка пакета драйверів {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Перевірка завантажувального носія USB.</value>
+    <value>Перевірка завантажувальних файлів на USB-накопичувачі…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Перевірка вихідного пакета Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows заблокувала доступ до файлів образу WinPE. Можливо, їх блокує програма безпеки або інший засіб. Додайте виняток для {0} у програмі безпеки, закрийте засоби, що підключають образи, перезавантажте комп’ютер і спробуйте ще раз. Докладні відомості див. у {1} та {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Записування ISO-файлу…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Перевірте готовність, виберіть вихід ISO або USB і запустіть створення носія.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>огляд</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Переглянути: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Готовий</value>
@@ -3827,9 +3950,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Предмети, які потребують уваги:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Усе одно створити</value>
@@ -3883,6 +4003,15 @@
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE мова завантаження</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Пакети: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Потребує уваги: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Потребує уваги: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>За замовчуванням</value>
@@ -4085,20 +4214,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не перевірено</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Не вдалося застосувати оновлення: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не вдалося запустити оновлення. Спробуйте застосувати його ще раз. Докладні відомості див. у журналі.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не вдалося перевірити наявність оновлень. Перевірте підключення до мережі та повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Перевірка оновлень</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Не вдалося завантажити оновлення: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Не вдалося завантажити оновлення. Перевірте підключення до мережі та повторіть спробу. Докладні відомості див. у журналі.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Завантаження оновлення</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Не вдалося перевірити оновлення: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD оновлено.</value>
@@ -4124,11 +4253,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Не вдалося застосувати оновлення</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Не вдалося завантажити оновлення</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Не вдалося перевірити оновлення</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>В актуальному стані</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Оновлення готове до інсталяції</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Перевірку оновлення пропущено</value>

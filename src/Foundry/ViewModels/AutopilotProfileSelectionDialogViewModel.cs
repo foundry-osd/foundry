@@ -116,7 +116,7 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Observabl
         SelectAllText = localizationService.GetString("Autopilot.TenantPickerSelectAll");
         ClearText = localizationService.GetString("Autopilot.TenantPickerClear");
         ImportText = localizationService.GetString("Autopilot.TenantPickerImport");
-        CancelText = localizationService.GetString("Autopilot.TenantPickerCancel");
+        CancelText = localizationService.GetString("Common.Cancel");
         NameColumnHeader = localizationService.GetString("Autopilot.ColumnName");
         FolderColumnHeader = localizationService.GetString("Autopilot.ColumnFolder");
         RefreshSelectionState();

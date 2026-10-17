@@ -62,7 +62,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
         !DisplayName.Any(char.IsControl) && !existingNames.Contains(DisplayName.Trim());
     public string NameValidationMessage => existingNames.Contains(DisplayName.Trim()) ? Text("DuplicateName") : string.Empty;
     public string PreviewSizeText => preview is null ? string.Empty :
-        LabelValue(Text("SizeLabel"), $"{preview.Length / 1073741824d:F2} GB");
+        LabelValue(Text("SizeLabel"), ByteSizeFormatter.Format(localization, (ulong)preview.Length));
     public string PreviewIndexCountText => preview is null ? string.Empty :
         LabelValue(Text("IndexesLabel"), preview.Indexes.Count);
     public IReadOnlyList<CustomImageImportPreviewRow> PreviewIndexes => preview is null ? [] :
@@ -72,7 +72,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
             .ToArray();
     public CustomImageReference? Result { get; private set; }
     public string Title => Text("ImportLabel");
-    public string CancelLabel => Text("CancelLabel");
+    public string CancelLabel => localization.GetString("Common.Cancel");
     public string IndexNumberLabel => Text("IndexNumberLabel");
     public string ArchitectureLabel => Text("ArchitectureLabel");
     public string VersionLabel => Text("VersionLabel");

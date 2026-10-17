@@ -240,17 +240,18 @@ namespace Foundry.ViewModels
             {
                 ApplicationUpdateStatus.NoUpdate => localizationService.GetString("Update.Status.NoUpdate"),
                 ApplicationUpdateStatus.UpdateAvailable when result.FailureMessage is not null =>
-                    localizationService.FormatString("Update.Status.FailedFormat", result.FailureMessage),
+                    localizationService.GetString("Update.Status.CheckFailedMessage"),
                 ApplicationUpdateStatus.UpdateAvailable => localizationService.GetString("Update.Status.UpdateAvailableActionHint"),
                 ApplicationUpdateStatus.Checking => localizationService.GetString("Update.Status.Checking"),
                 ApplicationUpdateStatus.Downloading => DownloadProgressText,
+                ApplicationUpdateStatus.ReadyToApply when result.FailureMessage is not null =>
+                    localizationService.GetString("Update.Status.ApplyFailedMessage"),
                 ApplicationUpdateStatus.ReadyToApply => localizationService.GetString("Update.Footer.ReadyToolTip"),
-                ApplicationUpdateStatus.Failed when result.HasKnownUpdate => localizationService.FormatString("Update.Status.DownloadFailedFormat", result.FailureMessage ?? result.Message),
-                ApplicationUpdateStatus.Failed => localizationService.FormatString("Update.Status.FailedFormat", result.Message),
+                ApplicationUpdateStatus.Failed when result.HasKnownUpdate => localizationService.GetString("Update.Status.DownloadFailedMessage"),
+                ApplicationUpdateStatus.Failed => localizationService.GetString("Update.Status.CheckFailedMessage"),
                 ApplicationUpdateStatus.SkippedInDebug => localizationService.GetString("Update.Status.SkippedInDebug"),
                 ApplicationUpdateStatus.NotInstalled => localizationService.GetString("Update.Status.NotInstalled"),
-                ApplicationUpdateStatus.Ready => localizationService.GetString("Update.Status.Ready"),
-                _ => result.Message
+                _ => localizationService.GetString("Update.Status.Ready")
             };
         }
 
@@ -261,8 +262,9 @@ namespace Foundry.ViewModels
                 ApplicationUpdateStatus.NoUpdate => localizationService.GetString("Update.StatusTitle.NoUpdate"),
                 ApplicationUpdateStatus.Checking => localizationService.GetString("Update.Status.Checking"),
                 ApplicationUpdateStatus.Downloading => localizationService.GetString("Update.Status.Downloading"),
-                ApplicationUpdateStatus.ReadyToApply => localizationService.GetString("Update.Action.Apply"),
-                ApplicationUpdateStatus.Failed when result.HasKnownUpdate => localizationService.GetString("Update.Action.Retry"),
+                ApplicationUpdateStatus.ReadyToApply when result.FailureMessage is not null => localizationService.GetString("Update.StatusTitle.ApplyFailed"),
+                ApplicationUpdateStatus.ReadyToApply => localizationService.GetString("Update.StatusTitle.ReadyToApply"),
+                ApplicationUpdateStatus.Failed when result.HasKnownUpdate => localizationService.GetString("Update.StatusTitle.DownloadFailed"),
                 ApplicationUpdateStatus.UpdateAvailable when result.FailureMessage is not null => localizationService.GetString("Update.StatusTitle.Failed"),
                 ApplicationUpdateStatus.UpdateAvailable when result.Version is not null =>
                     localizationService.FormatString("Update.StatusTitle.UpdateAvailableFormat", result.Version),

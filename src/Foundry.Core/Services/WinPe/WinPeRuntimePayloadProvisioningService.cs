@@ -509,17 +509,21 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 transferToken).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
-            string status = $"Downloading {applicationName} runtime payload.";
-            ReportDownloadProgress(downloadProgress, 0, status);
+            var item = new WinPeDownloadProgress
+            {
+                Status = WinPeProgressStatuses.DownloadingRuntimePayload,
+                ItemName = applicationName
+            };
+            WinPeDownloadReporting.Report(downloadProgress, item, 0);
 
             await using (Stream source = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false))
             await using (FileStream destination = File.Create(archivePath))
             {
-                await CopyDownloadToFileAsync(
+                await WinPeDownloadReporting.CopyAsync(
                     source,
                     destination,
                     response.Content.Headers.ContentLength,
-                    status,
+                    item,
                     downloadProgress,
                     reportProgress,
                     transferToken).ConfigureAwait(false);
@@ -581,82 +585,6 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             throw new InvalidOperationException(
                 $"Release archive digest mismatch. Expected SHA256 '{expectedSha256}', actual SHA256 '{actualSha256}'.");
         }
-    }
-
-    private static async Task CopyDownloadToFileAsync(
-        Stream sourceStream,
-        FileStream destinationStream,
-        long? totalBytes,
-        string status,
-        IProgress<WinPeDownloadProgress>? progress,
-        Action reportProgress,
-        CancellationToken cancellationToken)
-    {
-        int lastReportedPercent = -1;
-        long bytesWritten = await StreamCopy.CopyAsync(
-            sourceStream,
-            destinationStream,
-            copiedBytes =>
-            {
-                reportProgress();
-                double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
-                if (percentage.HasValue)
-                {
-                    int downloadPercent = (int)percentage.Value;
-                    if (downloadPercent == lastReportedPercent)
-                    {
-                        return;
-                    }
-
-                    lastReportedPercent = downloadPercent;
-                    ReportDownloadProgress(
-                        progress,
-                        downloadPercent,
-                        $"{status} ({FormatBytes(copiedBytes)} / {FormatBytes(totalBytes.GetValueOrDefault())})");
-                    return;
-                }
-
-                ReportDownloadProgress(
-                    progress,
-                    null,
-                    $"{status} ({FormatBytes(copiedBytes)} downloaded)");
-            },
-            cancellationToken).ConfigureAwait(false);
-
-        ReportDownloadProgress(
-            progress,
-            100,
-            totalBytes is > 0
-                ? $"{status} ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)})"
-                : $"{status} ({FormatBytes(bytesWritten)} downloaded)");
-    }
-
-    private static void ReportDownloadProgress(IProgress<WinPeDownloadProgress>? progress, int? percent, string status)
-    {
-        progress?.Report(new WinPeDownloadProgress
-        {
-            Percent = percent.HasValue
-                ? Math.Clamp(percent.Value, 0, 100)
-                : null,
-            Status = status
-        });
-    }
-
-    private static string FormatBytes(long bytes)
-    {
-        string[] units = ["B", "KB", "MB", "GB", "TB"];
-        double value = bytes;
-        int unitIndex = 0;
-
-        while (value >= 1024 && unitIndex < units.Length - 1)
-        {
-            value /= 1024;
-            unitIndex++;
-        }
-
-        return unitIndex == 0
-            ? $"{bytes} {units[unitIndex]}"
-            : $"{value:0.##} {units[unitIndex]}";
     }
 
     private static bool TryReadSha256Digest(string digest, out string sha256)

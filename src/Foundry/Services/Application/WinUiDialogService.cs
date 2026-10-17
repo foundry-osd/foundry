@@ -21,6 +21,7 @@ public sealed class WinUiDialogService : IDialogService
             Title = request.Title,
             Content = CreateMessageContent(request.Message),
             CloseButtonText = request.CloseButtonText,
+            DefaultButton = ContentDialogButton.Close,
             Style = ContentDialogStyleProvider.DefaultStyle,
             XamlRoot = GetXamlRoot()
         };
@@ -43,25 +44,20 @@ public sealed class WinUiDialogService : IDialogService
             XamlRoot = GetXamlRoot()
         };
 
-        if (request.IsPrimaryButtonAccent)
-        {
-            dialog.PrimaryButtonStyle = (Style)Microsoft.UI.Xaml.Application.Current.Resources["AccentButtonStyle"];
-        }
-
-        if (request.PreferCancel)
-        {
-            dialog.DefaultButton = ContentDialogButton.Close;
-        }
-        else if (request.IsPrimaryButtonAccent)
-        {
-            dialog.DefaultButton = ContentDialogButton.Primary;
-        }
+        // The default button carries the accent style and answers Enter: the safe Cancel for destructive
+        // confirmations, the primary action otherwise.
+        dialog.DefaultButton = request.PreferCancel ? ContentDialogButton.Close : ContentDialogButton.Primary;
 
         ContentDialogResult result = await dialog.ShowAsync();
         return result == ContentDialogResult.Primary;
     }
 
-    private static TextBlock CreateMessageContent(string message)
+    /// <summary>
+    /// Creates the wrapping message body shared by application message dialogs.
+    /// </summary>
+    /// <param name="message">Dialog body text.</param>
+    /// <returns>A text block sized for standard message dialogs.</returns>
+    internal static TextBlock CreateMessageContent(string message)
     {
         return new TextBlock
         {

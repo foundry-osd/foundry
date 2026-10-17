@@ -98,10 +98,16 @@
     <value>媒體創作能力</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK 作業已取消。</value>
+    <value>已取消安裝。</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>已取消 Windows ADK 安裝</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK操作完成</value>
+    <value>Windows ADK 和 Windows PE 附加元件已就緒。您現在可以建立開機媒體。</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>已安裝 Windows ADK</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>使用快取的ADK安裝程序</value>
@@ -113,10 +119,16 @@
     <value>正在下載ADK安裝程序</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK操作失敗</value>
+    <value>安裝未完成。詳細資料請參閱記錄。</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Windows ADK 安裝失敗</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>安裝Windows ADK</value>
+    <value>正在準備安裝…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>正在安裝 Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>安裝Windows ADK 部署工具</value>
@@ -127,6 +139,9 @@
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>安裝已完成。請檢查其餘的 ADK 需求。</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK 需要處理</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>刪除現有的 Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>正在準備安裝 Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>正在升級 Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>驗證ADK安裝</value>
@@ -286,8 +304,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>租戶沒有返回Autopilot個人資料。</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot設定檔下載失敗：{0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>無法從租用戶下載 Autopilot 設定檔。</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>請檢查您的網路連線，並確認您的帳戶可以讀取 Intune 中的 Autopilot 設定檔，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot下載失敗</value>
@@ -352,8 +373,11 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX 憑證指紋與所選的應用程式註冊憑證不符。</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 無法建立應用程式註冊證書。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry 無法建立應用程式註冊憑證。</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>請確認可以寫入選取的資料夾，且您的帳戶可以管理該應用程式註冊，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>證書建立失敗</value>
@@ -388,8 +412,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX憑證</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 無法刪除所選的應用程式註冊證書。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry 無法刪除選取的應用程式註冊憑證。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>證書刪除失敗</value>
@@ -442,8 +466,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch 硬體雜湊上傳</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 無法設定Autopilot 應用程式註冊。 {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry 無法設定 Autopilot 應用程式註冊。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>租戶入職失敗</value>
@@ -494,16 +518,25 @@
     <value>刪除證書</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry 將僅從託管應用程式註冊中刪除選定的憑證。其他應用程式憑證將被保留。</value>
+    <value>選取的憑證將從您租用戶中受管理的應用程式註冊中刪除。應用程式的其他認證將會保留。</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>刪除證書</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>刪除選定的憑證？</value>
+    <value>要從租用戶刪除憑證嗎？</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>此動作無法復原。使用已刪除憑證的啟動媒體將無法再上傳硬體雜湊。</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry 將僅從託管應用程式註冊中刪除{0} 選定的憑證。其他應用程式憑證將被保留。</value>
+    <value>選取的 {0} 個憑證將從您租用戶中受管理的應用程式註冊中刪除。應用程式的其他認證將會保留。</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>刪除選取的憑證</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>要從租用戶刪除這些憑證嗎？</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>已連接</value>
@@ -519,6 +552,9 @@
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>租戶ID</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>請檢查您的網路連線，並確認您的帳戶可以管理租用戶中的應用程式註冊，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>未連接</value>
@@ -545,7 +581,10 @@
     <value>導入設定檔</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>無法匯入 Autopilot 設定檔。</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>請確認檔案是有效的 Autopilot 設定檔 JSON 檔案，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot導入失敗</value>
@@ -587,7 +626,7 @@
     <value>刪除選定的</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>從導入的Autopilot 設定檔中刪除“{0}”嗎？</value>
+    <value>「{0}」將從此設定的 Autopilot 設定檔中刪除。</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>刪除個人資料</value>
@@ -596,13 +635,16 @@
     <value>刪除Autopilot個人資料嗎？</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>刪除 {0} 選定的 Autopilot 設定檔嗎？</value>
+    <value>將從此設定中刪除 {0} 個選取的 Autopilot 設定檔。</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>刪除設定檔</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>刪除 Autopilot 設定檔？</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>若要再次使用已刪除的設定檔，請匯入該設定檔，或從租用戶重新下載。</value>
   </data>
   <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
     <value>設為預設</value>
@@ -612,9 +654,6 @@
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>登入Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>取消</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>清除</value>
@@ -691,6 +730,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>重新整理</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>儲存</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>不可用</value>
   </data>
@@ -702,9 +744,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>瀏覽</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>取消</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>匯入已取消</value>
@@ -793,17 +832,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>重新整理</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>要從目前的設定檔中移除此映像並刪除其本機複本嗎？參照此映像的其他設定檔會將其顯示為遺失。原始檔案及現有媒體維持不變。</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>移除映像</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) 將從目前的設定檔中移除，其本機複本也會被刪除。</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>移除</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>要移除自訂映像嗎？</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>使用此映像的其他設定檔會將其顯示為遺失。原始檔案及現有媒體不會變更。</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>編輯</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>儲存</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>設為預設映像</value>
@@ -1831,8 +1876,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>原始記錄可能包含認證資料、識別碼、路徑、網路名稱及其他敏感資料。只有在可信任的支援聯絡人明確要求時才匯出。</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>支援封存檔已儲存至以下位置：</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>診斷資訊已匯出</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>開啟資料夾</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry 無法在您的瀏覽器中開啟文件。請改用URL。</value>
@@ -2695,9 +2746,6 @@
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>內容狀態</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>已驗證安裝後內容。</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>發生錯誤時繼續</value>
   </data>
@@ -2827,9 +2875,6 @@
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>指令碼引數</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>正在暫存安裝後內容。</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>成功結束代碼（以逗號分隔）</value>
   </data>
@@ -2853,6 +2898,15 @@
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>部分舊的已儲存密碼或存取金鑰無法移除。請在 Windows 認證管理員可用時重試。</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>不儲存並關閉</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>無法儲存您最近的變更，這些變更將會遺失。</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>要關閉而不儲存設定嗎？</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>確認密碼</value>
@@ -2890,8 +2944,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>從這部電腦刪除</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>刪除</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>也為所有人刪除</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>為所有人刪除</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>要為所有人刪除嗎？</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>要為所有人刪除這些共用設定嗎？有未同步變更的使用者必須建立設定複本，才能保留變更。</value>
@@ -2931,6 +2994,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>清除已儲存的密碼與存取認證</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>清除</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>要從這部電腦移除這些設定的已儲存密碼、Foundry 儲存的機密檔案及同步存取權限嗎？您需要補上缺少的資料並重新連線，才能同步。已建立的媒體不會變更。</value>
@@ -3052,7 +3118,13 @@
     <value>所有電腦都應使用同一個網路資料夾。該資料夾必須使用 SMB 3 並強制加密。不支援與雲端同步的資料夾。</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>停止在此電腦上記住此設定的密碼？</value>
+    <value>Foundry 將停止在這部電腦上儲存此設定的密碼。</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>停止記住</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>要停止記住密碼嗎？</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>同步</value>
@@ -3108,6 +3180,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>請檢查必填欄位。如果需要網路資料夾，請使用 \\server\share\folder 這樣的路徑。如果輸入檔案密碼兩次，請確認兩次輸入相同。</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 無法儲存 Proxy 設定。請再試一次。如需詳細資料，請參閱記錄。</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>未套用 Proxy 設定</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxy 伺服器拒絕了登入。請檢查 Proxy 驗證設定，然後再試一次。</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD 無法使用這些設定連線到 GitHub 和 Microsoft 服務。請檢查 Proxy 位址、連接埠及您的網路連線。如需詳細資料，請參閱記錄。</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3126,8 +3210,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>請輸入 Proxy 伺服器位址。</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>請輸入有效的 HTTP 或 HTTPS Proxy 位址，例如 proxy.contoso.com。</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>請輸入 1 到 65535 之間的連接埠號碼。</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3258,11 +3351,14 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新應用程式</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>操作完成</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>停止作業</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>操作正在進行中</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>選取「停止作業」以確認。正在執行的磁碟或映像步驟會先完成。</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>經過時間：{0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>正在安全停止。可能需要等待目前的磁碟或映像作業結束，才能完成清理。</value>
@@ -3333,6 +3429,12 @@
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot 使用不支援的配置模式。</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>建立媒體之前，請先解決下列問題：</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>無法開始建立媒體。請檢查「開始」頁面上的就緒項目。</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK 或WinPE 附加組件尚未準備好。</value>
   </data>
@@ -3380,12 +3482,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>所選 WinPE 引導語言不可用於所選架構。</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>標準WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi 影像</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>乙</value>
@@ -3468,23 +3564,8 @@
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>大樓</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>啟動鏡像來源</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>連接配置</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>部署配置</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>司機</value>
@@ -3492,23 +3573,8 @@
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB格式模式</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO輸出路徑</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>網路設定</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB分區樣式</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>媒體機密</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>簽名模式</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB目標</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE啟動語言</value>
@@ -3524,6 +3590,9 @@
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>當所有準備檢查通過後，即可進行媒體建立。</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>若要開始，請在下方選擇 ISO 或 USB 輸出。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>完整格式</value>
@@ -3553,52 +3622,49 @@
     <value>已略過 OOBE 帳戶建立</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>應用語言和可選組件。</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>啟動映像相依性已準備就緒。</value>
+    <value>正在新增語言和選用元件…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>建立 WinPE 工作區。</value>
+    <value>正在建立 WinPE 工作區…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0}/{1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>已取消建立媒體。</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>檢查USB目標安全。</value>
+    <value>正在確認可以安全清除 USB 磁碟機…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>清潔WinPE工作區。</value>
+    <value>正在清理上次執行留下的檔案…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>清除USB分區表。</value>
+    <value>正在清除 USB 磁碟機…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>提交啟動映像變更。</value>
+    <value>正在儲存開機映像…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>最終媒體創建完成。</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>正在複製自訂 Windows 映像…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>正在複製安裝後作業內容…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>正在將WinPE 媒體複製到USB。</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>建立 ISO 媒體。</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>建立 USB 媒體。</value>
+    <value>正在將 WinPE 檔案複製到 USB 磁碟機…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>建立BOOT分區。</value>
+    <value>正在建立 BOOT 分割區…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>建立快取分區。</value>
+    <value>正在建立快取分割區…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>自訂驅動程式的總大小至少為 {0}，上限為 {1}。請僅選取 Windows PE 所需的網路和儲存驅動程式。</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>自訂啟動映像。</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>USB 磁碟機識別資訊遺失、不明確或已變更。請重新整理 USB 磁碟機清單並再次選取磁碟機。</value>
@@ -3607,82 +3673,64 @@
     <value>已無法安全地修改選取的 USB 磁碟機。請重新整理 USB 磁碟機清單並選取其他 USB 磁碟機。</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>使用DISM 應用國際設定。</value>
+    <value>正在套用語言設定…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>使用DISM應用語言包。</value>
+    <value>正在新增語言套件…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>使用 DISM 應用選用組件。</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>使用DISM 提交圖像更改。</value>
+    <value>正在新增選用元件…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>使用 DISM 捨棄已掛接的映像。</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>使用DISM 匯出Windows 影像。</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>使用 DISM 注入驅動程式。</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>使用DISM 安裝映像。</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>使用 DISM 解析 Windows 影像索引。</value>
+    <value>正在捨棄上次執行時仍掛接的映像…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>下載內容。</value>
+    <value>正在下載</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>下載驅動程式包</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>正在下載 {2} 驅動程式套件 {0}/{1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>正在下載{0}部署元件。</value>
+    <value>正在下載 {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>正在下載 Windows 來源套件。</value>
+    <value>正在下載 Windows 來源套件</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>評估啟動簽名策略。</value>
+    <value>正在檢查開機簽章支援…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>正在匯出 Windows 映像以準備啟動映像。</value>
+    <value>正在擷取 Windows 映像…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>最終媒體創建失敗。</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>在第 {0} 步（共 {1} 步）失敗：{2}。</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>完成 ISO 輸出。</value>
+    <value>正在儲存 ISO 檔案…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>格式化BOOT分割區。</value>
+    <value>正在格式化 BOOT 分割區…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>格式化快取分割區。</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>啟動鏡像定製完成。</value>
+    <value>正在格式化快取分割區…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>正在初始化USB分區表。</value>
+    <value>正在建立磁碟分割表…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>將驅動程式註入啟動映像。</value>
+    <value>正在將驅動程式新增至開機映像…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>正在檢查 USB 媒體配置。</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO媒體完成。</value>
+    <value>正在讀取 USB 磁碟機配置…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry 無法取代位於 {0} 的 ISO 檔案。該檔案可能已掛接、已連結至虛擬機器、在其他程式中開啟或為唯讀。請卸載或關閉該檔案，或選擇其他輸出路徑，然後再試一次。</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>ISO 媒體已成功建立。</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO 檔案已儲存至：</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>大小：{0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>磁碟空間不足，無法建立開機映像。{2} 上至少需要 {0} 可用空間。目前可用：{1}。請釋放空間後再試一次。</value>
@@ -3691,73 +3739,148 @@
     <value>無法確認位置 {0} 上可供建立開機映像的磁碟空間。請確認可存取該位置，然後再試一次。</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>安裝啟動映像。</value>
+    <value>正在開啟開機映像…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>掛載 Windows 來源映像。</value>
+    <value>正在開啟 Windows 映像…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>開啟資料夾</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>開啟記錄資料夾</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>開啟USB磁碟。</value>
+    <value>正在開啟 USB 磁碟機…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>對USB目標進行分割和格式化。</value>
+    <value>正在分割 USB 磁碟機…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>將檔案複製到 USB 磁碟機</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>建立 ISO 檔案</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>自訂開機映像</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>取得驅動程式</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>完成作業</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>格式化 USB 磁碟機</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>準備工作區</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>更新 USB 磁碟機</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>準備啟動映像自訂。</value>
+    <value>正在準備開機映像…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>正在準備 Foundry 元件…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>準備ISO輸出路徑。</value>
+    <value>正在準備 ISO 輸出資料夾…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>正在準備ISO工作區。</value>
+    <value>正在準備 ISO 檔案…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>正在準備安裝後作業內容…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>正在準備USB快取分區。</value>
+    <value>正在準備快取分割區…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>準備USB磁碟屬性。</value>
+    <value>正在準備 USB 磁碟機…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>正在準備 Windows 來源套件。</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>正在準備WinPE工作區。</value>
+    <value>正在取得 Windows 來源套件…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>配置Foundry啟動資產。</value>
+    <value>正在新增 Foundry 啟動檔案…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>新增Foundry部署組件。</value>
+    <value>正在新增 Foundry 元件…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>將Foundry 元件加入USB 媒體。</value>
+    <value>正在將 Foundry 元件新增至 USB 磁碟機…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>正在移除暫存檔案…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>使用 WinRE 取代啟動映像。</value>
+    <value>正在將開機映像取代為 Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>解決驅動程式包。</value>
+    <value>正在確認要新增的驅動程式…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>正在解析 Windows 影像索引。</value>
+    <value>正在選取 Windows 版本…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>正在解析 Windows 來源目錄。</value>
+    <value>正在尋找 Windows 來源套件…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>為 ISO 運行 MakeWinPEMedia。</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>已選取 Windows 來源套件。</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>詳細資料請參閱記錄。</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>正在暫存啟動映像相依性。</value>
+    <value>正在從 Windows 映像複製必要的檔案…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>第 {0} 步，共 {1} 步：{2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>技術詳細資料：{0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>已取消建立 ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>ISO 建立失敗</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>正在建立 ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>已建立 ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>已取消建立 USB 媒體</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>USB 媒體建立失敗</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>正在建立 USB 媒體</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>已建立 USB 媒體</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>已取消更新 USB 媒體</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>USB 媒體更新失敗</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>正在更新 USB 媒體</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>已更新 USB 媒體</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>傳輸逾時。請檢查連線後再試一次。</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>正在更新 USB 媒體。</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>發生未預期的錯誤，媒體建立已停止。</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB BOOT 磁碟分割大約需要 {0}，但其容量為 {1}。尚未執行任何清除或格式化作業。請減少自訂內容或驅動程式，或建立 ISO。</value>
@@ -3768,35 +3891,35 @@
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>開機媒體中的某個檔案大小為 {0}，而 FAT32 支援的單一檔案大小上限為 {1}。請縮小開機映像的大小或建立 ISO。</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB 開機分割區已更新。</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>此 USB 磁碟機可能無法再讓裝置開機。使用前請重新建立或更新。</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB媒體完成。</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB 分割區已格式化。</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB媒體已成功建立。啟動磁碟區：{0}。快取卷：{1}。</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB 開機分割區已成功更新。開機磁碟區: {0}。快取磁碟區: {1}。</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>開機磁碟區：{0}。快取磁碟區：{1}。</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>正在驗證USB目標。</value>
+    <value>正在檢查 USB 磁碟機…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>正在驗證 {0} 驅動程式套件</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>正在驗證 USB 啟動媒體。</value>
+    <value>正在驗證 USB 開機檔案…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>正在驗證 Windows 來源套件</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows 已封鎖對 WinPE 映像檔案的存取。安全性軟體或其他工具可能正在鎖定這些檔案。請在安全性軟體中為 {0} 新增排除項目，關閉用於掛接映像的工具，重新啟動電腦，然後再試一次。詳細資料位於 {1} 和 {2} 中。</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>正在寫入 ISO 檔案…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>檢閱就緒狀態，選擇 ISO 或 USB 輸出，然後開始建立媒體。</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>評論</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>檢閱{0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>準備好</value>
@@ -3827,9 +3950,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>需要注意的事項：</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>仍然建立</value>
@@ -3883,6 +4003,15 @@
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE啟動語言</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>套件：{0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>需要處理：{0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>需要處理：{0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>預設</value>
@@ -4085,20 +4214,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未檢查</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>無法套用更新：{0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 無法啟動更新。請嘗試重新套用更新。如需詳細資料，請參閱記錄。</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 無法檢查更新。請檢查您的網路連線，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>檢查更新</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>更新下載失敗：{0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>無法下載更新。請檢查您的網路連線，然後再試一次。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>正在下載更新</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>更新檢查失敗：{0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD 是最新的。</value>
@@ -4124,11 +4253,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>無法套用更新</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>更新下載失敗</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新檢查失敗</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>最新</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>更新已可安裝</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>更新檢查已跳過</value>

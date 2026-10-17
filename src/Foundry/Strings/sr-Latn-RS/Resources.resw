@@ -98,10 +98,16 @@ Licencirano pod MIT licencom.</value>
     <value>Mogućnost kreiranja medija</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Operacija za Windows ADK je otkazana.</value>
+    <value>Instalacija je otkazana.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Instalacija za Windows ADK je otkazana</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK operacija je završena</value>
+    <value>Windows ADK i Windows PE dodatak su spremni. Sada možete da kreirate medijum za pokretanje.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK je instaliran</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Korišćenje keširanog ADK instalatera</value>
@@ -113,10 +119,16 @@ Licencirano pod MIT licencom.</value>
     <value>Preuzimanje ADK instalatera</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK operacija nije uspela</value>
+    <value>Instalacija nije dovršena. Detalji se nalaze u evidenciji.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Instalacija za Windows ADK nije uspela</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Instaliranje Windows ADK</value>
+    <value>Priprema instalacije…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Instaliranje Windows ADK-a</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Instaliranje Windows ADK Alati za primenu</value>
@@ -127,6 +139,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Instalacija je završena. Pregledajte preostale zahteve ADK-a.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK zahteva pažnju</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Uklanjanje postojećeg Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Priprema instalacije Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Nadogradnja za Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Provera ADK instalacije</value>
@@ -286,8 +304,11 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Zakupac nije vratio nijedan Autopilot profil.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot preuzimanje profila nije uspelo: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot profile nije moguće preuzeti od zakupca.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Proverite mrežnu vezu i uverite se da vaš nalog može da čita Autopilot profile u usluzi Intune, pa pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot preuzimanje nije uspelo</value>
@@ -352,8 +373,11 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Otisak PFKS sertifikata se ne podudara sa izabranim sertifikatom o registraciji aplikacije.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nije mogao da kreira sertifikat o registraciji aplikacije. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nije mogao da kreira sertifikat o registraciji aplikacije.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Proverite da li je u izabranu fasciklu moguće upisivati i da li vaš nalog može da upravlja registracijom aplikacije, pa pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Kreiranje sertifikata nije uspelo</value>
@@ -388,8 +412,8 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFKS sertifikat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nije mogao da ukloni izabrani sertifikat o registraciji aplikacije. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nije mogao da ukloni izabrani sertifikat o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Uklanjanje sertifikata nije uspelo</value>
@@ -442,8 +466,8 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch otpremanje hardverskog heša</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nije mogao da konfiguriše registraciju aplikacije Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nije mogao da konfiguriše registraciju aplikacije Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Uključivanje stanara nije uspelo</value>
@@ -494,16 +518,25 @@ Licencirano pod MIT licencom.</value>
     <value>Uklonite sertifikat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry će ukloniti samo izabrani sertifikat iz registracije upravljane aplikacije. Ostale akreditive aplikacije će biti sačuvane.</value>
+    <value>Izabrani sertifikat biće uklonjen iz upravljane registracije aplikacije u vašem zakupcu. Ostali akreditivi aplikacije se zadržavaju.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Uklonite sertifikat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Ukloniti izabrani sertifikat?</value>
+    <value>Ukloniti sertifikat iz zakupca?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Ovo ne može da se opozove. Mediji za pokretanje koji koriste uklonjeni sertifikat više neće moći da otpremaju heševe hardvera.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry će ukloniti samo {0} izabrane sertifikate iz registracije upravljane aplikacije. Ostale akreditive aplikacije će biti sačuvane.</value>
+    <value>Izabrani sertifikati ({0}) biće uklonjeni iz upravljane registracije aplikacije u vašem zakupcu. Ostali akreditivi aplikacije se zadržavaju.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Ukloni sertifikate</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Ukloniti sertifikate iz zakupca?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Povezano</value>
@@ -519,6 +552,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID stanara</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Proverite mrežnu vezu i uverite se da vaš nalog može da upravlja registracijama aplikacija u zakupcu, pa pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nije povezan</value>
@@ -545,7 +581,10 @@ Licencirano pod MIT licencom.</value>
     <value>Uvezi profil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot profil nije moguće uvesti.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Proverite da li je datoteka važeća JSON datoteka Autopilot profila, pa pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot uvoz nije uspeo</value>
@@ -587,7 +626,7 @@ Licencirano pod MIT licencom.</value>
     <value>Ukloni izabrano</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Uklonite „{0}“ iz uvezenih Autopilot profila?</value>
+    <value>„{0}“ će biti uklonjen iz Autopilot profila u ovoj konfiguraciji.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Ukloni profil</value>
@@ -596,13 +635,16 @@ Licencirano pod MIT licencom.</value>
     <value>Uklonite Autopilot profil?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Uklonite {0} izabrane Autopilot profile?</value>
+    <value>Izabrani Autopilot profili ({0}) biće uklonjeni iz ove konfiguracije.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Uklonite profile</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Uklonite Autopilot profile?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Da biste ponovo koristili uklonjeni profil, uvezite ga ili ga ponovo preuzmite od zakupca.</value>
   </data>
   <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
     <value>Postavi kao podrazumevano</value>
@@ -612,9 +654,6 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Prijavite se na Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Otkaži</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Jasno</value>
@@ -691,6 +730,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Osveži</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nedostupno</value>
   </data>
@@ -702,9 +744,6 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Pregledaj</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Otkaži</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Uvoz je otkazan</value>
@@ -793,17 +832,23 @@ Licencirano pod MIT licencom.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Osveži</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Želite li da uklonite ovu sliku iz trenutnog profila i izbrišete njenu lokalnu kopiju? U drugim profilima koji se pozivaju na nju biće prikazana kao nedostajuća. Izvorne datoteke i postojeći mediji ostaju nepromenjeni.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Ukloni sliku</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>Slika {0} ({1}) biće uklonjena iz trenutnog profila, a njena lokalna kopija biće izbrisana.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Ukloni</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Ukloniti prilagođenu sliku?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Drugi profili koji koriste ovu sliku prikazaće je kao nedostajuću. Originalna datoteka i postojeći mediji se ne menjaju.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Uredi</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Sačuvaj</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Postavi podrazumevanu sliku</value>
@@ -1831,8 +1876,14 @@ Licencirano pod MIT licencom.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Neobrađeni dnevnici mogu da sadrže akreditive, identifikatore, putanje, nazive mreža i druge osetljive podatke. Izvozite ih samo kada to izričito zatraži pouzdan kontakt za podršku.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Arhiva za podršku je sačuvana na ovoj lokaciji:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Dijagnostika je izvezena</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Otvori fasciklu</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nije mogao da otvori dokumentaciju u vašem pretraživaču. Umesto toga koristite ovo URL.</value>
@@ -2695,9 +2746,6 @@ Licencirano pod MIT licencom.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Status sadržaja</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Sadržaj za fazu posle instalacije je proveren.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Nastavi u slučaju greške</value>
   </data>
@@ -2827,9 +2875,6 @@ Licencirano pod MIT licencom.</value>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Argumenti skripte</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Priprema sadržaja za fazu posle instalacije.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Izlazni kodovi uspeha (razdvojeni zarezima)</value>
   </data>
@@ -2853,6 +2898,15 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Neke stare sačuvane lozinke ili pristupni ključevi nisu mogli da se uklone. Pokušajte ponovo kada Windows upravljač akreditivima bude dostupan.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Zatvori bez čuvanja</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Najnovije promene nije bilo moguće sačuvati i biće izgubljene.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Zatvoriti bez čuvanja podešavanja?</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Potvrdite lozinku</value>
@@ -2890,8 +2944,17 @@ Licencirano pod MIT licencom.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Izbriši sa ovog računara</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Izbriši i za sve ostale</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Izbriši za sve</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Izbrisati za sve?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Želite li da izbrišete ova deljena podešavanja za sve? Svako ko ima nesinhronizovane izmene mora da duplira svoja podešavanja da bi ih zadržao.</value>
@@ -2931,6 +2994,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Obriši sačuvane lozinke i pristupe</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Obriši</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Želite li da uklonite sačuvane lozinke, poverljive datoteke koje je sačuvao Foundry i pristup sinhronizaciji ovih podešavanja na ovom računaru? Moraćete da dodate podatke koji nedostaju i ponovo se povežete radi sinhronizacije. Već napravljeni mediji se neće promeniti.</value>
@@ -3052,7 +3118,13 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Koristite istu mrežnu fasciklu na svim računarima. Mora da koristi SMB 3 uz obavezno šifrovanje. Fascikle sinhronizovane sa oblakom nisu podržane.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Prestati sa pamćenjem lozinki za ovu konfiguraciju na ovom računaru?</value>
+    <value>Foundry više neće čuvati lozinke za ovu konfiguraciju na ovom računaru.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Prestani sa pamćenjem</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Prestati sa pamćenjem lozinki?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sinhronizuj</value>
@@ -3108,6 +3180,18 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Proverite obavezna polja. Ako se traži mrežna fascikla, koristite putanju kao što je \\server\share\folder. Ako lozinku datoteke unosite dva puta, proverite da li se oba unosa podudaraju.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao da sačuva podešavanja proksi servera. Pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Podešavanja proksi servera nisu primenjena</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proksi server je odbio prijavljivanje. Proverite podešavanja potvrde identiteta za proksi server i pokušajte ponovo.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao da pristupi uslugama GitHub i Microsoft uz ova podešavanja. Proverite adresu i port proksi servera, kao i mrežnu vezu. Detalji se nalaze u dnevniku.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3126,8 +3210,17 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Unesite adresu proksi servera.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Unesite važeću HTTP ili HTTPS adresu proksi servera, na primer proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Unesite broj porta od 1 do 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3258,11 +3351,14 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Ažurirajte aplikaciju</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operacija završena</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Zaustavi operaciju</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Operacija je u toku</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Izaberite „Zaustavi operaciju” da biste potvrdili. Korak na disku ili slici koji je u toku prvo se završava.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Proteklo vreme: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Bezbedno zaustavljanje. Možda će biti potrebno da se trenutna operacija na disku ili slici završi pre završetka čišćenja.</value>
@@ -3333,6 +3429,12 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot koristi nepodržani režim obezbeđivanja.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Pre kreiranja medijuma rešite sledeće:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Kreiranje medijuma ne može da počne. Proverite stavke spremnosti na stranici „Počni“.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK ili WinPE Dodatak nije spreman.</value>
   </data>
@@ -3380,12 +3482,6 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Izabrani jezik za pokretanje WinPE nije dostupan za izabranu arhitekturu.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standardno WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>VinRE Wi-Fi slika</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3468,23 +3564,8 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Arhitektura</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Izvor slike za pokretanje</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Povežite obezbeđivanje</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Deploi configuration</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Vozači</value>
@@ -3492,23 +3573,8 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB režim formata</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO izlazna putanja</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Mrežna konfiguracija</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB stil particije</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Medijske tajne</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Režim potpisa</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB meta</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE jezik pokretanja</value>
@@ -3524,6 +3590,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Kreiranje medija je dostupno kada prođu sve provere spremnosti.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Da biste započeli, izaberite ISO ili USB izlaz u nastavku.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Pun format</value>
@@ -3553,52 +3622,49 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Kreiranje OOBE naloga preskočeno</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Primena jezika i opcionih komponenti.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Zavisnosti slike za pokretanje su spremne.</value>
+    <value>Dodavanje jezika i opcionih komponenti…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Kreiranje WinPE radnog prostora.</value>
+    <value>Kreiranje WinPE radnog prostora…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Kreiranje medija je otkazano.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} od {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>Kreiranje medijuma je otkazano.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Provera USB bezbednosti mete.</value>
+    <value>Provera da li je USB disk bezbedno obrisati…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Čišćenje WinPE radnog prostora.</value>
+    <value>Čišćenje datoteka iz prethodnog pokretanja…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Brisanje tabele particija USB.</value>
+    <value>Brisanje USB diska…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Upisivanje promena slike za pokretanje.</value>
+    <value>Čuvanje slike za pokretanje…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Završeno kreiranje medija.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Kopiranje prilagođenih Windows slika…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Kopiranje sadržaja za fazu posle instalacije…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Kopiranje medija WinPE u USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Kreiranje medija ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Kreiranje medija USB.</value>
+    <value>Kopiranje WinPE datoteka na USB disk…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Kreiranje BOOT particije.</value>
+    <value>Kreiranje BOOT particije…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Kreiranje particije keša.</value>
+    <value>Kreiranje particije keša…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Prilagođeni upravljački programi zauzimaju najmanje {0}; najveća dozvoljena veličina je {1}. Izaberite samo mrežne upravljačke programe i upravljačke programe za skladištenje potrebne za Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Prilagođavanje slike za pokretanje.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>Identitet USB diska nedostaje, nije jednoznačan ili se promenio. Osvežite listu USB diskova i ponovo izaberite disk.</value>
@@ -3607,82 +3673,64 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Izabrani USB disk više nije bezbedno menjati. Osvežite listu USB diskova i izaberite drugi USB disk.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Primena međunarodnih podešavanja sa DISM.</value>
+    <value>Primena jezičkih postavki…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Primena jezičkog paketa sa DISM.</value>
+    <value>Dodavanje jezičkog paketa…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Primena opcionih komponenti sa DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Upisivanje promena slike sa DISM.</value>
+    <value>Dodavanje opcionih komponenti…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Odbacivanje montirane slike sa DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Izvoz Windows slike sa DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Ubacivanje drajvera sa DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Slika za montiranje sa DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Rešavanje Windows indeksa slike sa DISM.</value>
+    <value>Odbacivanje slike koja je ostala montirana iz prethodnog pokretanja…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Preuzimanje sadržaja.</value>
+    <value>Preuzimanje</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Preuzimanje paketa drajvera</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Preuzimanje paketa upravljačkih programa {2} {0} od {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Preuzimanje {0} komponenti za primenu.</value>
+    <value>Preuzimanje komponente {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Preuzimanje Windows izvornog paketa.</value>
+    <value>Preuzimanje Windows izvornog paketa</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Procena politike potpisivanja pokretanja.</value>
+    <value>Provera podrške za potpis pokretanja…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Izvoz Windows slike za pripremu slike za pokretanje.</value>
+    <value>Izdvajanje Windows slike…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Konačno kreiranje medija nije uspelo.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Greška je nastala u koraku {0} od {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Finaliziranje ISO izlaza.</value>
+    <value>Čuvanje ISO datoteke…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formatiranje BOOT particije.</value>
+    <value>Formatiranje BOOT particije…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formatiranje particije keša.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Prilagođavanje slike za pokretanje je završeno.</value>
+    <value>Formatiranje particije keša…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Inicijalizacija tabele particija USB.</value>
+    <value>Kreiranje tabele particija…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Ubacivanje drajvera u sliku za pokretanje.</value>
+    <value>Dodavanje upravljačkih programa u sliku za pokretanje…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Provera rasporeda USB medija.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO mediji su završeni.</value>
+    <value>Čitanje rasporeda USB diska…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry nije mogao da zameni ISO datoteku na {0}. Datoteka je možda montirana, priključena virtuelnoj mašini, otvorena u drugom programu ili samo za čitanje. Demontirajte je ili zatvorite ili izaberite drugu izlaznu putanju, a zatim pokušajte ponovo.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Medij ISO je uspešno kreiran.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO datoteka je sačuvana u:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Veličina: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Nema dovoljno prostora na disku za pravljenje slike za pokretanje sistema. Na lokaciji {2} potrebno je najmanje {0} slobodnog prostora. Dostupno: {1}. Oslobodite prostor i pokušajte ponovo.</value>
@@ -3691,73 +3739,148 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Nije bilo moguće proveriti dostupni prostor na disku za pravljenje slike za pokretanje sistema na lokaciji {0}. Proverite da li je lokacija dostupna i pokušajte ponovo.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Slika za montažu pokretanja.</value>
+    <value>Otvaranje slike za pokretanje…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Montiranje Windows izvorne slike.</value>
+    <value>Otvaranje Windows slike…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Otvori fasciklu</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Otvori fasciklu evidencije</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Otvaranje USB diska.</value>
+    <value>Otvaranje USB diska…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Particionisanje i formatiranje USB cilj.</value>
+    <value>Particionisanje USB diska…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Kopiranje datoteka na USB disk</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Kreiranje ISO datoteke</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Prilagođavanje slike za pokretanje</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Pribavljanje upravljačkih programa</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Završavanje</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Formatiranje USB diska</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Priprema radnog prostora</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Ažuriranje USB diska</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Priprema prilagođavanja slike za pokretanje.</value>
+    <value>Priprema slike za pokretanje…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Priprema Foundry komponenti…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Priprema izlazne putanje ISO.</value>
+    <value>Priprema izlazne fascikle za ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Priprema ISO radnog prostora.</value>
+    <value>Priprema ISO datoteka…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Priprema sadržaja za fazu posle instalacije…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Priprema USB particije keša.</value>
+    <value>Priprema particije keša…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Priprema USB atributa diska.</value>
+    <value>Priprema USB diska…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Priprema Windows izvornog paketa.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Priprema WinPE radnog prostora.</value>
+    <value>Pribavljanje Windows izvornog paketa…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Dodeljivanje sredstava za pokretanje Foundry.</value>
+    <value>Dodavanje Foundry datoteka za pokretanje…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Dodavanje Foundry komponenti za primenu.</value>
+    <value>Dodavanje Foundry komponenti…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Dodavanje Foundry komponenti na medije USB.</value>
+    <value>Dodavanje Foundry komponenti na USB disk…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Uklanjanje privremenih datoteka…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Zamena slike za pokretanje sa VinRE.</value>
+    <value>Zamena slike za pokretanje slikom Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Rešavanje paketa drajvera.</value>
+    <value>Utvrđivanje upravljačkih programa koje treba dodati…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Rešavanje Windows indeksa slike.</value>
+    <value>Izbor Windows izdanja…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Rešavanje Windows izvornog kataloga.</value>
+    <value>Pronalaženje Windows izvornog paketa…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Pokretanje MakeWinPEMedia za ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Izabrani izvorni paket Windows.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Detalji se nalaze u evidenciji.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Priprema zavisnosti slike za pokretanje.</value>
+    <value>Kopiranje potrebnih datoteka iz Windows slike…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Korak {0} od {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Tehnički detalji: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Kreiranje ISO datoteke je otkazano</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Kreiranje ISO datoteke nije uspelo</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Kreiranje ISO datoteke</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO datoteka je kreirana</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Kreiranje USB medijuma je otkazano</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Kreiranje USB medijuma nije uspelo</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Kreiranje USB medijuma</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB medijum je kreiran</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Ažuriranje USB medijuma je otkazano</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Ažuriranje USB medijuma nije uspelo</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Ažuriranje USB medijuma</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB medijum je ažuriran</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Isteklo je vreme čekanja na prenos. Proverite vezu i pokušajte ponovo.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Ažuriranje USB medija.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Neočekivana greška je zaustavila kreiranje medijuma.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB BOOT particija zahteva približno {0}, ali njen kapacitet je {1}. Ništa nije obrisano niti formatirano. Smanjite prilagođavanja ili broj upravljačkih programa ili napravite ISO.</value>
@@ -3768,35 +3891,35 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Datoteka na medijumu za pokretanje zauzima {0}; FAT32 podržava najviše {1} po datoteci. Smanjite veličinu slike za pokretanje ili napravite ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB particija za pokretanje je ažurirana.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Uređaj se možda više neće pokretati sa ovog USB diska. Ponovo ga kreirajte ili ažurirajte pre upotrebe.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB mediji su završeni.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB particije formatirane.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB medij je uspešno kreiran. Jačina pokretanja: {0}. Volumen keša: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB particija za pokretanje je uspešno ažurirana. Volumen za pokretanje: {0}. Volumen keša: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Volumen za pokretanje: {0}. Volumen keša: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Potvrđivanje USB cilja.</value>
+    <value>Provera USB diska…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Provera paketa upravljačkih programa {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Provera medija za pokretanje USB.</value>
+    <value>Provera datoteka za pokretanje na USB disku…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Provera Windows izvornog paketa</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows je blokirao pristup datotekama WinPE slike. Možda ih zaključava bezbednosni softver ili neka druga alatka. U bezbednosnom softveru dodajte izuzetak za {0}, zatvorite alatke koje montiraju slike, ponovo pokrenite računar i pokušajte ponovo. Detalji se nalaze u {1} i {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Upisivanje ISO datoteke…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pregledajte spremnost, izaberite ISO ili USB izlaz i pokrenite kreiranje medija.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Pregled</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Pregledaj: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Spreman</value>
@@ -3827,9 +3950,6 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Stavke kojima je potrebna pažnja:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Ipak napravi</value>
@@ -3883,6 +4003,15 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE jezik pokretanja</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Paketi: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Zahteva pažnju: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Zahteva pažnju: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Podrazumevano</value>
@@ -4085,20 +4214,20 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nije provereno</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Ažuriranje nije bilo moguće primeniti: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao da pokrene ažuriranje. Pokušajte ponovo da ga primenite. Detalji se nalaze u dnevniku.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao da proveri da li postoje ažuriranja. Proverite mrežnu vezu i pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Proveravam ažuriranja</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Preuzimanje ažuriranja nije uspelo: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Ažuriranje nije moguće preuzeti. Proverite mrežnu vezu i pokušajte ponovo. Detalji se nalaze u dnevniku.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Preuzimanje ažuriranja</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Provera ažuriranja nije uspela: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD je ažuriran.</value>
@@ -4124,11 +4253,17 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Ažuriranje nije bilo moguće primeniti</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Preuzimanje ažuriranja nije uspelo</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Provera ažuriranja nije uspela</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Ažurno</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Ažuriranje je spremno za instalaciju</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Provera ažuriranja je preskočena</value>

@@ -98,10 +98,16 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Medya oluşturma yeteneği</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK işlemi iptal edildi.</value>
+    <value>Yükleme iptal edildi.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Windows ADK yüklemesi iptal edildi</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK işlemi tamamlandı</value>
+    <value>Windows ADK ve Windows PE Eklentisi hazır. Artık önyükleme medyası oluşturabilirsiniz.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK yüklendi</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Önbelleğe alınmış ADK yükleyiciyi kullanma</value>
@@ -113,10 +119,16 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>ADK yükleyici indiriliyor</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK işlemi başarısız oldu</value>
+    <value>Yükleme tamamlanmadı. Ayrıntılar için günlüğe bakın.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Windows ADK yüklemesi başarısız oldu</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Windows ADK Kurulumu</value>
+    <value>Yükleme hazırlanıyor…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Windows ADK yükleniyor</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Windows ADK Dağıtım Araçlarını Yükleme</value>
@@ -127,6 +139,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Yükleme tamamlandı. Kalan ADK gereksinimlerini gözden geçirin.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK dikkat gerektiriyor</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Mevcut Windows ADK kaldırılıyor</value>
   </data>
@@ -135,6 +150,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Windows ADK 24H2 yüklemesi hazırlanıyor</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Windows ADK yükseltiliyor</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>ADK kurulumu doğrulanıyor</value>
@@ -286,8 +304,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Kiracı tarafından hiçbir Autopilot profili döndürülmedi.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profil indirilemedi: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot profilleri kiracıdan indirilemedi.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Ağ bağlantınızı denetleyin, hesabınızın Intune içindeki Autopilot profillerini okuyabildiğinden emin olun ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot indirme işlemi başarısız oldu</value>
@@ -352,8 +373,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX sertifikası parmak izi, seçilen uygulama kayıt sertifikasıyla eşleşmiyor.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry uygulama kayıt sertifikasını oluşturamadı. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry uygulama kayıt sertifikasını oluşturamadı.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Seçilen klasöre yazılabildiğini ve hesabınızın uygulama kaydını yönetebildiğini denetleyin, ardından yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Sertifika oluşturulamadı</value>
@@ -388,8 +412,8 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX sertifikası</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry seçilen uygulama kayıt sertifikasını kaldıramadı. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry seçilen uygulama kayıt sertifikasını kaldıramadı.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Sertifika kaldırılamadı</value>
@@ -442,8 +466,8 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch donanım karması yükleme</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry, Autopilot uygulama kaydını yapılandıramadı. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry, Autopilot uygulama kaydını yapılandıramadı.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Kiracının katılımı başarısız oldu</value>
@@ -494,16 +518,25 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sertifikayı kaldır</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry, yönetilen uygulama kaydından yalnızca seçilen sertifikayı kaldıracaktır. Diğer uygulama kimlik bilgileri korunacaktır.</value>
+    <value>Seçilen sertifika, kiracınızdaki yönetilen uygulama kaydından kaldırılacak. Diğer uygulama kimlik bilgileri korunur.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Sertifikayı kaldır</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Seçilen sertifika kaldırılsın mı?</value>
+    <value>Sertifika kiracıdan kaldırılsın mı?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Bu işlem geri alınamaz. Kaldırılan bir sertifikayı kullanan önyükleme ortamları artık donanım karmalarını yükleyemez.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry, yönetilen uygulama kaydından yalnızca {0} seçilen sertifikaları kaldıracaktır. Diğer uygulama kimlik bilgileri korunacaktır.</value>
+    <value>Seçilen {0} sertifika, kiracınızdaki yönetilen uygulama kaydından kaldırılacak. Diğer uygulama kimlik bilgileri korunur.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Sertifikaları kaldır</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Sertifikalar kiracıdan kaldırılsın mı?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Bağlı</value>
@@ -519,6 +552,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Kiracı Kimliği</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Ağ bağlantınızı denetleyin, hesabınızın kiracıdaki uygulama kayıtlarını yönetebildiğinden emin olun ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Bağlı değil</value>
@@ -545,7 +581,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Profili içe aktar</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot profili içeri aktarılamadı.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Dosyanın geçerli bir Autopilot profili JSON dosyası olduğunu denetleyin ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot içe aktarma başarısız oldu</value>
@@ -587,7 +626,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Seçileni kaldır</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>İçe aktarılan Autopilot profillerinden "{0}" kaldırılsın mı?</value>
+    <value>“{0}”, bu yapılandırmadaki Autopilot profillerinden kaldırılacak.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Profili kaldır</value>
@@ -596,13 +635,16 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Autopilot profili kaldırılsın mı?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Seçilen {0} Autopilot profilleri kaldırılsın mı?</value>
+    <value>Seçilen {0} Autopilot profili bu yapılandırmadan kaldırılacak.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Profilleri kaldır</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Autopilot profilleri kaldırılsın mı?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Kaldırılan bir profili yeniden kullanmak için profili içeri aktarın veya kiracıdan yeniden indirin.</value>
   </data>
   <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
     <value>Varsayılan olarak ayarla</value>
@@ -612,9 +654,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Microsoft Graph'da oturum açın</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>İptal</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Temizle</value>
@@ -691,6 +730,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Yenile</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Kullanılamıyor</value>
   </data>
@@ -702,9 +744,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Gözat</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>İptal</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>İçeri aktarma iptal edildi</value>
@@ -793,17 +832,23 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Yenile</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Bu imaj geçerli profilden kaldırılsın ve yerel kopyası silinsin mi? İmaja başvuran diğer profillerde imaj eksik olarak gösterilir. Özgün dosyalar ve mevcut medya değişmeden kalır.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Görüntüyü kaldır</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) geçerli profilden kaldırılacak ve yerel kopyası silinecek.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Kaldır</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Özel görüntü kaldırılsın mı?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Bu görüntüyü kullanan diğer profiller görüntüyü eksik olarak gösterir. Özgün dosya ve mevcut medya değiştirilmez.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Düzenle</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Kaydet</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Varsayılan görüntüyü ayarla</value>
@@ -1831,8 +1876,14 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Ham günlükler kimlik bilgileri, tanımlayıcılar, yollar, ağ adları ve diğer hassas verileri içerebilir. Bunları yalnızca güvenilir bir destek yetkilisi açıkça istediğinde dışa aktarın.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Destek arşivi şu konuma kaydedildi:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Tanılama dışa aktarıldı</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Klasörü aç</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry belgeleri tarayıcınızda açamadı. Bunun yerine bunu URL kullanın.</value>
@@ -2695,9 +2746,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>İçerik durumu</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Kurulum sonrası içerik doğrulandı.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Hata durumunda devam et</value>
   </data>
@@ -2827,9 +2875,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Betik bağımsız değişkenleri</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Kurulum sonrası içerik hazırlanıyor.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Başarılı çıkış kodları (virgülle ayrılmış)</value>
   </data>
@@ -2853,6 +2898,15 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Kaydedilmiş bazı eski parolalar veya erişim anahtarları kaldırılamadı. Windows Kimlik Bilgisi Yöneticisi kullanılabilir olduğunda yeniden deneyin.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Kaydetmeden kapat</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Son değişiklikleriniz kaydedilemedi ve kaybolacak.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Ayarlar kaydedilmeden kapatılsın mı?</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Parolayı onaylayın</value>
@@ -2890,8 +2944,17 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Bu bilgisayardan sil</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Sil</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Herkes için de sil</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Herkes için sil</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Herkes için silinsin mi?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Bu paylaşılan ayarlar herkes için silinsin mi? Eşitlenmemiş değişiklikleri olan kişiler, bunları saklamak için ayarlarını çoğaltmalıdır.</value>
@@ -2931,6 +2994,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Kaydedilen parolaları ve erişim bilgilerini temizle</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Temizle</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Bu bilgisayardaki bu ayarlar için kaydedilmiş parolalar, Foundry tarafından kaydedilmiş gizli dosyalar ve eşitleme erişimi kaldırılsın mı? Eşitlemek için eksik bilgileri eklemeniz ve yeniden bağlanmanız gerekecek. Önceden oluşturduğunuz medyalar değişmeyecek.</value>
@@ -3052,7 +3118,13 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Tüm bilgisayarlarda aynı ağ klasörünü kullanın. Klasör, şifrelemenin zorunlu olduğu SMB 3 kullanmalıdır. Bulutla eşitlenen klasörler desteklenmez.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Bu bilgisayarda bu yapılandırmanın parolaları artık hatırlanmasın mı?</value>
+    <value>Foundry, bu yapılandırmanın parolalarını bu bilgisayara kaydetmeyi bırakacak.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Hatırlamayı durdur</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Parolalar artık hatırlanmasın mı?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Eşitle</value>
@@ -3108,6 +3180,18 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Zorunlu alanları kontrol edin. Bir ağ klasörü isteniyorsa \\server\share\folder gibi bir yol kullanın. Dosya parolasını iki kez giriyorsanız her iki girişin de aynı olduğundan emin olun.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD proxy ayarlarını kaydedemedi. Yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Proxy ayarları uygulanmadı</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxy oturum açma isteğini reddetti. Proxy kimlik doğrulama ayarlarını denetleyip yeniden deneyin.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD bu ayarlarla GitHub ve Microsoft hizmetlerine ulaşamadı. Proxy adresini, bağlantı noktasını ve ağ bağlantınızı denetleyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3126,8 +3210,17 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Proxy sunucusu adresini girin.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Geçerli bir HTTP veya HTTPS proxy adresi girin (örneğin, proxy.contoso.com).</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>1 ile 65535 arasında bir bağlantı noktası numarası girin.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3258,11 +3351,14 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Uygulamayı güncelle</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>İşlem tamamlandı</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>İşlemi durdur</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>İşlem devam ediyor</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Onaylamak için “İşlemi durdur” seçeneğini belirleyin. Devam eden disk veya görüntü adımı önce tamamlanır.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Geçen süre: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Güvenli bir şekilde durduruluyor. Temizleme tamamlanmadan önce geçerli disk veya görüntü işleminin bitmesi gerekebilir.</value>
@@ -3333,6 +3429,12 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot desteklenmeyen bir temel hazırlık modu kullanıyor.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Medya oluşturmadan önce aşağıdakileri çözün:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Medya oluşturma başlatılamıyor. Başlat sayfasındaki hazırlık öğelerini denetleyin.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK veya WinPE Eklenti hazır değil.</value>
   </data>
@@ -3380,12 +3482,6 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Seçilen WinPE önyükleme dili seçilen mimari için mevcut değil.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standart WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi resmi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3468,23 +3564,8 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Mimarlık</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Önyükleme görüntüsü kaynağı</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Temel hazırlığı bağlayın</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Yapılandırmayı dağıtma</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Sürücüler</value>
@@ -3492,23 +3573,8 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB biçimlendirme modu</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO çıkış yolu</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Ağ yapılandırması</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB bölüm stili</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Medya sırları</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>İmza modu</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB hedef</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE önyükleme dili</value>
@@ -3524,6 +3590,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Medya oluşturma, tüm hazırlık kontrolleri geçtiğinde kullanılabilir.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Başlamak için aşağıdan bir ISO veya USB çıktısı seçin.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Tam format</value>
@@ -3553,52 +3622,49 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>OOBE hesap oluşturma atlandı</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Dilin ve isteğe bağlı bileşenlerin uygulanması.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Önyükleme görüntüsü bağımlılıkları hazır.</value>
+    <value>Dil ve isteğe bağlı bileşenler ekleniyor…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>WinPE çalışma alanı oluşturuluyor.</value>
+    <value>WinPE çalışma alanı oluşturuluyor…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} / {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Medya oluşturma iptal edildi.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>USB hedef güvenliği kontrol ediliyor.</value>
+    <value>USB sürücüsünün güvenle silinebileceği doğrulanıyor…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>WinPE çalışma alanını temizleme.</value>
+    <value>Önceki çalıştırmadan kalan dosyalar temizleniyor…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>USB bölüm tablosu temizleniyor.</value>
+    <value>USB sürücüsü siliniyor…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Önyükleme görüntüsü değişiklikleri gerçekleştiriliyor.</value>
+    <value>Önyükleme görüntüsü kaydediliyor…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Nihai medya oluşturma işlemi tamamlandı.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Özel Windows görüntüleri kopyalanıyor…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Kurulum sonrası içeriği kopyalanıyor…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>WinPE medyası USB öğesine kopyalanıyor.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>ISO ortamı oluşturma.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>USB ortamı oluşturma.</value>
+    <value>WinPE dosyaları USB sürücüsüne kopyalanıyor…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>BOOT bölümü oluşturma.</value>
+    <value>BOOT bölümü oluşturuluyor…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Önbellek bölümü oluşturma.</value>
+    <value>Önbellek bölümü oluşturuluyor…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Özel sürücülerin toplam boyutu en az {0}; üst sınır {1}. Yalnızca Windows PE için gereken ağ ve depolama sürücülerini seçin.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Önyükleme görüntüsünü özelleştirme.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>USB sürücüsünün kimliği eksik, belirsiz veya değişmiş. USB sürücüsü listesini yenileyin ve sürücüyü yeniden seçin.</value>
@@ -3607,82 +3673,64 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Seçilen USB sürücüsü artık güvenli bir şekilde değiştirilemez. USB sürücüsü listesini yenileyin ve başka bir USB sürücüsü seçin.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>DISM ile uluslararası ayarlar uygulanıyor.</value>
+    <value>Dil ayarları uygulanıyor…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>DISM ile dil paketi uygulanıyor.</value>
+    <value>Dil paketi ekleniyor…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>DISM ile isteğe bağlı bileşenler uygulama.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Görüntü değişiklikleri DISM ile gerçekleştiriliyor.</value>
+    <value>İsteğe bağlı bileşenler ekleniyor…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Bağlı görüntü DISM ile iptal ediliyor.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Windows görüntüsü DISM ile dışa aktarılıyor.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Sürücüleri DISM ile enjekte etme.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>DISM ile montaj görüntüsü.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>DISM ile Windows görüntü dizini çözümleniyor.</value>
+    <value>Önceki çalıştırmadan bağlı kalan görüntü atılıyor…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>İçerik indiriliyor.</value>
+    <value>İndiriliyor</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Sürücü paketini indirme</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>{2} sürücü paketi {0}/{1} indiriliyor</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>{0} dağıtım bileşenleri indiriliyor.</value>
+    <value>{0} indiriliyor</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows kaynak paketi indiriliyor.</value>
+    <value>Windows kaynak paketi indiriliyor</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Önyükleme imza ilkesinin değerlendirilmesi.</value>
+    <value>Önyükleme imzası desteği denetleniyor…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Önyükleme görüntüsünü hazırlamak için Windows görüntüsü dışa aktarılıyor.</value>
+    <value>Windows görüntüsü ayıklanıyor…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Son medya oluşturma işlemi başarısız oldu.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Adım {0}/{1} sırasında başarısız oldu: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>ISO çıktısı sonlandırılıyor.</value>
+    <value>ISO dosyası kaydediliyor…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>BOOT bölümünün biçimlendirilmesi.</value>
+    <value>BOOT bölümü biçimlendiriliyor…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Önbellek bölümünü biçimlendirme.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Önyükleme görüntüsü özelleştirmesi tamamlandı.</value>
+    <value>Önbellek bölümü biçimlendiriliyor…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>USB bölüm tablosu başlatılıyor.</value>
+    <value>Bölüm tablosu oluşturuluyor…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Sürücüleri önyükleme görüntüsüne enjekte etme.</value>
+    <value>Sürücüler önyükleme görüntüsüne ekleniyor…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>USB medya düzeni inceleniyor.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO medya tamamlandı.</value>
+    <value>USB sürücüsünün düzeni okunuyor…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry, {0} konumundaki ISO dosyasını değiştiremedi. Dosya bağlanmış, bir sanal makineye eklenmiş, başka bir programda açık veya salt okunur olabilir. Bağlantısını kaldırın veya kapatın ya da başka bir çıkış yolu seçin, ardından yeniden deneyin.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>ISO ortamı başarıyla oluşturuldu.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO dosyası şuraya kaydedildi:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Boyut: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Önyükleme görüntüsünü oluşturmak için yeterli disk alanı yok. {2} konumunda en az {0} boş alan gerekiyor. Kullanılabilir: {1}. Yer açıp yeniden deneyin.</value>
@@ -3691,73 +3739,148 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Önyükleme görüntüsü oluşturmak için kullanılabilir disk alanı {0} konumunda doğrulanamadı. Konumun erişilebilir olduğunu kontrol edip yeniden deneyin.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Önyükleme görüntüsünün montajı.</value>
+    <value>Önyükleme görüntüsü açılıyor…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Windows kaynak görüntüsünün montajı.</value>
+    <value>Windows görüntüsü açılıyor…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Klasörü aç</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Günlük klasörünü aç</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>USB diski açılıyor.</value>
+    <value>USB sürücüsü açılıyor…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>USB hedefi bölümleme ve biçimlendirme.</value>
+    <value>USB sürücüsü bölümlere ayrılıyor…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Dosyaları USB sürücüsüne kopyalama</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>ISO dosyasını oluşturma</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Önyükleme görüntüsünü özelleştirme</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Sürücüleri alma</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Son işlemler</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>USB sürücüsünü biçimlendirme</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Çalışma alanını hazırlama</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>USB sürücüsünü güncelleştirme</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Önyükleme görüntüsü özelleştirmesi hazırlanıyor.</value>
+    <value>Önyükleme görüntüsü hazırlanıyor…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Foundry bileşenleri hazırlanıyor…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>ISO çıkış yolu hazırlanıyor.</value>
+    <value>ISO çıktı klasörü hazırlanıyor…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>ISO çalışma alanı hazırlanıyor.</value>
+    <value>ISO dosyaları hazırlanıyor…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Kurulum sonrası içeriği hazırlanıyor…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>USB önbellek bölümü hazırlanıyor.</value>
+    <value>Önbellek bölümü hazırlanıyor…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>USB disk nitelikleri hazırlanıyor.</value>
+    <value>USB sürücüsü hazırlanıyor…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows kaynak paketinin hazırlanması.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>WinPE çalışma alanı hazırlanıyor.</value>
+    <value>Windows kaynak paketi alınıyor…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Foundry önyükleme varlıklarının sağlanması.</value>
+    <value>Foundry başlangıç dosyaları ekleniyor…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Foundry dağıtım bileşenleri ekleniyor.</value>
+    <value>Foundry bileşenleri ekleniyor…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry bileşenlerini USB ortamına ekleme.</value>
+    <value>Foundry bileşenleri USB sürücüsüne ekleniyor…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Geçici dosyalar kaldırılıyor…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Önyükleme görüntüsünü WinRE ile değiştirme.</value>
+    <value>Önyükleme görüntüsü Windows RE ile değiştiriliyor…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Sürücü paketlerinin çözümlenmesi.</value>
+    <value>Eklenecek sürücüler belirleniyor…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows görüntü dizini çözümleniyor.</value>
+    <value>Windows sürümü seçiliyor…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Windows kaynak kataloğunun çözümlenmesi.</value>
+    <value>Windows kaynak paketi bulunuyor…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>ISO için MakeWinPEMedia'yı çalıştırma.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Seçilen Windows kaynak paketi.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Ayrıntılar için günlüğe bakın.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Önyükleme görüntüsü bağımlılıkları hazırlanıyor.</value>
+    <value>Gerekli dosyalar Windows görüntüsünden kopyalanıyor…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Adım {0}/{1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Teknik ayrıntılar: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>ISO oluşturma iptal edildi</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>ISO oluşturma başarısız oldu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>ISO oluşturuluyor</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO oluşturuldu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>USB medyası oluşturma iptal edildi</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>USB medyası oluşturma başarısız oldu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>USB medyası oluşturuluyor</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB medyası oluşturuldu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>USB medyası güncelleştirmesi iptal edildi</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>USB medyası güncelleştirmesi başarısız oldu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>USB medyası güncelleştiriliyor</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB medyası güncelleştirildi</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Aktarım zaman aşımına uğradı. Bağlantınızı kontrol edip yeniden deneyin.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>USB medyası güncelleniyor.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Beklenmeyen bir hata medya oluşturmayı durdurdu.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB BOOT bölümü için yaklaşık {0} gerekiyor, ancak kapasitesi {1}. Hiçbir şey silinmedi veya biçimlendirilmedi. Özelleştirmeleri ya da sürücüleri azaltın veya bir ISO oluşturun.</value>
@@ -3768,35 +3891,35 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Önyükleme medyasındaki bir dosyanın boyutu {0}; FAT32 dosya başına en fazla {1} destekler. Önyükleme görüntüsünün boyutunu küçültün veya bir ISO oluşturun.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB önyükleme bölümü güncellendi.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>USB sürücüsü artık bir cihazı başlatamayabilir. Kullanmadan önce yeniden oluşturun veya güncelleştirin.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB medya tamamlandı.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB bölümler biçimlendirildi.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB medya başarıyla oluşturuldu. Önyükleme birimi: {0}. Önbellek birimi: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB önyükleme bölümü başarıyla güncellendi. Önyükleme birimi: {0}. Önbellek birimi: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Önyükleme birimi: {0}. Önbellek birimi: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>USB hedefi doğrulanıyor.</value>
+    <value>USB sürücüsü denetleniyor…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>{0} sürücü paketi doğrulanıyor</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>USB önyükleme ortamı doğrulanıyor.</value>
+    <value>USB sürücüsündeki önyükleme dosyaları doğrulanıyor…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows kaynak paketi doğrulanıyor</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows, WinPE görüntü dosyalarına erişimi engelledi. Bir güvenlik yazılımı veya başka bir araç bu dosyaları kilitliyor olabilir. Güvenlik yazılımına {0} için bir dışlama ekleyin, görüntü bağlayan araçları kapatın, bilgisayarı yeniden başlatın ve yeniden deneyin. Ayrıntılar {1} ve {2} dosyalarındadır.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>ISO dosyası yazılıyor…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Hazırlığı gözden geçirin, ISO veya USB çıktısını seçin ve medya oluşturmayı başlatın.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>İncele</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Gözden geçir: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Hazır</value>
@@ -3827,9 +3950,6 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Dikkat edilmesi gereken öğeler:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Yine de oluştur</value>
@@ -3883,6 +4003,15 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE önyükleme dili</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Paketler: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Dikkat gerekiyor: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Dikkat gerekiyor: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Varsayılan</value>
@@ -4085,20 +4214,20 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>İşaretlenmedi</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Güncelleme uygulanamadı: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD güncellemeyi başlatamadı. Güncellemeyi yeniden uygulamayı deneyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD güncellemeleri denetleyemedi. Ağ bağlantınızı denetleyin ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Güncellemeler kontrol ediliyor</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Güncelleme indirilemedi: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Güncelleme indirilemedi. Ağ bağlantınızı denetleyin ve yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Güncelleme indiriliyor</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Güncelleme kontrolü başarısız oldu: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD güncel.</value>
@@ -4124,11 +4253,17 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Güncelleme uygulanamadı</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Güncelleme indirilemedi</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Güncelleme kontrolü başarısız oldu</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>güncel</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Güncelleme yüklenmeye hazır</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Güncelleme kontrolü atlandı</value>

@@ -98,10 +98,16 @@
     <value>יכולת יצירת מדיה</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>פעולת Windows ADK בוטלה.</value>
+    <value>ההתקנה בוטלה.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>התקנת Windows ADK בוטלה</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>הפעולה ADK הושלמה</value>
+    <value>Windows ADK והתוסף Windows PE מוכנים. כעת ניתן ליצור מדיית אתחול.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK הותקן</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>שימוש במטמון ADK במתקין</value>
@@ -113,10 +119,16 @@
     <value>מוריד את תוכנית ההתקנה ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>הפעולה ADK נכשלה</value>
+    <value>ההתקנה לא הושלמה. הפרטים מופיעים ביומן.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>התקנת Windows ADK נכשלה</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>מתקין Windows ADK</value>
+    <value>מכין את ההתקנה…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>מתקין את Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>התקנת Windows ADK כלי פריסה</value>
@@ -127,6 +139,9 @@
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>ההתקנה הסתיימה. יש לבדוק את דרישות ADK שנותרו.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK דורש טיפול</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>הסרת Windows ADK הקיים</value>
   </data>
@@ -135,6 +150,9 @@
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>מכין את התקנת Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>משדרג את Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>מאמת את התקנת ADK</value>
@@ -286,8 +304,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>לא הוחזרו פרופילים של Autopilot על ידי השוכר.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>הורדת הפרופיל Autopilot נכשלה: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה להוריד את פרופילי Autopilot מהדייר.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>בדוק את החיבור לרשת וודא שלחשבון שלך יש הרשאה לקרוא פרופילי Autopilot ב-Intune, ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>הורדת Autopilot נכשלה</value>
@@ -352,8 +373,11 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>טביעת האצבע של אישור PFX אינה תואמת לאישור רישום האפליקציה שנבחר.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry לא הצליח ליצור את אישור הרישום של האפליקציה. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry לא הצליח ליצור את האישור של רישום האפליקציה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>ודא שניתן לכתוב לתיקייה שנבחרה ושהחשבון שלך יכול לנהל את רישום האפליקציה, ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>יצירת האישור נכשלה</value>
@@ -388,8 +412,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>תעודת PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry לא הצליח להסיר את אישור הרישום של האפליקציה שנבחרה. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry לא הצליח להסיר את האישור שנבחר של רישום האפליקציה.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>הסרת האישור נכשלה</value>
@@ -442,8 +466,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>העלאת zero-touch של hash חומרה</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry לא הצליח להגדיר את רישום האפליקציה Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry לא הצליח להגדיר את רישום האפליקציה של Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>הכניסה לדייר נכשלה</value>
@@ -494,16 +518,25 @@
     <value>הסר אישור</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry יסיר רק את האישור שנבחר מהרישום של האפליקציה המנוהלת. אישורי אפליקציה אחרים יישמרו.</value>
+    <value>האישור שנבחר יוסר מרישום האפליקציה המנוהלת בדייר שלך. פרטי כניסה אחרים של האפליקציה יישמרו.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>הסר אישור</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>להסיר את האישור שנבחר?</value>
+    <value>להסיר את האישור מהדייר?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>לא ניתן לבטל פעולה זו. מדיית אתחול שמשתמשת באישור שהוסר לא תוכל עוד להעלות hash של חומרה.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry יסיר רק את האישורים {0} שנבחרו מהרישום של האפליקציה המנוהלת. אישורי אפליקציה אחרים יישמרו.</value>
+    <value>{0} האישורים שנבחרו יוסרו מרישום האפליקציה המנוהלת בדייר שלך. פרטי כניסה אחרים של האפליקציה יישמרו.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>הסר אישורים</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>להסיר את האישורים מהדייר?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>מחובר</value>
@@ -519,6 +552,9 @@
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>זיהוי דייר</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>בדוק את החיבור לרשת וודא שהחשבון שלך יכול לנהל רישומי אפליקציות בדייר, ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>לא מחובר</value>
@@ -545,7 +581,10 @@
     <value>ייבוא פרופיל</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>לא ניתן היה לייבא את פרופיל Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>ודא שהקובץ הוא קובץ JSON חוקי של פרופיל Autopilot ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>הייבוא Autopilot נכשל</value>
@@ -587,7 +626,7 @@
     <value>הסר את הבחירה</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>להסיר את "{0}" מהפרופילים המיובאים של Autopilot?</value>
+    <value>"{0}" יוסר מפרופילי Autopilot בתצורה זו.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>הסר פרופיל</value>
@@ -596,13 +635,16 @@
     <value>להסיר את הפרופיל Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>להסיר את הפרופילים {0} שנבחרו ב-Autopilot?</value>
+    <value>{0} פרופילי Autopilot שנבחרו יוסרו מתצורה זו.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>הסר פרופילים</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>להסיר פרופילים של Autopilot?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>כדי להשתמש שוב בפרופיל שהוסר, ייבא אותו או הורד אותו שוב מהדייר.</value>
   </data>
   <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
     <value>הגדרה כברירת מחדל</value>
@@ -612,9 +654,6 @@
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>היכנס אל Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>בטל</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>ברור</value>
@@ -691,6 +730,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>רענן</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>שמירה</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>לא זמין</value>
   </data>
@@ -702,9 +744,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>עיון</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>ביטול</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>הייבוא בוטל</value>
@@ -793,17 +832,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>רענון</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>להסיר תמונה זו מהפרופיל הנוכחי ולמחוק את העותק המקומי שלה? בפרופילים אחרים המפנים אליה היא תוצג כחסרה. קובצי המקור ואמצעי המדיה הקיימים לא ישתנו.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>הסר תמונה</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) תוסר מהפרופיל הנוכחי, והעותק המקומי שלה יימחק.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>הסרה</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>להסיר את התמונה המותאמת אישית?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>פרופילים אחרים שמשתמשים בתמונה זו יציגו אותה כחסרה. קובץ המקור ואמצעי המדיה הקיימים לא ישתנו.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>עריכה</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>שמירה</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>הגדרת תמונת ברירת מחדל</value>
@@ -1831,8 +1876,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>יומנים גולמיים עשויים להכיל אישורי גישה, מזהים, נתיבים, שמות רשת ונתונים רגישים אחרים. ייצא אותם רק כאשר איש תמיכה מהימן מבקש זאת במפורש.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>ארכיון התמיכה נשמר אל:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>האבחון יוצא</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>פתח תיקייה</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry לא הצליח לפתוח את התיעוד בדפדפן שלך. השתמש ב-URL זה במקום זאת.</value>
@@ -2695,9 +2746,6 @@
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>מצב התוכן</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>התוכן לשלב שלאחר ההתקנה אומת.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>המשך במקרה של שגיאה</value>
   </data>
@@ -2827,9 +2875,6 @@
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>ארגומנטים של הסקריפט</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>מכין תוכן לשלב שלאחר ההתקנה.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>קודי יציאה להצלחה (מופרדים בפסיקים)</value>
   </data>
@@ -2853,6 +2898,15 @@
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>לא ניתן היה להסיר חלק מהסיסמאות או ממפתחות הגישה הישנים שנשמרו. יש לנסות שוב כאשר מנהל האישורים של Windows זמין.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>סגור בלי לשמור</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>לא ניתן היה לשמור את השינויים האחרונים שלך, והם יאבדו.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>לסגור בלי לשמור את ההגדרות?</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>אישור סיסמה</value>
@@ -2890,8 +2944,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>מחיקה ממחשב זה</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>מחק</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>מחיקה גם עבור כולם</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>מחק עבור כולם</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>למחוק עבור כולם?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>למחוק את ההגדרות המשותפות האלה עבור כולם? מי שיש לו שינויים שלא סונכרנו צריך לשכפל את ההגדרות שלו כדי לשמור אותם.</value>
@@ -2931,6 +2994,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>ניקוי סיסמאות ופרטי גישה שמורים</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>נקה</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>להסיר ממחשב זה את הסיסמאות השמורות, את הקבצים הסודיים שנשמרו על ידי Foundry ואת גישת הסנכרון של ההגדרות האלה? יהיה צורך להוסיף את הפרטים החסרים ולהתחבר מחדש כדי לסנכרן. מדיה שכבר נוצרה לא תשתנה.</value>
@@ -3052,7 +3118,13 @@
     <value>יש להשתמש באותה תיקיית רשת בכל מחשב. התיקייה חייבת להשתמש ב-SMB 3 עם הצפנה נדרשת. תיקיות המסונכרנות עם הענן אינן נתמכות.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>להפסיק לזכור סיסמאות עבור תצורה זו במחשב זה?</value>
+    <value>Foundry יפסיק לשמור את הסיסמאות של תצורה זו במחשב זה.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>הפסק לזכור</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>להפסיק לזכור סיסמאות?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>סנכרון</value>
@@ -3108,6 +3180,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>יש לבדוק את שדות החובה. אם נדרשת תיקיית רשת, יש להשתמש בנתיב כגון \\server\share\folder. אם מזינים סיסמת קובץ פעמיים, יש לוודא ששתי ההזנות זהות.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח לשמור את הגדרות ה-Proxy. נסה שוב. הפרטים מופיעים ביומן.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>הגדרות ה-Proxy לא הוחלו</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>שרת ה-Proxy דחה את הכניסה. בדוק את הגדרות האימות של ה-Proxy ונסה שוב.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח להתחבר לשירותי GitHub ו-Microsoft עם הגדרות אלה. בדוק את כתובת ה-Proxy, את היציאה ואת החיבור לרשת. הפרטים מופיעים ביומן.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3126,8 +3210,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>הזן את הכתובת של שרת ה-Proxy.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>הזן כתובת Proxy חוקית מסוג HTTP או HTTPS, לדוגמה proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>הזן מספר יציאה בין 1 ל-65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3258,11 +3351,14 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>עדכן את האפליקציה</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>הפעולה הושלמה</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>עצור פעולה</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>מבצע בעיצומו</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>בחר באפשרות "עצור פעולה" כדי לאשר. שלב בדיסק או בתמונת הדיסק שמתבצע כעת יסתיים קודם.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>זמן שחלף: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>מתבצעת עצירה בטוחה. ייתכן שהפעולה הנוכחית בדיסק או בתמונת הדיסק צריכה להסתיים לפני השלמת הניקוי.</value>
@@ -3333,6 +3429,12 @@
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot משתמש במצב הקצאה לא נתמך.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>פתור את הבעיות הבאות לפני יצירת מדיה:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>לא ניתן להתחיל ביצירת מדיה. בדוק את פריטי המוכנות בדף ההתחלה.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>התוסף ADK או WinPE אינו מוכן.</value>
   </data>
@@ -3380,12 +3482,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>שפת האתחול WinPE שנבחרה אינה זמינה עבור הארכיטקטורה שנבחרה.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>סטנדרטי WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi תמונה</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>ב</value>
@@ -3468,23 +3564,8 @@
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>אדריכלות</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>מקור תמונת אתחול</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>חיבור תצורה</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>פרוס תצורה</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>נהגים</value>
@@ -3492,23 +3573,8 @@
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB מצב פורמט</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>נתיב פלט ISO</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>תצורת רשת</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB סגנון מחיצה</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>סודות התקשורת</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>מצב חתימה</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB יעד</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE שפת האתחול</value>
@@ -3524,6 +3590,9 @@
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>יצירת מדיה זמינה כאשר כל בדיקות המוכנות עוברות.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>בחר פלט ISO או USB למטה כדי להתחיל.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>פורמט מלא</value>
@@ -3553,52 +3622,49 @@
     <value>יצירת חשבון OOBE דולגה</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>החלת שפה ורכיבים אופציונליים.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>רכיבי התלות של תמונת האתחול מוכנים.</value>
+    <value>מוסיף את השפה ואת הרכיבים האופציונליים…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>יצירת סביבת עבודה WinPE.</value>
+    <value>יוצר את סביבת העבודה של WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} מתוך {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>יצירת המדיה בוטלה.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>בדיקת USB בטיחות היעד.</value>
+    <value>מוודא שניתן למחוק את כונן ה-USB בבטחה…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>ניקוי סביבת עבודה WinPE.</value>
+    <value>מנקה קבצים מהפעלה קודמת…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>ניקוי טבלת המחיצות USB.</value>
+    <value>מוחק את תוכן כונן ה-USB…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>ביצוע שינויים בתמונת האתחול.</value>
+    <value>שומר את תמונת האתחול…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>יצירת המדיה הסופית הושלמה.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>מעתיק תמונות Windows מותאמות אישית…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>מעתיק את התוכן שלאחר ההתקנה…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>העתקת מדיה WinPE אל USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>יצירת מדיה ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>יצירת מדיה USB.</value>
+    <value>מעתיק קובצי WinPE לכונן ה-USB…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>יצירת מחיצת BOOT.</value>
+    <value>יוצר את מחיצת BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>יצירת מחיצת מטמון.</value>
+    <value>יוצר את מחיצת המטמון…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>הגודל הכולל של מנהלי ההתקנים המותאמים אישית הוא לפחות {0}; הגודל המרבי הוא {1}. יש לבחור רק את מנהלי ההתקנים של הרשת והאחסון הדרושים ל-Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>התאמה אישית של תמונת האתחול.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>זהות כונן ה-USB חסרה, אינה חד-משמעית או השתנתה. רענן את רשימת כונני ה-USB ובחר את הכונן שוב.</value>
@@ -3607,82 +3673,64 @@
     <value>כבר לא ניתן לשנות את כונן ה-USB שנבחר בבטחה. רענן את רשימת כונני ה-USB ובחר כונן USB אחר.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>החלת הגדרות בינלאומיות עם DISM.</value>
+    <value>מחיל הגדרות שפה…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>החלת ערכת שפה עם DISM.</value>
+    <value>מוסיף את חבילת השפה…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>החלת רכיבים אופציונליים עם DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>ביצוע שינויים בתמונה עם DISM.</value>
+    <value>מוסיף רכיבים אופציונליים…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>ביטול הרכבת התמונה ללא שמירה עם DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>מייצא תמונה Windows עם DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>הזרקת דרייברים עם DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>הרכבת תמונה עם DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>פתרון אינדקס תמונה של Windows עם DISM.</value>
+    <value>משליך תמונה שנותרה טעונה מהפעלה קודמת…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>הורדת תוכן.</value>
+    <value>מוריד</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>מוריד חבילת מנהלי התקנים</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>מוריד את חבילת מנהלי ההתקנים של {2} {0} מתוך {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>הורדת רכיבי הפריסה {0}.</value>
+    <value>מוריד את {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>הורדת חבילת מקור Windows.</value>
+    <value>מוריד את חבילת המקור של Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>הערכת מדיניות חתימת האתחול.</value>
+    <value>בודק תמיכה בחתימת אתחול…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>ייצוא תמונת Windows להכנת תמונת האתחול.</value>
+    <value>מחלץ את תמונת Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>יצירת המדיה הסופית נכשלה.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>הפעולה נכשלה בשלב {0} מתוך {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>סיום פלט ISO.</value>
+    <value>שומר את קובץ ה-ISO…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>עיצוב מחיצת BOOT.</value>
+    <value>מפרמט את מחיצת BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>עיצוב מחיצת מטמון.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>התאמה אישית של תמונת האתחול הושלמה.</value>
+    <value>מפרמט את מחיצת המטמון…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>אתחול טבלת המחיצות USB.</value>
+    <value>יוצר את טבלת המחיצות…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>הזרקת דרייברים לתמונת האתחול.</value>
+    <value>מוסיף מנהלי התקנים לתמונת האתחול…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>בודק את פריסת מדיית ה-USB.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>מדיה ISO הושלמה.</value>
+    <value>קורא את פריסת כונן ה-USB…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry לא הצליח להחליף את קובץ ה-ISO בנתיב {0}. ייתכן שהקובץ טעון, מצורף למחשב וירטואלי, פתוח בתוכנית אחרת או מוגדר לקריאה בלבד. בטל את טעינתו או סגור אותו, או בחר נתיב פלט אחר, ולאחר מכן נסה שוב.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>המדיה ISO נוצרה בהצלחה.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>קובץ ה-ISO נשמר במיקום:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>גודל: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>אין מספיק שטח דיסק ליצירת תמונת האתחול. נדרש שטח פנוי של לפחות {0} ב-{2}. זמין: {1}. פנו מקום ונסו שוב.</value>
@@ -3691,73 +3739,148 @@
     <value>לא ניתן היה לאמת את שטח הדיסק הזמין ליצירת תמונת האתחול ב-{0}. בדקו שהמיקום נגיש ונסו שוב.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>תמונת אתחול הרכבה.</value>
+    <value>פותח את תמונת האתחול…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>הרכבת תמונת מקור של Windows.</value>
+    <value>פותח את תמונת Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>פתח תיקייה</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>פתח את תיקיית היומן</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>פתיחת דיסק USB.</value>
+    <value>פותח את כונן ה-USB…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>חלוקה ועיצוב USB target.</value>
+    <value>מחלק את כונן ה-USB למחיצות…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>העתקת קבצים לכונן ה-USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>יצירת קובץ ה-ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>התאמה אישית של תמונת האתחול</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>קבלת מנהלי התקנים</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>סיום</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>פרמוט כונן ה-USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>הכנת סביבת העבודה</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>עדכון כונן ה-USB</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>הכנת התאמה אישית של תמונת האתחול.</value>
+    <value>מכין את תמונת האתחול…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>מכין את רכיבי Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>מכין נתיב פלט ISO.</value>
+    <value>מכין את תיקיית הפלט של ה-ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>הכנת סביבת עבודה ISO.</value>
+    <value>מכין את קובצי ה-ISO…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>מכין את התוכן שלאחר ההתקנה…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>מכין מחיצת מטמון USB.</value>
+    <value>מכין את מחיצת המטמון…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>הכנת תכונות דיסק USB.</value>
+    <value>מכין את כונן ה-USB…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>הכנת חבילת מקור של Windows.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>הכנת סביבת עבודה WinPE.</value>
+    <value>מקבל את חבילת המקור של Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>הקצאת Foundry נכסי אתחול.</value>
+    <value>מוסיף את קובצי האתחול של Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>הוספת רכיבי פריסה Foundry.</value>
+    <value>מוסיף רכיבי Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>הוספת רכיבי Foundry למדיה USB.</value>
+    <value>מוסיף רכיבי Foundry לכונן ה-USB…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>מסיר קבצים זמניים…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>החלפת תמונת אתחול ב-WinRE.</value>
+    <value>מחליף את תמונת האתחול ב-Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>פתרון חבילות דרייברים.</value>
+    <value>בודק אילו מנהלי התקנים להוסיף…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>פתרון אינדקס תמונה של Windows.</value>
+    <value>בוחר את מהדורת Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>פתרון קטלוג מקור Windows.</value>
+    <value>מאתר את חבילת המקור של Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>הפעלת MakeWinPEMedia עבור ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>חבילת מקור Windows נבחרה.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>הפרטים מופיעים ביומן.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>הכנת רכיבי התלות של תמונת האתחול.</value>
+    <value>מעתיק קבצים נדרשים מתמונת Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>שלב {0} מתוך {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>פרטים טכניים: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>יצירת ה-ISO בוטלה</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>יצירת ה-ISO נכשלה</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>יוצר ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ה-ISO נוצר</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>יצירת מדיית ה-USB בוטלה</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>יצירת מדיית ה-USB נכשלה</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>יוצר מדיית USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>מדיית ה-USB נוצרה</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>עדכון מדיית ה-USB בוטל</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>עדכון מדיית ה-USB נכשל</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>מעדכן מדיית USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>מדיית ה-USB עודכנה</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>הזמן שהוקצב להעברה הסתיים. יש לבדוק את החיבור ולנסות שוב.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>מעדכן מדיית USB.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>שגיאה בלתי צפויה עצרה את יצירת המדיה.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>מחיצת BOOT בכונן ה-USB דורשת כ-{0}, אך הקיבולת שלה היא {1}. לא בוצעו מחיקה או אתחול. יש לצמצם את ההתאמות האישיות או את מנהלי ההתקנים, או ליצור ISO.</value>
@@ -3768,35 +3891,35 @@
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>גודל קובץ במדיית האתחול הוא {0}; FAT32 תומך לכל היותר ב-{1} לקובץ. יש להקטין את תמונת האתחול או ליצור ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>מחיצת האתחול של USB עודכנה.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>ייתכן שכונן ה-USB כבר לא יאתחל מכשיר. צור או עדכן אותו שוב לפני השימוש.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>מדיה USB הושלמה.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>פורמט מחיצות USB.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>המדיה USB נוצרה בהצלחה. עוצמת הקול של האתחול: {0}. נפח מטמון: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>מחיצת האתחול של USB עודכנה בהצלחה. אמצעי האחסון לאתחול: {0}. אמצעי האחסון למטמון: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>אמצעי אחסון לאתחול: {0}. אמצעי אחסון למטמון: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>אימות USB יעד.</value>
+    <value>בודק את כונן ה-USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>מאמת את חבילת מנהלי ההתקנים של {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>מאמת את מדיית האתחול USB.</value>
+    <value>מאמת את קובצי האתחול ב-USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>מאמת את חבילת המקור של Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows חסם את הגישה לקובצי תמונת WinPE. ייתכן שתוכנת אבטחה או כלי אחר נועלים אותם. יש להוסיף החרגה עבור {0} בתוכנת האבטחה, לסגור כלים שמעגנים תמונות, להפעיל מחדש את המחשב ולנסות שוב. הפרטים נמצאים ב-{1} וב-{2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>כותב את קובץ ה-ISO…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>בדוק מוכנות, בחר פלט ISO או USB והתחל ביצירת המדיה.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>סקירה</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>בדוק את {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>מוכן</value>
@@ -3827,9 +3950,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>פריטים הדורשים תשומת לב:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>צור בכל זאת</value>
@@ -3883,6 +4003,15 @@
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE שפת האתחול</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>חבילות: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>דורש טיפול: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>דורש טיפול: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>ברירת מחדל</value>
@@ -4085,20 +4214,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>לא נבדק</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>לא ניתן היה להחיל את העדכון: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח להפעיל את העדכון. נסה להחיל אותו שוב. הפרטים מופיעים ביומן.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח לבדוק אם יש עדכונים. בדוק את החיבור לרשת ונסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>מחפש עדכונים</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>הורדת העדכון נכשלה: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה להוריד את העדכון. בדוק את החיבור לרשת ונסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>מוריד עדכון</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>בדיקת העדכון נכשלה: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD מעודכן.</value>
@@ -4124,11 +4253,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>לא ניתן היה להחיל את העדכון</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>הורדת העדכון נכשלה</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>בדיקת העדכון נכשלה</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>מעודכן</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>העדכון מוכן להתקנה</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>בדיקת עדכון דילגה</value>

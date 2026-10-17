@@ -98,10 +98,16 @@ Licenc az MIT licenc alatt.</value>
     <value>Médiakészítési lehetőség</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>A Windows ADK-művelet megszakítva.</value>
+    <value>A telepítés megszakadt.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>A Windows ADK telepítése megszakítva</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK művelet befejeződött</value>
+    <value>A Windows ADK és a Windows PE-kiegészítő készen áll. Most már létrehozhat rendszerindító adathordozót.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>A Windows ADK telepítve</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Gyorsítótárazott ADK telepítő használata</value>
@@ -113,10 +119,16 @@ Licenc az MIT licenc alatt.</value>
     <value>A ADK telepítő letöltése</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK művelet sikertelen</value>
+    <value>A telepítés nem fejeződött be. A részletek a naplóban találhatók.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>A Windows ADK telepítése sikertelen</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Windows ADK telepítése</value>
+    <value>A telepítés előkészítése…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>A Windows ADK telepítése</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>A Windows ADK Telepítési eszközök telepítése</value>
@@ -127,6 +139,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>A telepítés befejeződött. Tekintse át az ADK fennmaradó követelményeit.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>A Windows ADK beavatkozást igényel</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Meglévő Windows ADK eltávolítása</value>
   </data>
@@ -135,6 +150,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Windows ADK 24H2 telepítésének előkészítése</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>A Windows ADK frissítése</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>ADK telepítés ellenőrzése</value>
@@ -286,8 +304,11 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>A bérlő nem adott vissza Autopilot profilt.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profilletöltés sikertelen: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Az Autopilot-profilokat nem sikerült letölteni a bérlőtől.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Ellenőrizze a hálózati kapcsolatot, és győződjön meg arról, hogy a fiókja olvashatja az Autopilot-profilokat az Intune szolgáltatásban, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot letöltés sikertelen</value>
@@ -352,8 +373,11 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>A PFX-tanúsítvány ujjlenyomata nem egyezik a kiválasztott alkalmazásregisztrációs tanúsítvánnyal.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nem tudta létrehozni az alkalmazás regisztrációs tanúsítványát. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>A Foundry nem tudta létrehozni az alkalmazásregisztráció tanúsítványát.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Ellenőrizze, hogy a kiválasztott mappa írható-e, és hogy a fiókja kezelheti-e az alkalmazásregisztrációt, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>A tanúsítvány létrehozása nem sikerült</value>
@@ -388,8 +412,8 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX tanúsítvány</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nem tudta eltávolítani a kiválasztott alkalmazás regisztrációs tanúsítványát. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>A Foundry nem tudta eltávolítani az alkalmazásregisztráció kiválasztott tanúsítványát.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>A tanúsítvány eltávolítása nem sikerült</value>
@@ -442,8 +466,8 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch hardverhash-feltöltés</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nem tudta konfigurálni az Autopilot alkalmazás regisztrációját. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>A Foundry nem tudta konfigurálni az Autopilot-alkalmazásregisztrációt.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>A bérlő beiktatása nem sikerült</value>
@@ -494,16 +518,25 @@ Licenc az MIT licenc alatt.</value>
     <value>Tanúsítvány eltávolítása</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Az Foundry csak a kiválasztott tanúsítványt távolítja el a kezelt alkalmazásregisztrációból. A többi alkalmazás hitelesítő adatai megmaradnak.</value>
+    <value>A rendszer eltávolítja a kiválasztott tanúsítványt a bérlő felügyelt alkalmazásregisztrációjából. Az alkalmazás többi hitelesítő adata megmarad.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Tanúsítvány eltávolítása</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Eltávolítja a kiválasztott tanúsítványt?</value>
+    <value>Eltávolítja a tanúsítványt a bérlőből?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Ez a művelet nem vonható vissza. Az eltávolított tanúsítványt használó rendszerindító adathordozók többé nem tudnak hardveres hasheket feltölteni.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Az Foundry csak a {0} kiválasztott tanúsítványokat távolítja el a kezelt alkalmazásregisztrációból. A többi alkalmazás hitelesítő adatai megmaradnak.</value>
+    <value>A rendszer eltávolítja a kiválasztott {0} tanúsítványt a bérlő felügyelt alkalmazásregisztrációjából. Az alkalmazás többi hitelesítő adata megmarad.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Tanúsítványok eltávolítása</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Eltávolítja a tanúsítványokat a bérlőből?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Csatlakozva</value>
@@ -519,6 +552,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Bérlői azonosító</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Ellenőrizze a hálózati kapcsolatot, és győződjön meg arról, hogy a fiókja kezelheti az alkalmazásregisztrációkat a bérlőben, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nincs csatlakoztatva</value>
@@ -545,7 +581,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Profil importálása</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Az Autopilot-profilt nem sikerült importálni.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Ellenőrizze, hogy a fájl érvényes Autopilot-profil JSON-fájl-e, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot importálás sikertelen</value>
@@ -587,7 +626,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A kiválasztott eltávolítása</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Eltávolítja a „{0}” elemet az importált Autopilot profilokból?</value>
+    <value>A rendszer eltávolítja a(z) „{0}” profilt a konfiguráció Autopilot-profiljai közül.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Profil eltávolítása</value>
@@ -596,13 +635,16 @@ Licenc az MIT licenc alatt.</value>
     <value>Eltávolítja a Autopilot profilt?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Eltávolítja a {0} kiválasztott Autopilot profilokat?</value>
+    <value>A rendszer eltávolítja a kiválasztott {0} Autopilot-profilt ebből a konfigurációból.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Profilok eltávolítása</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Eltávolítja a Autopilot profilokat?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Egy eltávolított profil ismételt használatához importálja, vagy töltse le újra a bérlőtől.</value>
   </data>
   <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
     <value>Beállítás alapértelmezettként</value>
@@ -612,9 +654,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Bejelentkezés a Microsoft Graph címre</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Mégsem</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Világos</value>
@@ -691,6 +730,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Frissítés</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nem elérhető</value>
   </data>
@@ -702,9 +744,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Tallózás</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Mégse</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importálás megszakítva</value>
@@ -793,17 +832,23 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Frissítés</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Eltávolítja ezt a lemezképet az aktuális profilból, és törli a helyi másolatát? A rá hivatkozó többi profilban hiányzóként jelenik meg. Az eredeti fájlok és a meglévő adathordozók változatlanok maradnak.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Lemezkép eltávolítása</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>A rendszer eltávolítja a(z) {0} ({1}) lemezképet az aktuális profilból, és törli a helyi másolatát.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Eltávolítás</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Eltávolítja az egyéni lemezképet?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>A lemezképet használó többi profilban hiányzóként jelenik meg. Az eredeti fájl és a meglévő adathordozók nem változnak.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Szerkesztés</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Mentés</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Alapértelmezett lemezkép beállítása</value>
@@ -1831,8 +1876,14 @@ Licenc az MIT licenc alatt.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>A nyers naplók hitelesítő adatokat, azonosítókat, elérési utakat, hálózatneveket és egyéb érzékeny adatokat tartalmazhatnak. Csak akkor exportálja őket, ha ezt egy megbízható támogatási kapcsolattartó kifejezetten kéri.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>A támogatási archívum mentési helye:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnosztika exportálva</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Mappa megnyitása</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nem tudta megnyitni a dokumentációt a böngészőben. Használja helyette ezt a URL-t.</value>
@@ -2695,9 +2746,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Tartalom állapota</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Telepítés utáni tartalom ellenőrizve.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Folytatás hiba esetén</value>
   </data>
@@ -2827,9 +2875,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Szkriptargumentumok</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Telepítés utáni tartalom előkészítése.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Sikeres kilépési kódok (vesszővel elválasztva)</value>
   </data>
@@ -2853,6 +2898,15 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Néhány régi mentett jelszót vagy hozzáférési kulcsot nem sikerült eltávolítani. Próbálja újra, amikor a Windows Hitelesítőadat-kezelő elérhető.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Bezárás mentés nélkül</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>A legutóbbi módosításokat nem sikerült menteni, és elvesznek.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Bezárja a beállítások mentése nélkül?</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Jelszó megerősítése</value>
@@ -2890,8 +2944,17 @@ Licenc az MIT licenc alatt.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Törlés erről a számítógépről</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Törlés mindenki számára is</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Törlés mindenki számára</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Törli mindenki számára?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Törli ezeket a megosztott beállításokat mindenki számára? Akinek nem szinkronizált módosításai vannak, a megőrzésükhöz másolatot kell készítenie a beállításairól.</value>
@@ -2931,6 +2994,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Mentett jelszavak és hozzáférések törlése</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Törlés</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Eltávolítja ezekhez a beállításokhoz a mentett jelszavakat, a Foundry által mentett bizalmas fájlokat és a szinkronizálási hozzáférést erről a számítógépről? A szinkronizáláshoz meg kell adnia a hiányzó adatokat, és újra csatlakoznia kell. A már létrehozott adathordozók nem változnak.</value>
@@ -3052,7 +3118,13 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Minden számítógépen ugyanazt a hálózati mappát használja. A mappának SMB 3-at kell használnia kötelező titkosítással. A felhővel szinkronizált mappák nem támogatottak.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Ne jegyezze meg többé a konfiguráció jelszavait ezen a számítógépen?</value>
+    <value>A Foundry nem menti többé a konfiguráció jelszavait ezen a számítógépen.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Megjegyzés leállítása</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Leállítja a jelszavak megjegyzését?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Szinkronizálás</value>
@@ -3108,6 +3180,18 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Ellenőrizze a kötelező mezőket. Ha hálózati mappát kell megadnia, használjon például ilyen elérési utat: \\server\share\folder. Ha kétszer ad meg fájljelszót, ügyeljen arra, hogy a két bejegyzés egyezzen.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>A Foundry OSD nem tudta menteni a proxybeállításokat. Próbálja újra. A részletek a naplóban találhatók.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>A proxybeállítások nincsenek alkalmazva</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>A proxy elutasította a bejelentkezést. Ellenőrizze a proxy hitelesítési beállításait, és próbálja újra.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>A Foundry OSD ezekkel a beállításokkal nem érte el a GitHub és a Microsoft szolgáltatásait. Ellenőrizze a proxy címét, portját és a hálózati kapcsolatot. A részletek a naplóban találhatók.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3126,8 +3210,17 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Adja meg a proxykiszolgáló címét.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Adjon meg érvényes HTTP- vagy HTTPS-proxycímet, például: proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Adjon meg egy portszámot 1 és 65535 között.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3258,11 +3351,14 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Frissítse az alkalmazást</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>A művelet befejeződött</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Művelet leállítása</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Művelet folyamatban</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>A megerősítéshez válassza a „Művelet leállítása” lehetőséget. A lemezen vagy lemezképen éppen futó lépés előbb befejeződik.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Eltelt idő: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Biztonságos leállítás folyamatban. Előfordulhat, hogy a tisztítás befejezése előtt be kell fejeződnie a lemezen vagy lemezképen végzett aktuális műveletnek.</value>
@@ -3333,6 +3429,12 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>A Autopilot nem támogatott kiépítési módot használ.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Az adathordozó létrehozása előtt oldja meg a következőket:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Az adathordozó létrehozása nem indítható el. Ellenőrizze a készenléti elemeket a Start lapon.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK vagy WinPE A kiegészítő nem áll készen.</value>
   </data>
@@ -3380,12 +3482,6 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>A kiválasztott WinPE rendszerindítási nyelv nem érhető el a kiválasztott architektúrához.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Normál WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi kép</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3468,23 +3564,8 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Építészet</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Boot kép forrása</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Csatlakoztassa a kiépítést</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Telepítse a konfigurációt</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Drivers</value>
@@ -3492,23 +3573,8 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formátum mód</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO kimeneti útvonal</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Hálózati konfiguráció</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB partícióstílus</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Médiatitkok</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Aláírás mód</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB cél</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE rendszerindítási nyelv</value>
@@ -3524,6 +3590,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>A média létrehozása akkor érhető el, ha minden készenléti ellenőrzés sikeres.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>A kezdéshez válasszon lent egy ISO- vagy USB-kimenetet.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Teljes formátum</value>
@@ -3553,52 +3622,49 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>OOBE-fióklétrehozás kihagyva</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Nyelvi és választható összetevők alkalmazása.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>A rendszerindító lemezkép függőségei készen állnak.</value>
+    <value>A nyelv és a választható összetevők hozzáadása…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>WinPE munkaterület létrehozása.</value>
+    <value>A WinPE-munkaterület létrehozása…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Az adathordozó létrehozása megszakítva.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} / {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>Az adathordozó létrehozása megszakadt.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>USB célbiztonság ellenőrzése.</value>
+    <value>Annak ellenőrzése, hogy az USB-meghajtó biztonságosan törölhető-e…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>WinPE munkaterület tisztítása.</value>
+    <value>Egy korábbi futtatás fájljainak eltávolítása…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>USB partíciós tábla törlése.</value>
+    <value>Az USB-meghajtó törlése…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>A rendszerindító kép módosításainak végrehajtása.</value>
+    <value>A rendszerindító lemezkép mentése…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>A média végleges létrehozása befejeződött.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Egyéni Windows-lemezképek másolása…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>A telepítés utáni tartalom másolása…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>WinPE adathordozó másolása USB mappába.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>ISO média létrehozása.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>USB média létrehozása.</value>
+    <value>WinPE-fájlok másolása az USB-meghajtóra…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>BOOT partíció létrehozása.</value>
+    <value>A BOOT partíció létrehozása…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Gyorsítótár-partíció létrehozása.</value>
+    <value>A gyorsítótár-partíció létrehozása…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Az egyéni illesztőprogramok mérete legalább {0}; a felső határ {1}. Csak a Windows PE számára szükséges hálózati és tárolóillesztőket válassza ki.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>A rendszerindító kép testreszabása.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>Az USB-meghajtó azonosítója hiányzik, nem egyértelmű vagy megváltozott. Frissítse az USB-meghajtók listáját, és válassza ki újra a meghajtót.</value>
@@ -3607,82 +3673,64 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A kiválasztott USB-meghajtó már nem módosítható biztonságosan. Frissítse az USB-meghajtók listáját, és válasszon másik USB-meghajtót.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Nemzetközi beállítások alkalmazása DISM.</value>
+    <value>Nyelvi beállítások alkalmazása…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Nyelvi csomag alkalmazása DISM-val.</value>
+    <value>A nyelvi csomag hozzáadása…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Opcionális komponensek alkalmazása DISM billentyűvel.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Képmódosítások végrehajtása DISM segítségével.</value>
+    <value>Választható összetevők hozzáadása…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Csatlakoztatott kép elvetése DISM segítségével.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Windows kép exportálása DISM-val.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Illesztőprogramok befecskendezése DISM-val.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Szerelési kép DISM-val.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>A Windows képindex feloldása DISM-val.</value>
+    <value>Egy korábbi futtatás által csatlakoztatva hagyott lemezkép elvetése…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Tartalom letöltése.</value>
+    <value>Letöltés</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Illesztőprogram-csomag letöltése</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>{0}/{1}. {2}-illesztőprogram-csomag letöltése</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>{0} telepítési összetevők letöltése.</value>
+    <value>Letöltés: {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows forráscsomag letöltése.</value>
+    <value>A Windows-forráscsomag letöltése</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>A rendszerindítási aláírási szabályzat kiértékelése.</value>
+    <value>A rendszerindítási aláírás támogatásának ellenőrzése…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Windows-lemezkép exportálása a rendszerindító lemezkép előkészítéséhez.</value>
+    <value>A Windows-lemezkép kibontása…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>A média végső létrehozása nem sikerült.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>A hiba a(z) {0}/{1}. lépésben történt: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>ISO kimenet lezárása.</value>
+    <value>Az ISO-fájl mentése…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>A BOOT partíció formázása.</value>
+    <value>A BOOT partíció formázása…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>A gyorsítótár-partíció formázása.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>A rendszerindító kép testreszabása befejeződött.</value>
+    <value>A gyorsítótár-partíció formázása…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>USB partíciós tábla inicializálása.</value>
+    <value>A partíciós tábla létrehozása…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Illesztőprogramok befecskendezése a rendszerindító lemezképbe.</value>
+    <value>Illesztőprogramok hozzáadása a rendszerindító lemezképhez…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>USB adathordozó elrendezésének ellenőrzése.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO média kész.</value>
+    <value>Az USB-meghajtó elrendezésének beolvasása…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>A Foundry nem tudta lecserélni a(z) {0} helyen lévő ISO-fájlt. Lehet, hogy a fájl csatlakoztatva van, virtuális géphez van csatolva, egy másik programban meg van nyitva, vagy írásvédett. Válassza le vagy zárja be, vagy válasszon másik kimeneti útvonalat, majd próbálkozzon újra.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>A ISO adathordozó sikeresen létrejött.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>Az ISO-fájl mentési helye:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Méret: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Nincs elég lemezterület a rendszerindító lemezkép létrehozásához. A(z) {2} helyen legalább {0} szabad terület szükséges. Elérhető: {1}. Szabadítson fel helyet, és próbálja újra.</value>
@@ -3691,73 +3739,148 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Nem sikerült ellenőrizni a rendszerindító lemezkép létrehozásához rendelkezésre álló lemezterületet a(z) {0} helyen. Ellenőrizze, hogy a hely elérhető-e, és próbálja újra.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Szerelési rendszerindító kép.</value>
+    <value>A rendszerindító lemezkép megnyitása…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Windows forráskép beszerelése.</value>
+    <value>A Windows-lemezkép megnyitása…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Mappa megnyitása</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Naplómappa megnyitása</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>USB lemez megnyitása.</value>
+    <value>Az USB-meghajtó megnyitása…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>A USB cél particionálása és formázása.</value>
+    <value>Az USB-meghajtó particionálása…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Fájlok másolása az USB-meghajtóra</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Az ISO-fájl létrehozása</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>A rendszerindító lemezkép testreszabása</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Illesztőprogramok beszerzése</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Befejezés</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Az USB-meghajtó formázása</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>A munkaterület előkészítése</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Az USB-meghajtó frissítése</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Indítókép testreszabásának előkészítése.</value>
+    <value>A rendszerindító lemezkép előkészítése…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>A Foundry-összetevők előkészítése…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>ISO kimeneti útvonal előkészítése.</value>
+    <value>Az ISO kimeneti mappájának előkészítése…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>ISO munkaterület előkészítése.</value>
+    <value>Az ISO-fájlok előkészítése…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>A telepítés utáni tartalom előkészítése…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>USB gyorsítótár-partíció előkészítése.</value>
+    <value>A gyorsítótár-partíció előkészítése…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>USB lemezattribútumok előkészítése.</value>
+    <value>Az USB-meghajtó előkészítése…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows forráscsomag előkészítése.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>WinPE munkaterület előkészítése.</value>
+    <value>A Windows-forráscsomag beszerzése…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Foundry rendszerindító eszközök kiépítése.</value>
+    <value>A Foundry indítófájljainak hozzáadása…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Foundry telepítési összetevők hozzáadása.</value>
+    <value>Foundry-összetevők hozzáadása…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry komponensek hozzáadása az USB adathordozóhoz.</value>
+    <value>Foundry-összetevők hozzáadása az USB-meghajtóhoz…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Az ideiglenes fájlok eltávolítása…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Boot image cseréje WinRE-re.</value>
+    <value>A rendszerindító lemezkép cseréje Windows RE-re…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Illesztőprogram-csomagok feloldása.</value>
+    <value>A hozzáadandó illesztőprogramok meghatározása…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows képindex feloldása.</value>
+    <value>A Windows-kiadás kiválasztása…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Windows forráskatalógus feloldása.</value>
+    <value>A Windows-forráscsomag keresése…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>A MakeWinPEMedia futtatása ISO számára.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Kiválasztott Windows forráscsomag.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>A részletek a naplóban találhatók.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>A rendszerindító lemezkép függőségeinek előkészítése.</value>
+    <value>A szükséges fájlok másolása a Windows-lemezképből…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>{0}/{1}. lépés: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Technikai részletek: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Az ISO létrehozása megszakítva</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Az ISO létrehozása sikertelen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>ISO létrehozása</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>Az ISO létrejött</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Az USB-adathordozó létrehozása megszakítva</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Az USB-adathordozó létrehozása sikertelen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>USB-adathordozó létrehozása</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>Az USB-adathordozó létrejött</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Az USB-adathordozó frissítése megszakítva</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Az USB-adathordozó frissítése sikertelen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>USB-adathordozó frissítése</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>Az USB-adathordozó frissítve</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Az adatátvitel túllépte az időkorlátot. Ellenőrizze a kapcsolatot, és próbálja újra.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>USB adathordozó frissítése.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Váratlan hiba miatt leállt az adathordozó létrehozása.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>Az USB BOOT partícióhoz körülbelül {0} szükséges, de a kapacitása {1}. Sem törlés, sem formázás nem történt. Csökkentse a testreszabásokat vagy az illesztőprogramok számát, vagy hozzon létre ISO-t.</value>
@@ -3768,35 +3891,35 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Az indító adathordozó egyik fájlja {0} méretű; a FAT32 fájlonként legfeljebb {1} méretet támogat. Csökkentse az indító lemezkép méretét, vagy hozzon létre ISO-t.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>Az USB rendszerindító partíció frissült.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Előfordulhat, hogy az USB-meghajtóról már nem indítható el eszköz. Használat előtt hozza létre vagy frissítse újra.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB média kész.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB partíciók formázva.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB média sikeresen létrejött. Rendszerindítási hangerő: {0}. Gyorsítótár mennyisége: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>Az USB rendszerindító partíció sikeresen frissült. Rendszerindító kötet: {0}. Gyorsítótár-kötet: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Rendszerindító kötet: {0}. Gyorsítótárkötet: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>USB cél érvényesítése.</value>
+    <value>Az USB-meghajtó ellenőrzése…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>A(z) {0}-illesztőprogram-csomag ellenőrzése</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>USB rendszerindító adathordozó ellenőrzése.</value>
+    <value>Az USB-meghajtó rendszerindító fájljainak ellenőrzése…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>A Windows-forráscsomag ellenőrzése</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>A Windows letiltotta a hozzáférést a WinPE-lemezkép fájljaihoz. Lehet, hogy egy biztonsági szoftver vagy egy másik eszköz zárolja őket. Adjon hozzá kivételt a(z) {0} mappához a biztonsági szoftverben, zárja be a lemezképeket csatlakoztató eszközöket, indítsa újra a számítógépet, és próbálja újra. A részletek a(z) {1} és a(z) {2} fájlban találhatók.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Az ISO-fájl írása…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Tekintse át</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Áttekintés: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Kész</value>
@@ -3827,9 +3950,6 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Figyelmet igénylő elemek:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Létrehozás mindenképpen</value>
@@ -3883,6 +4003,15 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE rendszerindítási nyelv</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Csomagok: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Beavatkozást igényel: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Beavatkozást igényel: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Alapértelmezett</value>
@@ -4085,20 +4214,20 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nincs bejelölve</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>A frissítést nem sikerült alkalmazni: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>A Foundry OSD nem tudta elindítani a frissítést. Próbálja meg újra alkalmazni. A részletek a naplóban találhatók.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>A Foundry OSD nem tudott frissítéseket keresni. Ellenőrizze a hálózati kapcsolatot, és próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Frissítések keresése</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>A frissítés letöltése sikertelen: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>A frissítést nem sikerült letölteni. Ellenőrizze a hálózati kapcsolatot, és próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Frissítés letöltése</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>A frissítés ellenőrzése sikertelen: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>A Foundry OSD naprakész.</value>
@@ -4124,11 +4253,17 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>A frissítést nem sikerült alkalmazni</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>A frissítés letöltése sikertelen</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>A frissítés ellenőrzése sikertelen</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Naprakész</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>A frissítés készen áll a telepítésre</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>A frissítés ellenőrzése kimaradt</value>

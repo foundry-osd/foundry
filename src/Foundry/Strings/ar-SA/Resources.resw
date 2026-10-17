@@ -98,10 +98,16 @@
     <value>القدرة على إنشاء وسائل الإعلام</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>تم إلغاء عملية Windows ADK.</value>
+    <value>تم إلغاء التثبيت.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>تم إلغاء تثبيت Windows ADK</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK اكتملت العملية</value>
+    <value>أصبح Windows ADK والوظيفة الإضافية Windows PE جاهزين. يمكنك الآن إنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>تم تثبيت Windows ADK</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>استخدام المثبت المخزن مؤقتًا ADK</value>
@@ -113,10 +119,16 @@
     <value>جارٍ تنزيل برنامج التثبيت ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>فشلت العملية ADK</value>
+    <value>لم يكتمل التثبيت. تتوفر التفاصيل في السجل.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>فشل تثبيت Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>تثبيت Windows ADK</value>
+    <value>جارٍ تحضير التثبيت…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>جارٍ تثبيت Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>تثبيت Windows ADK أدوات النشر</value>
@@ -127,6 +139,9 @@
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>اكتمل التثبيت. راجع متطلبات ADK المتبقية.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>يحتاج Windows ADK إلى اهتمام</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>إزالة Windows ADK الموجودة</value>
   </data>
@@ -135,6 +150,9 @@
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>جارٍ تحضير تثبيت Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>جارٍ ترقية Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>التحقق من التثبيت ADK</value>
@@ -286,8 +304,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>لم يتم إرجاع أي ملفات تعريف Autopilot بواسطة المستأجر.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot فشل تنزيل ملف التعريف: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>تعذر تنزيل ملفات تعريف Autopilot من المستأجر.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>تحقق من اتصال الشبكة وتأكد من أن حسابك يمكنه قراءة ملفات تعريف Autopilot في Intune، ثم حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>فشل التحميل Autopilot</value>
@@ -352,8 +373,11 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>لا تتطابق بصمة شهادة PFX مع شهادة تسجيل التطبيق المحددة.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry تعذر إنشاء شهادة تسجيل التطبيق. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry إنشاء شهادة تسجيل التطبيق.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>تحقق من إمكانية الكتابة في المجلد المحدد ومن أن حسابك يمكنه إدارة تسجيل التطبيق، ثم حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>فشل إنشاء الشهادة</value>
@@ -388,8 +412,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>شهادة بفكس</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>تعذر على Foundry إزالة شهادة تسجيل التطبيق المحدد. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry إزالة شهادة تسجيل التطبيق المحددة.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>فشلت إزالة الشهادة</value>
@@ -442,8 +466,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>تحميل zero-touch لتجزئة الأجهزة</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry تعذر تكوين تسجيل التطبيق Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry تكوين تسجيل تطبيق Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>فشل إعداد المستأجر</value>
@@ -494,16 +518,25 @@
     <value>إزالة الشهادة</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>سيؤدي Foundry إلى إزالة الشهادة المحددة فقط من تسجيل التطبيق المُدار. سيتم الاحتفاظ ببيانات اعتماد التطبيق الأخرى.</value>
+    <value>ستتم إزالة الشهادة المحددة من تسجيل التطبيق المُدار في المستأجر لديك. سيتم الاحتفاظ ببيانات اعتماد التطبيق الأخرى.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>إزالة الشهادة</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>هل تريد إزالة الشهادة المحددة؟</value>
+    <value>هل تريد إزالة الشهادة من المستأجر؟</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>لا يمكن التراجع عن هذا الإجراء. لن تتمكن وسائط التمهيد التي تستخدم شهادة تمت إزالتها من تحميل تجزئات الأجهزة بعد الآن.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry سيزيل فقط الشهادات المحددة {0} من تسجيل التطبيق المُدار. سيتم الاحتفاظ ببيانات اعتماد التطبيق الأخرى.</value>
+    <value>ستتم إزالة الشهادات المحددة وعددها {0} من تسجيل التطبيق المُدار في المستأجر لديك. سيتم الاحتفاظ ببيانات اعتماد التطبيق الأخرى.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>إزالة الشهادات</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>هل تريد إزالة الشهادات من المستأجر؟</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>متصل</value>
@@ -519,6 +552,9 @@
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>معرف المستأجر</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>تحقق من اتصال الشبكة وتأكد من أن حسابك يمكنه إدارة تسجيلات التطبيقات في المستأجر، ثم حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>غير متصل</value>
@@ -545,7 +581,10 @@
     <value>استيراد الملف الشخصي</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>تعذر استيراد ملف تعريف Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>تحقق من أن الملف هو ملف JSON صالح لملف تعريف Autopilot، ثم حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot فشل الاستيراد</value>
@@ -587,7 +626,7 @@
     <value>إزالة المحدد</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>هل تريد إزالة "{0}" من ملفات التعريف Autopilot المستوردة؟</value>
+    <value>ستتم إزالة "{0}" من ملفات تعريف Autopilot في هذا التكوين.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>إزالة الملف الشخصي</value>
@@ -596,13 +635,16 @@
     <value>هل تريد إزالة الملف الشخصي Autopilot؟</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>هل تريد إزالة ملفات تعريف {0} Autopilot المحددة؟</value>
+    <value>ستتم إزالة {0} من ملفات تعريف Autopilot المحددة من هذا التكوين.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>إزالة الملفات الشخصية</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>هل تريد إزالة الملفات الشخصية Autopilot؟</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>لاستخدام ملف تعريف تمت إزالته مرة أخرى، قم باستيراده أو تنزيله من المستأجر مرة أخرى.</value>
   </data>
   <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
     <value>تعيين كافتراضي</value>
@@ -612,9 +654,6 @@
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>قم بتسجيل الدخول إلى Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>إلغاء</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>واضح</value>
@@ -691,6 +730,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>تحديث</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>غير متاح</value>
   </data>
@@ -702,9 +744,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>استعراض</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>إلغاء</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>تم إلغاء الاستيراد</value>
@@ -793,17 +832,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>تحديث</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>هل تريد إزالة هذه الصورة من ملف التعريف الحالي وحذف نسختها المحلية؟ ستظهر كمفقودة في ملفات التعريف الأخرى التي تشير إليها. لن تتغير الملفات الأصلية والوسائط الموجودة.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>إزالة الصورة</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>ستتم إزالة {0} ({1}) من ملف التعريف الحالي، وسيتم حذف نسختها المحلية.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>إزالة</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>هل تريد إزالة الصورة المخصصة؟</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>ستظهر هذه الصورة كمفقودة في ملفات التعريف الأخرى التي تستخدمها. لن يتغير الملف الأصلي والوسائط الموجودة.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>تحرير</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>حفظ</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>تعيين الصورة الافتراضية</value>
@@ -1831,8 +1876,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>قد تحتوي السجلات الخام على بيانات اعتماد ومعرفات ومسارات وأسماء شبكات وبيانات حساسة أخرى. قم بتصديرها فقط عند طلب ذلك صراحةً من جهة دعم موثوقة.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>تم حفظ أرشيف الدعم في:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>تم تصدير التشخيصات</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>فتح المجلد</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>تعذر على Foundry فتح الوثائق في المستعرض الخاص بك. استخدم هذا URL بدلاً من ذلك.</value>
@@ -2695,9 +2746,6 @@
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>حالة المحتوى</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>تم التحقق من محتوى ما بعد التثبيت.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>المتابعة عند حدوث خطأ</value>
   </data>
@@ -2827,9 +2875,6 @@
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>وسيطات البرنامج النصي</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>جارٍ تجهيز محتوى ما بعد التثبيت.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>رموز خروج النجاح (مفصولة بفواصل)</value>
   </data>
@@ -2853,6 +2898,15 @@
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>تعذرت إزالة بعض كلمات المرور أو مفاتيح الوصول القديمة المحفوظة. حاول مرة أخرى عندما يكون مدير بيانات اعتماد Windows متاحًا.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>إغلاق دون حفظ</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>تعذر حفظ آخر التغييرات التي أجريتها، وستُفقد.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>هل تريد الإغلاق دون حفظ الإعدادات؟</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>تأكيد كلمة المرور</value>
@@ -2890,8 +2944,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>حذف من هذا الكمبيوتر</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>حذف</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>الحذف للجميع أيضًا</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>الحذف للجميع</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>هل تريد الحذف للجميع؟</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>هل تريد حذف هذه الإعدادات المشتركة للجميع؟ يجب على أي شخص لديه تغييرات لم تتم مزامنتها إنشاء نسخة من إعداداته للاحتفاظ بها.</value>
@@ -2931,6 +2994,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>مسح كلمات المرور وبيانات الوصول المحفوظة</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>مسح</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>هل تريد إزالة كلمات المرور المحفوظة والملفات السرية التي حفظها Foundry وإمكانية المزامنة لهذه الإعدادات على هذا الكمبيوتر؟ ستحتاج إلى إضافة البيانات الناقصة وإعادة الاتصال للمزامنة. لن تتغير الوسائط التي أنشأتها سابقًا.</value>
@@ -3052,7 +3118,13 @@
     <value>استخدم مجلد الشبكة نفسه على كل كمبيوتر. يجب أن يستخدم SMB 3 مع اشتراط التشفير. المجلدات التي تتم مزامنتها مع السحابة غير مدعومة.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>هل تريد التوقف عن تذكر كلمات المرور لهذا التكوين على هذا الكمبيوتر؟</value>
+    <value>سيتوقف Foundry عن حفظ كلمات المرور لهذا التكوين على هذا الكمبيوتر.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>التوقف عن التذكر</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>هل تريد التوقف عن تذكر كلمات المرور؟</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>مزامنة</value>
@@ -3108,6 +3180,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>تحقق من الحقول المطلوبة. إذا طُلب مجلد شبكة، فاستخدم مسارًا مثل \\server\share\folder. إذا أدخلت كلمة مرور الملف مرتين، فتأكد من تطابقهما.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry OSD حفظ إعدادات الخادم الوكيل. حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>لم يتم تطبيق إعدادات الخادم الوكيل</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>رفض الخادم الوكيل تسجيل الدخول. تحقق من إعدادات مصادقة الخادم الوكيل وحاول مرة أخرى.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry OSD الوصول إلى خدمات GitHub و Microsoft باستخدام هذه الإعدادات. تحقق من عنوان الخادم الوكيل والمنفذ واتصال الشبكة. تتوفر التفاصيل في السجل.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3126,8 +3210,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>أدخل عنوان الخادم الوكيل.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>أدخل عنوان خادم وكيل HTTP أو HTTPS صالحًا، مثل proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>أدخل رقم منفذ من 1 إلى 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3258,11 +3351,14 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>تحديث التطبيق</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>اكتملت العملية</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>إيقاف العملية</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>العملية قيد التقدم</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>حدد "إيقاف العملية" للتأكيد. تكتمل أولاً خطوة القرص أو الصورة قيد التشغيل.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>الوقت المنقضي: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>جارٍ الإيقاف بأمان. قد يلزم اكتمال العملية الحالية على القرص أو الصورة قبل اكتمال التنظيف.</value>
@@ -3333,6 +3429,12 @@
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot يستخدم وضع توفير غير مدعوم.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>عالج ما يلي قبل إنشاء الوسائط:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>لا يمكن بدء إنشاء الوسائط. تحقق من عناصر الجاهزية في صفحة البدء.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK أو WinPE الوظيفة الإضافية ليست جاهزة.</value>
   </data>
@@ -3380,12 +3482,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>لغة التمهيد WinPE المحددة غير متوفرة للبنية المحددة.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>قياسي WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>صورة WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>ب</value>
@@ -3468,23 +3564,8 @@
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>الهندسة المعمارية</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>مصدر صورة التمهيد</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>ربط التزويد</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>نشر التكوين</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>السائقين</value>
@@ -3492,23 +3573,8 @@
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB وضع التنسيق</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO مسار الإخراج</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>تكوين الشبكة</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB نمط التقسيم</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>أسرار الإعلام</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>وضع التوقيع</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB الهدف</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE لغة التمهيد</value>
@@ -3524,6 +3590,9 @@
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>يكون إنشاء الوسائط متاحًا عند اجتياز جميع اختبارات الاستعداد.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>اختر إخراج ISO أو USB أدناه للبدء.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>تنسيق كامل</value>
@@ -3553,52 +3622,49 @@
     <value>تم تخطي إنشاء حساب OOBE</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>تطبيق اللغة والمكونات الاختيارية.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>تبعيات صورة التمهيد جاهزة.</value>
+    <value>جارٍ إضافة اللغة والمكونات الاختيارية…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>إنشاء مساحة عمل WinPE.</value>
+    <value>جارٍ إنشاء مساحة عمل WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} من {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>تم إلغاء إنشاء الوسائط.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>التحقق من USB سلامة الهدف.</value>
+    <value>جارٍ التأكد من أن مسح قرص USB آمن…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>تنظيف مساحة العمل WinPE.</value>
+    <value>جارٍ تنظيف الملفات المتبقية من تشغيل سابق…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>مسح جدول الأقسام USB.</value>
+    <value>جارٍ مسح قرص USB…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>تنفيذ تغييرات صورة التمهيد.</value>
+    <value>جارٍ حفظ صورة التمهيد…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>تم الانتهاء من إنشاء الوسائط النهائية.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>جارٍ نسخ صور Windows المخصصة…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>جارٍ نسخ محتوى ما بعد التثبيت…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>نسخ الوسائط WinPE إلى USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>إنشاء وسائط ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>إنشاء وسائط USB.</value>
+    <value>جارٍ نسخ ملفات WinPE إلى قرص USB…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>إنشاء قسم BOOT.</value>
+    <value>جارٍ إنشاء قسم BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>إنشاء قسم ذاكرة التخزين المؤقت.</value>
+    <value>جارٍ إنشاء قسم ذاكرة التخزين المؤقت…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>يبلغ الحجم الإجمالي لبرامج التشغيل المخصصة {0} على الأقل؛ والحد الأقصى هو {1}. حدد فقط برامج تشغيل الشبكة والتخزين التي يحتاجها Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>تخصيص صورة التمهيد.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>هوية قرص USB مفقودة أو ملتبسة أو تغيرت. حدّث قائمة أقراص USB وحدد القرص مرة أخرى.</value>
@@ -3607,82 +3673,64 @@
     <value>لم يعد تعديل قرص USB المحدد آمنًا. حدّث قائمة أقراص USB وحدد قرص USB آخر.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>تطبيق الإعدادات الدولية مع DISM.</value>
+    <value>جارٍ تطبيق إعدادات اللغة…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>تطبيق حزمة اللغة مع DISM.</value>
+    <value>جارٍ إضافة حزمة اللغة…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>تطبيق المكونات الاختيارية باستخدام DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>تنفيذ تغييرات الصورة باستخدام DISM.</value>
+    <value>جارٍ إضافة المكونات الاختيارية…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>إلغاء تركيب الصورة دون حفظ التغييرات باستخدام DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>تصدير صورة Windows باستخدام DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>حقن برامج التشغيل بـ DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>تركيب الصورة باستخدام DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>تحديد فهرس صورة Windows باستخدام DISM.</value>
+    <value>جارٍ تجاهل صورة بقيت محمّلة من تشغيل سابق…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>جارٍ تنزيل المحتوى.</value>
+    <value>جارٍ التنزيل</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>تنزيل حزمة برامج التشغيل</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>جارٍ تنزيل حزمة برامج التشغيل {2} {0} من {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>تنزيل مكونات النشر {0}.</value>
+    <value>جارٍ تنزيل {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>تنزيل حزمة مصدر Windows.</value>
+    <value>جارٍ تنزيل حزمة مصدر Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>تقييم سياسة توقيع التمهيد.</value>
+    <value>جارٍ التحقق من دعم توقيع التمهيد…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>تصدير صورة Windows لتحضير صورة التمهيد.</value>
+    <value>جارٍ استخراج صورة Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>فشل إنشاء الوسائط النهائية.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>فشلت العملية أثناء الخطوة {0} من {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>الانتهاء من الإخراج ISO.</value>
+    <value>جارٍ حفظ ملف ISO…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>تنسيق قسم BOOT.</value>
+    <value>جارٍ تهيئة قسم BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>تنسيق قسم ذاكرة التخزين المؤقت.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>تم الانتهاء من تخصيص صورة التمهيد.</value>
+    <value>جارٍ تهيئة قسم ذاكرة التخزين المؤقت…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>تهيئة جدول الأقسام USB.</value>
+    <value>جارٍ إنشاء جدول الأقسام…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>حقن برامج التشغيل في صورة التمهيد.</value>
+    <value>جارٍ إضافة برامج التشغيل إلى صورة التمهيد…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>فحص تخطيط وسيط USB.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO اكتملت الوسائط.</value>
+    <value>جارٍ قراءة تخطيط قرص USB…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>تعذر على Foundry استبدال ملف ISO في {0}. قد يكون الملف مُحمّلاً، أو مرفقاً بجهاز ظاهري، أو مفتوحاً في برنامج آخر، أو للقراءة فقط. ألغِ تحميله أو أغلقه، أو اختر مسار إخراج آخر، ثم أعد المحاولة.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>تم إنشاء الوسائط ISO بنجاح.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>تم حفظ ملف ISO في:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>الحجم: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>لا توجد مساحة كافية على القرص لإنشاء صورة التمهيد. يلزم توفر {0} على الأقل من المساحة الحرة على {2}. المساحة المتاحة: {1}. حرّر مساحة وحاول مرة أخرى.</value>
@@ -3691,73 +3739,148 @@
     <value>تعذّر التحقق من مساحة القرص المتاحة لإنشاء صورة التمهيد على {0}. تأكد من إمكانية الوصول إلى الموقع وحاول مرة أخرى.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>تركيب صورة التمهيد.</value>
+    <value>جارٍ فتح صورة التمهيد…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>تركيب صورة مصدر Windows.</value>
+    <value>جارٍ فتح صورة Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>فتح المجلد</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>فتح مجلد السجل</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>فتح القرص USB.</value>
+    <value>جارٍ فتح قرص USB…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>التقسيم والتنسيق USB الهدف.</value>
+    <value>جارٍ تقسيم قرص USB…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>نسخ الملفات إلى قرص USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>إنشاء ملف ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>تخصيص صورة التمهيد</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>الحصول على برامج التشغيل</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>إنهاء العملية</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>تهيئة قرص USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>إعداد مساحة العمل</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>تحديث قرص USB</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>إعداد تخصيص صورة التمهيد.</value>
+    <value>جارٍ تحضير صورة التمهيد…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>جارٍ تحضير مكونات Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>تحضير ISO مسار الإخراج.</value>
+    <value>جارٍ تحضير مجلد إخراج ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>تحضير مساحة العمل ISO.</value>
+    <value>جارٍ تحضير ملفات ISO…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>جارٍ تحضير محتوى ما بعد التثبيت…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>تحضير قسم ذاكرة التخزين المؤقت USB.</value>
+    <value>جارٍ تحضير قسم ذاكرة التخزين المؤقت…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>تحضير سمات القرص USB.</value>
+    <value>جارٍ تحضير قرص USB…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>تحضير حزمة مصدر Windows.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>تحضير مساحة العمل WinPE.</value>
+    <value>جارٍ الحصول على حزمة مصدر Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>توفير أصول التمهيد Foundry.</value>
+    <value>جارٍ إضافة ملفات بدء تشغيل Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>إضافة مكونات النشر Foundry.</value>
+    <value>جارٍ إضافة مكونات Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>إضافة مكونات Foundry إلى وسائط USB.</value>
+    <value>جارٍ إضافة مكونات Foundry إلى قرص USB…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>جارٍ إزالة الملفات المؤقتة…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>استبدال صورة التمهيد بـ WinRE.</value>
+    <value>جارٍ استبدال صورة التمهيد بـ Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>حل حزم برامج التشغيل.</value>
+    <value>جارٍ تحديد برامج التشغيل المطلوب إضافتها…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>تحديد فهرس صورة Windows.</value>
+    <value>جارٍ تحديد نسخة Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>حل كتالوج مصدر Windows.</value>
+    <value>جارٍ البحث عن حزمة مصدر Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>تشغيل MakeWinPEMedia لـ ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>الحزمة المصدرية المحددة لـ Windows.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>تجهيز تبعيات صورة التمهيد.</value>
+    <value>جارٍ نسخ الملفات المطلوبة من صورة Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>الخطوة {0} من {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>التفاصيل التقنية: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>تم إلغاء إنشاء ملف ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>فشل إنشاء ملف ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>جارٍ إنشاء ملف ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>تم إنشاء ملف ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>تم إلغاء إنشاء وسائط USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>فشل إنشاء وسائط USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>جارٍ إنشاء وسائط USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>تم إنشاء وسائط USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>تم إلغاء تحديث وسائط USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>فشل تحديث وسائط USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>جارٍ تحديث وسائط USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>تم تحديث وسائط USB</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>انتهت مهلة النقل. تحقق من اتصالك وحاول مرة أخرى.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>تحديث وسيط USB.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>أوقف خطأ غير متوقع إنشاء الوسائط.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>يحتاج قسم BOOT على USB إلى نحو {0}، لكن سعته هي {1}. لم يتم مسح أي شيء أو تهيئته. قلل التخصيصات أو برامج التشغيل، أو أنشئ ملف ISO.</value>
@@ -3768,35 +3891,35 @@
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>حجم أحد ملفات وسائط التمهيد هو {0}؛ ويدعم FAT32 حدًا أقصى قدره {1} لكل ملف. قلل حجم صورة التمهيد أو أنشئ ملف ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>تم تحديث قسم تمهيد USB.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>قد لا يتمكن قرص USB بعد الآن من تشغيل جهاز. أنشئه أو حدّثه مرة أخرى قبل استخدامه.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB اكتملت الوسائط.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB تم تنسيق الأقسام.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>تم إنشاء الوسائط USB بنجاح. حجم التمهيد: {0}. حجم ذاكرة التخزين المؤقت: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>تم تحديث قسم تمهيد USB بنجاح. وحدة التمهيد: {0}. وحدة التخزين المؤقتة: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>وحدة تخزين التمهيد: {0}. وحدة تخزين ذاكرة التخزين المؤقت: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>التحقق من صحة الهدف USB.</value>
+    <value>جارٍ فحص قرص USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>جارٍ التحقق من حزمة برامج التشغيل {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>التحقق من USB وسائط التمهيد.</value>
+    <value>جارٍ التحقق من ملفات التمهيد على USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>جارٍ التحقق من حزمة مصدر Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>حظر Windows الوصول إلى ملفات صورة WinPE. قد يكون برنامج أمان أو أداة أخرى يقفلها. أضف استثناءً للمسار {0} في برنامج الأمان، وأغلق الأدوات التي تحمّل الصور، وأعد تشغيل الكمبيوتر، ثم حاول مرة أخرى. تتوفر التفاصيل في {1} و{2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>جارٍ كتابة ملف ISO…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>راجع الجاهزية واختر إخراج ISO أو USB ثم ابدأ إنشاء الوسائط.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>مراجعة</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>مراجعة {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>جاهز</value>
@@ -3827,9 +3950,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>العناصر التي تحتاج إلى الاهتمام:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>إنشاء على أي حال</value>
@@ -3883,6 +4003,15 @@
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE لغة التمهيد</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>الحزم: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>يحتاج إلى اهتمام: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>يحتاج إلى اهتمام: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>الافتراضي</value>
@@ -4085,20 +4214,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>لم يتم التحقق منها</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>تعذر تطبيق التحديث: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry OSD بدء التحديث. حاول تطبيقه مرة أخرى. تتوفر التفاصيل في السجل.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>تعذر على Foundry OSD التحقق من وجود تحديثات. تحقق من اتصال الشبكة وحاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>التحقق من وجود تحديثات</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>فشل تنزيل التحديث: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>تعذر تنزيل التحديث. تحقق من اتصال الشبكة وحاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>جارٍ تنزيل التحديث</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>فشل التحقق من التحديث: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD محدث.</value>
@@ -4124,11 +4253,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>تعذر تطبيق التحديث</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>فشل تنزيل التحديث</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>فشل التحقق من التحديث</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>حتى الآن</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>التحديث جاهز للتثبيت</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>تم تخطي التحقق من التحديث</value>

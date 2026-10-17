@@ -27,27 +27,23 @@ public sealed class ApplicationProxyTests
         Assert.Same(CredentialCache.DefaultNetworkCredentials, proxy.Credentials);
     }
 
-    [Fact]
-    public void CreateManual_RejectsInvalidConfiguration()
+    [Theory]
+    [InlineData(null, 8080, ApplicationProxyValidationReason.AddressRequired)]
+    [InlineData("   ", 8080, ApplicationProxyValidationReason.AddressRequired)]
+    [InlineData("not a host/path", 8080, ApplicationProxyValidationReason.InvalidAddress)]
+    [InlineData("ftp://proxy.contoso.com", 8080, ApplicationProxyValidationReason.InvalidAddress)]
+    [InlineData("user@proxy.contoso.com", 8080, ApplicationProxyValidationReason.InvalidAddress)]
+    [InlineData("proxy.contoso.com", 0, ApplicationProxyValidationReason.InvalidPort)]
+    [InlineData("proxy.contoso.com", 65536, ApplicationProxyValidationReason.InvalidPort)]
+    public void CreateManual_RejectsInvalidConfigurationWithReason(
+        string? address,
+        int port,
+        ApplicationProxyValidationReason expectedReason)
     {
-        Assert.Throws<ArgumentNullException>(() => ApplicationProxyFactory.CreateManual(
-            null!,
-            8080,
-            bypassLocal: false,
-            string.Empty,
-            credentials: null));
-        Assert.Throws<ArgumentException>(() => ApplicationProxyFactory.CreateManual(
-            "not a host/path",
-            8080,
-            bypassLocal: false,
-            string.Empty,
-            credentials: null));
-        Assert.Throws<ArgumentOutOfRangeException>(() => ApplicationProxyFactory.CreateManual(
-            "proxy.contoso.com",
-            0,
-            bypassLocal: false,
-            string.Empty,
-            credentials: null));
+        ApplicationProxyValidationException exception = Assert.Throws<ApplicationProxyValidationException>(
+            () => ApplicationProxyFactory.CreateManual(address, port, bypassLocal: false, string.Empty, credentials: null));
+
+        Assert.Equal(expectedReason, exception.Reason);
     }
 
     [Fact]

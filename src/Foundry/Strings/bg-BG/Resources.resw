@@ -98,10 +98,16 @@
     <value>Възможност за създаване на медия</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Операцията с Windows ADK е отменена.</value>
+    <value>Инсталирането е отменено.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Инсталирането на Windows ADK е отменено</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK операцията е завършена</value>
+    <value>Windows ADK и добавката Windows PE са готови. Вече можете да създадете носител за стартиране.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK е инсталиран</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Използване на кеширана програма за инсталиране на ADK</value>
@@ -113,9 +119,15 @@
     <value>Изтегля се инсталационна програма ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK операцията е неуспешна</value>
+    <value>Инсталирането не завърши. Подробностите са в регистрационния файл.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Инсталирането на Windows ADK е неуспешно</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Подготовка на инсталирането…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Инсталиране на Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -127,6 +139,9 @@
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Инсталацията приключи. Прегледайте останалите изисквания за ADK.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK изисква внимание</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Премахване на съществуващ Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Подготовка на инсталирането на Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Надграждане на Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Инсталацията на ADK се проверява</value>
@@ -286,8 +304,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Няма Autopilot профили, върнати от наемателя.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Неуспешно изтегляне на Autopilot профил: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot профилите не можаха да бъдат изтеглени от наемателя.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Проверете мрежовата си връзка и се уверете, че акаунтът ви може да чете Autopilot профили в Intune, след което опитайте отново. Подробностите са в регистрационния файл.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot изтеглянето е неуспешно</value>
@@ -352,8 +373,11 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Отпечатъкът на PFX сертификата не съответства на избрания сертификат за регистрация на приложение.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не можа да създаде сертификат за регистрация на приложението. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry не можа да създаде сертификат за регистрация на приложението.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Проверете дали в избраната папка може да се записва и дали акаунтът ви може да управлява регистрацията на приложението, след което опитайте отново. Подробностите са в регистрационния файл.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Неуспешно създаване на сертификат</value>
@@ -388,8 +412,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX сертификат</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не можа да премахне избрания сертификат за регистрация на приложение. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry не можа да премахне избрания сертификат за регистрация на приложението.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Премахването на сертификата не бе успешно</value>
@@ -442,8 +466,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch качване на хардуерен хеш</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry не можа да конфигурира регистрацията на приложението Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry не можа да конфигурира регистрацията на приложението Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Включването на наемател не бе успешно</value>
@@ -494,16 +518,25 @@
     <value>Премахване на сертификата</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry ще премахне само избрания сертификат от регистрацията на управляваното приложение. Други идентификационни данни за приложението ще бъдат запазени.</value>
+    <value>Избраният сертификат ще бъде премахнат от регистрацията на управляваното приложение във вашия наемател. Другите идентификационни данни за приложението се запазват.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Премахване на сертификата</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Премахване на избрания сертификат?</value>
+    <value>Премахване на сертификата от наемателя?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Това действие не може да бъде отменено. Носителите за зареждане, които използват премахнат сертификат, вече няма да могат да качват хардуерни хешове.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry ще премахне само {0} избраните сертификати от регистрацията на управляваното приложение. Други идентификационни данни за приложението ще бъдат запазени.</value>
+    <value>Избраните {0} сертификата ще бъдат премахнати от регистрацията на управляваното приложение във вашия наемател. Другите идентификационни данни за приложението се запазват.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Премахване на сертификатите</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Премахване на сертификатите от наемателя?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Свързан</value>
@@ -519,6 +552,9 @@
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID на наемателя</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Проверете мрежовата си връзка и се уверете, че акаунтът ви може да управлява регистрации на приложения в наемателя, след което опитайте отново. Подробностите са в регистрационния файл.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Не е свързан</value>
@@ -545,7 +581,10 @@
     <value>Импортиране на профил</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot профилът не можа да бъде импортиран.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Проверете дали файлът е валиден JSON файл с Autopilot профил, след което опитайте отново. Подробностите са в регистрационния файл.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Неуспешно импортиране на Autopilot</value>
@@ -587,7 +626,7 @@
     <value>Премахване на избраното</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Да се премахне ли „{0}“ от импортираните Autopilot профили?</value>
+    <value>„{0}“ ще бъде премахнат от Autopilot профилите в тази конфигурация.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Премахване на профил</value>
@@ -596,13 +635,16 @@
     <value>Премахване на Autopilot профил?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Премахване на {0} избрани Autopilot профили?</value>
+    <value>{0} избрани Autopilot профила ще бъдат премахнати от тази конфигурация.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Премахване на профили</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Премахване на Autopilot профили?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>За да използвате отново премахнат профил, импортирайте го или го изтеглете отново от наемателя.</value>
   </data>
   <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
     <value>Задаване по подразбиране</value>
@@ -612,9 +654,6 @@
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Влезте в Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Отказ</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>ясно</value>
@@ -691,6 +730,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Опресняване</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Запазване</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недостъпен</value>
   </data>
@@ -702,9 +744,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Преглед</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Отказ</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Импортирането е отменено</value>
@@ -793,17 +832,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Обновяване</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Да се премахне ли този образ от текущия профил и да се изтрие ли локалното му копие? В другите профили, които го използват, той ще се показва като липсващ. Оригиналните файлове и съществуващите носители остават непроменени.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Премахване на образа</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) ще бъде премахнат от текущия профил, а локалното му копие ще бъде изтрито.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Премахване</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Премахване на персонализирания образ?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Другите профили, които използват този образ, ще го показват като липсващ. Оригиналният файл и съществуващите носители не се променят.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Редактиране</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Запазване</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Задаване на образ по подразбиране</value>
@@ -1831,8 +1876,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Необработените регистрационни файлове може да съдържат идентификационни данни, идентификатори, пътища, имена на мрежи и други чувствителни данни. Експортирайте ги само когато това е изрично поискано от доверен контакт за поддръжка.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Архивът за поддръжка е записан в:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Диагностиката е експортирана</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Отваряне на папката</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry не можа да отвори документацията във вашия браузър. Използвайте този URL вместо това.</value>
@@ -2695,9 +2746,6 @@
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Състояние на съдържанието</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Съдържанието за етапа след инсталиране е проверено.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Продължаване при грешка</value>
   </data>
@@ -2827,9 +2875,6 @@
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Аргументи на скрипта</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Подготвяне на съдържанието за етапа след инсталиране.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Кодове за успешен изход (разделени със запетаи)</value>
   </data>
@@ -2853,6 +2898,15 @@
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Някои стари запазени пароли или ключове за достъп не можаха да бъдат премахнати. Опитайте отново, когато диспечерът на идентификационни данни на Windows е достъпен.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Затваряне без запазване</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Последните ви промени не можаха да бъдат запазени и ще бъдат загубени.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Затваряне без запазване на настройките?</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Потвърдете паролата</value>
@@ -2890,8 +2944,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Изтриване от този компютър</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Изтриване</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Изтриване и за всички останали</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Изтриване за всички</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Изтриване за всички?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Да се изтрият ли тези споделени настройки за всички? Всеки с несинхронизирани промени трябва да дублира настройките си, за да ги запази.</value>
@@ -2931,6 +2994,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Изчистване на запазените пароли и достъп</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Изчистване</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Да се премахнат ли запазените пароли, поверителните файлове, запазени от Foundry, и достъпът за синхронизиране на тези настройки на този компютър? Ще трябва да добавите липсващите данни и да се свържете отново, за да синхронизирате. Вече създадените носители няма да се променят.</value>
@@ -3052,7 +3118,13 @@
     <value>Използвайте една и съща мрежова папка на всеки компютър. Тя трябва да използва SMB 3 със задължително шифроване. Папки, синхронизирани с облака, не се поддържат.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Да се спре ли запомнянето на пароли за тази конфигурация на този компютър?</value>
+    <value>Foundry ще спре да запазва паролите за тази конфигурация на този компютър.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Спиране на запомнянето</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Да се спре ли запомнянето на пароли?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Синхронизиране</value>
@@ -3108,6 +3180,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Проверете задължителните полета. Ако е поискана мрежова папка, използвайте път като \\server\share\folder. Ако въвеждате паролата за файл два пъти, уверете се, че двете въведени стойности съвпадат.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не можа да запише настройките за прокси. Опитайте отново. Подробностите са в регистрационния файл.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Настройките за прокси не са приложени</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Прокси сървърът отхвърли влизането. Проверете настройките за удостоверяване на прокси сървъра и опитайте отново.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD не можа да се свърже с услугите на GitHub и Microsoft с тези настройки. Проверете адреса и порта на прокси сървъра и мрежовата си връзка. Подробностите са в регистрационния файл.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3126,8 +3210,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Въведете адреса на прокси сървъра.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Въведете валиден HTTP или HTTPS адрес на прокси сървър, например proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Въведете номер на порт от 1 до 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3258,11 +3351,14 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Актуализирайте приложението</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Операцията е завършена</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Спиране на операцията</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Операция в ход</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Изберете „Спиране на операцията“, за да потвърдите. Изпълняваната стъпка с диска или образа ще завърши първо.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Изминало време: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Безопасно спиране. Може да се наложи текущата операция с диска или образа да завърши, преди почистването да приключи.</value>
@@ -3333,6 +3429,12 @@
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot използва неподдържан режим на осигуряване.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Отстранете следните проблеми, преди да създадете носител:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Създаването на носител не може да започне. Проверете елементите за готовност на страницата „Започнете“.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK или WinPE Добавката не е готова.</value>
   </data>
@@ -3380,12 +3482,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Избраният WinPE език за стартиране не е наличен за избраната архитектура.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Стандартен WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi изображение</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>б</value>
@@ -3468,23 +3564,8 @@
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Архитектура</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Източник на изображение за зареждане</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Осигуряване на връзка</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Конфигурация за внедряване</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Шофьори</value>
@@ -3492,23 +3573,8 @@
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB форматен режим</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO изходен път</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Конфигурация на мрежата</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB стил на дял</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Медийни тайни</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Режим на подпис</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB цел</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE език за стартиране</value>
@@ -3524,6 +3590,9 @@
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Създаването на мултимедия е достъпно, когато всички проверки за готовност преминат.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>За да започнете, изберете ISO или USB изход по-долу.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Пълен формат</value>
@@ -3553,52 +3622,49 @@
     <value>Създаването на OOBE акаунт е пропуснато</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Прилагане на език и незадължителни компоненти.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Зависимостите на образа за зареждане са готови.</value>
+    <value>Добавяне на езика и незадължителните компоненти…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Създаване на WinPE работно пространство.</value>
+    <value>Създаване на работното пространство на WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} от {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Създаването на носителя е отменено.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Проверка на безопасността на целта USB.</value>
+    <value>Проверка дали USB дискът може да бъде изтрит безопасно…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Почистване на WinPE работно пространство.</value>
+    <value>Почистване на файлове от предишно изпълнение…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Изчистване на USB таблица с дялове.</value>
+    <value>Изтриване на USB диска…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Извършване на промени в изображението за зареждане.</value>
+    <value>Запазване на образа за стартиране…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Окончателното създаване на медия е завършено.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Копиране на персонализираните образи на Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Копиране на съдържанието за след инсталиране…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Копиране на WinPE мултимедия в USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Създаване на ISO медия.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Създаване на USB медия.</value>
+    <value>Копиране на файловете на WinPE на USB диска…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Създаване на BOOT дял.</value>
+    <value>Създаване на дяла BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Създаване на кеш дял.</value>
+    <value>Създаване на кеш дяла…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Персонализираните драйвери заемат поне {0}; максимумът е {1}. Изберете само мрежовите драйвери и драйверите за съхранение, необходими за Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Персонализиране на изображението за зареждане.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>Идентичността на USB диска липсва, не е еднозначна или е променена. Обновете списъка с USB дискове и изберете диска отново.</value>
@@ -3607,82 +3673,64 @@
     <value>Избраният USB диск вече не може да бъде променян безопасно. Обновете списъка с USB дискове и изберете друг USB диск.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Прилагане на международни настройки с DISM.</value>
+    <value>Прилагане на езиковите настройки…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Прилага се езиков пакет с DISM.</value>
+    <value>Добавяне на езиковия пакет…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Прилагане на незадължителни компоненти с DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Извършване на промени в изображението с DISM.</value>
+    <value>Добавяне на незадължителни компоненти…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Отхвърляне на монтираното изображение с DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Експортиране на Windows изображение с DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Инжектиране на драйвери с DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Изображение за монтиране с DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Определяне на индекса на образа на Windows с DISM.</value>
+    <value>Отхвърляне на образ, оставен монтиран от предишно изпълнение…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Изтегляне на съдържание.</value>
+    <value>Изтегляне</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Изтегляне на пакет драйвери</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Изтегляне на пакет с драйвери {2} {0} от {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Изтегляне на {0} компоненти за внедряване.</value>
+    <value>Изтегляне на {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Изтегля се изходният пакет на Windows.</value>
+    <value>Изтегляне на изходния пакет на Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Оценяване на правилата за подписване при зареждане.</value>
+    <value>Проверка на поддръжката на подпис за стартиране…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Експортиране на образ на Windows за подготовка на образа за зареждане.</value>
+    <value>Извличане на образа на Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Окончателното създаване на медия е неуспешно.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Грешката възникна на стъпка {0} от {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Финализиране на изхода ISO.</value>
+    <value>Запазване на ISO файла…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Форматиране на BOOT дял.</value>
+    <value>Форматиране на дяла BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Форматиране на кеш дял.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Персонализирането на изображението за зареждане е завършено.</value>
+    <value>Форматиране на кеш дяла…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Инициализиране на USB таблица с дялове.</value>
+    <value>Създаване на таблицата на дяловете…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Инжектиране на драйвери в изображението за зареждане.</value>
+    <value>Добавяне на драйвери към образа за стартиране…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Проверка на оформлението на USB носителя.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO медиите са завършени.</value>
+    <value>Четене на оформлението на USB диска…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry не можа да замени ISO файла в {0}. Файлът може да е монтиран, прикачен към виртуална машина, отворен в друга програма или само за четене. Демонтирайте го или го затворете, или изберете друг изходен път, след което опитайте отново.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Медията ISO е създадена успешно.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO файлът е запазен в:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Размер: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Няма достатъчно място на диска за създаване на образа за стартиране. На {2} са необходими поне {0} свободно място. Налично: {1}. Освободете място и опитайте отново.</value>
@@ -3691,73 +3739,148 @@
     <value>Не можа да се провери наличното място на диска за създаване на образа за стартиране на {0}. Проверете дали местоположението е достъпно и опитайте отново.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Монтиране на начално изображение.</value>
+    <value>Отваряне на образа за стартиране…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Монтиране на изходното изображение на Windows.</value>
+    <value>Отваряне на образа на Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Отвори папката</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Отвори папката с регистрационни файлове</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Отваряне на USB диск.</value>
+    <value>Отваряне на USB диска…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Разделяне и форматиране USB цел.</value>
+    <value>Разделяне на USB диска на дялове…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Копиране на файлове на USB диска</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Създаване на ISO файла</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Персонализиране на образа за стартиране</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Получаване на драйвери</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Завършване</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Форматиране на USB диска</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Подготовка на работното пространство</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Актуализиране на USB диска</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Подготвя се персонализиране на изображението за зареждане.</value>
+    <value>Подготовка на образа за стартиране…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Подготовка на компонентите на Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Подготвя се ISO изходен път.</value>
+    <value>Подготовка на изходната папка за ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Подготвя се ISO работно пространство.</value>
+    <value>Подготовка на ISO файловете…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Подготовка на съдържанието за след инсталиране…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Подготвя се USB дял на кеша.</value>
+    <value>Подготовка на кеш дяла…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Подготовка на USB дискови атрибути.</value>
+    <value>Подготовка на USB диска…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Подготовка на Windows изходен пакет.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Подготвя се WinPE работно пространство.</value>
+    <value>Получаване на изходния пакет на Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Осигуряване на Foundry зареждащи активи.</value>
+    <value>Добавяне на файловете за стартиране на Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Добавяне на Foundry компоненти за внедряване.</value>
+    <value>Добавяне на компонентите на Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Добавяне на Foundry компоненти към USB медия.</value>
+    <value>Добавяне на компонентите на Foundry към USB диска…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Премахване на временните файлове…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Замяна на изображението за зареждане с WinRE.</value>
+    <value>Замяна на образа за стартиране с Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Разрешаване на пакети с драйвери.</value>
+    <value>Определяне кои драйвери да се добавят…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Определяне на индекса на образа на Windows.</value>
+    <value>Избиране на изданието на Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Разрешаване на изходния каталог на Windows.</value>
+    <value>Търсене на изходния пакет на Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Стартиране на MakeWinPEMedia за ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Избран изходен пакет на Windows.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Подробностите са в регистрационния файл.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Подготовка на зависимостите на образа за зареждане.</value>
+    <value>Копиране на необходимите файлове от образа на Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Стъпка {0} от {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Технически подробности: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Създаването на ISO е отменено</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Създаването на ISO е неуспешно</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Създаване на ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO файлът е създаден</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Създаването на USB носител е отменено</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Създаването на USB носител е неуспешно</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Създаване на USB носител</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB носителят е създаден</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Актуализирането на USB носителя е отменено</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Актуализирането на USB носителя е неуспешно</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Актуализиране на USB носител</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB носителят е актуализиран</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Времето за изчакване на прехвърлянето изтече. Проверете връзката си и опитайте отново.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Актуализиране на USB носител.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Неочаквана грешка спря създаването на носителя.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>Дялът BOOT на USB изисква приблизително {0}, но капацитетът му е {1}. Нищо не е изтрито или форматирано. Намалете персонализациите или драйверите или създайте ISO.</value>
@@ -3768,35 +3891,35 @@
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Файл на носителя за стартиране е с размер {0}; FAT32 поддържа най-много {1} на файл. Намалете размера на образа за стартиране или създайте ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>Дялът за зареждане на USB е актуализиран.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>USB дискът може вече да не стартира устройство. Създайте го или го актуализирайте отново, преди да го използвате.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB медиите са завършени.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB дяловете са форматирани.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB медията е създадена успешно. Обем на зареждане: {0}. Обем на кеша: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>Дялът за зареждане на USB беше актуализиран успешно. Том за зареждане: {0}. Кеш том: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Том за стартиране: {0}. Кеш том: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Потвърждаване на целта USB.</value>
+    <value>Проверка на USB диска…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Проверка на пакета с драйвери {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Проверка на USB носител за зареждане.</value>
+    <value>Проверка на файловете за стартиране на USB диска…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Проверка на изходния пакет на Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows блокира достъпа до файловете на WinPE образа. Възможно е софтуер за защита или друг инструмент да ги заключва. Добавете изключение за {0} в софтуера за защита, затворете инструментите, които монтират образи, рестартирайте компютъра и опитайте отново. Подробности има в {1} и {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Записване на ISO файла…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Прегледайте готовността, изберете ISO или USB изход и стартирайте създаването на носител.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Преглед</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Преглед: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Готови</value>
@@ -3827,9 +3950,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Елементи, изискващи внимание:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Създаване въпреки това</value>
@@ -3883,6 +4003,15 @@
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE език за стартиране</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Пакети: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Изисква внимание: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Изисква внимание: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>По подразбиране</value>
@@ -4085,20 +4214,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не е проверено</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Актуализацията не можа да бъде приложена: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не можа да стартира актуализацията. Опитайте да я приложите отново. Подробностите са в регистрационния файл.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD не можа да провери за актуализации. Проверете мрежовата си връзка и опитайте отново. Подробностите са в регистрационния файл.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Проверка за актуализации</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Изтеглянето на актуализацията е неуспешно: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Актуализацията не можа да бъде изтеглена. Проверете мрежовата си връзка и опитайте отново. Подробностите са в регистрационния файл.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Изтегляне на актуализация</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Проверката на актуализацията е неуспешна: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD е актуален.</value>
@@ -4124,11 +4253,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Актуализацията не можа да бъде приложена</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Неуспешно изтегляне на актуализацията</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Проверката на актуализацията е неуспешна</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>В крак с времето</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Актуализацията е готова за инсталиране</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Проверката на актуализацията е пропусната</value>

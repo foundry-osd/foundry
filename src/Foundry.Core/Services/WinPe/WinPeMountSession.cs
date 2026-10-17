@@ -106,7 +106,7 @@ public sealed class WinPeMountSession : IAsyncDisposable
             dismPath,
             args,
             workingDirectory,
-            "Mounting image with DISM.",
+            WinPeProgressStatuses.DismMountingImage,
             dismProgress,
             cancellationToken).ConfigureAwait(false);
 
@@ -147,7 +147,7 @@ public sealed class WinPeMountSession : IAsyncDisposable
             _dismPath,
             $"/Unmount-Image /MountDir:{WinPeProcessRunner.Quote(MountDirectoryPath)} /Commit",
             _workingDirectory,
-            "Committing image changes with DISM.",
+            WinPeProgressStatuses.DismCommittingImageChanges,
             dismProgress,
             cancellationToken).ConfigureAwait(false);
 
@@ -278,7 +278,7 @@ public sealed class WinPeMountSession : IAsyncDisposable
             dismPath,
             $"/Unmount-Image /MountDir:{WinPeProcessRunner.Quote(mountDirectoryPath)} /Discard",
             workingDirectory,
-            "Discarding mounted image with DISM.",
+            WinPeProgressStatuses.DismDiscardingMountedImage,
             dismProgress,
             cancellationToken);
     }
