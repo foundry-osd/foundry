@@ -10,12 +10,11 @@
     PrimaryButtonClick="OnPrimaryButtonClick"
     Style="{ThemeResource DefaultContentDialogStyle}">
     <StackPanel
-        MinWidth="420"
-        MaxWidth="520"
+        Width="480"
         Padding="0,4,0,0"
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <FontIcon x:Name="OutcomeIcon"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             AutomationProperties.AccessibilityView="Raw"
             FontSize="40"
             Visibility="Collapsed" />
@@ -44,7 +43,9 @@
             Visibility="Collapsed">
             <TextBlock x:Name="DetailText"
                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                MaxLines="2"
                 Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                TextTrimming="CharacterEllipsis"
                 TextWrapping="Wrap" />
             <Grid x:Name="DetailProgressRow"
                 ColumnSpacing="12">

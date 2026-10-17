@@ -909,13 +909,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private string BuildIsoSuccessMessage(string isoPath)
     {
-        string size = File.Exists(isoPath)
-            ? ByteSizeFormatter.Format(localizationService, (ulong)new FileInfo(isoPath).Length)
-            : string.Empty;
-        string[] lines = size.Length == 0
-            ? [localizationService.GetString("StartMedia.Operation.IsoSavedLead"), isoPath]
-            : [localizationService.GetString("StartMedia.Operation.IsoSavedLead"), isoPath, localizationService.FormatString("StartMedia.Operation.IsoSizeFormat", size)];
-        return string.Join(Environment.NewLine, lines);
+        string location = localizationService.GetString("StartMedia.Operation.IsoSavedLead") + Environment.NewLine + isoPath;
+        if (!File.Exists(isoPath))
+        {
+            return location;
+        }
+
+        string size = localizationService.FormatString(
+            "StartMedia.Operation.IsoSizeFormat",
+            ByteSizeFormatter.Format(localizationService, (ulong)new FileInfo(isoPath).Length));
+        return location + Environment.NewLine + Environment.NewLine + size;
     }
 
     /// <summary>
@@ -1757,6 +1760,22 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         });
     }
 
+    /// <summary>
+    /// Shortens a long file name in the middle, keeping its start and its extension, so the detail line keeps the
+    /// download size visible on one or two lines.
+    /// </summary>
+    private static string ShortenItemName(string itemName)
+    {
+        const int MaximumLength = 40;
+        const int TailLength = 14;
+        if (itemName.Length <= MaximumLength)
+        {
+            return itemName;
+        }
+
+        return string.Concat(itemName.AsSpan(0, MaximumLength - TailLength - 1), "\u2026", itemName.AsSpan(itemName.Length - TailLength));
+    }
+
     private string FormatDownloadDetail(WinPeDownloadProgress progress)
     {
         string text = progress.Status switch
@@ -1765,10 +1784,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 "StartMedia.Operation.DownloadingDriverPackageFormat",
                 progress.ItemNumber ?? 1,
                 progress.ItemCount ?? 1,
-                progress.ItemName),
+                ShortenItemName(progress.ItemName)),
             WinPeProgressStatuses.DownloadingWindowsSourcePackage => localizationService.GetString("StartMedia.Operation.DownloadingWindowsSourcePackage"),
             WinPeProgressStatuses.DownloadingRuntimePayload => localizationService.FormatString("StartMedia.Operation.DownloadingRuntimePayloadFormat", progress.ItemName),
-            WinPeProgressStatuses.VerifyingCachedSource => localizationService.FormatString("StartMedia.Operation.VerifyingCachedFileFormat", progress.ItemName),
+            WinPeProgressStatuses.VerifyingCachedSource => localizationService.FormatString("StartMedia.Operation.VerifyingCachedFileFormat", ShortenItemName(progress.ItemName)),
             WinPeProgressStatuses.ReusingWindowsSourcePackage
                 or WinPeProgressStatuses.WindowsSourcePackageReady
                 or WinPeProgressStatuses.ReusingDriverPackage
