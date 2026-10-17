@@ -320,6 +320,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistēma</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Atveriet žurnāla failu</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Atsvaidzināt statusu</value>
   </data>

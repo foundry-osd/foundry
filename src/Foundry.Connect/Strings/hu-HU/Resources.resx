@@ -320,6 +320,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>Rendszer</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Nyissa meg a naplófájlt</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Frissítési állapot</value>
   </data>

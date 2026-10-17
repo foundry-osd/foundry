@@ -320,6 +320,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>Süsteem</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Ava logifail</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Värskenda olekut</value>
   </data>

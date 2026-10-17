@@ -106,6 +106,9 @@
                         Header="{Binding Strings[Tools.RefreshStatus]}" />
                     <Separator />
                     <MenuItem
+                        Command="{Binding OpenLogFileCommand}"
+                        Header="{Binding Strings[Tools.OpenLogFile]}" />
+                    <MenuItem
                         Command="{Binding ExportDiagnosticsCommand}"
                         Header="{Binding Strings[Diagnostics.ExportMenu]}" />
                     <MenuItem

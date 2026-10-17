@@ -320,6 +320,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Günlük dosyasını aç</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Durumu yenile</value>
   </data>

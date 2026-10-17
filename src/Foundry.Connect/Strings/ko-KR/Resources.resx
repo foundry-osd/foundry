@@ -320,6 +320,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>시스템</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>로그 파일 열기</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>새로고침 상태</value>
   </data>

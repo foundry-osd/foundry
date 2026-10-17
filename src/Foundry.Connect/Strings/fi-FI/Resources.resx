@@ -320,6 +320,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>Järjestelmä</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Avaa lokitiedosto</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Päivitä tila</value>
   </data>

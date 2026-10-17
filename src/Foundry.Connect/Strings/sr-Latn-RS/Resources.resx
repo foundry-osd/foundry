@@ -320,6 +320,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Otvorite datoteku evidencije</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Osveži status</value>
   </data>

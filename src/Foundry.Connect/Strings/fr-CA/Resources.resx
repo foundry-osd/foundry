@@ -320,6 +320,9 @@ Sous licence MIT.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>Système</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Ouvrir le fichier journal</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Actualiser l'état</value>
   </data>

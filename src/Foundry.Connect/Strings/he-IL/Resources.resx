@@ -320,6 +320,9 @@
   <data name="Theme.System" xml:space="preserve">
     <value>מערכת</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>פתח קובץ יומן</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>סטטוס רענון</value>
   </data>

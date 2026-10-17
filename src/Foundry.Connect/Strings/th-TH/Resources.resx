@@ -320,6 +320,9 @@
   <data name="Theme.System" xml:space="preserve">
     <value>ระบบ</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>เปิดไฟล์บันทึก</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>รีเฟรชสถานะ</value>
   </data>

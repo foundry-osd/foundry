@@ -320,6 +320,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Apri il file di registro</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Aggiorna stato</value>
   </data>

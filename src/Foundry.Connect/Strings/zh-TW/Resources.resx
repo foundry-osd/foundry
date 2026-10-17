@@ -320,6 +320,9 @@
   <data name="Theme.System" xml:space="preserve">
     <value>系統</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>打開日誌文件</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>刷新狀態</value>
   </data>

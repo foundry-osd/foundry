@@ -320,6 +320,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>Systém</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Otevřete soubor protokolu</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Obnovit stav</value>
   </data>

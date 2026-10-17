@@ -320,6 +320,9 @@
   <data name="Theme.System" xml:space="preserve">
     <value>система</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Отворете регистрационния файл</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Опресняване на състоянието</value>
   </data>

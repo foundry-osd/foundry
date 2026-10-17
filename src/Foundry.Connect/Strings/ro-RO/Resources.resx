@@ -320,6 +320,9 @@ Licențiat sub licența MIT.</value>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>
   </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Deschideți fișierul jurnal</value>
+  </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Starea de reîmprospătare</value>
   </data>

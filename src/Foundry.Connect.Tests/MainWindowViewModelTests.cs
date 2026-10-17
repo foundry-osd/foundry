@@ -399,6 +399,21 @@ public sealed class MainWindowViewModelTests
     }
 
     [Fact]
+    public void OpenLogFileCommand_WhenLogFileIsUnavailable_LogsWarningWithoutThrowing()
+    {
+        var logger = new RecordingLogger<MainWindowViewModel>();
+        using MainWindowViewModel viewModel = CreateViewModel(
+            new RecordingTelemetryService(),
+            new QueueNetworkStatusService(CreateReadySnapshot()),
+            logger: logger);
+
+        viewModel.OpenLogFileCommand.Execute(null);
+
+        LogEntry entry = Assert.Single(logger.Entries, item => item.Level == LogLevel.Warning);
+        Assert.True(entry.Properties.ContainsKey("LogFilePath"));
+    }
+
+    [Fact]
     public void KeyboardMenu_ListsActiveLanguageFirst()
     {
         using MainWindowViewModel viewModel = CreateViewModel(

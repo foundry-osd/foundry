@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using System.Diagnostics;
 using System.Globalization;
@@ -471,6 +472,32 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void ShowAbout()
     {
         _applicationShellService.ShowAbout();
+    }
+
+    [RelayCommand]
+    private void OpenLogFile()
+    {
+        string logFilePath = FoundryConnectLogging.CurrentLogFilePath;
+        if (!File.Exists(logFilePath))
+        {
+            _logger.LogWarning("The Foundry Connect log file is unavailable. LogFilePath={LogFilePath}", logFilePath);
+            return;
+        }
+
+        try
+        {
+            ProcessStartInfo startInfo = new("notepad.exe")
+            {
+                UseShellExecute = false
+            };
+            startInfo.ArgumentList.Add(logFilePath);
+            _ = Process.Start(startInfo);
+            _logger.LogInformation("Opened log file at {LogFilePath}.", logFilePath);
+        }
+        catch (Exception exception) when (exception is Win32Exception or InvalidOperationException)
+        {
+            _logger.LogError(exception, "Failed to open log file. LogFilePath={LogFilePath}", logFilePath);
+        }
     }
 
     [RelayCommand]
