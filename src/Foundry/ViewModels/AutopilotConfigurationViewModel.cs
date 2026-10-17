@@ -87,6 +87,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     }
 
     /// <summary>
+    /// Raised before listed profile rows are removed. A table must drop its selection first: removing selected rows
+    /// one by one makes it scroll to a row that no longer exists.
+    /// </summary>
+    public event EventHandler? ProfileRowsRemoving;
+
+    /// <summary>
     /// Gets the ordered Autopilot profiles available for deployment.
     /// </summary>
     public ObservableCollection<AutopilotProfileEntryViewModel> Profiles { get; } = [];
@@ -597,6 +603,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             .Select(profile => profile.Id)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
+        ProfileRowsRemoving?.Invoke(this, EventArgs.Empty);
         foreach (AutopilotProfileEntryViewModel profile in profilesToRemove)
         {
             Profiles.Remove(profile);
@@ -936,6 +943,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             .OrderBy(profile => profile.DisplayName, StringComparer.OrdinalIgnoreCase)
             .ThenBy(profile => profile.Id, StringComparer.OrdinalIgnoreCase)
             .ToArray();
+
+        if (Profiles.Count > 0)
+        {
+            ProfileRowsRemoving?.Invoke(this, EventArgs.Empty);
+        }
 
         Profiles.Clear();
         foreach (AutopilotProfileEntryViewModel profile in orderedProfiles)

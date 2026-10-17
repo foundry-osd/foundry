@@ -136,10 +136,19 @@
                                 Width="2*"
                                 Binding="{Binding FolderName}"
                                 Header="{x:Bind ViewModel.ProfileFolderColumnHeader, Mode=OneWay}" />
-                            <tv:TableViewTextColumn
+                            <tv:TableViewTemplateColumn
                                 Width="*"
-                                Binding="{Binding DefaultText}"
-                                Header="{x:Bind ViewModel.ProfileDefaultColumnHeader, Mode=OneWay}" />
+                                Header="{x:Bind ViewModel.ProfileDefaultColumnHeader, Mode=OneWay}"
+                                SortMemberPath="DefaultText">
+                                <tv:TableViewTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Margin="12,0,12,0"
+                                            Style="{ThemeResource FoundrySuccessTextBlockStyle}"
+                                            Text="{Binding DefaultText}" />
+                                    </DataTemplate>
+                                </tv:TableViewTemplateColumn.CellTemplate>
+                            </tv:TableViewTemplateColumn>
                         </tv:TableView.Columns>
                     </tv:TableView>
                 </StackPanel>

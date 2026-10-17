@@ -19,6 +19,7 @@ public sealed partial class CustomImageImportDialog : ContentDialog
     {
         ViewModel = viewModel;
         InitializeComponent();
+        TableViewFullWidth.Attach(PreviewTable);
         ApplyContentWidth();
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
     }

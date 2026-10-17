@@ -72,7 +72,7 @@
                         Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.PreviewIndexCountText, Mode=OneWay}" />
                 </StackPanel>
-                <tv:TableView
+                <tv:TableView x:Name="PreviewTable"
                     MaxHeight="{ThemeResource FoundryTableMaxHeight}"
                     AutoGenerateColumns="False"
                     AutomationProperties.Name="{x:Bind ViewModel.IndexesLabel, Mode=OneWay}"
@@ -88,7 +88,7 @@
                     ShowExportOptions="False">
                     <tv:TableView.Columns>
                         <tv:TableViewTextColumn
-                            Width="Auto"
+                            Width="*"
                             Binding="{Binding Index}"
                             Header="{x:Bind ViewModel.IndexNumberLabel, Mode=OneWay}" />
                         <tv:TableViewTextColumn
@@ -96,7 +96,7 @@
                             Binding="{Binding Name}"
                             Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}" />
                         <tv:TableViewTextColumn
-                            Width="*"
+                            Width="1.5*"
                             Binding="{Binding Architecture}"
                             Header="{x:Bind ViewModel.ArchitectureLabel, Mode=OneWay}" />
                         <tv:TableViewTextColumn
@@ -104,7 +104,7 @@
                             Binding="{Binding Version}"
                             Header="{x:Bind ViewModel.VersionLabel, Mode=OneWay}" />
                         <tv:TableViewTextColumn
-                            Width="2*"
+                            Width="1.5*"
                             Binding="{Binding Languages}"
                             Header="{x:Bind ViewModel.LanguagesLabel, Mode=OneWay}" />
                     </tv:TableView.Columns>
