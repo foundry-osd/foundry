@@ -153,9 +153,9 @@ public sealed class KeyboardLayoutSelectionTests
     [Fact]
     public void BuildMenu_WhenActiveLayoutIsUnknown_ListsEveryLanguageAsOther()
     {
-        KeyboardLayoutMenu menu = KeyboardLayoutSelection.BuildMenu(Layouts, "E0010411");
+        KeyboardLayoutMenu menu = WithUiCulture("en-US", () => KeyboardLayoutSelection.BuildMenu(Layouts, "E0010411"));
 
         Assert.Empty(menu.Suggested);
-        Assert.Equal(["fr", "nl"], menu.OtherLanguages.Select(group => group.BaseLanguage));
+        Assert.Equal(["nl", "fr"], menu.OtherLanguages.Select(group => group.BaseLanguage));
     }
 }
