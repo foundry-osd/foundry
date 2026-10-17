@@ -77,14 +77,8 @@ public sealed class MediaCreationProgressPlan
     {
         this.kind = kind;
         this.phases = phases;
-        Phases = phases.Select(entry => entry.Phase).ToArray();
         Current = new MediaCreationProgress(phases[0].Phase, 1, phases.Length, 0);
     }
-
-    /// <summary>
-    /// Gets the phases of this plan in execution order.
-    /// </summary>
-    public IReadOnlyList<MediaCreationPhase> Phases { get; }
 
     /// <summary>
     /// Gets the latest reported progress.
