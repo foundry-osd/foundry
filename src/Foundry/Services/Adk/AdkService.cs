@@ -81,8 +81,6 @@ internal sealed class AdkService(
     {
         // ADK setup changes machine-level state and may show UAC, so only one install or upgrade can run at a time.
         await operationLock.WaitAsync(cancellationToken);
-        string terminalStatus = string.Empty;
-        OperationOutcome outcome = OperationOutcome.None;
         string operationId = Guid.NewGuid().ToString("N");
         string stage = "detect";
         ILogger operationLogger = logger.ForContext("OperationId", operationId)
@@ -90,7 +88,7 @@ internal sealed class AdkService(
 
         try
         {
-            operationProgressService.Start(operationKind, GetOperationStartText(operationKind));
+            operationProgressService.Start(operationKind, GetOperationTitle(operationKind), GetOperationStartText(operationKind));
             operationLogger.Information("ADK operation started. OperationKind={OperationKind}", operationKind);
 
             // Steps follow the freshly detected state so partial installs do not re-run setups that were refused.
@@ -135,9 +133,10 @@ internal sealed class AdkService(
             stage = "verify";
             operationProgressService.Report(95, localizationService.GetString("Adk.Operation.Verifying"));
             AdkInstallationStatus status = await RefreshStatusAsync(cancellationToken);
-            terminalStatus = localizationService.GetString(status.CanCreateMedia ? "Adk.Operation.Completed" : "Adk.Operation.NeedsAttention");
-            operationProgressService.Complete(terminalStatus);
-            outcome = status.CanCreateMedia ? OperationOutcome.Success : OperationOutcome.Error;
+            operationProgressService.Finish(
+                status.CanCreateMedia ? OperationOutcome.Success : OperationOutcome.Error,
+                localizationService.GetString(status.CanCreateMedia ? "Adk.Operation.CompletedTitle" : "Adk.Operation.NeedsAttentionTitle"),
+                localizationService.GetString(status.CanCreateMedia ? "Adk.Operation.Completed" : "Adk.Operation.NeedsAttention"));
             operationLogger.ForContext("Outcome", status.CanCreateMedia ? "succeeded" : "needs_attention").Information(
                 "ADK operation completed. OperationKind={OperationKind}, IsCompatible={IsCompatible}, InstalledVersion={InstalledVersion}",
                 operationKind,
@@ -151,8 +150,7 @@ internal sealed class AdkService(
             CreateSetupFailureLogger(operationLogger, ex, stage)
                 .ForContext("Cancelled", true).ForContext("Outcome", "cancelled")
                 .Warning("ADK operation canceled. FailureReason={FailureReason}", ex.Reason);
-            terminalStatus = localizationService.GetString("Adk.Operation.Cancelled");
-            operationProgressService.Report(100, terminalStatus);
+            FinishCancelled();
             throw;
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -160,8 +158,7 @@ internal sealed class AdkService(
             operationLogger.ForContext("FailedOperationName", stage)
                 .ForContext("Cancelled", true).ForContext("Outcome", "cancelled")
                 .Warning("ADK operation canceled. FailureReason={FailureReason}", "operation_cancelled");
-            terminalStatus = localizationService.GetString("Adk.Operation.Cancelled");
-            operationProgressService.Report(100, terminalStatus);
+            FinishCancelled();
             throw;
         }
         catch (Exception ex)
@@ -174,14 +171,15 @@ internal sealed class AdkService(
                 "ADK operation failed. OperationKind={OperationKind}, FailureReason={FailureReason}, ExitCode={ExitCode}, NativeErrorCode={NativeErrorCode}",
                 operationKind, setupException?.Reason ?? "operation_failed",
                 setupException?.ExitCode, setupException?.NativeErrorCode);
-            terminalStatus = localizationService.GetString("Adk.Operation.Failed");
-            outcome = OperationOutcome.Error;
-            operationProgressService.Report(100, terminalStatus);
+            operationProgressService.Finish(
+                OperationOutcome.Error,
+                localizationService.GetString("Adk.Operation.FailedTitle"),
+                localizationService.GetString("Adk.Operation.Failed"));
             throw;
         }
         finally
         {
-            operationProgressService.Reset(terminalStatus, outcome);
+            operationProgressService.Reset();
             operationLock.Release();
         }
     }
@@ -332,6 +330,21 @@ internal sealed class AdkService(
     private static string GetUninstallStage(string setupPath) =>
         setupPath.EndsWith("adkwinpesetup.exe", StringComparison.OrdinalIgnoreCase)
             ? "uninstall_winpe" : "uninstall_adk";
+
+    private void FinishCancelled()
+    {
+        operationProgressService.Finish(
+            OperationOutcome.Cancelled,
+            localizationService.GetString("Adk.Operation.CancelledTitle"),
+            localizationService.GetString("Adk.Operation.Cancelled"));
+    }
+
+    private string GetOperationTitle(OperationKind operationKind)
+    {
+        return operationKind == OperationKind.AdkUpgrade
+            ? localizationService.GetString("Adk.Operation.UpgradeTitle")
+            : localizationService.GetString("Adk.Operation.InstallTitle");
+    }
 
     private string GetOperationStartText(OperationKind operationKind)
     {

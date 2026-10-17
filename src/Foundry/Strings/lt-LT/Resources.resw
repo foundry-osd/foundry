@@ -98,10 +98,16 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Žiniasklaidos kūrimo galimybė</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK operacija atšaukta.</value>
+    <value>Diegimas atšauktas.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Windows ADK diegimas atšauktas</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK operacija baigta</value>
+    <value>Windows ADK ir Windows PE priedas paruošti. Dabar galite kurti įkrovos laikmeną.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK įdiegtas</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Naudojant talpykloje išsaugotą ADK diegimo programą</value>
@@ -113,10 +119,16 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Atsisiunčiama ADK diegimo programa</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK operacija nepavyko</value>
+    <value>Diegimas nebaigtas. Išsamią informaciją rasite žurnale.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Nepavyko įdiegti Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Diegimas Windows ADK</value>
+    <value>Ruošiamas diegimas…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Diegiamas Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Diegiami Windows ADK Diegimo įrankiai</value>
@@ -127,6 +139,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Diegimas baigtas. Peržiūrėkite likusius ADK reikalavimus.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK reikia dėmesio</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Pašalinamas esamas Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Ruošiamas Windows ADK 24H2 diegimas</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Naujinamas Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>ADK diegimo tikrinimas</value>
@@ -2689,9 +2707,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Turinio būsena</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Turinys veiksmams po diegimo patikrintas.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Tęsti įvykus klaidai</value>
   </data>
@@ -2820,9 +2835,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Scenarijaus argumentai</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Ruošiamas turinys veiksmams po diegimo.</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Sėkmingo užbaigimo kodai (atskirti kableliais)</value>
@@ -3252,11 +3264,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atnaujinti programą</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operacija baigta</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Stabdyti operaciją</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Vykdoma operacija</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Norėdami patvirtinti, pasirinkite „Stabdyti operaciją“. Pirmiausia bus baigtas vykdomas disko arba atvaizdo veiksmas.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Praėjęs laikas: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Saugiai stabdoma. Prieš baigiant valymą gali reikėti palaukti, kol bus baigta dabartinė disko arba atvaizdo operacija.</value>
@@ -3327,6 +3342,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot naudoja nepalaikomą parengimo režimą.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Prieš kurdami laikmeną išspręskite šias problemas:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Negalima pradėti kurti laikmenos. Patikrinkite parengties elementus puslapyje Pradėti.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK arba WinPE Priedas neparengtas.</value>
   </data>
@@ -3374,12 +3395,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Pasirinkta WinPE įkrovos kalba nepasiekiama pasirinktai architektūrai.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standartinis WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi vaizdas</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3462,23 +3477,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Architektūra</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Įkrovos vaizdo šaltinis</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Prijungti aprūpinimą</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Įdiegti konfigūraciją</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Vairuotojai</value>
@@ -3486,23 +3486,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formato režimas</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO išvesties kelias</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Tinklo konfigūracija</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB skaidinio stilius</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Žiniasklaidos paslaptys</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Parašo režimas</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB taikinys</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE įkrovos kalba</value>
@@ -3518,6 +3503,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Laikmenos kūrimas pasiekiamas, kai praeina visi parengties patikrinimai.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Norėdami pradėti, toliau pasirinkite ISO arba USB išvestį.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Pilnas formatas</value>
@@ -3547,52 +3535,49 @@ Licencijuota pagal MIT licenciją.</value>
     <value>OOBE paskyros kūrimas praleistas</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Kalbos ir pasirenkamų komponentų taikymas.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Įkrovos vaizdo priklausomybės paruoštos.</value>
+    <value>Pridedama kalba ir pasirinktiniai komponentai…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Kuriama WinPE darbo sritis.</value>
+    <value>Kuriama WinPE darbo sritis…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} iš {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Laikmenos kūrimas atšauktas.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Tikrinama USB tikslo sauga.</value>
+    <value>Tikrinama, ar USB diską galima saugiai ištrinti…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>WinPE darbo vietos valymas.</value>
+    <value>Valomi ankstesnio vykdymo failai…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>USB skaidinių lentelės išvalymas.</value>
+    <value>Trinamas USB diskas…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Vykdomi įkrovos vaizdo pakeitimai.</value>
+    <value>Įrašomas įkrovos atvaizdas…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Baigtas galutinis žiniasklaidos kūrimas.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Kopijuojami pasirinktiniai Windows atvaizdai…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Kopijuojamas turinys po diegimo…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>WinPE laikmena kopijuojama į USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>ISO medijos kūrimas.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>USB medijos kūrimas.</value>
+    <value>WinPE failai kopijuojami į USB diską…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Kuriamas BOOT skaidinys.</value>
+    <value>Kuriamas BOOT skaidinys…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Sukuriamas talpyklos skaidinys.</value>
+    <value>Kuriamas talpyklos skaidinys…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Pasirinktinės tvarkyklės užima bent {0}; didžiausia leistina apimtis yra {1}. Pasirinkite tik Windows PE reikalingas tinklo ir saugyklos tvarkykles.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Įkrovos vaizdo tinkinimas.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>Trūksta USB disko identifikavimo duomenų, jie nėra vienareikšmiai arba pasikeitė. Atnaujinkite USB diskų sąrašą ir pasirinkite diską iš naujo.</value>
@@ -3601,82 +3586,64 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinkto USB disko nebegalima saugiai keisti. Atnaujinkite USB diskų sąrašą ir pasirinkite kitą USB diską.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Tarptautinių nustatymų taikymas naudojant DISM.</value>
+    <value>Taikomi kalbos parametrai…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Kalbos paketo taikymas naudojant DISM.</value>
+    <value>Pridedamas kalbos paketas…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Pasirinktinių komponentų taikymas naudojant DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Vaizdo keitimas atliekamas naudojant DISM.</value>
+    <value>Pridedami pasirinktiniai komponentai…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Prijungto vaizdo atmetimas naudojant DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Eksportuojamas Windows vaizdas su DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Vairuotojų suleidimas su DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Montavimo vaizdas su DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows vaizdo indekso sprendimas naudojant DISM.</value>
+    <value>Atmetamas atvaizdas, kurį ankstesnis vykdymas paliko prijungtą…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Atsisiunčiamas turinys.</value>
+    <value>Atsisiunčiama</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Atsisiųsti tvarkyklės paketą</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Atsisiunčiamas {2} tvarkyklių paketas {0} iš {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Atsisiunčiami {0} diegimo komponentai.</value>
+    <value>Atsisiunčiama: {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Atsisiunčiamas Windows šaltinio paketas.</value>
+    <value>Atsisiunčiamas Windows šaltinio paketas</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Įkrovos parašo politikos įvertinimas.</value>
+    <value>Tikrinamas įkrovos parašų palaikymas…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Eksportuojamas Windows vaizdas įkrovos vaizdui paruošti.</value>
+    <value>Išgaunamas Windows atvaizdas…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Nepavyko sukurti galutinės medijos.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Klaida įvyko atliekant {0} veiksmą iš {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Baigiama ISO išvestis.</value>
+    <value>Įrašomas ISO failas…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formatuojamas BOOT skaidinys.</value>
+    <value>Formatuojamas BOOT skaidinys…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formatuojamas talpyklos skaidinys.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Įkrovos vaizdo tinkinimas baigtas.</value>
+    <value>Formatuojamas talpyklos skaidinys…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Inicijuojama USB skaidinių lentelė.</value>
+    <value>Kuriama skaidinių lentelė…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Tvarkyklių įvedimas į įkrovos vaizdą.</value>
+    <value>Į įkrovos atvaizdą įtraukiamos tvarkyklės…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Tikrinamas USB laikmenos išdėstymas.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO laikmena baigta.</value>
+    <value>Nuskaitoma USB disko struktūra…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry nepavyko pakeisti ISO failo {0}. Failas gali būti prijungtas, susietas su virtualiąja mašina, atidarytas kitoje programoje arba skirtas tik skaityti. Atjunkite arba uždarykite jį arba pasirinkite kitą išvesties kelią ir bandykite dar kartą.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>ISO laikmena sėkmingai sukurta.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO failas įrašytas į:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Dydis: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Nepakanka vietos diske įkrovos vaizdui sukurti. Vietoje {2} reikia bent {0} laisvos vietos. Laisva vieta: {1}. Atlaisvinkite vietos ir bandykite dar kartą.</value>
@@ -3685,73 +3652,148 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepavyko patikrinti įkrovos vaizdui kurti prieinamos vietos diske vietoje {0}. Patikrinkite, ar ši vieta pasiekiama, ir bandykite dar kartą.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Montavimo įkrovos vaizdas.</value>
+    <value>Atidaromas įkrovos atvaizdas…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Montuojamas Windows šaltinio vaizdas.</value>
+    <value>Atidaromas Windows atvaizdas…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Atidaryti aplanką</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Atidaryti žurnalų aplanką</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Atidaromas USB diskas.</value>
+    <value>Atidaromas USB diskas…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Skirstymas ir formatavimas USB tikslas.</value>
+    <value>Skaidomas USB diskas…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Failai kopijuojami į USB diską</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Kuriamas ISO failas</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Tinkinamas įkrovos atvaizdas</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Gaunamos tvarkyklės</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Baigiama</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Formatuojamas USB diskas</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Ruošiama darbo sritis</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Naujinamas USB diskas</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Ruošiamasi įkrovos vaizdo tinkinimui.</value>
+    <value>Ruošiamas įkrovos atvaizdas…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Ruošiami Foundry komponentai…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Ruošiamas ISO išvesties kelias.</value>
+    <value>Ruošiamas ISO išvesties aplankas…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Ruošiama ISO darbo sritis.</value>
+    <value>Ruošiami ISO failai…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Ruošiamas turinys po diegimo…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Ruošiamas USB talpyklos skaidinys.</value>
+    <value>Ruošiamas talpyklos skaidinys…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>USB disko atributų paruošimas.</value>
+    <value>Ruošiamas USB diskas…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Ruošiamas Windows šaltinio paketas.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Ruošiama WinPE darbo sritis.</value>
+    <value>Gaunamas Windows šaltinio paketas…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Atidėjimų Foundry įkrovos turtas.</value>
+    <value>Pridedami Foundry paleisties failai…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Pridedami Foundry diegimo komponentai.</value>
+    <value>Pridedami Foundry komponentai…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry komponentų įtraukimas į USB laikmeną.</value>
+    <value>Į USB diską pridedami Foundry komponentai…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Šalinami laikinieji failai…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Įkrovos vaizdo pakeitimas WinRE.</value>
+    <value>Įkrovos atvaizdas keičiamas Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Tvarkyklių paketų sprendimas.</value>
+    <value>Tikrinama, kurias tvarkykles pridėti…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows vaizdo indekso sprendimas.</value>
+    <value>Pasirenkamas Windows leidimas…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Windows šaltinio katalogo sprendimas.</value>
+    <value>Ieškoma Windows šaltinio paketo…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Vykdoma „MakeWinPEMedia“, skirta ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Pasirinktas Windows šaltinio paketas.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Išsamią informaciją rasite žurnale.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Ruošiamos įkrovos vaizdo priklausomybės.</value>
+    <value>Iš Windows atvaizdo kopijuojami reikalingi failai…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>{0} veiksmas iš {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Techninė informacija: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>ISO kūrimas atšauktas</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Nepavyko sukurti ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Kuriamas ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO sukurtas</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>USB laikmenos kūrimas atšauktas</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Nepavyko sukurti USB laikmenos</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Kuriama USB laikmena</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB laikmena sukurta</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>USB laikmenos naujinimas atšauktas</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Nepavyko atnaujinti USB laikmenos</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Naujinama USB laikmena</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB laikmena atnaujinta</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Baigėsi perdavimui skirtas laikas. Patikrinkite ryšį ir bandykite dar kartą.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Atnaujinama USB laikmena.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Laikmenos kūrimą sustabdė netikėta klaida.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB BOOT skaidiniui reikia maždaug {0}, tačiau jo talpa yra {1}. Niekas nebuvo ištrinta ar suformatuota. Sumažinkite tinkinimus ar tvarkyklių skaičių arba sukurkite ISO.</value>
@@ -3762,35 +3804,35 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Paleidimo laikmenos failo dydis yra {0}; FAT32 palaiko ne daugiau kaip {1} vienam failui. Sumažinkite paleidimo atvaizdo dydį arba sukurkite ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB įkrovos skaidinys atnaujintas.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Iš USB disko gali nebepavykti paleisti įrenginio. Prieš naudodami jį sukurkite arba atnaujinkite iš naujo.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB laikmena baigta.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB skaidiniai suformatuoti.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB laikmena sėkmingai sukurta. Įkrovos garsumas: {0}. Talpyklos tūris: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB įkrovos skaidinys sėkmingai atnaujintas. Įkrovos tomas: {0}. Talpyklos tomas: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Įkrovos tomas: {0}. Talpyklos tomas: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Patvirtinamas USB tikslas.</value>
+    <value>Tikrinamas USB diskas…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Tikrinamas {0} tvarkyklių paketas</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Tikrinama USB įkrovos laikmena.</value>
+    <value>Tikrinami USB įkrovos failai…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Tikrinamas Windows šaltinio paketas</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>„Windows“ užblokavo prieigą prie WinPE vaizdo failų. Gali būti, kad juos užrakino saugos programinė įranga arba kitas įrankis. Saugos programinėje įrangoje pridėkite išimtį aplankui {0}, uždarykite vaizdus prijungiančius įrankius, paleiskite kompiuterį iš naujo ir bandykite dar kartą. Išsami informacija pateikta failuose {1} ir {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Rašomas ISO failas…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Peržiūrėkite parengtį, pasirinkite ISO arba USB išvestį ir pradėkite laikmenos kūrimą.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Apžvalga</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Peržiūrėti: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Paruošta</value>
@@ -3821,9 +3863,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Daiktai, kuriems reikia dėmesio:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Vis tiek kurti</value>
@@ -3877,6 +3916,15 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE įkrovos kalba</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Paketai: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Reikia dėmesio: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Reikia dėmesio: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Numatyta</value>

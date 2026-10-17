@@ -41,7 +41,7 @@ public sealed class WinPeDriverInjectionService : IWinPeDriverInjectionService
                 dismPath,
                 $"/Image:{WinPeProcessRunner.Quote(options.MountedImagePath)} /Add-Driver /Driver:{WinPeProcessRunner.Quote(normalizedPath)}{recurse}",
                 options.WorkingDirectoryPath,
-                "Injecting drivers with DISM.",
+                WinPeProgressStatuses.DismInjectingDrivers,
                 options.DismProgress,
                 cancellationToken).ConfigureAwait(false);
 

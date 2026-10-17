@@ -18,7 +18,7 @@ internal sealed class OperationProgressService : IOperationProgressService
     public OperationProgressState State { get; private set; } = OperationProgressState.Idle;
 
     /// <inheritdoc />
-    public void Start(OperationKind kind, string status, Action? cancel = null)
+    public void Start(OperationKind kind, string title, string status, Action? cancel = null)
     {
         if (kind == OperationKind.None)
         {
@@ -26,7 +26,12 @@ internal sealed class OperationProgressService : IOperationProgressService
         }
 
         cancelOperation = cancel;
-        SetState(new(kind, 0, status, null, string.Empty) { CanCancel = cancel is not null });
+        SetState(new(kind, 0, status, null, string.Empty)
+        {
+            Title = title,
+            StartedAt = DateTimeOffset.Now,
+            CanCancel = cancel is not null
+        });
     }
 
     /// <inheritdoc />
@@ -44,45 +49,31 @@ internal sealed class OperationProgressService : IOperationProgressService
     }
 
     /// <inheritdoc />
-    public void Report(int progress, string status)
+    public void Report(int progress, string status, int? detailProgress = null, string detail = "")
     {
-        Report(progress, status, null, string.Empty);
-    }
-
-    /// <inheritdoc />
-    public void Report(int progress, string status, int? secondaryProgress, string secondaryStatus)
-    {
-        if (!State.IsRunning)
+        if (!State.IsRunning || State.IsFinished)
         {
             return;
         }
 
         SetState(State with
         {
-            Progress = Math.Clamp(progress, 0, 100),
+            Progress = Math.Max(State.Progress, Math.Clamp(progress, 0, 100)),
             Status = status,
-            SecondaryProgress = secondaryProgress.HasValue
-                ? Math.Clamp(secondaryProgress.Value, 0, 100)
-                : null,
-            SecondaryStatus = secondaryStatus
+            SecondaryProgress = detailProgress.HasValue ? Math.Clamp(detailProgress.Value, 0, 100) : null,
+            SecondaryStatus = detail
         });
     }
 
     /// <inheritdoc />
-    public void ClearSecondary()
+    public void Finish(OperationOutcome outcome, string title, string message, OperationAction? action = null)
     {
-        if (!State.IsRunning || !State.HasSecondaryProgress)
+        if (outcome == OperationOutcome.None)
         {
-            return;
+            throw new ArgumentOutOfRangeException(nameof(outcome), outcome, "A terminal outcome is required.");
         }
 
-        SetState(State with { SecondaryProgress = null, SecondaryStatus = string.Empty });
-    }
-
-    /// <inheritdoc />
-    public void Complete(string status)
-    {
-        if (!State.IsRunning)
+        if (!State.IsRunning || State.IsFinished)
         {
             return;
         }
@@ -90,19 +81,23 @@ internal sealed class OperationProgressService : IOperationProgressService
         cancelOperation = null;
         SetState(State with
         {
+            IsFinished = true,
+            Outcome = outcome,
+            Title = title,
+            Status = message,
+            FinishedAction = action,
             CanCancel = false,
-            Progress = 100,
-            Status = status,
+            Progress = outcome == OperationOutcome.Success ? 100 : State.Progress,
             SecondaryProgress = null,
             SecondaryStatus = string.Empty
         });
     }
 
     /// <inheritdoc />
-    public void Reset(string status = "", OperationOutcome outcome = OperationOutcome.None)
+    public void Reset()
     {
         cancelOperation = null;
-        SetState(OperationProgressState.Idle with { Progress = State.Progress, Status = status, Outcome = outcome });
+        SetState(State with { Kind = OperationKind.None, CanCancel = false, IsCancellationRequested = false });
     }
 
     private void SetState(OperationProgressState state)

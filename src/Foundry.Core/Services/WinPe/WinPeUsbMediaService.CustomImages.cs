@@ -61,7 +61,8 @@ public sealed partial class WinPeUsbMediaService
                 }
                 else if (options.PostInstallation is not null)
                     await _postInstallationPublisher.ValidateCapacityAsync(options.PostInstallation, existingDataRoot, runtimeBytes, cancellationToken).ConfigureAwait(false);
-                WinPeResult publication = await PublishCustomImagesAsync(options, artifact, tools, existingDataRoot, cancellationToken).ConfigureAwait(false);
+                WinPeResult publication = await PublishCustomImagesAsync(options, artifact, tools, existingDataRoot,
+                    UpdateContentProgressRange, cancellationToken).ConfigureAwait(false);
                 if (!publication.IsSuccess) return publication;
                 // Recheck provenance after a potentially long copy and immediately before BOOT mutation.
                 await _customImagePublisher.ValidateInputDisksAsync(sourcePaths, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
@@ -74,8 +75,12 @@ public sealed partial class WinPeUsbMediaService
         }
     }
 
+    /// <summary>
+    /// Publishes custom images, then post-installation content, each inside its own share of
+    /// <paramref name="progressRange"/> so the copy cannot restart the stage percentage.
+    /// </summary>
     private async Task<WinPeResult> PublishCustomImagesAsync(UsbOutputOptions options, WinPeBuildArtifact artifact,
-        WinPeToolPaths tools, string dataRoot, CancellationToken cancellationToken)
+        WinPeToolPaths tools, string dataRoot, (int Start, int End) progressRange, CancellationToken cancellationToken)
     {
         if (options.CustomImages is null && options.PostInstallation is null) return WinPeResult.Success();
         try
@@ -84,12 +89,18 @@ public sealed partial class WinPeUsbMediaService
                 artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
             if (!identity.IsSuccess) return WinPeResult.Failure(identity.Error!);
             await _customImagePublisher.ValidateDestinationDiskAsync(dataRoot, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
+            // Custom images are usually far larger than post-installation content, so they get most of the range.
+            int split = options.CustomImages is null ? progressRange.Start
+                : options.PostInstallation is null ? progressRange.End
+                : progressRange.Start + ((progressRange.End - progressRange.Start) * 4 / 5);
             if (options.CustomImages is not null)
-                await _customImagePublisher.PublishAsync(options.CustomImages, dataRoot, cancellationToken, options.Progress).ConfigureAwait(false);
+                await _customImagePublisher.PublishAsync(options.CustomImages, dataRoot, cancellationToken,
+                    WinPeScaledProgress.Create(options.Progress, progressRange.Start, split)).ConfigureAwait(false);
             if (options.PostInstallation is not null)
             {
                 await _customImagePublisher.ValidateDestinationDiskAsync(dataRoot, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
-                await _postInstallationPublisher.PublishAsync(options.PostInstallation, dataRoot, cancellationToken, options.Progress).ConfigureAwait(false);
+                await _postInstallationPublisher.PublishAsync(options.PostInstallation, dataRoot, cancellationToken,
+                    WinPeScaledProgress.Create(options.Progress, split, progressRange.End)).ConfigureAwait(false);
             }
             return WinPeResult.Success();
         }

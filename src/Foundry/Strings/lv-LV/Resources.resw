@@ -98,10 +98,16 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Multivides izveides iespēja</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK darbība ir atcelta.</value>
+    <value>Instalēšana tika atcelta.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Windows ADK instalēšana atcelta</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK darbība pabeigta</value>
+    <value>Windows ADK un Windows PE papildinājums ir gatavi. Tagad varat izveidot sāknēšanas datu nesēju.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK ir instalēts</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Izmantojot kešatmiņā saglabāto ADK instalētāju</value>
@@ -113,9 +119,15 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Notiek ADK instalēšanas programmas lejupielāde</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK darbība neizdevās</value>
+    <value>Instalēšana netika pabeigta. Detalizēta informācija ir pieejama žurnālā.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Windows ADK instalēšana neizdevās</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Notiek instalēšanas sagatavošana…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Notiek Windows ADK instalēšana</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -127,6 +139,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Instalēšana ir pabeigta. Pārskatiet atlikušās ADK prasības.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK ir jāpievērš uzmanība</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Esošā Windows ADK noņemšana</value>
   </data>
@@ -135,6 +150,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Windows ADK 24H2 instalēšanas sagatavošana</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Notiek Windows ADK jaunināšana</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>ADK instalācijas pārbaude</value>
@@ -2689,9 +2707,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Satura statuss</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Saturs posmam pēc instalēšanas ir pārbaudīts.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Turpināt kļūdas gadījumā</value>
   </data>
@@ -2820,9 +2835,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Skripta argumenti</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Tiek sagatavots saturs posmam pēc instalēšanas.</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Veiksmīgas pabeigšanas izejas kodi (atdalīti ar komatiem)</value>
@@ -3252,11 +3264,14 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atjaunināt lietotni</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Darbība pabeigta</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Apturēt operāciju</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Notiek darbība</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Lai apstiprinātu, atlasiet “Apturēt operāciju”. Vispirms tiks pabeigts notiekošais diska vai attēla darbības solis.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Pagājušais laiks: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Notiek droša apturēšana. Iespējams, pašreizējai diska vai attēla operācijai jāpabeidzas, pirms var pabeigt tīrīšanu.</value>
@@ -3327,6 +3342,12 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot izmanto neatbalstītu nodrošināšanas režīmu.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Pirms datu nesēja izveides novērsiet tālāk norādītās problēmas:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Datu nesēja izveidi nevar sākt. Pārbaudiet gatavības vienumus lapā Sākt.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK vai WinPE Papildinājums nav gatavs.</value>
   </data>
@@ -3374,12 +3395,6 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Atlasītā WinPE sāknēšanas valoda atlasītajai arhitektūrai nav pieejama.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standarta WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi attēls</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3462,23 +3477,8 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Arhitektūra</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Sāknēšanas attēla avots</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Savienot nodrošinājumu</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Izvietot konfigurāciju</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Šoferi</value>
@@ -3486,23 +3486,8 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formāta režīms</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO izvades ceļš</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Tīkla konfigurācija</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB nodalījuma stils</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Mediju noslēpumi</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Paraksta režīms</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB mērķis</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE sāknēšanas valoda</value>
@@ -3518,6 +3503,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Multivides izveide ir pieejama, kad visas gatavības pārbaudes ir izietas.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Lai sāktu, tālāk izvēlieties ISO vai USB izvadi.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Pilns formāts</value>
@@ -3547,52 +3535,49 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>OOBE konta izveide izlaista</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Valodas un izvēles komponentu lietošana.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Sāknēšanas attēla atkarības ir gatavas.</value>
+    <value>Notiek valodas un neobligāto komponentu pievienošana…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Tiek izveidota WinPE darbvieta.</value>
+    <value>Notiek WinPE darbvietas izveide…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Datu nesēja izveide atcelta.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} no {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>Datu nesēja izveide tika atcelta.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Pārbauda USB mērķa drošību.</value>
+    <value>Notiek pārbaude, vai USB disku var droši dzēst…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>WinPE darbvietas tīrīšana.</value>
+    <value>Notiek iepriekšējās izpildes failu tīrīšana…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>USB nodalījuma tabulas notīrīšana.</value>
+    <value>Notiek USB diska dzēšana…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Notiek sāknēšanas attēla izmaiņu veikšana.</value>
+    <value>Notiek sāknēšanas attēla saglabāšana…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Pēdējā multivides izveide ir pabeigta.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Notiek pielāgoto Windows attēlu kopēšana…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Notiek pēcinstalēšanas satura kopēšana…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>WinPE multivides kopēšana uz USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>ISO multivides izveide.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>USB multivides izveide.</value>
+    <value>Notiek WinPE failu kopēšana uz USB disku…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>BOOT nodalījuma izveide.</value>
+    <value>Notiek BOOT nodalījuma izveide…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Kešatmiņas nodalījuma izveide.</value>
+    <value>Notiek kešatmiņas nodalījuma izveide…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Pielāgotie draiveri aizņem vismaz {0}; maksimālais apjoms ir {1}. Atlasiet tikai Windows PE nepieciešamos tīkla un krātuves draiverus.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Sāknēšanas attēla pielāgošana.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>USB diska identitātes dati nav pieejami, nav viennozīmīgi vai ir mainījušies. Atsvaidziniet USB disku sarakstu un vēlreiz atlasiet disku.</value>
@@ -3601,82 +3586,64 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Atlasīto USB disku vairs nevar droši mainīt. Atsvaidziniet USB disku sarakstu un atlasiet citu USB disku.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Starptautisko iestatījumu lietošana ar DISM.</value>
+    <value>Notiek valodas iestatījumu lietošana…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Valodas pakotnes lietošana ar DISM.</value>
+    <value>Notiek valodu pakotnes pievienošana…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Papildu komponentu lietošana ar DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Attēla izmaiņu veikšana ar DISM.</value>
+    <value>Notiek neobligāto komponentu pievienošana…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Montētā attēla atmešana ar DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Notiek Windows attēla eksportēšana ar DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Vadītāju injicēšana ar DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Montāžas attēls ar DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows attēla indeksa atrisināšana ar DISM.</value>
+    <value>Notiek attēla, kas palika pievienots pēc iepriekšējās izpildes, atmešana…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Satura lejupielāde.</value>
+    <value>Lejupielāde</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Notiek draivera pakotnes lejupielāde</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Notiek {2} draiveru pakotnes {0} no {1} lejupielāde</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Notiek {0} izvietošanas komponentu lejupielāde.</value>
+    <value>Notiek lejupielāde: {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows avota pakotnes lejupielāde.</value>
+    <value>Notiek Windows avota pakotnes lejupielāde</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Sāknēšanas paraksta politikas novērtēšana.</value>
+    <value>Notiek sāknēšanas parakstu atbalsta pārbaude…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Windows attēla eksportēšana sāknēšanas attēla sagatavošanai.</value>
+    <value>Notiek Windows attēla izvilkšana…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Galīgā multivides izveide neizdevās.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Kļūda radās darbībā {0} no {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Notiek ISO izvades pabeigšana.</value>
+    <value>Notiek ISO faila saglabāšana…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Notiek BOOT nodalījuma formatēšana.</value>
+    <value>Notiek BOOT nodalījuma formatēšana…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Kešatmiņas nodalījuma formatēšana.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Sāknēšanas attēla pielāgošana ir pabeigta.</value>
+    <value>Notiek kešatmiņas nodalījuma formatēšana…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Notiek USB nodalījuma tabulas inicializācija.</value>
+    <value>Notiek nodalījumu tabulas izveide…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Draiveru ievadīšana sāknēšanas attēlā.</value>
+    <value>Notiek draiveru pievienošana sāknēšanas attēlam…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Pārbauda USB datu nesēja izkārtojumu.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO multivide ir pabeigta.</value>
+    <value>Notiek USB diska izkārtojuma nolasīšana…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry nevarēja aizstāt ISO failu ceļā {0}. Fails, iespējams, ir uzstādīts, pievienots virtuālajai mašīnai, atvērts citā programmā vai ir tikai lasāms. Atvienojiet vai aizveriet to vai izvēlieties citu izvades ceļu un pēc tam mēģiniet vēlreiz.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>ISO multivide tika veiksmīgi izveidota.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO fails tika saglabāts šeit:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Lielums: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Nepietiek vietas diskā, lai izveidotu sāknēšanas attēlu. Atrašanās vietā {2} nepieciešami vismaz {0} brīvas vietas. Pieejams: {1}. Atbrīvojiet vietu un mēģiniet vēlreiz.</value>
@@ -3685,73 +3652,148 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Neizdevās pārbaudīt sāknēšanas attēla izveidei pieejamo vietu diskā atrašanās vietā {0}. Pārbaudiet, vai atrašanās vieta ir pieejama, un mēģiniet vēlreiz.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Montāžas sāknēšanas attēls.</value>
+    <value>Notiek sāknēšanas attēla atvēršana…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Windows avota attēla montāža.</value>
+    <value>Notiek Windows attēla atvēršana…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Atvērt mapi</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Atvērt žurnālu mapi</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Tiek atvērts USB disks.</value>
+    <value>Notiek USB diska atvēršana…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Sadalīšana un formatēšana USB mērķis.</value>
+    <value>Notiek USB diska sadalīšana nodalījumos…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Failu kopēšana uz USB disku</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>ISO faila izveide</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Sāknēšanas attēla pielāgošana</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Draiveru iegūšana</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Pabeigšana</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>USB diska formatēšana</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Darbvietas sagatavošana</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>USB diska atjaunināšana</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Notiek sāknēšanas attēla pielāgošanas sagatavošana.</value>
+    <value>Notiek sāknēšanas attēla sagatavošana…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Notiek Foundry komponentu sagatavošana…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Notiek ISO izvades ceļa sagatavošana.</value>
+    <value>Notiek ISO izvades mapes sagatavošana…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Notiek ISO darbvietas sagatavošana.</value>
+    <value>Notiek ISO failu sagatavošana…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Notiek pēcinstalēšanas satura sagatavošana…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Notiek USB kešatmiņas nodalījuma sagatavošana.</value>
+    <value>Notiek kešatmiņas nodalījuma sagatavošana…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Notiek USB diska atribūtu sagatavošana.</value>
+    <value>Notiek USB diska sagatavošana…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Notiek Windows avota pakotnes sagatavošana.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Notiek WinPE darbvietas sagatavošana.</value>
+    <value>Notiek Windows avota pakotnes iegūšana…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Nodrošināšana Foundry sāknēšanas līdzekļi.</value>
+    <value>Notiek Foundry startēšanas failu pievienošana…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Foundry izvietošanas komponentu pievienošana.</value>
+    <value>Notiek Foundry komponentu pievienošana…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry komponentu pievienošana USB multividei.</value>
+    <value>Notiek Foundry komponentu pievienošana USB diskam…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Notiek pagaidu failu noņemšana…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Sāknēšanas attēla aizstāšana ar WinRE.</value>
+    <value>Notiek sāknēšanas attēla aizstāšana ar Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Draiveru pakotņu atrisināšana.</value>
+    <value>Notiek pievienojamo draiveru pārbaude…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows attēla indeksa atrisināšana.</value>
+    <value>Notiek Windows izdevuma atlase…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Windows avota kataloga atrisināšana.</value>
+    <value>Notiek Windows avota pakotnes meklēšana…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Palaiž MakeWinPEMedia vietnei ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Atlasītā Windows avota pakotne.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Detalizēta informācija ir pieejama žurnālā.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Sāknēšanas attēla atkarību sagatavošana.</value>
+    <value>Notiek nepieciešamo failu kopēšana no Windows attēla…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Darbība {0} no {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Tehniskā informācija: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>ISO izveide atcelta</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>ISO izveide neizdevās</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Notiek ISO izveide</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO ir izveidots</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>USB datu nesēja izveide atcelta</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>USB datu nesēja izveide neizdevās</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Notiek USB datu nesēja izveide</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB datu nesējs ir izveidots</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>USB datu nesēja atjaunināšana atcelta</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>USB datu nesēja atjaunināšana neizdevās</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Notiek USB datu nesēja atjaunināšana</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB datu nesējs ir atjaunināts</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Pārsūtīšanai atvēlētais laiks ir beidzies. Pārbaudiet savienojumu un mēģiniet vēlreiz.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Atjaunina USB datu nesēju.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Neparedzēta kļūda apturēja datu nesēja izveidi.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB BOOT nodalījumam nepieciešami aptuveni {0}, bet tā ietilpība ir {1}. Nekas nav izdzēsts vai formatēts. Samaziniet pielāgojumus vai draiveru skaitu, vai izveidojiet ISO.</value>
@@ -3762,35 +3804,35 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Sāknēšanas datu nesēja faila lielums ir {0}; FAT32 atbalsta ne vairāk kā {1} vienam failam. Samaziniet sāknēšanas attēla lielumu vai izveidojiet ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB sāknēšanas nodalījums ir atjaunināts.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Iespējams, USB disks vairs nevar startēt ierīci. Pirms tā lietošanas izveidojiet vai atjauniniet to vēlreiz.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB multivide ir pabeigta.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB starpsienas formatētas.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB multivide tika veiksmīgi izveidota. Sāknēšanas skaļums: {0}. Kešatmiņas apjoms: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB sāknēšanas nodalījums tika veiksmīgi atjaunināts. Sāknēšanas sējums: {0}. Kešatmiņas sējums: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Sāknēšanas sējums: {0}. Kešatmiņas sējums: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Notiek USB mērķa apstiprināšana.</value>
+    <value>Notiek USB diska pārbaude…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Notiek {0} draiveru pakotnes pārbaude</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>USB sāknēšanas datu nesēja pārbaude.</value>
+    <value>Notiek USB sāknēšanas failu pārbaude…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Notiek Windows avota pakotnes pārbaude</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows bloķēja piekļuvi WinPE attēla failiem. Iespējams, tos bloķē drošības programmatūra vai cits rīks. Drošības programmatūrā pievienojiet izņēmumu mapei {0}, aizveriet rīkus, kas pievieno attēlus, restartējiet datoru un mēģiniet vēlreiz. Detalizēta informācija ir failos {1} un {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Notiek ISO faila rakstīšana…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pārskatiet gatavību, izvēlieties ISO vai USB izvadi un sāciet datu nesēja izveidi.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Pārskats</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Pārskatīt: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Gatavs</value>
@@ -3821,9 +3863,6 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Vienumi, kuriem jāpievērš uzmanība:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Izveidot tik un tā</value>
@@ -3877,6 +3916,15 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE sāknēšanas valoda</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Pakotnes: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Jāpievērš uzmanība: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Jāpievērš uzmanība: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Noklusējums</value>

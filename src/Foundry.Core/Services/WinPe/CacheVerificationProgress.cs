@@ -7,12 +7,16 @@ using Foundry.Core.Services.Storage;
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>Maps verified byte counts to authoring progress without claiming a network transfer.</summary>
-internal sealed class CacheVerificationProgress(IProgress<WinPeDownloadProgress>? progress, string fileName)
+internal sealed class CacheVerificationProgress(IProgress<WinPeDownloadProgress>? progress, string fileName, WinPeVendorSelection? vendor = null)
     : IProgress<CachedArtifactVerificationProgress>
 {
     public void Report(CachedArtifactVerificationProgress value) => progress?.Report(new WinPeDownloadProgress
     {
         Percent = value.IsComplete ? 100 : (int)Math.Min(99, value.BytesVerified * 100.0 / value.TotalBytes),
-        Status = $"Verifying cached source '{fileName}'."
+        Status = WinPeProgressStatuses.VerifyingCachedSource,
+        ItemName = fileName,
+        Vendor = vendor,
+        BytesTransferred = value.BytesVerified,
+        TotalBytes = value.TotalBytes
     });
 }

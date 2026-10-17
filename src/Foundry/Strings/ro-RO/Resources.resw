@@ -98,10 +98,16 @@ Licențiat sub licența MIT.</value>
     <value>Capacitate de creare media</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Operațiunea Windows ADK a fost anulată.</value>
+    <value>Instalarea a fost anulată.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Instalarea Windows ADK a fost anulată</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK operațiune finalizată</value>
+    <value>Windows ADK și suplimentul Windows PE sunt pregătite. Acum puteți crea suporturi de pornire.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK instalat</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Folosind programul de instalare ADK din cache</value>
@@ -113,10 +119,16 @@ Licențiat sub licența MIT.</value>
     <value>Se descarcă programul de instalare ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>Operația ADK a eșuat</value>
+    <value>Instalarea nu s-a finalizat. Detaliile se află în jurnal.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Instalarea Windows ADK a eșuat</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Instalarea Windows ADK</value>
+    <value>Se pregătește instalarea…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Se instalează Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Instalarea Windows ADK Instrumente de implementare</value>
@@ -127,6 +139,9 @@ Licențiat sub licența MIT.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Instalarea s-a încheiat. Verificați cerințele ADK rămase.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK necesită atenție</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Eliminarea Windows ADK existente</value>
   </data>
@@ -135,6 +150,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Se pregătește instalarea Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Se actualizează Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Se verifică instalarea ADK</value>
@@ -2689,9 +2707,6 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Starea conținutului</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Conținutul pentru etapa de după instalare a fost verificat.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Continuă în caz de eroare</value>
   </data>
@@ -2820,9 +2835,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Argumente ale scriptului</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Se pregătește conținutul pentru etapa de după instalare.</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Coduri de ieșire pentru succes (separate prin virgulă)</value>
@@ -3252,11 +3264,14 @@ Parole și chei de acces incluse: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizați aplicația</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operațiune finalizată</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Oprește operația</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Operațiune în curs</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Selectați „Oprește operația” pentru a confirma. Un pas în desfășurare pe disc sau pe imagine se încheie mai întâi.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Timp scurs: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Se oprește în siguranță. Este posibil ca operația curentă pe disc sau imagine să trebuiască să se încheie înainte de finalizarea curățării.</value>
@@ -3327,6 +3342,12 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot utilizează un mod de furnizare neacceptat.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Rezolvați următoarele înainte de a crea suportul:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Crearea suportului nu poate începe. Verificați elementele de pregătire de pe pagina Începeți.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK sau WinPE Suplimentul nu este gata.</value>
   </data>
@@ -3374,12 +3395,6 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Limba de pornire WinPE selectată nu este disponibilă pentru arhitectura selectată.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi imagine</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3462,23 +3477,8 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Arhitectura</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Sursa imaginii de pornire</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Conectați furnizarea</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Implementați configurația</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Șoferii</value>
@@ -3486,23 +3486,8 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>Modul format USB</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO cale de ieșire</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Configurarea rețelei</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB stil de partiție</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Secretele media</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Modul semnătură</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB țintă</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE limba de pornire</value>
@@ -3518,6 +3503,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Crearea media este disponibilă atunci când toate verificările de pregătire trec.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Alegeți mai jos o ieșire ISO sau USB pentru a începe.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Format complet</value>
@@ -3547,52 +3535,49 @@ Parole și chei de acces incluse: {2}</value>
     <value>Crearea contului OOBE omisă</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Aplicarea limbajului și a componentelor opționale.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Dependențele imaginii de pornire sunt pregătite.</value>
+    <value>Se adaugă limba și componentele opționale…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Se creează WinPE spațiu de lucru.</value>
+    <value>Se creează spațiul de lucru WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Crearea suportului media a fost anulată.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} din {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>Crearea suportului a fost anulată.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Se verifică USB siguranța țintei.</value>
+    <value>Se verifică dacă unitatea USB poate fi ștearsă în siguranță…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Curățarea spațiului de lucru WinPE.</value>
+    <value>Se curăță fișierele de la o rulare anterioară…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Se șterge tabelul de partiții USB.</value>
+    <value>Se șterge unitatea USB…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Se efectuează modificări ale imaginii de pornire.</value>
+    <value>Se salvează imaginea de pornire…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Crearea media finală a fost finalizată.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Se copiază imaginile Windows personalizate…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Se copiază conținutul de post-instalare…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Se copiează WinPE media pe USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Se creează ISO media.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Se creează USB media.</value>
+    <value>Se copiază fișierele WinPE pe unitatea USB…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Se creează partiția BOOT.</value>
+    <value>Se creează partiția BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Se creează partiția cache.</value>
+    <value>Se creează partiția cache…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Driverele personalizate ocupă cel puțin {0}; limita maximă este {1}. Selectați doar driverele de rețea și stocare necesare pentru Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Personalizarea imaginii de boot.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>Identitatea unității USB lipsește, este ambiguă sau s-a modificat. Reîmprospătați lista de unități USB și selectați din nou unitatea.</value>
@@ -3601,82 +3586,64 @@ Parole și chei de acces incluse: {2}</value>
     <value>Unitatea USB selectată nu mai poate fi modificată în siguranță. Reîmprospătați lista de unități USB și selectați altă unitate USB.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Aplicarea setărilor internaționale cu DISM.</value>
+    <value>Se aplică setările de limbă…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Se aplică pachetul lingvistic cu DISM.</value>
+    <value>Se adaugă pachetul de limbă…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Aplicarea componentelor opționale cu DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Comitarea modificărilor imaginii cu DISM.</value>
+    <value>Se adaugă componentele opționale…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Renunțarea la imaginea montată cu DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Se exportă imaginea Windows cu DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Injectarea șoferilor cu DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Imagine de montare cu DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Rezolvarea indexului imaginii Windows cu DISM.</value>
+    <value>Se renunță la o imagine lăsată montată de o rulare anterioară…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Descărcarea conținutului.</value>
+    <value>Se descarcă</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Se descarcă pachetul de drivere</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Se descarcă pachetul de drivere {2} {0} din {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Descărcarea componentelor de implementare {0}.</value>
+    <value>Se descarcă {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Se descarcă pachetul sursă Windows.</value>
+    <value>Se descarcă pachetul sursă Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Evaluarea politicii de semnătură de boot.</value>
+    <value>Se verifică suportul pentru semnătura de pornire…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Se exportă imaginea Windows pentru pregătirea imaginii de pornire.</value>
+    <value>Se extrage imaginea Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Crearea finală a conținutului media nu a reușit.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>A eșuat la pasul {0} din {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Finalizarea ieșirii ISO.</value>
+    <value>Se salvează fișierul ISO…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formatarea partiției BOOT.</value>
+    <value>Se formatează partiția BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formatarea partiției cache.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Personalizarea imaginii de pornire a fost finalizată.</value>
+    <value>Se formatează partiția cache…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Se inițializează tabelul de partiții USB.</value>
+    <value>Se creează tabelul de partiții…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Injectarea driverelor în imaginea de pornire.</value>
+    <value>Se adaugă drivere în imaginea de pornire…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Se inspectează aspectul suportului USB.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO media finalizată.</value>
+    <value>Se citește structura unității USB…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry nu a putut înlocui fișierul ISO de la {0}. Este posibil ca fișierul să fie montat, atașat la o mașină virtuală, deschis în alt program sau doar în citire. Demontați-l sau închideți-l ori alegeți altă cale de ieșire, apoi încercați din nou.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Media ISO a fost creată cu succes.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>Fișierul ISO a fost salvat în:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Dimensiune: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Spațiu insuficient pe disc pentru crearea imaginii de pornire. Sunt necesari cel puțin {0} de spațiu liber în {2}. Disponibil: {1}. Eliberați spațiu și încercați din nou.</value>
@@ -3685,73 +3652,148 @@ Parole și chei de acces incluse: {2}</value>
     <value>Nu s-a putut verifica spațiul disponibil pe disc pentru crearea imaginii de pornire în {0}. Verificați dacă locația este accesibilă și încercați din nou.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Montarea imaginii boot.</value>
+    <value>Se deschide imaginea de pornire…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Montarea imaginii sursă Windows.</value>
+    <value>Se deschide imaginea Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Deschide folderul</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Deschide folderul de jurnale</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Deschiderea discului USB.</value>
+    <value>Se deschide unitatea USB…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Partiționare și formatare USB țintă.</value>
+    <value>Se partiționează unitatea USB…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Copierea fișierelor pe unitatea USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Crearea fișierului ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Personalizarea imaginii de pornire</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Obținerea driverelor</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Finalizare</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Formatarea unității USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Pregătirea spațiului de lucru</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Actualizarea unității USB</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Pregătirea personalizării imaginii de boot.</value>
+    <value>Se pregătește imaginea de pornire…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Se pregătesc componentele Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Se pregătește calea de ieșire ISO.</value>
+    <value>Se pregătește folderul de ieșire ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Se pregătește spațiul de lucru ISO.</value>
+    <value>Se pregătesc fișierele ISO…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Se pregătește conținutul de post-instalare…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Se pregătește partiția cache USB.</value>
+    <value>Se pregătește partiția cache…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Se pregătesc atributele discului USB.</value>
+    <value>Se pregătește unitatea USB…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Se pregătește pachetul sursă Windows.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Se pregătește spațiul de lucru WinPE.</value>
+    <value>Se obține pachetul sursă Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Aprovizionarea materialelor de pornire Foundry.</value>
+    <value>Se adaugă fișierele de pornire Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Adăugarea componentelor de implementare Foundry.</value>
+    <value>Se adaugă componentele Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Adăugarea componentelor Foundry la media USB.</value>
+    <value>Se adaugă componentele Foundry pe unitatea USB…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Se elimină fișierele temporare…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Înlocuirea imaginii de boot cu WinRE.</value>
+    <value>Se înlocuiește imaginea de pornire cu Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Rezolvarea pachetelor de drivere.</value>
+    <value>Se verifică ce drivere trebuie adăugate…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Rezolvarea indexului de imagine Windows.</value>
+    <value>Se selectează ediția Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Rezolvarea catalogului sursă Windows.</value>
+    <value>Se caută pachetul sursă Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Rularea MakeWinPEMedia pentru ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Pachetul sursă Windows selectat.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Detaliile se află în jurnal.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Se pregătesc dependențele imaginii de pornire.</value>
+    <value>Se copiază fișierele necesare din imaginea Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Pasul {0} din {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Detalii tehnice: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Crearea ISO a fost anulată</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Crearea ISO a eșuat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Se creează ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO creat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Crearea suportului USB a fost anulată</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Crearea suportului USB a eșuat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Se creează suportul USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>Suport USB creat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Actualizarea suportului USB a fost anulată</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Actualizarea suportului USB a eșuat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Se actualizează suportul USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>Suport USB actualizat</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Timpul de așteptare pentru transfer a expirat. Verificați conexiunea și încercați din nou.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Se actualizează suportul USB.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>O eroare neașteptată a oprit crearea suportului.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>Partiția BOOT USB necesită aproximativ {0}, dar capacitatea sa este {1}. Nu s-a șters și nu s-a formatat nimic. Reduceți personalizările sau driverele ori creați un ISO.</value>
@@ -3762,35 +3804,35 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Un fișier de pe suportul de pornire are {0}; FAT32 acceptă cel mult {1} per fișier. Reduceți dimensiunea imaginii de pornire sau creați un ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>Partiția de pornire USB a fost actualizată.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Este posibil ca unitatea USB să nu mai poată porni un dispozitiv. Creați-o sau actualizați-o din nou înainte de a o folosi.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB media finalizată.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB partiții formatate.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB media a fost creată cu succes. Volumul de pornire: {0}. Volumul cache: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>Partiția de pornire USB a fost actualizată cu succes. Volum de pornire: {0}. Volum cache: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Volum de pornire: {0}. Volum cache: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Se validează USB ținta.</value>
+    <value>Se verifică unitatea USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Se verifică pachetul de drivere {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Se verifică USB suportul de pornire.</value>
+    <value>Se verifică fișierele de pornire de pe unitatea USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Se verifică pachetul sursă Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows a blocat accesul la fișierele imaginii WinPE. Este posibil ca un software de securitate sau alt instrument să le blocheze. Adăugați o excludere pentru {0} în software-ul de securitate, închideți instrumentele care montează imagini, reporniți computerul și încercați din nou. Detaliile se află în {1} și {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Se scrie fișierul ISO…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Revizuire</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Verifică {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Gata</value>
@@ -3821,9 +3863,6 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Elemente care necesită atenție:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Creați oricum</value>
@@ -3877,6 +3916,15 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE limba de pornire</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Pachete: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Necesită atenție: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Necesită atenție: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Implicit</value>

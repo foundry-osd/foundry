@@ -10,7 +10,7 @@ namespace Foundry.Services.Operations;
 public enum OperationOutcome
 {
     /// <summary>
-    /// No success or failure indicator is requested, including for cancellation.
+    /// The operation has not finished.
     /// </summary>
     None,
 
@@ -22,5 +22,10 @@ public enum OperationOutcome
     /// <summary>
     /// The operation failed.
     /// </summary>
-    Error
+    Error,
+
+    /// <summary>
+    /// The operation stopped after a user cancellation request.
+    /// </summary>
+    Cancelled
 }

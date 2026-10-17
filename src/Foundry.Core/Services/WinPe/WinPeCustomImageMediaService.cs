@@ -115,7 +115,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
                     staged.Add((temporary, destination));
                 }
                 completed = checked(completed + file.Length);
-                progress?.Report(new WinPeMediaProgress { Percent = (int)(completed * 90.0 / Math.Max(1, package.TotalBytes)), Status = "Staging custom Windows images." });
+                progress?.Report(new WinPeMediaProgress { Percent = (int)(completed * 90.0 / Math.Max(1, package.TotalBytes)), Status = WinPeProgressStatuses.StagingCustomImages });
             }
             foreach ((string temporary, string destination) in staged)
             {
@@ -142,7 +142,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
                 Directory.CreateDirectory(Path.GetDirectoryName(manifest)!);
                 File.Move(temporary, manifest);
             }
-            progress?.Report(new WinPeMediaProgress { Percent = 100, Status = "Custom Windows images verified." });
+            progress?.Report(new WinPeMediaProgress { Percent = 100, Status = WinPeProgressStatuses.CustomImagesVerified });
         }
         finally
         {
