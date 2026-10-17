@@ -125,8 +125,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
     // A layout chosen on another computer may be missing here; media creation blocks on it, so the overview flags it too.
     private static bool IsWinPeKeyboardLayoutInstalled(string? layoutId)
     {
-        return string.IsNullOrWhiteSpace(layoutId) ||
-            !KeyboardLayoutSelection.IsUnavailable(KeyboardLayoutCatalog.GetInstalled(), layoutId);
+        return !KeyboardLayoutSelection.IsUnavailable(KeyboardLayoutCatalog.GetInstalled(), layoutId);
     }
 
     private static bool IsCustomDriverConfigurationReady(GeneralSettings settings)

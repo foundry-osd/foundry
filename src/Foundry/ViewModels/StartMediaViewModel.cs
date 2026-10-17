@@ -64,7 +64,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IAppDispatcher appDispatcher;
     private readonly ILogger logger;
     private IReadOnlyList<string> availableWinPeLanguages = [];
-    private IReadOnlyList<KeyboardLayout> installedKeyboardLayouts = [];
     private bool isLoadingConfiguration = true;
     private string? lastCustomizationLogStatus;
     private int lastCustomizationLogBucket = -1;
@@ -688,10 +687,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             operationProgressService.Start(OperationKind.MediaCreation, startStatus, operationCancellation.Cancel);
             shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
             logger.Information(
-                "Final media creation started. Target={Target}, Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, IsoOutputPath={IsoOutputPath}, UsbDiskNumber={UsbDiskNumber}, UsbDiskName={UsbDiskName}",
+                "Final media creation started. Target={Target}, Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, WinPeKeyboardLayout={WinPeKeyboardLayout}, IsoOutputPath={IsoOutputPath}, UsbDiskNumber={UsbDiskNumber}, UsbDiskName={UsbDiskName}",
                 target,
                 options.Architecture,
                 NormalizeCultureName(options.WinPeLanguage),
+                options.WinPeKeyboardLayoutId ?? "default",
                 target == FinalMediaTarget.Iso ? options.IsoOutputPath : null,
                 target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.DiskNumber : null,
                 target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.FriendlyName : null);
@@ -1376,7 +1376,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                         DriverVendors = options.DriverVendors,
                         CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
                         WinPeLanguage = options.WinPeLanguage,
-                        WinPeKeyboardLayout = KeyboardLayoutSelection.Find(installedKeyboardLayouts, options.WinPeKeyboardLayoutId),
+                        WinPeKeyboardLayout = KeyboardLayoutSelection.Find(KeyboardLayoutCatalog.GetInstalled(), options.WinPeKeyboardLayoutId),
                         AssetProvisioning = assetProvisioning,
                         RuntimePayloadProvisioning = artifactRuntimePayloadProvisioning with
                         {
@@ -1947,7 +1947,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         WinPeLanguage = NormalizeCultureName(foundryConfigurationStateService.Current.General.WinPeLanguage);
         availableWinPeLanguages = GetAvailableWinPeLanguages();
-        installedKeyboardLayouts = KeyboardLayoutCatalog.GetInstalled();
         MediaPreflightOptions options = CreatePreflightOptions();
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
         IsSelectedUsbFoundryMedia = options.SelectedUsbDisk?.IsFoundryMedia == true;
@@ -2019,7 +2018,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeLanguage = WinPeLanguage,
             AvailableWinPeLanguages = availableWinPeLanguages,
             WinPeKeyboardLayoutId = foundryConfigurationStateService.Current.General.WinPeKeyboardLayoutId,
-            AvailableKeyboardLayoutIds = installedKeyboardLayouts.Select(layout => layout.Id).ToArray(),
+            AvailableKeyboardLayoutIds = KeyboardLayoutCatalog.GetInstalled().Select(layout => layout.Id).ToArray(),
             BootImageSource = ResolveBootImageSource(),
             DriverVendors = vendors,
             CustomDriverDirectoryPath = CustomDriverDirectoryPath,
