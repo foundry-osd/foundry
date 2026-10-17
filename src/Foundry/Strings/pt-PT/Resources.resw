@@ -3601,7 +3601,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>A transferir</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>A transferir o pacote de controladores {0} de {1}: {2}</value>
+    <value>A transferir o pacote de controladores {2} {0} de {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>A transferir {0}</value>
@@ -3813,11 +3813,14 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>A verificar a unidade USB…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>A verificar o ficheiro em cache {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>A verificar o pacote de controladores {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>A verificar os ficheiros de arranque da unidade USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>A verificar o pacote de origem do Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>O Windows bloqueou o acesso aos ficheiros da imagem do WinPE. Um software de segurança ou outra ferramenta pode estar a bloqueá-los. Adicione uma exclusão para {0} no software de segurança, feche as ferramentas que montam imagens, reinicie o computador e tente novamente. Os detalhes estão em {1} e {2}.</value>

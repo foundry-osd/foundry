@@ -3601,7 +3601,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Téléchargement</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Téléchargement du package de pilotes {0} sur {1} : {2}</value>
+    <value>Téléchargement du package de pilotes {2} {0} sur {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Téléchargement de {0}</value>
@@ -3813,11 +3813,14 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Vérification de la clé USB…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Vérification du fichier en cache {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Vérification du package de pilotes {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Vérification des fichiers de démarrage USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Vérification du package source Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows a bloqué l’accès aux fichiers de l’image WinPE. Un logiciel de sécurité ou un autre outil les verrouille peut-être. Ajoutez une exclusion pour {0} dans votre logiciel de sécurité, fermez les outils qui montent des images, redémarrez l’ordinateur, puis réessayez. Les détails figurent dans {1} et {2}.</value>

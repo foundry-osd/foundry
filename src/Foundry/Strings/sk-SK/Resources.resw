@@ -3601,7 +3601,7 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Sťahovanie</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Sťahuje sa balík ovládačov {0} z {1}: {2}</value>
+    <value>Sťahuje sa balík ovládačov {2} {0} z {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Sťahuje sa {0}</value>
@@ -3813,11 +3813,14 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontroluje sa disk USB…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Overuje sa súbor {0} vo vyrovnávacej pamäti</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Overuje sa balík ovládačov {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Overujú sa zavádzacie súbory na disku USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Overuje sa zdrojový balík Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Systém Windows zablokoval prístup k súborom obrazu WinPE. Môže ich zamykať bezpečnostný softvér alebo iný nástroj. Pridajte v bezpečnostnom softvéri výnimku pre {0}, zatvorte nástroje, ktoré pripájajú obrazy, reštartujte počítač a skúste to znova. Podrobnosti nájdete v {1} a {2}.</value>

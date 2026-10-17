@@ -3601,7 +3601,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Stahování</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Stahování balíčku ovladačů {0} z {1}: {2}</value>
+    <value>Stahování balíčku ovladačů {2} {0} z {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Stahování {0}</value>
@@ -3813,11 +3813,14 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrola disku USB…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Ověřování souboru {0} v mezipaměti</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Ověřování balíčku ovladačů {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Ověřování spouštěcích souborů na disku USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Ověřování zdrojového balíčku Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Systém Windows zablokoval přístup k souborům image WinPE. Může je zamykat software zabezpečení nebo jiný nástroj. Přidejte v softwaru zabezpečení výjimku pro {0}, zavřete nástroje, které připojují image, restartujte počítač a zkuste to znovu. Podrobnosti najdete v {1} a {2}.</value>

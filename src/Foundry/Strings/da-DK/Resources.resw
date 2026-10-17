@@ -3601,7 +3601,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Downloader</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Downloader driverpakke {0} af {1}: {2}</value>
+    <value>Downloader {2}-driverpakke {0} af {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Downloader {0}</value>
@@ -3813,11 +3813,14 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrollerer USB-drevet…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Bekræfter den cachelagrede fil {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Bekræfter {0}-driverpakken</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Bekræfter startfilerne på USB-drevet…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Bekræfter Windows-kildepakken</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blokerede adgangen til WinPE-billedfilerne. Sikkerhedssoftware eller et andet værktøj låser dem muligvis. Tilføj en undtagelse for {0} i sikkerhedssoftwaren, luk værktøjer, der monterer billeder, genstart computeren, og prøv igen. Detaljer findes i {1} og {2}.</value>

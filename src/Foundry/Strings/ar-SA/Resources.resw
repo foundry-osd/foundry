@@ -3601,7 +3601,7 @@
     <value>جارٍ التنزيل</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>جارٍ تنزيل حزمة برامج التشغيل {0} من {1}: {2}</value>
+    <value>جارٍ تنزيل حزمة برامج التشغيل {2} {0} من {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>جارٍ تنزيل {0}</value>
@@ -3813,11 +3813,14 @@
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>جارٍ فحص قرص USB…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>جارٍ التحقق من الملف المخزّن مؤقتًا {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>جارٍ التحقق من حزمة برامج التشغيل {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>جارٍ التحقق من ملفات التمهيد على USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>جارٍ التحقق من حزمة مصدر Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>حظر Windows الوصول إلى ملفات صورة WinPE. قد يكون برنامج أمان أو أداة أخرى يقفلها. أضف استثناءً للمسار {0} في برنامج الأمان، وأغلق الأدوات التي تحمّل الصور، وأعد تشغيل الكمبيوتر، ثم حاول مرة أخرى. تتوفر التفاصيل في {1} و{2}.</value>

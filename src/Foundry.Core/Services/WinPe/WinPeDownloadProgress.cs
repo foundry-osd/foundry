@@ -19,6 +19,9 @@ public sealed record WinPeDownloadProgress
     /// <summary>Gets the downloaded item, such as a driver package file name or a runtime application name.</summary>
     public string ItemName { get; init; } = string.Empty;
 
+    /// <summary>Gets the vendor of a driver package, so consumers can name it without its file name.</summary>
+    public WinPeVendorSelection? Vendor { get; init; }
+
     /// <summary>Gets the 1-based position of the item when several items are downloaded in sequence.</summary>
     public int? ItemNumber { get; init; }
 

@@ -3601,7 +3601,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Wird heruntergeladen</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Treiberpaket {0} von {1} wird heruntergeladen: {2}</value>
+    <value>{2}-Treiberpaket {0} von {1} wird heruntergeladen</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>{0} wird heruntergeladen</value>
@@ -3813,11 +3813,14 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB-Laufwerk wird überprüft…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Zwischengespeicherte Datei {0} wird überprüft</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>{0}-Treiberpaket wird überprüft</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB-Startdateien werden überprüft…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows-Quellpaket wird überprüft</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows hat den Zugriff auf die WinPE-Abbilddateien blockiert. Möglicherweise sperrt eine Sicherheitssoftware oder ein anderes Tool diese Dateien. Fügen Sie in der Sicherheitssoftware eine Ausnahme für {0} hinzu, schließen Sie Tools, die Abbilder bereitstellen, starten Sie den Computer neu und versuchen Sie es erneut. Details finden Sie in {1} und {2}.</value>

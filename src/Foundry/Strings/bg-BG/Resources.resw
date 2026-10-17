@@ -3601,7 +3601,7 @@
     <value>Изтегляне</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Изтегляне на пакет с драйвери {0} от {1}: {2}</value>
+    <value>Изтегляне на пакет с драйвери {2} {0} от {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Изтегляне на {0}</value>
@@ -3813,11 +3813,14 @@
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Проверка на USB диска…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Проверка на кеширания файл {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Проверка на пакета с драйвери {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Проверка на файловете за стартиране на USB диска…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Проверка на изходния пакет на Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows блокира достъпа до файловете на WinPE образа. Възможно е софтуер за защита или друг инструмент да ги заключва. Добавете изключение за {0} в софтуера за защита, затворете инструментите, които монтират образи, рестартирайте компютъра и опитайте отново. Подробности има в {1} и {2}.</value>

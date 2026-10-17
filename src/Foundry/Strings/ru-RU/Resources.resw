@@ -3601,7 +3601,7 @@
     <value>Скачивание</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Скачивание пакета драйверов {0} из {1}: {2}</value>
+    <value>Скачивание пакета драйверов {2} {0} из {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Скачивание {0}</value>
@@ -3813,11 +3813,14 @@
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Проверка USB-накопителя…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Проверка кэшированного файла {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Проверка пакета драйверов {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Проверка загрузочных файлов на USB-накопителе…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Проверка исходного пакета Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows заблокировала доступ к файлам образа WinPE. Возможно, их блокирует программа безопасности или другое средство. Добавьте исключение для {0} в программе безопасности, закройте средства, которые подключают образы, перезагрузите компьютер и повторите попытку. Подробности см. в {1} и {2}.</value>

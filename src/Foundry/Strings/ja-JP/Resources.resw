@@ -3601,7 +3601,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ダウンロード中</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>ドライバー パッケージ {0}/{1} をダウンロードしています: {2}</value>
+    <value>{2} ドライバー パッケージ {0}/{1} をダウンロードしています</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>{0} をダウンロードしています</value>
@@ -3813,11 +3813,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB ドライブを確認しています…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>キャッシュされたファイル {0} を検証しています</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>{0} ドライバー パッケージを検証しています</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB のブート ファイルを検証しています…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows ソース パッケージを検証しています</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows によって WinPE イメージ ファイルへのアクセスがブロックされました。セキュリティ ソフトウェアまたは別のツールがファイルをロックしている可能性があります。セキュリティ ソフトウェアで {0} の除外を追加し、イメージをマウントするツールを閉じ、コンピューターを再起動してから、もう一度お試しください。詳細は {1} と {2} にあります。</value>

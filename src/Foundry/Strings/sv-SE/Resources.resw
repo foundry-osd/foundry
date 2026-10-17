@@ -3601,7 +3601,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Laddar ned</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Laddar ned drivrutinspaket {0} av {1}: {2}</value>
+    <value>Laddar ned {2}-drivrutinspaket {0} av {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Laddar ned {0}</value>
@@ -3813,11 +3813,14 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrollerar USB-enheten…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Verifierar den cachelagrade filen {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Verifierar {0}-drivrutinspaketet</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verifierar startfilerna på USB-enheten…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Verifierar Windows-källpaketet</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blockerade åtkomsten till WinPE-avbildningsfilerna. Säkerhetsprogramvara eller ett annat verktyg kan låsa dem. Lägg till ett undantag för {0} i säkerhetsprogramvaran, stäng verktyg som monterar avbildningar, starta om datorn och försök igen. Information finns i {1} och {2}.</value>

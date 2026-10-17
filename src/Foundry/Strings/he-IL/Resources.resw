@@ -3601,7 +3601,7 @@
     <value>מוריד</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>מוריד את חבילת מנהלי ההתקנים {0} מתוך {1}: {2}</value>
+    <value>מוריד את חבילת מנהלי ההתקנים של {2} {0} מתוך {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>מוריד את {0}</value>
@@ -3813,11 +3813,14 @@
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>בודק את כונן ה-USB…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>מאמת את הקובץ השמור במטמון {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>מאמת את חבילת מנהלי ההתקנים של {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>מאמת את קובצי האתחול ב-USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>מאמת את חבילת המקור של Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows חסם את הגישה לקובצי תמונת WinPE. ייתכן שתוכנת אבטחה או כלי אחר נועלים אותם. יש להוסיף החרגה עבור {0} בתוכנת האבטחה, לסגור כלים שמעגנים תמונות, להפעיל מחדש את המחשב ולנסות שוב. הפרטים נמצאים ב-{1} וב-{2}.</value>

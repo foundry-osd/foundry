@@ -63,13 +63,13 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                 lease = await new AuthoringArtifactCache(downloadRootPath).AcquireAsync(request, async (path, token) =>
                 {
                     WinPeResult result = await DownloadPackageAsync(package.DownloadUri, path, index + 1, packages.Count,
-                        downloadProgress, token).ConfigureAwait(false);
+                        package.Vendor, downloadProgress, token).ConfigureAwait(false);
                     if (!result.IsSuccess)
                     {
                         downloadError = result.Error;
                         throw new IOException("Driver package transfer failed.");
                     }
-                }, cancellationToken, new CacheVerificationProgress(downloadProgress, fileName)).ConfigureAwait(false);
+                }, cancellationToken, new CacheVerificationProgress(downloadProgress, fileName, package.Vendor)).ConfigureAwait(false);
             }
             catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
             {
@@ -83,7 +83,8 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
             {
                 Percent = 100,
                 Status = lease.CacheHit ? WinPeProgressStatuses.ReusingDriverPackage : WinPeProgressStatuses.DriverPackageReady,
-                ItemName = fileName
+                ItemName = fileName,
+                Vendor = package.Vendor
             });
             downloadedFiles.Add(downloadPath);
 
@@ -156,6 +157,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
         string destinationPath,
         int packageNumber,
         int packageCount,
+        WinPeVendorSelection vendor,
         IProgress<WinPeDownloadProgress>? progress,
         CancellationToken cancellationToken)
     {
@@ -173,6 +175,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
             {
                 Status = WinPeProgressStatuses.DownloadingDriverPackage,
                 ItemName = Path.GetFileName(destinationPath),
+                Vendor = vendor,
                 ItemNumber = packageNumber,
                 ItemCount = packageCount
             };

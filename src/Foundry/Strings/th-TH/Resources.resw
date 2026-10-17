@@ -3601,7 +3601,7 @@
     <value>กำลังดาวน์โหลด</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>กำลังดาวน์โหลดแพ็คเกจไดรเวอร์ {0} จาก {1}: {2}</value>
+    <value>กำลังดาวน์โหลดแพ็คเกจไดรเวอร์ {2} {0} จาก {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>กำลังดาวน์โหลด {0}</value>
@@ -3813,11 +3813,14 @@
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>กำลังตรวจสอบไดรฟ์ USB…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>กำลังตรวจสอบไฟล์ในแคช {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>กำลังตรวจสอบแพ็คเกจไดรเวอร์ {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>กำลังตรวจสอบไฟล์บูตของ USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>กำลังตรวจสอบแพ็คเกจต้นทาง Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows บล็อกการเข้าถึงไฟล์อิมเมจ WinPE ซอฟต์แวร์ความปลอดภัยหรือเครื่องมืออื่นอาจกำลังล็อกไฟล์เหล่านั้น เพิ่มข้อยกเว้นสำหรับ {0} ในซอฟต์แวร์ความปลอดภัย ปิดเครื่องมือที่เมานต์อิมเมจ รีสตาร์ทคอมพิวเตอร์ แล้วลองอีกครั้ง ดูรายละเอียดได้ใน {1} และ {2}</value>

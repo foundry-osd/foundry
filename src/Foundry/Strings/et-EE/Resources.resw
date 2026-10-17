@@ -3601,7 +3601,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Allalaadimine</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Draiveripaketi {0}/{1} allalaadimine: {2}</value>
+    <value>{2} draiveripaketi {0}/{1} allalaadimine</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Allalaadimine: {0}</value>
@@ -3813,11 +3813,14 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB-ketta kontrollimine…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Vahemälus oleva faili {0} kontrollimine</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>{0} draiveripaketi kontrollimine</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB alglaadimisfailide kontrollimine…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Windowsi lähtepaketi kontrollimine</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blokeeris juurdepääsu WinPE kujutisefailidele. Võimalik, et turbetarkvara või mõni muu tööriist lukustab need. Lisage turbetarkvarasse erand asukohale {0}, sulgege kujutisi ühendavad tööriistad, taaskäivitage arvuti ja proovige uuesti. Üksikasjad on failides {1} ja {2}.</value>

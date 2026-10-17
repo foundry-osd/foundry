@@ -157,6 +157,7 @@ public sealed class WinPeDriverPackageServiceTests
             Assert.All(downloads, report =>
             {
                 Assert.Equal("dell.cab", report.ItemName);
+                Assert.Equal(WinPeVendorSelection.Dell, report.Vendor);
                 Assert.Equal(1, report.ItemNumber);
                 Assert.Equal(1, report.ItemCount);
             });

@@ -3601,7 +3601,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Atsisiunčiama</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Atsisiunčiamas tvarkyklių paketas {0} iš {1}: {2}</value>
+    <value>Atsisiunčiamas {2} tvarkyklių paketas {0} iš {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Atsisiunčiama: {0}</value>
@@ -3813,11 +3813,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Tikrinamas USB diskas…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Tikrinamas talpykloje esantis failas {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Tikrinamas {0} tvarkyklių paketas</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Tikrinami USB įkrovos failai…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Tikrinamas Windows šaltinio paketas</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>„Windows“ užblokavo prieigą prie WinPE vaizdo failų. Gali būti, kad juos užrakino saugos programinė įranga arba kitas įrankis. Saugos programinėje įrangoje pridėkite išimtį aplankui {0}, uždarykite vaizdus prijungiančius įrankius, paleiskite kompiuterį iš naujo ir bandykite dar kartą. Išsami informacija pateikta failuose {1} ir {2}.</value>

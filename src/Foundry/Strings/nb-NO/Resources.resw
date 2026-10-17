@@ -3601,7 +3601,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Laster ned</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Laster ned driverpakke {0} av {1}: {2}</value>
+    <value>Laster ned {2}-driverpakke {0} av {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Laster ned {0}</value>
@@ -3813,11 +3813,14 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrollerer USB-stasjonen…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Kontrollerer den hurtigbufrede filen {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Bekrefter {0}-driverpakken</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Bekrefter oppstartsfilene på USB-stasjonen…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Bekrefter Windows-kildepakken</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blokkerte tilgangen til WinPE-avbildningsfilene. Sikkerhetsprogramvare eller et annet verktøy kan ha låst dem. Legg til et unntak for {0} i sikkerhetsprogramvaren, lukk verktøy som monterer avbildninger, start datamaskinen på nytt og prøv igjen. Detaljer finnes i {1} og {2}.</value>

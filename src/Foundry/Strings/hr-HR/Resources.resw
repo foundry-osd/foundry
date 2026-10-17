@@ -3601,7 +3601,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Preuzimanje</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Preuzimanje paketa upravljačkih programa {0} od {1}: {2}</value>
+    <value>Preuzimanje paketa upravljačkih programa {2} {0} od {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Preuzimanje: {0}</value>
@@ -3813,11 +3813,14 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Provjera USB diska…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Provjera predmemorirane datoteke {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Provjera paketa upravljačkih programa {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Provjera datoteka za pokretanje na USB disku…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Provjera izvornog paketa sustava Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows je blokirao pristup datotekama slike sustava WinPE. Možda ih zaključava sigurnosni softver ili neki drugi alat. U sigurnosnom softveru dodajte iznimku za {0}, zatvorite alate koji montiraju slike, ponovno pokrenite računalo i pokušajte ponovno. Pojedinosti se nalaze u {1} i {2}.</value>

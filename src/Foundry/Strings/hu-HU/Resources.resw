@@ -3601,7 +3601,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Letöltés</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>{0}/{1}. illesztőprogram-csomag letöltése: {2}</value>
+    <value>{0}/{1}. {2}-illesztőprogram-csomag letöltése</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Letöltés: {0}</value>
@@ -3813,11 +3813,14 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Az USB-meghajtó ellenőrzése…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>A gyorsítótárazott fájl ellenőrzése: {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>A(z) {0}-illesztőprogram-csomag ellenőrzése</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Az USB-meghajtó rendszerindító fájljainak ellenőrzése…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>A Windows-forráscsomag ellenőrzése</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>A Windows letiltotta a hozzáférést a WinPE-lemezkép fájljaihoz. Lehet, hogy egy biztonsági szoftver vagy egy másik eszköz zárolja őket. Adjon hozzá kivételt a(z) {0} mappához a biztonsági szoftverben, zárja be a lemezképeket csatlakoztató eszközöket, indítsa újra a számítógépet, és próbálja újra. A részletek a(z) {1} és a(z) {2} fájlban találhatók.</value>

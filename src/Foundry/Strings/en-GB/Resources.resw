@@ -3601,7 +3601,7 @@ Passwords and access keys included: {2}</value>
     <value>Downloading</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Downloading driver package {0} of {1}: {2}</value>
+    <value>Downloading {2} driver package {0} of {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Downloading {0}</value>
@@ -3813,11 +3813,14 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Checking the USB drive…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Verifying the cached file {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Verifying the {0} driver package</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verifying the USB boot files…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Verifying the Windows source package</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blocked access to the WinPE image files. Security software or another tool may be locking them. Add a security software exclusion for {0}, close tools that mount images, restart the computer, and try again. Details are in {1} and {2}.</value>

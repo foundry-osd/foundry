@@ -3601,7 +3601,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Download</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Download del pacchetto driver {0} di {1}: {2}</value>
+    <value>Download del pacchetto driver {2} {0} di {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Download di {0}</value>
@@ -3813,11 +3813,14 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Verifica dell'unità USB…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Verifica del file {0} nella cache</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Verifica del pacchetto driver {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verifica dei file di avvio USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Verifica del pacchetto sorgente Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows ha bloccato l’accesso ai file dell’immagine WinPE. È possibile che un software di sicurezza o un altro strumento li stia bloccando. Aggiungere un’esclusione per {0} nel software di sicurezza, chiudere gli strumenti che montano immagini, riavviare il computer e riprovare. I dettagli sono disponibili in {1} e {2}.</value>

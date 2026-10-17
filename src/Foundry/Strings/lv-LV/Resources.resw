@@ -3601,7 +3601,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Lejupielāde</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Notiek draiveru pakotnes {0} no {1} lejupielāde: {2}</value>
+    <value>Notiek {2} draiveru pakotnes {0} no {1} lejupielāde</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Notiek lejupielāde: {0}</value>
@@ -3813,11 +3813,14 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Notiek USB diska pārbaude…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Notiek kešatmiņā saglabātā faila {0} pārbaude</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Notiek {0} draiveru pakotnes pārbaude</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Notiek USB sāknēšanas failu pārbaude…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Notiek Windows avota pakotnes pārbaude</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows bloķēja piekļuvi WinPE attēla failiem. Iespējams, tos bloķē drošības programmatūra vai cits rīks. Drošības programmatūrā pievienojiet izņēmumu mapei {0}, aizveriet rīkus, kas pievieno attēlus, restartējiet datoru un mēģiniet vēlreiz. Detalizēta informācija ir failos {1} un {2}.</value>

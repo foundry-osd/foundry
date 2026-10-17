@@ -3601,7 +3601,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Descargando</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Descargando el paquete de controladores {0} de {1}: {2}</value>
+    <value>Descargando el paquete de controladores {2} {0} de {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Descargando {0}</value>
@@ -3813,11 +3813,14 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Comprobando la unidad USB…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Verificando el archivo en caché {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Verificando el paquete de controladores {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Verificando los archivos de arranque de la unidad USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Verificando el paquete de origen de Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows bloqueó el acceso a los archivos de la imagen de WinPE. Es posible que un software de seguridad u otra herramienta los esté bloqueando. Agregue una exclusión para {0} en el software de seguridad, cierre las herramientas que montan imágenes, reinicie el equipo e inténtelo de nuevo. Encontrará los detalles en {1} y {2}.</value>

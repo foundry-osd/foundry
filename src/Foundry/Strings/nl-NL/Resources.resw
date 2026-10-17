@@ -3601,7 +3601,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Downloaden</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Stuurprogrammapakket {0} van {1} downloaden: {2}</value>
+    <value>{2}-stuurprogrammapakket {0} van {1} downloaden</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>{0} downloaden</value>
@@ -3813,11 +3813,14 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB-schijf controleren…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Bestand {0} in de cache verifiëren</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>{0}-stuurprogrammapakket controleren</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB-opstartbestanden verifiëren…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows-bronpakket controleren</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows heeft de toegang tot de WinPE-installatiekopiebestanden geblokkeerd. Mogelijk worden ze vergrendeld door beveiligingssoftware of een ander hulpprogramma. Voeg in de beveiligingssoftware een uitzondering toe voor {0}, sluit hulpprogramma's die installatiekopieën koppelen, start de computer opnieuw op en probeer het opnieuw. Details staan in {1} en {2}.</value>

@@ -3601,7 +3601,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Ladataan</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Ladataan ohjainpakettia {0}/{1}: {2}</value>
+    <value>Ladataan {2}-ohjainpakettia {0}/{1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Ladataan: {0}</value>
@@ -3813,11 +3813,14 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Tarkistetaan USB-asemaa…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Tarkistetaan välimuistissa olevaa tiedostoa {0}</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Tarkistetaan {0}-ohjainpakettia</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Tarkistetaan USB-aseman käynnistystiedostoja…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Tarkistetaan Windowsin lähdepakettia</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows esti pääsyn WinPE-näköistiedostoihin. Suojausohjelmisto tai jokin muu työkalu saattaa lukita ne. Lisää suojausohjelmistoon poikkeus kohteelle {0}, sulje näköistiedostoja liittävät työkalut, käynnistä tietokone uudelleen ja yritä uudelleen. Lisätietoja on tiedostoissa {1} ja {2}.</value>

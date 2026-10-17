@@ -3601,7 +3601,7 @@
     <value>Λήψη</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>Λήψη πακέτου προγραμμάτων οδήγησης {0} από {1}: {2}</value>
+    <value>Λήψη πακέτου προγραμμάτων οδήγησης {2} {0} από {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Λήψη {0}</value>
@@ -3813,11 +3813,14 @@
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Έλεγχος της μονάδας USB…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>Επαλήθευση του αρχείου {0} από την προσωρινή μνήμη</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Επαλήθευση του πακέτου προγραμμάτων οδήγησης {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Επαλήθευση των αρχείων εκκίνησης στη μονάδα USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Επαλήθευση του πακέτου πηγής των Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Τα Windows απέκλεισαν την πρόσβαση στα αρχεία της εικόνας WinPE. Ενδέχεται να τα κλειδώνει λογισμικό ασφαλείας ή άλλο εργαλείο. Προσθέστε μια εξαίρεση για το {0} στο λογισμικό ασφαλείας, κλείστε τα εργαλεία που προσαρτούν εικόνες, επανεκκινήστε τον υπολογιστή και δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στα {1} και {2}.</value>

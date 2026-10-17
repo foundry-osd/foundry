@@ -3601,7 +3601,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>다운로드 중</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
-    <value>드라이버 패키지 다운로드 중({0}/{1}): {2}</value>
+    <value>{2} 드라이버 패키지 {0}/{1} 다운로드 중</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>{0} 다운로드 중</value>
@@ -3813,11 +3813,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB 드라이브를 확인하는 중…</value>
   </data>
-  <data name="StartMedia.Operation.VerifyingCachedFileFormat" xml:space="preserve">
-    <value>캐시된 파일 {0} 확인 중</value>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>{0} 드라이버 패키지 확인 중</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB 부팅 파일을 확인하는 중…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows 소스 패키지 확인 중</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows에서 WinPE 이미지 파일에 대한 액세스를 차단했습니다. 보안 소프트웨어 또는 다른 도구가 파일을 잠그고 있을 수 있습니다. 보안 소프트웨어에서 {0}에 대한 예외를 추가하고, 이미지를 탑재하는 도구를 닫은 다음, 컴퓨터를 다시 시작하고 다시 시도하세요. 자세한 내용은 {1} 및 {2}에 있습니다.</value>
