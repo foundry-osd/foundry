@@ -98,10 +98,16 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Capacità di creazione multimediale</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Operazione di Windows ADK annullata.</value>
+    <value>L'installazione è stata annullata.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Installazione di Windows ADK annullata</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK operazione completata</value>
+    <value>Windows ADK e il componente aggiuntivo Windows PE sono pronti. Ora è possibile creare supporti di avvio.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK installato</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Utilizzo del programma di installazione ADK memorizzato nella cache</value>
@@ -113,10 +119,16 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Download del programma di installazione ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK operazione non riuscita</value>
+    <value>L'installazione non è stata completata. I dettagli sono disponibili nel log.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Installazione di Windows ADK non riuscita</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Installazione Windows ADK</value>
+    <value>Preparazione dell'installazione…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Installazione di Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Installazione di Windows ADK Strumenti di distribuzione</value>
@@ -127,6 +139,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Installazione terminata. Verificare i requisiti ADK rimanenti.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK richiede attenzione</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Rimozione esistente Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Preparazione dell'installazione di Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Aggiornamento di Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Verifica dell'installazione di ADK</value>
@@ -197,16 +215,19 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Criteri di versione obbligatori</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>File WinPE disponibili</value>
+    <value>disponibili</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>File WinPE mancanti</value>
+    <value>mancanti</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Componente aggiuntivo installato</value>
+    <value>Installato</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Installato (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Componente aggiuntivo mancante</value>
+    <value>Non installato</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Componente aggiuntivo</value>
@@ -262,11 +283,8 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Note sulla versione</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importa profili JSON locali o scaricali da Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Azioni del profilo</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Predefinito</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Cartella</value>
@@ -280,20 +298,17 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Fonte</value>
   </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profilo organizzato per impostazione predefinita nell'immagine Windows applicata.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Profilo predefinito</value>
-  </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Scarica dall'inquilino</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Nessun profilo Autopilot è stato restituito dal tenant.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot Download del profilo non riuscito: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Impossibile scaricare i profili Autopilot dal tenant.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Controlla la connessione di rete e verifica che l'account possa leggere i profili Autopilot in Intune, quindi riprova. I dettagli sono disponibili nel log.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot download non riuscito</value>
@@ -358,14 +373,11 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>L'identificazione personale del certificato PFX non corrisponde al certificato di registrazione dell'app selezionato.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Crea o rimuovi le credenziali del certificato di registrazione dell'app.</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry non è riuscito a creare il certificato di registrazione dell'app.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Azioni del certificato</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry non è riuscito a creare il certificato di registrazione dell'app. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Verifica che la cartella selezionata sia scrivibile e che l'account possa gestire la registrazione dell'app, quindi riprova. I dettagli sono disponibili nel log.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Creazione del certificato non riuscita</value>
@@ -400,8 +412,8 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>Certificato PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry non è riuscito a rimuovere il certificato di registrazione dell'app selezionata. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry non è riuscito a rimuovere il certificato di registrazione dell'app selezionato.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Rimozione del certificato non riuscita</value>
@@ -411,6 +423,18 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Identificazione personale</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Valido 12 mesi</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Valido 1 mese</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Valido 3 mesi</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Valido 6 mesi</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Non viene effettuato il provisioning di certificati.</value>
@@ -442,8 +466,8 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Caricamento zero-touch dell'hash hardware</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry non è riuscito a configurare la registrazione dell'app Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry non è riuscito a configurare la registrazione dell'app Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>L'onboarding del tenant non è riuscito</value>
@@ -494,16 +518,25 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Rimuovi certificato</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry rimuoverà solo il certificato selezionato dalla registrazione dell'app gestita. Le altre credenziali dell'app verranno conservate.</value>
+    <value>Il certificato selezionato verrà rimosso dalla registrazione dell'app gestita nel tenant. Le altre credenziali dell'app vengono mantenute.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Rimuovi certificato</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Rimuovere il certificato selezionato?</value>
+    <value>Rimuovere il certificato dal tenant?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Questa operazione non può essere annullata. I supporti di avvio che usano un certificato rimosso non potranno più caricare gli hash hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry rimuoverà solo i certificati selezionati {0} dalla registrazione dell'app gestita. Le altre credenziali dell'app verranno conservate.</value>
+    <value>I {0} certificati selezionati verranno rimossi dalla registrazione dell'app gestita nel tenant. Le altre credenziali dell'app vengono mantenute.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Rimuovi certificati</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Rimuovere i certificati dal tenant?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Connesso</value>
@@ -519,6 +552,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID inquilino</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Controlla la connessione di rete e verifica che l'account possa gestire le registrazioni delle app nel tenant, quindi riprova. I dettagli sono disponibili nel log.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Non connesso</value>
@@ -545,7 +581,10 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Importa profilo</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Impossibile importare il profilo Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Verifica che il file sia un file JSON di profilo Autopilot valido, quindi riprova. I dettagli sono disponibili nel log.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot importazione non riuscita</value>
@@ -574,8 +613,8 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Cambiare modalità di provisioning?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Profili Autopilot offline disponibili per il provisioning dei profili JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Sì</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Nessun profilo Autopilot importato.</value>
@@ -587,7 +626,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Rimuovi selezionato</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Rimuovere "{0}" dai profili Autopilot importati?</value>
+    <value>«{0}» verrà rimosso dai profili Autopilot di questa configurazione.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Rimuovi profilo</value>
@@ -596,7 +635,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Rimuovere il profilo Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Rimuovere i profili {0} selezionati Autopilot?</value>
+    <value>{0} profili Autopilot selezionati verranno rimossi da questa configurazione.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Rimuovere i profili</value>
@@ -604,14 +643,17 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Rimuovere i profili Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Per usare di nuovo un profilo rimosso, importalo o scaricalo di nuovo dal tenant.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Imposta come predefinito</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Completa l'accesso nel browser per scaricare i profili Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Accedi a Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Annulla</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Cancella</value>
@@ -679,11 +721,17 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Abilitato</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Richiede attenzione</value>
   </data>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Aggiorna</value>
+  </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Salva</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Non disponibile</value>
@@ -696,9 +744,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Sfoglia</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Annulla</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importazione annullata</value>
@@ -787,17 +832,23 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Aggiorna</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Rimuovere questa immagine dal profilo corrente ed eliminarne la copia locale? Negli altri profili che vi fanno riferimento risulterà mancante. I file originali e i supporti esistenti rimangono invariati.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Rimuovi immagine</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>L'immagine {0} ({1}) verrà rimossa dal profilo corrente e la relativa copia locale verrà eliminata.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Rimuovi</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Rimuovere l'immagine personalizzata?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Negli altri profili che usano questa immagine risulterà mancante. Il file originale e i supporti esistenti non vengono modificati.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Modifica</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Salva</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Imposta immagine predefinita</value>
@@ -1002,6 +1053,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Controlla le impostazioni dei componenti. La lunghezza massima del nome computer è di 15 caratteri.</value>
+  </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Attiva la protezione con password nella pagina Generale per usare una password predefinita.</value>
   </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Imposta una password predefinita per questo account. È necessario un supporto di distribuzione protetto. Disattiva questa opzione per usare una password vuota.</value>
@@ -1247,10 +1301,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Aggiornamento disponibile più recente</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} aggiornamenti prima</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 aggiornamento prima</value>
+    <value>Aggiornamenti prima del più recente: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Configura le versioni di Windows 11 offerte durante la distribuzione.</value>
@@ -1760,7 +1811,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Invariato</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} configurato ({1} abilita, {2} disabilita)</value>
+    <value>Configurate: {0} (abilita: {1}, disabilita: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>La disponibilità dipende dall'hardware del PC Copilot+ e dall'immagine Windows installata.</value>
@@ -1825,8 +1876,14 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>I log non elaborati possono contenere credenziali, identificatori, percorsi, nomi di rete e altri dati sensibili. Esportali solo quando vengono richiesti esplicitamente da un contatto di supporto attendibile.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>L'archivio di supporto è stato salvato in:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostica esportata</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Apri cartella</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry non è riuscito ad aprire la documentazione nel tuo browser. Utilizzare invece questo URL.</value>
@@ -2689,9 +2746,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Stato del contenuto</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Contenuto di post-installazione verificato.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Continua in caso di errore</value>
   </data>
@@ -2821,9 +2875,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Argomenti dello script</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Preparazione del contenuto di post-installazione.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Codici di uscita riuscita (separati da virgole)</value>
   </data>
@@ -2847,6 +2898,15 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Non è stato possibile rimuovere alcune vecchie password o chiavi di accesso salvate. Riprova quando Gestione credenziali di Windows è disponibile.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Chiudi senza salvare</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Non è stato possibile salvare le ultime modifiche, che andranno perse.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Chiudere senza salvare le impostazioni?</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Conferma password</value>
@@ -2884,8 +2944,17 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Elimina da questo PC</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Elimina anche per tutti gli altri</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Elimina per tutti</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Eliminare per tutti?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Eliminare queste impostazioni condivise per tutti? Chi ha modifiche non sincronizzate deve duplicare le proprie impostazioni per conservarle.</value>
@@ -2925,6 +2994,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Cancella password e accessi salvati</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Cancella</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Rimuovere da questo PC le password salvate, i file riservati salvati da Foundry e l'accesso alla sincronizzazione per queste impostazioni? Dovrai aggiungere i dati mancanti e riconnetterti per sincronizzare. I supporti già creati non cambieranno.</value>
@@ -2972,7 +3044,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Altre opzioni</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} file sono mancanti o non sono stati inclusi. Seleziona i loro percorsi prima di creare i supporti.</value>
+    <value>File mancanti o non inclusi: {0}. Seleziona i loro percorsi prima di creare i supporti.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Nome della configurazione</value>
@@ -3046,7 +3118,13 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Usa la stessa cartella di rete su tutti i PC. Deve usare SMB 3 con crittografia obbligatoria. Le cartelle sincronizzate con il cloud non sono supportate.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Smettere di memorizzare le password di questa configurazione su questo PC?</value>
+    <value>Foundry smetterà di salvare le password di questa configurazione su questo PC.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Smetti di memorizzare</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Smettere di memorizzare le password?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sincronizza</value>
@@ -3102,6 +3180,18 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Controlla i campi obbligatori. Se viene richiesta una cartella di rete, usa un percorso come \\server\share\folder. Se inserisci due volte la password del file, assicurati che i due valori coincidano.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD non è riuscito a salvare le impostazioni proxy. Riprova. I dettagli sono disponibili nel log.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Impostazioni proxy non applicate</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Il proxy ha rifiutato l'accesso. Controlla le impostazioni di autenticazione del proxy e riprova.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD non è riuscito a raggiungere i servizi GitHub e Microsoft con queste impostazioni. Controlla l'indirizzo e la porta del proxy e la connessione di rete. I dettagli sono disponibili nel log.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connessione non riuscita</value>
   </data>
@@ -3120,8 +3210,17 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connessione riuscita</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Immetti l'indirizzo del server proxy.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Immetti un nome utente e una password per l'autenticazione esplicita del proxy.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Immetti un indirizzo proxy HTTP o HTTPS valido, ad esempio proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Immetti un numero di porta compreso tra 1 e 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3252,11 +3351,14 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aggiorna l'app</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operazione completata</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Arresta operazione</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Operazione in corso</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Seleziona Arresta operazione per confermare. Un passaggio in corso sul disco o sull'immagine viene completato prima.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Tempo trascorso: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Arresto in sicurezza. Potrebbe essere necessario attendere il termine dell'operazione corrente sul disco o sull'immagine prima che la pulizia possa essere completata.</value>
@@ -3327,6 +3429,12 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot utilizza una modalità di provisioning non supportata.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Risolvi i seguenti problemi prima di creare il supporto:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Impossibile avviare la creazione del supporto. Controlla gli elementi di preparazione nella pagina Inizia.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>Il componente aggiuntivo ADK o WinPE non è pronto.</value>
   </data>
@@ -3374,12 +3482,6 @@ Password e chiavi di accesso incluse: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>La lingua di avvio WinPE selezionata non è disponibile per l'architettura selezionata.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>WinPE standard</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>Immagine WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3462,23 +3564,8 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Architettura</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Origine dell'immagine di avvio</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Provisioning di Connect</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Configurazione di Deploy</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Driver</value>
@@ -3486,23 +3573,8 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB modalità formato</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO percorso di uscita</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Configurazione di rete</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB stile della partizione</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Segreti mediatici</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Modalità firma</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>Destinazione USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE lingua di avvio</value>
@@ -3518,6 +3590,9 @@ Password e chiavi di accesso incluse: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>La creazione di contenuti multimediali è disponibile una volta superati tutti i controlli di idoneità.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Scegli un output ISO o USB qui sotto per iniziare.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formattazione completa</value>
@@ -3538,7 +3613,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Selezionare il percorso di uscita ISO</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} account locali aggiuntivi</value>
+    <value>Account locali aggiuntivi: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Administrator predefinito abilitato</value>
@@ -3547,52 +3622,49 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Creazione account OOBE ignorata</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Applicazione della lingua e dei componenti opzionali.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Le dipendenze dell'immagine di avvio sono pronte.</value>
+    <value>Aggiunta della lingua e dei componenti opzionali…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Creazione dell'area di lavoro WinPE.</value>
+    <value>Creazione dell'area di lavoro WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Creazione del supporto annullata.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} di {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>La creazione del supporto è stata annullata.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Controllo della sicurezza del target USB.</value>
+    <value>Verifica che l'unità USB possa essere cancellata in sicurezza…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Pulizia dell'area di lavoro WinPE.</value>
+    <value>Pulizia dei file di un'esecuzione precedente…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Cancellazione della tabella delle partizioni USB.</value>
+    <value>Cancellazione dell'unità USB…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Esecuzione delle modifiche all'immagine di avvio.</value>
+    <value>Salvataggio dell'immagine di avvio…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Creazione multimediale finale completata.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Copia delle immagini Windows personalizzate…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Copia del contenuto di post-installazione…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Copia del supporto WinPE su USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Creazione del supporto ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Creazione del supporto USB.</value>
+    <value>Copia dei file WinPE sull'unità USB…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Creazione della partizione BOOT.</value>
+    <value>Creazione della partizione BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Creazione della partizione della cache.</value>
+    <value>Creazione della partizione della cache…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>I driver personalizzati occupano almeno {0}; il massimo è {1}. Selezionare solo i driver di rete e di archiviazione necessari per Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Personalizzazione dell'immagine di avvio.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>L'identità dell'unità USB è mancante, ambigua o è cambiata. Aggiorna l'elenco delle unità USB e seleziona nuovamente l'unità.</value>
@@ -3601,82 +3673,64 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>L'unità USB selezionata non può più essere modificata in sicurezza. Aggiorna l'elenco delle unità USB e seleziona un'altra unità USB.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Applicazione delle impostazioni internazionali con DISM.</value>
+    <value>Applicazione delle impostazioni della lingua…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Applicazione del pacchetto lingua con DISM.</value>
+    <value>Aggiunta del pacchetto lingua…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Applicazione di componenti opzionali con DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Confermare le modifiche all'immagine con DISM.</value>
+    <value>Aggiunta dei componenti opzionali…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Annullamento delle modifiche all'immagine montata con DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Esportazione dell'immagine Windows con DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Iniezione di driver con DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Immagine di montaggio con DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Risoluzione dell'indice delle immagini Windows con DISM.</value>
+    <value>Rimozione di un'immagine rimasta montata da un'esecuzione precedente…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Download di contenuti.</value>
+    <value>Download</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Download del pacchetto driver</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Download del pacchetto driver {2} {0} di {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Download dei componenti di distribuzione {0}.</value>
+    <value>Download di {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Download del pacchetto sorgente Windows.</value>
+    <value>Download del pacchetto sorgente Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Valutazione della politica di firma di avvio.</value>
+    <value>Verifica della compatibilità con la firma di avvio…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Esportazione dell'immagine Windows per preparare l'immagine di avvio.</value>
+    <value>Estrazione dell'immagine Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>La creazione multimediale finale non è riuscita.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>L'errore si è verificato durante il passaggio {0} di {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Finalizzazione dell'output ISO.</value>
+    <value>Salvataggio del file ISO…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formattazione della partizione BOOT.</value>
+    <value>Formattazione della partizione BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formattazione della partizione della cache.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Personalizzazione dell'immagine di avvio completata.</value>
+    <value>Formattazione della partizione della cache…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Inizializzazione della tabella delle partizioni USB.</value>
+    <value>Creazione della tabella delle partizioni…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Inserimento dei driver nell'immagine di avvio.</value>
+    <value>Aggiunta dei driver all'immagine di avvio…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Ispezione del layout del supporto USB.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO supporto completato.</value>
+    <value>Lettura del layout dell'unità USB…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry non è riuscito a sostituire il file ISO in {0}. Il file potrebbe essere montato, collegato a una macchina virtuale, aperto in un altro programma o di sola lettura. Smontalo o chiudilo, oppure scegli un altro percorso di output, quindi riprova.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Il supporto ISO è stato creato correttamente.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>Il file ISO è stato salvato in:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Dimensione: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Spazio su disco insufficiente per creare l'immagine di avvio. Sono necessari almeno {0} di spazio libero in {2}. Disponibile: {1}. Libera spazio e riprova.</value>
@@ -3685,73 +3739,148 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Non è stato possibile verificare lo spazio su disco disponibile per creare l'immagine di avvio in {0}. Verifica che il percorso sia accessibile e riprova.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Montaggio dell'immagine di avvio.</value>
+    <value>Apertura dell'immagine di avvio…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Montaggio dell'immagine sorgente Windows.</value>
+    <value>Apertura dell'immagine Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Apri cartella</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Apri cartella dei log</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Apertura del disco USB.</value>
+    <value>Apertura dell'unità USB…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Partizionamento e formattazione USB target.</value>
+    <value>Partizionamento dell'unità USB…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Copia dei file sull'unità USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Creazione del file ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Personalizzazione dell'immagine di avvio</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Recupero dei driver</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Completamento</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Formattazione dell'unità USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Preparazione dell'area di lavoro</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Aggiornamento dell'unità USB</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Preparazione della personalizzazione dell'immagine di avvio.</value>
+    <value>Preparazione dell'immagine di avvio…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Preparazione dei componenti Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Preparazione del percorso di uscita ISO.</value>
+    <value>Preparazione della cartella di output ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Preparazione dell'area di lavoro ISO.</value>
+    <value>Preparazione dei file ISO…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Preparazione del contenuto di post-installazione…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Preparazione della partizione della cache USB.</value>
+    <value>Preparazione della partizione della cache…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Preparazione degli attributi del disco USB.</value>
+    <value>Preparazione dell'unità USB…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Preparazione del pacchetto sorgente Windows.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Preparazione dell'area di lavoro WinPE.</value>
+    <value>Recupero del pacchetto sorgente Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Provisioning delle risorse di avvio Foundry.</value>
+    <value>Aggiunta dei file di avvio Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Aggiunta dei componenti di distribuzione Foundry.</value>
+    <value>Aggiunta dei componenti Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Aggiunta di componenti Foundry al supporto USB.</value>
+    <value>Aggiunta dei componenti Foundry all'unità USB…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Rimozione dei file temporanei…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Sostituzione dell'immagine di avvio con WinRE.</value>
+    <value>Sostituzione dell'immagine di avvio con Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Risoluzione dei pacchetti driver.</value>
+    <value>Individuazione dei driver da aggiungere…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Risoluzione dell'indice delle immagini Windows.</value>
+    <value>Selezione dell'edizione di Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Risoluzione del catalogo di origine Windows.</value>
+    <value>Ricerca del pacchetto sorgente Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Esecuzione di MakeWinPEMedia per ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Pacchetto sorgente Windows selezionato.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>I dettagli sono disponibili nel log.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Preparazione delle dipendenze dell'immagine di avvio.</value>
+    <value>Copia dei file necessari dall'immagine Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Passaggio {0} di {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Dettagli tecnici: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Creazione dell'ISO annullata</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Creazione dell'ISO non riuscita</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Creazione dell'ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO creata</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Creazione del supporto USB annullata</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Creazione del supporto USB non riuscita</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Creazione del supporto USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>Supporto USB creato</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Aggiornamento del supporto USB annullato</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Aggiornamento del supporto USB non riuscito</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Aggiornamento del supporto USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>Supporto USB aggiornato</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Il tempo di attesa per il trasferimento è scaduto. Verificare la connessione e riprovare.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Aggiornamento del supporto USB.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Un errore imprevisto ha interrotto la creazione del supporto.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>La partizione BOOT USB richiede circa {0}, ma la sua capacità è {1}. Nulla è stato cancellato o formattato. Ridurre le personalizzazioni o i driver, oppure creare una ISO.</value>
@@ -3762,35 +3891,35 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Un file del supporto di avvio occupa {0}; FAT32 supporta al massimo {1} per file. Ridurre le dimensioni dell'immagine di avvio o creare una ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>Partizione di avvio USB aggiornata.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>L'unità USB potrebbe non essere più in grado di avviare un dispositivo. Creala o aggiornala di nuovo prima di usarla.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB supporto completato.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB partizioni formattate.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>Il supporto USB è stato creato correttamente. Volume di avvio: {0}. Volume della cache: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>La partizione di avvio USB è stata aggiornata correttamente. Volume di avvio: {0}. Volume cache: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Volume di avvio: {0}. Volume della cache: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Convalida del target USB.</value>
+    <value>Verifica dell'unità USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Verifica del pacchetto driver {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Verifica del supporto di avvio USB.</value>
+    <value>Verifica dei file di avvio USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Verifica del pacchetto sorgente Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows ha bloccato l'accesso ai file dell'immagine WinPE. È possibile che un software di sicurezza o un altro strumento li stia bloccando. Aggiungere un'esclusione per {0} nel software di sicurezza, chiudere gli strumenti che montano immagini, riavviare il computer e riprovare. I dettagli sono disponibili in {1} e {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Scrittura del file ISO…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Verifica la preparazione, scegli un output ISO o USB e avvia la creazione del supporto.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Rivedi</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Controlla {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Pronto</value>
@@ -3821,9 +3950,6 @@ Password e chiavi di accesso incluse: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Elementi che richiedono attenzione:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Crea comunque</value>
@@ -3877,6 +4003,15 @@ L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE lingua di avvio</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Pacchetti: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Richiede attenzione: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Richiede attenzione: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Predefinito</value>
@@ -3957,7 +4092,7 @@ L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
     <value>Nome visualizzato</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Ignorati {0} file già presenti nel catalogo.</value>
+    <value>File ignorati perché già presenti nel catalogo: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Importa almeno un file di risposte per usare questa funzionalità.</value>
@@ -4079,20 +4214,20 @@ L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Non controllato</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Impossibile applicare l'aggiornamento: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD non è riuscito ad avviare l'aggiornamento. Prova ad applicarlo di nuovo. I dettagli sono disponibili nel log.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD non è riuscito a verificare la disponibilità di aggiornamenti. Controlla la connessione di rete e riprova. I dettagli sono disponibili nel log.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controllo degli aggiornamenti</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Download dell'aggiornamento non riuscito: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Impossibile scaricare l'aggiornamento. Controlla la connessione di rete e riprova. I dettagli sono disponibili nel log.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Download dell'aggiornamento</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Controllo aggiornamento non riuscito: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD è aggiornato.</value>
@@ -4118,11 +4253,17 @@ L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Impossibile applicare l'aggiornamento</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Download dell'aggiornamento non riuscito</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Il controllo dell'aggiornamento non è riuscito</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Aggiornato</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Aggiornamento pronto per l'installazione</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Controllo dell'aggiornamento saltato</value>

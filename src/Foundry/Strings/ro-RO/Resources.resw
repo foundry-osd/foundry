@@ -98,10 +98,16 @@ Licențiat sub licența MIT.</value>
     <value>Capacitate de creare media</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Operațiunea Windows ADK a fost anulată.</value>
+    <value>Instalarea a fost anulată.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Instalarea Windows ADK a fost anulată</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK operațiune finalizată</value>
+    <value>Windows ADK și suplimentul Windows PE sunt pregătite. Acum puteți crea suporturi de pornire.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK instalat</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Folosind programul de instalare ADK din cache</value>
@@ -113,10 +119,16 @@ Licențiat sub licența MIT.</value>
     <value>Se descarcă programul de instalare ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>Operația ADK a eșuat</value>
+    <value>Instalarea nu s-a finalizat. Detaliile se află în jurnal.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Instalarea Windows ADK a eșuat</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Instalarea Windows ADK</value>
+    <value>Se pregătește instalarea…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Se instalează Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Instalarea Windows ADK Instrumente de implementare</value>
@@ -127,6 +139,9 @@ Licențiat sub licența MIT.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Instalarea s-a încheiat. Verificați cerințele ADK rămase.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK necesită atenție</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Eliminarea Windows ADK existente</value>
   </data>
@@ -135,6 +150,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Se pregătește instalarea Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Se actualizează Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Se verifică instalarea ADK</value>
@@ -197,16 +215,19 @@ Licențiat sub licența MIT.</value>
     <value>Politica de versiune necesară</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Fișierele WinPE sunt disponibile</value>
+    <value>disponibile</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Lipsesc fișiere WinPE</value>
+    <value>lipsesc</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Supliment instalat</value>
+    <value>Instalat</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Instalat (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Lipsește suplimentul</value>
+    <value>Neinstalat</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Supliment</value>
@@ -262,11 +283,8 @@ Licențiat sub licența MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Note de lansare</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importați profiluri locale JSON sau descărcați-le de pe Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Acțiuni de profil</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Implicit</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Folder</value>
@@ -280,20 +298,17 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Sursa</value>
   </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profil montat implicit în imaginea Windows aplicată.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Profil implicit</value>
-  </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Descărcați de la entitatea găzduită</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Niciun profil Autopilot nu a fost returnat de entitatea găzduită.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Descărcarea profilului Autopilot a eșuat: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Profilurile Autopilot nu au putut fi descărcate de la chiriaș.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Verificați conexiunea la rețea și asigurați-vă că acest cont poate citi profilurile Autopilot din Intune, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Descărcarea Autopilot a eșuat</value>
@@ -358,14 +373,11 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Amprenta digitală a certificatului PFX nu se potrivește cu certificatul de înregistrare a aplicației selectat.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Creați sau eliminați acreditările certificatului de înregistrare a aplicației.</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nu a putut crea certificatul de înregistrare a aplicației.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Actiuni de certificat</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nu a putut crea certificatul de înregistrare a aplicației. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Verificați dacă se poate scrie în folderul selectat și dacă acest cont poate gestiona înregistrarea aplicației, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Crearea certificatului a eșuat</value>
@@ -400,8 +412,8 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>certificat PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nu a putut elimina certificatul de înregistrare a aplicației selectate. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nu a putut elimina certificatul selectat de înregistrare a aplicației.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Eliminarea certificatului a eșuat</value>
@@ -411,6 +423,18 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Amprentă</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Valabil 12 luni</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Valabil 1 lună</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Valabil 3 luni</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Valabil 6 luni</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Nu sunt furnizate certificate.</value>
@@ -442,8 +466,8 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Încărcare zero-touch a hashului hardware</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nu a putut configura înregistrarea aplicației Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nu a putut configura înregistrarea aplicației Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Înregistrarea entității găzduite a eșuat</value>
@@ -494,16 +518,25 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați certificatul</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry va elimina numai certificatul selectat din înregistrarea aplicației gestionate. Alte acreditări ale aplicației vor fi păstrate.</value>
+    <value>Certificatul selectat va fi eliminat din înregistrarea aplicației gestionate din chiriașul dvs. Alte acreditări ale aplicației sunt păstrate.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Eliminați certificatul</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Eliminați certificatul selectat?</value>
+    <value>Eliminați certificatul din chiriaș?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Această acțiune nu poate fi anulată. Mediile de pornire care utilizează un certificat eliminat nu mai pot încărca hash-uri hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry va elimina numai certificatele {0} selectate din înregistrarea aplicației gestionate. Alte acreditări ale aplicației vor fi păstrate.</value>
+    <value>Certificatele selectate ({0}) vor fi eliminate din înregistrarea aplicației gestionate din chiriașul dvs. Alte acreditări ale aplicației sunt păstrate.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Eliminați certificatele</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Eliminați certificatele din chiriaș?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Conectat</value>
@@ -519,6 +552,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID entitate găzduită</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Verificați conexiunea la rețea și asigurați-vă că acest cont poate gestiona înregistrările de aplicații din chiriaș, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nu este conectat</value>
@@ -545,7 +581,10 @@ Licențiat sub licența MIT.</value>
     <value>Importați profilul</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Profilul Autopilot nu a putut fi importat.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Verificați dacă fișierul este un fișier JSON valid de profil Autopilot, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Importul Autopilot nu a reușit</value>
@@ -574,8 +613,8 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Schimbați modul de furnizare?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Profiluri offline Autopilot disponibile pentru furnizarea profilului JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Da</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Nu au fost importate profiluri Autopilot.</value>
@@ -587,7 +626,7 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați selectat</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Eliminați „{0}” din profilurile Autopilot importate?</value>
+    <value>„{0}” va fi eliminat din profilurile Autopilot din această configurație.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Eliminați profilul</value>
@@ -596,7 +635,7 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați profilul Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Eliminați {0} profilurile Autopilot selectate?</value>
+    <value>Profilurile Autopilot selectate ({0}) vor fi eliminate din această configurație.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Eliminați profilurile</value>
@@ -604,14 +643,17 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Eliminați profilurile Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Pentru a utiliza din nou un profil eliminat, importați-l sau descărcați-l din nou de la chiriaș.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Setează ca implicit</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Completați autentificarea în browser pentru a descărca profilurile Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Conectați-vă la Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Anulează</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Ștergeți</value>
@@ -679,11 +721,17 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Activat</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Necesită atenție</value>
   </data>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Reîmprospătați</value>
+  </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Salvează</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponibil</value>
@@ -696,9 +744,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Răsfoiți</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Anulați</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Import anulat</value>
@@ -787,17 +832,23 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Reîmprospătați</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Eliminați această imagine din profilul curent și ștergeți copia sa locală? În celelalte profiluri care fac referire la ea, imaginea va apărea ca lipsă. Fișierele originale și suporturile existente rămân neschimbate.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Elimină imaginea</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) va fi eliminată din profilul curent, iar copia sa locală va fi ștearsă.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Elimină</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Eliminați imaginea personalizată?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Celelalte profiluri care utilizează această imagine o vor afișa ca lipsă. Fișierul original și suporturile existente nu sunt modificate.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Editează</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Salvează</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Setează imaginea implicită</value>
@@ -1002,6 +1053,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Verificați setările componentelor. Lungimea maximă a numelui computerului este de 15 caractere.</value>
+  </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Activați protecția prin parolă în pagina General pentru a utiliza o parolă predefinită.</value>
   </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Setează o parolă predefinită pentru acest cont. Este necesar un suport de implementare protejat. Dezactivați această opțiune pentru a utiliza o parolă goală.</value>
@@ -1247,10 +1301,7 @@ Licențiat sub licența MIT.</value>
     <value>Cea mai recentă actualizare disponibilă</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>Cu {0} actualizări în urmă</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>Cu 1 actualizare în urmă</value>
+    <value>Actualizări înainte de cea mai recentă: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Configurați versiunile Windows 11 oferite în timpul implementării.</value>
@@ -1760,7 +1811,7 @@ Licențiat sub licența MIT.</value>
     <value>Neschimbat</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} configurat ({1} activat, {2} dezactivat)</value>
+    <value>Configurate: {0} (activare: {1}, dezactivare: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Disponibilitatea depinde de hardware-ul PC Copilot+ și de imaginea Windows instalată.</value>
@@ -1825,8 +1876,14 @@ Licențiat sub licența MIT.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Jurnalele brute pot conține acreditări, identificatori, căi, nume de rețea și alte date sensibile. Exportați-le numai când sunt solicitate explicit de un contact de suport de încredere.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Arhiva de asistență a fost salvată în:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostice exportate</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Deschide folderul</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nu a putut deschide documentația în browser. Folosiți acest URL în schimb.</value>
@@ -2689,9 +2746,6 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Starea conținutului</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Conținutul pentru etapa de după instalare a fost verificat.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Continuă în caz de eroare</value>
   </data>
@@ -2821,9 +2875,6 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Argumente ale scriptului</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Se pregătește conținutul pentru etapa de după instalare.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Coduri de ieșire pentru succes (separate prin virgulă)</value>
   </data>
@@ -2847,6 +2898,15 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Unele parole sau chei de acces vechi nu au putut fi eliminate. Încercați din nou când Managerul de acreditări Windows este disponibil.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Închide fără a salva</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Cele mai recente modificări nu au putut fi salvate și se vor pierde.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Închideți fără a salva setările?</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Confirmați parola</value>
@@ -2884,8 +2944,17 @@ Licențiat sub licența MIT.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Șterge de pe acest PC</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Șterge și pentru toată lumea</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Șterge pentru toată lumea</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Ștergi pentru toată lumea?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Ștergeți aceste setări partajate pentru toată lumea? Cei care au modificări nesincronizate trebuie să își duplice setările pentru a le păstra.</value>
@@ -2925,6 +2994,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Șterge parolele și accesul salvate</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Șterge</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Eliminați parolele salvate, fișierele confidențiale salvate de Foundry și accesul la sincronizare pentru aceste setări de pe acest PC? Va trebui să adăugați datele lipsă și să vă reconectați pentru sincronizare. Suporturile create deja nu se vor modifica.</value>
@@ -2972,7 +3044,7 @@ Licențiat sub licența MIT.</value>
     <value>Mai multe opțiuni</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} fișiere lipsesc sau nu au fost incluse. Selectați locațiile lor înainte de a crea suporturile.</value>
+    <value>Fișiere lipsă sau neincluse: {0}. Selectați locațiile lor înainte de a crea suporturile.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Numele configurației</value>
@@ -3046,7 +3118,13 @@ Parole și chei de acces incluse: {2}</value>
     <value>Folosiți același folder din rețea pe toate PC-urile. Acesta trebuie să folosească SMB 3 cu criptare obligatorie. Folderele sincronizate în cloud nu sunt acceptate.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Oprești memorarea parolelor acestei configurații pe acest PC?</value>
+    <value>Foundry nu va mai salva parolele acestei configurații pe acest PC.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Oprește memorarea</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Oprești memorarea parolelor?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sincronizează</value>
@@ -3102,6 +3180,18 @@ Parole și chei de acces incluse: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Verificați câmpurile obligatorii. Dacă vi se cere un folder din rețea, folosiți o cale precum \\server\share\folder. Dacă introduceți parola fișierului de două ori, asigurați-vă că ambele valori sunt identice.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut salva setările proxy. Încercați din nou. Detaliile se găsesc în jurnal.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Setările proxy nu au fost aplicate</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Serverul proxy a respins conectarea. Verificați setările de autentificare proxy și încercați din nou.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut accesa serviciile GitHub și Microsoft cu aceste setări. Verificați adresa proxy, portul și conexiunea la rețea. Detaliile se găsesc în jurnal.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Conexiunea nu a reușit</value>
   </data>
@@ -3120,8 +3210,17 @@ Parole și chei de acces incluse: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Conexiune reușită</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Introduceți adresa serverului proxy.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Introduceți un nume de utilizator și o parolă pentru autentificarea explicită la proxy.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Introduceți o adresă proxy HTTP sau HTTPS validă, de exemplu proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Introduceți un număr de port între 1 și 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3252,11 +3351,14 @@ Parole și chei de acces incluse: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizați aplicația</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operațiune finalizată</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Oprește operația</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Operațiune în curs</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Selectați „Oprește operația” pentru a confirma. Un pas în desfășurare pe disc sau pe imagine se încheie mai întâi.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Timp scurs: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Se oprește în siguranță. Este posibil ca operația curentă pe disc sau imagine să trebuiască să se încheie înainte de finalizarea curățării.</value>
@@ -3327,6 +3429,12 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot utilizează un mod de furnizare neacceptat.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Rezolvați următoarele înainte de a crea suportul:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Crearea suportului nu poate începe. Verificați elementele de pregătire de pe pagina Începeți.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK sau WinPE Suplimentul nu este gata.</value>
   </data>
@@ -3374,12 +3482,6 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Limba de pornire WinPE selectată nu este disponibilă pentru arhitectura selectată.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>WinPE standard</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi imagine</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3462,23 +3564,8 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Arhitectura</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Sursa imaginii de pornire</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Furnizare Connect</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Configurație Deploy</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Drivere</value>
@@ -3486,23 +3573,8 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>Modul format USB</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO cale de ieșire</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Configurarea rețelei</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB stil de partiție</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Secretele media</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Modul semnătură</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB țintă</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE limba de pornire</value>
@@ -3518,6 +3590,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Crearea media este disponibilă atunci când toate verificările de pregătire trec.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Alegeți mai jos o ieșire ISO sau USB pentru a începe.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formatare completă</value>
@@ -3547,52 +3622,49 @@ Parole și chei de acces incluse: {2}</value>
     <value>Crearea contului OOBE omisă</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Aplicarea limbajului și a componentelor opționale.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Dependențele imaginii de pornire sunt pregătite.</value>
+    <value>Se adaugă limba și componentele opționale…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Se creează WinPE spațiu de lucru.</value>
+    <value>Se creează spațiul de lucru WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Crearea suportului media a fost anulată.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} din {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>Crearea suportului a fost anulată.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Se verifică USB siguranța țintei.</value>
+    <value>Se verifică dacă unitatea USB poate fi ștearsă în siguranță…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Curățarea spațiului de lucru WinPE.</value>
+    <value>Se curăță fișierele de la o rulare anterioară…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Se șterge tabelul de partiții USB.</value>
+    <value>Se șterge unitatea USB…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Se efectuează modificări ale imaginii de pornire.</value>
+    <value>Se salvează imaginea de pornire…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Crearea media finală a fost finalizată.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Se copiază imaginile Windows personalizate…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Se copiază conținutul de post-instalare…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Se copiează WinPE media pe USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Se creează ISO media.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Se creează USB media.</value>
+    <value>Se copiază fișierele WinPE pe unitatea USB…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Se creează partiția BOOT.</value>
+    <value>Se creează partiția BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Se creează partiția cache.</value>
+    <value>Se creează partiția cache…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Driverele personalizate ocupă cel puțin {0}; limita maximă este {1}. Selectați doar driverele de rețea și stocare necesare pentru Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Personalizarea imaginii de boot.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>Identitatea unității USB lipsește, este ambiguă sau s-a modificat. Reîmprospătați lista de unități USB și selectați din nou unitatea.</value>
@@ -3601,82 +3673,64 @@ Parole și chei de acces incluse: {2}</value>
     <value>Unitatea USB selectată nu mai poate fi modificată în siguranță. Reîmprospătați lista de unități USB și selectați altă unitate USB.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Aplicarea setărilor internaționale cu DISM.</value>
+    <value>Se aplică setările de limbă…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Se aplică pachetul lingvistic cu DISM.</value>
+    <value>Se adaugă pachetul de limbă…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Aplicarea componentelor opționale cu DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Comitarea modificărilor imaginii cu DISM.</value>
+    <value>Se adaugă componentele opționale…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Renunțarea la imaginea montată cu DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Se exportă imaginea Windows cu DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Injectarea șoferilor cu DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Imagine de montare cu DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Rezolvarea indexului imaginii Windows cu DISM.</value>
+    <value>Se renunță la o imagine lăsată montată de o rulare anterioară…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Descărcarea conținutului.</value>
+    <value>Se descarcă</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Se descarcă pachetul de drivere</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Se descarcă pachetul de drivere {2} {0} din {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Descărcarea componentelor de implementare {0}.</value>
+    <value>Se descarcă {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Se descarcă pachetul sursă Windows.</value>
+    <value>Se descarcă pachetul sursă Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Evaluarea politicii de semnătură de boot.</value>
+    <value>Se verifică suportul pentru semnătura de pornire…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Se exportă imaginea Windows pentru pregătirea imaginii de pornire.</value>
+    <value>Se extrage imaginea Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Crearea finală a conținutului media nu a reușit.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>A eșuat la pasul {0} din {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Finalizarea ieșirii ISO.</value>
+    <value>Se salvează fișierul ISO…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formatarea partiției BOOT.</value>
+    <value>Se formatează partiția BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formatarea partiției cache.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Personalizarea imaginii de pornire a fost finalizată.</value>
+    <value>Se formatează partiția cache…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Se inițializează tabelul de partiții USB.</value>
+    <value>Se creează tabelul de partiții…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Injectarea driverelor în imaginea de pornire.</value>
+    <value>Se adaugă drivere în imaginea de pornire…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Se inspectează aspectul suportului USB.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO media finalizată.</value>
+    <value>Se citește structura unității USB…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry nu a putut înlocui fișierul ISO de la {0}. Este posibil ca fișierul să fie montat, atașat la o mașină virtuală, deschis în alt program sau doar în citire. Demontați-l sau închideți-l ori alegeți altă cale de ieșire, apoi încercați din nou.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Media ISO a fost creată cu succes.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>Fișierul ISO a fost salvat în:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Dimensiune: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Spațiu insuficient pe disc pentru crearea imaginii de pornire. Sunt necesari cel puțin {0} de spațiu liber în {2}. Disponibil: {1}. Eliberați spațiu și încercați din nou.</value>
@@ -3685,73 +3739,148 @@ Parole și chei de acces incluse: {2}</value>
     <value>Nu s-a putut verifica spațiul disponibil pe disc pentru crearea imaginii de pornire în {0}. Verificați dacă locația este accesibilă și încercați din nou.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Montarea imaginii boot.</value>
+    <value>Se deschide imaginea de pornire…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Montarea imaginii sursă Windows.</value>
+    <value>Se deschide imaginea Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Deschide folderul</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Deschide folderul de jurnale</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Deschiderea discului USB.</value>
+    <value>Se deschide unitatea USB…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Partiționare și formatare USB țintă.</value>
+    <value>Se partiționează unitatea USB…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Copierea fișierelor pe unitatea USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Crearea fișierului ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Personalizarea imaginii de pornire</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Obținerea driverelor</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Finalizare</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Formatarea unității USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Pregătirea spațiului de lucru</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Actualizarea unității USB</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Pregătirea personalizării imaginii de boot.</value>
+    <value>Se pregătește imaginea de pornire…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Se pregătesc componentele Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Se pregătește calea de ieșire ISO.</value>
+    <value>Se pregătește folderul de ieșire ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Se pregătește spațiul de lucru ISO.</value>
+    <value>Se pregătesc fișierele ISO…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Se pregătește conținutul de post-instalare…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Se pregătește partiția cache USB.</value>
+    <value>Se pregătește partiția cache…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Se pregătesc atributele discului USB.</value>
+    <value>Se pregătește unitatea USB…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Se pregătește pachetul sursă Windows.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Se pregătește spațiul de lucru WinPE.</value>
+    <value>Se obține pachetul sursă Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Aprovizionarea materialelor de pornire Foundry.</value>
+    <value>Se adaugă fișierele de pornire Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Adăugarea componentelor de implementare Foundry.</value>
+    <value>Se adaugă componentele Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Adăugarea componentelor Foundry la media USB.</value>
+    <value>Se adaugă componentele Foundry pe unitatea USB…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Se elimină fișierele temporare…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Înlocuirea imaginii de boot cu WinRE.</value>
+    <value>Se înlocuiește imaginea de pornire cu Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Rezolvarea pachetelor de drivere.</value>
+    <value>Se verifică ce drivere trebuie adăugate…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Rezolvarea indexului de imagine Windows.</value>
+    <value>Se selectează ediția Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Rezolvarea catalogului sursă Windows.</value>
+    <value>Se caută pachetul sursă Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Rularea MakeWinPEMedia pentru ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Pachetul sursă Windows selectat.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Detaliile se află în jurnal.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Se pregătesc dependențele imaginii de pornire.</value>
+    <value>Se copiază fișierele necesare din imaginea Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Pasul {0} din {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Detalii tehnice: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Crearea ISO a fost anulată</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Crearea ISO a eșuat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Se creează ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO creat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Crearea suportului USB a fost anulată</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Crearea suportului USB a eșuat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Se creează suportul USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>Suport USB creat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Actualizarea suportului USB a fost anulată</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Actualizarea suportului USB a eșuat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Se actualizează suportul USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>Suport USB actualizat</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Timpul de așteptare pentru transfer a expirat. Verificați conexiunea și încercați din nou.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Se actualizează suportul USB.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>O eroare neașteptată a oprit crearea suportului.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>Partiția BOOT USB necesită aproximativ {0}, dar capacitatea sa este {1}. Nu s-a șters și nu s-a formatat nimic. Reduceți personalizările sau driverele ori creați un ISO.</value>
@@ -3762,35 +3891,35 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Un fișier de pe suportul de pornire are {0}; FAT32 acceptă cel mult {1} per fișier. Reduceți dimensiunea imaginii de pornire sau creați un ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>Partiția de pornire USB a fost actualizată.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Este posibil ca unitatea USB să nu mai poată porni un dispozitiv. Creați-o sau actualizați-o din nou înainte de a o folosi.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB media finalizată.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB partiții formatate.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB media a fost creată cu succes. Volumul de pornire: {0}. Volumul cache: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>Partiția de pornire USB a fost actualizată cu succes. Volum de pornire: {0}. Volum cache: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Volum de pornire: {0}. Volum cache: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Se validează USB ținta.</value>
+    <value>Se verifică unitatea USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Se verifică pachetul de drivere {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Se verifică USB suportul de pornire.</value>
+    <value>Se verifică fișierele de pornire de pe unitatea USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Se verifică pachetul sursă Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows a blocat accesul la fișierele imaginii WinPE. Este posibil ca un software de securitate sau alt instrument să le blocheze. Adăugați o excludere pentru {0} în software-ul de securitate, închideți instrumentele care montează imagini, reporniți computerul și încercați din nou. Detaliile se află în {1} și {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Se scrie fișierul ISO…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Examinați</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Verifică {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Gata</value>
@@ -3821,9 +3950,6 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Elemente care necesită atenție:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Creați oricum</value>
@@ -3877,6 +4003,15 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE limba de pornire</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Pachete: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Necesită atenție: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Necesită atenție: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Implicit</value>
@@ -3957,7 +4092,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Nume afișat</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Au fost omise {0} fișiere deja existente în catalog.</value>
+    <value>Fișiere omise deoarece există deja în catalog: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Importați cel puțin un fișier de răspuns pentru a folosi această funcționalitate.</value>
@@ -4079,20 +4214,20 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nu este verificat</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Actualizarea nu a putut fi aplicată: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut porni actualizarea. Încercați să o aplicați din nou. Detaliile se găsesc în jurnal.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut căuta actualizări. Verificați conexiunea la rețea și încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Se verifică actualizări</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Descărcarea actualizării a eșuat: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Actualizarea nu a putut fi descărcată. Verificați conexiunea la rețea și încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Se descarcă actualizarea</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Verificarea actualizării a eșuat: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD este la zi.</value>
@@ -4118,11 +4253,17 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Actualizarea nu a putut fi aplicată</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Descărcarea actualizării a eșuat</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Verificarea actualizării a eșuat</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>La zi</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Actualizarea este gata de instalare</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Verificarea actualizării a fost omisă</value>

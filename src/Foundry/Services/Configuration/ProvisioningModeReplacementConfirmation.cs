@@ -21,8 +21,7 @@ internal static class ProvisioningModeReplacementConfirmation
                 GetDisplayName(localization, current),
                 GetDisplayName(localization, requested)),
             localization.GetString("Autopilot.ModeSwitchConfirmationPrimaryButton"),
-            localization.GetString("Common.Cancel"),
-            IsPrimaryButtonAccent: true));
+            localization.GetString("Common.Cancel")));
 
     private static string GetDisplayName(IApplicationLocalizationService localization, ProvisioningSelection selection) =>
         localization.GetString(selection switch

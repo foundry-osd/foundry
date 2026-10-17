@@ -60,7 +60,7 @@
                     VerticalAlignment="Center"
                     Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                     Text="{x:Bind Status}"
-                    TextWrapping="WrapWholeWords" />
+                    TextWrapping="Wrap" />
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -187,7 +187,7 @@
                             Width="{ThemeResource FoundryWideInputMinWidth}"
                             Text="{x:Bind ViewModel.IsoOutputPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button x:Name="BrowseIsoButton"
-                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                            MinWidth="{StaticResource FoundryCompactActionMinWidth}"
                             Command="{x:Bind ViewModel.BrowseIsoOutputPathCommand}" />
                     </StackPanel>
                 </wct:SettingsCard>
@@ -207,7 +207,7 @@
                             ItemsSource="{x:Bind ViewModel.UsbCandidates, Mode=OneWay}"
                             SelectedItem="{x:Bind ViewModel.SelectedUsbDisk, Mode=TwoWay}" />
                         <Button x:Name="RefreshUsbButton"
-                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                            MinWidth="{StaticResource FoundryCompactActionMinWidth}"
                             Command="{x:Bind ViewModel.RefreshUsbCandidatesCommand}" />
                     </StackPanel>
                     <wct:SettingsExpander.Items>

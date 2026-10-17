@@ -10,4 +10,5 @@ namespace Foundry.ViewModels;
 /// <typeparam name="T">Type of the backing value.</typeparam>
 /// <param name="Value">Backing value used by the workflow.</param>
 /// <param name="DisplayName">User-facing option label.</param>
-public sealed record SelectionOption<T>(T Value, string DisplayName);
+/// <param name="ToolTip">Optional supplementary text shown as the option tooltip.</param>
+public sealed record SelectionOption<T>(T Value, string DisplayName, string? ToolTip = null);

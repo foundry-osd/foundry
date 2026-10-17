@@ -96,26 +96,17 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Observabl
         }
     }
 
-    [RelayCommand]
-    private void SelectAll()
+    /// <summary>
+    /// Marks exactly the rows selected in the dialog table.
+    /// </summary>
+    /// <param name="selectedProfiles">The rows currently selected in the table.</param>
+    public void ReplaceSelection(IEnumerable<SelectableAutopilotProfileEntryViewModel> selectedProfiles)
     {
+        HashSet<SelectableAutopilotProfileEntryViewModel> selected = [.. selectedProfiles];
         foreach (SelectableAutopilotProfileEntryViewModel profile in Profiles)
         {
-            profile.IsSelected = true;
+            profile.IsSelected = selected.Contains(profile);
         }
-
-        RefreshSelectionState();
-    }
-
-    [RelayCommand]
-    private void Clear()
-    {
-        foreach (SelectableAutopilotProfileEntryViewModel profile in Profiles)
-        {
-            profile.IsSelected = false;
-        }
-
-        RefreshSelectionState();
     }
 
     private void RefreshLocalizedText()
@@ -125,7 +116,7 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Observabl
         SelectAllText = localizationService.GetString("Autopilot.TenantPickerSelectAll");
         ClearText = localizationService.GetString("Autopilot.TenantPickerClear");
         ImportText = localizationService.GetString("Autopilot.TenantPickerImport");
-        CancelText = localizationService.GetString("Autopilot.TenantPickerCancel");
+        CancelText = localizationService.GetString("Common.Cancel");
         NameColumnHeader = localizationService.GetString("Autopilot.ColumnName");
         FolderColumnHeader = localizationService.GetString("Autopilot.ColumnFolder");
         RefreshSelectionState();

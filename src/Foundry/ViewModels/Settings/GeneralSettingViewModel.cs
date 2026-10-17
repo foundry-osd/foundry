@@ -94,6 +94,7 @@ namespace Foundry.ViewModels
                 return;
             }
 
+            SupportBundleResult result;
             try
             {
                 string[] logFilePaths = Directory.Exists(LogDirectoryPath)
@@ -104,7 +105,7 @@ namespace Foundry.ViewModels
                     privacyMode,
                     logFilePaths.Length);
 
-                SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
+                result = await new SupportBundleExporter().ExportAsync(
                     new SupportBundleRequest
                     {
                         ApplicationName = "Foundry.OSD",
@@ -125,15 +126,6 @@ namespace Foundry.ViewModels
                     privacyMode,
                     result.IncludedFiles.Count,
                     result.OmittedFiles.Count);
-                var completedDialog = new ContentDialog
-                {
-                    XamlRoot = App.MainWindow.Content.XamlRoot,
-                    Style = ContentDialogStyleProvider.DefaultStyle,
-                    Title = localizationService.GetString("Diagnostics.ExportSucceededTitle"),
-                    Content = result.ArchivePath,
-                    CloseButtonText = localizationService.GetString("Common.Close")
-                };
-                await completedDialog.ShowAsync();
             }
             catch (Exception ex)
             {
@@ -144,9 +136,54 @@ namespace Foundry.ViewModels
                     Style = ContentDialogStyleProvider.DefaultStyle,
                     Title = localizationService.GetString("Diagnostics.ExportFailedTitle"),
                     Content = localizationService.GetString("Diagnostics.ExportFailedMessage"),
-                    CloseButtonText = localizationService.GetString("Common.Close")
+                    CloseButtonText = localizationService.GetString("Common.Close"),
+                    DefaultButton = ContentDialogButton.Close
                 };
                 await failedDialog.ShowAsync();
+                return;
+            }
+
+            await ShowExportSucceededAsync(result.ArchivePath);
+        }
+
+        private async Task ShowExportSucceededAsync(string archivePath)
+        {
+            var content = new StackPanel { Spacing = 8, MinWidth = 360, MaxWidth = 520 };
+            content.Children.Add(new TextBlock
+            {
+                Text = localizationService.GetString("Diagnostics.ExportSucceededMessage"),
+                TextWrapping = TextWrapping.Wrap
+            });
+            content.Children.Add(new TextBlock
+            {
+                Text = archivePath,
+                TextWrapping = TextWrapping.Wrap,
+                IsTextSelectionEnabled = true,
+                FlowDirection = FlowDirection.LeftToRight
+            });
+            var completedDialog = new ContentDialog
+            {
+                XamlRoot = App.MainWindow.Content.XamlRoot,
+                Style = ContentDialogStyleProvider.DefaultStyle,
+                Title = localizationService.GetString("Diagnostics.ExportSucceededTitle"),
+                Content = content,
+                PrimaryButtonText = localizationService.GetString("Diagnostics.OpenFolder"),
+                CloseButtonText = localizationService.GetString("Common.Close"),
+                DefaultButton = ContentDialogButton.Close
+            };
+            if (await completedDialog.ShowAsync() != ContentDialogResult.Primary ||
+                Path.GetDirectoryName(archivePath) is not { Length: > 0 } archiveDirectoryPath)
+            {
+                return;
+            }
+
+            try
+            {
+                await externalProcessLauncher.OpenFolderAsync(archiveDirectoryPath);
+            }
+            catch (Exception)
+            {
+                // The launcher logs the failure; the archive is already exported, so it must not surface as an export error.
             }
         }
 

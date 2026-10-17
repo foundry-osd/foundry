@@ -98,10 +98,16 @@ Lisensiert under MIT-lisensen.</value>
     <value>Evne til å skape medier</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK-operasjonen ble avbrutt.</value>
+    <value>Installasjonen ble avbrutt.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Installasjonen av Windows ADK ble avbrutt</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK operasjon fullført</value>
+    <value>Windows ADK og Windows PE-tillegget er klare. Du kan nå opprette oppstartsmedier.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK er installert</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Bruker bufret ADK installasjonsprogram</value>
@@ -113,9 +119,15 @@ Lisensiert under MIT-lisensen.</value>
     <value>Laster ned ADK installasjonsprogrammet</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK operasjon mislyktes</value>
+    <value>Installasjonen ble ikke fullført. Detaljer finnes i loggen.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Installasjonen av Windows ADK mislyktes</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Forbereder installasjonen…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Installerer Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -127,6 +139,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Installasjonen er fullført. Se gjennom de gjenstående ADK-kravene.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK krever oppmerksomhet</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Fjerner eksisterende Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Forbereder installasjon av Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Oppgraderer Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Bekrefter ADK installasjon</value>
@@ -197,16 +215,19 @@ Lisensiert under MIT-lisensen.</value>
     <value>Nødvendig versjonspolicy</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE-filer er tilgjengelige</value>
+    <value>tilgjengelige</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE-filer mangler</value>
+    <value>mangler</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Add-on installert</value>
+    <value>Installert</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Installert (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Tillegg mangler</value>
+    <value>Ikke installert</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE tillegg</value>
@@ -262,11 +283,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Utgivelsesnotater</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importer lokale JSON-profiler eller last dem ned fra Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profilhandlinger</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Standard</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Mappe</value>
@@ -280,20 +298,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Kilde</value>
   </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profil iscenesatt som standard i det brukte Windows-bildet.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Standard profil</value>
-  </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Last ned fra leietaker</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Ingen Autopilot-profiler ble returnert av leietaker.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profilnedlasting mislyktes: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot-profilene kunne ikke lastes ned fra leietakeren.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Kontroller nettverkstilkoblingen, og sørg for at kontoen din kan lese Autopilot-profiler i Intune. Prøv deretter igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot nedlasting mislyktes</value>
@@ -358,14 +373,11 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX-sertifikatets tommelfingeravtrykk samsvarer ikke med det valgte appregistreringssertifikatet.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Opprett eller fjern legitimasjon for appregistreringssertifikat.</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry kunne ikke opprette appregistreringssertifikatet.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Sertifikathandlinger</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunne ikke opprette appregistreringssertifikatet. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Kontroller at det er mulig å skrive til den valgte mappen, og at kontoen din kan administrere appregistreringen. Prøv deretter igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Sertifikatopprettelsen mislyktes</value>
@@ -400,8 +412,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX-sertifikat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunne ikke fjerne det valgte appregistreringssertifikatet. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry kunne ikke fjerne det valgte appregistreringssertifikatet.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Fjerning av sertifikat mislyktes</value>
@@ -411,6 +423,18 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Avtrykk</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Gyldig i 12 måneder</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Gyldig i 1 måned</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Gyldig i 3 måneder</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Gyldig i 6 måneder</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Ingen sertifikater leveres.</value>
@@ -442,8 +466,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch opplasting av maskinvarehash</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunne ikke konfigurere Autopilot appregistreringen. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry kunne ikke konfigurere Autopilot-appregistreringen.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Innføring av leietaker mislyktes</value>
@@ -494,16 +518,25 @@ Lisensiert under MIT-lisensen.</value>
     <value>Fjern sertifikatet</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry vil fjerne bare det valgte sertifikatet fra den administrerte appregistreringen. Annen applegitimasjon vil bli bevart.</value>
+    <value>Det valgte sertifikatet fjernes fra den administrerte appregistreringen i leietakeren. Annen applegitimasjon beholdes.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Fjern sertifikatet</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Vil du fjerne det valgte sertifikatet?</value>
+    <value>Vil du fjerne sertifikatet fra leietakeren?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Dette kan ikke angres. Oppstartsmedier som bruker et fjernet sertifikat, kan ikke lenger laste opp maskinvarehasher.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry vil fjerne bare de {0} valgte sertifikatene fra den administrerte appregistreringen. Annen applegitimasjon vil bli bevart.</value>
+    <value>De {0} valgte sertifikatene fjernes fra den administrerte appregistreringen i leietakeren. Annen applegitimasjon beholdes.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Fjern sertifikatene</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Vil du fjerne sertifikatene fra leietakeren?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Tilkoblet</value>
@@ -519,6 +552,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Leietaker ID</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Kontroller nettverkstilkoblingen, og sørg for at kontoen din kan administrere appregistreringer i leietakeren. Prøv deretter igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Ikke tilkoblet</value>
@@ -545,7 +581,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Importer profil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot-profilen kunne ikke importeres.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Kontroller at filen er en gyldig JSON-fil med en Autopilot-profil, og prøv igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot import mislyktes</value>
@@ -574,8 +613,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Endre klargjøringsmodus?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Frakoblet Autopilot profiler tilgjengelig for JSON profilklargjøring.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Ja</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Ingen Autopilot-profiler importert.</value>
@@ -587,7 +626,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Fjern valgte</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Vil du fjerne "{0}" fra de importerte Autopilot-profilene?</value>
+    <value>«{0}» fjernes fra Autopilot-profilene i denne konfigurasjonen.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Fjern profilen</value>
@@ -596,7 +635,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Vil du fjerne Autopilot-profilen?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Vil du fjerne {0} valgte Autopilot profiler?</value>
+    <value>{0} valgte Autopilot-profiler fjernes fra denne konfigurasjonen.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Fjern profiler</value>
@@ -604,14 +643,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Vil du fjerne Autopilot-profiler?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Hvis du vil bruke en fjernet profil igjen, må du importere den eller laste den ned fra leietakeren på nytt.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Angi som standard</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Fullfør påloggingen i nettleseren for å laste ned Autopilot-profiler.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Logg på Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Avbryt</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Fjern</value>
@@ -679,11 +721,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Aktivert</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Krever oppmerksomhet</value>
   </data>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Oppdater</value>
+  </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Lagre</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Utilgjengelig</value>
@@ -696,9 +744,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Bla gjennom</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Avbryt</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Import avbrutt</value>
@@ -787,17 +832,23 @@ Lisensiert under MIT-lisensen.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Oppdater</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Vil du fjerne dette bildet fra den gjeldende profilen og slette den lokale kopien? Andre profiler som refererer til det, vil vise det som manglende. Originalfiler og eksisterende medier endres ikke.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Fjern avbildningen</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) fjernes fra gjeldende profil, og den lokale kopien slettes.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Fjern</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Vil du fjerne den tilpassede avbildningen?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Andre profiler som bruker denne avbildningen, vil vise den som manglende. Originalfilen og eksisterende medier endres ikke.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Rediger</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Lagre</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Angi standardavbildning</value>
@@ -1002,6 +1053,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Se gjennom komponentinnstillingene. Maksimal lengde for datamaskinnavnet er 15 tegn.</value>
+  </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Slå på passordbeskyttelse på Generelt-siden for å bruke et forhåndsdefinert passord.</value>
   </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Angir et forhåndsdefinert passord for denne kontoen. Beskyttet distribusjonsmedium kreves. Slå av dette for å bruke et tomt passord.</value>
@@ -1247,10 +1301,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Nyeste tilgjengelige oppdatering</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} oppdateringer tidligere</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 oppdatering tidligere</value>
+    <value>Oppdateringer før den nyeste: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigurer Windows 11-versjonene som tilbys under utrulling.</value>
@@ -1760,7 +1811,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Uendret</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} konfigurert ({1} aktiver, {2} deaktiver)</value>
+    <value>Konfigurert: {0} (aktiver: {1}, deaktiver: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Tilgjengelighet avhenger av Copilot+ PC-maskinvare og det installerte Windows-bildet.</value>
@@ -1825,8 +1876,14 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Rålogger kan inneholde legitimasjon, identifikatorer, stier, nettverksnavn og andre sensitive data. Eksporter dem bare når det uttrykkelig er bedt om det av en betrodd støttekontakt.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Støttearkivet ble lagret i:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostikk eksportert</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Åpne mappe</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry kunne ikke åpne dokumentasjonen i nettleseren din. Bruk denne URL i stedet.</value>
@@ -2689,9 +2746,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Innholdsstatus</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Innhold til etter installasjonen er verifisert.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Fortsett ved feil</value>
   </data>
@@ -2821,9 +2875,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Skriptargumenter</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Klargjør innhold til etter installasjonen.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Avslutningskoder for vellykket resultat (kommaseparerte)</value>
   </data>
@@ -2847,6 +2898,15 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Noen gamle lagrede passord eller tilgangsnøkler kunne ikke fjernes. Prøv igjen når Windows Legitimasjonsbehandling er tilgjengelig.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Lukk uten å lagre</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>De siste endringene dine kunne ikke lagres og vil gå tapt.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Vil du lukke uten å lagre innstillingene?</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Bekreft passord</value>
@@ -2884,8 +2944,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Slett fra denne PC-en</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Slett</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Slett også for alle andre</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Slett for alle</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Vil du slette for alle?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Slette disse delte innstillingene for alle? Alle med usynkroniserte endringer må duplisere innstillingene sine for å beholde dem.</value>
@@ -2925,6 +2994,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Fjern lagrede passord og tilganger</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Fjern</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Fjerne lagrede passord, fortrolige filer lagret av Foundry og synkroniseringstilgang for disse innstillingene på denne PC-en? Du må legge til de manglende opplysningene og koble til på nytt for å synkronisere. Medier du allerede har opprettet, endres ikke.</value>
@@ -2972,7 +3044,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Flere alternativer</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} filer mangler eller ble ikke inkludert. Velg plasseringene deres før du oppretter medier.</value>
+    <value>Manglende eller utelatte filer: {0}. Velg plasseringene deres før du oppretter medier.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfigurasjonsnavn</value>
@@ -3046,7 +3118,13 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Bruk samme nettverksmappe på alle PC-er. Den må bruke SMB 3 med påkrevd kryptering. Mapper som synkroniseres med skyen, støttes ikke.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Slutte å huske passord for denne konfigurasjonen på denne PC-en?</value>
+    <value>Foundry slutter å lagre passordene for denne konfigurasjonen på denne PC-en.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Slutt å huske</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Vil du slutte å huske passord?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synkroniser</value>
@@ -3102,6 +3180,18 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Kontroller de påkrevde feltene. Hvis du blir bedt om en nettverksmappe, bruker du en bane som \\server\share\folder. Hvis du skriver inn filpassordet to ganger, må begge være like.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke lagre proxyinnstillingene. Prøv igjen. Detaljer finnes i loggen.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Proxyinnstillingene ble ikke brukt</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxyen avviste påloggingen. Kontroller innstillingene for proxygodkjenning, og prøv igjen.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke nå GitHub- og Microsoft-tjenester med disse innstillingene. Kontroller proxyadressen, porten og nettverkstilkoblingen. Detaljer finnes i loggen.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Tilkoblingen mislyktes</value>
   </data>
@@ -3120,8 +3210,17 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Tilkoblingen var vellykket</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Angi adressen til proxyserveren.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Angi et brukernavn og passord for eksplisitt proxyautentisering.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Angi en gyldig HTTP- eller HTTPS-proxyadresse, for eksempel proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Angi et portnummer fra 1 til 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3252,11 +3351,14 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Oppdater appen</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operasjonen er fullført</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Stopp operasjonen</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Drift pågår</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Velg Stopp operasjonen for å bekrefte. Et pågående trinn på disken eller diskavbildningen fullføres først.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Medgått tid: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Stopper på en trygg måte. Den gjeldende operasjonen på disken eller diskavbildningen må kanskje fullføres før oppryddingen kan avsluttes.</value>
@@ -3327,6 +3429,12 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot bruker en klargjøringsmodus som ikke støttes.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Løs følgende før du oppretter medier:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Medieopprettingen kan ikke starte. Kontroller beredskapselementene på Start-siden.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK eller WinPE Add-on er ikke klar.</value>
   </data>
@@ -3374,12 +3482,6 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Valgt WinPE oppstartsspråk er ikke tilgjengelig for den valgte arkitekturen.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard-WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi bilde</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3462,23 +3564,8 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Arkitektur</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Kilde for oppstartsbilde</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Koble til klargjøring</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Deploy-konfigurasjon</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Drivere</value>
@@ -3486,23 +3573,8 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formatmodus</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO utgangsbane</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Nettverkskonfigurasjon</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB partisjonsstil</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Media hemmeligheter</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Signaturmodus</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB-mål</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE oppstartsspråk</value>
@@ -3518,6 +3590,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Medieoppretting er tilgjengelig når alle beredskapskontroller passerer.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Velg ISO- eller USB-utdata nedenfor for å komme i gang.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Full formatering</value>
@@ -3538,7 +3613,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Velg ISO utgangsbane</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} ekstra lokal(e) konto(er)</value>
+    <value>Ekstra lokale kontoer: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Innebygd Administrator aktivert</value>
@@ -3547,52 +3622,49 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>OOBE-kontooppretting hoppet over</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Bruke språk og valgfrie komponenter.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Oppstartsbildets avhengigheter er klare.</value>
+    <value>Legger til språket og valgfrie komponenter…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Oppretter WinPE arbeidsområde.</value>
+    <value>Oppretter WinPE-arbeidsområdet…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} av {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Medieopprettingen ble avbrutt.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Kontrollerer USB målsikkerhet.</value>
+    <value>Kontrollerer at USB-stasjonen trygt kan slettes…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Rengjøring av WinPE arbeidsområde.</value>
+    <value>Rydder opp filer fra en tidligere kjøring…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Sletter USB partisjonstabell.</value>
+    <value>Sletter USB-stasjonen…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Begår endringer i oppstartsbilde.</value>
+    <value>Lagrer oppstartsavbildningen…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Endelig medieoppretting fullført.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Kopierer tilpassede Windows-avbildninger…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Kopierer innhold for etterinstallasjon…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Kopierer WinPE media til USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Opprette ISO media.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Opprette USB media.</value>
+    <value>Kopierer WinPE-filer til USB-stasjonen…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Oppretter BOOT-partisjon.</value>
+    <value>Oppretter BOOT-partisjonen…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Oppretter cache-partisjon.</value>
+    <value>Oppretter cache-partisjonen…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>De egendefinerte driverne bruker minst {0}; maksimum er {1}. Velg bare nettverks- og lagringsdriverne som Windows PE trenger.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Tilpasse oppstartsbildet.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>USB-stasjonens identitet mangler, er tvetydig eller har blitt endret. Oppdater listen over USB-stasjoner og velg stasjonen på nytt.</value>
@@ -3601,82 +3673,64 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Den valgte USB-stasjonen kan ikke lenger endres trygt. Oppdater listen over USB-stasjoner og velg en annen USB-stasjon.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Bruker internasjonale innstillinger med DISM.</value>
+    <value>Bruker språkinnstillinger…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Bruker språkpakke med DISM.</value>
+    <value>Legger til språkpakken…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Bruke valgfrie komponenter med DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Foreta bildeendringer med DISM.</value>
+    <value>Legger til valgfrie komponenter…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Forkaster det monterte bildet med DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Eksporterer Windows-bilde med DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Injiserer drivere med DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Montering av bilde med DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Løser Windows-bildeindeksen med DISM.</value>
+    <value>Forkaster en avbildning som en tidligere kjøring lot være montert…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Laster ned innhold.</value>
+    <value>Laster ned</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Laster ned driverpakke</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Laster ned {2}-driverpakke {0} av {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Laster ned {0} distribusjonskomponenter.</value>
+    <value>Laster ned {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Laster ned Windows-kildepakken.</value>
+    <value>Laster ned Windows-kildepakken</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Evaluering av oppstartssignaturpolicy.</value>
+    <value>Kontrollerer støtte for oppstartssignaturer…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Eksporterer Windows-bilde for klargjøring av oppstartsbildet.</value>
+    <value>Trekker ut Windows-avbildningen…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Endelig medieoppretting mislyktes.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Det mislyktes under trinn {0} av {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Fullfører ISO utgang.</value>
+    <value>Lagrer ISO-filen…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formaterer BOOT-partisjonen.</value>
+    <value>Formaterer BOOT-partisjonen…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formaterer cache-partisjon.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Tilpasning av oppstartsbilde fullført.</value>
+    <value>Formaterer cache-partisjonen…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Initialiserer USB partisjonstabell.</value>
+    <value>Oppretter partisjonstabellen…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Injiserer drivere i oppstartsbildet.</value>
+    <value>Legger til drivere i oppstartsavbildningen…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Kontrollerer oppsettet for USB-mediet.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO media fullført.</value>
+    <value>Leser oppsettet til USB-stasjonen…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry kunne ikke erstatte ISO-filen på {0}. Filen kan være montert, koblet til en virtuell maskin, åpen i et annet program eller skrivebeskyttet. Demonter eller lukk den, eller velg en annen utdatabane, og prøv deretter på nytt.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>ISO-mediet ble opprettet.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO-filen ble lagret i:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Størrelse: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Det er ikke nok diskplass til å opprette oppstartsavbildningen. Det kreves minst {0} ledig plass på {2}. Tilgjengelig: {1}. Frigjør plass og prøv igjen.</value>
@@ -3685,73 +3739,148 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Den tilgjengelige diskplassen til å opprette oppstartsavbildningen kunne ikke bekreftes på {0}. Kontroller at plasseringen er tilgjengelig, og prøv igjen.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Monteringsstøvelbilde.</value>
+    <value>Åpner oppstartsavbildningen…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Montering av Windows-kildebilde.</value>
+    <value>Åpner Windows-avbildningen…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Åpne mappe</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Åpne loggmappen</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Åpner USB disk.</value>
+    <value>Åpner USB-stasjonen…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Partisjonering og formatering USB mål.</value>
+    <value>Partisjonerer USB-stasjonen…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Kopierer filer til USB-stasjonen</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Oppretter ISO-filen</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Tilpasser oppstartsavbildningen</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Henter drivere</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Fullfører</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Formaterer USB-stasjonen</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Klargjør arbeidsområdet</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Oppdaterer USB-stasjonen</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Forbereder tilpasning av oppstartsbilde.</value>
+    <value>Klargjør oppstartsavbildningen…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Klargjør Foundry-komponenter…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Klargjør ISO utgangsbane.</value>
+    <value>Klargjør utdatamappen for ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Forbereder ISO arbeidsområde.</value>
+    <value>Klargjør ISO-filene…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Klargjør innhold for etterinstallasjon…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Forbereder USB cache-partisjon.</value>
+    <value>Klargjør cache-partisjonen…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Klargjør USB diskattributter.</value>
+    <value>Klargjør USB-stasjonen…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Forbereder Windows-kildepakken.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Forbereder WinPE arbeidsområde.</value>
+    <value>Henter Windows-kildepakken…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Klargjøring av Foundry oppstartsressurser.</value>
+    <value>Legger til oppstartsfiler for Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Legger til Foundry distribusjonskomponenter.</value>
+    <value>Legger til Foundry-komponenter…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Legger til Foundry-komponenter til USB media.</value>
+    <value>Legger til Foundry-komponenter på USB-stasjonen…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Fjerner midlertidige filer…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Erstatter oppstartsbilde med WinRE.</value>
+    <value>Erstatter oppstartsavbildningen med Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Løse driverpakker.</value>
+    <value>Kontrollerer hvilke drivere som skal legges til…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Løser Windows-bildeindeksen.</value>
+    <value>Velger Windows-utgave…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Løser Windows kildekatalog.</value>
+    <value>Finner Windows-kildepakken…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Kjører MakeWinPEMedia for ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Valgt Windows-kildepakke.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Detaljer finnes i loggen.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Klargjør oppstartsbildets avhengigheter.</value>
+    <value>Kopierer nødvendige filer fra Windows-avbildningen…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Trinn {0} av {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Tekniske detaljer: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Opprettingen av ISO ble avbrutt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Kunne ikke opprette ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Oppretter ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO er opprettet</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Opprettingen av USB-mediet ble avbrutt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Kunne ikke opprette USB-mediet</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Oppretter USB-medium</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB-mediet er opprettet</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Oppdateringen av USB-mediet ble avbrutt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Kunne ikke oppdatere USB-mediet</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Oppdaterer USB-mediet</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB-mediet er oppdatert</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Tidsavbrudd under overføringen. Kontroller tilkoblingen og prøv igjen.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Oppdaterer USB-medie.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>En uventet feil stoppet medieopprettingen.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB-BOOT-partisjonen trenger omtrent {0}, men kapasiteten er {1}. Ingenting er slettet eller formatert. Reduser tilpasninger eller drivere, eller opprett en ISO.</value>
@@ -3762,35 +3891,35 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>En fil på oppstartsmediet er {0}; FAT32 støtter maksimalt {1} per fil. Reduser størrelsen på oppstartsavbildningen eller opprett en ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB-oppstartspartisjonen ble oppdatert.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>USB-stasjonen kan kanskje ikke lenger starte en enhet. Opprett eller oppdater den på nytt før du bruker den.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB media fullført.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB partisjoner formatert.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB media ble opprettet. Oppstartsvolum: {0}. Buffervolum: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB-oppstartspartisjonen ble oppdatert. Oppstartsvolum: {0}. Hurtigbuffervolum: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Oppstartsvolum: {0}. Cache-volum: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Validerer USB mål.</value>
+    <value>Kontrollerer USB-stasjonen…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Bekrefter {0}-driverpakken</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Bekrefter USB oppstartsmedier.</value>
+    <value>Bekrefter oppstartsfilene på USB-stasjonen…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Bekrefter Windows-kildepakken</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blokkerte tilgangen til WinPE-avbildningsfilene. Sikkerhetsprogramvare eller et annet verktøy kan ha låst dem. Legg til et unntak for {0} i sikkerhetsprogramvaren, lukk verktøy som monterer avbildninger, start datamaskinen på nytt og prøv igjen. Detaljer finnes i {1} og {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Skriver ISO-filen…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontroller beredskapen, velg ISO- eller USB-utdata, og start medieopprettingen.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Gjennomgå</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Se gjennom {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Klar</value>
@@ -3821,9 +3950,6 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Elementer som trenger oppmerksomhet:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Opprett likevel</value>
@@ -3877,6 +4003,15 @@ Oppdateringen starter Foundry OSD på nytt.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE oppstartsspråk</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Pakker: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Krever oppmerksomhet: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Krever oppmerksomhet: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Standard</value>
@@ -3957,7 +4092,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Visningsnavn</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Hoppet over {0} fil(er) som allerede finnes i katalogen.</value>
+    <value>Filer som ble hoppet over fordi de allerede finnes i katalogen: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Importer minst én svarfil for å bruke denne funksjonen.</value>
@@ -4079,20 +4214,20 @@ Oppdateringen starter Foundry OSD på nytt.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ikke sjekket</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Oppdateringen kunne ikke brukes: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke starte oppdateringen. Prøv å bruke den på nytt. Detaljer finnes i loggen.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke se etter oppdateringer. Kontroller nettverkstilkoblingen, og prøv igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Ser etter oppdateringer</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Nedlasting av oppdatering mislyktes: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Oppdateringen kunne ikke lastes ned. Kontroller nettverkstilkoblingen, og prøv igjen. Detaljer finnes i loggen.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Laster ned oppdatering</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Oppdateringssjekk mislyktes: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD er oppdatert.</value>
@@ -4118,11 +4253,17 @@ Oppdateringen starter Foundry OSD på nytt.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Oppdateringen kunne ikke brukes</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Nedlasting av oppdatering mislyktes</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Oppdateringssjekk mislyktes</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Oppdatert</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Oppdateringen er klar til å installeres</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Oppdateringssjekk hoppet over</value>

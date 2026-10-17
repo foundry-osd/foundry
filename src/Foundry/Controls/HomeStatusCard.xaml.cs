@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Services.Localization;
+
 namespace Foundry.Controls;
 
 /// <summary>
@@ -46,6 +48,8 @@ public sealed partial class HomeStatusCard : UserControl
     public static readonly DependencyProperty Line4ValueProperty =
         DependencyProperty.Register(nameof(Line4Value), typeof(string), typeof(HomeStatusCard), new PropertyMetadata(string.Empty, OnContentChanged));
 
+    private readonly IApplicationLocalizationService localizationService;
+
     /// <summary>Raised when the card is clicked.</summary>
     public event EventHandler? NavigationRequested;
 
@@ -54,6 +58,7 @@ public sealed partial class HomeStatusCard : UserControl
     /// </summary>
     public HomeStatusCard()
     {
+        localizationService = App.GetService<IApplicationLocalizationService>();
         InitializeComponent();
         Loaded += (_, _) => UpdateVisualState();
     }
@@ -184,11 +189,11 @@ public sealed partial class HomeStatusCard : UserControl
         }
     }
 
-    private static void AddDetail(List<string> parts, string label, string value)
+    private void AddDetail(List<string> parts, string label, string value)
     {
         if (!string.IsNullOrWhiteSpace(label))
         {
-            parts.Add($"{label}: {value}");
+            parts.Add(localizationService.FormatString("Common.LabelValueFormat", label, value));
         }
     }
 

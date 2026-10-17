@@ -61,7 +61,7 @@
                             AutoGenerateColumns="False"
                             CanFilterColumns="False"
                             CanReorderColumns="False"
-                            CanResizeColumns="False"
+                            CanResizeColumns="True"
                             CanSortColumns="True"
                             CornerButtonMode="None"
                             HeadersVisibility="Columns"
@@ -85,7 +85,8 @@
                                                 Margin="12,0,12,0"
                                                 Style="{Binding ValueStyle}"
                                                 Text="{Binding Value}"
-                                                TextTrimming="CharacterEllipsis" />
+                                                TextTrimming="CharacterEllipsis"
+                                                ToolTipService.ToolTip="{Binding Value}" />
                                         </DataTemplate>
                                     </tv:TableViewTemplateColumn.CellTemplate>
                                 </tv:TableViewTemplateColumn>
@@ -95,38 +96,39 @@
 
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
-                        Description="{x:Bind ViewModel.CertificateActionsDescription, Mode=OneWay}"
-                        Header="{x:Bind ViewModel.CertificateActionsLabel, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <StackPanel
-                            HorizontalAlignment="Right"
-                            Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <ComboBox
-                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                DisplayMemberPath="DisplayName"
-                                ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}"
-                                SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
-                            <Button
-                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                VerticalAlignment="Bottom"
-                                Command="{x:Bind ViewModel.CreateCertificateCommand}"
-                                Content="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}" />
-                            <Button
-                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                VerticalAlignment="Bottom"
-                                Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
-                                Content="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
-                        </StackPanel>
-                    </wct:SettingsCard>
-
-                    <wct:SettingsCard
-                        HorizontalContentAlignment="Stretch"
                         ContentAlignment="Vertical"
                         Description="{x:Bind ViewModel.ProvisionedCertificatesDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.ProvisionedCertificatesLabel, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <StackPanel Spacing="{ThemeResource FoundrySpace8}">
+                            <ScrollViewer
+                                HorizontalScrollBarVisibility="Auto"
+                                HorizontalScrollMode="Enabled"
+                                IsTabStop="False"
+                                VerticalScrollBarVisibility="Disabled"
+                                VerticalScrollMode="Disabled">
+                                <CommandBar
+                                    HorizontalAlignment="Left"
+                                    DefaultLabelPosition="Right"
+                                    IsDynamicOverflowEnabled="False"
+                                    OverflowButtonVisibility="Collapsed">
+                                    <CommandBar.PrimaryCommands>
+                                        <AppBarButton
+                                            Icon="Add"
+                                            IsEnabled="{x:Bind ViewModel.CanCreateCertificates, Mode=OneWay}"
+                                            Label="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}">
+                                            <AppBarButton.Flyout>
+                                                <!--  Items are built when the menu opens so their validity labels follow the UI language.  -->
+                                                <MenuFlyout Opening="OnCertificateValidityMenuOpening" />
+                                            </AppBarButton.Flyout>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
+                                            Icon="Delete"
+                                            Label="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
+                                    </CommandBar.PrimaryCommands>
+                                </CommandBar>
+                            </ScrollViewer>
                             <TextBlock
                                 Text="{x:Bind ViewModel.EmptyCertificatesText, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
@@ -136,7 +138,7 @@
                                 AutoGenerateColumns="False"
                                 CanFilterColumns="False"
                                 CanReorderColumns="False"
-                                CanResizeColumns="False"
+                                CanResizeColumns="True"
                                 CanSortColumns="True"
                                 CornerButtonMode="None"
                                 HeadersVisibility="Columns"
@@ -148,10 +150,20 @@
                                 ShowExportOptions="False"
                                 Visibility="{x:Bind ViewModel.CertificatesVisibility, Mode=OneWay}">
                                 <tv:TableView.Columns>
-                                    <tv:TableViewTextColumn
+                                    <tv:TableViewTemplateColumn
                                         Width="2*"
-                                        Binding="{Binding Thumbprint}"
-                                        Header="{x:Bind ViewModel.CertificateThumbprintColumnHeader, Mode=OneWay}" />
+                                        Header="{x:Bind ViewModel.CertificateThumbprintColumnHeader, Mode=OneWay}"
+                                        SortMemberPath="Thumbprint">
+                                        <tv:TableViewTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Margin="12,0,12,0"
+                                                    Text="{Binding Thumbprint}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    ToolTipService.ToolTip="{Binding Thumbprint}" />
+                                            </DataTemplate>
+                                        </tv:TableViewTemplateColumn.CellTemplate>
+                                    </tv:TableViewTemplateColumn>
                                     <tv:TableViewTextColumn
                                         Width="*"
                                         Binding="{Binding StartsOnDisplay}"
@@ -167,14 +179,25 @@
                                                     Margin="12,0,12,0"
                                                     Style="{Binding ValidityStyle}"
                                                     Text="{Binding ExpiresOnDisplay}"
-                                                    TextTrimming="CharacterEllipsis" />
+                                                    TextTrimming="CharacterEllipsis"
+                                                    ToolTipService.ToolTip="{Binding ExpiresOnDisplay}" />
                                             </DataTemplate>
                                         </tv:TableViewTemplateColumn.CellTemplate>
                                     </tv:TableViewTemplateColumn>
-                                    <tv:TableViewTextColumn
+                                    <tv:TableViewTemplateColumn
                                         Width="2*"
-                                        Binding="{Binding KeyId}"
-                                        Header="{x:Bind ViewModel.CertificateIdColumnHeader, Mode=OneWay}" />
+                                        Header="{x:Bind ViewModel.CertificateIdColumnHeader, Mode=OneWay}"
+                                        SortMemberPath="KeyId">
+                                        <tv:TableViewTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Margin="12,0,12,0"
+                                                    Text="{Binding KeyId}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    ToolTipService.ToolTip="{Binding KeyId}" />
+                                            </DataTemplate>
+                                        </tv:TableViewTemplateColumn.CellTemplate>
+                                    </tv:TableViewTemplateColumn>
                                 </tv:TableView.Columns>
                             </tv:TableView>
                         </StackPanel>
@@ -194,23 +217,26 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBox
-                                    MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                    Width="{ThemeResource FoundryWideInputMinWidth}"
                                     Header="{x:Bind ViewModel.BootMediaCertificatePfxPathLabel, Mode=OneWay}"
                                     IsReadOnly="True"
                                     Text="{x:Bind ViewModel.BootMediaCertificatePfxPath, Mode=OneWay}" />
                                 <Button
                                     Grid.Column="1"
-                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    MinWidth="{StaticResource FoundryCompactActionMinWidth}"
                                     VerticalAlignment="Bottom"
                                     Command="{x:Bind ViewModel.SelectBootMediaCertificatePfxCommand}"
                                     Content="{x:Bind ViewModel.SelectBootMediaCertificateButtonText, Mode=OneWay}" />
                             </Grid>
                             <PasswordBox x:Name="BootMediaCertificatePasswordBox"
-                                MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                Width="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Header="{x:Bind ViewModel.BootMediaCertificatePasswordLabel, Mode=OneWay}"
                                 Loaded="BootMediaCertificatePasswordBox_OnLoaded"
                                 PasswordChanged="BootMediaCertificatePasswordBox_OnPasswordChanged" />
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Style="{x:Bind ViewModel.BootMediaCertificateStatusStyle, Mode=OneWay}"
                                 Text="{x:Bind ViewModel.BootMediaCertificateStatusText, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords" />

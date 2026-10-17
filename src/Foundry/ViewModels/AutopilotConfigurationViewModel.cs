@@ -9,6 +9,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
+using Foundry.Services.Application;
 using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
@@ -82,9 +83,15 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         Profiles.CollectionChanged += OnProfilesCollectionChanged;
         SelectedProfiles.CollectionChanged += OnSelectedProfilesCollectionChanged;
         SelectedCertificates.CollectionChanged += OnSelectedCertificatesCollectionChanged;
+        CreateCertificateCommand.CanExecuteChanged += OnCreateCertificateCanExecuteChanged;
         isApplyingState = false;
-        SelectedCertificateValidityOption = CertificateValidityOptions.First(option => option.Months == 6);
     }
+
+    /// <summary>
+    /// Raised before listed profile rows are removed. A table must drop its selection first: removing selected rows
+    /// one by one makes it scroll to a row that no longer exists.
+    /// </summary>
+    public event EventHandler? ProfileRowsRemoving;
 
     /// <summary>
     /// Gets the ordered Autopilot profiles available for deployment.
@@ -107,15 +114,20 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public ObservableCollection<AutopilotCertificateEntryViewModel> SelectedCertificates { get; } = [];
 
     /// <summary>
-    /// Gets the fixed certificate validity options available for managed Autopilot app certificates.
+    /// Gets the fixed certificate validity options available for managed Autopilot app certificates, in the current UI language.
     /// </summary>
-    public ObservableCollection<CertificateValidityOptionViewModel> CertificateValidityOptions { get; } =
+    public IReadOnlyList<CertificateValidityOptionViewModel> CertificateValidityOptions => (CertificateValidityOptionViewModel[])
     [
-        new(1, "1 month"),
-        new(3, "3 months"),
-        new(6, "6 months"),
-        new(12, "12 months")
+        new(1, localizationService.GetString("Autopilot.HardwareHashCertificateValidity1Month")),
+        new(3, localizationService.GetString("Autopilot.HardwareHashCertificateValidity3Months")),
+        new(6, localizationService.GetString("Autopilot.HardwareHashCertificateValidity6Months")),
+        new(12, localizationService.GetString("Autopilot.HardwareHashCertificateValidity12Months"))
     ];
+
+    /// <summary>
+    /// Gets whether a certificate can be created; it enables the menu button that offers the validity options.
+    /// </summary>
+    public bool CanCreateCertificates => CanCreateCertificate();
 
     /// <summary>
     /// Gets default group tag choices, including the optional None choice.
@@ -210,15 +222,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string JsonProfileHeader { get; set; }
 
     [ObservableProperty]
-    public partial string ActionsDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string DefaultProfileDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string ProfilesDescription { get; set; }
-
-    [ObservableProperty]
     public partial string HardwareHashHeader { get; set; }
 
     [ObservableProperty]
@@ -271,12 +274,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial string TenantOnboardingStatusLabel { get; set; }
-
-    [ObservableProperty]
-    public partial string CertificateActionsLabel { get; set; }
-
-    [ObservableProperty]
-    public partial string CertificateActionsDescription { get; set; }
 
     [ObservableProperty]
     public partial string ProvisionedCertificatesLabel { get; set; }
@@ -333,7 +330,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string RemoveButtonText { get; set; }
 
     [ObservableProperty]
-    public partial string ActionsHeader { get; set; }
+    public partial string SetDefaultProfileButtonText { get; set; }
 
     [ObservableProperty]
     public partial string ImportingStatusText { get; set; }
@@ -354,9 +351,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string RemoveProfilesConfirmationPrimaryButton { get; set; }
 
     [ObservableProperty]
-    public partial string DefaultProfileLabel { get; set; }
-
-    [ObservableProperty]
     public partial string ProfilesLabel { get; set; }
 
     [ObservableProperty]
@@ -374,6 +368,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     public partial string ProfileFolderColumnHeader { get; set; }
 
+    [ObservableProperty]
+    public partial string ProfileDefaultColumnHeader { get; set; }
+
     public string JsonProfileDocumentationUrl => FoundryApplicationInfo.AutopilotJsonProfileDocumentationUrl;
 
     public string ZeroTouchDocumentationUrl => FoundryApplicationInfo.AutopilotZeroTouchDocumentationUrl;
@@ -384,6 +381,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfilesCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SetDefaultProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(ConnectTenantCommand))]
     [NotifyCanExecuteChangedFor(nameof(CreateCertificateCommand))]
     [NotifyCanExecuteChangedFor(nameof(RetireActiveCertificateCommand))]
@@ -391,12 +389,14 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial bool IsAutopilotEnabled { get; set; }
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SetDefaultProfileCommand))]
     public partial AutopilotProfileEntryViewModel? SelectedDefaultProfile { get; set; }
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfilesCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SetDefaultProfileCommand))]
     [NotifyPropertyChangedFor(nameof(IsBusy))]
     [NotifyPropertyChangedFor(nameof(BusyStatusText))]
     [NotifyPropertyChangedFor(nameof(BusyStatusVisibility))]
@@ -410,6 +410,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfilesCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SetDefaultProfileCommand))]
     [NotifyPropertyChangedFor(nameof(IsBusy))]
     [NotifyPropertyChangedFor(nameof(BusyStatusText))]
     [NotifyPropertyChangedFor(nameof(BusyStatusVisibility))]
@@ -423,6 +424,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfilesCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SetDefaultProfileCommand))]
     [NotifyPropertyChangedFor(nameof(IsBusy))]
     [NotifyPropertyChangedFor(nameof(BusyStatusText))]
     [NotifyPropertyChangedFor(nameof(BusyStatusVisibility))]
@@ -431,10 +433,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [NotifyCanExecuteChangedFor(nameof(RetireActiveCertificateCommand))]
     [NotifyCanExecuteChangedFor(nameof(SelectBootMediaCertificatePfxCommand))]
     public partial bool IsConnectingTenant { get; set; }
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(CreateCertificateCommand))]
-    public partial CertificateValidityOptionViewModel? SelectedCertificateValidityOption { get; set; }
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RetireActiveCertificateCommand))]
@@ -454,6 +452,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         Profiles.CollectionChanged -= OnProfilesCollectionChanged;
         SelectedProfiles.CollectionChanged -= OnSelectedProfilesCollectionChanged;
         SelectedCertificates.CollectionChanged -= OnSelectedCertificatesCollectionChanged;
+        CreateCertificateCommand.CanExecuteChanged -= OnCreateCertificateCanExecuteChanged;
     }
 
     /// <summary>
@@ -505,9 +504,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException or InvalidOperationException or ArgumentException)
         {
             logger.Error(ex, "Autopilot profile import failed.");
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.ImportFailedTitle"),
-                localizationService.FormatString("Autopilot.ImportFailedMessage", ex.Message)));
+            await ShowFailureAsync("Autopilot.ImportFailedTitle", "Autopilot.ImportFailedMessage", "Autopilot.ImportFailedNextStep");
         }
         finally
         {
@@ -537,7 +534,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 logger.Information("Autopilot tenant download completed. ProfileCount=0");
                 await dialogService.ShowMessageAsync(new DialogRequest(
                     localizationService.GetString("Autopilot.DownloadNoProfilesTitle"),
-                    localizationService.GetString("Autopilot.DownloadCompletedNoProfiles")));
+                    localizationService.GetString("Autopilot.DownloadCompletedNoProfiles"),
+                    localizationService.GetString("Common.Close")));
                 return;
             }
 
@@ -566,11 +564,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
         catch (Exception ex) when (ex is InvalidOperationException or HttpRequestException or JsonException or AuthenticationFailedException)
         {
-            string failureMessage = localizationService.FormatString("Autopilot.DownloadFailedFormat", ex.Message);
             logger.Error(ex, "Autopilot tenant download failed.");
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.DownloadFailedTitle"),
-                failureMessage));
+            await ShowFailureAsync("Autopilot.DownloadFailedTitle", "Autopilot.DownloadFailedMessage", "Autopilot.DownloadFailedNextStep");
             return;
         }
         finally
@@ -591,11 +586,14 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         bool isSingleProfileRemoval = profilesToRemove.Length == 1;
         bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
             isSingleProfileRemoval ? RemoveProfileConfirmationTitle : RemoveProfilesConfirmationTitle,
-            isSingleProfileRemoval
-                ? localizationService.FormatString("Autopilot.RemoveConfirmationMessageFormat", profilesToRemove[0].DisplayName)
-                : localizationService.FormatString("Autopilot.RemoveProfilesConfirmationMessageFormat", profilesToRemove.Length),
+            DialogText.JoinParagraphs(
+                isSingleProfileRemoval
+                    ? localizationService.FormatString("Autopilot.RemoveConfirmationMessageFormat", profilesToRemove[0].DisplayName)
+                    : localizationService.FormatString("Autopilot.RemoveProfilesConfirmationMessageFormat", profilesToRemove.Length),
+                localizationService.GetString("Autopilot.RemoveProfilesConfirmationWarning")),
             isSingleProfileRemoval ? RemoveProfileConfirmationPrimaryButton : RemoveProfilesConfirmationPrimaryButton,
-            localizationService.GetString("Common.Cancel")));
+            localizationService.GetString("Common.Cancel"),
+            PreferCancel: true));
         if (!confirmed)
         {
             return;
@@ -605,6 +603,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             .Select(profile => profile.Id)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
+        ProfileRowsRemoving?.Invoke(this, EventArgs.Empty);
         foreach (AutopilotProfileEntryViewModel profile in profilesToRemove)
         {
             Profiles.Remove(profile);
@@ -620,6 +619,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
         SaveState();
         logger.Information("Autopilot profile removal completed. RemovedProfileCount={RemovedProfileCount}", profilesToRemove.Length);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanSetDefaultProfile))]
+    private void SetDefaultProfile()
+    {
+        SelectedDefaultProfile = SelectedProfiles[0];
     }
 
     [RelayCommand(CanExecute = nameof(CanConnectTenant))]
@@ -663,7 +668,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             {
                 await dialogService.ShowMessageAsync(new DialogRequest(
                     GetTenantOnboardingDialogTitle(),
-                    CreateTenantOnboardingResultMessage(result.Status)));
+                    CreateTenantOnboardingResultMessage(result.Status),
+                    localizationService.GetString("Common.Close")));
             }
         }
         catch (AuthenticationFailedException ex) when (ex.InnerException is MsalClientException { ErrorCode: MsalError.AuthenticationCanceledError })
@@ -673,9 +679,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or JsonException)
         {
             logger.Error(ex, "Autopilot hardware hash tenant onboarding failed.");
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.HardwareHashOnboardingFailedTitle"),
-                localizationService.FormatString("Autopilot.HardwareHashOnboardingFailedMessageFormat", ex.Message)));
+            await ShowFailureAsync(
+                "Autopilot.HardwareHashOnboardingFailedTitle",
+                "Autopilot.HardwareHashOnboardingFailedMessage",
+                "Autopilot.HardwareHashTenantFailureNextStep");
         }
         finally
         {
@@ -684,8 +691,13 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     }
 
     [RelayCommand(CanExecute = nameof(CanCreateCertificate))]
-    private async Task CreateCertificateAsync()
+    private async Task CreateCertificateAsync(CertificateValidityOptionViewModel? validity)
     {
+        if (validity is null)
+        {
+            return;
+        }
+
         string? outputPath = await filePickerService.PickSaveFileAsync(new FileSavePickerRequest(
             localizationService.GetString("Autopilot.HardwareHashCertificateSavePickerTitle"),
             "foundry-osd-autopilot-registration.pfx",
@@ -693,7 +705,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 localizationService.GetString("Autopilot.HardwareHashCertificatePfxFileType"),
                 (string[])[".pfx"])],
             ".pfx"));
-        if (string.IsNullOrWhiteSpace(outputPath) || SelectedCertificateValidityOption is null)
+        if (string.IsNullOrWhiteSpace(outputPath))
         {
             return;
         }
@@ -704,7 +716,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             AutopilotCertificateCreationResult result = await autopilotTenantOnboardingService.CreateCertificateAsync(
                 hardwareHashUploadSettings,
                 outputPath,
-                SelectedCertificateValidityOption.Months);
+                validity.Months);
             hardwareHashUploadSettings = result.Settings;
             tenantOnboardingStatus = AutopilotTenantOnboardingStatus.Ready;
             hardwareHashSessionState.TenantOnboardingStatus = tenantOnboardingStatus;
@@ -715,7 +727,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
             logger.Information(
                 "Autopilot hardware hash certificate creation completed. ValidityMonths={ValidityMonths}, CertificateCount={CertificateCount}",
-                SelectedCertificateValidityOption.Months,
+                validity.Months,
                 result.Certificates.Count);
 
             await certificateDialogService.ShowCreatedAsync(outputPath, result.GeneratedPassword);
@@ -727,9 +739,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or IOException or UnauthorizedAccessException)
         {
             logger.Error(ex, "Autopilot hardware hash certificate creation failed. ErrorType={ErrorType}", ex.GetType().Name);
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.HardwareHashCertificateCreateFailedTitle"),
-                localizationService.FormatString("Autopilot.HardwareHashCertificateCreateFailedMessageFormat", ex.Message)));
+            await ShowFailureAsync(
+                "Autopilot.HardwareHashCertificateCreateFailedTitle",
+                "Autopilot.HardwareHashCertificateCreateFailedMessage",
+                "Autopilot.HardwareHashCertificateCreateFailedNextStep");
         }
         finally
         {
@@ -746,13 +759,21 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             return;
         }
 
+        bool isSingleCertificateRemoval = certificatesToRemove.Length == 1;
         bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
-            localizationService.GetString("Autopilot.HardwareHashRetireCertificateConfirmationTitle"),
-            certificatesToRemove.Length == 1
-                ? localizationService.GetString("Autopilot.HardwareHashRetireCertificateConfirmationMessage")
-                : localizationService.FormatString("Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat", certificatesToRemove.Length),
-            localizationService.GetString("Autopilot.HardwareHashRetireCertificateConfirmationPrimary"),
-            localizationService.GetString("Common.Cancel")));
+            localizationService.GetString(isSingleCertificateRemoval
+                ? "Autopilot.HardwareHashRetireCertificateConfirmationTitle"
+                : "Autopilot.HardwareHashRetireCertificatesConfirmationTitle"),
+            DialogText.JoinParagraphs(
+                isSingleCertificateRemoval
+                    ? localizationService.GetString("Autopilot.HardwareHashRetireCertificateConfirmationMessage")
+                    : localizationService.FormatString("Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat", certificatesToRemove.Length),
+                localizationService.GetString("Autopilot.HardwareHashRetireCertificateConfirmationWarning")),
+            localizationService.GetString(isSingleCertificateRemoval
+                ? "Autopilot.HardwareHashRetireCertificateConfirmationPrimary"
+                : "Autopilot.HardwareHashRetireCertificatesConfirmationPrimary"),
+            localizationService.GetString("Common.Cancel"),
+            PreferCancel: true));
         if (!confirmed)
         {
             return;
@@ -794,9 +815,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or JsonException)
         {
             logger.Error(ex, "Autopilot hardware hash certificate retirement failed.");
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.HardwareHashCertificateRetireFailedTitle"),
-                localizationService.FormatString("Autopilot.HardwareHashCertificateRetireFailedMessageFormat", ex.Message)));
+            await ShowFailureAsync(
+                "Autopilot.HardwareHashCertificateRetireFailedTitle",
+                "Autopilot.HardwareHashCertificateRetireFailedMessage",
+                "Autopilot.HardwareHashTenantFailureNextStep");
         }
         finally
         {
@@ -809,6 +831,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ImportProfileCommand.NotifyCanExecuteChanged();
         DownloadProfilesCommand.NotifyCanExecuteChanged();
         RemoveSelectedProfilesCommand.NotifyCanExecuteChanged();
+        SetDefaultProfileCommand.NotifyCanExecuteChanged();
         ConnectTenantCommand.NotifyCanExecuteChanged();
         CreateCertificateCommand.NotifyCanExecuteChanged();
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
@@ -862,7 +885,17 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     partial void OnSelectedDefaultProfileChanged(AutopilotProfileEntryViewModel? value)
     {
+        RefreshDefaultProfileMarkers();
         SaveState();
+    }
+
+    private void RefreshDefaultProfileMarkers()
+    {
+        string defaultMarker = localizationService.GetString("Autopilot.ProfileDefaultMarker");
+        foreach (AutopilotProfileEntryViewModel profile in Profiles)
+        {
+            profile.DefaultText = ReferenceEquals(profile, SelectedDefaultProfile) ? defaultMarker : string.Empty;
+        }
     }
 
     private void ApplyState(AutopilotSettings settings)
@@ -923,6 +956,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             .ThenBy(profile => profile.Id, StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
+        if (Profiles.Count > 0)
+        {
+            ProfileRowsRemoving?.Invoke(this, EventArgs.Empty);
+        }
+
         Profiles.Clear();
         foreach (AutopilotProfileEntryViewModel profile in orderedProfiles)
         {
@@ -966,9 +1004,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private void RefreshLocalizedText()
     {
         JsonProfileHeader = localizationService.GetString("Autopilot.JsonProfileHeader");
-        ActionsDescription = localizationService.GetString("Autopilot.ActionsDescription");
-        DefaultProfileDescription = localizationService.GetString("Autopilot.DefaultProfileDescription");
-        ProfilesDescription = localizationService.GetString("Autopilot.ProfilesDescription");
         HardwareHashHeader = localizationService.GetString("Autopilot.HardwareHashHeader");
         InteractiveHardwareHashHeader = localizationService.GetString("Autopilot.InteractiveHardwareHashHeader");
         InteractiveHardwareHashDescription = localizationService.GetString("Autopilot.InteractiveHardwareHashDescription");
@@ -987,8 +1022,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         TenantDetailsClientIdLabel = localizationService.GetString("Autopilot.HardwareHashTenantDetailsClientId");
         AppRegistrationLabel = localizationService.GetString("Autopilot.HardwareHashAppRegistrationLabel");
         TenantOnboardingStatusLabel = localizationService.GetString("Autopilot.HardwareHashOnboardingStatusLabel");
-        CertificateActionsLabel = localizationService.GetString("Autopilot.HardwareHashCertificateActionsLabel");
-        CertificateActionsDescription = localizationService.GetString("Autopilot.HardwareHashCertificateActionsDescription");
         ProvisionedCertificatesLabel = localizationService.GetString("Autopilot.HardwareHashProvisionedCertificatesLabel");
         ProvisionedCertificatesDescription = localizationService.GetString("Autopilot.HardwareHashProvisionedCertificatesDescription");
         EmptyCertificatesText = localizationService.GetString("Autopilot.HardwareHashCertificatesNone");
@@ -1007,20 +1040,21 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ImportButtonText = localizationService.GetString("Autopilot.ImportButton");
         DownloadButtonText = localizationService.GetString("Autopilot.DownloadButton");
         RemoveButtonText = localizationService.GetString("Autopilot.RemoveButton");
-        ActionsHeader = localizationService.GetString("Autopilot.ActionsHeader");
+        SetDefaultProfileButtonText = localizationService.GetString("Autopilot.SetDefaultProfileButton");
         ImportingStatusText = localizationService.GetString("Autopilot.ImportingStatus");
         DownloadingStatusText = localizationService.GetString("Autopilot.DownloadingStatus");
         RemoveProfileConfirmationTitle = localizationService.GetString("Autopilot.RemoveConfirmationTitle");
         RemoveProfileConfirmationPrimaryButton = localizationService.GetString("Autopilot.RemoveConfirmationPrimaryButton");
         RemoveProfilesConfirmationTitle = localizationService.GetString("Autopilot.RemoveProfilesConfirmationTitle");
         RemoveProfilesConfirmationPrimaryButton = localizationService.GetString("Autopilot.RemoveProfilesConfirmationPrimaryButton");
-        DefaultProfileLabel = localizationService.GetString("Autopilot.DefaultProfileLabel");
         ProfilesLabel = localizationService.GetString("Autopilot.ProfilesLabel");
         EmptyProfilesText = localizationService.GetString("Autopilot.ProfilesEmptyLabel");
         ProfileNameColumnHeader = localizationService.GetString("Autopilot.ColumnName");
         ProfileSourceColumnHeader = localizationService.GetString("Autopilot.ColumnSource");
         ProfileImportedColumnHeader = localizationService.GetString("Autopilot.ColumnImported");
         ProfileFolderColumnHeader = localizationService.GetString("Autopilot.ColumnFolder");
+        ProfileDefaultColumnHeader = localizationService.GetString("Autopilot.ColumnDefault");
+        RefreshDefaultProfileMarkers();
         OnPropertyChanged(nameof(BusyStatusText));
         OnPropertyChanged(nameof(TenantConnectionButtonText));
         OnPropertyChanged(nameof(TenantStatusStyle));
@@ -1038,6 +1072,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ImportProfileCommand.NotifyCanExecuteChanged();
         DownloadProfilesCommand.NotifyCanExecuteChanged();
         RemoveSelectedProfilesCommand.NotifyCanExecuteChanged();
+        SetDefaultProfileCommand.NotifyCanExecuteChanged();
         ConnectTenantCommand.NotifyCanExecuteChanged();
         CreateCertificateCommand.NotifyCanExecuteChanged();
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
@@ -1386,6 +1421,17 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             : (Style)Application.Current.Resources["FoundryCriticalTextBlockStyle"];
     }
 
+    /// <summary>
+    /// Shows a localized failure summary and next step; the caller logs the exception details.
+    /// </summary>
+    private Task ShowFailureAsync(string titleKey, string summaryKey, string nextStepKey)
+    {
+        return dialogService.ShowMessageAsync(new DialogRequest(
+            localizationService.GetString(titleKey),
+            DialogText.JoinParagraphs(localizationService.GetString(summaryKey), localizationService.GetString(nextStepKey)),
+            localizationService.GetString("Common.Close")));
+    }
+
     private string GetTenantOnboardingDialogTitle()
     {
         return localizationService.GetString("Autopilot.HardwareHashOnboardingRequiresAttentionTitle");
@@ -1427,6 +1473,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(EmptyProfilesVisibility));
         OnPropertyChanged(nameof(ProfilesVisibility));
         RemoveSelectedProfilesCommand.NotifyCanExecuteChanged();
+        SetDefaultProfileCommand.NotifyCanExecuteChanged();
     }
 
     private void OnProfilesCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -1437,6 +1484,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private void OnSelectedProfilesCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
         RemoveSelectedProfilesCommand.NotifyCanExecuteChanged();
+        SetDefaultProfileCommand.NotifyCanExecuteChanged();
+    }
+
+    private void OnCreateCertificateCanExecuteChanged(object? sender, EventArgs e)
+    {
+        OnPropertyChanged(nameof(CanCreateCertificates));
     }
 
     private void OnSelectedCertificatesCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -1586,6 +1639,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         return IsAutopilotEnabled && IsJsonProfileMode && !IsImporting && !IsDownloading && SelectedProfiles.Count > 0;
     }
 
+    private bool CanSetDefaultProfile()
+    {
+        return IsAutopilotEnabled && IsJsonProfileMode && !IsImporting && !IsDownloading &&
+               SelectedProfiles.Count == 1 && !ReferenceEquals(SelectedProfiles[0], SelectedDefaultProfile);
+    }
+
     private bool CanConnectTenant()
     {
         return IsAutopilotEnabled && IsHardwareHashUploadMode && !IsBusy;
@@ -1596,7 +1655,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         return IsAutopilotEnabled &&
                IsHardwareHashUploadMode &&
                !IsBusy &&
-               SelectedCertificateValidityOption is not null &&
                HasConnectedTenantInCurrentSession &&
                !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ApplicationObjectId);
     }

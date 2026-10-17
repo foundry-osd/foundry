@@ -79,9 +79,7 @@ Foundry StartMedia.DriverOptions.Dell
 Foundry StartMedia.DriverOptions.Hp
 Foundry StartMedia.DriverVendor.Dell
 Foundry StartMedia.DriverVendor.Hp
-Foundry StartMedia.Field.Adk
 Foundry StartMedia.Field.Architecture fr-CA fr-FR
-Foundry StartMedia.Field.Autopilot
 Foundry StartMedia.Field.Drivers pt-BR
 Foundry StartMedia.Signature.Ca2011
 Foundry StartMedia.Signature.Ca2023

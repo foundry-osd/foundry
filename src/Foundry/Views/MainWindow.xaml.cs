@@ -38,18 +38,7 @@ namespace Foundry.Views
         private string? pendingUpdateAnnouncement;
         private bool hasAnnouncedUpdateStatus;
         private bool isClosed;
-        private ContentDialog? operationDialog;
-        private TextBlock? operationStatusText;
-        private ProgressBar? operationProgressBar;
-        private TextBlock? operationProgressPercentText;
-        private Microsoft.UI.Xaml.Controls.ProgressRing? operationProgressRing;
-        private FontIcon? operationSuccessIcon;
-        private FontIcon? operationErrorIcon;
-        private StackPanel? operationSecondaryProgressPanel;
-        private TextBlock? operationSecondaryStatusText;
-        private ProgressBar? operationSecondaryProgressBar;
-        private TextBlock? operationSecondaryProgressPercentText;
-        private bool operationDialogCanClose;
+        private OperationProgressDialog? operationDialog;
 
         /// <summary>
         /// Gets the shell view model.
@@ -88,7 +77,6 @@ namespace Foundry.Views
             ApplyShellNavigationState();
 
             localizationService.LanguageChanged += OnLanguageChanged;
-            operationProgressService.StateChanged += OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged += OnShellNavigationStateChanged;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             ViewModel.UpdateFooterStatusChanged += OnUpdateFooterStatusChanged;
@@ -138,7 +126,6 @@ namespace Foundry.Views
             isClosed = true;
             pendingUpdateAnnouncement = null;
             localizationService.LanguageChanged -= OnLanguageChanged;
-            operationProgressService.StateChanged -= OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
             ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
             ViewModel.UpdateFooterStatusChanged -= OnUpdateFooterStatusChanged;
@@ -181,17 +168,6 @@ namespace Foundry.Views
             }
 
             ApplyShellNavigationState();
-        }
-
-        private void OnOperationProgressChanged(object? sender, OperationProgressChangedEventArgs e)
-        {
-            if (!DispatcherQueue.HasThreadAccess)
-            {
-                DispatcherQueue.TryEnqueue(() => ApplyOperationState(e.State));
-                return;
-            }
-
-            ApplyOperationState(e.State);
         }
 
         private void OnTitleBarPaneToggleRequested(TitleBar sender, object args)
@@ -250,8 +226,10 @@ namespace Foundry.Views
         private void ApplyShellNavigationState()
         {
             ShellNavigationState state = shellNavigationGuardService.State;
-            bool isOperationRunning = state == ShellNavigationState.OperationRunning;
-            UpdateOperationDialog(isOperationRunning);
+            if (state == ShellNavigationState.OperationRunning)
+            {
+                ShowOperationDialog();
+            }
 
             // The navigation guard owns route availability so individual pages do not duplicate ADK or operation checks.
             ApplyFooterItemsState(state);
@@ -279,17 +257,6 @@ namespace Foundry.Views
                 : Visibility.Collapsed;
         }
 
-        private void UpdateOperationDialog(bool isOperationRunning)
-        {
-            if (isOperationRunning)
-            {
-                ShowOperationDialog();
-                return;
-            }
-
-            CompleteOperationDialog();
-        }
-
         private async void ShowOperationDialog()
         {
             if (operationDialog is not null)
@@ -297,20 +264,12 @@ namespace Foundry.Views
                 return;
             }
 
-            ContentDialog dialog = new()
+            // The dialog follows the operation progress service until the user closes it after the outcome.
+            OperationProgressDialog dialog = new(operationProgressService, localizationService)
             {
                 XamlRoot = RootGrid.XamlRoot,
-                Style = ContentDialogStyleProvider.DefaultStyle,
-                RequestedTheme = RootGrid.ActualTheme,
-                Title = localizationService.GetString("Shell.OperationRunning"),
-                Content = CreateOperationDialogContent(),
-                PrimaryButtonText = operationProgressService.State.CanCancel ? localizationService.GetString("Common.Cancel") : string.Empty,
-                DefaultButton = ContentDialogButton.None
+                RequestedTheme = RootGrid.ActualTheme
             };
-
-            operationDialogCanClose = false;
-            dialog.Closing += OnOperationDialogClosing;
-            dialog.PrimaryButtonClick += OnOperationDialogCancelClick;
             operationDialog = dialog;
 
             try
@@ -319,157 +278,12 @@ namespace Foundry.Views
             }
             finally
             {
-                dialog.Closing -= OnOperationDialogClosing;
-                dialog.PrimaryButtonClick -= OnOperationDialogCancelClick;
+                dialog.Detach();
                 if (ReferenceEquals(operationDialog, dialog))
                 {
                     operationDialog = null;
                 }
-
-                ClearOperationDialogReferences();
             }
-        }
-
-        private FrameworkElement CreateOperationDialogContent()
-        {
-            operationStatusText = new TextBlock
-            {
-                Text = GetOperationDialogStatusText(),
-                TextWrapping = TextWrapping.Wrap,
-                MaxWidth = 440,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                TextAlignment = TextAlignment.Left
-            };
-
-            operationProgressBar = new ProgressBar
-            {
-                Minimum = 0,
-                Maximum = 100,
-                Value = operationProgressService.State.Progress,
-                Height = 4
-            };
-
-            operationProgressPercentText = CreatePercentText(operationProgressService.State.Progress);
-
-            operationSecondaryStatusText = new TextBlock
-            {
-                Text = GetSecondaryOperationDialogStatusText(),
-                TextWrapping = TextWrapping.Wrap,
-                MaxWidth = 440,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                TextAlignment = TextAlignment.Left
-            };
-
-            operationSecondaryProgressBar = new ProgressBar
-            {
-                Minimum = 0,
-                Maximum = 100,
-                Height = 4,
-                Value = operationProgressService.State.SecondaryProgress ?? 0,
-                IsIndeterminate = !operationProgressService.State.SecondaryProgress.HasValue
-            };
-
-            operationSecondaryProgressPercentText = CreatePercentText(operationProgressService.State.SecondaryProgress);
-            operationSecondaryProgressPanel = new StackPanel
-            {
-                Spacing = 8,
-                Visibility = operationProgressService.State.HasSecondaryProgress ? Visibility.Visible : Visibility.Collapsed,
-                Children =
-                {
-                    operationSecondaryStatusText,
-                    CreateProgressRow(operationSecondaryProgressBar, operationSecondaryProgressPercentText)
-                }
-            };
-
-            var indicator = (Grid)((DataTemplate)RootGrid.Resources["OperationIndicatorTemplate"]).LoadContent();
-            operationProgressRing = (Microsoft.UI.Xaml.Controls.ProgressRing)indicator.FindName("OperationProgressRing");
-            operationSuccessIcon = (FontIcon)indicator.FindName("OperationSuccessIcon");
-            operationErrorIcon = (FontIcon)indicator.FindName("OperationErrorIcon");
-
-            return new StackPanel
-            {
-                MinWidth = 420,
-                MaxWidth = 520,
-                Padding = new Thickness(0, 8, 0, 0),
-                Spacing = 16,
-                Children =
-                {
-                    indicator,
-                    operationStatusText,
-                    CreateProgressRow(operationProgressBar, operationProgressPercentText),
-                    operationSecondaryProgressPanel
-                }
-            };
-        }
-
-        private static Grid CreateProgressRow(ProgressBar progressBar, TextBlock percentText)
-        {
-            var grid = new Grid
-            {
-                ColumnSpacing = 12
-            };
-
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            Grid.SetColumn(progressBar, 0);
-            Grid.SetColumn(percentText, 1);
-            grid.Children.Add(progressBar);
-            grid.Children.Add(percentText);
-            return grid;
-        }
-
-        private static TextBlock CreatePercentText(int? progress)
-        {
-            return new TextBlock
-            {
-                Text = FormatProgressPercent(progress),
-                MinWidth = 36,
-                TextAlignment = TextAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-        }
-
-        private void CompleteOperationDialog()
-        {
-            if (operationDialog is null)
-            {
-                return;
-            }
-
-            operationDialogCanClose = true;
-            operationDialog.Title = localizationService.GetString("Shell.OperationCompleted");
-            operationDialog.PrimaryButtonText = string.Empty;
-            operationDialog.CloseButtonText = localizationService.GetString("Common.Close");
-            operationDialog.DefaultButton = ContentDialogButton.Close;
-            ApplyOperationState(operationProgressService.State);
-        }
-
-        private void ClearOperationDialogReferences()
-        {
-            operationStatusText = null;
-            operationProgressBar = null;
-            operationProgressPercentText = null;
-            operationProgressRing = null;
-            operationSuccessIcon = null;
-            operationErrorIcon = null;
-            operationSecondaryProgressPanel = null;
-            operationSecondaryStatusText = null;
-            operationSecondaryProgressBar = null;
-            operationSecondaryProgressPercentText = null;
-        }
-
-        private void OnOperationDialogClosing(ContentDialog sender, ContentDialogClosingEventArgs args)
-        {
-            if (!operationDialogCanClose)
-            {
-                args.Cancel = true;
-            }
-        }
-
-        private void OnOperationDialogCancelClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            args.Cancel = true;
-            operationProgressService.RequestCancellation();
         }
 
         private void ApplyFooterItemsState(ShellNavigationState state)
@@ -732,8 +546,8 @@ namespace Foundry.Views
                 XamlRoot = RootGrid.XamlRoot,
                 Style = ContentDialogStyleProvider.DefaultStyle,
                 Title = localizationService.GetString(failureTitleResourceKey),
-                PrimaryButtonText = localizationService.GetString("Common.Close"),
-                DefaultButton = ContentDialogButton.Primary,
+                CloseButtonText = localizationService.GetString("Common.Close"),
+                DefaultButton = ContentDialogButton.Close,
                 Content = new StackPanel
                 {
                     Spacing = 12,
@@ -747,7 +561,8 @@ namespace Foundry.Views
                         new Microsoft.UI.Xaml.Controls.TextBox
                         {
                             Text = uri.AbsoluteUri,
-                            IsReadOnly = true
+                            IsReadOnly = true,
+                            TextWrapping = TextWrapping.Wrap
                         }
                     }
                 }
@@ -770,98 +585,6 @@ namespace Foundry.Views
             };
 
             await dialog.ShowAsync();
-        }
-
-        private void ApplyOperationState(OperationProgressState state)
-        {
-            if (operationDialog is not null)
-            {
-                operationDialog.IsPrimaryButtonEnabled = state.CanCancel;
-            }
-
-            if (operationStatusText is not null)
-            {
-                operationStatusText.Text = GetOperationDialogStatusText();
-            }
-
-            if (operationProgressBar is not null)
-            {
-                operationProgressBar.Value = state.Progress;
-            }
-
-            if (operationProgressPercentText is not null)
-            {
-                operationProgressPercentText.Text = FormatProgressPercent(state.Progress);
-            }
-
-            if (operationProgressRing is not null)
-            {
-                operationProgressRing.IsActive = !operationDialogCanClose;
-                operationProgressRing.Visibility = operationDialogCanClose ? Visibility.Collapsed : Visibility.Visible;
-            }
-
-            if (operationSuccessIcon is not null)
-            {
-                operationSuccessIcon.Visibility = operationDialogCanClose && state.Outcome == OperationOutcome.Success
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
-            }
-
-            if (operationErrorIcon is not null)
-            {
-                operationErrorIcon.Visibility = operationDialogCanClose && state.Outcome == OperationOutcome.Error
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
-            }
-
-            if (operationSecondaryProgressPanel is not null)
-            {
-                operationSecondaryProgressPanel.Visibility = !operationDialogCanClose && state.HasSecondaryProgress
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
-            }
-
-            if (operationSecondaryStatusText is not null)
-            {
-                operationSecondaryStatusText.Text = GetSecondaryOperationDialogStatusText();
-            }
-
-            if (operationSecondaryProgressBar is not null)
-            {
-                operationSecondaryProgressBar.IsIndeterminate = !state.SecondaryProgress.HasValue;
-                operationSecondaryProgressBar.Value = state.SecondaryProgress ?? 0;
-            }
-
-            if (operationSecondaryProgressPercentText is not null)
-            {
-                operationSecondaryProgressPercentText.Text = FormatProgressPercent(state.SecondaryProgress);
-            }
-        }
-
-        private string GetOperationDialogStatusText()
-        {
-            if (operationProgressService.State.IsCancellationRequested)
-            {
-                return localizationService.GetString("Shell.OperationStopping");
-            }
-
-            return !string.IsNullOrWhiteSpace(operationProgressService.State.Status)
-                ? operationProgressService.State.Status
-                : localizationService.GetString("Shell.OperationRunning");
-        }
-
-        private string GetSecondaryOperationDialogStatusText()
-        {
-            return operationProgressService.State.HasSecondaryProgress
-                ? operationProgressService.State.SecondaryStatus
-                : string.Empty;
-        }
-
-        private static string FormatProgressPercent(int? progress)
-        {
-            return progress.HasValue
-                ? $"{Math.Clamp(progress.Value, 0, 100)}%"
-                : string.Empty;
         }
 
         private static NavigationViewItem? FindNavigationItem(IList<object> items, string? uniqueId)

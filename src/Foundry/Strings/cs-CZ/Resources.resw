@@ -98,10 +98,16 @@ Licencováno pod licencí MIT.</value>
     <value>Možnost vytváření médií</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Operace Windows ADK byla zrušena.</value>
+    <value>Instalace byla zrušena.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Instalace Windows ADK byla zrušena</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>Operace ADK dokončena</value>
+    <value>Windows ADK a doplněk Windows PE jsou připravené. Nyní můžete vytvořit spouštěcí médium.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK je nainstalován</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Pomocí mezipaměti instalačního programu ADK</value>
@@ -113,9 +119,15 @@ Licencováno pod licencí MIT.</value>
     <value>Stažení instalačního programu ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>Operace ADK se nezdařila</value>
+    <value>Instalace nebyla dokončena. Podrobnosti najdete v protokolu.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Instalace Windows ADK se nezdařila</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Příprava instalace…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Instalace Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -127,6 +139,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Instalace byla dokončena. Zkontrolujte zbývající požadavky ADK.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK vyžaduje pozornost</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Odebrání existujících Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Příprava instalace Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Upgrade Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Ověření instalace ADK</value>
@@ -197,16 +215,19 @@ Licencováno pod licencí MIT.</value>
     <value>Zásady požadované verze</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Soubory WinPE jsou k dispozici</value>
+    <value>k dispozici</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Soubory WinPE chybí</value>
+    <value>chybí</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Doplněk nainstalován</value>
+    <value>Nainstalováno</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Nainstalováno (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Chybí doplněk</value>
+    <value>Nenainstalováno</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE doplněk</value>
@@ -262,11 +283,8 @@ Licencováno pod licencí MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Poznámky k vydání</value>
   </data>
-  <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Importujte místní profily JSON nebo si je stáhněte z Intune.</value>
-  </data>
-  <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Akce profilu</value>
+  <data name="Autopilot.ColumnDefault" xml:space="preserve">
+    <value>Výchozí</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>Složka</value>
@@ -280,20 +298,17 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
     <value>Zdroj</value>
   </data>
-  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profil vytvořený jako výchozí v použitém obrázku Windows.</value>
-  </data>
-  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Výchozí profil</value>
-  </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
     <value>Stáhnout od nájemce</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Tenant nevrátil žádné profily Autopilot.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Stažení profilu Autopilot se nezdařilo: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Profily Autopilot se nepodařilo stáhnout z tenanta.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Zkontrolujte síťové připojení, ověřte, že váš účet může číst profily Autopilot v Intune, a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot stahování se nezdařilo</value>
@@ -358,14 +373,11 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>Miniatura certifikátu PFX neodpovídá vybranému registračnímu certifikátu aplikace.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Vytvořte nebo odeberte přihlašovací údaje certifikátu registrace aplikace.</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nemohl vytvořit certifikát registrace aplikace.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Akce certifikátu</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nemohl vytvořit registrační certifikát aplikace. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Zkontrolujte, že do vybrané složky lze zapisovat a že váš účet může spravovat registraci aplikace, a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Vytvoření certifikátu se nezdařilo</value>
@@ -400,8 +412,8 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX certifikát</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nemohl odebrat vybraný certifikát registrace aplikace. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nemohl odebrat vybraný certifikát registrace aplikace.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Odebrání certifikátu se nezdařilo</value>
@@ -411,6 +423,18 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Kryptografický otisk</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity12Months" xml:space="preserve">
+    <value>Platnost 12 měsíců</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity1Month" xml:space="preserve">
+    <value>Platnost 1 měsíc</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity3Months" xml:space="preserve">
+    <value>Platnost 3 měsíce</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidity6Months" xml:space="preserve">
+    <value>Platnost 6 měsíců</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Nejsou poskytovány žádné certifikáty.</value>
@@ -442,8 +466,8 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch nahrání hardwarového hashe</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nemohl nakonfigurovat registraci aplikace Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nemohl nakonfigurovat registraci aplikace Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Přihlášení nájemce se nezdařilo</value>
@@ -494,16 +518,25 @@ Licencováno pod licencí MIT.</value>
     <value>Odebrat certifikát</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry odstraní z registrace spravované aplikace pouze vybraný certifikát. Ostatní přihlašovací údaje aplikace zůstanou zachovány.</value>
+    <value>Vybraný certifikát bude odebrán ze spravované registrace aplikace ve vašem tenantovi. Ostatní přihlašovací údaje aplikace zůstanou zachovány.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Odebrat certifikát</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Odebrat vybraný certifikát?</value>
+    <value>Odebrat certifikát z tenanta?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Tuto akci nelze vrátit zpět. Spouštěcí média, která používají odebraný certifikát, už nebudou moct nahrávat hardwarové hodnoty hash.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry odstraní pouze {0} vybrané certifikáty z registrace spravované aplikace. Ostatní přihlašovací údaje aplikace zůstanou zachovány.</value>
+    <value>Vybrané certifikáty (počet: {0}) budou odebrány ze spravované registrace aplikace ve vašem tenantovi. Ostatní přihlašovací údaje aplikace zůstanou zachovány.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Odebrat certifikáty</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Odebrat certifikáty z tenanta?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Připojeno</value>
@@ -519,6 +552,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID nájemce</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Zkontrolujte síťové připojení, ověřte, že váš účet může spravovat registrace aplikací v tenantovi, a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nepřipojeno</value>
@@ -545,7 +581,10 @@ Licencováno pod licencí MIT.</value>
     <value>Importovat profil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Profil Autopilot se nepodařilo importovat.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Zkontrolujte, že je soubor platným souborem JSON s profilem Autopilot, a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Import Autopilot se nezdařil</value>
@@ -574,8 +613,8 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
     <value>Změnit režim zřizování?</value>
   </data>
-  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Offline Autopilot profily dostupné pro zřizování profilu JSON.</value>
+  <data name="Autopilot.ProfileDefaultMarker" xml:space="preserve">
+    <value>Ano</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>Nebyly importovány žádné profily Autopilot.</value>
@@ -587,7 +626,7 @@ Licencováno pod licencí MIT.</value>
     <value>Odebrat vybrané</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Odebrat "{0}" z importovaných profilů Autopilot?</value>
+    <value>Profil „{0}“ bude odebrán z profilů Autopilot v této konfiguraci.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Odebrat profil</value>
@@ -596,7 +635,7 @@ Licencováno pod licencí MIT.</value>
     <value>Odebrat profil Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Odebrat {0} vybrané Autopilot profily?</value>
+    <value>Vybrané profily Autopilot (počet: {0}) budou odebrány z této konfigurace.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Odstraňte profily</value>
@@ -604,14 +643,17 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Odebrat profily Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Pokud chcete odebraný profil znovu použít, importujte ho nebo ho znovu stáhněte z tenanta.</value>
+  </data>
+  <data name="Autopilot.SetDefaultProfileButton" xml:space="preserve">
+    <value>Nastavit jako výchozí</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Dokončete přihlášení v prohlížeči a stáhněte si profily Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Přihlaste se do Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Zrušit</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Vymazat</value>
@@ -679,11 +721,17 @@ Licencováno pod licencí MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Povoleno</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Vyžaduje pozornost</value>
   </data>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Obnovit</value>
+  </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Uložit</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Není k dispozici</value>
@@ -696,9 +744,6 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Procházet</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Zrušit</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Import zrušen</value>
@@ -787,17 +832,23 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Obnovit</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Odebrat tuto bitovou kopii z aktuálního profilu a odstranit její místní kopii? V ostatních profilech, které na ni odkazují, se zobrazí jako chybějící. Původní soubory a existující média zůstanou beze změny.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Odebrat bitovou kopii</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) bude odebrána z aktuálního profilu a její místní kopie bude odstraněna.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Odebrat</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Odebrat vlastní bitovou kopii?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>V ostatních profilech, které tuto bitovou kopii používají, se zobrazí jako chybějící. Původní soubor a existující média se nezmění.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Upravit</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Uložit</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Nastavit výchozí obraz</value>
@@ -1002,6 +1053,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Zkontrolujte nastavení součástí. Maximální délka názvu počítače je 15 znaků.</value>
+  </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Pokud chcete použít předdefinované heslo, zapněte ochranu heslem na stránce Obecné.</value>
   </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Nastaví pro tento účet předdefinované heslo. Je vyžadováno chráněné instalační médium. Vypnutím použijete prázdné heslo.</value>
@@ -1247,10 +1301,7 @@ Licencováno pod licencí MIT.</value>
     <value>Nejnovější dostupná aktualizace</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>O {0} aktualizací dříve</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>O 1 aktualizaci dříve</value>
+    <value>Aktualizace před nejnovější: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Nakonfigurujte verze Windows 11 nabízené během nasazení.</value>
@@ -1760,7 +1811,7 @@ Licencováno pod licencí MIT.</value>
     <value>Beze změny</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} nakonfigurováno ({1} povoleno, {2} zakázáno)</value>
+    <value>Nakonfigurováno: {0} (povolit: {1}, zakázat: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Dostupnost závisí na hardwaru počítače Copilot+ a nainstalovaném obrazu Windows.</value>
@@ -1825,8 +1876,14 @@ Licencováno pod licencí MIT.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Nezpracované protokoly mohou obsahovat přihlašovací údaje, identifikátory, cesty, názvy sítí a další citlivá data. Exportujte je pouze tehdy, když o to výslovně požádá důvěryhodný kontakt podpory.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Archiv podpory byl uložen do:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostika exportována</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Otevřít složku</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nemohl otevřít dokumentaci ve vašem prohlížeči. Místo toho použijte toto URL.</value>
@@ -2689,9 +2746,6 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Stav obsahu</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Obsah pro fázi po instalaci byl ověřen.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Pokračovat při chybě</value>
   </data>
@@ -2821,9 +2875,6 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Argumenty skriptu</value>
   </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Příprava obsahu pro fázi po instalaci.</value>
-  </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Návratové kódy úspěchu (oddělené čárkami)</value>
   </data>
@@ -2847,6 +2898,15 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Některá stará uložená hesla nebo přístupové klíče se nepodařilo odebrat. Zkuste to znovu, až bude dostupný Správce pověření Windows.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Zavřít bez uložení</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Vaše poslední změny se nepodařilo uložit a budou ztraceny.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Zavřít bez uložení nastavení?</value>
   </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Potvrdit heslo</value>
@@ -2884,8 +2944,17 @@ Licencováno pod licencí MIT.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Odstranit z tohoto počítače</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Odstranit také pro všechny</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Odstranit pro všechny</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Odstranit pro všechny?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Odstranit tato sdílená nastavení pro všechny? Každý, kdo má nesynchronizované změny, musí svá nastavení duplikovat, aby je zachoval.</value>
@@ -2925,6 +2994,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Vymazat uložená hesla a přístupy</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Vymazat</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Odebrat uložená hesla, důvěrné soubory uložené aplikací Foundry a přístup k synchronizaci těchto nastavení na tomto počítači? Budete muset doplnit chybějící údaje a znovu se připojit k synchronizaci. Již vytvořená média se nezmění.</value>
@@ -2972,7 +3044,7 @@ Licencováno pod licencí MIT.</value>
     <value>Další možnosti</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Chybí {0} souborů nebo nebyly zahrnuty. Před vytvořením média vyberte jejich umístění.</value>
+    <value>Chybějící nebo nezahrnuté soubory: {0}. Před vytvořením média vyberte jejich umístění.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Název konfigurace</value>
@@ -3046,7 +3118,13 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Na všech počítačích používejte stejnou síťovou složku. Musí používat SMB 3 s povinným šifrováním. Složky synchronizované s cloudem nejsou podporovány.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Přestat si pamatovat hesla této konfigurace v tomto počítači?</value>
+    <value>Foundry přestane ukládat hesla této konfigurace v tomto počítači.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Přestat si pamatovat</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Přestat si pamatovat hesla?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synchronizovat</value>
@@ -3102,6 +3180,18 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Zkontrolujte povinná pole. Pokud je požadována síťová složka, použijte cestu jako \\server\share\folder. Pokud zadáváte heslo k souboru dvakrát, musí se obě zadání shodovat.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nemohl uložit nastavení proxy serveru. Zkuste to znovu. Podrobnosti najdete v protokolu.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Nastavení proxy serveru nebylo použito</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxy server odmítl přihlášení. Zkontrolujte nastavení ověřování proxy serveru a zkuste to znovu.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD se s tímto nastavením nemohl připojit ke službám GitHub a Microsoft. Zkontrolujte adresu a port proxy serveru a síťové připojení. Podrobnosti najdete v protokolu.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Připojení se nezdařilo</value>
   </data>
@@ -3120,8 +3210,17 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Připojení bylo úspěšné</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Zadejte adresu proxy serveru.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Zadejte uživatelské jméno a heslo pro explicitní ověřování na proxy serveru.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Zadejte platnou adresu proxy serveru HTTP nebo HTTPS, například proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Zadejte číslo portu od 1 do 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -3252,11 +3351,14 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aktualizovat aplikaci</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operace dokončena</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Zastavit operaci</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Probíhá operace</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Potvrďte výběrem možnosti „Zastavit operaci“. Probíhající krok s diskem nebo obrazem se nejprve dokončí.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Uplynulý čas: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Probíhá bezpečné zastavování. Před dokončením úklidu může být nutné dokončit aktuální operaci s diskem nebo obrazem.</value>
@@ -3327,6 +3429,12 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot používá nepodporovaný režim zřizování.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Před vytvořením média vyřešte následující:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Vytváření média nelze spustit. Zkontrolujte položky připravenosti na stránce Začněte.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>Doplněk ADK nebo WinPE není připraven.</value>
   </data>
@@ -3374,12 +3482,6 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Vybraný spouštěcí jazyk WinPE není pro vybranou architekturu dostupný.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standardní WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>obrázek WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3462,23 +3564,8 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Architektura</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Spouštěcí zdroj obrazu</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Zřizování připojení</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Konfigurace nasazení</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Ovladače</value>
@@ -3486,23 +3573,8 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>Režim formátu USB</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>výstupní cesta ISO</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Konfigurace sítě</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB styl oddílu</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Mediální tajemství</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Režim podpisu</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>Cílová jednotka USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE spouštěcí jazyk</value>
@@ -3518,6 +3590,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Vytvoření médií je k dispozici, když projdou všechny kontroly připravenosti.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Začněte výběrem výstupu ISO nebo USB níže.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Úplné formátování</value>
@@ -3547,52 +3622,49 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Vytvoření účtu OOBE přeskočeno</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Použití jazyka a volitelných komponent.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Závislosti spouštěcího obrazu jsou připraveny.</value>
+    <value>Přidávání jazyka a volitelných komponent…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Vytvoření pracovního prostoru WinPE.</value>
+    <value>Vytváření pracovního prostoru WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} z {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Vytváření média bylo zrušeno.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Kontrola cílové bezpečnosti USB.</value>
+    <value>Ověřování, že disk USB lze bezpečně vymazat…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Čištění pracovního prostoru WinPE.</value>
+    <value>Čištění souborů z předchozího spuštění…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Vymazání tabulky oddílů USB.</value>
+    <value>Mazání disku USB…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Potvrzení změn spouštěcího obrazu.</value>
+    <value>Ukládání spouštěcího obrazu…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Finální vytvoření média dokončeno.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Kopírování vlastních bitových kopií Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Kopírování poinstalačního obsahu…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Kopírování média WinPE do USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Vytváření médií ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Vytváření médií USB.</value>
+    <value>Kopírování souborů WinPE na disk USB…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Vytvoření BOOT oddílu.</value>
+    <value>Vytváření oddílu BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Vytvoření oddílu mezipaměti.</value>
+    <value>Vytváření oddílu mezipaměti…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Vlastní ovladače zabírají alespoň {0}; maximum je {1}. Vyberte pouze síťové ovladače a ovladače úložiště potřebné pro Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Přizpůsobení spouštěcího obrazu.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>Identita USB disku chybí, je nejednoznačná nebo se změnila. Obnovte seznam USB disků a vyberte disk znovu.</value>
@@ -3601,82 +3673,64 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Vybraný USB disk již nelze bezpečně upravovat. Obnovte seznam USB disků a vyberte jiný USB disk.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Použití mezinárodních nastavení pomocí DISM.</value>
+    <value>Použití nastavení jazyka…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Použití jazykového balíčku s DISM.</value>
+    <value>Přidávání jazykového balíčku…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Použití volitelných komponent s DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Potvrzení změn obrázku pomocí DISM.</value>
+    <value>Přidávání volitelných komponent…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Zahazování připojeného obrazu pomocí DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Export obrázku Windows pomocí DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Vložení ovladačů pomocí DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Připojování obrazu pomocí DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Zjišťování indexu obrazu Windows pomocí DISM.</value>
+    <value>Zahazování obrazu, který zůstal připojený z předchozího spuštění…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Stahování obsahu.</value>
+    <value>Stahování</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Stahování balíčku ovladače</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Stahování balíčku ovladačů {2} {0} z {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Stahování komponent nasazení {0}.</value>
+    <value>Stahování {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Stahování zdrojového balíčku Windows.</value>
+    <value>Stahování zdrojového balíčku Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Vyhodnocování zásad spouštěcích podpisů.</value>
+    <value>Kontrola podpory spouštěcích podpisů…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Export obrazu Windows pro přípravu spouštěcího obrazu.</value>
+    <value>Extrahování obrazu Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Konečné vytvoření média se nezdařilo.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Chyba nastala v kroku {0} z {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Dokončení výstupu ISO.</value>
+    <value>Ukládání souboru ISO…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formátování BOOT oddílu.</value>
+    <value>Formátování oddílu BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formátování oddílu mezipaměti.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Přizpůsobení spouštěcího obrazu dokončeno.</value>
+    <value>Formátování oddílu mezipaměti…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Inicializace tabulky oddílů USB.</value>
+    <value>Vytváření tabulky oddílů…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Vložení ovladačů do spouštěcího obrazu.</value>
+    <value>Přidávání ovladačů do spouštěcího obrazu…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Kontrola rozložení média USB.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>Médium ISO bylo dokončeno.</value>
+    <value>Čtení rozložení disku USB…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry nemohl nahradit soubor ISO v umístění {0}. Soubor může být připojený, připojený k virtuálnímu počítači, otevřený v jiném programu nebo jen pro čtení. Odpojte ho nebo zavřete, případně zvolte jinou výstupní cestu, a zkuste to znovu.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Médium ISO bylo úspěšně vytvořeno.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>Soubor ISO byl uložen do:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Velikost: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Na disku není dostatek místa pro vytvoření spouštěcího obrazu. Na {2} je potřeba alespoň {0} volného místa. K dispozici: {1}. Uvolněte místo a zkuste to znovu.</value>
@@ -3685,73 +3739,148 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Nepodařilo se ověřit dostupné místo na disku pro vytvoření spouštěcího obrazu v umístění {0}. Zkontrolujte, zda je umístění přístupné, a zkuste to znovu.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Připojování spouštěcího obrazu.</value>
+    <value>Otevírání spouštěcího obrazu…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Připojování zdrojového obrazu Windows.</value>
+    <value>Otevírání obrazu Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Otevřít složku</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Otevřít složku protokolů</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Otevření disku USB.</value>
+    <value>Otevírání disku USB…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Rozdělení a formátování USB target.</value>
+    <value>Rozdělování disku USB na oddíly…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Kopírování souborů na disk USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Vytváření souboru ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Přizpůsobení spouštěcího obrazu</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Získávání ovladačů</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Dokončování</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Formátování disku USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Příprava pracovního prostoru</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Aktualizace disku USB</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Příprava přizpůsobení spouštěcího obrazu.</value>
+    <value>Příprava spouštěcího obrazu…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Příprava komponent Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Příprava výstupní cesty ISO.</value>
+    <value>Příprava výstupní složky ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Příprava pracovního prostoru ISO.</value>
+    <value>Příprava souborů ISO…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Příprava poinstalačního obsahu…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Příprava oddílu mezipaměti USB.</value>
+    <value>Příprava oddílu mezipaměti…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Příprava atributů disku USB.</value>
+    <value>Příprava disku USB…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Příprava zdrojového balíčku Windows.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Příprava pracovního prostoru WinPE.</value>
+    <value>Získávání zdrojového balíčku Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Zřizování spouštěcích aktiv Foundry.</value>
+    <value>Přidávání spouštěcích souborů Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Přidání komponent nasazení Foundry.</value>
+    <value>Přidávání komponent Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Přidání komponent Foundry do média USB.</value>
+    <value>Přidávání komponent Foundry na disk USB…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Odebírání dočasných souborů…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Nahrazení spouštěcího obrazu pomocí WinRE.</value>
+    <value>Nahrazování spouštěcího obrazu prostředím Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Řešení balíčků ovladačů.</value>
+    <value>Zjišťování, které ovladače přidat…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Zjišťování indexu obrazu Windows.</value>
+    <value>Výběr edice Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Řešení zdrojového katalogu Windows.</value>
+    <value>Vyhledávání zdrojového balíčku Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Spuštění MakeWinPEMedia pro ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Vybraný zdrojový balíček Windows.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Příprava závislostí spouštěcího obrazu.</value>
+    <value>Kopírování požadovaných souborů z obrazu Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Krok {0} z {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Technické podrobnosti: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Vytváření ISO bylo zrušeno</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Vytvoření ISO se nezdařilo</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Vytváření ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO bylo vytvořeno</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Vytváření média USB bylo zrušeno</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Vytvoření média USB se nezdařilo</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Vytváření média USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>Médium USB bylo vytvořeno</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Aktualizace média USB byla zrušena</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Aktualizace média USB se nezdařila</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Aktualizace média USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>Médium USB bylo aktualizováno</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Vypršel časový limit přenosu. Zkontrolujte připojení a zkuste to znovu.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Aktualizace média USB.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Vytváření média zastavila neočekávaná chyba.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>Oddíl BOOT na USB potřebuje přibližně {0}, ale jeho kapacita je {1}. Nic nebylo smazáno ani naformátováno. Omezte přizpůsobení nebo ovladače, případně vytvořte ISO.</value>
@@ -3762,35 +3891,35 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Soubor na spouštěcím médiu má velikost {0}; FAT32 podporuje maximálně {1} na soubor. Zmenšete spouštěcí bitovou kopii nebo vytvořte ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>Spouštěcí oddíl USB byl aktualizován.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Z disku USB možná už nepůjde spustit zařízení. Před použitím ho znovu vytvořte nebo aktualizujte.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>Médium USB bylo dokončeno.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB oddíly naformátovány.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>Médium USB bylo úspěšně vytvořeno. Spouštěcí hlasitost: {0}. Objem mezipaměti: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>Spouštěcí oddíl USB byl úspěšně aktualizován. Spouštěcí svazek: {0}. Svazek mezipaměti: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Spouštěcí svazek: {0}. Svazek mezipaměti: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Ověřování cíle USB.</value>
+    <value>Kontrola disku USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Ověřování balíčku ovladačů {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Ověření spouštěcího média USB.</value>
+    <value>Ověřování spouštěcích souborů na disku USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Ověřování zdrojového balíčku Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Systém Windows zablokoval přístup k souborům image WinPE. Může je zamykat software zabezpečení nebo jiný nástroj. Přidejte v softwaru zabezpečení výjimku pro {0}, zavřete nástroje, které připojují image, restartujte počítač a zkuste to znovu. Podrobnosti najdete v {1} a {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Zápis souboru ISO…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Zkontrolujte připravenost, vyberte výstup ISO nebo USB a spusťte vytvoření média.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Zkontrolovat</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Zkontrolovat: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Připraveno</value>
@@ -3821,9 +3950,6 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Položky vyžadující pozornost:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Přesto vytvořit</value>
@@ -3877,6 +4003,15 @@ Použití aktualizace restartuje Foundry OSD.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE spouštěcí jazyk</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Balíčky: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Vyžaduje pozornost: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Vyžaduje pozornost: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Výchozí</value>
@@ -3957,7 +4092,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Zobrazovaný název</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Počet přeskočených souborů, které již jsou v katalogu: {0}.</value>
+    <value>Přeskočené soubory, které už jsou v katalogu: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Chcete-li používat tuto funkci, importujte alespoň jeden soubor odpovědí.</value>
@@ -4079,20 +4214,20 @@ Použití aktualizace restartuje Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nekontrolováno</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Aktualizaci se nepodařilo použít: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nemohl spustit aktualizaci. Zkuste ji použít znovu. Podrobnosti najdete v protokolu.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nemohl vyhledat aktualizace. Zkontrolujte síťové připojení a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Kontrola aktualizací</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Stažení aktualizace se nezdařilo: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Aktualizaci se nepodařilo stáhnout. Zkontrolujte síťové připojení a zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Stahování aktualizace</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Kontrola aktualizace selhala: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD je aktuální.</value>
@@ -4118,11 +4253,17 @@ Použití aktualizace restartuje Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Aktualizaci se nepodařilo použít</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Stažení aktualizace se nezdařilo</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Kontrola aktualizace se nezdařila</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Aktuální</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Aktualizace je připravená k instalaci</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Kontrola aktualizace byla přeskočena</value>
