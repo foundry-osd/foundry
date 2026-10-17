@@ -2116,6 +2116,21 @@ Licenc az MIT licenc alatt.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Windows PE-időzóna</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Alapértelmezett</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>A WinPE rendszerindítási környezetben használt billentyűzet. Az alapértelmezett a WinPE rendszerindítási nyelvét követi.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE billentyűzetkiosztás</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Billentyűzet nyelve</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Kiosztás</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Telepítse a Windows ADK és a Windows PE bővítményt, mielőtt kiválasztaná az WinPE rendszerindítási nyelvet.</value>
   </data>
@@ -3359,6 +3374,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>A kiválasztott USB cél túl kicsi. Használjon legalább 16 GB-os USB billentyűt.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>A kiválasztott WinPE billentyűzetkiosztás nincs telepítve ezen a számítógépen.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>A kiválasztott WinPE rendszerindítási nyelv nem érhető el a kiválasztott architektúrához.</value>

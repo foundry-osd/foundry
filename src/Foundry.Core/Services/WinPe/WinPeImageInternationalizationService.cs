@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.Globalization;
+
 namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeImageInternationalizationService : IWinPeImageInternationalizationService
@@ -58,6 +60,12 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                 $"Language: '{options.WinPeLanguage}'.");
         }
 
+        WinPeDiagnostic? keyboardLayoutError = ValidateKeyboardLayout(options.MountedImagePath, options.WinPeKeyboardLayout);
+        if (keyboardLayoutError is not null)
+        {
+            return WinPeResult.Failure(keyboardLayoutError);
+        }
+
         string optionalComponentsRoot = GetOptionalComponentsRootPath(tools.KitsRootPath, options.Architecture);
         if (!Directory.Exists(optionalComponentsRoot))
         {
@@ -85,6 +93,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             options.MountedImagePath,
             tools.DismPath,
             canonicalLocale,
+            options.WinPeKeyboardLayout?.InputLocale ?? canonicalLocale,
             options.WorkingDirectoryPath,
             options.DismProgress,
             cancellationToken).ConfigureAwait(false);
@@ -223,22 +232,24 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         string mountedImagePath,
         string dismPath,
         string canonicalLocale,
+        string inputLocale,
         string workingDirectoryPath,
         IProgress<WinPeDismProgress>? dismProgress,
         CancellationToken cancellationToken)
     {
-        string[] operations =
+        // Set-InputLocale runs after Set-AllIntl so a selected keyboard layout overrides the language default.
+        (string Operation, string Value)[] operations =
         [
-            "Set-AllIntl",
-            "Set-InputLocale"
+            ("Set-AllIntl", canonicalLocale),
+            ("Set-InputLocale", inputLocale)
         ];
 
-        foreach (string operation in operations)
+        foreach ((string operation, string value) in operations)
         {
             WinPeProcessExecution execution = await WinPeDismProcessRunner.RunAsync(
                 _processRunner,
                 dismPath,
-                $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /{operation}:{canonicalLocale}",
+                $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /{operation}:{value}",
                 workingDirectoryPath,
                 "Applying international settings with DISM.",
                 dismProgress,
@@ -249,12 +260,29 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                 return WinPeResult.Failure(execution.ToFailureDiagnostic(
                     WinPeErrorCodes.BuildFailed,
                     "Failed to apply WinPE international settings.",
-                    stage: $"Apply boot image international settings ({operation}:{canonicalLocale})",
+                    stage: $"Apply boot image international settings ({operation}:{value})",
                     toolName: "dism.exe"));
             }
         }
 
         return WinPeResult.Success();
+    }
+
+    private static WinPeDiagnostic? ValidateKeyboardLayout(string mountedImagePath, KeyboardLayout? keyboardLayout)
+    {
+        if (keyboardLayout is null)
+        {
+            return null;
+        }
+
+        // ARM64 and WinRE-based images are not guaranteed to ship every layout DLL of the amd64 ADK image.
+        string layoutFilePath = Path.Combine(mountedImagePath, "Windows", "System32", keyboardLayout.LayoutFile);
+        return File.Exists(layoutFilePath)
+            ? null
+            : new WinPeDiagnostic(
+                WinPeErrorCodes.ValidationFailed,
+                "The selected WinPE keyboard layout is not available in the boot image.",
+                $"Layout: '{keyboardLayout.Id}' ({keyboardLayout.LayoutFile}). Expected path: '{layoutFilePath}'.");
     }
 
     private static WinPeDiagnostic? ValidateOptions(WinPeImageInternationalizationOptions? options)

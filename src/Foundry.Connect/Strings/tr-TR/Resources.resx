@@ -155,6 +155,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
     <value>DHCP veya statik ağ yapılandırması bekleniyor</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Diğer diller</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arapça (Suudi Arabistan)</value>
   </data>
@@ -275,6 +278,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Hata ayıklama</value>
   </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Klavye</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Klavye ({0})</value>
+  </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Dil</value>
   </data>
@@ -310,6 +319,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>
+  </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Günlük dosyasını aç</value>
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Durumu yenile</value>

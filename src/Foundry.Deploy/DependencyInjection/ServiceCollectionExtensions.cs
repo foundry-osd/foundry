@@ -31,6 +31,7 @@ using Foundry.Deploy.Services.Wizard;
 using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;
 using Foundry.Utilities.Hardware;
+using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Runtime;
 using Foundry.Utilities.Storage;
@@ -52,6 +53,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<ILocalizationService, LocalizationService>();
         services.AddSingleton<IThemeService, ThemeService>();
+        services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher(KeyboardLayoutHandoff.DefaultPath));
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IDeploymentWizardStateService, DeploymentWizardStateService>();
         services.AddSingleton<IDeploymentWizardContextFactory, DeploymentWizardContextFactory>();

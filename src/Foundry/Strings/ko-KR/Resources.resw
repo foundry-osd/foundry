@@ -2116,6 +2116,21 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Windows PE 표준 시간대</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>기본값</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>WinPE 부트 환경에서 사용되는 키보드입니다. 기본값은 WinPE 부팅 언어를 따릅니다.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE 키보드 레이아웃</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>키보드 언어</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>레이아웃</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>WinPE 부팅 언어를 선택하기 전에 Windows ADK 및 Windows PE 추가 기능을 설치하세요.</value>
   </data>
@@ -3359,6 +3374,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>선택한 USB 대상이 너무 작습니다. 최소 16GB의 USB 키를 사용하세요.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>선택한 WinPE 키보드 레이아웃이 이 컴퓨터에 설치되어 있지 않습니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>선택한 WinPE 부팅 언어는 선택한 아키텍처에 사용할 수 없습니다.</value>

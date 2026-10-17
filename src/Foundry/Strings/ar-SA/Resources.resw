@@ -2116,6 +2116,21 @@
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>المنطقة الزمنية لـ Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>افتراضي</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>لوحة المفاتيح المستخدمة في بيئة التمهيد WinPE. يتبع الخيار الافتراضي لغة التمهيد WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>تخطيط لوحة مفاتيح WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>لغة لوحة المفاتيح</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>التخطيط</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>قم بتثبيت Windows ADK والوظيفة الإضافية Windows PE قبل تحديد لغة التمهيد WinPE.</value>
   </data>
@@ -3359,6 +3374,9 @@
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>الهدف USB المحدد صغير جدًا. استخدم مفتاح USB بسعة 16 GB على الأقل.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>تخطيط لوحة مفاتيح WinPE المحدد غير مثبت على هذا الكمبيوتر.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>لغة التمهيد WinPE المحددة غير متوفرة للبنية المحددة.</value>

@@ -2116,6 +2116,21 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Windows PE laiko juosta</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Numatytasis</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>WinPE įkrovos aplinkoje naudojama klaviatūra. Numatytasis atitinka WinPE įkrovos kalbą.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE klaviatūros išdėstymas</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Klaviatūros kalba</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Išdėstymas</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Įdiekite Windows ADK ir Windows PE priedą prieš pasirinkdami WinPE įkrovos kalbą.</value>
   </data>
@@ -3359,6 +3374,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Pasirinktas USB tikslas yra per mažas. Naudokite bent 16 GB USB klavišą.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Pasirinktas WinPE klaviatūros išdėstymas šiame kompiuteryje neįdiegtas.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Pasirinkta WinPE įkrovos kalba nepasiekiama pasirinktai architektūrai.</value>

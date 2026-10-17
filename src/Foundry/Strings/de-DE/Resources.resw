@@ -2116,6 +2116,21 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Windows PE-Zeitzone</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Tastatur, die in der WinPE Boot-Umgebung verwendet wird. Standard folgt der WinPE Boot-Sprache.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE-Tastaturlayout</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Tastatursprache</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Installieren Sie Windows ADK und das Windows PE Add-on, bevor Sie die Boot-Sprache WinPE auswählen.</value>
   </data>
@@ -3359,6 +3374,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Das ausgewählte USB Ziel ist zu klein. Verwenden Sie eine USB-Taste mit mindestens 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Das ausgewählte WinPE-Tastaturlayout ist auf diesem Computer nicht installiert.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Die ausgewählte WinPE Boot-Sprache ist für die ausgewählte Architektur nicht verfügbar.</value>

@@ -453,6 +453,9 @@ Action: Verify disk attributes and retry deployment.</value>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve">
     <value>View error details</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Other languages</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabic (Saudi Arabia)</value>
   </data>
@@ -587,6 +590,12 @@ Continue with deployment?</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Keyboard ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Language</value>

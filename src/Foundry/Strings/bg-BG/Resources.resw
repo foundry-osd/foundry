@@ -2116,6 +2116,21 @@
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Часова зона на Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>По подразбиране</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Клавиатура, използвана в средата за стартиране на WinPE. По подразбиране следва езика за стартиране на WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE клавиатурна подредба</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Език на клавиатурата</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Подредба</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Инсталирайте Windows ADK и добавката Windows PE, преди да изберете WinPE език за зареждане.</value>
   </data>
@@ -3359,6 +3374,9 @@
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Избраната цел USB е твърде малка. Използвайте ключ USB с поне 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Избраната клавиатурна подредба за WinPE не е инсталирана на този компютър.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Избраният WinPE език за стартиране не е наличен за избраната архитектура.</value>

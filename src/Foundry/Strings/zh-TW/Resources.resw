@@ -2116,6 +2116,21 @@
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Windows PE 時區</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>預設</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>WinPE 引導環境使用的鍵盤。預設值依循 WinPE 啟動語言。</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE 鍵盤配置</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>鍵盤語言</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>配置</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>在選擇WinPE 啟動語言之前安裝Windows ADK 和Windows PE 附加元件。</value>
   </data>
@@ -3359,6 +3374,9 @@
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>所選USB 目標太小。使用至少 16 GB 的 USB 金鑰。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>所選的 WinPE 鍵盤配置未安裝在此電腦上。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>所選 WinPE 引導語言不可用於所選架構。</value>

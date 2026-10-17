@@ -65,6 +65,35 @@
                         </StackPanel>
                     </wct:SettingsCard>
 
+                    <wct:SettingsCard x:Name="WinPeKeyboardCard">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE765;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                                <ComboBox x:Name="KeyboardLanguageComboBox"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    DisplayMemberPath="DisplayName"
+                                    IsEnabled="{x:Bind ViewModel.HasWinPeLanguages, Mode=OneWay}"
+                                    ItemsSource="{x:Bind ViewModel.KeyboardLanguageOptions, Mode=OneWay}"
+                                    SelectedItem="{x:Bind ViewModel.SelectedKeyboardLanguage, Mode=TwoWay}" />
+                                <ComboBox x:Name="KeyboardLayoutComboBox"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    DisplayMemberPath="DisplayName"
+                                    IsEnabled="{x:Bind ViewModel.HasWinPeLanguages, Mode=OneWay}"
+                                    ItemsSource="{x:Bind ViewModel.KeyboardLayoutOptions, Mode=OneWay}"
+                                    SelectedItem="{x:Bind ViewModel.SelectedKeyboardLayout, Mode=TwoWay}" />
+                            </StackPanel>
+                            <TextBlock
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.KeyboardLayoutUnavailableDescription, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.KeyboardLayoutUnavailableVisibility, Mode=OneWay}" />
+                        </StackPanel>
+                    </wct:SettingsCard>
+
                     <wct:SettingsCard x:Name="TimeZoneCard">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE823;" />
