@@ -22,7 +22,7 @@ internal sealed record KeyboardLayoutMenu(IReadOnlyList<KeyboardLayout> Suggeste
 internal sealed record KeyboardLanguageGroup(string BaseLanguage, string DisplayName, IReadOnlyList<KeyboardLayout> Layouts);
 
 /// <summary>
-/// One entry of a data-bound keyboard menu: a selectable layout, or a group whose children are entries.
+/// One entry of a data-bound keyboard menu: a selectable layout, a group whose children are entries, or a separator.
 /// </summary>
 /// <param name="LayoutId">KLID of a selectable layout, or <see langword="null"/> for a group.</param>
 /// <param name="Header">Text shown in the menu.</param>
@@ -31,9 +31,19 @@ internal sealed record KeyboardLanguageGroup(string BaseLanguage, string Display
 public sealed record KeyboardMenuEntry(string? LayoutId, string Header, bool IsSelected, IReadOnlyList<KeyboardMenuEntry> Children)
 {
     /// <summary>
+    /// Gets the separator drawn between the suggested layouts and the other languages.
+    /// </summary>
+    public static KeyboardMenuEntry Separator { get; } = new(null, string.Empty, false, []) { IsSeparator = true };
+
+    /// <summary>
     /// Gets whether the entry is a layout that can be checked.
     /// </summary>
     public bool IsCheckable => LayoutId is not null;
+
+    /// <summary>
+    /// Gets whether the entry is drawn as a separator line instead of a menu item.
+    /// </summary>
+    public bool IsSeparator { get; private init; }
 }
 
 /// <summary>
@@ -126,8 +136,8 @@ public static class KeyboardLayoutSelection
     }
 
     /// <summary>
-    /// Builds hierarchical menu entries: the active language's layouts, then one group holding every other language.
-    /// The group is omitted when there is no other language.
+    /// Builds hierarchical menu entries: the active language's layouts, a separator, then one group holding every other language.
+    /// The group is omitted when there is no other language, and the separator when either side is empty.
     /// </summary>
     public static IReadOnlyList<KeyboardMenuEntry> BuildMenuEntries(
         IReadOnlyList<KeyboardLayout> layouts,
@@ -146,6 +156,11 @@ public static class KeyboardLayoutSelection
                     false,
                     group.Layouts.Select(layout => CreateLayoutEntry(layout, activeId)).ToArray()))
                 .ToArray();
+            if (entries.Count > 0)
+            {
+                entries.Add(KeyboardMenuEntry.Separator);
+            }
+
             entries.Add(new KeyboardMenuEntry(null, otherLanguagesHeader, false, languages));
         }
 

@@ -114,10 +114,13 @@ public sealed class KeyboardLayoutSelectionTests
             "en-US",
             () => KeyboardLayoutSelection.BuildMenuEntries(Layouts, "0000040C", "Other languages"));
 
-        Assert.Equal(["0000080C", "0000040C", null], entries.Select(entry => entry.LayoutId));
+        Assert.Equal(["0000080C", "0000040C", null, null], entries.Select(entry => entry.LayoutId));
         Assert.True(entries[1].IsSelected);
         Assert.False(entries[0].IsSelected);
-        KeyboardMenuEntry other = entries[2];
+        Assert.True(entries[2].IsSeparator);
+        Assert.False(entries[2].IsCheckable);
+        KeyboardMenuEntry other = entries[3];
+        Assert.False(other.IsSeparator);
         Assert.Equal("Other languages", other.Header);
         Assert.False(other.IsCheckable);
         KeyboardMenuEntry dutch = Assert.Single(other.Children);
@@ -134,6 +137,16 @@ public sealed class KeyboardLayoutSelectionTests
             "Other languages");
 
         Assert.All(entries, entry => Assert.NotNull(entry.LayoutId));
+    }
+
+    [Fact]
+    public void BuildMenuEntries_WhenActiveLayoutIsUnknown_OmitsSeparator()
+    {
+        IReadOnlyList<KeyboardMenuEntry> entries = KeyboardLayoutSelection.BuildMenuEntries(Layouts, "E0010411", "Other languages");
+
+        KeyboardMenuEntry other = Assert.Single(entries);
+        Assert.False(other.IsSeparator);
+        Assert.Equal("Other languages", other.Header);
     }
 
     private static T WithUiCulture<T>(string cultureName, Func<T> action)

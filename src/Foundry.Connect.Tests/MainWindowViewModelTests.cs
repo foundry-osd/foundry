@@ -421,9 +421,10 @@ public sealed class MainWindowViewModelTests
             new QueueNetworkStatusService(CreateReadySnapshot()),
             keyboardLayoutSwitcher: new FakeKeyboardLayoutSwitcher("0000040C"));
 
-        Assert.Equal(["0000080C", "0000040C", null], viewModel.KeyboardMenuEntries.Select(entry => entry.LayoutId));
+        Assert.Equal(["0000080C", "0000040C", null, null], viewModel.KeyboardMenuEntries.Select(entry => entry.LayoutId));
         Assert.True(viewModel.KeyboardMenuEntries[1].IsSelected);
-        KeyboardMenuEntry dutch = Assert.Single(viewModel.KeyboardMenuEntries[2].Children);
+        Assert.True(viewModel.KeyboardMenuEntries[2].IsSeparator);
+        KeyboardMenuEntry dutch = Assert.Single(viewModel.KeyboardMenuEntries[3].Children);
         Assert.Equal(["00000413"], dutch.Children.Select(entry => entry.LayoutId));
         Assert.Contains("FR", viewModel.KeyboardMenuHeader, StringComparison.Ordinal);
     }
