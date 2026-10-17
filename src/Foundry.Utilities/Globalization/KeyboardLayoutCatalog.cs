@@ -16,6 +16,7 @@ public static class KeyboardLayoutCatalog
 {
     private const string KeyboardLayoutsRegistryPath = @"SYSTEM\CurrentControlSet\Control\Keyboard Layouts";
     private const int DisplayNameBufferLength = 256;
+    private static readonly Lazy<IReadOnlyList<KeyboardLayout>> Installed = new(LoadInstalled);
 
     // Layouts whose KLID language part is not the language Windows pairs them with.
     private static readonly Dictionary<string, (string BaseLanguage, int InputLanguageId)> LanguageOverrides =
@@ -47,8 +48,6 @@ public static class KeyboardLayoutCatalog
             .ThenBy(layout => layout.DisplayName, StringComparer.CurrentCultureIgnoreCase)
             .ToArray();
     }
-
-    private static readonly Lazy<IReadOnlyList<KeyboardLayout>> Installed = new(LoadInstalled);
 
     /// <summary>
     /// Gets the installed keyboard layouts, read once per process. Layouts do not change while Foundry runs,

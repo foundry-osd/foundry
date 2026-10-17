@@ -13,7 +13,7 @@ namespace Foundry.Utilities.Globalization;
 /// <summary>
 /// Switches keyboard layouts with user32 for the current process and, in Windows PE, with <c>wpeutil SetKeyboardLayout</c>
 /// for processes started afterwards. The choice is written to a hand-off file so the next WinPE application can restore it.
-/// Outside Windows PE only the current process changes, so debugging never alters the host's keyboard settings.
+/// Outside Windows PE only the current process switches; Windows keeps the loaded layout in the session until sign-out.
 /// </summary>
 public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
 {
@@ -123,8 +123,14 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
         }
 
         KeyboardLayout? layout = KeyboardLayoutSelection.Find(GetLayouts(), layoutId);
-        return layout is null
-            ? new KeyboardLayoutSwitchResult(false, layoutId, "The handed-off keyboard layout is not installed.")
+        if (layout is null)
+        {
+            return new KeyboardLayoutSwitchResult(false, layoutId, "The handed-off keyboard layout is not installed.");
+        }
+
+        // wpeutil usually passed the layout on already; calling it again only delays startup.
+        return getActiveLayoutId() == layout.Id
+            ? new KeyboardLayoutSwitchResult(true, layout.Id, null)
             : Apply(layout);
     }
 
@@ -173,7 +179,7 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
         }
     }
 
-    [DllImport("user32.dll", EntryPoint = "LoadKeyboardLayoutW", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = true)]
+    [DllImport("user32.dll", EntryPoint = "LoadKeyboardLayoutW", CharSet = CharSet.Unicode, ExactSpelling = true)]
     [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
     private static extern IntPtr LoadKeyboardLayout(string layoutId, uint flags);
 
