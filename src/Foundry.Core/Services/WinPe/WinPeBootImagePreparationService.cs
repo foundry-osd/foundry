@@ -28,6 +28,11 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
     public static readonly Uri DefaultOperatingSystemCatalogUri =
         new("https://raw.githubusercontent.com/foundry-osd/catalog/refs/heads/main/Cache/OS/OperatingSystem.xml");
 
+    private static readonly WinPeDownloadProgress WindowsSourceDownload = new()
+    {
+        Status = WinPeProgressStatuses.DownloadingWindowsSourcePackage
+    };
+
     private static readonly string[] RequiredWirelessDependencyFiles =
     [
         "dmcmnutils.dll",
@@ -76,7 +81,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             return WinPeResult<WinPeBootImagePreparationResult>.Failure(validationError);
         }
 
-        ReportProgress(options.Progress, 2, "Resolving Windows source catalog.");
+        ReportProgress(options.Progress, 2, WinPeProgressStatuses.ResolvingWindowsSourceCatalog);
         WinPeResult<IReadOnlyList<WindowsSourceCandidate>> candidatesResult = await SelectCatalogCandidatesAsync(
             options.CatalogUri,
             options.Artifact.Architecture,
@@ -88,7 +93,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             return WinPeResult<WinPeBootImagePreparationResult>.Failure(candidatesResult.Error!);
         }
 
-        ReportProgress(options.Progress, 4, "Selected Windows source package.");
+        ReportProgress(options.Progress, 4, WinPeProgressStatuses.SelectedWindowsSourcePackage);
         var failures = new List<WinPeDiagnostic>();
         foreach (WindowsSourceCandidate candidate in candidatesResult.Value!)
         {
@@ -432,7 +437,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 if (!cleanup.IsSuccess) return WinPeResult<WinPeBootImagePreparationResult>.Failure(cleanup.Error!);
                 Directory.CreateDirectory(sourceDirectory);
                 Directory.CreateDirectory(exportDirectory);
-                ReportProgress(options.Progress, 5, "Preparing Windows source package.");
+                ReportProgress(options.Progress, 5, WinPeProgressStatuses.PreparingWindowsSourcePackage);
 
                 WinPeResult<CachedArtifactLease> sourcePathResult = await EnsureDownloadedAsync(
                     options.CacheDirectoryPath,
@@ -446,7 +451,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 }
 
                 await using CachedArtifactLease sourceLease = sourcePathResult.Value!;
-                ReportProgress(options.Progress, 16, "Resolving Windows image index.");
+                ReportProgress(options.Progress, 16, WinPeProgressStatuses.ResolvingWindowsImageIndex);
                 WinPeResult<int> indexResult = await ResolveImageIndexAsync(
                     sourceLease.Path,
                     candidate.RequestedEdition,
@@ -457,15 +462,15 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                     return WinPeResult<WinPeBootImagePreparationResult>.Failure(indexResult.Error!);
                 }
 
-                ReportProgress(options.Progress, 19, "Exporting Windows image for boot image preparation.");
+                ReportProgress(options.Progress, 19, WinPeProgressStatuses.ExportingWindowsSourceImage);
                 cancellationToken.ThrowIfCancellationRequested();
                 WinPeProcessExecution exportResult = await WinPeDismProcessRunner.RunAsync(
                     _processRunner,
                     options.Tools.DismPath,
                     $"/Export-Image /SourceImageFile:{WinPeProcessRunner.Quote(sourceLease.Path)} /SourceIndex:{indexResult.Value} /DestinationImageFile:{WinPeProcessRunner.Quote(installWimPath)} /Compress:max /CheckIntegrity",
                     options.Artifact.WorkingDirectoryPath,
-                    "Exporting Windows image with DISM.",
-                    CreateDismProgress(options.Progress, 19, "Exporting Windows image for boot image preparation."),
+                    WinPeProgressStatuses.DismExportingWindowsImage,
+                    CreateDismProgress(options.Progress, 19, WinPeProgressStatuses.ExportingWindowsSourceImage),
                     CancellationToken.None).ConfigureAwait(false);
 
                 if (!exportResult.IsSuccess)
@@ -491,7 +496,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                         toolName: "dism.exe"));
                 }
 
-                ReportProgress(options.Progress, 24, "Mounting Windows source image.");
+                ReportProgress(options.Progress, 24, WinPeProgressStatuses.MountingWindowsSourceImage);
                 cancellationToken.ThrowIfCancellationRequested();
                 WinPeResult<WinPeMountSession> mountResult = await WinPeMountSession.MountAsync(
                     _processRunner,
@@ -500,7 +505,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                     mountDirectory,
                     options.Artifact.WorkingDirectoryPath,
                     CancellationToken.None,
-                    CreateDismProgress(options.Progress, 24, "Mounting Windows source image.")).ConfigureAwait(false);
+                    CreateDismProgress(options.Progress, 24, WinPeProgressStatuses.MountingWindowsSourceImage)).ConfigureAwait(false);
 
                 if (!mountResult.IsSuccess)
                 {
@@ -520,7 +525,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                         session).ConfigureAwait(false);
                 }
 
-                ReportProgress(options.Progress, 27, "Staging boot image dependencies.");
+                ReportProgress(options.Progress, 27, WinPeProgressStatuses.StagingBootImageDependencies);
                 WinPeResult<WinPeBootImagePreparationResult> dependencyResult = PrepareDependencyFiles(
                     mountDirectory,
                     dependencyDirectory,
@@ -534,7 +539,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
 
                 if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
                 {
-                    ReportProgress(options.Progress, 29, "Replacing boot image with WinRE.");
+                    ReportProgress(options.Progress, 29, WinPeProgressStatuses.ReplacingBootImageWithWinRe);
                     Directory.CreateDirectory(Path.GetDirectoryName(options.Artifact.BootWimPath)!);
                     File.Copy(winRePath, options.Artifact.BootWimPath, overwrite: true);
                 }
@@ -548,7 +553,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
 
                 TryDeleteDirectory(exportDirectory);
                 TryDeleteDirectory(mountDirectory);
-                ReportProgress(options.Progress, 30, "Boot image dependencies are ready.");
+                ReportProgress(options.Progress, 30, WinPeProgressStatuses.BootImageDependenciesReady);
                 return dependencyResult;
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
@@ -606,7 +611,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                         }
                     }
                 }
-                ReportDownloadProgress(progress, 0, "Downloading Windows source package.");
+                WinPeDownloadReporting.Report(progress, WindowsSourceDownload, 0);
                 await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
                 {
                     using HttpResponseMessage response = await _httpClient.GetAsync(sourceUri, HttpCompletionOption.ResponseHeadersRead, transferToken).ConfigureAwait(false);
@@ -614,7 +619,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                     long? length = response.Content.Headers.ContentLength;
                     await using Stream input = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false);
                     await using var output = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.None, 81920, useAsync: true);
-                    await CopyDownloadToFileAsync(input, output, length, progress, reportProgress, transferToken).ConfigureAwait(false);
+                    await WinPeDownloadReporting.CopyAsync(input, output, length, WindowsSourceDownload, progress, reportProgress, transferToken).ConfigureAwait(false);
                     if (length.HasValue && output.Length != length.Value) throw new InvalidDataException("Windows source transfer is incomplete.");
                     return true;
                 }, token).ConfigureAwait(false);
@@ -622,8 +627,12 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             // Publication has succeeded and the lease protects the new original. A legacy file
             // still held by an older process is left in place by best-effort deletion.
             if (adoptedPath is not null) TryDeleteFile(adoptedPath);
-            ReportDownloadProgress(progress, 100, lease.CacheHit || adoptedPath is not null
-                ? "Reusing verified Windows source package." : "Windows source package downloaded and verified.");
+            WinPeDownloadReporting.Report(progress, new WinPeDownloadProgress
+            {
+                Status = lease.CacheHit || adoptedPath is not null
+                    ? WinPeProgressStatuses.ReusingWindowsSourcePackage
+                    : WinPeProgressStatuses.WindowsSourcePackageReady
+            }, 100);
             return WinPeResult<CachedArtifactLease>.Success(lease);
         }
         catch (Exception exception) when (exception is HttpRequestException or IOException or UnauthorizedAccessException or TimeoutException or ArgumentException)
@@ -631,53 +640,6 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             return WinPeResult<CachedArtifactLease>.Failure(new WinPeDiagnostic(
                 exception is InvalidDataException or ArgumentException ? WinPeErrorCodes.HashMismatch : WinPeErrorCodes.DownloadFailed,
                 "Failed to acquire a verified Windows source package.", exception.Message, exception: exception));
-        }
-    }
-    private static async Task CopyDownloadToFileAsync(
-        Stream sourceStream,
-        FileStream destinationStream,
-        long? totalBytes,
-        IProgress<WinPeDownloadProgress>? progress,
-        Action reportProgress,
-        CancellationToken cancellationToken)
-    {
-        int lastReportedPercent = -1;
-        long bytesWritten = await StreamCopy.CopyAsync(
-            sourceStream,
-            destinationStream,
-            copiedBytes =>
-            {
-                reportProgress();
-                double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
-                if (percentage.HasValue)
-                {
-                    int downloadPercent = (int)percentage.Value;
-                    if (downloadPercent == lastReportedPercent)
-                    {
-                        return;
-                    }
-
-                    lastReportedPercent = downloadPercent;
-                    ReportDownloadProgress(
-                        progress,
-                        downloadPercent,
-                        $"Downloading Windows source package ({FormatBytes(copiedBytes)} / {FormatBytes(totalBytes.GetValueOrDefault())}).");
-                    return;
-                }
-
-                ReportDownloadProgress(
-                    progress,
-                    null,
-                    $"Downloading Windows source package ({FormatBytes(copiedBytes)}).");
-            },
-            cancellationToken).ConfigureAwait(false);
-
-        if (totalBytes is > 0)
-        {
-            ReportDownloadProgress(
-                progress,
-                100,
-                $"Downloading Windows source package ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)}).");
         }
     }
 
@@ -802,40 +764,12 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         });
     }
 
-    private static void ReportDownloadProgress(IProgress<WinPeDownloadProgress>? progress, int? percent, string status)
-    {
-        progress?.Report(new WinPeDownloadProgress
-        {
-            Percent = percent.HasValue
-                ? Math.Clamp(percent.Value, 0, 100)
-                : null,
-            Status = status
-        });
-    }
-
     private static IProgress<WinPeDismProgress>? CreateDismProgress(
         IProgress<WinPeMountedImageCustomizationProgress>? progress,
         int percent,
         string status)
     {
         return progress is null ? null : new WinPeDismProgressForwarder(progress, percent, status);
-    }
-
-    private static string FormatBytes(long bytes)
-    {
-        string[] units = ["B", "KB", "MB", "GB", "TB"];
-        double value = bytes;
-        int unitIndex = 0;
-
-        while (value >= 1024 && unitIndex < units.Length - 1)
-        {
-            value /= 1024;
-            unitIndex++;
-        }
-
-        return unitIndex == 0
-            ? $"{bytes} {units[unitIndex]}"
-            : $"{value:F1} {units[unitIndex]}";
     }
 
     private static string ReadElement(XElement parent, string elementName)

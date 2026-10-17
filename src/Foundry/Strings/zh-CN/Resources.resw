@@ -98,10 +98,16 @@
     <value>媒体创作能力</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK 操作已取消。</value>
+    <value>安装已取消。</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Windows ADK 安装已取消</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK操作完成</value>
+    <value>Windows ADK 和 Windows PE 加载项已就绪。现在可以创建启动介质。</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK 已安装</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>使用缓存的ADK安装程序</value>
@@ -113,10 +119,16 @@
     <value>正在下载ADK安装程序</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK操作失败</value>
+    <value>安装未完成。详细信息请参阅日志。</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Windows ADK 安装失败</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>安装Windows ADK</value>
+    <value>正在准备安装…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>正在安装 Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>安装Windows ADK 部署工具</value>
@@ -127,6 +139,9 @@
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>安装已完成。请检查剩余的 ADK 要求。</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK 需要处理</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>删除现有的 Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>正在准备安装 Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>正在升级 Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>验证ADK安装</value>
@@ -2689,9 +2707,6 @@
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>内容状态</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>已验证安装后内容。</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>出错时继续</value>
   </data>
@@ -2820,9 +2835,6 @@
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>脚本参数</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>正在暂存安装后内容。</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>成功退出代码（以逗号分隔）</value>
@@ -3252,11 +3264,14 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新应用程序</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>操作完成</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>停止操作</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>操作正在进行中</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>选择“停止操作”以确认。正在运行的磁盘或映像步骤会先完成。</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>已用时间：{0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>正在安全停止。可能需要等待当前磁盘或映像操作结束，才能完成清理。</value>
@@ -3327,6 +3342,12 @@
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot 使用不受支持的配置模式。</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>创建介质前，请先解决以下问题：</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>无法开始创建介质。请检查“开始”页上的就绪项目。</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK 或WinPE 附加组件尚未准备好。</value>
   </data>
@@ -3374,12 +3395,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>所选 WinPE 引导语言不可用于所选架构。</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>标准WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi 图像</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>乙</value>
@@ -3462,23 +3477,8 @@
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>建筑</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>启动镜像源</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>连接配置</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>部署配置</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>司机</value>
@@ -3486,23 +3486,8 @@
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB格式模式</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO输出路径</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>网络配置</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB分区样式</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>媒体秘密</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>签名模式</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB目标</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE启动语言</value>
@@ -3518,6 +3503,9 @@
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>当所有准备情况检查通过后，即可进行媒体创建。</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>若要开始，请在下方选择 ISO 或 USB 输出。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>完整格式</value>
@@ -3547,52 +3535,49 @@
     <value>已跳过 OOBE 帐户创建</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>应用语言和可选组件。</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>启动映像依赖项已准备就绪。</value>
+    <value>正在添加语言和可选组件…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>创建 WinPE 工作区。</value>
+    <value>正在创建 WinPE 工作区…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>已取消创建媒体。</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0}/{1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>介质创建已取消。</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>检查USB目标安全。</value>
+    <value>正在确认可以安全擦除 USB 驱动器…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>清洁WinPE工作区。</value>
+    <value>正在清理上次运行留下的文件…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>清除USB分区表。</value>
+    <value>正在擦除 USB 驱动器…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>提交启动映像更改。</value>
+    <value>正在保存启动映像…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>最终媒体创建完成。</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>正在复制自定义 Windows 映像…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>正在复制安装后操作内容…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>正在将WinPE 媒体复制到USB。</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>创建 ISO 媒体。</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>创建 USB 媒体。</value>
+    <value>正在将 WinPE 文件复制到 USB 驱动器…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>创建BOOT分区。</value>
+    <value>正在创建 BOOT 分区…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>创建缓存分区。</value>
+    <value>正在创建缓存分区…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>自定义驱动程序的总大小至少为 {0}，上限为 {1}。请仅选择 Windows PE 所需的网络和存储驱动程序。</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>自定义启动映像。</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>USB 驱动器标识缺失、不明确或已更改。请刷新 USB 驱动器列表并重新选择驱动器。</value>
@@ -3601,82 +3586,64 @@
     <value>无法再安全地修改所选 USB 驱动器。请刷新 USB 驱动器列表并选择另一个 USB 驱动器。</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>使用DISM 应用国际设置。</value>
+    <value>正在应用语言设置…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>使用DISM应用语言包。</value>
+    <value>正在添加语言包…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>使用 DISM 应用可选组件。</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>使用DISM 提交图像更改。</value>
+    <value>正在添加可选组件…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>使用 DISM 放弃已装载的图像。</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>使用DISM 导出Windows 图像。</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>使用 DISM 注入驱动程序。</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>使用DISM 安装图像。</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>使用 DISM 解析 Windows 图像索引。</value>
+    <value>正在丢弃上次运行遗留的已装载映像…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>下载内容。</value>
+    <value>正在下载</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>下载驱动包</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>正在下载 {2} 驱动程序包 {0}/{1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>正在下载{0}部署组件。</value>
+    <value>正在下载 {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>正在下载 Windows 源包。</value>
+    <value>正在下载 Windows 源包</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>评估启动签名策略。</value>
+    <value>正在检查启动签名支持…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>正在导出 Windows 映像以准备启动映像。</value>
+    <value>正在提取 Windows 映像…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>最终媒体创建失败。</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>在第 {0} 步（共 {1} 步）失败：{2}。</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>完成 ISO 输出。</value>
+    <value>正在保存 ISO 文件…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>格式化BOOT分区。</value>
+    <value>正在格式化 BOOT 分区…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>格式化缓存分区。</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>启动镜像定制完成。</value>
+    <value>正在格式化缓存分区…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>正在初始化USB分区表。</value>
+    <value>正在创建分区表…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>将驱动程序注入启动映像。</value>
+    <value>正在将驱动程序添加到启动映像…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>正在检查 USB 介质布局。</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO媒体已完成。</value>
+    <value>正在读取 USB 驱动器布局…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry 无法替换位于 {0} 的 ISO 文件。该文件可能已装载、已附加到虚拟机、在其他程序中打开或为只读。请卸载或关闭该文件，或选择其他输出路径，然后重试。</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>ISO 媒体已成功创建。</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO 文件已保存到：</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>大小：{0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>磁盘空间不足，无法创建启动映像。{2} 上至少需要 {0} 可用空间。当前可用：{1}。请释放空间后重试。</value>
@@ -3685,73 +3652,148 @@
     <value>无法验证位置 {0} 上用于创建启动映像的可用磁盘空间。请检查该位置是否可访问，然后重试。</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>安装启动映像。</value>
+    <value>正在打开启动映像…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>挂载 Windows 源映像。</value>
+    <value>正在打开 Windows 映像…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>打开文件夹</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>打开日志文件夹</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>打开USB磁盘。</value>
+    <value>正在打开 USB 驱动器…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>对USB目标进行分区和格式化。</value>
+    <value>正在对 USB 驱动器进行分区…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>将文件复制到 USB 驱动器</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>创建 ISO 文件</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>自定义启动映像</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>获取驱动程序</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>完成收尾</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>格式化 USB 驱动器</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>准备工作区</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>更新 USB 驱动器</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>准备启动映像定制。</value>
+    <value>正在准备启动映像…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>正在准备 Foundry 组件…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>准备ISO输出路径。</value>
+    <value>正在准备 ISO 输出文件夹…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>正在准备ISO工作区。</value>
+    <value>正在准备 ISO 文件…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>正在准备安装后操作内容…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>正在准备USB缓存分区。</value>
+    <value>正在准备缓存分区…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>准备USB磁盘属性。</value>
+    <value>正在准备 USB 驱动器…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>正在准备 Windows 源包。</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>正在准备WinPE工作区。</value>
+    <value>正在获取 Windows 源包…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>配置Foundry启动资产。</value>
+    <value>正在添加 Foundry 启动文件…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>添加Foundry部署组件。</value>
+    <value>正在添加 Foundry 组件…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>将Foundry 组件添加到USB 媒体。</value>
+    <value>正在将 Foundry 组件添加到 USB 驱动器…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>正在删除临时文件…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>使用 WinRE 替换启动映像。</value>
+    <value>正在将启动映像替换为 Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>解决驱动程序包。</value>
+    <value>正在确定要添加的驱动程序…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>正在解析 Windows 图像索引。</value>
+    <value>正在选择 Windows 版本…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>正在解析 Windows 源目录。</value>
+    <value>正在查找 Windows 源包…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>为 ISO 运行 MakeWinPEMedia。</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>已选择 Windows 源包。</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>详细信息请参阅日志。</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>正在暂存启动映像依赖项。</value>
+    <value>正在从 Windows 映像复制所需文件…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>第 {0} 步，共 {1} 步：{2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>技术详细信息：{0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>ISO 创建已取消</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>ISO 创建失败</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>正在创建 ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO 已创建</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>USB 介质创建已取消</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>USB 介质创建失败</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>正在创建 USB 介质</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB 介质已创建</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>USB 介质更新已取消</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>USB 介质更新失败</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>正在更新 USB 介质</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB 介质已更新</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>传输超时。请检查连接后重试。</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>正在更新 USB 介质。</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>意外错误导致介质创建停止。</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB BOOT 分区大约需要 {0}，但其容量为 {1}。尚未执行任何擦除或格式化操作。请减少自定义内容或驱动程序，或创建 ISO。</value>
@@ -3762,35 +3804,35 @@
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>启动介质中的某个文件大小为 {0}，而 FAT32 支持的单个文件大小上限为 {1}。请减小启动映像的大小或创建 ISO。</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB 启动分区已更新。</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>该 USB 驱动器可能无法再启动设备。请在使用前重新创建或更新它。</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB媒体已完成。</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB 分区已格式化。</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB媒体已成功创建。启动卷：{0}。缓存卷：{1}。</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB 启动分区已成功更新。启动卷: {0}。缓存卷: {1}。</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>启动卷：{0}。缓存卷：{1}。</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>正在验证USB目标。</value>
+    <value>正在检查 USB 驱动器…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>正在验证 {0} 驱动程序包</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>正在验证 USB 启动介质。</value>
+    <value>正在验证 USB 启动文件…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>正在验证 Windows 源包</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows 阻止了对 WinPE 映像文件的访问。安全软件或其他工具可能正在锁定这些文件。请在安全软件中为 {0} 添加排除项，关闭用于装载映像的工具，重启计算机，然后重试。详细信息位于 {1} 和 {2} 中。</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>正在写入 ISO 文件…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>检查就绪情况，选择 ISO 或 USB 输出，然后开始创建媒体。</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>评论</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>检查{0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>准备好</value>
@@ -3821,9 +3863,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>需要注意的事项：</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>仍然创建</value>
@@ -3877,6 +3916,15 @@
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE启动语言</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>程序包：{0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>需要处理：{0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>需要处理：{0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>默认</value>

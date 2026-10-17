@@ -98,10 +98,16 @@ Licenseret under MIT-licensen.</value>
     <value>Mulighed for at skabe medier</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK-handlingen blev annulleret.</value>
+    <value>Installationen blev annulleret.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Installationen af Windows ADK blev annulleret</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK handling afsluttet</value>
+    <value>Windows ADK og Windows PE-tilføjelsesprogrammet er klar. Du kan nu oprette startmedier.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK er installeret</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Bruger cachelagret ADK installationsprogram</value>
@@ -113,9 +119,15 @@ Licenseret under MIT-licensen.</value>
     <value>Downloader ADK installationsprogrammet</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK handling mislykkedes</value>
+    <value>Installationen blev ikke fuldført. Se logfilen for at få flere oplysninger.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Installationen af Windows ADK mislykkedes</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Forbereder installationen…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Installerer Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -127,6 +139,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Installationen er afsluttet. Gennemgå de resterende ADK-krav.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK kræver opmærksomhed</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Fjernelse af eksisterende Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Forbereder installation af Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Opgraderer Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Bekræfter ADK installation</value>
@@ -2689,9 +2707,6 @@ Licenseret under MIT-licensen.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Indholdsstatus</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Indhold til efter installationen er verificeret.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Fortsæt ved fejl</value>
   </data>
@@ -2820,9 +2835,6 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Scriptargumenter</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Klargør indhold til efter installationen.</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Afslutningskoder for succes (kommaseparerede)</value>
@@ -3252,11 +3264,14 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Opdater app</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operation færdig</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Stop handling</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Drift i gang</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Vælg Stop handling for at bekræfte. Et igangværende trin på disken eller diskafbildningen afsluttes først.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Forløbet tid: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Stopper på en sikker måde. Den aktuelle handling på disken eller diskafbildningen skal muligvis afsluttes, før oprydningen kan fuldføres.</value>
@@ -3327,6 +3342,12 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot bruger en ikke-understøttet klargøringstilstand.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Løs følgende, før du opretter medier:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Oprettelse af medier kan ikke starte. Kontrollér klarhedspunkterne på siden Start.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK eller WinPE Add-on er ikke klar.</value>
   </data>
@@ -3374,12 +3395,6 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Det valgte WinPE bootsprog er ikke tilgængeligt for den valgte arkitektur.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi billede</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3462,23 +3477,8 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Arkitektur</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Kilde til bootbilled</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Tilslut klargøring</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Implementer konfiguration</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Chauffører</value>
@@ -3486,23 +3486,8 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formattilstand</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO outputsti</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Netværkskonfiguration</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB partitionsstil</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Mediernes hemmeligheder</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Signaturtilstand</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB mål</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE bootsprog</value>
@@ -3518,6 +3503,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Medieoprettelse er tilgængelig, når alle beredskabskontroller er bestået.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Vælg ISO- eller USB-output nedenfor for at komme i gang.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Fuldt format</value>
@@ -3547,52 +3535,49 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>OOBE-kontooprettelse sprunget over</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Anvendelse af sprog og valgfri komponenter.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Startbilledets afhængigheder er klar.</value>
+    <value>Tilføjer sproget og valgfrie komponenter…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Oprettelse af WinPE arbejdsområde.</value>
+    <value>Opretter WinPE-arbejdsområdet…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Medieoprettelsen blev annulleret.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} af {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>Oprettelsen af mediet blev annulleret.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Kontrollerer USB målsikkerhed.</value>
+    <value>Kontrollerer, at USB-drevet kan slettes sikkert…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Rengøring af WinPE arbejdsområde.</value>
+    <value>Rydder op i filer fra en tidligere kørsel…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Rydder USB partitionstabel.</value>
+    <value>Sletter USB-drevet…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Begår ændringer af bootimage.</value>
+    <value>Gemmer startafbildningen…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Den endelige medieoprettelse afsluttet.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Kopierer brugerdefinerede Windows-afbildninger…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Kopierer indhold til efterinstallation…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Kopierer WinPE medier til USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Oprettelse af ISO medier.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Oprettelse af USB medier.</value>
+    <value>Kopierer WinPE-filer til USB-drevet…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Oprettelse af BOOT-partition.</value>
+    <value>Opretter BOOT-partitionen…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Opretter cache-partition.</value>
+    <value>Opretter cachepartitionen…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>De brugerdefinerede drivere fylder mindst {0}; maksimum er {1}. Vælg kun de netværks- og lagerdrivere, som Windows PE har brug for.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Tilpasning af boot-billedet.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>USB-drevets identitet mangler, er tvetydig eller er ændret. Opdater listen over USB-drev, og vælg drevet igen.</value>
@@ -3601,82 +3586,64 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Det valgte USB-drev kan ikke længere ændres sikkert. Opdater listen over USB-drev, og vælg et andet USB-drev.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Anvendelse af internationale indstillinger med DISM.</value>
+    <value>Anvender sprogindstillinger…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Anvender sprogpakke med DISM.</value>
+    <value>Tilføjer sprogpakken…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Anvendelse af valgfrie komponenter med DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Begår billedændringer med DISM.</value>
+    <value>Tilføjer valgfrie komponenter…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Kasserer det monterede billede med DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Eksporterer Windows billede med DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Injektion af drivere med DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Montering af billede med DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Løsning af Windows-billedindeks med DISM.</value>
+    <value>Kasserer en afbildning, som en tidligere kørsel efterlod monteret…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Downloader indhold.</value>
+    <value>Downloader</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Downloader driverpakke</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Downloader {2}-driverpakke {0} af {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Downloader {0} implementeringskomponenter.</value>
+    <value>Downloader {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Downloader Windows-kildepakken.</value>
+    <value>Downloader Windows-kildepakken</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Evaluering af bootsignaturpolitik.</value>
+    <value>Kontrollerer understøttelse af startsignatur…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Eksporterer Windows-billede til klargøring af startbilledet.</value>
+    <value>Udpakker Windows-afbildningen…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Den endelige medieoprettelse mislykkedes.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Det mislykkedes under trin {0} af {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Afslutter ISO output.</value>
+    <value>Gemmer ISO-filen…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formatering af BOOT-partition.</value>
+    <value>Formaterer BOOT-partitionen…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formatering af cache-partition.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Tilpasning af opstartsbillede fuldført.</value>
+    <value>Formaterer cachepartitionen…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Initialiserer USB partitionstabel.</value>
+    <value>Opretter partitionstabellen…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Injicerer drivere i boot-billedet.</value>
+    <value>Føjer drivere til startafbildningen…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Undersøger USB-mediets layout.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO medie afsluttet.</value>
+    <value>Læser USB-drevets layout…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry kunne ikke erstatte ISO-filen på {0}. Filen er muligvis monteret, tilknyttet en virtuel maskine, åben i et andet program eller skrivebeskyttet. Afmonter eller luk den, eller vælg en anden outputsti, og prøv derefter igen.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Mediet ISO blev oprettet.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO-filen blev gemt her:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Størrelse: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Der er ikke nok diskplads til at oprette startafbildningen. Der kræves mindst {0} ledig plads på {2}. Tilgængeligt: {1}. Frigør plads, og prøv igen.</value>
@@ -3685,73 +3652,148 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Den tilgængelige diskplads til oprettelse af startafbildningen kunne ikke verificeres på {0}. Kontrollér, at placeringen er tilgængelig, og prøv igen.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Monteringsstøvlebillede.</value>
+    <value>Åbner startafbildningen…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Montering af Windows-kildebillede.</value>
+    <value>Åbner Windows-afbildningen…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Åbn mappe</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Åbn logmappe</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Åbner USB disk.</value>
+    <value>Åbner USB-drevet…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Partitionering og formatering USB mål.</value>
+    <value>Partitionerer USB-drevet…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Kopierer filer til USB-drevet</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Opretter ISO-filen</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Tilpasser startafbildningen</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Henter drivere</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Afslutter</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Formaterer USB-drevet</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Forbereder arbejdsområdet</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Opdaterer USB-drevet</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Forbereder tilpasning af boot image.</value>
+    <value>Forbereder startafbildningen…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Forbereder Foundry-komponenter…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Forbereder ISO outputsti.</value>
+    <value>Forbereder outputmappen til ISO-filen…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Forbereder ISO arbejdsområde.</value>
+    <value>Forbereder ISO-filerne…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Forbereder indhold til efterinstallation…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Forbereder USB cachepartition.</value>
+    <value>Forbereder cachepartitionen…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Forbereder USB diskattributter.</value>
+    <value>Forbereder USB-drevet…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Forbereder Windows-kildepakken.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Forbereder WinPE arbejdsområde.</value>
+    <value>Henter Windows-kildepakken…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Klargøring af Foundry bootaktiver.</value>
+    <value>Tilføjer Foundry-startfiler…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Tilføjelse af Foundry implementeringskomponenter.</value>
+    <value>Tilføjer Foundry-komponenter…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Tilføjelse af Foundry komponenter til USB medier.</value>
+    <value>Føjer Foundry-komponenter til USB-drevet…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Fjerner midlertidige filer…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Udskifter boot-image med WinRE.</value>
+    <value>Erstatter startafbildningen med Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Løsning af driverpakker.</value>
+    <value>Kontrollerer, hvilke drivere der skal tilføjes…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Løsning af Windows billedindeks.</value>
+    <value>Vælger Windows-udgaven…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Løsning af Windows-kildekatalog.</value>
+    <value>Finder Windows-kildepakken…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Kører MakeWinPEMedia for ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Valgt Windows-kildepakke.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Se logfilen for at få flere oplysninger.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Klargør startbilledets afhængigheder.</value>
+    <value>Kopierer nødvendige filer fra Windows-afbildningen…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Trin {0} af {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Tekniske detaljer: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Oprettelse af ISO blev annulleret</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Oprettelse af ISO mislykkedes</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Opretter ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO er oprettet</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Oprettelse af USB-medie blev annulleret</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Oprettelse af USB-medie mislykkedes</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Opretter USB-medie</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB-medie er oprettet</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Opdatering af USB-medie blev annulleret</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Opdatering af USB-medie mislykkedes</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Opdaterer USB-medie</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB-medie er opdateret</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Tidsgrænsen for overførslen blev overskredet. Kontrollér forbindelsen, og prøv igen.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Opdaterer USB-medie.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>En uventet fejl stoppede oprettelsen af mediet.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB-BOOT-partitionen kræver cirka {0}, men dens kapacitet er {1}. Intet er blevet slettet eller formateret. Reducer tilpasninger eller drivere, eller opret en ISO.</value>
@@ -3762,35 +3804,35 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>En fil på startmediet fylder {0}; FAT32 understøtter højst {1} pr. fil. Reducer startafbildningens størrelse, eller opret en ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB-startpartitionen blev opdateret.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>USB-drevet kan muligvis ikke længere starte en enhed. Opret eller opdater det igen, før du bruger det.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB medie afsluttet.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB partitioner formateret.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB mediet blev oprettet. Bootvolumen: {0}. Cachevolumen: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB-startpartitionen blev opdateret. Startdiskenhed: {0}. Cache-diskenhed: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Startvolumen: {0}. Cachevolumen: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Validerer USB mål.</value>
+    <value>Kontrollerer USB-drevet…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Bekræfter {0}-driverpakken</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Bekræfter USB boot-medie.</value>
+    <value>Bekræfter startfilerne på USB-drevet…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Bekræfter Windows-kildepakken</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blokerede adgangen til WinPE-billedfilerne. Sikkerhedssoftware eller et andet værktøj låser dem muligvis. Tilføj en undtagelse for {0} i sikkerhedssoftwaren, luk værktøjer, der monterer billeder, genstart computeren, og prøv igen. Detaljer findes i {1} og {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Skriver ISO-filen…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Gennemgå klarheden, vælg ISO- eller USB-output, og start medieoprettelsen.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Gennemgå</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Gennemgå {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Klar</value>
@@ -3821,9 +3863,6 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Ting, der kræver opmærksomhed:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Opret alligevel</value>
@@ -3877,6 +3916,15 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE bootsprog</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Pakker: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Kræver opmærksomhed: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Kræver opmærksomhed: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Standard</value>

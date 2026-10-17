@@ -29,9 +29,13 @@ internal static class WinPeCustomImageIsoMastering
         string staging, string preparedOutput, string requestedOutput, CancellationToken cancellationToken)
         => PrepareAsync(artifact, package, null, staging, preparedOutput, requestedOutput, cancellationToken);
 
-    /// <summary>Combines all external content when reserving simultaneous staging and pending ISO copies.</summary>
+    /// <summary>
+    /// Combines all external content when reserving simultaneous staging and pending ISO copies. Custom image and
+    /// post-installation copies report into <paramref name="progress"/> as one <c>0..100</c> range.
+    /// </summary>
     internal static async Task PrepareAsync(WinPeBuildArtifact artifact, WinPeCustomImageMediaLease? package,
-        WinPePreOobeMediaLease? postInstallation, string staging, string preparedOutput, string requestedOutput, CancellationToken cancellationToken)
+        WinPePreOobeMediaLease? postInstallation, string staging, string preparedOutput, string requestedOutput, CancellationToken cancellationToken,
+        IProgress<WinPeMediaProgress>? progress = null)
     {
         long bootBytes = CountBytes(artifact.MediaDirectoryPath);
         long payloadBytes = checked(bootBytes + (package?.TotalBytes ?? 0) + (postInstallation?.TotalBytes ?? 0) + WinPeCustomImageMediaService.DataReserveBytes);
@@ -39,10 +43,13 @@ internal static class WinPeCustomImageIsoMastering
             WindowsVolumeStorage.GetAvailableBytes, WindowsVolumeStorage.GetFileSystem);
         await CopyTreeAsync(artifact.MediaDirectoryPath, Path.Combine(staging, "media"), cancellationToken).ConfigureAwait(false);
         await CopyTreeAsync(Path.Combine(artifact.WorkingDirectoryPath, "bootbins"), Path.Combine(staging, "bootbins"), cancellationToken).ConfigureAwait(false);
+        int split = package is null ? 0 : postInstallation is null ? 100 : 80;
         if (package is not null)
-            await new WinPeCustomImageMediaService().PublishAsync(package, Path.Combine(staging, "media"), cancellationToken).ConfigureAwait(false);
+            await new WinPeCustomImageMediaService().PublishAsync(package, Path.Combine(staging, "media"), cancellationToken,
+                WinPeScaledProgress.Create(progress, 0, split)).ConfigureAwait(false);
         if (postInstallation is not null)
-            await new WinPePreOobeMediaService().PublishAsync(postInstallation, Path.Combine(staging, "media"), cancellationToken).ConfigureAwait(false);
+            await new WinPePreOobeMediaService().PublishAsync(postInstallation, Path.Combine(staging, "media"), cancellationToken,
+                WinPeScaledProgress.Create(progress, split, 100)).ConfigureAwait(false);
     }
 
     /// <summary>Checks space for simultaneous ISO copies and output filesystem limits before staging begins.</summary>

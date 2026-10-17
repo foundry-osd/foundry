@@ -20,13 +20,14 @@ public interface IOperationProgressService
     OperationProgressState State { get; }
 
     /// <summary>
-    /// Starts a new operation and resets primary and secondary progress.
+    /// Starts a new operation and resets its progress, detail and outcome.
     /// </summary>
     /// <param name="kind">Operation category that drives shell behavior. <see cref="OperationKind.None"/> is rejected.</param>
+    /// <param name="title">User-visible title describing what is running.</param>
     /// <param name="status">Initial user-visible status text.</param>
     /// <param name="cancel">Optional request to cancel the operation at its next safe boundary.</param>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="kind"/> is <see cref="OperationKind.None"/>.</exception>
-    void Start(OperationKind kind, string status, Action? cancel = null);
+    void Start(OperationKind kind, string title, string status, Action? cancel = null);
 
     /// <summary>
     /// Requests cancellation once while preserving running state until the operation finishes cleanup.
@@ -34,40 +35,28 @@ public interface IOperationProgressService
     void RequestCancellation();
 
     /// <summary>
-    /// Updates primary operation progress and clears secondary progress when an operation is active.
+    /// Updates progress while an operation is running and not finished.
     /// </summary>
-    /// <param name="progress">Primary progress percentage clamped to the <c>0..100</c> range.</param>
+    /// <param name="progress">Primary progress percentage clamped to <c>0..100</c>; a lower value than the current one is ignored.</param>
     /// <param name="status">User-visible status text.</param>
-    /// <remarks>No state is changed when the service is idle.</remarks>
-    void Report(int progress, string status);
+    /// <param name="detailProgress">Progress of the current detail action, when measurable, clamped to <c>0..100</c>.</param>
+    /// <param name="detail">User-visible text of the current detail action; empty hides the detail line.</param>
+    void Report(int progress, string status, int? detailProgress = null, string detail = "");
 
     /// <summary>
-    /// Updates primary and nested operation progress when an operation is active.
+    /// Shows the outcome of the running operation. Cancellation is no longer offered, and progress becomes 100 only
+    /// on success so a failure keeps the point it reached.
     /// </summary>
-    /// <param name="progress">Primary progress percentage clamped to the <c>0..100</c> range.</param>
-    /// <param name="status">User-visible primary status text.</param>
-    /// <param name="secondaryProgress">Nested operation progress percentage, when available, clamped to the <c>0..100</c> range.</param>
-    /// <param name="secondaryStatus">User-visible nested operation status text.</param>
-    /// <remarks>No state is changed when the service is idle.</remarks>
-    void Report(int progress, string status, int? secondaryProgress, string secondaryStatus);
+    /// <param name="outcome">Terminal result; <see cref="OperationOutcome.None"/> is rejected.</param>
+    /// <param name="title">User-visible title describing the outcome.</param>
+    /// <param name="message">User-visible terminal message.</param>
+    /// <param name="action">Optional follow-up action offered with the outcome.</param>
+    /// <remarks>No state is changed when the service is idle or already finished.</remarks>
+    void Finish(OperationOutcome outcome, string title, string message, OperationAction? action = null);
 
     /// <summary>
-    /// Clears nested operation progress while preserving the active primary operation.
+    /// Returns the service to the idle operation state while keeping the finished title, message and outcome for
+    /// a dialog that is still open.
     /// </summary>
-    /// <remarks>No state is changed when the service is idle or no nested progress is active.</remarks>
-    void ClearSecondary();
-
-    /// <summary>
-    /// Marks the active operation as fully progressed without returning the service to idle.
-    /// </summary>
-    /// <param name="status">Completion status text shown before the operation is reset.</param>
-    /// <remarks>No state is changed when the service is idle.</remarks>
-    void Complete(string status);
-
-    /// <summary>
-    /// Returns the service to the idle operation state.
-    /// </summary>
-    /// <param name="status">Optional idle status text retained by subscribers.</param>
-    /// <param name="outcome">Terminal result to display while the completed dialog remains open.</param>
-    void Reset(string status = "", OperationOutcome outcome = OperationOutcome.None);
+    void Reset();
 }
