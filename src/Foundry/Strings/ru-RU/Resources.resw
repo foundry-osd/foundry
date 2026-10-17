@@ -197,16 +197,19 @@
     <value>Требуемая политика версий</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Файлы WinPE доступны</value>
+    <value>доступны</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Файлы WinPE отсутствуют</value>
+    <value>отсутствуют</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Дополнение установлено</value>
+    <value>Установлено</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Установлено (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Отсутствует дополнение</value>
+    <value>Не установлено</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Дополнение</value>
@@ -679,6 +682,9 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>Включено</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Требует внимания</value>
   </data>
@@ -1003,6 +1009,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Проверьте параметры компонентов. Максимальная длина имени компьютера — 15 символов.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Чтобы использовать предопределенный пароль, включите защиту паролем на странице «Общие».</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Задает предопределенный пароль для этой учетной записи. Требуется защищенный носитель развертывания. Отключите этот параметр, чтобы использовать пустой пароль.</value>
   </data>
@@ -1247,10 +1256,7 @@
     <value>Последнее доступное обновление</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>На {0} обновл. раньше</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>На 1 обновление раньше</value>
+    <value>Обновлений раньше последнего: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Настройте версии Windows 11, предлагаемые во время развертывания.</value>
@@ -1760,7 +1766,7 @@
     <value>Без изменений</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} настроено ({1} включить, {2} отключить)</value>
+    <value>Настроено: {0} (включить: {1}, отключить: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Доступность зависит от аппаратного обеспечения ПК Copilot+ и установленного образа Windows.</value>
@@ -2972,7 +2978,7 @@
     <value>Другие действия</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Отсутствуют или не включены файлы: {0}. Укажите их расположение перед созданием носителей.</value>
+    <value>Отсутствующие или не включенные файлы: {0}. Укажите их расположение перед созданием носителей.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Название конфигурации</value>
@@ -3957,7 +3963,7 @@
     <value>Отображаемое имя</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Пропущено файлов, уже имеющихся в каталоге: {0}.</value>
+    <value>Пропущено файлов, уже имеющихся в каталоге: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Импортируйте хотя бы один файл ответов, чтобы использовать эту функцию.</value>

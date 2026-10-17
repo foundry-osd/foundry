@@ -197,16 +197,19 @@ Licențiat sub licența MIT.</value>
     <value>Politica de versiune necesară</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Fișierele WinPE sunt disponibile</value>
+    <value>disponibile</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Lipsesc fișiere WinPE</value>
+    <value>lipsesc</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Supliment instalat</value>
+    <value>Instalat</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Instalat (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Lipsește suplimentul</value>
+    <value>Neinstalat</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Supliment</value>
@@ -679,6 +682,9 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Activat</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Necesită atenție</value>
   </data>
@@ -1003,6 +1009,9 @@ Licențiat sub licența MIT.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Verificați setările componentelor. Lungimea maximă a numelui computerului este de 15 caractere.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Activați protecția prin parolă în pagina General pentru a utiliza o parolă predefinită.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Setează o parolă predefinită pentru acest cont. Este necesar un suport de implementare protejat. Dezactivați această opțiune pentru a utiliza o parolă goală.</value>
   </data>
@@ -1247,10 +1256,7 @@ Licențiat sub licența MIT.</value>
     <value>Cea mai recentă actualizare disponibilă</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>Cu {0} actualizări în urmă</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>Cu 1 actualizare în urmă</value>
+    <value>Actualizări înainte de cea mai recentă: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Configurați versiunile Windows 11 oferite în timpul implementării.</value>
@@ -1760,7 +1766,7 @@ Licențiat sub licența MIT.</value>
     <value>Neschimbat</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} configurat ({1} activat, {2} dezactivat)</value>
+    <value>Configurate: {0} (activare: {1}, dezactivare: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Disponibilitatea depinde de hardware-ul PC Copilot+ și de imaginea Windows instalată.</value>
@@ -2282,7 +2288,7 @@ Licențiat sub licența MIT.</value>
     <value>lituaniană (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norvegiana Bokmal (Norvegia)</value>
+    <value>Norvegiană Bokmål (Norvegia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poloneză (Polonia)</value>
@@ -2972,7 +2978,7 @@ Licențiat sub licența MIT.</value>
     <value>Mai multe opțiuni</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} fișiere lipsesc sau nu au fost incluse. Selectați locațiile lor înainte de a crea suporturile.</value>
+    <value>Fișiere lipsă sau neincluse: {0}. Selectați locațiile lor înainte de a crea suporturile.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Numele configurației</value>
@@ -3957,7 +3963,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Nume afișat</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Au fost omise {0} fișiere deja existente în catalog.</value>
+    <value>Fișiere omise deoarece există deja în catalog: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Importați cel puțin un fișier de răspuns pentru a folosi această funcționalitate.</value>

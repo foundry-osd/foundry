@@ -197,16 +197,19 @@
     <value>سياسة الإصدار المطلوبة</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>ملفات WinPE متاحة</value>
+    <value>متاحة</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>ملفات WinPE مفقودة</value>
+    <value>مفقودة</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE تم تثبيت الوظيفة الإضافية</value>
+    <value>مثبتة</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>مثبتة (x64: {0}، ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE الوظيفة الإضافية مفقودة</value>
+    <value>غير مثبتة</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE الوظيفة الإضافية</value>
@@ -679,6 +682,9 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>ممكّن</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>يحتاج إلى اهتمام</value>
   </data>
@@ -1003,6 +1009,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>راجع إعدادات المكونات. الحد الأقصى لطول اسم الكمبيوتر هو 15 حرفًا.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>شغّل الحماية بكلمة مرور في صفحة "عام" لاستخدام كلمة مرور محددة مسبقًا.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>يعيّن كلمة مرور محددة مسبقًا لهذا الحساب. يلزم استخدام وسائط نشر محمية. أوقف تشغيل هذا الخيار لاستخدام كلمة مرور فارغة.</value>
   </data>
@@ -1247,10 +1256,7 @@
     <value>أحدث تحديث متاح</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} تحديثات سابقة</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>تحديث واحد سابق</value>
+    <value>عدد التحديثات السابقة لأحدث تحديث: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>قم بتكوين إصدارات Windows 11 المقدمة أثناء النشر.</value>
@@ -1760,7 +1766,7 @@
     <value>دون تغيير</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>تم تكوين {0} ({1} تمكين، {2} تعطيل)</value>
+    <value>تم التكوين: {0} (تمكين: {1}، تعطيل: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>يعتمد التوفر على أجهزة Copilot+ PC وصورة Windows المثبتة.</value>
@@ -2972,7 +2978,7 @@
     <value>المزيد من الخيارات</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>هناك {0} ملفات مفقودة أو لم يتم تضمينها. حدد مواقعها قبل إنشاء الوسائط.</value>
+    <value>الملفات المفقودة أو غير المضمنة: {0}. حدد مواقعها قبل إنشاء الوسائط.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>اسم التكوين</value>
@@ -3957,7 +3963,7 @@
     <value>اسم العرض</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>تم تخطي {0} من الملفات الموجودة بالفعل في الكتالوج.</value>
+    <value>الملفات التي تم تخطيها لأنها موجودة بالفعل في الكتالوج: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>استورد ملف إجابات واحدًا على الأقل لاستخدام هذه الميزة.</value>

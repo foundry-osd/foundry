@@ -197,16 +197,19 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nepieciešamā versijas politika</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE faili ir pieejami</value>
+    <value>pieejami</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Trūkst WinPE failu</value>
+    <value>trūkst</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Instalēts papildinājums</value>
+    <value>Instalēts</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Instalēts (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Trūkst papildinājuma</value>
+    <value>Nav instalēts</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Papildinājums</value>
@@ -679,6 +682,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Iespējots</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Jāpievērš uzmanība</value>
   </data>
@@ -1003,6 +1009,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Pārskatiet komponentu iestatījumus. Maksimālais datora nosaukuma garums ir 15 rakstzīmes.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Lai izmantotu iepriekš definētu paroli, lapā Vispārīgi ieslēdziet aizsardzību ar paroli.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Iestata šim kontam iepriekš definētu paroli. Nepieciešams aizsargāts izvietošanas datu nesējs. Izslēdziet, lai izmantotu tukšu paroli.</value>
   </data>
@@ -1247,10 +1256,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Jaunākais pieejamais atjauninājums</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>Par {0} atjauninājumiem agrāks</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>Par 1 atjauninājumu agrāks</value>
+    <value>Atjauninājumi pirms jaunākā: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Konfigurējiet izvietošanas laikā piedāvātās Windows 11 versijas.</value>
@@ -1760,7 +1766,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nemainīts</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} konfigurēts ({1} iespējot, {2} atspējot)</value>
+    <value>Konfigurēti: {0} (iespējot: {1}, atspējot: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Pieejamība ir atkarīga no Copilot+ datora aparatūras un instalētā Windows attēla.</value>
@@ -2282,7 +2288,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>lietuviešu (Lietuva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norwegian Bokmal (Norway)</value>
+    <value>Norvēģu bukmols (Norvēģija)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poļu (Polija)</value>
@@ -2972,7 +2978,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Vairāk opciju</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Trūkstošo vai neiekļauto failu skaits: {0}. Pirms datu nesēja izveides izvēlieties to atrašanās vietas.</value>
+    <value>Trūkstošie vai neiekļautie faili: {0}. Pirms datu nesēja izveides izvēlieties to atrašanās vietas.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfigurācijas nosaukums</value>
@@ -3538,7 +3544,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Izvēlieties ISO izvades ceļu</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} papildu lokālie konti</value>
+    <value>Papildu lokālie konti: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Iebūvētais administrators iespējots</value>
@@ -3957,7 +3963,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Parādāmais nosaukums</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Izlaisti {0} faili, kas jau ir katalogā.</value>
+    <value>Izlaistie faili, kas jau ir katalogā: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Lai izmantotu šo līdzekli, importējiet vismaz vienu atbilžu failu.</value>

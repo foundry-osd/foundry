@@ -33,45 +33,51 @@
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
+                        ContentAlignment="Vertical"
                         Description="{x:Bind ViewModel.ActionsDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.ActionsHeader, Mode=OneWay}">
-                        <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel
-                                VerticalAlignment="Center"
                                 Orientation="Horizontal"
-                                Spacing="{ThemeResource FoundrySpace8}"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Button
+                                    MinWidth="{StaticResource FoundryCompactActionMinWidth}"
+                                    Command="{x:Bind ViewModel.ImportProfileCommand}"
+                                    Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
+                                <Button
+                                    MinWidth="{StaticResource FoundryCompactActionMinWidth}"
+                                    Command="{x:Bind ViewModel.DownloadProfilesCommand}"
+                                    Content="{x:Bind ViewModel.DownloadButtonText, Mode=OneWay}" />
+                                <Button
+                                    MinWidth="{StaticResource FoundryCompactActionMinWidth}"
+                                    Command="{x:Bind ViewModel.RemoveSelectedProfilesCommand}"
+                                    Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
+                            </StackPanel>
+
+                            <Grid
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                ColumnSpacing="{ThemeResource FoundrySpace8}"
                                 Visibility="{x:Bind ViewModel.BusyStatusVisibility, Mode=OneWay}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
                                 <ProgressRing
                                     Width="{ThemeResource FoundryIconSizeDefault}"
                                     Height="{ThemeResource FoundryIconSizeDefault}"
                                     IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
                                 <TextBlock
+                                    Grid.Column="1"
                                     VerticalAlignment="Center"
-                                    Text="{x:Bind ViewModel.BusyStatusText, Mode=OneWay}" />
-                            </StackPanel>
-
-                            <StackPanel
-                                Grid.Column="1"
-                                Orientation="Horizontal"
-                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <Button
-                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                    Command="{x:Bind ViewModel.ImportProfileCommand}"
-                                    Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
-                                <Button
-                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                    Command="{x:Bind ViewModel.DownloadProfilesCommand}"
-                                    Content="{x:Bind ViewModel.DownloadButtonText, Mode=OneWay}" />
-                                <Button
-                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
-                                    Command="{x:Bind ViewModel.RemoveSelectedProfilesCommand}"
-                                    Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
-                            </StackPanel>
+                                    Text="{x:Bind ViewModel.BusyStatusText, Mode=OneWay}"
+                                    TextWrapping="WrapWholeWords" />
+                            </Grid>
                         </Grid>
                     </wct:SettingsCard>
 

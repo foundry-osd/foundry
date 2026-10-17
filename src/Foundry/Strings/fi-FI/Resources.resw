@@ -197,16 +197,19 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Vaadittu versiokäytäntö</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE-tiedostot ovat käytettävissä</value>
+    <value>käytettävissä</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE-tiedostoja puuttuu</value>
+    <value>puuttuu</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Lisäosa asennettu</value>
+    <value>Asennettu</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Asennettu (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Lisäosa puuttuu</value>
+    <value>Ei asennettu</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Lisäosa</value>
@@ -679,6 +682,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Käytössä</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Vaatii huomiota</value>
   </data>
@@ -1003,6 +1009,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Tarkista osien asetukset. Tietokoneen nimen enimmäispituus on 15 merkkiä.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Ota salasanasuojaus käyttöön Yleiset-sivulla, jotta voit käyttää ennalta määritettyä salasanaa.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Asettaa tälle tilille ennalta määritetyn salasanan. Suojattu käyttöönottomedia vaaditaan. Poista tämä käytöstä, jos haluat käyttää tyhjää salasanaa.</value>
   </data>
@@ -1247,10 +1256,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Uusin saatavilla oleva päivitys</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} päivitystä aiempi</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 päivitys aiempi</value>
+    <value>Päivitykset ennen uusinta: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Määritä käyttöönoton aikana tarjottavat Windows 11 -versiot.</value>
@@ -1760,7 +1766,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Muuttumaton</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} määritetty ({1} käyttöön, {2} pois käytöstä)</value>
+    <value>Määritetty: {0} (käyttöön: {1}, pois käytöstä: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Saatavuus riippuu Copilot+ PC -laitteistosta ja asennetusta Windows-näköistiedostosta.</value>
@@ -2282,7 +2288,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Liettua (Liettua)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norjalainen bokmal (Norja)</value>
+    <value>norjan bokmål (Norja)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>puola (Puola)</value>
@@ -2972,7 +2978,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Lisää vaihtoehtoja</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} tiedostoa puuttuu tai niitä ei sisällytetty. Valitse niiden sijainnit ennen tietovälineen luomista.</value>
+    <value>Puuttuvat tai sisällyttämättömät tiedostot: {0}. Valitse niiden sijainnit ennen tietovälineen luomista.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Kokoonpanon nimi</value>
@@ -3538,7 +3544,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Valitse ISO lähtöpolku</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} muuta paikallista tiliä</value>
+    <value>Muut paikalliset tilit: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Sisäinen järjestelmänvalvoja käytössä</value>
@@ -3957,7 +3963,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Näyttönimi</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Ohitettiin {0} tiedostoa, jotka ovat jo luettelossa.</value>
+    <value>Ohitetut tiedostot, jotka ovat jo luettelossa: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Tuo vähintään yksi vastaustiedosto, jotta voit käyttää tätä ominaisuutta.</value>

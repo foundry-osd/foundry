@@ -197,16 +197,19 @@
     <value>Необхідна політика версії</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>Файли WinPE доступні</value>
+    <value>доступні</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>Файли WinPE відсутні</value>
+    <value>відсутні</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Надбудову встановлено</value>
+    <value>Установлено</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Установлено (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Відсутнє доповнення</value>
+    <value>Не встановлено</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Надбудова</value>
@@ -679,6 +682,9 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>Увімкнено</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Потребує уваги</value>
   </data>
@@ -1003,6 +1009,9 @@
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Перевірте параметри компонентів. Максимальна довжина імені комп’ютера — 15 символів.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Щоб використовувати попередньо визначений пароль, увімкніть захист паролем на сторінці «Загальні».</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Установлює попередньо визначений пароль для цього облікового запису. Потрібен захищений носій розгортання. Вимкніть цей параметр, щоб використовувати порожній пароль.</value>
   </data>
@@ -1247,10 +1256,7 @@
     <value>Найновіше доступне оновлення</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>На {0} оновлень раніше</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>На 1 оновлення раніше</value>
+    <value>Оновлень раніше за найновіше: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Налаштуйте версії Windows 11, доступні під час розгортання.</value>
@@ -1760,7 +1766,7 @@
     <value>Без змін</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} налаштовано ({1} увімкнути, {2} вимкнути)</value>
+    <value>Налаштовано: {0} (увімкнути: {1}, вимкнути: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Доступність залежить від апаратного забезпечення ПК Copilot+ та встановленого образу Windows.</value>
@@ -3957,7 +3963,7 @@
     <value>Відображуване ім’я</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Пропущено файлів, які вже є в каталозі: {0}.</value>
+    <value>Пропущено файлів, які вже є в каталозі: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Імпортуйте принаймні один файл відповідей, щоб використовувати цю функцію.</value>

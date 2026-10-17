@@ -68,6 +68,8 @@
                                 MaxLength="15"
                                 Text="{x:Bind ViewModel.ManualMachineName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.MachineNamingValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"

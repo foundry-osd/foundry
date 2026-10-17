@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="232"
-    Height="172"
+    MinHeight="172"
     mc:Ignorable="d">
     <Grid
         Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
@@ -55,12 +55,16 @@
                     <TextBlock
                         Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind Title, Mode=OneWay}" />
+                        Text="{x:Bind Title, Mode=OneWay}"
+                        TextWrapping="WrapWholeWords" />
                     <TextBlock
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        MaxLines="4"
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="{x:Bind Description, Mode=OneWay}"
-                        TextWrapping="Wrap" />
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap"
+                        ToolTipService.ToolTip="{x:Bind Description, Mode=OneWay}" />
                 </StackPanel>
             </Grid>
         </Button>

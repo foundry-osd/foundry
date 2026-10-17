@@ -197,16 +197,19 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>必要なバージョンポリシー</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE ファイルが利用可能です</value>
+    <value>利用可能</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE ファイルが不足しています</value>
+    <value>不足</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE アドオンがインストールされました</value>
+    <value>インストール済み</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>インストール済み (x64: {0}、ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE アドオンがありません</value>
+    <value>未インストール</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE アドオン</value>
@@ -679,6 +682,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>有効</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>確認が必要</value>
   </data>
@@ -1003,6 +1009,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>コンポーネントの設定を確認してください。コンピューター名の最大長は 15 文字です。</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>定義済みのパスワードを使用するには、[一般] ページでパスワード保護をオンにしてください。</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>このアカウントに事前定義されたパスワードを設定します。保護された展開メディアが必要です。空のパスワードを使用するにはオフにします。</value>
   </data>
@@ -1247,10 +1256,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>利用可能な最新の更新プログラム</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} 個前の更新プログラム</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 個前の更新プログラム</value>
+    <value>最新より前の更新プログラム数: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>展開時に提供する Windows 11 のバージョンを構成します。</value>
@@ -1760,7 +1766,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>変更なし</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} が構成されました ({1} が有効、{2} が無効)</value>
+    <value>構成済み: {0} (有効化: {1}、無効化: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>利用できるかどうかは、Copilot+ PC ハードウェアとインストールされている Windows イメージによって異なります。</value>
@@ -2972,7 +2978,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>その他のオプション</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} 個のファイルが見つからないか、含まれていません。メディアを作成する前に、それぞれの保存場所を選んでください。</value>
+    <value>見つからないか含まれていないファイル: {0}。メディアを作成する前に、それぞれの保存場所を選んでください。</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>構成の名前</value>
@@ -3957,7 +3963,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>表示名</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>カタログに既に存在する {0} 個のファイルをスキップしました。</value>
+    <value>カタログに既に存在するためスキップされたファイル: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>この機能を使用するには、応答ファイルを 1 つ以上インポートしてください。</value>

@@ -101,6 +101,9 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string OobeAccountPasswordDescription { get; set; }
 
     [ObservableProperty]
+    public partial string OobeAccountDeploymentProtectionRequiredMessage { get; set; }
+
+    [ObservableProperty]
     public partial string OobePasswordPlaceholder { get; set; }
 
     [ObservableProperty]
@@ -454,6 +457,7 @@ public sealed partial class CustomizationConfigurationViewModel
         OobeAdministratorAccountDescription = localizationService.GetString("Customization.OobeAdministratorAccountDescription");
         OobeAccountPasswordLabel = localizationService.GetString("Customization.OobeAccountPasswordLabel");
         OobeAccountPasswordDescription = localizationService.GetString("Customization.OobeAccountPasswordDescription");
+        OobeAccountDeploymentProtectionRequiredMessage = localizationService.GetString("Customization.OobeAccountDeploymentProtectionRequiredMessage");
         OobePasswordPlaceholder = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Password.Placeholder");
         OobeConfirmationPlaceholder = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder");
         OobeSkipUserAccountCreationLabel = localizationService.GetString("Customization.OobeSkipUserAccountCreationLabel");

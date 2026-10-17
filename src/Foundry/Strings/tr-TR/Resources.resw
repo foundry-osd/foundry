@@ -197,16 +197,19 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Gerekli sürüm politikası</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
-    <value>WinPE dosyaları kullanılabilir</value>
+    <value>kullanılabilir</value>
   </data>
   <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
-    <value>WinPE dosyaları eksik</value>
+    <value>eksik</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Eklenti yüklü</value>
+    <value>Yüklü</value>
+  </data>
+  <data name="Adk.WinPeAddon.InstalledArchitecturesFormat" xml:space="preserve">
+    <value>Yüklü (x64: {0}, ARM64: {1})</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Eklenti eksik</value>
+    <value>Yüklü değil</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Eklenti</value>
@@ -679,6 +682,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Etkin</value>
   </data>
+  <data name="Common.LabelValueFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Dikkat gerekiyor</value>
   </data>
@@ -1003,6 +1009,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
     <value>Bileşen ayarlarını gözden geçirin. Bilgisayar adının en fazla uzunluğu 15 karakterdir.</value>
   </data>
+  <data name="Customization.OobeAccountDeploymentProtectionRequiredMessage" xml:space="preserve">
+    <value>Önceden tanımlanmış bir parola kullanmak için Genel sayfasında parola korumasını açın.</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>Bu hesap için önceden tanımlanmış bir parola ayarlar. Korumalı dağıtım medyası gereklidir. Boş parola kullanmak için bunu kapatın.</value>
   </data>
@@ -1247,10 +1256,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kullanılabilir en son güncelleştirme</value>
   </data>
   <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve">
-    <value>{0} güncelleştirme geride</value>
-  </data>
-  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve">
-    <value>1 güncelleştirme geride</value>
+    <value>En yeni güncelleştirmeden önceki güncelleştirmeler: {0}</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
     <value>Dağıtım sırasında sunulan Windows 11 sürümlerini yapılandırın.</value>
@@ -1760,7 +1766,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>değişmedi</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} yapılandırıldı ({1} etkinleştir, {2} devre dışı bırak)</value>
+    <value>Yapılandırılan: {0} (etkinleştir: {1}, devre dışı bırak: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>Kullanılabilirlik, Copilot+ PC donanımına ve yüklü Windows görüntüsüne bağlıdır.</value>
@@ -2282,7 +2288,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Litvanyaca (Litvanya)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norveç Bokmal (Norveç)</value>
+    <value>Norveççe Bokmål (Norveç)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Lehçe (Polonya)</value>
@@ -2972,7 +2978,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Diğer seçenekler</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} dosya eksik veya dahil edilmemiş. Medya oluşturmadan önce bu dosyaların konumlarını seçin.</value>
+    <value>Eksik veya dahil edilmemiş dosyalar: {0}. Medya oluşturmadan önce bu dosyaların konumlarını seçin.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
     <value>Yapılandırma adı</value>
@@ -3538,7 +3544,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>ISO çıkış yolunu seçin</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
-    <value>{0} ek yerel hesap</value>
+    <value>Ek yerel hesaplar: {0}</value>
   </data>
   <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
     <value>Yerleşik Administrator etkin</value>
@@ -3957,7 +3963,7 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
     <value>Görünen ad</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Katalogda zaten bulunan {0} dosya atlandı.</value>
+    <value>Katalogda zaten bulunduğu için atlanan dosyalar: {0}</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Bu özelliği kullanmak için en az bir yanıt dosyası içe aktarın.</value>

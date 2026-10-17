@@ -82,7 +82,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Height="400">
+    <Grid MinHeight="400">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -92,7 +92,7 @@
         <controls:OpacityMaskView
             Grid.RowSpan="3"
             Height="400"
-            VerticalAlignment="Stretch"
+            VerticalAlignment="Top"
             AutomationProperties.AccessibilityView="Raw">
             <controls:OpacityMaskView.OpacityMask>
                 <Rectangle Fill="{ThemeResource HomeHeaderOpacityMask}" />

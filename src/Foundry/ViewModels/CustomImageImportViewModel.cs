@@ -62,7 +62,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
         !DisplayName.Any(char.IsControl) && !existingNames.Contains(DisplayName.Trim());
     public string NameValidationMessage => existingNames.Contains(DisplayName.Trim()) ? Text("DuplicateName") : string.Empty;
     public string PreviewSummary => preview is null ? string.Empty :
-        $"{Text("SizeLabel")}: {preview.Length:N0} B\n{Text("IndexesLabel")}: {preview.Indexes.Count}\n" +
+        $"{LabelValue(Text("SizeLabel"), $"{preview.Length:N0} B")}\n{LabelValue(Text("IndexesLabel"), preview.Indexes.Count)}\n" +
         string.Join("\n", preview.Indexes.Select(index =>
             $"{index.Index}: {index.Name} | {index.Architecture} | {index.Version} | {string.Join(", ", index.Languages)}"));
     public CustomImageReference? Result { get; private set; }
@@ -73,6 +73,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
     public string NameLabel => Text("NameLabel");
     public string SourceChoiceMessage => Text("SourceChoiceRequired");
     private string Text(string key) => localization.GetString("CustomImages." + key);
+    private string LabelValue(string label, object value) => localization.FormatString("Common.LabelValueFormat", label, value);
 
     [RelayCommand]
     private async Task BrowseAsync()

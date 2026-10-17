@@ -50,6 +50,8 @@
                                 Width="{ThemeResource FoundryWideInputMinWidth}"
                                 Text="{x:Bind ViewModel.WifiSsid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.WifiSsidValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
@@ -69,6 +71,8 @@
                                 ItemsSource="{x:Bind ViewModel.WifiSecurityTypes, Mode=OneWay}"
                                 SelectedItem="{x:Bind ViewModel.SelectedWifiSecurityType, Mode=TwoWay}" />
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.WifiSecurityTypeValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
@@ -88,6 +92,8 @@
                                 Loaded="WifiPassphraseBox_OnLoaded"
                                 PasswordChanged="WifiPassphraseBox_OnPasswordChanged" />
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.WifiPassphraseValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
@@ -103,6 +109,8 @@
                             HorizontalAlignment="Right"
                             Spacing="{ThemeResource FoundrySpace4}">
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Text="{x:Bind ViewModel.WifiEnterpriseTemplateText, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords" />
@@ -116,11 +124,13 @@
                                     Text="{x:Bind ViewModel.WifiEnterpriseProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button
                                     Grid.Column="1"
-                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    MinWidth="{StaticResource FoundryCompactActionMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseWifiEnterpriseProfileTemplateCommand}"
                                     Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
                             </Grid>
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.WifiEnterpriseTemplateValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
@@ -151,14 +161,18 @@
                                     Text="{x:Bind ViewModel.WifiCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button
                                     Grid.Column="1"
-                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    MinWidth="{StaticResource FoundryCompactActionMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseWifiCertificateCommand}"
                                     Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
                             </Grid>
                             <PasswordBox
+                                Width="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Header="{x:Bind ViewModel.CertificatePasswordLabel, Mode=OneWay}"
                                 Password="{x:Bind ViewModel.WifiCertificatePassword, Mode=TwoWay}" />
                             <TextBlock
+                                MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                HorizontalAlignment="Left"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.WifiCertificateValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
