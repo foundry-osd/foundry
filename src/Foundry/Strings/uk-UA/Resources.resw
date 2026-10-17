@@ -3370,7 +3370,7 @@
     <value>Вибраний USB-накопичувач замалий. Використовуйте USB-накопичувач обсягом щонайменше 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
-    <value>Вибрану розкладку клавіатури WinPE не встановлено на цьому комп’ютері.</value>
+    <value>Вибрану розкладку клавіатури WinPE не встановлено на цьому комп'ютері.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Вибрана мова завантаження WinPE недоступна для вибраної архітектури.</value>
