@@ -18,11 +18,13 @@ public static class KeyboardLayoutCatalog
     private const int DisplayNameBufferLength = 256;
     private static readonly Lazy<IReadOnlyList<KeyboardLayout>> Installed = new(LoadInstalled);
 
-    // Layouts whose KLID language part is not the language Windows pairs them with.
+    // Layouts whose KLID language part is not the language Windows pairs them with, checked against
+    // Microsoft's "Default input profiles (input locales) in Windows" list.
     private static readonly Dictionary<string, (string BaseLanguage, int InputLanguageId)> LanguageOverrides =
         new(StringComparer.OrdinalIgnoreCase)
         {
-            ["00001009"] = ("fr", 0x0C0C)
+            ["00001009"] = ("fr", 0x0C0C), // Canadian French (fr-CA)
+            ["00011809"] = ("gd", 0x0491)  // Scottish Gaelic (gd-GB)
         };
 
     /// <summary>

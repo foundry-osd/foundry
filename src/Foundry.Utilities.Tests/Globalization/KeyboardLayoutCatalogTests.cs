@@ -42,6 +42,18 @@ public sealed class KeyboardLayoutCatalogTests
     }
 
     [Fact]
+    public void FromEntries_AppliesOverrideForScottishGaelic()
+    {
+        KeyboardLayout layout = Assert.Single(KeyboardLayoutCatalog.FromEntries(
+        [
+            Entry("00011809", "KBDGAE.DLL", "Gaelic")
+        ]));
+
+        Assert.Equal("gd", layout.BaseLanguage);
+        Assert.Equal("0491:00011809", layout.InputLocale);
+    }
+
+    [Fact]
     public void FromEntries_SkipsInvalidLanguageAndMissingLayoutFile()
     {
         IReadOnlyList<KeyboardLayout> layouts = KeyboardLayoutCatalog.FromEntries(
