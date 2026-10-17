@@ -310,8 +310,11 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Er zijn geen Autopilot-profielen geretourneerd door de huurder.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profieldownload mislukt: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>De Autopilot-profielen kunnen niet worden gedownload van de huurder.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Controleer je netwerkverbinding en zorg dat je account Autopilot-profielen in Intune kan lezen. Probeer het daarna opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot downloaden mislukt</value>
@@ -382,8 +385,11 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Certificaatacties</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kan het app-registratiecertificaat niet maken. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry kan het app-registratiecertificaat niet maken.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Controleer of er naar de geselecteerde map kan worden geschreven en of je account de app-registratie kan beheren. Probeer het daarna opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Het maken van het certificaat is mislukt</value>
@@ -418,8 +424,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX-certificaat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kan het geselecteerde app-registratiecertificaat niet verwijderen. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry kan het geselecteerde app-registratiecertificaat niet verwijderen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Het verwijderen van het certificaat is mislukt</value>
@@ -460,8 +466,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch hardware-hash-upload</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kon de Autopilot app-registratie niet configureren. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry kan de Autopilot-app-registratie niet configureren.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Onboarding van huurder is mislukt</value>
@@ -512,16 +518,25 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Certificaat verwijderen</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry verwijdert alleen het geselecteerde certificaat uit de beheerde app-registratie. Andere app-inloggegevens blijven behouden.</value>
+    <value>Het geselecteerde certificaat wordt verwijderd uit de beheerde app-registratie in je huurder. Andere app-inloggegevens blijven behouden.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Certificaat verwijderen</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Geselecteerd certificaat verwijderen?</value>
+    <value>Certificaat verwijderen uit de huurder?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Dit kan niet ongedaan worden gemaakt. Bootmedia die een verwijderd certificaat gebruiken, kunnen geen hardware-hashes meer uploaden.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry verwijdert alleen de {0} geselecteerde certificaten uit de beheerde app-registratie. Andere app-inloggegevens blijven behouden.</value>
+    <value>De {0} geselecteerde certificaten worden verwijderd uit de beheerde app-registratie in je huurder. Andere app-inloggegevens blijven behouden.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Certificaten verwijderen</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Certificaten verwijderen uit de huurder?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Verbonden</value>
@@ -537,6 +552,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Huurder-ID</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Controleer je netwerkverbinding en zorg dat je account app-registraties in de huurder kan beheren. Probeer het daarna opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Niet verbonden</value>
@@ -563,7 +581,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Profiel importeren</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Het Autopilot-profiel kan niet worden geïmporteerd.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Controleer of het bestand een geldig JSON-bestand met een Autopilot-profiel is en probeer het opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot importeren mislukt</value>
@@ -605,7 +626,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Geselecteerde verwijderen</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>"{0}" verwijderen uit de geïmporteerde Autopilot-profielen?</value>
+    <value>“{0}” wordt verwijderd uit de Autopilot-profielen in deze configuratie.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Profiel verwijderen</value>
@@ -614,7 +635,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Autopilot profiel verwijderen?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>{0} geselecteerde Autopilot profielen verwijderen?</value>
+    <value>{0} geselecteerde Autopilot-profielen worden verwijderd uit deze configuratie.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Profielen verwijderen</value>
@@ -622,14 +643,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Autopilot profielen verwijderen?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Als je een verwijderd profiel opnieuw wilt gebruiken, importeer je het of download je het opnieuw van de huurder.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Voltooi de aanmelding in de browser om Autopilot-profielen te downloaden.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Meld u aan bij Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Annuleer</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Duidelijk</value>
@@ -703,6 +724,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Vernieuwen</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Niet beschikbaar</value>
   </data>
@@ -714,9 +738,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Bladeren</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Annuleren</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importeren geannuleerd</value>
@@ -805,17 +826,23 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Vernieuwen</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Deze image uit het huidige profiel verwijderen en de lokale kopie verwijderen? Andere profielen die ernaar verwijzen, geven de image als ontbrekend weer. De oorspronkelijke bestanden en bestaande media blijven ongewijzigd.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Installatiekopie verwijderen</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) wordt verwijderd uit het huidige profiel en de lokale kopie wordt gewist.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Verwijderen</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Aangepaste installatiekopie verwijderen?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Andere profielen die deze installatiekopie gebruiken, geven deze als ontbrekend weer. Het oorspronkelijke bestand en bestaande media blijven ongewijzigd.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Bewerken</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Opslaan</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Standaardinstallatiekopie instellen</value>
@@ -1843,8 +1870,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Ruwe logboeken kunnen referenties, id's, paden, netwerknamen en andere gevoelige gegevens bevatten. Exporteer ze alleen wanneer hier expliciet om wordt gevraagd door een vertrouwd ondersteuningscontact.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Het ondersteuningsarchief is opgeslagen in:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostiek geëxporteerd</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Map openen</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry kan de documentatie niet openen in uw browser. Gebruik in plaats daarvan URL.</value>
@@ -2860,6 +2893,15 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Sommige oude opgeslagen wachtwoorden of toegangssleutels konden niet worden verwijderd. Probeer het opnieuw wanneer Windows Referentiebeheer beschikbaar is.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Sluiten zonder opslaan</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Je laatste wijzigingen konden niet worden opgeslagen en gaan verloren.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Sluiten zonder de instellingen op te slaan?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Wachtwoord bevestigen</value>
   </data>
@@ -2896,8 +2938,17 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Van deze pc verwijderen</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Ook voor iedereen verwijderen</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Voor iedereen verwijderen</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Voor iedereen verwijderen?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Deze gedeelde instellingen voor iedereen verwijderen? Iedereen met niet-gesynchroniseerde wijzigingen moet de instellingen dupliceren om die wijzigingen te behouden.</value>
@@ -2937,6 +2988,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Opgeslagen wachtwoorden en toegang wissen</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Wissen</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Opgeslagen wachtwoorden, vertrouwelijke bestanden die Foundry heeft opgeslagen en toegang tot synchronisatie voor deze instellingen van deze pc verwijderen? Je moet de ontbrekende gegevens toevoegen en opnieuw verbinding maken om te synchroniseren. Media die je al hebt gemaakt, veranderen niet.</value>
@@ -3058,7 +3112,13 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Gebruik op elke pc dezelfde netwerkmap. Deze moet SMB 3 gebruiken met verplichte versleuteling. Mappen die met de cloud worden gesynchroniseerd, worden niet ondersteund.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Wachtwoorden voor deze configuratie niet meer onthouden op deze pc?</value>
+    <value>Foundry slaat de wachtwoorden voor deze configuratie niet meer op deze pc op.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Niet meer onthouden</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Wachtwoorden niet meer onthouden?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synchroniseren</value>
@@ -3114,6 +3174,18 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Controleer de verplichte velden. Als om een netwerkmap wordt gevraagd, gebruik dan een pad zoals \\server\share\folder. Als je een bestandswachtwoord tweemaal invoert, controleer dan of beide invoeren overeenkomen.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kan de proxy-instellingen niet opslaan. Probeer het opnieuw. Details staan in het logboek.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Proxy-instellingen niet toegepast</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>De proxy heeft de aanmelding geweigerd. Controleer de instellingen voor proxyverificatie en probeer het opnieuw.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD kan GitHub- en Microsoft-services niet bereiken met deze instellingen. Controleer het proxyadres, de poort en je netwerkverbinding. Details staan in het logboek.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3132,8 +3204,17 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Voer het adres van de proxyserver in.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Voer een geldig HTTP- of HTTPS-proxyadres in, zoals proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Voer een poortnummer van 1 tot en met 65535 in.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4127,20 +4208,20 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Niet gecontroleerd</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>De update kon niet worden toegepast: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kan de update niet starten. Probeer de update opnieuw toe te passen. Details staan in het logboek.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kan niet controleren op updates. Controleer je netwerkverbinding en probeer het opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controleren op updates</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Downloaden van update mislukt: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>De update kan niet worden gedownload. Controleer je netwerkverbinding en probeer het opnieuw. Details staan in het logboek.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Update downloaden</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Updatecontrole mislukt: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD is up-to-date.</value>
@@ -4166,11 +4247,17 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Update kon niet worden toegepast</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Downloaden van update mislukt</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Updatecontrole mislukt</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Up-to-date</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Update klaar om te installeren</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Updatecontrole overgeslagen</value>

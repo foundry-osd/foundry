@@ -310,8 +310,11 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Niciun profil Autopilot nu a fost returnat de chiriaș.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Descărcarea profilului Autopilot a eșuat: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Profilurile Autopilot nu au putut fi descărcate de la chiriaș.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Verificați conexiunea la rețea și asigurați-vă că acest cont poate citi profilurile Autopilot din Intune, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Descărcarea Autopilot a eșuat</value>
@@ -382,8 +385,11 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Actiuni de certificat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nu a putut crea certificatul de înregistrare a aplicației. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nu a putut crea certificatul de înregistrare a aplicației.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Verificați dacă se poate scrie în folderul selectat și dacă acest cont poate gestiona înregistrarea aplicației, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Crearea certificatului a eșuat</value>
@@ -418,8 +424,8 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>certificat PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nu a putut elimina certificatul de înregistrare a aplicației selectate. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nu a putut elimina certificatul selectat de înregistrare a aplicației.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Eliminarea certificatului a eșuat</value>
@@ -460,8 +466,8 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Încărcare zero-touch a hashului hardware</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nu a putut configura înregistrarea aplicației Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nu a putut configura înregistrarea aplicației Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Înregistrarea chiriașului a eșuat</value>
@@ -512,16 +518,25 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați certificatul</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry va elimina numai certificatul selectat din înregistrarea aplicației gestionate. Alte acreditări ale aplicației vor fi păstrate.</value>
+    <value>Certificatul selectat va fi eliminat din înregistrarea aplicației gestionate din chiriașul dvs. Alte acreditări ale aplicației sunt păstrate.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Eliminați certificatul</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Eliminați certificatul selectat?</value>
+    <value>Eliminați certificatul din chiriaș?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Această acțiune nu poate fi anulată. Mediile de pornire care utilizează un certificat eliminat nu mai pot încărca hash-uri hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry va elimina numai certificatele {0} selectate din înregistrarea aplicației gestionate. Alte acreditări ale aplicației vor fi păstrate.</value>
+    <value>Certificatele selectate ({0}) vor fi eliminate din înregistrarea aplicației gestionate din chiriașul dvs. Alte acreditări ale aplicației sunt păstrate.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Eliminați certificatele</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Eliminați certificatele din chiriaș?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Conectat</value>
@@ -537,6 +552,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID locatar</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Verificați conexiunea la rețea și asigurați-vă că acest cont poate gestiona înregistrările de aplicații din chiriaș, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nu este conectat</value>
@@ -563,7 +581,10 @@ Licențiat sub licența MIT.</value>
     <value>Importați profilul</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Profilul Autopilot nu a putut fi importat.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Verificați dacă fișierul este un fișier JSON valid de profil Autopilot, apoi încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Importul Autopilot nu a reușit</value>
@@ -605,7 +626,7 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați selectat</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Eliminați „{0}” din profilurile Autopilot importate?</value>
+    <value>„{0}” va fi eliminat din profilurile Autopilot din această configurație.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Eliminați profilul</value>
@@ -614,7 +635,7 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați profilul Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Eliminați {0} profilurile Autopilot selectate?</value>
+    <value>Profilurile Autopilot selectate ({0}) vor fi eliminate din această configurație.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Eliminați profilurile</value>
@@ -622,14 +643,14 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Eliminați profilurile Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Pentru a utiliza din nou un profil eliminat, importați-l sau descărcați-l din nou de la chiriaș.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Completați autentificarea în browser pentru a descărca profilurile Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Conectați-vă la Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Anulează</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Clar</value>
@@ -703,6 +724,9 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Reîmprospătați</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponibil</value>
   </data>
@@ -714,9 +738,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Răsfoiți</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Anulați</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Import anulat</value>
@@ -805,17 +826,23 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Reîmprospătați</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Eliminați această imagine din profilul curent și ștergeți copia sa locală? În celelalte profiluri care fac referire la ea, imaginea va apărea ca lipsă. Fișierele originale și suporturile existente rămân neschimbate.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Elimină imaginea</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) va fi eliminată din profilul curent, iar copia sa locală va fi ștearsă.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Elimină</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Eliminați imaginea personalizată?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Celelalte profiluri care utilizează această imagine o vor afișa ca lipsă. Fișierul original și suporturile existente nu sunt modificate.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Editează</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Salvează</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Setează imaginea implicită</value>
@@ -1843,8 +1870,14 @@ Licențiat sub licența MIT.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Jurnalele brute pot conține acreditări, identificatori, căi, nume de rețea și alte date sensibile. Exportați-le numai când sunt solicitate explicit de un contact de suport de încredere.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Arhiva de asistență a fost salvată în:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostice exportate</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Deschide folderul</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nu a putut deschide documentația în browser. Folosiți acest URL în schimb.</value>
@@ -2860,6 +2893,15 @@ Licențiat sub licența MIT.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Unele parole sau chei de acces vechi nu au putut fi eliminate. Încercați din nou când Managerul de acreditări Windows este disponibil.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Închide fără a salva</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Cele mai recente modificări nu au putut fi salvate și se vor pierde.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Închideți fără a salva setările?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Confirmați parola</value>
   </data>
@@ -2896,8 +2938,17 @@ Licențiat sub licența MIT.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Șterge de pe acest PC</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Șterge și pentru toată lumea</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Șterge pentru toată lumea</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Ștergi pentru toată lumea?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Ștergeți aceste setări partajate pentru toată lumea? Cei care au modificări nesincronizate trebuie să își duplice setările pentru a le păstra.</value>
@@ -2937,6 +2988,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Șterge parolele și accesul salvate</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Șterge</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Eliminați parolele salvate, fișierele confidențiale salvate de Foundry și accesul la sincronizare pentru aceste setări de pe acest PC? Va trebui să adăugați datele lipsă și să vă reconectați pentru sincronizare. Suporturile create deja nu se vor modifica.</value>
@@ -3058,7 +3112,13 @@ Parole și chei de acces incluse: {2}</value>
     <value>Folosiți același folder din rețea pe toate PC-urile. Acesta trebuie să folosească SMB 3 cu criptare obligatorie. Folderele sincronizate în cloud nu sunt acceptate.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Oprești memorarea parolelor acestei configurații pe acest PC?</value>
+    <value>Foundry nu va mai salva parolele acestei configurații pe acest PC.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Oprește memorarea</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Oprești memorarea parolelor?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sincronizează</value>
@@ -3114,6 +3174,18 @@ Parole și chei de acces incluse: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Verificați câmpurile obligatorii. Dacă vi se cere un folder din rețea, folosiți o cale precum \\server\share\folder. Dacă introduceți parola fișierului de două ori, asigurați-vă că ambele valori sunt identice.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut salva setările proxy. Încercați din nou. Detaliile se găsesc în jurnal.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Setările proxy nu au fost aplicate</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Serverul proxy a respins conectarea. Verificați setările de autentificare proxy și încercați din nou.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut accesa serviciile GitHub și Microsoft cu aceste setări. Verificați adresa proxy, portul și conexiunea la rețea. Detaliile se găsesc în jurnal.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3132,8 +3204,17 @@ Parole și chei de acces incluse: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Introduceți adresa serverului proxy.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Introduceți o adresă proxy HTTP sau HTTPS validă, de exemplu proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Introduceți un număr de port între 1 și 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4127,20 +4208,20 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nu este verificat</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Actualizarea nu a putut fi aplicată: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut porni actualizarea. Încercați să o aplicați din nou. Detaliile se găsesc în jurnal.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nu a putut căuta actualizări. Verificați conexiunea la rețea și încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Se verifică actualizări</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Descărcarea actualizării a eșuat: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Actualizarea nu a putut fi descărcată. Verificați conexiunea la rețea și încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Se descarcă actualizarea</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Verificarea actualizării a eșuat: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD este la zi.</value>
@@ -4166,11 +4247,17 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Actualizarea nu a putut fi aplicată</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Descărcarea actualizării a eșuat</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Verificarea actualizării a eșuat</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>La zi</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Actualizarea este gata de instalare</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Verificarea actualizării a fost omisă</value>

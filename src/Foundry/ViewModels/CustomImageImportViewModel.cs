@@ -67,7 +67,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
             $"{index.Index}: {index.Name} | {index.Architecture} | {index.Version} | {string.Join(", ", index.Languages)}"));
     public CustomImageReference? Result { get; private set; }
     public string Title => Text("ImportLabel");
-    public string CancelLabel => Text("CancelLabel");
+    public string CancelLabel => localization.GetString("Common.Cancel");
     public string BrowseLabel => Text("BrowseLabel");
     public string SourceLabel => Text("SourceLabel");
     public string NameLabel => Text("NameLabel");

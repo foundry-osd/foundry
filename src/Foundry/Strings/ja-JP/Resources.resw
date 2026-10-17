@@ -310,8 +310,11 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>テナントから Autopilot プロファイルが返されませんでした。</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot プロファイルのダウンロードに失敗しました: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>テナントから Autopilot プロファイルをダウンロードできませんでした。</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>ネットワーク接続を確認し、お使いのアカウントで Intune の Autopilot プロファイルを読み取れることを確認してから、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot ダウンロードに失敗しました</value>
@@ -382,8 +385,11 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>証明書アクション</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry はアプリ登録証明書を作成できませんでした。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry はアプリ登録の証明書を作成できませんでした。</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>選択したフォルダーに書き込めること、およびお使いのアカウントでアプリの登録を管理できることを確認してから、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>証明書の作成に失敗しました</value>
@@ -418,8 +424,8 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX 証明書</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry は、選択されたアプリ登録証明書を削除できませんでした。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry は、選択したアプリ登録の証明書を削除できませんでした。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>証明書の削除に失敗しました</value>
@@ -460,8 +466,8 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>ゼロタッチ ハードウェア ハッシュ アップロード</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry は Autopilot アプリの登録を構成できませんでした。 {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry は Autopilot アプリの登録を構成できませんでした。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>テナントのオンボーディングに失敗しました</value>
@@ -512,16 +518,25 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>証明書を削除する</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry は、選択した証明書のみを管理対象アプリの登録から削除します。他のアプリの認証情報は保持されます。</value>
+    <value>選択した証明書は、テナント内の管理対象アプリの登録から削除されます。他のアプリの認証情報は保持されます。</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>証明書を削除する</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>選択した証明書を削除しますか?</value>
+    <value>テナントから証明書を削除しますか?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>この操作は元に戻せません。削除された証明書を使用するブート メディアでは、ハードウェア ハッシュをアップロードできなくなります。</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry は、{0} で選択された証明書のみを管理対象アプリの登録から削除します。他のアプリの認証情報は保持されます。</value>
+    <value>選択した {0} 個の証明書は、テナント内の管理対象アプリの登録から削除されます。他のアプリの認証情報は保持されます。</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>証明書を削除する</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>テナントから複数の証明書を削除しますか?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>接続済み</value>
@@ -537,6 +552,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>テナントID</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>ネットワーク接続を確認し、お使いのアカウントでテナント内のアプリの登録を管理できることを確認してから、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>接続されていません</value>
@@ -563,7 +581,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>プロファイルのインポート</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot プロファイルをインポートできませんでした。</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>ファイルが有効な Autopilot プロファイルの JSON ファイルであることを確認してから、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot インポートに失敗しました</value>
@@ -605,7 +626,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>選択したものを削除</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>インポートされた Autopilot プロファイルから「{0}」を削除しますか?</value>
+    <value>「{0}」はこの構成の Autopilot プロファイルから削除されます。</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>プロファイルを削除する</value>
@@ -614,7 +635,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot プロフィールを削除しますか?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>{0} で選択した Autopilot プロファイルを削除しますか?</value>
+    <value>選択した {0} 個の Autopilot プロファイルがこの構成から削除されます。</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>プロファイルを削除する</value>
@@ -622,14 +643,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Autopilot プロフィールを削除しますか?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>削除したプロファイルを再度使用するには、インポートするか、テナントからもう一度ダウンロードしてください。</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>ブラウザでサインインを完了して、Autopilot プロファイルをダウンロードします。</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Microsoft Graph にサインインします</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>キャンセル</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>クリア</value>
@@ -703,6 +724,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>リフレッシュ</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>利用不可</value>
   </data>
@@ -714,9 +738,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>参照</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>キャンセル</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>インポートがキャンセルされました</value>
@@ -805,17 +826,23 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>更新</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>このイメージを現在のプロファイルから削除し、ローカルコピーも削除しますか？このイメージを参照する他のプロファイルでは、イメージが見つからない状態になります。元のファイルと既存のメディアは変更されません。</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>イメージを削除する</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) は現在のプロファイルから削除され、そのローカルコピーも削除されます。</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>削除</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>カスタムイメージを削除しますか？</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>このイメージを使用している他のプロファイルでは、イメージが見つからない状態として表示されます。元のファイルと既存のメディアは変更されません。</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>編集</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>保存</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>既定のイメージに設定</value>
@@ -1843,8 +1870,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>生ログには、資格情報、識別子、パス、ネットワーク名、その他の機密データが含まれている場合があります。信頼できるサポート担当者から明示的に依頼された場合にのみエクスポートしてください。</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>サポート アーカイブの保存先:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>診断をエクスポートしました</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>フォルダーを開く</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry はブラウザでドキュメントを開けませんでした。代わりにこの URL を使用してください。</value>
@@ -2860,6 +2893,15 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>古い保存済みパスワードまたはアクセスキーの一部を削除できませんでした。Windows 資格情報マネージャーが利用可能になったら、もう一度お試しください。</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>保存せずに閉じる</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>最新の変更を保存できなかったため、変更内容は失われます。</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>設定を保存せずに閉じますか？</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>パスワードの確認</value>
   </data>
@@ -2896,8 +2938,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>この PC から削除</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>削除</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>他のすべてのユーザーからも削除</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>すべてのユーザーに対して削除</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>すべてのユーザーに対して削除しますか？</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>この共有設定をすべてのユーザーから削除しますか？未同期の変更がある場合は、設定を複製して変更を残す必要があります。</value>
@@ -2937,6 +2988,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>保存したパスワードとアクセス情報を消去</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>消去</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>この設定の保存済みパスワード、Foundry が保存した機密ファイル、同期用のアクセス情報をこの PC から削除しますか？同期するには、不足している情報を追加して再接続する必要があります。作成済みのメディアは変更されません。</value>
@@ -3058,7 +3112,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>すべての PC で同じネットワークフォルダーを使用してください。SMB 3 を使用し、暗号化を必須に設定する必要があります。クラウドと同期するフォルダーはサポートされていません。</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>この PC でこの構成のパスワードの保存を停止しますか？</value>
+    <value>Foundry は、この PC でこの構成のパスワードを保存しなくなります。</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>保存を停止する</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>パスワードの保存を停止しますか？</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>同期</value>
@@ -3114,6 +3174,18 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>必須項目を確認してください。ネットワークフォルダーを求められた場合は、\\server\share\folder のようなパスを使用してください。ファイルのパスワードを 2 回入力する場合は、両方が一致していることを確認してください。</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD はプロキシ設定を保存できませんでした。もう一度お試しください。詳細はログに記録されています。</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>プロキシ設定が適用されませんでした</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>プロキシによってサインインが拒否されました。プロキシの認証設定を確認して、もう一度お試しください。</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD は、これらの設定で GitHub および Microsoft のサービスに接続できませんでした。プロキシのアドレス、ポート、ネットワーク接続を確認してください。詳細はログに記録されています。</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3132,8 +3204,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>プロキシ サーバーのアドレスを入力してください。</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>有効な HTTP または HTTPS のプロキシ アドレス (proxy.contoso.com など) を入力してください。</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>1 から 65535 までのポート番号を入力してください。</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4127,20 +4208,20 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未チェック</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>更新を適用できませんでした: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD は更新を開始できませんでした。もう一度更新を適用してください。詳細はログに記録されています。</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD は更新を確認できませんでした。ネットワーク接続を確認して、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>アップデートをチェックしています</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>更新のダウンロードに失敗しました: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>更新をダウンロードできませんでした。ネットワーク接続を確認して、もう一度お試しください。詳細はログに記録されています。</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>更新をダウンロード中</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>更新チェックに失敗しました: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD は最新です。</value>
@@ -4166,11 +4247,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>更新を適用できませんでした</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>更新のダウンロードに失敗しました</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新チェックに失敗しました</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>最新の状態</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>更新をインストールする準備ができました</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>更新チェックがスキップされました</value>

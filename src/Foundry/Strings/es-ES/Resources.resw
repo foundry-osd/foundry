@@ -310,8 +310,11 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>El inquilino no devolvió ningún perfil Autopilot.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot la descarga del perfil falló: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>No se pudieron descargar los perfiles Autopilot del inquilino.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Compruebe la conexión de red y asegúrese de que su cuenta pueda leer perfiles Autopilot en Intune; después, vuelva a intentarlo. Encontrará los detalles en el registro.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot la descarga falló</value>
@@ -382,8 +385,11 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Acciones de certificado</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry no pudo crear el certificado de registro de la aplicación. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry no pudo crear el certificado de registro de la aplicación.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Compruebe que se pueda escribir en la carpeta seleccionada y que su cuenta pueda administrar el registro de la aplicación; después, vuelva a intentarlo. Encontrará los detalles en el registro.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Falló la creación del certificado</value>
@@ -418,8 +424,8 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>certificado PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry no pudo eliminar el certificado de registro de la aplicación seleccionada. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry no pudo quitar el certificado de registro de la aplicación seleccionado.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Error al eliminar el certificado</value>
@@ -460,8 +466,8 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Carga zero-touch del hash de hardware</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry no pudo configurar el registro de la aplicación Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry no pudo configurar el registro de la aplicación Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Error al incorporar inquilinos</value>
@@ -512,16 +518,25 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Quitar certificado</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry eliminará solo el certificado seleccionado del registro de la aplicación administrada. Se conservarán otras credenciales de la aplicación.</value>
+    <value>El certificado seleccionado se quitará del registro de la aplicación administrada en su inquilino. Se conservarán las demás credenciales de la aplicación.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Quitar certificado</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>¿Eliminar el certificado seleccionado?</value>
+    <value>¿Quitar el certificado del inquilino?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Esta acción no se puede deshacer. Los medios de arranque que usen un certificado quitado ya no podrán cargar hashes de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry eliminará solo los certificados {0} seleccionados del registro de la aplicación administrada. Se conservarán otras credenciales de la aplicación.</value>
+    <value>Los {0} certificados seleccionados se quitarán del registro de la aplicación administrada en su inquilino. Se conservarán las demás credenciales de la aplicación.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Quitar certificados</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>¿Quitar los certificados del inquilino?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Conectado</value>
@@ -537,6 +552,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID de inquilino</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Compruebe la conexión de red y asegúrese de que su cuenta pueda administrar registros de aplicaciones en el inquilino; después, vuelva a intentarlo. Encontrará los detalles en el registro.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>No conectado</value>
@@ -563,7 +581,10 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Importar perfil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>No se pudo importar el perfil Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Compruebe que el archivo sea un archivo JSON de perfil Autopilot válido y vuelva a intentarlo. Encontrará los detalles en el registro.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot la importación falló</value>
@@ -605,7 +626,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Eliminar seleccionado</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>¿Eliminar "{0}" de los perfiles Autopilot importados?</value>
+    <value>"{0}" se eliminará de los perfiles Autopilot de esta configuración.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Eliminar perfil</value>
@@ -614,7 +635,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>¿Eliminar el perfil Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>¿Eliminar {0} perfiles Autopilot seleccionados?</value>
+    <value>Se eliminarán {0} perfiles Autopilot seleccionados de esta configuración.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Eliminar perfiles</value>
@@ -622,14 +643,14 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>¿Eliminar perfiles Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Para volver a usar un perfil eliminado, impórtelo o vuelva a descargarlo del inquilino.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Complete el inicio de sesión en el navegador para descargar perfiles Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Inicia sesión en Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Cancelar</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Claro</value>
@@ -703,6 +724,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Refrescar</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponible</value>
   </data>
@@ -714,9 +738,6 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Examinar</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Cancelar</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importación cancelada</value>
@@ -805,17 +826,23 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Actualizar</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>¿Quieres quitar esta imagen del perfil actual y eliminar su copia local? En los otros perfiles que hagan referencia a ella aparecerá como no disponible. Los archivos originales y los medios existentes no se modificarán.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Quitar imagen</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) se quitará del perfil actual y se eliminará su copia local.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Quitar</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>¿Quitar la imagen personalizada?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Los otros perfiles que usan esta imagen la mostrarán como no disponible. El archivo original y los medios existentes no se modifican.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Editar</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Guardar</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Fijar imagen predeterminada</value>
@@ -1843,8 +1870,14 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Los registros sin procesar pueden contener credenciales, identificadores, rutas, nombres de red y otros datos confidenciales. Expórtelos solo cuando lo solicite explícitamente un contacto de soporte de confianza.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>El archivo de soporte se guardó en:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnósticos exportados</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Abrir carpeta</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry no pudo abrir la documentación en su navegador. Utilice este URL en su lugar.</value>
@@ -2860,6 +2893,15 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>No se han podido eliminar algunas contraseñas o claves de acceso antiguas guardadas. Inténtalo de nuevo cuando el Administrador de credenciales de Windows esté disponible.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Cerrar sin guardar</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>No se pudieron guardar los cambios más recientes y se perderán.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>¿Cerrar sin guardar la configuración?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Confirmar contraseña</value>
   </data>
@@ -2896,8 +2938,17 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Eliminar de este PC</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Eliminar también para todos</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Eliminar para todos</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>¿Eliminar para todos?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>¿Eliminar esta configuración compartida para todos? Quien tenga cambios sin sincronizar debe duplicar su configuración para conservarlos.</value>
@@ -2937,6 +2988,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Borrar las contraseñas y los accesos guardados</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Borrar</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>¿Eliminar las contraseñas guardadas, los archivos confidenciales guardados por Foundry y el acceso a la sincronización de esta configuración en este PC? Tendrás que añadir los datos que falten y volver a conectarte para sincronizar. Los medios que ya hayas creado no cambiarán.</value>
@@ -3058,7 +3112,13 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Usa la misma carpeta de red en todos los PC. Debe usar SMB 3 con cifrado obligatorio. No se admiten carpetas sincronizadas con la nube.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>¿Dejar de recordar las contraseñas de esta configuración en este PC?</value>
+    <value>Foundry dejará de guardar las contraseñas de esta configuración en este PC.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Dejar de recordar</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>¿Dejar de recordar las contraseñas?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sincronizar</value>
@@ -3114,6 +3174,18 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Comprueba los campos obligatorios. Si se solicita una carpeta de red, usa una ruta como \\server\share\folder. Si introduces dos veces la contraseña de un archivo, asegúrate de que ambas coincidan.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD no pudo guardar la configuración del proxy. Vuelva a intentarlo. Encontrará los detalles en el registro.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>No se aplicó la configuración del proxy</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>El proxy rechazó el inicio de sesión. Compruebe la configuración de autenticación del proxy y vuelva a intentarlo.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD no pudo conectarse a los servicios de GitHub y Microsoft con esta configuración. Compruebe la dirección y el puerto del proxy, y su conexión de red. Encontrará los detalles en el registro.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3132,8 +3204,17 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Escriba la dirección del servidor proxy.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Escriba una dirección de proxy HTTP o HTTPS válida, como proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Escriba un número de puerto entre 1 y 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4127,20 +4208,20 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>No comprobado</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>No se pudo aplicar la actualización: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD no pudo iniciar la actualización. Intente aplicarla de nuevo. Encontrará los detalles en el registro.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD no pudo buscar actualizaciones. Compruebe la conexión de red y vuelva a intentarlo. Encontrará los detalles en el registro.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Buscando actualizaciones</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Error al descargar la actualización: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>No se pudo descargar la actualización. Compruebe la conexión de red y vuelva a intentarlo. Encontrará los detalles en el registro.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Descargando actualización</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Error en la verificación de actualización: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD está actualizado.</value>
@@ -4166,11 +4247,17 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>No se pudo aplicar la actualización</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Error al descargar la actualización</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Error en la comprobación de actualización</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>A hoy</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Actualización lista para instalar</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Comprobación de actualización omitida</value>

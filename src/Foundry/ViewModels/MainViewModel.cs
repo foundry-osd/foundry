@@ -138,7 +138,7 @@ namespace Foundry.ViewModels
                 ? localizationService.GetString("Update.Footer.DownloadingHelp")
                 : UpdateFooterToolTip;
             UpdateFooterItemStatus = result?.Status == ApplicationUpdateStatus.Failed
-                ? localizationService.FormatString("Update.Status.DownloadFailedFormat", result.FailureMessage ?? result.Message)
+                ? localizationService.GetString("Update.Status.DownloadFailedMessage")
                 : IsUpdateReadyToApply ? UpdateFooterTitle : UpdateFooterToolTip;
             IsUpdateFooterItemVisible = result?.HasKnownUpdate == true;
             OnPropertyChanged(nameof(IsUpdateReadyToApply));

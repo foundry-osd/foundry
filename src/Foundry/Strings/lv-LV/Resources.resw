@@ -310,8 +310,11 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Īrnieks neatgrieza nevienu Autopilot profilu.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profila lejupielāde neizdevās: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot profilus neizdevās lejupielādēt no nomnieka.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Pārbaudiet tīkla savienojumu un pārliecinieties, vai jūsu konts var lasīt Autopilot profilus pakalpojumā Intune, pēc tam mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot lejupielāde neizdevās</value>
@@ -382,8 +385,11 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Sertifikātu darbības</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nevarēja izveidot lietotnes reģistrācijas sertifikātu. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nevarēja izveidot lietotnes reģistrācijas sertifikātu.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Pārbaudiet, vai atlasītajā mapē var rakstīt un vai jūsu konts var pārvaldīt lietotnes reģistrāciju, pēc tam mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Sertifikātu neizdevās izveidot</value>
@@ -418,8 +424,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX sertifikāts</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nevarēja noņemt atlasītās lietotnes reģistrācijas sertifikātu. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nevarēja noņemt atlasīto lietotnes reģistrācijas sertifikātu.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Sertifikāta noņemšana neizdevās</value>
@@ -460,8 +466,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch aparatūras jaucējkoda augšupielāde</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nevarēja konfigurēt Autopilot lietotnes reģistrāciju. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nevarēja konfigurēt Autopilot lietotnes reģistrāciju.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Īrnieka uzņemšana neizdevās</value>
@@ -512,16 +518,25 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Noņemt sertifikātu</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry no pārvaldītās lietotnes reģistrācijas noņems tikai atlasīto sertifikātu. Citi lietotņu akreditācijas dati tiks saglabāti.</value>
+    <value>Atlasītais sertifikāts tiks noņemts no pārvaldītās lietotnes reģistrācijas jūsu nomniekā. Citi lietotnes akreditācijas dati tiks saglabāti.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Noņemt sertifikātu</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Vai noņemt atlasīto sertifikātu?</value>
+    <value>Vai noņemt sertifikātu no nomnieka?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Šo darbību nevar atsaukt. Sāknēšanas multivide, kas izmanto noņemtu sertifikātu, vairs nevarēs augšupielādēt aparatūras hash vērtības.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry no pārvaldītās lietotnes reģistrācijas noņems tikai {0} atlasītos sertifikātus. Citi lietotņu akreditācijas dati tiks saglabāti.</value>
+    <value>Atlasītie sertifikāti ({0}) tiks noņemti no pārvaldītās lietotnes reģistrācijas jūsu nomniekā. Citi lietotnes akreditācijas dati tiks saglabāti.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Noņemt sertifikātus</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Vai noņemt sertifikātus no nomnieka?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Savienots</value>
@@ -537,6 +552,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Īrnieka ID</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Pārbaudiet tīkla savienojumu un pārliecinieties, vai jūsu konts var pārvaldīt lietotņu reģistrācijas nomniekā, pēc tam mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nav savienots</value>
@@ -563,7 +581,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Importēt profilu</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot profilu neizdevās importēt.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Pārbaudiet, vai fails ir derīgs Autopilot profila JSON fails, un mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot importēšana neizdevās</value>
@@ -605,7 +626,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Noņemt atlasīto</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Vai noņemt "{0}" no importētajiem Autopilot profiliem?</value>
+    <value>„{0}” tiks noņemts no šīs konfigurācijas Autopilot profiliem.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Noņemt profilu</value>
@@ -614,7 +635,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Vai noņemt Autopilot profilu?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Vai noņemt {0} atlasītos Autopilot profilus?</value>
+    <value>No šīs konfigurācijas tiks noņemti atlasītie Autopilot profili ({0}).</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Noņemt profilus</value>
@@ -622,14 +643,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Vai noņemt Autopilot profilus?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Lai atkal izmantotu noņemtu profilu, importējiet to vai vēlreiz lejupielādējiet no nomnieka.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Pabeidziet pierakstīšanos pārlūkprogrammā, lai lejupielādētu Autopilot profilus.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Pierakstieties Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Atcelt</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Skaidrs</value>
@@ -703,6 +724,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atsvaidzināt</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nav pieejams</value>
   </data>
@@ -714,9 +738,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Pārlūkot</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Atcelt</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importēšana atcelta</value>
@@ -805,17 +826,23 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atsvaidzināt</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Vai noņemt šo attēlu no pašreizējā profila un dzēst tā lokālo kopiju? Citos profilos, kuros ir atsauce uz to, tas tiks rādīts kā trūkstošs. Sākotnējie faili un esošie datu nesēji netiks mainīti.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Noņemt attēlu</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) tiks noņemts no pašreizējā profila, un tā lokālā kopija tiks dzēsta.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Noņemt</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Vai noņemt pielāgoto attēlu?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Citos profilos, kuros tiek izmantots šis attēls, tas tiks rādīts kā trūkstošs. Sākotnējais fails un esošie datu nesēji netiks mainīti.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Rediģēt</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Saglabāt</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Iestatīt noklusējuma attēlu</value>
@@ -1843,8 +1870,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Neapstrādātajos žurnālos var būt akreditācijas dati, identifikatori, ceļi, tīklu nosaukumi un citi sensitīvi dati. Eksportējiet tos tikai tad, ja to skaidri pieprasa uzticams atbalsta kontakts.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Atbalsta arhīvs tika saglabāts šeit:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostika eksportēta</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Atvērt mapi</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nevarēja atvērt dokumentāciju jūsu pārlūkprogrammā. Tā vietā izmantojiet šo URL.</value>
@@ -2860,6 +2893,15 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Neizdevās noņemt dažas vecās saglabātās paroles vai piekļuves atslēgas. Mēģiniet vēlreiz, kad būs pieejams Windows akreditācijas datu pārvaldnieks.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Aizvērt, nesaglabājot</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Jūsu pēdējās izmaiņas neizdevās saglabāt, un tās tiks zaudētas.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Vai aizvērt, nesaglabājot iestatījumus?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Apstipriniet paroli</value>
   </data>
@@ -2896,8 +2938,17 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Dzēst no šī datora</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Dzēst</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Dzēst arī visiem pārējiem</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Dzēst visiem</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Vai dzēst visiem?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Vai dzēst šos koplietotos iestatījumus visiem? Ikvienam, kuram ir nesinhronizētas izmaiņas, ir jādublē savi iestatījumi, lai tās saglabātu.</value>
@@ -2937,6 +2988,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Notīrīt saglabātās paroles un piekļuves datus</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Notīrīt</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Vai noņemt šajā datorā saglabātās paroles, Foundry saglabātos konfidenciālos failus un piekļuvi šo iestatījumu sinhronizācijai? Lai sinhronizētu, būs jāpievieno trūkstošā informācija un jāpievienojas vēlreiz. Jau izveidotie datu nesēji netiks mainīti.</value>
@@ -3058,7 +3112,13 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Visos datoros izmantojiet vienu un to pašu tīkla mapi. Tai jāizmanto SMB 3 ar obligātu šifrēšanu. Ar mākoni sinhronizētas mapes netiek atbalstītas.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Vai pārtraukt atcerēties šīs konfigurācijas paroles šajā datorā?</value>
+    <value>Foundry pārtrauks saglabāt šīs konfigurācijas paroles šajā datorā.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Pārtraukt atcerēties</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Vai pārtraukt atcerēties paroles?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sinhronizēt</value>
@@ -3114,6 +3174,18 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Pārbaudiet obligātos laukus. Ja tiek prasīta tīkla mape, izmantojiet ceļu, piemēram, \\server\share\folder. Ja faila paroli ievadāt divreiz, pārliecinieties, ka abi ieraksti sakrīt.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nevarēja saglabāt starpniekservera iestatījumus. Mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Starpniekservera iestatījumi netika lietoti</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Starpniekserveris noraidīja pierakstīšanos. Pārbaudiet starpniekservera autentifikācijas iestatījumus un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Ar šiem iestatījumiem Foundry OSD nevarēja sasniegt GitHub un Microsoft pakalpojumus. Pārbaudiet starpniekservera adresi, portu un tīkla savienojumu. Plašāka informācija ir žurnālā.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3132,8 +3204,17 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Ievadiet starpniekservera adresi.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Ievadiet derīgu HTTP vai HTTPS starpniekservera adresi, piemēram, proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Ievadiet porta numuru no 1 līdz 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4127,20 +4208,20 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nav pārbaudīts</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Atjauninājumu neizdevās lietot: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nevarēja startēt atjauninājumu. Mēģiniet to lietot vēlreiz. Plašāka informācija ir žurnālā.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nevarēja pārbaudīt, vai ir pieejami atjauninājumi. Pārbaudiet tīkla savienojumu un mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Notiek atjauninājumu pārbaude</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Atjauninājuma lejupielāde neizdevās: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Atjauninājumu neizdevās lejupielādēt. Pārbaudiet tīkla savienojumu un mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Atjauninājuma lejupielāde</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Atjaunināšanas pārbaude neizdevās: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD ir atjaunināta.</value>
@@ -4166,11 +4247,17 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Atjauninājumu neizdevās lietot</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Atjauninājuma lejupielāde neizdevās</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Atjaunināšanas pārbaude neizdevās</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Aktuāli</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Atjauninājums ir gatavs instalēšanai</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Atjaunināšanas pārbaude ir izlaista</value>

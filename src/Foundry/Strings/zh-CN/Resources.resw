@@ -310,8 +310,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>租户没有返回Autopilot个人资料。</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot配置文件下载失败：{0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>无法从租户下载 Autopilot 配置文件。</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>请检查网络连接，并确保您的帐户可以读取 Intune 中的 Autopilot 配置文件，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot下载失败</value>
@@ -382,8 +385,11 @@
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>证书操作</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 无法创建应用程序注册证书。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry 无法创建应用程序注册证书。</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>请检查所选文件夹是否可写入，以及您的帐户是否可以管理该应用程序注册，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>证书创建失败</value>
@@ -418,8 +424,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX证书</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 无法删除所选的应用程序注册证书。 {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry 无法删除所选的应用程序注册证书。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>证书删除失败</value>
@@ -460,8 +466,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch 硬件哈希上传</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 无法配置Autopilot 应用程序注册。 {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry 无法配置 Autopilot 应用程序注册。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>租户入职失败</value>
@@ -512,16 +518,25 @@
     <value>删除证书</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry 将仅从托管应用程序注册中删除选定的证书。其他应用程序凭据将被保留。</value>
+    <value>所选证书将从您租户中的托管应用程序注册中删除。应用程序的其他凭据将保留。</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>删除证书</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>删除选定的证书？</value>
+    <value>要从租户中删除证书吗？</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>此操作无法撤消。使用已删除证书的启动介质将无法再上传硬件哈希。</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry 将仅从托管应用程序注册中删除{0} 选定的证书。其他应用程序凭据将被保留。</value>
+    <value>所选的 {0} 个证书将从您租户中的托管应用程序注册中删除。应用程序的其他凭据将保留。</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>删除所选证书</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>要从租户中删除这些证书吗？</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>已连接</value>
@@ -537,6 +552,9 @@
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>租户ID</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>请检查网络连接，并确保您的帐户可以管理租户中的应用程序注册，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>未连接</value>
@@ -563,7 +581,10 @@
     <value>导入配置文件</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>无法导入 Autopilot 配置文件。</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>请检查该文件是否为有效的 Autopilot 配置文件 JSON 文件，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot导入失败</value>
@@ -605,7 +626,7 @@
     <value>删除选定的</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>从导入的Autopilot 配置文件中删除“{0}”吗？</value>
+    <value>“{0}”将从此配置的 Autopilot 配置文件中删除。</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>删除个人资料</value>
@@ -614,7 +635,7 @@
     <value>删除Autopilot个人资料吗？</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>删除 {0} 选定的 Autopilot 配置文件吗？</value>
+    <value>将从此配置中删除 {0} 个选定的 Autopilot 配置文件。</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>删除配置文件</value>
@@ -622,14 +643,14 @@
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>删除 Autopilot 配置文件？</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>若要再次使用已删除的配置文件，请导入它或从租户重新下载。</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>在浏览器中完成登录即可下载Autopilot配置文件。</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>登录Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>取消</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>清除</value>
@@ -703,6 +724,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>不可用</value>
   </data>
@@ -714,9 +738,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>浏览</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>取消</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>导入已取消</value>
@@ -805,17 +826,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>刷新</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>要从当前配置文件中移除此映像并删除其本地副本吗？引用此映像的其他配置文件会将其显示为缺失。原始文件和现有介质保持不变。</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>移除映像</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) 将从当前配置文件中移除，其本地副本将被删除。</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>移除</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>要移除自定义映像吗？</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>使用此映像的其他配置文件会将其显示为缺失。原始文件和现有介质不会更改。</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>编辑</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>保存</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>设为默认映像</value>
@@ -1843,8 +1870,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>原始日志可能包含凭据、标识符、路径、网络名称以及其他敏感数据。仅在可信的支持联系人明确要求时才导出。</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>支持归档已保存到以下位置：</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>诊断信息已导出</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>打开文件夹</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry 无法在您的浏览器中打开文档。请改用URL。</value>
@@ -2860,6 +2893,15 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>部分旧的已保存密码或访问密钥未能删除。请在 Windows 凭据管理器可用时重试。</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>不保存并关闭</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>无法保存您最近的更改，这些更改将丢失。</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>要关闭而不保存设置吗？</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>确认密码</value>
   </data>
@@ -2896,8 +2938,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>从此电脑删除</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>删除</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>同时为所有人删除</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>为所有人删除</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>要为所有人删除吗？</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>要为所有人删除这些共享设置吗？有未同步更改的用户必须创建设置副本才能保留更改。</value>
@@ -2937,6 +2988,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>清除已保存的密码和访问凭据</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>清除</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>要从此电脑删除这些设置的已保存密码、Foundry 保存的机密文件以及同步访问权限吗？您需要补充缺失的信息并重新连接才能同步。已创建的介质不会改变。</value>
@@ -3058,7 +3112,13 @@
     <value>所有电脑都应使用同一个网络文件夹。该文件夹必须使用 SMB 3 并强制加密。不支持与云端同步的文件夹。</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>停止在此电脑上记住此配置的密码？</value>
+    <value>Foundry 将停止在此电脑上保存此配置的密码。</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>停止记住</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>要停止记住密码吗？</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>同步</value>
@@ -3114,6 +3174,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>请检查必填字段。如果需要网络文件夹，请使用 \\server\share\folder 这样的路径。如果两次输入文件密码，请确保两次输入一致。</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 无法保存代理设置。请重试。有关详细信息，请参阅日志。</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>未应用代理设置</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>代理服务器拒绝了登录。请检查代理身份验证设置，然后重试。</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD 无法使用这些设置访问 GitHub 和 Microsoft 服务。请检查代理地址、端口和网络连接。有关详细信息，请参阅日志。</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3132,8 +3204,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>请输入代理服务器地址。</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>请输入有效的 HTTP 或 HTTPS 代理地址，例如 proxy.contoso.com。</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>请输入 1 到 65535 之间的端口号。</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4127,20 +4208,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未检查</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>无法应用更新：{0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 无法启动更新。请尝试重新应用更新。有关详细信息，请参阅日志。</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD 无法检查更新。请检查网络连接，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>检查更新</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>更新下载失败：{0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>无法下载更新。请检查网络连接，然后重试。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>正在下载更新</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>更新检查失败：{0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD 是最新的。</value>
@@ -4166,11 +4247,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>无法应用更新</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>更新下载失败</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>更新检查失败</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>最新</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>更新已准备好安装</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>更新检查已跳过</value>

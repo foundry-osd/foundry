@@ -310,8 +310,11 @@ Licenseret under MIT-licensen.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Ingen Autopilot-profiler blev returneret af lejeren.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profildownload mislykkedes: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot-profilerne kunne ikke downloades fra lejeren.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Kontrollér din netværksforbindelse, og sørg for, at din konto kan læse Autopilot-profiler i Intune, og prøv derefter igen. Du kan finde flere oplysninger i logfilen.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot download mislykkedes</value>
@@ -382,8 +385,11 @@ Licenseret under MIT-licensen.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Certifikathandlinger</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunne ikke oprette appregistreringscertifikatet. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry kunne ikke oprette appregistreringscertifikatet.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Kontrollér, at der kan skrives til den valgte mappe, og at din konto kan administrere appregistreringen, og prøv derefter igen. Du kan finde flere oplysninger i logfilen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Oprettelse af certifikat mislykkedes</value>
@@ -418,8 +424,8 @@ Licenseret under MIT-licensen.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX certifikat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunne ikke fjerne det valgte appregistreringscertifikat. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry kunne ikke fjerne det valgte appregistreringscertifikat.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Fjernelse af certifikat mislykkedes</value>
@@ -460,8 +466,8 @@ Licenseret under MIT-licensen.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch upload af hardwarehash</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry kunne ikke konfigurere Autopilot app-registreringen. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry kunne ikke konfigurere Autopilot-appregistreringen.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Lejer onboarding mislykkedes</value>
@@ -512,16 +518,25 @@ Licenseret under MIT-licensen.</value>
     <value>Fjern certifikat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry vil kun fjerne det valgte certifikat fra den administrerede app-registrering. Andre app-legitimationsoplysninger vil blive bevaret.</value>
+    <value>Det valgte certifikat fjernes fra den administrerede appregistrering i din lejer. Andre app-legitimationsoplysninger bevares.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Fjern certifikat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Vil du fjerne det valgte certifikat?</value>
+    <value>Vil du fjerne certifikatet fra lejeren?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Dette kan ikke fortrydes. Bootmedier, der bruger et fjernet certifikat, kan ikke længere uploade hardware-hashes.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry vil kun fjerne de {0} valgte certifikater fra den administrerede app-registrering. Andre app-legitimationsoplysninger vil blive bevaret.</value>
+    <value>De {0} valgte certifikater fjernes fra den administrerede appregistrering i din lejer. Andre app-legitimationsoplysninger bevares.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Fjern certifikater</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Vil du fjerne certifikaterne fra lejeren?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Forbundet</value>
@@ -537,6 +552,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Lejer ID</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Kontrollér din netværksforbindelse, og sørg for, at din konto kan administrere appregistreringer i lejeren, og prøv derefter igen. Du kan finde flere oplysninger i logfilen.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Ikke forbundet</value>
@@ -563,7 +581,10 @@ Licenseret under MIT-licensen.</value>
     <value>Importer profil</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot-profilen kunne ikke importeres.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Kontrollér, at filen er en gyldig JSON-fil med en Autopilot-profil, og prøv derefter igen. Du kan finde flere oplysninger i logfilen.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot import mislykkedes</value>
@@ -605,7 +626,7 @@ Licenseret under MIT-licensen.</value>
     <value>Fjern valgte</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Vil du fjerne "{0}" fra de importerede Autopilot-profiler?</value>
+    <value>"{0}" fjernes fra Autopilot-profilerne i denne konfiguration.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Fjern profil</value>
@@ -614,7 +635,7 @@ Licenseret under MIT-licensen.</value>
     <value>Vil du fjerne Autopilot profil?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Vil du fjerne {0} valgte Autopilot profiler?</value>
+    <value>{0} valgte Autopilot-profiler fjernes fra denne konfiguration.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Fjern profiler</value>
@@ -622,14 +643,14 @@ Licenseret under MIT-licensen.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Vil du fjerne Autopilot profiler?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Hvis du vil bruge en fjernet profil igen, skal du importere den eller downloade den fra lejeren igen.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Fuldfør login i browseren for at downloade Autopilot profiler.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Log ind på Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Annuller</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Ryd</value>
@@ -703,6 +724,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Opdater</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Gem</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ikke tilgængelig</value>
   </data>
@@ -714,9 +738,6 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Gennemse</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Annuller</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Import annulleret</value>
@@ -805,17 +826,23 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Opdater</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Vil du fjerne denne afbildning fra den aktuelle profil og slette dens lokale kopi? Andre profiler, der henviser til den, vil vise den som manglende. Originalfiler og eksisterende medier ændres ikke.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Fjern afbildning</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) fjernes fra den aktuelle profil, og dens lokale kopi slettes.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Fjern</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Vil du fjerne den brugerdefinerede afbildning?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>Andre profiler, der bruger denne afbildning, viser den som manglende. Den oprindelige fil og eksisterende medier ændres ikke.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Rediger</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Gem</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Angiv standardafbildning</value>
@@ -1843,8 +1870,14 @@ Licenseret under MIT-licensen.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Rå logfiler kan indeholde legitimationsoplysninger, identifikatorer, stier, netværksnavne og andre følsomme data. Eksporter dem kun, når det udtrykkeligt anmodes om af en betroet supportkontakt.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Supportarkivet blev gemt i:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostik eksporteret</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Åbn mappe</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry kunne ikke åbne dokumentationen i din browser. Brug denne URL i stedet for.</value>
@@ -2860,6 +2893,15 @@ Licenseret under MIT-licensen.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Nogle gamle gemte adgangskoder eller adgangsnøgler kunne ikke fjernes. Prøv igen, når Windows Legitimationsstyring er tilgængelig.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Luk uden at gemme</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Dine seneste ændringer kunne ikke gemmes og går tabt.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Vil du lukke uden at gemme indstillingerne?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Bekræft adgangskode</value>
   </data>
@@ -2896,8 +2938,17 @@ Licenseret under MIT-licensen.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Slet fra denne pc</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Slet</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Slet også for alle andre</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Slet for alle</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Vil du slette for alle?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Vil du slette disse delte indstillinger for alle? Alle med ændringer, der ikke er synkroniseret, skal duplikere deres indstillinger for at beholde dem.</value>
@@ -2937,6 +2988,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Ryd gemte adgangskoder og adgange</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Ryd</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Vil du fjerne gemte adgangskoder, fortrolige filer gemt af Foundry og synkroniseringsadgang for disse indstillinger på denne pc? Du skal tilføje de manglende oplysninger og oprette forbindelse igen for at synkronisere. Medier, du allerede har oprettet, ændres ikke.</value>
@@ -3058,7 +3112,13 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Brug den samme netværksmappe på alle pc’er. Den skal bruge SMB 3 med obligatorisk kryptering. Mapper, der synkroniseres med skyen, understøttes ikke.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Vil du stoppe med at huske adgangskoder til denne konfiguration på denne pc?</value>
+    <value>Foundry stopper med at gemme adgangskoderne til denne konfiguration på denne pc.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Stop med at huske</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Vil du stoppe med at huske adgangskoder?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synkroniser</value>
@@ -3114,6 +3174,18 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Kontrollér de obligatoriske felter. Hvis der skal angives en netværksmappe, skal du bruge en sti som \\server\share\folder. Hvis du indtaster en filadgangskode to gange, skal begge indtastninger være ens.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke gemme proxyindstillingerne. Prøv igen. Du kan finde flere oplysninger i logfilen.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Proxyindstillingerne blev ikke anvendt</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxyen afviste logonet. Kontrollér indstillingerne for proxygodkendelse, og prøv igen.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke oprette forbindelse til GitHub- og Microsoft-tjenester med disse indstillinger. Kontrollér proxyadressen, porten og din netværksforbindelse. Du kan finde flere oplysninger i logfilen.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3132,8 +3204,17 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Angiv proxyserverens adresse.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Angiv en gyldig HTTP- eller HTTPS-proxyadresse, f.eks. proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Angiv et portnummer fra 1 til 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4127,20 +4208,20 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ikke kontrolleret</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Opdateringen kunne ikke anvendes: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke starte opdateringen. Prøv at anvende den igen. Du kan finde flere oplysninger i logfilen.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD kunne ikke søge efter opdateringer. Kontrollér din netværksforbindelse, og prøv igen. Du kan finde flere oplysninger i logfilen.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Søger efter opdateringer</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Download af opdatering mislykkedes: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Opdateringen kunne ikke downloades. Kontrollér din netværksforbindelse, og prøv igen. Du kan finde flere oplysninger i logfilen.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Downloader opdatering</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Opdateringstjek mislykkedes: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD er opdateret.</value>
@@ -4166,11 +4247,17 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Opdateringen kunne ikke anvendes</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Download af opdatering mislykkedes</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Opdateringstjek mislykkedes</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Op til dato</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Opdateringen er klar til installation</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Opdateringstjek sprunget over</value>

@@ -310,8 +310,11 @@
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>לא הוחזרו פרופילים של Autopilot על ידי השוכר.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>הורדת הפרופיל Autopilot נכשלה: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה להוריד את פרופילי Autopilot מהדייר.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>בדוק את החיבור לרשת וודא שלחשבון שלך יש הרשאה לקרוא פרופילי Autopilot ב-Intune, ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>הורדת Autopilot נכשלה</value>
@@ -382,8 +385,11 @@
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>פעולות תעודה</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry לא הצליח ליצור את אישור הרישום של האפליקציה. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry לא הצליח ליצור את האישור של רישום האפליקציה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>ודא שניתן לכתוב לתיקייה שנבחרה ושהחשבון שלך יכול לנהל את רישום האפליקציה, ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>יצירת האישור נכשלה</value>
@@ -418,8 +424,8 @@
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>תעודת PFX</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry לא הצליח להסיר את אישור הרישום של האפליקציה שנבחרה. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry לא הצליח להסיר את האישור שנבחר של רישום האפליקציה.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>הסרת האישור נכשלה</value>
@@ -460,8 +466,8 @@
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>העלאת zero-touch של hash חומרה</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry לא הצליח להגדיר את רישום האפליקציה Autopilot. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry לא הצליח להגדיר את רישום האפליקציה של Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>הכניסה לדייר נכשלה</value>
@@ -512,16 +518,25 @@
     <value>הסר אישור</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry יסיר רק את האישור שנבחר מהרישום של האפליקציה המנוהלת. אישורי אפליקציה אחרים יישמרו.</value>
+    <value>האישור שנבחר יוסר מרישום האפליקציה המנוהלת בדייר שלך. פרטי כניסה אחרים של האפליקציה יישמרו.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>הסר אישור</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>להסיר את האישור שנבחר?</value>
+    <value>להסיר את האישור מהדייר?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>לא ניתן לבטל פעולה זו. מדיית אתחול שמשתמשת באישור שהוסר לא תוכל עוד להעלות hash של חומרה.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry יסיר רק את האישורים {0} שנבחרו מהרישום של האפליקציה המנוהלת. אישורי אפליקציה אחרים יישמרו.</value>
+    <value>{0} האישורים שנבחרו יוסרו מרישום האפליקציה המנוהלת בדייר שלך. פרטי כניסה אחרים של האפליקציה יישמרו.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>הסר אישורים</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>להסיר את האישורים מהדייר?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>מחובר</value>
@@ -537,6 +552,9 @@
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>זיהוי דייר</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>בדוק את החיבור לרשת וודא שהחשבון שלך יכול לנהל רישומי אפליקציות בדייר, ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>לא מחובר</value>
@@ -563,7 +581,10 @@
     <value>ייבוא פרופיל</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>לא ניתן היה לייבא את פרופיל Autopilot.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>ודא שהקובץ הוא קובץ JSON חוקי של פרופיל Autopilot ולאחר מכן נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>הייבוא Autopilot נכשל</value>
@@ -605,7 +626,7 @@
     <value>הסר את הבחירה</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>להסיר את "{0}" מהפרופילים המיובאים של Autopilot?</value>
+    <value>"{0}" יוסר מפרופילי Autopilot בתצורה זו.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>הסר פרופיל</value>
@@ -614,7 +635,7 @@
     <value>להסיר את הפרופיל Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>להסיר את הפרופילים {0} שנבחרו ב-Autopilot?</value>
+    <value>{0} פרופילי Autopilot שנבחרו יוסרו מתצורה זו.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>הסר פרופילים</value>
@@ -622,14 +643,14 @@
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>להסיר פרופילים של Autopilot?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>כדי להשתמש שוב בפרופיל שהוסר, ייבא אותו או הורד אותו שוב מהדייר.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>השלם את הכניסה בדפדפן כדי להוריד פרופילים של Autopilot.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>היכנס אל Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>בטל</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>ברור</value>
@@ -703,6 +724,9 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>רענן</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>שמירה</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>לא זמין</value>
   </data>
@@ -714,9 +738,6 @@
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>עיון</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>ביטול</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>הייבוא בוטל</value>
@@ -805,17 +826,23 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>רענון</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>להסיר תמונה זו מהפרופיל הנוכחי ולמחוק את העותק המקומי שלה? בפרופילים אחרים המפנים אליה היא תוצג כחסרה. קובצי המקור ואמצעי המדיה הקיימים לא ישתנו.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>הסר תמונה</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) תוסר מהפרופיל הנוכחי, והעותק המקומי שלה יימחק.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>הסרה</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>להסיר את התמונה המותאמת אישית?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>פרופילים אחרים שמשתמשים בתמונה זו יציגו אותה כחסרה. קובץ המקור ואמצעי המדיה הקיימים לא ישתנו.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>עריכה</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>שמירה</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>הגדרת תמונת ברירת מחדל</value>
@@ -1843,8 +1870,14 @@
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>יומנים גולמיים עשויים להכיל אישורי גישה, מזהים, נתיבים, שמות רשת ונתונים רגישים אחרים. ייצא אותם רק כאשר איש תמיכה מהימן מבקש זאת במפורש.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>ארכיון התמיכה נשמר אל:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>האבחון יוצא</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>פתח תיקייה</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry לא הצליח לפתוח את התיעוד בדפדפן שלך. השתמש ב-URL זה במקום זאת.</value>
@@ -2860,6 +2893,15 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>לא ניתן היה להסיר חלק מהסיסמאות או ממפתחות הגישה הישנים שנשמרו. יש לנסות שוב כאשר מנהל האישורים של Windows זמין.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>סגור בלי לשמור</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>לא ניתן היה לשמור את השינויים האחרונים שלך, והם יאבדו.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>לסגור בלי לשמור את ההגדרות?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>אישור סיסמה</value>
   </data>
@@ -2896,8 +2938,17 @@
   <data name="Profiles.Delete" xml:space="preserve">
     <value>מחיקה ממחשב זה</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>מחק</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>מחיקה גם עבור כולם</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>מחק עבור כולם</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>למחוק עבור כולם?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>למחוק את ההגדרות המשותפות האלה עבור כולם? מי שיש לו שינויים שלא סונכרנו צריך לשכפל את ההגדרות שלו כדי לשמור אותם.</value>
@@ -2937,6 +2988,9 @@
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>ניקוי סיסמאות ופרטי גישה שמורים</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>נקה</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>להסיר ממחשב זה את הסיסמאות השמורות, את הקבצים הסודיים שנשמרו על ידי Foundry ואת גישת הסנכרון של ההגדרות האלה? יהיה צורך להוסיף את הפרטים החסרים ולהתחבר מחדש כדי לסנכרן. מדיה שכבר נוצרה לא תשתנה.</value>
@@ -3058,7 +3112,13 @@
     <value>יש להשתמש באותה תיקיית רשת בכל מחשב. התיקייה חייבת להשתמש ב-SMB 3 עם הצפנה נדרשת. תיקיות המסונכרנות עם הענן אינן נתמכות.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>להפסיק לזכור סיסמאות עבור תצורה זו במחשב זה?</value>
+    <value>Foundry יפסיק לשמור את הסיסמאות של תצורה זו במחשב זה.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>הפסק לזכור</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>להפסיק לזכור סיסמאות?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>סנכרון</value>
@@ -3114,6 +3174,18 @@
   <data name="Profiles.Validation" xml:space="preserve">
     <value>יש לבדוק את שדות החובה. אם נדרשת תיקיית רשת, יש להשתמש בנתיב כגון \\server\share\folder. אם מזינים סיסמת קובץ פעמיים, יש לוודא ששתי ההזנות זהות.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח לשמור את הגדרות ה-Proxy. נסה שוב. הפרטים מופיעים ביומן.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>הגדרות ה-Proxy לא הוחלו</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>שרת ה-Proxy דחה את הכניסה. בדוק את הגדרות האימות של ה-Proxy ונסה שוב.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח להתחבר לשירותי GitHub ו-Microsoft עם הגדרות אלה. בדוק את כתובת ה-Proxy, את היציאה ואת החיבור לרשת. הפרטים מופיעים ביומן.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3132,8 +3204,17 @@
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>הזן את הכתובת של שרת ה-Proxy.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>הזן כתובת Proxy חוקית מסוג HTTP או HTTPS, לדוגמה proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>הזן מספר יציאה בין 1 ל-65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4127,20 +4208,20 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>לא נבדק</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>לא ניתן היה להחיל את העדכון: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח להפעיל את העדכון. נסה להחיל אותו שוב. הפרטים מופיעים ביומן.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD לא הצליח לבדוק אם יש עדכונים. בדוק את החיבור לרשת ונסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>מחפש עדכונים</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>הורדת העדכון נכשלה: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה להוריד את העדכון. בדוק את החיבור לרשת ונסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>מוריד עדכון</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>בדיקת העדכון נכשלה: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD מעודכן.</value>
@@ -4166,11 +4247,17 @@
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>לא ניתן היה להחיל את העדכון</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>הורדת העדכון נכשלה</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>בדיקת העדכון נכשלה</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>מעודכן</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>העדכון מוכן להתקנה</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>בדיקת עדכון דילגה</value>

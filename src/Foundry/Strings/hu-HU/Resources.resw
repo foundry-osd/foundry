@@ -310,8 +310,11 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>A bérlő nem adott vissza Autopilot profilt.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profilletöltés sikertelen: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Az Autopilot-profilokat nem sikerült letölteni a bérlőtől.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Ellenőrizze a hálózati kapcsolatot, és győződjön meg arról, hogy a fiókja olvashatja az Autopilot-profilokat az Intune szolgáltatásban, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot letöltés sikertelen</value>
@@ -382,8 +385,11 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Tanúsítvány műveletek</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nem tudta létrehozni az alkalmazás regisztrációs tanúsítványát. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>A Foundry nem tudta létrehozni az alkalmazásregisztráció tanúsítványát.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Ellenőrizze, hogy a kiválasztott mappa írható-e, és hogy a fiókja kezelheti-e az alkalmazásregisztrációt, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>A tanúsítvány létrehozása nem sikerült</value>
@@ -418,8 +424,8 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX tanúsítvány</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nem tudta eltávolítani a kiválasztott alkalmazás regisztrációs tanúsítványát. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>A Foundry nem tudta eltávolítani az alkalmazásregisztráció kiválasztott tanúsítványát.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>A tanúsítvány eltávolítása nem sikerült</value>
@@ -460,8 +466,8 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch hardverhash-feltöltés</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nem tudta konfigurálni az Autopilot alkalmazás regisztrációját. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>A Foundry nem tudta konfigurálni az Autopilot-alkalmazásregisztrációt.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>A bérlő beiktatása nem sikerült</value>
@@ -512,16 +518,25 @@ Licenc az MIT licenc alatt.</value>
     <value>Tanúsítvány eltávolítása</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Az Foundry csak a kiválasztott tanúsítványt távolítja el a kezelt alkalmazásregisztrációból. A többi alkalmazás hitelesítő adatai megmaradnak.</value>
+    <value>A rendszer eltávolítja a kiválasztott tanúsítványt a bérlő felügyelt alkalmazásregisztrációjából. Az alkalmazás többi hitelesítő adata megmarad.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Tanúsítvány eltávolítása</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Eltávolítja a kiválasztott tanúsítványt?</value>
+    <value>Eltávolítja a tanúsítványt a bérlőből?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Ez a művelet nem vonható vissza. Az eltávolított tanúsítványt használó rendszerindító adathordozók többé nem tudnak hardveres hasheket feltölteni.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Az Foundry csak a {0} kiválasztott tanúsítványokat távolítja el a kezelt alkalmazásregisztrációból. A többi alkalmazás hitelesítő adatai megmaradnak.</value>
+    <value>A rendszer eltávolítja a kiválasztott {0} tanúsítványt a bérlő felügyelt alkalmazásregisztrációjából. Az alkalmazás többi hitelesítő adata megmarad.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Tanúsítványok eltávolítása</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Eltávolítja a tanúsítványokat a bérlőből?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Csatlakozva</value>
@@ -537,6 +552,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Bérlői azonosító</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Ellenőrizze a hálózati kapcsolatot, és győződjön meg arról, hogy a fiókja kezelheti az alkalmazásregisztrációkat a bérlőben, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nincs csatlakoztatva</value>
@@ -563,7 +581,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Profil importálása</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Az Autopilot-profilt nem sikerült importálni.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Ellenőrizze, hogy a fájl érvényes Autopilot-profil JSON-fájl-e, majd próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot importálás sikertelen</value>
@@ -605,7 +626,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A kiválasztott eltávolítása</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Eltávolítja a „{0}” elemet az importált Autopilot profilokból?</value>
+    <value>A rendszer eltávolítja a(z) „{0}” profilt a konfiguráció Autopilot-profiljai közül.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Profil eltávolítása</value>
@@ -614,7 +635,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Eltávolítja a Autopilot profilt?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Eltávolítja a {0} kiválasztott Autopilot profilokat?</value>
+    <value>A rendszer eltávolítja a kiválasztott {0} Autopilot-profilt ebből a konfigurációból.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Profilok eltávolítása</value>
@@ -622,14 +643,14 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Eltávolítja a Autopilot profilokat?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Egy eltávolított profil ismételt használatához importálja, vagy töltse le újra a bérlőtől.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>A Autopilot profilok letöltéséhez fejezze be a bejelentkezést a böngészőben.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Bejelentkezés a Microsoft Graph címre</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Mégsem</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Világos</value>
@@ -703,6 +724,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Frissítés</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nem elérhető</value>
   </data>
@@ -714,9 +738,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Tallózás</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Mégse</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Importálás megszakítva</value>
@@ -805,17 +826,23 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Frissítés</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Eltávolítja ezt a lemezképet az aktuális profilból, és törli a helyi másolatát? A rá hivatkozó többi profilban hiányzóként jelenik meg. Az eredeti fájlok és a meglévő adathordozók változatlanok maradnak.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Lemezkép eltávolítása</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>A rendszer eltávolítja a(z) {0} ({1}) lemezképet az aktuális profilból, és törli a helyi másolatát.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Eltávolítás</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Eltávolítja az egyéni lemezképet?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>A lemezképet használó többi profilban hiányzóként jelenik meg. Az eredeti fájl és a meglévő adathordozók nem változnak.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Szerkesztés</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Mentés</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Alapértelmezett lemezkép beállítása</value>
@@ -1843,8 +1870,14 @@ Licenc az MIT licenc alatt.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>A nyers naplók hitelesítő adatokat, azonosítókat, elérési utakat, hálózatneveket és egyéb érzékeny adatokat tartalmazhatnak. Csak akkor exportálja őket, ha ezt egy megbízható támogatási kapcsolattartó kifejezetten kéri.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>A támogatási archívum mentési helye:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnosztika exportálva</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Mappa megnyitása</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nem tudta megnyitni a dokumentációt a böngészőben. Használja helyette ezt a URL-t.</value>
@@ -2860,6 +2893,15 @@ Licenc az MIT licenc alatt.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Néhány régi mentett jelszót vagy hozzáférési kulcsot nem sikerült eltávolítani. Próbálja újra, amikor a Windows Hitelesítőadat-kezelő elérhető.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Bezárás mentés nélkül</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>A legutóbbi módosításokat nem sikerült menteni, és elvesznek.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Bezárja a beállítások mentése nélkül?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Jelszó megerősítése</value>
   </data>
@@ -2896,8 +2938,17 @@ Licenc az MIT licenc alatt.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Törlés erről a számítógépről</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Törlés mindenki számára is</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Törlés mindenki számára</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Törli mindenki számára?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Törli ezeket a megosztott beállításokat mindenki számára? Akinek nem szinkronizált módosításai vannak, a megőrzésükhöz másolatot kell készítenie a beállításairól.</value>
@@ -2937,6 +2988,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Mentett jelszavak és hozzáférések törlése</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Törlés</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Eltávolítja ezekhez a beállításokhoz a mentett jelszavakat, a Foundry által mentett bizalmas fájlokat és a szinkronizálási hozzáférést erről a számítógépről? A szinkronizáláshoz meg kell adnia a hiányzó adatokat, és újra csatlakoznia kell. A már létrehozott adathordozók nem változnak.</value>
@@ -3058,7 +3112,13 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Minden számítógépen ugyanazt a hálózati mappát használja. A mappának SMB 3-at kell használnia kötelező titkosítással. A felhővel szinkronizált mappák nem támogatottak.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Ne jegyezze meg többé a konfiguráció jelszavait ezen a számítógépen?</value>
+    <value>A Foundry nem menti többé a konfiguráció jelszavait ezen a számítógépen.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Megjegyzés leállítása</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Leállítja a jelszavak megjegyzését?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Szinkronizálás</value>
@@ -3114,6 +3174,18 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Ellenőrizze a kötelező mezőket. Ha hálózati mappát kell megadnia, használjon például ilyen elérési utat: \\server\share\folder. Ha kétszer ad meg fájljelszót, ügyeljen arra, hogy a két bejegyzés egyezzen.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>A Foundry OSD nem tudta menteni a proxybeállításokat. Próbálja újra. A részletek a naplóban találhatók.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>A proxybeállítások nincsenek alkalmazva</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>A proxy elutasította a bejelentkezést. Ellenőrizze a proxy hitelesítési beállításait, és próbálja újra.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>A Foundry OSD ezekkel a beállításokkal nem érte el a GitHub és a Microsoft szolgáltatásait. Ellenőrizze a proxy címét, portját és a hálózati kapcsolatot. A részletek a naplóban találhatók.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3132,8 +3204,17 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Adja meg a proxykiszolgáló címét.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Adjon meg érvényes HTTP- vagy HTTPS-proxycímet, például: proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Adjon meg egy portszámot 1 és 65535 között.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4127,20 +4208,20 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nincs bejelölve</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>A frissítést nem sikerült alkalmazni: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>A Foundry OSD nem tudta elindítani a frissítést. Próbálja meg újra alkalmazni. A részletek a naplóban találhatók.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>A Foundry OSD nem tudott frissítéseket keresni. Ellenőrizze a hálózati kapcsolatot, és próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Frissítések keresése</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>A frissítés letöltése sikertelen: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>A frissítést nem sikerült letölteni. Ellenőrizze a hálózati kapcsolatot, és próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Frissítés letöltése</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>A frissítés ellenőrzése sikertelen: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>A Foundry OSD naprakész.</value>
@@ -4166,11 +4247,17 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>A frissítést nem sikerült alkalmazni</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>A frissítés letöltése sikertelen</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>A frissítés ellenőrzése sikertelen</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Naprakész</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>A frissítés készen áll a telepítésre</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>A frissítés ellenőrzése kimaradt</value>

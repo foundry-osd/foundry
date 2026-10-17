@@ -310,8 +310,11 @@ Licenciran prema MIT licenci.</value>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Zakupac nije vratio nijedan Autopilot profil.</value>
   </data>
-  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot preuzimanje profila nije uspjelo: {0}</value>
+  <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
+    <value>Autopilot profile nije bilo moguće preuzeti od zakupca.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedNextStep" xml:space="preserve">
+    <value>Provjerite mrežnu vezu i može li vaš račun čitati Autopilot profile u servisu Intune, a zatim pokušajte ponovno. Detalji su u zapisniku.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Autopilot preuzimanje nije uspjelo</value>
@@ -382,8 +385,11 @@ Licenciran prema MIT licenci.</value>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
     <value>Akcije certifikata</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nije mogao stvoriti potvrdu o registraciji aplikacije. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessage" xml:space="preserve">
+    <value>Foundry nije mogao stvoriti certifikat registracije aplikacije.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedNextStep" xml:space="preserve">
+    <value>Provjerite može li se pisati u odabranu mapu i može li vaš račun upravljati registracijom aplikacije, a zatim pokušajte ponovno. Detalji su u zapisniku.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Izrada certifikata nije uspjela</value>
@@ -418,8 +424,8 @@ Licenciran prema MIT licenci.</value>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
     <value>PFX certifikat</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nije mogao ukloniti odabranu potvrdu o registraciji aplikacije. {0}</value>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessage" xml:space="preserve">
+    <value>Foundry nije mogao ukloniti odabrani certifikat registracije aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Uklanjanje certifikata nije uspjelo</value>
@@ -460,8 +466,8 @@ Licenciran prema MIT licenci.</value>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch prijenos hardverskog hasha</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry nije mogao konfigurirati registraciju Autopilot aplikacije. {0}</value>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessage" xml:space="preserve">
+    <value>Foundry nije mogao konfigurirati registraciju Autopilot aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
     <value>Uključivanje stanara nije uspjelo</value>
@@ -512,16 +518,25 @@ Licenciran prema MIT licenci.</value>
     <value>Ukloni certifikat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry će ukloniti samo odabrani certifikat iz registracije upravljane aplikacije. Ostale vjerodajnice aplikacije bit će sačuvane.</value>
+    <value>Odabrani certifikat bit će uklonjen iz registracije upravljane aplikacije u okruženju vašeg zakupca. Ostale vjerodajnice aplikacije zadržavaju se.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Ukloni certifikat</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Ukloniti odabrani certifikat?</value>
+    <value>Ukloniti certifikat iz okruženja zakupca?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationWarning" xml:space="preserve">
+    <value>Ova se radnja ne može poništiti. Mediji za pokretanje koji koriste uklonjeni certifikat više ne mogu prenositi hardverske hashove.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry će ukloniti samo {0} odabrane certifikate iz registracije upravljane aplikacije. Ostale vjerodajnice aplikacije bit će sačuvane.</value>
+    <value>Odabrani certifikati ({0}) bit će uklonjeni iz registracije upravljane aplikacije u okruženju vašeg zakupca. Ostale vjerodajnice aplikacije zadržavaju se.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationPrimary" xml:space="preserve">
+    <value>Ukloni certifikate</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationTitle" xml:space="preserve">
+    <value>Ukloniti certifikate iz okruženja zakupca?</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Povezan</value>
@@ -537,6 +552,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID stanara</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantFailureNextStep" xml:space="preserve">
+    <value>Provjerite mrežnu vezu i može li vaš račun upravljati registracijama aplikacija u okruženju zakupca, a zatim pokušajte ponovno. Detalji su u zapisniku.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Nije povezano</value>
@@ -563,7 +581,10 @@ Licenciran prema MIT licenci.</value>
     <value>Uvoz profila</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
-    <value>{0}</value>
+    <value>Autopilot profil nije bilo moguće uvesti.</value>
+  </data>
+  <data name="Autopilot.ImportFailedNextStep" xml:space="preserve">
+    <value>Provjerite je li datoteka valjana JSON datoteka Autopilot profila, a zatim pokušajte ponovno. Detalji su u zapisniku.</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
     <value>Autopilot uvoz nije uspio</value>
@@ -605,7 +626,7 @@ Licenciran prema MIT licenci.</value>
     <value>Ukloni odabrano</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Ukloniti "{0}" iz uvezenih Autopilot profila?</value>
+    <value>„{0}” bit će uklonjen iz Autopilot profila u ovoj konfiguraciji.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
     <value>Ukloni profil</value>
@@ -614,7 +635,7 @@ Licenciran prema MIT licenci.</value>
     <value>Ukloniti Autopilot profil?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Ukloniti {0} odabrane Autopilot profile?</value>
+    <value>Odabrani Autopilot profili ({0}) bit će uklonjeni iz ove konfiguracije.</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Uklonite profile</value>
@@ -622,14 +643,14 @@ Licenciran prema MIT licenci.</value>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
     <value>Ukloniti Autopilot profile?</value>
   </data>
+  <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
+    <value>Da biste ponovno upotrijebili uklonjeni profil, uvezite ga ili ga ponovno preuzmite od zakupca.</value>
+  </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Dovršite prijavu u preglednik za preuzimanje Autopilot profila.</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
     <value>Prijavite se na Microsoft Graph</value>
-  </data>
-  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Otkazati</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
     <value>Jasan</value>
@@ -703,6 +724,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Osvježiti</value>
   </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nedostupan</value>
   </data>
@@ -714,9 +738,6 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="CustomImages.BrowseLabel" xml:space="preserve">
     <value>Pregledaj</value>
-  </data>
-  <data name="CustomImages.CancelLabel" xml:space="preserve">
-    <value>Odustani</value>
   </data>
   <data name="CustomImages.Canceled" xml:space="preserve">
     <value>Uvoz otkazan</value>
@@ -805,17 +826,23 @@ Licenciran prema MIT licenci.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Osvježi</value>
   </data>
-  <data name="CustomImages.RemoveDescription" xml:space="preserve">
-    <value>Želite li ukloniti ovu sliku iz trenutačnog profila i izbrisati njezinu lokalnu kopiju? U drugim profilima koji se na nju pozivaju prikazivat će se kao nedostajuća. Izvorne datoteke i postojeći mediji ostaju nepromijenjeni.</value>
+  <data name="CustomImages.RemoveConfirm" xml:space="preserve">
+    <value>Ukloni sliku</value>
+  </data>
+  <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
+    <value>Slika {0} ({1}) bit će uklonjena iz trenutačnog profila, a njezina lokalna kopija bit će izbrisana.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Ukloni</value>
   </data>
+  <data name="CustomImages.RemoveTitle" xml:space="preserve">
+    <value>Ukloniti prilagođenu sliku?</value>
+  </data>
+  <data name="CustomImages.RemoveWarning" xml:space="preserve">
+    <value>U drugim profilima koji koriste ovu sliku prikazivat će se kao nedostajuća. Izvorna datoteka i postojeći mediji ne mijenjaju se.</value>
+  </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Uredi</value>
-  </data>
-  <data name="CustomImages.SaveLabel" xml:space="preserve">
-    <value>Spremi</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
     <value>Postavi zadanu sliku</value>
@@ -1843,8 +1870,14 @@ Licenciran prema MIT licenci.</value>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
     <value>Neobrađeni zapisnici mogu sadržavati vjerodajnice, identifikatore, putanje, nazive mreža i druge osjetljive podatke. Izvezite ih samo kada to izričito zatraži pouzdani kontakt za podršku.</value>
   </data>
+  <data name="Diagnostics.ExportSucceededMessage" xml:space="preserve">
+    <value>Arhiva podrške spremljena je u:</value>
+  </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Dijagnostika je izvezena</value>
+  </data>
+  <data name="Diagnostics.OpenFolder" xml:space="preserve">
+    <value>Otvori mapu</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nije mogao otvoriti dokumentaciju u vašem pregledniku. Umjesto toga upotrijebite ovaj URL.</value>
@@ -2860,6 +2893,15 @@ Licenciran prema MIT licenci.</value>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Neke stare spremljene lozinke ili pristupni ključevi nisu uklonjeni. Pokušaj ponovno kad Upravitelj vjerodajnica sustava Windows bude dostupan.</value>
   </data>
+  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
+    <value>Zatvori bez spremanja</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
+    <value>Vaše najnovije promjene nije bilo moguće spremiti i bit će izgubljene.</value>
+  </data>
+  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
+    <value>Zatvoriti bez spremanja postavki?</value>
+  </data>
   <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
     <value>Potvrdite lozinku</value>
   </data>
@@ -2896,8 +2938,17 @@ Licenciran prema MIT licenci.</value>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Izbriši s ovog računala</value>
   </data>
+  <data name="Profiles.DeleteAction" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
     <value>Izbriši i za sve ostale</value>
+  </data>
+  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
+    <value>Izbriši za sve</value>
+  </data>
+  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
+    <value>Izbrisati za sve?</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
     <value>Izbrisati ove zajedničke postavke za sve? Svatko s nesinkroniziranim promjenama mora duplicirati svoje postavke kako bi ih sačuvao.</value>
@@ -2937,6 +2988,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Izbriši spremljene lozinke i pristupe</value>
+  </data>
+  <data name="Profiles.ForgetAction" xml:space="preserve">
+    <value>Očisti</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Ukloniti spremljene lozinke, povjerljive datoteke koje je spremio Foundry i pristup sinkronizaciji za ove postavke na ovom računalu? Morat ćeš dodati podatke koji nedostaju i ponovno se povezati za sinkronizaciju. Već izrađeni mediji neće se promijeniti.</value>
@@ -3058,7 +3112,13 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Upotrijebi istu mrežnu mapu na svakom računalu. Mora upotrebljavati SMB 3 uz obvezno šifriranje. Mape koje se sinkroniziraju s oblakom nisu podržane.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Prestati pamtiti lozinke za ovu konfiguraciju na ovom računalu?</value>
+    <value>Foundry će prestati spremati lozinke za ovu konfiguraciju na ovom računalu.</value>
+  </data>
+  <data name="Profiles.StopRememberingAction" xml:space="preserve">
+    <value>Prestani pamtiti</value>
+  </data>
+  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
+    <value>Prestati pamtiti lozinke?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sinkroniziraj</value>
@@ -3114,6 +3174,18 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="Profiles.Validation" xml:space="preserve">
     <value>Provjeri obvezna polja. Ako se traži mrežna mapa, upotrijebi putanju poput \\server\share\folder. Ako lozinku datoteke unosiš dvaput, provjeri jesu li oba unosa jednaka.</value>
   </data>
+  <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao spremiti postavke proxy poslužitelja. Pokušajte ponovno. Detalji su u zapisniku.</value>
+  </data>
+  <data name="Proxy.Status.ApplyFailedTitle" xml:space="preserve">
+    <value>Postavke proxy poslužitelja nisu primijenjene</value>
+  </data>
+  <data name="Proxy.Status.AuthenticationFailedMessage" xml:space="preserve">
+    <value>Proxy poslužitelj odbio je prijavu. Provjerite postavke provjere autentičnosti proxy poslužitelja i pokušajte ponovno.</value>
+  </data>
+  <data name="Proxy.Status.FailedMessage" xml:space="preserve">
+    <value>Foundry OSD s ovim postavkama nije mogao pristupiti servisima GitHub i Microsoft. Provjerite adresu i priključak proxy poslužitelja te mrežnu vezu. Detalji su u zapisniku.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -3132,8 +3204,17 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
     <value>Connection successful</value>
   </data>
+  <data name="Proxy.Validation.AddressRequired" xml:space="preserve">
+    <value>Unesite adresu proxy poslužitelja.</value>
+  </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidAddress" xml:space="preserve">
+    <value>Unesite valjanu HTTP ili HTTPS adresu proxy poslužitelja, npr. proxy.contoso.com.</value>
+  </data>
+  <data name="Proxy.Validation.InvalidPort" xml:space="preserve">
+    <value>Unesite broj priključka od 1 do 65535.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
@@ -4127,20 +4208,20 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nije provjereno</value>
   </data>
-  <data name="Update.Status.ApplyFailedFormat" xml:space="preserve">
-    <value>Ažuriranje nije bilo moguće primijeniti: {0}</value>
+  <data name="Update.Status.ApplyFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao pokrenuti ažuriranje. Pokušajte ga ponovno primijeniti. Detalji su u zapisniku.</value>
+  </data>
+  <data name="Update.Status.CheckFailedMessage" xml:space="preserve">
+    <value>Foundry OSD nije mogao provjeriti ima li ažuriranja. Provjerite mrežnu vezu i pokušajte ponovno. Detalji su u zapisniku.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Provjera ažuriranja</value>
   </data>
-  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
-    <value>Preuzimanje ažuriranja nije uspjelo: {0}</value>
+  <data name="Update.Status.DownloadFailedMessage" xml:space="preserve">
+    <value>Ažuriranje nije bilo moguće preuzeti. Provjerite mrežnu vezu i pokušajte ponovno. Detalji su u zapisniku.</value>
   </data>
   <data name="Update.Status.Downloading" xml:space="preserve">
     <value>Preuzimanje ažuriranja</value>
-  </data>
-  <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Provjera ažuriranja nije uspjela: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD je ažuran.</value>
@@ -4166,11 +4247,17 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>Ažuriranje nije bilo moguće primijeniti</value>
   </data>
+  <data name="Update.StatusTitle.DownloadFailed" xml:space="preserve">
+    <value>Preuzimanje ažuriranja nije uspjelo</value>
+  </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
     <value>Provjera ažuriranja nije uspjela</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Ažurno</value>
+  </data>
+  <data name="Update.StatusTitle.ReadyToApply" xml:space="preserve">
+    <value>Ažuriranje je spremno za instalaciju</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
     <value>Provjera ažuriranja preskočena</value>

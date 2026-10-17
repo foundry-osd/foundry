@@ -91,7 +91,7 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public string PackageName => package?.DisplayName ?? Text("NoContent");
     public string Title => Text(IsNew ? "Add" : "Edit");
     public string NameLabel => localization.GetString("CustomImages.NameLabel");
-    public string SaveLabel => localization.GetString("CustomImages.SaveLabel");
+    public string SaveLabel => localization.GetString("Common.Save");
     public string CancelLabel => localization.GetString("Common.Cancel");
     public string ContentLabel => Text(IsCommand ? "OptionalContent" : "Content");
     public string CommandContentDescription => Text("CommandContentDescription");
