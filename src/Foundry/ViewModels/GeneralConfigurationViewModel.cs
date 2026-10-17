@@ -317,17 +317,16 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         isRefreshingKeyboardLayouts = true;
         try
         {
-            KeyboardLanguageOptions.Clear();
-            foreach (SelectionOption<string> option in KeyboardLayoutSelection.GetLanguages(keyboardLayouts, winPeLanguage)
-                         .Select(language => new SelectionOption<string>(language, KeyboardLayoutSelection.GetLanguageDisplayName(language)))
-                         .OrderBy(option => option.DisplayName, StringComparer.CurrentCulture))
-            {
-                KeyboardLanguageOptions.Add(option);
-            }
+            ReplaceOptions(
+                KeyboardLanguageOptions,
+                KeyboardLayoutSelection.GetLanguages(keyboardLayouts, winPeLanguage)
+                    .Select(language => new SelectionOption<string>(language, KeyboardLayoutSelection.GetLanguageDisplayName(language)))
+                    .OrderBy(option => option.DisplayName, StringComparer.CurrentCulture)
+                    .ToArray());
 
             string keyboardLanguage = KeyboardLayoutSelection.ResolveLanguage(keyboardLayouts, storedLayoutId, winPeLanguage);
             SelectedKeyboardLanguage = SelectStringOption(KeyboardLanguageOptions, keyboardLanguage);
-            RebuildKeyboardLayoutOptions(storedLayoutId, keepUnavailableSelection: true);
+            RebuildKeyboardLayoutOptions(keyboardLanguage, storedLayoutId, keepUnavailableSelection: true);
         }
         finally
         {
@@ -374,9 +373,16 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         }
 
         string normalizedLanguage = NormalizeCultureName(selectedLanguage);
+        bool isLanguageChanged = !string.Equals(SelectedWinPeLanguage, normalizedLanguage, StringComparison.OrdinalIgnoreCase);
         Save(configurationStateService.Current.General with { WinPeLanguage = normalizedLanguage });
         SelectedWinPeLanguage = normalizedLanguage;
-        RefreshKeyboardLayouts();
+
+        // The page reports the current language again while x:Bind initializes; rebuilding the keyboard lists
+        // at that moment clears their selection, so only a real language change refreshes them.
+        if (isLanguageChanged)
+        {
+            RefreshKeyboardLayouts();
+        }
     }
 
     partial void OnSelectedKeyboardLanguageChanged(SelectionOption<string>? value)
@@ -389,7 +395,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         isRefreshingKeyboardLayouts = true;
         try
         {
-            RebuildKeyboardLayoutOptions(configurationStateService.Current.General.WinPeKeyboardLayoutId, keepUnavailableSelection: false);
+            RebuildKeyboardLayoutOptions(value.Value, configurationStateService.Current.General.WinPeKeyboardLayoutId, keepUnavailableSelection: false);
         }
         finally
         {
@@ -524,28 +530,41 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
 
     // Default is offered only for the WinPE base language; any other language preselects its first layout.
     // A stored layout missing on this computer stays unselected on refresh, so any pick, Default included, replaces it.
-    private void RebuildKeyboardLayoutOptions(string? preferredLayoutId, bool keepUnavailableSelection)
+    private void RebuildKeyboardLayoutOptions(string keyboardLanguage, string? preferredLayoutId, bool keepUnavailableSelection)
     {
         bool isUnavailable = KeyboardLayoutSelection.IsUnavailable(keyboardLayouts, preferredLayoutId);
         KeyboardLayoutUnavailableDescription = isUnavailable
             ? localizationService.GetString("StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable")
             : string.Empty;
 
-        string keyboardLanguage = SelectedKeyboardLanguage?.Value ?? string.Empty;
-        KeyboardLayoutOptions.Clear();
+        var options = new List<SelectionOption<string>>();
         if (KeyboardLayoutSelection.AllowsDefault(keyboardLanguage, GetSelectedWinPeLanguage()))
         {
-            KeyboardLayoutOptions.Add(new(AutomaticSelectionValue, localizationService.GetString("GeneralConfiguration.WinPeKeyboard.Default")));
+            options.Add(new(AutomaticSelectionValue, localizationService.GetString("GeneralConfiguration.WinPeKeyboard.Default")));
         }
 
-        foreach (KeyboardLayout layout in KeyboardLayoutSelection.GetLayouts(keyboardLayouts, keyboardLanguage))
-        {
-            KeyboardLayoutOptions.Add(new(layout.Id, layout.DisplayName));
-        }
+        options.AddRange(KeyboardLayoutSelection.GetLayouts(keyboardLayouts, keyboardLanguage)
+            .Select(layout => new SelectionOption<string>(layout.Id, layout.DisplayName)));
+        ReplaceOptions(KeyboardLayoutOptions, options);
 
         string? preferredId = KeyboardLayoutSelection.Find(keyboardLayouts, preferredLayoutId)?.Id;
         SelectedKeyboardLayout = SelectStringOption(KeyboardLayoutOptions, preferredId) ??
             (isUnavailable && keepUnavailableSelection ? null : KeyboardLayoutOptions.FirstOrDefault());
+    }
+
+    // Clearing a bound list resets the ComboBox selection, so an unchanged list keeps its existing items.
+    private static void ReplaceOptions(ObservableCollection<SelectionOption<string>> target, IReadOnlyList<SelectionOption<string>> options)
+    {
+        if (target.SequenceEqual(options))
+        {
+            return;
+        }
+
+        target.Clear();
+        foreach (SelectionOption<string> option in options)
+        {
+            target.Add(option);
+        }
     }
 
     private void SaveKeyboardLayout()
