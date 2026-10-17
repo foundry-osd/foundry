@@ -69,6 +69,9 @@ public static class BootMediaTelemetryPropertyBuilder
             ["operation_id"] = operationId,
             ["boot_media_architecture"] = options.Architecture.ToString().ToLowerInvariant(),
             ["boot_media_winpe_language"] = NormalizeCultureName(options.WinPeLanguage).ToLowerInvariant(),
+            ["boot_media_winpe_keyboard_layout"] = string.IsNullOrWhiteSpace(document.General.WinPeKeyboardLayoutId)
+                ? "default"
+                : document.General.WinPeKeyboardLayoutId.Trim().ToLowerInvariant(),
             ["boot_media_boot_image_source"] = options.BootImageSource.ToString().ToLowerInvariant(),
             ["boot_media_signature_mode"] = options.SignatureMode.ToString().ToLowerInvariant(),
             ["boot_media_usb_partition_style"] = bootMediaTarget == TelemetryBootMediaTargets.Usb

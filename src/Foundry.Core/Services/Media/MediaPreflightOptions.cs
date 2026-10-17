@@ -115,6 +115,16 @@ public sealed record MediaPreflightOptions
     public IReadOnlyList<string> AvailableWinPeLanguages { get; init; } = [];
 
     /// <summary>
+    /// Gets the selected WinPE keyboard layout identifier (KLID), or null to follow the WinPE language default.
+    /// </summary>
+    public string? WinPeKeyboardLayoutId { get; init; }
+
+    /// <summary>
+    /// Gets the keyboard layout identifiers installed on the authoring computer.
+    /// </summary>
+    public IReadOnlyList<string> AvailableKeyboardLayoutIds { get; init; } = [];
+
+    /// <summary>
     /// Gets the selected boot image source.
     /// </summary>
     public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinPe;

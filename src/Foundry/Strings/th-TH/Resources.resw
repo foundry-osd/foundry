@@ -2128,6 +2128,21 @@
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>เขตเวลาของ Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>ค่าเริ่มต้น</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>แป้นพิมพ์ที่ใช้ในสภาพแวดล้อมการบูต WinPE ค่าเริ่มต้นจะเป็นไปตามภาษาสำหรับบูต WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>เค้าโครงแป้นพิมพ์ WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>ภาษาของแป้นพิมพ์</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>เค้าโครง</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>ติดตั้ง Windows ADK และ Windows PE Add-on ก่อนที่จะเลือกภาษาสำหรับบูต WinPE</value>
   </data>
@@ -3374,6 +3389,9 @@
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>เป้าหมาย USB ที่เลือกมีขนาดเล็กเกินไป ใช้คีย์ USB ขนาดอย่างน้อย 16 GB</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>ไม่ได้ติดตั้งเค้าโครงแป้นพิมพ์ WinPE ที่เลือกไว้ในคอมพิวเตอร์เครื่องนี้</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>ภาษาสำหรับบูต WinPE ที่เลือกไม่พร้อมใช้งานสำหรับสถาปัตยกรรมที่เลือก</value>

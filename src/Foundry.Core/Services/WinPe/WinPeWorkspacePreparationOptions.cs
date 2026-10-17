@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.Globalization;
+
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
@@ -51,6 +53,11 @@ public sealed record WinPeWorkspacePreparationOptions
     /// Gets the WinPE language selected for the boot image.
     /// </summary>
     public string WinPeLanguage { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the optional keyboard layout applied to the boot image; null follows the WinPE language default.
+    /// </summary>
+    public KeyboardLayout? WinPeKeyboardLayout { get; init; }
 
     /// <summary>
     /// Gets optional asset provisioning settings.

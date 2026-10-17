@@ -2128,6 +2128,21 @@
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Ζώνη ώρας Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Προεπιλογή</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Πληκτρολόγιο που χρησιμοποιείται στο περιβάλλον εκκίνησης WinPE. Η προεπιλογή ακολουθεί τη γλώσσα εκκίνησης WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>Διάταξη πληκτρολογίου WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Γλώσσα πληκτρολογίου</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Διάταξη</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Εγκαταστήστε το Windows ADK και το πρόσθετο Windows PE πριν επιλέξετε τη γλώσσα εκκίνησης WinPE.</value>
   </data>
@@ -3374,6 +3389,9 @@
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Ο επιλεγμένος στόχος USB είναι πολύ μικρός. Χρησιμοποιήστε ένα κλειδί USB τουλάχιστον 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Η επιλεγμένη διάταξη πληκτρολογίου WinPE δεν είναι εγκατεστημένη σε αυτόν τον υπολογιστή.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Η επιλεγμένη γλώσσα εκκίνησης WinPE δεν είναι διαθέσιμη για την επιλεγμένη αρχιτεκτονική.</value>

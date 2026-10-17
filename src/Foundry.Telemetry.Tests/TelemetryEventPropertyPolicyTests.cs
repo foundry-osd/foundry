@@ -261,6 +261,20 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.False(result.ContainsKey("proxy_username"));
     }
 
+    [Theory]
+    [InlineData("00000813", true)]
+    [InlineData("default", true)]
+    [InlineData("not-a-klid", false)]
+    [InlineData("0000081", false)]
+    public void Sanitize_ForBootMediaFinished_KeepsOnlyValidKeyboardLayout(string value, bool kept)
+    {
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(
+            TelemetryEvents.OsdBootMediaFinished,
+            new Dictionary<string, object?> { ["boot_media_winpe_keyboard_layout"] = value });
+
+        Assert.Equal(kept, result.ContainsKey("boot_media_winpe_keyboard_layout"));
+    }
+
     [Fact]
     public void Sanitize_ForBootMediaFinished_DropsPropertiesOutsideEventAllowlist()
     {
@@ -279,6 +293,7 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["boot_media_failure_exit_code"] = 5,
             ["operation_id"] = "operation-1",
             ["boot_media_winpe_language"] = "en-us",
+            ["boot_media_winpe_keyboard_layout"] = "default",
             ["boot_media_boot_image_source"] = "winpe_adk",
             ["boot_media_signature_mode"] = "signed",
             ["boot_media_usb_partition_style"] = "gpt",
@@ -386,6 +401,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal(5, result["boot_media_failure_exit_code"]);
         Assert.Equal("operation-1", result["operation_id"]);
         Assert.Equal("en-us", result["boot_media_winpe_language"]);
+        Assert.Equal("default", result["boot_media_winpe_keyboard_layout"]);
         Assert.Equal("winpe_adk", result["boot_media_boot_image_source"]);
         Assert.Equal("signed", result["boot_media_signature_mode"]);
         Assert.Equal("gpt", result["boot_media_usb_partition_style"]);

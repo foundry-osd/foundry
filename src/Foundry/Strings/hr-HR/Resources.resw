@@ -2128,6 +2128,21 @@ Licenciran prema MIT licenci.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Vremenska zona za Windows PE</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Zadano</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>Tipkovnica koja se koristi u okruženju za pokretanje WinPE. Zadana postavka prati jezik pokretanja za WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>Raspored tipkovnice za WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Jezik tipkovnice</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Raspored</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Instalirajte Windows ADK i Windows PE dodatak prije odabira WinPE jezika za pokretanje.</value>
   </data>
@@ -3374,6 +3389,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Odabrani cilj USB je premali. Koristite tipku USB od najmanje 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Odabrani raspored tipkovnice za WinPE nije instaliran na ovom računalu.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Odabrani WinPE jezik pokretanja nije dostupan za odabranu arhitekturu.</value>

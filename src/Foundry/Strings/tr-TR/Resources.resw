@@ -2128,6 +2128,21 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Windows PE saat dilimi</value>
   </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Default" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Description" xml:space="preserve">
+    <value>WinPE önyükleme ortamında kullanılan klavye. Varsayılan, WinPE önyükleme dilini izler.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Header" xml:space="preserve">
+    <value>WinPE klavye düzeni</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Language" xml:space="preserve">
+    <value>Klavye dili</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeKeyboard.Layout" xml:space="preserve">
+    <value>Düzen</value>
+  </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>WinPE önyükleme dilini seçmeden önce Windows ADK ve Windows PE Eklentisini yükleyin.</value>
   </data>
@@ -3374,6 +3389,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Seçilen USB hedefi çok küçük. En az 16 GB boyutunda bir USB anahtarı kullanın.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
+    <value>Seçilen WinPE klavye düzeni bu bilgisayarda yüklü değil.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Seçilen WinPE önyükleme dili seçilen mimari için mevcut değil.</value>

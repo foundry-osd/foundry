@@ -121,6 +121,13 @@ public static class MediaPreflightService
             reasons.Add(MediaPreflightBlockingReason.WinPeLanguageUnavailable);
         }
 
+        // Unlike languages, an empty list still blocks: a layout that cannot be resolved would silently build the default.
+        if (!string.IsNullOrWhiteSpace(options.WinPeKeyboardLayoutId)
+            && !options.AvailableKeyboardLayoutIds.Contains(options.WinPeKeyboardLayoutId, StringComparer.OrdinalIgnoreCase))
+        {
+            reasons.Add(MediaPreflightBlockingReason.WinPeKeyboardLayoutUnavailable);
+        }
+
         if (!options.IsFinalExecutionEnabled)
         {
             reasons.Add(MediaPreflightBlockingReason.FinalExecutionDeferred);
