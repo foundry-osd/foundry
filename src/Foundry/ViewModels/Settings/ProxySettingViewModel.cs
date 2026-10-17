@@ -146,7 +146,7 @@ public sealed partial class ProxySettingViewModel : ObservableObject
 
     private void ShowValidationFailure(ApplicationProxyValidationException exception)
     {
-        Log.ForContext<ProxySettingViewModel>().Warning(
+        Log.ForContext<ProxySettingViewModel>().Debug(
             "Proxy settings were rejected. Reason={Reason}, Method={Method}, AuthenticationMode={AuthenticationMode}",
             exception.Reason,
             Method,

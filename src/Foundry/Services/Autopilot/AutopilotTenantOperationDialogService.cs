@@ -112,7 +112,8 @@ public sealed class AutopilotTenantOperationDialogService(
             Title = title,
             Content = CreateDialogContent(message),
             CloseButtonText = cancelText,
-            DefaultButton = ContentDialogButton.Close
+            // A running operation has no default button, so a stray Enter cannot cancel it.
+            DefaultButton = ContentDialogButton.None
         };
 
         dialog.CloseButtonClick += (_, _) => cancellationTokenSource.Cancel();

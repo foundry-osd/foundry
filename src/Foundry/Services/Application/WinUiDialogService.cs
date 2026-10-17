@@ -44,15 +44,9 @@ public sealed class WinUiDialogService : IDialogService
             XamlRoot = GetXamlRoot()
         };
 
-        // The default button carries the only accent style, so a safe Cancel default always wins over an accent primary.
-        if (request.PreferCancel)
-        {
-            dialog.DefaultButton = ContentDialogButton.Close;
-        }
-        else if (request.IsPrimaryButtonAccent)
-        {
-            dialog.DefaultButton = ContentDialogButton.Primary;
-        }
+        // The default button carries the accent style and answers Enter: the safe Cancel for destructive
+        // confirmations, the primary action otherwise.
+        dialog.DefaultButton = request.PreferCancel ? ContentDialogButton.Close : ContentDialogButton.Primary;
 
         ContentDialogResult result = await dialog.ShowAsync();
         return result == ContentDialogResult.Primary;

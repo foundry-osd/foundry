@@ -181,9 +181,9 @@ namespace Foundry.ViewModels
             {
                 await externalProcessLauncher.OpenFolderAsync(archiveDirectoryPath);
             }
-            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException or System.ComponentModel.Win32Exception)
+            catch (Exception)
             {
-                // The launcher logs the failure; the archive is already exported, so the result stays successful.
+                // The launcher logs the failure; the archive is already exported, so it must not surface as an export error.
             }
         }
 
