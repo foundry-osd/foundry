@@ -8,13 +8,11 @@ namespace Foundry.Services.Updates;
 /// Represents the current discovery, download, or application state of a captured update.
 /// </summary>
 /// <param name="Status">Lifecycle status produced by the current update operation.</param>
-/// <param name="Message">English diagnostic status text; the UI shows localized text derived from <paramref name="Status"/>.</param>
 /// <param name="Version">Available release version, when an update exists.</param>
 /// <param name="DownloadProgress">Actual SDK download percentage, from zero to one hundred.</param>
 /// <param name="FailureMessage">Diagnostic error from the latest failed operation, when present; the UI reports the failure with localized text.</param>
 public sealed record ApplicationUpdateCheckResult(
     ApplicationUpdateStatus Status,
-    string Message,
     string? Version = null,
     int DownloadProgress = 0,
     string? FailureMessage = null)

@@ -125,7 +125,6 @@ internal sealed class ApplicationUpdateService(
                 ApplicationUpdateCheckResult failure = CreateSelectionResult(
                     target,
                     ApplicationUpdateStatus.ReadyToApply,
-                    "The prepared update could not be applied. Try applying it again.",
                     downloadProgress: 100,
                     failureMessage: ex.Message);
                 lock (stateLock)
@@ -185,8 +184,8 @@ internal sealed class ApplicationUpdateService(
             generation = operationGeneration;
             result = currentResult.IsBusy
                 ? selection is null
-                    ? new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Ready, "Update service is ready.")
-                    : CreateSelectionResult(selection, ApplicationUpdateStatus.UpdateAvailable, $"{FoundryApplicationInfo.AppName} {selection.Version} is available.")
+                    ? new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Ready)
+                    : CreateSelectionResult(selection, ApplicationUpdateStatus.UpdateAvailable)
                 : currentResult;
             currentResult = result;
         }
@@ -262,8 +261,7 @@ internal sealed class ApplicationUpdateService(
         if (Debugger.IsAttached)
         {
             return PublishResult(new ApplicationUpdateCheckResult(
-                ApplicationUpdateStatus.SkippedInDebug,
-                "Update check skipped because a debugger is attached."), operation.Generation);
+                ApplicationUpdateStatus.SkippedInDebug), operation.Generation);
         }
 
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -277,8 +275,7 @@ internal sealed class ApplicationUpdateService(
             if (!manager.IsInstalled)
             {
                 return CompleteCheck(new ApplicationUpdateCheckResult(
-                    ApplicationUpdateStatus.NotInstalled,
-                    "Update check skipped because Foundry is not running from a Velopack installation."), operation);
+                    ApplicationUpdateStatus.NotInstalled), operation);
             }
 
             if (TryRecoverPreparedUpdate(manager, operation, out ApplicationUpdateCheckResult? recovered))
@@ -298,8 +295,8 @@ internal sealed class ApplicationUpdateService(
             }
 
             ApplicationUpdateCheckResult checking = knownTarget is null
-                ? new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Checking, "Checking for Foundry updates.")
-                : CreateSelectionResult(knownTarget, ApplicationUpdateStatus.Checking, "Checking for Foundry updates.");
+                ? new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Checking)
+                : CreateSelectionResult(knownTarget, ApplicationUpdateStatus.Checking);
             PublishResult(checking, operation.Generation);
             logger.Information(
                 "Checking for Foundry updates. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedSource={FeedSource}, Channel={Channel}",
@@ -316,15 +313,13 @@ internal sealed class ApplicationUpdateService(
                 logger.Information("Foundry update check completed without an update. IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
                     isStartupCheck, stopwatch.ElapsedMilliseconds);
                 return PublishSelectionResult(null, new ApplicationUpdateCheckResult(
-                    ApplicationUpdateStatus.NoUpdate,
-                    $"{FoundryApplicationInfo.AppName} is up to date."), operation, checkedAt: DateTimeOffset.Now);
+                    ApplicationUpdateStatus.NoUpdate), operation, checkedAt: DateTimeOffset.Now);
             }
 
             UpdateSelection target = CreateSelection(manager, updateInfo, updateInfo.TargetFullRelease);
             logger.Information("Foundry update available. Version={Version}, FileName={FileName}, IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
                 target.Version, target.Asset.FileName, isStartupCheck, stopwatch.ElapsedMilliseconds);
-            return PublishSelectionResult(target, CreateSelectionResult(target, ApplicationUpdateStatus.UpdateAvailable,
-                $"{FoundryApplicationInfo.AppName} {target.Version} is available."), operation, checkedAt: DateTimeOffset.Now);
+            return PublishSelectionResult(target, CreateSelectionResult(target, ApplicationUpdateStatus.UpdateAvailable), operation, checkedAt: DateTimeOffset.Now);
         }
         catch (OperationCanceledException) when (operation.Token.IsCancellationRequested)
         {
@@ -340,9 +335,8 @@ internal sealed class ApplicationUpdateService(
             }
 
             ApplicationUpdateCheckResult result = target is null
-                ? new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Failed, ex.Message, FailureMessage: ex.Message)
-                : CreateSelectionResult(target, ApplicationUpdateStatus.UpdateAvailable,
-                    $"{FoundryApplicationInfo.AppName} {target.Version} is available.", failureMessage: ex.Message);
+                ? new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Failed, FailureMessage: ex.Message)
+                : CreateSelectionResult(target, ApplicationUpdateStatus.UpdateAvailable, failureMessage: ex.Message);
             return CompleteCheck(result, operation);
         }
     }
@@ -363,13 +357,12 @@ internal sealed class ApplicationUpdateService(
         if (target is null)
         {
             return PublishResult(new ApplicationUpdateCheckResult(
-                ApplicationUpdateStatus.NoUpdate,
-                "No update is ready to download. Check for updates first."), operation.Generation);
+                ApplicationUpdateStatus.NoUpdate), operation.Generation);
         }
 
         try
         {
-            PublishResult(CreateSelectionResult(target, ApplicationUpdateStatus.Downloading, "Downloading Foundry update."), operation.Generation);
+            PublishResult(CreateSelectionResult(target, ApplicationUpdateStatus.Downloading), operation.Generation);
             logger.Information("Downloading Foundry update. Version={Version}", target.Version);
             await target.Manager.DownloadUpdatesAsync(
                 target.Plan!,
@@ -377,8 +370,7 @@ internal sealed class ApplicationUpdateService(
                 operation.Token);
             operation.Token.ThrowIfCancellationRequested();
             logger.Information("Foundry update prepared. Version={Version}", target.Version);
-            return PublishSelectionResult(target, CreateSelectionResult(target, ApplicationUpdateStatus.ReadyToApply,
-                "Update downloaded. Apply it now or close Foundry to apply it automatically.", downloadProgress: 100), operation, isPrepared: true);
+            return PublishSelectionResult(target, CreateSelectionResult(target, ApplicationUpdateStatus.ReadyToApply, downloadProgress: 100), operation, isPrepared: true);
         }
         catch (OperationCanceledException) when (operation.Token.IsCancellationRequested)
         {
@@ -387,8 +379,7 @@ internal sealed class ApplicationUpdateService(
         catch (Exception ex)
         {
             logger.Error(ex, "Foundry update download failed. Version={Version}", target.Version);
-            return PublishResult(CreateSelectionResult(target, ApplicationUpdateStatus.Failed,
-                "The update could not be downloaded. Try downloading it again.", failureMessage: ex.Message), operation.Generation);
+            return PublishResult(CreateSelectionResult(target, ApplicationUpdateStatus.Failed, failureMessage: ex.Message), operation.Generation);
         }
     }
 
@@ -407,8 +398,7 @@ internal sealed class ApplicationUpdateService(
         // This is the SDK's local preparation lookup, not an independent package hash verification.
         UpdateSelection target = CreateSelection(manager, null, asset);
         logger.Information("Recovered prepared Foundry update. Version={Version}", target.Version);
-        result = PublishSelectionResult(target, CreateSelectionResult(target, ApplicationUpdateStatus.ReadyToApply,
-            "A downloaded update is ready to apply.", downloadProgress: 100), operation, isPrepared: true);
+        result = PublishSelectionResult(target, CreateSelectionResult(target, ApplicationUpdateStatus.ReadyToApply, downloadProgress: 100), operation, isPrepared: true);
         return true;
     }
 
@@ -419,8 +409,7 @@ internal sealed class ApplicationUpdateService(
             return;
         }
 
-        ApplicationUpdateCheckResult result = CreateSelectionResult(target, ApplicationUpdateStatus.Downloading,
-            "Downloading Foundry update.", downloadProgress: Math.Clamp(progress, 0, 100));
+        ApplicationUpdateCheckResult result = CreateSelectionResult(target, ApplicationUpdateStatus.Downloading, downloadProgress: Math.Clamp(progress, 0, 100));
         lock (stateLock)
         {
             if (!IsLive(operation.Generation) || prepared || !ReferenceEquals(selection, target)
@@ -566,11 +555,10 @@ internal sealed class ApplicationUpdateService(
     private static ApplicationUpdateCheckResult CreateSelectionResult(
         UpdateSelection target,
         ApplicationUpdateStatus status,
-        string message,
         int downloadProgress = 0,
         string? failureMessage = null)
     {
-        return new ApplicationUpdateCheckResult(status, message, target.Version, downloadProgress, failureMessage);
+        return new ApplicationUpdateCheckResult(status, target.Version, downloadProgress, failureMessage);
     }
 
     private static bool IsGitHubRepositoryUrl(string feedUrl)
