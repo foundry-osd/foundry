@@ -63,13 +63,13 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                 lease = await new AuthoringArtifactCache(downloadRootPath).AcquireAsync(request, async (path, token) =>
                 {
                     WinPeResult result = await DownloadPackageAsync(package.DownloadUri, path, index + 1, packages.Count,
-                        downloadProgress, token).ConfigureAwait(false);
+                        package.Vendor, downloadProgress, token).ConfigureAwait(false);
                     if (!result.IsSuccess)
                     {
                         downloadError = result.Error;
                         throw new IOException("Driver package transfer failed.");
                     }
-                }, cancellationToken, new CacheVerificationProgress(downloadProgress, fileName)).ConfigureAwait(false);
+                }, cancellationToken, new CacheVerificationProgress(downloadProgress, fileName, package.Vendor)).ConfigureAwait(false);
             }
             catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
             {
@@ -82,7 +82,9 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
             downloadProgress?.Report(new WinPeDownloadProgress
             {
                 Percent = 100,
-                Status = lease.CacheHit ? $"Reusing cached driver package '{fileName}'." : $"Driver package '{fileName}' downloaded and verified."
+                Status = lease.CacheHit ? WinPeProgressStatuses.ReusingDriverPackage : WinPeProgressStatuses.DriverPackageReady,
+                ItemName = fileName,
+                Vendor = package.Vendor
             });
             downloadedFiles.Add(downloadPath);
 
@@ -155,6 +157,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
         string destinationPath,
         int packageNumber,
         int packageCount,
+        WinPeVendorSelection vendor,
         IProgress<WinPeDownloadProgress>? progress,
         CancellationToken cancellationToken)
     {
@@ -168,8 +171,15 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
 
         try
         {
-            string status = BuildDriverDownloadStatus(destinationPath, packageNumber, packageCount);
-            ReportDownloadProgress(progress, 0, status);
+            var item = new WinPeDownloadProgress
+            {
+                Status = WinPeProgressStatuses.DownloadingDriverPackage,
+                ItemName = Path.GetFileName(destinationPath),
+                Vendor = vendor,
+                ItemNumber = packageNumber,
+                ItemCount = packageCount
+            };
+            WinPeDownloadReporting.Report(progress, item, 0);
 
             return await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
             {
@@ -199,11 +209,11 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                     81920,
                     useAsync: true);
 
-                await CopyDownloadToFileAsync(
+                await WinPeDownloadReporting.CopyAsync(
                     sourceStream,
                     destinationStream,
                     totalBytes,
-                    status,
+                    item,
                     progress,
                     reportProgress,
                     transferToken).ConfigureAwait(false);
@@ -230,87 +240,6 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                 },
                 exception: ex);
         }
-    }
-
-    private static async Task CopyDownloadToFileAsync(
-        Stream sourceStream,
-        FileStream destinationStream,
-        long? totalBytes,
-        string status,
-        IProgress<WinPeDownloadProgress>? progress,
-        Action reportProgress,
-        CancellationToken cancellationToken)
-    {
-        int lastReportedPercent = -1;
-        long bytesWritten = await StreamCopy.CopyAsync(
-            sourceStream,
-            destinationStream,
-            copiedBytes =>
-            {
-                reportProgress();
-                double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
-                if (percentage.HasValue)
-                {
-                    int downloadPercent = (int)percentage.Value;
-                    if (downloadPercent == lastReportedPercent)
-                    {
-                        return;
-                    }
-
-                    lastReportedPercent = downloadPercent;
-                    ReportDownloadProgress(
-                        progress,
-                        downloadPercent,
-                        $"{status} ({FormatBytes(copiedBytes)} / {FormatBytes(totalBytes.GetValueOrDefault())})");
-                    return;
-                }
-
-                ReportDownloadProgress(
-                    progress,
-                    null,
-                    $"{status} ({FormatBytes(copiedBytes)} downloaded)");
-            },
-            cancellationToken).ConfigureAwait(false);
-
-        ReportDownloadProgress(
-            progress,
-            100,
-            totalBytes is > 0
-                ? $"{status} ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)})"
-                : $"{status} ({FormatBytes(bytesWritten)} downloaded)");
-    }
-
-    private static string BuildDriverDownloadStatus(string destinationPath, int packageNumber, int packageCount)
-    {
-        return $"Downloading driver package {packageNumber} of {packageCount}: {Path.GetFileName(destinationPath)}.";
-    }
-
-    private static void ReportDownloadProgress(IProgress<WinPeDownloadProgress>? progress, int? percent, string status)
-    {
-        progress?.Report(new WinPeDownloadProgress
-        {
-            Percent = percent.HasValue
-                ? Math.Clamp(percent.Value, 0, 100)
-                : null,
-            Status = status
-        });
-    }
-
-    private static string FormatBytes(long bytes)
-    {
-        string[] units = ["B", "KB", "MB", "GB", "TB"];
-        double value = bytes;
-        int unitIndex = 0;
-
-        while (value >= 1024 && unitIndex < units.Length - 1)
-        {
-            value /= 1024;
-            unitIndex++;
-        }
-
-        return unitIndex == 0
-            ? $"{bytes} {units[unitIndex]}"
-            : $"{value:F1} {units[unitIndex]}";
     }
 
     private async Task<WinPeResult> ExtractPackageAsync(

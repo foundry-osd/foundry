@@ -98,10 +98,16 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Mogelijkheid voor het maken van media</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK-bewerking geannuleerd.</value>
+    <value>De installatie is geannuleerd.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Installatie van Windows ADK geannuleerd</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK bewerking voltooid</value>
+    <value>Windows ADK en de Windows PE-add-on zijn gereed. U kunt nu opstartmedia maken.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK geïnstalleerd</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Met behulp van het in de cache opgeslagen ADK installatieprogramma</value>
@@ -113,9 +119,15 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>ADK installatieprogramma downloaden</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK bewerking mislukt</value>
+    <value>De installatie is niet voltooid. Details vindt u in het logboek.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Installatie van Windows ADK mislukt</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Installatie voorbereiden…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Windows ADK installeren</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -127,6 +139,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>De installatie is voltooid. Controleer de resterende ADK-vereisten.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK vereist aandacht</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Bestaande Windows ADK verwijderen</value>
   </data>
@@ -135,6 +150,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Installatie van Windows ADK 24H2 voorbereiden</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Windows ADK upgraden</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>ADK installatie verifiëren</value>
@@ -2722,9 +2740,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Inhoudsstatus</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Inhoud voor na de installatie geverifieerd.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Doorgaan bij fouten</value>
   </data>
@@ -2853,9 +2868,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Scriptargumenten</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Inhoud voor na de installatie wordt klaargezet.</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Afsluitcodes voor succes (gescheiden door komma's)</value>
@@ -3333,11 +3345,14 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>App bijwerken</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operatie voltooid</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Bewerking stoppen</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Operatie bezig</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Selecteer Bewerking stoppen om te bevestigen. Een schijf- of imagestap die wordt uitgevoerd, wordt eerst voltooid.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Verstreken tijd: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Bezig met veilig stoppen. De huidige bewerking op de schijf of het image moet mogelijk worden voltooid voordat het opruimen kan worden afgerond.</value>
@@ -3408,6 +3423,12 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot gebruikt een niet-ondersteunde inrichtingsmodus.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Los het volgende op voordat u media maakt:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Het maken van media kan niet worden gestart. Controleer de gereedheidsitems op de pagina Begin.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK of WinPE Add-on is niet gereed.</value>
   </data>
@@ -3455,12 +3476,6 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>De geselecteerde WinPE opstarttaal is niet beschikbaar voor de geselecteerde architectuur.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standaard WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi afbeelding</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3543,23 +3558,8 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Architectuur</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Bron van opstartimage</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Sluit de inrichting aan</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Configuratie implementeren</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Chauffeurs</value>
@@ -3567,23 +3567,8 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formaatmodus</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO uitvoerpad</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Netwerkconfiguratie</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB partitiestijl</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Mediageheimen</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Handtekeningmodus</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB doel</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE opstarttaal</value>
@@ -3599,6 +3584,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Het maken van media is beschikbaar wanneer alle gereedheidscontroles zijn geslaagd.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Kies hieronder een ISO- of USB-uitvoer om te beginnen.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Volledig formaat</value>
@@ -3628,52 +3616,49 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>OOBE-accountfase overgeslagen</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Taal en optionele componenten toepassen.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>De afhankelijkheden van de opstartimage zijn gereed.</value>
+    <value>Taal en optionele componenten toevoegen…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>WinPE werkruimte maken.</value>
+    <value>WinPE-werkruimte maken…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Mediacreatie geannuleerd.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} van {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>Het maken van media is geannuleerd.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>USB doelveiligheid controleren.</value>
+    <value>Controleren of de USB-schijf veilig kan worden gewist…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>WinPE werkruimte schoonmaken.</value>
+    <value>Bestanden van een vorige uitvoering opruimen…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>USB partitietabel wissen.</value>
+    <value>USB-schijf wissen…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Wijzigingen in het opstartimage vastleggen.</value>
+    <value>Opstartimage opslaan…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Definitieve mediacreatie voltooid.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Aangepaste Windows-installatiekopieën kopiëren…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Inhoud voor na-installatie kopiëren…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>WinPE-media kopiëren naar USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>ISO-media maken.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>USB-media maken.</value>
+    <value>WinPE-bestanden kopiëren naar de USB-schijf…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>BOOT-partitie maken.</value>
+    <value>BOOT-partitie maken…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Cachepartitie maken.</value>
+    <value>Cachepartitie maken…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>De aangepaste stuurprogramma’s nemen minstens {0} in beslag; het maximum is {1}. Selecteer alleen de netwerk- en opslagstuurprogramma’s die Windows PE nodig heeft.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Het opstartimage aanpassen.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>De identiteit van het USB-station ontbreekt, is niet eenduidig of is gewijzigd. Vernieuw de lijst met USB-stations en selecteer het station opnieuw.</value>
@@ -3682,82 +3667,64 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Het geselecteerde USB-station kan niet meer veilig worden gewijzigd. Vernieuw de lijst met USB-stations en selecteer een ander USB-station.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Internationale instellingen toepassen met DISM.</value>
+    <value>Taalinstellingen toepassen…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Taalpakket toepassen met DISM.</value>
+    <value>Taalpakket toevoegen…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Optionele componenten toepassen met DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Afbeeldingswijzigingen vastleggen met DISM.</value>
+    <value>Optionele componenten toevoegen…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Gekoppelde afbeelding verwerpen met DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Windows afbeelding exporteren met DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Stuurprogramma's injecteren met DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Montageafbeelding met DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows-afbeeldingsindex oplossen met DISM.</value>
+    <value>Image verwerpen die nog gekoppeld was van een vorige uitvoering…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Inhoud downloaden.</value>
+    <value>Downloaden</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Driverpakket downloaden</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>{2}-stuurprogrammapakket {0} van {1} downloaden</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>{0} implementatiecomponenten downloaden.</value>
+    <value>{0} downloaden</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows-bronpakket downloaden.</value>
+    <value>Windows-bronpakket downloaden</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Evaluatie van het beleid voor opstarthandtekeningen.</value>
+    <value>Ondersteuning voor opstartsignatuur controleren…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Windows-image exporteren om de opstartimage voor te bereiden.</value>
+    <value>Windows-image uitpakken…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Het maken van de definitieve media is mislukt.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>De fout trad op tijdens stap {0} van {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Finaliseren van ISO uitvoer.</value>
+    <value>ISO-bestand opslaan…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>BOOT-partitie formatteren.</value>
+    <value>BOOT-partitie formatteren…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Cachepartitie formatteren.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Aanpassing van de opstartimage voltooid.</value>
+    <value>Cachepartitie formatteren…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>USB partitietabel initialiseren.</value>
+    <value>Partitietabel maken…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Stuurprogramma's in de opstartimage injecteren.</value>
+    <value>Stuurprogramma's toevoegen aan de opstartimage…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Indeling van USB-media controleren.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO media voltooid.</value>
+    <value>Indeling van de USB-schijf lezen…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry kan het ISO-bestand op {0} niet vervangen. Het bestand is mogelijk gekoppeld, aan een virtuele machine toegevoegd, geopend in een ander programma of alleen-lezen. Ontkoppel of sluit het bestand, of kies een ander uitvoerpad, en probeer het opnieuw.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Het ISO medium is succesvol aangemaakt.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>Het ISO-bestand is opgeslagen in:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Grootte: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Er is onvoldoende schijfruimte om de opstartimage te maken. Op {2} is minimaal {0} vrije ruimte nodig. Beschikbaar: {1}. Maak ruimte vrij en probeer het opnieuw.</value>
@@ -3766,73 +3733,148 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>De beschikbare schijfruimte voor het maken van de opstartimage kon op {0} niet worden gecontroleerd. Controleer of de locatie toegankelijk is en probeer het opnieuw.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Installatie-bootimage.</value>
+    <value>Opstartimage openen…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Windows-bronimage monteren.</value>
+    <value>Windows-image openen…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Map openen</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Logboekmap openen</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>USB schijf openen.</value>
+    <value>USB-schijf openen…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Partitioneren en formatteren USB doel.</value>
+    <value>USB-schijf partitioneren…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Bestanden kopiëren naar de USB-schijf</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>ISO-bestand maken</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Opstartimage aanpassen</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Stuurprogramma's ophalen</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Voltooien</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>USB-schijf formatteren</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Werkruimte voorbereiden</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>USB-schijf bijwerken</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Aanpassing van de opstartimage voorbereiden.</value>
+    <value>Opstartimage voorbereiden…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Foundry-componenten voorbereiden…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>ISO uitvoerpad voorbereiden.</value>
+    <value>ISO-uitvoermap voorbereiden…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>ISO werkruimte voorbereiden.</value>
+    <value>ISO-bestanden voorbereiden…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Inhoud voor na-installatie voorbereiden…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>USB cachepartitie voorbereiden.</value>
+    <value>Cachepartitie voorbereiden…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>USB schijfkenmerken voorbereiden.</value>
+    <value>USB-schijf voorbereiden…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows-bronpakket voorbereiden.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>WinPE werkruimte voorbereiden.</value>
+    <value>Windows-bronpakket ophalen…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Het inrichten van Foundry opstartmiddelen.</value>
+    <value>Foundry-opstartbestanden toevoegen…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Foundry-implementatiecomponenten toevoegen.</value>
+    <value>Foundry-componenten toevoegen…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry componenten toevoegen aan USB media.</value>
+    <value>Foundry-componenten toevoegen aan de USB-schijf…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Tijdelijke bestanden verwijderen…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Opstartimage vervangen door WinRE.</value>
+    <value>Opstartimage vervangen door Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Driverpakketten oplossen.</value>
+    <value>Bepalen welke stuurprogramma's moeten worden toegevoegd…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows-afbeeldingsindex oplossen.</value>
+    <value>Windows-editie selecteren…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Windows-broncatalogus oplossen.</value>
+    <value>Windows-bronpakket zoeken…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>MakeWinPEMedia uitvoeren voor ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Geselecteerd Windows-bronpakket.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Details vindt u in het logboek.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Afhankelijkheden van de opstartimage voorbereiden.</value>
+    <value>Vereiste bestanden kopiëren uit de Windows-image…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Stap {0} van {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Technische details: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Maken van ISO geannuleerd</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Maken van ISO mislukt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>ISO maken</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO gemaakt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Maken van USB-media geannuleerd</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Maken van USB-media mislukt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>USB-media maken</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB-media gemaakt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Bijwerken van USB-media geannuleerd</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Bijwerken van USB-media mislukt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>USB-media bijwerken</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB-media bijgewerkt</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>De overdracht heeft de tijdslimiet overschreden. Controleer uw verbinding en probeer het opnieuw.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>USB-media bijwerken.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Een onverwachte fout heeft het maken van media gestopt.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>De USB-BOOT-partitie heeft ongeveer {0} nodig, maar de capaciteit is {1}. Er is niets gewist of geformatteerd. Verminder de aanpassingen of stuurprogramma’s, of maak een ISO.</value>
@@ -3843,35 +3885,35 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Een bestand op het opstartmedium is {0} groot; FAT32 ondersteunt maximaal {1} per bestand. Verklein de opstartkopie of maak een ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB-opstartpartitie is bijgewerkt.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Een apparaat kan mogelijk niet meer opstarten vanaf de USB-schijf. Maak de schijf opnieuw of werk deze bij voordat u deze gebruikt.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB media voltooid.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB partities geformatteerd.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB media is succesvol aangemaakt. Opstartvolume: {0}. Cachevolume: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>De USB-opstartpartitie is bijgewerkt. Opstartvolume: {0}. Cachevolume: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Opstartvolume: {0}. Cachevolume: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>USB doel valideren.</value>
+    <value>USB-schijf controleren…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>{0}-stuurprogrammapakket controleren</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>USB opstartmedia verifiëren.</value>
+    <value>USB-opstartbestanden verifiëren…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows-bronpakket controleren</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows heeft de toegang tot de WinPE-installatiekopiebestanden geblokkeerd. Mogelijk worden ze vergrendeld door beveiligingssoftware of een ander hulpprogramma. Voeg in de beveiligingssoftware een uitzondering toe voor {0}, sluit hulpprogramma's die installatiekopieën koppelen, start de computer opnieuw op en probeer het opnieuw. Details staan in {1} en {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>ISO-bestand schrijven…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Controleer de gereedheid, kies ISO- of USB-uitvoer en start het maken van media.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Beoordeling</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>{0} controleren</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Klaar</value>
@@ -3902,9 +3944,6 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Punten die aandacht behoeven:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Toch maken</value>
@@ -3958,6 +3997,15 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE opstarttaal</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Pakketten: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Vereist aandacht: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Vereist aandacht: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Standaard</value>

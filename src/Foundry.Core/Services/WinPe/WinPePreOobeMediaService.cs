@@ -158,7 +158,7 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
                     copied.Add((temporary, destination));
                 }
                 completed = checked(completed + file.Length);
-                progress?.Report(new() { Percent = (int)(completed * 90.0 / Math.Max(1, package.TotalBytes)), Status = "Staging post-installation content." });
+                progress?.Report(new() { Percent = (int)(completed * 90.0 / Math.Max(1, package.TotalBytes)), Status = WinPeProgressStatuses.StagingPostInstallation });
             }
             foreach (string directory in package.Directories) Directory.CreateDirectory(CustomImagePathPolicy.ResolveRelativePath(root, directory));
             foreach ((string temporary, string destination) in copied)
@@ -187,7 +187,7 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
                 Directory.CreateDirectory(Path.GetDirectoryName(manifest)!);
                 File.Move(temporary, manifest);
             }
-            progress?.Report(new() { Percent = 100, Status = "Post-installation content verified." });
+            progress?.Report(new() { Percent = 100, Status = WinPeProgressStatuses.PostInstallationVerified });
         }
         finally
         {

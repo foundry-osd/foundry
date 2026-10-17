@@ -98,10 +98,16 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Meediumi loomise võimalus</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Windows ADK toiming tühistati.</value>
+    <value>Installimine tühistati.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Windows ADK installimine tühistati</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK toiming on lõpetatud</value>
+    <value>Windows ADK ja Windows PE lisandmoodul on valmis. Nüüd saate luua alglaadimismeediumi.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK on installitud</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Vahemällu salvestatud ADK installeri kasutamine</value>
@@ -113,10 +119,16 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>ADK installeri allalaadimine</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK toiming ebaõnnestus</value>
+    <value>Installimine ei lõppenud. Üksikasjad leiate logist.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Windows ADK installimine nurjus</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Installimine Windows ADK</value>
+    <value>Installimise ettevalmistamine…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Windows ADK installimine</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Windows ADK juurutustööriistade installimine</value>
@@ -127,6 +139,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Installimine on lõppenud. Vaadake üle ülejäänud ADK nõuded.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK vajab tähelepanu</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Olemasoleva Windows ADK eemaldamine</value>
   </data>
@@ -135,6 +150,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Windows ADK 24H2 installimise ettevalmistamine</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Windows ADK uuendamine</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>ADK installimise kontrollimine</value>
@@ -2722,9 +2740,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Sisu olek</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Installimisjärgne sisu on kontrollitud.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Jätka vea korral</value>
   </data>
@@ -2853,9 +2868,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Skripti argumendid</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Installimisjärgse sisu ettevalmistamine.</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Õnnestumise väljumiskoodid (komadega eraldatud)</value>
@@ -3333,11 +3345,14 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Värskendage rakendust</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Toiming on lõpetatud</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Peata toiming</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Toiming pooleli</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Kinnitamiseks valige „Peata toiming“. Käimasolev ketta või tõmmise etapp viiakse esmalt lõpule.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Kulunud aeg: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Toimub ohutu peatamine. Enne puhastamise lõpuleviimist võib olla vaja oodata, kuni praegune toiming ketta või tõmmisega lõpeb.</value>
@@ -3408,6 +3423,12 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot kasutab toetamata varustamisrežiimi.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Enne meediumi loomist lahendage järgmised probleemid:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Meediumi loomist ei saa alustada. Kontrollige valmisolekuüksusi lehel Alusta.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK või WinPE Lisandmoodul pole valmis.</value>
   </data>
@@ -3455,12 +3476,6 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Valitud WinPE alglaadimiskeel pole valitud arhitektuuri jaoks saadaval.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standardne WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi pilt</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3543,23 +3558,8 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Arhitektuur</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Alglaadimispildi allikas</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Ühendage varustamine</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Konfiguratsiooni juurutamine</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Autojuhid</value>
@@ -3567,23 +3567,8 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB vormingurežiim</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO väljundtee</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Võrgu konfiguratsioon</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB partitsioonistiil</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Meedia saladused</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Allkirja režiim</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB sihtmärk</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE alglaadimiskeel</value>
@@ -3599,6 +3584,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Meediumi loomine on saadaval, kui kõik valmisolekukontrollid on läbinud.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Alustamiseks valige allpool ISO- või USB-väljund.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Täielik formaat</value>
@@ -3628,52 +3616,49 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>OOBE konto loomine vahele jäetud</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Keele ja valikuliste komponentide rakendamine.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Alglaadimispildi sõltuvused on valmis.</value>
+    <value>Keele ja valikuliste komponentide lisamine…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>WinPE tööruumi loomine.</value>
+    <value>WinPE tööruumi loomine…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Andmekandja loomine tühistati.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} / {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>Meediumi loomine tühistati.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>USB sihtmärgi ohutuse kontrollimine.</value>
+    <value>Kontrollimine, kas USB-ketast saab ohutult kustutada…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>WinPE tööruumi puhastamine.</value>
+    <value>Eelmise käituse failide eemaldamine…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>USB partitsioonitabeli tühjendamine.</value>
+    <value>USB-ketta kustutamine…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Alglaadimispildi muudatuste sisseviimine.</value>
+    <value>Alglaadimistõmmise salvestamine…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Lõplik meedia loomine on lõpetatud.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Kohandatud Windowsi tõmmiste kopeerimine…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Installijärgse sisu kopeerimine…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>WinPE meedia kopeerimine asukohta USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>ISO meedia loomine.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>USB meedia loomine.</value>
+    <value>WinPE failide kopeerimine USB-kettale…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>BOOT partitsiooni loomine.</value>
+    <value>BOOT-partitsiooni loomine…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Vahemälu partitsiooni loomine.</value>
+    <value>Vahemälu partitsiooni loomine…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Kohandatud draiverid võtavad kokku vähemalt {0}; lubatud ülempiir on {1}. Valige ainult Windows PE jaoks vajalikud võrgu- ja salvestusdraiverid.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Alglaadimispildi kohandamine.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>USB-ketta identiteet puudub, on mitmetähenduslik või on muutunud. Värskendage USB-ketaste loendit ja valige ketas uuesti.</value>
@@ -3682,82 +3667,64 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Valitud USB-ketast ei saa enam turvaliselt muuta. Värskendage USB-ketaste loendit ja valige teine USB-ketas.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Rahvusvaheliste sätete rakendamine DISM.</value>
+    <value>Keelesätete rakendamine…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Keelepaketi rakendamine DISM.</value>
+    <value>Keelepaketi lisamine…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Valikuliste komponentide rakendamine DISM abil.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Pildi muutmine DISM.</value>
+    <value>Valikuliste komponentide lisamine…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Ühendatud kujutise hülgamine DISM-iga.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Windows kujutise eksportimine DISM-ga.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Juhtide süstimine DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Paigalduskujutis DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows pildiindeksi lahendamine DISM abil.</value>
+    <value>Eelmisest käitusest ühendatuks jäänud tõmmise hülgamine…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Sisu allalaadimine.</value>
+    <value>Allalaadimine</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Draiveri paketi allalaadimine</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>{2} draiveripaketi {0}/{1} allalaadimine</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>{0} juurutuskomponentide allalaadimine.</value>
+    <value>Allalaadimine: {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows lähtepaketi allalaadimine.</value>
+    <value>Windowsi lähtepaketi allalaadimine</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Alglaadimissignatuuri hindamine.</value>
+    <value>Alglaadimisallkirjade toe kontrollimine…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Windowsi pildi eksportimine alglaadimispildi ettevalmistamiseks.</value>
+    <value>Windowsi tõmmise ekstraktimine…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Lõplik meedia loomine ebaõnnestus.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Tõrge tekkis sammus {0}/{1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>ISO väljundi lõpetamine.</value>
+    <value>ISO-faili salvestamine…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>BOOT partitsiooni vormindamine.</value>
+    <value>BOOT-partitsiooni vormindamine…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Vahemälu partitsiooni vormindamine.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Alglaadimispildi kohandamine on lõpetatud.</value>
+    <value>Vahemälu partitsiooni vormindamine…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>USB partitsioonitabeli lähtestamine.</value>
+    <value>Partitsioonitabeli loomine…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Draiverite sisestamine alglaadimiskujutisse.</value>
+    <value>Draiverite lisamine alglaadimistõmmisesse…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>USB-meediumi paigutuse kontrollimine.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO meedia valmis.</value>
+    <value>USB-ketta paigutuse lugemine…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry ei saanud asendada ISO-faili asukohas {0}. Fail võib olla ühendatud, virtuaalmasinaga seotud, teises programmis avatud või kirjutuskaitstud. Eemaldage ühendus või sulgege fail või valige muu väljunditee ja proovige siis uuesti.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Meediumi ISO loomine õnnestus.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>ISO-fail salvestati asukohta:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Suurus: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Käivituspildi loomiseks pole piisavalt kettaruumi. Asukohas {2} peab olema vähemalt {0} vaba ruumi. Saadaval: {1}. Vabastage ruumi ja proovige uuesti.</value>
@@ -3766,73 +3733,148 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Käivituspildi loomiseks saadaolevat kettaruumi ei saanud asukohas {0} kontrollida. Veenduge, et asukoht on ligipääsetav, ja proovige uuesti.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Paigalduslaadimispilt.</value>
+    <value>Alglaadimistõmmise avamine…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Windows lähtepildi paigaldamine.</value>
+    <value>Windowsi tõmmise avamine…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Ava kaust</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Ava logikaust</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>USB ketta avamine.</value>
+    <value>USB-ketta avamine…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Jaotamine ja vormindamine USB sihtmärk.</value>
+    <value>USB-ketta partitsioonimine…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Failide kopeerimine USB-kettale</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>ISO-faili loomine</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Alglaadimistõmmise kohandamine</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Draiverite hankimine</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Lõpetamine</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>USB-ketta vormindamine</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Tööruumi ettevalmistamine</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>USB-ketta värskendamine</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Alglaadimispildi kohandamise ettevalmistamine.</value>
+    <value>Alglaadimistõmmise ettevalmistamine…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Foundry komponentide ettevalmistamine…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>ISO väljundtee ettevalmistamine.</value>
+    <value>ISO väljundkausta ettevalmistamine…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>ISO tööruumi ettevalmistamine.</value>
+    <value>ISO-failide ettevalmistamine…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Installijärgse sisu ettevalmistamine…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Vahemälu partitsiooni USB ettevalmistamine.</value>
+    <value>Vahemälu partitsiooni ettevalmistamine…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>USB kettaatribuutide ettevalmistamine.</value>
+    <value>USB-ketta ettevalmistamine…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Windows lähtepaketi ettevalmistamine.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>WinPE tööruumi ettevalmistamine.</value>
+    <value>Windowsi lähtepaketi hankimine…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Foundry alglaadimisvarade ettevalmistamine.</value>
+    <value>Foundry käivitusfailide lisamine…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Foundry juurutuskomponentide lisamine.</value>
+    <value>Foundry komponentide lisamine…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry komponentide lisamine USB meediumile.</value>
+    <value>Foundry komponentide lisamine USB-kettale…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Ajutiste failide eemaldamine…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Alglaadimispildi asendamine WinRE-ga.</value>
+    <value>Alglaadimistõmmise asendamine Windows RE-ga…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Draiveripakettide lahendamine.</value>
+    <value>Lisatavate draiverite kontrollimine…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Windows pildiindeksi lahendamine.</value>
+    <value>Windowsi väljaande valimine…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Windows lähtekataloogi lahendamine.</value>
+    <value>Windowsi lähtepaketi otsimine…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>MakeWinPEMedia käivitamine ISO jaoks.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Valitud Windows lähtepakett.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Üksikasjad leiate logist.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Alglaadimispildi sõltuvuste ettevalmistamine.</value>
+    <value>Vajalike failide kopeerimine Windowsi tõmmisest…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Samm {0}/{1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Tehnilised üksikasjad: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>ISO loomine tühistati</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>ISO loomine nurjus</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>ISO loomine</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO on loodud</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>USB-meediumi loomine tühistati</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>USB-meediumi loomine nurjus</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>USB-meediumi loomine</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>USB-meedium on loodud</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>USB-meediumi värskendamine tühistati</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>USB-meediumi värskendamine nurjus</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>USB-meediumi värskendamine</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>USB-meedium on värskendatud</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Edastuse ajalõpp. Kontrollige ühendust ja proovige uuesti.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>USB-meediumi värskendamine.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Ootamatu tõrge peatas meediumi loomise.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>USB BOOT-sektsioon vajab ligikaudu {0}, kuid selle maht on {1}. Midagi pole kustutatud ega vormindatud. Vähendage kohandusi või draivereid või looge ISO.</value>
@@ -3843,35 +3885,35 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Käivituskandja faili suurus on {0}; FAT32 toetab kuni {1} faili kohta. Vähendage käivitustõmmise suurust või looge ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>USB alglaadimispartitsioon värskendati.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>USB-ketas ei pruugi enam seadet käivitada. Enne kasutamist looge või värskendage see uuesti.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB meedia valmis.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB partitsioonid on vormindatud.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB meediumi loomine õnnestus. Alglaadimise helitugevus: {0}. Vahemälu maht: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>USB alglaadimispartitsioon värskendati edukalt. Alglaadimisköide: {0}. Vahemäluköide: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Alglaadimisköide: {0}. Vahemäluköide: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>USB sihtmärgi kinnitamine.</value>
+    <value>USB-ketta kontrollimine…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>{0} draiveripaketi kontrollimine</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>USB alglaadimismeediumi kontrollimine.</value>
+    <value>USB alglaadimisfailide kontrollimine…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Windowsi lähtepaketi kontrollimine</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blokeeris juurdepääsu WinPE kujutisefailidele. Võimalik, et turbetarkvara või mõni muu tööriist lukustab need. Lisage turbetarkvarasse erand asukohale {0}, sulgege kujutisi ühendavad tööriistad, taaskäivitage arvuti ja proovige uuesti. Üksikasjad on failides {1} ja {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>ISO-faili kirjutamine…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontrollige valmisolekut, valige ISO või USB väljund ja alustage meediumi loomist.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Ülevaade</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Vaata üle: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Valmis</value>
@@ -3902,9 +3944,6 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Tähelepanu vajavad esemed:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Loo ikkagi</value>
@@ -3958,6 +3997,15 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE alglaadimiskeel</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Paketid: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Vajab tähelepanu: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Vajab tähelepanu: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Vaikimisi</value>

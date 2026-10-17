@@ -98,10 +98,16 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Capacidad de creación de medios</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Operación de Windows ADK cancelada.</value>
+    <value>Se canceló la instalación.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Instalación de Windows ADK cancelada</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK operación completada</value>
+    <value>Windows ADK y el complemento de Windows PE están listos. Ya puede crear medios de arranque.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Windows ADK instalado</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Usando el instalador ADK en caché</value>
@@ -113,9 +119,15 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Descargando el instalador ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK operación fallida</value>
+    <value>La instalación no se completó. Revise el registro para obtener más detalles.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Error en la instalación de Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Preparando la instalación…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
     <value>Instalando Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
@@ -127,6 +139,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>La instalación finalizó. Revise los requisitos pendientes de ADK.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Windows ADK requiere atención</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Eliminando Windows ADK existente</value>
   </data>
@@ -135,6 +150,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Preparando la instalación de Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Actualizando Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Verificando la instalación de ADK</value>
@@ -2722,9 +2740,6 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Estado del contenido</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Contenido de posinstalación verificado.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Continuar en caso de error</value>
   </data>
@@ -2853,9 +2868,6 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Argumentos del script</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Preparando el contenido de posinstalación.</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Códigos de salida correctos (separados por comas)</value>
@@ -3333,11 +3345,14 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizar aplicación</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operación completa</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Detener operación</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Operación en curso</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Selecciona Detener operación para confirmar. Primero finaliza el paso en curso con el disco o la imagen.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Tiempo transcurrido: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Deteniendo de forma segura. Es posible que la operación actual con el disco o la imagen deba finalizar antes de que se complete la limpieza.</value>
@@ -3408,6 +3423,12 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot utiliza un modo de aprovisionamiento no compatible.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Resuelva lo siguiente antes de crear el medio:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>No se puede iniciar la creación del medio. Revise los elementos de preparación en la página Comenzar.</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK o WinPE El complemento no está listo.</value>
   </data>
@@ -3455,12 +3476,6 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>El idioma de inicio WinPE seleccionado no está disponible para la arquitectura seleccionada.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Estándar WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi imagen</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>B</value>
@@ -3543,23 +3558,8 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Arquitectura</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Fuente de la imagen de arranque</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Conectar aprovisionamiento</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Implementar configuración</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Conductores</value>
@@ -3567,23 +3567,8 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB modo de formato</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO ruta de salida</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Configuración de red</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>USB estilo de partición</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Secretos de los medios</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Modo de firma</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB objetivo</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE idioma de arranque</value>
@@ -3599,6 +3584,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>La creación de medios está disponible cuando se pasan todas las comprobaciones de preparación.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Elija una salida ISO o USB a continuación para comenzar.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>formato completo</value>
@@ -3628,52 +3616,49 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Creación de cuenta de OOBE omitida</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Aplicar lenguaje y componentes opcionales.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Las dependencias de la imagen de arranque están listas.</value>
+    <value>Agregando el idioma y los componentes opcionales…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Creando WinPE espacio de trabajo.</value>
+    <value>Creando el espacio de trabajo de WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
-    <value>Creación de medios cancelada.</value>
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} de {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
+    <value>Se canceló la creación del medio.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Comprobando USB la seguridad del objetivo.</value>
+    <value>Verificando que la unidad USB se pueda borrar de forma segura…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Limpieza del espacio de trabajo WinPE.</value>
+    <value>Limpiando archivos de una ejecución anterior…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Borrando la tabla de particiones USB.</value>
+    <value>Borrando la unidad USB…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Confirmando cambios en la imagen de arranque.</value>
+    <value>Guardando la imagen de arranque…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Creación final de medios completada.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Copiando imágenes de Windows personalizadas…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Copiando el contenido de posinstalación…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Copiando medios WinPE a USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Creando medios ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Creando medios USB.</value>
+    <value>Copiando archivos de WinPE a la unidad USB…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Creando partición de ARRANQUE.</value>
+    <value>Creando la partición BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Creando partición de caché.</value>
+    <value>Creando la partición de caché…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Los controladores personalizados ocupan al menos {0}; el máximo es {1}. Seleccione solo los controladores de red y almacenamiento necesarios para Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Personalizando la imagen de arranque.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>La identidad de la unidad USB no está disponible, es ambigua o ha cambiado. Actualice la lista de unidades USB y vuelva a seleccionar la unidad.</value>
@@ -3682,82 +3667,64 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>La unidad USB seleccionada ya no se puede modificar de forma segura. Actualice la lista de unidades USB y seleccione otra unidad USB.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Aplicando configuración internacional con DISM.</value>
+    <value>Aplicando la configuración de idioma…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Aplicando paquete de idioma con DISM.</value>
+    <value>Agregando el paquete de idioma…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Aplicar componentes opcionales con DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Confirmar cambios de imagen con DISM.</value>
+    <value>Agregando componentes opcionales…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Descartando imagen montada con DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Exportando imagen Windows con DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Inyectar controladores con DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Montando imagen con DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Resolviendo el índice de imágenes de Windows con DISM.</value>
+    <value>Descartando una imagen que una ejecución anterior dejó montada…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Descargando contenido.</value>
+    <value>Descargando</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Descargando el paquete de controladores</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Descargando el paquete de controladores {2} {0} de {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Descargando componentes de implementación {0}.</value>
+    <value>Descargando {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Descargando el paquete fuente de Windows.</value>
+    <value>Descargando el paquete de origen de Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Evaluación de la política de firma de arranque.</value>
+    <value>Verificando la compatibilidad con la firma de arranque…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Exportando la imagen de Windows para preparar la imagen de arranque.</value>
+    <value>Extrayendo la imagen de Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>La creación final del medio falló.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Ocurrió un error en el paso {0} de {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Finalizando la salida ISO.</value>
+    <value>Guardando el archivo ISO…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formateando la partición BOOT.</value>
+    <value>Formateando la partición BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formatear la partición de caché.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Personalización de la imagen de arranque completada.</value>
+    <value>Formateando la partición de caché…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Inicializando la tabla de particiones USB.</value>
+    <value>Creando la tabla de particiones…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Inyectar controladores en la imagen de arranque.</value>
+    <value>Agregando controladores a la imagen de arranque…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Inspeccionando el diseño del medio USB.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO medios completados.</value>
+    <value>Leyendo la distribución de la unidad USB…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Foundry no pudo reemplazar el archivo ISO en {0}. Es posible que el archivo esté montado, conectado a una máquina virtual, abierto en otro programa o sea de solo lectura. Desmóntalo o ciérralo, o elige otra ruta de salida, y vuelve a intentarlo.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>El medio ISO se creó correctamente.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>El archivo ISO se guardó en:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Tamaño: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>No hay suficiente espacio en disco para crear la imagen de arranque. Se requieren al menos {0} de espacio libre en {2}. Disponible: {1}. Libere espacio e inténtelo de nuevo.</value>
@@ -3766,73 +3733,148 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>No se pudo verificar el espacio en disco disponible para crear la imagen de arranque en {0}. Verifique que la ubicación sea accesible e inténtelo de nuevo.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Montaje de imagen de arranque.</value>
+    <value>Abriendo la imagen de arranque…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Montaje de la imagen fuente de Windows.</value>
+    <value>Abriendo la imagen de Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Abrir carpeta</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Abrir carpeta de registros</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Abriendo el disco USB.</value>
+    <value>Abriendo la unidad USB…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Particionar y formatear el objetivo USB.</value>
+    <value>Creando particiones en la unidad USB…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Copiando archivos a la unidad USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Creando el archivo ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Personalizando la imagen de arranque</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Obteniendo controladores</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Finalizando</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Formateando la unidad USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Preparando el espacio de trabajo</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Actualizando la unidad USB</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Preparando la personalización de la imagen de arranque.</value>
+    <value>Preparando la imagen de arranque…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Preparando los componentes de Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Preparando la ruta de salida ISO.</value>
+    <value>Preparando la carpeta de salida de la ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Preparando el espacio de trabajo ISO.</value>
+    <value>Preparando los archivos de la ISO…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Preparando el contenido de posinstalación…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Preparando la partición de caché USB.</value>
+    <value>Preparando la partición de caché…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Preparando atributos de disco USB.</value>
+    <value>Preparando la unidad USB…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Preparando el paquete fuente de Windows.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Preparando el espacio de trabajo WinPE.</value>
+    <value>Obteniendo el paquete de origen de Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Aprovisionamiento de activos de arranque Foundry.</value>
+    <value>Agregando archivos de inicio de Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Agregar componentes de implementación Foundry.</value>
+    <value>Agregando componentes de Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Agregar componentes Foundry a los medios USB.</value>
+    <value>Agregando componentes de Foundry a la unidad USB…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Quitando archivos temporales…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Reemplazo de la imagen de arranque con WinRE.</value>
+    <value>Reemplazando la imagen de arranque por Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Resolución de paquetes de controladores.</value>
+    <value>Verificando qué controladores se deben agregar…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Resolviendo el índice de imágenes de Windows.</value>
+    <value>Seleccionando la edición de Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Resolviendo el catálogo de fuentes de Windows.</value>
+    <value>Buscando el paquete de origen de Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Ejecutando MakeWinPEMedia para ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Paquete fuente Windows seleccionado.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Revise el registro para obtener más detalles.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Preparando las dependencias de la imagen de arranque.</value>
+    <value>Copiando los archivos necesarios de la imagen de Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Paso {0} de {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Detalles técnicos: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Creación de ISO cancelada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Error al crear la ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Creando ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>ISO creada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Creación de medio USB cancelada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Error al crear el medio USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Creando medio USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>Medio USB creado</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Actualización de medio USB cancelada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Error al actualizar el medio USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Actualizando medio USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>Medio USB actualizado</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Se agotó el tiempo de espera de la transferencia. Revise su conexión e inténtelo de nuevo.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Actualizando medio USB.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Un error inesperado detuvo la creación del medio.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>La partición BOOT USB necesita aproximadamente {0}, pero su capacidad es {1}. No se ha borrado ni formateado nada. Reduzca las personalizaciones o los controladores, o cree una ISO.</value>
@@ -3843,35 +3885,35 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Un archivo del medio de arranque ocupa {0}; FAT32 admite como máximo {1} por archivo. Reduzca el tamaño de la imagen de arranque o cree una ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>La partición de arranque USB se actualizó.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Es posible que la unidad USB ya no pueda iniciar un dispositivo. Vuelva a crearla o actualizarla antes de usarla.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB medios completados.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB particiones formateadas.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB los medios se crearon correctamente. Volumen de arranque: {0}. Volumen de caché: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>La partición de arranque USB se actualizó correctamente. Volumen de arranque: {0}. Volumen de caché: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Volumen de arranque: {0}. Volumen de caché: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Validando USB objetivo.</value>
+    <value>Verificando la unidad USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Verificando el paquete de controladores {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Verificando el medio de arranque USB.</value>
+    <value>Verificando los archivos de arranque de la unidad USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Verificando el paquete de origen de Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows bloqueó el acceso a los archivos de la imagen de WinPE. Es posible que un software de seguridad u otra herramienta los esté bloqueando. Agregue una exclusión para {0} en el software de seguridad, cierre las herramientas que montan imágenes, reinicie el equipo e inténtelo de nuevo. Encontrará los detalles en {1} y {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Escribiendo el archivo ISO…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revise la preparación, elija una salida ISO o USB e inicie la creación del medio.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Revisar</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Revisar {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Listo</value>
@@ -3902,9 +3944,6 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Artículos que necesitan atención:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Crear de todos modos</value>
@@ -3958,6 +3997,15 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE idioma de arranque</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Paquetes: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Requiere atención: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Requiere atención: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Predeterminado</value>

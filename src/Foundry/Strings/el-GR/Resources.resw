@@ -98,10 +98,16 @@
     <value>Δυνατότητα δημιουργίας πολυμέσων</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
-    <value>Η λειτουργία του Windows ADK ακυρώθηκε.</value>
+    <value>Η εγκατάσταση ακυρώθηκε.</value>
+  </data>
+  <data name="Adk.Operation.CancelledTitle" xml:space="preserve">
+    <value>Η εγκατάσταση του Windows ADK ακυρώθηκε</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>Η λειτουργία ADK ολοκληρώθηκε</value>
+    <value>Το Windows ADK και το πρόσθετο Windows PE είναι έτοιμα. Μπορείτε πλέον να δημιουργήσετε μέσα εκκίνησης.</value>
+  </data>
+  <data name="Adk.Operation.CompletedTitle" xml:space="preserve">
+    <value>Το Windows ADK εγκαταστάθηκε</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
     <value>Χρήση αποθηκευμένου προγράμματος εγκατάστασης ADK</value>
@@ -113,10 +119,16 @@
     <value>Λήψη του προγράμματος εγκατάστασης ADK</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>Η λειτουργία ADK απέτυχε</value>
+    <value>Η εγκατάσταση δεν ολοκληρώθηκε. Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
+  </data>
+  <data name="Adk.Operation.FailedTitle" xml:space="preserve">
+    <value>Η εγκατάσταση του Windows ADK απέτυχε</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Εγκατάσταση Windows ADK</value>
+    <value>Προετοιμασία της εγκατάστασης…</value>
+  </data>
+  <data name="Adk.Operation.InstallTitle" xml:space="preserve">
+    <value>Εγκατάσταση του Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>Εγκατάσταση Windows ADK Εργαλεία ανάπτυξης</value>
@@ -127,6 +139,9 @@
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>Η εγκατάσταση ολοκληρώθηκε. Ελέγξτε τις υπόλοιπες απαιτήσεις του ADK.</value>
   </data>
+  <data name="Adk.Operation.NeedsAttentionTitle" xml:space="preserve">
+    <value>Το Windows ADK χρειάζεται προσοχή</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Αφαίρεση υπάρχοντος Windows ADK</value>
   </data>
@@ -135,6 +150,9 @@
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>Προετοιμασία εγκατάστασης Windows ADK 24H2</value>
+  </data>
+  <data name="Adk.Operation.UpgradeTitle" xml:space="preserve">
+    <value>Αναβάθμιση του Windows ADK</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
     <value>Επαλήθευση εγκατάστασης ADK</value>
@@ -2722,9 +2740,6 @@
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Κατάσταση περιεχομένου</value>
   </data>
-  <data name="PostInstallation.ContentVerified" xml:space="preserve">
-    <value>Το περιεχόμενο για μετά την εγκατάσταση επαληθεύτηκε.</value>
-  </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
     <value>Συνέχεια σε περίπτωση σφάλματος</value>
   </data>
@@ -2853,9 +2868,6 @@
   </data>
   <data name="PostInstallation.ScriptArguments" xml:space="preserve">
     <value>Ορίσματα δέσμης ενεργειών</value>
-  </data>
-  <data name="PostInstallation.StagingContent" xml:space="preserve">
-    <value>Προετοιμασία περιεχομένου για μετά την εγκατάσταση.</value>
   </data>
   <data name="PostInstallation.SuccessCodes" xml:space="preserve">
     <value>Κωδικοί επιτυχούς εξόδου (διαχωρισμένοι με κόμμα)</value>
@@ -3333,11 +3345,14 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Ενημέρωση εφαρμογής</value>
   </data>
-  <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Ολοκληρώθηκε η λειτουργία</value>
+  <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
+    <value>Διακοπή λειτουργίας</value>
   </data>
-  <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Λειτουργία σε εξέλιξη</value>
+  <data name="Shell.Operation.ConfirmStopHint" xml:space="preserve">
+    <value>Επιλέξτε «Διακοπή λειτουργίας» για επιβεβαίωση. Ένα βήμα που εκτελείται στον δίσκο ή στην εικόνα ολοκληρώνεται πρώτα.</value>
+  </data>
+  <data name="Shell.Operation.ElapsedFormat" xml:space="preserve">
+    <value>Χρόνος που πέρασε: {0}</value>
   </data>
   <data name="Shell.OperationStopping" xml:space="preserve">
     <value>Γίνεται ασφαλής διακοπή. Η τρέχουσα λειτουργία στον δίσκο ή στην εικόνα ενδέχεται να πρέπει να ολοκληρωθεί πριν ολοκληρωθεί η εκκαθάριση.</value>
@@ -3408,6 +3423,12 @@
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Το Autopilot χρησιμοποιεί μια μη υποστηριζόμενη λειτουργία παροχής.</value>
   </data>
+  <data name="StartMedia.Blocked.LeadIn" xml:space="preserve">
+    <value>Επιλύστε τα παρακάτω πριν από τη δημιουργία μέσου:</value>
+  </data>
+  <data name="StartMedia.Blocked.Unknown" xml:space="preserve">
+    <value>Δεν είναι δυνατή η έναρξη της δημιουργίας μέσου. Ελέγξτε τα στοιχεία ετοιμότητας στη σελίδα «Έναρξη».</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>Το πρόσθετο ADK ή WinPE δεν είναι έτοιμο.</value>
   </data>
@@ -3455,12 +3476,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Η επιλεγμένη γλώσσα εκκίνησης WinPE δεν είναι διαθέσιμη για την επιλεγμένη αρχιτεκτονική.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Τυπικό WinPE</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi εικόνα</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
     <value>Β</value>
@@ -3543,23 +3558,8 @@
   <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
     <value>HP</value>
   </data>
-  <data name="StartMedia.Field.Adk" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Αρχιτεκτονική</value>
-  </data>
-  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Πηγή εικόνας εκκίνησης</value>
-  </data>
-  <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Συνδέστε την παροχή</value>
-  </data>
-  <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Ανάπτυξη διαμόρφωσης</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Οδηγοί</value>
@@ -3567,23 +3567,8 @@
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>Λειτουργία μορφής USB</value>
   </data>
-  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>Διαδρομή εξόδου ISO</value>
-  </data>
-  <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Διαμόρφωση δικτύου</value>
-  </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
     <value>στυλ κατάτμησης USB</value>
-  </data>
-  <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Μυστικά ΜΜΕ</value>
-  </data>
-  <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Λειτουργία υπογραφής</value>
-  </data>
-  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB στόχος</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE γλώσσα εκκίνησης</value>
@@ -3599,6 +3584,9 @@
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
     <value>Η δημιουργία πολυμέσων είναι διαθέσιμη όταν περάσουν όλοι οι έλεγχοι ετοιμότητας.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
+    <value>Για να ξεκινήσετε, επιλέξτε έξοδο ISO ή USB παρακάτω.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Πλήρης μορφή</value>
@@ -3628,52 +3616,49 @@
     <value>Η δημιουργία λογαριασμού OOBE παραλείφθηκε</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Εφαρμογή γλώσσας και προαιρετικών στοιχείων.</value>
-  </data>
-  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
-    <value>Οι εξαρτήσεις της εικόνας εκκίνησης είναι έτοιμες.</value>
+    <value>Προσθήκη της γλώσσας και των προαιρετικών στοιχείων…</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Δημιουργία χώρου εργασίας WinPE.</value>
+    <value>Δημιουργία του χώρου εργασίας WinPE…</value>
   </data>
-  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+  <data name="StartMedia.Operation.ByteProgressFormat" xml:space="preserve">
+    <value>{0} από {1}</value>
+  </data>
+  <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Η δημιουργία μέσου ακυρώθηκε.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Έλεγχος της ασφάλειας στόχου USB.</value>
+    <value>Έλεγχος ότι η μονάδα USB μπορεί να διαγραφεί με ασφάλεια…</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Καθαρισμός χώρου εργασίας WinPE.</value>
+    <value>Εκκαθάριση αρχείων από προηγούμενη εκτέλεση…</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Εκκαθάριση πίνακα κατατμήσεων USB.</value>
+    <value>Διαγραφή της μονάδας USB…</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Πραγματοποίηση αλλαγών εικόνας εκκίνησης.</value>
+    <value>Αποθήκευση της εικόνας εκκίνησης…</value>
   </data>
-  <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Η τελική δημιουργία μέσων ολοκληρώθηκε.</value>
+  <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
+    <value>Αντιγραφή προσαρμοσμένων εικόνων Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
+    <value>Αντιγραφή περιεχομένου μετά την εγκατάσταση…</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Αντιγραφή πολυμέσων WinPE στο USB.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Δημιουργία πολυμέσων ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Δημιουργία πολυμέσων USB.</value>
+    <value>Αντιγραφή αρχείων WinPE στη μονάδα USB…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Δημιουργία διαμερίσματος BOOT.</value>
+    <value>Δημιουργία του διαμερίσματος BOOT…</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Δημιουργία διαμερίσματος προσωρινής μνήμης.</value>
+    <value>Δημιουργία του διαμερίσματος προσωρινής μνήμης…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Τα προσαρμοσμένα προγράμματα οδήγησης καταλαμβάνουν τουλάχιστον {0}· το μέγιστο είναι {1}. Επιλέξτε μόνο τα προγράμματα οδήγησης δικτύου και αποθήκευσης που χρειάζεται το Windows PE.</value>
   </data>
-  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Προσαρμογή της εικόνας εκκίνησης.</value>
+  <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
     <value>Η ταυτότητα της μονάδας USB λείπει, δεν είναι μοναδική ή έχει αλλάξει. Ανανεώστε τη λίστα μονάδων USB και επιλέξτε ξανά τη μονάδα.</value>
@@ -3682,82 +3667,64 @@
     <value>Η επιλεγμένη μονάδα USB δεν μπορεί πλέον να τροποποιηθεί με ασφάλεια. Ανανεώστε τη λίστα μονάδων USB και επιλέξτε άλλη μονάδα USB.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Εφαρμογή διεθνών ρυθμίσεων με DISM.</value>
+    <value>Εφαρμογή ρυθμίσεων γλώσσας…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Εφαρμογή πακέτου γλώσσας με DISM.</value>
+    <value>Προσθήκη του πακέτου γλώσσας…</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Εφαρμογή προαιρετικών στοιχείων με DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Πραγματοποίηση αλλαγών εικόνας με DISM.</value>
+    <value>Προσθήκη προαιρετικών στοιχείων…</value>
   </data>
   <data name="StartMedia.Operation.DismDiscardingMountedImage" xml:space="preserve">
-    <value>Απόρριψη της προσαρτημένης εικόνας με DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Εξαγωγή εικόνας Windows με DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Έγχυση προγραμμάτων οδήγησης με DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Τοποθέτηση εικόνας με DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Επίλυση ευρετηρίου εικόνας Windows με DISM.</value>
+    <value>Απόρριψη εικόνας που παρέμεινε προσαρτημένη από προηγούμενη εκτέλεση…</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Λήψη περιεχομένου.</value>
+    <value>Λήψη</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Λήψη πακέτου προγραμμάτων οδήγησης</value>
+  <data name="StartMedia.Operation.DownloadingDriverPackageFormat" xml:space="preserve">
+    <value>Λήψη πακέτου προγραμμάτων οδήγησης {2} {0} από {1}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Λήψη στοιχείων ανάπτυξης {0}.</value>
+    <value>Λήψη {0}</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
-    <value>Λήψη πακέτου πηγής Windows.</value>
+    <value>Λήψη του πακέτου πηγής των Windows</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Αξιολόγηση της πολιτικής υπογραφής εκκίνησης.</value>
+    <value>Έλεγχος υποστήριξης υπογραφής εκκίνησης…</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
-    <value>Εξαγωγή εικόνας Windows για την προετοιμασία της εικόνας εκκίνησης.</value>
+    <value>Εξαγωγή της εικόνας των Windows…</value>
   </data>
-  <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Η τελική δημιουργία πολυμέσων απέτυχε.</value>
+  <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
+    <value>Η αποτυχία προέκυψε στο βήμα {0} από {1}: {2}.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Ολοκλήρωση της εξόδου ISO.</value>
+    <value>Αποθήκευση του αρχείου ISO…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Μορφοποίηση διαμερίσματος BOOT.</value>
+    <value>Διαμόρφωση του διαμερίσματος BOOT…</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Μορφοποίηση διαμερίσματος προσωρινής μνήμης.</value>
-  </data>
-  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Ολοκληρώθηκε η προσαρμογή της εικόνας εκκίνησης.</value>
+    <value>Διαμόρφωση του διαμερίσματος προσωρινής μνήμης…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Εκκίνηση πίνακα κατατμήσεων USB.</value>
+    <value>Δημιουργία του πίνακα διαμερισμάτων…</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Έγχυση προγραμμάτων οδήγησης στην εικόνα εκκίνησης.</value>
+    <value>Προσθήκη προγραμμάτων οδήγησης στην εικόνα εκκίνησης…</value>
   </data>
   <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
-    <value>Έλεγχος διάταξης μέσου USB.</value>
-  </data>
-  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>Τα μέσα ISO ολοκληρώθηκαν.</value>
+    <value>Ανάγνωση της διάταξης της μονάδας USB…</value>
   </data>
   <data name="StartMedia.Operation.IsoOutputLocked" xml:space="preserve">
     <value>Το Foundry δεν μπόρεσε να αντικαταστήσει το αρχείο ISO στη θέση {0}. Το αρχείο μπορεί να είναι προσαρτημένο, συνδεδεμένο σε εικονική μηχανή, ανοιχτό σε άλλο πρόγραμμα ή μόνο για ανάγνωση. Αποπροσαρτήστε ή κλείστε το, ή επιλέξτε άλλη διαδρομή εξόδου και, στη συνέχεια, δοκιμάστε ξανά.</value>
   </data>
-  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Το μέσο ISO δημιουργήθηκε με επιτυχία.</value>
+  <data name="StartMedia.Operation.IsoSavedLead" xml:space="preserve">
+    <value>Το αρχείο ISO αποθηκεύτηκε στη θέση:</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSizeFormat" xml:space="preserve">
+    <value>Μέγεθος: {0}</value>
   </data>
   <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
     <value>Δεν υπάρχει αρκετός χώρος στον δίσκο για τη δημιουργία της εικόνας εκκίνησης. Απαιτούνται τουλάχιστον {0} ελεύθερου χώρου στη θέση {2}. Διαθέσιμος χώρος: {1}. Ελευθερώστε χώρο και δοκιμάστε ξανά.</value>
@@ -3766,73 +3733,148 @@
     <value>Δεν ήταν δυνατή η επαλήθευση του διαθέσιμου χώρου στον δίσκο για τη δημιουργία της εικόνας εκκίνησης στη θέση {0}. Ελέγξτε ότι η θέση είναι προσβάσιμη και δοκιμάστε ξανά.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Εικόνα μπότας τοποθέτησης.</value>
+    <value>Άνοιγμα της εικόνας εκκίνησης…</value>
   </data>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
-    <value>Τοποθέτηση εικόνας πηγής Windows.</value>
+    <value>Άνοιγμα της εικόνας των Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
+    <value>Άνοιγμα φακέλου</value>
+  </data>
+  <data name="StartMedia.Operation.OpenLogFolder" xml:space="preserve">
+    <value>Άνοιγμα φακέλου αρχείων καταγραφής</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Άνοιγμα του δίσκου USB.</value>
+    <value>Άνοιγμα της μονάδας USB…</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Διαμέριση και μορφοποίηση στόχου USB.</value>
+    <value>Δημιουργία διαμερισμάτων στη μονάδα USB…</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CopyingToUsbDrive" xml:space="preserve">
+    <value>Αντιγραφή αρχείων στη μονάδα USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
+    <value>Δημιουργία του αρχείου ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
+    <value>Προσαρμογή της εικόνας εκκίνησης</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.DownloadingDrivers" xml:space="preserve">
+    <value>Λήψη προγραμμάτων οδήγησης</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Finishing" xml:space="preserve">
+    <value>Ολοκλήρωση</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.FormattingUsbDrive" xml:space="preserve">
+    <value>Διαμόρφωση της μονάδας USB</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
+    <value>Προετοιμασία του χώρου εργασίας</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
+    <value>Ενημέρωση της μονάδας USB</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Προετοιμασία προσαρμογής εικόνας εκκίνησης.</value>
+    <value>Προετοιμασία της εικόνας εκκίνησης…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingComponents" xml:space="preserve">
+    <value>Προετοιμασία στοιχείων του Foundry…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Προετοιμασία διαδρομής εξόδου ISO.</value>
+    <value>Προετοιμασία του φακέλου εξόδου ISO…</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Προετοιμασία του χώρου εργασίας ISO.</value>
+    <value>Προετοιμασία των αρχείων ISO…</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
+    <value>Προετοιμασία περιεχομένου μετά την εγκατάσταση…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Προετοιμασία διαμερίσματος κρυφής μνήμης USB.</value>
+    <value>Προετοιμασία του διαμερίσματος προσωρινής μνήμης…</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Προετοιμασία χαρακτηριστικών δίσκου USB.</value>
+    <value>Προετοιμασία της μονάδας USB…</value>
   </data>
   <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
-    <value>Προετοιμασία πακέτου πηγής Windows.</value>
-  </data>
-  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Προετοιμασία του χώρου εργασίας WinPE.</value>
+    <value>Ανάκτηση του πακέτου πηγής των Windows…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Παροχή Foundry στοιχείων εκκίνησης.</value>
+    <value>Προσθήκη αρχείων εκκίνησης του Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Προσθήκη στοιχείων ανάπτυξης Foundry.</value>
+    <value>Προσθήκη στοιχείων του Foundry…</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Προσθήκη στοιχείων Foundry στα μέσα USB.</value>
+    <value>Προσθήκη στοιχείων του Foundry στη μονάδα USB…</value>
+  </data>
+  <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
+    <value>Κατάργηση προσωρινών αρχείων…</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Αντικατάσταση εικόνας εκκίνησης με WinRE.</value>
+    <value>Αντικατάσταση της εικόνας εκκίνησης με το Windows RE…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Επίλυση πακέτων προγραμμάτων οδήγησης.</value>
+    <value>Έλεγχος των προγραμμάτων οδήγησης που θα προστεθούν…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
-    <value>Επίλυση ευρετηρίου εικόνας Windows.</value>
+    <value>Επιλογή της έκδοσης των Windows…</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
-    <value>Επίλυση καταλόγου πηγών Windows.</value>
+    <value>Εύρεση του πακέτου πηγής των Windows…</value>
   </data>
-  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Εκτέλεση του MakeWinPEMedia για ISO.</value>
-  </data>
-  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
-    <value>Επιλεγμένο πακέτο πηγής Windows.</value>
+  <data name="StartMedia.Operation.SeeLog" xml:space="preserve">
+    <value>Λεπτομέρειες υπάρχουν στο αρχείο καταγραφής.</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
-    <value>Προετοιμασία εξαρτήσεων της εικόνας εκκίνησης.</value>
+    <value>Αντιγραφή απαιτούμενων αρχείων από την εικόνα των Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.StepFormat" xml:space="preserve">
+    <value>Βήμα {0} από {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.TechnicalDetailsFormat" xml:space="preserve">
+    <value>Τεχνικές λεπτομέρειες: {0}</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoCancelled" xml:space="preserve">
+    <value>Η δημιουργία ISO ακυρώθηκε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoFailed" xml:space="preserve">
+    <value>Η δημιουργία ISO απέτυχε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoRunning" xml:space="preserve">
+    <value>Δημιουργία ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
+    <value>Το ISO δημιουργήθηκε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
+    <value>Η δημιουργία μέσου USB ακυρώθηκε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbFailed" xml:space="preserve">
+    <value>Η δημιουργία μέσου USB απέτυχε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbRunning" xml:space="preserve">
+    <value>Δημιουργία μέσου USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbSucceeded" xml:space="preserve">
+    <value>Το μέσο USB δημιουργήθηκε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateCancelled" xml:space="preserve">
+    <value>Η ενημέρωση του μέσου USB ακυρώθηκε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateFailed" xml:space="preserve">
+    <value>Η ενημέρωση του μέσου USB απέτυχε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateRunning" xml:space="preserve">
+    <value>Ενημέρωση μέσου USB</value>
+  </data>
+  <data name="StartMedia.Operation.Title.UsbUpdateSucceeded" xml:space="preserve">
+    <value>Το μέσο USB ενημερώθηκε</value>
   </data>
   <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
     <value>Έληξε το χρονικό όριο της μεταφοράς. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά.</value>
   </data>
-  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
-    <value>Ενημέρωση μέσου USB.</value>
+  <data name="StartMedia.Operation.UnexpectedFailure" xml:space="preserve">
+    <value>Ένα μη αναμενόμενο σφάλμα διέκοψε τη δημιουργία μέσου.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
     <value>Το διαμέρισμα BOOT του USB χρειάζεται περίπου {0}, αλλά η χωρητικότητά του είναι {1}. Δεν έχει γίνει διαγραφή ή διαμόρφωση. Μειώστε τις προσαρμογές ή τα προγράμματα οδήγησης ή δημιουργήστε ένα ISO.</value>
@@ -3843,35 +3885,35 @@
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Ένα αρχείο του μέσου εκκίνησης έχει μέγεθος {0}· το FAT32 υποστηρίζει έως {1} ανά αρχείο. Μειώστε το μέγεθος του ειδώλου εκκίνησης ή δημιουργήστε ένα ISO.</value>
   </data>
-  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
-    <value>Το διαμέρισμα εκκίνησης USB ενημερώθηκε.</value>
+  <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
+    <value>Η μονάδα USB ενδέχεται να μην μπορεί πλέον να εκκινήσει μια συσκευή. Δημιουργήστε ή ενημερώστε την ξανά πριν τη χρησιμοποιήσετε.</value>
   </data>
-  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>Τα μέσα USB ολοκληρώθηκαν.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>Μορφοποιήθηκαν κατατμήσεις USB.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>Τα μέσα USB δημιουργήθηκαν με επιτυχία. Όγκος εκκίνησης: {0}. Όγκος προσωρινής μνήμης: {1}.</value>
-  </data>
-  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
-    <value>Το διαμέρισμα εκκίνησης USB ενημερώθηκε με επιτυχία. Τόμος εκκίνησης: {0}. Τόμος cache: {1}.</value>
+  <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
+    <value>Τόμος εκκίνησης: {0}. Τόμος προσωρινής μνήμης: {1}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Επικύρωση στόχου USB.</value>
+    <value>Έλεγχος της μονάδας USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingDriverPackageFormat" xml:space="preserve">
+    <value>Επαλήθευση του πακέτου προγραμμάτων οδήγησης {0}</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Επαλήθευση μέσων εκκίνησης USB.</value>
+    <value>Επαλήθευση των αρχείων εκκίνησης στη μονάδα USB…</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingWindowsSourcePackage" xml:space="preserve">
+    <value>Επαλήθευση του πακέτου πηγής των Windows</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Τα Windows απέκλεισαν την πρόσβαση στα αρχεία της εικόνας WinPE. Ενδέχεται να τα κλειδώνει λογισμικό ασφαλείας ή άλλο εργαλείο. Προσθέστε μια εξαίρεση για το {0} στο λογισμικό ασφαλείας, κλείστε τα εργαλεία που προσαρτούν εικόνες, επανεκκινήστε τον υπολογιστή και δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στα {1} και {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
+    <value>Εγγραφή του αρχείου ISO…</value>
+  </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
   </data>
-  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Επανεξέταση</value>
+  <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
+    <value>Έλεγχος: {0}</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Έτοιμοι</value>
@@ -3902,9 +3944,6 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
-  </data>
-  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Στοιχεία που χρειάζονται προσοχή:</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
     <value>Δημιουργία ούτως ή άλλως</value>
@@ -3958,6 +3997,15 @@
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE γλώσσα εκκίνησης</value>
+  </data>
+  <data name="StartOverview.AppxRemovalPackageCountFormat" xml:space="preserve">
+    <value>Πακέτα: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionFormat" xml:space="preserve">
+    <value>Χρειάζεται προσοχή: {0}</value>
+  </data>
+  <data name="StartOverview.NeedsAttentionWithMoreFormat" xml:space="preserve">
+    <value>Χρειάζεται προσοχή: {0} (+{1})</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>Προεπιλογή</value>

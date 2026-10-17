@@ -121,6 +121,65 @@ public sealed class WinPeDriverPackageServiceTests
     }
 
     [Fact]
+    public async Task PrepareAsync_ReportsDownloadAsDeclaredStatusWithItemAndByteCounts()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-driver-package-{Guid.NewGuid():N}");
+        byte[] packageBytes = Encoding.UTF8.GetBytes("driver package");
+        var progress = new CollectingDownloadProgress();
+        var service = new WinPeDriverPackageService(
+            new FakeExtractionRunner(),
+            new HttpClient(new StaticPackageHandler(packageBytes)),
+            "7za.exe");
+
+        try
+        {
+            _ = await service.PrepareAsync(
+                [
+                    new WinPeDriverCatalogEntry
+                    {
+                        Id = "dell-package",
+                        Vendor = WinPeVendorSelection.Dell,
+                        DownloadUri = "https://example.test/dell.cab",
+                        FileName = "dell.cab",
+                        Format = "cab",
+                        Sha256 = Convert.ToHexString(SHA256.HashData(packageBytes))
+                    }
+                ],
+                Path.Combine(root, "downloads"),
+                Path.Combine(root, "extracted"),
+                progress,
+                CancellationToken.None);
+
+            WinPeDownloadProgress[] downloads = progress.Reports
+                .Where(report => report.Status == WinPeProgressStatuses.DownloadingDriverPackage)
+                .ToArray();
+            Assert.NotEmpty(downloads);
+            Assert.All(downloads, report =>
+            {
+                Assert.Equal("dell.cab", report.ItemName);
+                Assert.Equal(WinPeVendorSelection.Dell, report.Vendor);
+                Assert.Equal(1, report.ItemNumber);
+                Assert.Equal(1, report.ItemCount);
+            });
+            Assert.Contains(downloads, report => report.BytesTransferred == packageBytes.Length);
+        }
+        finally
+        {
+            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+        }
+    }
+
+    private sealed class CollectingDownloadProgress : IProgress<WinPeDownloadProgress>
+    {
+        public List<WinPeDownloadProgress> Reports { get; } = [];
+
+        public void Report(WinPeDownloadProgress value)
+        {
+            Reports.Add(value);
+        }
+    }
+
+    [Fact]
     public async Task PrepareAsync_WhenExecutableExtractionHasNoInf_ReturnsExtractionFailure()
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-driver-package-{Guid.NewGuid():N}");

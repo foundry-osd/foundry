@@ -359,7 +359,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
                 bool available = library.IsAvailable(image);
                 string[] architectures = image.Indexes.Select(index => index.Architecture).Distinct().ToArray();
                 Images.Add(new(image, architectures.Length == 1 ? architectures[0] : Text("Multiple"),
-                    image.Indexes.Count, $"{image.Length / 1073741824d:F2} GB", inProfile && image.IsIncluded ? Text("Yes") : Text("No"),
+                    image.Indexes.Count, ByteSizeFormatter.Format(localization, (ulong)image.Length), inProfile && image.IsIncluded ? Text("Yes") : Text("No"),
                     settings.DefaultImageId == image.Id ? Text("Yes") : Text("No"), available ? Text("Available") : Text("Missing"),
                     inProfile && image.IsIncluded, settings.DefaultImageId == image.Id, available));
             }
