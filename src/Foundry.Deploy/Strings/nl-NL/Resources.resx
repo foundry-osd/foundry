@@ -19,7 +19,7 @@
     <value>Deze software wordt geleverd zoals deze is. Controleer uw implementatie-instellingen vóór gebruik.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Auteursrecht (c) 2026 Mickaël CHAVE en de bijdragers aan Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE en de bijdragers aan Foundry Project.
 Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -433,7 +433,7 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
     <value>Versie</value>
   </data>
   <data name="Drivers.Description" xml:space="preserve">
-    <value>Kies de bron voor stuurprogramma’s en, indien nodig, het bijbehorende model en de bijbehorende versie.</value>
+    <value>Kies de bron voor stuurprogramma's en, indien nodig, het bijbehorende model en de bijbehorende versie.</value>
   </data>
   <data name="Drivers.Title" xml:space="preserve">
     <value>Apparaatstuurprogramma's</value>
@@ -526,7 +526,7 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
     <value>Litouws (Litouwen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Noors Bokmal (Noorwegen)</value>
+    <value>Noors, Bokmål (Noorwegen)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Pools (Polen)</value>
@@ -544,7 +544,7 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
     <value>Russisch (Rusland)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Servisch Latijn (Servië)</value>
+    <value>Servisch, Latijns (Servië)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slowaaks (Slowakije)</value>
@@ -589,7 +589,7 @@ Doorgaan met de implementatie?</value>
     <value>_Over</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debuggen</value>
+    <value>_Foutopsporing</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
     <value>Toetsenbord</value>
@@ -697,7 +697,7 @@ Doorgaan met de implementatie?</value>
     <value>Interactieve hardware-hash-upload</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profielinrichting</value>
+    <value>JSON-profiel</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profiel</value>
@@ -730,7 +730,7 @@ Doorgaan met de implementatie?</value>
     <value>{0} | TPM: {1} | Vermogen: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>Netstroom</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Batterij</value>
@@ -844,7 +844,7 @@ Doorgaan met de implementatie?</value>
     <value>wpeutil.exe mislukt met afsluitcode {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Windows-stuurprogramma’s installeren</value>
+    <value>Windows-stuurprogramma's installeren</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
     <value>Firmware-update klaarzetten</value>
@@ -853,7 +853,7 @@ Doorgaan met de implementatie?</value>
     <value>Windows-installatiekopie toepassen</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Herstelstuurprogramma’s installeren</value>
+    <value>Herstelstuurprogramma's installeren</value>
   </data>
   <data name="Step.CheckWindowsImage" xml:space="preserve">
     <value>Windows-installatiekopie controleren</value>
@@ -1189,7 +1189,7 @@ Doorgaan met de implementatie?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Staging</value>
+    <value>Klaarzetten</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>De index van de toegepaste Windows-installatiekopie is niet beschikbaar.</value>
@@ -1249,7 +1249,7 @@ Doorgaan met de implementatie?</value>
     <value>Er is een fasering van het driverpakket voor het eerst opstarten aangevraagd zonder een ondersteunde opdracht.</value>
   </data>
   <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
-    <value>Installatieprogramma voor stuurprogramma’s klaargezet.</value>
+    <value>Installatieprogramma voor stuurprogramma's klaargezet.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Driverpakket toegepast.</value>

@@ -25,7 +25,7 @@
     <value>无法从 GitHub 加载贡献者。</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>正在加载贡献者...</value>
+    <value>正在加载贡献者…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>贡献者</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD 是一款用于创作 Windows 部署媒体的现代应用程序，由 WinPE 提供支持。</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>版权所有 (c) 2026 Mickaël CHAVE 和 Foundry Project 贡献者。
+    <value>Copyright (c) 2026 Mickaël CHAVE 和 Foundry Project 贡献者。
 根据 MIT 许可证获得许可。</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@
     <value>无法在嵌入式浏览器中加载发行说明。</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>正在加载发行说明...</value>
+    <value>正在加载发行说明…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>发行说明</value>
@@ -77,13 +77,13 @@
     <value>支持</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>通过项目存储库和依赖项清单跟踪第三方包许可证。</value>
+    <value>Foundry OSD 使用以下库和工具。下面列出了它们的许可证和项目页面。</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>第三方依赖项</value>
+    <value>第三方许可证</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>关于Foundry OSD</value>
+    <value>关于 Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>有用的链接</value>
@@ -221,19 +221,19 @@
     <value>升级Windows ADK 和Windows PE 附加组件</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>删除AI组件</value>
+    <value>启用 AI 组件配置</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>删除或禁用OOBE之前选定的Windows AI组件。</value>
+    <value>选择要删除或禁用的 Windows AI 组件和体验。</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI组件移除</value>
+    <value>AI 组件</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>删除配置的Windows应用程序</value>
+    <value>启用 AppX 应用删除</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>删除 OOBE 之前选定的已配置 Windows 应用程序。</value>
+    <value>选择要从已部署设备中删除的已预配 Windows 应用。</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX 应用删除</value>
@@ -302,7 +302,7 @@
     <value>找不到 Autopilot 配置文件</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>正在下载Autopilot 配置文件...</value>
+    <value>正在下载Autopilot 配置文件…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} 已配置。</value>
@@ -419,7 +419,7 @@
     <value>连接租户</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>正在连接租户...</value>
+    <value>正在连接租户…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>创建证书</value>
@@ -533,7 +533,7 @@
     <value>名称</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>价值</value>
+    <value>值</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
     <value>连接到此应用程序会话的 Microsoft Graph 以管理哈希上传设置。</value>
@@ -554,7 +554,7 @@
     <value>导入Autopilot配置文件JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>正在导入Autopilot个人资料...</value>
+    <value>正在导入Autopilot个人资料…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>启用后，技术人员将在 Windows 安装期间使用 Microsoft 设备代码登录并上传设备硬件哈希。</value>
@@ -620,7 +620,7 @@
     <value>选择应将哪些租户配置文件导入Foundry。</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>进口</value>
+    <value>导入</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
     <value>选择全部</value>
@@ -638,10 +638,10 @@
     <value>交互式硬件哈希上传</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>在应用的 Windows 映像中暂存离线 Autopilot 配置文件。</value>
+    <value>导入或下载嵌入部署媒体中的 Autopilot 配置文件。</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON 配置文件配置</value>
+    <value>JSON 配置文件</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>配置由租户支持的自动硬件哈希上传。</value>
@@ -890,7 +890,7 @@
     <value>套餐</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>定制</value>
+    <value>自定义</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>选择一个或多个目录类别来预选包。</value>
@@ -1796,7 +1796,7 @@
     <value>按显示名称或 DISM 功能名称搜索</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>导出...</value>
+    <value>导出…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>创建经过净化的支持归档，而不修改原始日志。</value>
@@ -1814,7 +1814,7 @@
     <value>导出诊断信息失败</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>高级：导出原始日志...</value>
+    <value>高级：导出原始日志…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>导出原始日志</value>
@@ -1871,7 +1871,7 @@
     <value>是</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>正在域中搜索 OU...</value>
+    <value>正在域中搜索 OU…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>搜索已取消。</value>
@@ -2051,10 +2051,10 @@
     <value>选择802.1X证书</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>配置有线 802.1X</value>
+    <value>启用 Ethernet 802.1X 配置</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>默认情况下，标准 Ethernet 连接可用。仅当您的有线网络需要 802.1X 企业身份验证时才配置此部分。</value>
+    <value>配置有线 802.1X 身份验证和 Windows 配置文件漫游。</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2300,10 +2300,10 @@
     <value>俄语（俄罗斯）</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>塞尔维亚拉丁语（塞尔维亚）</value>
+    <value>塞尔维亚语拉丁文（塞尔维亚）</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>斯洛伐克（斯洛伐克）</value>
+    <value>斯洛伐克语（斯洛伐克）</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>斯洛文尼亚语（斯洛文尼亚）</value>
@@ -2321,7 +2321,7 @@
     <value>泰语（泰国）</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>土耳其语（Türkiye）</value>
+    <value>土耳其语（土耳其）</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>乌克兰语（乌克兰）</value>
@@ -2345,13 +2345,13 @@
     <value>上移组件</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>启用机器命名规则</value>
+    <value>启用计算机命名配置</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>配置自动和技术人员辅助的设备命名。</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>计算机名称</value>
+    <value>计算机命名</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>预览</value>
@@ -2372,13 +2372,13 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>删除或禁用OOBE之前选定的Windows AI组件。</value>
+    <value>删除或禁用 Windows AI 组件。</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI 组件</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>删除 OOBE 之前选定的已配置 Windows 应用程序。</value>
+    <value>选择要删除的已预配应用。</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX 应用删除</value>
@@ -2420,7 +2420,7 @@
     <value>域加入</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>默认情况下，标准 Ethernet 连接可用。仅当您的有线网络需要 802.1X 企业身份验证时才配置此部分。</value>
+    <value>配置有线 802.1X 身份验证。</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2438,7 +2438,7 @@
     <value>Foundry OSD家</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>首页</value>
+    <value>主页</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>在部署期间要求技术人员提供域凭据。</value>
@@ -2456,19 +2456,19 @@
     <value>网络</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>配置Windows 11个首次运行屏幕和隐私默认值。</value>
+    <value>配置 Windows 全新体验 (OOBE)。</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>在已部署的操作系统中启用或禁用 Windows 组件。</value>
+    <value>启用或禁用 Windows 可选功能。</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>可选功能</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>定义部署期间提供的 Windows 版本、更新级别、语言和版本类型。</value>
+    <value>限制部署时可选择的操作系统。</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>操作系统选择</value>
@@ -2612,31 +2612,31 @@
     <value>Windows 配置文件漫游</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>自定义OOBE</value>
+    <value>启用 OOBE 配置</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>配置Windows 11个首次运行屏幕和隐私默认值。</value>
+    <value>配置 Windows 全新体验 (OOBE) 的隐私和设置选项。</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>配置 Windows 可选功能</value>
+    <value>启用可选功能配置</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>在已部署的操作系统中启用或禁用 Windows 组件。</value>
+    <value>选择要启用或禁用的 Windows 可选功能。</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows 可选功能</value>
+    <value>可选功能</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows 部署选项</value>
+    <value>启用操作系统选择配置</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>定义部署期间提供的 Windows 版本、更新级别、语言和版本类型。</value>
+    <value>配置允许的操作系统发布版本、语言、通道和版本类型。</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows 部署选项</value>
+    <value>操作系统选择</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>添加一项已启用的操作，或禁用安装后配置。</value>
@@ -2735,7 +2735,7 @@
     <value>导入文件夹</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>正在导入内容...</value>
+    <value>正在导入内容…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>此操作无效。请检查其配置。</value>
@@ -2765,7 +2765,7 @@
     <value>输入导入内容中的文件夹，或留空。</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>正在加载内容...</value>
+    <value>正在加载内容…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>导入“{0}”缺失的内容。</value>
@@ -3103,109 +3103,109 @@
     <value>请检查必填字段。如果需要网络文件夹，请使用 \\server\share\folder 这样的路径。如果两次输入文件密码，请确保两次输入一致。</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>连接失败</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>请检查代理设置</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Foundry OSD 的新连接现在将使用这些设置。</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>已应用代理设置</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD 已使用所选设置成功连接到 GitHub 和 Microsoft 服务。</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>连接成功</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>请输入用于显式代理身份验证的用户名和密码。</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>应用</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>使用当前 Windows 凭据</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>选择代理对 Foundry OSD 进行身份验证的方式。</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>身份验证</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>用户名和密码</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>无身份验证</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>可选的主机名或通配符模式，以分号分隔。</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>绕过列表</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>直接连接到不包含句点的主机名。</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>绕过本地地址</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>凭据安全地存储在 Windows 凭据管理器中。</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>代理凭据</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>域（可选）</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>输入代理地址和端口。</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>代理服务器</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>选择 Foundry OSD 连接到 Internet 的方式。</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>代理方式</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>不使用代理（直接连接）</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>手动代理</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>使用 Windows 设置（推荐）</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>密码</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>端口</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>这些设置仅适用于此应用。它们不会添加到部署媒体中，也不会影响 Foundry Connect 或 Foundry Deploy。</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>仅限 Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>测试连接</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>用户名</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>设置</value>
@@ -3223,10 +3223,10 @@
     <value>设置备份与同步</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>配置 Foundry OSD 连接到联机服务的方式。</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>代理</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
     <value>向 PostHog 发送所有级别的日志、技术上下文以及单独的异常报告，并对身份验证机密进行掩码处理。日志会在 7 天后自动删除。</value>
@@ -3361,13 +3361,13 @@
     <value>网络配置尚未准备好。</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>未选择 USB 目标。</value>
+    <value>未选择 USB 驱动器。</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>所需的媒体机密尚未准备好。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>所选USB 目标太小。使用至少 16 GB 的 USB 密钥。</value>
+    <value>所选 USB 驱动器容量太小。请使用至少 16 GB 的 USB 驱动器。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>所选的 WinPE 键盘布局未安装在此计算机上。</value>
@@ -3382,7 +3382,7 @@
     <value>WinRE Wi-Fi 图像</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>乙</value>
+    <value>字节</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3400,7 +3400,7 @@
     <value>ISO 创建被阻止</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>创建ISO</value>
+    <value>创建 ISO</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB 创建被阻止</value>
@@ -3415,7 +3415,7 @@
     <value>格式化并创建USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>格式化USB目标</value>
+    <value>格式化 USB 驱动器</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows 无法读取此磁盘上的卷。它仍可能包含数据。</value>
@@ -3430,10 +3430,10 @@
     <value>此磁盘上的卷：</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>此磁盘上的所有内容都将丢失。仅当这是预期的 USB 磁盘时才继续。</value>
+    <value>此磁盘上的所有内容都将丢失。仅当这是要使用的 USB 驱动器时才继续。</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>创建USB</value>
+    <value>创建 USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>包含附加 .inf 驱动程序的可选文件夹。</value>
@@ -3502,7 +3502,7 @@
     <value>签名模式</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB目标</value>
+    <value>USB 目标</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE启动语言</value>
@@ -3520,7 +3520,7 @@
     <value>当所有准备情况检查通过后，即可进行媒体创建。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>完整格式</value>
+    <value>完全格式化</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>快速格式化</value>
@@ -3790,7 +3790,7 @@
     <value>检查就绪情况，选择 ISO 或 USB 输出，然后开始创建媒体。</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>评论</value>
+    <value>查看</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>准备好</value>
@@ -3846,7 +3846,7 @@
     <value>更新 USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>ADK 准备完成后可以刷新USB 目标。</value>
+    <value>ADK 就绪检查完成后才能刷新 USB 驱动器。</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>找到 USB 驱动器：{0}</value>
@@ -3855,22 +3855,22 @@
     <value>磁盘 {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>正在扫描USB目标。</value>
+    <value>正在扫描 USB 驱动器…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>未找到 USB 驱动器。</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB 目标刷新失败。</value>
+    <value>USB 驱动器刷新失败。</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>复制最终 USB 媒体之前使用的格式化行为。</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>准备选定的 USB 目标时使用的分区方案。</value>
+    <value>准备所选 USB 驱动器时使用的分区方案。</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB目标</value>
+    <value>USB 目标</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE 引导环境使用的语言。</value>
@@ -3909,13 +3909,13 @@
     <value>应用主题</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>黑暗</value>
+    <value>深色</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>系统</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>光</value>
+    <value>浅色</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>选择应用程序背后使用的背景材料。</value>
@@ -4161,7 +4161,7 @@
     <value>安全类型</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>打开</value>
+    <value>开放</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE（机会无线加密）</value>
@@ -4173,7 +4173,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>在启动映像中提供 Wi-Fi 支持</value>
+    <value>启用 Wi-Fi 预配</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>配置 Wi-Fi 预配、嵌入式配置文件和 Windows 配置文件漫游。</value>

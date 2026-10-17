@@ -25,7 +25,7 @@
     <value>Nepavyko įkelti bendraautorių iš „GitHub“.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Įkeliami bendraautoriai...</value>
+    <value>Įkeliami bendraautoriai…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Pagalbininkai</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD yra moderni programa, skirta kurti Windows diegimo laikmeną, kurią palaiko WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autorių teisės (c) 2026 Mickaël CHAVE ir Foundry Project bendraautoriai.
+    <value>Copyright (c) 2026 Mickaël CHAVE ir Foundry Project bendraautoriai.
 Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Išleidimo pastabų nepavyko įkelti į įterptąją naršyklę.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Įkeliamos leidimo pastabos...</value>
+    <value>Įkeliamos leidimo pastabos…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Išleidimo pastabos</value>
@@ -77,10 +77,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Palaikymas</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Trečiųjų šalių paketų licencijos sekamos per projekto saugyklą ir priklausomybės manifestus.</value>
+    <value>Foundry OSD naudoja šias bibliotekas ir įrankius. Jų licencijos ir projektų puslapiai pateikti toliau.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Trečiųjų šalių priklausomybės</value>
+    <value>Trečiųjų šalių licencijos</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Apie Foundry OSD</value>
@@ -221,19 +221,19 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Atnaujinkite Windows ADK ir Windows PE priedas</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Pašalinkite AI komponentus</value>
+    <value>Įgalinti AI komponentų konfigūraciją</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Pašalinkite arba išjunkite pasirinktus Windows AI komponentus prieš OOBE.</value>
+    <value>Pasirinkite Windows AI komponentus ir funkcijas, kuriuos norite pašalinti arba išjungti.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI komponento pašalinimas</value>
+    <value>AI komponentai</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Pašalinkite numatytas Windows programas</value>
+    <value>Įgalinti AppX šalinimą</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Pašalinkite pasirinktas numatytas Windows programas prieš OOBE.</value>
+    <value>Pasirinkite parengtas Windows programas, kurias norite pašalinti iš įdiegtų įrenginių.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX šalinimai</value>
@@ -302,7 +302,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nerasta jokių Autopilot profilių</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Atsisiunčiami Autopilot profiliai...</value>
+    <value>Atsisiunčiami Autopilot profiliai…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} sukonfigūruotas.</value>
@@ -410,7 +410,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Išsaugokite Autopilot sertifikatą PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Nykščio atspaudas</value>
+    <value>Kontrolinis kodas</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Jokie sertifikatai nepateikiami.</value>
@@ -419,7 +419,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Prijunkite nuomininką</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Jungiamasi nuomininkas...</value>
+    <value>Jungiamasi nuomininkas…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Sukurti sertifikatą</value>
@@ -554,7 +554,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Importuoti Autopilot profilį JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importuojamas Autopilot profilis...</value>
+    <value>Importuojamas Autopilot profilis…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Įjungus, technikas Windows sąrankos metu prisijungia naudodamas Microsoft įrenginio kodą ir įkelia įrenginio aparatūros maišą.</value>
@@ -614,7 +614,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Atšaukti</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Aišku</value>
+    <value>Valyti</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Pasirinkite, kurie nuomininko profiliai turi būti importuojami į Foundry.</value>
@@ -638,10 +638,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Interaktyvus aparatūros maišos įkėlimas</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Sukurkite neprisijungus pasiekiamą Autopilot profilį pritaikytame Windows vaizde.</value>
+    <value>Importuokite arba atsisiųskite į diegimo laikmeną įterptą Autopilot profilį.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profilio sudarymas</value>
+    <value>JSON profilis</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigūruokite nuomotojo palaikomą automatinį aparatinės įrangos maišos įkėlimą.</value>
@@ -1796,7 +1796,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Ieškokite pagal rodomą pavadinimą arba DISM funkcijos pavadinimą</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksportuoti...</value>
+    <value>Eksportuoti…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Sukurkite išvalytą palaikymo archyvą nekeisdami originalių žurnalų.</value>
@@ -1814,7 +1814,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepavyko eksportuoti diagnostikos</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Išsamiau: eksportuoti neapdorotus žurnalus...</value>
+    <value>Išsamiau: eksportuoti neapdorotus žurnalus…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Eksportuoti neapdorotus žurnalus</value>
@@ -1871,7 +1871,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Taip</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Ieškoma OU domene...</value>
+    <value>Ieškoma OU domene…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Paieška atšaukta.</value>
@@ -2051,10 +2051,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinkite 802.1X sertifikatą</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigūruokite laidinį 802.1X</value>
+    <value>Įgalinti Ethernet 802.1X konfigūraciją</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standartinis Ethernet ryšys galimas pagal numatytuosius nustatymus. Konfigūruokite šį skyrių, tik jei jūsų laidiniam tinklui reikalingas 802.1X įmonės autentifikavimas.</value>
+    <value>Konfigūruokite laidinio tinklo 802.1X autentifikavimą ir Windows profilių tarptinklinį perkėlimą.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2213,118 +2213,118 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Interaktyvus prisijungimas prie domeno</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>arabų (Saudo Arabija)</value>
+    <value>Arabų (Saudo Arabija)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
-    <value>bulgarų (Bulgarija)</value>
+    <value>Bulgarų (Bulgarija)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Supaprastinta kinų kalba (Kinija)</value>
+    <value>Kinų, supaprastinta (Kinija)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>tradicinė kinų kalba (Taivanas)</value>
+    <value>Kinų, tradicinė (Taivanas)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>kroatų (Kroatija)</value>
+    <value>Kroatų (Kroatija)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>čekų (čekų)</value>
+    <value>Čekų (Čekija)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>danų (Danija)</value>
+    <value>Danų (Danija)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>olandų (Nyderlandai)</value>
+    <value>Olandų (Nyderlandai)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>anglų (Jungtinė Karalystė)</value>
+    <value>Anglų (Jungtinė Karalystė)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>anglų (Jungtinės Amerikos Valstijos)</value>
+    <value>Anglų (Jungtinės Amerikos Valstijos)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>Estų (Estija)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>suomių (Suomija)</value>
+    <value>Suomių (Suomija)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>prancūzų (Kanada)</value>
+    <value>Prancūzų (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>prancūzų (Prancūzija)</value>
+    <value>Prancūzų (Prancūzija)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>vokiečių (Vokietija)</value>
+    <value>Vokiečių (Vokietija)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>graikų (Graikija)</value>
+    <value>Graikų (Graikija)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>hebrajų (Izraelis)</value>
+    <value>Hebrajų (Izraelis)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>vengrų (Vengrija)</value>
+    <value>Vengrų (Vengrija)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>italų (Italija)</value>
+    <value>Italų (Italija)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>japonų (Japonija)</value>
+    <value>Japonų (Japonija)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>korėjiečių (korėja)</value>
+    <value>Korėjiečių (Korėja)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>latvių (Latvija)</value>
+    <value>Latvių (Latvija)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>lietuvių (Lietuva)</value>
+    <value>Lietuvių (Lietuva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norvegų bokmal (Norvegija)</value>
+    <value>Norvegų bokmål (Norvegija)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>lenkų (Lenkija)</value>
+    <value>Lenkų (Lenkija)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>portugalų (Brazilija)</value>
+    <value>Portugalų (Brazilija)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>portugalų (Portugalija)</value>
+    <value>Portugalų (Portugalija)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>rumunų (Rumunija)</value>
+    <value>Rumunų (Rumunija)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>Rusų (Rusija)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Serbijos lotynų kalba (Serbija)</value>
+    <value>Serbų, lotynų (Serbija)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>slovakų (Slovakija)</value>
+    <value>Slovakų (Slovakija)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>slovėnų (Slovėnija)</value>
+    <value>Slovėnų (Slovėnija)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>ispanų (Meksika)</value>
+    <value>Ispanų (Meksika)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>ispanų (Ispanija)</value>
+    <value>Ispanų (Ispanija)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>švedų (Švedija)</value>
+    <value>Švedų (Švedija)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>tajų (Tailandas)</value>
+    <value>Tajų (Tailandas)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turkų (Türkiye)</value>
+    <value>Turkų (Turkija)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukrainiečių (Ukraina)</value>
+    <value>Ukrainiečių (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
     <value>Įkelti kompiuterio pavadinimą į „Autopilot“</value>
@@ -2345,13 +2345,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Perkelti komponentą aukštyn</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Įgalinti mašinos pavadinimo taisykles</value>
+    <value>Įgalinti kompiuterio vardo konfigūraciją</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigūruokite automatinį ir techniko padedamą įrenginių pavadinimų suteikimą.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Kompiuterio pavadinimas</value>
+    <value>Kompiuterio vardas</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Peržiūra</value>
@@ -2372,13 +2372,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Pašalinkite arba išjunkite pasirinktus Windows AI komponentus prieš OOBE.</value>
+    <value>Pašalinkite arba išjunkite Windows AI komponentus.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>DI komponentai</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Pašalinkite pasirinktas numatytas Windows programas prieš OOBE.</value>
+    <value>Pasirinkite parengtas programas, kurias norite pašalinti.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX šalinimai</value>
@@ -2420,7 +2420,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Prisijungimas prie domeno</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standartinis Ethernet ryšys galimas pagal numatytuosius nustatymus. Konfigūruokite šį skyrių, tik jei jūsų laidiniam tinklui reikalingas 802.1X įmonės autentifikavimas.</value>
+    <value>Konfigūruokite laidinio tinklo 802.1X autentifikavimą.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2456,19 +2456,19 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Tinklas</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigūruokite Windows 11 pirmojo paleidimo ekranų ir numatytuosius privatumo nustatymus.</value>
+    <value>Konfigūruokite Windows pradinę sąranką.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Įgalinti arba išjungti „Windows“ komponentus įdiegtoje operacinėje sistemoje.</value>
+    <value>Įgalinkite arba išjunkite Windows pasirenkamas funkcijas.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Pasirenkamos funkcijos</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Nurodykite diegimo metu siūlomas Windows versijas, naujinimo lygius, kalbas ir leidimus.</value>
+    <value>Apribokite diegimo metu galimus operacinės sistemos pasirinkimus.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS pasirinkimas</value>
@@ -2504,7 +2504,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Prisijungti prie domeno automatiškai naudojant prisijungimo duomenis, apsaugotus diegimo slaptažodžiu.</value>
@@ -2612,31 +2612,31 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Windows profilių tarptinklinis perkėlimas</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Tinkinti OOBE</value>
+    <value>Įgalinti OOBE konfigūraciją</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigūruokite Windows 11 pirmojo paleidimo ekranų ir numatytuosius privatumo nustatymus.</value>
+    <value>Konfigūruokite Windows pradinės sąrankos privatumo ir sąrankos parinktis.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigūruokite „Windows“ papildomas funkcijas</value>
+    <value>Įgalinti pasirenkamų funkcijų konfigūraciją</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Įgalinti arba išjungti „Windows“ komponentus įdiegtoje operacinėje sistemoje.</value>
+    <value>Pasirinkite Windows pasirenkamas funkcijas, kurias norite įgalinti arba išjungti.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>„Windows“ papildomos funkcijos</value>
+    <value>Pasirenkamos funkcijos</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows diegimo parinktys</value>
+    <value>Įgalinti operacinės sistemos pasirinkimo konfigūraciją</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Nurodykite diegimo metu siūlomas Windows versijas, naujinimo lygius, kalbas ir leidimus.</value>
+    <value>Konfigūruokite leidžiamas operacinės sistemos versijas, kalbas, kanalus ir leidimus.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows diegimo parinktys</value>
+    <value>OS pasirinkimas</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Pridėkite įjungtą veiksmą arba išjunkite konfigūravimą po diegimo.</value>
@@ -2735,7 +2735,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Importuoti aplanką</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importuojamas turinys...</value>
+    <value>Importuojamas turinys…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Šis veiksmas netinkamas. Patikrinkite jo konfigūraciją.</value>
@@ -2765,7 +2765,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Įveskite aplanką iš importuoto turinio arba palikite šį lauką tuščią.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Įkeliamas turinys...</value>
+    <value>Įkeliamas turinys…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importuokite trūkstamą „{0}“ turinį.</value>
@@ -3103,109 +3103,109 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Patikrinkite privalomus laukus. Jei prašoma tinklo aplanko, naudokite kelią, pvz., \\server\share\folder. Jei failo slaptažodį įvedate du kartus, įsitikinkite, kad abu įrašai sutampa.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Nepavyko prisijungti</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Patikrinkite tarpinio serverio nustatymus</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nauji Foundry OSD ryšiai dabar naudoja šiuos nustatymus.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Tarpinio serverio nustatymai pritaikyti</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD, naudodama pasirinktus nustatymus, pasiekė GitHub ir Microsoft paslaugas.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Prisijungta sėkmingai</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Įveskite naudotojo vardą ir slaptažodį tarpinio serverio autentifikavimui.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Taikyti</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Naudoti dabartinius Windows kredencialus</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Pasirinkite, kaip tarpinis serveris autentifikuoja Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentifikavimas</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Naudotojo vardas ir slaptažodis</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Be autentifikavimo</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Pasirenkami pagrindinių kompiuterių vardai arba pakaitos simbolių šablonai, atskirti kabliataškiais.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Išimčių sąrašas</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Tiesiogiai jungtis prie pagrindinių kompiuterių vardų, kuriuose nėra taško.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Apeiti vietinius adresus</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Kredencialai saugiai saugomi Windows kredencialų tvarkytuvėje.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Tarpinio serverio kredencialai</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domenas (nebūtina)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Įveskite tarpinio serverio adresą ir prievadą.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Tarpinis serveris</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Pasirinkite, kaip Foundry OSD jungiasi prie interneto.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Tarpinio serverio metodas</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Be tarpinio serverio (tiesioginis ryšys)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Rankiniu būdu nustatytas tarpinis serveris</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Naudoti Windows nustatymus (rekomenduojama)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Slaptažodis</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Šie nustatymai taikomi tik šiai programai. Jie neįtraukiami į diegimo laikmeną ir neturi įtakos Foundry Connect ar Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Tik Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Tikrinti ryšį</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Naudotojo vardas</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Nustatymai</value>
@@ -3223,7 +3223,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Parametrų atsarginės kopijos ir sinchronizavimas</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigūruokite, kaip Foundry OSD jungiasi prie internetinių paslaugų.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3361,13 +3361,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Tinklo konfigūracija neparengta.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Nepasirinktas joks USB tikslas.</value>
+    <value>Nepasirinktas joks USB diskas.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Reikalingos žiniasklaidos paslaptys neparengtos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Pasirinktas USB tikslas yra per mažas. Naudokite bent 16 GB USB klavišą.</value>
+    <value>Pasirinktas USB diskas per mažas. Naudokite bent 16 GB talpos USB diską.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Pasirinktas WinPE klaviatūros išdėstymas šiame kompiuteryje neįdiegtas.</value>
@@ -3415,7 +3415,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Formatuokite ir sukurkite USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formatuokite USB tikslą</value>
+    <value>Formatuoti USB diską</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>„Windows“ negali nuskaityti šio disko tomų. Jame vis tiek gali būti duomenų.</value>
@@ -3430,7 +3430,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Šio disko tomai:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Viskas šiame diske bus prarasta. Tęskite tik tuo atveju, jei tai numatytas USB diskas.</value>
+    <value>Visi šiame diske esantys duomenys bus prarasti. Tęskite tik tuo atveju, jei tai tinkamas USB diskas.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Sukurti USB</value>
@@ -3478,7 +3478,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Prijungti aprūpinimą</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Įdiegti konfigūraciją</value>
+    <value>Diegimo konfigūracija</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Vairuotojai</value>
@@ -3502,7 +3502,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Parašo režimas</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB taikinys</value>
+    <value>Tikslinis USB diskas</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE įkrovos kalba</value>
@@ -3520,10 +3520,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Laikmenos kūrimas pasiekiamas, kai praeina visi parengties patikrinimai.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Pilnas formatas</value>
+    <value>Visiškas formatavimas</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Greitas formatas</value>
+    <value>Greitasis formatavimas</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Pasirinkite, kur bus rašomas sugeneruotas Foundry ISO.</value>
@@ -3790,7 +3790,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Peržiūrėkite parengtį, pasirinkite ISO arba USB išvestį ir pradėkite laikmenos kūrimą.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Apžvalga</value>
+    <value>Peržiūrėti</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Paruošta</value>
@@ -3846,7 +3846,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Atnaujinti USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB taikinius galima atnaujinti, kai ADK bus parengta.</value>
+    <value>USB diskus galima atnaujinti, kai baigiamas ADK parengties patikrinimas.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB rasti diskai: {0}</value>
@@ -3855,22 +3855,22 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Diskas {0} – {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Nuskaitomi USB taikiniai.</value>
+    <value>Ieškoma USB diskų…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nerasta USB diskų.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB tikslinio atnaujinimo nepavyko.</value>
+    <value>Nepavyko atnaujinti USB diskų.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formatavimo elgesys, naudojamas prieš nukopijuojant galutinę USB laikmeną.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Pasidalijimo schema naudojama ruošiant pasirinktą USB tikslą.</value>
+    <value>Skaidinių schema, naudojama ruošiant pasirinktą USB diską.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB taikinys</value>
+    <value>Tikslinis USB diskas</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>WinPE įkrovos aplinkos naudojama kalba.</value>
@@ -3915,7 +3915,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Sistema</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Šviesa</value>
+    <value>Šviesus</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>Pasirinkite fono medžiagą, naudojamą už programos.</value>
@@ -4161,7 +4161,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Apsaugos tipas</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Atidaryti</value>
+    <value>Atviras</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (oportunistinis belaidis šifravimas)</value>
@@ -4173,7 +4173,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Numatykite Wi-Fi palaikymą įkrovos vaizde</value>
+    <value>Įgalinti Wi-Fi parengimą</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigūruokite Wi-Fi parengimą, įdėtuosius profilius ir Windows profilių tarptinklinį ryšį.</value>

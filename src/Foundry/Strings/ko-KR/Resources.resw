@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>소개</value>
+    <value>정보</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
     <value>Mickaël CHAVE가 만들고 관리합니다.</value>
@@ -25,7 +25,7 @@
     <value>GitHub에서 기여자를 로드할 수 없습니다.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>기여자 로드 중...</value>
+    <value>기여자 로드 중…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>기여자</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD은 WinPE에서 제공하는 Windows 배포 미디어를 작성하기 위한 최신 앱입니다.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>저작권 (c) 2026 Mickaël CHAVE 및 Foundry Project 기여자.
+    <value>Copyright (c) 2026 Mickaël CHAVE 및 Foundry Project 기여자.
 MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>내장된 브라우저에서 릴리스 노트를 로드할 수 없습니다.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>출시 노트 로드 중...</value>
+    <value>출시 노트 로드 중…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>릴리스 노트</value>
@@ -77,13 +77,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>지원</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>타사 패키지 라이센스는 프로젝트 저장소 및 종속성 매니페스트를 통해 추적됩니다.</value>
+    <value>Foundry OSD는 다음 라이브러리와 도구를 사용합니다. 각 라이선스와 프로젝트 페이지는 아래에 나와 있습니다.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>타사 종속성</value>
+    <value>타사 라이선스</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>Foundry OSD 소개</value>
+    <value>Foundry OSD 정보</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>유용한 링크</value>
@@ -221,19 +221,19 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Windows ADK 및 Windows PE 추가 기능 업그레이드</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>AI 구성 요소 제거</value>
+    <value>AI 구성 요소 구성 활성화</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>OOBE 이전에 선택한 Windows AI 구성 요소를 제거하거나 비활성화합니다.</value>
+    <value>제거하거나 비활성화할 Windows AI 구성 요소 및 환경을 선택합니다.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI 구성 요소 제거</value>
+    <value>AI 구성 요소</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>프로비저닝된 Windows 앱 제거</value>
+    <value>AppX 앱 제거 활성화</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>OOBE 전에 선택한 프로비저닝된 Windows 앱을 제거합니다.</value>
+    <value>배포된 장치에서 제거할 프로비저닝된 Windows 앱을 선택합니다.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX 앱 제거</value>
@@ -302,7 +302,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Autopilot 프로필을 찾을 수 없습니다.</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot 프로필 다운로드 중...</value>
+    <value>Autopilot 프로필 다운로드 중…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0}이 구성되었습니다.</value>
@@ -419,7 +419,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>테넌트 연결</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>테넌트 연결 중...</value>
+    <value>테넌트 연결 중…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>인증서 생성</value>
@@ -533,7 +533,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>이름</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>가치</value>
+    <value>값</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
     <value>해시 업로드 설정을 관리하려면 이 앱 세션에 대해 Microsoft Graph에 연결하세요.</value>
@@ -554,7 +554,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Autopilot 프로필 JSON 가져오기</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot 프로필을 가져오는 중...</value>
+    <value>Autopilot 프로필을 가져오는 중…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>활성화하면 기술자가 Windows 설치 중에 Microsoft 장치 코드로 로그인하고 장치 하드웨어 해시를 업로드합니다.</value>
@@ -638,10 +638,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>대화형 하드웨어 해시 업로드</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>적용된 Windows 이미지에 오프라인 Autopilot 프로필을 준비합니다.</value>
+    <value>배포 미디어에 포함되는 Autopilot 프로필을 가져오거나 다운로드합니다.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON 프로필 프로비저닝</value>
+    <value>JSON 프로필</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>테넌트 기반 자동 하드웨어 해시 업로드를 구성합니다.</value>
@@ -890,7 +890,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>패키지</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>맞춤</value>
+    <value>사용자 지정</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
     <value>패키지를 미리 선택하려면 하나 이상의 카탈로그 카테고리를 선택하세요.</value>
@@ -1796,7 +1796,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>표시 이름 또는 DISM 기능 이름으로 검색</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>내보내기...</value>
+    <value>내보내기…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>원본 로그를 수정하지 않고 정리된 지원 보관 파일을 만듭니다.</value>
@@ -1814,7 +1814,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>진단 내보내기 실패</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>고급: 원시 로그 내보내기...</value>
+    <value>고급: 원시 로그 내보내기…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>원시 로그 내보내기</value>
@@ -1871,7 +1871,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>예</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>도메인에서 OU를 검색하는 중...</value>
+    <value>도메인에서 OU를 검색하는 중…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>검색이 취소되었습니다.</value>
@@ -2051,10 +2051,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>802.1X 인증서 선택</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>유선 802.1X 구성</value>
+    <value>Ethernet 802.1X 구성 활성화</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>기본적으로 표준 Ethernet 연결을 사용할 수 있습니다. 유선 네트워크에 802.1X 기업 인증이 필요한 경우에만 이 섹션을 구성하십시오.</value>
+    <value>유선 802.1X 인증 및 Windows 프로필 로밍을 구성합니다.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2300,7 +2300,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>러시아어(러시아)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>세르비아어 라틴어(세르비아)</value>
+    <value>세르비아어 라틴 문자(세르비아)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>슬로바키아어(슬로바키아)</value>
@@ -2321,7 +2321,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>태국어(태국)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>터키어(터키어)</value>
+    <value>튀르키예어(튀르키예)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>우크라이나어(우크라이나)</value>
@@ -2345,13 +2345,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>구성 요소를 위로 이동</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>머신 명명 규칙 활성화</value>
+    <value>컴퓨터 이름 지정 구성 활성화</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>자동 및 기술자 지원 장치 이름 지정을 구성합니다.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>컴퓨터 이름</value>
+    <value>컴퓨터 이름 지정</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>미리 보기</value>
@@ -2363,7 +2363,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>제품 및 버전 정보.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>소개</value>
+    <value>정보</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK 준비 및 설치.</value>
@@ -2372,13 +2372,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>OOBE 이전에 선택한 Windows AI 구성 요소를 제거하거나 비활성화합니다.</value>
+    <value>Windows AI 구성 요소를 제거하거나 비활성화합니다.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI 구성 요소</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>OOBE 전에 선택한 프로비저닝된 Windows 앱을 제거합니다.</value>
+    <value>제거할 프로비저닝된 앱을 선택합니다.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX 앱 제거</value>
@@ -2420,7 +2420,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>도메인 가입</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>기본적으로 표준 Ethernet 연결을 사용할 수 있습니다. 유선 네트워크에 802.1X 기업 인증이 필요한 경우에만 이 섹션을 구성하십시오.</value>
+    <value>유선 802.1X 인증을 구성합니다.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2456,19 +2456,19 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>네트워크</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Windows 11개의 첫 실행 화면과 개인 정보 기본값을 구성합니다.</value>
+    <value>Windows OOBE(첫 실행 환경)를 구성합니다.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>배포된 운영 체제에서 Windows 구성 요소를 활성화하거나 비활성화합니다.</value>
+    <value>Windows 선택적 기능을 활성화하거나 비활성화합니다.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>선택적 기능</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>배포 중 제공할 Windows 버전, 업데이트 수준, 언어 및 에디션을 정의합니다.</value>
+    <value>배포 시 선택할 수 있는 운영 체제를 제한합니다.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS 선택</value>
@@ -2612,31 +2612,31 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>Windows 프로필 로밍</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>OOBE 사용자 정의</value>
+    <value>OOBE 구성 활성화</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Windows 11개의 첫 실행 화면과 개인 정보 기본값을 구성합니다.</value>
+    <value>Windows OOBE(첫 실행 환경)의 개인 정보 및 설정 옵션을 구성합니다.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows 선택적 기능 구성</value>
+    <value>선택적 기능 구성 활성화</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>배포된 운영 체제에서 Windows 구성 요소를 활성화하거나 비활성화합니다.</value>
+    <value>활성화하거나 비활성화할 Windows 선택적 기능을 선택합니다.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows 선택적 기능</value>
+    <value>선택적 기능</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows 배포 옵션</value>
+    <value>OS 선택 구성 활성화</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>배포 중 제공할 Windows 버전, 업데이트 수준, 언어 및 에디션을 정의합니다.</value>
+    <value>허용할 운영 체제 릴리스, 언어, 채널 및 에디션을 구성합니다.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows 배포 옵션</value>
+    <value>OS 선택</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>사용하도록 설정된 작업을 추가하거나 설치 후 구성을 사용하지 않도록 설정하세요.</value>
@@ -2735,7 +2735,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>폴더 가져오기</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>콘텐츠를 가져오는 중...</value>
+    <value>콘텐츠를 가져오는 중…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>이 작업이 유효하지 않습니다. 구성을 확인하세요.</value>
@@ -2765,7 +2765,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>가져온 콘텐츠의 폴더를 입력하거나 비워 두세요.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>콘텐츠를 로드하는 중...</value>
+    <value>콘텐츠를 로드하는 중…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>"{0}"의 누락된 콘텐츠를 가져오세요.</value>
@@ -3103,109 +3103,109 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>필수 항목을 확인하세요. 네트워크 폴더가 필요하면 \\server\share\folder 같은 경로를 사용하세요. 파일 암호를 두 번 입력하는 경우 두 값이 일치하는지 확인하세요.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>연결 실패</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>프록시 설정 확인</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>이제 Foundry OSD의 새 연결에 이 설정이 사용됩니다.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>프록시 설정 적용됨</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD가 선택한 설정을 사용하여 GitHub 및 Microsoft 서비스에 연결했습니다.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>연결 성공</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>명시적 프록시 인증에 사용할 사용자 이름과 암호를 입력하세요.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>적용</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>현재 Windows 자격 증명 사용</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>프록시가 Foundry OSD를 인증하는 방법을 선택합니다.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>인증</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>사용자 이름 및 암호</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>인증 안 함</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>세미콜론으로 구분된 호스트 이름 또는 와일드카드 패턴(선택 사항)입니다.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>우회 목록</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>마침표가 포함되지 않은 호스트 이름에 직접 연결합니다.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>로컬 주소 우회</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>자격 증명은 Windows 자격 증명 관리자에 안전하게 저장됩니다.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>프록시 자격 증명</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>도메인(선택 사항)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>프록시 주소와 포트를 입력하세요.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>프록시 서버</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Foundry OSD가 인터넷에 연결하는 방법을 선택합니다.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>프록시 방법</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>프록시 없음(직접 연결)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>수동 프록시</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Windows 설정 사용(권장)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>암호</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>포트</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>이 설정은 이 앱에만 적용됩니다. 배포 미디어에 추가되지 않으며 Foundry Connect 또는 Foundry Deploy에 영향을 주지 않습니다.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Foundry OSD 전용</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>연결 테스트</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>사용자 이름</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>설정</value>
@@ -3223,10 +3223,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>설정 백업 및 동기화</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Foundry OSD가 온라인 서비스에 연결하는 방법을 구성합니다.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>프록시</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
     <value>인증 비밀을 마스킹한 모든 수준의 로그와 기술적 컨텍스트 및 별도의 예외 보고서를 PostHog로 보냅니다. 로그는 7일 후 자동으로 삭제됩니다.</value>
@@ -3361,13 +3361,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>네트워크 구성이 준비되지 않았습니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>USB 대상이 선택되지 않았습니다.</value>
+    <value>선택한 USB 드라이브가 없습니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>필수 미디어 비밀번호가 준비되지 않았습니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>선택한 USB 대상이 너무 작습니다. 최소 16GB의 USB 키를 사용하세요.</value>
+    <value>선택한 USB 드라이브의 용량이 너무 작습니다. 16GB 이상의 USB 드라이브를 사용하세요.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>선택한 WinPE 키보드 레이아웃이 이 컴퓨터에 설치되어 있지 않습니다.</value>
@@ -3382,7 +3382,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>WinRE Wi-Fi 이미지</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>비</value>
+    <value>바이트</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3400,7 +3400,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>ISO 생성이 차단되었습니다.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>ISO 생성</value>
+    <value>ISO 만들기</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB 생성이 차단되었습니다.</value>
@@ -3415,7 +3415,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>USB 형식 지정 및 생성</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>USB 대상 형식</value>
+    <value>USB 드라이브 포맷</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows에서 이 디스크의 볼륨을 읽을 수 없습니다. 데이터가 남아 있을 수 있습니다.</value>
@@ -3430,10 +3430,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>이 디스크의 볼륨:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>이 디스크의 모든 내용이 손실됩니다. 이것이 의도된 USB 디스크인 경우에만 계속하십시오.</value>
+    <value>이 디스크의 모든 데이터가 손실됩니다. 사용하려는 USB 드라이브인 경우에만 계속하세요.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>USB 생성</value>
+    <value>USB 만들기</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>추가 .inf 드라이버가 포함된 선택적 폴더입니다.</value>
@@ -3478,7 +3478,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>프로비저닝 연결</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>구성 배포</value>
+    <value>배포 구성</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>드라이버</value>
@@ -3520,7 +3520,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>모든 준비 확인을 통과하면 미디어 생성이 가능합니다.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>전체 형식</value>
+    <value>전체 포맷</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>빠른 포맷</value>
@@ -3846,7 +3846,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>USB 업데이트</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>ADK 준비가 완료된 후 USB 대상을 새로 고칠 수 있습니다.</value>
+    <value>ADK 준비가 완료된 후 USB 드라이브 목록을 새로 고칠 수 있습니다.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB 발견된 드라이브: {0}</value>
@@ -3855,19 +3855,19 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>디스크 {0} - {1}({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB 대상을 검색하는 중입니다.</value>
+    <value>USB 드라이브 검색 중…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>USB 드라이브를 찾을 수 없습니다.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB 대상 새로 고침에 실패했습니다.</value>
+    <value>USB 드라이브를 새로 고치지 못했습니다.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>최종 USB 미디어를 복사하기 전에 사용되는 형식 동작입니다.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>선택한 USB 대상을 준비할 때 사용되는 파티션 구성표입니다.</value>
+    <value>선택한 USB 드라이브를 준비할 때 사용하는 파티션 구성표입니다.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>USB 대상</value>
@@ -3909,13 +3909,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>앱 테마</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>어둠</value>
+    <value>어둡게</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>시스템</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>빛</value>
+    <value>밝게</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>앱 뒤에 사용되는 배경 자료를 선택하세요.</value>
@@ -4161,7 +4161,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>보안 유형</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>열기</value>
+    <value>개방형</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE(기회적 무선 암호화)</value>
@@ -4173,7 +4173,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>부팅 이미지에서 Wi-Fi 지원 제공</value>
+    <value>Wi-Fi 프로비저닝 활성화</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Wi-Fi 프로비저닝, 포함된 프로필 및 Windows 프로필 로밍을 구성합니다.</value>

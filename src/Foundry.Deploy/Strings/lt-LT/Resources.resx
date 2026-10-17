@@ -19,7 +19,7 @@
     <value>Ši programinė įranga pateikiama tokia, kokia yra. Prieš naudodami peržiūrėkite diegimo nustatymus.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorių teisės (c) 2026 Mickaël CHAVE ir Foundry Project bendraautoriai.
+    <value>Copyright (c) 2026 Mickaël CHAVE ir Foundry Project bendraautoriai.
 Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -119,7 +119,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nėra</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>Nėra</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
     <value>Ankstesnis</value>
@@ -457,118 +457,118 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
     <value>Kitos kalbos</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>arabų (Saudo Arabija)</value>
+    <value>Arabų (Saudo Arabija)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
-    <value>bulgarų (Bulgarija)</value>
+    <value>Bulgarų (Bulgarija)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Supaprastinta kinų kalba (Kinija)</value>
+    <value>Kinų, supaprastinta (Kinija)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>tradicinė kinų kalba (Taivanas)</value>
+    <value>Kinų, tradicinė (Taivanas)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>kroatų (Kroatija)</value>
+    <value>Kroatų (Kroatija)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>čekų (čekų)</value>
+    <value>Čekų (Čekija)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>danų (Danija)</value>
+    <value>Danų (Danija)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>olandų (Nyderlandai)</value>
+    <value>Olandų (Nyderlandai)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>anglų (Jungtinė Karalystė)</value>
+    <value>Anglų (Jungtinė Karalystė)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>anglų (Jungtinės Amerikos Valstijos)</value>
+    <value>Anglų (Jungtinės Amerikos Valstijos)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>Estų (Estija)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>suomių (Suomija)</value>
+    <value>Suomių (Suomija)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>prancūzų (Kanada)</value>
+    <value>Prancūzų (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>prancūzų (Prancūzija)</value>
+    <value>Prancūzų (Prancūzija)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>vokiečių (Vokietija)</value>
+    <value>Vokiečių (Vokietija)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>graikų (Graikija)</value>
+    <value>Graikų (Graikija)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>hebrajų (Izraelis)</value>
+    <value>Hebrajų (Izraelis)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>vengrų (Vengrija)</value>
+    <value>Vengrų (Vengrija)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>italų (Italija)</value>
+    <value>Italų (Italija)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>japonų (Japonija)</value>
+    <value>Japonų (Japonija)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>korėjiečių (korėja)</value>
+    <value>Korėjiečių (Korėja)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>latvių (Latvija)</value>
+    <value>Latvių (Latvija)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>lietuvių (Lietuva)</value>
+    <value>Lietuvių (Lietuva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norvegų bokmal (Norvegija)</value>
+    <value>Norvegų bokmål (Norvegija)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>lenkų (Lenkija)</value>
+    <value>Lenkų (Lenkija)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>portugalų (Brazilija)</value>
+    <value>Portugalų (Brazilija)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>portugalų (Portugalija)</value>
+    <value>Portugalų (Portugalija)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>rumunų (Rumunija)</value>
+    <value>Rumunų (Rumunija)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>Rusų (Rusija)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Serbijos lotynų kalba (Serbija)</value>
+    <value>Serbų, lotynų (Serbija)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>slovakų (Slovakija)</value>
+    <value>Slovakų (Slovakija)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>slovėnų (Slovėnija)</value>
+    <value>Slovėnų (Slovėnija)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>ispanų (Meksika)</value>
+    <value>Ispanų (Meksika)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>ispanų (Ispanija)</value>
+    <value>Ispanų (Ispanija)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>švedų (Švedija)</value>
+    <value>Švedų (Švedija)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>tajų (Tailandas)</value>
+    <value>Tajų (Tailandas)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turkų (Türkiye)</value>
+    <value>Turkų (Turkija)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukrainiečių (Ukraina)</value>
+    <value>Ukrainiečių (Ukraina)</value>
   </data>
   <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
     <value>Taip bus ištrinti visi duomenys iš pasirinkto disko ir įdiegta pasirinkta operacinė sistema.
@@ -589,7 +589,7 @@ Tęsti diegimą?</value>
     <value>_Apie</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Derinimas</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
     <value>Klaviatūra</value>
@@ -697,7 +697,7 @@ Tęsti diegimą?</value>
     <value>Interaktyvus aparatūros maišos įkėlimas</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON profilio sudarymas</value>
+    <value>JSON profilis</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profilis</value>
@@ -730,7 +730,7 @@ Tęsti diegimą?</value>
     <value>{0} | TPM: {1} | Galia: {2} | Programinė įranga: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>Elektros tinklas</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Baterija</value>
@@ -1492,7 +1492,7 @@ Tęsti diegimą?</value>
     <value>Šis kompiuteris bus paleistas iš naujo po {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Perkraukite</value>
+    <value>Paleisti iš naujo</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Papildomos vietinės paskyros</value>
@@ -1525,7 +1525,7 @@ Tęsti diegimą?</value>
     <value>Autopilot profilis</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Komponavimo versija</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Integruotoji administratoriaus paskyra</value>
@@ -1747,7 +1747,7 @@ Tęsti diegimą?</value>
     <value>Tamsus</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Šviesa</value>
+    <value>Šviesus</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistema</value>

@@ -19,7 +19,7 @@
     <value>Acest software este furnizat ca atare. Examinați setările de implementare înainte de utilizare.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Drepturi de autor (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
 Licențiat sub licența MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -89,7 +89,7 @@ Licențiat sub licența MIT.</value>
     <value>Anulați</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Închide fereastra</value>
+    <value>Închide</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Copiați în clipboard</value>
@@ -110,7 +110,7 @@ Licențiat sub licența MIT.</value>
     <value>Activat</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>În continuare</value>
+    <value>Înainte</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>Nu</value>
@@ -122,7 +122,7 @@ Licențiat sub licența MIT.</value>
     <value>N/A</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Anterior</value>
+    <value>Înapoi</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponibil</value>
@@ -463,22 +463,22 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
     <value>bulgară (Bulgaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chineză simplificată (China)</value>
+    <value>chineză simplificată (China)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chineză tradițională (Taiwan)</value>
+    <value>chineză tradițională (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>croată (Croația)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Cehia (Cehia)</value>
+    <value>cehă (Cehia)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>daneză (Danemarca)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>olandeză (Olanda)</value>
+    <value>olandeză (Țările de Jos)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engleză (Regatul Unit)</value>
@@ -487,16 +487,16 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
     <value>engleză (Statele Unite)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>Estonă (Estonia)</value>
+    <value>estonă (Estonia)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
     <value>finlandeză (Finlanda)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>franceza (Canada)</value>
+    <value>franceză (Canada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>franceza (Franta)</value>
+    <value>franceză (Franța)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
     <value>germană (Germania)</value>
@@ -526,7 +526,7 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
     <value>lituaniană (Lituania)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norvegiana Bokmal (Norvegia)</value>
+    <value>norvegiană bokmal (Norvegia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poloneză (Polonia)</value>
@@ -538,16 +538,16 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
     <value>portugheză (Portugalia)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>romana (Romania)</value>
+    <value>română (România)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>rusă (Rusia)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Sârbă latină (Serbia)</value>
+    <value>sârbă latină (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>Slovacă (Slovacia)</value>
+    <value>slovacă (Slovacia)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>slovenă (Slovenia)</value>
@@ -565,7 +565,7 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
     <value>thailandeză (Thailanda)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turcă (Turkia)</value>
+    <value>turcă (Turcia)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ucraineană (Ucraina)</value>
@@ -604,7 +604,7 @@ Continuați cu implementarea?</value>
     <value>_Temă</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>_Unelte</value>
+    <value>_Instrumente</value>
   </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Alegeți versiunea Windows, limba, ediția și canalul de licențiere.</value>
@@ -682,7 +682,7 @@ Continuați cu implementarea?</value>
     <value>Gata pentru a încărca hash hardware</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
-    <value>ID locatar</value>
+    <value>ID entitate găzduită</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
     <value>Încărcarea hashului hardware nu este disponibilă</value>
@@ -697,7 +697,7 @@ Continuați cu implementarea?</value>
     <value>Încărcare interactivă a hashului hardware</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON furnizarea profilului</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>
@@ -730,7 +730,7 @@ Continuați cu implementarea?</value>
     <value>{0} | TPM: {1} | Putere: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>Rețea electrică</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Bateria</value>
@@ -1486,7 +1486,7 @@ Continuați cu implementarea?</value>
     <value>Implementare finalizată</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Scoateți suportul de pornire, apoi selectați Repornire.</value>
+    <value>Scoateți suportul de pornire, apoi selectați „Reporniți”.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Acest computer va reporni în {0}s.</value>
@@ -1744,10 +1744,10 @@ Continuați cu implementarea?</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Întuneric</value>
+    <value>Întunecat</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Lumină</value>
+    <value>Luminos</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Sistem</value>

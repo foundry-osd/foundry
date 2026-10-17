@@ -19,7 +19,7 @@
     <value>Denna programvara tillhandahålls i befintligt skick. Bekräfta nätverksåtkomst innan du fortsätter driftsättningen.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Upphovsrätt (c) 2026 Mickaël CHAVE och bidragsgivarna till Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE och bidragsgivarna till Foundry Project.
 Licensierad under MIT-licensen.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -165,112 +165,112 @@ Licensierad under MIT-licensen.</value>
     <value>Bulgariska (Bulgarien)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Kinesiska förenklad (Kina)</value>
+    <value>Förenklad kinesiska (Kina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Traditionell kinesisk (Taiwan)</value>
+    <value>Traditionell kinesiska (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>kroatiska (Kroatien)</value>
+    <value>Kroatiska (Kroatien)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>Tjeckien (Tjeckien)</value>
+    <value>Tjeckiska (Tjeckien)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>danska (Danmark)</value>
+    <value>Danska (Danmark)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holländska (Nederländerna)</value>
+    <value>Nederländska (Nederländerna)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>engelska (Storbritannien)</value>
+    <value>Engelska (Storbritannien)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>engelska (USA)</value>
+    <value>Engelska (USA)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estniska (Estland)</value>
+    <value>Estniska (Estland)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>finska (Finland)</value>
+    <value>Finska (Finland)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>franska (Kanada)</value>
+    <value>Franska (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>franska (Frankrike)</value>
+    <value>Franska (Frankrike)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>tyska (Tyskland)</value>
+    <value>Tyska (Tyskland)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>grekiska (Grekland)</value>
+    <value>Grekiska (Grekland)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>hebreiska (Israel)</value>
+    <value>Hebreiska (Israel)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
     <value>Ungerska (Ungern)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>italienska (Italien)</value>
+    <value>Italienska (Italien)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
     <value>Japanska (Japan)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>koreanska (Korea)</value>
+    <value>Koreanska (Korea)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>lettiska (Lettland)</value>
+    <value>Lettiska (Lettland)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
     <value>Litauiska (Litauen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norsk Bokmal (Norge)</value>
+    <value>Norska, bokmål (Norge)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>polska (Polen)</value>
+    <value>Polska (Polen)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>portugisiska (Brasilien)</value>
+    <value>Portugisiska (Brasilien)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
     <value>Portugisiska (Portugal)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>rumänska (Rumänien)</value>
+    <value>Rumänska (Rumänien)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>ryska (Ryssland)</value>
+    <value>Ryska (Ryssland)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Serbiskt latin (Serbien)</value>
+    <value>Serbiska, latinsk (Serbien)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovakiska (Slovakien)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>slovenska (Slovenien)</value>
+    <value>Slovenska (Slovenien)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>spanska (Mexiko)</value>
+    <value>Spanska (Mexiko)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
     <value>Spanska (Spanien)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>svenska (Sverige)</value>
+    <value>Svenska (Sverige)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>Thai (Thailand)</value>
+    <value>Thailändska (Thailand)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turkiska (Türkiye)</value>
+    <value>Turkiska (Turkiet)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukrainska (Ukraina)</value>
+    <value>Ukrainska (Ukraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>Om</value>
@@ -315,7 +315,7 @@ Licensierad under MIT-licensen.</value>
     <value>Mörkt</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Ljus</value>
+    <value>Ljust</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>System</value>
@@ -366,7 +366,7 @@ Licensierad under MIT-licensen.</value>
     <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>Provisioned Wi-Fi · {0}</value>
+    <value>Tillhandahållet Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Företagsprofil</value>
@@ -393,7 +393,7 @@ Licensierad under MIT-licensen.</value>
     <value>Detta nätverk kräver en tillhandahållen Wi-Fi-profil.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>Provisioned Wi-Fi</value>
+    <value>Tillhandahållet Wi-Fi</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Uppdatera Wi-Fi nätverk</value>
@@ -408,7 +408,7 @@ Licensierad under MIT-licensen.</value>
     <value>{0} (maskin eller användare)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Öppna</value>
+    <value>Öppen</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Personligt</value>

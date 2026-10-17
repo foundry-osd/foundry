@@ -19,7 +19,7 @@
     <value>Tento software je poskytován tak, jak je. Před pokračováním v nasazení potvrďte přístup k síti.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorská práva (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
 Licencováno pod licencí MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -165,10 +165,10 @@ Licencováno pod licencí MIT.</value>
     <value>bulharština (Bulharsko)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Zjednodušená čínština (Čína)</value>
+    <value>zjednodušená čínština (Čína)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Tradiční čínština (Tchaj-wan)</value>
+    <value>tradiční čínština (Tchaj-wan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>chorvatština (Chorvatsko)</value>
@@ -180,7 +180,7 @@ Licencováno pod licencí MIT.</value>
     <value>dánština (Dánsko)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>holandština (Nizozemsko)</value>
+    <value>nizozemština (Nizozemsko)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>angličtina (Spojené království)</value>
@@ -228,7 +228,7 @@ Licencováno pod licencí MIT.</value>
     <value>litevština (Litva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norský Bokmal (Norsko)</value>
+    <value>norský bokmal (Norsko)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>polština (Polsko)</value>
@@ -246,7 +246,7 @@ Licencováno pod licencí MIT.</value>
     <value>ruština (Rusko)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srbská latina (Srbsko)</value>
+    <value>srbština – latinka (Srbsko)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>slovenština (Slovensko)</value>
@@ -267,13 +267,13 @@ Licencováno pod licencí MIT.</value>
     <value>thajština (Thajsko)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turečtina (Türkiye)</value>
+    <value>turečtina (Turecko)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinština (Ukrajina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>O</value>
+    <value>O aplikaci</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Ladit</value>
@@ -288,7 +288,7 @@ Licencováno pod licencí MIT.</value>
     <value>Jazyk</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>téma</value>
+    <value>Motiv</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>Nástroje</value>
@@ -315,7 +315,7 @@ Licencováno pod licencí MIT.</value>
     <value>Tmavý</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Světlo</value>
+    <value>Světlý</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Systém</value>
@@ -408,7 +408,7 @@ Licencováno pod licencí MIT.</value>
     <value>{0} (stroj nebo uživatel)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Otevřít</value>
+    <value>Otevřené</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Osobní</value>

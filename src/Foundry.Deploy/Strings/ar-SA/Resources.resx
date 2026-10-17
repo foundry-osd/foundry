@@ -19,7 +19,7 @@
     <value>يتم توفير هذا البرنامج كما هو. قم بمراجعة إعدادات النشر الخاصة بك قبل الاستخدام.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>حقوق الطبع والنشر (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
 مرخص بموجب ترخيص MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -526,7 +526,7 @@
     <value>الليتوانية (ليتوانيا)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>النرويجية البوكمال (النرويج)</value>
+    <value>النرويجية بوكمال (النرويج)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>البولندية (بولندا)</value>
@@ -544,7 +544,7 @@
     <value>الروسية (روسيا)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>اللاتينية الصربية (صربيا)</value>
+    <value>الصربية اللاتينية (صربيا)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>السلوفاكية (سلوفاكيا)</value>
@@ -601,7 +601,7 @@
     <value>_اللغة</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>_الموضوع</value>
+    <value>_النسق</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_الأدوات</value>
@@ -697,7 +697,7 @@
     <value>تحميل تفاعلي لتجزئة الأجهزة</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON توفير الملف الشخصي</value>
+    <value>ملف تعريف JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>الملف الشخصي</value>
@@ -730,7 +730,7 @@
     <value>{0} | TPM: {1} | القوة: {2} | البرامج الثابتة: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>تكييف</value>
+    <value>تيار متردد</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>البطارية</value>
@@ -1525,7 +1525,7 @@
     <value>Autopilot الملف الشخصي</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>رقم البنية</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>حساب المسؤول المضمن</value>
@@ -1594,7 +1594,7 @@
     <value>الوصول إلى الموقع</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>إجباري</value>
+    <value>إيقاف إجباري</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>يتم التحكم فيه بواسطة المستخدم</value>
@@ -1744,10 +1744,10 @@
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>الظلام</value>
+    <value>داكن</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>ضوء</value>
+    <value>فاتح</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>النظام</value>
@@ -1762,7 +1762,7 @@
     <value>قد تتعارض الأوامر المخصصة مع Foundry. اختبر هذا التكوين.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>رفع التجزئة لا يضمن التسجيل في Autopilot.</value>
+    <value>تحميل التجزئة لا يضمن التسجيل في Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
     <value>اختبر ملف الإجابات هذا مع صورة Windows وتكوين Foundry المحددين.</value>

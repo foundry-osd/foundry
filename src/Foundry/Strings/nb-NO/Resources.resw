@@ -25,7 +25,7 @@
     <value>Bidragsytere kunne ikke lastes inn fra GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Laster inn bidragsytere...</value>
+    <value>Laster inn bidragsytere…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Bidragsytere</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD er en moderne app for å skrive Windows distribusjonsmedier drevet av WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Opphavsrett (c) 2026 Mickaël CHAVE og bidragsyterne til Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE og bidragsyterne til Foundry Project.
 Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Versjonsnotater kunne ikke lastes inn i den innebygde nettleseren.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Laster inn versjonsnotater...</value>
+    <value>Laster inn versjonsnotater…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Utgivelsesnotater</value>
@@ -77,10 +77,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Støtte</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Tredjeparts pakkelisenser spores gjennom prosjektlageret og avhengighetsmanifester.</value>
+    <value>Foundry OSD bruker følgende biblioteker og verktøy. Lisensene og prosjektsidene deres er oppført nedenfor.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Tredjepartsavhengigheter</value>
+    <value>Tredjepartslisenser</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Om Foundry OSD</value>
@@ -221,19 +221,19 @@ Lisensiert under MIT-lisensen.</value>
     <value>Oppgrader Windows ADK og Windows PE tillegg</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Fjern AI-komponenter</value>
+    <value>Aktiver konfigurasjon av AI-komponenter</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Fjern eller deaktiver valgte Windows AI-komponenter før OOBE.</value>
+    <value>Velg Windows AI-komponenter og -opplevelser som skal fjernes eller deaktiveres.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Fjerning av AI-komponenter</value>
+    <value>AI-komponenter</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Fjern klargjorte Windows-apper</value>
+    <value>Aktiver AppX-fjerninger</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Fjern valgte klargjorte Windows-apper før OOBE.</value>
+    <value>Velg klargjorte Windows-apper som skal fjernes fra distribuerte enheter.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-fjerninger</value>
@@ -302,7 +302,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Ingen Autopilot profiler funnet</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Laster ned Autopilot-profiler...</value>
+    <value>Laster ned Autopilot-profiler…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} er konfigurert.</value>
@@ -410,7 +410,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Lagre Autopilot sertifikat PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Tommelavtrykk</value>
+    <value>Avtrykk</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>Ingen sertifikater leveres.</value>
@@ -419,7 +419,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Koble til leietaker</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Kobler til leietaker...</value>
+    <value>Kobler til leietaker…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Opprett sertifikat</value>
@@ -554,7 +554,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Importer Autopilot profil JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importerer Autopilot profil...</value>
+    <value>Importerer Autopilot profil…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Når dette er aktivert, logger teknikeren på med en Microsoft-enhetskode under Windows-installasjonen og laster opp enhetens maskinvarehash.</value>
@@ -614,7 +614,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Avbryt</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Klart</value>
+    <value>Fjern</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Velg hvilke leietakerprofiler som skal importeres til Foundry.</value>
@@ -638,10 +638,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Interaktiv opplasting av maskinvarehash</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Lag en offline Autopilot-profil i det brukte Windows-bildet.</value>
+    <value>Importer eller last ned Autopilot-profilen som bygges inn i distribusjonsmediene.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profilklargjøring</value>
+    <value>JSON-profil</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Konfigurer leietakerstøttet automatisk opplasting av maskinvarehash.</value>
@@ -1319,7 +1319,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Administrasjonsverktøy</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
-    <value>Media</value>
+    <value>Medier</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
     <value>Meldingskø</value>
@@ -1796,7 +1796,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Søk etter visningsnavn eller DISM-funksjonsnavn</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksporter...</value>
+    <value>Eksporter…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Opprett et renset støttearkiv uten å endre de opprinnelige loggene.</value>
@@ -1814,7 +1814,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Eksport av diagnostikk mislyktes</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avansert: eksporter rålogger...</value>
+    <value>Avansert: eksporter rålogger…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Eksporter rålogger</value>
@@ -1871,7 +1871,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Ja</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Søker etter OU-er i domenet...</value>
+    <value>Søker etter OU-er i domenet…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Søket ble avbrutt.</value>
@@ -2051,10 +2051,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Velg 802.1X-sertifikat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurer kablet 802.1X</value>
+    <value>Aktiver konfigurasjon av Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standard Ethernet-tilkobling er tilgjengelig som standard. Konfigurer denne delen bare hvis det kablede nettverket ditt krever 802.1X enterprise-autentisering.</value>
+    <value>Konfigurer kablet 802.1X-autentisering og roaming av Windows-profiler.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2219,19 +2219,19 @@ Lisensiert under MIT-lisensen.</value>
     <value>Bulgarsk (Bulgaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Kinesisk forenklet (Kina)</value>
+    <value>Forenklet kinesisk (Kina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Tradisjonell kinesisk (Taiwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>kroatisk (Kroatia)</value>
+    <value>Kroatisk (Kroatia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>Tsjekkisk (Tsjekkia)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>dansk (Danmark)</value>
+    <value>Dansk (Danmark)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>Nederlandsk (Nederland)</value>
@@ -2246,34 +2246,34 @@ Lisensiert under MIT-lisensen.</value>
     <value>Estisk (Estland)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>finsk (Finland)</value>
+    <value>Finsk (Finland)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>fransk (Canada)</value>
+    <value>Fransk (Canada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>fransk (Frankrike)</value>
+    <value>Fransk (Frankrike)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>tysk (Tyskland)</value>
+    <value>Tysk (Tyskland)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
     <value>Gresk (Hellas)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>hebraisk (Israel)</value>
+    <value>Hebraisk (Israel)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
     <value>Ungarsk (Ungarn)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>italiensk (Italia)</value>
+    <value>Italiensk (Italia)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>japansk (Japan)</value>
+    <value>Japansk (Japan)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>koreansk (Korea)</value>
+    <value>Koreansk (Korea)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>Latvisk (Latvia)</value>
@@ -2282,10 +2282,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Litauisk (Litauen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norsk Bokmal (Norge)</value>
+    <value>Norsk bokmål (Norge)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>polsk (Polen)</value>
+    <value>Polsk (Polen)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
     <value>Portugisisk (Brasil)</value>
@@ -2297,10 +2297,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Rumensk (Romania)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>russisk (Russland)</value>
+    <value>Russisk (Russland)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Serbisk latin (Serbia)</value>
+    <value>Serbisk, latinsk (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovakisk (Slovakia)</value>
@@ -2315,16 +2315,16 @@ Lisensiert under MIT-lisensen.</value>
     <value>Spansk (Spania)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>svensk (Sverige)</value>
+    <value>Svensk (Sverige)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
     <value>Thai (Thailand)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Tyrkisk (Türkiye)</value>
+    <value>Tyrkisk (Tyrkia)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukrainsk (ukrainsk)</value>
+    <value>Ukrainsk (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
     <value>Last opp datamaskinnavn til Autopilot</value>
@@ -2345,13 +2345,13 @@ Lisensiert under MIT-lisensen.</value>
     <value>Flytt komponent opp</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Aktiver maskinnavnsregler</value>
+    <value>Aktiver konfigurasjon av maskinnavngiving</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Konfigurer automatisk og teknikerassistert navngivning av enheter.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Datamaskinnavn</value>
+    <value>Maskinnavngiving</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Forhåndsvisning</value>
@@ -2372,13 +2372,13 @@ Lisensiert under MIT-lisensen.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Fjern eller deaktiver valgte Windows AI-komponenter før OOBE.</value>
+    <value>Fjern eller deaktiver Windows AI-komponenter.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>KI-komponenter</value>
+    <value>AI-komponenter</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Fjern valgte klargjorte Windows-apper før OOBE.</value>
+    <value>Velg klargjorte apper som skal fjernes.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-fjerninger</value>
@@ -2420,7 +2420,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Domenetilknytning</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standard Ethernet-tilkobling er tilgjengelig som standard. Konfigurer denne delen bare hvis det kablede nettverket ditt krever 802.1X enterprise-autentisering.</value>
+    <value>Konfigurer kablet 802.1X-autentisering.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2438,7 +2438,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Foundry OSD hjemme</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Hjem</value>
+    <value>Startside</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Be teknikeren om domenelegitimasjon under distribusjon.</value>
@@ -2450,25 +2450,25 @@ Lisensiert under MIT-lisensen.</value>
     <value>Konfigurer navn på distribuerte enheter.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Maskinnavn</value>
+    <value>Maskinnavngiving</value>
   </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Nettverk</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Konfigurer Windows 11 førstegangsskjermer og standardinnstillinger for personvern.</value>
+    <value>Konfigurer out-of-box-opplevelsen i Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Aktiver eller deaktiver Windows-komponenter i det distribuerte operativsystemet.</value>
+    <value>Aktiver eller deaktiver valgfrie Windows-funksjoner.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Valgfrie funksjoner</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definer Windows-versjonene, oppdateringsnivåene, språkene og utgavene som tilbys under utrulling.</value>
+    <value>Begrens valgene av operativsystem under distribusjon.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-valg</value>
@@ -2612,31 +2612,31 @@ Lisensiert under MIT-lisensen.</value>
     <value>Roaming av Windows-profiler</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Tilpass OOBE</value>
+    <value>Aktiver OOBE-konfigurasjon</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Konfigurer Windows 11 førstegangsskjermer og standardinnstillinger for personvern.</value>
+    <value>Konfigurer personvern- og oppsettsvalg for out-of-box-opplevelsen i Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Konfigurer valgfrie Windows-funksjoner</value>
+    <value>Aktiver konfigurasjon av valgfrie funksjoner</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Aktiver eller deaktiver Windows-komponenter i det distribuerte operativsystemet.</value>
+    <value>Velg valgfrie Windows-funksjoner som skal aktiveres eller deaktiveres.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows valgfrie funksjoner</value>
+    <value>Valgfrie funksjoner</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Alternativer for Windows-utrulling</value>
+    <value>Aktiver konfigurasjon av valg av operativsystem</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definer Windows-versjonene, oppdateringsnivåene, språkene og utgavene som tilbys under utrulling.</value>
+    <value>Konfigurer tillatte operativsystemversjoner, språk, kanaler og utgaver.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Alternativer for Windows-utrulling</value>
+    <value>OS-valg</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Legg til en aktivert handling, eller deaktiver etterinstallasjon.</value>
@@ -2735,7 +2735,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Importer mappe</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importerer innhold...</value>
+    <value>Importerer innhold…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Denne handlingen er ugyldig. Kontroller konfigurasjonen.</value>
@@ -2765,7 +2765,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Skriv inn en mappe fra det importerte innholdet, eller la feltet stå tomt.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Laster inn innhold...</value>
+    <value>Laster inn innhold…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importer det manglende innholdet for «{0}».</value>
@@ -3103,109 +3103,109 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Kontroller de påkrevde feltene. Hvis du blir bedt om en nettverksmappe, bruker du en bane som \\server\share\folder. Hvis du skriver inn filpassordet to ganger, må begge være like.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Tilkoblingen mislyktes</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Kontroller proxyinnstillingene</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nye tilkoblinger fra Foundry OSD bruker nå disse innstillingene.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Proxyinnstillingene er tatt i bruk</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD nådde GitHub- og Microsoft-tjenester med de valgte innstillingene.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Tilkoblingen var vellykket</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Angi et brukernavn og passord for eksplisitt proxyautentisering.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Bruk</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Bruk gjeldende Windows-legitimasjon</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Velg hvordan proxyen autentiserer Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentisering</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Brukernavn og passord</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Ingen autentisering</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Valgfrie vertsnavn eller jokertegnmønstre atskilt med semikolon.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Unntaksliste</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Koble direkte til vertsnavn som ikke inneholder punktum.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Omgå lokale adresser</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Legitimasjonen lagres sikkert i Legitimasjonsbehandling i Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Proxylegitimasjon</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domene (valgfritt)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Angi proxyadressen og porten.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxyserver</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Velg hvordan Foundry OSD kobler til Internett.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Proxymetode</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Ingen proxy (direkte tilkobling)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Manuell proxy</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Bruk Windows-innstillinger (anbefales)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Passord</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Disse innstillingene gjelder bare for denne appen. De legges ikke til i distribusjonsmedier og påvirker ikke Foundry Connect eller Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Bare Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Test tilkoblingen</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Brukernavn</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Innstillinger</value>
@@ -3223,7 +3223,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Sikkerhetskopiering og synkronisering av innstillinger</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigurer hvordan Foundry OSD kobler til nettjenester.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3361,13 +3361,13 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Nettverkskonfigurasjonen er ikke klar.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Ingen USB mål er valgt.</value>
+    <value>Ingen USB-stasjon er valgt.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nødvendige mediehemmeligheter er ikke klare.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Det valgte USB målet er for lite. Bruk en USB-nøkkel på minst 16 GB.</value>
+    <value>Den valgte USB-stasjonen er for liten. Bruk en USB-stasjon på minst 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Det valgte WinPE-tastaturoppsettet er ikke installert på denne datamaskinen.</value>
@@ -3376,7 +3376,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Valgt WinPE oppstartsspråk er ikke tilgjengelig for den valgte arkitekturen.</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard WinPE</value>
+    <value>Standard-WinPE</value>
   </data>
   <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
     <value>WinRE Wi-Fi bilde</value>
@@ -3415,7 +3415,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Formater og lag USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formater USB mål</value>
+    <value>Formater USB-stasjon</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows kan ikke lese volumene på denne disken. Den kan fortsatt inneholde data.</value>
@@ -3430,7 +3430,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Volumer på denne disken:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Alt på denne disken går tapt. Fortsett bare hvis dette er den tiltenkte USB-disken.</value>
+    <value>Alt på denne disken går tapt. Fortsett bare hvis dette er riktig USB-stasjon.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Opprett USB</value>
@@ -3478,7 +3478,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Koble til klargjøring</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Implementer konfigurasjon</value>
+    <value>Deploy-konfigurasjon</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Drivere</value>
@@ -3502,7 +3502,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Signaturmodus</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB mål</value>
+    <value>USB-mål</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE oppstartsspråk</value>
@@ -3520,10 +3520,10 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Medieoppretting er tilgjengelig når alle beredskapskontroller passerer.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Fullformat</value>
+    <value>Full formatering</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Rask formatering</value>
+    <value>Hurtigformatering</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>Velg hvor den genererte Foundry ISO skal skrives.</value>
@@ -3846,7 +3846,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Oppdater USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB mål kan oppdateres etter at ADK er klargjort.</value>
+    <value>USB-stasjoner kan oppdateres når ADK-kontrollene er fullført.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB stasjoner funnet: {0}</value>
@@ -3855,22 +3855,22 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Skanner USB mål.</value>
+    <value>Søker etter USB-stasjoner…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Ingen USB-stasjoner ble funnet.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB måloppdatering mislyktes.</value>
+    <value>Kunne ikke oppdatere USB-stasjonene.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formatatferd brukt før du kopierer det endelige USB-mediet.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Partisjonsskjema som brukes når du klargjør det valgte USB-målet.</value>
+    <value>Partisjonsskjema som brukes når den valgte USB-stasjonen klargjøres.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB mål</value>
+    <value>USB-mål</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Språk som brukes av WinPE oppstartsmiljøet.</value>
@@ -3909,7 +3909,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>App-tema</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Mørkt</value>
+    <value>Mørk</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>System</value>
@@ -4161,7 +4161,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Sikkerhetstype</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Åpne</value>
+    <value>Åpen</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (Opportunistic Wireless Encryption)</value>
@@ -4173,7 +4173,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Gi Wi-Fi støtte i oppstartsbildet</value>
+    <value>Aktiver Wi-Fi-klargjøring</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Konfigurer Wi-Fi-klargjøring, innebygde profiler og roaming av Windows-profiler.</value>

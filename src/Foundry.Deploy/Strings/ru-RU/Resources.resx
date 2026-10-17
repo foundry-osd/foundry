@@ -19,7 +19,7 @@
     <value>Это программное обеспечение предоставляется как есть. Перед использованием просмотрите настройки развертывания.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Авторские права (c) 2026 Mickaël CHAVE и участники Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE и участники Foundry Project.
 Лицензировано по лицензии MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -38,7 +38,7 @@
     <value>Просмотрите параметры подготовки Autopilot для этого устройства.</value>
   </data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
-    <value>Отправляет аппаратный хеш этого устройства в Windows Autopilot во время развертывания.</value>
+    <value>Отправляет аппаратный хэш этого устройства в Windows Autopilot во время развертывания.</value>
   </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Добавляет автономный профиль Autopilot в установку Windows.</value>
@@ -122,7 +122,7 @@
     <value>Н/Д</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Предыдущий</value>
+    <value>Назад</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недоступно</value>
@@ -191,7 +191,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Zero-touch отправка аппаратного хеша</value>
+    <value>Zero-touch отправка аппаратного хэша</value>
   </data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
     <value>Сертификат с истекшим сроком действия</value>
@@ -478,7 +478,7 @@
     <value>Датский (Дания)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Голландский (Нидерланды)</value>
+    <value>Нидерландский (Нидерланды)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Английский (Великобритания)</value>
@@ -526,7 +526,7 @@
     <value>Литовский (Литва)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Норвежский букмал (Норвегия)</value>
+    <value>Норвежский букмол (Норвегия)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Польский (Польша)</value>
@@ -544,7 +544,7 @@
     <value>Русский (Россия)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Сербская латынь (Сербия)</value>
+    <value>Сербский, латиница (Сербия)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Словацкий (Словакия)</value>
@@ -565,7 +565,7 @@
     <value>Тайский (Таиланд)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Турецкий (Türkiye)</value>
+    <value>Турецкий (Турция)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Украинский (Украина)</value>
@@ -586,7 +586,7 @@
     <value>Подтвердить очистку диска</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_О нас</value>
+    <value>_О программе</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Отладка</value>
@@ -640,7 +640,7 @@
     <value>Не удается подготовить кэш образа. Проверьте свободное место и доступ на запись в кэш.</value>
   </data>
   <data name="Preflight.DownloadVerificationFailed" xml:space="preserve">
-    <value>Не удалось проверить хеш скачанного образа Windows. Проверьте сетевое подключение и устройство хранения и повторите попытку.</value>
+    <value>Не удалось проверить хэш скачанного образа Windows. Проверьте сетевое подключение и устройство хранения и повторите попытку.</value>
   </data>
   <data name="Preflight.InsufficientCapacity" xml:space="preserve">
     <value>На целевом диске недостаточно места для известных требований развертывания. Выберите диск большей емкости.</value>
@@ -652,7 +652,7 @@
     <value>Размер образа после применения недоступен или недействителен. Выберите другой образ.</value>
   </data>
   <data name="Preflight.InvalidMetadata" xml:space="preserve">
-    <value>Метаданные размера или хеша образа в каталоге недействительны. Выберите другой образ или перезапустите устройство с носителя для развёртывания, чтобы заново загрузить каталог.</value>
+    <value>Метаданные размера или хэша образа в каталоге недействительны. Выберите другой образ или перезапустите устройство с носителя для развёртывания, чтобы заново загрузить каталог.</value>
   </data>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>URL образа должен использовать HTTP или HTTPS. Выберите другой образ или перезапустите устройство с носителя для развёртывания, чтобы заново загрузить каталог.</value>
@@ -670,34 +670,34 @@
     <value>Срок действия сертификата</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
-    <value>Срок действия сертификата Autopilot истек. Развертывание можно продолжить без загрузки аппаратного хеша.</value>
+    <value>Срок действия сертификата Autopilot истек. Развертывание можно продолжить без отправки аппаратного хэша.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
     <value>Тег группы</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
-    <value>Отсутствует необходимая информация о сертификате. Развертывание можно продолжить без загрузки аппаратного хеша.</value>
+    <value>Отсутствует необходимая информация о сертификате. Развертывание можно продолжить без отправки аппаратного хэша.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Готово загрузить аппаратный хэш</value>
+    <value>Готово к отправке аппаратного хэша</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
-    <value>Идентификатор арендатора</value>
+    <value>Идентификатор клиента</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
-    <value>Загрузка аппаратного хеша недоступна</value>
+    <value>Отправка аппаратного хэша недоступна</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>Статус загрузки аппаратного хеша</value>
+    <value>Статус отправки аппаратного хэша</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
-    <value>Zero-touch отправка аппаратного хеша</value>
+    <value>Zero-touch отправка аппаратного хэша</value>
   </data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
-    <value>Интерактивная отправка аппаратного хеша</value>
+    <value>Интерактивная отправка аппаратного хэша</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON подготовка профиля</value>
+    <value>Профиль JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Профиль</value>
@@ -730,7 +730,7 @@
     <value>{0} | TPM: {1} | Сила: {2} | Прошивка: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>переменного тока</value>
+    <value>От сети</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Батарея</value>
@@ -952,10 +952,10 @@
     <value>Применение изменений функций...</value>
   </data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Аутентификация загрузки аппаратного хеша Autopilot...</value>
+    <value>Аутентификация отправки аппаратного хэша Autopilot...</value>
   </data>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
-    <value>Захват аппаратного хеша Autopilot...</value>
+    <value>Захват аппаратного хэша Autopilot...</value>
   </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Проверка доступного места...</value>
@@ -1039,7 +1039,7 @@
     <value>Завершение развертывания...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
-    <value>Импорт аппаратного хеша в Microsoft Graph...</value>
+    <value>Импорт аппаратного хэша в Microsoft Graph...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Внедрение содержимого прошивки в оффлайн Windows...</value>
@@ -1057,7 +1057,7 @@
     <value>Разбиение целевого диска...</value>
   </data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
-    <value>Подготовка Autopilot к загрузке аппаратного хеша...</value>
+    <value>Подготовка отправки аппаратного хэша Autopilot...</value>
   </data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve">
     <value>Подготовка загрузки...</value>
@@ -1129,7 +1129,7 @@
     <value>Обновление группового тега Windows Autopilot в Microsoft Graph...</value>
   </data>
   <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
-    <value>Загрузка аппаратного хеша Autopilot...</value>
+    <value>Отправка аппаратного хэша Autopilot...</value>
   </data>
   <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
     <value>Проверка целевой конфигурации...</value>
@@ -1150,7 +1150,7 @@
     <value>Написание сводки по развертыванию...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
-    <value>Написание смоделированного манифеста хеша Autopilot...</value>
+    <value>Запись смоделированного манифеста хэша Autopilot...</value>
   </data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
     <value>Написание смоделированного манифеста Autopilot...</value>
@@ -1204,28 +1204,28 @@
     <value>Обновление тега группы устройств Windows Autopilot не было подтверждено до истечения времени ожидания.</value>
   </data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
-    <value>Аппаратный хеш Autopilot импортирован и виден на устройствах Windows Autopilot.</value>
+    <value>Аппаратный хэш Autopilot импортирован и отображается в списке устройств Windows Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
-    <value>Autopilot не удалось получить аппаратный хэш: {0}</value>
+    <value>Не удалось получить аппаратный хэш Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
-    <value>Autopilot не удалось импортировать аппаратный хэш: {0}</value>
+    <value>Не удалось импортировать аппаратный хэш Autopilot: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
-    <value>Autopilot аппаратная загрузка хеша, подготовленная для моделирования.</value>
+    <value>Отправка аппаратного хэша Autopilot подготовлена для моделирования.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot аппаратная загрузка хеша подготовлена (симуляция).</value>
+    <value>Отправка аппаратного хэша Autopilot подготовлена (симуляция).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
-    <value>Загрузка аппаратного хэша Autopilot пропущена, поскольку срок действия встроенного сертификата истек.</value>
+    <value>Отправка аппаратного хэша Autopilot пропущена, поскольку срок действия встроенного сертификата истек.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
-    <value>Autopilot загрузка аппаратного хеша пропущена: {0}</value>
+    <value>Отправка аппаратного хэша Autopilot пропущена: {0}</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
-    <value>Autopilot Загрузка хэша оборудования пропущена, поскольку необходимая информация о сертификате носителя неполная.</value>
+    <value>Отправка аппаратного хэша Autopilot пропущена, поскольку необходимая информация о сертификате носителя неполная.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot включен, но профиль не выбран.</value>
@@ -1444,7 +1444,7 @@
     <value>Целевой раздел Windows недоступен для промежуточного хранения Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
-    <value>Целевой раздел Windows недоступен для загрузки аппаратного хеша Autopilot.</value>
+    <value>Целевой раздел Windows недоступен для отправки аппаратного хэша Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
     <value>Целевой раздел Windows недоступен для подготовки интерактивного помощника регистрации Autopilot.</value>
@@ -1486,7 +1486,7 @@
     <value>Развертывание завершено</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>Извлеките загрузочный носитель, затем выберите «Перезапустить».</value>
+    <value>Извлеките загрузочный носитель, затем выберите «Перезагрузить».</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>Этот компьютер перезагрузится через {0}s.</value>
@@ -1498,13 +1498,13 @@
     <value>Дополнительные локальные учетные записи</value>
   </data>
   <data name="Summary.AdvertisingId" xml:space="preserve">
-    <value>Advertising ID</value>
+    <value>Рекламный идентификатор</value>
   </data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve">
     <value>Удаление компонентов ИИ</value>
   </data>
   <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
-    <value>Application and AI removal</value>
+    <value>Удаление приложений и компонентов ИИ</value>
   </data>
   <data name="Summary.AppxRemoval" xml:space="preserve">
     <value>Удаление AppX</value>
@@ -1555,7 +1555,7 @@
     <value>Проверьте выбранные параметры перед началом развертывания.</value>
   </data>
   <data name="Summary.DiagnosticData" xml:space="preserve">
-    <value>Diagnostic data</value>
+    <value>Диагностические данные</value>
   </data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve">
     <value>Выключен</value>
@@ -1573,16 +1573,16 @@
     <value>Функции отключены</value>
   </data>
   <data name="Summary.FeaturesEnabled" xml:space="preserve">
-    <value>Features enabled</value>
+    <value>Функции включены</value>
   </data>
   <data name="Summary.HidePrivacySetup" xml:space="preserve">
-    <value>Hide privacy setup</value>
+    <value>Скрыть настройки конфиденциальности</value>
   </data>
   <data name="Summary.Included" xml:space="preserve">
     <value>Включен</value>
   </data>
   <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
-    <value>Inking and typing diagnostics</value>
+    <value>Диагностика рукописного ввода и набора текста</value>
   </data>
   <data name="Summary.Language" xml:space="preserve">
     <value>Язык</value>
@@ -1591,7 +1591,7 @@
     <value>Лицензионный канал</value>
   </data>
   <data name="Summary.LocationAccess" xml:space="preserve">
-    <value>Location access</value>
+    <value>Доступ к местоположению</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
     <value>Принудительно выключен</value>
@@ -1618,7 +1618,7 @@
     <value>Не включен</value>
   </data>
   <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
-    <value>Online speech recognition</value>
+    <value>Распознавание речи онлайн</value>
   </data>
   <data name="Summary.Oobe" xml:space="preserve">
     <value>OOBE</value>
@@ -1627,7 +1627,7 @@
     <value>Материал с закрытым ключом</value>
   </data>
   <data name="Summary.ProvisioningMethod" xml:space="preserve">
-    <value>Provisioning method</value>
+    <value>Способ подготовки</value>
   </data>
   <data name="Summary.Release" xml:space="preserve">
     <value>Версия</value>
@@ -1648,10 +1648,10 @@
     <value>Пропустить создание учетной записи</value>
   </data>
   <data name="Summary.SkipLicenseTerms" xml:space="preserve">
-    <value>Skip license terms</value>
+    <value>Пропустить условия лицензии</value>
   </data>
   <data name="Summary.Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Состояние</value>
   </data>
   <data name="Summary.Status.Configured" xml:space="preserve">
     <value>Настроено</value>
@@ -1663,7 +1663,7 @@
     <value>Не настроено</value>
   </data>
   <data name="Summary.TailoredExperiences" xml:space="preserve">
-    <value>Tailored experiences</value>
+    <value>Персонализированные возможности</value>
   </data>
   <data name="Summary.TargetDisk" xml:space="preserve">
     <value>Целевой диск</value>
@@ -1672,10 +1672,10 @@
     <value>Сводка по развертыванию</value>
   </data>
   <data name="Summary.TotalConfigured" xml:space="preserve">
-    <value>Total configured</value>
+    <value>Всего настроено</value>
   </data>
   <data name="Summary.WarningDetails" xml:space="preserve">
-    <value>Warning details</value>
+    <value>Сведения о предупреждении</value>
   </data>
   <data name="Summary.Wifi" xml:space="preserve">
     <value>Wi-Fi</value>
@@ -1747,10 +1747,10 @@
     <value>Темный</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Свет</value>
+    <value>Светлый</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
-    <value>Система</value>
+    <value>Системный</value>
   </data>
   <data name="Tools.OpenLogFile" xml:space="preserve">
     <value>Открыть файл журнала</value>

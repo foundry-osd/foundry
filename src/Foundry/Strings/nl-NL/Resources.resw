@@ -25,7 +25,7 @@
     <value>Bijdragers kunnen niet worden geladen vanuit GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Bijdragers laden...</value>
+    <value>Bijdragers laden…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Bijdragers</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD is een moderne app voor het schrijven van Windows-implementatiemedia, mogelijk gemaakt door WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Auteursrecht (c) 2026 Mickaël CHAVE en de bijdragers aan Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE en de bijdragers aan Foundry Project.
 Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Release-opmerkingen konden niet worden geladen in de ingebouwde browser.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Releaseopmerkingen laden...</value>
+    <value>Releaseopmerkingen laden…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Release-opmerkingen</value>
@@ -77,10 +77,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Ondersteuning</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Pakketlicenties van derden worden bijgehouden via de projectrepository en afhankelijkheidsmanifesten.</value>
+    <value>Foundry OSD gebruikt de volgende bibliotheken en hulpprogramma's. Hieronder vindt u de licenties en projectpagina's.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Afhankelijkheden van derden</value>
+    <value>Licenties van derden</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>Over Foundry OSD</value>
@@ -221,19 +221,19 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Upgrade Windows ADK en Windows PE Add-on</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Verwijder AI-componenten</value>
+    <value>Configuratie van AI-componenten inschakelen</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Verwijder of schakel geselecteerde Windows AI-componenten vóór OOBE uit.</value>
+    <value>Kies Windows AI-componenten en -ervaringen die u wilt verwijderen of uitschakelen.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>Verwijdering van AI-componenten</value>
+    <value>AI-componenten</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Verwijder ingerichte Windows-apps</value>
+    <value>AppX-verwijderingen inschakelen</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Verwijder geselecteerde ingerichte Windows-apps vóór OOBE.</value>
+    <value>Kies ingerichte Windows-apps die u van geïmplementeerde apparaten wilt verwijderen.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX-verwijderingen</value>
@@ -302,7 +302,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Geen Autopilot profielen gevonden</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Autopilot profielen downloaden...</value>
+    <value>Autopilot profielen downloaden…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} is geconfigureerd.</value>
@@ -419,7 +419,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Huurder verbinden</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Huurder verbinden...</value>
+    <value>Huurder verbinden…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Certificaat maken</value>
@@ -554,7 +554,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Importeer Autopilot profiel JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot profiel importeren...</value>
+    <value>Autopilot profiel importeren…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Indien ingeschakeld, meldt de technicus zich tijdens de Windows-installatie aan met een Microsoft-apparaatcode en uploadt de hardware-hash van het apparaat.</value>
@@ -614,7 +614,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Annuleer</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Duidelijk</value>
+    <value>Wissen</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>Kies welke huurderprofielen moeten worden geïmporteerd in Foundry.</value>
@@ -638,10 +638,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Interactieve hardware-hash-upload</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Plaats een offline Autopilot-profiel in de toegepaste Windows-afbeelding.</value>
+    <value>Importeer of download het Autopilot-profiel dat in de implementatiemedia wordt ingesloten.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profielinrichting</value>
+    <value>JSON-profiel</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Configureer automatische upload van hardwarehashes via de tenant.</value>
@@ -1796,7 +1796,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Zoek op weergavenaam of DISM-functienaam</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exporteren...</value>
+    <value>Exporteren…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Maak een opgeschoond ondersteuningsarchief zonder de oorspronkelijke logboeken te wijzigen.</value>
@@ -1814,7 +1814,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Exporteren van diagnostiek mislukt</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Geavanceerd: ruwe logboeken exporteren...</value>
+    <value>Geavanceerd: ruwe logboeken exporteren…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Ruwe logboeken exporteren</value>
@@ -1871,7 +1871,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Ja</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>OU's zoeken in het domein...</value>
+    <value>OU's zoeken in het domein…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Zoeken geannuleerd.</value>
@@ -2051,10 +2051,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Selecteer 802.1X-certificaat</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configureer bekabeld 802.1X</value>
+    <value>Configuratie van Ethernet 802.1X inschakelen</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standaard Ethernet-connectiviteit is standaard beschikbaar. Configureer deze sectie alleen als uw bekabelde netwerk 802.1X bedrijfsverificatie vereist.</value>
+    <value>Configureer bekabelde 802.1X-verificatie en roaming van Windows-profielen.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2096,7 +2096,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Voer overeenkomende wachtwoorden van minimaal 8 tekens in.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
-    <value>Configureer de mediabasis, WinPE-taal, opstartsignatuur, stuurprogramma’s en tijdzone van Windows PE.</value>
+    <value>Configureer de mediabasis, WinPE-taal, opstartsignatuur, stuurprogramma's en tijdzone van Windows PE.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
     <value>Kies het ondertekeningsbeleid voor veilig opstarten dat wordt gebruikt voor gegenereerde media.</value>
@@ -2282,7 +2282,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Litouws (Litouwen)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Noors Bokmal (Noorwegen)</value>
+    <value>Noors, Bokmål (Noorwegen)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Pools (Polen)</value>
@@ -2300,7 +2300,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Russisch (Rusland)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Servisch Latijn (Servië)</value>
+    <value>Servisch, Latijns (Servië)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slowaaks (Slowakije)</value>
@@ -2345,13 +2345,13 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Onderdeel omhoog verplaatsen</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Schakel naamgevingsregels voor machines in</value>
+    <value>Configuratie van computernaamgeving inschakelen</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Configureer automatische en door technici ondersteunde apparaatnaamgeving.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Computernaam</value>
+    <value>Computernaamgeving</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Voorbeeld</value>
@@ -2372,13 +2372,13 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Verwijder of schakel geselecteerde Windows AI-componenten vóór OOBE uit.</value>
+    <value>Verwijder of schakel Windows AI-componenten uit.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI-onderdelen</value>
+    <value>AI-componenten</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Verwijder geselecteerde ingerichte Windows-apps vóór OOBE.</value>
+    <value>Selecteer ingerichte apps om te verwijderen.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX-verwijderingen</value>
@@ -2420,7 +2420,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Domeintoetreding</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standaard Ethernet-connectiviteit is standaard beschikbaar. Configureer deze sectie alleen als uw bekabelde netwerk 802.1X bedrijfsverificatie vereist.</value>
+    <value>Configureer bekabelde 802.1X-verificatie.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2438,7 +2438,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Foundry OSD thuis</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Thuis</value>
+    <value>Startpagina</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>Vraag de technicus tijdens de implementatie om domeinreferenties.</value>
@@ -2456,19 +2456,19 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Netwerk</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Configureer Windows 11 eerste-run-schermen en privacy-standaardinstellingen.</value>
+    <value>Configureer de out-of-box-ervaring van Windows.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Schakel Windows-componenten in het geïmplementeerde besturingssysteem in of uit.</value>
+    <value>Schakel optionele Windows-functies in of uit.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Optionele functies</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Definieer de Windows-versies, updateniveaus, talen en edities die tijdens de implementatie worden aangeboden.</value>
+    <value>Beperk de keuzes voor het besturingssysteem tijdens de implementatie.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-selectie</value>
@@ -2612,31 +2612,31 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Roaming van Windows-profielen</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>OOBE aanpassen</value>
+    <value>OOBE-configuratie inschakelen</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Configureer Windows 11 eerste-run-schermen en privacy-standaardinstellingen.</value>
+    <value>Configureer privacy- en installatieopties voor de out-of-box-ervaring van Windows.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configureer optionele Windows-functies</value>
+    <value>Configuratie van optionele functies inschakelen</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Schakel Windows-componenten in het geïmplementeerde besturingssysteem in of uit.</value>
+    <value>Kies optionele Windows-functies die u wilt in- of uitschakelen.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Optionele Windows-functies</value>
+    <value>Optionele functies</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows-implementatieopties</value>
+    <value>Configuratie van besturingssysteemselectie inschakelen</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Definieer de Windows-versies, updateniveaus, talen en edities die tijdens de implementatie worden aangeboden.</value>
+    <value>Configureer toegestane besturingssysteemreleases, talen, kanalen en edities.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows-implementatieopties</value>
+    <value>OS-selectie</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Voeg een ingeschakelde actie toe of schakel de na-installatie uit.</value>
@@ -2735,7 +2735,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Map importeren</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Inhoud importeren...</value>
+    <value>Inhoud importeren…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Deze actie is ongeldig. Controleer de configuratie.</value>
@@ -2747,7 +2747,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Selecteer een script of installatieprogramma uit de geïmporteerde inhoud.</value>
   </data>
   <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
-    <value>Voer maximaal 32 unieke, niet-negatieve afsluitcodes in, gescheiden door komma’s. Gebruik geen 1641.</value>
+    <value>Voer maximaal 32 unieke, niet-negatieve afsluitcodes in, gescheiden door komma's. Gebruik geen 1641.</value>
   </data>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Voer een naam van 1–256 tekens zonder besturingstekens in.</value>
@@ -2765,7 +2765,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Voer een map uit de geïmporteerde inhoud in of laat dit veld leeg.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Inhoud laden...</value>
+    <value>Inhoud laden…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importeer de ontbrekende inhoud voor '{0}'.</value>
@@ -2870,7 +2870,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Verbindingswachtwoord</value>
   </data>
   <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Andere pc’s hebben dit wachtwoord nodig om verbinding te maken.</value>
+    <value>Andere pc's hebben dit wachtwoord nodig om verbinding te maken.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Doorgaan</value>
@@ -2900,7 +2900,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Verbinding verbreken</value>
   </data>
   <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Stoppen met het synchroniseren van deze configuratie op deze pc? Je huidige instellingen blijven behouden. De gedeelde configuratie en andere pc’s worden niet gewijzigd.</value>
+    <value>Stoppen met het synchroniseren van deze configuratie op deze pc? Je huidige instellingen blijven behouden. De gedeelde configuratie en andere pc's worden niet gewijzigd.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exporteren</value>
@@ -3085,7 +3085,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Synchroniseren</value>
   </data>
   <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Deze configuratie op de pc’s van uw team actueel houden.</value>
+    <value>Deze configuratie op de pc's van uw team actueel houden.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>De instellingen zijn bijgewerkt</value>
@@ -3103,109 +3103,109 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Controleer de verplichte velden. Als om een netwerkmap wordt gevraagd, gebruik dan een pad zoals \\server\share\folder. Als je een bestandswachtwoord tweemaal invoert, controleer dan of beide invoeren overeenkomen.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Verbinding mislukt</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Controleer de proxyinstellingen</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nieuwe verbindingen vanuit Foundry OSD gebruiken nu deze instellingen.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Proxyinstellingen toegepast</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD heeft GitHub- en Microsoft-services bereikt met de geselecteerde instellingen.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Verbinding geslaagd</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Voer een gebruikersnaam en wachtwoord in voor expliciete proxyverificatie.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Toepassen</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Huidige Windows-referenties gebruiken</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Kies hoe Foundry OSD zich bij de proxy verifieert.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Verificatie</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Gebruikersnaam en wachtwoord</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Geen verificatie</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Optionele hostnamen of jokertekenpatronen, gescheiden door puntkomma's.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Uitzonderingslijst</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Rechtstreeks verbinden met hostnamen die geen punt bevatten.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Lokale adressen overslaan</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Referenties worden veilig opgeslagen in Windows Referentiebeheer.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Proxyreferenties</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domein (optioneel)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Voer het proxyadres en de poort in.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxyserver</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Kies hoe Foundry OSD verbinding maakt met internet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Proxymethode</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Geen proxy (directe verbinding)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Handmatige proxy</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Windows-instellingen gebruiken (aanbevolen)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Wachtwoord</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Deze instellingen gelden alleen voor deze app. Ze worden niet toegevoegd aan implementatiemedia en hebben geen invloed op Foundry Connect of Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Alleen Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Verbinding testen</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Gebruikersnaam</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Instellingen</value>
@@ -3223,7 +3223,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Back-up en synchronisatie van instellingen</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Configureer hoe Foundry OSD verbinding maakt met onlineservices.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3235,7 +3235,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Diagnostiek op afstand inschakelen</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Verzend anonieme gebruikstelemetrie om Foundry te helpen verbeteren. Geheimen en directe apparaat-id’s, waaronder serienummers en hardwarehashes, worden uitgesloten. Telemetrie gebruikt een anonieme installatie-id en kan de fabrikant en het model van het apparaat bevatten.</value>
+    <value>Verzend anonieme gebruikstelemetrie om Foundry te helpen verbeteren. Geheimen en directe apparaat-id's, waaronder serienummers en hardwarehashes, worden uitgesloten. Telemetrie gebruikt een anonieme installatie-id en kan de fabrikant en het model van het apparaat bevatten.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Schakel telemetrie in</value>
@@ -3361,13 +3361,13 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Netwerkconfiguratie is niet gereed.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>Er is geen USB doel geselecteerd.</value>
+    <value>Er is geen USB-station geselecteerd.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Vereiste mediageheimen zijn niet gereed.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Het geselecteerde USB doel is te klein. Gebruik een USB-sleutel van minimaal 16 GB.</value>
+    <value>Het geselecteerde USB-station is te klein. Gebruik een USB-station van minimaal 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>De geselecteerde WinPE-toetsenbordindeling is niet geïnstalleerd op deze computer.</value>
@@ -3400,7 +3400,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Het maken van ISO is geblokkeerd</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>Maak ISO aan</value>
+    <value>ISO maken</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Het maken van USB is geblokkeerd</value>
@@ -3415,7 +3415,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Formatteer en creëer USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Formaat USB doel</value>
+    <value>USB-station formatteren</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows kan de volumes op deze schijf niet lezen. Er kunnen nog steeds gegevens op staan.</value>
@@ -3430,10 +3430,10 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Volumes op deze schijf:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Alles op deze schijf gaat verloren. Ga alleen verder als dit de beoogde USB-schijf is.</value>
+    <value>Alles op deze schijf gaat verloren. Ga alleen door als dit het juiste USB-station is.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>Maak USB aan</value>
+    <value>USB maken</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Optionele map met extra .inf-stuurprogramma's.</value>
@@ -3478,7 +3478,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Sluit de inrichting aan</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Configuratie implementeren</value>
+    <value>Deploy-configuratie</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Chauffeurs</value>
@@ -3502,7 +3502,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Handtekeningmodus</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB doel</value>
+    <value>USB-doel</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE opstarttaal</value>
@@ -3520,7 +3520,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Het maken van media is beschikbaar wanneer alle gereedheidscontroles zijn geslaagd.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Volledig formaat</value>
+    <value>Volledig formatteren</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Snel formatteren</value>
@@ -3589,7 +3589,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Cachepartitie maken.</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
-    <value>De aangepaste stuurprogramma’s nemen minstens {0} in beslag; het maximum is {1}. Selecteer alleen de netwerk- en opslagstuurprogramma’s die Windows PE nodig heeft.</value>
+    <value>De aangepaste stuurprogramma's nemen minstens {0} in beslag; het maximum is {1}. Selecteer alleen de netwerk- en opslagstuurprogramma's die Windows PE nodig heeft.</value>
   </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Het opstartimage aanpassen.</value>
@@ -3754,7 +3754,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>USB-media bijwerken.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
-    <value>De USB-BOOT-partitie heeft ongeveer {0} nodig, maar de capaciteit is {1}. Er is niets gewist of geformatteerd. Verminder de aanpassingen of stuurprogramma’s, of maak een ISO.</value>
+    <value>De USB-BOOT-partitie heeft ongeveer {0} nodig, maar de capaciteit is {1}. Er is niets gewist of geformatteerd. Verminder de aanpassingen of stuurprogramma's, of maak een ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
     <value>De capaciteit van de USB-BOOT-partitie kon niet worden gecontroleerd. Er is niets gewist of geformatteerd. Controleer het USB-station, sluit het opnieuw aan en probeer het opnieuw. Controleer ook of de bronbestanden toegankelijk zijn.</value>
@@ -3790,7 +3790,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Controleer de gereedheid, kies ISO- of USB-uitvoer en start het maken van media.</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Beoordeling</value>
+    <value>Controleren</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Klaar</value>
@@ -3846,7 +3846,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>USB bijwerken</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB doelen kunnen worden vernieuwd nadat ADK gereed is.</value>
+    <value>USB-stations kunnen worden vernieuwd zodra de ADK-controles zijn voltooid.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB schijven gevonden: {0}</value>
@@ -3855,22 +3855,22 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Schijf {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>USB doelen scannen.</value>
+    <value>Zoeken naar USB-stations…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Er zijn geen USB-schijven gevonden.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB doelvernieuwing mislukt.</value>
+    <value>Vernieuwen van USB-stations is mislukt.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formaatgedrag dat wordt gebruikt voordat de definitieve USB-media worden gekopieerd.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Partitieschema gebruikt bij het voorbereiden van het geselecteerde USB doel.</value>
+    <value>Partitieschema dat wordt gebruikt bij het voorbereiden van het geselecteerde USB-station.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB doel</value>
+    <value>USB-doel</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>Taal gebruikt door de WinPE opstartomgeving.</value>
@@ -4161,7 +4161,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Beveiligingstype</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Openen</value>
+    <value>Open</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (opportunistische draadloze codering)</value>
@@ -4173,7 +4173,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Zorg voor Wi-Fi-ondersteuning in de opstartimage</value>
+    <value>Wi-Fi-inrichting inschakelen</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Configureer Wi-Fi-inrichting, ingesloten profielen en roaming van Windows-profielen.</value>

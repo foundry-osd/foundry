@@ -19,7 +19,7 @@
     <value>이 소프트웨어는 있는 그대로 제공됩니다. 사용하기 전에 배포 설정을 검토하세요.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>저작권 (c) 2026 Mickaël CHAVE 및 Foundry Project 기여자.
+    <value>Copyright (c) 2026 Mickaël CHAVE 및 Foundry Project 기여자.
 MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -544,7 +544,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>러시아어(러시아)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>세르비아어 라틴어(세르비아)</value>
+    <value>세르비아어 라틴 문자(세르비아)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>슬로바키아어(슬로바키아)</value>
@@ -565,7 +565,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>태국어(태국)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>터키어(터키어)</value>
+    <value>튀르키예어(튀르키예)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>우크라이나어(우크라이나)</value>
@@ -586,7 +586,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>디스크 삭제 확인</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_소개</value>
+    <value>_정보</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_디버그</value>
@@ -697,7 +697,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>대화형 하드웨어 해시 업로드</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON 프로필 프로비저닝</value>
+    <value>JSON 프로필</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>프로필</value>
@@ -1486,13 +1486,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>배포 완료</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve">
-    <value>부팅 미디어를 제거한 다음 다시 시작을 선택하세요.</value>
+    <value>부팅 미디어를 제거한 다음 [다시 시작]을 선택하세요.</value>
   </data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve">
     <value>이 컴퓨터는 {0}s 후에 다시 시작됩니다.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>재부팅</value>
+    <value>다시 시작</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>추가 로컬 계정</value>
@@ -1744,10 +1744,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>어둠</value>
+    <value>어둡게</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>빛</value>
+    <value>밝게</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>시스템</value>

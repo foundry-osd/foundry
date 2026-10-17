@@ -19,7 +19,7 @@
     <value>To oprogramowanie jest dostarczane w stanie takim, w jakim jest. Przed kontynuowaniem wdrażania potwierdź dostęp do sieci.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Prawa autorskie (c) 2026 Mickaël CHAVE i współtwórcy Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i współtwórcy Foundry Project.
 Licencjonowany na licencji MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -165,10 +165,10 @@ Licencjonowany na licencji MIT.</value>
     <value>bułgarski (Bułgaria)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chiński uproszczony (Chiny)</value>
+    <value>chiński uproszczony (Chiny)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chiński tradycyjny (Tajwan)</value>
+    <value>chiński tradycyjny (Tajwan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
     <value>chorwacki (Chorwacja)</value>
@@ -180,13 +180,13 @@ Licencjonowany na licencji MIT.</value>
     <value>duński (Dania)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Holenderski (Holandia)</value>
+    <value>holenderski (Holandia)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>Angielski (Wielka Brytania)</value>
+    <value>angielski (Wielka Brytania)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>Angielski (Stany Zjednoczone)</value>
+    <value>angielski (Stany Zjednoczone)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>estoński (Estonia)</value>
@@ -195,7 +195,7 @@ Licencjonowany na licencji MIT.</value>
     <value>fiński (Finlandia)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>Francuski (Kanada)</value>
+    <value>francuski (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
     <value>francuski (Francja)</value>
@@ -213,10 +213,10 @@ Licencjonowany na licencji MIT.</value>
     <value>węgierski (Węgry)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>Włoski (Włochy)</value>
+    <value>włoski (Włochy)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>Japoński (Japonia)</value>
+    <value>japoński (Japonia)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
     <value>koreański (Korea)</value>
@@ -228,10 +228,10 @@ Licencjonowany na licencji MIT.</value>
     <value>litewski (Litwa)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norweski bokmal (Norwegia)</value>
+    <value>norweski bokmal (Norwegia)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>Polski (Polska)</value>
+    <value>polski (Polska)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
     <value>portugalski (Brazylia)</value>
@@ -243,10 +243,10 @@ Licencjonowany na licencji MIT.</value>
     <value>rumuński (Rumunia)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>Rosyjski (Rosja)</value>
+    <value>rosyjski (Rosja)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Serbski łaciński (Serbia)</value>
+    <value>serbski łaciński (Serbia)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>słowacki (Słowacja)</value>
@@ -264,16 +264,16 @@ Licencjonowany na licencji MIT.</value>
     <value>szwedzki (Szwecja)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>Tajski (Tajlandia)</value>
+    <value>tajski (Tajlandia)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turecki (Türkiye)</value>
+    <value>turecki (Turcja)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>Ukraiński (Ukraina)</value>
+    <value>ukraiński (Ukraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>O</value>
+    <value>Informacje</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Debuguj</value>
@@ -288,7 +288,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Język</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Temat</value>
+    <value>Motyw</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>Narzędzia</value>
@@ -315,7 +315,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Ciemny</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Światło</value>
+    <value>Jasny</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>Systemu</value>
@@ -408,7 +408,7 @@ Licencjonowany na licencji MIT.</value>
     <value>{0} (maszyna lub użytkownik)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Otwórz</value>
+    <value>Otwarte</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Osobiste</value>

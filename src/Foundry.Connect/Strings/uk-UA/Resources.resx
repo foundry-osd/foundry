@@ -19,7 +19,7 @@
     <value>Це програмне забезпечення надається як є. Перед продовженням розгортання підтвердьте доступ до мережі.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Авторські права (c) 2026 Mickaël CHAVE та учасники Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE та учасники Foundry Project.
 Ліцензовано згідно з ліцензією MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -41,7 +41,7 @@
     <value>Foundry Connect</value>
   </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
-    <value>Неможливо визначити версію Foundry OSD, використану для створення цього завантажувального носія. Спочатку оновіть Foundry OSD на комп’ютері для створення носіїв, потім створіть ISO заново або оновіть завантажувальний USB-носій.</value>
+    <value>Неможливо визначити версію Foundry OSD, використану для створення цього завантажувального носія. Спочатку оновіть Foundry OSD на комп'ютері для створення носіїв, потім створіть ISO заново або оновіть завантажувальний USB-носій.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
     <value>Доступна нова версія. Оновіть Foundry OSD і створіть завантажувальний носій заново.</value>
@@ -50,7 +50,7 @@
     <value>Оновіть Foundry OSD і створіть завантажувальний носій заново.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Цей завантажувальний носій створено за допомогою старішої версії Foundry OSD. Спочатку оновіть Foundry OSD на комп’ютері для створення носіїв, потім створіть ISO заново або оновіть завантажувальний USB-носій.</value>
+    <value>Цей завантажувальний носій створено за допомогою старішої версії Foundry OSD. Спочатку оновіть Foundry OSD на комп'ютері для створення носіїв, потім створіть ISO заново або оновіть завантажувальний USB-носій.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Скасувати</value>
@@ -159,7 +159,7 @@
     <value>Інші мови</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>арабська (Саудівська Аравія)</value>
+    <value>Арабська (Саудівська Аравія)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>Болгарська (Болгарія)</value>
@@ -177,43 +177,43 @@
     <value>Чеська (Чехія)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>датська (Данія)</value>
+    <value>Датська (Данія)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>голландська (Нідерланди)</value>
+    <value>Нідерландська (Нідерланди)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>англійська (Великобританія)</value>
+    <value>Англійська (Великобританія)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>англійська (Сполучені Штати)</value>
+    <value>Англійська (Сполучені Штати)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>естонська (Естонія)</value>
+    <value>Естонська (Естонія)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>фінська (Фінляндія)</value>
+    <value>Фінська (Фінляндія)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>французька (Канада)</value>
+    <value>Французька (Канада)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>французька (Франція)</value>
+    <value>Французька (Франція)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>німецька (Німеччина)</value>
+    <value>Німецька (Німеччина)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>грецька (Греція)</value>
+    <value>Грецька (Греція)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>іврит (Ізраїль)</value>
+    <value>Іврит (Ізраїль)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>угорська (Угорщина)</value>
+    <value>Угорська (Угорщина)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>італійська (Італія)</value>
+    <value>Італійська (Італія)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
     <value>Японська (Японія)</value>
@@ -222,58 +222,58 @@
     <value>Корейська (Корея)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>латиська (Латвія)</value>
+    <value>Латиська (Латвія)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>литовська (Литва)</value>
+    <value>Литовська (Литва)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>норвезька букмаль (Норвегія)</value>
+    <value>Норвезька букмол (Норвегія)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>польська (Польща)</value>
+    <value>Польська (Польща)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>португальська (Бразилія)</value>
+    <value>Португальська (Бразилія)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>португальська (Португалія)</value>
+    <value>Португальська (Португалія)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>румунська (Румунія)</value>
+    <value>Румунська (Румунія)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>російська (Росія)</value>
+    <value>Російська (Росія)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Сербська латиниця (Сербія)</value>
+    <value>Сербська, латиниця (Сербія)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>словацька (Словаччина)</value>
+    <value>Словацька (Словаччина)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>словенська (Словенія)</value>
+    <value>Словенська (Словенія)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>іспанська (Мексика)</value>
+    <value>Іспанська (Мексика)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
     <value>Іспанська (Іспанія)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>шведська (Швеція)</value>
+    <value>Шведська (Швеція)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>тайська (Таїланд)</value>
+    <value>Тайська (Таїланд)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Турецька (Türkiye)</value>
+    <value>Турецька (Туреччина)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Українська (Україна)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>про</value>
+    <value>Про програму</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>Налагодження</value>
@@ -315,7 +315,7 @@
     <value>Темний</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>світло</value>
+    <value>Світлий</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>система</value>
@@ -408,7 +408,7 @@
     <value>{0} (машина або користувач)</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>відкритий</value>
+    <value>Відкрита</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Особисті</value>

@@ -25,7 +25,7 @@
     <value>Contributors could not be loaded from GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Loading contributors...</value>
+    <value>Loading contributors…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Contributors</value>
@@ -47,10 +47,10 @@ Licensed under the MIT License.</value>
     <value>Website</value>
   </data>
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
-    <value>License</value>
+    <value>Licence</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
-    <value>Licenses</value>
+    <value>Licences</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>Profile</value>
@@ -62,7 +62,7 @@ Licensed under the MIT License.</value>
     <value>Release notes could not be loaded in the embedded browser.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Loading release notes...</value>
+    <value>Loading release notes…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Release notes</value>
@@ -77,10 +77,10 @@ Licensed under the MIT License.</value>
     <value>Support</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Third-party package licenses are tracked through the project repository and dependency manifests.</value>
+    <value>Foundry OSD uses the following libraries and tools. Their licences and project pages are listed below.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Third-party dependencies</value>
+    <value>Third-party licences</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>About Foundry OSD</value>
@@ -221,19 +221,19 @@ Licensed under the MIT License.</value>
     <value>Upgrade Windows ADK and Windows PE Add-on</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Remove AI components</value>
+    <value>Enable AI components configuration</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Remove or disable selected Windows AI components before OOBE.</value>
+    <value>Choose Windows AI components and experiences to remove or disable.</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI component removal</value>
+    <value>AI components</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Remove provisioned Windows apps</value>
+    <value>Enable AppX removals</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Remove selected provisioned Windows apps before OOBE.</value>
+    <value>Choose provisioned Windows apps to remove from deployed devices.</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX removals</value>
@@ -302,7 +302,7 @@ Licensed under the MIT License.</value>
     <value>No Autopilot profiles found</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Downloading Autopilot profiles...</value>
+    <value>Downloading Autopilot profiles…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} is configured.</value>
@@ -419,7 +419,7 @@ Licensed under the MIT License.</value>
     <value>Connect tenant</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Connecting tenant...</value>
+    <value>Connecting tenant…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Create certificate</value>
@@ -554,7 +554,7 @@ Licensed under the MIT License.</value>
     <value>Import Autopilot profile JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importing Autopilot profile...</value>
+    <value>Importing Autopilot profile…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>When enabled, the technician signs in with a Microsoft device code during Windows setup and uploads the device hardware hash.</value>
@@ -638,10 +638,10 @@ Licensed under the MIT License.</value>
     <value>Interactive hardware hash upload</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Stage an offline Autopilot profile in the applied Windows image.</value>
+    <value>Import or download the Autopilot profile embedded in deployment media.</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profile provisioning</value>
+    <value>JSON profile</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Configure tenant-backed automatic hardware hash upload.</value>
@@ -716,7 +716,7 @@ Licensed under the MIT License.</value>
     <value>Preferred image</value>
   </data>
   <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
-    <value>Choose whether Foundry Deploy initially shows the Foundry catalog or custom Windows images.</value>
+    <value>Choose whether Foundry Deploy initially shows the Foundry catalogue or custom Windows images.</value>
   </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
     <value>Default image source in Foundry Deploy</value>
@@ -1154,7 +1154,7 @@ Licensed under the MIT License.</value>
     <value>Skips the Microsoft Software License Terms page during OOBE.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
-    <value>Skip license terms</value>
+    <value>Skip licence terms</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
     <value>Add at least one additional local account to skip account creation during OOBE.</value>
@@ -1166,7 +1166,7 @@ Licensed under the MIT License.</value>
     <value>Enabled automatically because additional local accounts skip the account-creation stage.</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
-    <value>Allows Windows to use diagnostic data for personalized tips, ads, and recommendations.</value>
+    <value>Allows Windows to use diagnostic data for personalised tips, ads, and recommendations.</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
     <value>Tailored experiences</value>
@@ -1184,10 +1184,10 @@ Licensed under the MIT License.</value>
     <value>Available Windows languages</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Select the license channels offered during deployment. Leave empty to offer all supported channels.</value>
+    <value>Select the licence channels offered during deployment. Leave empty to offer all supported channels.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Available Windows license channels</value>
+    <value>Available Windows licence channels</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
     <value>Select the versions to offer, such as Windows 11, version 25H2. Leave empty to offer all supported versions.</value>
@@ -1208,10 +1208,10 @@ Licensed under the MIT License.</value>
     <value>Preselected Windows language</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Choose the license channel selected by default. Automatic uses the channel recommended by Foundry.</value>
+    <value>Choose the licence channel selected by default. Automatic uses the channel recommended by Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Preselected Windows license channel</value>
+    <value>Preselected Windows licence channel</value>
   </data>
   <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve">
     <value>Choose how recent the Windows monthly update selected by default should be. If that update is unavailable, the oldest available update is used.</value>
@@ -1238,10 +1238,10 @@ Licensed under the MIT License.</value>
     <value>Windows language</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Configure the Windows license channels offered during deployment.</value>
+    <value>Configure the Windows licence channels offered during deployment.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Windows license channel</value>
+    <value>Windows licence channel</value>
   </data>
   <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve">
     <value>Latest available update</value>
@@ -1337,7 +1337,7 @@ Licensed under the MIT License.</value>
     <value>Security</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
-    <value>Virtualization</value>
+    <value>Virtualisation</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
     <value>Web and Internet Information Services</value>
@@ -1766,7 +1766,7 @@ Licensed under the MIT License.</value>
     <value>Availability depends on Copilot+ PC hardware and the installed Windows image.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
-    <value>Requires compatible virtualization hardware and firmware settings.</value>
+    <value>Requires compatible virtualisation hardware and firmware settings.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Enabling this feature requires a matching setup-media sources\sxs payload.</value>
@@ -1796,7 +1796,7 @@ Licensed under the MIT License.</value>
     <value>Search by display name or DISM feature name</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Export...</value>
+    <value>Export…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>Create a sanitised support archive without modifying the original logs.</value>
@@ -1814,7 +1814,7 @@ Licensed under the MIT License.</value>
     <value>Diagnostics export failed</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Advanced: export raw logs...</value>
+    <value>Advanced: export raw logs…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>Export raw logs</value>
@@ -1871,7 +1871,7 @@ Licensed under the MIT License.</value>
     <value>Yes</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>Searching the domain for OUs...</value>
+    <value>Searching the domain for OUs…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>Search cancelled.</value>
@@ -2051,10 +2051,10 @@ Licensed under the MIT License.</value>
     <value>Select 802.1X certificate</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configure wired 802.1X</value>
+    <value>Enable Ethernet 802.1X configuration</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Standard Ethernet connectivity is available by default. Configure this section only if your wired network requires 802.1X enterprise authentication.</value>
+    <value>Configure wired 802.1X authentication and Windows profile roaming.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2345,13 +2345,13 @@ Licensed under the MIT License.</value>
     <value>Move component up</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable machine naming rules</value>
+    <value>Enable machine naming configuration</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>Configure automatic and technician-assisted device naming.</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Computer name</value>
+    <value>Machine naming</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>Preview</value>
@@ -2372,13 +2372,13 @@ Licensed under the MIT License.</value>
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Remove or disable selected Windows AI components before OOBE.</value>
+    <value>Remove or disable Windows AI components.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI components</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Remove selected provisioned Windows apps before OOBE.</value>
+    <value>Select provisioned apps to remove.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX removals</value>
@@ -2420,7 +2420,7 @@ Licensed under the MIT License.</value>
     <value>Domain Join</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Standard Ethernet connectivity is available by default. Configure this section only if your wired network requires 802.1X enterprise authentication.</value>
+    <value>Configure wired 802.1X authentication.</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2456,19 +2456,19 @@ Licensed under the MIT License.</value>
     <value>Network</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Configure Windows 11 first-run screens and privacy defaults.</value>
+    <value>Configure the Windows out-of-box experience.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Enable or disable Windows components in the deployed operating system.</value>
+    <value>Enable or disable Windows optional features.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>Optional features</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Define the Windows versions, update levels, languages, and editions offered during deployment.</value>
+    <value>Constrain deployment operating system choices.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS selection</value>
@@ -2504,7 +2504,7 @@ Licensed under the MIT License.</value>
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>Join the domain automatically using credentials protected by the deployment password.</value>
@@ -2612,31 +2612,31 @@ Licensed under the MIT License.</value>
     <value>Windows profile roaming</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Customise OOBE</value>
+    <value>Enable OOBE configuration</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Configure Windows 11 first-run screens and privacy defaults.</value>
+    <value>Configure privacy and setup choices for the Windows out-of-box experience.</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Configure Windows Optional Features</value>
+    <value>Enable optional features configuration</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Enable or disable Windows components in the deployed operating system.</value>
+    <value>Choose Windows optional features to enable or disable.</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows Optional Features</value>
+    <value>Optional features</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows deployment options</value>
+    <value>Enable operating system selection configuration</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Define the Windows versions, update levels, languages, and editions offered during deployment.</value>
+    <value>Configure allowed operating system releases, languages, channels, and editions.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows deployment options</value>
+    <value>OS selection</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>Add an enabled action or disable Post-installation.</value>
@@ -2735,7 +2735,7 @@ Licensed under the MIT License.</value>
     <value>Import folder</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>Importing content...</value>
+    <value>Importing content…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>This action is invalid. Check its configuration.</value>
@@ -2765,7 +2765,7 @@ Licensed under the MIT License.</value>
     <value>Enter a folder from the imported content, or leave this empty.</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>Loading content...</value>
+    <value>Loading content…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Import the missing content for "{0}".</value>
@@ -2900,7 +2900,7 @@ Licensed under the MIT License.</value>
     <value>Disconnect</value>
   </data>
   <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Stop synchronizing this configuration on this PC? Your current settings will be kept. The shared configuration and other PCs will not be changed.</value>
+    <value>Stop synchronising this configuration on this PC? Your current settings will be kept. The shared configuration and other PCs will not be changed.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Export</value>
@@ -2927,7 +2927,7 @@ Licensed under the MIT License.</value>
     <value>Clear saved passwords and access</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Remove saved passwords, confidential files saved by Foundry, and synchronization access for these settings on this PC? You'll need to add the missing details and reconnect to synchronize. Media you already created will not change.</value>
+    <value>Remove saved passwords, confidential files saved by Foundry, and synchronisation access for these settings on this PC? You'll need to add the missing details and reconnect to synchronise. Media you already created will not change.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundry settings</value>
@@ -2966,7 +2966,7 @@ Licensed under the MIT License.</value>
     <value>Keep passwords for your Windows account on this PC.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows cannot unlock these saved settings or their synchronization access for your account on this PC.</value>
+    <value>Windows cannot unlock these saved settings or their synchronisation access for your account on this PC.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>More options</value>
@@ -3022,7 +3022,7 @@ Passwords and access keys included: {2}</value>
     <value>Set up</value>
   </data>
   <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Set up synchronization…</value>
+    <value>Set up synchronisation…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Share this configuration or connect to one your team already uses.</value>
@@ -3031,7 +3031,7 @@ Passwords and access keys included: {2}</value>
     <value>Share</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Anyone who can import or synchronize these settings can read the included passwords and certificate private keys.</value>
+    <value>Anyone who can import or synchronise these settings can read the included passwords and certificate private keys.</value>
   </data>
   <data name="Profiles.SharedBusy" xml:space="preserve">
     <value>Another operation is using this shared folder. Try again shortly. Your changes are kept on this PC.</value>
@@ -3049,16 +3049,16 @@ Passwords and access keys included: {2}</value>
     <value>Stop remembering passwords for this configuration on this PC?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Synchronize</value>
+    <value>Synchronise</value>
   </data>
   <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Synchronizing…</value>
+    <value>Synchronising…</value>
   </data>
   <data name="Profiles.SyncStatusConflict" xml:space="preserve">
     <value>Choose a version</value>
   </data>
   <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Unable to synchronize</value>
+    <value>Unable to synchronise</value>
   </data>
   <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
     <value>Not configured</value>
@@ -3067,10 +3067,10 @@ Passwords and access keys included: {2}</value>
     <value>Folder unavailable</value>
   </data>
   <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Changes to synchronize</value>
+    <value>Changes to synchronise</value>
   </data>
   <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Ready to synchronize</value>
+    <value>Ready to synchronise</value>
   </data>
   <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
     <value>Up to date</value>
@@ -3082,10 +3082,10 @@ Passwords and access keys included: {2}</value>
     <value>Needs attention</value>
   </data>
   <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Synchronize</value>
+    <value>Synchronise</value>
   </data>
   <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Keep this configuration up to date across your team’s PCs.</value>
+    <value>Keep this configuration up to date across your team's PCs.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Settings are up to date</value>
@@ -3094,7 +3094,7 @@ Passwords and access keys included: {2}</value>
     <value>Foundry can't open this settings format. Update Foundry and try again.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Changes from another PC are available. Select Synchronize to apply them.</value>
+    <value>Changes from another PC are available. Select Synchronise to apply them.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Use the shared version</value>
@@ -3241,7 +3241,7 @@ Passwords and access keys included: {2}</value>
     <value>Enable telemetry</value>
   </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
-    <value>Change theme, backdrop, and accent color preferences.</value>
+    <value>Change theme, backdrop, and accent colour preferences.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
     <value>Appearance</value>
@@ -3361,13 +3361,13 @@ Passwords and access keys included: {2}</value>
     <value>Network configuration is not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>No USB target is selected.</value>
+    <value>No USB drive is selected.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Required media secrets are not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>The selected USB target is too small. Use a USB key of at least 16 GB.</value>
+    <value>The selected USB drive is too small. Use a USB drive of at least 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>The selected WinPE keyboard layout is not installed on this computer.</value>
@@ -3415,7 +3415,7 @@ Passwords and access keys included: {2}</value>
     <value>Format and create USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Format USB target</value>
+    <value>Format USB drive</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows cannot read the volumes on this disk. It may still contain data.</value>
@@ -3430,7 +3430,7 @@ Passwords and access keys included: {2}</value>
     <value>Volumes on this disk:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>Everything on this disk will be lost. Continue only if this is the intended USB disk.</value>
+    <value>Everything on this disk will be lost. Continue only if this is the intended USB drive.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Create USB</value>
@@ -3846,7 +3846,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>Update USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB targets can be refreshed after ADK readiness is complete.</value>
+    <value>USB drives can be refreshed after ADK readiness is complete.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>USB drives found: {0}</value>
@@ -3855,19 +3855,19 @@ Applying the update restarts Foundry OSD.</value>
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Scanning USB targets.</value>
+    <value>Scanning for USB drives…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>No USB drives were found.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB target refresh failed.</value>
+    <value>USB drive refresh failed.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Format behaviour used before copying the final USB media.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Partition scheme used when preparing the selected USB target.</value>
+    <value>Partition scheme used when preparing the selected USB drive.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>USB target</value>
@@ -3891,10 +3891,10 @@ Applying the update restarts Foundry OSD.</value>
     <value>Open</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
-    <value>Open Windows color settings to change the accent color.</value>
+    <value>Open Windows colour settings to change the accent colour.</value>
   </data>
   <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
-    <value>Accent color</value>
+    <value>Accent colour</value>
   </data>
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
     <value>Acrylic</value>
@@ -3930,7 +3930,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>Mica</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>Contains settings that can prevent Autopilot enrolment; incompatible enrolment modes will be blocked during deployment.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
     <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
@@ -3942,7 +3942,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>Check sources</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>Contains commands; review overlap with Foundry customisation and setup hooks.</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
     <value>Only specialize and oobeSystem settings are supported. Other Foundry deployment operations remain enabled and may conflict with custom settings or commands. Validate with Windows SIM and test the complete configuration in a VM. External script files are not imported.</value>
@@ -3957,13 +3957,13 @@ Applying the update restarts Foundry OSD.</value>
     <value>Display name</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>Skipped {0} file(s) already present in the catalogue.</value>
   </data>
   <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
     <value>Import at least one answer file to use this feature.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>Package the imported files in the boot image. Turning this off preserves the catalogue but excludes its files from new media.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
     <value>Enable custom answer files</value>
@@ -3978,7 +3978,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>The file must declare a supported architecture and contain component settings applicable to it.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>The catalog contains invalid or duplicate entries. Refresh or remove the affected files.</value>
+    <value>The catalogue contains invalid or duplicate entries. Refresh or remove the affected files.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Use valid Windows answer-file XML no larger than 4 MiB, without DTDs or external entities. Validate the file with Windows SIM.</value>
@@ -4173,7 +4173,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Provision Wi-Fi support in the boot image</value>
+    <value>Enable Wi-Fi provisioning</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>Configure Wi-Fi provisioning, embedded profiles, and Windows profile roaming.</value>

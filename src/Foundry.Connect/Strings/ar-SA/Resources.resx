@@ -19,7 +19,7 @@
     <value>يتم توفير هذا البرنامج كما هو. قم بتأكيد الوصول إلى الشبكة قبل متابعة النشر.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>حقوق الطبع والنشر (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
 مرخص بموجب ترخيص MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -228,7 +228,7 @@
     <value>الليتوانية (ليتوانيا)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>النرويجية البوكمال (النرويج)</value>
+    <value>النرويجية بوكمال (النرويج)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>البولندية (بولندا)</value>
@@ -246,7 +246,7 @@
     <value>الروسية (روسيا)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>اللاتينية الصربية (صربيا)</value>
+    <value>الصربية اللاتينية (صربيا)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>السلوفاكية (سلوفاكيا)</value>
@@ -288,7 +288,7 @@
     <value>اللغة</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>الموضوع</value>
+    <value>النسق</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>أدوات</value>
@@ -312,10 +312,10 @@
     <value>في انتظار الشبكة</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>الظلام</value>
+    <value>داكن</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>ضوء</value>
+    <value>فاتح</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
     <value>النظام</value>

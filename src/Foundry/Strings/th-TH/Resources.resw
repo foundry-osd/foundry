@@ -25,7 +25,7 @@
     <value>ไม่สามารถโหลดผู้ร่วมให้ข้อมูลจาก GitHub</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>กำลังโหลดผู้ร่วมให้ข้อมูล...</value>
+    <value>กำลังโหลดผู้ร่วมให้ข้อมูล…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>ผู้ร่วมให้ข้อมูล</value>
@@ -34,7 +34,7 @@
     <value>Foundry OSD เป็นแอปที่ทันสมัยสำหรับการเขียน Windows สื่อการปรับใช้ที่ขับเคลื่อนโดย WinPE</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>ลิขสิทธิ์ (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
+    <value>Copyright (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
 ได้รับอนุญาตภายใต้ใบอนุญาต MIT</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
@@ -62,7 +62,7 @@
     <value>ไม่สามารถโหลดบันทึกประจำรุ่นในเบราว์เซอร์แบบฝังได้</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>กำลังโหลดบันทึกประจำรุ่น...</value>
+    <value>กำลังโหลดบันทึกประจำรุ่น…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>บันทึกประจำรุ่น</value>
@@ -77,10 +77,10 @@
     <value>สนับสนุน</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>สิทธิ์การใช้งานแพ็คเกจของบุคคลที่สามจะถูกติดตามผ่านพื้นที่เก็บข้อมูลโปรเจ็กต์และรายการการขึ้นต่อกัน</value>
+    <value>Foundry OSD ใช้ไลบรารีและเครื่องมือต่อไปนี้ สิทธิ์การใช้งานและหน้าโปรเจ็กต์ของแต่ละรายการแสดงอยู่ด้านล่าง</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>การพึ่งพาบุคคลที่สาม</value>
+    <value>สิทธิ์การใช้งานของบุคคลที่สาม</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>เกี่ยวกับ Foundry OSD</value>
@@ -221,19 +221,19 @@
     <value>อัปเกรด Windows ADK และ Windows PE ส่วนเสริม</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>ลบส่วนประกอบ AI</value>
+    <value>เปิดใช้งานการกำหนดค่าคอมโพเนนต์ AI</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>ลบหรือปิดใช้งานส่วนประกอบ AI ที่เลือก Windows ก่อน OOBE</value>
+    <value>เลือกคอมโพเนนต์และประสบการณ์ AI ของ Windows ที่จะลบหรือปิดใช้งาน</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>การลบส่วนประกอบ AI</value>
+    <value>คอมโพเนนต์ AI</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>ลบแอป Windows ที่จัดเตรียมไว้</value>
+    <value>เปิดใช้งานการลบแอป AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>ลบแอป Windows ที่เลือกไว้ก่อนหน้า OOBE</value>
+    <value>เลือกแอป Windows ที่จัดเตรียมไว้ซึ่งจะลบออกจากอุปกรณ์ที่ปรับใช้</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>การลบแอป AppX</value>
@@ -302,7 +302,7 @@
     <value>ไม่พบโปรไฟล์ Autopilot</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>กำลังดาวน์โหลดโปรไฟล์ Autopilot...</value>
+    <value>กำลังดาวน์โหลดโปรไฟล์ Autopilot…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} ได้รับการกำหนดค่าแล้ว</value>
@@ -344,7 +344,7 @@
     <value>ไฟล์ PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>เลือก Autopilot ใบรับรอง PFX</value>
+    <value>เลือก PFX ของใบรับรอง Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>PFX ที่เลือกไม่มีเนื้อหาคีย์ส่วนตัว</value>
@@ -356,7 +356,7 @@
     <value>เลือก PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>รหัสประจำตัวใบรับรอง PFX ไม่ตรงกับใบรับรองการลงทะเบียนแอปที่เลือก</value>
+    <value>ลายนิ้วมือของใบรับรอง PFX ไม่ตรงกับใบรับรองการลงทะเบียนแอปที่เลือก</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
     <value>สร้างหรือลบข้อมูลรับรองใบรับรองการลงทะเบียนแอป</value>
@@ -407,10 +407,10 @@
     <value>การนำใบรับรองออกล้มเหลว</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>บันทึก Autopilot ใบรับรอง PFX</value>
+    <value>บันทึก PFX ของใบรับรอง Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>รอยนิ้วหัวแม่มือ</value>
+    <value>ลายนิ้วมือ</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
     <value>ไม่มีการจัดเตรียมใบรับรอง</value>
@@ -419,7 +419,7 @@
     <value>เชื่อมต่อผู้เช่า</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>กำลังเชื่อมต่อผู้เช่า...</value>
+    <value>กำลังเชื่อมต่อผู้เช่า…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>สร้างใบรับรอง</value>
@@ -461,7 +461,7 @@
     <value>ไม่พบการลงทะเบียนแอปที่มีการจัดการ เชื่อมต่อใหม่เพื่อให้ Foundry สร้างหรือนำไปใช้</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>บริการหลักที่ได้รับการจัดการไม่ได้รับความยินยอมจากผู้ดูแลระบบสำหรับสิทธิ์ Microsoft Graph ที่จำเป็น ให้ความยินยอมของผู้ดูแลระบบและเชื่อมต่อใหม่</value>
+    <value>service principal ที่ได้รับการจัดการไม่ได้รับความยินยอมจากผู้ดูแลระบบสำหรับสิทธิ์ Microsoft Graph ที่จำเป็น ให้ความยินยอมของผู้ดูแลระบบและเชื่อมต่อใหม่</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>การลงทะเบียนแอปที่มีการจัดการยังไม่พร้อม ตรวจสอบความพร้อมของผู้เช่าและเชื่อมต่อใหม่</value>
@@ -470,7 +470,7 @@
     <value>การลงทะเบียนแอปที่ได้รับการจัดการขาดสิทธิ์ของแอปพลิเคชัน Microsoft Graph ที่จำเป็น เชื่อมต่อกับบัญชีที่สามารถอัปเดตการลงทะเบียนแอปได้</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>บริการหลักที่มีการจัดการหายไปหรือปิดใช้งาน เชื่อมต่อกับบัญชีที่สามารถสร้างหรือจัดการแอปพลิเคชันระดับองค์กรได้อีกครั้ง</value>
+    <value>service principal ที่มีการจัดการหายไปหรือปิดใช้งาน เชื่อมต่อกับบัญชีที่สามารถสร้างหรือจัดการแอปพลิเคชันระดับองค์กรได้อีกครั้ง</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
     <value>การเริ่มต้นใช้งานผู้เช่าต้องได้รับการดูแลเอาใจใส่</value>
@@ -509,7 +509,7 @@
     <value>เชื่อมต่อแล้ว</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>ลงชื่อเข้าใช้เบราว์เซอร์ให้เสร็จสิ้นเพื่อกำหนดค่าการอัปโหลดแฮชฮาร์ดแวร์ Autopilot</value>
+    <value>ลงชื่อเข้าใช้ในเบราว์เซอร์ให้เสร็จสิ้นเพื่อกำหนดค่าการอัปโหลดแฮชฮาร์ดแวร์ Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
     <value>ลงชื่อเข้าใช้ Microsoft Graph</value>
@@ -533,7 +533,7 @@
     <value>ชื่อ</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>ความคุ้มค่า</value>
+    <value>ค่า</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
     <value>เชื่อมต่อกับ Microsoft Graph สำหรับเซสชันแอปนี้เพื่อจัดการการตั้งค่าการอัปโหลดแฮช</value>
@@ -554,7 +554,7 @@
     <value>นำเข้าโปรไฟล์ Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>กำลังนำเข้าโปรไฟล์ Autopilot...</value>
+    <value>กำลังนำเข้าโปรไฟล์ Autopilot…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>เมื่อเปิดใช้งาน ช่างเทคนิคจะลงชื่อเข้าใช้ด้วยรหัสอุปกรณ์ Microsoft ระหว่างการตั้งค่า Windows และอัปโหลดแฮชฮาร์ดแวร์ของอุปกรณ์</value>
@@ -614,7 +614,7 @@
     <value>ยกเลิก</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>ชัดเจน</value>
+    <value>ล้าง</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
     <value>เลือกโปรไฟล์ผู้เช่าที่ควรนำเข้าไปที่ Foundry</value>
@@ -638,16 +638,16 @@
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>กำหนดโปรไฟล์ Autopilot แบบออฟไลน์ในรูปภาพ Windows ที่ใช้</value>
+    <value>นำเข้าหรือดาวน์โหลดโปรไฟล์ Autopilot ที่ฝังอยู่ในสื่อการปรับใช้</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON การจัดสรรโปรไฟล์</value>
+    <value>โปรไฟล์ JSON</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>กำหนดค่าการอัปโหลดแฮชฮาร์ดแวร์อัตโนมัติที่รองรับโดยผู้เช่า</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ Zero-touch</value>
+    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ไม่สามารถเปิดแบบฟอร์มรายงานข้อบกพร่องได้ คัดลอกลิงก์นี้แล้วเปิดในเบราว์เซอร์ของคุณ</value>
@@ -1796,7 +1796,7 @@
     <value>ค้นหาตามชื่อที่แสดงหรือชื่อคุณสมบัติ DISM</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>ส่งออก...</value>
+    <value>ส่งออก…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>สร้างไฟล์เก็บถาวรสำหรับการสนับสนุนที่ผ่านการล้างข้อมูลแล้ว โดยไม่แก้ไขบันทึกต้นฉบับ</value>
@@ -1814,7 +1814,7 @@
     <value>การส่งออกข้อมูลการวินิจฉัยล้มเหลว</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>ขั้นสูง: ส่งออกบันทึกดิบ...</value>
+    <value>ขั้นสูง: ส่งออกบันทึกดิบ…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>ส่งออกบันทึกดิบ</value>
@@ -1871,7 +1871,7 @@
     <value>ใช่</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>กำลังค้นหา OU ในโดเมน...</value>
+    <value>กำลังค้นหา OU ในโดเมน…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>ยกเลิกการค้นหาแล้ว</value>
@@ -2051,10 +2051,10 @@
     <value>เลือกใบรับรอง 802.1X</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>กำหนดค่า 802.1X แบบมีสาย</value>
+    <value>เปิดใช้งานการกำหนดค่า Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>การเชื่อมต่อมาตรฐาน Ethernet พร้อมใช้งานตามค่าเริ่มต้น กำหนดค่าส่วนนี้เฉพาะในกรณีที่เครือข่ายแบบใช้สายของคุณต้องมีการรับรองความถูกต้องระดับองค์กร 802.1X</value>
+    <value>กำหนดค่าการรับรองความถูกต้อง 802.1X แบบใช้สายและการโรมมิ่งโปรไฟล์ Windows</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2282,7 +2282,7 @@
     <value>ลิทัวเนีย (ลิทัวเนีย)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>บ็อกมาลนอร์เวย์ (นอร์เวย์)</value>
+    <value>นอร์เวย์ บ็อกมาล (นอร์เวย์)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>โปแลนด์ (โปแลนด์)</value>
@@ -2300,7 +2300,7 @@
     <value>รัสเซีย (รัสเซีย)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>ละตินเซอร์เบีย (เซอร์เบีย)</value>
+    <value>เซอร์เบีย ละติน (เซอร์เบีย)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>สโลวัก (สโลวาเกีย)</value>
@@ -2318,10 +2318,10 @@
     <value>สวีเดน (สวีเดน)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>ไทย (ประเทศไทย)</value>
+    <value>ไทย (ไทย)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>ตุรกี (Türkiye)</value>
+    <value>ตุรกี (ตุรกี)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ยูเครน (ยูเครน)</value>
@@ -2345,13 +2345,13 @@
     <value>ย้ายส่วนประกอบขึ้น</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>เปิดใช้งานกฎการตั้งชื่อเครื่อง</value>
+    <value>เปิดใช้งานการกำหนดค่าการตั้งชื่อเครื่อง</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>กำหนดค่าการตั้งชื่ออุปกรณ์แบบอัตโนมัติและแบบมีช่างเทคนิคช่วย</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>ชื่อคอมพิวเตอร์</value>
+    <value>การตั้งชื่อเครื่อง</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>ตัวอย่าง</value>
@@ -2372,13 +2372,13 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>ลบหรือปิดใช้งานส่วนประกอบ AI ที่เลือก Windows ก่อน OOBE</value>
+    <value>ลบหรือปิดใช้งานคอมโพเนนต์ AI ของ Windows</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>คอมโพเนนต์ AI</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>ลบแอป Windows ที่เลือกไว้ก่อนหน้า OOBE</value>
+    <value>เลือกแอปที่จัดเตรียมไว้ที่จะลบ</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>การลบแอป AppX</value>
@@ -2420,7 +2420,7 @@
     <value>การเข้าร่วมโดเมน</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>การเชื่อมต่อมาตรฐาน Ethernet พร้อมใช้งานตามค่าเริ่มต้น กำหนดค่าส่วนนี้เฉพาะในกรณีที่เครือข่ายแบบใช้สายของคุณต้องมีการรับรองความถูกต้องระดับองค์กร 802.1X</value>
+    <value>กำหนดค่าการรับรองความถูกต้อง 802.1X แบบใช้สาย</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2438,7 +2438,7 @@
     <value>Foundry OSD บ้าน</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>บ้าน</value>
+    <value>หน้าแรก</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Description" xml:space="preserve">
     <value>ขอข้อมูลประจำตัวของโดเมนจากช่างเทคนิคระหว่างการปรับใช้</value>
@@ -2456,19 +2456,19 @@
     <value>เครือข่าย</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>กำหนดค่า Windows 11 หน้าจอที่ใช้งานครั้งแรกและค่าเริ่มต้นความเป็นส่วนตัว</value>
+    <value>กำหนดค่าประสบการณ์เมื่อเริ่มใช้งาน Windows ครั้งแรก (OOBE)</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>เปิดใช้งานหรือปิดใช้งานส่วนประกอบ Windows ในระบบปฏิบัติการที่ปรับใช้</value>
+    <value>เปิดหรือปิดใช้งานฟีเจอร์เสริมของ Windows</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>ฟีเจอร์เสริม</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>กำหนดเวอร์ชัน Windows ระดับการอัปเดต ภาษา และรุ่นที่มีให้เลือกระหว่างการปรับใช้</value>
+    <value>จำกัดตัวเลือกระบบปฏิบัติการสำหรับการปรับใช้</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>การเลือกระบบปฏิบัติการ</value>
@@ -2612,31 +2612,31 @@
     <value>การโรมมิ่งโปรไฟล์ Windows</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>ปรับแต่ง OOBE</value>
+    <value>เปิดใช้งานการกำหนดค่า OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>กำหนดค่า Windows 11 หน้าจอที่ใช้งานครั้งแรกและค่าเริ่มต้นความเป็นส่วนตัว</value>
+    <value>กำหนดค่าตัวเลือกความเป็นส่วนตัวและการตั้งค่าสำหรับประสบการณ์เมื่อเริ่มใช้งาน Windows ครั้งแรก (OOBE)</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>กำหนดค่าคุณสมบัติเสริมของ Windows</value>
+    <value>เปิดใช้งานการกำหนดค่าฟีเจอร์เสริม</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>เปิดใช้งานหรือปิดใช้งานส่วนประกอบ Windows ในระบบปฏิบัติการที่ปรับใช้</value>
+    <value>เลือกฟีเจอร์เสริมของ Windows ที่จะเปิดหรือปิดใช้งาน</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>คุณสมบัติเสริมของ Windows</value>
+    <value>ฟีเจอร์เสริม</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>ตัวเลือกการปรับใช้ Windows</value>
+    <value>เปิดใช้งานการกำหนดค่าการเลือกระบบปฏิบัติการ</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>กำหนดเวอร์ชัน Windows ระดับการอัปเดต ภาษา และรุ่นที่มีให้เลือกระหว่างการปรับใช้</value>
+    <value>กำหนดค่าเวอร์ชัน ภาษา ช่องทาง และรุ่นของระบบปฏิบัติการที่อนุญาต</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>ตัวเลือกการปรับใช้ Windows</value>
+    <value>การเลือกระบบปฏิบัติการ</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
     <value>เพิ่มการดำเนินการที่เปิดใช้งาน หรือปิดใช้งานการกำหนดค่าหลังการติดตั้ง</value>
@@ -2735,7 +2735,7 @@
     <value>นำเข้าโฟลเดอร์</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>กำลังนำเข้าเนื้อหา...</value>
+    <value>กำลังนำเข้าเนื้อหา…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>การดำเนินการนี้ไม่ถูกต้อง ตรวจสอบการกำหนดค่า</value>
@@ -2765,7 +2765,7 @@
     <value>ป้อนโฟลเดอร์จากเนื้อหาที่นำเข้าหรือเว้นว่างไว้</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>กำลังโหลดเนื้อหา...</value>
+    <value>กำลังโหลดเนื้อหา…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>นำเข้าเนื้อหาที่ขาดหายไปสำหรับ "{0}"</value>
@@ -3103,109 +3103,109 @@
     <value>ตรวจสอบช่องที่ต้องกรอก หากต้องระบุโฟลเดอร์เครือข่าย ให้ใช้เส้นทาง เช่น \\server\share\folder หากป้อนรหัสผ่านของไฟล์สองครั้ง ตรวจสอบให้แน่ใจว่าทั้งสองครั้งตรงกัน</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>การเชื่อมต่อล้มเหลว</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>ตรวจสอบการตั้งค่าพร็อกซี</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>การเชื่อมต่อใหม่จาก Foundry OSD จะใช้การตั้งค่าเหล่านี้</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>ใช้การตั้งค่าพร็อกซีแล้ว</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD เชื่อมต่อกับ GitHub และบริการของ Microsoft ได้โดยใช้การตั้งค่าที่เลือก</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>เชื่อมต่อสำเร็จ</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>ป้อนชื่อผู้ใช้และรหัสผ่านสำหรับการรับรองความถูกต้องของพร็อกซีแบบระบุชัดเจน</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>นำไปใช้</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>ใช้ข้อมูลประจำตัว Windows ปัจจุบัน</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>เลือกวิธีที่พร็อกซีรับรองความถูกต้องของ Foundry OSD</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>การรับรองความถูกต้อง</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>ชื่อผู้ใช้และรหัสผ่าน</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>ไม่มีการรับรองความถูกต้อง</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>ชื่อโฮสต์หรือรูปแบบไวด์การ์ดที่คั่นด้วยเครื่องหมายอัฒภาค (ไม่บังคับ)</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>รายการที่ไม่ใช้พร็อกซี</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>เชื่อมต่อโดยตรงกับชื่อโฮสต์ที่ไม่มีจุด</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>ไม่ใช้พร็อกซีสำหรับที่อยู่ภายใน</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>ข้อมูลประจำตัวจะถูกจัดเก็บอย่างปลอดภัยในตัวจัดการข้อมูลประจำตัวของ Windows</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>ข้อมูลประจำตัวของพร็อกซี</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>โดเมน (ไม่บังคับ)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>ป้อนที่อยู่และพอร์ตของพร็อกซี</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>พร็อกซีเซิร์ฟเวอร์</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>เลือกวิธีที่ Foundry OSD เชื่อมต่อกับอินเทอร์เน็ต</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>วิธีการใช้พร็อกซี</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>ไม่ใช้พร็อกซี (เชื่อมต่อโดยตรง)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>ตั้งค่าพร็อกซีด้วยตนเอง</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>ใช้การตั้งค่า Windows (แนะนำ)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>รหัสผ่าน</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>พอร์ต</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>การตั้งค่าเหล่านี้ใช้กับแอปนี้เท่านั้น จะไม่ถูกเพิ่มลงในสื่อการปรับใช้ และไม่มีผลต่อ Foundry Connect หรือ Foundry Deploy</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Foundry OSD เท่านั้น</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>ทดสอบการเชื่อมต่อ</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>ชื่อผู้ใช้</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>การตั้งค่า</value>
@@ -3223,10 +3223,10 @@
     <value>สำรองและซิงค์การตั้งค่า</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>กำหนดค่าวิธีที่ Foundry OSD เชื่อมต่อกับบริการออนไลน์</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>พร็อกซี</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
     <value>ส่งบันทึกทุกระดับและบริบททางเทคนิคไปยัง PostHog โดยปกปิดข้อมูลลับสำหรับการยืนยันตัวตน พร้อมรายงานข้อยกเว้นแยกต่างหาก บันทึกจะถูกลบโดยอัตโนมัติหลังจาก 7 วัน</value>
@@ -3277,7 +3277,7 @@
     <value>เปิดใช้งาน: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่การหมดอายุของใบรับรองที่เลือกหายไป</value>
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ไม่มีวันหมดอายุของใบรับรองที่เลือก</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
     <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ใบรับรองที่เลือกหมดอายุแล้ว เลือกใบรับรองที่ถูกต้องก่อนที่จะสร้างสื่อสำหรับบูต</value>
@@ -3286,7 +3286,7 @@
     <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ PFX ที่เลือกไม่ตรงกับใบรับรองการลงทะเบียนแอป</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่รหัสประจำตัวใบรับรองที่เลือกหายไป</value>
+    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ไม่มีลายนิ้วมือของใบรับรองที่เลือก</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
     <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ไม่ได้กำหนดค่าการลงทะเบียนแอป เชื่อมต่อกับผู้เช่าจาก Autopilot</value>
@@ -3313,7 +3313,7 @@
     <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ไม่มีรหัสไคลเอ็นต์ของแอป เชื่อมต่อกับผู้เช่าอีกครั้งจาก Autopilot</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่บริการหลักของแอปหายไปหรือไม่พร้อม</value>
+    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ service principal ของแอปหายไปหรือไม่พร้อม</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
     <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่การตั้งค่าหายไป</value>
@@ -3361,13 +3361,13 @@
     <value>การกำหนดค่าเครือข่ายไม่พร้อม</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>ไม่ได้เลือกเป้าหมาย USB</value>
+    <value>ไม่ได้เลือกไดรฟ์ USB</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>ข้อมูลลับของสื่อที่จำเป็นยังไม่พร้อม</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>เป้าหมาย USB ที่เลือกมีขนาดเล็กเกินไป ใช้คีย์ USB ขนาดอย่างน้อย 16 GB</value>
+    <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไป ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 16 GB</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>ไม่ได้ติดตั้งเค้าโครงแป้นพิมพ์ WinPE ที่เลือกไว้ในคอมพิวเตอร์เครื่องนี้</value>
@@ -3382,7 +3382,7 @@
     <value>รูปภาพ WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>บี</value>
+    <value>ไบต์</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3415,7 +3415,7 @@
     <value>จัดรูปแบบและสร้าง USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>รูปแบบเป้าหมาย USB</value>
+    <value>ฟอร์แมตไดรฟ์ USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ไม่สามารถอ่านโวลุ่มบนดิสก์นี้ได้ ดิสก์อาจยังมีข้อมูลอยู่</value>
@@ -3430,7 +3430,7 @@
     <value>วอลุ่มบนดิสก์นี้:</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>ข้อมูลทั้งหมดบนดิสก์นี้จะสูญหาย ดำเนินการต่อหากนี่คือดิสก์ USB ที่ต้องการ</value>
+    <value>ข้อมูลทั้งหมดบนดิสก์นี้จะสูญหาย ดำเนินการต่อเฉพาะเมื่อนี่คือไดรฟ์ USB ที่ต้องการเท่านั้น</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>สร้าง USB</value>
@@ -3478,7 +3478,7 @@
     <value>เชื่อมต่อการจัดเตรียม</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>ปรับใช้การกำหนดค่า</value>
+    <value>การกำหนดค่าการปรับใช้</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>ไดรเวอร์</value>
@@ -3502,7 +3502,7 @@
     <value>โหมดลายเซ็น</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB เป้าหมาย</value>
+    <value>เป้าหมาย USB</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE ภาษาสำหรับบูต</value>
@@ -3520,10 +3520,10 @@
     <value>การสร้างสื่อจะพร้อมใช้งานเมื่อผ่านการตรวจสอบความพร้อมทั้งหมด</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>รูปแบบเต็ม</value>
+    <value>ฟอร์แมตแบบเต็ม</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>รูปแบบด่วน</value>
+    <value>ฟอร์แมตด่วน</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
     <value>เลือกตำแหน่งที่จะเขียน Foundry ISO ที่สร้างขึ้น</value>
@@ -3790,7 +3790,7 @@
     <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>รีวิว</value>
+    <value>ตรวจสอบ</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>พร้อม</value>
@@ -3846,7 +3846,7 @@
     <value>อัปเดต USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB เป้าหมายสามารถรีเฟรชได้หลังจากที่ความพร้อม ADK เสร็จสมบูรณ์</value>
+    <value>สามารถรีเฟรชไดรฟ์ USB ได้หลังจากการตรวจสอบความพร้อมของ ADK เสร็จสมบูรณ์</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>พบไดรฟ์ USB: {0}</value>
@@ -3855,22 +3855,22 @@
     <value>ดิสก์ {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>กำลังสแกนเป้าหมาย USB</value>
+    <value>กำลังสแกนหาไดรฟ์ USB…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>ไม่พบไดรฟ์ USB</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB การรีเฟรชเป้าหมายล้มเหลว</value>
+    <value>รีเฟรชไดรฟ์ USB ไม่สำเร็จ</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>รูปแบบพฤติกรรมที่ใช้ก่อนที่จะคัดลอกสื่อ USB สุดท้าย</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>รูปแบบพาร์ติชันที่ใช้ในการเตรียมเป้าหมาย USB ที่เลือก</value>
+    <value>รูปแบบพาร์ติชันที่ใช้เมื่อเตรียมไดรฟ์ USB ที่เลือก</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB เป้าหมาย</value>
+    <value>เป้าหมาย USB</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
     <value>ภาษาที่ใช้โดยสภาพแวดล้อมการบูต WinPE</value>
@@ -3915,7 +3915,7 @@
     <value>ระบบ</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>เบา</value>
+    <value>สว่าง</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
     <value>เลือกวัสดุฉากหลังที่ใช้เบื้องหลังแอป</value>
@@ -4161,7 +4161,7 @@
     <value>ประเภทการรักษาความปลอดภัย</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>เปิด</value>
+    <value>แบบเปิด</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
     <value>OWE (การเข้ารหัสไร้สายแบบฉวยโอกาส)</value>
@@ -4173,7 +4173,7 @@
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>จัดเตรียมการสนับสนุน Wi-Fi ในอิมเมจสำหรับบูต</value>
+    <value>เปิดใช้งานการจัดสรร Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>กำหนดค่าการจัดสรร Wi-Fi โปรไฟล์ที่ฝังไว้ และการโรมมิงโปรไฟล์ Windows</value>

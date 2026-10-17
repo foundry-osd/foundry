@@ -16,7 +16,7 @@
     <value>關於</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
-    <value>由 Mickaël CHAVE 創作和維護。</value>
+    <value>由 Mickaël CHAVE 建立和維護。</value>
   </data>
   <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
     <value>貢獻：{0}</value>
@@ -25,20 +25,20 @@
     <value>無法從 GitHub 載入貢獻者。</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>正在加載貢獻者...</value>
+    <value>正在載入貢獻者…</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>貢獻者</value>
   </data>
   <data name="AboutDialog.Description" xml:space="preserve">
-    <value>Foundry OSD 是用於創建 Windows 部署媒體的現代應用程序，由 WinPE 提供支援。</value>
+    <value>Foundry OSD 是一款採用 WinPE 技術、用於製作 Windows 部署媒體的現代化應用程式。</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>著作權所有 (c) 2026 Mickaël CHAVE 與 Foundry Project 貢獻者。
-根據 MIT 許可證獲得許可。</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE 與 Foundry Project 貢獻者。
+依據 MIT 授權條款授權。</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
-    <value>Foundry 原始碼根據 MIT 許可證分發。</value>
+    <value>Foundry 原始碼依據 MIT 授權條款散布。</value>
   </data>
   <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
     <value>Foundry OSD</value>
@@ -47,13 +47,13 @@
     <value>網站</value>
   </data>
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
-    <value>許可證</value>
+    <value>授權條款</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
-    <value>許可證</value>
+    <value>授權條款</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
-    <value>公司簡介</value>
+    <value>個人檔案</value>
   </data>
   <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
     <value>在瀏覽器中開啟發行說明</value>
@@ -62,7 +62,7 @@
     <value>無法在嵌入式瀏覽器中載入發行說明。</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>正在載入發行說明...</value>
+    <value>正在載入發行說明…</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>發行說明</value>
@@ -71,73 +71,73 @@
     <value>儲存庫</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
-    <value>Windows 部署媒體創作</value>
+    <value>Windows 部署媒體製作</value>
   </data>
   <data name="AboutDialog.SupportLink" xml:space="preserve">
     <value>支援</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>透過專案儲存庫和相依性清單追蹤第三方包許可證。</value>
+    <value>Foundry OSD 使用下列程式庫和工具。其授權條款和專案頁面列於下方。</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>第三方依賴項</value>
+    <value>第三方授權條款</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>關於Foundry OSD</value>
+    <value>關於 Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>有用的連結</value>
   </data>
   <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
-    <value>ISO 和 USB 創建仍被阻止。</value>
+    <value>仍無法建立 ISO 和 USB 媒體。</value>
   </data>
   <data name="Adk.MediaCapability.Ready" xml:space="preserve">
-    <value>可以創建ISO 和USB。</value>
+    <value>可以建立 ISO 和 USB 媒體。</value>
   </data>
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
-    <value>媒體創作能力</value>
+    <value>媒體建立功能</value>
   </data>
   <data name="Adk.Operation.Cancelled" xml:space="preserve">
     <value>Windows ADK 作業已取消。</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK操作完成</value>
+    <value>ADK 作業已完成</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
-    <value>使用快取的ADK安裝程序</value>
+    <value>使用快取的 ADK 安裝程式</value>
   </data>
   <data name="Adk.Operation.Downloaded" xml:space="preserve">
-    <value>ADK安裝程式已下載</value>
+    <value>ADK 安裝程式已下載</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
-    <value>正在下載ADK安裝程序</value>
+    <value>正在下載 ADK 安裝程式</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK操作失敗</value>
+    <value>ADK 作業失敗</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>安裝Windows ADK</value>
+    <value>正在安裝 Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
-    <value>安裝Windows ADK 部署工具</value>
+    <value>正在安裝 Windows ADK 部署工具</value>
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
-    <value>安裝Windows PE 附加元件</value>
+    <value>正在安裝 Windows PE 附加元件</value>
   </data>
   <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
     <value>安裝已完成。請檢查其餘的 ADK 需求。</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
-    <value>刪除現有的 Windows ADK</value>
+    <value>正在移除現有的 Windows ADK</value>
   </data>
   <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
-    <value>刪除現有的 Windows PE 附加元件</value>
+    <value>正在移除現有的 Windows PE 附加元件</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
     <value>正在準備安裝 Windows ADK 24H2</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
-    <value>驗證ADK安裝</value>
+    <value>正在驗證 ADK 安裝</value>
   </data>
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>建立部署媒體之前，請檢閱 Windows ADK 和 Windows PE 附加元件的就緒狀態。</value>
@@ -146,28 +146,28 @@
     <value>Windows ADK</value>
   </data>
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
-    <value>準備情況詳情</value>
+    <value>就緒狀態詳細資料</value>
   </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
-    <value>安裝或升級媒體創建所需的Windows ADK 部署工具和Windows PE 附加元件。</value>
+    <value>安裝或升級建立媒體所需的 Windows ADK 部署工具和 Windows PE 附加元件。</value>
   </data>
   <data name="Adk.SetupAction.Title" xml:space="preserve">
-    <value>ADK設置</value>
+    <value>ADK 安裝</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
     <value>安裝支援的 Windows ADK 24H2 (10.1.26100.9457) 版本。</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
-    <value>ADK版本不受支援</value>
+    <value>ADK 版本不受支援</value>
   </data>
   <data name="Adk.Status.MissingDescription" xml:space="preserve">
-    <value>在設定媒體建立之前，請安裝Windows ADK 部署工具和Windows PE 附加元件。</value>
+    <value>設定媒體建立之前，請先安裝 Windows ADK 部署工具和 Windows PE 附加元件。</value>
   </data>
   <data name="Adk.Status.MissingTitle" xml:space="preserve">
     <value>ADK 未安裝</value>
   </data>
   <data name="Adk.Status.ReadyDescription" xml:space="preserve">
-    <value>Foundry OSD可以創建ISO和USB媒體。</value>
+    <value>Foundry OSD 可以建立 ISO 和 USB 媒體。</value>
   </data>
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK 已準備就緒</value>
@@ -179,13 +179,13 @@
     <value>Windows PE 附加元件需要修復</value>
   </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
-    <value>為已安裝的Windows ADK 安裝Windows PE 插件。</value>
+    <value>為已安裝的 Windows ADK 安裝 Windows PE 附加元件。</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
-    <value>Windows PE 缺少附加元件</value>
+    <value>缺少 Windows PE 附加元件</value>
   </data>
   <data name="Adk.Version.InstalledTitle" xml:space="preserve">
-    <value>安裝版本</value>
+    <value>已安裝的版本</value>
   </data>
   <data name="Adk.Version.NotDetected" xml:space="preserve">
     <value>未偵測到版本</value>
@@ -194,7 +194,7 @@
     <value>需要 Windows ADK 24H2 (10.1.26100.9457)。</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
-    <value>所需版本政策</value>
+    <value>必要版本原則</value>
   </data>
   <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
     <value>WinPE 檔案可用</value>
@@ -203,55 +203,55 @@
     <value>WinPE 檔案遺失</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE 已安裝附加元件</value>
+    <value>已安裝 Windows PE 附加元件</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE 缺少附加元件</value>
+    <value>缺少 Windows PE 附加元件</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE 附加元件</value>
   </data>
   <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
-    <value>降級 Windows ADK 和 Windows PE Add-on</value>
+    <value>降級 Windows ADK 和 Windows PE 附加元件</value>
   </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
     <value>安裝 Windows ADK 和 Windows PE 附加元件</value>
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
-    <value>升級Windows ADK 和Windows PE 附加元件</value>
+    <value>升級 Windows ADK 和 Windows PE 附加元件</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>刪除AI組件</value>
+    <value>啟用 AI 元件設定</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>刪除或停用OOBE之前選定的Windows AI組件。</value>
+    <value>選擇要移除或停用的 Windows AI 元件和體驗。</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI組件移除</value>
+    <value>AI 元件</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>刪除配置的Windows應用程式</value>
+    <value>啟用 AppX 移除</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>刪除 OOBE 之前選定的已配置 Windows 應用程式。</value>
+    <value>選擇要從已部署裝置中移除的已佈建 Windows 應用程式。</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
     <value>AppX 應用程式移除</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
-    <value>測試版發布</value>
+    <value>測試版</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
     <value>預覽版</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
-    <value>穩定版本</value>
+    <value>穩定版</value>
   </data>
   <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
-    <value>釋放通道：{0}</value>
+    <value>發行通道：{0}</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
-    <value>網路更新提要</value>
+    <value>網頁更新摘要</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>更新來源</value>
@@ -263,16 +263,16 @@
     <value>發行說明</value>
   </data>
   <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>導入本地JSON設定檔或從Intune下載它們。</value>
+    <value>匯入本機 JSON 設定檔，或從 Intune 下載。</value>
   </data>
   <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>設定檔操作</value>
+    <value>設定檔動作</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
     <value>資料夾</value>
   </data>
   <data name="Autopilot.ColumnImported" xml:space="preserve">
-    <value>進口</value>
+    <value>已匯入</value>
   </data>
   <data name="Autopilot.ColumnName" xml:space="preserve">
     <value>名稱</value>
@@ -281,7 +281,7 @@
     <value>來源</value>
   </data>
   <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>預設情況下，設定檔在套用的 Windows 影像中暫存。</value>
+    <value>預設暫存於所套用 Windows 映像中的設定檔。</value>
   </data>
   <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
     <value>預設設定檔</value>
@@ -290,151 +290,151 @@
     <value>從租用戶下載</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>租戶沒有返回Autopilot個人資料。</value>
+    <value>租用戶未傳回任何 Autopilot 設定檔。</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot設定檔下載失敗：{0}</value>
+    <value>Autopilot 設定檔下載失敗：{0}</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
-    <value>Autopilot下載失敗</value>
+    <value>Autopilot 下載失敗</value>
   </data>
   <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
-    <value>找不到 Autopilot 設定文件</value>
+    <value>找不到 Autopilot 設定檔</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>正在下載Autopilot 設定檔...</value>
+    <value>正在下載 Autopilot 設定檔…</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
-    <value>{0} 已配置。</value>
+    <value>{0} 已設定。</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
-    <value>託管應用程式註冊</value>
+    <value>受控應用程式註冊</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Foundry OSD Autopilot 未配置註冊。</value>
+    <value>尚未設定 Foundry OSD Autopilot Registration。</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
-    <value>所選證書已過期。在建立啟動媒體之前建立或選擇有效的憑證。</value>
+    <value>所選憑證已過期。建立開機媒體之前，請建立或選取有效的憑證。</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
-    <value>選擇與應用程式註冊憑證相符的PFX。</value>
+    <value>請選取與應用程式註冊憑證相符的 PFX。</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>受密碼保護的 PFX 已複製到啟動媒體以進行硬體雜湊上傳。</value>
+    <value>複製到開機媒體中、用於上傳硬體雜湊的受密碼保護 PFX。</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
-    <value>選定的 PFX 檔案不再存在。</value>
+    <value>所選的 PFX 檔案已不存在。</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
     <value>無法使用提供的密碼開啟所選的 PFX。</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
-    <value>啟動媒體憑證</value>
+    <value>開機媒體憑證</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
-    <value>PFX密碼</value>
+    <value>PFX 密碼</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
-    <value>輸入 PFX 密碼。</value>
+    <value>請輸入 PFX 密碼。</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
-    <value>在建立啟動媒體之前選擇匹配的受密碼保護的 PFX。</value>
+    <value>建立開機媒體之前，請選取相符且受密碼保護的 PFX。</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
-    <value>PFX檔案</value>
+    <value>PFX 檔案</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>選擇Autopilot證書PFX</value>
+    <value>選取 Autopilot 憑證 PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
-    <value>所選 PFX 不包含私鑰資料。</value>
+    <value>所選的 PFX 不包含私密金鑰資料。</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
-    <value>憑證已準備好產生啟動媒體。</value>
+    <value>憑證已可用於產生開機媒體。</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
-    <value>選擇PFX</value>
+    <value>選取 PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
     <value>PFX 憑證指紋與所選的應用程式註冊憑證不符。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>建立或刪除應用程式註冊證書憑證。</value>
+    <value>建立或移除應用程式註冊的憑證認證。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>證書操作</value>
+    <value>憑證動作</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 無法建立應用程式註冊證書。 {0}</value>
+    <value>Foundry 無法建立應用程式註冊憑證。{0}</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
-    <value>證書建立失敗</value>
+    <value>憑證建立失敗</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
-    <value>已創建</value>
+    <value>建立日期</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
     <value>複製密碼</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>現在將此 PFX 檔案和密碼儲存在安全位置。 僅當在「設定備份與同步」中開啟「記住密碼」時，Foundry 才會將密碼隨設定一起儲存在此電腦上。您將需要這兩個值來產生用於硬體雜湊上傳的啟動媒體。</value>
+    <value>請立即將此 PFX 檔案和密碼儲存在安全的位置。只有在「設定備份與同步」中開啟「記住密碼」時，Foundry 才會將密碼連同設定儲存在這部電腦上。您需要這兩個值，才能產生用於上傳硬體雜湊的開機媒體。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>密碼已複製。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
-    <value>PFX密碼</value>
+    <value>PFX 密碼</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
-    <value>PFX檔案</value>
+    <value>PFX 檔案</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
-    <value>證書已準備好</value>
+    <value>憑證已就緒</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
     <value>到期日</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
-    <value>證書編號</value>
+    <value>憑證識別碼</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>PFX憑證</value>
+    <value>PFX 憑證</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 無法刪除所選的應用程式註冊證書。 {0}</value>
+    <value>Foundry 無法移除所選的應用程式註冊憑證。{0}</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
-    <value>證書刪除失敗</value>
+    <value>憑證移除失敗</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>儲存Autopilot證書PFX</value>
+    <value>儲存 Autopilot 憑證 PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>指紋</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
-    <value>沒有提供證書。</value>
+    <value>未佈建任何憑證。</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>連接租戶</value>
+    <value>連線租用戶</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>正在連接租戶...</value>
+    <value>正在連線租用戶…</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
-    <value>建立證書</value>
+    <value>建立憑證</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>無</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
-    <value>未選擇預設群組標籤。</value>
+    <value>未選取預設群組標籤。</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>斷開租戶連接</value>
+    <value>中斷租用戶連線</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>硬體哈希上傳期間在 Foundry Deploy 中預選的可選組標籤。</value>
+    <value>上傳硬體雜湊時，在 Foundry Deploy 中預先選取的選用群組標籤。</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
     <value>預設群組標籤</value>
@@ -443,118 +443,118 @@
     <value>Zero-touch 硬體雜湊上傳</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry 無法設定Autopilot 應用程式註冊。 {0}</value>
+    <value>Foundry 無法設定 Autopilot 應用程式註冊。{0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>租戶入職失敗</value>
+    <value>租用戶上線失敗</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>所選證書已過期。建立新證書，儲存其 PFX 和密碼，然後選擇它作為啟動媒體。</value>
+    <value>所選憑證已過期。請建立新憑證，儲存其 PFX 和密碼，然後選取它用於開機媒體。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
-    <value>先前選擇的憑證不再存在於託管應用程式註冊中。選擇與配置的憑證相符的有效 PFX。</value>
+    <value>先前選取的憑證已不存在於受控應用程式註冊中。請選取與已佈建憑證相符的有效 PFX。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
-    <value>找到名稱為 Foundry 的現有應用程式註冊。重新連接以將其納入Foundry 配置中。</value>
+    <value>找到名稱為 Foundry 的現有應用程式註冊。請重新連線，以將其納入 Foundry 設定。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
-    <value>找不到託管應用程式註冊。重新連接以讓Foundry 創建或採用它。</value>
+    <value>找不到受控應用程式註冊。請重新連線，讓 Foundry 建立或採用它。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>託管服務主體缺少對所需 Microsoft Graph 權限的管理員同意。授予管理員同意並重新連線。</value>
+    <value>受控服務主體缺少所需 Microsoft Graph 權限的系統管理員同意。請授與系統管理員同意，然後重新連線。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>託管應用程式註冊尚未準備好。檢查租戶準備並重新連線。</value>
+    <value>受控應用程式註冊尚未就緒。請檢閱租用戶就緒狀態，然後重新連線。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
-    <value>託管應用程式註冊缺少所需的 Microsoft Graph 應用程式權限。重新連接可以更新應用程式註冊的帳戶。</value>
+    <value>受控應用程式註冊缺少所需的 Microsoft Graph 應用程式權限。請使用可以更新應用程式註冊的帳戶重新連線。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>託管服務主體遺失或被停用。重新連接可以建立或管理企業應用程式的帳戶。</value>
+    <value>受控服務主體遺失或已停用。請使用可以建立或管理企業應用程式的帳戶重新連線。</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>租戶入職需關注</value>
+    <value>租用戶上線需要注意</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>狀態</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
-    <value>還沒準備好</value>
+    <value>尚未就緒</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
-    <value>準備好</value>
+    <value>就緒</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
-    <value>受WinPE Graph 身份驗證信任的應用程式註冊證書。</value>
+    <value>受 WinPE Graph 驗證信任的應用程式註冊憑證。</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
-    <value>提供的證書</value>
+    <value>已佈建的憑證</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
-    <value>刪除證書</value>
+    <value>移除憑證</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry 將僅從託管應用程式註冊中刪除選定的憑證。其他應用程式憑證將被保留。</value>
+    <value>Foundry 只會從受控應用程式註冊中移除所選的憑證。其他應用程式認證將會保留。</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
-    <value>刪除證書</value>
+    <value>移除憑證</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>刪除選定的憑證？</value>
+    <value>要移除所選的憑證嗎？</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry 將僅從託管應用程式註冊中刪除{0} 選定的憑證。其他應用程式憑證將被保留。</value>
+    <value>Foundry 只會從受控應用程式註冊中移除所選的 {0} 個憑證。其他應用程式認證將會保留。</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
-    <value>已連接</value>
+    <value>已連線</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>在瀏覽器中完成登入以配置Autopilot硬體哈希上傳。</value>
+    <value>請在瀏覽器中完成登入，以設定 Autopilot 硬體雜湊上傳。</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
-    <value>登入Microsoft Graph</value>
+    <value>登入 Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
-    <value>客戶ID</value>
+    <value>用戶端識別碼</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>租戶ID</value>
+    <value>租用戶識別碼</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
-    <value>未連接</value>
+    <value>未連線</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>硬體哈希上傳的租戶、應用程式註冊和準備資訊。</value>
+    <value>硬體雜湊上傳的租用戶、應用程式註冊和就緒狀態資訊。</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>租戶準備狀況</value>
+    <value>租用戶就緒狀態</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>名稱</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>價值</value>
+    <value>值</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>連接到此應用程式會話的 Microsoft Graph 以管理哈希上傳設定。</value>
+    <value>在此應用程式工作階段中連線到 Microsoft Graph，以管理雜湊上傳設定。</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>租戶連線</value>
+    <value>租用戶連線</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
-    <value>導入設定檔</value>
+    <value>匯入設定檔</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
     <value>{0}</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
-    <value>Autopilot導入失敗</value>
+    <value>Autopilot 匯入失敗</value>
   </data>
   <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
-    <value>導入Autopilot設定檔JSON</value>
+    <value>匯入 Autopilot 設定檔 JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>正在導入Autopilot個人資料...</value>
+    <value>正在匯入 Autopilot 設定檔…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>啟用後，技術人員將在 Windows 安裝期間使用 Microsoft 裝置代碼登入並上傳裝置硬體雜湊。</value>
@@ -563,7 +563,7 @@
     <value>互動式硬體雜湊上傳</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
-    <value>JSON 設定檔配置</value>
+    <value>JSON 設定檔佈建</value>
   </data>
   <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
     <value>{0} 目前處於使用中。繼續將停用它並啟用 {1}。</value>
@@ -572,43 +572,43 @@
     <value>變更模式</value>
   </data>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
-    <value>變更配置模式？</value>
+    <value>要變更佈建模式嗎？</value>
   </data>
   <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>離線Autopilot 設定檔可用於JSON 設定檔設定。</value>
+    <value>可用於 JSON 設定檔佈建的離線 Autopilot 設定檔。</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
-    <value>沒有導入 Autopilot 設定檔。</value>
+    <value>尚未匯入任何 Autopilot 設定檔。</value>
   </data>
   <data name="Autopilot.ProfilesLabel" xml:space="preserve">
-    <value>導入型材</value>
+    <value>已匯入的設定檔</value>
   </data>
   <data name="Autopilot.RemoveButton" xml:space="preserve">
-    <value>刪除選定的</value>
+    <value>移除所選項目</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>從導入的Autopilot 設定檔中刪除“{0}”嗎？</value>
+    <value>要從已匯入的 Autopilot 設定檔中移除「{0}」嗎？</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
-    <value>刪除個人資料</value>
+    <value>移除設定檔</value>
   </data>
   <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
-    <value>刪除Autopilot個人資料嗎？</value>
+    <value>要移除 Autopilot 設定檔嗎？</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>刪除 {0} 選定的 Autopilot 設定檔嗎？</value>
+    <value>要移除所選的 {0} 個 Autopilot 設定檔嗎？</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
-    <value>刪除設定檔</value>
+    <value>移除設定檔</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
-    <value>刪除 Autopilot 設定檔？</value>
+    <value>要移除 Autopilot 設定檔嗎？</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
-    <value>在瀏覽器中完成登入即可下載Autopilot設定檔。</value>
+    <value>請在瀏覽器中完成登入，以下載 Autopilot 設定檔。</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
-    <value>登入Microsoft Graph</value>
+    <value>登入 Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
     <value>取消</value>
@@ -617,19 +617,19 @@
     <value>清除</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>選擇應將哪些租戶設定檔匯入Foundry。</value>
+    <value>選擇要將哪些租用戶設定檔匯入 Foundry。</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>進口</value>
+    <value>匯入</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
-    <value>選擇全部</value>
+    <value>全選</value>
   </data>
   <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
-    <value>選定的設定檔：{0} 或 {1}</value>
+    <value>已選取的設定檔：{0}/{1}</value>
   </data>
   <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
-    <value>選擇Autopilot設定文件</value>
+    <value>選取 Autopilot 設定檔</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
     <value>讓技術人員在部署期間上傳裝置硬體雜湊。</value>
@@ -638,10 +638,10 @@
     <value>互動式硬體雜湊上傳</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>在套用的 Windows 映像中暫存離線 Autopilot 設定檔。</value>
+    <value>匯入或下載內嵌於部署媒體中的 Autopilot 設定檔。</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON 設定檔配置</value>
+    <value>JSON 設定檔</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>設定由租用戶支援的自動硬體雜湊上傳。</value>
@@ -671,13 +671,13 @@
     <value>停用</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>殘障人士</value>
+    <value>已停用</value>
   </data>
   <data name="Common.Enable" xml:space="preserve">
     <value>啟用</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
-    <value>啟用</value>
+    <value>已啟用</value>
   </data>
   <data name="Common.NeedsAttention" xml:space="preserve">
     <value>需要注意</value>
@@ -686,7 +686,7 @@
     <value>重新整理</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
-    <value>不可用</value>
+    <value>無法使用</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>架構</value>
@@ -839,79 +839,79 @@
     <value>是</value>
   </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
-    <value>將 WSAIFabricSvc 設定為手動啟動而不是自動啟動。</value>
+    <value>將 WSAIFabricSvc 設定為手動啟動，而非自動啟動。</value>
   </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
-    <value>防止Windows AI服務自動啟動</value>
+    <value>防止 Windows AI 服務自動啟動</value>
   </data>
   <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
-    <value>設定關閉Click to Do的Windows AI策略。</value>
+    <value>設定可關閉 Click to Do 的 Windows AI 原則。</value>
   </data>
   <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
-    <value>禁用Click to Do</value>
+    <value>停用 Click to Do</value>
   </data>
   <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
-    <value>設定Edge策略以停用Copilot、側邊欄、撰寫和AI搜尋功能。</value>
+    <value>設定可停用 Copilot、側邊欄、撰寫和 AI 搜尋功能的 Edge 原則。</value>
   </data>
   <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
-    <value>停用Microsoft Edge AI功能</value>
+    <value>停用 Microsoft Edge AI 功能</value>
   </data>
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
-    <value>設定Notepad停用AI功能的策略。</value>
+    <value>設定可停用 AI 功能的記事本原則。</value>
   </data>
   <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
-    <value>停用Notepad AI功能</value>
+    <value>停用記事本 AI 功能</value>
   </data>
   <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
-    <value>設定Paint 策略來停用 Cocreator、生成編輯、圖像建立和背景刪除。</value>
+    <value>設定可停用 Cocreator、生成式編輯、影像建立工具和背景移除的小畫家原則。</value>
   </data>
   <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
-    <value>停用Paint AI功能</value>
+    <value>停用小畫家 AI 功能</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
-    <value>設定阻止Recall啟用和快照儲存的Windows AI策略。</value>
+    <value>設定可防止啟用 Recall 和儲存快照的 Windows AI 原則。</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
     <value>透過原則停用 Windows Recall</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
-    <value>刪除已配置的 Windows AI Hub 應用程式套件（如果存在）。</value>
+    <value>移除已佈建的 Windows AI Hub 應用程式套件（如果存在）。</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
-    <value>刪除Copilot+ AI Hub</value>
+    <value>移除 Copilot+ AI Hub</value>
   </data>
   <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
-    <value>刪除Copilot應用程式套件並關閉WindowsCopilot策略。</value>
+    <value>移除 Copilot 應用程式套件，並關閉 Windows Copilot 原則。</value>
   </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
-    <value>刪除Microsoft Copilot</value>
+    <value>移除 Microsoft Copilot</value>
   </data>
   <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
-    <value>套餐</value>
+    <value>套件</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>客製化</value>
+    <value>自訂</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
-    <value>選擇一個或多個目錄類別來預選套件。</value>
+    <value>選取一或多個目錄類別，以預先選取套件。</value>
   </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
-    <value>公司簡介</value>
+    <value>設定檔</value>
   </data>
   <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
     <value>無</value>
   </data>
   <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
-    <value>選定的設定檔：{0}</value>
+    <value>已選取的設定檔：{0}</value>
   </data>
   <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
-    <value>全部刪除</value>
+    <value>全部移除</value>
   </data>
   <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
-    <value>選擇全部</value>
+    <value>全選</value>
   </data>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
-    <value>選購套餐：{0} 或 {1}</value>
+    <value>已選取的套件：{0}/{1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
     <value>在上傳硬體雜湊時，將 Foundry Deploy 中確認的最終電腦名稱指派給 Windows Autopilot 裝置。</value>
@@ -968,7 +968,7 @@
     <value>組合</value>
   </data>
   <data name="Customization.MachineNamingEditingDescription" xml:space="preserve">
-    <value>允許操作員在部署前編輯完整的已產生名稱。</value>
+    <value>允許操作人員在部署前編輯產生的完整名稱。</value>
   </data>
   <data name="Customization.MachineNamingEditingLabel" xml:space="preserve">
     <value>允許在部署期間編輯名稱</value>
@@ -1001,7 +1001,7 @@
     <value>無</value>
   </data>
   <data name="Customization.MachineNamingValidation" xml:space="preserve">
-    <value>請檢查元件設定。電腦名稱的最大長度為 15 個字元。</value>
+    <value>請檢閱元件設定。電腦名稱長度上限為 15 個字元。</value>
   </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
     <value>為此帳戶設定預先定義的密碼。需要受保護的部署媒體。關閉此選項可使用空白密碼。</value>
@@ -1019,7 +1019,7 @@
     <value>請選擇其他本機帳戶名稱。</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
-    <value>請檢查此本機帳戶。</value>
+    <value>請檢閱此本機帳戶。</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.InvalidUserNameCharacters" xml:space="preserve">
     <value>帳戶名稱包含 Windows 不允許的字元。</value>
@@ -1028,7 +1028,7 @@
     <value>密碼與確認內容必須相符。</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
-    <value>輸入並確認密碼，或關閉「設定密碼」。</value>
+    <value>請輸入並確認密碼，或關閉「設定密碼」。</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.ReservedBuiltInUserName" xml:space="preserve">
     <value>此 Windows 帳戶名稱已保留。</value>
@@ -1097,43 +1097,43 @@
     <value>內建 Administrator 帳戶</value>
   </data>
   <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
-    <value>允許應用程式跨應用程式使用Windows廣告ID。</value>
+    <value>允許應用程式跨應用程式使用 Windows 廣告識別碼。</value>
   </data>
   <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
-    <value>廣告ID</value>
+    <value>廣告識別碼</value>
   </data>
   <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
-    <value>選擇首次登入前配置的 Windows 診斷資料等級。只有支援的 Windows 版本才支援 Off；不支援的版本會回退到必要版本。</value>
+    <value>選取首次登入前所設定的 Windows 診斷資料等級。只有支援的 Windows 版本會採用「關閉」；不支援的版本會改用「必要」。</value>
   </data>
   <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
-    <value>診斷數據</value>
+    <value>診斷資料</value>
   </data>
   <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
     <value>關閉</value>
   </data>
   <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
-    <value>可選</value>
+    <value>選用</value>
   </data>
   <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
-    <value>必填</value>
+    <value>必要</value>
   </data>
   <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
-    <value>阻止 Windows 在首次登入期間顯示隱私選擇頁面。</value>
+    <value>防止 Windows 在首次登入時顯示隱私權選項頁面。</value>
   </data>
   <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
-    <value>隱藏隱私設定</value>
+    <value>隱藏隱私權設定</value>
   </data>
   <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
-    <value>允許可選的墨跡書寫和打字診斷資料收集。</value>
+    <value>允許收集選用的筆跡與輸入診斷資料。</value>
   </data>
   <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
-    <value>墨跡書寫與打字診斷</value>
+    <value>筆跡與輸入診斷</value>
   </data>
   <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
-    <value>控制Windows和應用程式是否可以使用位置服務。</value>
+    <value>控制 Windows 和應用程式是否可以使用定位服務。</value>
   </data>
   <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
-    <value>位置訪問</value>
+    <value>位置存取</value>
   </data>
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>強制關閉</value>
@@ -1145,10 +1145,10 @@
     <value>目前僅設定了標準帳戶。請確保有其他系統管理員帳戶或管理方式可用。</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
-    <value>允許Microsoft基於雲端的語音辨識服務。</value>
+    <value>允許使用 Microsoft 雲端式語音辨識服務。</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
-    <value>線上語音識別</value>
+    <value>線上語音辨識</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
     <value>在 OOBE 期間跳過 Microsoft 軟體授權條款頁面。</value>
@@ -1166,7 +1166,7 @@
     <value>已自動啟用，因為其他本機帳戶會略過帳戶建立階段。</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
-    <value>允許Windows 使用診斷數據來提供個人化提示、廣告和建議。</value>
+    <value>允許 Windows 使用診斷資料提供個人化提示、廣告和建議。</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
     <value>量身訂製的體驗</value>
@@ -1283,10 +1283,10 @@
     <value>套用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
-    <value>套用批次變更？</value>
+    <value>要套用批次變更嗎？</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
-    <value>人工智慧組件</value>
+    <value>AI 元件</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
     <value>相容性</value>
@@ -1304,16 +1304,16 @@
     <value>目錄服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
-    <value>文件服務</value>
+    <value>檔案服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
     <value>檔案系統</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
-    <value>框架與應用平台</value>
+    <value>架構與應用程式平台</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
-    <value>遺留組件</value>
+    <value>舊版元件</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
     <value>管理工具</value>
@@ -1325,7 +1325,7 @@
     <value>訊息佇列</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
-    <value>聯網</value>
+    <value>網路</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
     <value>列印和文件</value>
@@ -1334,25 +1334,25 @@
     <value>搜尋和索引</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
-    <value>安全</value>
+    <value>安全性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
     <value>虛擬化</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
-    <value>網路及網際網路資訊服務</value>
+    <value>Web 與 Internet Information Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
-    <value>適用於所有選定的目標</value>
+    <value>適用於所有選取的目標</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
-    <value>適用於某些選定的目標</value>
+    <value>適用於部分選取的目標</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
     <value>將根據所套用的 Windows 映像驗證可用性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
-    <value>不適用於選定的目標</value>
+    <value>不適用於選取的目標</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
     <value>{0} — {1}</value>
@@ -1364,7 +1364,7 @@
     <value>裝置鎖定</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
-    <value>無品牌啟動</value>
+    <value>無品牌開機</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
     <value>自訂登入</value>
@@ -1373,19 +1373,19 @@
     <value>Shell 啟動器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
-    <value>鍵盤過濾器</value>
+    <value>鍵盤篩選器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_ProjFS" xml:space="preserve">
     <value>Windows 投影檔案系統</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
-    <value>統一寫入濾波器</value>
+    <value>整合寫入篩選器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
     <value>容器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
-    <value>Windows沙箱</value>
+    <value>Windows 沙箱</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_Server_For_Application_Guard" xml:space="preserve">
     <value>Microsoft Defender 應用程式防護</value>
@@ -1400,7 +1400,7 @@
     <value>Active Directory 輕量級目錄服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
-    <value>Host Guardian Hyper-V 支持</value>
+    <value>Host Guardian Hyper-V 支援</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
     <value>Microsoft Hyper-V 來賓整合服務</value>
@@ -1409,7 +1409,7 @@
     <value>Microsoft 核心偵錯網路介面卡</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
-    <value>Windows 管理程式平台</value>
+    <value>Windows Hypervisor 平台</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
     <value>ASP</value>
@@ -1427,13 +1427,13 @@
     <value>應用程式初始化</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
-    <value>基本認證</value>
+    <value>基本驗證</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CGI" xml:space="preserve">
     <value>CGI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
-    <value>集中式 SSL 憑證支持</value>
+    <value>集中式 SSL 憑證支援</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
     <value>用戶端憑證對應驗證</value>
@@ -1442,13 +1442,13 @@
     <value>常見的 HTTP 功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
-    <value>自訂日誌記錄</value>
+    <value>自訂記錄</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
-    <value>預設文檔</value>
+    <value>預設文件</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
-    <value>摘要式認證</value>
+    <value>摘要式驗證</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
     <value>目錄瀏覽</value>
@@ -1457,16 +1457,16 @@
     <value>FTP 擴充性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
-    <value>FTP伺服器</value>
+    <value>FTP 伺服器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
-    <value>FTP服務</value>
+    <value>FTP 服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
-    <value>健康與診斷</value>
+    <value>健全狀況與診斷</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
-    <value>IIS 託管 Web 核心</value>
+    <value>IIS 可裝載的 Web 核心</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
     <value>動態內容壓縮</value>
@@ -1478,7 +1478,7 @@
     <value>HTTP 錯誤</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
-    <value>HTTP 日誌記錄</value>
+    <value>HTTP 記錄</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
     <value>HTTP 重新導向</value>
@@ -1502,7 +1502,7 @@
     <value>ISAPI 篩選器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
-    <value>IIS 6 腳本工具</value>
+    <value>IIS 6 指令碼工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
     <value>IIS 6 管理控制台</value>
@@ -1514,13 +1514,13 @@
     <value>IIS 管理控制台</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
-    <value>IIS 管理腳本和工具</value>
+    <value>IIS 管理指令碼和工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
-    <value>IIS管理服務</value>
+    <value>IIS 管理服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
-    <value>IIS 元資料庫和 IIS 6 配置相容性</value>
+    <value>IIS 中繼資料庫和 IIS 6 設定相容性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
     <value>.NET 擴充性 3.5</value>
@@ -1529,19 +1529,19 @@
     <value>.NET 擴充性 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
-    <value>ODBC 日誌記錄</value>
+    <value>ODBC 記錄</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
     <value>效能功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
-    <value>請求過濾</value>
+    <value>要求篩選</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
-    <value>請求監控</value>
+    <value>要求監視器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
-    <value>安全功能</value>
+    <value>安全性功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
     <value>伺服器端包含</value>
@@ -1556,34 +1556,34 @@
     <value>IIS 6 WMI 相容性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
-    <value>WebDAV 出版</value>
+    <value>WebDAV 發行</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
-    <value>萬維網服務</value>
+    <value>World Wide Web 服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
-    <value>網頁管理工具</value>
+    <value>Web 管理工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
-    <value>網際網路資訊服務</value>
+    <value>Internet Information Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket協議</value>
+    <value>WebSocket 通訊協定</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
     <value>Windows 驗證</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
-    <value>遺留組件</value>
+    <value>舊版元件</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
-    <value>目錄服務集成</value>
+    <value>目錄服務整合</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
     <value>Microsoft 訊息佇列 (MSMQ) 伺服器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
-    <value>MSMQ DCOM 代理</value>
+    <value>MSMQ DCOM Proxy</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
     <value>HTTP 支援</value>
@@ -1595,7 +1595,7 @@
     <value>Microsoft 訊息佇列 (MSMQ) 伺服器核心</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
-    <value>訊息隊列觸發器</value>
+    <value>訊息佇列觸發程序</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
     <value>遠端差分壓縮 API 支援</value>
@@ -1610,7 +1610,7 @@
     <value>Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
-    <value>Hyper-V 管理程式</value>
+    <value>Hyper-V Hypervisor</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
     <value>Hyper-V GUI 管理工具</value>
@@ -1625,13 +1625,13 @@
     <value>Hyper-V 管理工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
-    <value>Linux 的 Windows 子系統</value>
+    <value>適用於 Linux 的 Windows 子系統</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
-    <value>多點連接器</value>
+    <value>MultiPoint 連接器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
-    <value>多點連接器服務</value>
+    <value>MultiPoint 連接器服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
     <value>MultiPoint 管理器和 MultiPoint 儀表板</value>
@@ -1640,7 +1640,7 @@
     <value>NFS 管理工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
-    <value>.NET Framework 3.5（包括.NET 2.0和3.0）</value>
+    <value>.NET Framework 3.5（包括 .NET 2.0 和 3.0）</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4Extended_ASPNET45" xml:space="preserve">
     <value>ASP.NET 4.8</value>
@@ -1652,13 +1652,13 @@
     <value>列印和文件服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>網路列印客戶端</value>
+    <value>網際網路列印用戶端</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
-    <value>LPD列印服務</value>
+    <value>LPD 列印服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>LPR連接埠監視器</value>
+    <value>LPR 連接埠監視器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
     <value>Microsoft Print to PDF</value>
@@ -1670,13 +1670,13 @@
     <value>Recall</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
-    <value>SMB 1.0/CIFS 檔案共享支持</value>
+    <value>SMB 1.0/CIFS 檔案共用支援</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
     <value>SMB 1.0/CIFS 用戶端</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
-    <value>SMB 1.0/CIFS 自動刪除</value>
+    <value>SMB 1.0/CIFS 自動移除</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
     <value>SMB 1.0/CIFS 伺服器</value>
@@ -1685,16 +1685,16 @@
     <value>NFS 服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
-    <value>簡單的 TCP/IP 服務</value>
+    <value>簡易 TCP/IP 服務</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
     <value>SMB Direct</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
-    <value>系統監控器</value>
+    <value>系統監視器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
-    <value>TFTP客戶端</value>
+    <value>TFTP 用戶端</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TIFFIFilter" xml:space="preserve">
     <value>Windows TIFF IFilter</value>
@@ -1706,10 +1706,10 @@
     <value>虛擬機器平台</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
-    <value>配置API</value>
+    <value>設定 API</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
-    <value>.NET環境</value>
+    <value>.NET 環境</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
     <value>處理序模型</value>
@@ -1721,13 +1721,13 @@
     <value>Windows Communication Foundation HTTP 啟用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
-    <value>HTTP 啟用設定</value>
+    <value>HTTP 啟用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
-    <value>訊息佇列 (MSMQ) 激活</value>
+    <value>訊息佇列 (MSMQ) 啟用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation 非 HTTP 激活</value>
+    <value>Windows Communication Foundation 非 HTTP 啟用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
     <value>命名管道啟用</value>
@@ -1739,7 +1739,7 @@
     <value>TCP 啟用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
-    <value>TCP連接埠共享</value>
+    <value>TCP 連接埠共用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
     <value>Windows Media Player 舊版</value>
@@ -1748,7 +1748,7 @@
     <value>Windows Identity Foundation 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
-    <value>工作資料夾客戶端</value>
+    <value>工作資料夾用戶端</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
     <value>停用</value>
@@ -1757,10 +1757,10 @@
     <value>啟用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
-    <value>不變</value>
+    <value>不變更</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>已配置 {0}（{1} 啟用，{2} 停用）</value>
+    <value>已設定 {0} 項（{1} 項啟用，{2} 項停用）</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
     <value>可用性取決於 Copilot+ PC 硬體和安裝的 Windows 映像。</value>
@@ -1772,31 +1772,31 @@
     <value>啟用此功能需要 sources\sxs 中相符的安裝媒體來源。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
-    <value>Windows N 版本可能需要媒體功能包。</value>
+    <value>Windows N 版本可能需要 Media Feature Pack。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
-    <value>需要支援 RDMA 的網路適配器。</value>
+    <value>需要支援 RDMA 的網路介面卡。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
-    <value>此組件狀態獨立於單獨的 Recall 原則設定。</value>
+    <value>此元件狀態與另外的 Recall 原則設定無關。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
-    <value>這僅配置 Windows 元件；它不安裝 Linux 發行版。</value>
+    <value>這只會設定 Windows 元件，不會安裝 Linux 發行版本。</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
     <value>沒有與此搜尋相符的 Windows 選用功能。</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>變更將在安裝 Windows 之後、OOBE 之前離線套用。啟用操作僅使用已安裝的映像或符合的安裝媒體來源；不使用網路回退。</value>
+    <value>變更會在安裝 Windows 之後、OOBE 之前離線套用。啟用作業只會使用已安裝的映像或相符的安裝媒體來源，不會改從網際網路取得。</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
     <value>搜尋選用功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
-    <value>按顯示名稱或 DISM 功能名稱搜尋</value>
+    <value>依顯示名稱或 DISM 功能名稱搜尋</value>
   </data>
   <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>匯出...</value>
+    <value>匯出…</value>
   </data>
   <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
     <value>建立已淨化的支援封存檔，而不修改原始記錄。</value>
@@ -1808,13 +1808,13 @@
     <value>選擇要將 Foundry 診斷資訊匯出到何處</value>
   </data>
   <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
-    <value>無法匯出診斷資訊。請檢查記錄以取得詳細資料。</value>
+    <value>無法匯出診斷資訊。如需詳細資料，請查看記錄。</value>
   </data>
   <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
     <value>匯出診斷資訊失敗</value>
   </data>
   <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>進階：匯出原始記錄...</value>
+    <value>進階：匯出原始記錄…</value>
   </data>
   <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
     <value>匯出原始記錄</value>
@@ -1829,10 +1829,10 @@
     <value>診斷資訊已匯出</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
-    <value>Foundry 無法在您的瀏覽器中開啟文件。請改用URL。</value>
+    <value>Foundry 無法在您的瀏覽器中開啟文件。請改用此 URL。</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
-    <value>文件無法開啟</value>
+    <value>無法開啟文件</value>
   </data>
   <data name="DomainJoin.ColumnAccount" xml:space="preserve">
     <value>網域加入帳戶</value>
@@ -1871,7 +1871,7 @@
     <value>是</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
-    <value>正在網域中搜尋 OU...</value>
+    <value>正在網域中搜尋 OU…</value>
   </data>
   <data name="DomainJoin.DiscoveryCanceled" xml:space="preserve">
     <value>搜尋已取消。</value>
@@ -2045,16 +2045,16 @@
     <value>共用的網域加入帳戶</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>受信任的根 CA 憑證文件</value>
+    <value>受信任的根 CA 憑證檔案</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>選擇802.1X證書</value>
+    <value>選取 802.1X 憑證</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>配置有線 802.1X</value>
+    <value>啟用 Ethernet 802.1X 設定</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>預設情況下，標準 Ethernet 連線可用。僅當您的有線網路需要 802.1X 企業身份驗證時才配置此部分。</value>
+    <value>設定有線 802.1X 驗證和 Windows 設定檔漫遊。</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
@@ -2096,7 +2096,7 @@
     <value>請輸入至少包含 8 個字元且相符的密碼。</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
-    <value>設定媒體基準、WinPE 語言、開機簽章、驅動程式和Windows PE 時區。</value>
+    <value>設定媒體基準、WinPE 語言、開機簽章、驅動程式和 Windows PE 時區。</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
     <value>選擇用於產生媒體的安全開機簽署原則。</value>
@@ -2126,7 +2126,7 @@
     <value>配置</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
-    <value>在選擇WinPE 啟動語言之前安裝Windows ADK 和Windows PE 附加元件。</value>
+    <value>選取 WinPE 開機語言之前，請先安裝 Windows ADK 和 Windows PE 附加元件。</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
     <value>未偵測到所選架構的 WinPE 語言套件。</value>
@@ -2135,7 +2135,7 @@
     <value>一般</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
-    <value>回顧並開始</value>
+    <value>檢閱並開始</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
     <value>檢閱就緒狀態並選擇媒體輸出。</value>
@@ -2144,22 +2144,22 @@
     <value>建立媒體</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
-    <value>更改應用程式語言而無需重新啟動Foundry OSD。</value>
+    <value>變更應用程式語言，不需要重新啟動 Foundry OSD。</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>語言</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>啟動選項。</value>
+    <value>開機選項。</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
-    <value>配置媒體</value>
+    <value>設定媒體</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>ADK 準備狀況。</value>
+    <value>ADK 就緒狀態。</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
-    <value>開啟ADK</value>
+    <value>開啟 ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
     <value>產品文件。</value>
@@ -2171,10 +2171,10 @@
     <value>最終媒體摘要。</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
-    <value>回顧並開始</value>
+    <value>檢閱並開始</value>
   </data>
   <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
-    <value>安裝版本</value>
+    <value>已安裝的版本</value>
   </data>
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE 附加元件</value>
@@ -2204,7 +2204,7 @@
     <value>設定</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>媒體準備狀態</value>
+    <value>媒體就緒狀態</value>
   </data>
   <data name="InteractiveDomainJoinPageHeader.Description" xml:space="preserve">
     <value>在部署期間要求技術人員提供網域認證。</value>
@@ -2213,10 +2213,10 @@
     <value>互動式網域加入</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>阿拉伯語（沙烏地阿拉伯）</value>
+    <value>阿拉伯文（沙烏地阿拉伯）</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
-    <value>保加利亞語（保加利亞語）</value>
+    <value>保加利亞文（保加利亞）</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
     <value>簡體中文（中國）</value>
@@ -2225,106 +2225,106 @@
     <value>繁體中文（台灣）</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>克羅埃西亞語（克羅埃西亞）</value>
+    <value>克羅埃西亞文（克羅埃西亞）</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>捷克語（捷克）</value>
+    <value>捷克文（捷克）</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>丹麥語（丹麥）</value>
+    <value>丹麥文（丹麥）</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>荷蘭語（荷蘭）</value>
+    <value>荷蘭文（荷蘭）</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>英語（英國）</value>
+    <value>英文（英國）</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>英語（美國）</value>
+    <value>英文（美國）</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>愛沙尼亞語（愛沙尼亞）</value>
+    <value>愛沙尼亞文（愛沙尼亞）</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>芬蘭語（芬蘭）</value>
+    <value>芬蘭文（芬蘭）</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>法語（加拿大）</value>
+    <value>法文（加拿大）</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>法語（法國）</value>
+    <value>法文（法國）</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>德語（德國）</value>
+    <value>德文（德國）</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>希臘文（希臘文）</value>
+    <value>希臘文（希臘）</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
     <value>希伯來文（以色列）</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>匈牙利語（匈牙利）</value>
+    <value>匈牙利文（匈牙利）</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>義大利語（義大利）</value>
+    <value>義大利文（義大利）</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
     <value>日文（日本）</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>韓語（韓國）</value>
+    <value>韓文（韓國）</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>拉脫維亞語（拉脫維亞）</value>
+    <value>拉脫維亞文（拉脫維亞）</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>立陶宛語（立陶宛）</value>
+    <value>立陶宛文（立陶宛）</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>挪威博克馬爾語（挪威）</value>
+    <value>挪威博克馬爾文（挪威）</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>波蘭語（波蘭）</value>
+    <value>波蘭文（波蘭）</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>葡萄牙語（巴西）</value>
+    <value>葡萄牙文（巴西）</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>葡萄牙語（葡萄牙）</value>
+    <value>葡萄牙文（葡萄牙）</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>羅馬尼亞語（羅馬尼亞）</value>
+    <value>羅馬尼亞文（羅馬尼亞）</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>俄語（俄羅斯）</value>
+    <value>俄文（俄羅斯）</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>塞爾維亞拉丁語（塞爾維亞）</value>
+    <value>塞爾維亞拉丁文（塞爾維亞）</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>斯洛伐克（斯洛伐克）</value>
+    <value>斯洛伐克文（斯洛伐克）</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>斯洛維尼亞語（斯洛維尼亞）</value>
+    <value>斯洛維尼亞文（斯洛維尼亞）</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>西班牙語（墨西哥）</value>
+    <value>西班牙文（墨西哥）</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>西班牙語（西班牙）</value>
+    <value>西班牙文（西班牙）</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
     <value>瑞典文（瑞典）</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>泰語（泰國）</value>
+    <value>泰文（泰國）</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>土耳其語（Türkiye）</value>
+    <value>土耳其文（土耳其）</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>烏克蘭語（烏克蘭）</value>
+    <value>烏克蘭文（烏克蘭）</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
     <value>將電腦名稱上傳至 Autopilot</value>
@@ -2345,13 +2345,13 @@
     <value>向上移動元件</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>啟用機器命名規則</value>
+    <value>啟用電腦命名設定</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
     <value>設定自動與技術人員輔助的裝置命名。</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>電腦名稱</value>
+    <value>電腦命名</value>
   </data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve">
     <value>預覽</value>
@@ -2366,19 +2366,19 @@
     <value>關於</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
-    <value>ADK 準備安裝。</value>
+    <value>ADK 就緒狀態與安裝。</value>
   </data>
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>刪除或停用OOBE之前選定的Windows AI組件。</value>
+    <value>移除或停用 Windows AI 元件。</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
     <value>AI 元件</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>刪除 OOBE 之前選定的已配置 Windows 應用程式。</value>
+    <value>選取要移除的已佈建應用程式。</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
     <value>AppX 應用程式移除</value>
@@ -2408,10 +2408,10 @@
     <value>自訂 Windows 映像</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
-    <value>客製化</value>
+    <value>自訂</value>
   </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
-    <value>Foundry 文件和項目連結。</value>
+    <value>Foundry 文件和專案連結。</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>文件</value>
@@ -2420,13 +2420,13 @@
     <value>網域加入</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>預設情況下，標準 Ethernet 連線可用。僅當您的有線網路需要 802.1X 企業身份驗證時才配置此部分。</value>
+    <value>設定有線 802.1X 驗證。</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
-    <value>標準配置工作流程。</value>
+    <value>標準設定工作流程。</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
     <value>一般</value>
@@ -2435,7 +2435,7 @@
     <value>一般</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD家</value>
+    <value>Foundry OSD 首頁</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>首頁</value>
@@ -2456,19 +2456,19 @@
     <value>網路</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>配置Windows 11個首次運行螢幕和隱私預設值。</value>
+    <value>設定 Windows 全新體驗。</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>在已部署的作業系統中啟用或停用 Windows 元件。</value>
+    <value>啟用或停用 Windows 選用功能。</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
     <value>選用功能</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>定義部署期間提供的 Windows 版本、更新層級、語言和版本類型。</value>
+    <value>限制部署時可選擇的作業系統。</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>作業系統選擇</value>
@@ -2486,7 +2486,7 @@
     <value>回報錯誤</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
-    <value>查看並開始媒體創建。</value>
+    <value>檢閱並開始建立媒體。</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
     <value>開始</value>
@@ -2504,7 +2504,7 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Autopilot</value>
+    <value>Windows Autopilot</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Description" xml:space="preserve">
     <value>使用受部署密碼保護的認證自動加入網域。</value>
@@ -2513,7 +2513,7 @@
     <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
-    <value>使用中的配置模式</value>
+    <value>使用中的佈建模式</value>
   </data>
   <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
     <value>ADK 未就緒</value>
@@ -2528,16 +2528,16 @@
     <value>未設定</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
-    <value>企業行為由此建構中的設定檔模板驅動。此處未配置部署期間輸入的 802.1X 憑證。</value>
+    <value>在此組建中，企業行為由設定檔範本決定。部署期間輸入的 802.1X 認證不會在此佈建。</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
-    <value>不支援Wi-Fi 安全類型「{0}」。</value>
+    <value>不支援的 Wi-Fi 安全性類型「{0}」。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
-    <value>所選企業Wi-Fi安全類型與設定檔範本驗證({0})不符。</value>
+    <value>所選的企業 Wi-Fi 安全性類型與設定檔範本的驗證方式（{0}）不符。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
-    <value>企業 Wi-Fi 設定檔範本必須包含支援的企業身分驗證值。</value>
+    <value>企業 Wi-Fi 設定檔範本必須包含支援的企業驗證值。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
     <value>找不到企業 Wi-Fi 受信任的根 CA 憑證檔案。</value>
@@ -2546,19 +2546,19 @@
     <value>啟用憑證信任時，企業 Wi-Fi 需要受信任的根 CA 憑證檔案。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
-    <value>找不到企業 Wi-Fi 設定檔模板檔。</value>
+    <value>找不到企業 Wi-Fi 設定檔範本檔案。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
-    <value>企業Wi-Fi 需要設定檔模板。</value>
+    <value>企業 Wi-Fi 需要設定檔範本。</value>
   </data>
   <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
     <value>個人 Wi-Fi 需要 8 到 63 個字元的密碼。</value>
   </data>
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
-    <value>Wi-Fi 配置需要在啟動映像中配置 Wi-Fi 支援。</value>
+    <value>Wi-Fi 設定需要在開機映像中佈建 Wi-Fi 支援。</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
-    <value>Wi-Fi 配置需要SSID。</value>
+    <value>Wi-Fi 設定需要 SSID。</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
     <value>找不到有線 802.1X 受信任根 CA 憑證檔案。</value>
@@ -2567,19 +2567,19 @@
     <value>啟用憑證信任時，有線 802.1X 需要受信任的根 CA 憑證檔案。</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
-    <value>未找到有線 802.1X 設定檔範本檔。</value>
+    <value>找不到有線 802.1X 設定檔範本檔案。</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
-    <value>有線 802.1X 需要有線設定檔模板。</value>
+    <value>有線 802.1X 需要有線設定檔範本。</value>
   </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
-    <value>設定檔模板文件</value>
+    <value>設定檔範本檔案</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
-    <value>選擇網路設定檔模板</value>
+    <value>選取網路設定檔範本</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>導入受信任的根CA憑證</value>
+    <value>匯入受信任的根 CA 憑證</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>將已設定的 PFX 用戶端憑證複製到 Windows，並在 OOBE 前匯入 LocalMachine 個人憑證存放區。</value>
@@ -2591,10 +2591,10 @@
     <value>將網路設定檔漫遊至 Windows</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
-    <value>先進企業Wi-Fi</value>
+    <value>進階企業 Wi-Fi</value>
   </data>
   <data name="Network.WifiEnterpriseTemplateLabel" xml:space="preserve">
-    <value>配置企業Wi-Fi設定檔模板</value>
+    <value>佈建企業 Wi-Fi 設定檔範本</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>僅當在「設定備份與同步」中開啟「記住密碼」時，Wi-Fi 密碼才會隨設定一起儲存在此電腦上。否則不會儲存，需要重新輸入，例如在重新啟動 Foundry OSD 之後。</value>
@@ -2612,34 +2612,34 @@
     <value>Windows 設定檔漫遊</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>自訂OOBE</value>
+    <value>啟用 OOBE 設定</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>配置Windows 11個首次運行螢幕和隱私預設值。</value>
+    <value>設定 Windows 全新體驗的隱私權和安裝選項。</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>Out-of-Box Experience</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>配置 Windows 選用功能</value>
+    <value>啟用選用功能設定</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>在已部署的作業系統中啟用或停用 Windows 元件。</value>
+    <value>選擇要啟用或停用的 Windows 選用功能。</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Windows 選用功能</value>
+    <value>選用功能</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Windows 部署選項</value>
+    <value>啟用作業系統選擇設定</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>定義部署期間提供的 Windows 版本、更新層級、語言和版本類型。</value>
+    <value>設定允許的作業系統發行版本、語言、通道和版本類型。</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>Windows 部署選項</value>
+    <value>作業系統選擇</value>
   </data>
   <data name="PostInstallation.ActionRequired" xml:space="preserve">
-    <value>新增一個已啟用的動作，或停用安裝後設定。</value>
+    <value>請新增一個已啟用的動作，或停用安裝後作業。</value>
   </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>新增動作</value>
@@ -2735,7 +2735,7 @@
     <value>匯入資料夾</value>
   </data>
   <data name="PostInstallation.ImportingContent" xml:space="preserve">
-    <value>正在匯入內容...</value>
+    <value>正在匯入內容…</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>此動作無效。請檢查其設定。</value>
@@ -2765,7 +2765,7 @@
     <value>輸入匯入內容中的資料夾，或保留空白。</value>
   </data>
   <data name="PostInstallation.LoadingContent" xml:space="preserve">
-    <value>正在載入內容...</value>
+    <value>正在載入內容…</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>匯入「{0}」缺少的內容。</value>
@@ -2915,7 +2915,7 @@
     <value>儲存連線檔案</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>無法完成此操作。請檢查檔案、檔案密碼、您的存取權限及網路連線。</value>
+    <value>無法完成此動作。請檢查檔案、檔案密碼、您的存取權限及網路連線。</value>
   </data>
   <data name="Profiles.FolderExists" xml:space="preserve">
     <value>此資料夾名稱已被使用。請使用連線檔案進行連線，或返回並選擇其他名稱。</value>
@@ -2951,7 +2951,7 @@
     <value>請使用不含特殊字元且不以句點或空格結尾的名稱。</value>
   </data>
   <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>共用設定已變更。連線前請檢查最新版本。</value>
+    <value>共用設定已變更。連線前請檢閱最新版本。</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>連線到共用設定</value>
@@ -2992,7 +2992,7 @@
     <value>就緒</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>請選擇用來保護連線檔案的密碼。請另外分享密碼。 請將檔案儲存在共用設定資料夾之外。</value>
+    <value>請選擇用來保護連線檔案的密碼。請另外分享密碼。請將檔案儲存在共用設定資料夾之外。</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>記住密碼</value>
@@ -3004,7 +3004,7 @@
     <value>重新命名</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>此操作將取代您目前使用的設定。如果想先保留複本，請取消並選擇「建立複本」。</value>
+    <value>這會取代您目前使用的設定。如果想先保留複本，請取消並選擇「建立複本」。</value>
   </data>
   <data name="Profiles.RestoreAccess" xml:space="preserve">
     <value>還原存取權</value>
@@ -3046,7 +3046,7 @@
     <value>所有電腦都應使用同一個網路資料夾。該資料夾必須使用 SMB 3 並強制加密。不支援與雲端同步的資料夾。</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>停止在此電腦上記住此設定的密碼？</value>
+    <value>要停止在這部電腦上記住此設定的密碼嗎？</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>同步</value>
@@ -3070,7 +3070,7 @@
     <value>有變更待同步</value>
   </data>
   <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>準備好同步</value>
+    <value>可以同步</value>
   </data>
   <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
     <value>已是最新</value>
@@ -3100,112 +3100,112 @@
     <value>使用共用版本</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>請檢查必填欄位。如果需要網路資料夾，請使用 \\server\share\folder 這樣的路徑。如果輸入檔案密碼兩次，請確認兩次輸入相同。</value>
+    <value>請檢查必填欄位。如果需要網路資料夾，請使用 \\server\share\folder 這類路徑。如果輸入兩次檔案密碼，請確認兩次輸入相同。</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>連線失敗</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>請檢查 Proxy 設定</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Foundry OSD 的新連線現在會使用這些設定。</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>已套用 Proxy 設定</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD 已使用所選設定連線到 GitHub 和 Microsoft 服務。</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>連線成功</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>請輸入使用者名稱和密碼，以進行明確的 Proxy 驗證。</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>套用</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>使用目前的 Windows 認證</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>選擇 Proxy 驗證 Foundry OSD 的方式。</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>驗證</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>使用者名稱和密碼</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>不驗證</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>選用的主機名稱或萬用字元模式，以分號分隔。</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>略過清單</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>直接連線到不含句點的主機名稱。</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>略過本機位址</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>認證會安全地儲存在 Windows 認證管理員中。</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Proxy 認證</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>網域（選用）</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>輸入 Proxy 位址和連接埠。</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxy 伺服器</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>選擇 Foundry OSD 連線到網際網路的方式。</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Proxy 方法</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>不使用 Proxy（直接連線）</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>手動 Proxy</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>使用 Windows 設定（建議）</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>密碼</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>連接埠</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>這些設定只套用到此應用程式，不會加入部署媒體，也不會影響 Foundry Connect 或 Foundry Deploy。</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>僅限 Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>測試連線</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>使用者名稱</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>設定</value>
@@ -3223,7 +3223,7 @@
     <value>設定備份與同步</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>設定 Foundry OSD 連線到線上服務的方式。</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
@@ -3241,13 +3241,13 @@
     <value>啟用遙測</value>
   </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
-    <value>變更主題、背景和強調色首選項。</value>
+    <value>變更主題、背景和強調色喜好設定。</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
     <value>外觀</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
-    <value>檢查 Foundry OSD 更新並查看發行說明。</value>
+    <value>檢查 Foundry OSD 更新並檢閱發行說明。</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新應用程式</value>
@@ -3262,10 +3262,10 @@
     <value>正在安全停止。可能需要等待目前的磁碟或映像作業結束，才能完成清理。</value>
   </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
-    <value>選擇啟動架構和啟動簽章模式。</value>
+    <value>選取開機架構和開機簽章模式。</value>
   </data>
   <data name="StartMedia.Architecture.Header" xml:space="preserve">
-    <value>架構和簽名</value>
+    <value>架構和簽章</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>已啟用：zero-touch 硬體雜湊上傳</value>
@@ -3274,70 +3274,70 @@
     <value>已啟用：互動式硬體雜湊上傳</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
-    <value>啟用：{0} ({1})</value>
+    <value>已啟用：{0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>硬體哈希上傳已啟用，但所選憑證過期缺失。</value>
+    <value>已啟用硬體雜湊上傳，但缺少所選憑證的到期日。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>硬體哈希上傳已啟用，但所選憑證已過期。在建立啟動媒體之前選擇有效的憑證。</value>
+    <value>已啟用硬體雜湊上傳，但所選憑證已過期。建立開機媒體之前，請選取有效的憑證。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>硬體雜湊上傳已啟用，但所選 PFX 與應用程式註冊憑證不符。</value>
+    <value>已啟用硬體雜湊上傳，但所選 PFX 與應用程式註冊憑證不符。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>硬體哈希上傳已啟用，但所選證書指紋遺失。</value>
+    <value>已啟用硬體雜湊上傳，但缺少所選憑證的指紋。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>已啟用硬體哈希上傳，但未配置應用程式註冊。從Autopilot 連線到租戶。</value>
+    <value>已啟用硬體雜湊上傳，但尚未設定應用程式註冊。請從 Autopilot 連線到租用戶。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>硬體雜湊上傳已啟用，但無法驗證啟動媒體 PFX 過期時間。</value>
+    <value>已啟用硬體雜湊上傳，但無法驗證開機媒體 PFX 的到期日。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>硬體雜湊上傳已啟用，但所選啟動媒體 PFX 已過期。</value>
+    <value>已啟用硬體雜湊上傳，但所選的開機媒體 PFX 已過期。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>硬體雜湊上傳已啟用，但啟動媒體 PFX 尚未經過驗證。</value>
+    <value>已啟用硬體雜湊上傳，但開機媒體 PFX 尚未經過驗證。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>硬體雜湊上傳已啟用，但所選 PFX 與活動憑證不符。</value>
+    <value>已啟用硬體雜湊上傳，但所選 PFX 與使用中的憑證不符。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>已啟用硬體雜湊上傳，但未選擇啟動媒體 PFX。</value>
+    <value>已啟用硬體雜湊上傳，但未選取開機媒體 PFX。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>硬體雜湊上傳已啟用，但啟動媒體 PFX 密碼遺失。</value>
+    <value>已啟用硬體雜湊上傳，但缺少開機媒體 PFX 密碼。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>硬體哈希上傳已啟用，但應用程式用戶端 ID 遺失。從Autopilot 重新連線到租戶。</value>
+    <value>已啟用硬體雜湊上傳，但缺少應用程式用戶端識別碼。請從 Autopilot 重新連線到租用戶。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>硬體哈希上傳已啟用，但應用程式服務主體遺失或未準備好。</value>
+    <value>已啟用硬體雜湊上傳，但應用程式服務主體遺失或尚未就緒。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>硬體哈希上傳已啟用，但設定遺失。</value>
+    <value>已啟用硬體雜湊上傳，但缺少設定。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>硬體哈希上傳已啟用，但租戶連線遺失。從Autopilot 連線到租戶。</value>
+    <value>已啟用硬體雜湊上傳，但缺少租用戶連線。請從 Autopilot 連線到租用戶。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
-    <value>Autopilot JSON 設定檔模式已啟用，但未選擇有效的預設設定檔。</value>
+    <value>已啟用 Autopilot JSON 設定檔模式，但未選取有效的預設設定檔。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
-    <value>Autopilot 使用不支援的配置模式。</value>
+    <value>Autopilot 使用不支援的佈建模式。</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
-    <value>ADK 或WinPE 附加組件尚未準備好。</value>
+    <value>ADK 或 WinPE 附加元件尚未就緒。</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
-    <value>ARM64 媒體需要 GPT 分割區樣式。</value>
+    <value>ARM64 媒體需要 GPT 磁碟分割樣式。</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Windows Autopilot 已啟用，但其配置尚未準備好。</value>
+    <value>已啟用 Windows Autopilot，但其設定尚未就緒。</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
-    <value>連接配置尚未準備好。</value>
+    <value>Connect 佈建尚未就緒。</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
     <value>自訂驅動程式資料夾不包含 .inf 檔案。</value>
@@ -3346,43 +3346,43 @@
     <value>自訂驅動程式資料夾不存在。</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
-    <value>部署配置產生尚未準備好。</value>
+    <value>Deploy 設定產生尚未就緒。</value>
   </data>
   <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
-    <value>此版本中未啟用媒體建立。</value>
+    <value>此組建未啟用媒體建立。</value>
   </data>
   <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
-    <value>ISO 輸出路徑必須以.iso 結尾。</value>
+    <value>ISO 輸出路徑必須以 .iso 結尾。</value>
   </data>
   <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
-    <value>WinPE 未選擇啟動語言。</value>
+    <value>未選取 WinPE 開機語言。</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
-    <value>網路配置尚未準備好。</value>
+    <value>網路設定尚未就緒。</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>未選擇 USB 目標。</value>
+    <value>未選取 USB 隨身碟。</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
-    <value>所需的媒體機密尚未準備好。</value>
+    <value>必要的媒體機密尚未就緒。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>所選USB 目標太小。使用至少 16 GB 的 USB 金鑰。</value>
+    <value>所選的 USB 隨身碟容量太小。請使用至少 16 GB 的 USB 隨身碟。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>所選的 WinPE 鍵盤配置未安裝在此電腦上。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
-    <value>所選 WinPE 引導語言不可用於所選架構。</value>
+    <value>所選的 WinPE 開機語言不適用於所選架構。</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>標準WinPE</value>
+    <value>標準 WinPE</value>
   </data>
   <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi 影像</value>
+    <value>WinRE Wi-Fi 映像</value>
   </data>
   <data name="StartMedia.ByteUnit.B" xml:space="preserve">
-    <value>乙</value>
+    <value>位元組</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
     <value>GB</value>
@@ -3397,25 +3397,25 @@
     <value>TB</value>
   </data>
   <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
-    <value>ISO 創建被阻止</value>
+    <value>無法建立 ISO</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>創建ISO</value>
+    <value>建立 ISO</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
-    <value>USB 創建被阻止</value>
+    <value>無法建立 USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>這將擦除磁碟{0}：{1} ({2})。</value>
+    <value>這會清除磁碟 {0}：{1} ({2})。</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmNoPartition" xml:space="preserve">
     <value>此磁碟沒有分割區。</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
-    <value>格式化並建立USB</value>
+    <value>格式化並建立 USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>格式化USB目標</value>
+    <value>格式化 USB 隨身碟</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows 無法讀取此磁碟上的磁碟區。它仍可能包含資料。</value>
@@ -3430,25 +3430,25 @@
     <value>此磁碟上的磁碟區：</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmWarning" xml:space="preserve">
-    <value>此磁碟上的所有內容都將遺失。僅當這是預期的 USB 磁碟時才繼續。</value>
+    <value>此磁碟上的所有內容都將遺失。請確認這是您要使用的 USB 隨身碟後再繼續。</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>創建USB</value>
+    <value>建立 USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>包含附加 .inf 驅動程式的可選資料夾。</value>
+    <value>包含其他 .inf 驅動程式的選用資料夾。</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
     <value>自訂驅動程式資料夾</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
-    <value>選擇自訂驅動程式資料夾</value>
+    <value>選取自訂驅動程式資料夾</value>
   </data>
   <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>選擇可選的供應商驅動程式和自訂驅動程式資料夾。</value>
+    <value>選取選用的廠商驅動程式和自訂驅動程式資料夾。</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
     <value>驅動程式選項</value>
@@ -3466,76 +3466,76 @@
     <value>ADK</value>
   </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
-    <value>大樓</value>
+    <value>架構</value>
   </data>
   <data name="StartMedia.Field.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
   <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>啟動鏡像來源</value>
+    <value>開機映像來源</value>
   </data>
   <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>連接配置</value>
+    <value>Connect 佈建</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>部署配置</value>
+    <value>Deploy 設定</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>司機</value>
+    <value>驅動程式</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
-    <value>USB格式模式</value>
+    <value>USB 格式化模式</value>
   </data>
   <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO輸出路徑</value>
+    <value>ISO 輸出路徑</value>
   </data>
   <data name="StartMedia.Field.Network" xml:space="preserve">
     <value>網路設定</value>
   </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
-    <value>USB分區樣式</value>
+    <value>USB 磁碟分割樣式</value>
   </data>
   <data name="StartMedia.Field.Secrets" xml:space="preserve">
     <value>媒體機密</value>
   </data>
   <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>簽名模式</value>
+    <value>簽章模式</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB目標</value>
+    <value>目標 USB 隨身碟</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
-    <value>WinPE啟動語言</value>
+    <value>WinPE 開機語言</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>所有就緒檢查通過後創建 ISO 或 USB 介質。</value>
+    <value>所有就緒檢查通過後，建立 ISO 或 USB 媒體。</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
-    <value>創建媒體</value>
+    <value>建立媒體</value>
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
-    <value>此版本中未啟用媒體建立。</value>
+    <value>此組建未啟用媒體建立。</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
-    <value>當所有準備檢查通過後，即可進行媒體建立。</value>
+    <value>所有就緒檢查通過後，即可建立媒體。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>完整格式</value>
+    <value>完整格式化</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>快速格式化</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
-    <value>選擇產生的Foundry ISO 的寫入位置。</value>
+    <value>選擇所產生 Foundry ISO 的寫入位置。</value>
   </data>
   <data name="StartMedia.IsoPath.Header" xml:space="preserve">
-    <value>ISO輸出</value>
+    <value>ISO 輸出</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO圖像</value>
+    <value>ISO 映像</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
-    <value>選擇ISO輸出路徑</value>
+    <value>選取 ISO 輸出路徑</value>
   </data>
   <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
     <value>其他本機帳戶：{0}</value>
@@ -3790,25 +3790,25 @@
     <value>檢閱就緒狀態，選擇 ISO 或 USB 輸出，然後開始建立媒體。</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>評論</value>
+    <value>檢閱</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
-    <value>準備好</value>
+    <value>就緒</value>
   </data>
   <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
-    <value>需要採取行動的準備項目：{0}</value>
+    <value>需要處理的就緒項目：{0}</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
-    <value>準備創作ISO媒體</value>
+    <value>可以建立 ISO 媒體</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
-    <value>準備創作ISO和USB媒體</value>
+    <value>可以建立 ISO 和 USB 媒體</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
-    <value>準備創作USB媒體</value>
+    <value>可以建立 USB 媒體</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
-    <value>查看媒體輸出警告</value>
+    <value>檢閱媒體輸出警告</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>
@@ -3846,37 +3846,37 @@
     <value>更新 USB</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>ADK 準備完成後可重新整理USB 目標。</value>
+    <value>ADK 就緒檢查完成後，即可重新整理 USB 隨身碟清單。</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
-    <value>找到 USB 驅動器：{0}</value>
+    <value>找到的 USB 隨身碟：{0}</value>
   </data>
   <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
     <value>磁碟 {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>正在掃描USB目標。</value>
+    <value>正在掃描 USB 隨身碟…</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
-    <value>未找到 USB 驅動器。</value>
+    <value>找不到任何 USB 隨身碟。</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB 目標刷新失敗。</value>
+    <value>USB 隨身碟重新整理失敗。</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>複製最終 USB 媒體之前使用的格式化行為。</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>準備選定的 USB 目標時所使用的分區方案。</value>
+    <value>準備所選 USB 隨身碟時使用的磁碟分割配置。</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB目標</value>
+    <value>目標 USB 隨身碟</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
-    <value>WinPE 引導環境使用的語言。</value>
+    <value>WinPE 開機環境使用的語言。</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
-    <value>WinPE啟動語言</value>
+    <value>WinPE 開機語言</value>
   </data>
   <data name="StartOverview.State.Default" xml:space="preserve">
     <value>預設</value>
@@ -3888,43 +3888,43 @@
     <value>開始</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>打開</value>
+    <value>開啟</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
-    <value>開啟Windows顏色設定以變更強調色。</value>
+    <value>開啟 Windows 色彩設定以變更強調色。</value>
   </data>
   <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
     <value>強調色</value>
   </data>
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
-    <value>亞克力</value>
+    <value>壓克力</value>
   </data>
   <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
-    <value>亞克力薄</value>
+    <value>薄壓克力</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
-    <value>選擇應用程式主題。</value>
+    <value>選取應用程式主題。</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
-    <value>應用主題</value>
+    <value>應用程式主題</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>黑暗</value>
+    <value>深色</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
     <value>系統</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>光</value>
+    <value>淺色</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
-    <value>選擇應用程式背後使用的背景材料。</value>
+    <value>選擇應用程式後方使用的背景材質。</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
     <value>材質</value>
   </data>
   <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
-    <value>雲母阿爾特</value>
+    <value>雲母 Alt</value>
   </data>
   <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
     <value>雲母</value>
@@ -3942,7 +3942,7 @@
     <value>檢查來源</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>包含命令；請檢查是否與 Foundry 自訂設定及安裝掛鉤發生衝突。</value>
+    <value>包含命令；請檢閱是否與 Foundry 自訂設定及安裝掛鉤重疊。</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
     <value>僅支援 specialize 和 oobeSystem 設定。Foundry 的其他部署作業仍保持啟用，可能與自訂設定或命令衝突。請使用 Windows SIM 驗證，並在虛擬機器中測試完整組態。不會匯入外部指令碼檔案。</value>
@@ -4026,7 +4026,7 @@
     <value>來源已變更。請在建立媒體前使用「重新整理來源」接受更新後的檔案。</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>兩項來源檢查仍在等待檔案存取。請恢復對無法使用的來源位置的存取，然後重新檢查來源。</value>
+    <value>兩項來源檢查仍在等待檔案存取。請恢復無法使用的來源位置，然後再次檢查來源。</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>來源檢查待處理。選擇「檢查來源」可驗證目前的檔案，而不接受內容變更。</value>
@@ -4059,10 +4059,10 @@
     <value>可用版本</value>
   </data>
   <data name="Update.Field.InstalledVersion" xml:space="preserve">
-    <value>安裝版本</value>
+    <value>已安裝的版本</value>
   </data>
   <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
-    <value>最後檢查</value>
+    <value>上次檢查</value>
   </data>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>最新版本</value>
@@ -4083,7 +4083,7 @@
     <value>無法套用更新：{0}</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
-    <value>檢查更新</value>
+    <value>正在檢查更新</value>
   </data>
   <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
     <value>更新下載失敗：{0}</value>
@@ -4095,25 +4095,25 @@
     <value>更新檢查失敗：{0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
-    <value>Foundry OSD 是最新的。</value>
+    <value>Foundry OSD 已是最新版本。</value>
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
-    <value>更新檢查已跳過，因為 Foundry OSD 未從 Velopack 安裝運行。</value>
+    <value>已略過更新檢查，因為 Foundry OSD 不是從 Velopack 安裝執行。</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
-    <value>準備好</value>
+    <value>就緒</value>
   </data>
   <data name="Update.Status.SkippedInDebug" xml:space="preserve">
-    <value>由於附加了調試器，因此跳過了更新檢查。</value>
+    <value>已略過更新檢查，因為已附加偵錯工具。</value>
   </data>
   <data name="Update.Status.UpdateAvailable" xml:space="preserve">
-    <value>Foundry OSD 更新可用。</value>
+    <value>有可用的 Foundry OSD 更新。</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
     <value>準備好後下載更新。</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
-    <value>Foundry OSD {0} 可用。</value>
+    <value>已推出 Foundry OSD {0}。</value>
   </data>
   <data name="Update.StatusTitle.ApplyFailed" xml:space="preserve">
     <value>無法套用更新</value>
@@ -4122,28 +4122,28 @@
     <value>更新檢查失敗</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
-    <value>最新</value>
+    <value>已是最新版本</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
-    <value>更新檢查已跳過</value>
+    <value>已略過更新檢查</value>
   </data>
   <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
-    <value>可用更新</value>
+    <value>有可用的更新</value>
   </data>
   <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
-    <value>Foundry OSD {0} 可用</value>
+    <value>已推出 Foundry OSD {0}</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>更新</value>
   </data>
   <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>受信任的根 CA 憑證文件</value>
+    <value>受信任的根 CA 憑證檔案</value>
   </data>
   <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>選擇Wi-Fi證書</value>
+    <value>選取 Wi-Fi 憑證</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
-    <value>預先配置Wi-Fi配置文件</value>
+    <value>預先佈建 Wi-Fi 設定檔</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>密碼</value>
@@ -4155,25 +4155,25 @@
     <value>WPA3 企業版 (WPA3ENT)</value>
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
-    <value>WPA3 企業 192 位 (WPA3ENT192)</value>
+    <value>WPA3 企業版 192 位元 (WPA3ENT192)</value>
   </data>
   <data name="Wifi.SecurityTypeLabel" xml:space="preserve">
-    <value>安全類型</value>
+    <value>安全性類型</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>打開</value>
+    <value>開放</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
-    <value>OWE（機會無線加密）</value>
+    <value>OWE（機會性無線加密）</value>
   </data>
   <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
-    <value>WPA2/WPA3 個人</value>
+    <value>WPA2/WPA3 個人版</value>
   </data>
   <data name="Wifi.SsidLabel" xml:space="preserve">
     <value>SSID</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>在啟動映像中提供 Wi-Fi 支持</value>
+    <value>啟用 Wi-Fi 佈建</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
     <value>設定 Wi-Fi 佈建、內嵌設定檔與 Windows 設定檔漫遊。</value>

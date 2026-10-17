@@ -19,7 +19,7 @@
     <value>Ovaj softver je dostupan takav kakav jest. Pregledajte svoje postavke implementacije prije upotrebe.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
 Licenciran prema MIT licenci.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -89,7 +89,7 @@ Licenciran prema MIT licenci.</value>
     <value>Odustani</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Zatvori prozor</value>
+    <value>Zatvori</value>
   </data>
   <data name="Common.Copy" xml:space="preserve">
     <value>Kopiraj u međuspremnik</value>
@@ -110,7 +110,7 @@ Licenciran prema MIT licenci.</value>
     <value>Omogućeno</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
-    <value>Sljedeći</value>
+    <value>Dalje</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>Ne</value>
@@ -119,10 +119,10 @@ Licenciran prema MIT licenci.</value>
     <value>Nijedan</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>Nedostupno</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
-    <value>Prethodno</value>
+    <value>Natrag</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nedostupan</value>
@@ -457,118 +457,118 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
     <value>Ostali jezici</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>arapski (Saudijska Arabija)</value>
+    <value>Arapski (Saudijska Arabija)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
-    <value>bugarski (Bugarska)</value>
+    <value>Bugarski (Bugarska)</value>
   </data>
   <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>kineski pojednostavljeni (Kina)</value>
+    <value>Pojednostavljeni kineski (Kina)</value>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>kineski tradicionalni (Tajvan)</value>
+    <value>Tradicionalni kineski (Tajvan)</value>
   </data>
   <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>hrvatski (Hrvatska)</value>
+    <value>Hrvatski (Hrvatska)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
-    <value>češki (Češka)</value>
+    <value>Češki (Češka)</value>
   </data>
   <data name="Language.DanishDenmark" xml:space="preserve">
-    <value>danski (Danska)</value>
+    <value>Danski (Danska)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>nizozemski (Nizozemska)</value>
+    <value>Nizozemski (Nizozemska)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
-    <value>engleski (Ujedinjeno Kraljevstvo)</value>
+    <value>Engleski (Ujedinjeno Kraljevstvo)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
-    <value>engleski (Sjedinjene Države)</value>
+    <value>Engleski (Sjedinjene Države)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estonski (Estonija)</value>
+    <value>Estonski (Estonija)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>finski (Finska)</value>
+    <value>Finski (Finska)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
-    <value>francuski (Kanada)</value>
+    <value>Francuski (Kanada)</value>
   </data>
   <data name="Language.FrenchFrance" xml:space="preserve">
-    <value>francuski (Francuska)</value>
+    <value>Francuski (Francuska)</value>
   </data>
   <data name="Language.GermanGermany" xml:space="preserve">
-    <value>njemački (Njemačka)</value>
+    <value>Njemački (Njemačka)</value>
   </data>
   <data name="Language.GreekGreece" xml:space="preserve">
-    <value>grčki (Grčka)</value>
+    <value>Grčki (Grčka)</value>
   </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
-    <value>hebrejski (Izrael)</value>
+    <value>Hebrejski (Izrael)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
-    <value>mađarski (Mađarska)</value>
+    <value>Mađarski (Mađarska)</value>
   </data>
   <data name="Language.ItalianItaly" xml:space="preserve">
-    <value>talijanski (Italija)</value>
+    <value>Talijanski (Italija)</value>
   </data>
   <data name="Language.JapaneseJapan" xml:space="preserve">
-    <value>japanski (Japan)</value>
+    <value>Japanski (Japan)</value>
   </data>
   <data name="Language.KoreanKorea" xml:space="preserve">
-    <value>korejski (Koreja)</value>
+    <value>Korejski (Koreja)</value>
   </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
-    <value>latvijski (Latvija)</value>
+    <value>Latvijski (Latvija)</value>
   </data>
   <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>litvanski (Litva)</value>
+    <value>Litvanski (Litva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>norveški bokmal (Norveška)</value>
+    <value>Norveški bokmål (Norveška)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
-    <value>poljski (Poljska)</value>
+    <value>Poljski (Poljska)</value>
   </data>
   <data name="Language.PortugueseBrazil" xml:space="preserve">
-    <value>portugalski (Brazil)</value>
+    <value>Portugalski (Brazil)</value>
   </data>
   <data name="Language.PortuguesePortugal" xml:space="preserve">
-    <value>portugalski (Portugal)</value>
+    <value>Portugalski (Portugal)</value>
   </data>
   <data name="Language.RomanianRomania" xml:space="preserve">
-    <value>rumunjski (Rumunjska)</value>
+    <value>Rumunjski (Rumunjska)</value>
   </data>
   <data name="Language.RussianRussia" xml:space="preserve">
-    <value>ruski (Rusija)</value>
+    <value>Ruski (Rusija)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>srpska latinica (Srbija)</value>
+    <value>Srpski, latinica (Srbija)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
-    <value>slovački (Slovačka)</value>
+    <value>Slovački (Slovačka)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
-    <value>slovenski (Slovenija)</value>
+    <value>Slovenski (Slovenija)</value>
   </data>
   <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>španjolski (Meksiko)</value>
+    <value>Španjolski (Meksiko)</value>
   </data>
   <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>španjolski (Španjolska)</value>
+    <value>Španjolski (Španjolska)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
-    <value>švedski (Švedska)</value>
+    <value>Švedski (Švedska)</value>
   </data>
   <data name="Language.ThaiThailand" xml:space="preserve">
-    <value>tajlandski (Tajland)</value>
+    <value>Tajlandski (Tajland)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>turski (Türkiye)</value>
+    <value>Turski (Turska)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
-    <value>ukrajinski (Ukrajina)</value>
+    <value>Ukrajinski (Ukrajina)</value>
   </data>
   <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
     <value>Ovo će izbrisati sve podatke na odabranom disku i instalirati odabrani operativni sustav.
@@ -586,10 +586,10 @@ Nastaviti s implementacijom?</value>
     <value>Potvrdite brisanje diska</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>_Oko</value>
+    <value>_O aplikaciji</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Otklanjanje pogrešaka</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
     <value>Tipkovnica</value>
@@ -679,7 +679,7 @@ Nastaviti s implementacijom?</value>
     <value>Nedostaju potrebni podaci o certifikatu. Implementacija se može nastaviti bez prijenosa hash hardvera.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
-    <value>Spremno za učitavanje hash hardvera</value>
+    <value>Spremno za prijenos hash hardvera</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
     <value>ID stanara</value>
@@ -697,7 +697,7 @@ Nastaviti s implementacijom?</value>
     <value>Interaktivni prijenos hardverskog hasha</value>
   </data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
-    <value>JSON dodjela profila</value>
+    <value>JSON profil</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
     <value>Profil</value>
@@ -730,7 +730,7 @@ Nastaviti s implementacijom?</value>
     <value>{0} | TPM: {1} | Snaga: {2} | Firmware: {3}</value>
   </data>
   <data name="Preparation.PowerAc" xml:space="preserve">
-    <value>AC</value>
+    <value>Mrežno napajanje</value>
   </data>
   <data name="Preparation.PowerBattery" xml:space="preserve">
     <value>Baterija</value>
@@ -1216,7 +1216,7 @@ Nastaviti s implementacijom?</value>
     <value>Autopilot Prijenos hash hardvera pripremljen za simulaciju.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
-    <value>Autopilot Spremno učitavanje hash hardvera (simulacija).</value>
+    <value>Autopilot Prijenos hash hardvera pripremljen (simulacija).</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
     <value>Autopilot Prijenos hash hardvera preskočen jer je ugrađeni certifikat istekao.</value>
@@ -1492,7 +1492,7 @@ Nastaviti s implementacijom?</value>
     <value>Ovo će se računalo ponovno pokrenuti za {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Ponovno pokretanje</value>
+    <value>Ponovno pokreni</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Dodatni lokalni računi</value>
@@ -1525,7 +1525,7 @@ Nastaviti s implementacijom?</value>
     <value>Autopilot Profil</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Međuverzija</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Ugrađeni administratorski račun</value>
@@ -1600,7 +1600,7 @@ Nastaviti s implementacijom?</value>
     <value>Korisnički upravljano</value>
   </data>
   <data name="Summary.Manual" xml:space="preserve">
-    <value>Priručnik</value>
+    <value>Ručno</value>
   </data>
   <data name="Summary.ManualRestart" xml:space="preserve">
     <value>Ručno ponovno pokretanje</value>
@@ -1744,13 +1744,13 @@ Nastaviti s implementacijom?</value>
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>tamno</value>
+    <value>Tamno</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Svjetlo</value>
+    <value>Svijetlo</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
-    <value>sustav</value>
+    <value>Sustav</value>
   </data>
   <data name="Tools.OpenLogFile" xml:space="preserve">
     <value>Otvori datoteku dnevnika</value>

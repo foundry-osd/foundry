@@ -16,10 +16,10 @@
     <value>Foundry Connect valide la préparation réseau dans WinPE avant la poursuite du déploiement Foundry.</value>
   </data>
   <data name="About.DescriptionLine2" xml:space="preserve">
-    <value>Ce logiciel est fourni tel quel. Vérifiez l’accès réseau avant de poursuivre le déploiement.</value>
+    <value>Ce logiciel est fourni tel quel. Vérifiez l'accès réseau avant de poursuivre le déploiement.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Droits d’auteur (c) 2026 Mickaël CHAVE et les contributeurs de Foundry Project.
+    <value>Copyright (c) 2026 Mickaël CHAVE et les contributeurs de Foundry Project.
 Sous licence MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
@@ -41,16 +41,16 @@ Sous licence MIT.</value>
     <value>Foundry Connect</value>
   </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
-    <value>La version de Foundry OSD utilisée pour créer ce support de démarrage ne peut pas être déterminée. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
+    <value>La version de Foundry OSD utilisée pour créer ce média de démarrage ne peut pas être déterminée. Mettez d'abord à jour Foundry OSD sur votre PC de création, puis recréez l'ISO ou mettez à jour le média de démarrage USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Nouvelle version disponible. Mettez à jour Foundry OSD et recréez le support de démarrage.</value>
+    <value>Nouvelle version disponible. Mettez à jour Foundry OSD et recréez le média de démarrage.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Mettez à jour Foundry OSD et recréez le support de démarrage.</value>
+    <value>Mettez à jour Foundry OSD et recréez le média de démarrage.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ce support de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
+    <value>Ce média de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d'abord à jour Foundry OSD sur votre PC de création, puis recréez l'ISO ou mettez à jour le média de démarrage USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Annuler</value>
@@ -95,10 +95,10 @@ Sous licence MIT.</value>
     <value>Choisissez où exporter les diagnostics Foundry</value>
   </data>
   <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
-    <value>Les diagnostics n’ont pas pu être exportés. Consultez le journal pour plus de détails.</value>
+    <value>Les diagnostics n'ont pas pu être exportés. Consultez le journal pour plus de détails.</value>
   </data>
   <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
-    <value>Échec de l’exportation des diagnostics</value>
+    <value>Échec de l'exportation des diagnostics</value>
   </data>
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>Exporter les diagnostics...</value>
@@ -113,7 +113,7 @@ Sous licence MIT.</value>
     <value>Exporter les diagnostics bruts ?</value>
   </data>
   <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
-    <value>Les journaux bruts peuvent contenir des identifiants, des informations d’authentification, des chemins, des noms de réseau et d’autres données sensibles. Exportez-les uniquement lorsqu’un contact de support de confiance le demande explicitement.</value>
+    <value>Les journaux bruts peuvent contenir des identifiants, des informations d'authentification, des chemins, des noms de réseau et d'autres données sensibles. Exportez-les uniquement lorsqu'un contact de support de confiance le demande explicitement.</value>
   </data>
   <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
     <value>Les diagnostics ont été exportés vers :
@@ -153,13 +153,13 @@ Sous licence MIT.</value>
     <value>En attente de la configuration réseau</value>
   </data>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>En attente du DHCP ou d’une configuration réseau statique</value>
+    <value>En attente du DHCP ou d'une configuration réseau statique</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Autres langues</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
-    <value>Arabe (Arabie Saoudite)</value>
+    <value>Arabe (Arabie saoudite)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>Bulgare (Bulgarie)</value>
@@ -189,10 +189,10 @@ Sous licence MIT.</value>
     <value>Anglais (États-Unis)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
-    <value>estonien (Estonie)</value>
+    <value>Estonien (Estonie)</value>
   </data>
   <data name="Language.FinnishFinland" xml:space="preserve">
-    <value>finnois (Finlande)</value>
+    <value>Finnois (Finlande)</value>
   </data>
   <data name="Language.FrenchCanada" xml:space="preserve">
     <value>Français (Canada)</value>
@@ -228,7 +228,7 @@ Sous licence MIT.</value>
     <value>Lituanien (Lituanie)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Bokmal norvégien (Norvège)</value>
+    <value>Norvégien bokmål (Norvège)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polonais (Pologne)</value>
@@ -246,7 +246,7 @@ Sous licence MIT.</value>
     <value>Russe (Russie)</value>
   </data>
   <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latin serbe (Serbie)</value>
+    <value>Serbe latin (Serbie)</value>
   </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovaque (Slovaquie)</value>
@@ -267,7 +267,7 @@ Sous licence MIT.</value>
     <value>Thaï (Thaïlande)</value>
   </data>
   <data name="Language.TurkishTurkiye" xml:space="preserve">
-    <value>Turc (Türkiye)</value>
+    <value>Turc (Turquie)</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ukrainien (Ukraine)</value>
@@ -297,7 +297,7 @@ Sous licence MIT.</value>
     <value>Poursuite automatique dans {0}s</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>L’accès Internet a été validé. Vous pouvez continuer.</value>
+    <value>L'accès Internet a été validé. Vous pouvez continuer.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Réseau prêt</value>
@@ -306,7 +306,7 @@ Sous licence MIT.</value>
     <value>L'actualisation du réseau a échoué</value>
   </data>
   <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>L’accès Internet n’a pas encore été validé.</value>
+    <value>L'accès Internet n'a pas encore été validé.</value>
   </data>
   <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
     <value>En attente du réseau</value>
@@ -324,10 +324,10 @@ Sous licence MIT.</value>
     <value>Ouvrir le fichier journal</value>
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
-    <value>Actualiser l’état</value>
+    <value>Actualiser l'état</value>
   </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
-    <value>Impossible d’appliquer les paramètres réseau provisionnés.</value>
+    <value>Impossible d'appliquer les paramètres réseau provisionnés.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Connexion impossible. Vérifiez le mot de passe ou les paramètres réseau, puis réessayez.</value>
@@ -342,19 +342,19 @@ Sous licence MIT.</value>
     <value>Impossible de déconnecter le profil Wi-Fi provisionné. Réessayez.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
-    <value>Le profil Wi-Fi provisionné n’est pas disponible.</value>
+    <value>Le profil Wi-Fi provisionné n'est pas disponible.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
-    <value>Ce réseau Wi-Fi n’est pas pris en charge dans cette version.</value>
+    <value>Ce réseau Wi-Fi n'est pas pris en charge dans cette version.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
-    <value>Impossible d’exécuter l’action Wi-Fi. Réessayez.</value>
+    <value>Impossible d'exécuter l'action Wi-Fi. Réessayez.</value>
   </data>
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
     <value>Authentification</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Paramètres de l’image de démarrage</value>
+    <value>Paramètres de l'image de démarrage</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Sécurité configurée</value>
@@ -369,22 +369,22 @@ Sous licence MIT.</value>
     <value>Wi-Fi provisionné · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Profil d’entreprise</value>
+    <value>Profil d'entreprise</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>Réseau masqué</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Aucun adaptateur Wi-Fi n’est disponible.</value>
+    <value>Aucun adaptateur Wi-Fi n'est disponible.</value>
   </data>
   <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Aucun adaptateur Wi-Fi n’est actuellement détecté.</value>
+    <value>Aucun adaptateur Wi-Fi n'est actuellement détecté.</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
-    <value>Aucun réseau Wi-Fi n’est actuellement visible.</value>
+    <value>Aucun réseau Wi-Fi n'est actuellement visible.</value>
   </data>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>Aucun profil Wi-Fi provisionné n’est disponible dans cette image de démarrage.</value>
+    <value>Aucun profil Wi-Fi provisionné n'est disponible dans cette image de démarrage.</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
@@ -450,7 +450,7 @@ Sous licence MIT.</value>
     <value>WPA Personnel</value>
   </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certificat inclus dans l’image de démarrage</value>
+    <value>{0} · Certificat inclus dans l'image de démarrage</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Un autre réseau Wi-Fi est actif</value>
@@ -471,7 +471,7 @@ Sous licence MIT.</value>
     <value>Afficher ou masquer le mot de passe Wi-Fi</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>La prise en charge Wi-Fi n’est pas disponible dans cet environnement de démarrage.</value>
+    <value>La prise en charge Wi-Fi n'est pas disponible dans cet environnement de démarrage.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Profil provisionné sans nom</value>
