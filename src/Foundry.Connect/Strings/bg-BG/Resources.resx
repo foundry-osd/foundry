@@ -354,7 +354,7 @@
     <value>Удостоверяване</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Настройки на изображението за зареждане</value>
+    <value>Настройки на образа за зареждане</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Конфигурирана сигурност</value>
@@ -384,7 +384,7 @@
     <value>В момента не се виждат Wi-Fi мрежи.</value>
   </data>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>В това изображение за зареждане не е наличен предоставен Wi-Fi профил.</value>
+    <value>В този образ за зареждане не е наличен предоставен Wi-Fi профил.</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Профил</value>
@@ -450,7 +450,7 @@
     <value>WPA Лично</value>
   </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Сертификатът е включен в изображението за зареждане</value>
+    <value>{0} · Сертификатът е включен в образа за зареждане</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Друга Wi-Fi мрежа е активна</value>

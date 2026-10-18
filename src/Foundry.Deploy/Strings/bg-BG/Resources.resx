@@ -269,7 +269,7 @@
     <value>Визуализация на отстраняване на грешки: прилагането на DISM не бе успешно, защото целевият дял е само за четене.
 
 Код на грешка=0x80070005
-Подробности: Достъпът е отказан при монтиране на изображение към целевия път.
+Подробности: Достъпът е отказан при монтиране на образ към целевия път.
 Действие: Проверете атрибутите на диска и опитайте повторно внедряване.</value>
   </data>
   <data name="Debug.ProgressPageCommand" xml:space="preserve">
@@ -1192,7 +1192,7 @@
     <value>Подготовка</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
-    <value>Индексът на приложеното изображение на Windows не е наличен.</value>
+    <value>Индексът на приложения образ на Windows не е наличен.</value>
   </data>
   <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
     <value>Импортираното Autopilot устройство не се появи в Windows Autopilot устройства преди времето за изчакване.</value>
