@@ -11,7 +11,7 @@ namespace Foundry.PostInstall.Execution;
 
 public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJournal journal,
     IPreOobeActionExecutor executor, Func<string> bootIdentity, IProgress<PostInstallProgress>? progress = null,
-    Func<TimeSpan, CancellationToken, Task>? delay = null)
+    Func<TimeSpan, CancellationToken, Task>? delay = null, Func<string, bool>? scheduleDeletionAtRestart = null)
 {
     private IProgress<PostInstallProgress>? progress = progress;
     private readonly Func<TimeSpan, CancellationToken, Task> delay = delay ?? Task.Delay;
@@ -31,7 +31,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
             string boot = string.Empty;
             bool validated = false;
             bool actionInFlight = false;
-            var cleanup = new OwnedPayloadCleanup(root, journal);
+            var cleanup = new OwnedPayloadCleanup(root, journal, scheduleDeletionAtRestart: scheduleDeletionAtRestart);
             try
             {
                 PreOobePlanValidator.ValidatePlan(plan);
