@@ -1234,7 +1234,7 @@
     <value>已暂存 Autopilot 配置文件。</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot 配置文件已上演（模拟）。</value>
+    <value>已暂存 Autopilot 配置文件（模拟）。</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>缓存策略已解决。</value>

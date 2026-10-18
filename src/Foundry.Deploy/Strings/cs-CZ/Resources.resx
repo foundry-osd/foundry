@@ -1234,7 +1234,7 @@ Pokračovat v nasazování?</value>
     <value>Profil Autopilot byl zřízen.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil zinscenovaný (simulace).</value>
+    <value>Profil Autopilot byl zřízen (simulace).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Strategie mezipaměti vyřešena.</value>

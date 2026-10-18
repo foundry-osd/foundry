@@ -1234,7 +1234,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Autopilot profili hazırlandı.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profili sahnelendi (simülasyon).</value>
+    <value>Autopilot profili hazırlandı (simülasyon).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Önbellek stratejisi çözüldü.</value>

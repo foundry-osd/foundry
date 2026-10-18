@@ -1234,7 +1234,7 @@ Continuare con la distribuzione?</value>
     <value>Profilo Autopilot preparato.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profilo messo in scena (simulazione).</value>
+    <value>Profilo Autopilot preparato (simulazione).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Strategia della cache risolta.</value>

@@ -1234,7 +1234,7 @@
     <value>Профиль Autopilot подготовлен.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Профиль Autopilot поставлен (симуляция).</value>
+    <value>Профиль Autopilot подготовлен (симуляция).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Стратегия кэширования решена.</value>

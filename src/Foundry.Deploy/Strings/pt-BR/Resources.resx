@@ -1234,7 +1234,7 @@ Continuar com a implantação?</value>
     <value>Perfil Autopilot preparado.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Perfil Autopilot encenado (simulação).</value>
+    <value>Perfil Autopilot preparado (simulação).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Estratégia de cache resolvida.</value>

@@ -1234,7 +1234,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Autopilot-Profil bereitgestellt.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot Profil bereitgestellt (Simulation).</value>
+    <value>Autopilot-Profil bereitgestellt (Simulation).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Cache-Strategie gelöst.</value>

@@ -1234,7 +1234,7 @@ ErrorCode=0x80070005
     <value>Профіль Autopilot підготовлено.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Поетапний профіль Autopilot (симуляція).</value>
+    <value>Профіль Autopilot підготовлено (симуляція).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Стратегію кешу вирішено.</value>

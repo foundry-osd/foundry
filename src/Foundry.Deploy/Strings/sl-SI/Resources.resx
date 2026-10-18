@@ -1234,7 +1234,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Profil Autopilot je pripravljen.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil uprizorjen (simulacija).</value>
+    <value>Profil Autopilot je pripravljen (simulacija).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Strategija predpomnilnika rešena.</value>

@@ -1234,7 +1234,7 @@ Kas jätkata juurutamisega?</value>
     <value>Autopilot profiil on ette valmistatud.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profiil lavastatud (simulatsioon).</value>
+    <value>Autopilot profiil on ette valmistatud (simulatsioon).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Vahemälu strateegia lahendatud.</value>

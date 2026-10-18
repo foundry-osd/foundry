@@ -1234,7 +1234,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Profil Autopilot bol pripravený.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil zinscenovaný (simulácia).</value>
+    <value>Profil Autopilot bol pripravený (simulácia).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Stratégia vyrovnávacej pamäte je vyriešená.</value>

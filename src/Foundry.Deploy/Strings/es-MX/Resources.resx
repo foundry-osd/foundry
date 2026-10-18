@@ -1234,7 +1234,7 @@ Sistema operativo: {4}
     <value>Perfil de Autopilot preparado.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot perfil preparado (simulación).</value>
+    <value>Perfil de Autopilot preparado (simulación).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Estrategia de caché resuelta.</value>

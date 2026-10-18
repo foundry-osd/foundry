@@ -1234,7 +1234,7 @@
     <value>Το προφίλ Autopilot προετοιμάστηκε.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Το προφίλ Autopilot σκηνοθετήθηκε (προσομοίωση).</value>
+    <value>Το προφίλ Autopilot προετοιμάστηκε (προσομοίωση).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Επιλύθηκε η στρατηγική προσωρινής μνήμης.</value>

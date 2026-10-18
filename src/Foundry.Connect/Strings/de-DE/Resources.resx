@@ -141,7 +141,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Kein aktiver Link</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Kein Ethernet Adapter erkannt.</value>
+    <value>Kein Ethernet-Adapter erkannt.</value>
   </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Statische Netzwerkkonfiguration erkannt</value>

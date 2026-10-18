@@ -141,7 +141,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Aktiivne ühendus puudub</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Ethernet adapterit ei tuvastatud.</value>
+    <value>Ethernet-adapterit ei tuvastatud.</value>
   </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Tuvastati staatiline võrgukonfiguratsioon</value>

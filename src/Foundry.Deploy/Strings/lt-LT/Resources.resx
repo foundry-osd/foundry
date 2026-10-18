@@ -1234,7 +1234,7 @@ Tęsti diegimą?</value>
     <value>Autopilot profilis paruoštas.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profilis surengtas (modeliavimas).</value>
+    <value>Autopilot profilis paruoštas (modeliavimas).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Talpyklos strategija išspręsta.</value>

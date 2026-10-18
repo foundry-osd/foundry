@@ -141,7 +141,7 @@ Licenseret under MIT-licensen.</value>
     <value>Intet aktivt link</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Ingen Ethernet adapter fundet.</value>
+    <value>Ingen Ethernet-adapter fundet.</value>
   </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Statisk netværkskonfiguration fundet</value>

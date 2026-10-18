@@ -1234,7 +1234,7 @@ Folytatja a telepítést?</value>
     <value>Autopilot-profil előkészítve.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil fokozatos (szimuláció).</value>
+    <value>Autopilot-profil előkészítve (szimuláció).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>A gyorsítótár-stratégia megoldva.</value>

@@ -1234,7 +1234,7 @@ Continuer le déploiement?</value>
     <value>Profil Autopilot préparé.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil mis en scène (simulation).</value>
+    <value>Profil Autopilot préparé (simulation).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Stratégie de cache résolue.</value>

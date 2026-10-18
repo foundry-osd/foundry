@@ -1234,7 +1234,7 @@
     <value>จัดเตรียมโปรไฟล์ Autopilot แล้ว</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot โปรไฟล์เป็นฉาก (จำลอง)</value>
+    <value>จัดเตรียมโปรไฟล์ Autopilot แล้ว (จำลอง)</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>แก้ไขกลยุทธ์แคชแล้ว</value>

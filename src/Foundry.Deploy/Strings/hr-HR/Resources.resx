@@ -1234,7 +1234,7 @@ Nastaviti s implementacijom?</value>
     <value>Autopilot profil postavljen.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil insceniran (simulacija).</value>
+    <value>Autopilot profil postavljen (simulacija).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Strategija predmemorije riješena.</value>

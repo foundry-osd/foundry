@@ -1234,7 +1234,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Autopilot-profil klargjort.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil iscenesat (simulering).</value>
+    <value>Autopilot-profil klargjort (simulering).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Cachestrategi løst.</value>

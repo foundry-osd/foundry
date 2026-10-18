@@ -1234,7 +1234,7 @@ Kontynuować wdrażanie?</value>
     <value>Przygotowano profil Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Profil Autopilot wystawiony (symulacja).</value>
+    <value>Przygotowano profil Autopilot (symulacja).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Rozwiązano strategię dotyczącą pamięci podręcznej.</value>

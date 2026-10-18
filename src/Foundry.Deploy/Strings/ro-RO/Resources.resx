@@ -1234,7 +1234,7 @@ Continuați cu implementarea?</value>
     <value>Profilul Autopilot a fost pregătit.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil pus în scenă (simulare).</value>
+    <value>Profilul Autopilot a fost pregătit (simulare).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Strategia de cache a fost rezolvată.</value>

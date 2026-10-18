@@ -1234,7 +1234,7 @@
     <value>تم تجهيز ملف تعريف Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot تم تنظيم الملف الشخصي (محاكاة).</value>
+    <value>تم تجهيز ملف تعريف Autopilot (محاكاة).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>تم حل استراتيجية ذاكرة التخزين المؤقت.</value>
