@@ -508,7 +508,7 @@ public sealed class WinPeUsbMediaServiceTests
         // blank disk look like a failed read. Partitions are listed once and matched by disk number instead,
         // and every error of that listing still counts as a failed read.
         Assert.DoesNotContain("Get-Partition -DiskNumber", script, StringComparison.Ordinal);
-        Assert.Contains("$allPartitions = @(Get-Partition -ErrorAction SilentlyContinue -ErrorVariable partitionErrors)", script, StringComparison.Ordinal);
+        Assert.Contains("$allPartitions = @(Get-CimInstance -Namespace $foundryStorageNamespace -ClassName MSFT_Partition -ErrorAction SilentlyContinue -ErrorVariable partitionErrors)", script, StringComparison.Ordinal);
         Assert.Contains("$partitionReadFailed = $partitionErrors.Count -gt 0", script, StringComparison.Ordinal);
         Assert.Contains("Where-Object { $_.DiskNumber -eq $disk.Number }", script, StringComparison.Ordinal);
         Assert.Contains("$volumesReadFailed = $partitionReadFailed -or $script:foundryUsbVolumeReadFailed", script, StringComparison.Ordinal);
@@ -516,9 +516,34 @@ public sealed class WinPeUsbMediaServiceTests
         // Disks are read before the partitions, so a disk that appears in between is never listed without its partitions
         // and cannot be reported as having none.
         Assert.True(
-            script.IndexOf("$disks = Get-Disk", StringComparison.Ordinal) is var disksAt and >= 0 &&
+            script.IndexOf("$disks = @(Get-CimInstance", StringComparison.Ordinal) is var disksAt and >= 0 &&
             script.IndexOf("$allPartitions = ", StringComparison.Ordinal) > disksAt,
             "The disks must be listed before the partitions.");
+    }
+
+    [Fact]
+    public async Task GetUsbCandidatesAsync_QueriesStorageClassesWithoutLoadingTheStorageModule()
+    {
+        var runner = new FakeRunner("[]");
+        var service = new WinPeUsbMediaService(runner);
+        using TempWorkspace workspace = TempWorkspace.Create();
+
+        await service.GetUsbCandidatesAsync(new WinPeToolPaths { PowerShellPath = "pwsh.exe" }, workspace.RootPath, CancellationToken.None);
+
+        // Importing the Storage module costs about a second per process, and this query runs before the erase
+        // confirmation is shown, so it reads the CIM classes the Storage cmdlets wrap.
+        string script = DecodePowerShellEncodedCommand(runner.Executions[0].Arguments);
+        string code = string.Join('\n', script.Split('\n').Where(line => !line.TrimStart().StartsWith('#')));
+        Assert.DoesNotContain("Get-Disk", code, StringComparison.Ordinal);
+        Assert.DoesNotContain("Get-Partition", code, StringComparison.Ordinal);
+        Assert.DoesNotContain("Get-Volume", code, StringComparison.Ordinal);
+
+        // MSFT_Disk reports the bus type as a number, while the disk identity check compares the name Get-Disk reports.
+        Assert.Contains("[int]$_.BusType -eq $foundryUsbBusType", script, StringComparison.Ordinal);
+        Assert.Contains("BusType = 'USB'", script, StringComparison.Ordinal);
+
+        // A mounted partition without a volume still counts as a failed read, as it did with Get-Volume -DriveLetter.
+        Assert.Contains("($hasDriveLetter -and $null -eq $volume)", script, StringComparison.Ordinal);
     }
 
     private static async Task<WinPeUsbDiskCandidate> GetSingleCandidateAsync(string payload)
@@ -576,7 +601,7 @@ public sealed class WinPeUsbMediaServiceTests
 
         string script = DecodePowerShellEncodedCommand(runner.Executions[0].Arguments);
         Assert.Contains("$hasGptBootPartition", script, StringComparison.Ordinal);
-        Assert.Contains("Get-Volume -Partition", script, StringComparison.Ordinal);
+        Assert.Contains("Get-CimAssociatedInstance -InputObject $Partition -ResultClassName MSFT_Volume", script, StringComparison.Ordinal);
         Assert.Contains("GptType", script, StringComparison.Ordinal);
         Assert.Contains("{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}", script, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("$_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32'", script, StringComparison.Ordinal);
