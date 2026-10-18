@@ -468,15 +468,16 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         Session.ShowWizard();
     }
 
-    [RelayCommand(CanExecute = nameof(CanStartDeployment))]
-    private async Task StartDeploymentAsync()
+    /// <summary>
+    /// Prepares the launch from the current wizard state. The prepared input takes its own copy of the domain password,
+    /// so the technician's submission is disposed as soon as preparation returns instead of living for the whole deployment.
+    /// </summary>
+    private DeploymentLaunchPreparationResult PrepareLaunch()
     {
-        _logger.LogInformation("Start deployment requested.");
-        ReportLaunchFailure(null);
         DriverPackSelectionKind effectiveDriverPackKind = DriverPackSelection.EffectiveSelectionKind;
         DriverPackCatalogItem? effectiveDriverPack = DriverPackSelection.ResolveEffectiveSelection();
         using DomainJoinSubmission? domainJoinSubmission = DomainJoinStep.CreateSubmission();
-        using DeploymentLaunchPreparationResult launchPreparation = _deploymentLaunchPreparationService.Prepare(
+        return _deploymentLaunchPreparationService.Prepare(
             new DeploymentLaunchRequest
             {
                 Mode = _deploymentRuntimeContext.Mode,
@@ -502,6 +503,14 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Completion = _wizardContext.Completion,
                 IsDryRun = IsDebugSafeMode
             }, _wizardContext.DomainJoin, domainJoinSubmission);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanStartDeployment))]
+    private async Task StartDeploymentAsync()
+    {
+        _logger.LogInformation("Start deployment requested.");
+        ReportLaunchFailure(null);
+        using DeploymentLaunchPreparationResult launchPreparation = PrepareLaunch();
 
         if (!Preparation.UsesCustomUnattend &&
             !string.Equals(Preparation.TargetComputerName, launchPreparation.NormalizedComputerName, StringComparison.Ordinal))

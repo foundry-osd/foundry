@@ -196,6 +196,7 @@ public sealed class DomainJoinRecoveryTests
             Assert.Equal("CompletedWithErrors", f.Journal.Read().Status);
             Assert.Equal("CleanupPending", f.Journal.Read().PayloadDispositions[f.Domain.Parameters.CredentialPayloadPath]);
             Assert.Equal(DomainJoinCleanupState.Pending, f.Report.Read().Cleanup);
+            Assert.Equal([f.Credentials], f.ScheduledAtRestart);
         }
         Assert.Equal(0, await f.Run("next-boot"));
         Assert.False(File.Exists(f.Credentials));
@@ -410,12 +411,28 @@ public sealed class DomainJoinRecoveryTests
         {
             waits.Add(duration);
             if (release && waits.Count == 2) locked.Dispose();
-        });
+        }, _ => 0);
         var outcome = cleanup.Dispose(f.Domain.Plan, f.Journal.Read(), true, "installed-boot");
         Assert.False(outcome.HasFatalSensitiveFailure);
         Assert.Equal(!release, outcome.HasDomainCleanupPending);
         Assert.Equal(new[] { TimeSpan.FromMilliseconds(250), TimeSpan.FromMilliseconds(250) }, waits);
         Assert.Equal(!release, File.Exists(f.Credentials));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void FinalDomainCleanup_SchedulesAnUndeletableCredentialFileForDeletionAtRestart(bool release)
+    {
+        using var f = new RecoveryFixture();
+        File.WriteAllText(f.Credentials, "malformed");
+        using var locked = new FileStream(f.Credentials, FileMode.Open, FileAccess.Read, FileShare.None);
+        if (release) locked.Dispose();
+        var scheduled = new List<string>();
+        var cleanup = new OwnedPayloadCleanup(f.Domain.Root, f.Journal, _ => { }, path => { scheduled.Add(path); return 0; });
+        var outcome = cleanup.Dispose(f.Domain.Plan, f.Journal.Read(), true, "installed-boot");
+        Assert.Equal(!release, outcome.HasDomainCleanupPending);
+        Assert.Equal(release ? [] : new[] { f.Credentials }, scheduled);
     }
 
     private sealed class RecoveryFixture : IDisposable, IPreOobeActionExecutor, IPreOobeProcessExecutor
@@ -425,6 +442,7 @@ public sealed class DomainJoinRecoveryTests
         public DomainJoinResultStore Report { get; }
         public string Credentials => OwnedPaths.Resolve(Domain.Root, Domain.Parameters.CredentialPayloadPath);
         public List<string> Executed { get; } = [];
+        public List<string> ScheduledAtRestart { get; } = [];
         public bool StartFailure;
         public bool Interrupt;
         public bool InterruptBeforeStart;
@@ -449,7 +467,8 @@ public sealed class DomainJoinRecoveryTests
         public async Task<int> Run(string currentBoot = "installed-boot")
         {
             boot = currentBoot;
-            return (await new PreOobeOrchestrator(Domain.Root, Domain.Hash, Journal, this, () => boot)
+            return (await new PreOobeOrchestrator(Domain.Root, Domain.Hash, Journal, this, () => boot,
+                    scheduleDeletionAtRestart: path => { ScheduledAtRestart.Add(path); return 0; })
                 .RunAsync(Domain.Plan, TestContext.Current.CancellationToken)).ExitCode;
         }
         public async Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, int substep, CancellationToken token)
