@@ -86,9 +86,15 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
 
         Directory.CreateDirectory(workingDirectoryPath);
 
+        // The storage CIM classes are queried directly instead of through Get-Disk, Get-Partition and Get-Volume:
+        // those cmdlets wrap the same classes but importing the Storage module costs about a second in every new
+        // PowerShell process, and this query runs right before the erase confirmation is shown.
         const string script = """
+                              $foundryStorageNamespace = 'root/Microsoft/Windows/Storage'
+                              # MSFT_Disk reports BusType as a number; 7 is USB.
+                              $foundryUsbBusType = 7
                               $foundryGptBootPartitionType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'
-                              # Get-Partition reports MbrType as the numeric partition ID, not the name New-Partition accepts: 11 and 12 are FAT32.
+                              # MSFT_Partition reports MbrType as the numeric partition ID, not the name New-Partition accepts: 11 and 12 are FAT32.
                               $foundryMbrBootPartitionTypes = @(11, 12)
 
                               function Get-FoundryUsbDriveLetter($DriveLetter) {
@@ -109,16 +115,16 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                               }
 
                               function Get-FoundryUsbPartitionVolume($Partition) {
-                                  $driveLetter = Get-FoundryUsbDriveLetter $Partition.DriveLetter
-                                  if ($null -ne $driveLetter) {
-                                      $volume = Get-Volume -DriveLetter $driveLetter -ErrorAction SilentlyContinue -ErrorVariable volumeErrors
-                                  }
-                                  else {
-                                      $volume = Get-Volume -Partition $Partition -ErrorAction SilentlyContinue -ErrorVariable volumeErrors
-                                  }
+                                  $volume = Get-CimAssociatedInstance -InputObject $Partition -ResultClassName MSFT_Volume -ErrorAction SilentlyContinue -ErrorVariable volumeErrors |
+                                      Select-Object -First 1
 
                                   # The caller cannot tell a failed read from a partition without a volume, so it is recorded here.
-                                  if ($volumeErrors.Count -gt 0) { $script:foundryUsbVolumeReadFailed = $true }
+                                  # A partition with a drive letter but no volume, such as a mounted EFI system partition, also
+                                  # counts as a failed read, as it did when Get-Volume looked the volume up by drive letter.
+                                  $hasDriveLetter = $null -ne (Get-FoundryUsbDriveLetter $Partition.DriveLetter)
+                                  if ($volumeErrors.Count -gt 0 -or ($hasDriveLetter -and $null -eq $volume)) {
+                                      $script:foundryUsbVolumeReadFailed = $true
+                                  }
 
                                   if ($null -eq $volume) { return $null }
 
@@ -137,12 +143,12 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
 
                               # The disks are read first: a disk that appears afterwards is not in the list, while a disk in the list
                               # always has its partitions listed later, so a new disk is never reported as having none.
-                              $disks = Get-Disk | Where-Object { $_.BusType -eq 'USB' }
+                              $disks = @(Get-CimInstance -Namespace $foundryStorageNamespace -ClassName MSFT_Disk |
+                                  Where-Object { [int]$_.BusType -eq $foundryUsbBusType })
 
-                              # Querying partitions by disk number raises a "not found" error for a disk without partitions, which cannot be
-                              # told from a real failure. Partitions are listed once and matched by disk number below, so any
-                              # error left here is a failed read.
-                              $allPartitions = @(Get-Partition -ErrorAction SilentlyContinue -ErrorVariable partitionErrors)
+                              # Partitions are listed once and matched by disk number below, so a disk without partitions is not
+                              # an error and any error left here is a failed read.
+                              $allPartitions = @(Get-CimInstance -Namespace $foundryStorageNamespace -ClassName MSFT_Partition -ErrorAction SilentlyContinue -ErrorVariable partitionErrors)
                               $partitionReadFailed = $partitionErrors.Count -gt 0
 
                               $result = @(
@@ -171,7 +177,8 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                       DriveLetters = ($letters -join ", ")
                                       SerialNumber = [string]$disk.SerialNumber
                                       UniqueId = [string]$disk.UniqueId
-                                      BusType = [string]$disk.BusType
+                                      # The disk identity check compares this with the name Get-Disk reports.
+                                      BusType = 'USB'
                                       IsSystem = [bool]$disk.IsSystem
                                       IsBoot = [bool]$disk.IsBoot
                                       Size = [uint64]$disk.Size
