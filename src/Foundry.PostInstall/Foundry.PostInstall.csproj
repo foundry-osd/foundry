@@ -6,8 +6,8 @@
     <None Update="Launch.cmd" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.DirectoryServices.Protocols" Version="10.0.12" />
-    <PackageReference Include="System.Management" Version="10.0.12" />
+    <PackageReference Include="System.DirectoryServices.Protocols" Version="10.0.13" />
+    <PackageReference Include="System.Management" Version="10.0.13" />
     <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj" />
     <ProjectReference Include="..\Foundry.Utilities\Foundry.Utilities.csproj" />
     <InternalsVisibleTo Include="Foundry.PostInstall.Tests" />
