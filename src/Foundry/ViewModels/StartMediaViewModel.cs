@@ -1069,6 +1069,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmVolumesHeader"));
                 lines.AddRange(selectedDisk.Volumes.Select(FormatUsbVolume));
                 break;
+            case WinPeUsbVolumeSummary.ReadableAndUnreadableVolumes:
+                lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmVolumesHeader"));
+                lines.AddRange(selectedDisk.Volumes.Select(FormatUsbVolume));
+                lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmUnreadablePartitions"));
+                break;
             case WinPeUsbVolumeSummary.NoPartition:
                 lines.Add(localizationService.GetString("StartMedia.CreateUsb.ConfirmNoPartition"));
                 break;

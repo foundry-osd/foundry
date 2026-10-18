@@ -3519,6 +3519,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formatați unitatea USB</value>
   </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadablePartitions" xml:space="preserve">
+    <value>Windows nu poate citi unele partiții de pe acest disc. Este posibil să conțină încă date.</value>
+  </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows nu poate citi volumele de pe acest disc. Este posibil să conțină încă date.</value>
   </data>

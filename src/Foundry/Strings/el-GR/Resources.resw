@@ -3519,6 +3519,9 @@
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Μορφοποίηση μονάδας USB</value>
   </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadablePartitions" xml:space="preserve">
+    <value>Τα Windows δεν μπορούν να διαβάσουν ορισμένα διαμερίσματα σε αυτόν τον δίσκο. Ενδέχεται να περιέχουν ακόμα δεδομένα.</value>
+  </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Τα Windows δεν μπορούν να διαβάσουν τους τόμους σε αυτόν τον δίσκο. Ενδέχεται να περιέχει ακόμα δεδομένα.</value>
   </data>

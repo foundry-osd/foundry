@@ -3519,6 +3519,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formatiraj USB pogon</value>
   </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadablePartitions" xml:space="preserve">
+    <value>Windows ne može pročitati neke particije na ovom disku. Na njima i dalje mogu biti podaci.</value>
+  </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ne može pročitati volumene na ovom disku. Na njemu i dalje mogu biti podaci.</value>
   </data>

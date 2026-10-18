@@ -3519,6 +3519,9 @@
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>ฟอร์แมตไดรฟ์ USB</value>
   </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadablePartitions" xml:space="preserve">
+    <value>Windows ไม่สามารถอ่านพาร์ติชันบางส่วนบนดิสก์นี้ได้ พาร์ติชันเหล่านั้นอาจยังมีข้อมูลอยู่</value>
+  </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows ไม่สามารถอ่านโวลุ่มบนดิสก์นี้ได้ ดิสก์อาจยังมีข้อมูลอยู่</value>
   </data>

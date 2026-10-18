@@ -3519,6 +3519,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Formatér USB-drev</value>
   </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadablePartitions" xml:space="preserve">
+    <value>Windows kan ikke læse nogle af partitionerne på denne disk. De kan stadig indeholde data.</value>
+  </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows kan ikke læse diskenhederne på denne disk. Den kan stadig indeholde data.</value>
   </data>

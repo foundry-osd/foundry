@@ -24,18 +24,30 @@ public sealed class WinPeUsbDiskCandidateTests
     }
 
     [Theory]
-    [InlineData(1, false)]
-    [InlineData(4, false)]
-    [InlineData(4, true)]
-    public void VolumeSummary_WithAReadableVolume_ListsVolumesWhateverElseTheDiskHolds(int partitionCount, bool readFailed)
+    [InlineData(1)]
+    [InlineData(4)]
+    public void VolumeSummary_WhenEveryOtherPartitionIsReadable_ListsTheVolumes(int partitionCount)
     {
+        var candidate = new WinPeUsbDiskCandidate { PartitionCount = partitionCount, Volumes = [Volume] };
+
+        Assert.Equal(WinPeUsbVolumeSummary.ReadableVolumes, candidate.VolumeSummary);
+    }
+
+    [Theory]
+    [InlineData(false, 1)]
+    [InlineData(true, 0)]
+    [InlineData(true, 2)]
+    public void VolumeSummary_WithAReadableVolumeAndUnreadableContent_WarnsThatTheListIsIncomplete(bool readFailed, int unreadablePartitionCount)
+    {
+        // A small readable volume next to an APFS, Linux or locked BitLocker partition must not make the disk look empty.
         var candidate = new WinPeUsbDiskCandidate
         {
-            PartitionCount = partitionCount,
+            PartitionCount = 3,
+            UnreadablePartitionCount = unreadablePartitionCount,
             VolumesReadFailed = readFailed,
             Volumes = [Volume]
         };
 
-        Assert.Equal(WinPeUsbVolumeSummary.ReadableVolumes, candidate.VolumeSummary);
+        Assert.Equal(WinPeUsbVolumeSummary.ReadableAndUnreadableVolumes, candidate.VolumeSummary);
     }
 }

@@ -28,6 +28,12 @@ public sealed record WinPeUsbDiskCandidate
     public int PartitionCount { get; init; }
 
     /// <summary>
+    /// Gets the number of partitions that may hold data but have no readable volume, such as APFS, Linux or locked
+    /// BitLocker partitions. Partitions that never hold user data, like the Microsoft reserved partition, are not counted.
+    /// </summary>
+    public int UnreadablePartitionCount { get; init; }
+
+    /// <summary>
     /// Gets whether reading the partitions or volumes of the disk reported an error, or the inventory did not say.
     /// A failed read means the volume list cannot be trusted to be complete.
     /// </summary>
@@ -36,10 +42,12 @@ public sealed record WinPeUsbDiskCandidate
     /// <summary>
     /// Summarizes what the inventory knows about the content of the disk. A disk is only called empty when the
     /// read succeeded and found no partition: partitions Windows cannot read (a locked BitLocker drive, a Linux
-    /// or macOS disk, an offline disk) may still hold data.
+    /// or macOS disk, an offline disk) may still hold data, even next to volumes that can be listed.
     /// </summary>
     public WinPeUsbVolumeSummary VolumeSummary => Volumes.Count > 0
-        ? WinPeUsbVolumeSummary.ReadableVolumes
+        ? VolumesReadFailed || UnreadablePartitionCount > 0
+            ? WinPeUsbVolumeSummary.ReadableAndUnreadableVolumes
+            : WinPeUsbVolumeSummary.ReadableVolumes
         : PartitionCount == 0 && !VolumesReadFailed
             ? WinPeUsbVolumeSummary.NoPartition
             : WinPeUsbVolumeSummary.UnreadableVolumes;
