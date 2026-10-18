@@ -524,6 +524,13 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("VolumesReadFailed = ", script, StringComparison.Ordinal);
         Assert.Contains("UnreadablePartitionCount = ", script, StringComparison.Ordinal);
 
+        // A lettered partition without a volume is counted as unreadable rather than as a failed read, and the
+        // BOOT partition of Foundry media, an EFI system partition that exposes no volume, is not counted, so
+        // re-creating a Foundry USB drive does not warn about partitions it cannot list.
+        Assert.DoesNotContain("$hasDriveLetter -and $null -eq $volume", script, StringComparison.Ordinal);
+        Assert.Contains("-not ($isFoundryMedia -and [string]$_.GptType -eq $foundryGptBootPartitionType)", script, StringComparison.Ordinal);
+        Assert.Contains("IsFoundryMedia = [bool]$isFoundryMedia", script, StringComparison.Ordinal);
+
         // Get-Partition -DiskNumber raises a "not found" error for a disk without partitions, which would make a
         // blank disk look like a failed read. Partitions are listed once and matched by disk number instead,
         // and every error of that listing still counts as a failed read.
@@ -562,8 +569,9 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("[int]$_.BusType -eq $foundryUsbBusType", script, StringComparison.Ordinal);
         Assert.Contains("BusType = 'USB'", script, StringComparison.Ordinal);
 
-        // A mounted partition without a volume still counts as a failed read, as it did with Get-Volume -DriveLetter.
-        Assert.Contains("($hasDriveLetter -and $null -eq $volume)", script, StringComparison.Ordinal);
+        // A mounted partition without a volume is not listed as a readable one, so it is counted among the partitions
+        // the confirmation cannot list.
+        Assert.Contains("$readablePartitionNumbers -notcontains [int]$_.PartitionNumber", script, StringComparison.Ordinal);
     }
 
     private static async Task<WinPeUsbDiskCandidate> GetSingleCandidateAsync(string payload)

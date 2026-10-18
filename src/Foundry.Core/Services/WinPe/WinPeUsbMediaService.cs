@@ -124,10 +124,9 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                       Select-Object -First 1
 
                                   # The caller cannot tell a failed read from a partition without a volume, so it is recorded here.
-                                  # A partition with a drive letter but no volume, such as a mounted EFI system partition, also
-                                  # counts as a failed read, as it did when Get-Volume looked the volume up by drive letter.
-                                  $hasDriveLetter = $null -ne (Get-FoundryUsbDriveLetter $Partition.DriveLetter)
-                                  if ($volumeErrors.Count -gt 0 -or ($hasDriveLetter -and $null -eq $volume)) {
+                                  # A partition without a volume, such as a mounted EFI system partition, is counted by the caller
+                                  # among the partitions it cannot read.
+                                  if ($volumeErrors.Count -gt 0) {
                                       $script:foundryUsbVolumeReadFailed = $true
                                   }
 
@@ -175,18 +174,22 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                           Where-Object { $null -ne $_ -and -not [string]::IsNullOrEmpty($_.FileSystem) } |
                                           ForEach-Object { $_.PartitionNumber }
                                   )
-                                  $unreadablePartitionCount = @(
-                                      $partitions | Where-Object {
-                                          [string]$_.GptType -ne $foundryMsrPartitionType -and
-                                          $_.MbrType -notin $foundryMbrContainerPartitionTypes -and
-                                          $readablePartitionNumbers -notcontains [int]$_.PartitionNumber
-                                      }
-                                  ).Count
                                   $volumesReadFailed = $partitionReadFailed -or $script:foundryUsbVolumeReadFailed
                                   $hasBootVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32' }).Count -gt 0
                                   $hasGptBootPartition = @($partitions | Where-Object { [string]$_.GptType -eq $foundryGptBootPartitionType }).Count -gt 0
                                   $hasMbrBootPartition = @($partitions | Where-Object { $_.MbrType -in $foundryMbrBootPartitionTypes -and [bool]$_.IsActive }).Count -gt 0
                                   $hasCacheVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'Foundry Cache' -and $_.FileSystem -eq 'NTFS' }).Count -gt 0
+                                  $isFoundryMedia = ($hasBootVolume -or $hasGptBootPartition -or $hasMbrBootPartition) -and $hasCacheVolume
+                                  # The BOOT partition of Foundry media is an EFI system partition that exposes no volume; it only holds
+                                  # Foundry boot files, so it is not reported as a partition that may hold data.
+                                  $unreadablePartitionCount = @(
+                                      $partitions | Where-Object {
+                                          [string]$_.GptType -ne $foundryMsrPartitionType -and
+                                          $_.MbrType -notin $foundryMbrContainerPartitionTypes -and
+                                          $readablePartitionNumbers -notcontains [int]$_.PartitionNumber -and
+                                          -not ($isFoundryMedia -and [string]$_.GptType -eq $foundryGptBootPartitionType)
+                                      }
+                                  ).Count
 
                                   [pscustomobject]@{
                                       Number = [int]$disk.Number
@@ -199,7 +202,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                       IsSystem = [bool]$disk.IsSystem
                                       IsBoot = [bool]$disk.IsBoot
                                       Size = [uint64]$disk.Size
-                                      IsFoundryMedia = [bool](($hasBootVolume -or $hasGptBootPartition -or $hasMbrBootPartition) -and $hasCacheVolume)
+                                      IsFoundryMedia = [bool]$isFoundryMedia
                                       PartitionCount = [int]$partitions.Count
                                       UnreadablePartitionCount = [int]$unreadablePartitionCount
                                       VolumesReadFailed = [bool]$volumesReadFailed
