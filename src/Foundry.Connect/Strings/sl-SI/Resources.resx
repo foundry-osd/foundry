@@ -129,7 +129,7 @@ Licencirano pod licenco MIT.</value>
     <value>Preverite kabelsko povezavo</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP zaznan najem</value>
+    <value>Zaznan najem DHCP</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Prehod</value>

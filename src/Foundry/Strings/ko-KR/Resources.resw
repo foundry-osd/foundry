@@ -713,7 +713,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>사용 안 함</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>장애인</value>
+    <value>비활성화됨</value>
   </data>
   <data name="Common.Enable" xml:space="preserve">
     <value>사용</value>

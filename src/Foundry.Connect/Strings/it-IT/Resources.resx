@@ -129,10 +129,10 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Controllare la connessione del cavo</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP lease rilevato</value>
+    <value>Lease DHCP rilevato</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Porta</value>
+    <value>Gateway</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>

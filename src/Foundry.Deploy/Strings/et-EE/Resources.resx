@@ -575,7 +575,7 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
 
 Ketas: {0}
 Mudel: {1}
-Buss: {2}
+Siin: {2}
 Suurus: {3}
 
 Operatsioonisüsteem: {4}
@@ -814,10 +814,10 @@ Kas jätkata juurutamisega?</value>
     <value>Samm lõpetatud.</value>
   </data>
   <data name="Status.StepCounterFormat" xml:space="preserve">
-    <value>Samm: {0} {1}-st</value>
+    <value>Samm: {0}/{1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>samm:??</value>
+    <value>Samm: ?/?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Samm ebaõnnestus.</value>
@@ -937,10 +937,10 @@ Kas jätkata juurutamisega?</value>
     <value>Draiveripaketi rakendamine...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Pildi rakendamine...</value>
+    <value>Tõmmise rakendamine...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
-    <value>Operatsioonisüsteemi kujutise rakendamine...</value>
+    <value>Operatsioonisüsteemi tõmmise rakendamine...</value>
   </data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
     <value>WinRE draiverite rakendamine...</value>
@@ -1027,7 +1027,7 @@ Kas jätkata juurutamisega?</value>
     <value>Püsivara värskenduse allalaadimine...</value>
   </data>
   <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
-    <value>Operatsioonisüsteemi pildi allalaadimine...</value>
+    <value>Operatsioonisüsteemi tõmmise allalaadimine...</value>
   </data>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Draiveripaketi ekstraktimine...</value>
@@ -1045,7 +1045,7 @@ Kas jätkata juurutamisega?</value>
     <value>Püsivara sisu sisestamine võrguühenduseta Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Pildi kontrollimine...</value>
+    <value>Tõmmise kontrollimine...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Funktsiooni oleku kontrollimine...</value>
@@ -1105,7 +1105,7 @@ Kas jätkata juurutamisega?</value>
     <value>Funktsioonide muudatuste simuleerimine...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Autopilot profiili lavastamine...</value>
+    <value>Autopilot profiili ettevalmistamine...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Autopiloti registreerimisabilise ettevalmistamine...</value>
@@ -1114,7 +1114,7 @@ Kas jätkata juurutamisega?</value>
     <value>Püsivarauuenduse ettevalmistamine...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Lavastuspakett...</value>
+    <value>Paketi ettevalmistamine...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Imporditaotluse esitamine aadressile Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@ Kas jätkata juurutamisega?</value>
     <value>Sihtmärgi konfiguratsiooni kinnitamine...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Pildi kinnitamine...</value>
+    <value>Tõmmise kinnitamine...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Autopilot seadme nähtavuse ootamine...</value>
@@ -1171,7 +1171,7 @@ Kas jätkata juurutamisega?</value>
     <value>Võrguühenduseta arvuti nime kirjutamine...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Kandideerimine</value>
+    <value>Rakendamine</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Funktsiooni muudatuste rakendamine</value>
@@ -1189,7 +1189,7 @@ Kas jätkata juurutamisega?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Lavastus</value>
+    <value>Ettevalmistamine</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Rakendatud Windowsi tõmmise indeks pole saadaval.</value>
@@ -1231,10 +1231,10 @@ Kas jätkata juurutamisega?</value>
     <value>Autopilot on lubatud, kuid profiili pole valitud.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot profiil on lavastatud.</value>
+    <value>Autopilot profiil on ette valmistatud.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profiil lavastatud (simulatsioon).</value>
+    <value>Autopilot profiil on ette valmistatud (simulatsioon).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Vahemälu strateegia lahendatud.</value>
@@ -1354,22 +1354,22 @@ Kas jätkata juurutamisega?</value>
     <value>Võrguühenduseta kohandamine on keelatud.</value>
   </data>
   <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
-    <value>Rakendati operatsioonisüsteemi kujutis.</value>
+    <value>Rakendati operatsioonisüsteemi tõmmis.</value>
   </data>
   <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
-    <value>Rakendatud operatsioonisüsteemi kujutis (simulatsioon).</value>
+    <value>Rakendatud operatsioonisüsteemi tõmmis (simulatsioon).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Operatsioonisüsteemi pilt on alla laaditud.</value>
+    <value>Operatsioonisüsteemi tõmmis on alla laaditud.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
-    <value>Operatsioonisüsteemi pilti ei laaditud alla.</value>
+    <value>Operatsioonisüsteemi tõmmist ei laaditud alla.</value>
   </data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
-    <value>Operatsioonisüsteemi kujutis on valmis (simulatsioon).</value>
+    <value>Operatsioonisüsteemi tõmmis on valmis (simulatsioon).</value>
   </data>
   <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
-    <value>Operatsioonisüsteemi pilt lahendati vahemälust.</value>
+    <value>Operatsioonisüsteemi tõmmis lahendati vahemälust.</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Operatsioonisüsteem URL puudub.</value>
@@ -1441,7 +1441,7 @@ Kas jätkata juurutamisega?</value>
     <value>Sihtpartitsioon Windows pole saadaval.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
-    <value>Sihtpartitsioon Windows pole Autopilot lavastuse jaoks saadaval.</value>
+    <value>Windowsi sihtpartitsioon pole Autopiloti ettevalmistamiseks saadaval.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
     <value>Sihtpartitsioon Windows pole Autopilot riistvara räsi üleslaadimiseks saadaval.</value>
@@ -1594,7 +1594,7 @@ Kas jätkata juurutamisega?</value>
     <value>Juurdepääs asukohale</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>Sunnitud välja lülitatud</value>
+    <value>Sunniviisiliselt välja lülitatud</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>Kasutaja kontrolli all</value>

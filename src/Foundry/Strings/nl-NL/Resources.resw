@@ -3556,7 +3556,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Selecteer optionele leveranciersstuurprogramma's en een aangepaste stuurprogrammamap.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Bestuurder opties</value>
+    <value>Opties voor stuurprogramma's</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3571,7 +3571,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Architectuur</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Chauffeurs</value>
+    <value>Stuurprogramma's</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formaatmodus</value>
@@ -3610,7 +3610,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>ISO uitvoer</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO afbeelding</value>
+    <value>ISO-installatiekopie</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Selecteer ISO uitvoerpad</value>

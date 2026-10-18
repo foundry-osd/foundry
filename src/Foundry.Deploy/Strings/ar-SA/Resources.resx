@@ -415,7 +415,7 @@
     <value>Microsoft Update Catalog</value>
   </data>
   <data name="DriverPack.Model" xml:space="preserve">
-    <value>نموذج</value>
+    <value>الطراز</value>
   </data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve">
     <value>{0} (نماذج +{1})</value>
@@ -427,7 +427,7 @@
     <value>تصنيع المعدات الأصلية</value>
   </data>
   <data name="DriverPack.Source" xml:space="preserve">
-    <value>مصدر السائق</value>
+    <value>مصدر برنامج التشغيل</value>
   </data>
   <data name="DriverPack.Version" xml:space="preserve">
     <value>الإصدار</value>
@@ -574,8 +574,8 @@
     <value>سيؤدي هذا إلى مسح جميع البيانات الموجودة على القرص المحدد وتثبيت نظام التشغيل المحدد.
 
 القرص: {0}
-الموديل: {1}
-الحافلة: {2}
+الطراز: {1}
+الناقل: {2}
 الحجم: {3}
 
 نظام التشغيل: {4}
@@ -700,7 +700,7 @@
     <value>ملف تعريف JSON</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
-    <value>الملف الشخصي</value>
+    <value>ملف التعريف</value>
   </data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve">
     <value>لم يتم العثور على ملفات تعريف Autopilot مضمنة على هذه الوسائط.</value>
@@ -817,7 +817,7 @@
     <value>الخطوة: {0} من {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>الخطوة: ؟ ل ؟</value>
+    <value>الخطوة: ؟ من ؟</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>فشلت الخطوة.</value>
@@ -1096,7 +1096,7 @@
     <value>جارٍ إعادة التحقق من القرص الهدف...</value>
   </data>
   <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
-    <value>تشغيل OA3Tool...</value>
+    <value>جارٍ تشغيل OA3Tool...</value>
   </data>
   <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
     <value>جارٍ إغلاق قسم الاسترداد...</value>
@@ -1105,7 +1105,7 @@
     <value>محاكاة تغييرات الميزات...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>التدريج Autopilot الملف الشخصي...</value>
+    <value>جارٍ تجهيز ملف تعريف Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>جارٍ تجهيز مساعد تسجيل Autopilot...</value>
@@ -1114,7 +1114,7 @@
     <value>جارٍ تجهيز تحديث البرنامج الثابت...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>حزمة التدريج...</value>
+    <value>جارٍ تجهيز الحزمة...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>إرسال طلب الاستيراد إلى Microsoft Graph...</value>
@@ -1171,13 +1171,13 @@
     <value>كتابة اسم الكمبيوتر غير المتصل...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>التقديم</value>
+    <value>جارٍ التطبيق</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>تطبيق تغييرات الميزات</value>
   </data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
-    <value>تم التحميل {0}</value>
+    <value>تم تنزيل {0}</value>
   </data>
   <data name="StepProgress.Downloading" xml:space="preserve">
     <value>جارٍ التنزيل</value>
@@ -1189,7 +1189,7 @@
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>التدريج</value>
+    <value>جارٍ التجهيز</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>فهرس صورة Windows المطبقة غير متوفر.</value>
@@ -1231,10 +1231,10 @@
     <value>تم تمكين Autopilot ولكن لم يتم تحديد ملف تعريف.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot تم تنظيم الملف الشخصي.</value>
+    <value>تم تجهيز ملف تعريف Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot تم تنظيم الملف الشخصي (محاكاة).</value>
+    <value>تم تجهيز ملف تعريف Autopilot (محاكاة).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>تم حل استراتيجية ذاكرة التخزين المؤقت.</value>
@@ -1360,7 +1360,7 @@
     <value>تم تطبيق صورة نظام التشغيل (المحاكاة).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>تم تنزيل صورة نظام التشغيل</value>
+    <value>تم تنزيل صورة نظام التشغيل.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>لم يتم تنزيل صورة نظام التشغيل.</value>
@@ -1522,7 +1522,7 @@
     <value>Autopilot علامة المجموعة</value>
   </data>
   <data name="Summary.AutopilotProfile" xml:space="preserve">
-    <value>Autopilot الملف الشخصي</value>
+    <value>ملف تعريف Autopilot</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
     <value>رقم البنية</value>

@@ -115,7 +115,7 @@ Foundry.Deploy Debug.DomainJoin.ZeroTouch ar-SA bg-BG cs-CZ da-DK de-DE el-GR es
 Foundry.Deploy Disk.DisplayLabelFormat cs-CZ da-DK hr-HR nb-NO sk-SK sl-SI sr-Latn-RS sv-SE tr-TR
 Foundry.Deploy DomainJoin.Password it-IT
 Foundry.Deploy DriverPack.MicrosoftUpdateCatalog
-Foundry.Deploy DriverPack.Model cs-CZ da-DK hr-HR nl-NL ro-RO sk-SK sl-SI sr-Latn-RS
+Foundry.Deploy DriverPack.Model cs-CZ da-DK hr-HR nl-NL pl-PL ro-RO sk-SK sl-SI sr-Latn-RS tr-TR
 Foundry.Deploy DriverPack.Oem bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT ja-JP ko-KR lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-TW
 Foundry.Deploy DriverPack.Version de-DE fr-CA fr-FR sv-SE
 Foundry.Deploy Language.ThaiThailand da-DK nb-NO
@@ -143,7 +143,7 @@ Foundry.Connect App.Name
 Foundry.Connect App.WindowTitle
 Foundry.Connect Common.VersionFormat da-DK de-DE sv-SE
 Foundry.Connect Ethernet.AdapterLabel da-DK de-DE et-EE hr-HR hu-HU nb-NO nl-NL pl-PL sl-SI sr-Latn-RS sv-SE
-Foundry.Connect Ethernet.GatewayLabel da-DK nb-NO nl-NL sv-SE
+Foundry.Connect Ethernet.GatewayLabel da-DK de-DE it-IT nb-NO nl-NL pt-BR ro-RO sv-SE
 Foundry.Connect Ethernet.Ipv4Label
 Foundry.Connect Ethernet.Title
 Foundry.Connect Language.ThaiThailand da-DK nb-NO
@@ -155,7 +155,7 @@ Foundry.Connect Wifi.SecurityEnterprise cs-CZ da-DK he-IL hu-HU nb-NO sk-SK
 Foundry.Connect Wifi.SecurityMachineFormat nl-NL
 Foundry.Connect Wifi.SecurityOpen nl-NL
 Foundry.Connect Wifi.SecurityPersonal es-ES es-MX ro-RO
-Foundry.Connect Wifi.SecurityWep ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT ja-JP ko-KR lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sv-SE th-TH tr-TR uk-UA zh-TW
+Foundry.Connect Wifi.SecurityWep ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT ja-JP ko-KR lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW
 Foundry.Connect Wifi.SecurityWpa2Enterprise bg-BG cs-CZ da-DK de-DE el-GR et-EE fi-FI he-IL hr-HR hu-HU lv-LV nb-NO nl-NL ro-RO sk-SK sl-SI sv-SE uk-UA
 Foundry.Connect Wifi.SecurityWpa2Personal bg-BG el-GR fi-FI hu-HU lv-LV ro-RO uk-UA
 Foundry.Connect Wifi.SecurityWpa2Wpa3Enterprise bg-BG cs-CZ da-DK de-DE el-GR et-EE fi-FI he-IL hr-HR hu-HU lv-LV nb-NO nl-NL ro-RO sk-SK sl-SI sv-SE uk-UA

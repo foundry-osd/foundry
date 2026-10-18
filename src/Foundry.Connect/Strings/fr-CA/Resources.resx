@@ -129,7 +129,7 @@ Sous licence MIT.</value>
     <value>Vérifiez la connexion du câble</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP bail détecté</value>
+    <value>Bail DHCP détecté</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Passerelle</value>
@@ -138,7 +138,7 @@ Sous licence MIT.</value>
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Aucun lien actif</value>
+    <value>Aucune liaison active</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Aucun adaptateur Ethernet détecté.</value>

@@ -129,10 +129,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Überprüfen Sie die Kabelverbindung</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP Lease erkannt</value>
+    <value>DHCP-Lease erkannt</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Tor</value>
+    <value>Gateway</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -141,7 +141,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Kein aktiver Link</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Kein Ethernet Adapter erkannt.</value>
+    <value>Kein Ethernet-Adapter erkannt.</value>
   </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Statische Netzwerkkonfiguration erkannt</value>

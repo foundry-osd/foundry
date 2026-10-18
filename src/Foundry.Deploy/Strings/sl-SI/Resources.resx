@@ -101,7 +101,7 @@ Licencirano pod licenco MIT.</value>
     <value>Zaznano</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>Onemogočen</value>
+    <value>Onemogočeno</value>
   </data>
   <data name="Common.Edit" xml:space="preserve">
     <value>Uredi nastavitve</value>
@@ -575,7 +575,7 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
 
 Disk: {0}
 Model: {1}
-Avtobus: {2}
+Vodilo: {2}
 Velikost: {3}
 
 Operacijski sistem: {4}
@@ -817,7 +817,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Korak: {0} od {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>korak:? od?</value>
+    <value>Korak: ? od ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Korak ni uspel.</value>
@@ -1105,7 +1105,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Simulacija sprememb funkcij ...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Uprizarjanje profila Autopilot...</value>
+    <value>Pripravljanje profila Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Pripravlja se pomočnik za registracijo Autopilot...</value>
@@ -1114,7 +1114,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Priprava posodobitve vdelane programske opreme...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Uprizoritveni paket...</value>
+    <value>Pripravljanje paketa...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Pošiljanje zahteve za uvoz na Microsoft Graph...</value>
@@ -1171,13 +1171,13 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Pisanje imena računalnika brez povezave...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Prijavljanje</value>
+    <value>Uporaba</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Uveljavljanje sprememb funkcij</value>
   </data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
-    <value>{0} prenesen</value>
+    <value>{0} preneseno</value>
   </data>
   <data name="StepProgress.Downloading" xml:space="preserve">
     <value>Prenašanje</value>
@@ -1189,7 +1189,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Uprizoritev</value>
+    <value>Pripravljanje</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Indeks uporabljene slike sistema Windows ni na voljo.</value>
@@ -1231,10 +1231,10 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Autopilot je omogočen, vendar ni bil izbran noben profil.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot profil uprizorjen.</value>
+    <value>Profil Autopilot je pripravljen.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil uprizorjen (simulacija).</value>
+    <value>Profil Autopilot je pripravljen (simulacija).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Strategija predpomnilnika rešena.</value>
@@ -1246,7 +1246,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Izbrana datoteka gonilnika »{0}« iz Microsoft Update Catalog ne vsebuje datotek INF.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
-    <value>Zahtevana je bila uprizoritev paketa gonilnikov pri prvem zagonu brez podprtega ukaza.</value>
+    <value>Zahtevana je bila priprava paketa gonilnikov pri prvem zagonu brez podprtega ukaza.</value>
   </data>
   <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
     <value>Namestitveni program gonilnikov je pripravljen.</value>
@@ -1279,7 +1279,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Paket gonilnikov razrešen iz predpomnilnika.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
-    <value>Izvorna vsebina paketa gonilnikov ni na voljo za uprizoritev prvega zagona.</value>
+    <value>Izvorna vsebina paketa gonilnikov ni na voljo za pripravo ob prvem zagonu.</value>
   </data>
   <data name="StepResult.ExternalStorageReady" xml:space="preserve">
     <value>Zunanja shramba slike in znana zmogljivost sta preverjeni.</value>
@@ -1441,7 +1441,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Ciljna particija Windows ni na voljo.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
-    <value>Ciljna particija Windows ni na voljo za uprizoritev Autopilot.</value>
+    <value>Ciljna particija Windows ni na voljo za pripravo profila Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
     <value>Ciljna particija Windows ni na voljo za nalaganje zgoščene vrednosti strojne opreme Autopilot.</value>

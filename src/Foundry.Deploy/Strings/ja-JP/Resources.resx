@@ -101,7 +101,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>検出されました</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>障害者</value>
+    <value>無効</value>
   </data>
   <data name="Common.Edit" xml:space="preserve">
     <value>編集</value>
@@ -576,7 +576,7 @@ MITライセンスに基づいてライセンスされています。</value>
 ディスク: {0}
 モデル: {1}
 バス: {2}
-サイズ:{3}
+サイズ: {3}
 
 オペレーティング システム: {4}
 
@@ -700,7 +700,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>JSON プロファイル</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
-    <value>プロフィール</value>
+    <value>プロファイル</value>
   </data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve">
     <value>このメディアには埋め込まれた Autopilot プロファイルが見つかりませんでした。</value>
@@ -814,10 +814,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ステップが完了しました。</value>
   </data>
   <data name="Status.StepCounterFormat" xml:space="preserve">
-    <value>ステップ: {0} の {1}</value>
+    <value>ステップ: {0} / {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>ステップ:?の ？</value>
+    <value>ステップ: ? / ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>ステップが失敗しました。</value>
@@ -937,7 +937,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ドライバーパックを適用しています...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>画像を適用中...</value>
+    <value>イメージを適用中...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
     <value>オペレーティング システム イメージを適用しています...</value>
@@ -1045,7 +1045,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ファームウェア コンテンツをオフライン Windows に挿入しています...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>画像を検査中...</value>
+    <value>イメージを検査中...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>機能の状態を検査しています...</value>
@@ -1105,7 +1105,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>機能の変更をシミュレートしています...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Autopilot プロフィールをステージング中...</value>
+    <value>Autopilot プロファイルをステージング中...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Autopilot 登録アシスタントをステージングしています...</value>
@@ -1114,7 +1114,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ファームウェア更新を準備しています...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>ステージングパッケージ...</value>
+    <value>パッケージをステージング中...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>インポート リクエストを Microsoft Graph に送信しています...</value>
@@ -1135,7 +1135,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ターゲット構成を検証しています...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>画像を確認中...</value>
+    <value>イメージを確認中...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Autopilot デバイスが表示されるのを待っています...</value>
@@ -1171,7 +1171,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>オフラインのコンピュータ名を書き込んでいます...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>申請中</value>
+    <value>適用中</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>機能変更の適用</value>
@@ -1231,7 +1231,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot は有効ですが、プロファイルが選択されていません。</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot プロフィールがステージングされました。</value>
+    <value>Autopilot プロファイルをステージングしました。</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot プロファイルがステージングされました (シミュレーション)。</value>
@@ -1522,7 +1522,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot グループタグ</value>
   </data>
   <data name="Summary.AutopilotProfile" xml:space="preserve">
-    <value>Autopilot プロフィール</value>
+    <value>Autopilot プロファイル</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
     <value>ビルド</value>

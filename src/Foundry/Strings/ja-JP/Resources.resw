@@ -314,7 +314,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot ダウンロードに失敗しました</value>
   </data>
   <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
-    <value>Autopilot プロフィールが見つかりませんでした</value>
+    <value>Autopilot プロファイルが見つかりませんでした</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Autopilot プロファイルをダウンロードしています…</value>
@@ -590,10 +590,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot インポートに失敗しました</value>
   </data>
   <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
-    <value>Autopilot プロフィール JSON をインポート</value>
+    <value>Autopilot プロファイル JSON をインポート</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Autopilot プロフィールをインポートしています…</value>
+    <value>Autopilot プロファイルをインポートしています…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>有効にすると、技術者は Windows セットアップ中に Microsoft のデバイス コードでサインインし、デバイスのハードウェア ハッシュをアップロードします。</value>
@@ -632,7 +632,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>プロファイルを削除する</value>
   </data>
   <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
-    <value>Autopilot プロフィールを削除しますか?</value>
+    <value>Autopilot プロファイルを削除しますか?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
     <value>選択した {0} 個の Autopilot プロファイルがこの構成から削除されます。</value>
@@ -641,7 +641,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>プロファイルを削除する</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
-    <value>Autopilot プロフィールを削除しますか?</value>
+    <value>Autopilot プロファイルを削除しますか?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationWarning" xml:space="preserve">
     <value>削除したプロファイルを再度使用するには、インポートするか、テナントからもう一度ダウンロードしてください。</value>
@@ -671,7 +671,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>選択されたプロファイル: {0} または {1}</value>
   </data>
   <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
-    <value>Autopilot プロフィールを選択してください</value>
+    <value>Autopilot プロファイルを選択してください</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
     <value>展開中に、技術者がデバイスのハードウェア ハッシュをアップロードできるようにします。</value>
@@ -713,7 +713,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>無効にする</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>障害者</value>
+    <value>無効</value>
   </data>
   <data name="Common.Enable" xml:space="preserve">
     <value>有効にする</value>
@@ -947,7 +947,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パッケージを事前に選択するには、1 つ以上のカタログ カテゴリを選択します。</value>
   </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
-    <value>プロフィール</value>
+    <value>プロファイル</value>
   </data>
   <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
     <value>なし</value>
@@ -3610,7 +3610,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ISO 出力</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO 画像</value>
+    <value>ISO イメージ</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>ISO 出力パスを選択してください</value>

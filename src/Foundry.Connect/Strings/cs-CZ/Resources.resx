@@ -138,7 +138,7 @@ Licencováno pod licencí MIT.</value>
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Žádný aktivní odkaz</value>
+    <value>Žádné aktivní připojení</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Nebyl zjištěn žádný adaptér Ethernet.</value>

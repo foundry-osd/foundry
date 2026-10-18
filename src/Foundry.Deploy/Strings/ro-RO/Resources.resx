@@ -575,7 +575,7 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
 
 Disc: {0}
 Model: {1}
-Autobuz: {2}
+Magistrală: {2}
 Dimensiune: {3}
 
 Sistem de operare: {4}
@@ -817,7 +817,7 @@ Continuați cu implementarea?</value>
     <value>Pas: {0} din {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Pasul:? de?</value>
+    <value>Pas: ? din ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Pasul a eșuat.</value>
@@ -1105,7 +1105,7 @@ Continuați cu implementarea?</value>
     <value>Se simulează modificările caracteristicilor...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Montarea profilului Autopilot...</value>
+    <value>Se pregătește profilul Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Se pregătește asistentul de înregistrare Autopilot...</value>
@@ -1114,7 +1114,7 @@ Continuați cu implementarea?</value>
     <value>Se pregătește actualizarea firmware...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Pachet de montaj...</value>
+    <value>Se pregătește pachetul...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Se trimite cererea de import la Microsoft Graph...</value>
@@ -1189,7 +1189,7 @@ Continuați cu implementarea?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Înscenare</value>
+    <value>Pregătire</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Indexul imaginii Windows aplicate nu este disponibil.</value>
@@ -1231,10 +1231,10 @@ Continuați cu implementarea?</value>
     <value>Autopilot este activat, dar nu a fost selectat niciun profil.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Profil Autopilot pus în scenă.</value>
+    <value>Profilul Autopilot a fost pregătit.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil pus în scenă (simulare).</value>
+    <value>Profilul Autopilot a fost pregătit (simulare).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Strategia de cache a fost rezolvată.</value>
@@ -1252,7 +1252,7 @@ Continuați cu implementarea?</value>
     <value>Instalatorul driverelor a fost pregătit.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
-    <value>Pachetul de șoferi a fost aplicat.</value>
+    <value>Pachetul de drivere a fost aplicat.</value>
   </data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve">
     <value>Pachetul de drivere aplicat (simulare).</value>
@@ -1594,7 +1594,7 @@ Continuați cu implementarea?</value>
     <value>Acces la locație</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>Forțat</value>
+    <value>Dezactivat forțat</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>Controlat de utilizator</value>

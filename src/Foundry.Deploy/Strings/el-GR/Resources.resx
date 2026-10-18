@@ -101,7 +101,7 @@
     <value>Εντοπίστηκε</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>ΑμεΑ</value>
+    <value>Απενεργοποιημένο</value>
   </data>
   <data name="Common.Edit" xml:space="preserve">
     <value>Επεξεργασία</value>
@@ -575,7 +575,7 @@
 
 Δίσκος: {0}
 Μοντέλο: {1}
-Λεωφορείο: {2}
+Δίαυλος: {2}
 Μέγεθος: {3}
 
 Λειτουργικό σύστημα: {4}
@@ -814,10 +814,10 @@
     <value>Το βήμα ολοκληρώθηκε.</value>
   </data>
   <data name="Status.StepCounterFormat" xml:space="preserve">
-    <value>Βήμα: {0} του {1}</value>
+    <value>Βήμα: {0} από {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Βήμα:? από?</value>
+    <value>Βήμα: ? από ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Το βήμα απέτυχε.</value>
@@ -1096,7 +1096,7 @@
     <value>Επανεπικύρωση δίσκου προορισμού...</value>
   </data>
   <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
-    <value>Τρέχει OA3Tool...</value>
+    <value>Εκτέλεση OA3Tool...</value>
   </data>
   <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
     <value>Σφράγιση διαμερίσματος ανάκτησης...</value>
@@ -1105,7 +1105,7 @@
     <value>Προσομοίωση αλλαγών χαρακτηριστικών...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Σκηνοθεσία προφίλ Autopilot...</value>
+    <value>Προετοιμασία προφίλ Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Προετοιμασία του βοηθού εγγραφής Autopilot...</value>
@@ -1114,7 +1114,7 @@
     <value>Προετοιμασία ενημέρωσης υλικολογισμικού...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Πακέτο σκηνοθεσίας...</value>
+    <value>Προετοιμασία πακέτου...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Υποβολή αιτήματος εισαγωγής στο Microsoft Graph...</value>
@@ -1189,7 +1189,7 @@
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Σκηνοποίηση</value>
+    <value>Προετοιμασία</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Το ευρετήριο της εφαρμοσμένης εικόνας των Windows δεν είναι διαθέσιμο.</value>
@@ -1231,10 +1231,10 @@
     <value>Το Autopilot είναι ενεργοποιημένο αλλά δεν επιλέχθηκε κανένα προφίλ.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Το προφίλ Autopilot σκηνοθετήθηκε.</value>
+    <value>Το προφίλ Autopilot προετοιμάστηκε.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Το προφίλ Autopilot σκηνοθετήθηκε (προσομοίωση).</value>
+    <value>Το προφίλ Autopilot προετοιμάστηκε (προσομοίωση).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Επιλύθηκε η στρατηγική προσωρινής μνήμης.</value>
@@ -1360,7 +1360,7 @@
     <value>Εφαρμόστηκε εικόνα λειτουργικού συστήματος (προσομοίωση).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Λήψη εικόνας λειτουργικού συστήματος.</value>
+    <value>Η λήψη της εικόνας του λειτουργικού συστήματος ολοκληρώθηκε.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>Δεν έγινε λήψη της εικόνας του λειτουργικού συστήματος.</value>
@@ -1597,7 +1597,7 @@
     <value>Αναγκαστική απενεργοποίηση</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
-    <value>ÎÎ¹ÎºÏÎ¿ÎµÏÎ±ÏÎ¼Î¿Î³Î® Plasma ÏÎ¿Ï KTorrent</value>
+    <value>Ελέγχεται από τον χρήστη</value>
   </data>
   <data name="Summary.Manual" xml:space="preserve">
     <value>Χειροκίνητες</value>

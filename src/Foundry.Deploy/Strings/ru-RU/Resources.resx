@@ -575,7 +575,7 @@
 
 Диск: {0}
 Модель: {1}
-Автобус: {2}
+Шина: {2}
 Размер: {3}
 
 Операционная система: {4}
@@ -817,7 +817,7 @@
     <value>Шаг: {0} из {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Шаг:? из?</value>
+    <value>Шаг: ? из ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Шаг не удался.</value>
@@ -937,7 +937,7 @@
     <value>Применение пакета драйверов...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Применение изображения...</value>
+    <value>Применение образа...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
     <value>Применение образа операционной системы...</value>
@@ -1045,7 +1045,7 @@
     <value>Внедрение содержимого прошивки в оффлайн Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Проверка изображения...</value>
+    <value>Проверка образа...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Проверка состояний компонентов...</value>
@@ -1096,7 +1096,7 @@
     <value>Повторная проверка целевого диска...</value>
   </data>
   <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
-    <value>Бегу OA3Tool...</value>
+    <value>Выполнение OA3Tool...</value>
   </data>
   <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
     <value>Запечатывание раздела восстановления...</value>
@@ -1105,7 +1105,7 @@
     <value>Моделирование изменений функций...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Промежуточный профиль Autopilot...</value>
+    <value>Подготовка профиля Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Подготовка помощника регистрации Autopilot...</value>
@@ -1114,7 +1114,7 @@
     <value>Подготовка обновления прошивки...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Промежуточный пакет...</value>
+    <value>Подготовка пакета...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Отправка запроса на импорт Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@
     <value>Проверка целевой конфигурации...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Проверка изображения...</value>
+    <value>Проверка образа...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Ожидание видимости устройства Autopilot...</value>
@@ -1189,7 +1189,7 @@
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Постановка</value>
+    <value>Подготовка</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Индекс примененного образа Windows недоступен.</value>
@@ -1234,7 +1234,7 @@
     <value>Профиль Autopilot подготовлен.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Профиль Autopilot поставлен (симуляция).</value>
+    <value>Профиль Autopilot подготовлен (симуляция).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Стратегия кэширования решена.</value>

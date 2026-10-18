@@ -1400,7 +1400,7 @@
     <value>Предлага се за някои избрани цели</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Наличността ще бъде проверена спрямо приложеното изображение на Windows</value>
+    <value>Наличността ще бъде проверена спрямо приложения образ на Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
     <value>Не е налично за избраните цели</value>
@@ -1814,7 +1814,7 @@
     <value>Конфигурирани: {0} (активиране: {1}, деактивиране: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
-    <value>Наличността зависи от хардуера на компютъра Copilot+ и инсталираното изображение на Windows.</value>
+    <value>Наличността зависи от хардуера на компютъра Copilot+ и инсталирания образ на Windows.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
     <value>Изисква съвместим хардуер за виртуализация и настройки на фърмуера.</value>
@@ -1838,7 +1838,7 @@
     <value>Няма допълнителни функции на Windows, които отговарят на това търсене.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Промените се прилагат офлайн след инсталиране на Windows и преди OOBE. Операциите за активиране използват само инсталираното изображение или съвпадащи източници на мултимедия за настройка; не се използва резервен интернет.</value>
+    <value>Промените се прилагат офлайн след инсталиране на Windows и преди OOBE. Операциите за активиране използват само инсталирания образ или съвпадащи източници на мултимедия за настройка; не се използва резервен интернет.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
     <value>Функции за търсене</value>
@@ -2612,7 +2612,7 @@
     <value>Personal Wi-Fi изисква парола от 8 до 63 знака.</value>
   </data>
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
-    <value>Wi-Fi конфигурацията изисква Wi-Fi поддръжка да бъде осигурена в изображението за зареждане.</value>
+    <value>Wi-Fi конфигурацията изисква Wi-Fi поддръжка да бъде осигурена в образа за зареждане.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi конфигурацията изисква SSID.</value>
@@ -3571,7 +3571,7 @@
     <value>Архитектура</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Шофьори</value>
+    <value>Драйвери</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB форматен режим</value>
@@ -3610,7 +3610,7 @@
     <value>ISO изход</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO изображение</value>
+    <value>ISO образ</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Изберете ISO изходен път</value>

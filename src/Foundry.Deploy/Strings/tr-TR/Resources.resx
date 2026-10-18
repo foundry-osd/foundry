@@ -415,7 +415,7 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
     <value>Microsoft Update Catalog</value>
   </data>
   <data name="DriverPack.Model" xml:space="preserve">
-    <value>Modeli</value>
+    <value>Model</value>
   </data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve">
     <value>{0} (+{1} modelleri)</value>
@@ -574,8 +574,8 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
     <value>Bu, seçilen diskteki tüm verileri silecek ve seçilen işletim sistemini yükleyecektir.
 
 Disk: {0}
-Modeli: {1}
-Otobüs: {2}
+Model: {1}
+Veri yolu: {2}
 Boyut: {3}
 
 İşletim sistemi: {4}
@@ -817,7 +817,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Adım: {0} / {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Adım:? ile ilgili?</value>
+    <value>Adım: ? / ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Adım başarısız oldu.</value>
@@ -937,7 +937,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Sürücü paketi uygulanıyor...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Resim uygulanıyor...</value>
+    <value>Görüntü uygulanıyor...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
     <value>İşletim sistemi görüntüsü uygulanıyor...</value>
@@ -1114,7 +1114,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Ürün yazılımı güncellemesi hazırlanıyor...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Aşama paketi...</value>
+    <value>Paket hazırlanıyor...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>İçe aktarma isteği Microsoft Graph adresine gönderiliyor...</value>
@@ -1135,7 +1135,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Hedef yapılandırma doğrulanıyor...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Resim doğrulanıyor...</value>
+    <value>Görüntü doğrulanıyor...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Autopilot cihazın görünürlüğü bekleniyor...</value>
@@ -1171,7 +1171,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Çevrimdışı bilgisayar adı yazılıyor...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Başvuruyor</value>
+    <value>Uygulanıyor</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Özellik değişikliklerini uygulama</value>
@@ -1183,13 +1183,13 @@ Dağıtıma devam edilsin mi?</value>
     <value>İndiriliyor</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
-    <value>Çıkarma</value>
+    <value>Ayıklanıyor</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Evreleme</value>
+    <value>Hazırlanıyor</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Uygulanan Windows görüntüsünün dizini kullanılamıyor.</value>
@@ -1231,10 +1231,10 @@ Dağıtıma devam edilsin mi?</value>
     <value>Autopilot etkinleştirildi ancak hiçbir profil seçilmedi.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot profili sahnelendi.</value>
+    <value>Autopilot profili hazırlandı.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profili sahnelendi (simülasyon).</value>
+    <value>Autopilot profili hazırlandı (simülasyon).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Önbellek stratejisi çözüldü.</value>

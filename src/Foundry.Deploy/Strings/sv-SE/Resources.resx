@@ -427,7 +427,7 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
     <value>OEM</value>
   </data>
   <data name="DriverPack.Source" xml:space="preserve">
-    <value>Drivrutinkälla</value>
+    <value>Drivrutinskälla</value>
   </data>
   <data name="DriverPack.Version" xml:space="preserve">
     <value>Version</value>
@@ -817,7 +817,7 @@ Fortsätt med implementeringen?</value>
     <value>Steg: {0} av {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Steg:? av?</value>
+    <value>Steg: ? av ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Steget misslyckades.</value>
@@ -937,10 +937,10 @@ Fortsätt med implementeringen?</value>
     <value>Använder drivrutinspaket...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Använder bild...</value>
+    <value>Tillämpar avbildning...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
-    <value>Använder operativsystemavbildning...</value>
+    <value>Tillämpar operativsystemavbildning...</value>
   </data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
     <value>Använder WinRE-drivrutiner...</value>
@@ -1045,7 +1045,7 @@ Fortsätt med implementeringen?</value>
     <value>Injicera firmwareinnehåll i offline Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Inspekterar bild...</value>
+    <value>Inspekterar avbildning...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Inspekterar funktionstillstånd...</value>
@@ -1105,7 +1105,7 @@ Fortsätt med implementeringen?</value>
     <value>Simulerar funktionsändringar...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Staging Autopilot profil...</value>
+    <value>Förbereder Autopilot-profil...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Förbereder Autopilot-registreringsassistent...</value>
@@ -1114,7 +1114,7 @@ Fortsätt med implementeringen?</value>
     <value>Förbereder uppdatering av inbyggd programvara...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Staging paket...</value>
+    <value>Förbereder paket...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Skickar importförfrågan till Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@ Fortsätt med implementeringen?</value>
     <value>Validerar målkonfiguration...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Verifierar bild...</value>
+    <value>Verifierar avbildning...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Väntar på Autopilot enhetens synlighet...</value>
@@ -1171,7 +1171,7 @@ Fortsätt med implementeringen?</value>
     <value>Skriver offline datornamn...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Ansöker</value>
+    <value>Tillämpar</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Tillämpar funktionsändringar</value>
@@ -1183,13 +1183,13 @@ Fortsätt med implementeringen?</value>
     <value>Laddar ner</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
-    <value>Extrahera</value>
+    <value>Extraherar</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Iscensättning</value>
+    <value>Förbereder</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Indexet för den tillämpade Windows-avbildningen är inte tillgängligt.</value>
@@ -1231,10 +1231,10 @@ Fortsätt med implementeringen?</value>
     <value>Autopilot är aktiverat men ingen profil har valts.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot profil iscensatt.</value>
+    <value>Autopilot-profil förberedd.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil iscensatt (simulering).</value>
+    <value>Autopilot-profil förberedd (simulering).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Cachestrategi löst.</value>
@@ -1360,7 +1360,7 @@ Fortsätt med implementeringen?</value>
     <value>Operativsystembild tillämpad (simulering).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Operativsystemsbild har laddats ner.</value>
+    <value>Operativsystemavbildningen har laddats ned.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>Operativsystemavbildningen laddades inte ned.</value>
@@ -1594,7 +1594,7 @@ Fortsätt med implementeringen?</value>
     <value>Platsåtkomst</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>Tvingad av</value>
+    <value>Avstängd (framtvingat)</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>Användarkontrollerad</value>

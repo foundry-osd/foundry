@@ -129,7 +129,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tarkista kaapelin liitäntä</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP vuokrasopimus havaittu</value>
+    <value>DHCP-vuokrasopimus havaittu</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Yhdyskäytävä</value>
@@ -138,7 +138,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Ei aktiivista linkkiä</value>
+    <value>Ei aktiivista yhteyttä</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Ethernet-sovitinta ei havaittu.</value>
@@ -354,7 +354,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Todennus</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Käynnistyskuvan asetukset</value>
+    <value>Käynnistysnäköistiedoston asetukset</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfiguroitu suojaus</value>

@@ -129,7 +129,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Sjekk kabeltilkoblingen</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP leasing oppdaget</value>
+    <value>DHCP-lease oppdaget</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>
@@ -138,10 +138,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Ingen aktiv lenke</value>
+    <value>Ingen aktiv kobling</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Ingen Ethernet adapter oppdaget.</value>
+    <value>Ingen Ethernet-adapter oppdaget.</value>
   </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Statisk nettverkskonfigurasjon oppdaget</value>

@@ -575,7 +575,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
 
 Disk: {0}
 Model: {1}
-Autobus: {2}
+Magistrala: {2}
 Veličina: {3}
 
 Operativni sistem: {4}
@@ -817,7 +817,7 @@ Operativni sistem: {4}
     <value>Korak: {0} od {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Korak:? od?</value>
+    <value>Korak: ? od ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Korak nije uspeo.</value>
@@ -1045,7 +1045,7 @@ Operativni sistem: {4}
     <value>Ubacivanje sadržaja firmvera u oflajn Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Proveravam sliku...</value>
+    <value>Proverava se slika...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Provera stanja funkcija...</value>
@@ -1114,7 +1114,7 @@ Operativni sistem: {4}
     <value>Priprema ažuriranja firmvera...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Paket za postavljanje...</value>
+    <value>Pripremanje paketa...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Podnošenje zahteva za uvoz na Microsoft Graph...</value>
@@ -1189,7 +1189,7 @@ Operativni sistem: {4}
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Inscenacija</value>
+    <value>Pripremanje</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Indeks primenjene Windows slike nije dostupan.</value>
@@ -1441,7 +1441,7 @@ Operativni sistem: {4}
     <value>Ciljna Windows particija je nedostupna.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
-    <value>Ciljna particija Windows nije dostupna za Autopilot inscenaciju.</value>
+    <value>Ciljna particija Windows nije dostupna za postavljanje Autopilot profila.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
     <value>Ciljna particija Windows nije dostupna za Autopilot hardversko heš otpremanje.</value>

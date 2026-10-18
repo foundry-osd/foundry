@@ -138,7 +138,7 @@ Licencjonowany na licencji MIT.</value>
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Brak aktywnego linku</value>
+    <value>Brak aktywnego połączenia</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Nie wykryto adaptera Ethernet.</value>

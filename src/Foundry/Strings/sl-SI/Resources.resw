@@ -713,7 +713,7 @@ Licencirano pod licenco MIT.</value>
     <value>Onemogoči</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>Onemogočen</value>
+    <value>Onemogočeno</value>
   </data>
   <data name="Common.Enable" xml:space="preserve">
     <value>Omogoči</value>
@@ -3556,7 +3556,7 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Izberite izbirne gonilnike proizvajalca in mapo gonilnikov po meri.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Možnosti voznika</value>
+    <value>Možnosti gonilnikov</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3571,7 +3571,7 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Arhitektura</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Vozniki</value>
+    <value>Gonilniki</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>način zapisa USB</value>

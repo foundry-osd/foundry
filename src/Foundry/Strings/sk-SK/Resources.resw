@@ -3610,7 +3610,7 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>ISO výstup</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>Obrázok ISO</value>
+    <value>Obraz ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Vyberte výstupnú cestu ISO</value>

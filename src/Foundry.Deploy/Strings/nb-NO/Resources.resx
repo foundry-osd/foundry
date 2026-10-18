@@ -817,7 +817,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Trinn: {0} av {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Trinn:? av?</value>
+    <value>Trinn: ? av ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Trinn mislyktes.</value>
@@ -937,10 +937,10 @@ Vil du fortsette med distribusjonen?</value>
     <value>Bruker driverpakke...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Bruker bildet...</value>
+    <value>Bruker avbildningen...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
-    <value>Bruker operativsystembilde...</value>
+    <value>Bruker operativsystemavbildning...</value>
   </data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
     <value>Bruker WinRE-drivere...</value>
@@ -1027,7 +1027,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Laster ned fastvareoppdatering...</value>
   </data>
   <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
-    <value>Laster ned operativsystembilde...</value>
+    <value>Laster ned operativsystemavbildning...</value>
   </data>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Pakker ut driverpakke...</value>
@@ -1045,7 +1045,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Injiserer fastvareinnhold i offline Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Inspiserer bildet...</value>
+    <value>Inspiserer avbildningen...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Inspiserer funksjonstilstander...</value>
@@ -1105,7 +1105,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Simulerer funksjonsendringer...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Iscenesetter Autopilot profil...</value>
+    <value>Klargjør Autopilot-profil...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Klargjør Autopilot-registreringsassistent...</value>
@@ -1114,7 +1114,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Klargjør fastvareoppdatering...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Iscenesettelsespakke...</value>
+    <value>Klargjør pakke...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Sender importforespørsel til Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Validerer målkonfigurasjon...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Bekrefter bildet...</value>
+    <value>Kontrollerer avbildningen...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Venter på Autopilot enhetssynlighet...</value>
@@ -1171,7 +1171,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Skriver frakoblet datamaskinnavn...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Søker</value>
+    <value>Tar i bruk</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Bruker funksjonsendringer</value>
@@ -1189,10 +1189,10 @@ Vil du fortsette med distribusjonen?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Iscenesettelse</value>
+    <value>Klargjør</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
-    <value>Indeksen for det brukte Windows-avbildet er ikke tilgjengelig.</value>
+    <value>Indeksen for den brukte Windows-avbildningen er ikke tilgjengelig.</value>
   </data>
   <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
     <value>Importert Autopilot-enhet dukket ikke opp i Windows Autopilot-enheter før tidsavbruddet.</value>
@@ -1231,10 +1231,10 @@ Vil du fortsette med distribusjonen?</value>
     <value>Autopilot er aktivert, men ingen profil ble valgt.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot profil iscenesatt.</value>
+    <value>Autopilot-profil klargjort.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil iscenesatt (simulering).</value>
+    <value>Autopilot-profil klargjort (simulering).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Cache-strategi løst.</value>
@@ -1360,7 +1360,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Operativsystembilde brukt (simulering).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Operativsystembilde lastet ned.</value>
+    <value>Operativsystemavbildning lastet ned.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>Operativsystembildet ble ikke lastet ned.</value>

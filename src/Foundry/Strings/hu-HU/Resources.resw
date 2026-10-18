@@ -3556,7 +3556,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Válasszon opcionális szállítói illesztőprogramokat és egy egyéni illesztőprogram-mappát.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Driver opciók</value>
+    <value>Illesztőprogram-beállítások</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3610,7 +3610,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>ISO kimenet</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO kép</value>
+    <value>ISO-lemezkép</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Válassza ki a ISO kimeneti útvonalat</value>

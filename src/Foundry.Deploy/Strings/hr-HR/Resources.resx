@@ -101,7 +101,7 @@ Licenciran prema MIT licenci.</value>
     <value>Otkriveno</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>Onesposobljeno</value>
+    <value>Onemogućeno</value>
   </data>
   <data name="Common.Edit" xml:space="preserve">
     <value>Uredi</value>
@@ -427,7 +427,7 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
     <value>OEM</value>
   </data>
   <data name="DriverPack.Source" xml:space="preserve">
-    <value>Izvor vozača</value>
+    <value>Izvor upravljačkih programa</value>
   </data>
   <data name="DriverPack.Version" xml:space="preserve">
     <value>Verzija</value>
@@ -575,7 +575,7 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
 
 Disk: {0}
 Model: {1}
-Autobus: {2}
+Sabirnica: {2}
 Veličina: {3}
 
 Operativni sustav: {4}
@@ -817,7 +817,7 @@ Nastaviti s implementacijom?</value>
     <value>Korak: {0} od {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>korak:? od?</value>
+    <value>Korak: ? od ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Korak nije uspio.</value>
@@ -1114,7 +1114,7 @@ Nastaviti s implementacijom?</value>
     <value>Priprema ažuriranja firmvera...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Pripremni paket...</value>
+    <value>Pripremanje paketa...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Slanje zahtjeva za uvoz na Microsoft Graph...</value>
@@ -1183,13 +1183,13 @@ Nastaviti s implementacijom?</value>
     <value>Preuzimanje</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
-    <value>Vađenje</value>
+    <value>Izdvajanje</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Inscenacija</value>
+    <value>Pripremanje</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Indeks primijenjene slike sustava Windows nije dostupan.</value>
@@ -1234,7 +1234,7 @@ Nastaviti s implementacijom?</value>
     <value>Autopilot profil postavljen.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil insceniran (simulacija).</value>
+    <value>Autopilot profil postavljen (simulacija).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Strategija predmemorije riješena.</value>

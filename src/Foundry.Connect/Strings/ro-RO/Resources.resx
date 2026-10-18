@@ -129,16 +129,16 @@ Licențiat sub licența MIT.</value>
     <value>Verificați conexiunea cablului</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP închiriere detectată</value>
+    <value>A fost detectată o închiriere DHCP</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Poarta de acces</value>
+    <value>Gateway</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Niciun link activ</value>
+    <value>Nicio legătură activă</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Nu a fost detectat niciun adaptor Ethernet.</value>

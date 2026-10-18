@@ -1400,7 +1400,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Galima kai kuriems pasirinktiems tikslams</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Prieinamumas bus patikrintas pagal pritaikytą „Windows“ vaizdą</value>
+    <value>Prieinamumas bus patikrintas pagal pritaikytą „Windows“ atvaizdą</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
     <value>Pasirinktiems tikslams negalima</value>
@@ -1814,7 +1814,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Sukonfigūruota: {0} (įjungti: {1}, išjungti: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
-    <value>Prieinamumas priklauso nuo „Copilot+“ kompiuterio aparatinės įrangos ir įdiegto „Windows“ vaizdo.</value>
+    <value>Prieinamumas priklauso nuo „Copilot+“ kompiuterio aparatinės įrangos ir įdiegto „Windows“ atvaizdo.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
     <value>Reikia suderinamos virtualizacijos aparatinės ir programinės įrangos nustatymų.</value>
@@ -1838,7 +1838,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Šiai paieškai neatitinka jokių papildomų Windows funkcijų.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Pakeitimai taikomi neprisijungus, įdiegus „Windows“ ir prieš OOBE. Įgalinimo operacijos naudoja tik įdiegtą vaizdą arba atitinkamus diegimo laikmenos šaltinius; atsarginis interneto šaltinis nenaudojamas.</value>
+    <value>Pakeitimai taikomi neprisijungus, įdiegus „Windows“ ir prieš OOBE. Įgalinimo operacijos naudoja tik įdiegtą atvaizdą arba atitinkamus diegimo laikmenos šaltinius; atsarginis interneto šaltinis nenaudojamas.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
     <value>Paieškos funkcijos</value>
@@ -3556,7 +3556,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinkite pasirenkamas tiekėjo tvarkykles ir pasirinktinį tvarkyklės aplanką.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Vairuotojo parinktys</value>
+    <value>Tvarkyklių parinktys</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3571,7 +3571,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Architektūra</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Vairuotojai</value>
+    <value>Tvarkyklės</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formato režimas</value>
@@ -3610,7 +3610,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>ISO išvestis</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO vaizdas</value>
+    <value>ISO atvaizdas</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Pasirinkite ISO išvesties kelią</value>
@@ -3913,7 +3913,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Tikrinamas Windows šaltinio paketas</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
-    <value>„Windows“ užblokavo prieigą prie WinPE vaizdo failų. Gali būti, kad juos užrakino saugos programinė įranga arba kitas įrankis. Saugos programinėje įrangoje pridėkite išimtį aplankui {0}, uždarykite vaizdus prijungiančius įrankius, paleiskite kompiuterį iš naujo ir bandykite dar kartą. Išsami informacija pateikta failuose {1} ir {2}.</value>
+    <value>„Windows“ užblokavo prieigą prie WinPE atvaizdo failų. Gali būti, kad juos užrakino saugos programinė įranga arba kitas įrankis. Saugos programinėje įrangoje pridėkite išimtį aplankui {0}, uždarykite atvaizdus prijungiančius įrankius, paleiskite kompiuterį iš naujo ir bandykite dar kartą. Išsami informacija pateikta failuose {1} ir {2}.</value>
   </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Rašomas ISO failas…</value>

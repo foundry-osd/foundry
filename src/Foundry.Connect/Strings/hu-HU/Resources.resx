@@ -129,7 +129,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Ellenőrizze a kábelcsatlakozást</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP bérlet észlelve</value>
+    <value>DHCP-bérlet észlelve</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Átjáró</value>
@@ -138,10 +138,10 @@ Licenc az MIT licenc alatt.</value>
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Nincs aktív link</value>
+    <value>Nincs aktív kapcsolat</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Nem észlelhető Ethernet adapter.</value>
+    <value>Nem észlelhető Ethernet-adapter.</value>
   </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Statikus hálózati konfiguráció észlelve</value>
@@ -354,7 +354,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Hitelesítés</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Boot kép beállításai</value>
+    <value>Rendszerindító lemezkép beállításai</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurált biztonság</value>

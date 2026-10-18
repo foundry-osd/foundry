@@ -575,7 +575,7 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
 
 Disk: {0}
 Model: {1}
-Autobus: {2}
+Zbernica: {2}
 Veľkosť: {3}
 
 Operačný systém: {4}
@@ -817,7 +817,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Krok: {0} z {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Krok:? z?</value>
+    <value>Krok: ? z ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Krok zlyhal.</value>
@@ -937,7 +937,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Aplikuje sa balík ovládačov...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Aplikuje sa obrázok...</value>
+    <value>Aplikuje sa obraz...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
     <value>Aplikuje sa obraz operačného systému...</value>
@@ -1045,7 +1045,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Vkladanie obsahu firmvéru do offline Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Prebieha kontrola obrázka...</value>
+    <value>Prebieha kontrola obrazu...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Kontroluje sa stav funkcií...</value>
@@ -1105,7 +1105,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Simulujú sa zmeny funkcií...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Vytvára sa profil Autopilot...</value>
+    <value>Pripravuje sa profil Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Pripravuje sa asistent registrácie Autopilotu...</value>
@@ -1114,7 +1114,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Príprava aktualizácie firmvéru...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Inscenačný balík...</value>
+    <value>Pripravuje sa balík...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Odosiela sa žiadosť o import na Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Overuje sa cieľová konfigurácia...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Overuje sa obrázok...</value>
+    <value>Overuje sa obraz...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Čaká sa na viditeľnosť zariadenia Autopilot...</value>
@@ -1189,7 +1189,7 @@ Pokračovať v nasadzovaní?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Inscenácia</value>
+    <value>Pripravuje sa</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Index použitého obrazu Windows nie je k dispozícii.</value>
@@ -1231,10 +1231,10 @@ Pokračovať v nasadzovaní?</value>
     <value>Autopilot je povolený, ale nebol vybratý žiadny profil.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Vytvorený profil Autopilot.</value>
+    <value>Profil Autopilot bol pripravený.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot profil zinscenovaný (simulácia).</value>
+    <value>Profil Autopilot bol pripravený (simulácia).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Stratégia vyrovnávacej pamäte je vyriešená.</value>
@@ -1360,7 +1360,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Použitý obraz operačného systému (simulácia).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Bol stiahnutý obrázok operačného systému.</value>
+    <value>Bol stiahnutý obraz operačného systému.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>Obraz operačného systému nebol stiahnutý.</value>

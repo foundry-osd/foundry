@@ -129,7 +129,7 @@
     <value>בדוק את חיבור הכבל</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>זוהתה חוזה שכירות DHCP</value>
+    <value>זוהתה חכירת DHCP</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>שער</value>

@@ -575,7 +575,7 @@ ErrorCode=0x80070005
 
 דיסק: {0}
 דגם: {1}
-אוטובוס: {2}
+אפיק: {2}
 גודל: {3}
 
 מערכת הפעלה: {4}
@@ -817,7 +817,7 @@ ErrorCode=0x80070005
     <value>שלב: {0} של {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>שלב:? של?</value>
+    <value>שלב: ? של ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>השלב נכשל.</value>
@@ -1096,7 +1096,7 @@ ErrorCode=0x80070005
     <value>מאמת מחדש את דיסק היעד...</value>
   </data>
   <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
-    <value>פועל OA3Tool...</value>
+    <value>מפעיל את OA3Tool...</value>
   </data>
   <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
     <value>איטום מחיצת שחזור...</value>
@@ -1105,7 +1105,7 @@ ErrorCode=0x80070005
     <value>הדמיית שינויים בתכונות...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>מביים פרופיל Autopilot...</value>
+    <value>מכין פרופיל Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>מכין את מסייע הרישום של Autopilot...</value>
@@ -1114,7 +1114,7 @@ ErrorCode=0x80070005
     <value>מכין עדכון קושחה...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>חבילת בימוי...</value>
+    <value>מכין חבילה...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>שולח בקשת יבוא אל Microsoft Graph...</value>
@@ -1171,13 +1171,13 @@ ErrorCode=0x80070005
     <value>כותב שם מחשב במצב לא מקוון...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>מגיש בקשה</value>
+    <value>מחיל</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>החלת שינויים בתכונות</value>
   </data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
-    <value>הורדת {0}</value>
+    <value>הורדו {0}</value>
   </data>
   <data name="StepProgress.Downloading" xml:space="preserve">
     <value>מוריד</value>
@@ -1189,7 +1189,7 @@ ErrorCode=0x80070005
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>בימוי</value>
+    <value>מכין</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>האינדקס של תמונת Windows שהוחלה אינו זמין.</value>
@@ -1231,10 +1231,10 @@ ErrorCode=0x80070005
     <value>Autopilot מופעל אך לא נבחר פרופיל.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>פרופיל Autopilot מבוים.</value>
+    <value>פרופיל Autopilot הוכן.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot פרופיל מבויים (סימולציה).</value>
+    <value>פרופיל Autopilot הוכן (סימולציה).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>אסטרטגיית המטמון נפתרה.</value>
@@ -1360,7 +1360,7 @@ ErrorCode=0x80070005
     <value>הוחלה תמונת מערכת הפעלה (סימולציה).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>הורדת תמונת מערכת ההפעלה.</value>
+    <value>תמונת מערכת ההפעלה הורדה.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>תמונת מערכת ההפעלה לא הורדה.</value>

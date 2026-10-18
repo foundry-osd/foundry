@@ -101,13 +101,13 @@
     <value>检测到</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>残疾人</value>
+    <value>已禁用</value>
   </data>
   <data name="Common.Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
-    <value>启用</value>
+    <value>已启用</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
     <value>下一步</value>
@@ -206,7 +206,7 @@
     <value>有效证件</value>
   </data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve">
-    <value>JSON个人资料</value>
+    <value>JSON 配置文件</value>
   </data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>没有Autopilot</value>
@@ -427,7 +427,7 @@
     <value>代加工</value>
   </data>
   <data name="DriverPack.Source" xml:space="preserve">
-    <value>驱动源码</value>
+    <value>驱动程序源</value>
   </data>
   <data name="DriverPack.Version" xml:space="preserve">
     <value>版本</value>
@@ -575,8 +575,8 @@
 
 磁盘：{0}
 型号：{1}
-巴士：{2}
-尺寸：{3}
+总线：{2}
+大小：{3}
 
 操作系统：{4}
 
@@ -700,7 +700,7 @@
     <value>JSON 配置文件</value>
   </data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve">
-    <value>公司简介</value>
+    <value>配置文件</value>
   </data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve">
     <value>在此介质上未找到嵌入的 Autopilot 配置文件。</value>
@@ -814,10 +814,10 @@
     <value>步骤已完成。</value>
   </data>
   <data name="Status.StepCounterFormat" xml:space="preserve">
-    <value>步骤：{0}的{1}</value>
+    <value>步骤：{0}/{1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>步骤：?的 ？</value>
+    <value>步骤：?/?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>步骤失败。</value>
@@ -937,7 +937,7 @@
     <value>正在应用驱动程序包...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>正在应用图像...</value>
+    <value>正在应用映像...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
     <value>正在应用操作系统映像...</value>
@@ -1045,7 +1045,7 @@
     <value>正在将固件内容注入离线Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>正在检查图像...</value>
+    <value>正在检查映像...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>检查功能状态...</value>
@@ -1096,7 +1096,7 @@
     <value>正在重新验证目标磁盘...</value>
   </data>
   <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
-    <value>运行OA3Tool...</value>
+    <value>正在运行 OA3Tool...</value>
   </data>
   <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
     <value>密封恢复分区...</value>
@@ -1105,7 +1105,7 @@
     <value>模拟功能更改...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>暂存Autopilot个人资料...</value>
+    <value>正在暂存 Autopilot 配置文件...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>正在暂存 Autopilot 注册助手...</value>
@@ -1114,7 +1114,7 @@
     <value>正在暂存固件更新...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>暂存包...</value>
+    <value>正在暂存包...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>正在向Microsoft Graph提交导入请求...</value>
@@ -1135,7 +1135,7 @@
     <value>正在验证目标配置...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>正在验证图像...</value>
+    <value>正在验证映像...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>正在等待Autopilot设备可见性...</value>
@@ -1171,7 +1171,7 @@
     <value>写入离线计算机名称...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>正在申请</value>
+    <value>正在应用</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>应用功能更改</value>
@@ -1189,7 +1189,7 @@
     <value>{0}：{1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>分期</value>
+    <value>正在暂存</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>已应用的 Windows 映像索引不可用。</value>
@@ -1231,10 +1231,10 @@
     <value>Autopilot 已启用，但未选择配置文件。</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot 个人资料上演。</value>
+    <value>已暂存 Autopilot 配置文件。</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot 配置文件已上演（模拟）。</value>
+    <value>已暂存 Autopilot 配置文件（模拟）。</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>缓存策略已解决。</value>
@@ -1252,7 +1252,7 @@
     <value>已暂存驱动安装程序。</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
-    <value>应用驱动程序包。</value>
+    <value>已应用驱动程序包。</value>
   </data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve">
     <value>应用驱动程序包（模拟）。</value>
@@ -1360,7 +1360,7 @@
     <value>应用操作系统映像（模拟）。</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>下载操作系统映像。</value>
+    <value>已下载操作系统映像。</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>未下载操作系统映像。</value>
@@ -1522,7 +1522,7 @@
     <value>Autopilot组标签</value>
   </data>
   <data name="Summary.AutopilotProfile" xml:space="preserve">
-    <value>Autopilot 个人资料</value>
+    <value>Autopilot 配置文件</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
     <value>内部版本</value>

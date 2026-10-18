@@ -101,7 +101,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>감지됨</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>장애인</value>
+    <value>비활성화됨</value>
   </data>
   <data name="Common.Edit" xml:space="preserve">
     <value>편집</value>
@@ -814,10 +814,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>단계가 완료되었습니다.</value>
   </data>
   <data name="Status.StepCounterFormat" xml:space="preserve">
-    <value>단계: {0}의 {1}</value>
+    <value>단계: {0} / {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>단계:? 의?</value>
+    <value>단계: ? / ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>단계가 실패했습니다.</value>
@@ -1114,7 +1114,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>펌웨어 업데이트 준비 중...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>스테이징 패키지...</value>
+    <value>패키지 스테이징 중...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Microsoft Graph에게 가져오기 요청을 제출하는 중...</value>
@@ -1171,7 +1171,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>오프라인 컴퓨터 이름을 쓰는 중...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>신청</value>
+    <value>적용 중</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>기능 변경 사항 적용</value>

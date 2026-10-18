@@ -3556,7 +3556,7 @@
     <value>בחר מנהלי התקנים אופציונליים של ספק ותיקיית מנהלי התקנים מותאמת אישית.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>אפשרויות דרייבר</value>
+    <value>אפשרויות מנהלי התקנים</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3571,7 +3571,7 @@
     <value>אדריכלות</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>נהגים</value>
+    <value>מנהלי התקנים</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB מצב פורמט</value>
@@ -3610,7 +3610,7 @@
     <value>פלט ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO תמונה</value>
+    <value>תמונת ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>בחר נתיב פלט ISO</value>

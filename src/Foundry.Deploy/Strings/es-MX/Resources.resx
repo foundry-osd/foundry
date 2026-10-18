@@ -575,7 +575,7 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
 
 Disco: {0}
 Modelo: {1}
-Autobús: {2}
+Bus: {2}
 Tamaño: {3}
 
 Sistema operativo: {4}
@@ -817,7 +817,7 @@ Sistema operativo: {4}
     <value>Paso: {0} de {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Paso:? de?</value>
+    <value>Paso: ? de ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Paso fallido.</value>
@@ -1105,7 +1105,7 @@ Sistema operativo: {4}
     <value>Simulando cambios de características...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Puesta en escena del perfil Autopilot...</value>
+    <value>Preparando el perfil de Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Preparando el asistente de registro de Autopilot...</value>
@@ -1114,7 +1114,7 @@ Sistema operativo: {4}
     <value>Preparando actualización de firmware...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Paquete de puesta en escena...</value>
+    <value>Preparando paquete...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Enviando solicitud de importación a Microsoft Graph...</value>
@@ -1189,7 +1189,7 @@ Sistema operativo: {4}
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Puesta en escena</value>
+    <value>Preparando</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>El índice de la imagen de Windows aplicada no está disponible.</value>
@@ -1231,10 +1231,10 @@ Sistema operativo: {4}
     <value>Autopilot está habilitado pero no se seleccionó ningún perfil.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot perfil preparado.</value>
+    <value>Perfil de Autopilot preparado.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
-    <value>Autopilot perfil preparado (simulación).</value>
+    <value>Perfil de Autopilot preparado (simulación).</value>
   </data>
   <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
     <value>Estrategia de caché resuelta.</value>
@@ -1594,7 +1594,7 @@ Sistema operativo: {4}
     <value>Acceso a la ubicación</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>Forzado</value>
+    <value>Desactivado forzosamente</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>Controlado por el usuario</value>
