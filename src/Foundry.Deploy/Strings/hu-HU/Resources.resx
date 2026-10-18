@@ -817,7 +817,7 @@ Folytatja a telepítést?</value>
     <value>Lépés: {0}/{1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>lépés:? a?</value>
+    <value>Lépés: ?/?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>A lépés nem sikerült.</value>
@@ -937,10 +937,10 @@ Folytatja a telepítést?</value>
     <value>Illesztőprogram-csomag alkalmazása...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Kép alkalmazása...</value>
+    <value>Lemezkép alkalmazása...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
-    <value>Az operációs rendszer képének alkalmazása...</value>
+    <value>Az operációs rendszer lemezképének alkalmazása...</value>
   </data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
     <value>WinRE illesztőprogramok alkalmazása...</value>
@@ -1027,7 +1027,7 @@ Folytatja a telepítést?</value>
     <value>Firmware frissítés letöltése...</value>
   </data>
   <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
-    <value>Az operációs rendszer képének letöltése...</value>
+    <value>Az operációs rendszer lemezképének letöltése...</value>
   </data>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Illesztőprogram-csomag kibontása...</value>
@@ -1045,7 +1045,7 @@ Folytatja a telepítést?</value>
     <value>Firmware-tartalom beszúrása az offline Windows-ba...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Kép vizsgálata...</value>
+    <value>Lemezkép vizsgálata...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>A funkciók állapotának ellenőrzése...</value>
@@ -1105,7 +1105,7 @@ Folytatja a telepítést?</value>
     <value>Szolgáltatásmódosítások szimulálása...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Autopilot profil rendezése...</value>
+    <value>Autopilot-profil előkészítése...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Az Autopilot regisztrációs segéd előkészítése...</value>
@@ -1114,7 +1114,7 @@ Folytatja a telepítést?</value>
     <value>Firmware-frissítés előkészítése...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Üzembe helyezési csomag...</value>
+    <value>Csomag előkészítése...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importálási kérelem benyújtása a Microsoft Graph címre...</value>
@@ -1135,7 +1135,7 @@ Folytatja a telepítést?</value>
     <value>Célkonfiguráció ellenőrzése...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Kép ellenőrzése...</value>
+    <value>Lemezkép ellenőrzése...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Várakozás az Autopilot eszköz láthatóságára...</value>
@@ -1171,7 +1171,7 @@ Folytatja a telepítést?</value>
     <value>Offline számítógépnév írása...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Jelentkezés</value>
+    <value>Alkalmazás</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Funkciómódosítások alkalmazása</value>
@@ -1189,7 +1189,7 @@ Folytatja a telepítést?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Színreállítás</value>
+    <value>Előkészítés</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Az alkalmazott Windows-lemezkép indexe nem érhető el.</value>
@@ -1360,7 +1360,7 @@ Folytatja a telepítést?</value>
     <value>Alkalmazott operációs rendszer kép (szimuláció).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Az operációs rendszer képe letöltve.</value>
+    <value>Az operációs rendszer lemezképe letöltve.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>Az operációs rendszer képe nem lett letöltve.</value>
@@ -1594,7 +1594,7 @@ Folytatja a telepítést?</value>
     <value>Helyhozzáférés</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>Kényszerített</value>
+    <value>Kényszerített kikapcsolás</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>Felhasználó által vezérelt</value>

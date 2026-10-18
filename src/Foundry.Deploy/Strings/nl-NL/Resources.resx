@@ -817,7 +817,7 @@ Doorgaan met de implementatie?</value>
     <value>Stap: {0} of {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Stap:? van?</value>
+    <value>Stap: ? van ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Stap mislukt.</value>
@@ -937,7 +937,7 @@ Doorgaan met de implementatie?</value>
     <value>Driverpakket toepassen...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Afbeelding toepassen...</value>
+    <value>Installatiekopie toepassen...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
     <value>Besturingssysteemimage toepassen...</value>
@@ -1045,7 +1045,7 @@ Doorgaan met de implementatie?</value>
     <value>Firmware-inhoud injecteren in offline Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Afbeelding inspecteren...</value>
+    <value>Installatiekopie inspecteren...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Functiestatussen inspecteren...</value>
@@ -1105,7 +1105,7 @@ Doorgaan met de implementatie?</value>
     <value>Functiewijzigingen simuleren...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Autopilot profiel in scène zetten...</value>
+    <value>Autopilot-profiel klaarzetten...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Autopilot-registratieassistent wordt voorbereid...</value>
@@ -1114,7 +1114,7 @@ Doorgaan met de implementatie?</value>
     <value>Firmware-update klaarzetten...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Staging pakket...</value>
+    <value>Pakket klaarzetten...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importverzoek indienen bij Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@ Doorgaan met de implementatie?</value>
     <value>Doelconfiguratie valideren...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Afbeelding verifiëren...</value>
+    <value>Installatiekopie verifiëren...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Wachten op Autopilot apparaatzichtbaarheid...</value>

@@ -3607,7 +3607,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>ISO çıkışı</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO resim</value>
+    <value>ISO görüntüsü</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>ISO çıkış yolunu seçin</value>

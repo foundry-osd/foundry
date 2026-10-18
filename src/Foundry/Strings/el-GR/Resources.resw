@@ -713,7 +713,7 @@
     <value>Απενεργοποίηση</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>ΑμεΑ</value>
+    <value>Απενεργοποιημένο</value>
   </data>
   <data name="Common.Enable" xml:space="preserve">
     <value>Ενεργοποίηση</value>
@@ -3568,7 +3568,7 @@
     <value>Αρχιτεκτονική</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Οδηγοί</value>
+    <value>Προγράμματα οδήγησης</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>Λειτουργία μορφής USB</value>
@@ -3607,7 +3607,7 @@
     <value>Έξοδος ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO εικόνα</value>
+    <value>Εικόνα ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Επιλέξτε διαδρομή εξόδου ISO</value>

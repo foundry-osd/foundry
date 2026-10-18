@@ -713,7 +713,7 @@ Licenciran prema MIT licenci.</value>
     <value>Onemogući</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>Onesposobljeno</value>
+    <value>Onemogućeno</value>
   </data>
   <data name="Common.Enable" xml:space="preserve">
     <value>Omogući</value>
@@ -3553,7 +3553,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Odaberite izborne upravljačke programe dobavljača i prilagođenu mapu upravljačkih programa.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Mogućnosti vozača</value>
+    <value>Mogućnosti upravljačkih programa</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3568,7 +3568,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Arhitektura</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Vozači</value>
+    <value>Upravljački programi</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>način formata USB</value>

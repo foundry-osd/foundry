@@ -3568,7 +3568,7 @@
     <value>Архітектура</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Водії</value>
+    <value>Драйвери</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>режим формату USB</value>
@@ -3607,7 +3607,7 @@
     <value>вихід ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO зображення</value>
+    <value>Образ ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Виберіть вихідний шлях ISO</value>

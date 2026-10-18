@@ -101,7 +101,7 @@ Licencirano pod licenco MIT.</value>
     <value>Zaznano</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>Onemogočen</value>
+    <value>Onemogočeno</value>
   </data>
   <data name="Common.Edit" xml:space="preserve">
     <value>Uredi nastavitve</value>
@@ -575,7 +575,7 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
 
 Disk: {0}
 Model: {1}
-Avtobus: {2}
+Vodilo: {2}
 Velikost: {3}
 
 Operacijski sistem: {4}
@@ -817,7 +817,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Korak: {0} od {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>korak:? od?</value>
+    <value>Korak: ? od ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Korak ni uspel.</value>
@@ -1105,7 +1105,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Simulacija sprememb funkcij ...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Uprizarjanje profila Autopilot...</value>
+    <value>Pripravljanje profila Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Pripravlja se pomočnik za registracijo Autopilot...</value>
@@ -1114,7 +1114,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Priprava posodobitve vdelane programske opreme...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Uprizoritveni paket...</value>
+    <value>Pripravljanje paketa...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Pošiljanje zahteve za uvoz na Microsoft Graph...</value>
@@ -1171,7 +1171,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Pisanje imena računalnika brez povezave...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Prijavljanje</value>
+    <value>Uveljavljanje</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Uveljavljanje sprememb funkcij</value>
@@ -1189,7 +1189,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Uprizoritev</value>
+    <value>Pripravljanje</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Indeks uporabljene slike sistema Windows ni na voljo.</value>

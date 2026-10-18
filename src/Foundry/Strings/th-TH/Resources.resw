@@ -3607,7 +3607,7 @@
     <value>ISO เอาท์พุต</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO รูปภาพ</value>
+    <value>อิมเมจ ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>เลือก ISO เส้นทางเอาต์พุต</value>

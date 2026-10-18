@@ -3553,7 +3553,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Vælg valgfri leverandørdrivere og en brugerdefineret drivermappe.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Driver muligheder</value>
+    <value>Driverindstillinger</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3568,7 +3568,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Arkitektur</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Chauffører</value>
+    <value>Drivere</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formattilstand</value>
@@ -3607,7 +3607,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>ISO udgang</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO billede</value>
+    <value>ISO-afbildning</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Vælg ISO outputsti</value>

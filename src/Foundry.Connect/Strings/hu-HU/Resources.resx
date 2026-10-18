@@ -138,7 +138,7 @@ Licenc az MIT licenc alatt.</value>
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Nincs aktív link</value>
+    <value>Nincs aktív kapcsolat</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Nem észlelhető Ethernet adapter.</value>

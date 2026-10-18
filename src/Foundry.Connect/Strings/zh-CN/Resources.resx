@@ -369,7 +369,7 @@
     <value>已配置 Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>企业简介</value>
+    <value>企业配置文件</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>隐藏网络</value>
@@ -387,7 +387,7 @@
     <value>此启动映像中没有可用的预配置 Wi-Fi 配置文件。</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>公司简介</value>
+    <value>配置文件</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>该网络需要配置Wi-Fi配置文件。</value>
@@ -417,7 +417,7 @@
     <value>特定于供应商</value>
   </data>
   <data name="Wifi.SecurityWep" xml:space="preserve">
-    <value>韦普</value>
+    <value>WEP</value>
   </data>
   <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
     <value>WPA2 企业版</value>

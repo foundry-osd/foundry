@@ -132,13 +132,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Aptikta DHCP nuoma</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Vartai</value>
+    <value>Šliuzas</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Nėra aktyvios nuorodos</value>
+    <value>Nėra aktyvaus ryšio</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Neaptiktas Ethernet adapteris.</value>

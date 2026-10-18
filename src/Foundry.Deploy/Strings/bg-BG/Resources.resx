@@ -575,7 +575,7 @@
 
 Диск: {0}
 Модел: {1}
-Автобус: {2}
+Шина: {2}
 Размер: {3}
 
 Операционна система: {4}
@@ -817,7 +817,7 @@
     <value>Стъпка: {0} от {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Стъпка:? от?</value>
+    <value>Стъпка: ? от ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Стъпката е неуспешна.</value>
@@ -937,10 +937,10 @@
     <value>Прилага се пакет драйвери...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Изображението се прилага...</value>
+    <value>Образът се прилага...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
-    <value>Прилага се изображение на операционната система...</value>
+    <value>Прилага се образ на операционната система...</value>
   </data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
     <value>Прилагат се WinRE драйвери...</value>
@@ -1027,7 +1027,7 @@
     <value>Изтегля се актуализация на фърмуера...</value>
   </data>
   <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
-    <value>Изтегля се изображение на операционната система...</value>
+    <value>Изтегля се образ на операционната система...</value>
   </data>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Пакет драйвери се извлича...</value>
@@ -1045,7 +1045,7 @@
     <value>Инжектиране на съдържание на фърмуера в офлайн Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Изображението се проверява...</value>
+    <value>Образът се проверява...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Проверява се състоянието на функцията...</value>
@@ -1114,7 +1114,7 @@
     <value>Подготовка на фърмуерната актуализация...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Сценичен пакет...</value>
+    <value>Подготвя се пакетът...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Изпраща се заявка за импортиране до Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@
     <value>Потвърждава се целевата конфигурация...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Изображението се проверява...</value>
+    <value>Образът се проверява...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Изчаква се видимост на Autopilot устройството...</value>
@@ -1171,7 +1171,7 @@
     <value>Пише се офлайн име на компютър...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Кандидатстване</value>
+    <value>Прилагане</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Прилагане на промените във функциите</value>
@@ -1189,7 +1189,7 @@
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Постановка</value>
+    <value>Подготовка</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Индексът на приложеното изображение на Windows не е наличен.</value>
@@ -1360,7 +1360,7 @@
     <value>Приложен образ на операционна система (симулация).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Изтеглено изображение на операционната система.</value>
+    <value>Образът на операционната система е изтеглен.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>Изображението на операционната система не беше изтеглено.</value>

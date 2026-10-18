@@ -575,7 +575,7 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
 
 Disk: {0}
 Model: {1}
-Autobus: {2}
+Sběrnice: {2}
 Velikost: {3}
 
 Operační systém: {4}
@@ -817,7 +817,7 @@ Pokračovat v nasazování?</value>
     <value>Krok: {0} z {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Krok:? z?</value>
+    <value>Krok: ? z ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Krok se nezdařil.</value>
@@ -937,7 +937,7 @@ Pokračovat v nasazování?</value>
     <value>Probíhá aplikace balíčku ovladačů...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Aplikování obrázku...</value>
+    <value>Použití bitové kopie...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
     <value>Probíhá použití bitové kopie operačního systému...</value>
@@ -1045,7 +1045,7 @@ Pokračovat v nasazování?</value>
     <value>Vkládání obsahu firmwaru do offline Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Kontrola obrázku...</value>
+    <value>Kontrola bitové kopie...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Kontrola stavů funkcí...</value>
@@ -1096,7 +1096,7 @@ Pokračovat v nasazování?</value>
     <value>Ověřování cílového disku...</value>
   </data>
   <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
-    <value>Spuštěna OA3Tool...</value>
+    <value>Spouštění nástroje OA3Tool...</value>
   </data>
   <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
     <value>Utěsnění oddílu pro obnovení...</value>
@@ -1114,7 +1114,7 @@ Pokračovat v nasazování?</value>
     <value>Příprava aktualizace firmwaru...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Inscenační balíček...</value>
+    <value>Příprava balíčku...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Odesílání požadavku na import na Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@ Pokračovat v nasazování?</value>
     <value>Ověřování cílové konfigurace...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Ověřování obrázku...</value>
+    <value>Ověřování bitové kopie...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Čekání na viditelnost zařízení Autopilot...</value>
@@ -1189,7 +1189,7 @@ Pokračovat v nasazování?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Inscenace</value>
+    <value>Připravuje se</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Index použité bitové kopie Windows není k dispozici.</value>
@@ -1360,7 +1360,7 @@ Pokračovat v nasazování?</value>
     <value>Použitý obraz operačního systému (simulace).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Obrázek operačního systému stažen.</value>
+    <value>Bitová kopie operačního systému byla stažena.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>Obrázek operačního systému nebyl stažen.</value>

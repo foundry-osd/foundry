@@ -713,7 +713,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>無効にする</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>障害者</value>
+    <value>無効</value>
   </data>
   <data name="Common.Enable" xml:space="preserve">
     <value>有効にする</value>
@@ -947,7 +947,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パッケージを事前に選択するには、1 つ以上のカタログ カテゴリを選択します。</value>
   </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
-    <value>プロフィール</value>
+    <value>プロファイル</value>
   </data>
   <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
     <value>なし</value>
@@ -3607,7 +3607,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ISO 出力</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO 画像</value>
+    <value>ISO イメージ</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>ISO 出力パスを選択してください</value>

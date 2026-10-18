@@ -427,7 +427,7 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
     <value>OĮG</value>
   </data>
   <data name="DriverPack.Source" xml:space="preserve">
-    <value>Vairuotojo šaltinis</value>
+    <value>Tvarkyklių šaltinis</value>
   </data>
   <data name="DriverPack.Version" xml:space="preserve">
     <value>Versija</value>
@@ -575,7 +575,7 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
 
 Diskas: {0}
 Modelis: {1}
-Autobusas: {2}
+Magistralė: {2}
 Dydis: {3}
 
 Operacinė sistema: {4}
@@ -817,7 +817,7 @@ Tęsti diegimą?</value>
     <value>Žingsnis: {0} iš {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Žingsnis:? iš?</value>
+    <value>Žingsnis: ? iš ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Žingsnis nepavyko.</value>
@@ -937,10 +937,10 @@ Tęsti diegimą?</value>
     <value>Taikomas tvarkyklės paketas...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Taikomas vaizdas...</value>
+    <value>Taikomas atvaizdas...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
-    <value>Taikomas operacinės sistemos vaizdas...</value>
+    <value>Taikomas operacinės sistemos atvaizdas...</value>
   </data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
     <value>Taikomos WinRE tvarkyklės...</value>
@@ -1027,7 +1027,7 @@ Tęsti diegimą?</value>
     <value>Atsisiunčiamas programinės aparatinės įrangos naujinimas...</value>
   </data>
   <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
-    <value>Atsisiunčiamas operacinės sistemos vaizdas...</value>
+    <value>Atsisiunčiamas operacinės sistemos atvaizdas...</value>
   </data>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Išskleidžiamas tvarkyklių paketas...</value>
@@ -1045,7 +1045,7 @@ Tęsti diegimą?</value>
     <value>Programinės aparatinės įrangos turinys įterpiamas į neprisijungus Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Tikrinamas vaizdas...</value>
+    <value>Tikrinamas atvaizdas...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Tikrinamos funkcijos būsenos...</value>
@@ -1105,7 +1105,7 @@ Tęsti diegimą?</value>
     <value>Imituojami funkcijų pakeitimai...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Sukurti Autopilot profilį...</value>
+    <value>Ruošiamas Autopilot profilis...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Ruošiamas Autopilot registracijos pagalbininkas...</value>
@@ -1114,7 +1114,7 @@ Tęsti diegimą?</value>
     <value>Ruošiamas programinės aparatinės įrangos naujinimas...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Inscenizacijos paketas...</value>
+    <value>Ruošiamas paketas...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importavimo užklausa teikiama Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@ Tęsti diegimą?</value>
     <value>Patvirtinama tikslinės konfigūracijos...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Tikrinamas vaizdas...</value>
+    <value>Tikrinamas atvaizdas...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Laukiama Autopilot įrenginio matomumo...</value>
@@ -1189,7 +1189,7 @@ Tęsti diegimą?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Inscenizacija</value>
+    <value>Ruošiama</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Pritaikyto „Windows“ atvaizdo indeksas nepasiekiamas.</value>
@@ -1252,7 +1252,7 @@ Tęsti diegimą?</value>
     <value>Tvarkyklių diegimo programa paruošta.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
-    <value>Taikomas tvarkyklės paketas.</value>
+    <value>Pritaikytas tvarkyklių paketas.</value>
   </data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve">
     <value>Taikomas tvarkyklės paketas (modeliavimas).</value>
@@ -1360,7 +1360,7 @@ Tęsti diegimą?</value>
     <value>Taikomas operacinės sistemos vaizdas (modeliavimas).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Atsisiųstas operacinės sistemos vaizdas.</value>
+    <value>Atsisiųstas operacinės sistemos atvaizdas.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>Operacinės sistemos vaizdas neatsisiųstas.</value>

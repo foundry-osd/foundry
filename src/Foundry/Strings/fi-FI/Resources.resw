@@ -3553,7 +3553,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Valitse valinnaiset toimittajan ohjaimet ja mukautettu ohjainkansio.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Kuljettajan vaihtoehdot</value>
+    <value>Ohjainasetukset</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3568,7 +3568,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Arkkitehtuuri</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Kuljettajat</value>
+    <value>Ohjaimet</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB muototila</value>
@@ -3607,7 +3607,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>ISO ulostulo</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO kuva</value>
+    <value>ISO-näköistiedosto</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Valitse ISO lähtöpolku</value>

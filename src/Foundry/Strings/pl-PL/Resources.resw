@@ -713,7 +713,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Wyłącz</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>Niepełnosprawny</value>
+    <value>Wyłączone</value>
   </data>
   <data name="Common.Enable" xml:space="preserve">
     <value>Włącz</value>
@@ -3607,7 +3607,7 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Wyjście ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO obraz</value>
+    <value>Obraz ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Wybierz ścieżkę wyjściową ISO</value>

@@ -3553,7 +3553,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Valige valikulised müüja draiverid ja kohandatud draiveri kaust.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Juhi valikud</value>
+    <value>Draiverite valikud</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3568,7 +3568,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Arhitektuur</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Autojuhid</value>
+    <value>Draiverid</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB vormingurežiim</value>
@@ -3607,7 +3607,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>ISO väljund</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO pilt</value>
+    <value>ISO-tõmmis</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Valige ISO väljundtee</value>

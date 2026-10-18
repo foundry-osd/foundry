@@ -132,13 +132,13 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>DHCP rendileping tuvastatud</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Värav</value>
+    <value>Lüüs</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Aktiivne link puudub</value>
+    <value>Aktiivne ühendus puudub</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Ethernet adapterit ei tuvastatud.</value>

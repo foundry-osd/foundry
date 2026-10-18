@@ -817,7 +817,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Trin: {0} af {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Trin:? af?</value>
+    <value>Trin: ? af ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Trin mislykkedes.</value>
@@ -937,10 +937,10 @@ Vil du fortsætte med implementeringen?</value>
     <value>Anvender driverpakke...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Anvender billede...</value>
+    <value>Anvender afbildning...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
-    <value>Anvender operativsystembillede...</value>
+    <value>Anvender operativsystemafbildning...</value>
   </data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
     <value>Anvender WinRE-drivere...</value>
@@ -1027,7 +1027,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Downloader firmwareopdatering...</value>
   </data>
   <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
-    <value>Downloader operativsystembillede...</value>
+    <value>Downloader operativsystemafbildning...</value>
   </data>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Udpakker driverpakke...</value>
@@ -1045,7 +1045,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Injicerer firmwareindhold i offline Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Inspicerer billede...</value>
+    <value>Inspicerer afbildning...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Inspicerer funktionstilstande...</value>
@@ -1105,7 +1105,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Simulerer funktionsændringer...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Iscenesætter Autopilot profil...</value>
+    <value>Klargør Autopilot-profil...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Klargør Autopilot-registreringsassistent...</value>
@@ -1114,7 +1114,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Klargør firmwareopdatering...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Iscenesættelsespakke...</value>
+    <value>Klargør pakke...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Indsender importanmodning til Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Validerer målkonfiguration...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Bekræfter billede...</value>
+    <value>Kontrollerer afbildning...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Venter på Autopilot enhedssynlighed...</value>
@@ -1171,7 +1171,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Skriver offline computernavn...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Ansøger</value>
+    <value>Anvender</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Anvender funktionsændringer</value>
@@ -1189,10 +1189,10 @@ Vil du fortsætte med implementeringen?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Iscenesættelse</value>
+    <value>Klargør</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
-    <value>Indekset for det anvendte Windows-image er ikke tilgængeligt.</value>
+    <value>Indekset for den anvendte Windows-afbildning er ikke tilgængeligt.</value>
   </data>
   <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
     <value>Importeret Autopilot enhed dukkede ikke op i Windows Autopilot enheder før timeout.</value>
@@ -1360,7 +1360,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Operativsystembillede anvendt (simulering).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Operativsystembillede downloadet.</value>
+    <value>Operativsystemafbildning downloadet.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>Operativsystembilledet blev ikke downloadet.</value>

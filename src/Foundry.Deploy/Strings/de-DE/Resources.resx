@@ -1096,7 +1096,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Zieldatenträger wird erneut überprüft...</value>
   </data>
   <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
-    <value>Laufen OA3Tool...</value>
+    <value>OA3Tool wird ausgeführt...</value>
   </data>
   <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
     <value>Wiederherstellungspartition abdichten...</value>
@@ -1594,7 +1594,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Standortzugriff</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>Ausgeschaltet</value>
+    <value>Zwangsweise deaktiviert</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>Benutzergesteuert</value>

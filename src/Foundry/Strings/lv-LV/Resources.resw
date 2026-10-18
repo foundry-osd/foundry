@@ -3553,7 +3553,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Atlasiet papildu piegādātāja draiverus un pielāgotu draiveru mapi.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Vadītāja iespējas</value>
+    <value>Draiveru opcijas</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3568,7 +3568,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Arhitektūra</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Šoferi</value>
+    <value>Draiveri</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formāta režīms</value>

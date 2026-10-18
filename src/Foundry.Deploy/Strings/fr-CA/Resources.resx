@@ -817,7 +817,7 @@ Continuer le déploiement?</value>
     <value>Étape : {0} de {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Étape:? de?</value>
+    <value>Étape : ? de ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>L'étape a échoué.</value>
@@ -1105,7 +1105,7 @@ Continuer le déploiement?</value>
     <value>Simulation des changements de fonctionnalités...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Profil Autopilot intermédiaire...</value>
+    <value>Préparation du profil Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Préparation de l'assistant d'enregistrement Autopilot...</value>
@@ -1114,7 +1114,7 @@ Continuer le déploiement?</value>
     <value>Préparation de la mise à jour du micrologiciel...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Forfait de mise en scène...</value>
+    <value>Préparation du package...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Soumission de la demande d'importation à Microsoft Graph...</value>
@@ -1171,7 +1171,7 @@ Continuer le déploiement?</value>
     <value>Écrire le nom de l'ordinateur hors ligne...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Candidature</value>
+    <value>Application</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Application des modifications de fonctionnalités</value>
@@ -1189,7 +1189,7 @@ Continuer le déploiement?</value>
     <value>{0} : {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Mise en scène</value>
+    <value>Préparation</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>L'index de l'image Windows appliquée est indisponible.</value>

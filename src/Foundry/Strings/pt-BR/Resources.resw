@@ -3607,7 +3607,7 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>ISO saída</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO imagem</value>
+    <value>Imagem ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Selecione ISO caminho de saída</value>

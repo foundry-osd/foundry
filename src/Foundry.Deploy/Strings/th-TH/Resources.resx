@@ -575,7 +575,7 @@
 
 ดิสก์: {0}
 รุ่น: {1}
-รถประจำทาง: {2}
+บัส: {2}
 ขนาด: {3}
 
 ระบบปฏิบัติการ: {4}
@@ -817,7 +817,7 @@
     <value>ขั้นตอน: {0} จาก {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>ขั้นตอน:? ของ?</value>
+    <value>ขั้นตอน: ? จาก ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>ขั้นตอนล้มเหลว</value>
@@ -937,7 +937,7 @@
     <value>กำลังใช้แพ็กไดรเวอร์...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>กำลังใช้รูปภาพ...</value>
+    <value>กำลังใช้อิมเมจ...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
     <value>กำลังใช้อิมเมจระบบปฏิบัติการ...</value>
@@ -1045,7 +1045,7 @@
     <value>กำลังแทรกเนื้อหาเฟิร์มแวร์ลงในออฟไลน์ Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>กำลังตรวจสอบภาพ...</value>
+    <value>กำลังตรวจสอบอิมเมจ...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>กำลังตรวจสอบสถานะฟีเจอร์...</value>
@@ -1096,7 +1096,7 @@
     <value>กำลังตรวจสอบดิสก์เป้าหมายอีกครั้ง...</value>
   </data>
   <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
-    <value>กำลังวิ่ง OA3Tool...</value>
+    <value>กำลังเรียกใช้ OA3Tool...</value>
   </data>
   <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
     <value>กำลังปิดผนึกพาร์ติชันการกู้คืน...</value>
@@ -1114,7 +1114,7 @@
     <value>กำลังจัดเตรียมการอัปเดตเฟิร์มแวร์...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>แพ็คเกจการแสดงละคร...</value>
+    <value>กำลังจัดเตรียมแพ็กเกจ...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>กำลังส่งคำขอนำเข้าไปที่ Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@
     <value>กำลังตรวจสอบการกำหนดค่าเป้าหมาย...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>กำลังยืนยันรูปภาพ...</value>
+    <value>กำลังยืนยันอิมเมจ...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>กำลังรอการมองเห็นอุปกรณ์ Autopilot...</value>
@@ -1171,7 +1171,7 @@
     <value>กำลังเขียนชื่อคอมพิวเตอร์ออฟไลน์...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>กำลังสมัคร</value>
+    <value>กำลังนำไปใช้</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>การใช้การเปลี่ยนแปลงคุณสมบัติ</value>
@@ -1189,7 +1189,7 @@
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>การแสดงละคร</value>
+    <value>กำลังจัดเตรียม</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>ดัชนีอิมเมจ Windows ที่นำไปใช้ไม่พร้อมใช้งาน</value>

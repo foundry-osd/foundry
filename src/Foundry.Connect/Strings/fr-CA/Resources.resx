@@ -138,7 +138,7 @@ Sous licence MIT.</value>
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Aucun lien actif</value>
+    <value>Aucune liaison active</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Aucun adaptateur Ethernet détecté.</value>

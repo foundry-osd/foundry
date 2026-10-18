@@ -575,7 +575,7 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
 
 Disco: {0}
 Modelo: {1}
-Ônibus: {2}
+Barramento: {2}
 Tamanho: {3}
 
 Sistema operacional: {4}
@@ -817,7 +817,7 @@ Continuar com a implantação?</value>
     <value>Etapa: {0} de {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Etapa:? de?</value>
+    <value>Etapa: ? de ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Falha na etapa.</value>
@@ -1114,7 +1114,7 @@ Continuar com a implantação?</value>
     <value>Preparando atualização de firmware...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Pacote de preparação...</value>
+    <value>Preparando pacote...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Enviando solicitação de importação para Microsoft Graph...</value>
@@ -1171,7 +1171,7 @@ Continuar com a implantação?</value>
     <value>Escrevendo o nome do computador off-line...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Candidatura</value>
+    <value>Aplicando</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Aplicando alterações de recursos</value>
@@ -1189,7 +1189,7 @@ Continuar com a implantação?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Encenação</value>
+    <value>Preparando</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>O índice da imagem do Windows aplicada não está disponível.</value>
@@ -1594,7 +1594,7 @@ Continuar com a implantação?</value>
     <value>Acesso à localização</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>Forçado</value>
+    <value>Desativação forçada</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>Controlado pelo usuário</value>

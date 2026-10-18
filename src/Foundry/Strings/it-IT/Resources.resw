@@ -3553,7 +3553,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Seleziona i driver del fornitore opzionali e una cartella dei driver personalizzata.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Opzioni del conducente</value>
+    <value>Opzioni driver</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3607,7 +3607,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>ISO uscita</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO immagine</value>
+    <value>Immagine ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Selezionare il percorso di uscita ISO</value>

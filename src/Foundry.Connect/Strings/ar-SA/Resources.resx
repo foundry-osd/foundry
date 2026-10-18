@@ -132,13 +132,13 @@
     <value>DHCP تم اكتشاف عقد إيجار</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>بوابة</value>
+    <value>العبّارة</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>لا يوجد رابط نشط</value>
+    <value>لا يوجد ارتباط نشط</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>لم يتم اكتشاف محول Ethernet.</value>
@@ -369,7 +369,7 @@
     <value>تم توفيره Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>الملف الشخصي للمؤسسة</value>
+    <value>ملف تعريف المؤسسة</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>شبكة مخفية</value>
@@ -387,7 +387,7 @@
     <value>لا يتوفر ملف تعريف Wi-Fi في صورة التمهيد هذه.</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>الملف الشخصي</value>
+    <value>ملف التعريف</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>تتطلب هذه الشبكة ملف تعريف Wi-Fi متوفر.</value>

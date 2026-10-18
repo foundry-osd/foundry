@@ -369,7 +369,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>プロビジョニング済み Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>企業概要</value>
+    <value>エンタープライズ プロファイル</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>隠れたネットワーク</value>
@@ -387,7 +387,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>このブート イメージでは、プロビジョニングされた Wi-Fi プロファイルを使用できません。</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>プロフィール</value>
+    <value>プロファイル</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>このネットワークには、プロビジョニングされた Wi-Fi プロファイルが必要です。</value>

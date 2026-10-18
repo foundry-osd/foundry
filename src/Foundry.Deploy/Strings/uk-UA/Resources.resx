@@ -575,7 +575,7 @@ ErrorCode=0x80070005
 
 Диск: {0}
 Модель: {1}
-Автобус: {2}
+Шина: {2}
 Розмір: {3}
 
 Операційна система: {4}
@@ -817,7 +817,7 @@ ErrorCode=0x80070005
     <value>Крок: {0} з {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Крок:? з?</value>
+    <value>Крок: ? з ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Крок не вдався.</value>
@@ -937,7 +937,7 @@ ErrorCode=0x80070005
     <value>Застосування пакета драйверів...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Застосування зображення...</value>
+    <value>Застосування образу...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
     <value>Застосування образу операційної системи...</value>
@@ -1045,7 +1045,7 @@ ErrorCode=0x80070005
     <value>Введення вмісту прошивки в офлайн Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Перевірка зображення...</value>
+    <value>Перевірка образу...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Перевірка станів функцій...</value>
@@ -1105,7 +1105,7 @@ ErrorCode=0x80070005
     <value>Імітація змін функцій...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Постановка профілю Autopilot...</value>
+    <value>Підготовка профілю Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Готується помічник реєстрації Autopilot...</value>
@@ -1114,7 +1114,7 @@ ErrorCode=0x80070005
     <value>Підготовка оновлення мікропрограми...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Пакет постановок...</value>
+    <value>Підготовка пакета...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Надсилання запиту на імпорт до Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@ ErrorCode=0x80070005
     <value>Перевірка цільової конфігурації...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Перевірка зображення...</value>
+    <value>Перевірка образу...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Очікування видимості пристрою Autopilot...</value>
@@ -1171,7 +1171,7 @@ ErrorCode=0x80070005
     <value>Введення назви автономного комп'ютера...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Подача заявки</value>
+    <value>Застосування</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Застосування змін функцій</value>
@@ -1189,7 +1189,7 @@ ErrorCode=0x80070005
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Постановка</value>
+    <value>Підготовка</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Індекс застосованого образу Windows недоступний.</value>

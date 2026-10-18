@@ -427,7 +427,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>OEM</value>
   </data>
   <data name="DriverPack.Source" xml:space="preserve">
-    <value>Origine del conducente</value>
+    <value>Origine dei driver</value>
   </data>
   <data name="DriverPack.Version" xml:space="preserve">
     <value>Versione</value>
@@ -575,7 +575,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
 
 Disco: {0}
 Modello: {1}
-Autobus: {2}
+Bus: {2}
 Dimensioni: {3}
 
 Sistema operativo: {4}
@@ -817,7 +817,7 @@ Continuare con la distribuzione?</value>
     <value>Passo: {0} di {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Passo:? Di?</value>
+    <value>Passo: ? di ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Passaggio non riuscito.</value>
@@ -1096,7 +1096,7 @@ Continuare con la distribuzione?</value>
     <value>Riconvalida del disco di destinazione in corso...</value>
   </data>
   <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
-    <value>In esecuzione OA3Tool...</value>
+    <value>Esecuzione di OA3Tool...</value>
   </data>
   <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
     <value>Sigillatura della partizione di ripristino...</value>
@@ -1105,7 +1105,7 @@ Continuare con la distribuzione?</value>
     <value>Simulazione delle modifiche alle funzionalità...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Messa in scena del profilo Autopilot...</value>
+    <value>Preparazione del profilo Autopilot...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Preparazione dell'assistente di registrazione Autopilot...</value>
@@ -1114,7 +1114,7 @@ Continuare con la distribuzione?</value>
     <value>Preparazione dell'aggiornamento firmware...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Pacchetto di allestimento...</value>
+    <value>Preparazione del pacchetto...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Invio della richiesta di importazione a Microsoft Graph...</value>
@@ -1189,7 +1189,7 @@ Continuare con la distribuzione?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Messa in scena</value>
+    <value>Preparazione</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>L'indice dell'immagine Windows applicata non è disponibile.</value>
@@ -1594,7 +1594,7 @@ Continuare con la distribuzione?</value>
     <value>Accesso alla posizione</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
-    <value>Forzato off</value>
+    <value>Disattivato forzatamente</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
     <value>Controllato dall'utente</value>

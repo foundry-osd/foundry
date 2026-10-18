@@ -138,7 +138,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Nav aktīvas saites</value>
+    <value>Nav aktīva savienojuma</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Nav atrasts Ethernet adapteris.</value>

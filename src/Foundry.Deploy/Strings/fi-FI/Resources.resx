@@ -427,7 +427,7 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
     <value>OEM</value>
   </data>
   <data name="DriverPack.Source" xml:space="preserve">
-    <value>Kuljettajan lähde</value>
+    <value>Ohjainten lähde</value>
   </data>
   <data name="DriverPack.Version" xml:space="preserve">
     <value>Versio</value>
@@ -575,7 +575,7 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
 
 Levy: {0}
 Malli: {1}
-Bussi: {2}
+Väylä: {2}
 Koko: {3}
 
 Käyttöjärjestelmä: {4}
@@ -817,7 +817,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Vaihe: {0} / {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>Vaihe:? /?</value>
+    <value>Vaihe: ? / ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Vaihe epäonnistui.</value>
@@ -937,10 +937,10 @@ Jatketaanko käyttöönottoa?</value>
     <value>Otetaan ohjainpakettia...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
-    <value>Otetaan kuvaa...</value>
+    <value>Otetaan näköistiedosto käyttöön...</value>
   </data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
-    <value>Otetaan käyttöjärjestelmän kuvaa...</value>
+    <value>Otetaan käyttöjärjestelmän näköistiedosto käyttöön...</value>
   </data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
     <value>Sovelletaan WinRE-ajureita...</value>
@@ -1027,7 +1027,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Ladataan laiteohjelmistopäivitystä...</value>
   </data>
   <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
-    <value>Ladataan käyttöjärjestelmän kuvaa...</value>
+    <value>Ladataan käyttöjärjestelmän näköistiedostoa...</value>
   </data>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Puretaan ohjainpakettia...</value>
@@ -1045,7 +1045,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Laiteohjelmiston sisällön lisääminen offline-tilaan Windows...</value>
   </data>
   <data name="StepMessage.InspectingImage" xml:space="preserve">
-    <value>Tarkastetaan kuvaa...</value>
+    <value>Tarkastetaan näköistiedostoa...</value>
   </data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
     <value>Tarkastetaan ominaisuuden tiloja...</value>
@@ -1105,7 +1105,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Simuloidaan ominaisuuksien muutoksia...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Lavastus Autopilot profiili...</value>
+    <value>Valmistellaan Autopilot-profiilia...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Valmistellaan Autopilot-rekisteröintiavustajaa...</value>
@@ -1114,7 +1114,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Valmistellaan laiteohjelmistopäivitystä...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Lavastuspaketti...</value>
+    <value>Valmistellaan pakettia...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Lähetetään tuontipyyntöä osoitteeseen Microsoft Graph...</value>
@@ -1135,7 +1135,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Vahvistetaan kohdemääritystä...</value>
   </data>
   <data name="StepMessage.VerifyingImage" xml:space="preserve">
-    <value>Vahvistetaan kuvaa...</value>
+    <value>Vahvistetaan näköistiedostoa...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
     <value>Odotetaan Autopilot laitteen näkyvyyttä...</value>
@@ -1171,7 +1171,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Kirjoitetaan offline-tietokoneen nimeä...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Hakeminen</value>
+    <value>Otetaan käyttöön</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Ominaisuusmuutoksia otetaan käyttöön</value>
@@ -1189,7 +1189,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Lavastus</value>
+    <value>Valmistellaan</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Käytetyn Windows-näköistiedoston indeksi ei ole saatavilla.</value>
@@ -1360,7 +1360,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Käyttöjärjestelmän kuva otettu käyttöön (simulointi).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
-    <value>Käyttöjärjestelmän kuva ladattu.</value>
+    <value>Käyttöjärjestelmän näköistiedosto ladattu.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
     <value>Käyttöjärjestelmän kuvaa ei ladattu.</value>

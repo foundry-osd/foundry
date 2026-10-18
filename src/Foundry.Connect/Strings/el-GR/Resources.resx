@@ -138,7 +138,7 @@
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Δεν υπάρχει ενεργός σύνδεσμος</value>
+    <value>Δεν υπάρχει ενεργή σύνδεση</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Δεν εντοπίστηκε προσαρμογέας Ethernet.</value>

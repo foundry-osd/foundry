@@ -3607,7 +3607,7 @@
     <value>ISO вывод</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO изображение</value>
+    <value>Образ ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Выберите путь вывода ISO</value>

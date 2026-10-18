@@ -427,7 +427,7 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
     <value>OEM</value>
   </data>
   <data name="DriverPack.Source" xml:space="preserve">
-    <value>Vadītāja avots</value>
+    <value>Draiveru avots</value>
   </data>
   <data name="DriverPack.Version" xml:space="preserve">
     <value>Versija</value>
@@ -575,7 +575,7 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
 
 Disks: {0}
 Modelis: {1}
-Autobuss: {2}
+Kopne: {2}
 Izmērs: {3}
 
 Operētājsistēma: {4}
@@ -817,7 +817,7 @@ Vai turpināt izvietošanu?</value>
     <value>Darbība: {0} no {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
-    <value>solis:? no?</value>
+    <value>Darbība: ? no ?</value>
   </data>
   <data name="Status.StepFailed" xml:space="preserve">
     <value>Solis neizdevās.</value>
@@ -1105,7 +1105,7 @@ Vai turpināt izvietošanu?</value>
     <value>Notiek funkciju izmaiņu simulēšana...</value>
   </data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
-    <value>Iestudē Autopilot profilu...</value>
+    <value>Notiek Autopilot profila sagatavošana...</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Tiek sagatavots Autopilot reģistrācijas palīgs...</value>
@@ -1114,7 +1114,7 @@ Vai turpināt izvietošanu?</value>
     <value>Sagatavo aparātprogrammatūras atjauninājumu...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
-    <value>Iestudējuma pakete...</value>
+    <value>Notiek pakotnes sagatavošana...</value>
   </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importēšanas pieprasījuma iesniegšana uz Microsoft Graph...</value>
@@ -1171,7 +1171,7 @@ Vai turpināt izvietošanu?</value>
     <value>Notiek bezsaistes datora nosaukuma rakstīšana...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Pieteikšanās</value>
+    <value>Notiek piemērošana</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Notiek funkciju izmaiņu piemērošana</value>
@@ -1189,7 +1189,7 @@ Vai turpināt izvietošanu?</value>
     <value>{0}: {1}%</value>
   </data>
   <data name="StepProgress.Staging" xml:space="preserve">
-    <value>Iestudējums</value>
+    <value>Notiek sagatavošana</value>
   </data>
   <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
     <value>Lietotā Windows attēla indekss nav pieejams.</value>

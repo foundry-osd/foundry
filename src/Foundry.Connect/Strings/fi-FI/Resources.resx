@@ -138,7 +138,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>IPv4</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>Ei aktiivista linkkiä</value>
+    <value>Ei aktiivista yhteyttä</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Ethernet-sovitinta ei havaittu.</value>

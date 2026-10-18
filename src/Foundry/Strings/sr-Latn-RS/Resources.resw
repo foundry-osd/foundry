@@ -3568,7 +3568,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Arhitektura</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Vozači</value>
+    <value>Upravljački programi</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB režim formata</value>

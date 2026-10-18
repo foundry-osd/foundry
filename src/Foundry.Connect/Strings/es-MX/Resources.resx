@@ -132,7 +132,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>DHCP arrendamiento detectado</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Puerta</value>
+    <value>Puerta de enlace</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>

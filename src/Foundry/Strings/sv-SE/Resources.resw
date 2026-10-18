@@ -3568,7 +3568,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Arkitektur</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Förare</value>
+    <value>Drivrutiner</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
     <value>USB formatläge</value>
@@ -3607,7 +3607,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>ISO utgång</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO bild</value>
+    <value>ISO-avbildning</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Välj ISO utdatasökväg</value>
