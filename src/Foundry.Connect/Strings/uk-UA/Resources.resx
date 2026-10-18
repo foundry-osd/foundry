@@ -123,7 +123,7 @@
     <value>Діагностику експортовано</value>
   </data>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
-    <value>Перехідник</value>
+    <value>Адаптер</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Перевірте підключення кабелю</value>

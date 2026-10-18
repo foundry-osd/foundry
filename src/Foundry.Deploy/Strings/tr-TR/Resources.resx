@@ -1183,7 +1183,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>İndiriliyor</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
-    <value>Çıkarma</value>
+    <value>Ayıklanıyor</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>
@@ -1231,7 +1231,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Autopilot etkinleştirildi ancak hiçbir profil seçilmedi.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot profili sahnelendi.</value>
+    <value>Autopilot profili hazırlandı.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot profili sahnelendi (simülasyon).</value>

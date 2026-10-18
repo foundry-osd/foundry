@@ -1231,7 +1231,7 @@ Continuer le déploiement?</value>
     <value>Autopilot est activé mais aucun profil n'a été sélectionné.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot profil mis en scène.</value>
+    <value>Profil Autopilot préparé.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot profil mis en scène (simulation).</value>

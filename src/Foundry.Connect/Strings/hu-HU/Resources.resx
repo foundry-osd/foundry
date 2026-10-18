@@ -129,7 +129,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Ellenőrizze a kábelcsatlakozást</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP bérlet észlelve</value>
+    <value>DHCP-bérlet észlelve</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Átjáró</value>

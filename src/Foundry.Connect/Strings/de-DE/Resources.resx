@@ -129,7 +129,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Überprüfen Sie die Kabelverbindung</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP Lease erkannt</value>
+    <value>DHCP-Lease erkannt</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>

@@ -1183,7 +1183,7 @@ Folytatja a telepítést?</value>
     <value>Letöltés</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
-    <value>Kivonás</value>
+    <value>Kibontás</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>
@@ -1231,7 +1231,7 @@ Folytatja a telepítést?</value>
     <value>A Autopilot engedélyezve van, de nem lett kiválasztva profil.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot profil beállítva.</value>
+    <value>Autopilot-profil előkészítve.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot profil fokozatos (szimuláció).</value>

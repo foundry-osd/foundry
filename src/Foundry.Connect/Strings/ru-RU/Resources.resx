@@ -129,7 +129,7 @@
     <value>Проверьте подключение кабеля</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP обнаружена аренда</value>
+    <value>Обнаружена аренда DHCP</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Шлюз</value>

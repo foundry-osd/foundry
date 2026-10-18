@@ -129,7 +129,7 @@
     <value>Ελέγξτε τη σύνδεση του καλωδίου</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP εντοπίστηκε μίσθωση</value>
+    <value>Εντοπίστηκε μίσθωση DHCP</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Πύλη</value>

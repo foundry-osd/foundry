@@ -814,7 +814,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ステップが完了しました。</value>
   </data>
   <data name="Status.StepCounterFormat" xml:space="preserve">
-    <value>ステップ: {0} の {1}</value>
+    <value>ステップ: {0} / {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
     <value>ステップ: ? / ?</value>
@@ -1231,7 +1231,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot は有効ですが、プロファイルが選択されていません。</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot プロフィールがステージングされました。</value>
+    <value>Autopilot プロファイルをステージングしました。</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot プロファイルがステージングされました (シミュレーション)。</value>

@@ -1183,7 +1183,7 @@ Nastaviti s implementacijom?</value>
     <value>Preuzimanje</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
-    <value>Vađenje</value>
+    <value>Izdvajanje</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

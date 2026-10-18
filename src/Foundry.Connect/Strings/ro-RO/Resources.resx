@@ -129,7 +129,7 @@ Licențiat sub licența MIT.</value>
     <value>Verificați conexiunea cablului</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP închiriere detectată</value>
+    <value>A fost detectată o închiriere DHCP</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>

@@ -1183,7 +1183,7 @@ ErrorCode=0x80070005
     <value>Завантаження</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
-    <value>Видобуток</value>
+    <value>Видобування</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>
@@ -1231,7 +1231,7 @@ ErrorCode=0x80070005
     <value>Autopilot увімкнено, але профіль не вибрано.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot профіль поставлений.</value>
+    <value>Профіль Autopilot підготовлено.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Поетапний профіль Autopilot (симуляція).</value>

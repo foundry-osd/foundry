@@ -1231,7 +1231,7 @@ Continuați cu implementarea?</value>
     <value>Autopilot este activat, dar nu a fost selectat niciun profil.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Profil Autopilot pus în scenă.</value>
+    <value>Profilul Autopilot a fost pregătit.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot profil pus în scenă (simulare).</value>

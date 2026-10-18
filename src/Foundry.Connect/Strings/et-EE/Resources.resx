@@ -129,7 +129,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Kontrollige kaabli ühendust</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP rendileping tuvastatud</value>
+    <value>Tuvastati DHCP-rendileping</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Lüüs</value>

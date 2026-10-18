@@ -1183,7 +1183,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Downloader</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
-    <value>Udvinding</value>
+    <value>Udpakker</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>
@@ -1231,7 +1231,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Autopilot er aktiveret, men ingen profil blev valgt.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot profil iscenesat.</value>
+    <value>Autopilot-profil klargjort.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot profil iscenesat (simulering).</value>

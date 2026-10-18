@@ -129,7 +129,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Verifique la conexión del cable</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP arrendamiento detectado</value>
+    <value>Concesión DHCP detectada</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Puerta de enlace</value>

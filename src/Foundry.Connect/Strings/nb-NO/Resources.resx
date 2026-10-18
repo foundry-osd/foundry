@@ -129,7 +129,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Sjekk kabeltilkoblingen</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP leasing oppdaget</value>
+    <value>DHCP-lease oppdaget</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>

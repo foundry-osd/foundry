@@ -129,7 +129,7 @@ Sous licence MIT.</value>
     <value>Vérifiez la connexion du câble</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP bail détecté</value>
+    <value>Bail DHCP détecté</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Passerelle</value>

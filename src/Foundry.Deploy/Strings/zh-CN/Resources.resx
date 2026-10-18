@@ -814,7 +814,7 @@
     <value>步骤已完成。</value>
   </data>
   <data name="Status.StepCounterFormat" xml:space="preserve">
-    <value>步骤：{0}的{1}</value>
+    <value>步骤：{0}/{1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
     <value>步骤：?/?</value>
@@ -1231,7 +1231,7 @@
     <value>Autopilot 已启用，但未选择配置文件。</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot 个人资料上演。</value>
+    <value>已暂存 Autopilot 配置文件。</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot 配置文件已上演（模拟）。</value>

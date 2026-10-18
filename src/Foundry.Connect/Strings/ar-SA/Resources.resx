@@ -129,7 +129,7 @@
     <value>تحقق من اتصال الكابل</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP تم اكتشاف عقد إيجار</value>
+    <value>تم اكتشاف تأجير DHCP</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>العبّارة</value>

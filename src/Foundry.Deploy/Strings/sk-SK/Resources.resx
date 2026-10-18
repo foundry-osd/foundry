@@ -1231,7 +1231,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Autopilot je povolený, ale nebol vybratý žiadny profil.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Vytvorený profil Autopilot.</value>
+    <value>Profil Autopilot bol pripravený.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot profil zinscenovaný (simulácia).</value>

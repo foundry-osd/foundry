@@ -1177,7 +1177,7 @@
     <value>تطبيق تغييرات الميزات</value>
   </data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
-    <value>تم التحميل {0}</value>
+    <value>تم تنزيل {0}</value>
   </data>
   <data name="StepProgress.Downloading" xml:space="preserve">
     <value>جارٍ التنزيل</value>
@@ -1231,7 +1231,7 @@
     <value>تم تمكين Autopilot ولكن لم يتم تحديد ملف تعريف.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot تم تنظيم الملف الشخصي.</value>
+    <value>تم تجهيز ملف تعريف Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot تم تنظيم الملف الشخصي (محاكاة).</value>

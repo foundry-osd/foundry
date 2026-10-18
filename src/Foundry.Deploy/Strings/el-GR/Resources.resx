@@ -814,7 +814,7 @@
     <value>Το βήμα ολοκληρώθηκε.</value>
   </data>
   <data name="Status.StepCounterFormat" xml:space="preserve">
-    <value>Βήμα: {0} του {1}</value>
+    <value>Βήμα: {0} από {1}</value>
   </data>
   <data name="Status.StepCounterUnknown" xml:space="preserve">
     <value>Βήμα: ? από ?</value>
@@ -1231,7 +1231,7 @@
     <value>Το Autopilot είναι ενεργοποιημένο αλλά δεν επιλέχθηκε κανένα προφίλ.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Το προφίλ Autopilot σκηνοθετήθηκε.</value>
+    <value>Το προφίλ Autopilot προετοιμάστηκε.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Το προφίλ Autopilot σκηνοθετήθηκε (προσομοίωση).</value>
@@ -1597,7 +1597,7 @@
     <value>Αναγκαστική απενεργοποίηση</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
-    <value>ÎÎ¹ÎºÏÎ¿ÎµÏÎ±ÏÎ¼Î¿Î³Î® Plasma ÏÎ¿Ï KTorrent</value>
+    <value>Ελέγχεται από τον χρήστη</value>
   </data>
   <data name="Summary.Manual" xml:space="preserve">
     <value>Χειροκίνητες</value>

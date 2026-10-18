@@ -1183,7 +1183,7 @@
     <value>กำลังดาวน์โหลด</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
-    <value>การสกัด</value>
+    <value>กำลังแยกไฟล์</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>
@@ -1231,7 +1231,7 @@
     <value>Autopilot เปิดใช้งานอยู่แต่ไม่ได้เลือกโปรไฟล์</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot โปรไฟล์ถูกจัดฉาก</value>
+    <value>จัดเตรียมโปรไฟล์ Autopilot แล้ว</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot โปรไฟล์เป็นฉาก (จำลอง)</value>

@@ -129,7 +129,7 @@ Licencirano pod MIT licencom.</value>
     <value>Proverite vezu kabla</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP otkriven zakup</value>
+    <value>Otkriven je DHCP zakup</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Mrežni prolaz</value>

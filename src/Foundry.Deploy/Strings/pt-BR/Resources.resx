@@ -1231,7 +1231,7 @@ Continuar com a implantação?</value>
     <value>Autopilot está habilitado, mas nenhum perfil foi selecionado.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot perfil encenado.</value>
+    <value>Perfil Autopilot preparado.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Perfil Autopilot encenado (simulação).</value>

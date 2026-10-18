@@ -1177,13 +1177,13 @@ Kontynuować wdrażanie?</value>
     <value>Stosowanie zmian funkcji</value>
   </data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
-    <value>{0} pobrany</value>
+    <value>Pobrano {0}</value>
   </data>
   <data name="StepProgress.Downloading" xml:space="preserve">
     <value>Pobieranie</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
-    <value>Ekstrakcja</value>
+    <value>Wyodrębnianie</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>
@@ -1231,7 +1231,7 @@ Kontynuować wdrażanie?</value>
     <value>Autopilot jest włączone, ale nie wybrano żadnego profilu.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Profil Autopilot wystawiony.</value>
+    <value>Przygotowano profil Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Profil Autopilot wystawiony (symulacja).</value>

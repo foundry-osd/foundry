@@ -1231,7 +1231,7 @@ Sistema operativo: {4}
     <value>Autopilot está habilitado pero no se seleccionó ningún perfil.</value>
   </data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
-    <value>Autopilot perfil preparado.</value>
+    <value>Perfil de Autopilot preparado.</value>
   </data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
     <value>Autopilot perfil preparado (simulación).</value>

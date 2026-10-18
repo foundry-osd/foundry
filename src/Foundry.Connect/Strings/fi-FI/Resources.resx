@@ -129,7 +129,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tarkista kaapelin liitäntä</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP vuokrasopimus havaittu</value>
+    <value>DHCP-vuokrasopimus havaittu</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Yhdyskäytävä</value>
