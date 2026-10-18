@@ -11,7 +11,7 @@ namespace Foundry.PostInstall.Execution;
 
 public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJournal journal,
     IPreOobeActionExecutor executor, Func<string> bootIdentity, IProgress<PostInstallProgress>? progress = null,
-    Func<TimeSpan, CancellationToken, Task>? delay = null, Func<string, bool>? scheduleDeletionAtRestart = null)
+    Func<TimeSpan, CancellationToken, Task>? delay = null, Func<string, int>? scheduleDeletionAtRestart = null)
 {
     private IProgress<PostInstallProgress>? progress = progress;
     private readonly Func<TimeSpan, CancellationToken, Task> delay = delay ?? Task.Delay;

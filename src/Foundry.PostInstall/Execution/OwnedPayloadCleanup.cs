@@ -11,7 +11,7 @@ namespace Foundry.PostInstall.Execution;
 public sealed record OwnedPayloadCleanupOutcome(bool HasFatalSensitiveFailure, bool HasDomainCleanupPending);
 
 public sealed class OwnedPayloadCleanup(string root, ExecutionJournal journal, Action<TimeSpan>? retryDelay = null,
-    Func<string, bool>? scheduleDeletionAtRestart = null)
+    Func<string, int>? scheduleDeletionAtRestart = null)
 {
     public OwnedPayloadCleanupOutcome Dispose(PreOobeExecutionPlan plan, JournalState state, bool terminal, string boot)
     {
@@ -63,10 +63,12 @@ public sealed class OwnedPayloadCleanup(string root, ExecutionJournal journal, A
         try
         {
             string path = OwnedPaths.Resolve(root, payload.RelativePath);
-            if ((scheduleDeletionAtRestart ?? PendingFileDeletion.ScheduleAtRestart)(path))
+            int win32Error = (scheduleDeletionAtRestart ?? PendingFileDeletion.ScheduleAtRestart)(path);
+            if (win32Error == 0)
                 Log.Warning("Domain credential payload could not be deleted; it is scheduled for deletion at the next restart");
             else
-                Log.Error("Domain credential payload could not be deleted or scheduled for deletion at the next restart");
+                Log.Error("Domain credential payload could not be deleted or scheduled for deletion at the next restart; Win32 error {Win32Error}",
+                    win32Error);
         }
         catch (Exception error) when (error is IOException or InvalidDataException or UnauthorizedAccessException)
         {

@@ -411,7 +411,7 @@ public sealed class DomainJoinRecoveryTests
         {
             waits.Add(duration);
             if (release && waits.Count == 2) locked.Dispose();
-        });
+        }, _ => 0);
         var outcome = cleanup.Dispose(f.Domain.Plan, f.Journal.Read(), true, "installed-boot");
         Assert.False(outcome.HasFatalSensitiveFailure);
         Assert.Equal(!release, outcome.HasDomainCleanupPending);
@@ -429,7 +429,7 @@ public sealed class DomainJoinRecoveryTests
         using var locked = new FileStream(f.Credentials, FileMode.Open, FileAccess.Read, FileShare.None);
         if (release) locked.Dispose();
         var scheduled = new List<string>();
-        var cleanup = new OwnedPayloadCleanup(f.Domain.Root, f.Journal, _ => { }, path => { scheduled.Add(path); return true; });
+        var cleanup = new OwnedPayloadCleanup(f.Domain.Root, f.Journal, _ => { }, path => { scheduled.Add(path); return 0; });
         var outcome = cleanup.Dispose(f.Domain.Plan, f.Journal.Read(), true, "installed-boot");
         Assert.Equal(!release, outcome.HasDomainCleanupPending);
         Assert.Equal(release ? [] : new[] { f.Credentials }, scheduled);
@@ -468,7 +468,7 @@ public sealed class DomainJoinRecoveryTests
         {
             boot = currentBoot;
             return (await new PreOobeOrchestrator(Domain.Root, Domain.Hash, Journal, this, () => boot,
-                    scheduleDeletionAtRestart: path => { ScheduledAtRestart.Add(path); return true; })
+                    scheduleDeletionAtRestart: path => { ScheduledAtRestart.Add(path); return 0; })
                 .RunAsync(Domain.Plan, TestContext.Current.CancellationToken)).ExitCode;
         }
         public async Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, int substep, CancellationToken token)
