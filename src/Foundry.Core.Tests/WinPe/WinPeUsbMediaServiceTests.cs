@@ -475,9 +475,28 @@ public sealed class WinPeUsbMediaServiceTests
     [Fact]
     public async Task GetUsbCandidatesAsync_WhenInventoryReportsNoPartitionAndNoFailure_SaysNoPartition()
     {
-        string payload = """{"Number":9,"FriendlyName":"Disk","SerialNumber":"S","UniqueId":"U","BusType":"USB","PartitionCount":0,"VolumesReadFailed":false,"Volumes":[],"IsSystem":false,"IsBoot":false,"Size":64000000000}""";
+        string payload = """{"Number":9,"FriendlyName":"Disk","SerialNumber":"S","UniqueId":"U","BusType":"USB","PartitionCount":0,"UnreadablePartitionCount":0,"VolumesReadFailed":false,"Volumes":[],"IsSystem":false,"IsBoot":false,"Size":64000000000}""";
 
         Assert.Equal(WinPeUsbVolumeSummary.NoPartition, (await GetSingleCandidateAsync(payload)).VolumeSummary);
+    }
+
+    [Fact]
+    public async Task GetUsbCandidatesAsync_ReturnsTheUnreadablePartitionCount()
+    {
+        string payload = """{"Number":9,"FriendlyName":"Disk","SerialNumber":"S","UniqueId":"U","BusType":"USB","PartitionCount":2,"UnreadablePartitionCount":1,"VolumesReadFailed":false,"Volumes":[{"DriveLetter":"E:","FileSystemLabel":"EFI","FileSystem":"FAT32","Size":209715200,"SizeRemaining":104857600}],"IsSystem":false,"IsBoot":false,"Size":2000000000000}""";
+
+        WinPeUsbDiskCandidate candidate = await GetSingleCandidateAsync(payload);
+
+        Assert.Equal(1, candidate.UnreadablePartitionCount);
+        Assert.Equal(WinPeUsbVolumeSummary.ReadableAndUnreadableVolumes, candidate.VolumeSummary);
+    }
+
+    [Fact]
+    public async Task GetUsbCandidatesAsync_WhenInventoryOmitsTheUnreadablePartitionCount_TreatsTheReadAsFailed()
+    {
+        string payload = """{"Number":9,"FriendlyName":"Disk","SerialNumber":"S","UniqueId":"U","BusType":"USB","PartitionCount":0,"VolumesReadFailed":false,"Volumes":[],"IsSystem":false,"IsBoot":false,"Size":64000000000}""";
+
+        Assert.True((await GetSingleCandidateAsync(payload)).VolumesReadFailed);
     }
 
     [Fact]
@@ -503,6 +522,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("Volumes = $readableVolumes", script, StringComparison.Ordinal);
         Assert.Contains("PartitionCount = ", script, StringComparison.Ordinal);
         Assert.Contains("VolumesReadFailed = ", script, StringComparison.Ordinal);
+        Assert.Contains("UnreadablePartitionCount = ", script, StringComparison.Ordinal);
 
         // Get-Partition -DiskNumber raises a "not found" error for a disk without partitions, which would make a
         // blank disk look like a failed read. Partitions are listed once and matched by disk number instead,

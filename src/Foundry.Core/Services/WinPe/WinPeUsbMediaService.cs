@@ -96,6 +96,11 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                               $foundryGptBootPartitionType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'
                               # MSFT_Partition reports MbrType as the numeric partition ID, not the name New-Partition accepts: 11 and 12 are FAT32.
                               $foundryMbrBootPartitionTypes = @(11, 12)
+                              # Partitions that never hold user data and have no volume: the Microsoft reserved partition that
+                              # Initialize-Disk creates on GPT disks, and MBR extended containers (5 and 15) whose logical
+                              # partitions are listed on their own.
+                              $foundryMsrPartitionType = '{e3c9e316-0b5c-4db8-817d-f92df00215ae}'
+                              $foundryMbrContainerPartitionTypes = @(5, 15)
 
                               function Get-FoundryUsbDriveLetter($DriveLetter) {
                                   if ($null -eq $DriveLetter) { return $null }
@@ -165,6 +170,18 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                           Where-Object { $null -ne $_ -and -not [string]::IsNullOrEmpty($_.FileSystem) } |
                                           Select-Object DriveLetter, FileSystemLabel, FileSystem, Size, SizeRemaining
                                   )
+                                  $readablePartitionNumbers = @(
+                                      $volumes |
+                                          Where-Object { $null -ne $_ -and -not [string]::IsNullOrEmpty($_.FileSystem) } |
+                                          ForEach-Object { $_.PartitionNumber }
+                                  )
+                                  $unreadablePartitionCount = @(
+                                      $partitions | Where-Object {
+                                          [string]$_.GptType -ne $foundryMsrPartitionType -and
+                                          $_.MbrType -notin $foundryMbrContainerPartitionTypes -and
+                                          $readablePartitionNumbers -notcontains [int]$_.PartitionNumber
+                                      }
+                                  ).Count
                                   $volumesReadFailed = $partitionReadFailed -or $script:foundryUsbVolumeReadFailed
                                   $hasBootVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32' }).Count -gt 0
                                   $hasGptBootPartition = @($partitions | Where-Object { [string]$_.GptType -eq $foundryGptBootPartitionType }).Count -gt 0
@@ -184,6 +201,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                       Size = [uint64]$disk.Size
                                       IsFoundryMedia = [bool](($hasBootVolume -or $hasGptBootPartition -or $hasMbrBootPartition) -and $hasCacheVolume)
                                       PartitionCount = [int]$partitions.Count
+                                      UnreadablePartitionCount = [int]$unreadablePartitionCount
                                       VolumesReadFailed = [bool]$volumesReadFailed
                                       Volumes = $readableVolumes
                                   }
@@ -1334,6 +1352,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         bool hasPartitionCount = TryGetInt32(element, "PartitionCount", out int partitionCount);
+        bool hasUnreadablePartitionCount = TryGetInt32(element, "UnreadablePartitionCount", out int unreadablePartitionCount);
         return new WinPeUsbDiskCandidate
         {
             DiskNumber = diskNumber,
@@ -1347,8 +1366,10 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             SizeBytes = GetUInt64(element, "Size"),
             IsFoundryMedia = GetBool(element, "IsFoundryMedia"),
             PartitionCount = hasPartitionCount ? Math.Max(partitionCount, 0) : 0,
-            // An inventory that does not say how many partitions the disk has cannot prove it is empty.
-            VolumesReadFailed = GetBool(element, "VolumesReadFailed") || !hasPartitionCount,
+            UnreadablePartitionCount = hasUnreadablePartitionCount ? Math.Max(unreadablePartitionCount, 0) : 0,
+            // An inventory that does not say how many partitions the disk has, or how many it could not read,
+            // cannot prove the disk is empty or that its volume list is complete.
+            VolumesReadFailed = GetBool(element, "VolumesReadFailed") || !hasPartitionCount || !hasUnreadablePartitionCount,
             Volumes = ParseUsbVolumes(element)
         };
     }

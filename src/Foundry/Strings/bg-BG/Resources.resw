@@ -3519,6 +3519,9 @@
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Форматиране на USB диска</value>
   </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadablePartitions" xml:space="preserve">
+    <value>Windows не може да чете някои дялове на този диск. Те все още може да съдържат данни.</value>
+  </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows не може да чете томовете на този диск. Той все още може да съдържа данни.</value>
   </data>

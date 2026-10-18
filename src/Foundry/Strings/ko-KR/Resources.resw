@@ -3519,6 +3519,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>USB 드라이브 포맷</value>
   </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadablePartitions" xml:space="preserve">
+    <value>Windows에서 이 디스크의 일부 파티션을 읽을 수 없습니다. 데이터가 남아 있을 수 있습니다.</value>
+  </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows에서 이 디스크의 볼륨을 읽을 수 없습니다. 데이터가 남아 있을 수 있습니다.</value>
   </data>

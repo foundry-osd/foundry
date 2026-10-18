@@ -3519,6 +3519,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>USB-station formatteren</value>
   </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadablePartitions" xml:space="preserve">
+    <value>Windows kan sommige partities op deze schijf niet lezen. Er kunnen nog steeds gegevens op staan.</value>
+  </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows kan de volumes op deze schijf niet lezen. Er kunnen nog steeds gegevens op staan.</value>
   </data>

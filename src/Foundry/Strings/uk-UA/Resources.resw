@@ -3519,6 +3519,9 @@
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
     <value>Форматувати USB-накопичувач</value>
   </data>
+  <data name="StartMedia.CreateUsb.ConfirmUnreadablePartitions" xml:space="preserve">
+    <value>Windows не може прочитати деякі розділи на цьому диску. На них усе ще можуть бути дані.</value>
+  </data>
   <data name="StartMedia.CreateUsb.ConfirmUnreadableVolumes" xml:space="preserve">
     <value>Windows не може прочитати томи на цьому диску. На ньому все ще можуть бути дані.</value>
   </data>
