@@ -354,7 +354,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Hitelesítés</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Boot kép beállításai</value>
+    <value>Rendszerindító lemezkép beállításai</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurált biztonság</value>

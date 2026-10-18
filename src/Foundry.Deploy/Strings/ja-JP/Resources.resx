@@ -1522,7 +1522,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot グループタグ</value>
   </data>
   <data name="Summary.AutopilotProfile" xml:space="preserve">
-    <value>Autopilot プロフィール</value>
+    <value>Autopilot プロファイル</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
     <value>ビルド</value>

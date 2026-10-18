@@ -1354,19 +1354,19 @@ Folytatja a telepítést?</value>
     <value>Az offline testreszabás letiltva.</value>
   </data>
   <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
-    <value>Az operációs rendszer képe alkalmazva.</value>
+    <value>Az operációs rendszer lemezképe alkalmazva.</value>
   </data>
   <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
-    <value>Alkalmazott operációs rendszer kép (szimuláció).</value>
+    <value>Az operációs rendszer lemezképe alkalmazva (szimuláció).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
     <value>Az operációs rendszer lemezképe letöltve.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
-    <value>Az operációs rendszer képe nem lett letöltve.</value>
+    <value>Az operációs rendszer lemezképe nem lett letöltve.</value>
   </data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
-    <value>Az operációs rendszer képe készen áll (szimuláció).</value>
+    <value>Az operációs rendszer lemezképe készen áll (szimuláció).</value>
   </data>
   <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
     <value>Az operációs rendszer képfájlja feloldva a gyorsítótárból.</value>

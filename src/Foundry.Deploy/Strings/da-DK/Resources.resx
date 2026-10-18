@@ -1246,7 +1246,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Den valgte driverfil '{0}' fra Microsoft Update Catalog indeholder ingen INF-filer.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
-    <value>Der blev anmodet om iscenesættelse af driverpakke ved første start uden en understøttet kommando.</value>
+    <value>Der blev anmodet om klargøring af driverpakke ved første start uden en understøttet kommando.</value>
   </data>
   <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
     <value>Driverinstallationsprogram klargjort.</value>
@@ -1354,22 +1354,22 @@ Vil du fortsætte med implementeringen?</value>
     <value>Offline tilpasning deaktiveret.</value>
   </data>
   <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
-    <value>Operativsystembillede anvendt.</value>
+    <value>Operativsystemafbildning anvendt.</value>
   </data>
   <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
-    <value>Operativsystembillede anvendt (simulering).</value>
+    <value>Operativsystemafbildning anvendt (simulering).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
     <value>Operativsystemafbildning downloadet.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
-    <value>Operativsystembilledet blev ikke downloadet.</value>
+    <value>Operativsystemafbildningen blev ikke downloadet.</value>
   </data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
-    <value>Operativsystembillede klar (simulering).</value>
+    <value>Operativsystemafbildning klar (simulering).</value>
   </data>
   <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
-    <value>Operativsystembillede løst fra cache.</value>
+    <value>Operativsystemafbildning løst fra cache.</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Operativsystem URL mangler.</value>
@@ -1441,7 +1441,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Target Windows partition er ikke tilgængelig.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
-    <value>Target Windows partition er ikke tilgængelig for Autopilot iscenesættelse.</value>
+    <value>Windows-målpartitionen er ikke tilgængelig til klargøring af Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
     <value>Target Windows partition er ikke tilgængelig for Autopilot hardware hash upload.</value>

@@ -1171,7 +1171,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Pisanje imena računalnika brez povezave...</value>
   </data>
   <data name="StepProgress.Applying" xml:space="preserve">
-    <value>Uveljavljanje</value>
+    <value>Uporaba</value>
   </data>
   <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>Uveljavljanje sprememb funkcij</value>
@@ -1246,7 +1246,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Izbrana datoteka gonilnika »{0}« iz Microsoft Update Catalog ne vsebuje datotek INF.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
-    <value>Zahtevana je bila uprizoritev paketa gonilnikov pri prvem zagonu brez podprtega ukaza.</value>
+    <value>Zahtevana je bila priprava paketa gonilnikov pri prvem zagonu brez podprtega ukaza.</value>
   </data>
   <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
     <value>Namestitveni program gonilnikov je pripravljen.</value>
@@ -1279,7 +1279,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Paket gonilnikov razrešen iz predpomnilnika.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
-    <value>Izvorna vsebina paketa gonilnikov ni na voljo za uprizoritev prvega zagona.</value>
+    <value>Izvorna vsebina paketa gonilnikov ni na voljo za pripravo ob prvem zagonu.</value>
   </data>
   <data name="StepResult.ExternalStorageReady" xml:space="preserve">
     <value>Zunanja shramba slike in znana zmogljivost sta preverjeni.</value>
@@ -1441,7 +1441,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Ciljna particija Windows ni na voljo.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
-    <value>Ciljna particija Windows ni na voljo za uprizoritev Autopilot.</value>
+    <value>Ciljna particija Windows ni na voljo za pripravo profila Autopilot.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
     <value>Ciljna particija Windows ni na voljo za nalaganje zgoščene vrednosti strojne opreme Autopilot.</value>

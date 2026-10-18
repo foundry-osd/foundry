@@ -1363,7 +1363,7 @@ Pokračovat v nasazování?</value>
     <value>Bitová kopie operačního systému byla stažena.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
-    <value>Obrázek operačního systému nebyl stažen.</value>
+    <value>Bitová kopie operačního systému nebyla stažena.</value>
   </data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
     <value>Obraz operačního systému připraven (simulace).</value>

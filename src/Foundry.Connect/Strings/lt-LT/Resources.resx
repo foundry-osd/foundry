@@ -354,7 +354,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Autentifikavimas</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Įkrovos vaizdo nustatymai</value>
+    <value>Įkrovos atvaizdo nustatymai</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Sukonfigūruota apsauga</value>

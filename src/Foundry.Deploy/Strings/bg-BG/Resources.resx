@@ -1363,13 +1363,13 @@
     <value>Образът на операционната система е изтеглен.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
-    <value>Изображението на операционната система не беше изтеглено.</value>
+    <value>Образът на операционната система не беше изтеглен.</value>
   </data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
     <value>Готов образ на операционната система (симулация).</value>
   </data>
   <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
-    <value>Изображението на операционната система е разрешено от кеша.</value>
+    <value>Образът на операционната система е разрешен от кеша.</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Липсва операционна система URL.</value>

@@ -1354,22 +1354,22 @@ Jatketaanko käyttöönottoa?</value>
     <value>Offline-muokkaus poistettu käytöstä.</value>
   </data>
   <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
-    <value>Käyttöjärjestelmän kuva otettu käyttöön.</value>
+    <value>Käyttöjärjestelmän näköistiedosto otettu käyttöön.</value>
   </data>
   <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
-    <value>Käyttöjärjestelmän kuva otettu käyttöön (simulointi).</value>
+    <value>Käyttöjärjestelmän näköistiedosto otettu käyttöön (simulointi).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
     <value>Käyttöjärjestelmän näköistiedosto ladattu.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
-    <value>Käyttöjärjestelmän kuvaa ei ladattu.</value>
+    <value>Käyttöjärjestelmän näköistiedostoa ei ladattu.</value>
   </data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
-    <value>Käyttöjärjestelmän kuva valmis (simulaatio).</value>
+    <value>Käyttöjärjestelmän näköistiedosto valmis (simulaatio).</value>
   </data>
   <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
-    <value>Käyttöjärjestelmän kuva ratkaistu välimuistista.</value>
+    <value>Käyttöjärjestelmän näköistiedosto ratkaistu välimuistista.</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Käyttöjärjestelmä URL puuttuu.</value>
@@ -1441,7 +1441,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Kohdeosio Windows ei ole käytettävissä.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
-    <value>Kohdeosio Windows ei ole käytettävissä Autopilot lavastusta varten.</value>
+    <value>Windowsin kohdeosio ei ole käytettävissä Autopilot-valmistelua varten.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
     <value>Windowsin kohdeosio ei ole käytettävissä Autopilotin laitteiston hajautusarvon palvelimeen lataamiseen.</value>

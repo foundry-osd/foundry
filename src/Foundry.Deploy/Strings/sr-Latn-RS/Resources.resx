@@ -1441,7 +1441,7 @@ Operativni sistem: {4}
     <value>Ciljna Windows particija je nedostupna.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
-    <value>Ciljna particija Windows nije dostupna za Autopilot inscenaciju.</value>
+    <value>Ciljna particija Windows nije dostupna za postavljanje Autopilot profila.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
     <value>Ciljna particija Windows nije dostupna za Autopilot hardversko heš otpremanje.</value>

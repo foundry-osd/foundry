@@ -761,10 +761,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Foretrukket avbildning</value>
   </data>
   <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
-    <value>Velg om Foundry Deploy først viser Foundry-katalogen eller egendefinerte Windows-bilder.</value>
+    <value>Velg om Foundry Deploy først viser Foundry-katalogen eller egendefinerte Windows-avbildninger.</value>
   </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Standard bildekilde i Foundry Deploy</value>
+    <value>Standard avbildningskilde i Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Valgt avbildning</value>
@@ -1400,7 +1400,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Tilgjengelig for noen utvalgte mål</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Tilgjengelighet vil bli verifisert mot det brukte Windows-bildet</value>
+    <value>Tilgjengelighet vil bli verifisert mot den brukte Windows-avbildningen</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
     <value>Ikke tilgjengelig for de valgte målene</value>
@@ -1814,7 +1814,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Konfigurert: {0} (aktiver: {1}, deaktiver: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
-    <value>Tilgjengelighet avhenger av Copilot+ PC-maskinvare og det installerte Windows-bildet.</value>
+    <value>Tilgjengelighet avhenger av Copilot+ PC-maskinvare og den installerte Windows-avbildningen.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
     <value>Krever kompatibel virtualiseringsmaskinvare og fastvareinnstillinger.</value>
@@ -1838,7 +1838,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Ingen valgfrie Windows-funksjoner samsvarer med dette søket.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Endringer brukes frakoblet etter at Windows er installert og før OOBE. Aktiveringsoperasjoner bruker bare det installerte bildet eller samsvarende kilder på installasjonsmediet; ingen reservekilde på Internett brukes.</value>
+    <value>Endringer brukes frakoblet etter at Windows er installert og før OOBE. Aktiveringsoperasjoner bruker bare den installerte avbildningen eller samsvarende kilder på installasjonsmediet; ingen reservekilde på Internett brukes.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
     <value>Søkefunksjoner</value>

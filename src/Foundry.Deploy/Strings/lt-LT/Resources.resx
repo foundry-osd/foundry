@@ -1354,22 +1354,22 @@ Tęsti diegimą?</value>
     <value>Tinkinimas neprisijungus išjungtas.</value>
   </data>
   <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
-    <value>Taikomas operacinės sistemos vaizdas.</value>
+    <value>Pritaikytas operacinės sistemos atvaizdas.</value>
   </data>
   <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
-    <value>Taikomas operacinės sistemos vaizdas (modeliavimas).</value>
+    <value>Pritaikytas operacinės sistemos atvaizdas (modeliavimas).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
     <value>Atsisiųstas operacinės sistemos atvaizdas.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
-    <value>Operacinės sistemos vaizdas neatsisiųstas.</value>
+    <value>Operacinės sistemos atvaizdas neatsisiųstas.</value>
   </data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
-    <value>Paruoštas operacinės sistemos vaizdas (modeliavimas).</value>
+    <value>Paruoštas operacinės sistemos atvaizdas (modeliavimas).</value>
   </data>
   <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
-    <value>Operacinės sistemos vaizdas išspręstas iš talpyklos.</value>
+    <value>Operacinės sistemos atvaizdas išspręstas iš talpyklos.</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Trūksta operacinės sistemos URL.</value>

@@ -302,7 +302,7 @@
     <value>从租户下载</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>租户没有返回Autopilot个人资料。</value>
+    <value>租户没有返回 Autopilot 配置文件。</value>
   </data>
   <data name="Autopilot.DownloadFailedMessage" xml:space="preserve">
     <value>无法从租户下载 Autopilot 配置文件。</value>
@@ -593,7 +593,7 @@
     <value>导入Autopilot配置文件JSON</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>正在导入Autopilot个人资料…</value>
+    <value>正在导入 Autopilot 配置文件…</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>启用后，技术人员将在 Windows 安装期间使用 Microsoft 设备代码登录并上传设备硬件哈希。</value>
@@ -629,10 +629,10 @@
     <value>“{0}”将从此配置的 Autopilot 配置文件中删除。</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
-    <value>删除个人资料</value>
+    <value>删除配置文件</value>
   </data>
   <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
-    <value>删除Autopilot个人资料吗？</value>
+    <value>删除 Autopilot 配置文件吗？</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
     <value>将从此配置中删除 {0} 个选定的 Autopilot 配置文件。</value>
@@ -719,7 +719,7 @@
     <value>启用</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
-    <value>启用</value>
+    <value>已启用</value>
   </data>
   <data name="Common.LabelValueFormat" xml:space="preserve">
     <value>{0}：{1}</value>

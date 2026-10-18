@@ -1354,22 +1354,22 @@ Kas jätkata juurutamisega?</value>
     <value>Võrguühenduseta kohandamine on keelatud.</value>
   </data>
   <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
-    <value>Rakendati operatsioonisüsteemi kujutis.</value>
+    <value>Rakendati operatsioonisüsteemi tõmmis.</value>
   </data>
   <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
-    <value>Rakendatud operatsioonisüsteemi kujutis (simulatsioon).</value>
+    <value>Rakendatud operatsioonisüsteemi tõmmis (simulatsioon).</value>
   </data>
   <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
     <value>Operatsioonisüsteemi tõmmis on alla laaditud.</value>
   </data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
-    <value>Operatsioonisüsteemi pilti ei laaditud alla.</value>
+    <value>Operatsioonisüsteemi tõmmist ei laaditud alla.</value>
   </data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
-    <value>Operatsioonisüsteemi kujutis on valmis (simulatsioon).</value>
+    <value>Operatsioonisüsteemi tõmmis on valmis (simulatsioon).</value>
   </data>
   <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
-    <value>Operatsioonisüsteemi pilt lahendati vahemälust.</value>
+    <value>Operatsioonisüsteemi tõmmis lahendati vahemälust.</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Operatsioonisüsteem URL puudub.</value>
@@ -1441,7 +1441,7 @@ Kas jätkata juurutamisega?</value>
     <value>Sihtpartitsioon Windows pole saadaval.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
-    <value>Sihtpartitsioon Windows pole Autopilot lavastuse jaoks saadaval.</value>
+    <value>Windowsi sihtpartitsioon pole Autopiloti ettevalmistamiseks saadaval.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
     <value>Sihtpartitsioon Windows pole Autopilot riistvara räsi üleslaadimiseks saadaval.</value>

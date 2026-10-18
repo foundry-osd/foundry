@@ -946,7 +946,7 @@
     <value>กำลังใช้ไดรเวอร์ WinRE...</value>
   </data>
   <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve">
-    <value>กำลังสมัครไดรเวอร์ Windows...</value>
+    <value>กำลังใช้ไดรเวอร์ Windows...</value>
   </data>
   <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
     <value>กำลังใช้การเปลี่ยนแปลงคุณลักษณะ...</value>

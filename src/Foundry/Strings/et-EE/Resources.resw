@@ -1400,7 +1400,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Saadaval mõne valitud sihtmärgi jaoks</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Saadavust kontrollitakse rakendatud Windowsi kujutise alusel</value>
+    <value>Saadavust kontrollitakse rakendatud Windowsi tõmmise alusel</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
     <value>Pole valitud sihtmärkide jaoks saadaval</value>
@@ -1814,7 +1814,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Seadistatud: {0} (luba: {1}, keela: {2})</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
-    <value>Saadavus sõltub Copilot+ arvuti riistvarast ja installitud Windowsi pildist.</value>
+    <value>Saadavus sõltub Copilot+ arvuti riistvarast ja installitud Windowsi tõmmisest.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
     <value>Nõuab ühilduvat virtualiseerimisriistvara ja püsivara sätteid.</value>
@@ -1838,7 +1838,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Sellele otsingule ei vasta ükski Windowsi valikuline funktsioon.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Muudatused rakendatakse võrguühenduseta pärast Windowsi installimist ja enne OOBE-d. Lubamistoimingud kasutavad ainult installitud kujutist või vastavaid häälestusmeediumiallikaid; Interneti-varu ei kasutata.</value>
+    <value>Muudatused rakendatakse võrguühenduseta pärast Windowsi installimist ja enne OOBE-d. Lubamistoimingud kasutavad ainult installitud tõmmist või vastavaid häälestusmeediumiallikaid; Interneti-varu ei kasutata.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
     <value>Otsingufunktsioonid</value>
@@ -3910,7 +3910,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Windowsi lähtepaketi kontrollimine</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
-    <value>Windows blokeeris juurdepääsu WinPE kujutisefailidele. Võimalik, et turbetarkvara või mõni muu tööriist lukustab need. Lisage turbetarkvarasse erand asukohale {0}, sulgege kujutisi ühendavad tööriistad, taaskäivitage arvuti ja proovige uuesti. Üksikasjad on failides {1} ja {2}.</value>
+    <value>Windows blokeeris juurdepääsu WinPE tõmmisefailidele. Võimalik, et turbetarkvara või mõni muu tööriist lukustab need. Lisage turbetarkvarasse erand asukohale {0}, sulgege tõmmiseid ühendavad tööriistad, taaskäivitage arvuti ja proovige uuesti. Üksikasjad on failides {1} ja {2}.</value>
   </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>ISO-faili kirjutamine…</value>

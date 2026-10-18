@@ -1246,7 +1246,7 @@ Vai turpināt izvietošanu?</value>
     <value>Atlasītajā Microsoft Update Catalog draivera failā “{0}” nav INF failu.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
-    <value>Pirmās sāknēšanas draivera pakotnes inscenēšana tika pieprasīta bez atbalstītas komandas.</value>
+    <value>Pirmās sāknēšanas draivera pakotnes sagatavošana tika pieprasīta bez atbalstītas komandas.</value>
   </data>
   <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
     <value>Draiveru instalētājs ir sagatavots.</value>
@@ -1279,7 +1279,7 @@ Vai turpināt izvietošanu?</value>
     <value>Draivera pakotne atrisināta no kešatmiņas.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
-    <value>Draivera pakotnes avota saturs nav pieejams pirmās sāknēšanas inscenēšanai.</value>
+    <value>Draivera pakotnes avota saturs nav pieejams pirmās sāknēšanas sagatavošanai.</value>
   </data>
   <data name="StepResult.ExternalStorageReady" xml:space="preserve">
     <value>Attēla ārējā krātuve un zināmā ietilpība ir pārbaudītas.</value>
@@ -1441,7 +1441,7 @@ Vai turpināt izvietošanu?</value>
     <value>Mērķa Windows nodalījums nav pieejams.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
-    <value>Mērķa Windows nodalījums nav pieejams Autopilot inscenēšanai.</value>
+    <value>Mērķa Windows nodalījums nav pieejams Autopilot sagatavošanai.</value>
   </data>
   <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
     <value>Mērķa Windows nodalījums nav pieejams Autopilot aparatūras jaucējkoda augšupielādei.</value>

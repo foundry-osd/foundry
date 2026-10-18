@@ -107,7 +107,7 @@
     <value>编辑</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
-    <value>启用</value>
+    <value>已启用</value>
   </data>
   <data name="Common.Next" xml:space="preserve">
     <value>下一步</value>
@@ -206,7 +206,7 @@
     <value>有效证件</value>
   </data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve">
-    <value>JSON个人资料</value>
+    <value>JSON 配置文件</value>
   </data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>没有Autopilot</value>
@@ -1522,7 +1522,7 @@
     <value>Autopilot组标签</value>
   </data>
   <data name="Summary.AutopilotProfile" xml:space="preserve">
-    <value>Autopilot 个人资料</value>
+    <value>Autopilot 配置文件</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
     <value>内部版本</value>

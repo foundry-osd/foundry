@@ -578,7 +578,7 @@
     <value>اتصال المستأجر</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
-    <value>استيراد الملف الشخصي</value>
+    <value>استيراد ملف التعريف</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
     <value>تعذر استيراد ملف تعريف Autopilot.</value>
@@ -602,7 +602,7 @@
     <value>تحميل تفاعلي لتجزئة الأجهزة</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
-    <value>JSON توفير الملف الشخصي</value>
+    <value>توفير ملف تعريف JSON</value>
   </data>
   <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
     <value>{0} هو النمط النشط حاليًا. سيؤدي المتابعة إلى تعطيله وتفعيل {1}.</value>
@@ -629,10 +629,10 @@
     <value>ستتم إزالة "{0}" من ملفات تعريف Autopilot في هذا التكوين.</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
-    <value>إزالة الملف الشخصي</value>
+    <value>إزالة ملف التعريف</value>
   </data>
   <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
-    <value>هل تريد إزالة الملف الشخصي Autopilot؟</value>
+    <value>هل تريد إزالة ملف تعريف Autopilot؟</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
     <value>ستتم إزالة {0} من ملفات تعريف Autopilot المحددة من هذا التكوين.</value>
@@ -2630,7 +2630,7 @@
     <value>يتطلب Wired 802.1X قالب ملف تعريف سلكي.</value>
   </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
-    <value>ملف قالب الملف الشخصي</value>
+    <value>ملف قالب ملف التعريف</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>حدد قالب ملف تعريف الشبكة</value>

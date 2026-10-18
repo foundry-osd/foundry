@@ -1400,7 +1400,7 @@ Licenseret under MIT-licensen.</value>
     <value>Tilgængelig for nogle udvalgte mål</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Tilgængelighed vil blive verificeret i forhold til det anvendte Windows-billede</value>
+    <value>Tilgængelighed vil blive verificeret i forhold til den anvendte Windows-afbildning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
     <value>Ikke tilgængelig for de valgte mål</value>
@@ -1838,7 +1838,7 @@ Licenseret under MIT-licensen.</value>
     <value>Ingen valgfri Windows-funktioner matcher denne søgning.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Ændringer anvendes offline efter Windows er installeret og før OOBE. Aktiver handlinger brug kun det installerede billede eller matchende opsætningsmediekilder; der bruges ingen internettilbagefald.</value>
+    <value>Ændringer anvendes offline efter Windows er installeret og før OOBE. Aktiveringshandlinger bruger kun den installerede afbildning eller matchende opsætningsmediekilder; der bruges ingen internettilbagefald.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
     <value>Søgefunktioner</value>
@@ -3910,7 +3910,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Bekræfter Windows-kildepakken</value>
   </data>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
-    <value>Windows blokerede adgangen til WinPE-billedfilerne. Sikkerhedssoftware eller et andet værktøj låser dem muligvis. Tilføj en undtagelse for {0} i sikkerhedssoftwaren, luk værktøjer, der monterer billeder, genstart computeren, og prøv igen. Detaljer findes i {1} og {2}.</value>
+    <value>Windows blokerede adgangen til WinPE-afbildningsfilerne. Sikkerhedssoftware eller et andet værktøj låser dem muligvis. Tilføj en undtagelse for {0} i sikkerhedssoftwaren, luk værktøjer, der monterer afbildninger, genstart computeren, og prøv igen. Detaljer findes i {1} og {2}.</value>
   </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Skriver ISO-filen…</value>

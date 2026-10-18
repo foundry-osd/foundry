@@ -1522,7 +1522,7 @@
     <value>Autopilot علامة المجموعة</value>
   </data>
   <data name="Summary.AutopilotProfile" xml:space="preserve">
-    <value>Autopilot الملف الشخصي</value>
+    <value>ملف تعريف Autopilot</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
     <value>رقم البنية</value>

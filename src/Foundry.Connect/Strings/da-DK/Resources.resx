@@ -384,7 +384,7 @@ Licenseret under MIT-licensen.</value>
     <value>Ingen Wi-Fi netværk er i øjeblikket synlige.</value>
   </data>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>Ingen klargjort Wi-Fi-profil er tilgængelig i dette opstartsbillede.</value>
+    <value>Ingen klargjort Wi-Fi-profil er tilgængelig i denne startafbildning.</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
