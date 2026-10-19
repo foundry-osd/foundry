@@ -731,7 +731,10 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         };
     }
 
-    /// <summary>Finalizes BootEx in the workspace so capacity validation measures exactly what will be copied.</summary>
+    /// <summary>
+    /// Finalizes BootEx in the workspace, then checks the boot files and capacity of exactly what will be copied,
+    /// so an incomplete media tree is rejected before the USB disk is modified.
+    /// </summary>
     private static WinPeResult ValidatePreparedMedia(WinPeBuildArtifact artifact, bool useBootEx,
         ulong capacity, uint allocationUnitSize, CancellationToken cancellationToken)
     {
@@ -744,6 +747,13 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                 return bootConfiguration;
             }
         }
+
+        WinPeResult mediaVerification = VerifyBootArtifacts(artifact.MediaDirectoryPath, artifact.Architecture);
+        if (!mediaVerification.IsSuccess)
+        {
+            return mediaVerification;
+        }
+
         return WinPeUsbCapacityPolicy.Validate(artifact.MediaDirectoryPath, capacity, allocationUnitSize, cancellationToken);
     }
 
@@ -781,6 +791,13 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         return WinPeResult.Success();
     }
 
+    /// <summary>
+    /// Verifies the boot files that the ADK media layout provides for the target architecture.
+    /// </summary>
+    /// <remarks>
+    /// Every architecture boots through the UEFI store in <c>EFI\Microsoft\Boot\BCD</c>. Only the x64 media
+    /// also carries the BIOS store in <c>boot\BCD</c>; the ARM64 ADK media is UEFI-only and has no such file.
+    /// </remarks>
     internal static WinPeResult VerifyBootArtifacts(string bootRootPath, WinPeArchitecture architecture)
     {
         string bootWimPath = Path.Combine(bootRootPath, "sources", "boot.wim");
@@ -792,13 +809,25 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                 $"Expected '{bootWimPath}'.");
         }
 
-        string bcdPath = Path.Combine(bootRootPath, "boot", "BCD");
-        if (!File.Exists(bcdPath))
+        string efiBcdPath = Path.Combine(bootRootPath, "EFI", "Microsoft", "Boot", "BCD");
+        if (!File.Exists(efiBcdPath))
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.UsbVerificationFailed,
-                "USB verification failed: BCD not found.",
-                $"Expected '{bcdPath}'.");
+                "USB verification failed: UEFI BCD not found.",
+                $"Expected '{efiBcdPath}'.");
+        }
+
+        if (architecture == WinPeArchitecture.X64)
+        {
+            string biosBcdPath = Path.Combine(bootRootPath, "boot", "BCD");
+            if (!File.Exists(biosBcdPath))
+            {
+                return WinPeResult.Failure(
+                    WinPeErrorCodes.UsbVerificationFailed,
+                    "USB verification failed: BIOS BCD not found.",
+                    $"Expected '{biosBcdPath}'.");
+            }
         }
 
         string efiBootPath = Path.Combine(bootRootPath, "EFI", "Boot", architecture.ToBootEfiName());
