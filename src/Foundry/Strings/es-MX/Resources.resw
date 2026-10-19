@@ -4025,6 +4025,15 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Comenzar</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>Descargar la versión ARM64</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>Esta PC ejecuta Windows en ARM64, pero esta es la versión x64 de Foundry OSD. Con emulación, la versión x64 no puede crear medios de arranque de forma confiable. Descargue e instale la versión ARM64 de Foundry OSD (Foundry-win-arm64.msi) desde la última publicación.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>Se requiere la versión ARM64</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Abrir</value>
   </data>

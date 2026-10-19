@@ -95,7 +95,8 @@ namespace Foundry
         }
 
         /// <summary>
-        /// Creates and activates the main window, then starts application readiness checks.
+        /// Creates and activates the main window, then starts application readiness checks, unless the x64 build runs on
+        /// Windows ARM64, in which case it shows the blocking ARM64 dialog and closes the application.
         /// </summary>
         /// <param name="args">Launch activation arguments provided by WinUI.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -115,6 +116,19 @@ namespace Foundry
                 ThemeService.Initialize(mainWindow, mainWindow.RootElement);
 
                 mainWindow.Activate();
+
+                if (Arm64BuildRequirementGate.IsBlocked)
+                {
+                    // A blocked session initializes no profile, ADK, or update state, so closing skips the protected close flow.
+                    closeApproved = true;
+                    await Arm64BuildRequirementGate.ShowBlockingDialogAsync(mainWindow.RootElement);
+                    if (!isShuttingDown)
+                    {
+                        mainWindow.Close();
+                    }
+
+                    return;
+                }
 
                 await InitializeAppAsync();
             }

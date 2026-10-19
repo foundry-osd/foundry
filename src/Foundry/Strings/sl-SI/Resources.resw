@@ -4025,6 +4025,15 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Začetek</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>Prenesi različico za ARM64</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>Ta računalnik uporablja Windows za ARM64, to pa je različica Foundry OSD za x64. V emulaciji različica za x64 ne more zanesljivo ustvariti zagonskih medijev. Prenesite in namestite različico Foundry OSD za ARM64 (Foundry-win-arm64.msi) iz najnovejše izdaje.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>Potrebna je različica za ARM64</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Odpri</value>
   </data>

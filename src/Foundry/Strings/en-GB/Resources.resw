@@ -4025,6 +4025,15 @@ Applying the update restarts Foundry OSD.</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>Download ARM64 version</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>This PC runs Windows on ARM64, but this is the x64 version of Foundry OSD. Under emulation, the x64 version cannot reliably create boot media. Download and install the ARM64 version of Foundry OSD (Foundry-win-arm64.msi) from the latest release.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>ARM64 version required</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Open</value>
   </data>

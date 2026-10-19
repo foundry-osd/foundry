@@ -4025,6 +4025,15 @@ Uppdateringen startar om Foundry OSD.</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Starta</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>Hämta ARM64-versionen</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>Den här datorn kör Windows på ARM64, men det här är x64-versionen av Foundry OSD. Under emulering kan x64-versionen inte skapa startmedia på ett tillförlitligt sätt. Hämta och installera ARM64-versionen av Foundry OSD (Foundry-win-arm64.msi) från den senaste utgåvan.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>ARM64-versionen krävs</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Öppna</value>
   </data>

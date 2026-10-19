@@ -4025,6 +4025,15 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Indítsa el</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>ARM64-es verzió letöltése</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>Ezen a számítógépen ARM64-es Windows fut, ez azonban a Foundry OSD x64-es verziója. Emulációban az x64-es verzió nem tud megbízhatóan rendszerindító adathordozót létrehozni. Töltse le és telepítse a Foundry OSD ARM64-es verzióját (Foundry-win-arm64.msi) a legújabb kiadásból.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>Az ARM64-es verzió szükséges</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Megnyitás</value>
   </data>

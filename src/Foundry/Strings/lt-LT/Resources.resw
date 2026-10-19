@@ -4025,6 +4025,15 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Pradėti</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>Atsisiųsti ARM64 versiją</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>Šiame kompiuteryje veikia ARM64 skirta Windows, tačiau tai yra Foundry OSD x64 versija. Emuliuojama x64 versija negali patikimai kurti įkrovos laikmenų. Atsisiųskite ir įdiekite Foundry OSD ARM64 versiją (Foundry-win-arm64.msi) iš naujausio leidimo.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>Reikalinga ARM64 versija</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Atidaryti</value>
   </data>
