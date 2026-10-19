@@ -657,6 +657,9 @@ Continuare con la distribuzione?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>L'URL dell'immagine deve usare HTTP o HTTPS. Selezionare un'altra immagine oppure riavviare il dispositivo dal supporto di distribuzione per ricaricare il catalogo.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Il dispositivo è stato avviato in modalità BIOS legacy. Foundry distribuisce Windows solo in modalità UEFI. Attivare l'avvio UEFI nelle impostazioni del firmware, quindi riavviare il dispositivo dal supporto di distribuzione.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Impossibile confermare lo stato di preparazione alla distribuzione. Riavviare la distribuzione prima di preparare il disco.</value>
   </data>

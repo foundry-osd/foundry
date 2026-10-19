@@ -657,6 +657,9 @@ Pokračovat v nasazování?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>URL bitové kopie musí používat HTTP nebo HTTPS. Vyberte jinou bitovou kopii nebo restartujte zařízení z média pro nasazení a znovu načtěte katalog.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Toto zařízení bylo spuštěno ve starším režimu BIOS. Foundry nasazuje Windows pouze v režimu UEFI. Zapněte spouštění UEFI v nastavení firmwaru a potom restartujte zařízení z média pro nasazení.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Připravenost k nasazení se nepodařilo potvrdit. Před přípravou disku spusťte nasazení znovu.</value>
   </data>

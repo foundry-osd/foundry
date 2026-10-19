@@ -657,6 +657,9 @@ Doorgaan met de implementatie?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>De URL van de installatiekopie moet HTTP of HTTPS gebruiken. Selecteer een andere installatiekopie of start het apparaat opnieuw op vanaf de implementatiemedia om de catalogus opnieuw te laden.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Dit apparaat is opgestart in de verouderde BIOS-modus. Foundry implementeert Windows alleen in de UEFI-modus. Schakel UEFI-opstarten in via de firmware-instellingen en start het apparaat daarna opnieuw op vanaf de implementatiemedia.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Er kon niet worden bevestigd dat de implementatie gereed is. Start de implementatie opnieuw voordat u de schijf voorbereidt.</value>
   </data>

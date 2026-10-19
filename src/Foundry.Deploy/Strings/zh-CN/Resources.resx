@@ -657,6 +657,9 @@
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>映像 URL 必须使用 HTTP 或 HTTPS。请选择其他映像，或从部署介质重新启动设备以重新加载目录。</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>此设备以传统 BIOS 模式启动。Foundry 仅以 UEFI 模式部署 Windows。请在固件设置中启用 UEFI 启动，然后从部署介质重新启动设备。</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>无法确认部署准备情况。请在准备磁盘之前重新启动部署。</value>
   </data>

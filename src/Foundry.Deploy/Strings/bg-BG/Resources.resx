@@ -657,6 +657,9 @@
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>URL адресът на образа трябва да използва HTTP или HTTPS. Изберете друг образ или рестартирайте устройството от носителя за разполагане, за да презаредите каталога.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Това устройство е стартирано в наследен режим BIOS. Foundry разполага Windows само в режим UEFI. Включете UEFI стартирането в настройките на фърмуера, след което рестартирайте устройството от носителя за разполагане.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Готовността за разполагане не може да бъде потвърдена. Стартирайте разполагането отново, преди да подготвите диска.</value>
   </data>

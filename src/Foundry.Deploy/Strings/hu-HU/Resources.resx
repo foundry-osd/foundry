@@ -657,6 +657,9 @@ Folytatja a telepítést?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>A lemezkép URL-címének HTTP vagy HTTPS protokollt kell használnia. Válasszon másik lemezképet, vagy indítsa újra az eszközt a telepítési adathordozóról a katalógus újratöltéséhez.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Az eszköz örökölt BIOS módban indult el. A Foundry csak UEFI módban telepíti a Windowst. Kapcsolja be az UEFI-rendszerindítást a belső vezérlőprogram beállításaiban, majd indítsa újra az eszközt a telepítési adathordozóról.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>A telepítési készenlétet nem sikerült megerősíteni. A lemez előkészítése előtt indítsa újra a telepítést.</value>
   </data>

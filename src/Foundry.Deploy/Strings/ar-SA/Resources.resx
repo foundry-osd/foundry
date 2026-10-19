@@ -657,6 +657,9 @@
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>يجب أن يستخدم عنوان URL للصورة بروتوكول HTTP أو HTTPS. حدد صورة أخرى، أو أعد تشغيل الجهاز من وسيط النشر لإعادة تحميل الكتالوج.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>بدأ تشغيل هذا الجهاز في وضع BIOS القديم. يقوم Foundry بنشر Windows في وضع UEFI فقط. قم بتشغيل تمهيد UEFI في إعدادات البرنامج الثابت، ثم أعد تشغيل الجهاز من وسيط النشر.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>تعذر تأكيد الجاهزية للنشر. أعد بدء النشر قبل تجهيز القرص.</value>
   </data>

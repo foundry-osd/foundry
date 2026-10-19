@@ -657,6 +657,9 @@ Continuer le déploiement ?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>L'URL de l'image doit utiliser HTTP ou HTTPS. Sélectionnez une autre image ou redémarrez l'appareil depuis le média de déploiement pour recharger le catalogue.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Cet appareil a démarré en mode BIOS hérité. Foundry déploie Windows uniquement en mode UEFI. Activez le démarrage UEFI dans les paramètres du microprogramme, puis redémarrez l'appareil depuis le média de déploiement.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>L'état de préparation du déploiement n'a pas pu être confirmé. Relancez le déploiement avant de préparer le disque.</value>
   </data>

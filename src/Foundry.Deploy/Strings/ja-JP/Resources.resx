@@ -657,6 +657,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>イメージの URL には HTTP または HTTPS を使用する必要があります。別のイメージを選択するか、展開メディアからデバイスを再起動してカタログを再読み込みしてください。</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>このデバイスはレガシ BIOS モードで起動しました。Foundry は Windows を UEFI モードでのみ展開します。ファームウェアの設定で UEFI ブートを有効にしてから、展開メディアからデバイスを再起動してください。</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>展開の準備ができていることを確認できませんでした。ディスクを準備する前に、展開を再開始してください。</value>
   </data>

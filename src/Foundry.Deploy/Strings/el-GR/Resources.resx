@@ -657,6 +657,9 @@
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Το URL του ειδώλου πρέπει να χρησιμοποιεί HTTP ή HTTPS. Επιλέξτε άλλο είδωλο ή επανεκκινήστε τη συσκευή από το μέσο ανάπτυξης για να φορτωθεί ξανά ο κατάλογος.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Αυτή η συσκευή ξεκίνησε σε λειτουργία BIOS παλαιού τύπου. Το Foundry αναπτύσσει τα Windows μόνο σε λειτουργία UEFI. Ενεργοποιήστε την εκκίνηση UEFI στις ρυθμίσεις υλικολογισμικού και, στη συνέχεια, επανεκκινήστε τη συσκευή από το μέσο ανάπτυξης.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Δεν ήταν δυνατή η επιβεβαίωση της ετοιμότητας ανάπτυξης. Ξεκινήστε ξανά την ανάπτυξη πριν προετοιμάσετε τον δίσκο.</value>
   </data>

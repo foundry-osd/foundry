@@ -657,6 +657,9 @@ Continuar com a implementação?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>O URL da imagem tem de utilizar HTTP ou HTTPS. Selecione outra imagem ou reinicie o dispositivo a partir do suporte de implementação para recarregar o catálogo.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Este dispositivo foi iniciado no modo BIOS legado. O Foundry implementa o Windows apenas no modo UEFI. Ative o arranque UEFI nas definições do firmware e, em seguida, reinicie o dispositivo a partir do suporte de implementação.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Não foi possível confirmar a prontidão para implementação. Reinicie a implementação antes de preparar o disco.</value>
   </data>

@@ -657,6 +657,9 @@ Vai turpināt izvietošanu?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Attēla URL jāizmanto HTTP vai HTTPS. Atlasiet citu attēlu vai restartējiet ierīci no izvietošanas datu nesēja, lai atkārtoti ielādētu katalogu.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Šī ierīce tika startēta mantotajā BIOS režīmā. Foundry izvieto Windows tikai UEFI režīmā. Aparātprogrammatūras iestatījumos ieslēdziet UEFI sāknēšanu un pēc tam restartējiet ierīci no izvietošanas datu nesēja.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Neizdevās apstiprināt gatavību izvietošanai. Pirms diska sagatavošanas sāciet izvietošanu no jauna.</value>
   </data>

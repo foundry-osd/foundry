@@ -657,6 +657,9 @@ Vil du fortsætte med implementeringen?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Afbildningens URL skal bruge HTTP eller HTTPS. Vælg en anden afbildning, eller genstart enheden fra installationsmediet for at genindlæse kataloget.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Denne enhed blev startet i ældre BIOS-tilstand. Foundry installerer kun Windows i UEFI-tilstand. Slå UEFI-start til i firmwareindstillingerne, og genstart derefter enheden fra installationsmediet.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Det kunne ikke bekræftes, at udrulningen er klar. Start udrulningen igen, før du klargør disken.</value>
   </data>

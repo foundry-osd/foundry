@@ -657,6 +657,9 @@ Tęsti diegimą?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Atvaizdo URL turi naudoti HTTP arba HTTPS. Pasirinkite kitą atvaizdą arba iš naujo paleiskite įrenginį iš diegimo laikmenos, kad katalogas būtų įkeltas iš naujo.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Šis įrenginys paleistas senuoju BIOS režimu. Foundry diegia Windows tik UEFI režimu. Programinės-aparatinės įrangos parametruose įjunkite UEFI paleidimą, tada iš naujo paleiskite įrenginį iš diegimo laikmenos.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Nepavyko patvirtinti pasirengimo diegti. Prieš ruošdami diską, pradėkite diegimą iš naujo.</value>
   </data>

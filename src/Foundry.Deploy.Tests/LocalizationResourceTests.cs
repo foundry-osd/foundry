@@ -34,7 +34,7 @@ public sealed class LocalizationResourceTests
             "StepMessage.StagingFirmwareUpdate", "StepResult.NoFirmwareUpdatePayload",
             "StepResult.SelectedFirmwarePayloadUnavailable", "StepResult.SelectedDriverPayloadUnavailable",
             "StepResult.SimulationFormat", "StepResult.CatalogDriverInfMissingFormat", "StepResult.NoFirmwareCabFiles",
-            "Preflight.DownloadVerificationFailed"
+            "Preflight.DownloadVerificationFailed", "Preflight.LegacyBiosBoot"
         ];
         foreach (string key in requiredKeys)
         {

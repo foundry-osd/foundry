@@ -8,6 +8,7 @@ using Foundry.Core.Services.WinPe;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
@@ -15,16 +16,24 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 public sealed class ValidateTargetConfigurationStep : DeploymentStepBase
 {
     private readonly IHardwareProfileService _hardwareProfileService;
+    private readonly IFirmwareBootModeReader _firmwareBootModeReader;
 
-    public ValidateTargetConfigurationStep(IHardwareProfileService hardwareProfileService)
+    public ValidateTargetConfigurationStep(IHardwareProfileService hardwareProfileService, IFirmwareBootModeReader firmwareBootModeReader)
     {
         _hardwareProfileService = hardwareProfileService;
+        _firmwareBootModeReader = firmwareBootModeReader;
     }
 
     public override string Name => DeploymentStepNames.ValidateTargetConfiguration;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        DeploymentStepResult? firmwareFailure = await ValidateFirmwareBootModeAsync(context, cancellationToken).ConfigureAwait(false);
+        if (firmwareFailure is not null)
+        {
+            return firmwareFailure;
+        }
+
         DeploymentStepResult? optionalFeatureFailure = await ValidateOptionalFeaturesAsync(context, cancellationToken).ConfigureAwait(false);
         if (optionalFeatureFailure is not null)
         {
@@ -90,6 +99,40 @@ public sealed class ValidateTargetConfigurationStep : DeploymentStepBase
         await Task.Delay(120, cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Target configuration validated (simulation).");
+    }
+
+    /// <summary>
+    /// Stops a live deployment before any target disk change when WinPE started in legacy BIOS mode,
+    /// because the disk layout is always GPT and boot files are always written for UEFI.
+    /// </summary>
+    /// <remarks>
+    /// An unknown boot mode only logs a warning and continues: a false block would stop every deployment on
+    /// devices where the firmware type cannot be read, while UEFI remains the expected mode for supported hardware.
+    /// Simulation skips this check because it never changes the target disk.
+    /// </remarks>
+    private async Task<DeploymentStepResult?> ValidateFirmwareBootModeAsync(
+        DeploymentStepExecutionContext context,
+        CancellationToken cancellationToken)
+    {
+        switch (_firmwareBootModeReader.GetBootMode())
+        {
+            case FirmwareBootMode.Bios:
+                return DeploymentStepResult.Failed(
+                    LocalizationText.GetString("Preflight.LegacyBiosBoot"),
+                    DeploymentFailure.Guard(
+                        DeploymentOperationNames.ValidateTarget,
+                        DeploymentFailureReasons.InvalidState,
+                        "legacy_bios_boot"));
+            case FirmwareBootMode.Uefi:
+                await context.AppendLogAsync(DeploymentLogLevel.Info, "Firmware boot mode: UEFI.", cancellationToken).ConfigureAwait(false);
+                return null;
+            default:
+                await context.AppendLogAsync(
+                    DeploymentLogLevel.Warning,
+                    "Firmware boot mode could not be determined. Continuing with the UEFI disk layout.",
+                    cancellationToken).ConfigureAwait(false);
+                return null;
+        }
     }
 
     private static async Task<DeploymentStepResult?> ValidateOptionalFeaturesAsync(

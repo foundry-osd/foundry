@@ -657,6 +657,9 @@ Continuați cu implementarea?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Adresa URL a imaginii trebuie să utilizeze HTTP sau HTTPS. Selectați altă imagine sau reporniți dispozitivul de pe mediul de implementare pentru a reîncărca catalogul.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Acest dispozitiv a pornit în modul BIOS moștenit. Foundry implementează Windows numai în modul UEFI. Activați pornirea UEFI în setările firmware-ului, apoi reporniți dispozitivul de pe mediul de implementare.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Nu s-a putut confirma pregătirea pentru implementare. Reporniți implementarea înainte de pregătirea discului.</value>
   </data>

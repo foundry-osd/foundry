@@ -657,6 +657,9 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Die URL des Abbilds muss HTTP oder HTTPS verwenden. Wählen Sie ein anderes Abbild aus, oder starten Sie das Gerät vom Bereitstellungsmedium neu, um den Katalog erneut zu laden.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Dieses Gerät wurde im Legacy-BIOS-Modus gestartet. Foundry stellt Windows nur im UEFI-Modus bereit. Aktivieren Sie den UEFI-Start in den Firmwareeinstellungen, und starten Sie das Gerät anschließend vom Bereitstellungsmedium neu.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Die Bereitschaft für die Bereitstellung konnte nicht bestätigt werden. Starten Sie die Bereitstellung erneut, bevor Sie den Datenträger vorbereiten.</value>
   </data>

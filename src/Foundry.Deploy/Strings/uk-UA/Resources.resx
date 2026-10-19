@@ -657,6 +657,9 @@ ErrorCode=0x80070005
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>URL образу має використовувати HTTP або HTTPS. Виберіть інший образ або перезапустіть пристрій із носія для розгортання, щоб повторно завантажити каталог.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Цей пристрій запущено в застарілому режимі BIOS. Foundry розгортає Windows лише в режимі UEFI. Увімкніть завантаження UEFI в настройках мікропрограми, а потім перезапустіть пристрій із носія для розгортання.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Не вдалося підтвердити готовність до розгортання. Перезапустіть розгортання перед підготовкою диска.</value>
   </data>

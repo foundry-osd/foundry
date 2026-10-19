@@ -657,6 +657,9 @@ Fortsätt med implementeringen?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Avbildningens URL måste använda HTTP eller HTTPS. Välj en annan avbildning, eller starta om enheten från distributionsmediet för att läsa in katalogen på nytt.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Den här enheten startades i äldre BIOS-läge. Foundry distribuerar Windows endast i UEFI-läge. Aktivera UEFI-start i inställningarna för den inbyggda programvaran och starta sedan om enheten från distributionsmediet.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Det gick inte att bekräfta att distributionen är redo. Starta om distributionen innan du förbereder disken.</value>
   </data>

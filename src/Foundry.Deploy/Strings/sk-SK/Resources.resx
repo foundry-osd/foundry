@@ -657,6 +657,9 @@ Pokračovať v nasadzovaní?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>URL obrazu musí používať HTTP alebo HTTPS. Vyberte iný obraz alebo reštartujte zariadenie z média na nasadenie, aby sa katalóg znova načítal.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Toto zariadenie sa spustilo v staršom režime BIOS. Foundry nasadzuje Windows iba v režime UEFI. Zapnite spúšťanie UEFI v nastaveniach firmvéru a potom reštartujte zariadenie z média na nasadenie.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Pripravenosť na nasadenie sa nepodarilo potvrdiť. Pred prípravou disku spustite nasadenie znova.</value>
   </data>
