@@ -2,9 +2,11 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.InteropServices;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Deployment;
 
 namespace Foundry.Deploy.Services.Runtime;
 
@@ -95,7 +97,8 @@ public static class DebugCustomImageScenarios
     {
         Index = index,
         Name = name,
-        Architecture = "x64",
+        // Matches the debugging machine so previews stay selectable on x64 and ARM64.
+        Architecture = DeploymentImageArchitecture.ToArchitectureName(RuntimeInformation.OSArchitecture),
         EditionId = edition,
         ProductType = "WinNT",
         Build = 26100,

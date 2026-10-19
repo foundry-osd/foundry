@@ -3,11 +3,13 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Images;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Images;
 using CustomImageSourceLease = Foundry.Deploy.Services.Images.CustomImageSourceLease;
 using Foundry.Deploy.Services.Localization;
@@ -16,6 +18,7 @@ using Foundry.Deploy.Services.Runtime;
 namespace Foundry.Deploy.ViewModels;
 
 /// <summary>Keeps custom source defaults separate from catalog choices and discards stale asynchronous inspection.</summary>
+/// <remarks>Only indexes built for the device architecture are offered; deployment preflight enforces the same rule.</remarks>
 public partial class CustomImageSelectionViewModel : ObservableObject, IDisposable
 {
     private readonly CustomImageCatalogService _catalog;
@@ -31,11 +34,14 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
     private Task? _refreshTask;
     private int _refreshVersion = -1;
     private CustomImageAsset? _inspectedAsset;
+    private readonly string _deviceArchitecture;
 
-    public CustomImageSelectionViewModel(CustomImageCatalogService? catalog = null, ICustomImageMetadataReader? reader = null)
+    public CustomImageSelectionViewModel(CustomImageCatalogService? catalog = null, ICustomImageMetadataReader? reader = null,
+        Architecture? deviceArchitecture = null)
     {
         _catalog = catalog ?? new();
         _reader = reader ?? new NativeCustomImageMetadataReader();
+        _deviceArchitecture = DeploymentImageArchitecture.ToArchitectureName(deviceArchitecture ?? RuntimeInformation.OSArchitecture);
     }
 
     [ObservableProperty] private bool isEnabled;
@@ -150,27 +156,38 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
         try
         {
             Indexes.Clear();
-            foreach (CustomImageIndex index in indexes) Indexes.Add(index);
+            CustomImageIndex[] compatible = indexes.Where(index => DeploymentImageArchitecture.Matches(index.Architecture, _deviceArchitecture)).ToArray();
+            foreach (CustomImageIndex index in compatible) Indexes.Add(index);
             if (indexes.Count == 0 || indexes.Any(index => index.Index < 1) || indexes.Select(index => index.Index).Distinct().Count() != indexes.Count)
             {
                 SelectedIndex = null;
                 ErrorKey = "CustomImages.InvalidSource";
                 return;
             }
+            if (compatible.Length == 0)
+            {
+                SelectedIndex = null;
+                ErrorKey = "Preflight.ArchitectureMismatch";
+                return;
+            }
             if (!_defaultsApplied && SelectedAsset?.Id == _settings.DefaultImageId && _settings.DefaultImageIndex is int preferred)
             {
-                SelectedIndex = indexes.SingleOrDefault(index => index.Index == preferred);
-                if (SelectedIndex is null) ErrorKey = "CustomImages.MissingDefault";
+                SelectedIndex = compatible.SingleOrDefault(index => index.Index == preferred);
+                if (SelectedIndex is null) ErrorKey = ResolveMissingIndexError(indexes, preferred, "CustomImages.MissingDefault");
             }
             else if (_rememberedIndex is int remembered)
             {
-                SelectedIndex = indexes.SingleOrDefault(index => index.Index == remembered);
-                if (SelectedIndex is null) ErrorKey = "CustomImages.InvalidSource";
+                SelectedIndex = compatible.SingleOrDefault(index => index.Index == remembered);
+                if (SelectedIndex is null) ErrorKey = ResolveMissingIndexError(indexes, remembered, "CustomImages.InvalidSource");
             }
-            else SelectedIndex = indexes.Count == 1 ? indexes[0] : null;
+            else SelectedIndex = compatible.Length == 1 ? compatible[0] : null;
         }
         finally { _applyingIndexes = false; }
     }
+
+    /// <summary>Distinguishes an index that exists for another architecture from one that is missing.</summary>
+    private static string ResolveMissingIndexError(IReadOnlyList<CustomImageIndex> indexes, int wanted, string missingKey) =>
+        indexes.Any(index => index.Index == wanted) ? "Preflight.ArchitectureMismatch" : missingKey;
 
     private async Task InspectAsync(CustomImageAsset asset)
     {
