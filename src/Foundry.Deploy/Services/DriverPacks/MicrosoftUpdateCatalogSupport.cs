@@ -94,6 +94,29 @@ internal static partial class MicrosoftUpdateCatalogSupport
         };
     }
 
+    /// <summary>
+    /// Returns the first search result whose title names no architecture that conflicts with
+    /// <paramref name="targetArchitecture"/>, or the first result when every title conflicts.
+    /// </summary>
+    /// <remarks>
+    /// The catalog ordering (newest first) is kept. The title is only a hint; <see cref="SelectPreferredCab"/>
+    /// remains the authority that rejects payloads built for another architecture.
+    /// </remarks>
+    public static MicrosoftUpdateCatalogUpdate? SelectPreferredUpdate(IReadOnlyList<MicrosoftUpdateCatalogUpdate> updates, string targetArchitecture)
+    {
+        string normalizedArchitecture = NormalizeArchitecture(targetArchitecture);
+        return updates.FirstOrDefault(update => !HasConflictingArchitecture(update.Title.ToLowerInvariant(), normalizedArchitecture))
+            ?? updates.FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Selects the CAB payload to download for <paramref name="targetArchitecture"/>: an exact architecture
+    /// match first, then a CAB that names no conflicting architecture, or the first CAB when the target is empty.
+    /// </summary>
+    /// <remarks>
+    /// A CAB built for another architecture is never selected because DISM rejects its INF files;
+    /// <see langword="null"/> is returned instead so the caller skips the update.
+    /// </remarks>
     public static MicrosoftUpdateCatalogDownload? SelectPreferredCab(IReadOnlyList<MicrosoftUpdateCatalogDownload> downloads, string targetArchitecture)
     {
         if (downloads.Count == 0)
@@ -124,8 +147,17 @@ internal static partial class MicrosoftUpdateCatalogSupport
             return exactMatch;
         }
 
-        MicrosoftUpdateCatalogDownload? compatibleFallback = cabDownloads.FirstOrDefault(download => !HasConflictingArchitecture(download, normalizedArchitecture));
-        return compatibleFallback ?? cabDownloads[0];
+        return cabDownloads.FirstOrDefault(download => !HasConflictingArchitecture(ResolveComparableName(download), normalizedArchitecture));
+    }
+
+    /// <summary>
+    /// Returns whether <paramref name="downloads"/> offers CAB payloads but every one of them targets an
+    /// architecture other than <paramref name="targetArchitecture"/>.
+    /// </summary>
+    public static bool HasOnlyConflictingCabs(IReadOnlyList<MicrosoftUpdateCatalogDownload> downloads, string targetArchitecture)
+    {
+        return downloads.Any(download => IsCabUrl(download.DownloadUrl)) &&
+               SelectPreferredCab(downloads, targetArchitecture) is null;
     }
 
     public static string ResolvePreferredHash(MicrosoftUpdateCatalogDownload download)
@@ -185,18 +217,17 @@ internal static partial class MicrosoftUpdateCatalogSupport
         };
     }
 
-    private static bool HasConflictingArchitecture(MicrosoftUpdateCatalogDownload download, string targetArchitecture)
+    private static bool HasConflictingArchitecture(string comparableName, string targetArchitecture)
     {
-        string fileName = ResolveComparableName(download);
         return targetArchitecture switch
         {
-            "x64" => fileName.Contains("arm64", StringComparison.Ordinal) || fileName.Contains("x86", StringComparison.Ordinal),
-            "arm64" => fileName.Contains("x64", StringComparison.Ordinal) ||
-                       fileName.Contains("amd64", StringComparison.Ordinal) ||
-                       fileName.Contains("x86", StringComparison.Ordinal),
-            "x86" => fileName.Contains("arm64", StringComparison.Ordinal) ||
-                     fileName.Contains("x64", StringComparison.Ordinal) ||
-                     fileName.Contains("amd64", StringComparison.Ordinal),
+            "x64" => comparableName.Contains("arm64", StringComparison.Ordinal) || comparableName.Contains("x86", StringComparison.Ordinal),
+            "arm64" => comparableName.Contains("x64", StringComparison.Ordinal) ||
+                       comparableName.Contains("amd64", StringComparison.Ordinal) ||
+                       comparableName.Contains("x86", StringComparison.Ordinal),
+            "x86" => comparableName.Contains("arm64", StringComparison.Ordinal) ||
+                     comparableName.Contains("x64", StringComparison.Ordinal) ||
+                     comparableName.Contains("amd64", StringComparison.Ordinal),
             _ => false
         };
     }

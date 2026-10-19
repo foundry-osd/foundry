@@ -246,12 +246,13 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         MicrosoftUpdateCatalogUpdate? update = await SearchByReleaseAsync(
                 searchTarget.NormalizedHardwareId,
                 releaseSearchOrder,
+                targetArchitecture,
                 cancellationToken)
             .ConfigureAwait(false);
 
         if (update is null)
         {
-            update = await SearchByRawHardwareIdAsync(searchTarget.RawFallbackTerms, cancellationToken).ConfigureAwait(false);
+            update = await SearchByRawHardwareIdAsync(searchTarget.RawFallbackTerms, targetArchitecture, cancellationToken).ConfigureAwait(false);
         }
 
         if (update is null)
@@ -267,6 +268,16 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         MicrosoftUpdateCatalogDownload? selectedDownload = MicrosoftUpdateCatalogSupport.SelectPreferredCab(downloads, targetArchitecture);
         if (selectedDownload is null)
         {
+            if (MicrosoftUpdateCatalogSupport.HasOnlyConflictingCabs(downloads, targetArchitecture))
+            {
+                _logger.LogWarning(
+                    "Skipping Microsoft Update Catalog driver update because every CAB payload targets another architecture. UpdateId={UpdateId}, Title={Title}, TargetArchitecture={TargetArchitecture}",
+                    update.UpdateId,
+                    update.Title,
+                    MicrosoftUpdateCatalogSupport.NormalizeArchitecture(targetArchitecture));
+                return null;
+            }
+
             _logger.LogInformation(
                 "Microsoft Update Catalog update '{Title}' ({UpdateId}) has no CAB payload compatible with architecture '{Architecture}'.",
                 update.Title,
@@ -316,6 +327,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
     private async Task<MicrosoftUpdateCatalogUpdate?> SearchByReleaseAsync(
         string normalizedHardwareId,
         IReadOnlyList<string> releaseSearchOrder,
+        string targetArchitecture,
         CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(normalizedHardwareId))
@@ -332,7 +344,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 .SearchAsync(query, descending: true, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
-            MicrosoftUpdateCatalogUpdate? update = results.FirstOrDefault();
+            MicrosoftUpdateCatalogUpdate? update = MicrosoftUpdateCatalogSupport.SelectPreferredUpdate(results, targetArchitecture);
             if (update is not null)
             {
                 _logger.LogInformation(
@@ -350,6 +362,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
 
     private async Task<MicrosoftUpdateCatalogUpdate?> SearchByRawHardwareIdAsync(
         IReadOnlyList<string> rawFallbackTerms,
+        string targetArchitecture,
         CancellationToken cancellationToken)
     {
         foreach (string rawHardwareId in rawFallbackTerms)
@@ -360,7 +373,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 .SearchAsync(rawHardwareId, descending: true, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
-            MicrosoftUpdateCatalogUpdate? update = results.FirstOrDefault();
+            MicrosoftUpdateCatalogUpdate? update = MicrosoftUpdateCatalogSupport.SelectPreferredUpdate(results, targetArchitecture);
             if (update is not null)
             {
                 _logger.LogInformation(
