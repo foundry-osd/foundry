@@ -636,6 +636,9 @@ Doorgaan met de implementatie?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Klaarzetten voor na de installatie mislukt. Controleer de runtime, inhoud en het Windows-antwoordbestand voordat u het opnieuw probeert.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>De Windows-installatiekopie is niet bedoeld voor de processorarchitectuur van dit apparaat. Selecteer een installatiekopie voor dit apparaat.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>De cache voor de installatiekopie kan niet worden voorbereid. Controleer de vrije ruimte en schrijftoegang tot de cache.</value>
   </data>

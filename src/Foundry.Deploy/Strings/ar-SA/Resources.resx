@@ -636,6 +636,9 @@
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>فشل تجهيز مرحلة ما بعد التثبيت. تحقق من بيئة التشغيل والمحتويات وملف إجابات Windows قبل إعادة المحاولة.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>صورة Windows غير مخصصة لبنية المعالج في هذا الجهاز. حدد صورة مخصصة لهذا الجهاز.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>يتعذر تجهيز ذاكرة التخزين المؤقت للصورة. تحقق من المساحة الحرة فيها وإمكانية الكتابة إليها.</value>
   </data>

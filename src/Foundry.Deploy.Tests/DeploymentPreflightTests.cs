@@ -198,7 +198,7 @@ public sealed class DeploymentPreflightTests
     {
         using var fixture = new PipelineFixture();
         fixture.CreateCache(fixture.Payload);
-        var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 7, EditionId = "Anything", Architecture = "x86", ExpandedSizeBytes = 4096 };
+        var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 7, EditionId = "Anything", Architecture = "x64", ExpandedSizeBytes = 4096 };
         fixture.CustomImage = new CustomImageSelection(new CustomImageAsset
         {
             Id = "custom",
@@ -208,7 +208,7 @@ public sealed class DeploymentPreflightTests
             ExpectedLength = fixture.Payload.Length,
             ExpectedHash = invalidHash ? new string('0', 64) : Convert.ToHexString(SHA256.HashData(fixture.Payload))
         }, index);
-        var preflight = new PreflightDeploymentStep(fixture.Storage, new ImageSourceProbe(), new CustomReader(index));
+        var preflight = new PreflightDeploymentStep(fixture.Storage, new ImageSourceProbe(), new CustomReader(index), deviceArchitecture: Architecture.X64);
         DeploymentStepExecutionContext context = fixture.CreateContext();
         DeploymentStepResult result = await preflight.ExecuteAsync(context, TestContext.Current.CancellationToken);
         Assert.Equal(invalidHash ? DeploymentStepState.Failed : DeploymentStepState.Succeeded, result.State);
@@ -242,12 +242,73 @@ public sealed class DeploymentPreflightTests
             ImagePath = Path.Combine(fixture.CacheRoot, "Cache", "OperatingSystems", "install.esd"),
             VolumeRoot = fixture.CacheRoot
         }, index);
-        var preflight = new PreflightDeploymentStep(fixture.Storage, new ImageSourceProbe(), new CustomReader(index with { Index = actualIndex }));
+        var preflight = new PreflightDeploymentStep(fixture.Storage, new ImageSourceProbe(), new CustomReader(index with { Index = actualIndex }),
+            deviceArchitecture: Architecture.X64);
         DeploymentStepExecutionContext context = fixture.CreateContext();
         Assert.Equal(DeploymentStepState.Failed, (await preflight.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
         Assert.Null(context.Preflight);
         Assert.Empty(fixture.Events);
         File.Delete(fixture.CustomImage.Asset.ImagePath);
+    }
+
+    [Theory]
+    [InlineData("arm64", Architecture.X64)]
+    [InlineData("x64", Architecture.Arm64)]
+    [InlineData("x86", Architecture.X64)]
+    [InlineData("unknown", Architecture.Arm64)]
+    public async Task CustomImage_ArchitectureMismatch_FailsBeforePartition(string imageArchitecture, Architecture deviceArchitecture)
+    {
+        using var fixture = new PipelineFixture(deviceArchitecture);
+        fixture.CreateCache(fixture.Payload);
+        var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 7, EditionId = "Professional", Architecture = imageArchitecture, ExpandedSizeBytes = 4096 };
+        fixture.CustomImage = new CustomImageSelection(new CustomImageAsset
+        {
+            Id = "custom",
+            DisplayName = "Custom",
+            ImagePath = Path.Combine(fixture.CacheRoot, "Cache", "OperatingSystems", "install.esd"),
+            VolumeRoot = fixture.CacheRoot,
+            ExpectedLength = fixture.Payload.Length,
+            ExpectedHash = Convert.ToHexString(SHA256.HashData(fixture.Payload))
+        }, index);
+        var preflight = new PreflightDeploymentStep(fixture.Storage, new ImageSourceProbe(), new CustomReader(index), deviceArchitecture: deviceArchitecture);
+        DeploymentStepExecutionContext context = fixture.CreateContext();
+
+        DeploymentStepResult result = await preflight.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("image_architecture_mismatch", result.Failure?.Code);
+        Assert.Null(context.Preflight);
+        Assert.Equal(DeploymentStepState.Failed, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Empty(fixture.Events);
+    }
+
+    [Theory]
+    [InlineData(DeploymentMode.Iso, "image_arm64", Architecture.X64)]
+    [InlineData(DeploymentMode.Usb, "image_arm64", Architecture.X64)]
+    [InlineData(DeploymentMode.Iso, "", Architecture.Arm64)]
+    [InlineData(DeploymentMode.Usb, "", Architecture.Arm64)]
+    public async Task CatalogImage_ArchitectureMismatch_NeverApplies(DeploymentMode mode, string failure, Architecture deviceArchitecture)
+    {
+        using var fixture = new PipelineFixture(deviceArchitecture) { Mode = mode, Failure = failure };
+
+        DeploymentStepResult result = await fixture.RunAsync();
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("image_architecture_mismatch", result.Failure?.Code);
+        Assert.Contains("inspect", fixture.Events);
+        Assert.DoesNotContain(fixture.Events, item => item.StartsWith("apply:", StringComparison.Ordinal));
+    }
+
+    [Theory]
+    [InlineData("x64", "x64", true)]
+    [InlineData("ARM64", "arm64", true)]
+    [InlineData("x64", "arm64", false)]
+    [InlineData("unknown", "x64", false)]
+    [InlineData("", "x64", false)]
+    [InlineData(null, "arm64", false)]
+    public void DeploymentImageArchitecture_MatchesOnlyKnownEqualArchitectures(string? image, string expected, bool matches)
+    {
+        Assert.Equal(matches, DeploymentImageArchitecture.Matches(image, expected));
     }
 
     private sealed class CustomReader(Foundry.Core.Models.Configuration.CustomImageIndex index) : Foundry.Core.Services.Images.ICustomImageMetadataReader
@@ -699,6 +760,7 @@ public sealed class DeploymentPreflightTests
         public Foundry.Deploy.Services.DomainJoin.DomainJoinDeploymentRequest? DomainJoinRequest { get; set; }
         public Foundry.Deploy.Services.DomainJoin.DomainJoinDeploymentIntent? DomainJoinIntent { get; set; }
         public DeploymentStepExecutionContext? Context { get; private set; }
+        public Architecture DeviceArchitecture { get; }
         private readonly HttpClient _client;
         private readonly CancellationTokenSource _cancellation = new();
         public PreflightDeploymentStep Preflight { get; }
@@ -708,17 +770,19 @@ public sealed class DeploymentPreflightTests
         public ConfigureWindowsBootStep Boot { get; }
         private readonly ApplyOperatingSystemImageStep _apply;
 
-        public PipelineFixture()
+        public PipelineFixture(Architecture deviceArchitecture = Architecture.X64)
         {
+            DeviceArchitecture = deviceArchitecture;
             Directory.CreateDirectory(Root);
             _client = new HttpClient(new PipelineHttp(this));
             var artifact = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, _client);
             var windows = new PipelineWindows(this);
             var probe = new ImageSourceProbe(_client);
-            Preflight = new PreflightDeploymentStep(Storage, probe, postInstallResolver: new FixturePostInstall(this), nativeService: NativeService);
+            Preflight = new PreflightDeploymentStep(Storage, probe, postInstallResolver: new FixturePostInstall(this), nativeService: NativeService,
+                deviceArchitecture: deviceArchitecture);
             Prepare = new PrepareTargetDiskLayoutStep(windows, probe);
             Download = new DownloadOperatingSystemImageStep(artifact);
-            CheckImage = new CheckWindowsImageStep(windows, Storage);
+            CheckImage = new CheckWindowsImageStep(windows, Storage, deviceArchitecture);
             Boot = new ConfigureWindowsBootStep(windows);
             _apply = new ApplyOperatingSystemImageStep(windows, Storage, new FixturePrecedence());
         }
@@ -731,7 +795,7 @@ public sealed class DeploymentPreflightTests
         }
 
         public PreflightDeploymentStep CreatePostInstallPreflight(PreOobeContentResolver resolver) =>
-            new(Storage, new ImageSourceProbe(_client), postInstallResolver: resolver);
+            new(Storage, new ImageSourceProbe(_client), postInstallResolver: resolver, deviceArchitecture: DeviceArchitecture);
 
         private DeploymentContext CreateRequest()
         {
@@ -968,7 +1032,7 @@ public sealed class DeploymentPreflightTests
                 if (fixture.Failure == "native_image_error")
                     throw new COMException("Native image inspection failed.", unchecked((int)0x8007000D));
                 var image = new WindowsImageInfo(1, "Windows 11 Pro", fixture.Failure == "missing_edition" ? "Core" : "Professional",
-                    fixture.Failure == "invalid_size" ? 0UL : 10UL, "x64", new Version(10, 0, 26200));
+                    fixture.Failure == "invalid_size" ? 0UL : 10UL, fixture.Failure == "image_arm64" ? "arm64" : "x64", new Version(10, 0, 26200));
                 var images = new List<WindowsImageInfo> { image };
                 if (fixture.Failure == "ambiguous_edition")
                     images.Add(image with { Index = 2 });

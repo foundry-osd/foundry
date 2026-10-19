@@ -636,6 +636,9 @@ Sistema operativo: {4}
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>No se pudo preparar la posinstalación. Verifique el ejecutor, los archivos y el archivo de respuesta de Windows antes de reintentar.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>La imagen de Windows no está diseñada para la arquitectura de procesador de este dispositivo. Seleccione una imagen para este dispositivo.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>No se puede preparar la caché de imágenes. Compruebe el espacio libre y el acceso de escritura en ella.</value>
   </data>

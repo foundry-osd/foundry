@@ -636,6 +636,9 @@ ErrorCode=0x80070005
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>הכנת השלב שלאחר ההתקנה נכשלה. בדוק את סביבת הריצה, התכנים וקובץ התשובות של Windows לפני ניסיון נוסף.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>קובץ התמונה של Windows אינו מיועד לארכיטקטורת המעבד של מכשיר זה. יש לבחור קובץ תמונה המיועד למכשיר זה.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>לא ניתן להכין את המטמון של קובץ התמונה. יש לבדוק את השטח הפנוי בו ואת הרשאות הכתיבה אליו.</value>
   </data>

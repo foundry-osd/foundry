@@ -636,6 +636,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Asennuksen jälkeisen vaiheen valmistelu epäonnistui. Tarkista suoritusympäristö, sisältö ja Windowsin vastaustiedosto ennen uutta yritystä.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Windows-näköistiedostoa ei ole tarkoitettu tämän laitteen suoritinarkkitehtuurille. Valitse tälle laitteelle tarkoitettu näköistiedosto.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Näköistiedoston välimuistia ei voida valmistella. Tarkista sen vapaa tila ja kirjoitusoikeudet.</value>
   </data>

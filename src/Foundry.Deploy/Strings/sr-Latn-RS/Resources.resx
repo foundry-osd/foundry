@@ -636,6 +636,9 @@ Operativni sistem: {4}
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Priprema faze posle instalacije nije uspela. Pre ponovnog pokušaja proverite izvršno okruženje, sadržaj i datoteku odgovora sistema Windows.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Slika sistema Windows nije namenjena arhitekturi procesora ovog uređaja. Izaberite sliku namenjenu ovom uređaju.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Keš slike se ne može pripremiti. Proverite slobodan prostor i pristup za upis u njega.</value>
   </data>

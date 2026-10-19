@@ -636,6 +636,9 @@ Kontynuować wdrażanie?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Przygotowanie działań po instalacji nie powiodło się. Przed ponowną próbą sprawdź środowisko wykonawcze, zawartość i plik odpowiedzi systemu Windows.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Obraz systemu Windows nie jest przeznaczony dla architektury procesora tego urządzenia. Wybierz obraz przeznaczony dla tego urządzenia.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Nie można przygotować pamięci podręcznej obrazu. Sprawdź wolne miejsce i uprawnienia do zapisu w pamięci podręcznej.</value>
   </data>

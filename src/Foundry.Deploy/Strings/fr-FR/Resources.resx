@@ -636,6 +636,9 @@ Continuer le déploiement ?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Échec de la préparation de la post-installation. Vérifiez le programme, les fichiers et le fichier de réponses Windows avant de réessayer.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>L'image Windows n'est pas conçue pour l'architecture de processeur de cet appareil. Sélectionnez une image conçue pour cet appareil.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Le cache de l'image ne peut pas être préparé. Vérifiez son espace libre et les droits d'écriture.</value>
   </data>

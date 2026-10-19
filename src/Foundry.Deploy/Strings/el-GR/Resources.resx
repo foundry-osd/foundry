@@ -636,6 +636,9 @@
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Η προετοιμασία για μετά την εγκατάσταση απέτυχε. Ελέγξτε το περιβάλλον εκτέλεσης, το περιεχόμενο και το αρχείο απαντήσεων των Windows πριν δοκιμάσετε ξανά.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Το είδωλο των Windows δεν προορίζεται για την αρχιτεκτονική επεξεργαστή αυτής της συσκευής. Επιλέξτε ένα είδωλο για αυτήν τη συσκευή.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Δεν είναι δυνατή η προετοιμασία της προσωρινής μνήμης του ειδώλου. Ελέγξτε τον ελεύθερο χώρο και την πρόσβαση εγγραφής σε αυτήν.</value>
   </data>
