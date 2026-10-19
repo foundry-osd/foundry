@@ -121,6 +121,119 @@ public sealed class WinPeBuildServiceTests
         Assert.Equal(exitCode, result.Error?.ExitCode);
     }
 
+    [Theory]
+    [InlineData(5, WinPeFailureReasons.AccessDenied)]
+    [InlineData(50, WinPeFailureReasons.NonZeroExit)]
+    public async Task BuildAsync_WhenCopypeCannotMountImage_ReportsReplayedDismMountOutcome(int dismExitCode, string expectedReason)
+    {
+        using TempWinPeBuildWorkspace workspace = TempWinPeBuildWorkspace.Create();
+        var runner = new CopypeMountFailureRunner(dismExitCode);
+        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath), runner);
+
+        WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(
+            new WinPeBuildOptions
+            {
+                OutputDirectoryPath = workspace.OutputDirectoryPath,
+                Architecture = WinPeArchitecture.X64
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.BuildFailed, result.Error?.Code);
+        Assert.Equal("copype", result.Error?.ToolName);
+        Assert.Equal(1, result.Error?.ExitCode);
+        Assert.Equal(WinPeCopypeFailureDetails.WimMountFailed, result.Error?.FailureDetail);
+        Assert.Equal(expectedReason, result.Error?.FailureReason);
+        Assert.Contains("Failed to mount the WinPE WIM file", result.Error?.Details);
+        Assert.Contains(CopypeMountFailureRunner.DismError, result.Error?.Details);
+        Assert.Contains(runner.DismArguments, arguments =>
+            arguments.Contains("/Mount-Image", StringComparison.Ordinal) &&
+            arguments.Contains(Path.Combine("media", "sources", "boot.wim"), StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task BuildAsync_WhenReplayedDismMountSucceeds_DiscardsItAndKeepsCopypeFailure()
+    {
+        using TempWinPeBuildWorkspace workspace = TempWinPeBuildWorkspace.Create();
+        var runner = new CopypeMountFailureRunner(dismExitCode: 0);
+        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath), runner);
+
+        WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(
+            new WinPeBuildOptions
+            {
+                OutputDirectoryPath = workspace.OutputDirectoryPath,
+                Architecture = WinPeArchitecture.X64
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
+        Assert.Equal(WinPeCopypeFailureDetails.WimMountFailed, result.Error?.FailureDetail);
+        Assert.Contains("did not reproduce", result.Error?.Details);
+        Assert.Contains(runner.DismArguments, arguments =>
+            arguments.Contains("/Unmount-Image", StringComparison.Ordinal) &&
+            arguments.Contains("/Discard", StringComparison.Ordinal));
+    }
+
+    /// <summary>
+    /// Simulates copype failing at its WIM mount step after staging boot.wim, then answers the DISM replay.
+    /// </summary>
+    private sealed class CopypeMountFailureRunner(int dismExitCode) : IWinPeProcessRunner
+    {
+        public const string DismError = "Error: 0x800f0816 The mount request was rejected.";
+
+        public List<string> DismArguments { get; } = [];
+
+        public Task<WinPeProcessExecution> RunAsync(
+            string fileName,
+            string arguments,
+            string workingDirectory,
+            CancellationToken cancellationToken,
+            IReadOnlyDictionary<string, string>? environmentOverrides = null)
+        {
+            DismArguments.Add(arguments);
+            bool isMount = arguments.Contains("/Mount-Image", StringComparison.Ordinal);
+            return Task.FromResult(new WinPeProcessExecution
+            {
+                ExitCode = isMount ? dismExitCode : 0,
+                FileName = fileName,
+                Arguments = arguments,
+                WorkingDirectory = workingDirectory,
+                StandardOutput = isMount && dismExitCode != 0 ? DismError : string.Empty
+            });
+        }
+
+        public Task<WinPeProcessExecution> RunCmdScriptAsync(
+            string scriptPath,
+            string scriptArguments,
+            string workingDirectory,
+            CancellationToken cancellationToken)
+        {
+            string workingRoot = scriptArguments.Split(' ', StringSplitOptions.RemoveEmptyEntries).Last().Trim('"');
+            string bootWimPath = Path.Combine(workingRoot, "media", "sources", "boot.wim");
+            Directory.CreateDirectory(Path.GetDirectoryName(bootWimPath)!);
+            File.WriteAllText(bootWimPath, "boot");
+
+            return Task.FromResult(new WinPeProcessExecution
+            {
+                ExitCode = 1,
+                FileName = scriptPath,
+                Arguments = scriptArguments,
+                WorkingDirectory = workingDirectory,
+                StandardOutput = $"Mounting \"{bootWimPath}\"\r\nERROR: Failed to mount the WinPE WIM file. Check logs at C:\\WINDOWS\\Logs\\DISM for more details."
+            });
+        }
+
+        public Task<WinPeProcessExecution> RunCmdScriptDirectAsync(
+            string scriptPath,
+            string scriptArguments,
+            string workingDirectory,
+            CancellationToken cancellationToken)
+        {
+            return RunCmdScriptAsync(scriptPath, scriptArguments, workingDirectory, cancellationToken);
+        }
+    }
+
     private sealed class FakeBuildRunner(int exitCode = 0, bool createImage = true) : IWinPeProcessRunner
     {
         public Task<WinPeProcessExecution> RunAsync(

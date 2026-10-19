@@ -10,9 +10,10 @@ public sealed record WinPeProcessExecution
 {
     private const int DismAccessDeniedExitCode = 5;
 
+    // A copype WIM mount failure is not listed: copype discards the DISM output, so the build service
+    // replays the mount and classifies the failure from the DISM exit code instead.
     private static readonly string[] CopypeBlockedFileAccessMarkers =
     [
-        "Failed to mount the WinPE WIM file",
         "Unable to copy boot file"
     ];
 
@@ -75,7 +76,7 @@ public sealed record WinPeProcessExecution
 
     /// <summary>
     /// Detects blocked file access from stable signals only, because DISM and copype stderr text is localized:
-    /// DISM exit code 5 (ERROR_ACCESS_DENIED) and the English markers echoed by the ADK copype.cmd script.
+    /// DISM exit code 5 (ERROR_ACCESS_DENIED) and the English boot file copy marker echoed by the ADK copype.cmd script.
     /// </summary>
     private bool IsFileAccessBlocked(string toolName)
     {
