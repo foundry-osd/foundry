@@ -3453,6 +3453,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Mukautettua ohjainkansiota ei ole olemassa.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Yksi tai useampi sisällytetty mukautettu näköistiedosto on luotu eri arkkitehtuurille kuin valittu tietoväline. Jätä ne pois tai vaihda tietovälineen arkkitehtuuri.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Käyttöönoton määrityksen luominen ei ole valmis.</value>
   </data>

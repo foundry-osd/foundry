@@ -2184,6 +2184,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             BootImageSource = ResolveBootImageSource(),
             DriverVendors = vendors,
             CustomDriverDirectoryPath = CustomDriverDirectoryPath,
+            CustomImages = foundryConfigurationStateService.Current.CustomImages,
             SelectedUsbDisk = SelectedUsbDisk?.Value
         };
     }
@@ -2339,7 +2340,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         ]);
         IsCustomizationOverviewExpanded = ReplaceOverviewItems(
             CustomizationOverviewItems,
-            BuildCustomizationOverview(configuration, overview));
+            BuildCustomizationOverview(configuration, mediaEvaluation, overview));
 
         GeneralConfigurationOverviewSummary = GetOverviewSummary(GeneralConfigurationOverviewItems);
         NetworkOverviewSummary = GetOverviewSummary(NetworkOverviewItems);
@@ -2469,6 +2470,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private IReadOnlyList<StartConfigurationOverviewItemViewModel> BuildCustomizationOverview(
         FoundryConfigurationDocument configuration,
+        MediaPreflightEvaluation mediaEvaluation,
         ConfigurationOverviewEvaluation overview)
     {
         CustomizationSettings customization = configuration.Customization;
@@ -2511,7 +2513,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     : localizationService.GetString("Nav_OobeKey.Description"),
                 ConfigurationNavigationTarget.Oobe),
             CreateOverviewItem(ConfigurationOverviewItem.CustomImages, overview, "Nav_CustomImagesKey.Title",
-                localizationService.GetString("Nav_CustomImagesKey.Description"),
+                HasReason(mediaEvaluation, MediaPreflightBlockingReason.CustomImageArchitectureMismatch)
+                    ? GetBlockingReasonText(MediaPreflightBlockingReason.CustomImageArchitectureMismatch)
+                    : localizationService.GetString("Nav_CustomImagesKey.Description"),
                 ConfigurationNavigationTarget.CustomImages),
             CreateOverviewItem(ConfigurationOverviewItem.PostInstallation, overview, "Nav_PostInstallationKey.Title",
                 localizationService.GetString("Nav_PostInstallationKey.Description"),

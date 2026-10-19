@@ -3453,6 +3453,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Der benutzerdefinierte Treiberordner ist nicht vorhanden.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Ein oder mehrere enthaltene benutzerdefinierte Abbilder wurden nicht für die ausgewählte Medienarchitektur erstellt. Schließen Sie sie aus oder ändern Sie die Medienarchitektur.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Die Erstellung der Deploy-Konfiguration ist nicht bereit.</value>
   </data>

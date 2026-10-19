@@ -3453,6 +3453,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Kohandatud draiveri kausta pole olemas.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Üks või mitu kaasatud kohandatud tõmmist pole loodud valitud meediumi arhitektuurile. Jätke need välja või muutke meediumi arhitektuuri.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Juurutamise konfiguratsiooni loomine pole valmis.</value>
   </data>

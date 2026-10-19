@@ -3453,6 +3453,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Персонализираната папка на драйвера не съществува.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Един или повече включени персонализирани образа не са създадени за избраната архитектура на носителя. Изключете ги или променете архитектурата на носителя.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Генерирането на конфигурация за внедряване не е готово.</value>
   </data>

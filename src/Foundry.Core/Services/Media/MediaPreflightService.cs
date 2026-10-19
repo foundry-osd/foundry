@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Utilities.IO;
 
@@ -128,12 +129,53 @@ public static class MediaPreflightService
             reasons.Add(MediaPreflightBlockingReason.WinPeKeyboardLayoutUnavailable);
         }
 
+        if (HasCustomImageArchitectureMismatch(options.CustomImages, options.Architecture))
+        {
+            reasons.Add(MediaPreflightBlockingReason.CustomImageArchitectureMismatch);
+        }
+
         if (!options.IsFinalExecutionEnabled)
         {
             reasons.Add(MediaPreflightBlockingReason.FinalExecutionDeferred);
         }
 
         return reasons;
+    }
+
+    /// <summary>
+    /// Determines whether media built for <paramref name="architecture"/> would embed a custom image index built for another architecture.
+    /// </summary>
+    /// <remarks>
+    /// Only enabled settings and included images are checked because only those images are copied to the media, and every
+    /// index of an included image stays selectable at deployment time. An x86 index never matches supported media.
+    /// An index whose architecture is "unknown" or empty does not block: DISM reports "unknown" for unrecognized processor
+    /// architectures and import accepts such images, so preflight cannot prove a mismatch; deployment must still reject
+    /// an image it cannot apply.
+    /// </remarks>
+    /// <param name="settings">The custom image settings that will be published to the media.</param>
+    /// <param name="architecture">The selected media architecture.</param>
+    /// <returns><see langword="true"/> when an included index reports a known, different architecture.</returns>
+    public static bool HasCustomImageArchitectureMismatch(CustomImagesSettings settings, WinPeArchitecture architecture)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+
+        if (!settings.IsEnabled)
+        {
+            return false;
+        }
+
+        string mediaArchitecture = architecture == WinPeArchitecture.Arm64 ? "arm64" : "x64";
+        return settings.Images
+            .Where(image => image.IsIncluded)
+            .SelectMany(image => image.Indexes)
+            .Any(index => IsOtherKnownArchitecture(index.Architecture, mediaArchitecture));
+    }
+
+    private static bool IsOtherKnownArchitecture(string? imageArchitecture, string mediaArchitecture)
+    {
+        return !string.IsNullOrWhiteSpace(imageArchitecture)
+            && !string.Equals(imageArchitecture, "unknown", StringComparison.OrdinalIgnoreCase)
+            && !string.Equals(imageArchitecture, mediaArchitecture, StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool IsIsoPathValid(string isoOutputPath)

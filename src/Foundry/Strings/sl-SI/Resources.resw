@@ -3453,6 +3453,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Mapa gonilnika po meri ne obstaja.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Ena ali več vključenih prilagojenih slik ni ustvarjenih za izbrano arhitekturo medija. Izključite jih ali spremenite arhitekturo medija.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generacija konfiguracije razmestitve ni pripravljena.</value>
   </data>

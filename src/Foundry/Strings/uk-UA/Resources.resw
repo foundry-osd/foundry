@@ -3453,6 +3453,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Спеціальна папка драйвера не існує.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Один або кілька включених користувацьких образів не призначені для вибраної архітектури носія. Виключіть їх або змініть архітектуру носія.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Генерація конфігурації розгортання не готова.</value>
   </data>

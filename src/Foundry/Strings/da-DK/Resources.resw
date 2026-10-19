@@ -3453,6 +3453,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Brugerdefineret drivermappe findes ikke.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>En eller flere medtagne brugerdefinerede afbildninger er ikke bygget til den valgte mediearkitektur. Udelad dem, eller skift mediearkitekturen.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generering af implementering af konfiguration er ikke klar.</value>
   </data>

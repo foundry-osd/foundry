@@ -3453,6 +3453,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Egyéni illesztőprogram-mappa nem létezik.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Egy vagy több hozzáadott egyéni lemezkép nem a kiválasztott adathordozó-architektúrához készült. Zárja ki őket, vagy módosítsa az adathordozó architektúráját.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>A telepítési konfiguráció létrehozása nem áll készen.</value>
   </data>

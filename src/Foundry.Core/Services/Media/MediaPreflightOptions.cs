@@ -140,6 +140,11 @@ public sealed record MediaPreflightOptions
     public string? CustomDriverDirectoryPath { get; init; }
 
     /// <summary>
+    /// Gets the custom image settings whose enabled and included images are copied to the media.
+    /// </summary>
+    public CustomImagesSettings CustomImages { get; init; } = new();
+
+    /// <summary>
     /// Gets the selected USB target disk, if USB creation is requested.
     /// </summary>
     public WinPeUsbDiskCandidate? SelectedUsbDisk { get; init; }

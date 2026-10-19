@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Media;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Services.Configuration;
@@ -158,7 +159,8 @@ public static class ConfigurationOverviewEvaluator
                     : ConfigurationOverviewState.Configured,
             [ConfigurationOverviewItem.CustomImages] = !configuration.CustomImages.IsEnabled
                 ? ConfigurationOverviewState.Disabled
-                : context.IsCustomImagesReady
+                : context.IsCustomImagesReady &&
+                    !MediaPreflightService.HasCustomImageArchitectureMismatch(configuration.CustomImages, general.Architecture)
                     ? ConfigurationOverviewState.Configured
                     : ConfigurationOverviewState.NeedsAttention,
             [ConfigurationOverviewItem.Unattend] = !configuration.Unattend.IsEnabled

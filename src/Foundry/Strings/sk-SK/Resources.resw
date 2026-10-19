@@ -3453,6 +3453,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Vlastný priečinok ovládača neexistuje.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Jeden alebo viac zahrnutých vlastných obrazov nie je určených pre vybratú architektúru média. Vylúčte ich alebo zmeňte architektúru média.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generovanie konfigurácie nasadenia nie je pripravené.</value>
   </data>

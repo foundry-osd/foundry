@@ -3453,6 +3453,9 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>La cartella del driver personalizzato non esiste.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Una o più immagini personalizzate incluse non sono create per l'architettura del supporto selezionata. Escludile o modifica l'architettura del supporto.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>La generazione della configurazione di distribuzione non è pronta.</value>
   </data>

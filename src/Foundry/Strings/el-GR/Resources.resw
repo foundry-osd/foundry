@@ -3453,6 +3453,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Ο προσαρμοσμένος φάκελος προγράμματος οδήγησης δεν υπάρχει.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Μία ή περισσότερες συμπεριλαμβανόμενες προσαρμοσμένες εικόνες δεν έχουν δημιουργηθεί για την επιλεγμένη αρχιτεκτονική του μέσου. Εξαιρέστε τις ή αλλάξτε την αρχιτεκτονική του μέσου.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Η δημιουργία διαμόρφωσης ανάπτυξης δεν είναι έτοιμη.</value>
   </data>
