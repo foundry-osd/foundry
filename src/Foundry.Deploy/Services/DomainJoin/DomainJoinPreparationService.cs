@@ -19,7 +19,11 @@ public interface IDomainJoinPreparationService
 {
     /// <summary>Combines the media configuration with what the technician entered on the Domain Join wizard step.</summary>
     DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission);
+}
 
+/// <summary>Checks the join account stored on Zero-touch media with the domain before the deployment starts.</summary>
+public interface IZeroTouchMediaCredentialCheck
+{
     /// <summary>
     /// Checks the join account stored on Zero-touch media for the selected domain (the default when none is selected). The
     /// credentials are decrypted only for the verifier call and erased when it returns. Returns <see langword="null"/> without
@@ -30,7 +34,7 @@ public interface IDomainJoinPreparationService
 }
 
 /// <summary>Resolves owned inputs without contacting AD or acquiring another media unlock.</summary>
-public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession keys) : IDomainJoinPreparationService
+public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession keys) : IDomainJoinPreparationService, IZeroTouchMediaCredentialCheck
 {
     /// <summary>Requires a concrete final name and validated runtime metadata before accepting credentials.</summary>
     public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission)

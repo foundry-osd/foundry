@@ -13,6 +13,9 @@ public sealed class DeploymentLaunchPreparationResult : IDisposable
 
     /// <summary>Transfers credential ownership once; otherwise disposal clears the unconsumed input.</summary>
     public DomainJoinPreparedInput? TakeDomainJoinInput() => Interlocked.Exchange(ref domainJoinInput, null);
+
+    /// <summary>Gets the prepared input without taking ownership, so a pre-start check can read it before the transfer.</summary>
+    public DomainJoinPreparedInput? DomainJoinInput => Volatile.Read(ref domainJoinInput);
     public void Dispose() => TakeDomainJoinInput()?.Dispose();
     public string? FailureMessage { get; init; }
 

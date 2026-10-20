@@ -9,7 +9,6 @@ using Foundry.Deploy.Services.Deployment;
 using System.Globalization;
 using System.Text.Json;
 using Foundry.Utilities.Storage;
-using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Security;
 using DeployDomainJoinSettings = Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings;
@@ -128,9 +127,6 @@ public sealed class DeploymentLaunchPreparationServiceTests
     {
         public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission) =>
             DomainJoinPreparationResult.Ready(input);
-
-        public Task<DomainCredentialCheckResult?> VerifyMediaCredentialsAsync(DeployDomainJoinSettings settings, string? selectedDomainId,
-            IDomainCredentialVerifier verifier, CancellationToken token) => throw new InvalidOperationException("Credentials must not be checked.");
     }
 
     /// <summary>Fails the test when credentials are prepared on a path that must not touch them.</summary>
@@ -138,9 +134,6 @@ public sealed class DeploymentLaunchPreparationServiceTests
     {
         public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission) =>
             throw new InvalidOperationException("Credentials must not be prepared.");
-
-        public Task<DomainCredentialCheckResult?> VerifyMediaCredentialsAsync(DeployDomainJoinSettings settings, string? selectedDomainId,
-            IDomainCredentialVerifier verifier, CancellationToken token) => throw new InvalidOperationException("Credentials must not be checked.");
     }
 
     private static DomainJoinSubmission Submission(string? typedOu = null) =>

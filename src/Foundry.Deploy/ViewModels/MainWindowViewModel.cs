@@ -46,6 +46,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly IApplicationShellService _applicationShellService;
     private readonly IDomainCredentialVerifier _domainCredentialVerifier;
+    private readonly IZeroTouchMediaCredentialCheck _zeroTouchMediaCredentialCheck;
+    private readonly IZeroTouchDomainCredentialCheck _zeroTouchDomainCredentialCheck;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
     private readonly Dispatcher _dispatcher;
@@ -54,6 +56,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly DeploymentWizardNavigationState _wizardNavigationState;
     private DebugAutopilotMode _debugAutopilotMode = DebugAutopilotMode.None;
     private DebugDomainJoinMode _debugDomainJoinMode = DebugDomainJoinMode.None;
+    private DebugDomainCredentialCheckScenario _debugCredentialCheckScenario = DebugDomainCredentialCheckScenario.None;
+    private DebugDomainCredentialVerifier? _debugCredentialVerifier;
+    private bool _isCheckingLaunchCredentials;
     private BootMediaUpdateReason _bootMediaUpdateReason;
     private BootMediaUpdateReason? _debugBootMediaUpdateReasonOverride;
     private bool _isInitialized;
@@ -163,6 +168,23 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public bool IsDebugDomainJoinNoneMode => IsDebugDomainJoinMode(DebugDomainJoinMode.None);
     public bool IsDebugDomainJoinInteractiveMode => IsDebugDomainJoinMode(DebugDomainJoinMode.Interactive);
     public bool IsDebugDomainJoinZeroTouchMode => IsDebugDomainJoinMode(DebugDomainJoinMode.ZeroTouch);
+    public bool IsDebugCredentialCheckNoneScenario => IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario.None);
+    public bool IsDebugCredentialCheckCheckingScenario => IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario.Checking);
+    public bool IsDebugCredentialCheckValidScenario => IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario.Valid);
+    public bool IsDebugCredentialCheckRejectedScenario => IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario.Rejected);
+    public bool IsDebugCredentialCheckAccountLockedScenario => IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario.AccountLocked);
+    public bool IsDebugCredentialCheckPasswordExpiredScenario => IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario.PasswordExpired);
+    public bool IsDebugCredentialCheckAccountDisabledScenario => IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario.AccountDisabled);
+    public bool IsDebugCredentialCheckDomainUnreachableScenario => IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario.DomainUnreachable);
+    public bool IsDebugCredentialCheckInconclusiveScenario => IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario.Inconclusive);
+
+    /// <summary>
+    /// Gets the verifier of the credential check: the domain itself, or in debug safe mode the scripted debug answer, and none
+    /// while no debug answer is chosen, so debug safe mode never contacts a domain.
+    /// </summary>
+    private IDomainCredentialVerifier? CredentialVerifier => IsDebugSafeMode ? _debugCredentialVerifier : _domainCredentialVerifier;
+
+    private IZeroTouchMediaCredentialCheck? ZeroTouchMediaCredentialCheck => IsDebugSafeMode ? _debugCredentialVerifier : _zeroTouchMediaCredentialCheck;
 
     public MainWindowViewModel(
         ILocalizationService localizationService,
@@ -180,6 +202,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IProcessRunner processRunner,
         IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
         IDomainCredentialVerifier domainCredentialVerifier,
+        IZeroTouchMediaCredentialCheck zeroTouchMediaCredentialCheck,
+        IZeroTouchDomainCredentialCheck zeroTouchDomainCredentialCheck,
         ILogger<MainWindowViewModel> logger,
         INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
         : base(localizationService)
@@ -194,6 +218,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _deploymentOrchestrator = deploymentOrchestrator;
         _applicationShellService = applicationShellService;
         _domainCredentialVerifier = domainCredentialVerifier;
+        _zeroTouchMediaCredentialCheck = zeroTouchMediaCredentialCheck;
+        _zeroTouchDomainCredentialCheck = zeroTouchDomainCredentialCheck;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         _deploymentRuntimeContext = deploymentRuntimeContextService.Resolve();
@@ -442,8 +468,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [RelayCommand(CanExecute = nameof(CanGoNext))]
     private async Task NextWizardStepAsync()
     {
-        if (CurrentWizardStepId == DeploymentWizardStepId.DomainJoin && !IsDebugSafeMode &&
-            (!await RunDomainCredentialCheckAsync() || CurrentWizardStepId != DeploymentWizardStepId.DomainJoin))
+        if (CurrentWizardStepId == DeploymentWizardStepId.DomainJoin && CredentialVerifier is { } verifier &&
+            (!await RunDomainCredentialCheckAsync(verifier) || CurrentWizardStepId != DeploymentWizardStepId.DomainJoin))
         {
             return;
         }
@@ -458,7 +484,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// Confirms the Domain Join credentials before the wizard leaves the step or starts a deployment. Logs only the outcome and
     /// numeric codes, never the domain, account, password or server text.
     /// </summary>
-    private async Task<bool> RunDomainCredentialCheckAsync()
+    private async Task<bool> RunDomainCredentialCheckAsync(IDomainCredentialVerifier verifier)
     {
         bool contactsDomain = DomainJoinStep.RequiresCredentials && DomainJoinStep.CredentialCheckState == DomainCredentialCheckState.NotChecked;
         if (contactsDomain)
@@ -466,7 +492,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             _logger.LogInformation("Domain credential check started.");
         }
 
-        bool confirmed = await DomainJoinStep.ConfirmCredentialsAsync(_domainCredentialVerifier, CancellationToken.None);
+        bool confirmed = await DomainJoinStep.ConfirmCredentialsAsync(verifier, CancellationToken.None);
         if (!contactsDomain)
         {
             return confirmed;
@@ -557,7 +583,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ReportLaunchFailure(null);
 
         // Inputs edited from the summary or the step list have not been checked yet.
-        if (!IsDebugSafeMode && HasDomainJoinStep() && DomainJoinStep.NeedsCredentialCheck && !await RunDomainCredentialCheckAsync())
+        if (CredentialVerifier is { } verifier && HasDomainJoinStep() && DomainJoinStep.NeedsCredentialCheck && !await RunDomainCredentialCheckAsync(verifier))
         {
             if (_wizardNavigationState.TryNavigateTo(DeploymentWizardStepId.DomainJoin))
             {
@@ -590,6 +616,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return;
         }
 
+        if (!await CheckZeroTouchCredentialsBeforeStartAsync(launchPreparation))
+        {
+            return;
+        }
+
         // The prepared input now owns its own copy; the wizard keeps no password once a deployment starts.
         RunOnUi(DomainJoinStep.ClearPassword);
 
@@ -619,6 +650,58 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 _deploymentCancellation?.Dispose();
                 _deploymentCancellation = null;
             });
+        }
+    }
+
+    /// <summary>
+    /// Checks the Zero-touch account stored on the media when the Domain Join step holds no current result, before anything
+    /// touches the disk. A refusal reports a launch failure and the deployment does not start. Navigation stays blocked while the
+    /// check waits on the network, and the deployment starts only from the reviewed summary.
+    /// </summary>
+    private async Task<bool> CheckZeroTouchCredentialsBeforeStartAsync(DeploymentLaunchPreparationResult launchPreparation)
+    {
+        if (DomainJoinStep.CredentialCheckState is DomainCredentialCheckState.Valid or DomainCredentialCheckState.WarningAcknowledged)
+        {
+            return true;
+        }
+
+        ZeroTouchDomainCredentialCheckDecision decision;
+        SetCheckingLaunchCredentials(true);
+        try
+        {
+            decision = await _zeroTouchDomainCredentialCheck.CheckAsync(launchPreparation.Context!, launchPreparation.DomainJoinInput, CancellationToken.None);
+        }
+        finally
+        {
+            SetCheckingLaunchCredentials(false);
+        }
+
+        if (decision.FailureResourceKey is { } failure)
+        {
+            ReportLaunchFailure(GetString(failure));
+            return false;
+        }
+
+        return decision.CanStart && CanStartDeployment();
+    }
+
+    private void SetCheckingLaunchCredentials(bool value)
+    {
+        _isCheckingLaunchCredentials = value;
+        UpdateWizardStepStates();
+        PreviousWizardStepCommand.NotifyCanExecuteChanged();
+    }
+
+    /// <summary>Runs the Zero-touch check of the media account while the Domain Join step is shown, never in debug safe mode without a debug answer.</summary>
+    private void UpdateZeroTouchCredentialCheck()
+    {
+        if (CurrentWizardStepId == DeploymentWizardStepId.DomainJoin && CredentialVerifier is { } verifier && ZeroTouchMediaCredentialCheck is { } mediaCheck)
+        {
+            DomainJoinStep.BeginZeroTouchCheck(mediaCheck, verifier, _logger);
+        }
+        else
+        {
+            DomainJoinStep.EndZeroTouchCheck();
         }
     }
 
@@ -763,6 +846,35 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(IsDebugDomainJoinZeroTouchMode));
     }
 
+    [RelayCommand(CanExecute = nameof(CanUseDebugTools))]
+    private void SetDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario scenario)
+    {
+        if (!IsDebugSafeMode)
+        {
+            return;
+        }
+
+        // Releasing the previous answer ends a pending debug check; the reset below discards its result.
+        _debugCredentialVerifier?.Dispose();
+        _debugCredentialCheckScenario = scenario;
+        _debugCredentialVerifier = scenario == DebugDomainCredentialCheckScenario.None ? null : new DebugDomainCredentialVerifier(scenario);
+        DomainJoinStep.EndZeroTouchCheck();
+        ApplyDebugDomainJoinMode(_debugDomainJoinMode);
+        UpdateZeroTouchCredentialCheck();
+        foreach (string name in new[]
+                 {
+                     nameof(IsDebugCredentialCheckNoneScenario), nameof(IsDebugCredentialCheckCheckingScenario), nameof(IsDebugCredentialCheckValidScenario),
+                     nameof(IsDebugCredentialCheckRejectedScenario), nameof(IsDebugCredentialCheckAccountLockedScenario),
+                     nameof(IsDebugCredentialCheckPasswordExpiredScenario), nameof(IsDebugCredentialCheckAccountDisabledScenario),
+                     nameof(IsDebugCredentialCheckDomainUnreachableScenario), nameof(IsDebugCredentialCheckInconclusiveScenario)
+                 })
+        {
+            OnPropertyChanged(name);
+        }
+    }
+
+    private bool IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario scenario) => IsDebugSafeMode && _debugCredentialCheckScenario == scenario;
+
     private bool CanShowDebugPages()
     {
         return IsDebugSafeMode && !IsDeploymentRunning;
@@ -858,7 +970,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload ||
                 Preparation.SelectedAutopilotProfile is not null,
             HasValidDomainJoinInput = !HasDomainJoinStep() || DomainJoinStep.IsValid,
-            IsCheckingDomainCredentials = DomainJoinStep.IsCheckingCredentials,
+            IsCheckingDomainCredentials = DomainJoinStep.IsCheckingCredentials || _isCheckingLaunchCredentials,
             IsCustomImageMode = CustomImages.IsCustom,
             IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && (CustomImages.IsEnabled || OperatingSystemCatalog.IsReadyForNavigation())
         };
@@ -908,6 +1020,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             .First(item => item.step.Id == _wizardNavigationState.CurrentStepId)
             .index;
         UpdateWizardStepStates();
+        UpdateZeroTouchCredentialCheck();
         OnPropertyChanged(nameof(IsReturningToSummary));
         PreviousWizardStepCommand.NotifyCanExecuteChanged();
         NextWizardStepCommand.NotifyCanExecuteChanged();
@@ -921,7 +1034,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             DeploymentWizardStepViewModel step = WizardSteps[index];
             step.IsCurrent = index == WizardStepIndex;
             step.IsCompleted = index < WizardStepIndex || _wizardNavigationState.CanNavigateTo(step.Id) && !step.IsCurrent;
-            step.IsEnabled = _wizardNavigationState.CanNavigateTo(step.Id) && !step.IsCurrent && !DomainJoinStep.IsCheckingCredentials;
+            step.IsEnabled = _wizardNavigationState.CanNavigateTo(step.Id) && !step.IsCurrent && !DomainJoinStep.IsCheckingCredentials &&
+                             !_isCheckingLaunchCredentials;
             step.IsConnectorCompleted = _wizardNavigationState.HasAdvancedPast(step.Id);
         }
     }

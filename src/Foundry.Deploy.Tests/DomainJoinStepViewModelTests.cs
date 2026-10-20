@@ -773,12 +773,9 @@ public sealed class DomainJoinStepViewModelTests
     }
 
     /// <summary>Stands in for the media credential check and records which domain it was asked about.</summary>
-    private sealed class ScriptedMediaCheck(DomainCredentialCheckOutcome? outcome) : IDomainJoinPreparationService
+    private sealed class ScriptedMediaCheck(DomainCredentialCheckOutcome? outcome) : IZeroTouchMediaCredentialCheck
     {
         public List<string?> CheckedDomainIds { get; } = [];
-
-        public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission) =>
-            throw new InvalidOperationException("The step must not prepare a launch.");
 
         public Task<DomainCredentialCheckResult?> VerifyMediaCredentialsAsync(DeployDomainJoinSettings settings, string? selectedDomainId,
             IDomainCredentialVerifier verifier, CancellationToken token)

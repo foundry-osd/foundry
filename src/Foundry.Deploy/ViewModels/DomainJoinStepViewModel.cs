@@ -58,6 +58,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     private char[]? password;
     private int credentialCheckGeneration;
     private ZeroTouchCheckSession? zeroTouchCheck;
+    private int skippedZeroTouchGeneration = -1;
 
     /// <summary>Raised when an input or its validity changes, so the wizard can refresh navigation.</summary>
     public event EventHandler? StateChanged;
@@ -338,9 +339,11 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     /// is chosen. A refusal blocks the step until the technician declines the join; a domain that cannot be reached, or an unclear
     /// answer, only shows a warning, since nothing on the step can correct it. Interactive media never uses this check.
     /// </summary>
-    public void BeginZeroTouchCheck(IDomainJoinPreparationService preparation, IDomainCredentialVerifier verifier, ILogger logger)
+    public void BeginZeroTouchCheck(IZeroTouchMediaCredentialCheck mediaCheck, IDomainCredentialVerifier verifier, ILogger logger)
     {
-        zeroTouchCheck = new(preparation ?? throw new ArgumentNullException(nameof(preparation)),
+        // Navigation refreshes call this repeatedly while the step is shown; only a new pair of dependencies starts a check.
+        if (zeroTouchCheck is { } current && ReferenceEquals(current.MediaCheck, mediaCheck) && ReferenceEquals(current.Verifier, verifier)) return;
+        zeroTouchCheck = new(mediaCheck ?? throw new ArgumentNullException(nameof(mediaCheck)),
             verifier ?? throw new ArgumentNullException(nameof(verifier)), logger ?? throw new ArgumentNullException(nameof(logger)));
         StartZeroTouchCheck();
     }
@@ -350,7 +353,8 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     private void StartZeroTouchCheck()
     {
-        if (zeroTouchCheck is { } session && IsZeroTouchCheckApplicable && CredentialCheckState == DomainCredentialCheckState.NotChecked)
+        if (zeroTouchCheck is { } session && IsZeroTouchCheckApplicable && CredentialCheckState == DomainCredentialCheckState.NotChecked &&
+            skippedZeroTouchGeneration != credentialCheckGeneration)
         {
             _ = RunZeroTouchCheckAsync(session);
         }
@@ -365,7 +369,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         DomainCredentialCheckResult? result;
         try
         {
-            result = await session.Preparation.VerifyMediaCredentialsAsync(settings, domainId, session.Verifier, CancellationToken.None);
+            result = await session.MediaCheck.VerifyMediaCredentialsAsync(settings, domainId, session.Verifier, CancellationToken.None);
         }
         catch (Exception)
         {
@@ -382,6 +386,8 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         if (result is null)
         {
             session.Logger.LogInformation("Zero-touch domain credential check skipped because the media credentials are not available.");
+            // Not retried for the same inputs; the launch preparation reports locked or unusable media itself.
+            skippedZeroTouchGeneration = generation;
             CredentialCheckState = DomainCredentialCheckState.NotChecked;
             return;
         }
@@ -399,7 +405,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     }
 
     /// <summary>Dependencies of the Zero-touch check while the step is shown.</summary>
-    private sealed record ZeroTouchCheckSession(IDomainJoinPreparationService Preparation, IDomainCredentialVerifier Verifier, ILogger Logger);
+    private sealed record ZeroTouchCheckSession(IZeroTouchMediaCredentialCheck MediaCheck, IDomainCredentialVerifier Verifier, ILogger Logger);
 
     partial void OnIsJoinDeclinedChanged(bool value)
     {

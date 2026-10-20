@@ -210,6 +210,63 @@
                             Header="{Binding Strings[Debug.DomainJoin.ZeroTouch]}"
                             IsCheckable="True"
                             IsChecked="{Binding IsDebugDomainJoinZeroTouchMode, Mode=OneWay}" />
+                        <Separator />
+                        <MenuItem Header="{Binding Strings[Debug.DomainJoin.CredentialCheck]}">
+                            <MenuItem
+                                Command="{Binding SetDebugCredentialCheckScenarioCommand}"
+                                CommandParameter="{x:Static runtime:DebugDomainCredentialCheckScenario.None}"
+                                Header="{Binding Strings[Common.None]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugCredentialCheckNoneScenario, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugCredentialCheckScenarioCommand}"
+                                CommandParameter="{x:Static runtime:DebugDomainCredentialCheckScenario.Checking}"
+                                Header="{Binding Strings[Debug.DomainJoin.CredentialCheck.Checking]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugCredentialCheckCheckingScenario, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugCredentialCheckScenarioCommand}"
+                                CommandParameter="{x:Static runtime:DebugDomainCredentialCheckScenario.Valid}"
+                                Header="{Binding Strings[Debug.DomainJoin.CredentialCheck.Valid]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugCredentialCheckValidScenario, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugCredentialCheckScenarioCommand}"
+                                CommandParameter="{x:Static runtime:DebugDomainCredentialCheckScenario.Rejected}"
+                                Header="{Binding Strings[Debug.DomainJoin.CredentialCheck.Rejected]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugCredentialCheckRejectedScenario, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugCredentialCheckScenarioCommand}"
+                                CommandParameter="{x:Static runtime:DebugDomainCredentialCheckScenario.AccountLocked}"
+                                Header="{Binding Strings[Debug.DomainJoin.CredentialCheck.AccountLocked]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugCredentialCheckAccountLockedScenario, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugCredentialCheckScenarioCommand}"
+                                CommandParameter="{x:Static runtime:DebugDomainCredentialCheckScenario.PasswordExpired}"
+                                Header="{Binding Strings[Debug.DomainJoin.CredentialCheck.PasswordExpired]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugCredentialCheckPasswordExpiredScenario, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugCredentialCheckScenarioCommand}"
+                                CommandParameter="{x:Static runtime:DebugDomainCredentialCheckScenario.AccountDisabled}"
+                                Header="{Binding Strings[Debug.DomainJoin.CredentialCheck.AccountDisabled]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugCredentialCheckAccountDisabledScenario, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugCredentialCheckScenarioCommand}"
+                                CommandParameter="{x:Static runtime:DebugDomainCredentialCheckScenario.DomainUnreachable}"
+                                Header="{Binding Strings[Debug.DomainJoin.CredentialCheck.DomainUnreachable]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugCredentialCheckDomainUnreachableScenario, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugCredentialCheckScenarioCommand}"
+                                CommandParameter="{x:Static runtime:DebugDomainCredentialCheckScenario.Inconclusive}"
+                                Header="{Binding Strings[Debug.DomainJoin.CredentialCheck.Inconclusive]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugCredentialCheckInconclusiveScenario, Mode=OneWay}" />
+                        </MenuItem>
                     </MenuItem>
                     <MenuItem Header="{Binding Strings[Debug.CustomImages]}">
                         <MenuItem
