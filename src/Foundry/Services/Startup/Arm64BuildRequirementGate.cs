@@ -25,7 +25,8 @@ internal static class Arm64BuildRequirementGate
 
     /// <summary>
     /// Shows the blocking dialog over the main window and opens the latest release page when the user chooses to download
-    /// the ARM64 build. The caller closes the application once this method returns.
+    /// the ARM64 build, or shows its URL when the browser cannot be opened. The caller closes the application once this
+    /// method returns.
     /// </summary>
     /// <param name="rootElement">Main window root that hosts the dialog; the dialog waits until it is loaded.</param>
     public static async Task ShowBlockingDialogAsync(FrameworkElement rootElement)
@@ -38,7 +39,8 @@ internal static class Arm64BuildRequirementGate
         await WaitUntilLoadedAsync(rootElement);
 
         IApplicationLocalizationService localization = App.GetService<IApplicationLocalizationService>();
-        bool downloadRequested = await App.GetService<IDialogService>().ConfirmAsync(new ConfirmationDialogRequest(
+        IDialogService dialogService = App.GetService<IDialogService>();
+        bool downloadRequested = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
             localization.GetString("Startup.Arm64Required.Title"),
             localization.GetString("Startup.Arm64Required.Message"),
             localization.GetString("Startup.Arm64Required.DownloadButton"),
@@ -54,7 +56,13 @@ internal static class Arm64BuildRequirementGate
         }
         catch (Exception)
         {
-            // The launcher already logged the failure; the blocked application must still close.
+            // The launcher already logged the failure. Show the release URL so the user can still reach the ARM64
+            // installer; the blocked application closes once this dialog is dismissed.
+            await dialogService.ShowMessageAsync(new DialogRequest(
+                localization.GetString("Startup.Arm64Required.Title"),
+                localization.GetString("Startup.Arm64Required.Message") + Environment.NewLine + Environment.NewLine +
+                    FoundryApplicationInfo.LatestReleaseUrl,
+                localization.GetString("Common.Close")));
         }
     }
 
