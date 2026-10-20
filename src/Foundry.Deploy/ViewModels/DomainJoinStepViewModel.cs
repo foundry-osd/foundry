@@ -24,7 +24,10 @@ public enum DomainJoinChoiceKind { ListedDomain, TypedDomain, DoNotJoin }
 /// </summary>
 public sealed record DomainJoinChoice(DomainJoinChoiceKind Kind, string DisplayName, DeployDomainJoinDomainSettings? Domain = null);
 
-/// <summary>Where the check of the typed account and password with the domain stands for the current inputs.</summary>
+/// <summary>
+/// Where the check of the join account with the domain stands for the current inputs: the account and password typed on
+/// Interactive media, or the account stored on Zero-touch media for the chosen domain.
+/// </summary>
 public enum DomainCredentialCheckState
 {
     /// <summary>The current inputs have not been checked.</summary>
@@ -39,10 +42,13 @@ public enum DomainCredentialCheckState
     /// <summary>The domain rejected the current account or password; the step stays blocked until an input changes.</summary>
     Rejected,
 
-    /// <summary>The current inputs could not be checked; the next confirmation continues without a new check.</summary>
+    /// <summary>The current Interactive inputs could not be checked; the next confirmation continues without a new check.</summary>
     Warning,
 
-    /// <summary>The technician continued after a warning for the current inputs.</summary>
+    /// <summary>
+    /// The current inputs could not be checked and the step may be left: the technician confirmed the warning on Interactive
+    /// media, and Zero-touch media never asks, since nothing on the step can correct the stored account.
+    /// </summary>
     WarningAcknowledged
 }
 
@@ -174,7 +180,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     public bool HasCredentialCheckWarning => CredentialCheckState is DomainCredentialCheckState.Warning or DomainCredentialCheckState.WarningAcknowledged;
 
-    /// <summary>Gets the localized rejection or warning shown under the password, or an empty string.</summary>
+    /// <summary>Gets the localized rejection or warning shown below the fields of the step, or an empty string.</summary>
     public string CredentialCheckMessage => settings.Mode == DomainJoinMode.Automatic ? ZeroTouchCredentialCheckMessage : (CredentialCheckState, LastCredentialCheck?.Outcome) switch
     {
         (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.AccountLocked) => LocalizationText.GetString("DomainJoin.AccountLocked"),

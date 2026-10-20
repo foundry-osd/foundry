@@ -481,7 +481,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Confirms the Domain Join credentials before the wizard leaves the step or starts a deployment. Logs only the outcome and
+    /// Confirms the Interactive Domain Join credentials before the wizard leaves the step or starts a deployment. Logs only the outcome and
     /// numeric codes, never the domain, account, password or server text.
     /// </summary>
     private async Task<bool> RunDomainCredentialCheckAsync(IDomainCredentialVerifier verifier)
