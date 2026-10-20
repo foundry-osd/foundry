@@ -7,6 +7,8 @@ namespace Foundry.Deploy.Services.Wizard;
 public interface IDeploymentWizardStateService
 {
     bool CanGoPrevious(DeploymentWizardStateSnapshot snapshot);
+    /// <summary>Gets whether the step list and the summary edit links may move the wizard to another step.</summary>
+    bool CanNavigate(DeploymentWizardStateSnapshot snapshot);
     bool CanGoNext(DeploymentWizardStateSnapshot snapshot);
     bool CanStartDeployment(DeploymentWizardStateSnapshot snapshot);
 }

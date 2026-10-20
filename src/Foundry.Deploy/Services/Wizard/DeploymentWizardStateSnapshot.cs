@@ -22,5 +22,7 @@ public sealed record DeploymentWizardStateSnapshot
     public required bool HasValidAutopilotSelection { get; init; }
     /// <summary>Gets whether the Domain Join step, when present, holds inputs a deployment can start with.</summary>
     public bool HasValidDomainJoinInput { get; init; } = true;
+    /// <summary>Gets whether the Domain Join credentials are being checked; the wizard must stay on its current step meanwhile.</summary>
+    public bool IsCheckingDomainCredentials { get; init; }
     public required bool IsOperatingSystemCatalogReadyForNavigation { get; init; }
 }

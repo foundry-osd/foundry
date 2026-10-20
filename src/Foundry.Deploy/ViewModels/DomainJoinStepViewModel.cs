@@ -258,6 +258,11 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
             if (generation == credentialCheckGeneration) CredentialCheckState = DomainCredentialCheckState.NotChecked;
             return false;
         }
+        catch (Exception)
+        {
+            // A failure that is not a directory answer about the account must warn, never block or stop Deploy.
+            result = new(DomainCredentialCheckOutcome.Inconclusive);
+        }
         finally
         {
             CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(secret.AsSpan()));

@@ -587,6 +587,18 @@ public sealed class DomainJoinStepViewModelTests
     }
 
     [Fact]
+    public async Task UnexpectedVerifierFailureWarnsInsteadOfStoppingDeploy()
+    {
+        var verifier = new ScriptedVerifier(Task.FromException<DomainCredentialCheckResult>(new DllNotFoundException()));
+        using var step = InteractiveStepWithCredentials();
+
+        Assert.False(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        Assert.Equal(DomainCredentialCheckState.Warning, step.CredentialCheckState);
+        Assert.Equal(DomainCredentialCheckOutcome.Inconclusive, step.LastCredentialCheck?.Outcome);
+        Assert.True(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+    }
+
+    [Fact]
     public async Task ResultOfAnOutdatedCheckIsIgnored()
     {
         var pending = new TaskCompletionSource<DomainCredentialCheckResult>(TaskCreationOptions.RunContinuationsAsynchronously);

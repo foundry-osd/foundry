@@ -9,7 +9,13 @@ public sealed class DeploymentWizardStateService : IDeploymentWizardStateService
     public bool CanGoPrevious(DeploymentWizardStateSnapshot snapshot)
     {
         ArgumentNullException.ThrowIfNull(snapshot);
-        return !snapshot.IsDeploymentRunning && GetCurrentStepIndex(snapshot) > 0;
+        return !snapshot.IsDeploymentRunning && !snapshot.IsCheckingDomainCredentials && GetCurrentStepIndex(snapshot) > 0;
+    }
+
+    public bool CanNavigate(DeploymentWizardStateSnapshot snapshot)
+    {
+        ArgumentNullException.ThrowIfNull(snapshot);
+        return !snapshot.IsCheckingDomainCredentials;
     }
 
     public bool CanGoNext(DeploymentWizardStateSnapshot snapshot)

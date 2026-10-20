@@ -442,7 +442,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [RelayCommand(CanExecute = nameof(CanGoNext))]
     private async Task NextWizardStepAsync()
     {
-        if (CurrentWizardStepId == DeploymentWizardStepId.DomainJoin && !IsDebugSafeMode && !await RunDomainCredentialCheckAsync())
+        if (CurrentWizardStepId == DeploymentWizardStepId.DomainJoin && !IsDebugSafeMode &&
+            (!await RunDomainCredentialCheckAsync() || CurrentWizardStepId != DeploymentWizardStepId.DomainJoin))
         {
             return;
         }
@@ -491,7 +492,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [RelayCommand]
     private void NavigateToWizardStep(DeploymentWizardStepViewModel? step)
     {
-        if (step is not null && _wizardNavigationState.TryNavigateTo(step.Id))
+        if (step is not null && CanNavigateWizard() && _wizardNavigationState.TryNavigateTo(step.Id))
         {
             SynchronizeWizardNavigation();
         }
@@ -500,7 +501,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [RelayCommand]
     private void EditSummaryStep(DeploymentWizardStepId stepId)
     {
-        if (_wizardNavigationState.BeginSummaryEdit(stepId))
+        if (CanNavigateWizard() && _wizardNavigationState.BeginSummaryEdit(stepId))
         {
             SynchronizeWizardNavigation();
         }
@@ -563,6 +564,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 SynchronizeWizardNavigation();
             }
 
+            return;
+        }
+
+        // The check awaited the network; start only from the reviewed summary with inputs that are still valid.
+        if (!CanStartDeployment())
+        {
             return;
         }
 
@@ -805,6 +812,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         return _deploymentWizardStateService.CanGoPrevious(BuildWizardStateSnapshot());
     }
 
+    private bool CanNavigateWizard()
+    {
+        return _deploymentWizardStateService.CanNavigate(BuildWizardStateSnapshot());
+    }
+
     private bool CanGoNext()
     {
         return _deploymentWizardStateService.CanGoNext(BuildWizardStateSnapshot());
@@ -846,6 +858,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload ||
                 Preparation.SelectedAutopilotProfile is not null,
             HasValidDomainJoinInput = !HasDomainJoinStep() || DomainJoinStep.IsValid,
+            IsCheckingDomainCredentials = DomainJoinStep.IsCheckingCredentials,
             IsCustomImageMode = CustomImages.IsCustom,
             IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && (CustomImages.IsEnabled || OperatingSystemCatalog.IsReadyForNavigation())
         };
@@ -908,7 +921,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             DeploymentWizardStepViewModel step = WizardSteps[index];
             step.IsCurrent = index == WizardStepIndex;
             step.IsCompleted = index < WizardStepIndex || _wizardNavigationState.CanNavigateTo(step.Id) && !step.IsCurrent;
-            step.IsEnabled = _wizardNavigationState.CanNavigateTo(step.Id) && !step.IsCurrent;
+            step.IsEnabled = _wizardNavigationState.CanNavigateTo(step.Id) && !step.IsCurrent && !DomainJoinStep.IsCheckingCredentials;
             step.IsConnectorCompleted = _wizardNavigationState.HasAdvancedPast(step.Id);
         }
     }
