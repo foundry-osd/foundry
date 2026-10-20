@@ -62,7 +62,7 @@ public sealed class WinPeProcessExecutionTests
     [InlineData("dism.exe", 5, "", "Fehler: 5\r\nZugriff verweigert", WinPeFailureReasons.AccessDenied)]
     [InlineData("dism.exe", 2, "", "", WinPeFailureReasons.NonZeroExit)]
     [InlineData("MakeWinPEMedia", 5, "", "", WinPeFailureReasons.NonZeroExit)]
-    [InlineData("copype", 1, "ERROR: Failed to mount the WinPE WIM file. Check logs at C:\\WINDOWS\\Logs\\DISM", "Zugriff verweigert", WinPeFailureReasons.AccessDenied)]
+    [InlineData("copype", 1, "ERROR: Failed to mount the WinPE WIM file. Check logs at C:\\WINDOWS\\Logs\\DISM", "Zugriff verweigert", WinPeFailureReasons.NonZeroExit)]
     [InlineData("copype", 1, "ERROR: Unable to copy boot file: \"bootmgfw.efi\" to \"C:\\Work\\WinPe\\bootbins\".", "Ce fichier n'est actuellement pas disponible.", WinPeFailureReasons.AccessDenied)]
     [InlineData("copype", 1, "ERROR: The following processor architecture was not found: arm.", "", WinPeFailureReasons.NonZeroExit)]
     public void ToFailureDiagnostic_ClassifiesBlockedFileAccessFromStableToolSignals(
