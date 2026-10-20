@@ -366,8 +366,23 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user lub user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>To konto jest wyłączone lub wygasło w domenie. Użyj innego konta.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Wprowadź konto w formacie DOMAIN\user lub user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>To konto jest zablokowane w domenie. Odblokuj je lub użyj innego konta.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Nie można sprawdzić konta. Wybierz ponownie Dalej, aby kontynuować; błędne hasło ujawniłoby się dopiero po ponownym uruchomieniu.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Sprawdzanie konta w domenie...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domena odrzuciła to konto lub hasło. Sprawdź je i spróbuj ponownie.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domyślna lokalizacja domeny</value>
@@ -390,26 +405,8 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Wprowadź prawidłową nazwę domeny, na przykład corp.contoso.com.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>Sprawdzanie konta w domenie...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>Domena odrzuciła to konto lub hasło. Sprawdź je i spróbuj ponownie.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>To konto jest zablokowane w domenie. Odblokuj je lub użyj innego konta.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>Hasło tego konta wygasło lub musi zostać zmienione. Zmień je, a następnie spróbuj ponownie.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>To konto jest wyłączone lub wygasło w domenie. Użyj innego konta.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>Nie można połączyć się z domeną z tej sieci, więc konto nie zostało sprawdzone. Wybierz ponownie Dalej, aby kontynuować; błędne hasło ujawniłoby się dopiero po ponownym uruchomieniu.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>Nie można sprawdzić konta. Wybierz ponownie Dalej, aby kontynuować; błędne hasło ujawniłoby się dopiero po ponownym uruchomieniu.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Brak informacji o dołączaniu do domeny lub są one nieprawidłowe. Wdrażanie nie zostało rozpoczęte.</value>
@@ -425,6 +422,9 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Hasło</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Hasło tego konta wygasło lub musi zostać zmienione. Zmień je, a następnie spróbuj ponownie.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Dołączanie do domeny</value>

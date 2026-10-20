@@ -366,8 +366,23 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Paskyra (DOMAIN\user arba user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Ši paskyra domene išjungta arba jos galiojimas baigėsi. Naudokite kitą paskyrą.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Įveskite paskyrą formatu DOMAIN\user arba user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Ši paskyra domene užrakinta. Atrakinkite ją arba naudokite kitą paskyrą.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Paskyros patikrinti nepavyko. Norėdami tęsti, dar kartą pasirinkite Kitas; neteisingas slaptažodis paaiškėtų tik po paleidimo iš naujo.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Tikrinama paskyra domene...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domenas atmetė šią paskyrą arba slaptažodį. Patikrinkite juos ir bandykite dar kartą.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Numatytoji domeno vieta</value>
@@ -390,26 +405,8 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Įveskite tinkamą domeno vardą, pvz., corp.contoso.com.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>Tikrinama paskyra domene...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>Domenas atmetė šią paskyrą arba slaptažodį. Patikrinkite juos ir bandykite dar kartą.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>Ši paskyra domene užrakinta. Atrakinkite ją arba naudokite kitą paskyrą.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>Šios paskyros slaptažodžio galiojimas baigėsi arba jį reikia pakeisti. Pakeiskite jį ir bandykite dar kartą.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>Ši paskyra domene išjungta arba jos galiojimas baigėsi. Naudokite kitą paskyrą.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>Domeno nepavyko pasiekti iš šio tinklo, todėl paskyra nebuvo patikrinta. Norėdami tęsti, dar kartą pasirinkite Kitas; neteisingas slaptažodis paaiškėtų tik po paleidimo iš naujo.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>Paskyros patikrinti nepavyko. Norėdami tęsti, dar kartą pasirinkite Kitas; neteisingas slaptažodis paaiškėtų tik po paleidimo iš naujo.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Prisijungimo prie domeno informacijos trūksta arba ji netinkama. Diegimas nepradėtas.</value>
@@ -425,6 +422,9 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Slaptažodis</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Šios paskyros slaptažodžio galiojimas baigėsi arba jį reikia pakeisti. Pakeiskite jį ir bandykite dar kartą.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Prisijungimas prie domeno</value>

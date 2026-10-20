@@ -366,8 +366,23 @@
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>账户（DOMAIN\user 或 user@domain）</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>此账户在域中已禁用或已过期。请使用其他账户。</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>请以 DOMAIN\user 或 user@domain 格式输入账户。</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>此账户在域中已被锁定。请解锁该账户或使用其他账户。</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>无法验证账户。再次选择“下一步”以继续；密码错误只会在重启后才显现。</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>正在向域验证账户...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>域拒绝了此账户或密码。请检查后重试。</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>域默认位置</value>
@@ -390,26 +405,8 @@
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>请输入有效的域名，例如 corp.contoso.com。</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>正在向域验证账户...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>域拒绝了此账户或密码。请检查后重试。</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>此账户在域中已被锁定。请解锁该账户或使用其他账户。</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>此账户的密码已过期或必须更改。请更改密码，然后重试。</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>此账户在域中已禁用或已过期。请使用其他账户。</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>无法从此网络访问该域，因此未验证账户。再次选择“下一步”以继续；密码错误只会在重启后才显现。</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>无法验证账户。再次选择“下一步”以继续；密码错误只会在重启后才显现。</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>域加入信息缺失或无效。部署尚未开始。</value>
@@ -425,6 +422,9 @@
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>密码</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>此账户的密码已过期或必须更改。请更改密码，然后重试。</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>域加入</value>

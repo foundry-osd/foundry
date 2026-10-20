@@ -366,8 +366,23 @@
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>บัญชี (DOMAIN\user หรือ user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>บัญชีนี้ถูกปิดใช้งานหรือหมดอายุในโดเมน ใช้บัญชีอื่น</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>ป้อนบัญชีในรูปแบบ DOMAIN\user หรือ user@domain</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>บัญชีนี้ถูกล็อกในโดเมน ปลดล็อกหรือใช้บัญชีอื่น</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>ไม่สามารถตรวจสอบบัญชีได้ เลือก ถัดไป อีกครั้งเพื่อดำเนินการต่อ รหัสผ่านที่ผิดจะปรากฏหลังการรีสตาร์ทเท่านั้น</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>กำลังตรวจสอบบัญชีกับโดเมน...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>โดเมนปฏิเสธบัญชีหรือรหัสผ่านนี้ ตรวจสอบแล้วลองอีกครั้ง</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>ตำแหน่งเริ่มต้นของโดเมน</value>
@@ -390,26 +405,8 @@
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>ป้อนชื่อโดเมนที่ถูกต้อง เช่น corp.contoso.com</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>กำลังตรวจสอบบัญชีกับโดเมน...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>โดเมนปฏิเสธบัญชีหรือรหัสผ่านนี้ ตรวจสอบแล้วลองอีกครั้ง</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>บัญชีนี้ถูกล็อกในโดเมน ปลดล็อกหรือใช้บัญชีอื่น</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>รหัสผ่านของบัญชีนี้หมดอายุหรือต้องเปลี่ยน เปลี่ยนรหัสผ่านแล้วลองอีกครั้ง</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>บัญชีนี้ถูกปิดใช้งานหรือหมดอายุในโดเมน ใช้บัญชีอื่น</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>ไม่สามารถเข้าถึงโดเมนจากเครือข่ายนี้ได้ จึงไม่ได้ตรวจสอบบัญชี เลือก ถัดไป อีกครั้งเพื่อดำเนินการต่อ รหัสผ่านที่ผิดจะปรากฏหลังการรีสตาร์ทเท่านั้น</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>ไม่สามารถตรวจสอบบัญชีได้ เลือก ถัดไป อีกครั้งเพื่อดำเนินการต่อ รหัสผ่านที่ผิดจะปรากฏหลังการรีสตาร์ทเท่านั้น</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>ข้อมูลการเข้าร่วมโดเมนขาดหายไปหรือไม่ถูกต้อง การปรับใช้ยังไม่เริ่มต้น</value>
@@ -425,6 +422,9 @@
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>รหัสผ่าน</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>รหัสผ่านของบัญชีนี้หมดอายุหรือต้องเปลี่ยน เปลี่ยนรหัสผ่านแล้วลองอีกครั้ง</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>การเข้าร่วมโดเมน</value>

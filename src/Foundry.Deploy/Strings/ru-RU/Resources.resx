@@ -366,8 +366,23 @@
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Учетная запись (DOMAIN\user или user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Эта учетная запись отключена или ее срок действия истек в домене. Используйте другую учетную запись.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Укажите учетную запись в формате DOMAIN\user или user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Эта учетная запись заблокирована в домене. Разблокируйте ее или используйте другую учетную запись.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Не удалось проверить учетную запись. Чтобы продолжить, снова нажмите «Далее»; неверный пароль обнаружится только после перезагрузки.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Проверка учетной записи в домене...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Домен отклонил эту учетную запись или пароль. Проверьте их и повторите попытку.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Расположение домена по умолчанию</value>
@@ -390,26 +405,8 @@
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Укажите допустимое имя домена, например corp.contoso.com.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>Проверка учетной записи в домене...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>Домен отклонил эту учетную запись или пароль. Проверьте их и повторите попытку.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>Эта учетная запись заблокирована в домене. Разблокируйте ее или используйте другую учетную запись.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>Срок действия пароля этой учетной записи истек, или его необходимо сменить. Смените пароль и повторите попытку.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>Эта учетная запись отключена или ее срок действия истек в домене. Используйте другую учетную запись.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>Домен недоступен из этой сети, поэтому учетная запись не проверена. Чтобы продолжить, снова нажмите «Далее»; неверный пароль обнаружится только после перезагрузки.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>Не удалось проверить учетную запись. Чтобы продолжить, снова нажмите «Далее»; неверный пароль обнаружится только после перезагрузки.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Сведения для присоединения к домену отсутствуют или недопустимы. Развертывание не начато.</value>
@@ -425,6 +422,9 @@
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Пароль</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Срок действия пароля этой учетной записи истек, или его необходимо сменить. Смените пароль и повторите попытку.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Присоединение к домену</value>

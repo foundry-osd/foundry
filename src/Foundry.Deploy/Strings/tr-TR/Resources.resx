@@ -366,8 +366,23 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Hesap (DOMAIN\user veya user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Bu hesap etki alanında devre dışı veya süresi dolmuş. Başka bir hesap kullanın.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Hesabı DOMAIN\user veya user@domain biçiminde girin.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Bu hesap etki alanında kilitli. Kilidini açın veya başka bir hesap kullanın.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Hesap denetlenemedi. Devam etmek için yeniden İleri'yi seçin; yanlış bir parola ancak yeniden başlatmadan sonra ortaya çıkar.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Hesap etki alanında denetleniyor...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Etki alanı bu hesabı veya parolayı reddetti. Bunları denetleyip yeniden deneyin.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Etki alanının varsayılan konumu</value>
@@ -390,26 +405,8 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>corp.contoso.com gibi geçerli bir etki alanı adı girin.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>Hesap etki alanında denetleniyor...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>Etki alanı bu hesabı veya parolayı reddetti. Bunları denetleyip yeniden deneyin.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>Bu hesap etki alanında kilitli. Kilidini açın veya başka bir hesap kullanın.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>Bu hesabın parolasının süresi doldu veya parolanın değiştirilmesi gerekiyor. Parolayı değiştirip yeniden deneyin.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>Bu hesap etki alanında devre dışı veya süresi dolmuş. Başka bir hesap kullanın.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>Etki alanına bu ağdan ulaşılamadı, bu nedenle hesap denetlenmedi. Devam etmek için yeniden İleri'yi seçin; yanlış bir parola ancak yeniden başlatmadan sonra ortaya çıkar.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>Hesap denetlenemedi. Devam etmek için yeniden İleri'yi seçin; yanlış bir parola ancak yeniden başlatmadan sonra ortaya çıkar.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Etki alanına katılma bilgileri eksik veya geçersiz. Dağıtım başlamadı.</value>
@@ -425,6 +422,9 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parola</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Bu hesabın parolasının süresi doldu veya parolanın değiştirilmesi gerekiyor. Parolayı değiştirip yeniden deneyin.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Etki alanına katılma</value>

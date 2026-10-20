@@ -366,8 +366,23 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Účet (DOMAIN\user alebo user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Toto konto je v doméne zakázané alebo mu vypršala platnosť. Použite iné konto.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Zadajte účet v tvare DOMAIN\user alebo user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Toto konto je v doméne uzamknuté. Odomknite ho alebo použite iné konto.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Konto sa nepodarilo overiť. Pokračujte opätovným výberom tlačidla Ďalej; nesprávne heslo by sa prejavilo až po reštarte.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Prebieha overenie konta v doméne...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Doména toto konto alebo heslo odmietla. Skontrolujte ich a skúste to znova.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Predvolené umiestnenie domény</value>
@@ -390,26 +405,8 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Zadajte platný názov domény, napríklad corp.contoso.com.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>Prebieha overenie konta v doméne...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>Doména toto konto alebo heslo odmietla. Skontrolujte ich a skúste to znova.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>Toto konto je v doméne uzamknuté. Odomknite ho alebo použite iné konto.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>Platnosť hesla tohto konta vypršala alebo ho treba zmeniť. Zmeňte ho a skúste to znova.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>Toto konto je v doméne zakázané alebo mu vypršala platnosť. Použite iné konto.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>Doména nie je z tejto siete dostupná, preto konto nebolo overené. Pokračujte opätovným výberom tlačidla Ďalej; nesprávne heslo by sa prejavilo až po reštarte.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>Konto sa nepodarilo overiť. Pokračujte opätovným výberom tlačidla Ďalej; nesprávne heslo by sa prejavilo až po reštarte.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Údaje na pripojenie k doméne chýbajú alebo sú neplatné. Nasadenie sa nezačalo.</value>
@@ -425,6 +422,9 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Heslo</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Platnosť hesla tohto konta vypršala alebo ho treba zmeniť. Zmeňte ho a skúste to znova.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pripojenie k doméne</value>

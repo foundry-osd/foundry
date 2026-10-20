@@ -366,8 +366,23 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user oder user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Dieses Konto ist in der Domäne deaktiviert oder abgelaufen. Verwenden Sie ein anderes Konto.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Geben Sie das Konto als DOMAIN\user oder user@domain ein.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Dieses Konto ist in der Domäne gesperrt. Entsperren Sie es, oder verwenden Sie ein anderes Konto.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Das Konto konnte nicht überprüft werden. Wählen Sie erneut Weiter, um fortzufahren; ein falsches Kennwort würde sich erst nach dem Neustart zeigen.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Konto wird bei der Domäne überprüft...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Die Domäne hat dieses Konto oder Kennwort abgelehnt. Überprüfen Sie die Angaben, und versuchen Sie es erneut.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Standardort der Domäne</value>
@@ -390,26 +405,8 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Geben Sie einen gültigen Domänennamen ein, z. B. corp.contoso.com.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>Konto wird bei der Domäne überprüft...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>Die Domäne hat dieses Konto oder Kennwort abgelehnt. Überprüfen Sie die Angaben, und versuchen Sie es erneut.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>Dieses Konto ist in der Domäne gesperrt. Entsperren Sie es, oder verwenden Sie ein anderes Konto.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>Das Kennwort dieses Kontos ist abgelaufen oder muss geändert werden. Ändern Sie es, und versuchen Sie es dann erneut.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>Dieses Konto ist in der Domäne deaktiviert oder abgelaufen. Verwenden Sie ein anderes Konto.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>Die Domäne ist von diesem Netzwerk aus nicht erreichbar, daher wurde das Konto nicht überprüft. Wählen Sie erneut Weiter, um fortzufahren; ein falsches Kennwort würde sich erst nach dem Neustart zeigen.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>Das Konto konnte nicht überprüft werden. Wählen Sie erneut Weiter, um fortzufahren; ein falsches Kennwort würde sich erst nach dem Neustart zeigen.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Die Angaben für den Domänenbeitritt fehlen oder sind ungültig. Die Bereitstellung wurde nicht gestartet.</value>
@@ -425,6 +422,9 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Kennwort</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Das Kennwort dieses Kontos ist abgelaufen oder muss geändert werden. Ändern Sie es, und versuchen Sie es dann erneut.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domänenbeitritt</value>

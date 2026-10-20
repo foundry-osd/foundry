@@ -366,8 +366,23 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user eller user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Denne konto er deaktiveret eller udløbet i domænet. Brug en anden konto.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Angiv kontoen som DOMAIN\user eller user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Denne konto er låst i domænet. Lås den op, eller brug en anden konto.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Kontoen kunne ikke kontrolleres. Vælg Næste igen for at fortsætte; en forkert adgangskode ville først vise sig efter genstarten.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Kontoen kontrolleres i domænet...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domænet afviste denne konto eller adgangskode. Kontrollér dem, og prøv igen.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domænets standardplacering</value>
@@ -390,26 +405,8 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Angiv et gyldigt domænenavn, f.eks. corp.contoso.com.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>Kontoen kontrolleres i domænet...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>Domænet afviste denne konto eller adgangskode. Kontrollér dem, og prøv igen.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>Denne konto er låst i domænet. Lås den op, eller brug en anden konto.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>Adgangskoden til denne konto er udløbet eller skal ændres. Skift den, og prøv derefter igen.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>Denne konto er deaktiveret eller udløbet i domænet. Brug en anden konto.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>Domænet kunne ikke nås fra dette netværk, så kontoen blev ikke kontrolleret. Vælg Næste igen for at fortsætte; en forkert adgangskode ville først vise sig efter genstarten.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>Kontoen kunne ikke kontrolleres. Vælg Næste igen for at fortsætte; en forkert adgangskode ville først vise sig efter genstarten.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Oplysningerne til domænetilslutning mangler eller er ugyldige. Udrulningen er ikke startet.</value>
@@ -425,6 +422,9 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Adgangskode</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Adgangskoden til denne konto er udløbet eller skal ændres. Skift den, og prøv derefter igen.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domænetilslutning</value>

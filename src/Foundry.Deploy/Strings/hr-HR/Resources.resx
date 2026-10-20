@@ -366,8 +366,23 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Račun (DOMAIN\user ili user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Ovaj je račun onemogućen ili istekao u domeni. Upotrijebite drugi račun.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Unesite račun u obliku DOMAIN\user ili user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Ovaj je račun zaključan u domeni. Otključajte ga ili upotrijebite drugi račun.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Račun nije moguće provjeriti. Ponovno odaberite Dalje za nastavak; pogrešna lozinka pokazala bi se tek nakon ponovnog pokretanja.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Provjera računa u domeni...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domena je odbila ovaj račun ili lozinku. Provjerite ih i pokušajte ponovno.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Zadano mjesto domene</value>
@@ -390,26 +405,8 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Unesite valjan naziv domene, na primjer corp.contoso.com.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>Provjera računa u domeni...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>Domena je odbila ovaj račun ili lozinku. Provjerite ih i pokušajte ponovno.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>Ovaj je račun zaključan u domeni. Otključajte ga ili upotrijebite drugi račun.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>Lozinka ovog računa je istekla ili je treba promijeniti. Promijenite je, a zatim pokušajte ponovno.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>Ovaj je račun onemogućen ili istekao u domeni. Upotrijebite drugi račun.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>Domena nije dostupna iz ove mreže pa račun nije provjeren. Ponovno odaberite Dalje za nastavak; pogrešna lozinka pokazala bi se tek nakon ponovnog pokretanja.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>Račun nije moguće provjeriti. Ponovno odaberite Dalje za nastavak; pogrešna lozinka pokazala bi se tek nakon ponovnog pokretanja.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Podaci za pridruživanje domeni nedostaju ili nisu valjani. Implementacija nije započela.</value>
@@ -425,6 +422,9 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Lozinka</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Lozinka ovog računa je istekla ili je treba promijeniti. Promijenite je, a zatim pokušajte ponovno.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pridruživanje domeni</value>

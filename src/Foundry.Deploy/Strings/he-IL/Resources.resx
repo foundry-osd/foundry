@@ -366,8 +366,23 @@ ErrorCode=0x80070005
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>חשבון (DOMAIN\user או user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>חשבון זה מושבת או שתוקפו פג בתחום. השתמש בחשבון אחר.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>הזן את החשבון בתבנית DOMAIN\user או user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>חשבון זה נעול בתחום. בטל את הנעילה או השתמש בחשבון אחר.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>לא ניתן היה לבדוק את החשבון. בחר שוב 'הבא' כדי להמשיך; סיסמה שגויה תתגלה רק לאחר ההפעלה מחדש.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>בודק את החשבון מול התחום...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>התחום דחה את החשבון או את הסיסמה. בדוק אותם ונסה שוב.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>מיקום ברירת המחדל של התחום</value>
@@ -390,26 +405,8 @@ ErrorCode=0x80070005
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>הזן שם תחום תקין, כגון corp.contoso.com.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>בודק את החשבון מול התחום...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>התחום דחה את החשבון או את הסיסמה. בדוק אותם ונסה שוב.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>חשבון זה נעול בתחום. בטל את הנעילה או השתמש בחשבון אחר.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>תוקף הסיסמה של חשבון זה פג או שיש לשנות אותה. שנה אותה ונסה שוב.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>חשבון זה מושבת או שתוקפו פג בתחום. השתמש בחשבון אחר.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>לא ניתן היה להגיע לתחום מרשת זו, ולכן החשבון לא נבדק. בחר שוב 'הבא' כדי להמשיך; סיסמה שגויה תתגלה רק לאחר ההפעלה מחדש.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>לא ניתן היה לבדוק את החשבון. בחר שוב 'הבא' כדי להמשיך; סיסמה שגויה תתגלה רק לאחר ההפעלה מחדש.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>פרטי ההצטרפות לתחום חסרים או אינם תקינים. הפריסה לא התחילה.</value>
@@ -425,6 +422,9 @@ ErrorCode=0x80070005
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>סיסמה</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>תוקף הסיסמה של חשבון זה פג או שיש לשנות אותה. שנה אותה ונסה שוב.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>הצטרפות לתחום</value>

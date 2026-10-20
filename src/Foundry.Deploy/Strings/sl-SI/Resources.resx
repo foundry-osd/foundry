@@ -366,8 +366,23 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Račun (DOMAIN\user ali user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Ta račun je v domeni onemogočen ali potekel. Uporabite drug račun.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Račun vnesite v obliki DOMAIN\user ali user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Ta račun je v domeni zaklenjen. Odklenite ga ali uporabite drug račun.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Računa ni bilo mogoče preveriti. Za nadaljevanje znova izberite Naprej; napačno geslo bi se pokazalo šele po vnovičnem zagonu.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Preverjanje računa v domeni...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domena je zavrnila ta račun ali geslo. Preverite ju in poskusite znova.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Privzeto mesto domene</value>
@@ -390,26 +405,8 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Vnesite veljavno ime domene, na primer corp.contoso.com.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>Preverjanje računa v domeni...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>Domena je zavrnila ta račun ali geslo. Preverite ju in poskusite znova.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>Ta račun je v domeni zaklenjen. Odklenite ga ali uporabite drug račun.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>Geslo tega računa je poteklo ali ga je treba spremeniti. Spremenite ga in poskusite znova.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>Ta račun je v domeni onemogočen ali potekel. Uporabite drug račun.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>Domena iz tega omrežja ni dosegljiva, zato račun ni bil preverjen. Za nadaljevanje znova izberite Naprej; napačno geslo bi se pokazalo šele po vnovičnem zagonu.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>Računa ni bilo mogoče preveriti. Za nadaljevanje znova izberite Naprej; napačno geslo bi se pokazalo šele po vnovičnem zagonu.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Podatki za pridružitev domeni manjkajo ali niso veljavni. Uvajanje se ni začelo.</value>
@@ -425,6 +422,9 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Geslo</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Geslo tega računa je poteklo ali ga je treba spremeniti. Spremenite ga in poskusite znova.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pridružitev domeni</value>

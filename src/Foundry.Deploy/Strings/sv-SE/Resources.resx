@@ -366,8 +366,23 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user eller user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Det här kontot är inaktiverat eller har gått ut i domänen. Använd ett annat konto.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Ange kontot som DOMAIN\user eller user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Det här kontot är utelåst i domänen. Lås upp det eller använd ett annat konto.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Kontot kunde inte kontrolleras. Välj Nästa igen för att fortsätta; ett felaktigt lösenord skulle visa sig först efter omstarten.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Kontot kontrolleras mot domänen...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domänen avvisade det här kontot eller lösenordet. Kontrollera dem och försök igen.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domänens standardplats</value>
@@ -390,26 +405,8 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Ange ett giltigt domännamn, till exempel corp.contoso.com.</value>
   </data>
-  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
-    <value>Kontot kontrolleras mot domänen...</value>
-  </data>
-  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
-    <value>Domänen avvisade det här kontot eller lösenordet. Kontrollera dem och försök igen.</value>
-  </data>
-  <data name="DomainJoin.AccountLocked" xml:space="preserve">
-    <value>Det här kontot är utelåst i domänen. Lås upp det eller använd ett annat konto.</value>
-  </data>
-  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
-    <value>Lösenordet för det här kontot har gått ut eller måste ändras. Ändra det och försök sedan igen.</value>
-  </data>
-  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
-    <value>Det här kontot är inaktiverat eller har gått ut i domänen. Använd ett annat konto.</value>
-  </data>
   <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
     <value>Domänen kunde inte nås från det här nätverket, så kontot kontrollerades inte. Välj Nästa igen för att fortsätta; ett felaktigt lösenord skulle visa sig först efter omstarten.</value>
-  </data>
-  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
-    <value>Kontot kunde inte kontrolleras. Välj Nästa igen för att fortsätta; ett felaktigt lösenord skulle visa sig först efter omstarten.</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Uppgifterna för domänanslutning saknas eller är ogiltiga. Distributionen har inte startat.</value>
@@ -425,6 +422,9 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Lösenord</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Lösenordet för det här kontot har gått ut eller måste ändras. Ändra det och försök sedan igen.</value>
   </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domänanslutning</value>
