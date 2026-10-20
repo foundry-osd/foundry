@@ -69,7 +69,7 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             .SearchAsync(firmwareHardwareId, descending: true, cancellationToken: cancellationToken)
             .ConfigureAwait(false);
 
-        MicrosoftUpdateCatalogUpdate? update = updates.FirstOrDefault();
+        MicrosoftUpdateCatalogUpdate? update = MicrosoftUpdateCatalogSupport.SelectPreferredUpdate(updates, targetArchitecture);
         if (update is null)
         {
             return new MicrosoftUpdateCatalogFirmwareResult
@@ -87,6 +87,23 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         MicrosoftUpdateCatalogDownload? selectedDownload = MicrosoftUpdateCatalogSupport.SelectPreferredCab(downloads, targetArchitecture);
         if (selectedDownload is null)
         {
+            if (MicrosoftUpdateCatalogSupport.HasOnlyConflictingCabs(downloads, targetArchitecture))
+            {
+                string normalizedArchitecture = MicrosoftUpdateCatalogSupport.NormalizeArchitecture(targetArchitecture);
+                _logger.LogWarning(
+                    "Skipping Microsoft Update Catalog firmware update because every CAB payload targets another architecture. UpdateId={UpdateId}, Title={Title}, TargetArchitecture={TargetArchitecture}",
+                    update.UpdateId,
+                    update.Title,
+                    normalizedArchitecture);
+                return new MicrosoftUpdateCatalogFirmwareResult
+                {
+                    DownloadedDirectory = rawDirectory,
+                    UpdateId = update.UpdateId,
+                    Title = update.Title,
+                    Message = $"Firmware update '{update.Title}' was found, but no CAB payload targets architecture '{normalizedArchitecture}'."
+                };
+            }
+
             return new MicrosoftUpdateCatalogFirmwareResult
             {
                 DownloadedDirectory = rawDirectory,

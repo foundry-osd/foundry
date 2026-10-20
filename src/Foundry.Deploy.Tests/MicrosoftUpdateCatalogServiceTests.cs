@@ -9,6 +9,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.System;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -234,6 +235,101 @@ public sealed class MicrosoftUpdateCatalogServiceTests
     }
 
     [Fact]
+    public async Task DriverDownload_WhenEveryCabTargetsAnotherArchitecture_SkipsUpdateWithWarning()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        var downloadService = new CapturingArtifactDownloadService();
+        var logger = new WarningRecordingLogger<MicrosoftUpdateCatalogDriverService>();
+        var service = new MicrosoftUpdateCatalogDriverService(new FakeArchiveExtractionService(),
+            new FakeMicrosoftUpdateCatalogClient { CabFileNames = ["driver-amd64.cab", "driver-x86.cab"] }, downloadService, logger);
+
+        MicrosoftUpdateCatalogDriverResult result = await service.DownloadAsync(
+            CreateHardwareProfile(), new OperatingSystemCatalogItem { ReleaseId = "24H2", Architecture = "ARM64" },
+            Path.Combine(temp.Path, "raw"), (_, _) => Path.Combine(temp.Path, "cache"), TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsPayloadAvailable);
+        Assert.Empty(result.DownloadedDrivers);
+        Assert.Null(downloadService.DestinationPath);
+        Assert.Equal("arm64", Assert.Single(logger.Warnings)["TargetArchitecture"]);
+    }
+
+    [Fact]
+    public async Task DriverDownload_WhenCatalogOffersSeveralArchitectures_DownloadsTargetArchitectureCab()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        var service = new MicrosoftUpdateCatalogDriverService(new FakeArchiveExtractionService(),
+            new FakeMicrosoftUpdateCatalogClient { CabFileNames = ["driver-amd64.cab", "driver-arm64.cab"] },
+            new CapturingArtifactDownloadService(), NullLogger<MicrosoftUpdateCatalogDriverService>.Instance);
+
+        MicrosoftUpdateCatalogDriverResult result = await service.DownloadAsync(
+            CreateHardwareProfile(), new OperatingSystemCatalogItem { ReleaseId = "24H2", Architecture = "ARM64" },
+            Path.Combine(temp.Path, "raw"), (_, _) => Path.Combine(temp.Path, "cache"), TestContext.Current.CancellationToken);
+
+        Assert.Equal("https://example.test/driver-arm64.cab", Assert.Single(result.DownloadedDrivers).DownloadUrl);
+    }
+
+    [Fact]
+    public async Task DriverDownload_PrefersNewestSearchResultWithoutConflictingArchitecture()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        var catalogClient = new FakeMicrosoftUpdateCatalogClient
+        {
+            Updates =
+            [
+                new MicrosoftUpdateCatalogUpdate { UpdateId = "update-x64", Title = "Vendor - Net - 2.0 (x64)" },
+                new MicrosoftUpdateCatalogUpdate { UpdateId = "update-arm64", Title = "Vendor - Net - 1.0 (ARM64)" }
+            ],
+            CabFileNamesByUpdateId = updateId => updateId == "update-arm64" ? ["driver-arm64.cab"] : ["driver-amd64.cab"]
+        };
+        var service = new MicrosoftUpdateCatalogDriverService(new FakeArchiveExtractionService(), catalogClient,
+            new CapturingArtifactDownloadService(), NullLogger<MicrosoftUpdateCatalogDriverService>.Instance);
+
+        MicrosoftUpdateCatalogDriverResult result = await service.DownloadAsync(
+            CreateHardwareProfile(), new OperatingSystemCatalogItem { ReleaseId = "24H2", Architecture = "ARM64" },
+            Path.Combine(temp.Path, "raw"), (_, _) => Path.Combine(temp.Path, "cache"), TestContext.Current.CancellationToken);
+
+        MicrosoftUpdateCatalogDownloadedDriver driver = Assert.Single(result.DownloadedDrivers);
+        Assert.Equal("update-arm64", driver.UpdateId);
+        Assert.Equal("https://example.test/driver-arm64.cab", driver.DownloadUrl);
+    }
+
+    [Fact]
+    public async Task FirmwareDownload_WhenEveryCabTargetsAnotherArchitecture_SkipsUpdateWithWarning()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        var downloadService = new CapturingArtifactDownloadService();
+        var logger = new WarningRecordingLogger<MicrosoftUpdateCatalogFirmwareService>();
+        var service = new MicrosoftUpdateCatalogFirmwareService(new FakeArchiveExtractionService(),
+            new FakeMicrosoftUpdateCatalogClient { CabFileNames = ["firmware-x64.cab"] }, downloadService, logger);
+
+        MicrosoftUpdateCatalogFirmwareResult result = await service.DownloadAsync(
+            new HardwareProfile { SystemFirmwareHardwareId = "UEFI\\RES_{FIRMWARE}" }, "ARM64", Path.Combine(temp.Path, "raw"),
+            (_, _) => Path.Combine(temp.Path, "cache"), TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsUpdateAvailable);
+        Assert.Equal("update-1", result.UpdateId);
+        Assert.Null(downloadService.DestinationPath);
+        Assert.Equal("arm64", Assert.Single(logger.Warnings)["TargetArchitecture"]);
+    }
+
+    [Fact]
+    public async Task FirmwareDownload_WhenCatalogOffersSeveralArchitectures_DownloadsTargetArchitectureCab()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string rawDirectory = Path.Combine(temp.Path, "raw");
+        var service = new MicrosoftUpdateCatalogFirmwareService(new FakeArchiveExtractionService(),
+            new FakeMicrosoftUpdateCatalogClient { CabFileNames = ["firmware-x64.cab", "firmware-arm64.cab"] },
+            new CapturingArtifactDownloadService(), NullLogger<MicrosoftUpdateCatalogFirmwareService>.Instance);
+
+        MicrosoftUpdateCatalogFirmwareResult result = await service.DownloadAsync(
+            new HardwareProfile { SystemFirmwareHardwareId = "UEFI\\RES_{FIRMWARE}" }, "ARM64", rawDirectory,
+            (_, _) => Path.Combine(temp.Path, "cache"), TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsUpdateAvailable);
+        Assert.True(File.Exists(Path.Combine(rawDirectory, "update-1", "firmware-arm64.cab")));
+    }
+
+    [Fact]
     public async Task DriverExpand_UsesOnlySelectedCabsAndKeepsSameNamedPayloadsSeparate()
     {
         using TempDirectory temp = TempDirectory.Create();
@@ -304,6 +400,9 @@ public sealed class MicrosoftUpdateCatalogServiceTests
         public string Sha1 { get; init; } = new('A', 40);
         public long SizeInBytes { get; init; } = 1;
         public bool IsAvailable { get; init; } = true;
+        public IReadOnlyList<MicrosoftUpdateCatalogUpdate>? Updates { get; init; }
+        public IReadOnlyList<string> CabFileNames { get; init; } = ["driver-amd64.cab"];
+        public Func<string, IReadOnlyList<string>>? CabFileNamesByUpdateId { get; init; }
 
         public Task<bool> IsAvailableAsync(CancellationToken cancellationToken = default)
         {
@@ -315,7 +414,7 @@ public sealed class MicrosoftUpdateCatalogServiceTests
             bool descending = true,
             CancellationToken cancellationToken = default)
         {
-            IReadOnlyList<MicrosoftUpdateCatalogUpdate> updates =
+            IReadOnlyList<MicrosoftUpdateCatalogUpdate> updates = Updates ??
             [
                 new MicrosoftUpdateCatalogUpdate
                 {
@@ -334,16 +433,16 @@ public sealed class MicrosoftUpdateCatalogServiceTests
             string updateId,
             CancellationToken cancellationToken = default)
         {
-            IReadOnlyList<MicrosoftUpdateCatalogDownload> downloads =
-            [
-                new MicrosoftUpdateCatalogDownload
+            IReadOnlyList<string> fileNames = CabFileNamesByUpdateId?.Invoke(updateId) ?? CabFileNames;
+            IReadOnlyList<MicrosoftUpdateCatalogDownload> downloads = fileNames
+                .Select(fileName => new MicrosoftUpdateCatalogDownload
                 {
-                    DownloadUrl = "https://example.test/driver-amd64.cab",
-                    FileName = "driver-amd64.cab",
+                    DownloadUrl = $"https://example.test/{fileName}",
+                    FileName = fileName,
                     Sha1 = Sha1,
                     Sha256 = Sha256
-                }
-            ];
+                })
+                .ToArray();
 
             return Task.FromResult(downloads);
         }
@@ -396,6 +495,25 @@ public sealed class MicrosoftUpdateCatalogServiceTests
             if (Path.GetFileName(archivePath) != EmptyFileName) File.WriteAllText(Path.Combine(extractedPath, "driver.inf"), "; test");
             progress?.Report(100d);
             return Task.CompletedTask;
+        }
+    }
+
+    private sealed class WarningRecordingLogger<T> : ILogger<T>
+    {
+        public List<IReadOnlyDictionary<string, object?>> Warnings { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state)
+            where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            if (logLevel == LogLevel.Warning && state is IReadOnlyList<KeyValuePair<string, object?>> properties)
+            {
+                Warnings.Add(properties.ToDictionary(property => property.Key, property => property.Value));
+            }
         }
     }
 
