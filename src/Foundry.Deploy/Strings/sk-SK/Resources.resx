@@ -432,6 +432,24 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Túto edíciu systému Windows nemožno pripojiť k doméne. Inštalácia systému Windows pokračuje bez pripojenia.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Konto na pripojenie uložené na médiu je v doméne zakázané alebo mu vypršala platnosť. Nasadenie sa nezačalo. Správca musí vo Foundry OSD nastaviť iné konto a médium vytvoriť znova.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Konto na pripojenie uložené na médiu je v doméne uzamknuté. Nasadenie sa nezačalo. Odomknite konto alebo požiadajte správcu, aby vo Foundry OSD nastavil iné konto a médium vytvoril znova.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Konto na pripojenie uložené na médiu sa nepodarilo overiť. Nesprávne heslo by sa prejavilo až po reštarte.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Doména odmietla konto na pripojenie uložené na médiu. Nasadenie sa nezačalo. Správca musí konto opraviť vo Foundry OSD a médium vytvoriť znova.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Doména nie je z tejto siete dostupná, preto konto na pripojenie uložené na médiu nebolo overené. Nesprávne heslo by sa prejavilo až po reštarte.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Platnosť hesla konta na pripojenie uloženého na médiu vypršala alebo ho treba zmeniť. Nasadenie sa nezačalo. Správca musí heslo aktualizovať vo Foundry OSD a médium vytvoriť znova.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

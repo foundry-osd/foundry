@@ -432,6 +432,24 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Te izdaje sistema Windows ni mogoče pridružiti domeni. Namestitev sistema Windows se nadaljuje brez pridružitve.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Račun za pridružitev, shranjen na mediju, je v domeni onemogočen ali potekel. Uvajanje se ni začelo. Skrbnik mora v Foundry OSD nastaviti drug račun in znova ustvariti medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Račun za pridružitev, shranjen na mediju, je v domeni zaklenjen. Uvajanje se ni začelo. Odklenite račun ali prosite skrbnika, naj v Foundry OSD nastavi drug račun in znova ustvari medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Računa za pridružitev, shranjenega na mediju, ni bilo mogoče preveriti. Napačno geslo bi se pokazalo šele po vnovičnem zagonu.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domena je zavrnila račun za pridružitev, shranjen na mediju. Uvajanje se ni začelo. Skrbnik mora popraviti račun v Foundry OSD in znova ustvariti medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domena iz tega omrežja ni dosegljiva, zato račun za pridružitev, shranjen na mediju, ni bil preverjen. Napačno geslo bi se pokazalo šele po vnovičnem zagonu.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Geslo računa za pridružitev, shranjenega na mediju, je poteklo ali ga je treba spremeniti. Uvajanje se ni začelo. Skrbnik mora posodobiti geslo v Foundry OSD in znova ustvariti medij.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

@@ -432,6 +432,24 @@
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Эта редакция Windows не может присоединиться к домену. Установка Windows продолжается без присоединения.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Учетная запись для присоединения, сохраненная на носителе, отключена или ее срок действия истек в домене. Развертывание не начато. Администратор должен задать другую учетную запись в Foundry OSD и создать носитель заново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Учетная запись для присоединения, сохраненная на носителе, заблокирована в домене. Развертывание не начато. Разблокируйте учетную запись или попросите администратора задать другую учетную запись в Foundry OSD и создать носитель заново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Не удалось проверить учетную запись для присоединения, сохраненную на носителе. Неверный пароль обнаружится только после перезагрузки.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Домен отклонил учетную запись для присоединения, сохраненную на носителе. Развертывание не начато. Администратор должен исправить учетную запись в Foundry OSD и создать носитель заново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Домен недоступен из этой сети, поэтому учетная запись для присоединения, сохраненная на носителе, не проверена. Неверный пароль обнаружится только после перезагрузки.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Срок действия пароля учетной записи для присоединения, сохраненной на носителе, истек, или его необходимо сменить. Развертывание не начато. Администратор должен обновить пароль в Foundry OSD и создать носитель заново.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

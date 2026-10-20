@@ -432,6 +432,24 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Šo Windows izdevumu nevar pievienot domēnam. Windows instalēšana turpinās bez pievienošanās domēnam.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Datu nesējā saglabātais pievienošanās konts domēnā ir atspējots vai tam ir beidzies derīgums. Izvietošana nav sākta. Administratoram programmā Foundry OSD ir jāiestata cits konts un jāizveido datu nesējs no jauna.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Datu nesējā saglabātais pievienošanās konts domēnā ir bloķēts. Izvietošana nav sākta. Atbloķējiet kontu vai lūdziet administratoram programmā Foundry OSD iestatīt citu kontu un izveidot datu nesēju no jauna.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Datu nesējā saglabāto pievienošanās kontu nevarēja pārbaudīt. Nepareiza parole atklātos tikai pēc restartēšanas.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domēns noraidīja datu nesējā saglabāto pievienošanās kontu. Izvietošana nav sākta. Administratoram ir jāizlabo konts programmā Foundry OSD un jāizveido datu nesējs no jauna.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domēns nav sasniedzams no šī tīkla, tāpēc datu nesējā saglabātais pievienošanās konts netika pārbaudīts. Nepareiza parole atklātos tikai pēc restartēšanas.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Datu nesējā saglabātā pievienošanās konta parolei ir beidzies derīgums, vai tā ir jāmaina. Izvietošana nav sākta. Administratoram ir jāatjaunina parole programmā Foundry OSD un jāizveido datu nesējs no jauna.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

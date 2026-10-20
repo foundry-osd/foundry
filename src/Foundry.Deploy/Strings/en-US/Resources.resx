@@ -432,6 +432,24 @@ Action: Verify disk attributes and retry deployment.</value>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>This Windows edition cannot join a domain. Windows installation continues without it.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>The join account stored on the media is disabled or expired in the domain. Deployment has not started. The administrator must set another account in Foundry OSD and create the media again.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>The join account stored on the media is locked out in the domain. Deployment has not started. Unlock the account, or have the administrator set another account in Foundry OSD and create the media again.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>The join account stored on the media could not be checked. A wrong password would only show after the restart.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>The domain rejected the join account stored on the media. Deployment has not started. The administrator must correct the account in Foundry OSD and create the media again.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>The domain could not be reached from this network, so the join account stored on the media was not checked. A wrong password would only show after the restart.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>The password of the join account stored on the media has expired or must be changed. Deployment has not started. The administrator must update the password in Foundry OSD and create the media again.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

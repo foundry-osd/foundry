@@ -432,6 +432,24 @@ ErrorCode=0x80070005
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>此 Windows 版本無法加入網域。Windows 安裝將繼續進行，不會加入網域。</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>媒體上儲存的加入帳戶在網域中已停用或已過期。部署尚未開始。系統管理員必須在 Foundry OSD 中設定其他帳戶並重新建立媒體。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>媒體上儲存的加入帳戶在網域中已遭鎖定。部署尚未開始。請解除鎖定該帳戶，或請系統管理員在 Foundry OSD 中設定其他帳戶並重新建立媒體。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>無法驗證媒體上儲存的加入帳戶。密碼錯誤只會在重新啟動後才顯現。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>網域拒絕了媒體上儲存的加入帳戶。部署尚未開始。系統管理員必須在 Foundry OSD 中更正該帳戶並重新建立媒體。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>無法從此網路連線到網域，因此未驗證媒體上儲存的加入帳戶。密碼錯誤只會在重新啟動後才顯現。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>媒體上儲存的加入帳戶密碼已過期或必須變更。部署尚未開始。系統管理員必須在 Foundry OSD 中更新密碼並重新建立媒體。</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

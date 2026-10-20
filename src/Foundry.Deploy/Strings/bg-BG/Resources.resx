@@ -432,6 +432,24 @@
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Това издание на Windows не може да се присъедини към домейн. Инсталирането на Windows продължава без присъединяване.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Акаунтът за присъединяване, записан на носителя, е забранен или изтекъл в домейна. Разполагането не е започнало. Администраторът трябва да зададе друг акаунт във Foundry OSD и да създаде носителя отново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Акаунтът за присъединяване, записан на носителя, е заключен в домейна. Разполагането не е започнало. Отключете акаунта или помолете администратора да зададе друг акаунт във Foundry OSD и да създаде носителя отново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Акаунтът за присъединяване, записан на носителя, не можа да бъде проверен. Грешна парола би се проявила едва след рестартирането.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Домейнът отхвърли акаунта за присъединяване, записан на носителя. Разполагането не е започнало. Администраторът трябва да коригира акаунта във Foundry OSD и да създаде носителя отново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Домейнът не е достъпен от тази мрежа, затова акаунтът за присъединяване, записан на носителя, не беше проверен. Грешна парола би се проявила едва след рестартирането.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Паролата на акаунта за присъединяване, записан на носителя, е изтекла или трябва да бъде сменена. Разполагането не е започнало. Администраторът трябва да актуализира паролата във Foundry OSD и да създаде носителя отново.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

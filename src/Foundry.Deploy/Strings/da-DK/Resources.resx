@@ -432,6 +432,24 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Denne Windows-udgave kan ikke tilsluttes et domæne. Installationen af Windows fortsætter uden.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Tilslutningskontoen, der er gemt på mediet, er deaktiveret eller udløbet i domænet. Udrulningen er ikke startet. Administratoren skal angive en anden konto i Foundry OSD og oprette mediet igen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Tilslutningskontoen, der er gemt på mediet, er låst i domænet. Udrulningen er ikke startet. Lås kontoen op, eller få administratoren til at angive en anden konto i Foundry OSD og oprette mediet igen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Tilslutningskontoen, der er gemt på mediet, kunne ikke kontrolleres. En forkert adgangskode ville først vise sig efter genstarten.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domænet afviste tilslutningskontoen, der er gemt på mediet. Udrulningen er ikke startet. Administratoren skal rette kontoen i Foundry OSD og oprette mediet igen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domænet kunne ikke nås fra dette netværk, så tilslutningskontoen, der er gemt på mediet, blev ikke kontrolleret. En forkert adgangskode ville først vise sig efter genstarten.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Adgangskoden til tilslutningskontoen, der er gemt på mediet, er udløbet eller skal ændres. Udrulningen er ikke startet. Administratoren skal opdatere adgangskoden i Foundry OSD og oprette mediet igen.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

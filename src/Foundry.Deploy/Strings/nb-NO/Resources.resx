@@ -432,6 +432,24 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Denne Windows-utgaven kan ikke knyttes til et domene. Windows-installasjonen fortsetter uten domenetilknytning.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Tilknytningskontoen som er lagret på mediet, er deaktivert eller utløpt i domenet. Distribusjonen har ikke startet. Administratoren må angi en annen konto i Foundry OSD og opprette mediet på nytt.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Tilknytningskontoen som er lagret på mediet, er låst i domenet. Distribusjonen har ikke startet. Lås opp kontoen, eller be administratoren angi en annen konto i Foundry OSD og opprette mediet på nytt.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Tilknytningskontoen som er lagret på mediet, kunne ikke kontrolleres. Et feil passord ville først vises etter omstarten.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domenet avviste tilknytningskontoen som er lagret på mediet. Distribusjonen har ikke startet. Administratoren må rette kontoen i Foundry OSD og opprette mediet på nytt.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domenet kunne ikke nås fra dette nettverket, så tilknytningskontoen som er lagret på mediet, ble ikke kontrollert. Et feil passord ville først vises etter omstarten.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Passordet til tilknytningskontoen som er lagret på mediet, er utløpt eller må endres. Distribusjonen har ikke startet. Administratoren må oppdatere passordet i Foundry OSD og opprette mediet på nytt.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

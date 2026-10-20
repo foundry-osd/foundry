@@ -432,6 +432,24 @@
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>لا يمكن لإصدار Windows هذا الانضمام إلى نطاق. سيستمر تثبيت Windows دون ذلك.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>حساب الانضمام المخزّن على الوسائط معطّل أو منتهي الصلاحية في النطاق. لم يبدأ النشر. يجب على المسؤول تعيين حساب آخر في Foundry OSD وإنشاء الوسائط مرة أخرى.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>حساب الانضمام المخزّن على الوسائط مؤمّن في النطاق. لم يبدأ النشر. ألغِ تأمين الحساب، أو اطلب من المسؤول تعيين حساب آخر في Foundry OSD وإنشاء الوسائط مرة أخرى.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>تعذّر التحقق من حساب الانضمام المخزّن على الوسائط. لن تظهر كلمة المرور الخاطئة إلا بعد إعادة التشغيل.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>رفض النطاق حساب الانضمام المخزّن على الوسائط. لم يبدأ النشر. يجب على المسؤول تصحيح الحساب في Foundry OSD وإنشاء الوسائط مرة أخرى.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>تعذّر الوصول إلى النطاق من هذه الشبكة، لذلك لم يتم التحقق من حساب الانضمام المخزّن على الوسائط. لن تظهر كلمة المرور الخاطئة إلا بعد إعادة التشغيل.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>انتهت صلاحية كلمة مرور حساب الانضمام المخزّن على الوسائط أو يجب تغييرها. لم يبدأ النشر. يجب على المسؤول تحديث كلمة المرور في Foundry OSD وإنشاء الوسائط مرة أخرى.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

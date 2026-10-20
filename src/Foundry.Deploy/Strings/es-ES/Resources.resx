@@ -432,6 +432,24 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Esta edición de Windows no puede unirse a un dominio. La instalación de Windows continúa sin la unión.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>La cuenta de unión almacenada en el medio está deshabilitada o caducada en el dominio. La implementación no ha comenzado. El administrador debe configurar otra cuenta en Foundry OSD y volver a crear el medio.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>La cuenta de unión almacenada en el medio está bloqueada en el dominio. La implementación no ha comenzado. Desbloquee la cuenta o pida al administrador que configure otra cuenta en Foundry OSD y vuelva a crear el medio.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>No se pudo comprobar la cuenta de unión almacenada en el medio. Una contraseña incorrecta solo se detectaría después del reinicio.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>El dominio rechazó la cuenta de unión almacenada en el medio. La implementación no ha comenzado. El administrador debe corregir la cuenta en Foundry OSD y volver a crear el medio.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>No se pudo acceder al dominio desde esta red, por lo que la cuenta de unión almacenada en el medio no se comprobó. Una contraseña incorrecta solo se detectaría después del reinicio.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>La contraseña de la cuenta de unión almacenada en el medio ha caducado o debe cambiarse. La implementación no ha comenzado. El administrador debe actualizar la contraseña en Foundry OSD y volver a crear el medio.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

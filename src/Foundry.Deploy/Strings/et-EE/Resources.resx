@@ -432,6 +432,24 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>See Windowsi väljaanne ei saa domeeniga liituda. Windowsi installimine jätkub ilma selleta.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Andmekandjale salvestatud liitumiskonto on domeenis keelatud või aegunud. Juurutamine pole alanud. Administraator peab Foundry OSD-s määrama muu konto ja andmekandja uuesti looma.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Andmekandjale salvestatud liitumiskonto on domeenis lukustatud. Juurutamine pole alanud. Avage konto või laske administraatoril Foundry OSD-s muu konto määrata ja andmekandja uuesti luua.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Andmekandjale salvestatud liitumiskontot ei saanud kontrollida. Vale parool ilmneks alles pärast taaskäivitust.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domeen lükkas andmekandjale salvestatud liitumiskonto tagasi. Juurutamine pole alanud. Administraator peab konto Foundry OSD-s parandama ja andmekandja uuesti looma.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domeeniga ei saadud sellest võrgust ühendust, seega andmekandjale salvestatud liitumiskontot ei kontrollitud. Vale parool ilmneks alles pärast taaskäivitust.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Andmekandjale salvestatud liitumiskonto parool on aegunud või tuleb muuta. Juurutamine pole alanud. Administraator peab parooli Foundry OSD-s värskendama ja andmekandja uuesti looma.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

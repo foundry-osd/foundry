@@ -432,6 +432,24 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Bu Windows sürümü etki alanına katılamaz. Windows kurulumu etki alanına katılmadan devam eder.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Medyada depolanan katılma hesabı etki alanında devre dışı veya süresi dolmuş. Dağıtım başlamadı. Yöneticinin Foundry OSD'de başka bir hesap ayarlaması ve medyayı yeniden oluşturması gerekir.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Medyada depolanan katılma hesabı etki alanında kilitli. Dağıtım başlamadı. Hesabın kilidini açın veya yöneticiden Foundry OSD'de başka bir hesap ayarlamasını ve medyayı yeniden oluşturmasını isteyin.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Medyada depolanan katılma hesabı denetlenemedi. Yanlış bir parola ancak yeniden başlatmadan sonra ortaya çıkar.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Etki alanı, medyada depolanan katılma hesabını reddetti. Dağıtım başlamadı. Yöneticinin hesabı Foundry OSD'de düzeltmesi ve medyayı yeniden oluşturması gerekir.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Etki alanına bu ağdan ulaşılamadı, bu nedenle medyada depolanan katılma hesabı denetlenmedi. Yanlış bir parola ancak yeniden başlatmadan sonra ortaya çıkar.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Medyada depolanan katılma hesabının parolasının süresi doldu veya parolanın değiştirilmesi gerekiyor. Dağıtım başlamadı. Yöneticinin parolayı Foundry OSD'de güncellemesi ve medyayı yeniden oluşturması gerekir.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

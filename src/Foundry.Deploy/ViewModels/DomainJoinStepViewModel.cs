@@ -11,6 +11,7 @@ using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Localization;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.ViewModels;
 
@@ -56,6 +57,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     private IReadOnlyList<DomainJoinChoice> domainChoices = [];
     private char[]? password;
     private int credentialCheckGeneration;
+    private ZeroTouchCheckSession? zeroTouchCheck;
 
     /// <summary>Raised when an input or its validity changes, so the wizard can refresh navigation.</summary>
     public event EventHandler? StateChanged;
@@ -172,7 +174,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     public bool HasCredentialCheckWarning => CredentialCheckState is DomainCredentialCheckState.Warning or DomainCredentialCheckState.WarningAcknowledged;
 
     /// <summary>Gets the localized rejection or warning shown under the password, or an empty string.</summary>
-    public string CredentialCheckMessage => (CredentialCheckState, LastCredentialCheck?.Outcome) switch
+    public string CredentialCheckMessage => settings.Mode == DomainJoinMode.Automatic ? ZeroTouchCredentialCheckMessage : (CredentialCheckState, LastCredentialCheck?.Outcome) switch
     {
         (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.AccountLocked) => LocalizationText.GetString("DomainJoin.AccountLocked"),
         (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.PasswordExpired) => LocalizationText.GetString("DomainJoin.PasswordExpired"),
@@ -183,6 +185,21 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         (DomainCredentialCheckState.Warning or DomainCredentialCheckState.WarningAcknowledged, _) => LocalizationText.GetString("DomainJoin.CheckInconclusive"),
         _ => string.Empty
     };
+
+    private string ZeroTouchCredentialCheckMessage => (CredentialCheckState, LastCredentialCheck?.Outcome) switch
+    {
+        (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.AccountLocked) => LocalizationText.GetString("DomainJoin.ZeroTouchAccountLocked"),
+        (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.PasswordExpired) => LocalizationText.GetString("DomainJoin.ZeroTouchPasswordExpired"),
+        (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.AccountDisabled) => LocalizationText.GetString("DomainJoin.ZeroTouchAccountDisabled"),
+        (DomainCredentialCheckState.Rejected, _) => LocalizationText.GetString("DomainJoin.ZeroTouchCredentialsRejected"),
+        (DomainCredentialCheckState.WarningAcknowledged, DomainCredentialCheckOutcome.ControllerUnavailable) =>
+            LocalizationText.GetString("DomainJoin.ZeroTouchDomainUnreachable"),
+        (DomainCredentialCheckState.WarningAcknowledged, _) => LocalizationText.GetString("DomainJoin.ZeroTouchCheckInconclusive"),
+        _ => string.Empty
+    };
+
+    /// <summary>Gets whether the Zero-touch account stored on the media applies to the current choice and can be checked.</summary>
+    private bool IsZeroTouchCheckApplicable => settings.IsEnabled && settings.Mode == DomainJoinMode.Automatic && !IsJoinDeclined && RetainedDomain is not null;
 
     /// <summary>Gets the OU the join will use; <see langword="null"/> means the domain's default location.</summary>
     public string? EffectiveOuDistinguishedName =>
@@ -214,6 +231,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         SelectedDomain = DomainJoinPreparationService.ResolveDomain(settings, null);
         RebuildDomainChoices();
         ApplyRetainedDomain();
+        StartZeroTouchCheck();
     }
 
     /// <summary>Rebuilds the entries of the domain list after a language change, keeping the technician's choice.</summary>
@@ -312,7 +330,76 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     {
         ResetCredentialCheck();
         ApplyRetainedDomain();
+        StartZeroTouchCheck();
     }
+
+    /// <summary>
+    /// Starts checking the join account stored on Zero-touch media while the step is shown: now, and again whenever another domain
+    /// is chosen. A refusal blocks the step until the technician declines the join; a domain that cannot be reached, or an unclear
+    /// answer, only shows a warning, since nothing on the step can correct it. Interactive media never uses this check.
+    /// </summary>
+    public void BeginZeroTouchCheck(IDomainJoinPreparationService preparation, IDomainCredentialVerifier verifier, ILogger logger)
+    {
+        zeroTouchCheck = new(preparation ?? throw new ArgumentNullException(nameof(preparation)),
+            verifier ?? throw new ArgumentNullException(nameof(verifier)), logger ?? throw new ArgumentNullException(nameof(logger)));
+        StartZeroTouchCheck();
+    }
+
+    /// <summary>Stops starting Zero-touch checks once the step is left; a check already running still applies its result.</summary>
+    public void EndZeroTouchCheck() => zeroTouchCheck = null;
+
+    private void StartZeroTouchCheck()
+    {
+        if (zeroTouchCheck is { } session && IsZeroTouchCheckApplicable && CredentialCheckState == DomainCredentialCheckState.NotChecked)
+        {
+            _ = RunZeroTouchCheckAsync(session);
+        }
+    }
+
+    private async Task RunZeroTouchCheckAsync(ZeroTouchCheckSession session)
+    {
+        int generation = credentialCheckGeneration;
+        string? domainId = RetainedDomain?.Id;
+        CredentialCheckState = DomainCredentialCheckState.Checking;
+        session.Logger.LogInformation("Zero-touch domain credential check started.");
+        DomainCredentialCheckResult? result;
+        try
+        {
+            result = await session.Preparation.VerifyMediaCredentialsAsync(settings, domainId, session.Verifier, CancellationToken.None);
+        }
+        catch (Exception)
+        {
+            // A failure that is not a directory answer about the account must warn, never block or stop Deploy.
+            result = new(DomainCredentialCheckOutcome.Inconclusive);
+        }
+
+        if (generation != credentialCheckGeneration)
+        {
+            session.Logger.LogInformation("Zero-touch domain credential check discarded because the domain changed.");
+            return;
+        }
+
+        if (result is null)
+        {
+            session.Logger.LogInformation("Zero-touch domain credential check skipped because the media credentials are not available.");
+            CredentialCheckState = DomainCredentialCheckState.NotChecked;
+            return;
+        }
+
+        session.Logger.Log(
+            result.Outcome == DomainCredentialCheckOutcome.Valid ? LogLevel.Information : result.IsRejection ? LogLevel.Error : LogLevel.Warning,
+            "Zero-touch domain credential check completed with {Outcome} (LDAP {LdapErrorCode}, data {DirectoryDataCode:x}, native {NativeErrorCode}).",
+            result.Outcome,
+            result.LdapErrorCode,
+            result.DirectoryDataCode,
+            result.NativeErrorCode);
+        LastCredentialCheck = result;
+        CredentialCheckState = result.Outcome == DomainCredentialCheckOutcome.Valid ? DomainCredentialCheckState.Valid :
+            result.IsRejection ? DomainCredentialCheckState.Rejected : DomainCredentialCheckState.WarningAcknowledged;
+    }
+
+    /// <summary>Dependencies of the Zero-touch check while the step is shown.</summary>
+    private sealed record ZeroTouchCheckSession(IDomainJoinPreparationService Preparation, IDomainCredentialVerifier Verifier, ILogger Logger);
 
     partial void OnIsJoinDeclinedChanged(bool value)
     {
@@ -320,6 +407,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         if (value) ClearPassword();
         ResetCredentialCheck();
         RaiseDerivedStateChanged();
+        StartZeroTouchCheck();
     }
 
     partial void OnDomainNameChanged(string value)

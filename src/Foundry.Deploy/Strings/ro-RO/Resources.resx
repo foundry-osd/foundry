@@ -432,6 +432,24 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Această ediție Windows nu se poate asocia la un domeniu. Instalarea Windows continuă fără asociere.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Contul de asociere stocat pe suport este dezactivat sau expirat în domeniu. Implementarea nu a început. Administratorul trebuie să seteze alt cont în Foundry OSD și să creeze din nou suportul.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Contul de asociere stocat pe suport este blocat în domeniu. Implementarea nu a început. Deblocați contul sau cereți administratorului să seteze alt cont în Foundry OSD și să creeze din nou suportul.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Contul de asociere stocat pe suport nu a putut fi verificat. O parolă greșită s-ar vedea doar după repornire.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domeniul a respins contul de asociere stocat pe suport. Implementarea nu a început. Administratorul trebuie să corecteze contul în Foundry OSD și să creeze din nou suportul.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domeniul nu poate fi accesat din această rețea, așa că contul de asociere stocat pe suport nu a fost verificat. O parolă greșită s-ar vedea doar după repornire.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Parola contului de asociere stocat pe suport a expirat sau trebuie schimbată. Implementarea nu a început. Administratorul trebuie să actualizeze parola în Foundry OSD și să creeze din nou suportul.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

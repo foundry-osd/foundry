@@ -432,6 +432,24 @@
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Windows รุ่นนี้ไม่สามารถเข้าร่วมโดเมนได้ การติดตั้ง Windows จะดำเนินต่อไปโดยไม่เข้าร่วมโดเมน</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>บัญชีสำหรับเข้าร่วมที่จัดเก็บไว้บนสื่อถูกปิดใช้งานหรือหมดอายุในโดเมน การปรับใช้ยังไม่เริ่มต้น ผู้ดูแลระบบต้องตั้งค่าบัญชีอื่นใน Foundry OSD และสร้างสื่อใหม่</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>บัญชีสำหรับเข้าร่วมที่จัดเก็บไว้บนสื่อถูกล็อกในโดเมน การปรับใช้ยังไม่เริ่มต้น ปลดล็อกบัญชี หรือให้ผู้ดูแลระบบตั้งค่าบัญชีอื่นใน Foundry OSD และสร้างสื่อใหม่</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>ไม่สามารถตรวจสอบบัญชีสำหรับเข้าร่วมที่จัดเก็บไว้บนสื่อได้ รหัสผ่านที่ผิดจะปรากฏหลังการรีสตาร์ทเท่านั้น</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>โดเมนปฏิเสธบัญชีสำหรับเข้าร่วมที่จัดเก็บไว้บนสื่อ การปรับใช้ยังไม่เริ่มต้น ผู้ดูแลระบบต้องแก้ไขบัญชีใน Foundry OSD และสร้างสื่อใหม่</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>ไม่สามารถเข้าถึงโดเมนจากเครือข่ายนี้ได้ จึงไม่ได้ตรวจสอบบัญชีสำหรับเข้าร่วมที่จัดเก็บไว้บนสื่อ รหัสผ่านที่ผิดจะปรากฏหลังการรีสตาร์ทเท่านั้น</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>รหัสผ่านของบัญชีสำหรับเข้าร่วมที่จัดเก็บไว้บนสื่อหมดอายุหรือต้องเปลี่ยน การปรับใช้ยังไม่เริ่มต้น ผู้ดูแลระบบต้องอัปเดตรหัสผ่านใน Foundry OSD และสร้างสื่อใหม่</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

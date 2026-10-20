@@ -432,6 +432,24 @@ ErrorCode=0x80070005
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>מהדורת Windows זו אינה יכולה להצטרף לתחום. התקנת Windows ממשיכה ללא הצטרפות.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>חשבון ההצטרפות השמור במדיה מושבת או שתוקפו פג בתחום. הפריסה לא התחילה. על מנהל המערכת להגדיר חשבון אחר ב-Foundry OSD וליצור את המדיה מחדש.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>חשבון ההצטרפות השמור במדיה נעול בתחום. הפריסה לא התחילה. בטל את נעילת החשבון, או בקש ממנהל המערכת להגדיר חשבון אחר ב-Foundry OSD וליצור את המדיה מחדש.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>לא ניתן היה לבדוק את חשבון ההצטרפות השמור במדיה. סיסמה שגויה תתגלה רק לאחר ההפעלה מחדש.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>התחום דחה את חשבון ההצטרפות השמור במדיה. הפריסה לא התחילה. על מנהל המערכת לתקן את החשבון ב-Foundry OSD וליצור את המדיה מחדש.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>לא ניתן היה להגיע לתחום מרשת זו, ולכן חשבון ההצטרפות השמור במדיה לא נבדק. סיסמה שגויה תתגלה רק לאחר ההפעלה מחדש.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>תוקף הסיסמה של חשבון ההצטרפות השמור במדיה פג או שיש לשנות אותה. הפריסה לא התחילה. על מנהל המערכת לעדכן את הסיסמה ב-Foundry OSD וליצור את המדיה מחדש.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

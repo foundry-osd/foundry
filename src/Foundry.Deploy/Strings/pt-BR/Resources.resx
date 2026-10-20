@@ -432,6 +432,24 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Esta edição do Windows não pode ingressar em um domínio. A instalação do Windows continua sem o ingresso.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>A conta de ingresso armazenada na mídia está desabilitada ou expirada no domínio. A implantação não foi iniciada. O administrador deve definir outra conta no Foundry OSD e criar a mídia novamente.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>A conta de ingresso armazenada na mídia está bloqueada no domínio. A implantação não foi iniciada. Desbloqueie a conta ou peça ao administrador para definir outra conta no Foundry OSD e criar a mídia novamente.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Não foi possível verificar a conta de ingresso armazenada na mídia. Uma senha incorreta só apareceria após a reinicialização.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>O domínio rejeitou a conta de ingresso armazenada na mídia. A implantação não foi iniciada. O administrador deve corrigir a conta no Foundry OSD e criar a mídia novamente.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Não foi possível acessar o domínio por esta rede, portanto a conta de ingresso armazenada na mídia não foi verificada. Uma senha incorreta só apareceria após a reinicialização.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>A senha da conta de ingresso armazenada na mídia expirou ou precisa ser alterada. A implantação não foi iniciada. O administrador deve atualizar a senha no Foundry OSD e criar a mídia novamente.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

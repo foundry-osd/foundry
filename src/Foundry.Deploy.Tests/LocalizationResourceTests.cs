@@ -36,7 +36,9 @@ public sealed class LocalizationResourceTests
             "StepResult.SimulationFormat", "StepResult.CatalogDriverInfMissingFormat", "StepResult.NoFirmwareCabFiles",
             "Preflight.DownloadVerificationFailed", "Preflight.LegacyBiosBoot",
             "DomainJoin.CheckingCredentials", "DomainJoin.CredentialsRejected", "DomainJoin.AccountLocked",
-            "DomainJoin.PasswordExpired", "DomainJoin.AccountDisabled", "DomainJoin.DomainUnreachable", "DomainJoin.CheckInconclusive"
+            "DomainJoin.PasswordExpired", "DomainJoin.AccountDisabled", "DomainJoin.DomainUnreachable", "DomainJoin.CheckInconclusive",
+            "DomainJoin.ZeroTouchCredentialsRejected", "DomainJoin.ZeroTouchAccountLocked", "DomainJoin.ZeroTouchPasswordExpired",
+            "DomainJoin.ZeroTouchAccountDisabled", "DomainJoin.ZeroTouchDomainUnreachable", "DomainJoin.ZeroTouchCheckInconclusive"
         ];
         foreach (string key in requiredKeys)
         {

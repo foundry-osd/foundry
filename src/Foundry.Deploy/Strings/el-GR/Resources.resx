@@ -432,6 +432,24 @@
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Αυτή η έκδοση των Windows δεν μπορεί να συνδεθεί σε τομέα. Η εγκατάσταση των Windows συνεχίζεται χωρίς σύνδεση.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Ο λογαριασμός σύνδεσης που είναι αποθηκευμένος στο μέσο είναι απενεργοποιημένος ή έχει λήξει στον τομέα. Η ανάπτυξη δεν έχει ξεκινήσει. Ο διαχειριστής πρέπει να ορίσει άλλο λογαριασμό στο Foundry OSD και να δημιουργήσει ξανά το μέσο.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Ο λογαριασμός σύνδεσης που είναι αποθηκευμένος στο μέσο είναι κλειδωμένος στον τομέα. Η ανάπτυξη δεν έχει ξεκινήσει. Ξεκλειδώστε τον λογαριασμό ή ζητήστε από τον διαχειριστή να ορίσει άλλο λογαριασμό στο Foundry OSD και να δημιουργήσει ξανά το μέσο.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Δεν ήταν δυνατός ο έλεγχος του λογαριασμού σύνδεσης που είναι αποθηκευμένος στο μέσο. Ένας λανθασμένος κωδικός πρόσβασης θα φαινόταν μόνο μετά την επανεκκίνηση.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Ο τομέας απέρριψε τον λογαριασμό σύνδεσης που είναι αποθηκευμένος στο μέσο. Η ανάπτυξη δεν έχει ξεκινήσει. Ο διαχειριστής πρέπει να διορθώσει τον λογαριασμό στο Foundry OSD και να δημιουργήσει ξανά το μέσο.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Ο τομέας δεν είναι προσβάσιμος από αυτό το δίκτυο, οπότε ο λογαριασμός σύνδεσης που είναι αποθηκευμένος στο μέσο δεν ελέγχθηκε. Ένας λανθασμένος κωδικός πρόσβασης θα φαινόταν μόνο μετά την επανεκκίνηση.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης του λογαριασμού σύνδεσης που είναι αποθηκευμένος στο μέσο έχει λήξει ή πρέπει να αλλάξει. Η ανάπτυξη δεν έχει ξεκινήσει. Ο διαχειριστής πρέπει να ενημερώσει τον κωδικό πρόσβασης στο Foundry OSD και να δημιουργήσει ξανά το μέσο.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

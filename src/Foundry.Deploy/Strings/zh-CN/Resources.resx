@@ -432,6 +432,24 @@
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>此 Windows 版本无法加入域。Windows 安装将继续进行，不会加入域。</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>介质上存储的加入账户在域中已禁用或已过期。部署尚未开始。管理员必须在 Foundry OSD 中设置其他账户并重新创建介质。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>介质上存储的加入账户在域中已被锁定。部署尚未开始。请解锁该账户，或让管理员在 Foundry OSD 中设置其他账户并重新创建介质。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>无法验证介质上存储的加入账户。密码错误只会在重启后才显现。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>域拒绝了介质上存储的加入账户。部署尚未开始。管理员必须在 Foundry OSD 中更正该账户并重新创建介质。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>无法从此网络访问该域，因此未验证介质上存储的加入账户。密码错误只会在重启后才显现。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>介质上存储的加入账户的密码已过期或必须更改。部署尚未开始。管理员必须在 Foundry OSD 中更新密码并重新创建介质。</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

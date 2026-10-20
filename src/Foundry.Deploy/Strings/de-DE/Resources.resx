@@ -432,6 +432,24 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Diese Windows-Edition kann keiner Domäne beitreten. Die Windows-Installation wird ohne Domänenbeitritt fortgesetzt.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Das auf dem Medium gespeicherte Beitrittskonto ist in der Domäne deaktiviert oder abgelaufen. Die Bereitstellung wurde nicht gestartet. Der Administrator muss in Foundry OSD ein anderes Konto festlegen und das Medium neu erstellen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Das auf dem Medium gespeicherte Beitrittskonto ist in der Domäne gesperrt. Die Bereitstellung wurde nicht gestartet. Entsperren Sie das Konto, oder lassen Sie den Administrator in Foundry OSD ein anderes Konto festlegen und das Medium neu erstellen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Das auf dem Medium gespeicherte Beitrittskonto konnte nicht überprüft werden. Ein falsches Kennwort würde sich erst nach dem Neustart zeigen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Die Domäne hat das auf dem Medium gespeicherte Beitrittskonto abgelehnt. Die Bereitstellung wurde nicht gestartet. Der Administrator muss das Konto in Foundry OSD korrigieren und das Medium neu erstellen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Die Domäne ist von diesem Netzwerk aus nicht erreichbar, daher wurde das auf dem Medium gespeicherte Beitrittskonto nicht überprüft. Ein falsches Kennwort würde sich erst nach dem Neustart zeigen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Das Kennwort des auf dem Medium gespeicherten Beitrittskontos ist abgelaufen oder muss geändert werden. Die Bereitstellung wurde nicht gestartet. Der Administrator muss das Kennwort in Foundry OSD aktualisieren und das Medium neu erstellen.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

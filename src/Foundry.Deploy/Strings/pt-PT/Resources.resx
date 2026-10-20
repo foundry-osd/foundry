@@ -432,6 +432,24 @@ Ação: verifique os atributos do disco e tente novamente a implementação.</va
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Esta edição do Windows não pode ser associada a um domínio. A instalação do Windows continua sem a associação.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>A conta de associação guardada no suporte está desativada ou expirada no domínio. A implementação não foi iniciada. O administrador tem de definir outra conta no Foundry OSD e criar novamente o suporte.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>A conta de associação guardada no suporte está bloqueada no domínio. A implementação não foi iniciada. Desbloqueie a conta ou peça ao administrador para definir outra conta no Foundry OSD e criar novamente o suporte.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Não foi possível verificar a conta de associação guardada no suporte. Uma palavra-passe errada só se revelaria após o reinício.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>O domínio rejeitou a conta de associação guardada no suporte. A implementação não foi iniciada. O administrador tem de corrigir a conta no Foundry OSD e criar novamente o suporte.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Não foi possível contactar o domínio a partir desta rede, pelo que a conta de associação guardada no suporte não foi verificada. Uma palavra-passe errada só se revelaria após o reinício.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>A palavra-passe da conta de associação guardada no suporte expirou ou tem de ser alterada. A implementação não foi iniciada. O administrador tem de atualizar a palavra-passe no Foundry OSD e criar novamente o suporte.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

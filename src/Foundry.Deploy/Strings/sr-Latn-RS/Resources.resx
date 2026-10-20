@@ -432,6 +432,24 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Ovo izdanje sistema Windows ne može da se pridruži domenu. Instalacija sistema Windows se nastavlja bez pridruživanja.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Nalog za pridruživanje sačuvan na mediju je onemogućen ili je istekao u domenu. Primena nije započeta. Administrator mora da postavi drugi nalog u Foundry OSD-u i ponovo napravi medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Nalog za pridruživanje sačuvan na mediju je zaključan u domenu. Primena nije započeta. Otključajte nalog ili zatražite od administratora da u Foundry OSD-u postavi drugi nalog i ponovo napravi medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Nalog za pridruživanje sačuvan na mediju nije moguće proveriti. Pogrešna lozinka bi se pokazala tek posle ponovnog pokretanja.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domen je odbio nalog za pridruživanje sačuvan na mediju. Primena nije započeta. Administrator mora da ispravi nalog u Foundry OSD-u i ponovo napravi medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domen nije dostupan iz ove mreže, pa nalog za pridruživanje sačuvan na mediju nije proveren. Pogrešna lozinka bi se pokazala tek posle ponovnog pokretanja.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Lozinka naloga za pridruživanje sačuvanog na mediju je istekla ili mora da se promeni. Primena nije započeta. Administrator mora da ažurira lozinku u Foundry OSD-u i ponovo napravi medij.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

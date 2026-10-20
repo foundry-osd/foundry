@@ -432,6 +432,24 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Deze Windows-editie kan niet toetreden tot een domein. De Windows-installatie gaat verder zonder domeintoetreding.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Het toetredingsaccount op het medium is uitgeschakeld of verlopen in het domein. De implementatie is niet gestart. De beheerder moet een ander account instellen in Foundry OSD en het medium opnieuw maken.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Het toetredingsaccount op het medium is vergrendeld in het domein. De implementatie is niet gestart. Ontgrendel het account, of laat de beheerder een ander account instellen in Foundry OSD en het medium opnieuw maken.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Het toetredingsaccount op het medium kon niet worden gecontroleerd. Een onjuist wachtwoord zou pas na het opnieuw opstarten blijken.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Het domein heeft het toetredingsaccount op het medium geweigerd. De implementatie is niet gestart. De beheerder moet het account in Foundry OSD corrigeren en het medium opnieuw maken.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Het domein is vanaf dit netwerk niet bereikbaar, dus het toetredingsaccount op het medium is niet gecontroleerd. Een onjuist wachtwoord zou pas na het opnieuw opstarten blijken.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Het wachtwoord van het toetredingsaccount op het medium is verlopen of moet worden gewijzigd. De implementatie is niet gestart. De beheerder moet het wachtwoord in Foundry OSD bijwerken en het medium opnieuw maken.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

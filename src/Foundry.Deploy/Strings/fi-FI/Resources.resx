@@ -432,6 +432,24 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Tätä Windows-versiota ei voi liittää toimialueeseen. Windowsin asennus jatkuu ilman liittämistä.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Tietovälineelle tallennettu liittymistili on poistettu käytöstä tai vanhentunut toimialueella. Käyttöönotto ei ole alkanut. Järjestelmänvalvojan on määritettävä toinen tili Foundry OSD:ssä ja luotava tietoväline uudelleen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Tietovälineelle tallennettu liittymistili on lukittu toimialueella. Käyttöönotto ei ole alkanut. Avaa tilin lukitus tai pyydä järjestelmänvalvojaa määrittämään toinen tili Foundry OSD:ssä ja luomaan tietoväline uudelleen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Tietovälineelle tallennettua liittymistiliä ei voitu tarkistaa. Väärä salasana paljastuisi vasta uudelleenkäynnistyksen jälkeen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Toimialue hylkäsi tietovälineelle tallennetun liittymistilin. Käyttöönotto ei ole alkanut. Järjestelmänvalvojan on korjattava tili Foundry OSD:ssä ja luotava tietoväline uudelleen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Toimialueeseen ei saatu yhteyttä tästä verkosta, joten tietovälineelle tallennettua liittymistiliä ei tarkistettu. Väärä salasana paljastuisi vasta uudelleenkäynnistyksen jälkeen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Tietovälineelle tallennetun liittymistilin salasana on vanhentunut tai se on vaihdettava. Käyttöönotto ei ole alkanut. Järjestelmänvalvojan on päivitettävä salasana Foundry OSD:ssä ja luotava tietoväline uudelleen.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

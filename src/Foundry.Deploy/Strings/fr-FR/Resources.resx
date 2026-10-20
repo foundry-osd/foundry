@@ -432,6 +432,24 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Cette édition de Windows ne peut pas joindre un domaine. L'installation de Windows se poursuit sans jonction.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Le compte de jonction enregistré sur le média est désactivé ou expiré dans le domaine. Le déploiement n'a pas commencé. L'administrateur doit définir un autre compte dans Foundry OSD et recréer le média.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Le compte de jonction enregistré sur le média est verrouillé dans le domaine. Le déploiement n'a pas commencé. Déverrouillez le compte, ou demandez à l'administrateur de définir un autre compte dans Foundry OSD et de recréer le média.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Le compte de jonction enregistré sur le média n'a pas pu être vérifié. Un mot de passe erroné n'apparaîtrait qu'après le redémarrage.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Le domaine a refusé le compte de jonction enregistré sur le média. Le déploiement n'a pas commencé. L'administrateur doit corriger le compte dans Foundry OSD et recréer le média.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Le domaine est injoignable depuis ce réseau, le compte de jonction enregistré sur le média n'a donc pas été vérifié. Un mot de passe erroné n'apparaîtrait qu'après le redémarrage.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Le mot de passe du compte de jonction enregistré sur le média a expiré ou doit être changé. Le déploiement n'a pas commencé. L'administrateur doit mettre à jour le mot de passe dans Foundry OSD et recréer le média.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

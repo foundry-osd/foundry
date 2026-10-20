@@ -7,6 +7,7 @@ using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.ViewModels;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
 
@@ -644,6 +645,147 @@ public sealed class DomainJoinStepViewModelTests
         Assert.Equal("lab.test", verifier.LastContext?.DomainName);
         Assert.Equal("joiner@lab.test", verifier.LastContext?.AccountName);
         Assert.Equal("typed secret", verifier.LastPassword);
+    }
+
+    [Fact]
+    public async Task DecliningAfterARejectionMakesTheStepValidWithoutACheck()
+    {
+        var verifier = new ScriptedVerifier(DomainCredentialCheckOutcome.InvalidCredentials);
+        using var step = InteractiveStepWithCredentials();
+        Assert.False(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+
+        step.SelectedDomainChoice = step.DomainChoices[^1];
+
+        Assert.True(step.IsValid);
+        Assert.True(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        Assert.Equal(1, verifier.Calls);
+    }
+
+    [Fact]
+    public void ZeroTouchCheckRunsWhenTheStepIsShown()
+    {
+        var media = new ScriptedMediaCheck(DomainCredentialCheckOutcome.Valid);
+        using var step = ZeroTouchStep();
+
+        step.BeginZeroTouchCheck(media, NoNetworkVerifier, NullLogger.Instance);
+
+        Assert.Equal(["corp"], media.CheckedDomainIds);
+        Assert.Equal(DomainCredentialCheckState.Valid, step.CredentialCheckState);
+        Assert.True(step.IsValid);
+    }
+
+    [Fact]
+    public void ZeroTouchCheckRunsAgainWhenAnotherDomainIsChosen()
+    {
+        var media = new ScriptedMediaCheck(DomainCredentialCheckOutcome.Valid);
+        using var step = ZeroTouchStep();
+        step.BeginZeroTouchCheck(media, NoNetworkVerifier, NullLogger.Instance);
+
+        step.SelectedDomain = step.Domains[1];
+
+        Assert.Equal(["corp", "emea"], media.CheckedDomainIds);
+        Assert.Equal(DomainCredentialCheckState.Valid, step.CredentialCheckState);
+    }
+
+    [Theory]
+    [InlineData(DomainCredentialCheckOutcome.InvalidCredentials)]
+    [InlineData(DomainCredentialCheckOutcome.AccountLocked)]
+    [InlineData(DomainCredentialCheckOutcome.PasswordExpired)]
+    [InlineData(DomainCredentialCheckOutcome.AccountDisabled)]
+    public void ZeroTouchRejectionDisablesNextUntilTheJoinIsDeclined(DomainCredentialCheckOutcome outcome)
+    {
+        var media = new ScriptedMediaCheck(outcome);
+        using var step = ZeroTouchStep();
+        step.BeginZeroTouchCheck(media, NoNetworkVerifier, NullLogger.Instance);
+
+        Assert.Equal(DomainCredentialCheckState.Rejected, step.CredentialCheckState);
+        Assert.False(step.IsValid);
+        Assert.True(step.HasCredentialCheckError);
+        Assert.Contains("Foundry OSD", step.CredentialCheckMessage);
+
+        step.SelectedDomainChoice = step.DomainChoices[^1];
+
+        Assert.True(step.IsValid);
+        Assert.Single(media.CheckedDomainIds);
+    }
+
+    [Theory]
+    [InlineData(DomainCredentialCheckOutcome.ControllerUnavailable)]
+    [InlineData(DomainCredentialCheckOutcome.Inconclusive)]
+    public void ZeroTouchWarningKeepsNextEnabled(DomainCredentialCheckOutcome outcome)
+    {
+        var media = new ScriptedMediaCheck(outcome);
+        using var step = ZeroTouchStep();
+
+        step.BeginZeroTouchCheck(media, NoNetworkVerifier, NullLogger.Instance);
+
+        Assert.True(step.HasCredentialCheckWarning);
+        Assert.True(step.IsValid);
+        Assert.DoesNotContain("Next", step.CredentialCheckMessage);
+    }
+
+    [Fact]
+    public void ZeroTouchCheckWithoutUsableMediaCredentialsLeavesTheStepUnchecked()
+    {
+        var media = new ScriptedMediaCheck(null);
+        using var step = ZeroTouchStep();
+
+        step.BeginZeroTouchCheck(media, NoNetworkVerifier, NullLogger.Instance);
+
+        Assert.Equal(DomainCredentialCheckState.NotChecked, step.CredentialCheckState);
+        Assert.True(step.IsValid);
+    }
+
+    [Fact]
+    public void ZeroTouchCheckRunsOnlyWhileTheStepIsShown()
+    {
+        var media = new ScriptedMediaCheck(DomainCredentialCheckOutcome.Valid);
+        using var step = ZeroTouchStep();
+        step.SelectedDomain = step.Domains[1];
+        Assert.Empty(media.CheckedDomainIds);
+
+        step.BeginZeroTouchCheck(media, NoNetworkVerifier, NullLogger.Instance);
+        step.EndZeroTouchCheck();
+        step.SelectedDomain = step.Domains[0];
+
+        Assert.Equal(["emea"], media.CheckedDomainIds);
+    }
+
+    [Fact]
+    public void InteractiveStepNeverRunsTheZeroTouchCheck()
+    {
+        var media = new ScriptedMediaCheck(DomainCredentialCheckOutcome.Valid);
+        using var step = InteractiveStepWithCredentials();
+
+        step.BeginZeroTouchCheck(media, NoNetworkVerifier, NullLogger.Instance);
+
+        Assert.Empty(media.CheckedDomainIds);
+    }
+
+    private static readonly IDomainCredentialVerifier NoNetworkVerifier = new ScriptedVerifier(
+        Task.FromException<DomainCredentialCheckResult>(new InvalidOperationException("The media check must not reach the verifier.")));
+
+    private static DomainJoinStepViewModel ZeroTouchStep()
+    {
+        var step = new DomainJoinStepViewModel();
+        step.Configure(TwoDomains(DomainJoinMode.Automatic));
+        return step;
+    }
+
+    /// <summary>Stands in for the media credential check and records which domain it was asked about.</summary>
+    private sealed class ScriptedMediaCheck(DomainCredentialCheckOutcome? outcome) : IDomainJoinPreparationService
+    {
+        public List<string?> CheckedDomainIds { get; } = [];
+
+        public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission) =>
+            throw new InvalidOperationException("The step must not prepare a launch.");
+
+        public Task<DomainCredentialCheckResult?> VerifyMediaCredentialsAsync(DeployDomainJoinSettings settings, string? selectedDomainId,
+            IDomainCredentialVerifier verifier, CancellationToken token)
+        {
+            CheckedDomainIds.Add(selectedDomainId);
+            return Task.FromResult(outcome is { } value ? new DomainCredentialCheckResult(value) : null);
+        }
     }
 
     private static DomainJoinStepViewModel InteractiveStepWithCredentials()

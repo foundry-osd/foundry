@@ -432,6 +432,24 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Ez a Windows-kiadás nem csatlakoztatható tartományhoz. A Windows telepítése enélkül folytatódik.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Az adathordozón tárolt csatlakozási fiók le van tiltva vagy lejárt a tartományban. A telepítés nem indult el. A rendszergazdának másik fiókot kell beállítania a Foundry OSD-ben, és újra létre kell hoznia az adathordozót.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Az adathordozón tárolt csatlakozási fiók zárolva van a tartományban. A telepítés nem indult el. Oldja fel a fiók zárolását, vagy kérje meg a rendszergazdát, hogy állítson be másik fiókot a Foundry OSD-ben, és hozza létre újra az adathordozót.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Az adathordozón tárolt csatlakozási fiókot nem sikerült ellenőrizni. A hibás jelszó csak az újraindítás után derülne ki.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>A tartomány elutasította az adathordozón tárolt csatlakozási fiókot. A telepítés nem indult el. A rendszergazdának ki kell javítania a fiókot a Foundry OSD-ben, és újra létre kell hoznia az adathordozót.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>A tartomány nem érhető el erről a hálózatról, ezért az adathordozón tárolt csatlakozási fiók ellenőrzése elmaradt. A hibás jelszó csak az újraindítás után derülne ki.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Az adathordozón tárolt csatlakozási fiók jelszava lejárt, vagy módosítani kell. A telepítés nem indult el. A rendszergazdának frissítenie kell a jelszót a Foundry OSD-ben, és újra létre kell hoznia az adathordozót.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

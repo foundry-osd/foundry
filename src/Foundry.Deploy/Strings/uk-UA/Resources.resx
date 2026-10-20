@@ -432,6 +432,24 @@ ErrorCode=0x80070005
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Цю редакцію Windows не можна приєднати до домену. Інсталяція Windows продовжується без приєднання.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Обліковий запис для приєднання, збережений на носії, вимкнено або термін його дії минув у домені. Розгортання не розпочато. Адміністратор має задати інший обліковий запис у Foundry OSD і створити носій заново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Обліковий запис для приєднання, збережений на носії, заблоковано в домені. Розгортання не розпочато. Розблокуйте обліковий запис або попросіть адміністратора задати інший обліковий запис у Foundry OSD і створити носій заново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Не вдалося перевірити обліковий запис для приєднання, збережений на носії. Неправильний пароль виявиться лише після перезавантаження.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Домен відхилив обліковий запис для приєднання, збережений на носії. Розгортання не розпочато. Адміністратор має виправити обліковий запис у Foundry OSD і створити носій заново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Домен недоступний із цієї мережі, тому обліковий запис для приєднання, збережений на носії, не перевірено. Неправильний пароль виявиться лише після перезавантаження.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Термін дії пароля облікового запису для приєднання, збереженого на носії, минув, або його потрібно змінити. Розгортання не розпочато. Адміністратор має оновити пароль у Foundry OSD і створити носій заново.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

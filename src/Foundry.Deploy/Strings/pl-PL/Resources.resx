@@ -432,6 +432,24 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Ta edycja systemu Windows nie może dołączyć do domeny. Instalacja systemu Windows jest kontynuowana bez dołączania.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Konto dołączania zapisane na nośniku jest wyłączone lub wygasło w domenie. Wdrażanie nie zostało rozpoczęte. Administrator musi ustawić inne konto w Foundry OSD i ponownie utworzyć nośnik.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Konto dołączania zapisane na nośniku jest zablokowane w domenie. Wdrażanie nie zostało rozpoczęte. Odblokuj konto lub poproś administratora o ustawienie innego konta w Foundry OSD i ponowne utworzenie nośnika.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Nie można sprawdzić konta dołączania zapisanego na nośniku. Błędne hasło ujawniłoby się dopiero po ponownym uruchomieniu.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domena odrzuciła konto dołączania zapisane na nośniku. Wdrażanie nie zostało rozpoczęte. Administrator musi poprawić konto w Foundry OSD i ponownie utworzyć nośnik.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Nie można połączyć się z domeną z tej sieci, więc konto dołączania zapisane na nośniku nie zostało sprawdzone. Błędne hasło ujawniłoby się dopiero po ponownym uruchomieniu.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Hasło konta dołączania zapisanego na nośniku wygasło lub musi zostać zmienione. Wdrażanie nie zostało rozpoczęte. Administrator musi zaktualizować hasło w Foundry OSD i ponownie utworzyć nośnik.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

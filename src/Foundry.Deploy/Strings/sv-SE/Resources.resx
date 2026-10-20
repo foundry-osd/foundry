@@ -432,6 +432,24 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Den här Windows-utgåvan kan inte anslutas till en domän. Windows-installationen fortsätter utan domänanslutning.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Anslutningskontot som finns sparat på mediet är inaktiverat eller har gått ut i domänen. Distributionen har inte startat. Administratören måste ange ett annat konto i Foundry OSD och skapa mediet igen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Anslutningskontot som finns sparat på mediet är utelåst i domänen. Distributionen har inte startat. Lås upp kontot, eller låt administratören ange ett annat konto i Foundry OSD och skapa mediet igen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Anslutningskontot som finns sparat på mediet kunde inte kontrolleras. Ett felaktigt lösenord skulle visa sig först efter omstarten.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domänen avvisade anslutningskontot som finns sparat på mediet. Distributionen har inte startat. Administratören måste rätta kontot i Foundry OSD och skapa mediet igen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domänen kunde inte nås från det här nätverket, så anslutningskontot som finns sparat på mediet kontrollerades inte. Ett felaktigt lösenord skulle visa sig först efter omstarten.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Lösenordet för anslutningskontot som finns sparat på mediet har gått ut eller måste ändras. Distributionen har inte startat. Administratören måste uppdatera lösenordet i Foundry OSD och skapa mediet igen.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

@@ -432,6 +432,24 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Ovo izdanje sustava Windows ne može se pridružiti domeni. Instalacija sustava Windows nastavlja se bez pridruživanja.</value>
   </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Račun za pridruživanje spremljen na mediju onemogućen je ili istekao u domeni. Implementacija nije započela. Administrator mora u Foundry OSD-u postaviti drugi račun i ponovno stvoriti medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Račun za pridruživanje spremljen na mediju zaključan je u domeni. Implementacija nije započela. Otključajte račun ili zatražite od administratora da u Foundry OSD-u postavi drugi račun i ponovno stvori medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Račun za pridruživanje spremljen na mediju nije moguće provjeriti. Pogrešna lozinka pokazala bi se tek nakon ponovnog pokretanja.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domena je odbila račun za pridruživanje spremljen na mediju. Implementacija nije započela. Administrator mora ispraviti račun u Foundry OSD-u i ponovno stvoriti medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domena nije dostupna iz ove mreže pa račun za pridruživanje spremljen na mediju nije provjeren. Pogrešna lozinka pokazala bi se tek nakon ponovnog pokretanja.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Lozinka računa za pridruživanje spremljenog na mediju je istekla ili je treba promijeniti. Implementacija nije započela. Administrator mora ažurirati lozinku u Foundry OSD-u i ponovno stvoriti medij.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
