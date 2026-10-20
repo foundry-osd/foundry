@@ -65,6 +65,10 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     private int credentialCheckGeneration;
     private ZeroTouchCheckSession? zeroTouchCheck;
     private int skippedZeroTouchGeneration = -1;
+    // The stored account cannot change during a session, so a domain is asked once: asking again with a refused password
+    // would only count another failed sign-in against the shared join account.
+    private readonly Dictionary<string, DomainCredentialCheckResult> zeroTouchAnswers = new(StringComparer.OrdinalIgnoreCase);
+    private CancellationTokenSource? zeroTouchCancellation;
 
     /// <summary>Raised when an input or its validity changes, so the wizard can refresh navigation.</summary>
     public event EventHandler? StateChanged;
@@ -170,7 +174,10 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         !IsTypedOuInvalid &&
         CredentialCheckState is not (DomainCredentialCheckState.Checking or DomainCredentialCheckState.Rejected);
 
-    /// <summary>Gets whether leaving the step would contact the domain or acknowledge a warning for the current inputs.</summary>
+    /// <summary>
+    /// Gets whether leaving the step would check the typed Interactive credentials or acknowledge a warning about them.
+    /// Zero-touch media checks on its own while the step is shown.
+    /// </summary>
     public bool NeedsCredentialCheck => RequiresCredentials &&
         CredentialCheckState is DomainCredentialCheckState.NotChecked or DomainCredentialCheckState.Warning;
 
@@ -226,6 +233,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     public void Configure(DeployDomainJoinSettings domainJoin)
     {
         settings = domainJoin ?? throw new ArgumentNullException(nameof(domainJoin));
+        zeroTouchAnswers.Clear();
         ClearPassword();
         ResetCredentialCheck();
         // A typed domain belongs to the earlier configuration; a listed one is shown again below.
@@ -368,19 +376,50 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     private async Task RunZeroTouchCheckAsync(ZeroTouchCheckSession session)
     {
+        try
+        {
+            await RunZeroTouchCheckCoreAsync(session);
+        }
+        catch (Exception exception)
+        {
+            // Started without an awaiting caller; a failure here must not become an unobserved task exception.
+            session.Logger.LogError(exception, "Zero-touch domain credential check failed unexpectedly.");
+        }
+    }
+
+    private async Task RunZeroTouchCheckCoreAsync(ZeroTouchCheckSession session)
+    {
         int generation = credentialCheckGeneration;
-        string? domainId = RetainedDomain?.Id;
+        string domainId = RetainedDomain!.Id;
+        if (zeroTouchAnswers.TryGetValue(domainId, out DomainCredentialCheckResult? known))
+        {
+            ApplyZeroTouchAnswer(known);
+            return;
+        }
+
+        zeroTouchCancellation?.Cancel();
+        using var cancellation = new CancellationTokenSource();
+        zeroTouchCancellation = cancellation;
         CredentialCheckState = DomainCredentialCheckState.Checking;
         session.Logger.LogInformation("Zero-touch domain credential check started.");
         DomainCredentialCheckResult? result;
         try
         {
-            result = await session.MediaCheck.VerifyMediaCredentialsAsync(settings, domainId, session.Verifier, CancellationToken.None);
+            result = await session.MediaCheck.VerifyMediaCredentialsAsync(settings, domainId, session.Verifier, cancellation.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            result = null;
+            generation = -1;
         }
         catch (Exception)
         {
             // A failure that is not a directory answer about the account must warn, never block or stop Deploy.
             result = new(DomainCredentialCheckOutcome.Inconclusive);
+        }
+        finally
+        {
+            if (ReferenceEquals(zeroTouchCancellation, cancellation)) zeroTouchCancellation = null;
         }
 
         if (generation != credentialCheckGeneration)
@@ -405,6 +444,13 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
             result.LdapErrorCode,
             result.DirectoryDataCode,
             result.NativeErrorCode);
+        // Only directory answers about the account are kept; an unreachable domain may answer later.
+        if (result.Outcome == DomainCredentialCheckOutcome.Valid || result.IsRejection) zeroTouchAnswers[domainId] = result;
+        ApplyZeroTouchAnswer(result);
+    }
+
+    private void ApplyZeroTouchAnswer(DomainCredentialCheckResult result)
+    {
         LastCredentialCheck = result;
         CredentialCheckState = result.Outcome == DomainCredentialCheckOutcome.Valid ? DomainCredentialCheckState.Valid :
             result.IsRejection ? DomainCredentialCheckState.Rejected : DomainCredentialCheckState.WarningAcknowledged;
@@ -482,6 +528,8 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     /// <summary>Invalidates any check of earlier inputs, including one still running, so its result is never applied.</summary>
     private void ResetCredentialCheck()
     {
+        // A superseded Zero-touch check stops before it reaches the domain when it has not bound yet.
+        zeroTouchCancellation?.Cancel();
         credentialCheckGeneration++;
         LastCredentialCheck = null;
         CredentialCheckState = DomainCredentialCheckState.NotChecked;

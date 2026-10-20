@@ -12,7 +12,7 @@ namespace Foundry.Deploy.Services.Runtime;
 /// <summary>Selects the answer the Domain Join credential check gives in Foundry.Deploy debug safe mode.</summary>
 public enum DebugDomainCredentialCheckScenario
 {
-    /// <summary>The check does not run, as on media without a reachable domain in debug safe mode.</summary>
+    /// <summary>The check does not run, which is the default in debug safe mode.</summary>
     None,
 
     /// <summary>The check never answers, so the progress line stays visible.</summary>
@@ -71,6 +71,7 @@ public sealed class DebugDomainCredentialVerifier(DebugDomainCredentialCheckScen
         return domain is null ? null : await verifier.VerifyAsync(new(domain.DomainName, domain.AccountName ?? string.Empty), ReadOnlyMemory<char>.Empty, token);
     }
 
+    /// <summary>Releases a pending <see cref="DebugDomainCredentialCheckScenario.Checking"/> answer as inconclusive.</summary>
     public void Dispose() => pending.TrySetResult(new(DomainCredentialCheckOutcome.Inconclusive));
 
     private static Task<DomainCredentialCheckResult> Answer(DomainCredentialCheckOutcome outcome) => Task.FromResult(new DomainCredentialCheckResult(outcome));

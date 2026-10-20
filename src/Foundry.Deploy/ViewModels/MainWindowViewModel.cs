@@ -840,6 +840,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void ApplyDebugDomainJoinMode(DebugDomainJoinMode mode)
     {
         _debugDomainJoinMode = mode;
+        ReplaceDebugCredentialVerifier();
         _wizardContext.ApplyDebugDomainJoin(DebugDomainJoinScenarios.Create(mode));
         OnPropertyChanged(nameof(IsDebugDomainJoinNoneMode));
         OnPropertyChanged(nameof(IsDebugDomainJoinInteractiveMode));
@@ -854,12 +855,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return;
         }
 
-        // Releasing the previous answer ends a pending debug check; the reset below discards its result.
-        _debugCredentialVerifier?.Dispose();
         _debugCredentialCheckScenario = scenario;
-        _debugCredentialVerifier = scenario == DebugDomainCredentialCheckScenario.None ? null : new DebugDomainCredentialVerifier(scenario);
+        ReplaceDebugCredentialVerifier();
         DomainJoinStep.EndZeroTouchCheck();
-        ApplyDebugDomainJoinMode(_debugDomainJoinMode);
+        // Configuring the step again resets its inputs and discards the previous answer; the media configuration stays the same.
+        DomainJoinStep.Configure(_wizardContext.DomainJoin);
         UpdateZeroTouchCredentialCheck();
         foreach (string name in new[]
                  {
@@ -874,6 +874,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     private bool IsDebugCredentialCheckScenario(DebugDomainCredentialCheckScenario scenario) => IsDebugSafeMode && _debugCredentialCheckScenario == scenario;
+
+    /// <summary>Releases a pending debug answer, which ends a waiting wizard command, and serves the chosen scenario afresh.</summary>
+    private void ReplaceDebugCredentialVerifier()
+    {
+        _debugCredentialVerifier?.Dispose();
+        _debugCredentialVerifier = _debugCredentialCheckScenario == DebugDomainCredentialCheckScenario.None
+            ? null
+            : new DebugDomainCredentialVerifier(_debugCredentialCheckScenario);
+    }
 
     private bool CanShowDebugPages()
     {
@@ -1369,6 +1378,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
         _wizardContext.Dispose();
         Session.Dispose();
+        _debugCredentialVerifier?.Dispose();
         _isDisposed = true;
         base.Dispose();
     }

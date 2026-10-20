@@ -725,6 +725,38 @@ public sealed class DomainJoinStepViewModelTests
     }
 
     [Fact]
+    public void ZeroTouchAnswerIsReusedWhenADomainIsChosenAgain()
+    {
+        var media = new ScriptedMediaCheck(DomainCredentialCheckOutcome.InvalidCredentials);
+        using var step = ZeroTouchStep();
+        step.BeginZeroTouchCheck(media, NoNetworkVerifier, NullLogger.Instance);
+
+        step.SelectedDomain = step.Domains[1];
+        step.SelectedDomainChoice = step.DomainChoices[^1];
+        step.SelectedDomainChoice = step.DomainChoices[0];
+
+        Assert.Equal(["corp", "emea"], media.CheckedDomainIds);
+        Assert.Equal(DomainCredentialCheckState.Rejected, step.CredentialCheckState);
+        Assert.Contains("Foundry OSD", step.CredentialCheckMessage);
+    }
+
+    [Fact]
+    public void ZeroTouchAnswerForAnEarlierDomainIsDiscarded()
+    {
+        var media = new PendingMediaCheck();
+        using var step = ZeroTouchStep();
+        step.BeginZeroTouchCheck(media, NoNetworkVerifier, NullLogger.Instance);
+
+        step.SelectedDomain = step.Domains[1];
+        media.Complete("corp", DomainCredentialCheckOutcome.InvalidCredentials);
+
+        Assert.Equal(DomainCredentialCheckState.Checking, step.CredentialCheckState);
+        media.Complete("emea", DomainCredentialCheckOutcome.Valid);
+        Assert.Equal(DomainCredentialCheckState.Valid, step.CredentialCheckState);
+        Assert.True(step.IsValid);
+    }
+
+    [Fact]
     public void ZeroTouchCheckWithoutUsableMediaCredentialsLeavesTheStepUnchecked()
     {
         var media = new ScriptedMediaCheck(null);
@@ -783,6 +815,22 @@ public sealed class DomainJoinStepViewModelTests
             CheckedDomainIds.Add(selectedDomainId);
             return Task.FromResult(outcome is { } value ? new DomainCredentialCheckResult(value) : null);
         }
+    }
+
+    /// <summary>Holds each media check open until the test answers it, so an answer can arrive after the domain changed.</summary>
+    private sealed class PendingMediaCheck : IZeroTouchMediaCredentialCheck
+    {
+        private readonly Dictionary<string, TaskCompletionSource<DomainCredentialCheckResult?>> pending = [];
+
+        public Task<DomainCredentialCheckResult?> VerifyMediaCredentialsAsync(DeployDomainJoinSettings settings, string? selectedDomainId,
+            IDomainCredentialVerifier verifier, CancellationToken token)
+        {
+            var answer = new TaskCompletionSource<DomainCredentialCheckResult?>();
+            pending[selectedDomainId!] = answer;
+            return answer.Task;
+        }
+
+        public void Complete(string domainId, DomainCredentialCheckOutcome outcome) => pending[domainId].SetResult(new(outcome));
     }
 
     private static DomainJoinStepViewModel InteractiveStepWithCredentials()

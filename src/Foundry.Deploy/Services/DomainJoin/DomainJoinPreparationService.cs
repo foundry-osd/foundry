@@ -33,7 +33,10 @@ public interface IZeroTouchMediaCredentialCheck
         IDomainCredentialVerifier verifier, CancellationToken token);
 }
 
-/// <summary>Resolves owned inputs without contacting AD or acquiring another media unlock.</summary>
+/// <summary>
+/// Resolves owned inputs without contacting AD or acquiring another media unlock. The Zero-touch media check reaches AD only
+/// through the verifier it is given.
+/// </summary>
 public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession keys) : IDomainJoinPreparationService, IZeroTouchMediaCredentialCheck
 {
     /// <summary>Requires a concrete final name and validated runtime metadata before accepting credentials.</summary>
