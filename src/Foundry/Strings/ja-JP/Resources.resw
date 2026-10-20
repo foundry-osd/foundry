@@ -4028,6 +4028,15 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>スタート</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>ARM64 版をダウンロード</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>この PC では ARM64 版の Windows が実行されていますが、これは Foundry OSD の x64 版です。エミュレーション環境では、x64 版でブート メディアを確実に作成できません。最新リリースから Foundry OSD の ARM64 版 (Foundry-win-arm64.msi) をダウンロードしてインストールしてください。</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>ARM64 版が必要です</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>開く</value>
   </data>

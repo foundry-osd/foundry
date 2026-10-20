@@ -4028,6 +4028,15 @@
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>เริ่ม</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>ดาวน์โหลดเวอร์ชัน ARM64</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>พีซีเครื่องนี้ใช้ Windows บน ARM64 แต่นี่คือ Foundry OSD เวอร์ชัน x64 เมื่อทำงานผ่านการจำลอง เวอร์ชัน x64 ไม่สามารถสร้างสื่อสำหรับบูตได้อย่างน่าเชื่อถือ ดาวน์โหลดและติดตั้ง Foundry OSD เวอร์ชัน ARM64 (Foundry-win-arm64.msi) จากรุ่นล่าสุด</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>ต้องใช้เวอร์ชัน ARM64</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>เปิด</value>
   </data>

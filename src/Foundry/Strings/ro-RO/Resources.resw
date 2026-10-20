@@ -4028,6 +4028,15 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Începeți</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>Descarcă versiunea ARM64</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>Acest PC rulează Windows pe ARM64, dar aceasta este versiunea x64 a Foundry OSD. În emulare, versiunea x64 nu poate crea în mod fiabil suporturi de pornire. Descărcați și instalați versiunea ARM64 a Foundry OSD (Foundry-win-arm64.msi) din cea mai recentă lansare.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>Este necesară versiunea ARM64</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Deschide</value>
   </data>

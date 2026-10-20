@@ -4028,6 +4028,15 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Alusta</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>Laadi ARM64 versioon alla</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>Selles arvutis töötab Windows ARM64-l, kuid see on Foundry OSD x64 versioon. Emulatsioonis ei saa x64 versioon alglaadimismeediumit usaldusväärselt luua. Laadige uusimast väljalaskest alla ja installige Foundry OSD ARM64 versioon (Foundry-win-arm64.msi).</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>Vaja on ARM64 versiooni</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Ava</value>
   </data>

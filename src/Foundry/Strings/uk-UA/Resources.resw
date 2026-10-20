@@ -4028,6 +4028,15 @@
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>старт</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>Завантажити версію для ARM64</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>На цьому комп'ютері працює Windows для ARM64, але це версія Foundry OSD для x64. У режимі емуляції версія для x64 не може надійно створювати завантажувальні носії. Завантажте та встановіть версію Foundry OSD для ARM64 (Foundry-win-arm64.msi) з останнього випуску.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>Потрібна версія для ARM64</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Відкрити</value>
   </data>

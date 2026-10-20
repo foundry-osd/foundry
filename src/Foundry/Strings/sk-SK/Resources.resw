@@ -4028,6 +4028,15 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Štart</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>Stiahnuť verziu pre ARM64</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>Tento počítač používa Windows pre ARM64, ale toto je verzia Foundry OSD pre x64. Pri emulácii nedokáže verzia pre x64 spoľahlivo vytvárať zavádzacie médiá. Stiahnite a nainštalujte verziu Foundry OSD pre ARM64 (Foundry-win-arm64.msi) z najnovšieho vydania.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>Vyžaduje sa verzia pre ARM64</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Otvoriť</value>
   </data>

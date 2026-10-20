@@ -4028,6 +4028,15 @@
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>ابدأ</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>تنزيل نسخة ARM64</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>يعمل هذا الكمبيوتر بنظام Windows على ARM64، لكن هذه هي نسخة x64 من Foundry OSD. في وضع المحاكاة، لا يمكن لنسخة x64 إنشاء وسائط التمهيد بشكل موثوق. قم بتنزيل نسخة ARM64 من Foundry OSD (Foundry-win-arm64.msi) وتثبيتها من أحدث إصدار.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>يلزم استخدام نسخة ARM64</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>فتح</value>
   </data>

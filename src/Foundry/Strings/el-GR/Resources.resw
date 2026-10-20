@@ -4028,6 +4028,15 @@
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Έναρξη</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>Λήψη της έκδοσης ARM64</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>Αυτός ο υπολογιστής εκτελεί Windows σε ARM64, αλλά αυτή είναι η έκδοση x64 του Foundry OSD. Υπό εξομοίωση, η έκδοση x64 δεν μπορεί να δημιουργήσει αξιόπιστα μέσα εκκίνησης. Κάντε λήψη και εγκαταστήστε την έκδοση ARM64 του Foundry OSD (Foundry-win-arm64.msi) από την πιο πρόσφατη κυκλοφορία.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>Απαιτείται η έκδοση ARM64</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Άνοιγμα</value>
   </data>

@@ -4028,6 +4028,15 @@
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>התחל</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>הורד את גרסת ARM64</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>מחשב זה מריץ Windows על ARM64, אך זוהי גרסת x64 של Foundry OSD. באמולציה, גרסת x64 אינה יכולה ליצור מדיית אתחול באופן אמין. הורד והתקן את גרסת ARM64 של Foundry OSD (Foundry-win-arm64.msi) מהגרסה האחרונה שפורסמה.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>נדרשת גרסת ARM64</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>פתח</value>
   </data>

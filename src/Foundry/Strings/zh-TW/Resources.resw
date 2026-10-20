@@ -4028,6 +4028,15 @@
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>開始</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>下載 ARM64 版本</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>這部電腦執行的是 ARM64 版 Windows，但目前是 Foundry OSD 的 x64 版本。在模擬環境下，x64 版本無法可靠地建立開機媒體。請從最新發行版本下載並安裝 Foundry OSD 的 ARM64 版本 (Foundry-win-arm64.msi)。</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>需要 ARM64 版本</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>開啟</value>
   </data>

@@ -4028,6 +4028,15 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Begin</value>
   </data>
+  <data name="Startup.Arm64Required.DownloadButton" xml:space="preserve">
+    <value>ARM64-versie downloaden</value>
+  </data>
+  <data name="Startup.Arm64Required.Message" xml:space="preserve">
+    <value>Op deze pc wordt Windows op ARM64 uitgevoerd, maar dit is de x64-versie van Foundry OSD. Onder emulatie kan de x64-versie niet betrouwbaar opstartmedia maken. Download en installeer de ARM64-versie van Foundry OSD (Foundry-win-arm64.msi) vanuit de nieuwste release.</value>
+  </data>
+  <data name="Startup.Arm64Required.Title" xml:space="preserve">
+    <value>ARM64-versie vereist</value>
+  </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Openen</value>
   </data>
