@@ -3453,6 +3453,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Pielāgota draivera mape nepastāv.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Viens vai vairāki iekļautie pielāgotie attēli nav izveidoti atlasītajai datu nesēja arhitektūrai. Izslēdziet tos vai mainiet datu nesēja arhitektūru.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Izvietošanas konfigurācijas ģenerēšana nav gatava.</value>
   </data>

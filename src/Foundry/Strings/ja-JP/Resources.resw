@@ -3453,6 +3453,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>カスタムドライバーフォルダーが存在しません。</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>含まれているカスタム イメージの 1 つ以上が、選択したメディアのアーキテクチャ用に作成されていません。それらを除外するか、メディアのアーキテクチャを変更してください。</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>デプロイ構成の生成の準備ができていません。</value>
   </data>

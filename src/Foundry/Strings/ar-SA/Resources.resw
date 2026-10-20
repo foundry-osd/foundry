@@ -3453,6 +3453,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>مجلد برنامج التشغيل المخصص غير موجود.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>صورة مخصصة مضمّنة واحدة أو أكثر غير مُعدّة لبنية الوسائط المحددة. استبعدها أو غيّر بنية الوسائط.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>نشر إنشاء التكوين غير جاهز.</value>
   </data>

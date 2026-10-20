@@ -3453,6 +3453,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Dosarul de driver personalizat nu există.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Una sau mai multe imagini personalizate incluse nu sunt create pentru arhitectura mediului selectată. Excludeți-le sau schimbați arhitectura mediului.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generarea configurației de implementare nu este gata.</value>
   </data>

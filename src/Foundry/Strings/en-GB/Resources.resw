@@ -3453,6 +3453,9 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Custom driver folder does not exist.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>One or more included custom images are not built for the selected media architecture. Exclude them or change the media architecture.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Deploy configuration generation is not ready.</value>
   </data>

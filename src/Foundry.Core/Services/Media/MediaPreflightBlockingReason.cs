@@ -21,5 +21,11 @@ public enum MediaPreflightBlockingReason
     Arm64RequiresGpt,
     CustomDriverDirectoryNotFound,
     CustomDriverDirectoryHasNoInfFiles,
+
+    /// <summary>
+    /// An included custom image index reports a known architecture that differs from the selected media architecture.
+    /// </summary>
+    CustomImageArchitectureMismatch,
+
     FinalExecutionDeferred
 }

@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -81,6 +82,25 @@ public sealed class ConfigurationOverviewEvaluatorTests
 
         Assert.Equal(expected, evaluation[ConfigurationOverviewItem.CustomImages]);
         Assert.Equal(expected, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(
+            evaluation, ConfigurationNavigationTarget.CustomImages));
+    }
+
+    [Fact]
+    public void Evaluate_CustomImagesForAnotherMediaArchitecture_NeedsAttention()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings { Architecture = WinPeArchitecture.Arm64 },
+            CustomImages = new CustomImagesSettings
+            {
+                IsEnabled = true,
+                Images = [new CustomImageReference { Indexes = [new CustomImageIndex { Index = 1, Architecture = "x64" }] }]
+            }
+        };
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { IsCustomImagesReady = true });
+
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(
             evaluation, ConfigurationNavigationTarget.CustomImages));
     }
 

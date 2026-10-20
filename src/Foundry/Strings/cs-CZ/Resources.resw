@@ -3453,6 +3453,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Vlastní složka ovladače neexistuje.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Jedna nebo více zahrnutých vlastních bitových kopií není určena pro vybranou architekturu média. Vylučte je, nebo změňte architekturu média.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generování konfigurace nasazení není připraveno.</value>
   </data>

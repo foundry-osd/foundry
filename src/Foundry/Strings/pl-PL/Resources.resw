@@ -3453,6 +3453,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Niestandardowy folder sterownika nie istnieje.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Co najmniej jeden dołączony obraz niestandardowy nie jest przeznaczony dla wybranej architektury nośnika. Wyklucz te obrazy lub zmień architekturę nośnika.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generowanie konfiguracji wdrożenia nie jest gotowe.</value>
   </data>

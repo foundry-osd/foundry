@@ -3453,6 +3453,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>自定义驱动程序文件夹不存在。</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>一个或多个已包含的自定义映像不是为所选介质架构构建的。请排除这些映像或更改介质架构。</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>部署配置生成尚未准备好。</value>
   </data>

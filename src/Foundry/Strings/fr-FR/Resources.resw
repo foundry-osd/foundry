@@ -3453,6 +3453,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Le dossier de pilotes personnalisé n'existe pas.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Une ou plusieurs images personnalisées incluses ne sont pas conçues pour l'architecture du média sélectionnée. Excluez-les ou changez l'architecture du média.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>La génération de la configuration Deploy n'est pas prête.</value>
   </data>

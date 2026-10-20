@@ -3453,6 +3453,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Pasirinktinis tvarkyklės aplankas neegzistuoja.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Vienas ar keli įtraukti pasirinktiniai atvaizdai nėra sukurti pasirinktai laikmenos architektūrai. Neįtraukite jų arba pakeiskite laikmenos architektūrą.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Diegimo konfigūracijos generavimas neparengtas.</value>
   </data>

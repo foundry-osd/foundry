@@ -3453,6 +3453,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>תיקיית מנהל התקן מותאמת אישית לא קיימת.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>תמונה מותאמת אישית כלולה אחת או יותר לא נבנתה עבור ארכיטקטורת המדיה שנבחרה. יש להחריג אותן או לשנות את ארכיטקטורת המדיה.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>יצירת התצורה של הפריסה אינה מוכנה.</value>
   </data>

@@ -3453,6 +3453,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Tilpasset drivermappe finnes ikke.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>En eller flere inkluderte tilpassede avbildninger er ikke bygget for den valgte mediearkitekturen. Utelat dem eller endre mediearkitekturen.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generering av distribusjonskonfigurasjon er ikke klar.</value>
   </data>

@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.WinPe;
 
@@ -206,6 +207,108 @@ public sealed class MediaPreflightServiceTests
 
         Assert.Equal(UsbPartitionStyle.Gpt, evaluation.EffectiveUsbPartitionStyle);
         Assert.Contains(MediaPreflightBlockingReason.Arm64RequiresGpt, evaluation.UsbBlockingReasons);
+    }
+
+    [Theory]
+    [InlineData(WinPeArchitecture.X64, "arm64")]
+    [InlineData(WinPeArchitecture.X64, "x86")]
+    [InlineData(WinPeArchitecture.Arm64, "x64")]
+    [InlineData(WinPeArchitecture.Arm64, "x86")]
+    public void Evaluate_WhenIncludedCustomImageTargetsAnotherArchitecture_BlocksMedia(
+        WinPeArchitecture mediaArchitecture,
+        string imageArchitecture)
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                Architecture = mediaArchitecture,
+                CustomImages = CreateCustomImages(imageArchitecture),
+                IsFinalExecutionEnabled = true
+            });
+
+        Assert.False(evaluation.CanCreateIso);
+        Assert.False(evaluation.CanCreateUsb);
+        Assert.Contains(MediaPreflightBlockingReason.CustomImageArchitectureMismatch, evaluation.IsoBlockingReasons);
+        Assert.Contains(MediaPreflightBlockingReason.CustomImageArchitectureMismatch, evaluation.UsbBlockingReasons);
+    }
+
+    [Theory]
+    [InlineData(WinPeArchitecture.X64, "x64")]
+    [InlineData(WinPeArchitecture.Arm64, "arm64")]
+    [InlineData(WinPeArchitecture.Arm64, "ARM64")]
+    [InlineData(WinPeArchitecture.X64, "unknown")]
+    [InlineData(WinPeArchitecture.Arm64, "")]
+    public void Evaluate_WhenIncludedCustomImageMatchesOrHasUnknownArchitecture_AllowsMedia(
+        WinPeArchitecture mediaArchitecture,
+        string imageArchitecture)
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                Architecture = mediaArchitecture,
+                CustomImages = CreateCustomImages(imageArchitecture),
+                IsFinalExecutionEnabled = true
+            });
+
+        Assert.True(evaluation.CanCreateIso);
+        Assert.DoesNotContain(MediaPreflightBlockingReason.CustomImageArchitectureMismatch, evaluation.IsoBlockingReasons);
+        Assert.DoesNotContain(MediaPreflightBlockingReason.CustomImageArchitectureMismatch, evaluation.UsbBlockingReasons);
+    }
+
+    [Theory]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    public void Evaluate_WhenMismatchedCustomImageIsNotOnMedia_IgnoresIt(bool isEnabled, bool isIncluded)
+    {
+        CustomImagesSettings customImages = CreateCustomImages("arm64", isIncluded) with { IsEnabled = isEnabled };
+
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                Architecture = WinPeArchitecture.X64,
+                CustomImages = customImages
+            });
+
+        Assert.DoesNotContain(MediaPreflightBlockingReason.CustomImageArchitectureMismatch, evaluation.IsoBlockingReasons);
+        Assert.DoesNotContain(MediaPreflightBlockingReason.CustomImageArchitectureMismatch, evaluation.UsbBlockingReasons);
+    }
+
+    [Fact]
+    public void Evaluate_WhenAnyIndexOfIncludedCustomImageTargetsAnotherArchitecture_BlocksMedia()
+    {
+        CustomImagesSettings customImages = CreateCustomImages("x64");
+        CustomImageReference image = customImages.Images[0];
+        customImages = customImages with
+        {
+            Images = [image with { Indexes = [.. image.Indexes, new CustomImageIndex { Index = 2, Architecture = "arm64" }] }]
+        };
+
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                Architecture = WinPeArchitecture.X64,
+                CustomImages = customImages
+            });
+
+        Assert.Contains(MediaPreflightBlockingReason.CustomImageArchitectureMismatch, evaluation.IsoBlockingReasons);
+    }
+
+    private static CustomImagesSettings CreateCustomImages(string architecture, bool isIncluded = true)
+    {
+        return new CustomImagesSettings
+        {
+            IsEnabled = true,
+            Images =
+            [
+                new CustomImageReference
+                {
+                    Id = "image",
+                    DisplayName = "Image",
+                    IsIncluded = isIncluded,
+                    Indexes = [new CustomImageIndex { Index = 1, Architecture = architecture }]
+                }
+            ]
+        };
     }
 
     private static MediaPreflightOptions CreateReadyOptions()

@@ -3453,6 +3453,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Mapa prilagođenog upravljačkog programa ne postoji.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Jedna ili više uključenih prilagođenih slika nisu izrađene za odabranu arhitekturu medija. Isključite ih ili promijenite arhitekturu medija.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generacija konfiguracije implementacije nije spremna.</value>
   </data>

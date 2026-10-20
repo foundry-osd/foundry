@@ -3453,6 +3453,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>사용자 정의 드라이버 폴더가 존재하지 않습니다.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>포함된 사용자 지정 이미지 중 하나 이상이 선택한 미디어 아키텍처용으로 빌드되지 않았습니다. 해당 이미지를 제외하거나 미디어 아키텍처를 변경하세요.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>배포 구성 생성이 준비되지 않았습니다.</value>
   </data>

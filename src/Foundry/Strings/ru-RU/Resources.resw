@@ -3453,6 +3453,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Папка пользовательского драйвера не существует.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Один или несколько включённых пользовательских образов не предназначены для выбранной архитектуры носителя. Исключите их или измените архитектуру носителя.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Создание конфигурации развертывания не готово.</value>
   </data>

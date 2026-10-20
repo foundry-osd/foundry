@@ -3453,6 +3453,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>La carpeta del controlador personalizado no existe.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Una o varias imágenes personalizadas incluidas no están creadas para la arquitectura de medios seleccionada. Exclúyalas o cambie la arquitectura de los medios.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>La generación de configuración de implementación no está lista.</value>
   </data>

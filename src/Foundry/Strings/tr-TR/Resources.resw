@@ -3453,6 +3453,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Özel sürücü klasörü mevcut değil.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Dahil edilen bir veya daha fazla özel görüntü, seçilen medya mimarisi için oluşturulmamış. Bunları hariç tutun veya medya mimarisini değiştirin.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Dağıtım yapılandırması oluşturma hazır değil.</value>
   </data>

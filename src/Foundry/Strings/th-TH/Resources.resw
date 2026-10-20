@@ -3453,6 +3453,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>ไม่มีโฟลเดอร์ไดรเวอร์แบบกำหนดเอง</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>อิมเมจแบบกำหนดเองที่รวมไว้อย่างน้อยหนึ่งรายการไม่ได้สร้างขึ้นสำหรับสถาปัตยกรรมสื่อที่เลือก โปรดไม่รวมอิมเมจเหล่านั้นหรือเปลี่ยนสถาปัตยกรรมสื่อ</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>การสร้างการกำหนดค่าใช้งานยังไม่พร้อม</value>
   </data>

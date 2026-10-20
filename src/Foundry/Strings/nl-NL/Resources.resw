@@ -3453,6 +3453,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Aangepaste drivermap bestaat niet.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomImageArchitectureMismatch" xml:space="preserve">
+    <value>Een of meer opgenomen aangepaste installatiekopieën zijn niet gemaakt voor de geselecteerde media-architectuur. Sluit ze uit of wijzig de media-architectuur.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Het genereren van de implementatieconfiguratie is niet gereed.</value>
   </data>
