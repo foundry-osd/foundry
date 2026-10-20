@@ -636,6 +636,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>インストール後の準備に失敗しました。再試行する前に、ランタイム、ペイロード、Windows 応答ファイルを確認してください。</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>この Windows イメージは、このデバイスのプロセッサ アーキテクチャ用ではありません。このデバイス用のイメージを選択してください。</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>イメージキャッシュを準備できません。キャッシュの空き容量と書き込み権限を確認してください。</value>
   </data>

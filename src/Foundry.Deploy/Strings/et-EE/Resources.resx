@@ -636,6 +636,9 @@ Kas jätkata juurutamisega?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Installimisjärgne ettevalmistamine nurjus. Enne uuesti proovimist kontrollige käituskeskkonda, sisu ja Windowsi vastusefaili.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Windowsi tõmmis pole mõeldud selle seadme protsessori arhitektuurile. Vali selle seadme jaoks mõeldud tõmmis.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Tõmmise vahemälu ei saa ette valmistada. Kontrolli selle vaba ruumi ja kirjutusõigusi.</value>
   </data>

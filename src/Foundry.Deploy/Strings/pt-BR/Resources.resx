@@ -636,6 +636,9 @@ Continuar com a implantação?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Falha na preparação da pós-instalação. Verifique o ambiente de execução, os conteúdos e o arquivo de resposta do Windows antes de tentar novamente.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>A imagem do Windows não foi criada para a arquitetura de processador deste dispositivo. Selecione uma imagem criada para este dispositivo.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Não é possível preparar o cache da imagem. Verifique o espaço livre e o acesso de gravação no cache.</value>
   </data>

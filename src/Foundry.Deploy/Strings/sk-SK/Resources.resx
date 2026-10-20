@@ -636,6 +636,9 @@ Pokračovať v nasadzovaní?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Príprava fázy po inštalácii zlyhala. Pred ďalším pokusom overte prostredie na spúšťanie, obsah a súbor odpovedí Windows.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Obraz systému Windows nie je určený pre architektúru procesora tohto zariadenia. Vyberte obraz určený pre toto zariadenie.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Vyrovnávaciu pamäť obrazu nemožno pripraviť. Skontrolujte v nej voľné miesto a prístup na zápis.</value>
   </data>

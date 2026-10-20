@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.DriverPacks;
@@ -19,7 +20,8 @@ public sealed class PreflightDeploymentStep(
     IImageSourceProbe sourceProbe,
     Foundry.Core.Services.Images.ICustomImageMetadataReader? customMetadataReader = null,
     PreOobe.PreOobeContentResolver? postInstallResolver = null,
-    IWindowsNativeDeploymentService? nativeService = null) : DeploymentStepBase
+    IWindowsNativeDeploymentService? nativeService = null,
+    Architecture? deviceArchitecture = null) : DeploymentStepBase
 {
     public override string Name => DeploymentStepNames.PreflightDeployment;
 
@@ -60,6 +62,9 @@ public sealed class PreflightDeploymentStep(
             if (context.Request.OperatingSystem is CustomImageSelection custom)
                 return await PrepareCustomImageAsync(context, custom, cancellationToken).ConfigureAwait(false);
             ValidateCatalog(context.Request);
+            // Rejected before the target disk is prepared: a target-staged image is only inspected after the disk is wiped.
+            DeploymentImageArchitecture.EnsureMatchesDevice(context.Request.OperatingSystem.Architecture,
+                deviceArchitecture ?? RuntimeInformation.OSArchitecture);
             string cacheRoot = context.RuntimeState.ResolvedCache?.RootPath
                 ?? throw Guard("Preflight.NotReady", "preflight_not_ready");
             (_, DeploymentStepResult? targetFailure) = await context.TryGetValidatedTargetDiskAsync(cancellationToken).ConfigureAwait(false);
@@ -162,6 +167,9 @@ public sealed class PreflightDeploymentStep(
             var selected = matches[0];
             if (selected.EditionId != custom.Edition || selected.Architecture != custom.Architecture || selected.ExpandedSizeBytes != custom.Index.ExpandedSizeBytes ||
                 selected.Build != custom.Index.Build || selected.Version != custom.Index.Version) throw new InvalidDataException();
+            // Rejected before the target disk is prepared: a mismatched image would leave the device unbootable.
+            DeploymentImageArchitecture.EnsureMatchesDevice(selected.Architecture,
+                deviceArchitecture ?? RuntimeInformation.OSArchitecture);
             if (context.Request.TargetDiskIdentity?.SizeBytes is null or 0) throw new InvalidDataException();
             var setupImages = images.Where(image => image.Name.Equals("Windows Setup Media", StringComparison.OrdinalIgnoreCase)).ToArray();
             long? setupSize = setupImages.Length == 1 && setupImages[0].ExpandedSizeBytes > 0 ? setupImages[0].ExpandedSizeBytes : null;

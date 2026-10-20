@@ -636,6 +636,9 @@ Continue with deployment?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Post-installation staging failed. Verify the runtime, payloads and Windows answer file before retrying.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>The Windows image is not built for this device's processor architecture. Select an image built for this device.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>The image cache cannot be prepared. Check its free space and write access.</value>
   </data>

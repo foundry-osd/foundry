@@ -636,6 +636,9 @@ Continuați cu implementarea?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Pregătirea etapei de după instalare a eșuat. Verificați mediul de execuție, conținutul și fișierul de răspuns Windows înainte de a reîncerca.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Imaginea Windows nu este destinată arhitecturii procesorului acestui dispozitiv. Selectați o imagine destinată acestui dispozitiv.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Memoria cache a imaginii nu poate fi pregătită. Verificați spațiul liber și accesul la scriere în aceasta.</value>
   </data>

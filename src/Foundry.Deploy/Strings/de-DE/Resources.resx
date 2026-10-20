@@ -636,6 +636,9 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Vorbereitung der Nachinstallation fehlgeschlagen. Prüfen Sie Laufzeit, Nutzdaten und Windows-Antwortdatei vor einem erneuten Versuch.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Das Windows-Abbild ist nicht für die Prozessorarchitektur dieses Geräts vorgesehen. Wählen Sie ein Abbild für dieses Gerät aus.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Der Abbildcache kann nicht vorbereitet werden. Prüfen Sie den freien Speicherplatz und den Schreibzugriff auf den Cache.</value>
   </data>

@@ -636,6 +636,9 @@ Tęsti diegimą?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Nepavyko paruošti etapo po diegimo. Prieš bandydami dar kartą patikrinkite vykdymo aplinką, turinį ir „Windows“ atsakymų failą.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>„Windows“ atvaizdas nėra skirtas šio įrenginio procesoriaus architektūrai. Pasirinkite šiam įrenginiui skirtą atvaizdą.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Nepavyksta paruošti atvaizdo podėlio. Patikrinkite laisvą vietą ir rašymo į podėlį teises.</value>
   </data>

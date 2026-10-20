@@ -636,6 +636,9 @@ Vil du fortsætte med implementeringen?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Klargøring til efter installationen mislykkedes. Kontrollér kørselsmiljø, indhold og Windows-svarfilen, før du prøver igen.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Windows-afbildningen er ikke beregnet til processorarkitekturen på denne enhed. Vælg en afbildning, der er beregnet til denne enhed.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Afbildningens cache kan ikke klargøres. Kontrollér den ledige plads og skriveadgangen til den.</value>
   </data>

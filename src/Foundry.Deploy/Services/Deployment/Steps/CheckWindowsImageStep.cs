@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Runtime.InteropServices;
 using Foundry.Deploy.Services.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
@@ -10,7 +11,8 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 /// <summary>Validates the acquired image and its known capacity before external-source erasure or target-source application.</summary>
 public sealed class CheckWindowsImageStep(
     IWindowsDeploymentService windowsDeploymentService,
-    IDeploymentStorageService storageService) : DeploymentStepBase
+    IDeploymentStorageService storageService,
+    Architecture? deviceArchitecture = null) : DeploymentStepBase
 {
     public override string Name => DeploymentStepNames.CheckWindowsImage;
 
@@ -51,9 +53,10 @@ public sealed class CheckWindowsImageStep(
             context.EmitCurrentStepIndeterminate("Checking Windows image...", "Inspecting image...", DeploymentOperationNames.InspectOperatingSystemImage);
             WindowsImageMetadata image = await windowsDeploymentService
                 .InspectImageAsync(imagePath, context.Request.OperatingSystem.Edition, cancellationToken).ConfigureAwait(false);
-            if (context.PostInstallContent is not null && (image.Architecture is null ||
-                PreOobe.PreOobeContentResolver.ResolveRid(image.Architecture) != context.PostInstallContent.RuntimeIdentifier))
-                throw new InvalidDataException("The acquired Windows image architecture differs from the verified post-installation runtime.");
+            // The catalog label is not proof of the downloaded content: check what DISM reports before anything is applied.
+            DeploymentImageArchitecture.EnsureMatchesSelection(image.Architecture, context.Request.OperatingSystem.Architecture);
+            DeploymentImageArchitecture.EnsureMatchesDevice(image.Architecture,
+                deviceArchitecture ?? RuntimeInformation.OSArchitecture);
             long driverBytes = PreflightDeploymentStep.ResolveTargetDriverBytes(context,
                 prepared.UsesTargetStorage ? null : storageService.GetAvailableBytes(imagePath));
             DeploymentCapacityPolicy.EnsureTargetCapacity(context, image, prepared.UsesTargetStorage ? sourceBytes : 0, driverBytes);

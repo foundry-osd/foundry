@@ -636,6 +636,9 @@
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>安装后暂存失败。重试前，请验证运行时、有效负载和 Windows 应答文件。</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>此 Windows 映像不适用于此设备的处理器体系结构。请选择适用于此设备的映像。</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>无法准备映像缓存。请检查其可用空间和写入权限。</value>
   </data>

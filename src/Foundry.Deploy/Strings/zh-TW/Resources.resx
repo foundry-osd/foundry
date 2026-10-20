@@ -636,6 +636,9 @@ ErrorCode=0x80070005
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>安裝後暫存失敗。重試前，請驗證執行階段、承載內容與 Windows 回應檔案。</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>此 Windows 映像不適用於此裝置的處理器架構。請選取適用於此裝置的映像。</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>無法準備映像快取。請檢查其可用空間與寫入權限。</value>
   </data>

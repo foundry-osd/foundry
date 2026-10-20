@@ -636,6 +636,9 @@ ErrorCode=0x80070005
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Не вдалося підготувати етап після інсталяції. Перед повторною спробою перевірте середовище виконання, вміст і файл відповідей Windows.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Образ Windows не призначений для архітектури процесора цього пристрою. Виберіть образ, призначений для цього пристрою.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Не вдається підготувати кеш образу. Перевірте вільне місце й доступ для запису до кешу.</value>
   </data>

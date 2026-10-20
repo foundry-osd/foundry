@@ -636,6 +636,9 @@ Folytatja a telepítést?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>A telepítés utáni előkészítés sikertelen. Újrapróbálkozás előtt ellenőrizze a futtatókörnyezetet, a tartalmat és a Windows válaszfájlját.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>A Windows-lemezkép nem az eszköz processzorarchitektúrájához készült. Válasszon az eszközhöz készült lemezképet.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>A lemezkép gyorsítótára nem készíthető elő. Ellenőrizze a szabad helyet és az írási jogosultságokat.</value>
   </data>

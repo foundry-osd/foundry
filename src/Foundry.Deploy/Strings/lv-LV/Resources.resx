@@ -636,6 +636,9 @@ Vai turpināt izvietošanu?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Neizdevās sagatavot posmu pēc instalēšanas. Pirms atkārtota mēģinājuma pārbaudiet izpildlaika vidi, saturu un Windows atbilžu failu.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Windows attēls nav paredzēts šīs ierīces procesora arhitektūrai. Atlasiet šai ierīcei paredzētu attēlu.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Attēla kešatmiņu nevar sagatavot. Pārbaudiet tās brīvo vietu un rakstīšanas piekļuvi.</value>
   </data>

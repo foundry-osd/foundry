@@ -636,6 +636,9 @@ Fortsätt med implementeringen?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Förberedelserna för efter installationen misslyckades. Kontrollera körmiljön, innehållet och Windows-svarsfilen innan du försöker igen.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Windows-avbildningen är inte avsedd för processorarkitekturen i den här enheten. Välj en avbildning som är avsedd för den här enheten.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Avbildningscachen kan inte förberedas. Kontrollera ledigt utrymme och skrivåtkomst till cachen.</value>
   </data>

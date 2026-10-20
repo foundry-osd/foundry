@@ -636,6 +636,9 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Priprava faze po namestitvi ni uspela. Pred ponovnim poskusom preverite izvajalno okolje, vsebino in datoteko z odgovori za Windows.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Slika sistema Windows ni namenjena arhitekturi procesorja te naprave. Izberite sliko, namenjeno tej napravi.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Predpomnilnika slike ni mogoče pripraviti. Preverite prosti prostor in pravice za pisanje vanj.</value>
   </data>

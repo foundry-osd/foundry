@@ -636,6 +636,9 @@
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Подготовката на етапа след инсталиране е неуспешна. Проверете средата за изпълнение, съдържанието и файла с отговори на Windows, преди да опитате отново.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Образът на Windows не е предназначен за процесорната архитектура на това устройство. Изберете образ, предназначен за това устройство.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Кешът за образа не може да бъде подготвен. Проверете свободното място и достъпа за запис в него.</value>
   </data>

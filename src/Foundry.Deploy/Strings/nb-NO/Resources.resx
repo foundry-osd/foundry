@@ -636,6 +636,9 @@ Vil du fortsette med distribusjonen?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Klargjøring til etter installasjonen mislyktes. Kontroller kjøremiljøet, innholdet og Windows-svarfilen før du prøver igjen.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Windows-avbildningen er ikke laget for prosessorarkitekturen på denne enheten. Velg en avbildning som er laget for denne enheten.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Avbildningshurtigbufferen kan ikke klargjøres. Kontroller ledig plass og skrivetilgang til den.</value>
   </data>

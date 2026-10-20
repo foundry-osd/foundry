@@ -636,6 +636,9 @@ Pokračovat v nasazování?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Příprava fáze po instalaci se nezdařila. Před dalším pokusem ověřte běhové prostředí, obsah a soubor odpovědí Windows.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>Bitová kopie Windows není určena pro architekturu procesoru tohoto zařízení. Vyberte bitovou kopii určenou pro toto zařízení.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Mezipaměť bitové kopie nelze připravit. Zkontrolujte v ní volné místo a oprávnění k zápisu.</value>
   </data>

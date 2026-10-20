@@ -636,6 +636,9 @@ Continuare con la distribuzione?</value>
   <data name="PostInstall.StagingFailed" xml:space="preserve">
     <value>Preparazione della post-installazione non riuscita. Verifica runtime, file e file di risposte di Windows prima di riprovare.</value>
   </data>
+  <data name="Preflight.ArchitectureMismatch" xml:space="preserve">
+    <value>L'immagine di Windows non è destinata all'architettura del processore di questo dispositivo. Selezionare un'immagine destinata a questo dispositivo.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Impossibile preparare la cache dell'immagine. Controllare lo spazio libero e l'accesso in scrittura alla cache.</value>
   </data>
