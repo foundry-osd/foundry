@@ -281,7 +281,7 @@ Licențiat sub licența MIT.</value>
     <value>Respins</value>
   </data>
   <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
-    <value>Valid</value>
+    <value>Acceptat</value>
   </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interactiv</value>
