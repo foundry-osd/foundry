@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Localization;
 
@@ -22,6 +23,28 @@ public enum DomainJoinChoiceKind { ListedDomain, TypedDomain, DoNotJoin }
 /// </summary>
 public sealed record DomainJoinChoice(DomainJoinChoiceKind Kind, string DisplayName, DeployDomainJoinDomainSettings? Domain = null);
 
+/// <summary>Where the check of the typed account and password with the domain stands for the current inputs.</summary>
+public enum DomainCredentialCheckState
+{
+    /// <summary>The current inputs have not been checked.</summary>
+    NotChecked,
+
+    /// <summary>A check of the current inputs is running.</summary>
+    Checking,
+
+    /// <summary>The domain accepted the current account and password.</summary>
+    Valid,
+
+    /// <summary>The domain rejected the current account or password; the step stays blocked until an input changes.</summary>
+    Rejected,
+
+    /// <summary>The current inputs could not be checked; the next confirmation continues without a new check.</summary>
+    Warning,
+
+    /// <summary>The technician continued after a warning for the current inputs.</summary>
+    WarningAcknowledged
+}
+
 /// <summary>
 /// Holds what the technician enters on the Domain Join wizard step: the domain to join or the choice not to join,
 /// credentials in Interactive mode, and the OU when the retained domain lists several. The password is an owned
@@ -32,6 +55,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     private DeployDomainJoinSettings settings = new();
     private IReadOnlyList<DomainJoinChoice> domainChoices = [];
     private char[]? password;
+    private int credentialCheckGeneration;
 
     /// <summary>Raised when an input or its validity changes, so the wizard can refresh navigation.</summary>
     public event EventHandler? StateChanged;
@@ -62,6 +86,13 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     [ObservableProperty]
     private string typedOuDistinguishedName = string.Empty;
+
+    /// <summary>Where the check of the current account and password stands; any change of domain, account or password resets it.</summary>
+    [ObservableProperty]
+    private DomainCredentialCheckState credentialCheckState;
+
+    /// <summary>Gets the result of the last check applied to the current inputs, or <see langword="null"/> when they were not checked.</summary>
+    public DomainCredentialCheckResult? LastCredentialCheck { get; private set; }
 
     public IReadOnlyList<DeployDomainJoinDomainSettings> Domains => settings.Domains;
 
@@ -127,7 +158,31 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         (HasListedDomains ? RetainedDomain is not null : DomainJoinCredentialContext.IsValidDomainName(DomainName)) &&
         (!RequiresCredentials || DomainJoinConfigurationValidator.IsQualifiedAccount(AccountName) && HasPassword) &&
         (!IsOuListVisible || SelectedOrganizationalUnit is not null) &&
-        !IsTypedOuInvalid;
+        !IsTypedOuInvalid &&
+        CredentialCheckState is not (DomainCredentialCheckState.Checking or DomainCredentialCheckState.Rejected);
+
+    /// <summary>Gets whether leaving the step would contact the domain or acknowledge a warning for the current inputs.</summary>
+    public bool NeedsCredentialCheck => RequiresCredentials &&
+        CredentialCheckState is DomainCredentialCheckState.NotChecked or DomainCredentialCheckState.Warning;
+
+    public bool IsCheckingCredentials => CredentialCheckState == DomainCredentialCheckState.Checking;
+
+    public bool HasCredentialCheckError => CredentialCheckState == DomainCredentialCheckState.Rejected;
+
+    public bool HasCredentialCheckWarning => CredentialCheckState is DomainCredentialCheckState.Warning or DomainCredentialCheckState.WarningAcknowledged;
+
+    /// <summary>Gets the localized rejection or warning shown under the password, or an empty string.</summary>
+    public string CredentialCheckMessage => (CredentialCheckState, LastCredentialCheck?.Outcome) switch
+    {
+        (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.AccountLocked) => LocalizationText.GetString("DomainJoin.AccountLocked"),
+        (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.PasswordExpired) => LocalizationText.GetString("DomainJoin.PasswordExpired"),
+        (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.AccountDisabled) => LocalizationText.GetString("DomainJoin.AccountDisabled"),
+        (DomainCredentialCheckState.Rejected, _) => LocalizationText.GetString("DomainJoin.CredentialsRejected"),
+        (DomainCredentialCheckState.Warning or DomainCredentialCheckState.WarningAcknowledged, DomainCredentialCheckOutcome.ControllerUnavailable) =>
+            LocalizationText.GetString("DomainJoin.DomainUnreachable"),
+        (DomainCredentialCheckState.Warning or DomainCredentialCheckState.WarningAcknowledged, _) => LocalizationText.GetString("DomainJoin.CheckInconclusive"),
+        _ => string.Empty
+    };
 
     /// <summary>Gets the OU the join will use; <see langword="null"/> means the domain's default location.</summary>
     public string? EffectiveOuDistinguishedName =>
@@ -148,6 +203,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     {
         settings = domainJoin ?? throw new ArgumentNullException(nameof(domainJoin));
         ClearPassword();
+        ResetCredentialCheck();
         // A typed domain belongs to the earlier configuration; a listed one is shown again below.
         DomainName = string.Empty;
         AccountName = string.Empty;
@@ -161,13 +217,65 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     }
 
     /// <summary>Rebuilds the entries of the domain list after a language change, keeping the technician's choice.</summary>
-    public void RefreshLocalizedText() => RebuildDomainChoices();
+    public void RefreshLocalizedText()
+    {
+        RebuildDomainChoices();
+        OnPropertyChanged(nameof(CredentialCheckMessage));
+    }
+
+    /// <summary>
+    /// Decides whether the wizard may leave the step. Without credentials to check it returns <see langword="true"/> at once.
+    /// Otherwise the first call checks the current inputs with the domain: a valid account advances, a rejection blocks, and a
+    /// failure to check returns <see langword="false"/> once as a warning that the next call acknowledges without a new check.
+    /// A result is discarded when an input changed while the check ran.
+    /// </summary>
+    public async Task<bool> ConfirmCredentialsAsync(IDomainCredentialVerifier verifier, CancellationToken token)
+    {
+        ArgumentNullException.ThrowIfNull(verifier);
+        if (!RequiresCredentials) return true;
+        switch (CredentialCheckState)
+        {
+            case DomainCredentialCheckState.Valid or DomainCredentialCheckState.WarningAcknowledged:
+                return true;
+            case DomainCredentialCheckState.Warning:
+                CredentialCheckState = DomainCredentialCheckState.WarningAcknowledged;
+                return true;
+            case DomainCredentialCheckState.Checking or DomainCredentialCheckState.Rejected:
+                return false;
+        }
+
+        int generation = credentialCheckGeneration;
+        var context = new DomainJoinCredentialContext(DomainName, AccountName);
+        char[] secret = password?.ToArray() ?? [];
+        CredentialCheckState = DomainCredentialCheckState.Checking;
+        DomainCredentialCheckResult result;
+        try
+        {
+            result = await verifier.VerifyAsync(context, secret, token);
+        }
+        catch (OperationCanceledException)
+        {
+            if (generation == credentialCheckGeneration) CredentialCheckState = DomainCredentialCheckState.NotChecked;
+            return false;
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(secret.AsSpan()));
+        }
+
+        if (generation != credentialCheckGeneration) return false;
+        LastCredentialCheck = result;
+        CredentialCheckState = result.Outcome == DomainCredentialCheckOutcome.Valid ? DomainCredentialCheckState.Valid :
+            result.IsRejection ? DomainCredentialCheckState.Rejected : DomainCredentialCheckState.Warning;
+        return CredentialCheckState == DomainCredentialCheckState.Valid;
+    }
 
     /// <summary>Replaces the owned password with a copy of the supplied characters.</summary>
     public void SetPassword(ReadOnlySpan<char> value)
     {
         ErasePassword();
         password = value.IsEmpty ? null : value.ToArray();
+        ResetCredentialCheck();
         RaiseDerivedStateChanged();
     }
 
@@ -180,6 +288,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         if (password is null) return;
         ErasePassword();
         PasswordCleared?.Invoke(this, EventArgs.Empty);
+        ResetCredentialCheck();
         RaiseDerivedStateChanged();
     }
 
@@ -194,16 +303,25 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     public void Dispose() => ErasePassword();
 
-    partial void OnSelectedDomainChanged(DeployDomainJoinDomainSettings? value) => ApplyRetainedDomain();
+    partial void OnSelectedDomainChanged(DeployDomainJoinDomainSettings? value)
+    {
+        ResetCredentialCheck();
+        ApplyRetainedDomain();
+    }
 
     partial void OnIsJoinDeclinedChanged(bool value)
     {
         // A password typed before declining is not needed any more and must not outlive the choice.
         if (value) ClearPassword();
+        ResetCredentialCheck();
         RaiseDerivedStateChanged();
     }
 
-    partial void OnDomainNameChanged(string value) => RaiseDerivedStateChanged();
+    partial void OnDomainNameChanged(string value)
+    {
+        ResetCredentialCheck();
+        RaiseDerivedStateChanged();
+    }
 
     /// <summary>
     /// Shows the retained domain and resets the OU to the one that domain uses or preselects. The account and password are kept,
@@ -219,7 +337,22 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         RaiseDerivedStateChanged();
     }
 
-    partial void OnAccountNameChanged(string value) => RaiseDerivedStateChanged();
+    partial void OnAccountNameChanged(string value)
+    {
+        ResetCredentialCheck();
+        RaiseDerivedStateChanged();
+    }
+
+    partial void OnCredentialCheckStateChanged(DomainCredentialCheckState value)
+    {
+        OnPropertyChanged(nameof(NeedsCredentialCheck));
+        OnPropertyChanged(nameof(IsCheckingCredentials));
+        OnPropertyChanged(nameof(HasCredentialCheckError));
+        OnPropertyChanged(nameof(HasCredentialCheckWarning));
+        OnPropertyChanged(nameof(CredentialCheckMessage));
+        OnPropertyChanged(nameof(IsValid));
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
     partial void OnSelectedOrganizationalUnitChanged(DomainJoinOrganizationalUnitSettings? value) => RaiseDerivedStateChanged();
     partial void OnTypedOuDistinguishedNameChanged(string value) => RaiseDerivedStateChanged();
 
@@ -239,6 +372,14 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         domainChoices = choices;
         OnPropertyChanged(nameof(DomainChoices));
         OnPropertyChanged(nameof(SelectedDomainChoice));
+    }
+
+    /// <summary>Invalidates any check of earlier inputs, including one still running, so its result is never applied.</summary>
+    private void ResetCredentialCheck()
+    {
+        credentialCheckGeneration++;
+        LastCredentialCheck = null;
+        CredentialCheckState = DomainCredentialCheckState.NotChecked;
     }
 
     private void ErasePassword()
@@ -261,6 +402,7 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
         OnPropertyChanged(nameof(IsAccountInvalid));
         OnPropertyChanged(nameof(IsTypedOuInvalid));
         OnPropertyChanged(nameof(IsValid));
+        OnPropertyChanged(nameof(NeedsCredentialCheck));
         OnPropertyChanged(nameof(EffectiveOuDistinguishedName));
         StateChanged?.Invoke(this, EventArgs.Empty);
     }

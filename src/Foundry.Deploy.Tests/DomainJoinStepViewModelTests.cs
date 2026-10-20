@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.ViewModels;
 
@@ -489,6 +490,201 @@ public sealed class DomainJoinStepViewModelTests
 
         Assert.False(step.IsOuListVisible);
         Assert.Null(step.EffectiveOuDistinguishedName);
+    }
+
+    [Fact]
+    public async Task NoCheckWhenCredentialsAreNotRequired()
+    {
+        var verifier = new ScriptedVerifier(DomainCredentialCheckOutcome.Valid);
+        using var zeroTouch = new DomainJoinStepViewModel();
+        zeroTouch.Configure(OneDomain(DomainJoinMode.Automatic));
+        using var declined = InteractiveStepWithCredentials();
+        declined.IsJoinDeclined = true;
+
+        Assert.True(await zeroTouch.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        Assert.True(await declined.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        Assert.False(zeroTouch.NeedsCredentialCheck);
+        Assert.False(declined.NeedsCredentialCheck);
+        Assert.Equal(0, verifier.Calls);
+    }
+
+    [Fact]
+    public async Task ValidCredentialsLetTheStepAdvance()
+    {
+        var verifier = new ScriptedVerifier(DomainCredentialCheckOutcome.Valid);
+        using var step = InteractiveStepWithCredentials();
+
+        Assert.True(step.NeedsCredentialCheck);
+        Assert.True(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        Assert.Equal(DomainCredentialCheckState.Valid, step.CredentialCheckState);
+        Assert.False(step.NeedsCredentialCheck);
+        Assert.True(step.IsValid);
+        Assert.Equal(string.Empty, step.CredentialCheckMessage);
+        Assert.Equal(1, verifier.Calls);
+    }
+
+    [Fact]
+    public async Task RejectionBlocksAndInvalidatesTheStep()
+    {
+        var verifier = new ScriptedVerifier(DomainCredentialCheckOutcome.InvalidCredentials);
+        using var step = InteractiveStepWithCredentials();
+
+        Assert.False(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        Assert.Equal(DomainCredentialCheckState.Rejected, step.CredentialCheckState);
+        Assert.False(step.IsValid);
+        Assert.True(step.HasCredentialCheckError);
+        Assert.False(step.HasCredentialCheckWarning);
+        Assert.NotEqual(string.Empty, step.CredentialCheckMessage);
+        Assert.False(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        Assert.Equal(1, verifier.Calls);
+    }
+
+    [Theory]
+    [InlineData("password")]
+    [InlineData("account")]
+    [InlineData("domainName")]
+    [InlineData("selectedDomain")]
+    public async Task ChangingAnInputAfterACheckRequiresANewCheck(string input)
+    {
+        var verifier = new ScriptedVerifier(DomainCredentialCheckOutcome.Valid, DomainCredentialCheckOutcome.InvalidCredentials);
+        using var step = new DomainJoinStepViewModel();
+        step.Configure(DomainJoinPreparationServiceTests.WithTwoOus(TwoDomains(DomainJoinMode.Interactive)));
+        step.AccountName = "CORP\\join";
+        step.SetPassword("secret");
+
+        Assert.True(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        step.SelectedOrganizationalUnit = step.OrganizationalUnits[1];
+        Assert.Equal(DomainCredentialCheckState.Valid, step.CredentialCheckState);
+
+        ChangeInput(step, input, "first");
+        Assert.Equal(DomainCredentialCheckState.NotChecked, step.CredentialCheckState);
+        Assert.True(step.NeedsCredentialCheck);
+        Assert.False(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        Assert.Equal(DomainCredentialCheckState.Rejected, step.CredentialCheckState);
+
+        ChangeInput(step, input, "second");
+        Assert.Equal(DomainCredentialCheckState.NotChecked, step.CredentialCheckState);
+        Assert.True(step.IsValid);
+        Assert.Equal(2, verifier.Calls);
+    }
+
+    [Fact]
+    public async Task WarningIsAcknowledgedByTheNextNext()
+    {
+        var verifier = new ScriptedVerifier(DomainCredentialCheckOutcome.ControllerUnavailable);
+        using var step = InteractiveStepWithCredentials();
+
+        Assert.False(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        Assert.Equal(DomainCredentialCheckState.Warning, step.CredentialCheckState);
+        Assert.True(step.HasCredentialCheckWarning);
+        Assert.True(step.IsValid);
+        Assert.True(step.NeedsCredentialCheck);
+
+        Assert.True(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
+        Assert.Equal(DomainCredentialCheckState.WarningAcknowledged, step.CredentialCheckState);
+        Assert.False(step.NeedsCredentialCheck);
+        Assert.Equal(1, verifier.Calls);
+    }
+
+    [Fact]
+    public async Task ResultOfAnOutdatedCheckIsIgnored()
+    {
+        var pending = new TaskCompletionSource<DomainCredentialCheckResult>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var verifier = new ScriptedVerifier(pending.Task);
+        using var step = InteractiveStepWithCredentials();
+
+        Task<bool> confirmation = step.ConfirmCredentialsAsync(verifier, CancellationToken.None);
+        step.SetPassword("changed");
+        pending.SetResult(new(DomainCredentialCheckOutcome.Valid));
+
+        Assert.False(await confirmation);
+        Assert.Equal(DomainCredentialCheckState.NotChecked, step.CredentialCheckState);
+        Assert.True(step.NeedsCredentialCheck);
+    }
+
+    [Fact]
+    public async Task CheckingDisablesTheStep()
+    {
+        var pending = new TaskCompletionSource<DomainCredentialCheckResult>(TaskCreationOptions.RunContinuationsAsynchronously);
+        using var step = InteractiveStepWithCredentials();
+
+        Task<bool> confirmation = step.ConfirmCredentialsAsync(new ScriptedVerifier(pending.Task), CancellationToken.None);
+
+        Assert.True(step.IsCheckingCredentials);
+        Assert.False(step.IsValid);
+        pending.SetResult(new(DomainCredentialCheckOutcome.Valid));
+        Assert.True(await confirmation);
+        Assert.False(step.IsCheckingCredentials);
+    }
+
+    [Fact]
+    public async Task VerifierReceivesTheTypedDomainAccountAndPassword()
+    {
+        var verifier = new ScriptedVerifier(DomainCredentialCheckOutcome.Valid);
+        using var step = new DomainJoinStepViewModel();
+        step.Configure(new() { IsEnabled = true });
+        step.DomainName = "lab.test";
+        step.AccountName = "joiner@lab.test";
+        step.SetPassword("typed secret");
+
+        await step.ConfirmCredentialsAsync(verifier, CancellationToken.None);
+
+        Assert.Equal("lab.test", verifier.LastContext?.DomainName);
+        Assert.Equal("joiner@lab.test", verifier.LastContext?.AccountName);
+        Assert.Equal("typed secret", verifier.LastPassword);
+    }
+
+    private static DomainJoinStepViewModel InteractiveStepWithCredentials()
+    {
+        var step = new DomainJoinStepViewModel();
+        step.Configure(OneDomain(DomainJoinMode.Interactive));
+        step.AccountName = "CORP\\join";
+        step.SetPassword("secret");
+        return step;
+    }
+
+    private static void ChangeInput(DomainJoinStepViewModel step, string input, string round)
+    {
+        switch (input)
+        {
+            case "password": step.SetPassword("secret-" + round); break;
+            case "account": step.AccountName = "CORP\\join-" + round; break;
+            case "domainName": step.DomainName = round + ".test"; break;
+            default: step.SelectedDomain = step.Domains[round == "first" ? 1 : 0]; break;
+        }
+    }
+
+    /// <summary>Returns scripted results in order, repeating the last one, and records what it was asked to verify.</summary>
+    private sealed class ScriptedVerifier : IDomainCredentialVerifier
+    {
+        private readonly Queue<Task<DomainCredentialCheckResult>> results;
+        private Task<DomainCredentialCheckResult> last;
+
+        public ScriptedVerifier(params DomainCredentialCheckOutcome[] outcomes)
+            : this(outcomes.Select(outcome => Task.FromResult(new DomainCredentialCheckResult(outcome))).ToArray())
+        {
+        }
+
+        public ScriptedVerifier(params Task<DomainCredentialCheckResult>[] scripted)
+        {
+            results = new(scripted);
+            last = scripted[^1];
+        }
+
+        public int Calls { get; private set; }
+
+        public DomainJoinCredentialContext? LastContext { get; private set; }
+
+        public string? LastPassword { get; private set; }
+
+        public Task<DomainCredentialCheckResult> VerifyAsync(DomainJoinCredentialContext context, ReadOnlyMemory<char> password, CancellationToken token)
+        {
+            Calls++;
+            LastContext = context;
+            LastPassword = new string(password.Span);
+            if (results.Count > 0) last = results.Dequeue();
+            return last;
+        }
     }
 
     private static DeployDomainJoinSettings TwoDomains(DomainJoinMode mode) => DomainJoinPreparationServiceTests.TwoDomains(mode, new byte[32]);
