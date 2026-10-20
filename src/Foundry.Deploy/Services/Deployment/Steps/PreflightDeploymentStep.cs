@@ -62,6 +62,9 @@ public sealed class PreflightDeploymentStep(
             if (context.Request.OperatingSystem is CustomImageSelection custom)
                 return await PrepareCustomImageAsync(context, custom, cancellationToken).ConfigureAwait(false);
             ValidateCatalog(context.Request);
+            // Rejected before the target disk is prepared: a target-staged image is only inspected after the disk is wiped.
+            DeploymentImageArchitecture.EnsureMatchesDevice(context.Request.OperatingSystem.Architecture,
+                deviceArchitecture ?? RuntimeInformation.OSArchitecture);
             string cacheRoot = context.RuntimeState.ResolvedCache?.RootPath
                 ?? throw Guard("Preflight.NotReady", "preflight_not_ready");
             (_, DeploymentStepResult? targetFailure) = await context.TryGetValidatedTargetDiskAsync(cancellationToken).ConfigureAwait(false);

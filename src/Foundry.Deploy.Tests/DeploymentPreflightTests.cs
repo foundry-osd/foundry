@@ -283,13 +283,26 @@ public sealed class DeploymentPreflightTests
     }
 
     [Theory]
-    [InlineData(DeploymentMode.Iso, "image_arm64", Architecture.X64)]
-    [InlineData(DeploymentMode.Usb, "image_arm64", Architecture.X64)]
-    [InlineData(DeploymentMode.Iso, "", Architecture.Arm64)]
-    [InlineData(DeploymentMode.Usb, "", Architecture.Arm64)]
-    public async Task CatalogImage_ArchitectureMismatch_NeverApplies(DeploymentMode mode, string failure, Architecture deviceArchitecture)
+    [InlineData(DeploymentMode.Iso)]
+    [InlineData(DeploymentMode.Usb)]
+    public async Task CatalogImage_ForAnotherArchitecture_FailsBeforePartition(DeploymentMode mode)
     {
-        using var fixture = new PipelineFixture(deviceArchitecture) { Mode = mode, Failure = failure };
+        using var fixture = new PipelineFixture(Architecture.Arm64) { Mode = mode };
+
+        DeploymentStepResult result = await fixture.RunAsync();
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("image_architecture_mismatch", result.Failure?.Code);
+        Assert.DoesNotContain("partition", fixture.Events);
+        Assert.DoesNotContain("download", fixture.Events);
+    }
+
+    [Theory]
+    [InlineData(DeploymentMode.Iso)]
+    [InlineData(DeploymentMode.Usb)]
+    public async Task CatalogImage_MislabeledArchitecture_NeverApplies(DeploymentMode mode)
+    {
+        using var fixture = new PipelineFixture(Architecture.X64) { Mode = mode, Failure = "image_arm64" };
 
         DeploymentStepResult result = await fixture.RunAsync();
 

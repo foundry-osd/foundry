@@ -18,7 +18,7 @@ namespace Foundry.Deploy.Services.Deployment;
 /// </remarks>
 internal static class DeploymentImageArchitecture
 {
-    /// <summary>Gets the native architecture name of the running Windows, which is not affected by process emulation.</summary>
+    /// <summary>Maps a processor architecture to the lowercase name DISM and the catalog use (x64, arm64).</summary>
     public static string ToArchitectureName(Architecture architecture) => architecture switch
     {
         Architecture.X64 => "x64",
