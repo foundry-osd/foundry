@@ -284,12 +284,12 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(targetValidation.Error!);
         }
 
-        WinPeResult capacityValidation = ValidatePreparedMedia(artifact, useBootEx,
+        WinPeResult mediaValidation = ValidatePreparedMedia(artifact, useBootEx,
             WinPeUsbCapacityPolicy.NewBootPartitionSizeBytes,
             WinPeUsbCapacityPolicy.NewBootAllocationUnitSizeBytes, cancellationToken);
-        if (!capacityValidation.IsSuccess)
+        if (!mediaValidation.IsSuccess)
         {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(capacityValidation.Error!);
+            return WinPeResult<WinPeUsbProvisionResult>.Failure(mediaValidation.Error!);
         }
 
         WinPeResult customValidation = await PrepareCustomImagesAsync(options, artifact, tools, null, cancellationToken).ConfigureAwait(false);
@@ -412,11 +412,11 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         cancellationToken.ThrowIfCancellationRequested();
 
         WinPeUsbProvisionResult layout = layoutResult.Value!;
-        WinPeResult capacityValidation = ValidatePreparedMedia(artifact, useBootEx,
+        WinPeResult mediaValidation = ValidatePreparedMedia(artifact, useBootEx,
             layout.BootPartitionSizeBytes, layout.BootAllocationUnitSizeBytes, cancellationToken);
-        if (!capacityValidation.IsSuccess)
+        if (!mediaValidation.IsSuccess)
         {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(capacityValidation.Error!);
+            return WinPeResult<WinPeUsbProvisionResult>.Failure(mediaValidation.Error!);
         }
 
         WinPeResult customValidation = await PrepareCustomImagesAsync(options, artifact, tools,
