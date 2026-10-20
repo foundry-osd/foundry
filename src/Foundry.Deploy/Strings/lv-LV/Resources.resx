@@ -390,6 +390,27 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Ievadiet derīgu domēna nosaukumu, piemēram, corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Notiek konta pārbaude domēnā...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domēns noraidīja šo kontu vai paroli. Pārbaudiet tos un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Šis konts domēnā ir bloķēts. Atbloķējiet to vai izmantojiet citu kontu.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Šī konta parolei ir beidzies derīgums, vai tā ir jāmaina. Nomainiet to un pēc tam mēģiniet vēlreiz.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Šis konts domēnā ir atspējots vai tam ir beidzies derīgums. Izmantojiet citu kontu.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Domēns nav sasniedzams no šī tīkla, tāpēc konts netika pārbaudīts. Lai turpinātu, vēlreiz atlasiet Tālāk; nepareiza parole atklātos tikai pēc restartēšanas.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Kontu nevarēja pārbaudīt. Lai turpinātu, vēlreiz atlasiet Tālāk; nepareiza parole atklātos tikai pēc restartēšanas.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Pievienošanās domēnam informācijas trūkst vai tā nav derīga. Izvietošana nav sākta.</value>
   </data>

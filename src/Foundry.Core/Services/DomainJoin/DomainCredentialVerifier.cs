@@ -66,6 +66,11 @@ public sealed class DomainCredentialVerifier : IDomainCredentialVerifier
         {
             return DomainCredentialCheckClassifier.Classify(null, error.ErrorCode, error.ServerErrorMessage);
         }
+        catch (Exception error) when (error is DirectoryException or InvalidOperationException)
+        {
+            // Not a directory answer about the account, so it never blocks the technician.
+            return new(DomainCredentialCheckOutcome.Inconclusive);
+        }
         finally { credential.Password = null; }
     }
 }

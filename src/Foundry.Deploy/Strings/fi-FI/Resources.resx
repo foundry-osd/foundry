@@ -390,6 +390,27 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Anna kelvollinen toimialueen nimi, esimerkiksi corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Tiliä tarkistetaan toimialueelta...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Toimialue hylkäsi tämän tilin tai salasanan. Tarkista ne ja yritä uudelleen.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Tämä tili on lukittu toimialueella. Avaa sen lukitus tai käytä toista tiliä.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Tämän tilin salasana on vanhentunut tai se on vaihdettava. Vaihda se ja yritä sitten uudelleen.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Tämä tili on poistettu käytöstä tai vanhentunut toimialueella. Käytä toista tiliä.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Toimialueeseen ei saatu yhteyttä tästä verkosta, joten tiliä ei tarkistettu. Jatka valitsemalla Seuraava uudelleen; väärä salasana paljastuisi vasta uudelleenkäynnistyksen jälkeen.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Tiliä ei voitu tarkistaa. Jatka valitsemalla Seuraava uudelleen; väärä salasana paljastuisi vasta uudelleenkäynnistyksen jälkeen.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Toimialueeseen liittymisen tiedot puuttuvat tai ovat virheellisiä. Käyttöönotto ei ole alkanut.</value>
   </data>

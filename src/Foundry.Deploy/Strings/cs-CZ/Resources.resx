@@ -390,6 +390,27 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Zadejte platný název domény, například corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Probíhá ověření účtu v doméně...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Doména tento účet nebo heslo odmítla. Zkontrolujte je a zkuste to znovu.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Tento účet je v doméně uzamčen. Odemkněte ho nebo použijte jiný účet.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Platnost hesla tohoto účtu vypršela nebo je nutné ho změnit. Změňte ho a zkuste to znovu.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Tento účet je v doméně zakázaný nebo vypršela jeho platnost. Použijte jiný účet.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Doména není z této sítě dostupná, proto účet nebyl ověřen. Pokračujte opětovným výběrem tlačítka Další; nesprávné heslo by se projevilo až po restartu.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Účet nebylo možné ověřit. Pokračujte opětovným výběrem tlačítka Další; nesprávné heslo by se projevilo až po restartu.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Údaje pro připojení k doméně chybí nebo nejsou platné. Nasazení nebylo zahájeno.</value>
   </data>

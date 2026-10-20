@@ -390,6 +390,27 @@
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>أدخل اسم نطاق صالحاً، مثل corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>جارٍ التحقق من الحساب لدى النطاق...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>رفض النطاق هذا الحساب أو كلمة المرور هذه. تحقق منهما وحاول مرة أخرى.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>هذا الحساب مؤمّن في النطاق. ألغِ تأمينه أو استخدم حسابًا آخر.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>انتهت صلاحية كلمة مرور هذا الحساب أو يجب تغييرها. غيّرها ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>هذا الحساب معطّل أو منتهي الصلاحية في النطاق. استخدم حسابًا آخر.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>تعذّر الوصول إلى النطاق من هذه الشبكة، لذلك لم يتم التحقق من الحساب. حدد التالي مرة أخرى للمتابعة؛ لن تظهر كلمة المرور الخاطئة إلا بعد إعادة التشغيل.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>تعذّر التحقق من الحساب. حدد التالي مرة أخرى للمتابعة؛ لن تظهر كلمة المرور الخاطئة إلا بعد إعادة التشغيل.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>معلومات الانضمام إلى النطاق مفقودة أو غير صالحة. لم يبدأ النشر.</value>
   </data>

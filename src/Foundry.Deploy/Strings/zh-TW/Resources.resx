@@ -390,6 +390,27 @@ ErrorCode=0x80070005
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>請輸入有效的網域名稱，例如 corp.contoso.com。</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>正在向網域驗證帳戶...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>網域拒絕了此帳戶或密碼。請檢查後再試一次。</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>此帳戶在網域中已遭鎖定。請解除鎖定或使用其他帳戶。</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>此帳戶的密碼已過期或必須變更。請變更密碼，然後再試一次。</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>此帳戶在網域中已停用或已過期。請使用其他帳戶。</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>無法從此網路連線到網域，因此未驗證帳戶。再次選取 [下一步] 以繼續；密碼錯誤只會在重新啟動後才顯現。</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>無法驗證帳戶。再次選取 [下一步] 以繼續；密碼錯誤只會在重新啟動後才顯現。</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>網域加入資訊遺漏或無效。部署尚未開始。</value>
   </data>

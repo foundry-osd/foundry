@@ -390,6 +390,27 @@ ErrorCode=0x80070005
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Введіть дійсне ім'я домену, наприклад corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Перевірка облікового запису в домені...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Домен відхилив цей обліковий запис або пароль. Перевірте їх і повторіть спробу.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Цей обліковий запис заблоковано в домені. Розблокуйте його або використайте інший обліковий запис.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Термін дії пароля цього облікового запису минув, або його потрібно змінити. Змініть пароль і повторіть спробу.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Цей обліковий запис вимкнено або термін його дії минув у домені. Використайте інший обліковий запис.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Домен недоступний із цієї мережі, тому обліковий запис не перевірено. Щоб продовжити, знову натисніть «Далі»; неправильний пароль виявиться лише після перезавантаження.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Не вдалося перевірити обліковий запис. Щоб продовжити, знову натисніть «Далі»; неправильний пароль виявиться лише після перезавантаження.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Дані для приєднання до домену відсутні або недійсні. Розгортання не розпочато.</value>
   </data>

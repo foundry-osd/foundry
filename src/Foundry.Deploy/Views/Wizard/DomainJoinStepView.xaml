@@ -96,6 +96,31 @@
                                     Text="&#xF78D;" />
                             </Button>
                         </Grid>
+                        <StackPanel
+                            Margin="0,8,0,0"
+                            Visibility="{Binding IsCheckingCredentials, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <ProgressBar
+                                Height="4"
+                                IsIndeterminate="True"
+                                Style="{StaticResource DeployProgressBarStyle}" />
+                            <TextBlock
+                                Margin="0,4,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding DataContext.Strings[DomainJoin.CheckingCredentials], ElementName=ViewRoot}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                        <TextBlock
+                            Margin="0,4,0,0"
+                            Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                            Text="{Binding CredentialCheckMessage}"
+                            TextWrapping="Wrap"
+                            Visibility="{Binding HasCredentialCheckError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <TextBlock
+                            Margin="0,4,0,0"
+                            Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                            Text="{Binding CredentialCheckMessage}"
+                            TextWrapping="Wrap"
+                            Visibility="{Binding HasCredentialCheckWarning, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </StackPanel>
 
                     <StackPanel Visibility="{Binding IsOuListVisible, Converter={StaticResource BooleanToVisibilityConverter}}">

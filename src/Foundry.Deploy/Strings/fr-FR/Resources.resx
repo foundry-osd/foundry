@@ -390,6 +390,27 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Saisissez un nom de domaine valide, par exemple corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Vérification du compte auprès du domaine...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Le domaine a refusé ce compte ou ce mot de passe. Vérifiez-les et réessayez.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Ce compte est verrouillé dans le domaine. Déverrouillez-le ou utilisez un autre compte.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Le mot de passe de ce compte a expiré ou doit être changé. Changez-le, puis réessayez.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Ce compte est désactivé ou expiré dans le domaine. Utilisez un autre compte.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Le domaine est injoignable depuis ce réseau, le compte n'a donc pas été vérifié. Sélectionnez de nouveau Suivant pour continuer ; un mot de passe erroné n'apparaîtrait qu'après le redémarrage.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Le compte n'a pas pu être vérifié. Sélectionnez de nouveau Suivant pour continuer ; un mot de passe erroné n'apparaîtrait qu'après le redémarrage.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Les informations de jonction au domaine sont manquantes ou non valides. Le déploiement n'a pas commencé.</value>
   </data>

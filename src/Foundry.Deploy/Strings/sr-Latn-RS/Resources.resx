@@ -390,6 +390,27 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Unesite važeće ime domena, na primer corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Provera naloga u domenu...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domen je odbio ovaj nalog ili lozinku. Proverite ih i pokušajte ponovo.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Ovaj nalog je zaključan u domenu. Otključajte ga ili koristite drugi nalog.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Lozinka ovog naloga je istekla ili mora da se promeni. Promenite je, a zatim pokušajte ponovo.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Ovaj nalog je onemogućen ili je istekao u domenu. Koristite drugi nalog.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Domen nije dostupan iz ove mreže, pa nalog nije proveren. Ponovo izaberite Dalje da biste nastavili; pogrešna lozinka bi se pokazala tek posle ponovnog pokretanja.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Nalog nije moguće proveriti. Ponovo izaberite Dalje da biste nastavili; pogrešna lozinka bi se pokazala tek posle ponovnog pokretanja.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Podaci za pridruživanje domenu nedostaju ili nisu važeći. Primena nije započeta.</value>
   </data>

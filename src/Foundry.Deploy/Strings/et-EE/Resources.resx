@@ -390,6 +390,27 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Sisestage kehtiv domeeninimi, näiteks corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Kontot kontrollitakse domeenis...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domeen lükkas selle konto või parooli tagasi. Kontrollige neid ja proovige uuesti.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>See konto on domeenis lukustatud. Avage see või kasutage muud kontot.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Selle konto parool on aegunud või tuleb muuta. Muutke see ja proovige siis uuesti.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>See konto on domeenis keelatud või aegunud. Kasutage muud kontot.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Domeeniga ei saadud sellest võrgust ühendust, seega kontot ei kontrollitud. Jätkamiseks valige uuesti Edasi; vale parool ilmneks alles pärast taaskäivitust.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Kontot ei saanud kontrollida. Jätkamiseks valige uuesti Edasi; vale parool ilmneks alles pärast taaskäivitust.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Domeeniga liitumise teave puudub või ei kehti. Juurutamine pole alanud.</value>
   </data>

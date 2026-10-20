@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
@@ -44,6 +45,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IDeploymentWizardStateService _deploymentWizardStateService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly IApplicationShellService _applicationShellService;
+    private readonly IDomainCredentialVerifier _domainCredentialVerifier;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
     private readonly Dispatcher _dispatcher;
@@ -177,6 +179,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IDeploymentWizardContextFactory deploymentWizardContextFactory,
         IProcessRunner processRunner,
         IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
+        IDomainCredentialVerifier domainCredentialVerifier,
         ILogger<MainWindowViewModel> logger,
         INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
         : base(localizationService)
@@ -190,6 +193,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _deploymentWizardStateService = deploymentWizardStateService;
         _deploymentOrchestrator = deploymentOrchestrator;
         _applicationShellService = applicationShellService;
+        _domainCredentialVerifier = domainCredentialVerifier;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         _deploymentRuntimeContext = deploymentRuntimeContextService.Resolve();
@@ -436,12 +440,52 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     [RelayCommand(CanExecute = nameof(CanGoNext))]
-    private void NextWizardStep()
+    private async Task NextWizardStepAsync()
     {
+        if (CurrentWizardStepId == DeploymentWizardStepId.DomainJoin && !IsDebugSafeMode && !await RunDomainCredentialCheckAsync())
+        {
+            return;
+        }
+
         if (_wizardNavigationState.Advance())
         {
             SynchronizeWizardNavigation();
         }
+    }
+
+    /// <summary>
+    /// Confirms the Domain Join credentials before the wizard leaves the step or starts a deployment. Logs only the outcome and
+    /// numeric codes, never the domain, account, password or server text.
+    /// </summary>
+    private async Task<bool> RunDomainCredentialCheckAsync()
+    {
+        bool contactsDomain = DomainJoinStep.RequiresCredentials && DomainJoinStep.CredentialCheckState == DomainCredentialCheckState.NotChecked;
+        if (contactsDomain)
+        {
+            _logger.LogInformation("Domain credential check started.");
+        }
+
+        bool confirmed = await DomainJoinStep.ConfirmCredentialsAsync(_domainCredentialVerifier, CancellationToken.None);
+        if (!contactsDomain)
+        {
+            return confirmed;
+        }
+
+        DomainCredentialCheckResult? result = DomainJoinStep.LastCredentialCheck;
+        if (result is null)
+        {
+            _logger.LogInformation("Domain credential check discarded because the inputs changed.");
+            return confirmed;
+        }
+
+        _logger.Log(
+            result.Outcome == DomainCredentialCheckOutcome.Valid ? LogLevel.Information : LogLevel.Warning,
+            "Domain credential check completed with {Outcome} (LDAP {LdapErrorCode}, data {DirectoryDataCode:x}, native {NativeErrorCode}).",
+            result.Outcome,
+            result.LdapErrorCode,
+            result.DirectoryDataCode,
+            result.NativeErrorCode);
+        return confirmed;
     }
 
     [RelayCommand]
@@ -510,6 +554,18 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         _logger.LogInformation("Start deployment requested.");
         ReportLaunchFailure(null);
+
+        // Inputs edited from the summary or the step list have not been checked yet.
+        if (!IsDebugSafeMode && HasDomainJoinStep() && DomainJoinStep.NeedsCredentialCheck && !await RunDomainCredentialCheckAsync())
+        {
+            if (_wizardNavigationState.TryNavigateTo(DeploymentWizardStepId.DomainJoin))
+            {
+                SynchronizeWizardNavigation();
+            }
+
+            return;
+        }
+
         using DeploymentLaunchPreparationResult launchPreparation = PrepareLaunch();
 
         if (!Preparation.UsesCustomUnattend &&

@@ -390,6 +390,27 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Introduceți un nume de domeniu valid, de exemplu corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Se verifică contul în domeniu...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domeniul a respins acest cont sau această parolă. Verificați-le și încercați din nou.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Acest cont este blocat în domeniu. Deblocați-l sau utilizați alt cont.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Parola acestui cont a expirat sau trebuie schimbată. Schimbați-o, apoi încercați din nou.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Acest cont este dezactivat sau expirat în domeniu. Utilizați alt cont.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Domeniul nu poate fi accesat din această rețea, așa că contul nu a fost verificat. Selectați din nou Înainte pentru a continua; o parolă greșită s-ar vedea doar după repornire.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Contul nu a putut fi verificat. Selectați din nou Înainte pentru a continua; o parolă greșită s-ar vedea doar după repornire.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Informațiile de asociere la domeniu lipsesc sau nu sunt valide. Implementarea nu a început.</value>
   </data>

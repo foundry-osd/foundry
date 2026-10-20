@@ -390,6 +390,27 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Voer een geldige domeinnaam in, zoals corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Account wordt gecontroleerd bij het domein...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Het domein heeft dit account of wachtwoord geweigerd. Controleer ze en probeer het opnieuw.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Dit account is vergrendeld in het domein. Ontgrendel het of gebruik een ander account.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Het wachtwoord van dit account is verlopen of moet worden gewijzigd. Wijzig het en probeer het opnieuw.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Dit account is uitgeschakeld of verlopen in het domein. Gebruik een ander account.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Het domein is vanaf dit netwerk niet bereikbaar, dus het account is niet gecontroleerd. Selecteer opnieuw Volgende om door te gaan; een onjuist wachtwoord zou pas na het opnieuw opstarten blijken.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Het account kon niet worden gecontroleerd. Selecteer opnieuw Volgende om door te gaan; een onjuist wachtwoord zou pas na het opnieuw opstarten blijken.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>De gegevens voor domeintoetreding ontbreken of zijn ongeldig. De implementatie is niet gestart.</value>
   </data>

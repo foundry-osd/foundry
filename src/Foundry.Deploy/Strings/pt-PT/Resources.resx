@@ -390,6 +390,27 @@ Ação: verifique os atributos do disco e tente novamente a implementação.</va
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Introduza um nome de domínio válido, como corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>A verificar a conta junto do domínio...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>O domínio rejeitou esta conta ou palavra-passe. Verifique-as e tente novamente.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Esta conta está bloqueada no domínio. Desbloqueie-a ou utilize outra conta.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>A palavra-passe desta conta expirou ou tem de ser alterada. Altere-a e tente novamente.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Esta conta está desativada ou expirada no domínio. Utilize outra conta.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Não foi possível contactar o domínio a partir desta rede, pelo que a conta não foi verificada. Selecione Seguinte novamente para continuar; uma palavra-passe errada só se revelaria após o reinício.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Não foi possível verificar a conta. Selecione Seguinte novamente para continuar; uma palavra-passe errada só se revelaria após o reinício.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>As informações de associação ao domínio estão em falta ou não são válidas. A implementação não foi iniciada.</value>
   </data>

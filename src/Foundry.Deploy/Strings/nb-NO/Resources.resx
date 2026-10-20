@@ -390,6 +390,27 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Angi et gyldig domenenavn, for eksempel corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Kontoen kontrolleres mot domenet...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domenet avviste denne kontoen eller dette passordet. Kontroller dem, og prøv på nytt.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Denne kontoen er låst i domenet. Lås den opp, eller bruk en annen konto.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Passordet til denne kontoen er utløpt eller må endres. Endre det, og prøv deretter på nytt.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Denne kontoen er deaktivert eller utløpt i domenet. Bruk en annen konto.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Domenet kunne ikke nås fra dette nettverket, så kontoen ble ikke kontrollert. Velg Neste igjen for å fortsette; et feil passord ville først vises etter omstarten.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Kontoen kunne ikke kontrolleres. Velg Neste igjen for å fortsette; et feil passord ville først vises etter omstarten.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Informasjonen for domenetilknytning mangler eller er ugyldig. Distribusjonen har ikke startet.</value>
   </data>

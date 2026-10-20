@@ -390,6 +390,27 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Inserisci un nome di dominio valido, ad esempio corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Verifica dell'account con il dominio...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Il dominio ha rifiutato questo account o questa password. Verificali e riprova.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Questo account è bloccato nel dominio. Sbloccalo o usa un altro account.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>La password di questo account è scaduta o deve essere cambiata. Cambiala, quindi riprova.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Questo account è disabilitato o scaduto nel dominio. Usa un altro account.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Il dominio non è raggiungibile da questa rete, quindi l'account non è stato verificato. Seleziona di nuovo Avanti per continuare; una password errata emergerebbe solo dopo il riavvio.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Non è stato possibile verificare l'account. Seleziona di nuovo Avanti per continuare; una password errata emergerebbe solo dopo il riavvio.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>I dati per l'aggiunta al dominio sono mancanti o non validi. La distribuzione non è iniziata.</value>
   </data>

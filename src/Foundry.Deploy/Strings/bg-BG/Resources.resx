@@ -390,6 +390,27 @@
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Въведете валидно име на домейн, например corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Проверка на акаунта в домейна...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Домейнът отхвърли този акаунт или парола. Проверете ги и опитайте отново.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Този акаунт е заключен в домейна. Отключете го или използвайте друг акаунт.</value>
+  </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Паролата на този акаунт е изтекла или трябва да бъде сменена. Сменете я и опитайте отново.</value>
+  </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Този акаунт е забранен или изтекъл в домейна. Използвайте друг акаунт.</value>
+  </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Домейнът не е достъпен от тази мрежа, затова акаунтът не беше проверен. Изберете отново Напред, за да продължите; грешна парола би се проявила едва след рестартирането.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Акаунтът не можа да бъде проверен. Изберете отново Напред, за да продължите; грешна парола би се проявила едва след рестартирането.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Данните за присъединяване към домейна липсват или са невалидни. Разполагането не е започнало.</value>
   </data>
