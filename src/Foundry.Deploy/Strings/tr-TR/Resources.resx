@@ -660,6 +660,9 @@ Dağıtıma devam edilsin mi?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Görüntünün URL adresi HTTP veya HTTPS kullanmalıdır. Başka bir görüntü seçin veya kataloğu yeniden yüklemek için cihazı dağıtım medyasından yeniden başlatın.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Bu cihaz eski BIOS modunda başlatıldı. Foundry, Windows'u yalnızca UEFI modunda dağıtır. Üretici yazılımı ayarlarında UEFI önyüklemesini açın, ardından cihazı dağıtım medyasından yeniden başlatın.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Dağıtım hazırlığı doğrulanamadı. Diski hazırlamadan önce dağıtımı yeniden başlatın.</value>
   </data>

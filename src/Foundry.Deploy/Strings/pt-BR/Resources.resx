@@ -660,6 +660,9 @@ Continuar com a implantação?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>A URL da imagem deve usar HTTP ou HTTPS. Selecione outra imagem ou reinicie o dispositivo a partir da mídia de implantação para recarregar o catálogo.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Este dispositivo foi iniciado no modo BIOS herdado. O Foundry implanta o Windows somente no modo UEFI. Ative a inicialização UEFI nas configurações do firmware e reinicie o dispositivo a partir da mídia de implantação.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Não foi possível confirmar a prontidão para implantação. Reinicie a implantação antes de preparar o disco.</value>
   </data>

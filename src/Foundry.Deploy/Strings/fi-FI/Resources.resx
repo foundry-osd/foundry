@@ -660,6 +660,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Näköistiedoston URL-osoitteen on käytettävä HTTP- tai HTTPS-protokollaa. Valitse toinen näköistiedosto tai käynnistä laite uudelleen käyttöönottotietovälineeltä, jotta luettelo ladataan uudelleen.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Tämä laite käynnistettiin vanhassa BIOS-tilassa. Foundry ottaa Windowsin käyttöön vain UEFI-tilassa. Ota UEFI-käynnistys käyttöön laiteohjelmiston asetuksissa ja käynnistä laite sitten uudelleen käyttöönottotietovälineeltä.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Käyttöönottovalmiutta ei voitu vahvistaa. Aloita käyttöönotto uudelleen ennen levyn valmistelua.</value>
   </data>

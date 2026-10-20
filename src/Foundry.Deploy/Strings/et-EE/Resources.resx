@@ -660,6 +660,9 @@ Kas jätkata juurutamisega?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Tõmmise URL peab kasutama protokolli HTTP või HTTPS. Vali teine tõmmis või taaskäivita seade juurutusmeediumilt, et kataloog uuesti laadida.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>See seade käivitati pärand-BIOS-i režiimis. Foundry juurutab Windowsi ainult UEFI-režiimis. Lülita püsivara sätetes sisse UEFI-alglaadimine ja seejärel taaskäivita seade juurutusmeediumilt.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Juurutusvalmidust ei õnnestunud kinnitada. Alusta juurutamist uuesti enne ketta ettevalmistamist.</value>
   </data>

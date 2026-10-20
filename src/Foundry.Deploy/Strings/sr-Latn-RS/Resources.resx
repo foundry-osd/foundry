@@ -660,6 +660,9 @@ Operativni sistem: {4}
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>URL slike mora da koristi HTTP ili HTTPS. Izaberite drugu sliku ili ponovo pokrenite uređaj sa medija za implementaciju da biste ponovo učitali katalog.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Ovaj uređaj je pokrenut u zastarelom BIOS režimu. Foundry primenjuje Windows samo u UEFI režimu. Uključite UEFI pokretanje u postavkama firmvera, a zatim ponovo pokrenite uređaj sa medija za implementaciju.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Nije moguće potvrditi spremnost za primenu. Ponovo pokrenite primenu pre pripreme diska.</value>
   </data>

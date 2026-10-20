@@ -660,6 +660,9 @@ ErrorCode=0x80070005
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>映像 URL 必須使用 HTTP 或 HTTPS。請選取其他映像，或從部署媒體重新啟動裝置以重新載入目錄。</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>此裝置以舊版 BIOS 模式啟動。Foundry 僅以 UEFI 模式部署 Windows。請在韌體設定中開啟 UEFI 開機，然後從部署媒體重新啟動裝置。</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>無法確認部署就緒狀態。請在準備磁碟之前重新開始部署。</value>
   </data>

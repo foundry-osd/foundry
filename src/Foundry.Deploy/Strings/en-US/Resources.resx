@@ -660,6 +660,9 @@ Continue with deployment?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>The image URL must use HTTP or HTTPS. Select another image, or restart the device from the deployment media to reload the catalog.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>This device started in legacy BIOS mode. Foundry deploys Windows in UEFI mode only. Turn on UEFI boot in the firmware settings, then restart the device from the deployment media.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Deployment readiness could not be confirmed. Restart deployment before preparing the disk.</value>
   </data>

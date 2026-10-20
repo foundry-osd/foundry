@@ -660,6 +660,9 @@ Nastaviti s implementacijom?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>URL slike mora upotrebljavati HTTP ili HTTPS. Odaberite drugu sliku ili ponovno pokrenite uređaj s medija za implementaciju kako biste ponovno učitali katalog.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Ovaj je uređaj pokrenut u naslijeđenom BIOS načinu. Foundry implementira Windows samo u UEFI načinu. Uključite UEFI pokretanje u postavkama firmvera, a zatim ponovno pokrenite uređaj s medija za implementaciju.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Spremnost za implementaciju nije se mogla potvrditi. Ponovno pokrenite implementaciju prije pripreme diska.</value>
   </data>

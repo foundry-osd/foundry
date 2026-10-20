@@ -660,6 +660,9 @@
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>URL ของอิมเมจต้องใช้ HTTP หรือ HTTPS โปรดเลือกอิมเมจอื่น หรือรีสตาร์ตอุปกรณ์จากสื่อการปรับใช้เพื่อโหลดแค็ตตาล็อกใหม่</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>อุปกรณ์นี้เริ่มทำงานในโหมด BIOS แบบเดิม Foundry ปรับใช้ Windows ในโหมด UEFI เท่านั้น โปรดเปิดการบูต UEFI ในการตั้งค่าเฟิร์มแวร์ แล้วรีสตาร์ตอุปกรณ์จากสื่อการปรับใช้</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>ไม่สามารถยืนยันความพร้อมในการปรับใช้ได้ โปรดเริ่มการปรับใช้ใหม่ก่อนเตรียมดิสก์</value>
   </data>

@@ -660,6 +660,9 @@ Kontynuować wdrażanie?</value>
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>Adres URL obrazu musi używać HTTP lub HTTPS. Wybierz inny obraz lub uruchom ponownie urządzenie z nośnika wdrożeniowego, aby ponownie załadować katalog.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>To urządzenie zostało uruchomione w starszym trybie BIOS. Foundry wdraża system Windows tylko w trybie UEFI. Włącz rozruch UEFI w ustawieniach oprogramowania układowego, a następnie uruchom ponownie urządzenie z nośnika wdrożeniowego.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Nie udało się potwierdzić gotowości do wdrożenia. Uruchom ponownie wdrożenie przed przygotowaniem dysku.</value>
   </data>

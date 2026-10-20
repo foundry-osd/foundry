@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Collections.Concurrent;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -15,6 +16,8 @@ using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Deployment.Unattend;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Localization;
+using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.System;
 using Foundry.Telemetry;
 using Foundry.Utilities.Processes;
@@ -46,6 +49,45 @@ public sealed class DeploymentPreflightTests
         Assert.Equal(DomainJoinExecutionStatus.SkippedByTechnician, fixture.Context!.RuntimeState.DomainJoinStatus);
         Assert.Equal(DomainJoinSkipCode.DeclinedByTechnician, fixture.Context.RuntimeState.DomainJoinSkipCode);
         Assert.False(PreOobeContentResolver.HasDomainTasks(fixture.Context.Request, fixture.Context.RuntimeState));
+    }
+
+    [Fact]
+    public async Task LegacyBiosBootStopsDeploymentBeforeTargetDiskChanges()
+    {
+        using var fixture = new PipelineFixture { FirmwareMode = FirmwareBootMode.Bios };
+
+        DeploymentResult result = await fixture.RunOrchestratedAsync();
+
+        Assert.False(result.IsSuccess);
+        Assert.Empty(fixture.Events);
+        Assert.Equal(DeploymentStepNames.ValidateTargetConfiguration, fixture.Context!.RuntimeState.LastFailureStep);
+        Assert.Equal("legacy_bios_boot", fixture.Context.RuntimeState.LastFailureCode);
+        Assert.Contains(fixture.Progress, update => update.StepName == DeploymentStepNames.ValidateTargetConfiguration &&
+            update.State == DeploymentStepState.Failed && update.Message == LocalizationText.GetString("Preflight.LegacyBiosBoot"));
+    }
+
+    [Theory]
+    [InlineData(FirmwareBootMode.Uefi, DeploymentLogLevel.Info)]
+    [InlineData(FirmwareBootMode.Unknown, DeploymentLogLevel.Warning)]
+    public async Task NonLegacyFirmwareBootModeContinuesDeployment(FirmwareBootMode mode, DeploymentLogLevel expectedLevel)
+    {
+        using var fixture = new PipelineFixture { FirmwareMode = mode };
+
+        DeploymentResult result = await fixture.RunOrchestratedAsync();
+
+        Assert.True(result.IsSuccess);
+        Assert.Contains("partition", fixture.Events);
+        Assert.Contains(fixture.Logs, entry => entry.Level == expectedLevel && entry.Message.StartsWith("Firmware boot mode", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task SimulationIgnoresLegacyBiosBoot()
+    {
+        using var fixture = new PipelineFixture { FirmwareMode = FirmwareBootMode.Bios, IsDryRun = true };
+
+        DeploymentResult result = await fixture.RunOrchestratedAsync();
+
+        Assert.True(result.IsSuccess);
     }
 
     [Theory]
@@ -756,6 +798,8 @@ public sealed class DeploymentPreflightTests
         public byte[] Payload { get; } = [1, 2, 3, 4];
         public List<string> Events { get; } = [];
         public List<DeploymentStepProgress> Progress { get; } = [];
+        public ConcurrentQueue<(DeploymentLogLevel Level, string Message)> Logs { get; } = new();
+        public FirmwareBootMode FirmwareMode { get; init; } = FirmwareBootMode.Uefi;
         public FakeStorage Storage { get; } = new();
         public NativeReadinessStub NativeService { get; } = new();
         public DeploymentMode Mode { get; init; } = DeploymentMode.Usb;
@@ -872,10 +916,11 @@ public sealed class DeploymentPreflightTests
             var disks = new PipelineDisks(this);
             IDeploymentStep[] steps = DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)(name switch
             {
-                DeploymentStepNames.ValidateTargetConfiguration => new ValidateTargetConfigurationStep(new PipelineHardware()),
+                DeploymentStepNames.ValidateTargetConfiguration => new CapturingStep(this,
+                    new ValidateTargetConfigurationStep(new PipelineHardware(), new FixtureFirmware(FirmwareMode))),
                 DeploymentStepNames.ResolveCacheStrategy => new ResolveCacheStrategyStep(
                     new CacheLocatorService(NullLogger<CacheLocatorService>.Instance), disks),
-                DeploymentStepNames.PreflightDeployment => new CapturingPreflightStep(this),
+                DeploymentStepNames.PreflightDeployment => new CapturingStep(this, Preflight),
                 DeploymentStepNames.PrepareTargetDiskLayout => Prepare,
                 DeploymentStepNames.DownloadOperatingSystemImage => Download,
                 DeploymentStepNames.CheckWindowsImage => CheckImage,
@@ -884,7 +929,7 @@ public sealed class DeploymentPreflightTests
                 _ => new UnrelatedStep(name)
             })).ToArray();
             var orchestrator = new DeploymentOrchestrator(new DriverApplicationOperationProgressService(),
-                new DriverApplicationLogService(), disks, steps, new NullTelemetryService(),
+                new RecordingLogService(this), disks, steps, new NullTelemetryService(),
                 NullLogger<DeploymentOrchestrator>.Instance);
             orchestrator.StepProgressChanged += (_, update) =>
             {
@@ -915,14 +960,31 @@ public sealed class DeploymentPreflightTests
             public override Task ValidateAsync(string partition, string architecture, CancellationToken cancellationToken) => Task.CompletedTask;
         }
 
-        private sealed class CapturingPreflightStep(PipelineFixture fixture) : IDeploymentStep
+        private sealed class CapturingStep(PipelineFixture fixture, IDeploymentStep inner) : IDeploymentStep
         {
-            public string Name => DeploymentStepNames.PreflightDeployment;
+            public string Name => inner.Name;
             public Task<DeploymentStepResult> ExecuteAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
             {
                 fixture.Context = context;
-                return fixture.Preflight.ExecuteAsync(context, cancellationToken);
+                return inner.ExecuteAsync(context, cancellationToken);
             }
+        }
+
+        private sealed class FixtureFirmware(FirmwareBootMode mode) : IFirmwareBootModeReader
+        {
+            public FirmwareBootMode GetBootMode() => mode;
+        }
+
+        private sealed class RecordingLogService(PipelineFixture fixture) : IDeploymentLogService
+        {
+            private readonly DriverApplicationLogService _inner = new();
+            public DeploymentLogSession Initialize(string rootPath) => _inner.Initialize(rootPath);
+            public Task AppendAsync(DeploymentLogSession session, DeploymentLogLevel level, string message, CancellationToken cancellationToken = default)
+            {
+                fixture.Logs.Enqueue((level, message));
+                return Task.CompletedTask;
+            }
+            public Task SaveStateAsync<TState>(DeploymentLogSession session, TState state, CancellationToken cancellationToken = default) => Task.CompletedTask;
         }
 
         private sealed class UnrelatedStep(string name) : IDeploymentStep

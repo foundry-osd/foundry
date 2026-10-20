@@ -106,6 +106,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
         services.AddSingleton<IHardwareInspector, WindowsHardwareInspector>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
+        services.AddSingleton<IFirmwareBootModeReader, WinPeFirmwareBootModeReader>();
         services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<IOfflineWindowsComputerNameService, OfflineWindowsComputerNameService>();
         services.AddSingleton<IWindowsDiskInspector, WindowsDiskInspector>();

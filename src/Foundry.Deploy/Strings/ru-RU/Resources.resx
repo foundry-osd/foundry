@@ -660,6 +660,9 @@
   <data name="Preflight.InvalidSource" xml:space="preserve">
     <value>URL образа должен использовать HTTP или HTTPS. Выберите другой образ или перезапустите устройство с носителя для развёртывания, чтобы заново загрузить каталог.</value>
   </data>
+  <data name="Preflight.LegacyBiosBoot" xml:space="preserve">
+    <value>Это устройство запущено в устаревшем режиме BIOS. Foundry развёртывает Windows только в режиме UEFI. Включите загрузку UEFI в настройках встроенного ПО, затем перезапустите устройство с носителя для развёртывания.</value>
+  </data>
   <data name="Preflight.NotReady" xml:space="preserve">
     <value>Не удалось подтвердить готовность к развертыванию. Перезапустите развертывание перед подготовкой диска.</value>
   </data>
