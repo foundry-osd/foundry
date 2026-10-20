@@ -69,11 +69,21 @@ public sealed class WinPeBuildService : IWinPeBuildService
 
             if (!copyPeResult.IsSuccess)
             {
-                return WinPeResult<WinPeBuildArtifact>.Failure(copyPeResult.ToFailureDiagnostic(
+                WinPeDiagnostic copypeFailure = copyPeResult.ToFailureDiagnostic(
                     WinPeErrorCodes.BuildFailed,
                     "Failed to create WinPE workspace using copype.cmd.",
                     "Build WinPE workspace",
-                    "copype"));
+                    "copype");
+                if (copypeFailure.FailureDetail == WinPeCopypeFailureDetails.WimMountFailed)
+                {
+                    copypeFailure = await AddDismMountReplayAsync(
+                        copypeFailure,
+                        tools.DismPath,
+                        workingDirectory,
+                        cancellationToken).ConfigureAwait(false);
+                }
+
+                return WinPeResult<WinPeBuildArtifact>.Failure(copypeFailure);
             }
 
             string mediaDirectory = Path.Combine(workingDirectory, "media");
@@ -128,6 +138,66 @@ public sealed class WinPeBuildService : IWinPeBuildService
                 toolName: "copype",
                 exception: ex);
         }
+    }
+
+    /// <summary>
+    /// Replays the copype WIM mount with DISM, because copype discards the DISM output and only reports that the
+    /// mount failed. The replay adds diagnostics only: the copype failure is always returned, and it takes the DISM
+    /// failure reason when the replay fails too. A replay that mounts the image is discarded immediately.
+    /// </summary>
+    private async Task<WinPeDiagnostic> AddDismMountReplayAsync(
+        WinPeDiagnostic copypeFailure,
+        string dismPath,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        // copype leaves the staged boot.wim in place when its mount step fails.
+        string bootWimPath = Path.Combine(workingDirectory, "media", "sources", "boot.wim");
+        if (!File.Exists(bootWimPath))
+        {
+            return copypeFailure;
+        }
+
+        string replayDetails;
+        string failureReason = copypeFailure.FailureReason;
+        WinPeMountCleanupStatus? mountCleanupStatus = copypeFailure.MountCleanupStatus;
+        try
+        {
+            WinPeResult<WinPeMountSession> mount = await WinPeMountSession.MountAsync(
+                _processRunner,
+                dismPath,
+                bootWimPath,
+                Path.Combine(workingDirectory, "mount"),
+                workingDirectory,
+                cancellationToken).ConfigureAwait(false);
+
+            if (mount.IsSuccess)
+            {
+                WinPeResult discard = await mount.Value!.DiscardAsync().ConfigureAwait(false);
+                replayDetails = "DISM mounted boot.wim, so the copype mount failure did not reproduce.";
+                if (!discard.IsSuccess)
+                {
+                    replayDetails = $"{replayDetails} Discarding the replay mount failed:{Environment.NewLine}{discard.Error?.Details}";
+                    mountCleanupStatus = discard.Error?.MountCleanupStatus;
+                }
+            }
+            else
+            {
+                replayDetails = mount.Error!.Details ?? string.Empty;
+                failureReason = mount.Error.FailureReason;
+            }
+        }
+        catch (Exception ex) when (ex is not OperationCanceledException)
+        {
+            replayDetails = $"DISM mount replay could not run: {ex.Message}";
+        }
+
+        return copypeFailure with
+        {
+            Details = string.Join(Environment.NewLine, copypeFailure.Details, "DISM mount replay:", replayDetails),
+            FailureReason = failureReason,
+            MountCleanupStatus = mountCleanupStatus
+        };
     }
 
     private static WinPeDiagnostic? ValidateBuildOptions(WinPeBuildOptions? options)

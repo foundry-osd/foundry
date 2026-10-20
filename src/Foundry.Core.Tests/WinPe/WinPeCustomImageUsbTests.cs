@@ -22,7 +22,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     [InlineData(true, true)]
     public async Task Update_PublishesDataBeforeFormattingAndStopsOnDataFailure(bool failPublication, bool deployEnabled)
     {
-        Directory.CreateDirectory(root);
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         string bootstrapArchive = Path.Combine(root, "bootstrap.zip");
         string connectArchive = Path.Combine(root, "connect.zip");
         string deployArchive = Path.Combine(root, "deploy.zip");
@@ -79,7 +79,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     [InlineData(true, true)]
     public async Task PostInstallationPublicationPrecedesBootMutationAndCombinesImageCapacity(bool withImages, bool fail)
     {
-        Directory.CreateDirectory(root);
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var publisher = new Publisher(fail);
         var runner = new Runner(publisher);
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
@@ -114,7 +114,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     [Fact]
     public async Task Update_ReportsPublishedContentInsideItsOwnMonotonicRange()
     {
-        Directory.CreateDirectory(root);
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var publisher = new Publisher(fail: false, reportProgress: true);
         var runner = new Runner(publisher);
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
@@ -154,7 +154,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     [Fact]
     public async Task Create_ReportsPublishedContentInsideItsOwnMonotonicRange()
     {
-        Directory.CreateDirectory(root);
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var publisher = new Publisher(fail: false, reportProgress: true);
         var runner = new CreateRunner();
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
