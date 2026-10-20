@@ -90,7 +90,7 @@ public sealed class WinPeUsbCapacityTests : IDisposable
     [InlineData(true, 536870912L, 536870912L)]
     public async Task OversizedPreparedMedia_IsRejectedBeforeFormatting(bool update, long capacity, long fileSize)
     {
-        Directory.CreateDirectory(root);
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         using (FileStream file = File.Create(Path.Combine(root, "boot.wim")))
         {
             file.SetLength(fileSize);
@@ -122,7 +122,7 @@ public sealed class WinPeUsbCapacityTests : IDisposable
     public async Task BootExReplacement_IsIncludedBeforeUpdateFormatting()
     {
         string media = Path.Combine(root, "media");
-        Directory.CreateDirectory(Path.Combine(media, "EFI", "Boot"));
+        WinPeTestMediaLayout.Create(media, WinPeArchitecture.X64);
         Directory.CreateDirectory(Path.Combine(root, "bootbins"));
         File.WriteAllBytes(Path.Combine(media, "EFI", "Boot", "bootx64.efi"), [1]);
         using (FileStream file = File.Create(Path.Combine(root, "bootbins", "bootmgfw_EX.efi"))) file.SetLength(1024 * 1024);
@@ -151,7 +151,7 @@ public sealed class WinPeUsbCapacityTests : IDisposable
     [Fact]
     public async Task MissingExistingCapacity_IsRejectedBeforeUpdateFormatting()
     {
-        Directory.CreateDirectory(root);
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var runner = new CapacityRunner(0);
         var service = new WinPeUsbMediaService(runner);
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(

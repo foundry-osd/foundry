@@ -186,7 +186,7 @@ public sealed class WinPeUsbIdentityContinuityTests
     private static async Task<WinPeResult<WinPeUsbProvisionResult>> RunWorkflowAsync(string boundary, IWinPeProcessRunner runner, CancellationToken cancellationToken)
     {
         string mediaPath = Path.Combine(Path.GetTempPath(), $"foundry-identity-media-{Guid.NewGuid():N}");
-        Directory.CreateDirectory(mediaPath);
+        WinPeTestMediaLayout.Create(mediaPath, WinPeArchitecture.X64);
         try
         {
             var service = new WinPeUsbMediaService(runner);

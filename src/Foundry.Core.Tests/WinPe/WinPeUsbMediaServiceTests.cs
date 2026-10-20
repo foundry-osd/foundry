@@ -171,20 +171,85 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Equal(expected, WinPeUsbMediaService.IsRobocopySuccessExitCode(exitCode));
     }
 
-    [Fact]
-    public void VerifyBootArtifacts_WhenRequiredFilesExist_ReturnsSuccess()
+    [Theory]
+    [InlineData(WinPeArchitecture.X64)]
+    [InlineData(WinPeArchitecture.Arm64)]
+    public void VerifyBootArtifacts_WhenAdkMediaLayoutIsComplete_ReturnsSuccess(WinPeArchitecture architecture)
     {
         using TempWorkspace workspace = TempWorkspace.Create();
-        Directory.CreateDirectory(Path.Combine(workspace.RootPath, "sources"));
-        Directory.CreateDirectory(Path.Combine(workspace.RootPath, "boot"));
-        Directory.CreateDirectory(Path.Combine(workspace.RootPath, "EFI", "Boot"));
-        File.WriteAllText(Path.Combine(workspace.RootPath, "sources", "boot.wim"), "wim");
-        File.WriteAllText(Path.Combine(workspace.RootPath, "boot", "BCD"), "bcd");
-        File.WriteAllText(Path.Combine(workspace.RootPath, "EFI", "Boot", "bootx64.efi"), "efi");
+        string bootRootPath = Path.Combine(workspace.RootPath, "usb");
+        CreateVerifiedBootPartition(bootRootPath, architecture);
 
-        WinPeResult result = WinPeUsbMediaService.VerifyBootArtifacts(workspace.RootPath, WinPeArchitecture.X64);
+        WinPeResult result = WinPeUsbMediaService.VerifyBootArtifacts(bootRootPath, architecture);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
+    }
+
+    [Fact]
+    public void VerifyBootArtifacts_WhenX64MediaLacksBiosBcd_ReturnsVerificationFailed()
+    {
+        using TempWorkspace workspace = TempWorkspace.Create();
+        string bootRootPath = Path.Combine(workspace.RootPath, "usb");
+        CreateVerifiedBootPartition(bootRootPath, WinPeArchitecture.X64);
+        File.Delete(Path.Combine(bootRootPath, "boot", "BCD"));
+
+        WinPeResult result = WinPeUsbMediaService.VerifyBootArtifacts(bootRootPath, WinPeArchitecture.X64);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.UsbVerificationFailed, result.Error?.Code);
+    }
+
+    [Theory]
+    [InlineData(WinPeArchitecture.X64)]
+    [InlineData(WinPeArchitecture.Arm64)]
+    public void VerifyBootArtifacts_WhenUefiBcdIsMissing_ReturnsVerificationFailed(WinPeArchitecture architecture)
+    {
+        using TempWorkspace workspace = TempWorkspace.Create();
+        string bootRootPath = Path.Combine(workspace.RootPath, "usb");
+        CreateVerifiedBootPartition(bootRootPath, architecture);
+        File.Delete(Path.Combine(bootRootPath, "EFI", "Microsoft", "Boot", "BCD"));
+
+        WinPeResult result = WinPeUsbMediaService.VerifyBootArtifacts(bootRootPath, architecture);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.UsbVerificationFailed, result.Error?.Code);
+    }
+
+    [Fact]
+    public async Task ProvisionAndPopulateAsync_WhenMediaLacksBootFiles_FailsBeforeModifyingDisk()
+    {
+        string diskIdentity = """
+                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
+                              """;
+        var runner = new FakeSequenceRunner(diskIdentity, string.Empty);
+        using TempWorkspace workspace = TempWorkspace.Create();
+        File.Delete(Path.Combine(workspace.RootPath, "media", "EFI", "Microsoft", "Boot", "BCD"));
+        var service = new WinPeUsbMediaService(runner);
+
+        WinPeResult<WinPeUsbProvisionResult> result = await service.ProvisionAndPopulateAsync(
+            new UsbOutputOptions
+            {
+                TargetDiskNumber = 9,
+                ExpectedDiskFriendlyName = "Safe USB",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 64000000000
+            },
+            new WinPeBuildArtifact
+            {
+                WorkingDirectoryPath = workspace.RootPath,
+                MediaDirectoryPath = Path.Combine(workspace.RootPath, "media"),
+                Architecture = WinPeArchitecture.Arm64
+            },
+            new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
+            useBootEx: false,
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.UsbVerificationFailed, result.Error?.Code);
+        // Only the read-only identity query ran: no partitioning or copy was started.
+        Assert.Single(runner.Executions);
     }
 
     [Fact]
@@ -1377,15 +1442,8 @@ public sealed class WinPeUsbMediaServiceTests
         }
     }
 
-    private static void CreateVerifiedBootPartition(string bootRootPath, WinPeArchitecture architecture)
-    {
-        Directory.CreateDirectory(Path.Combine(bootRootPath, "sources"));
-        Directory.CreateDirectory(Path.Combine(bootRootPath, "boot"));
-        Directory.CreateDirectory(Path.Combine(bootRootPath, "EFI", "Boot"));
-        File.WriteAllText(Path.Combine(bootRootPath, "sources", "boot.wim"), "boot");
-        File.WriteAllText(Path.Combine(bootRootPath, "boot", "BCD"), "bcd");
-        File.WriteAllText(Path.Combine(bootRootPath, "EFI", "Boot", architecture.ToBootEfiName()), "efi");
-    }
+    private static void CreateVerifiedBootPartition(string bootRootPath, WinPeArchitecture architecture) =>
+        WinPeTestMediaLayout.Create(bootRootPath, architecture);
 
     private sealed class TempWorkspace : IDisposable
     {
@@ -1400,7 +1458,10 @@ public sealed class WinPeUsbMediaServiceTests
         {
             string rootPath = Path.Combine(Path.GetTempPath(), $"foundry-usb-{Guid.NewGuid():N}");
             Directory.CreateDirectory(rootPath);
-            Directory.CreateDirectory(Path.Combine(rootPath, "media"));
+            // Boot files for both architectures let tests that are not about media verification reach the disk stage.
+            string mediaPath = Path.Combine(rootPath, "media");
+            CreateVerifiedBootPartition(mediaPath, WinPeArchitecture.X64);
+            File.WriteAllText(Path.Combine(mediaPath, "EFI", "Boot", WinPeArchitecture.Arm64.ToBootEfiName()), "efi");
             return new TempWorkspace(rootPath);
         }
 
