@@ -279,10 +279,9 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             }
 
             _logger.LogInformation(
-                "Microsoft Update Catalog update '{Title}' ({UpdateId}) has no CAB payload compatible with architecture '{Architecture}'.",
+                "Microsoft Update Catalog update '{Title}' ({UpdateId}) has no CAB payload.",
                 update.Title,
-                update.UpdateId,
-                MicrosoftUpdateCatalogSupport.NormalizeArchitecture(targetArchitecture));
+                update.UpdateId);
             return null;
         }
 
