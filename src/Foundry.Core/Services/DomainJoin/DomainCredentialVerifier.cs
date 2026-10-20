@@ -22,7 +22,8 @@ public interface IDomainCredentialVerifier
 
 /// <summary>
 /// Performs a signed and sealed Negotiate LDAP bind with the same settings PostInstall uses for the join readiness read.
-/// The bind is bounded by a 10 second timeout; cancellation is observed before locating the controller and before binding.
+/// The connect and the bind are each bounded by a 10 second timeout; <c>DsGetDcName</c> has no explicit limit. Cancellation is
+/// observed before locating the controller and before binding.
 /// </summary>
 public sealed class DomainCredentialVerifier : IDomainCredentialVerifier
 {

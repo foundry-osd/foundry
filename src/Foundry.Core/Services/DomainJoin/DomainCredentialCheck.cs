@@ -99,7 +99,8 @@ public static partial class DomainCredentialCheckClassifier
 
     /// <summary>
     /// Builds the bind credential the same way PostInstall does: <c>DOMAIN\user</c> splits on the first backslash,
-    /// any other spelling (including a UPN) is passed as the user name. The secret is passed through, not copied.
+    /// any other spelling (including a UPN) is passed as the user name. The credential takes its own copy
+    /// of the secret; the caller releases that copy by setting <see cref="NetworkCredential.Password"/> to <see langword="null"/>.
     /// </summary>
     public static NetworkCredential CreateCredential(string accountName, SecureString password)
     {
