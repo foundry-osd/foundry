@@ -676,4 +676,50 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("countdown", result["deploy_completion_reboot_mode"]);
         Assert.Equal(42, result["deploy_completion_reboot_delay_seconds"]);
     }
+
+    [Fact]
+    public void Sanitize_ForDeploySessionFinished_RetainsOobeConfiguration()
+    {
+        Dictionary<string, object?> input = new()
+        {
+            ["deploy_oobe_enabled"] = true,
+            ["deploy_oobe_administrator_enabled"] = false,
+            ["deploy_oobe_additional_account_count"] = 2,
+            ["deploy_oobe_account_creation_skipped"] = true
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished, input);
+
+        Assert.Equal(4, result.Count);
+        Assert.True(Assert.IsType<bool>(result["deploy_oobe_enabled"]));
+        Assert.False(Assert.IsType<bool>(result["deploy_oobe_administrator_enabled"]));
+        Assert.Equal(2, Assert.IsType<int>(result["deploy_oobe_additional_account_count"]));
+        Assert.True(Assert.IsType<bool>(result["deploy_oobe_account_creation_skipped"]));
+    }
+
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(101)]
+    [InlineData("2")]
+    public void Sanitize_ForDeploySessionFinished_DropsInvalidOobeAccountCount(object value)
+    {
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(
+            TelemetryEvents.DeploySessionFinished,
+            new Dictionary<string, object?> { ["deploy_oobe_additional_account_count"] = value });
+
+        Assert.Empty(result);
+    }
+
+    [Theory]
+    [InlineData("deploy_oobe_enabled")]
+    [InlineData("deploy_oobe_administrator_enabled")]
+    [InlineData("deploy_oobe_account_creation_skipped")]
+    public void Sanitize_ForDeploySessionFinished_DropsNonBooleanOobeFlags(string key)
+    {
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(
+            TelemetryEvents.DeploySessionFinished,
+            new Dictionary<string, object?> { [key] = "true" });
+
+        Assert.Empty(result);
+    }
 }

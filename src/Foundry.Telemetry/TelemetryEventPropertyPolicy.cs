@@ -233,6 +233,10 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_domain_join_domain_source",
                 "deploy_domain_join_ou_source",
                 "deploy_domain_join_status",
+                "deploy_oobe_enabled",
+                "deploy_oobe_administrator_enabled",
+                "deploy_oobe_additional_account_count",
+                "deploy_oobe_account_creation_skipped",
                 "deploy_completion_reboot_mode",
                 "deploy_completion_reboot_delay_seconds"
             }
@@ -268,7 +272,7 @@ public static class TelemetryEventPropertyPolicy
         {
             if (!allowedProperties.Contains(key) || IsSensitiveKey(key) || !IsAllowedUnattendValue(key, value) ||
                 !IsAllowedCustomImageValue(key, value) || !IsAllowedPostInstallationValue(key, value) ||
-                !IsAllowedBootMediaValue(key, value))
+                !IsAllowedBootMediaValue(key, value) || !IsAllowedDeployOobeValue(key, value))
             {
                 continue;
             }
@@ -335,6 +339,13 @@ public static class TelemetryEventPropertyPolicy
     {
         "boot_media_winpe_keyboard_layout" => value is string text &&
             (text == "default" || text.Length == 8 && text.All(char.IsAsciiHexDigit)),
+        _ => true
+    };
+
+    private static bool IsAllowedDeployOobeValue(string key, object? value) => key switch
+    {
+        "deploy_oobe_enabled" or "deploy_oobe_administrator_enabled" or "deploy_oobe_account_creation_skipped" => value is bool,
+        "deploy_oobe_additional_account_count" => value is int and >= 0 and <= 100,
         _ => true
     };
 
